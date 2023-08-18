@@ -1,9 +1,20 @@
 {
-  "name": "nebulaui",
-  "version": "0.0.0",
+  "name": "@stellaria/nebula",
+  "version": "0.0.1",
   "description": "UI Components by Stellaria",
   "main": "index.js",
-  "repository": "nebula.stellaria.app",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StellariaApp/Nebula.git"
+  },
+  "homepage": "nebula.stellaria.app",
   "author": "Willskr",
   "license": "MIT",
   "private": false
