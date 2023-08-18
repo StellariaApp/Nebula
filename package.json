@@ -1,0 +1,10 @@
+{
+  "name": "nebulaui",
+  "version": "0.0.0",
+  "description": "UI Components by Stellaria",
+  "main": "index.js",
+  "repository": "nebula.stellaria.app",
+  "author": "Willskr",
+  "license": "MIT",
+  "private": false
+}
