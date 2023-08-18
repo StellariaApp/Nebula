@@ -1,6 +1,6 @@
 {
   "name": "@stellaria/nebula",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "UI Components by Stellaria",
   "main": "index.js",
   "publishConfig": {
