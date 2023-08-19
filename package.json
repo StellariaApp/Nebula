@@ -2,7 +2,7 @@
   "name": "@stellaria/nebula",
   "version": "0.0.2",
   "description": "UI Components by Stellaria",
-  "main": "index.js",
+  "main": "dist/index.js",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -17,5 +17,24 @@
   "homepage": "nebula.stellaria.app",
   "author": "Willskr",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "13.4.18",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "20.5.1",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.18"
+  }
 }
