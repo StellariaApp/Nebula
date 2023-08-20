@@ -1,20 +1,21 @@
 import Image from "next/image";
 import "./page.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin-ext"] });
 
 const Page = () => {
   return (
-    <main className={inter.className}>
-      <div className="shape-1"></div>
-      <div className="shape-2"></div>
-      <div className="shape-3"></div>
-      <hr className="line line-1"></hr>
-      <hr className="line line-2"></hr>
-      <hr className="line line-3"></hr>
-      <hr className="line line-4"></hr>
-      <section>
+    <main className="main">
+      <section className="shapes">
+        <div className="shapes-container">
+          <div className="shape-1" />
+          <div className="shape-2" />
+          <div className="shape-3" />
+          <hr className="line line-1" />
+          <hr className="line line-2" />
+          <hr className="line line-3" />
+          <hr className="line line-4" />
+        </div>
+      </section>
+      <section className="content">
         <Image
           src="/images/logo-nebula.png"
           alt="Nebula Logo"
