@@ -2,10 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans, Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin-ext"] });
-const dm_sans = DM_Sans({ subsets: ["latin-ext"] });
+const inter = Inter({ subsets: ["latin-ext"], variable: "--font-inter" });
+const dm_sans = DM_Sans({ subsets: ["latin-ext"], variable: "--font-dm-sans" });
 
-const fonts = [inter, dm_sans];
+const fonts = [inter.className, dm_sans.className].join(" ");
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,11 +15,12 @@ export const metadata: Metadata = {
 type Props = {
   children: React.ReactNode;
 };
+
 const LayoutRoot = (props: Props) => {
   const { children } = props;
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={fonts}>{children}</body>
     </html>
   );
 };

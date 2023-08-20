@@ -52,12 +52,12 @@ span {
 h1 {
   z-index: 1;
   font-size: 4rem;
-  font-family: var(--font-inter);
   font-weight: 700;
   line-height: 1.2;
   color: white;
   text-align: center;
 }
+
 b {
   background: -webkit-linear-gradient(90deg, #0072f5 0%, #d333f6 100%);
   background-clip: text;
@@ -71,7 +71,7 @@ b {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem 1rem;
+  padding: 3rem 3rem;
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.91) 0%,
