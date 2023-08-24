@@ -7,6 +7,8 @@ export const StylesBase = css`
   --btn-bg: var(--color-primary);
   --btn-gradient-primary: var(--color-accent-tertiary);
   --btn-gradient-secondary: var(--color-primary);
+  --btn-bg-opacity: var(--bg-opacity);
+  --btn-bg-blur: var(--bg-blur);
   --btn-gradient: linear-gradient(
     90deg,
     var(--btn-gradient-primary) 0%,
@@ -81,12 +83,25 @@ export const StylesDynamic = ex({
   astype: {
     flat: css``,
     outlined: css`
+      position: relative;
       background-color: transparent !important;
       border: 2px solid var(--btn-bg) !important;
       color: var(--btn-bg) !important;
       &:hover {
         background-color: var(--btn-bg) !important;
         color: var(--btn-color) !important;
+      }
+      &:before {
+        content: "";
+        left: 0px;
+        top: 0px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--btn-bg) !important;
+        z-index: -1;
+        opacity: var(--btn-bg-opacity);
+        backdrop-filter: var(--btn-bg-blur);
       }
     `,
     gradient: css`

@@ -10,6 +10,9 @@
   --color-accent-secondary: #ff9459;
   --color-accent-tertiary: #fa60af;
 
+  --bg-opacity: 0;
+  --bg-blur: 0;
+
   --color-gradient: linear-gradient(
     90deg,
     var(--color-primary) 0%,
@@ -28,6 +31,9 @@
   --color-accent-primary: #ea29f8;
   --color-accent-secondary: #ff9459;
   --color-accent-tertiary: #fa60af;
+
+  --bg-opacity: 0.3;
+  --bg-blur: 5px;
 
   --color-gradient: linear-gradient(
     90deg,
