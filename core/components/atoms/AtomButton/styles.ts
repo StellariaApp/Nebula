@@ -15,7 +15,6 @@ export const StylesBase = css`
     var(--btn-gradient-secondary) 100%
   );
 
-  width: max-content;
   border-radius: 4px;
   font-family: var(--font-inter);
   font-size: 12px;

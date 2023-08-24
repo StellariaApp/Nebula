@@ -16,7 +16,7 @@ const AtomWrapper = (props: AtomWrapperProps) => {
   const Component = SelectorAsWrapper[as ?? "div"];
 
   return (
-    <Component {...props} className={ex.join(css, className, StylesWrapper)} />
+    <Component {...props} className={ex.join(StylesWrapper, className, css)} />
   );
 };
 

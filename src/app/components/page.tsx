@@ -12,11 +12,12 @@ const PageComponents = (props: Props) => {
       css={css`
         gap: 1rem;
         padding: 1rem;
+        flex-direction: column;
+        height: max-content;
       `}
     >
       <AtomWrapper
         css={css`
-          flex-direction: row;
           gap: 1rem;
         `}
       >
