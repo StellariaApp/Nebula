@@ -7,7 +7,7 @@ const AtomButton = (props: AtomButtonProps) => {
   return (
     <button
       {...props}
-      className={ex.join(StylesButton(props), className, css)}
+      className={ex.join(css, className, StylesButton(props))}
     />
   );
 };
