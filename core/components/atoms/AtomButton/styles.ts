@@ -21,6 +21,7 @@ export const base = css`
   font-weight: 600;
   padding: 8px 24px;
   cursor: pointer;
+  white-space: nowrap;
 
   background-color: var(--btn-bg);
   border: 2px solid var(--btn-bg);

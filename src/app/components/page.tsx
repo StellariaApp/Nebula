@@ -5,6 +5,12 @@ import ToggleTheme from "../../../core/components/complex/ToggleTheme";
 
 type Props = {};
 
+const cssw = css`
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+`;
+
 const PageComponents = (props: Props) => {
   return (
     <AtomWrapper
@@ -16,11 +22,7 @@ const PageComponents = (props: Props) => {
         height: max-content;
       `}
     >
-      <AtomWrapper
-        css={css`
-          gap: 1rem;
-        `}
-      >
+      <AtomWrapper css={cssw}>
         <AtomButton astype="flat" astheme="primary">
           Flat Primary
         </AtomButton>
@@ -40,12 +42,7 @@ const PageComponents = (props: Props) => {
           Flat Accent Tertiary
         </AtomButton>
       </AtomWrapper>
-      <AtomWrapper
-        css={css`
-          flex-direction: row;
-          gap: 1rem;
-        `}
-      >
+      <AtomWrapper css={cssw}>
         <AtomButton astype="outlined" astheme="primary">
           Outlined Primary
         </AtomButton>
@@ -65,12 +62,7 @@ const PageComponents = (props: Props) => {
           Outlined Accent Tertiary
         </AtomButton>
       </AtomWrapper>
-      <AtomWrapper
-        css={css`
-          flex-direction: row;
-          gap: 1rem;
-        `}
-      >
+      <AtomWrapper css={cssw}>
         <AtomButton astype="gradient" astheme="primary">
           Gradient Primary
         </AtomButton>
