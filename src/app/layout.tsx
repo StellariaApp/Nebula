@@ -18,7 +18,7 @@ type Props = {
 const LayoutRoot = (props: Props) => {
   const { children } = props;
   return (
-    <html suppressHydrationWarning lang="en" className={theme.classes}>
+    <html suppressHydrationWarning lang="en">
       <body>
         {children}
         <theme.setup />
