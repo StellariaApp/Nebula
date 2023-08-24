@@ -1,11 +1,10 @@
-import "./globals.css";
+import "../css/variables.css";
+import "../css/theme.css";
+import "../css/globals.css";
+import "../css/fonts.css";
+
 import type { Metadata } from "next";
-import { DM_Sans, Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin-ext"], variable: "--font-inter" });
-const dm_sans = DM_Sans({ subsets: ["latin-ext"], variable: "--font-dm-sans" });
-
-const fonts = [inter.className, dm_sans.className].join(" ");
+import theme from "../../core/components/theme";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,8 +18,11 @@ type Props = {
 const LayoutRoot = (props: Props) => {
   const { children } = props;
   return (
-    <html lang="en">
-      <body className={fonts}>{children}</body>
+    <html suppressHydrationWarning lang="en" className={theme.classes}>
+      <body>
+        {children}
+        <theme.setup />
+      </body>
     </html>
   );
 };

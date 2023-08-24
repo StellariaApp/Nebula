@@ -1,0 +1,6 @@
+:root {
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-primary: var(--font-primary);
+  --font-secondary: var(--font-secondary);
+}
