@@ -1,6 +1,6 @@
 import { css, ex } from "excss";
-import { AsText, AtomTextProps } from "./types";
-import { AsThemeKeys, AsTypeKeys } from "../../types/theme";
+import { AsText, AsThemeKeysText, AtomTextProps } from "./types";
+import { AsTypeKeys } from "../../types/theme";
 
 export const base = css`
   --text-primary-color: var(--color-primary);
@@ -44,6 +44,24 @@ const astype = {
 } as Record<AsTypeKeys, string>;
 
 const astheme = {
+  text: css`
+    --text-color: var(--color-text) !important;
+    --text-shadow: var(--color-text) !important;
+    --text-gradient-primary: var(--color-accent-tertiary) !important;
+    --text-gradient-secondary: var(--color-primary) !important;
+  `,
+  title: css`
+    --text-color: var(--color-title) !important;
+    --text-shadow: var(--color-title) !important;
+    --text-gradient-primary: var(--color-accent-tertiary) !important;
+    --text-gradient-secondary: var(--color-primary) !important;
+  `,
+  subtitle: css`
+    --text-color: var(--color-subtitle) !important;
+    --text-shadow: var(--color-subtitle) !important;
+    --text-gradient-primary: var(--color-accent-tertiary) !important;
+    --text-gradient-secondary: var(--color-primary) !important;
+  `,
   primary: css`
     --text-color: var(--color-primary) !important;
     --text-shadow: var(--color-primary) !important;
@@ -77,10 +95,10 @@ const astheme = {
   "accent-tertiary": css`
     --text-color: var(--color-accent-tertiary) !important;
     --text-shadow: var(--color-accent-tertiary) !important;
-    --text-gradient-primary: var(--color-accent-tertiary) !important;
-    --text-gradient-secondary: var(--color-primary) !important;
+    --text-gradient-primary: var(--color-primary) !important;
+    --text-gradient-secondary: var(--color-accent-tertiary) !important;
   `,
-} as Record<AsThemeKeys, string>;
+} as Record<AsThemeKeysText, string>;
 
 const as = {
   span: css`
@@ -122,6 +140,7 @@ const as = {
 
 export const StylesDynamic = ex({
   default: {
+    astheme: "text",
     astype: "flat",
     as: "span",
   },

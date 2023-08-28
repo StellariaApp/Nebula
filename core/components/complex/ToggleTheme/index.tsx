@@ -6,6 +6,8 @@ const ToggleTheme = () => {
   const [_theme] = theme.use();
   return (
     <AtomButton
+      astheme="accent-tertiary"
+      astype="gradient"
       onClick={() => {
         theme.toggle();
       }}

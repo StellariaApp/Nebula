@@ -71,8 +71,8 @@ const astheme = {
   "accent-tertiary": css`
     --btn-color: var(--color-white) !important;
     --btn-bg: var(--color-accent-tertiary) !important;
-    --btn-gradient-primary: var(--color-accent-tertiary) !important;
-    --btn-gradient-secondary: var(--color-primary) !important;
+    --btn-gradient-primary: var(--color-primary) !important;
+    --btn-gradient-secondary: var(--color-accent-tertiary) !important;
   `,
 } as Record<AsThemeKeys, string>;
 

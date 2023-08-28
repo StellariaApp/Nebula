@@ -92,13 +92,13 @@ const PageComponents = (props: Props) => {
       </AtomWrapper>
       <AtomWrapper css={cssr}>
         <AtomWrapper css={cssc}>
-          <AtomText astype="flat" as="span">
+          <AtomText astype="flat" as="span" astheme="text">
             This is a Text span
           </AtomText>
-          <AtomText astype="flat" as="p">
+          <AtomText astype="flat" as="p" astheme="title">
             This is a Text paragraph
           </AtomText>
-          <AtomText astype="flat" as="a">
+          <AtomText astype="flat" as="a" astheme="subtitle">
             This is a Text anchor
           </AtomText>
           <AtomText astheme="primary" astype="flat" as="h6">
@@ -121,13 +121,13 @@ const PageComponents = (props: Props) => {
           </AtomText>
         </AtomWrapper>
         <AtomWrapper css={cssc}>
-          <AtomText astype="outlined" as="span">
+          <AtomText astype="outlined" as="span" astheme="text">
             This is a Text span
           </AtomText>
-          <AtomText astype="outlined" as="p">
+          <AtomText astype="outlined" as="p" astheme="title">
             This is a Text paragraph
           </AtomText>
-          <AtomText astype="outlined" as="a">
+          <AtomText astype="outlined" as="a" astheme="subtitle">
             This is a Text anchor
           </AtomText>
           <AtomText astype="outlined" astheme="primary" as="h6">
@@ -150,13 +150,13 @@ const PageComponents = (props: Props) => {
           </AtomText>
         </AtomWrapper>
         <AtomWrapper css={cssc}>
-          <AtomText astype="gradient" as="span">
+          <AtomText astype="gradient" as="span" astheme="text">
             This is a Text span
           </AtomText>
-          <AtomText astype="gradient" as="p">
+          <AtomText astype="gradient" as="p" astheme="title">
             This is a Text paragraph
           </AtomText>
-          <AtomText astype="gradient" as="a">
+          <AtomText astype="gradient" as="a" astheme="subtitle">
             This is a Text anchor
           </AtomText>
           <AtomText astype="gradient" astheme="primary" as="h6">

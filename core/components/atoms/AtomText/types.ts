@@ -4,11 +4,13 @@ import { AsThemeKeys, AsTypeKeys } from "../../types/theme";
 
 export type AsText = typeof OptionsAsText[number];
 
+export type AsThemeKeysText = AsThemeKeys | "text" | "title" | "subtitle";
+
 export type AtomTextProps = CSSC<
   HTMLElement,
   {
     children?: React.ReactNode;
-    astheme?: AsThemeKeys;
+    astheme?: AsThemeKeysText;
     astype?: AsTypeKeys;
     as?: AsText;
   }
