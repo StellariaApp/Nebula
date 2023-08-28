@@ -6,13 +6,13 @@ export const base = css`
   --text-primary-color: var(--color-primary);
   --text-color: var(--color-text);
   --text-font-family: var(--font-family-primary);
-  --text-font-weight: 500;
+  --text-font-weight: 600;
   --text-font-size: 14px;
 
   --text-gradient-primary: var(--color-accent-tertiary);
   --text-gradient-secondary: var(--color-primary);
 
-  --text-shadow: var(--text-primary-color);
+  --text-shadow: var(--color-text);
 
   --text-gradient: linear-gradient(
     90deg,
@@ -30,9 +30,9 @@ const astype = {
   flat: css``,
   outlined: css`
     color: var(--background) !important;
-    text-shadow: var(--text-shadow) 0px 0px 3px, var(--text-shadow) 0px 0px 3px,
-      var(--text-shadow) 0px 0px 3px, var(--text-shadow) 0px 0px 3px,
-      var(--text-shadow) 0px 0px 3px, var(--text-shadow) 0px 0px 3px;
+    text-shadow: var(--text-shadow) 0px 0px 2px, var(--text-shadow) 0px 0px 2px,
+      var(--text-shadow) 0px 0px 2px, var(--text-shadow) 0px 0px 2px,
+      var(--text-shadow) 0px 0px 2px, var(--text-shadow) 0px 0px 2px;
     -webkit-font-smoothing: antialiased;
   `,
   gradient: css`
@@ -91,6 +91,8 @@ const as = {
   `,
   a: css`
     --text-font-size: 14px !important;
+    --text-font-weight: 600 !important;
+    cursor: pointer;
   `,
   h1: css`
     --text-font-size: 42px !important;
