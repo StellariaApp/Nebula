@@ -1,6 +1,6 @@
 import { css, ex } from "excss";
-import type { AtomButtonProps, AtomButtonType } from "./types";
-import { ThemeTypes } from "../../types/theme";
+import type { AtomButtonProps } from "./types";
+import { AsThemeKeys, AsTypeKeys } from "../../types/theme";
 
 export const base = css`
   --btn-color: var(--color-white);
@@ -16,7 +16,7 @@ export const base = css`
   );
 
   border-radius: 4px;
-  font-family: var(--font-inter);
+  font-family: var(--font-family-secondary);
   font-size: 12px;
   font-weight: 600;
   padding: 8px 24px;
@@ -74,7 +74,7 @@ const astheme = {
     --btn-gradient-primary: var(--color-accent-tertiary) !important;
     --btn-gradient-secondary: var(--color-primary) !important;
   `,
-} as Record<ThemeTypes, string>;
+} as Record<AsThemeKeys, string>;
 
 const astype = {
   flat: css``,
@@ -105,7 +105,7 @@ const astype = {
     border: -2px solid var(--btn-gradient) !important;
     background: var(--btn-gradient) !important;
   `,
-} as Record<AtomButtonType, string>;
+} as Record<AsTypeKeys, string>;
 
 export const StylesDynamic = ex({
   default: {

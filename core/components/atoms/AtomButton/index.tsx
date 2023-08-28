@@ -1,4 +1,4 @@
-import { ex, css } from "excss";
+import { ex } from "excss";
 import { AtomButtonProps } from "./types";
 import { StylesButton } from "./styles";
 
