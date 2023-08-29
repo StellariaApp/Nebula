@@ -12,6 +12,7 @@ const SelectorAsText: SelectorAsText = {
   h4: (props) => <h4 {...props} />,
   h5: (props) => <h5 {...props} />,
   h6: (props) => <h6 {...props} />,
+  b: (props) => <b {...props} />,
 };
 
 const AtomText = (props: AtomTextProps) => {

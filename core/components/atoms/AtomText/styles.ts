@@ -24,6 +24,11 @@ export const base = css`
   font-family: var(--text-font-family);
   font-weight: var(--text-font-weight);
   font-size: var(--text-font-size);
+  b {
+    color: var(--text-color);
+    font-family: var(--text-font-family);
+    font-size: var(--text-font-size);
+  }
 `;
 
 const astype = {
@@ -104,6 +109,9 @@ const as = {
   span: css`
     --text-font-size: 14px !important;
   `,
+  b: css`
+    --text-font-weight: 800;
+  `,
   p: css`
     --text-font-size: 14px !important;
   `,
@@ -115,26 +123,50 @@ const as = {
   h1: css`
     --text-font-size: 42px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 42px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
   h2: css`
     --text-font-size: 32px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 32px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
   h3: css`
     --text-font-size: 24px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 24px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
   h4: css`
     --text-font-size: 20px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 20px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
   h5: css`
     --text-font-size: 18px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 18px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
   h6: css`
     --text-font-size: 16px !important;
     --text-font-family: var(--font-family-secondary) !important;
+    b {
+      --text-font-size: 16px !important;
+      --text-font-family: var(--font-family-secondary) !important;
+    }
   `,
 } as Record<AsText, string>;
 

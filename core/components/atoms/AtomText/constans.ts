@@ -8,4 +8,5 @@ export const OptionsAsText = [
   "p",
   "span",
   "a",
+  "b",
 ] as const;

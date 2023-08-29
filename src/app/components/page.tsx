@@ -178,6 +178,62 @@ const PageComponents = (props: Props) => {
             This is a Text h1
           </AtomText>
         </AtomWrapper>
+        <AtomWrapper css={cssc}>
+          <AtomText astype="flat" as="span">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text span
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="p">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text paragraph
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="a">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text anchor
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h6">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h6
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h5">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h5
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h4">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h4
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h3">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h3
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h2">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h2
+            </AtomText>
+          </AtomText>
+          <AtomText astype="flat" as="h1">
+            This is a{" "}
+            <AtomText astype="gradient" as="b">
+              Text h1
+            </AtomText>
+          </AtomText>
+        </AtomWrapper>
       </AtomWrapper>
       <ToggleTheme />
     </AtomWrapper>
