@@ -2,15 +2,16 @@
 
 ![Nebula Banner](https://storage.googleapis.com/stackly-assets/stellaria/nebula/banner.png)
 
-**Nebula** is an innovative User Interface (UI) library designed to streamline the process of developing attractive and modern interfaces using the capabilities of **Panda CSS** and **CSS-in-Js zero runtime**. This library is meant to make creating visually appealing and highly customizable web applications easier, while minimizing runtime performance overhead.
+**Nebula** is an innovative User Interface (UI) library designed to streamline the process of developing attractive and modern interfaces using the capabilities of **[Comet](https://github.com/StellariaApp/Comet)** **CSS-in-Js zero runtime**. This library is meant to make creating visually appealing and highly customizable web applications easier, while minimizing runtime performance overhead.
 
 ## Features
 
-- 🎨 **Modern Styling:** Nebula employs the design principles of Panda CSS to provide a modern and appealing look to your applications.
+- 🎨 **Modern Styling:** Nebula employs the design principles of Comet to provide a modern and appealing look to your applications.
 - ⚡ **High Performance:** Thanks to CSS-in-Js zero runtime technique, Nebula ensures optimal performance by eliminating runtime overhead.
 - 🛠️ **Easy Customization:** Customize components according to your needs using CSS variables and easily understandable configuration options.
 - 📦 **Reusable Components:** Nebula includes a variety of reusable components out of the box, from buttons and cards to navigation bars and forms.
 - 📱 **Responsive by Design:** All components are designed with responsiveness in mind, ensuring a consistent user experience across a wide range of devices and screen sizes.
+
 
 ## Installation
 
@@ -20,20 +21,6 @@ To start using Nebula in your project, simply follow these steps:
 
    ```bash
    npm install @stellaria/nebula
-   ```
-
-2. Import Nebula styles in your main stylesheet:
-
-   ```bash
-   @import '@stellaria/nebula/dist/nebula.css';
-   ```
-
-3. Import and use Nebula components in your JavaScript or TypeScript files:
-
-   ```javascript
-   from '@stellaria/nebula';
-
-   // ... your code
    ```
 
 ## Usage
