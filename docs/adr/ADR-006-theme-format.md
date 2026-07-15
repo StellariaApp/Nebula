@@ -1,0 +1,7 @@
+# ADR-006 — Formato de theme: contrato TS-first + temas como JSON validado
+
+- **Estado**: aceptada · 2026-07-14 (C2-Q2)
+- **Contexto**: los tokens de Stellaria son TS `as const` (excelente tipado, pero un tema no es cargable en runtime sin recompilar). El Theme Creator debe exportar temas consumibles por web (CSS vars) y native (Unistyles) sin build del usuario, y un tenant debe poder cargar su tema dinámicamente.
+- **Decisión**: `@stellaria/nebula-tokens` define el contrato `NebulaTheme` en TS (cero dependencias); el Zod schema derivado vive en `@stellaria/nebula-themes` (único paquete con dep de zod). Los temas son **datos JSON** que cumplen el contrato: los oficiales viven en `@stellaria/nebula-themes` (validados en build), los dinámicos se validan al cargar. Web: `createThemeContract` (VE) + materialización por tema; native: `StyleSheet.configure/updateTheme` de Unistyles.
+- **Alternativas**: DTCG/W3C JSON-first + Style Dictionary (interoperable con Figma pero añade capa de codegen y el tipado es generado); solo TS (temas no cargables en runtime). DTCG puede añadirse después como formato de import/export ADICIONAL del Theme Creator sin cambiar el canónico.
+- **Consecuencias**: un único artefacto de tema alimenta ambas plataformas; el Theme Creator hace round-trip (import/edit/export); los presets "radicales" (sober/playful) actúan como test de que ningún componente lee fuera del theme.

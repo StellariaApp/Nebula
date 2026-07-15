@@ -1,0 +1,16 @@
+# Nebula — Documentación de Etapa 1 (análisis y plan)
+
+> Generada el 2026-07-14 a partir del análisis verificado de Stellaria-Frontend, fonicredito-app y tfv-frontend. Checkpoints 1–3 cerrados con el propietario.
+
+| Doc | Contenido |
+|---|---|
+| [00-inventory.md](00-inventory.md) | Matriz de cobertura: ~213 componentes canónicos × 5 fuentes; disposición 100% de fonicredito (52) y tfv (117); decisiones de frontera C1 |
+| [01-architecture.md](01-architecture.md) | Monorepo, paquetes (core + dominios premium), grafo, anatomía de componente, contratos compartidos, forms, permisos, política de dependencias |
+| [02-theming.md](02-theming.md) | Contrato `NebulaTheme` (TS-first + temas JSON), runtime dual CSS vars/Unistyles, temas oficiales, spec del Theme Creator |
+| [03-a11y-motion-performance.md](03-a11y-motion-performance.md) | Contrato a11y por clase de componente, motion tokens/tiers, budgets y validación en CI |
+| [04-migration-map.md](04-migration-map.md) | Stellaria→Nebula archivo por archivo; estrategia futura de adopción en apps (codemod directo, post-librería) |
+| [05-roadmap.md](05-roadmap.md) | Fases F0–F7 con gates, top-8 riesgos, **supuestos pendientes de confirmar** |
+| [adr/](adr/) | 15 ADRs (ADR-001…ADR-015) |
+| [api/](api/) | Anexos de inventario: [fonicredito](api/fonicredito-components.md) (52, props completas), [tfv](api/tfv-components.md) (117, props completas), [stellaria](api/stellaria-native.md) (39, estado/calidad) |
+
+**Decisiones cerradas en esta etapa**: scope npm **`@stellaria/nebula-*`** (org existente `stellaria`; ADR-013) · React Aria hooks (web) · Storybook 10 unificado · TS-first + temas JSON · lucide + registry · escala 50–950 · motion v12 · form-atoms duck-typed · victory-native XL · TypeScript 7 · dominios premium (@stellaria/nebula-commerce|sales|payments) · @stellaria/nebula-native-camera · TabBar con adapter · Card dual (compound + CardComplex) · Conditional unario+fallback · EditorImage peer-Pintura · librería completa antes de migrar apps.
