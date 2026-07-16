@@ -9,7 +9,7 @@
 | [02-theming.md](02-theming.md) | Contrato `NebulaTheme` (TS-first + temas JSON), runtime dual CSS vars/Unistyles, temas oficiales, spec del Theme Creator |
 | [03-a11y-motion-performance.md](03-a11y-motion-performance.md) | Contrato a11y por clase de componente, motion tokens/tiers, budgets y validación en CI |
 | [04-migration-map.md](04-migration-map.md) | Stellaria→Nebula archivo por archivo; estrategia futura de adopción en apps (codemod directo, post-librería) |
-| [05-roadmap.md](05-roadmap.md) | Fases F0–F7 con gates, top-8 riesgos, **supuestos pendientes de confirmar** |
+| [05-roadmap.md](05-roadmap.md) | Roadmap por etapas: F0 fundaciones · W1–W6 web (dev→publicación→premium) · TC theme-creator · N1–N5 native (dev→publicación→premium) · R review/migración |
 | [adr/](adr/) | 15 ADRs (ADR-001…ADR-015) |
 | [api/](api/) | Anexos de inventario: [fonicredito](api/fonicredito-components.md) (52, props completas), [tfv](api/tfv-components.md) (117, props completas), [stellaria](api/stellaria-native.md) (39, estado/calidad) |
 

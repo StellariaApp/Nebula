@@ -1,57 +1,93 @@
 # 05 — Roadmap de Nebula
 
-> Alcance v1 comprometido: **catálogos completos** (177 native + 204 web → ~213 canónicos unificados) + dominios premium (decisión del propietario). Estrategia: **la librería se construye completa antes de migrar las apps** (C3-Q3). Sin fechas — fases con entregables verificables y gates; una fase no se abre sin la anterior en verde.
+> Alcance v1 comprometido: **catálogos completos** (177 native + 204 web → ~213 canónicos unificados) + dominios premium (decisión del propietario). Estrategia: **la librería se construye completa antes de migrar las apps** (C3-Q3). Sin fechas — fases con entregables verificables y gates.
+>
+> **Estructura por etapas (decisión del propietario, 2026-07-15)**: (1) Fundaciones → (2) **Web** desde desarrollo hasta publicación + premium web → (3) Theme Creator (paralela) → (4) **Native** desde desarrollo hasta publicación + premium native → (5) Review (gate de migración). Códigos de fase: `F0 · W1–W6 · TC · N1–N5 · R`. Los prompts de ejecución viven en `prompts/` (una carpeta por etapa).
+>
+> Orden estricto F0 → W1…W6 → N1…N5 → R, con tres flexibilidades: TC corre en paralelo desde el cierre de W1; W6 puede solaparse con el arranque de N1 (el core native solo necesita W5); N5 requiere N4 + W6.
 
-## Fases
+## Etapa 1 — Fundaciones
 
-### F0 — Scaffold y fundaciones
-**Entregables**: monorepo Turborepo+pnpm con los paquetes core vacíos y pipelines; **spike TS 7** validando la cadena completa (VE + Metro/Expo 57 + Storybook 10 + eslint) según ADR-012; `@stellaria/nebula-tokens` con contrato `NebulaTheme` + types compartidos migrados de Stellaria + Zod schema; `tools/palette-gen` (OKLCH 50–950) y `tools/contrast-check` funcionando; skills de gobernanza instaladas.
-**Gate**: `turbo build/typecheck/lint` verde bajo TS 7 (o contingencia ADR-012 aplicada y documentada); paletas regeneradas pasan contrast-check.
+### F0 — Scaffold y fundaciones *(en curso — spike TS 7 ejecutado el 2026-07-15, ver ADR-012)*
+**Entregables**: monorepo Turborepo+pnpm con paquetes core vacíos y pipelines; **spike TS 7** ✅ (veredicto: todo verde salvo typescript-eslint → contingencia TS 5.9.3 solo en la cadena de lint); `@stellaria/nebula-tokens` con contrato `NebulaTheme` + types compartidos migrados de Stellaria; `tools/palette-gen` (OKLCH 50–950) y `tools/contrast-check`; skills de gobernanza.
+**Gate**: `turbo build/typecheck/lint` verde; paletas regeneradas pasan contrast-check.
 
-### F1 — Theming dual + playgrounds vivos
-**Entregables**: runtime dual (`NebulaProvider` web con CSS vars/`ColorSchemeScript`; native con Unistyles configure); temas `nebula-light/dark` completos + borradores `sober`/`playful`; ambos playgrounds arrancando (Storybook 10.5 web + Expo/SB-RN) con toolbar de tema/scheme/reduced-motion; primeros primitivos demo (Box, Text, Button) en ambas plataformas.
-**Gate**: cambiar tema reconfigura los demo-components en ambas plataformas sin tocar código; axe CI y size-limit conectados y en verde.
+## Etapa 2 — Web: desarrollo → publicación → premium
 
-### F2 — Tier 1 (core esencial, WN)
-**Entregables**: migración de los 39 componentes de Stellaria (con los refactors de 04 §2: a11y de TextInput/Textarea, fix Textarea dark, fix ChipGroup, split Header→FormField+Header) + resto del Tier 1 de los catálogos en ambas plataformas: Foundation/Typography/Buttons completos, inputs básicos (TextInput, NumberInput, PasswordInput, Textarea, SearchInput, Select, MultiSelect, Checkbox, Radio, Switch, SegmentedControl), Card compound, Avatar, Badge, Alert, Toast+provider, Modal, BottomSheet, Drawer, Popover, Tooltip, Menu, Loader, Skeleton, Progress, Tabs, NavLink, Breadcrumbs, Pagination, EmptyState, Portal/Transition/Collapse/FocusTrap/VisuallyHidden, sistema de forms (FormField+NebulaField), `@stellaria/nebula-icons` con registry.
-**Gate**: testing contract completo por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets en verde; stories CSF compartidas para todo el tier.
+### W1 — Theming web + playground web
+**Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `nebula-light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
+**Gate**: cambiar tema reconfigura los pilotos sin tocar código; axe y size-limit verdes; Button con testing contract al 100% (plantilla para todo lo demás).
 
-### F3 — Tier 2 (extendido)
-**Entregables**: inputs completos (fechas/hora/calendar, Color, File, Tags, Pin, Rating, Autocomplete, Combobox patterns, InputPhone/Dial/Currency, Signature, Dropzone), data display extendido (Table, Timeline, Accordion, GridList, Stat, ListItem/SwipeableRow/SectionList, List data), overlays restantes, navegación completa (TabBar+adapter, Stepper, Burger), Search/Filter/Filters, CommandPalette, DataGrid básico, charts básicos (Bar/Line/Area/Pie + Spark/Trend), `CardComplex` (diseño de grupos de props con revisión del propietario), AppShell/Panel/Section/Main/Banner/Feature, PermissionGate, InfiniteList/SearchableList, StatusBadge/CurrencyDisplay/DateDisplay, `@stellaria/nebula-native-camera`.
-**Gate**: ídem F2 + keyboard tests de combobox/menu/datagrid; virtualización verificada ≥50 items.
+### W2 — Web Tier 1
+**Entregables**: Foundation/Layout, Typography, Utilities, `@stellaria/nebula-icons` (registry lucide), Buttons/Actions, sistema de forms (FormField + `NebulaField` + `useFieldProps`), inputs básicos, Combobox + Select/MultiSelect, overlays core (Modal, Drawer, Popover, Tooltip, Menu), feedback (Alert, Toast+provider, Loader, Skeleton, Progress), Card compound, Avatar, Badge, navegación core, EmptyState.
+**Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox.
 
-### F4 — Tier 3 (premium visual)
-**Entregables**: Effects/Shaders (LiquidGlass migrado + continuación plan v2, Aurora/Mesh/Noise/Gradients con los nuevos tokens `gradients`), Animated Text (8), Micro-interactions (9), Carousels avanzados, DnD/Kanban, Rich Content (RichTextEditor, CodeHighlight, EditorImage peer-Pintura, Player, ImageGallery), DataGrid avanzado, charts completos (Radar, tooltips/legends compartidos).
-**Gate**: Skia lazy-load verificado (bundle base intacto); degradación low-end (`useDeviceTier`) demostrada; reduced-motion en todos los efectos.
+### W3 — Web Tier 2
+**Entregables**: inputs completos (fechas/hora/calendar, Color, File, Tags, Pin, Rating, Autocomplete, Combobox patterns, InputPhone/Dial/Currency, Signature, Dropzone, JsonInput, Fieldset), data display extendido, Search/Filter/Filters, CommandPalette, DataGrid básico, charts básicos, AppShell, Panel, Section, Main, Banner, Feature, `CardComplex` (⚠️ checkpoint del propietario para los grupos de props), PermissionGate, InfiniteList/SearchableList, StatusBadge/CurrencyDisplay/DateDisplay, Form orquestador, ModalDelete/FormDelete, Stepper y overlays/utilidades restantes.
+**Gate**: ídem W2 + keyboard tests de datagrid; virtualización ≥50 items.
 
-### F5 — Theme Creator (paralelizable desde fin de F1)
-**Entregables**: MVP (editor de secciones + preview de galería + export/import JSON) tras F1; validación AA en vivo y generación de paletas tras F2; preview completa con el catálogo al cierre de F3.
-**Gate**: round-trip completo (crear→export→cargar en ambas plataformas); temas `fonicredito` y `tfv-gold` creados con él como casos reales.
+### W4 — Web Tier 3
+**Entregables**: Glass/Effects (con tokens `gradients`), DnD/Kanban, Rich Content (RichTextEditor, CodeHighlight, EditorImage peer-Pintura, Player, ImageGallery, Carousel), DataGrid avanzado, charts completos, TransferList/VirtualizedSelect, GlobalSearch, TypographyStylesProvider, DirectionProvider (RTL).
+**Gate**: subpaths aislados verificados; reduced-motion en todos los efectos; catálogo web al 100% (o excepciones aprobadas).
 
-### F6 — Dominios premium
-**Entregables**: `@stellaria/nebula-commerce`, `@stellaria/nebula-sales`, `@stellaria/nebula-payments` (alcance por paquete según 00-inventory §1.18); `@stellaria/nebula-people` y `@stellaria/nebula-maps` (confirmados); registry privado + mecánica de licencias (mini-ADR); galería premium separada en playgrounds.
-**Gate**: cada paquete consume solo core+hooks+icons; entidades por duck-typing (cero imports de apps).
+### W5 — Publicación web v1 🚀
+**Entregables**: changesets (mini-ADR); auditoría de exports/subpaths/sideEffects/peers; publicación npm bajo org `stellaria` de tokens/hooks/themes/icons/web (+ decisión del paquete paraguas `@stellaria/nebula` — ADR-013); READMEs de consumo; verificación de instalación en proyecto Next 16 virgen.
+**Gate**: install limpio en proyecto virgen → Button+tema funcionando; budgets publicados; ⚠️ requiere confirmar **licencia y visibilidad** (supuesto #11).
 
-### F7 — Gate de migración y planes por app
-**Entregables**: verificación de cobertura contra 00-inventory §4/§5 (100% de lo que cada app necesita); planes de migración detallados (docs propios) para fonicredito (codemod directo, 04 §5.1) y tfv (migración total, 04 §5.2); codemods escritos y probados en seco.
-**Gate**: criterios de "lista para migrar" de 04 §5.3 en verde → se abre la ejecución de migraciones (fuera de este roadmap).
+### W6 — Premium web
+**Entregables**: registry privado + mecánica de licencias (mini-ADR — supuesto #5); superficie **web** de `@stellaria/nebula-commerce`, `-sales`, `-payments`, `-people`, `-maps` (entidades duck-typed, cero imports de apps); galería Premium en playground web; publicación premium web.
+**Gate**: instalación premium externa de los 5 (web); cada paquete consume solo core+hooks+icons.
+
+## Etapa 3 — Theme Creator *(paralela: TC.1 tras W1 · TC.2 tras W2 · TC.3 tras W4; no bloquea W5)*
+
+### TC — Theme Creator
+**Entregables**: MVP (editor + preview + export/import JSON) → validación AA en vivo + generación de paletas (motores de tools/) → preview con catálogo completo + temas reales `fonicredito` y `tfv-gold` (dogfooding).
+**Gate**: round-trip completo; temas de las apps creados y validados AA.
+
+## Etapa 4 — Native: desarrollo → publicación → premium
+
+### N1 — Theming native + migración Stellaria + Tier 1 *(requiere W5)*
+**Entregables**: runtime native (NebulaProvider sobre Unistyles, mismos temas JSON, storage inyectable); `apps/playground-native` (Expo 57 + SB-RN 10.5, stories CSF reutilizadas); **migración de los 39 componentes de Stellaria** con los refactors de 04 §2 (a11y TextInput/Textarea, fix Textarea dark, fix ChipGroup, split Header→FormField+Header, Action→ActionIcon); Tier 1 native restante (BottomSheet patrón FC, Select-sobre-sheet, Toast, overlays, feedback, data display core, navegación core); **lint de paridad W/N**.
+**Gate**: paridad de contratos con web por lint; mismos temas JSON funcionando; testing contract + a11y por componente.
+
+### N2 — Native Tier 2
+**Entregables**: inputs completos native (fechas en Sheet, InputPhone/Dial/Currency, Signature Skia, pickers), data display (Table, List data, SectionList, SwipeableRow…), navegación completa (**TabBar + adapter react-navigation**), Search/Filters, PullToRefresh, overlays restantes, Drop/Drops, CardComplex native, genéricos de dominio, **`@stellaria/nebula-native-camera`** (captura básica).
+**Gate**: ídem N1 + virtualización y gestos verificados en dispositivo.
+
+### N3 — Native Tier 3
+**Entregables**: **LiquidGlass** migrado + continuación plan v2; shaders; Animated Text (8); Micro-interactions (incl. AnimatedThemeToggle desde ST); Carousels; charts native (victory-native XL, contrato unificado); `useDeviceTier` generalizado.
+**Gate**: Skia lazy-load (bundle base intacto); degradación low-end demostrada; reduced-motion total; catálogo native al 100% (o excepciones aprobadas).
+
+### N4 — Publicación native v1 🚀
+**Entregables**: publicación de `nebula-native` y `nebula-native-camera` + bumps coordinados; verificación en app Expo 57 virgen; docs de consumo.
+**Gate**: install limpio → componentes+tema+BottomSheet funcionando; paridad de temas JSON web/native demostrada.
+
+### N5 — Premium native + cierre premium *(requiere N4 + W6)*
+**Entregables**: superficie **native** de los 5 paquetes premium con paridad de API contra W6 (Scanner sobre native-camera; motor de maps con comparativa); publicación de superficies native; galería premium en ambos playgrounds; cierre del programa premium.
+**Gate**: lint de paridad premium en verde; instalación premium externa dual de los 5.
+
+## Etapa 5 — Review
+
+### R — Gate de migración y planes por app
+**Entregables**: **re-verificación de la matriz** (re-`ls` + diff de APIs de fonicredito y tfv, que habrán evolucionado — riesgo #8); verificación del gate "lista para migrar" (04 §5.3) por app; planes detallados (`docs/migrations/fonicredito-plan.md` con codemod directo, `docs/migrations/tfv-plan.md` con migración total Mantine→Nebula); codemods escritos y probados **en seco** sobre copias.
+**Gate**: criterios de 04 §5.3 en verde → la ejecución de las migraciones queda lista para decisión del propietario (fuera de este roadmap).
 
 ## Quality gates transversales (todas las fases)
 
-typecheck TS7 estricto · lint (+reglas propias: no `"use client"` en presentacionales, no hex fuera de tokens, aria-label en solo-icono) · unit+interaction tests · axe sobre stories · contrast-check de temas · size-limit por entry · review ADR para toda dependencia nueva.
+typecheck TS7 estricto (lint con contingencia 5.9.3 — ADR-012) · lint (+reglas propias: no `"use client"` en presentacionales, no hex fuera de tokens, aria-label en solo-icono) · unit+interaction tests · axe sobre stories · contrast-check de temas · size-limit por entry · review ADR para toda dependencia nueva.
 
 ## Top-8 riesgos y mitigación
 
 | # | Riesgo | Prob./Impacto | Mitigación |
 |---|---|---|---|
-| 1 | **TS 7 rompe el toolchain** (VE/Metro/SB) | media/alto | Spike F0 antes de cualquier componente; contingencia por-paquete ADR-012; sin features TS7-only al inicio |
-| 2 | **Volumen** (~213 canónicos + premium) → fatiga/scope creep | alta/alto | Tiers estrictos con gates; F2 no se abre sin F1 verde; matriz 00 como única fuente de alcance; descartes ya acordados |
-| 3 | **Web desde cero + AA estricto** | media/alto | React Aria como motor (ADR-003); axe CI desde F1 (no al final); keyboard tests por patrón |
-| 4 | **Deriva de paridad API W/N** | media/medio | Contratos en `@stellaria/nebula-tokens/types` como única fuente; stories CSF compartidas; lint que compara exports W/N por componente WN |
-| 5 | **Skia/LiquidGlass en low-end** | media/medio | `useDeviceTier` + quality tiers (patrón ya validado); lazy-load Tier 3; perf tests en playground |
-| 6 | **Theme Creator scope creep** | alta/medio | Spec cerrada (02 §5), MVP en F5.1; nuevas features requieren ADR |
-| 7 | **@storybook/react-native 10 inmaduro** | media/medio | Las stories CSF son independientes del runner: fallback a app catálogo Expo propia sin reescribir stories |
-| 8 | **Apps evolucionan mientras se construye la lib** (C3-Q3 pospone migraciones) | alta/medio | Re-verificación de la matriz (re-ls + diff de APIs) como primer paso de F7; congelar creación de componentes nuevos en apps cuando exista equivalente Nebula |
+| 1 | **TS 7 rompe el toolchain** | ~~media~~ **materializado parcial: typescript-eslint** | Contingencia aplicada (TS 5.9.3 solo en lint); revisión trimestral para retirar el pin (ADR-012) |
+| 2 | **Volumen** (~213 canónicos + premium) → fatiga/scope creep | alta/alto | Tiers estrictos con gates; ninguna fase se abre sin la anterior verde; matriz 00 como única fuente de alcance |
+| 3 | **Web desde cero + AA estricto** | media/alto | React Aria como motor (ADR-003); axe CI desde W1; keyboard tests por patrón; piloto de anatomía en W1 antes de escalar |
+| 4 | **Deriva de paridad API W/N** (agravada por web-first: native llega una etapa después) | **alta**/medio | Contratos en `nebula-tokens/types` desde F0; en la etapa web todo componente WN declara contrato compartido; lint de paridad desde N1 |
+| 5 | **Skia/LiquidGlass en low-end** | media/medio | `useDeviceTier` + quality tiers; lazy-load Tier 3; perf tests en playground |
+| 6 | **Theme Creator scope creep** | alta/medio | Spec cerrada (02 §5); MVP primero (TC.1); nuevas features requieren ADR |
+| 7 | **@storybook/react-native 10 inmaduro** | media/medio | Stories CSF independientes del runner: fallback a catálogo Expo propio sin reescribir stories |
+| 8 | **Apps evolucionan mientras se construye la lib** | alta/medio | Re-verificación de la matriz como primer paso de R; congelar componentes nuevos en apps cuando exista equivalente Nebula publicado |
 
 ## Supuestos pendientes de confirmar
 
@@ -60,10 +96,11 @@ typecheck TS7 estricto · lint (+reglas propias: no `"use client"` en presentaci
 1. ~~`@stellaria/nebula-icons` como paquete separado~~ — **CONFIRMADO**.
 2. ~~`@stellaria/nebula-people` y `@stellaria/nebula-maps`~~ — **CONFIRMADOS** ambos en el plan premium.
 3. ~~Presets demostrativos `sober` y `playful`~~ — **APROBADOS** nombre y dirección.
-4. **Valores finales de motion tokens y budgets de bundle**: números provisionales, se calibran en F1/F2.
-5. **Publicación con changesets** y mecánica exacta del registry privado premium (npm private vs Verdaccio): propuesto, se decide con mini-ADR en F0/F6.
-6. **TipTap vs Lexical** (RichTextEditor) y **cmdk vs propio** (CommandPalette): fijados provisionalmente TipTap/cmdk; ADR definitivo al llegar a F4/F3.
-7. **Jest para native** (por Metro) vs unificar todo en Vitest: propuesto Jest; validar en F0.
-8. **Diseño fino de los grupos de props de `CardComplex`**: esbozado en 01 §4; requiere tu revisión en F3.
-9. **`caption: 8px`** en la escala tipográfica de Stellaria: probable ajuste por legibilidad AA — confirmar al calibrar.
+4. **Valores finales de motion tokens y budgets de bundle**: provisionales, se calibran en W1/W2.
+5. **Changesets** y mecánica exacta del registry privado premium: se decide con mini-ADR en W5/W6.1.
+6. **TipTap vs Lexical** y **cmdk vs propio**: provisionales; ADR definitivo en W4/W3.
+7. **Jest para native** vs unificar en Vitest: propuesto Jest; validar al abrir N1.
+8. **Grupos de props de `CardComplex`**: requiere revisión del propietario en W3.5 (checkpoint obligatorio).
+9. **`caption: 8px`**: probable ajuste por legibilidad AA — confirmar al calibrar.
 10. **Storage de persistencia de tema** (MMKV recomendado, inyectable): confirmar que no debe imponerse.
+11. **Publicación pública vs privada del core** + **licencia** (MIT/BSL/propietaria): asumo core **público**; confirmar en W5.1 — bloquea W5.2.

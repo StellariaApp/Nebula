@@ -36,7 +36,7 @@ PARTE 2 — SCAFFOLD. Crea el monorepo EXACTAMENTE según docs\01-architecture.m
   nombre @stellaria/nebula-<x>, tsconfig, src/index.ts vacío exportable, README de 3 líneas).
   NO crees todavía native-camera ni domains/ (se crean al implementar su primer módulo).
 - apps/: playground-web, playground-native, theme-creator SOLO como carpetas con README
-  placeholder (se montan en F1).
+  placeholder (playground-web se monta en W1, playground-native en N1, theme-creator en TC).
 - tools/: carpeta con README (los scripts llegan en F0.3).
 - Raíz: ESLint 9 flat config + Prettier + .gitignore + engines (node >=20, pnpm 11).
 - tsconfig base estricto (strict total; noUncheckedIndexedAccess incluido).
@@ -184,13 +184,13 @@ MISIÓN:
    pública/dependencias requiere ADR.
 3. Cierre de F0: verifica el gate completo de docs\05-roadmap.md F0 (turbo build/typecheck/
    lint verdes bajo TS7 o contingencia documentada; paletas pasan contrast-check) y escribe
-   docs\f0-closure.md con el checklist marcado, estado real y pendientes para F1.
+   docs\f0-closure.md con el checklist marcado, estado real y pendientes para W1 (etapa web).
 
 CRITERIO DE ACEPTACIÓN: skills presentes y coherentes con los docs; CLAUDE.md útil para una
 sesión nueva sin contexto; f0-closure.md con el gate verificado comando por comando.
 
-REPORTE FINAL: resumen del cierre de F0 y recomendación de arranque para F1 (theming dual +
-playgrounds — docs\05-roadmap.md).
+REPORTE FINAL: resumen del cierre de F0 y recomendación de arranque para W1 (theming web +
+playground web — docs\05-roadmap.md).
 ```
 
 ---
@@ -200,4 +200,4 @@ playgrounds — docs\05-roadmap.md).
 - **Orden estricto**: F0.1 → F0.2 → F0.3 → F0.4. El spike de F0.1 puede alterar los demás (contingencia TS).
 - Si una sesión se corta a medias, el prompt puede re-ejecutarse: cada uno empieza leyendo el estado real del repo.
 - Los prompts asumen que los docs de `docs/` no cambian entre sesiones; si cambias una decisión, actualiza el doc/ADR ANTES de lanzar el siguiente prompt.
-- F1 (theming dual + playgrounds) tendrá su propio set de prompts cuando F0 cierre.
+- Los prompts de TODAS las fases (W1–R, secuencia web-first) están en prompts/ — ver prompts/README.md.
