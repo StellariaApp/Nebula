@@ -1,0 +1,31 @@
+# deps
+node_modules/
+
+# builds
+dist/
+build/
+storybook-static/
+.next/
+out/
+*.tsbuildinfo
+
+# turbo
+.turbo/
+
+# expo / native
+.expo/
+android/
+ios/
+
+# spike descartable (ADR-012 — se elimina tras el veredicto)
+spike/
+
+# env & logs
+.env
+.env.*
+!.env.example
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db

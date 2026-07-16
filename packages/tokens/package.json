@@ -1,0 +1,25 @@
+{
+  "name": "@stellaria/nebula-tokens",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Tokens base y contratos de tipos compartidos del design system Nebula",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

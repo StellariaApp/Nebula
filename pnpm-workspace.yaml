@@ -1,0 +1,7 @@
+# NOTA (ADR-012): typescript@5.9.3 en la RAÍZ existe SOLO para el typed linting
+# (typescript-eslint no soporta TS 7). Cada paquete declara su typescript@7.0.2
+# propio para tsc. No subir el pin de la raíz sin re-validar el spike.
+packages:
+  - packages/*
+  - apps/*
+  - tools/*
