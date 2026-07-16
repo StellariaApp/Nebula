@@ -1,3 +1,6 @@
-// @stellaria/nebula-tokens — el contrato NebulaTheme y los types compartidos
-// se implementan en F0.2 (docs/02-theming.md + docs/01-architecture.md §4).
-export {};
+// @stellaria/nebula-tokens — contrato NebulaTheme + types compartidos + tokens base.
+// Cero dependencias de runtime (ADR-014). Fuente de verdad: docs/02-theming.md §2
+// y docs/01-architecture.md §4.
+export * from "./theme";
+export * from "./types";
+export * from "./tokens";
