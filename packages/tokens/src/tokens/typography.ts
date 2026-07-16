@@ -2,7 +2,7 @@
  * Tipografía base migrada de Stellaria (04 §1: "tal cual") con la escala
  * reorganizada en plano según el contrato ThemeFont (02 §2.2).
  */
-import type { ThemeFont } from "../theme/theme";
+import type { ThemeFont } from "../theme/theme.js";
 
 export const family = {
   sans: "Geist, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",

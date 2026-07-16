@@ -3,8 +3,8 @@
  * Este archivo se typechecka y lintea pero NO se emite a dist
  * (excluido en tsconfig.build.json).
  */
-import type { NebulaTheme, PaletteName, Scale11 } from "../theme";
-import { animation, blur, breakpoints, font, glass, radius, shadows, sizes, spacing, zIndex } from "../tokens";
+import type { NebulaTheme, PaletteName, Scale11 } from "../theme/index.js";
+import { animation, blur, breakpoints, font, glass, radius, shadows, sizes, spacing, zIndex } from "../tokens/index.js";
 import {
   KeysBase,
   KeysEffects,
@@ -18,7 +18,7 @@ import {
   type SpacingProps,
   type TypographyProps,
   type VariantsProps,
-} from "../types";
+} from "../types/index.js";
 
 // ── Utilidades de aserción de tipos ──────────────────────────────────────────
 

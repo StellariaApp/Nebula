@@ -6,9 +6,9 @@ import type {
   ShadowLevel,
   SurfaceRole,
   TextRole,
-} from "../theme/primitives";
-import type { ColorExtended } from "./colors";
-import type { Unit } from "./dimensions";
+} from "../theme/primitives.js";
+import type { ColorExtended } from "./colors.js";
+import type { Unit } from "./dimensions.js";
 
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 export type SizeValue = Size | Unit;

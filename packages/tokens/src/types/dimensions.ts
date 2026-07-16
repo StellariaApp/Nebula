@@ -1,4 +1,4 @@
-import type { SpacingValue } from "./spacing";
+import type { SpacingValue } from "./spacing.js";
 
 export type UnitsKeys =
   | "px"

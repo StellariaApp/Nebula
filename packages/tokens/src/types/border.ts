@@ -1,6 +1,6 @@
-import type { RadiusName } from "../theme/primitives";
-import type { ColorExtended } from "./colors";
-import type { Unit } from "./dimensions";
+import type { RadiusName } from "../theme/primitives.js";
+import type { ColorExtended } from "./colors.js";
+import type { Unit } from "./dimensions.js";
 
 export type RadiusToken = RadiusName;
 export type RadiusValue = RadiusToken | Unit;

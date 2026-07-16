@@ -5,7 +5,7 @@ import type {
   SemanticStatus,
   SurfaceRole,
   TextRole,
-} from "../theme/primitives";
+} from "../theme/primitives.js";
 
 /** Escalas semánticas direccionables (roles de `colors` que son Scale11). */
 export type SemanticScaleName = "primary" | "accent" | "gray" | SemanticStatus;

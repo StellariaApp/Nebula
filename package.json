@@ -13,6 +13,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "size": "turbo run size",
+    "check:contrast": "turbo run check:contrast",
+    "gen:palette": "turbo run gen:palette --",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

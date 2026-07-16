@@ -28,7 +28,7 @@ export type {
   TextRole,
   TextSizeName,
   ZIndexName,
-} from "./primitives";
+} from "./primitives.js";
 export type {
   DualShadow,
   GlassSurfaceRecipe,
@@ -46,4 +46,4 @@ export type {
   ThemeSizes,
   ThemeSpacing,
   ThemeZIndex,
-} from "./theme";
+} from "./theme.js";

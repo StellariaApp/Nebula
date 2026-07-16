@@ -1,5 +1,5 @@
-import type { DurationName, EasingName } from "../theme/primitives";
-import type { animation } from "../tokens/animation";
+import type { DurationName, EasingName } from "../theme/primitives.js";
+import type { animation } from "../tokens/animation.js";
 
 export type DurationToken = DurationName;
 export type EasingToken = EasingName;

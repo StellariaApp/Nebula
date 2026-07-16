@@ -1,5 +1,5 @@
-import type { SpacingName } from "../theme/primitives";
-import type { Unit } from "./dimensions";
+import type { SpacingName } from "../theme/primitives.js";
+import type { Unit } from "./dimensions.js";
 
 export type SpacingValue = SpacingName | Unit;
 

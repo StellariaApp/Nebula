@@ -1,5 +1,5 @@
-import type { BreakpointName, ZIndexName } from "../theme/primitives";
-import type { Unit } from "./dimensions";
+import type { BreakpointName, ZIndexName } from "../theme/primitives.js";
+import type { Unit } from "./dimensions.js";
 
 export type BreakpointToken = BreakpointName;
 export type BreakpointValue = BreakpointToken | Unit;

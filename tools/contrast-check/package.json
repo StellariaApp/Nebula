@@ -1,0 +1,21 @@
+{
+  "name": "nebula-tools-contrast-check",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Validador WCAG 2.2 AA de pares texto/superficie de un NebulaTheme (docs/03 §1/§4). No publicable.",
+  "type": "module",
+  "scripts": {
+    "check:contrast": "node src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@stellaria/nebula-tokens": "workspace:*",
+    "culori": "4.0.2"
+  },
+  "devDependencies": {
+    "@types/culori": "4.0.1",
+    "@types/node": "26.1.1",
+    "typescript": "7.0.2"
+  }
+}

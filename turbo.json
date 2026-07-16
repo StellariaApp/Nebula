@@ -14,6 +14,12 @@
     },
     "size": {
       "dependsOn": ["build"]
+    },
+    "check:contrast": {
+      "dependsOn": ["^build"]
+    },
+    "gen:palette": {
+      "cache": false
     }
   }
 }

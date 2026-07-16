@@ -4,7 +4,7 @@
  * derivado vive en @stellaria/nebula-themes (ADR-006). Los componentes solo leen
  * roles semánticos — nunca paletas crudas ni hex.
  */
-import type { Size, Variant, VariantRecipe } from "../types/variants";
+import type { Size, Variant, VariantRecipe } from "../types/variants.js";
 import type {
   BlurLevel,
   BorderRole,
@@ -31,7 +31,7 @@ import type {
   TextRole,
   TextSizeName,
   ZIndexName,
-} from "./primitives";
+} from "./primitives.js";
 
 // ── Secciones ────────────────────────────────────────────────────────────────
 

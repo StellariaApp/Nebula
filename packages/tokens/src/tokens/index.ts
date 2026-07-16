@@ -1,24 +1,25 @@
-import { animation } from "./animation";
-import { effects } from "./effects";
-import { breakpoints, radius, sizes, spacing, zIndex } from "./layout";
-import { paletteNames } from "./palettes";
-import { font } from "./typography";
+import { animation } from "./animation.js";
+import { effects } from "./effects.js";
+import { breakpoints, radius, sizes, spacing, zIndex } from "./layout.js";
+import { gray, palettes } from "./palettes.js";
+import { font } from "./typography.js";
 
-export { animation } from "./animation";
-export { blur, effects, glass, shadows } from "./effects";
-export { breakpoints, radius, sizes, spacing, zIndex } from "./layout";
-export { paletteNames } from "./palettes";
-export { family, font, letterSpacing, lineHeight, size, weight } from "./typography";
+export { animation } from "./animation.js";
+export { blur, effects, glass, shadows } from "./effects.js";
+export { breakpoints, radius, sizes, spacing, zIndex } from "./layout.js";
+export * from "./palettes.js";
+export { family, font, letterSpacing, lineHeight, size, weight } from "./typography.js";
 
-/** Agregado base (sin colores — las paletas 50–950 llegan en F0.3). */
+/** Agregado base: paletas 50–950 generadas por tools/palette-gen (ADR-009). */
 export const tokens = {
   animation,
   font,
+  palettes,
+  gray,
   spacing,
   radius,
   sizes,
   effects,
   breakpoints,
   zIndex,
-  paletteNames,
 } as const;

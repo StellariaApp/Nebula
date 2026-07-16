@@ -6,8 +6,8 @@ import type {
   HeadingLevel,
   LetterSpacingName,
   LineHeightName,
-} from "../theme/primitives";
-import type { Unit } from "./dimensions";
+} from "../theme/primitives.js";
+import type { Unit } from "./dimensions.js";
 
 export type FontFamily = FontFamilyName;
 export type FontWeight = FontWeightName | FontWeightValue;

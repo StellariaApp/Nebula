@@ -1,0 +1,114 @@
+/**
+ * Tema de humo de F0 (scheme light): paletas REALES generadas por palette-gen
+ * + roles semánticos default. Es el input del gate `pnpm check:contrast`
+ * (docs/05 — gate F0). Los temas oficiales llegan en F1 (nebula-themes).
+ */
+import {
+  animation,
+  blur,
+  breakpoints,
+  glass,
+  gray,
+  font,
+  light,
+  palettes,
+  radius,
+  shadows,
+  sizes,
+  spacing,
+  zIndex,
+  type NebulaTheme,
+} from "@stellaria/nebula-tokens";
+
+export const smokeTheme = {
+  meta: { name: "smoke-light", scheme: "light", version: "0.0.1" },
+  palettes,
+  colors: {
+    primary: palettes.indigo,
+    accent: palettes.violet,
+    gray,
+    semantic: {
+      success: palettes.green,
+      warning: palettes.yellow,
+      error: palettes.red,
+      info: palettes.blue,
+    },
+    surface: {
+      base: light[50],
+      raised: light[100],
+      overlay: light[50],
+      sunken: light[300],
+    },
+    text: {
+      primary: gray[900],
+      secondary: gray[700],
+      muted: gray[600],
+      inverted: gray[50],
+      onPrimary: light[50],
+    },
+    border: {
+      subtle: gray[200],
+      default: gray[300],
+      strong: gray[600],
+      focus: palettes.indigo[600],
+    },
+  },
+  font,
+  radius,
+  spacing,
+  sizes,
+  motion: {
+    tier: "standard",
+    duration: animation.duration,
+    easing: animation.easing,
+    spring: animation.spring,
+  },
+  effects: {
+    blur,
+    glass: { surface: glass.surface, noiseOpacity: glass.noiseOpacity, enabled: true },
+    shadows,
+    gradients: {
+      brand: {
+        type: "linear",
+        angle: 135,
+        stops: [
+          { color: palettes.indigo[600], position: 0 },
+          { color: palettes.violet[600], position: 100 },
+        ],
+      },
+      accent: {
+        type: "linear",
+        angle: 90,
+        stops: [
+          { color: palettes.violet[500], position: 0 },
+          { color: palettes.pink[500], position: 100 },
+        ],
+      },
+      surface: {
+        type: "radial",
+        angle: 0,
+        stops: [
+          { color: palettes.indigo[50], position: 0 },
+          { color: light[50], position: 100 },
+        ],
+      },
+    },
+  },
+  variantMap: {
+    filled: { background: "scale.600", foreground: "text.onPrimary", border: "none" },
+    outline: { background: "transparent", foreground: "scale.600", border: "scale.600" },
+    light: { background: "scale.500.12", foreground: "scale.700", border: "none" },
+    glass: {
+      background: "surface.overlay",
+      foreground: "text.primary",
+      border: "border.subtle",
+      glass: "default",
+    },
+    ghost: { background: "transparent", foreground: "scale.600", border: "none" },
+    glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },
+    gradient: { background: "gradient.brand", foreground: "text.onPrimary", border: "none" },
+    unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
+  },
+  zIndex,
+  breakpoints,
+} satisfies NebulaTheme;

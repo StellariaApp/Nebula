@@ -1,0 +1,20 @@
+{
+  "name": "nebula-tools-palette-gen",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Generador de escalas cromáticas 50-950 en OKLCH (ADR-009). No publicable.",
+  "type": "module",
+  "scripts": {
+    "gen:palette": "node src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "culori": "4.0.2"
+  },
+  "devDependencies": {
+    "@types/culori": "4.0.1",
+    "@types/node": "26.1.1",
+    "typescript": "7.0.2"
+  }
+}

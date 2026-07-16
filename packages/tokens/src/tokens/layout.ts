@@ -7,9 +7,9 @@ import type {
   RadiusName,
   SpacingName,
   ZIndexName,
-} from "../theme/primitives";
-import type { ThemeSizes, ThemeSpacing } from "../theme/theme";
-import type { Size } from "../types/variants";
+} from "../theme/primitives.js";
+import type { ThemeSizes, ThemeSpacing } from "../theme/theme.js";
+import type { Size } from "../types/variants.js";
 
 /**
  * px resueltos = `unit × scale[token]`. Con unit 4 reproduce EXACTAMENTE la

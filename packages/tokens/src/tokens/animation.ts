@@ -4,7 +4,7 @@
  * `transforms`/`transition`/`keyframes` se conservan como tokens base
  * (web/CSS-oriented; NO forman parte del contrato NebulaTheme).
  */
-import type { DurationName, EasingName, SpringConfig, SpringName } from "../theme/primitives";
+import type { DurationName, EasingName, SpringConfig, SpringName } from "../theme/primitives.js";
 
 const duration = {
   instant: 80,
