@@ -1,0 +1,22 @@
+# ADR-016 — Empaquetado del tier web: precompilación de Vanilla Extract
+
+- **Estado**: aceptada · 2026-07-17 (checkpoint W1.2 con el propietario)
+- **Contexto**: ADR-002 fija Vanilla Extract (zero-runtime, CSS vars) como motor de estilo web, pero no la **estrategia de empaquetado** del paquete `@stellaria/nebula-web`. Una librería VE puede: (a) enviar los `.css.ts` sin compilar y delegar la extracción de CSS al bundler de cada consumidor, o (b) precompilar el CSS dentro del propio paquete. El build actual de `nebula-web` es `tsc` pelón, que **no evalúa** las macros de VE (`createTheme`, `recipe`, `style`), así que hoy no produce CSS. Con ~213 componentes y sus interrelaciones, la opción (a) traslada un coste de compilación VE significativo (reportado hasta ~minutos en proyectos grandes) a CADA app consumidora (playground-web, theme-creator, y mañana fonicredito/tfv) en cada build y cada arranque de dev.
+- **Decisión**: `@stellaria/nebula-web` **precompila su CSS de Vanilla Extract dentro del paquete**.
+  - `build` = **Vite en modo librería** + `@vanilla-extract/vite-plugin`, con `build.rollupOptions.output.preserveModules` + `cssCodeSplit` para conservar el tree-shaking por componente (un JS + su CSS por módulo).
+  - Las declaraciones `.d.ts` las emite el **compilador TS 7 propio** del paquete (`tsc -p tsconfig.build.json --emitDeclarationOnly`, ADR-012) — Vite no genera tipos.
+  - `dist` contiene JS + CSS ya extraído; los consumidores **importan el CSS precompilado sin ejecutar el pipeline de VE**.
+  - `sideEffects: ["*.css"]` (NO `false`) para que los imports de CSS sobrevivan al tree-shaking del consumidor.
+  - `@vanilla-extract/dynamic` queda como **dependencia de runtime** (inyección de CSS vars para temas dinámicos vía `assignInlineVars`/`setElementVars`); `@vanilla-extract/css` es build-time (lo consume el plugin, no aparece en el output).
+  - `vite` entra como devDependency del paquete — ya requerido por Vitest (ADR-015) y por el plugin de VE, así que no añade superficie nueva de tooling.
+- **Alternativas**:
+  - **Delegar VE al consumidor** (opción a): rechazada por el coste de build repetido en cada app y peor DX; el propietario lo descartó explícitamente en el checkpoint de W1.2.
+  - **esbuild + `@vanilla-extract/esbuild-plugin`**: viable, pero menos turnkey que Vite lib para `preserveModules` + CSS split, y duplicaría tooling con Vitest (que ya corre sobre Vite).
+  - **tsup / rollup manual**: más configuración a mano para el mismo resultado.
+- **Consecuencias**:
+  - El `build` de `nebula-web` deja de ser `tsc` — **excepción documentada** a la convención de la skill `monorepo-workspace` (que asume `build: tsc`). `typecheck` sigue siendo `tsc --noEmit` con TS 7.
+  - Aparece config Vite en el paquete (`vite.config.ts`), reutilizada por el runner de Vitest.
+  - Los consumidores **no necesitan** el plugin de VE para consumir `nebula-web` (sí lo necesitarán para su propio CSS de app si lo usan).
+  - Regla derivada: **ningún `.css.ts` de `nebula-web` se evalúa en el runtime del consumidor** — el zero-runtime de ADR-002 se mantiene; lo único que corre en runtime es la inyección de vars de `@vanilla-extract/dynamic` para temas dinámicos.
+  - Proyección CSS del contrato: solo las hojas **materializables como CSS var** de `NebulaTheme` (colores de rol, tipografía, radius, spacing, sizes, duraciones/easings, blur, sombras web, glass surface, z-index, breakpoints) se emiten como vars; la data no-CSS (variantMap, `motion.spring`, `motion.tier`, `effects.glass.enabled`, gradient tokens, `palettes` de identidad) se consume desde el objeto `theme` de JS vía contexto. Ver `packages/web/src/theme`.
+  - Actualiza `docs/01-architecture.md` §4 (anatomía web: nota de build) y `docs/02-theming.md` §4 en el mismo PR.

@@ -158,6 +158,8 @@ components/<Category>/<Name>/
 2. **Capa visual**: VE `recipe()` (variant × size × state) + `sprinkles` para style props en primitivos de Layout (equivalente web del Collector).
 3. **Capa de motion**: `motion` v12 con motion tokens; degradación a CSS transitions en componentes simples.
 
+**Build (ADR-016)**: `nebula-web` **precompila** su CSS de Vanilla Extract con Vite en modo librería (`preserveModules` + CSS por módulo vía `vite-plugin-lib-inject-css`); las `.d.ts` las emite `tsc` (TS 7). Los consumidores importan CSS ya extraído sin ejecutar el pipeline de VE (evita minutos de compilación VE por app). `sideEffects: ["*.css"]`; `typecheck` sigue en `tsc --noEmit`.
+
 **RSC**: los componentes interactivos son client components (`"use client"` en el boundary del paquete); los puramente presentacionales (Text, Title, Divider, Paper…) se mantienen server-safe. Regla en 03-performance.
 
 ### Compound components (ADR-010)

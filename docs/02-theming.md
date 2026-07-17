@@ -92,7 +92,7 @@ Los tres presets demostrativos son parte del criterio de aceptación del theming
 
 ## 4. Runtime
 
-- **Web**: `<NebulaProvider theme="nebula-dark">` aplica la clase del tema; `ColorSchemeScript` evita flash SSR; `data-theme` en `html` para override por sección si hace falta. Temas custom: `loadTheme(json)` valida con Zod e inyecta vars.
+- **Web** (implementado en W1.2, ADR-016): `<NebulaProvider defaultTheme="nebula-dark">` aplica la clase del tema oficial a un contenedor (`createTheme` → una clase por tema) y marca `data-nebula-theme`/`data-scheme`; `<ColorSchemeScript>` en el `<head>` evita el flash SSR fijando `color-scheme` en `<html>` pre-hidratación. Persistencia inyectable (`storage`/`storageKey`, `localStorage` por defecto). Temas custom/tenant: se pasa el `NebulaTheme` (ya validado por `loadTheme`) como `defaultTheme` y se inyecta con `assignInlineVars` sobre el contract. La proyección CSS del contract cubre solo las hojas materializables como var; la data no-CSS (variantMap, spring, tier, glass.enabled, gradients, palettes) se lee del objeto `theme` vía contexto.
 - **Native**: `NebulaProvider` configura Unistyles (`themes` + `settings.initialTheme`/`adaptiveThemes`); persistencia del tema elegido vía storage inyectable (MMKV recomendado, no impuesto).
 - **Ambos**: `useTheme()` en `@stellaria/nebula-hooks` expone `{ theme, setTheme, scheme, systemScheme }` con la misma API.
 
