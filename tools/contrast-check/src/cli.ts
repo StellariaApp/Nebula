@@ -1,20 +1,26 @@
 /**
- * CLI del gate de contraste (docs/03 §4.2 · gate F0 en docs/05).
+ * CLI del gate de contraste (docs/03 §4.2 · gates F0/W1 en docs/05).
  *
- *   pnpm check:contrast                     valida el tema de humo de F0
- *   pnpm check:contrast -- --theme x.json   valida un NebulaTheme serializado
+ *   pnpm check:contrast                     valida el tema de humo F0 + los 4 temas oficiales
+ *   pnpm check:contrast -- --theme x.json   valida un NebulaTheme serializado (Zod vía loadTheme)
  *
- * Exit code 1 si algún par falla — apto para CI.
+ * Exit code 1 si algún par de algún tema falla — apto para CI.
  */
 import { readFileSync } from "node:fs";
 
+import { loadTheme, officialThemes } from "@stellaria/nebula-themes";
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { checkTheme, type PairResult } from "./check.ts";
 import { buildPairs } from "./pairs.ts";
 import { smokeTheme } from "./smoke-theme.ts";
 
-function loadTheme(): { theme: NebulaTheme; source: string } {
+interface ThemeUnderTest {
+  theme: NebulaTheme;
+  source: string;
+}
+
+function loadThemes(): ThemeUnderTest[] {
   const args = process.argv.slice(2);
   const themeIndex = args.indexOf("--theme");
   if (themeIndex >= 0) {
@@ -23,11 +29,16 @@ function loadTheme(): { theme: NebulaTheme; source: string } {
       console.error("Uso: check:contrast [--theme <ruta.json>]");
       process.exit(1);
     }
-    // La validación estructural completa (Zod) llega con nebula-themes en F1.
-    const theme = JSON.parse(readFileSync(path, "utf8")) as NebulaTheme;
-    return { theme, source: path };
+    const theme = loadTheme(JSON.parse(readFileSync(path, "utf8")));
+    return [{ theme, source: path }];
   }
-  return { theme: smokeTheme, source: "tema de humo F0 (paletas generadas + roles default)" };
+  return [
+    { theme: smokeTheme, source: "tema de humo F0 (paletas generadas + roles default)" },
+    ...Object.values(officialThemes).map((theme) => ({
+      theme,
+      source: "tema oficial de @stellaria/nebula-themes",
+    })),
+  ];
 }
 
 function printTable(results: readonly PairResult[]): void {
@@ -37,7 +48,9 @@ function printTable(results: readonly PairResult[]): void {
   );
   console.log("-".repeat(labelWidth + 45));
   for (const r of results) {
-    const verdict = r.pass ? "PASS" : `FAIL${r.suggestion === undefined ? "" : ` → sugerido ${r.suggestion}`}`;
+    const verdict = r.pass
+      ? "PASS"
+      : `FAIL${r.suggestion === undefined ? "" : ` → sugerido ${r.suggestion}`}`;
     console.log(
       `${r.label.padEnd(labelWidth)}  ${r.fg.padEnd(9)} ${r.bg.padEnd(9)} ${r.ratio.toFixed(2).padStart(6)}  ${r.min.toFixed(1).padStart(4)}  ${verdict}`,
     );
@@ -45,21 +58,27 @@ function printTable(results: readonly PairResult[]): void {
 }
 
 function main(): void {
-  const { theme, source } = loadTheme();
-  console.log(`Contrast-check WCAG 2.2 AA — ${theme.meta.name} (${source})\n`);
+  const themes = loadThemes();
+  let totalFailures = 0;
 
-  const results = checkTheme(theme, buildPairs());
-  printTable(results);
+  for (const { theme, source } of themes) {
+    console.log(`Contrast-check WCAG 2.2 AA — ${theme.meta.name} (${source})\n`);
 
-  const failures = results.filter((r) => !r.pass);
-  console.log(
-    `\n${results.length} pares · ${results.length - failures.length} PASS · ${failures.length} FAIL`,
-  );
-  if (failures.length > 0) {
+    const results = checkTheme(theme, buildPairs());
+    printTable(results);
+
+    const failures = results.filter((r) => !r.pass);
+    totalFailures += failures.length;
+    console.log(
+      `\n${results.length} pares · ${results.length - failures.length} PASS · ${failures.length} FAIL\n`,
+    );
+  }
+
+  if (totalFailures > 0) {
     console.error("✖ Gate de contraste en rojo (disabled está exento por WCAG 1.4.3).");
     process.exit(1);
   }
-  console.log("✔ Gate de contraste en verde.");
+  console.log(`✔ Gate de contraste en verde para ${String(themes.length)} temas.`);
 }
 
 main();
