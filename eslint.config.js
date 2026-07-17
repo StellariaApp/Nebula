@@ -23,7 +23,9 @@ export default tseslint.config(
     }
   },
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    // JS y configs TS (vite/vitest.config.ts) fuera del type-checked project:
+    // no viven en ningún tsconfig `include` (rootDir: "src") y no se buildean.
+    files: ["**/*.{js,mjs,cjs}", "**/*.config.ts"],
     ...tseslint.configs.disableTypeChecked
   }
 );
