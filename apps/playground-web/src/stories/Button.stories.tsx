@@ -120,9 +120,9 @@ export const FullWidth: Story = {
   ),
 };
 
-export const Dark: Story = {
+export const Light: Story = {
   ...Variants,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "nebula-light" },
 };
 
 /** El press con spring se desactiva; el spinner ralentiza su giro. */

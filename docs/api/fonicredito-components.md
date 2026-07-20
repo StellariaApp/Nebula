@@ -6,14 +6,14 @@
 
 ## Etiquetas de acoplamiento
 
-| Tag | Significado |
-|---|---|
-| **[G]** | Genérico puro — migrable a core de Nebula |
+| Tag     | Significado                                                                                           |
+| ------- | ----------------------------------------------------------------------------------------------------- |
+| **[G]** | Genérico puro — migrable a core de Nebula                                                             |
 | **[F]** | Genérico pero atado a `form-atoms` (`field: FieldAtom`) — migrable si el contrato de forms lo absorbe |
-| **[N]** | Atado a navegación (`expo-router` / `react-navigation`) |
-| **[L]** | Atado al patrón de listados con atoms Jotai (search/ordering/filter) |
-| **[B]** | Acoplado al negocio fintech (QueryMe, roles, notificaciones push, KYC) |
-| **[I]** | Infraestructura de la app (OTA updates, splash, alerts store, logs) |
+| **[N]** | Atado a navegación (`expo-router` / `react-navigation`)                                               |
+| **[L]** | Atado al patrón de listados con atoms Jotai (search/ordering/filter)                                  |
+| **[B]** | Acoplado al negocio fintech (QueryMe, roles, notificaciones push, KYC)                                |
+| **[I]** | Infraestructura de la app (OTA updates, splash, alerts store, logs)                                   |
 
 ## Contratos transversales
 
@@ -21,12 +21,29 @@ Tipos de estilo que consumen casi todos los componentes (`shared/types/styles.ts
 
 ```ts
 export type SpaceProps = {
-  p?: SpaceSchema; pt?; pb?; pl?; pr?; px?; py?: SpaceSchema
-  m?: SpaceSchema; mt?; mb?; ml?; mr?; mx?; my?: SpaceSchema
-}
+  p?: SpaceSchema;
+  pt?;
+  pb?;
+  pl?;
+  pr?;
+  px?;
+  py?: SpaceSchema;
+  m?: SpaceSchema;
+  mt?;
+  mb?;
+  ml?;
+  mr?;
+  mx?;
+  my?: SpaceSchema;
+};
 export type SizeProps = {
-  w?: DimensionValue; miw?; maw?; h?; mih?; mah?: DimensionValue
-}
+  w?: DimensionValue;
+  miw?;
+  maw?;
+  h?;
+  mih?;
+  mah?: DimensionValue;
+};
 ```
 
 - `ColorScheme` (de `src/theme/colors.ts`): admite `"palette.shade"`, `"palette.shade.opacidad"`, hex y `transparent`.
@@ -91,28 +108,29 @@ export type ViewProps = Omit<AnimatedProps<RNViewProps>, "children"> & {
 
 ```ts
 export type TextProps = Omit<AnimatedProps<RNTextProps>, "style" | "children"> & {
-  style?: StyleProp<TextStyle>
-  ff?: FontFamilyKeys
-  fw?: TextStyle["fontWeight"]
-  c?: ColorScheme
-  fz?: FontSizeKeys
-  flex?: ViewStyle["flex"]
-  ta?: TextStyle["textAlign"]
-  self?: ViewStyle["alignSelf"]
-  lh?: number
-  isLoading?: boolean
-  children?: React.ReactNode
-  decoration?: TextStyle["textDecorationLine"]
-  bg?: ColorScheme
-  r?: RadiusSchema
-} & SpaceProps & SizeProps
+  style?: StyleProp<TextStyle>;
+  ff?: FontFamilyKeys;
+  fw?: TextStyle["fontWeight"];
+  c?: ColorScheme;
+  fz?: FontSizeKeys;
+  flex?: ViewStyle["flex"];
+  ta?: TextStyle["textAlign"];
+  self?: ViewStyle["alignSelf"];
+  lh?: number;
+  isLoading?: boolean;
+  children?: React.ReactNode;
+  decoration?: TextStyle["textDecorationLine"];
+  bg?: ColorScheme;
+  r?: RadiusSchema;
+} & SpaceProps &
+  SizeProps;
 ```
 
 ### SafeArea — [G]
 
 ```ts
-export type SafeAreaEdges = ("top" | "bottom" | "left" | "right")[]
-export type SafeAreaProps = ViewProps & { edges?: SafeAreaEdges }
+export type SafeAreaEdges = ("top" | "bottom" | "left" | "right")[];
+export type SafeAreaProps = ViewProps & { edges?: SafeAreaEdges };
 ```
 
 ### Scroll — [G]
@@ -120,12 +138,13 @@ export type SafeAreaProps = ViewProps & { edges?: SafeAreaEdges }
 ScrollView animado con gesture externo inyectable.
 
 ```ts
-export type ScrollProps = AnimatedProps<ScrollViewProps> & ViewProps & {
-  children?: React.ReactNode
-  gesture?: GestureType          // react-native-gesture-handler
-  background?: React.ReactNode
-  flexed?: boolean
-}
+export type ScrollProps = AnimatedProps<ScrollViewProps> &
+  ViewProps & {
+    children?: React.ReactNode;
+    gesture?: GestureType; // react-native-gesture-handler
+    background?: React.ReactNode;
+    flexed?: boolean;
+  };
 ```
 
 ### List — [G]
@@ -134,33 +153,35 @@ FlatList con layout animations de Reanimated.
 
 ```ts
 export type ListProps<T> = FlatListPropsWithLayout<T> & {
-  children?: React.ReactNode
-  contentProps?: ViewProps
-  columnWrapperProps?: ViewProps
-  gesture?: GestureType
-} & ViewProps
+  children?: React.ReactNode;
+  contentProps?: ViewProps;
+  columnWrapperProps?: ViewProps;
+  gesture?: GestureType;
+} & ViewProps;
 ```
 
 ### Main — [G] — layout de pantalla
 
 ```ts
 export type MainProps = ViewProps & {
-  disableKeyboardBehavior?: boolean
-  header?: React.ReactNode
-  footer?: React.ReactNode
-  background?: React.ReactNode
-  footerBG?: ColorScheme;  footerBGSize?: DimensionValue
-  headerBG?: ColorScheme;  headerBGSize?: DimensionValue
-  edges?: SafeAreaEdges
-}
+  disableKeyboardBehavior?: boolean;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  background?: React.ReactNode;
+  footerBG?: ColorScheme;
+  footerBGSize?: DimensionValue;
+  headerBG?: ColorScheme;
+  headerBGSize?: DimensionValue;
+  edges?: SafeAreaEdges;
+};
 ```
 
 ### Divider — [G]
 
 ```ts
 export type DividerProps = Omit<ViewProps, "children"> & {
-  orientation?: "horizontal" | "vertical"
-}
+  orientation?: "horizontal" | "vertical";
+};
 ```
 
 ## 2. Render helpers
@@ -168,9 +189,9 @@ export type DividerProps = Omit<ViewProps, "children"> & {
 ### Conditional / Omit / Valid — [G]
 
 ```ts
-export type ConditionalProps = { conditional?: boolean; children?: React.ReactNode }
-export type OmitProps        = { omit?: boolean;        children?: React.ReactNode }
-export type ValidProps       = { valid?: boolean; children?: React.ReactNode; invalid?: React.ReactNode }
+export type ConditionalProps = { conditional?: boolean; children?: React.ReactNode };
+export type OmitProps = { omit?: boolean; children?: React.ReactNode };
+export type ValidProps = { valid?: boolean; children?: React.ReactNode; invalid?: React.ReactNode };
 ```
 
 ## 3. Acciones
@@ -179,24 +200,25 @@ export type ValidProps       = { valid?: boolean; children?: React.ReactNode; in
 
 ```ts
 export type ButtonProps = ViewProps & {
-  self?: ViewStyle["alignSelf"]
-  fullWidth?: boolean
-  fw?: TextStyle["fontWeight"]
-  c?: ColorScheme
-  fz?: FontSizeKeys
-  variant?: "filled" | "outline" | "light" | "link"
-  isLoading?: boolean
-  disabled?: boolean
-  onPress?: (e?: any) => void
-  spinnerProps?: ActivityIndicatorProps
-  textProps?: TextProps
-  leftSection?: React.ReactNode
-  rightSection?: React.ReactNode
-  r?: RadiusSchema
-  gap?: SpaceSchema
-  shrink?: TextStyle["flexShrink"]
-  lh?: TextStyle["lineHeight"]
-} & SpaceProps & SizeProps
+  self?: ViewStyle["alignSelf"];
+  fullWidth?: boolean;
+  fw?: TextStyle["fontWeight"];
+  c?: ColorScheme;
+  fz?: FontSizeKeys;
+  variant?: "filled" | "outline" | "light" | "link";
+  isLoading?: boolean;
+  disabled?: boolean;
+  onPress?: (e?: any) => void;
+  spinnerProps?: ActivityIndicatorProps;
+  textProps?: TextProps;
+  leftSection?: React.ReactNode;
+  rightSection?: React.ReactNode;
+  r?: RadiusSchema;
+  gap?: SpaceSchema;
+  shrink?: TextStyle["flexShrink"];
+  lh?: TextStyle["lineHeight"];
+} & SpaceProps &
+  SizeProps;
 ```
 
 Declara `accessibilityRole` (uno de los 3 únicos componentes con a11y en la app).
@@ -233,14 +255,14 @@ export type ActionProps = ViewProps & {
 
 ```ts
 export type ToggleProps = Omit<RNViewProps, "children"> & {
-  value?: boolean
-  onChange?: (value: boolean) => void
-  disabled?: boolean
-  isLoading?: boolean
-  spinnerProps?: ActivityIndicatorProps
-  size?: number
-  c?: ColorScheme
-}
+  value?: boolean;
+  onChange?: (value: boolean) => void;
+  disabled?: boolean;
+  isLoading?: boolean;
+  spinnerProps?: ActivityIndicatorProps;
+  size?: number;
+  c?: ColorScheme;
+};
 ```
 
 Declara `accessibilityRole`.
@@ -274,16 +296,16 @@ export type BadgeProps = Omit<TouchableHighlightProps, "children"> & {
 
 ```ts
 export type CardProps = ViewProps & {
-  type?: "view" | "touchable"
-  isSelected?: boolean
-  isLoading?: boolean
-  disabled?: boolean
-  flat?: boolean
-  shadowless?: boolean
-  borderless?: boolean
-  onPress?: () => void
-  skeletonProps?: Partial<SkeletonProps>
-} & AnimationCardProps
+  type?: "view" | "touchable";
+  isSelected?: boolean;
+  isLoading?: boolean;
+  disabled?: boolean;
+  flat?: boolean;
+  shadowless?: boolean;
+  borderless?: boolean;
+  onPress?: () => void;
+  skeletonProps?: Partial<SkeletonProps>;
+} & AnimationCardProps;
 // AnimationCardProps (animations/card.ts):
 // { animationIndex?, animationDelay?, animationDisabled?, background?, onPress?, enabledPress? }
 // entrada escalonada (stagger por index) + press spring con haptic, ReduceMotion.System
@@ -293,22 +315,30 @@ export type CardProps = ViewProps & {
 
 ```ts
 export type CurrencyProps = Omit<TextProps, "children"> & {
-  amount?: number
-  transform?: (value: string) => string
-  isLoading?: boolean
-  prefix?: string
-  suffix?: string
-}
+  amount?: number;
+  transform?: (value: string) => string;
+  isLoading?: boolean;
+  prefix?: string;
+  suffix?: string;
+};
 ```
 
 ### Table — [G] — compuesto (Table/Header/Row/Title/Cell)
 
 ```ts
-export type TableProps       = { children?; style?; bg?: ColorScheme; borderColor?: ColorScheme }
-export type TableHeaderProps = { children?; style?; bg?: ColorScheme }
-export type TableRowProps    = { children?; style?; onPress?: () => void }
-export type TableTitleProps  = { children?; style?; numeric?: boolean; flex?: number }
-export type TableCellProps   = { children?; style?; numeric?: boolean; flex?: number; fz?: FontSizeKeys; c?: ColorScheme; fw?: string }
+export type TableProps = { children?; style?; bg?: ColorScheme; borderColor?: ColorScheme };
+export type TableHeaderProps = { children?; style?; bg?: ColorScheme };
+export type TableRowProps = { children?; style?; onPress?: () => void };
+export type TableTitleProps = { children?; style?; numeric?: boolean; flex?: number };
+export type TableCellProps = {
+  children?;
+  style?;
+  numeric?: boolean;
+  flex?: number;
+  fz?: FontSizeKeys;
+  c?: ColorScheme;
+  fw?: string;
+};
 ```
 
 ### Accordion — [G] — compuesto con genérico Multiple
@@ -351,43 +381,44 @@ export type AccordionHeaderProps = ViewProps & {
 
 ```ts
 export type SkeletonProps = Omit<AnimatedProps<ViewProps>, "children"> & {
-  isLoading?: boolean
-  shimmerSpeed?: number
-  shimmerBackgroundColor?: string
-  gradientColors?: [string, string]
-  defaultRadius?: number
-  animationType?: "gradient" | "pulse" | "none"
-  children: React.ReactNode
-}
+  isLoading?: boolean;
+  shimmerSpeed?: number;
+  shimmerBackgroundColor?: string;
+  gradientColors?: [string, string];
+  defaultRadius?: number;
+  animationType?: "gradient" | "pulse" | "none";
+  children: React.ReactNode;
+};
 ```
 
 ### Progress — [G]
 
 ```ts
-export type ProgressSegment = { value: NumberOrPercentage; color: ColorScheme }
+export type ProgressSegment = { value: NumberOrPercentage; color: ColorScheme };
 export type ProgressProps = ViewProps & {
-  type?: "circular" | "bar"
-  c?: ColorScheme
-  value?: NumberOrPercentage | ProgressSegment[]   // soporta multi-segmento
-  strokeWidth?: number
-  size?: number
-  isLoading?: boolean
-  borderless?: boolean
-  animationType?: "spring" | "timing" | "none"
-  timingConfig?: WithTimingConfig
-  springConfig?: SpringConfig
-}
+  type?: "circular" | "bar";
+  c?: ColorScheme;
+  value?: NumberOrPercentage | ProgressSegment[]; // soporta multi-segmento
+  strokeWidth?: number;
+  size?: number;
+  isLoading?: boolean;
+  borderless?: boolean;
+  animationType?: "spring" | "timing" | "none";
+  timingConfig?: WithTimingConfig;
+  springConfig?: SpringConfig;
+};
 ```
 
 ### Dots — [G]
 
 ```ts
 export type DotsProps = ViewProps & {
-  c?: ColorScheme
-  dotSize?: number
-  dots?: number
-  duration?: number
-} & SpaceProps & SizeProps
+  c?: ColorScheme;
+  dotSize?: number;
+  dots?: number;
+  duration?: number;
+} & SpaceProps &
+  SizeProps;
 ```
 
 ### Toast — [G/I]
@@ -480,9 +511,9 @@ export type HeaderProps = Omit<ViewProps, "top"> & {
 
 ```ts
 export type ErrorProps = Partial<TooltipProps> & {
-  field?: FieldAtom<any>
-  error?: string
-}
+  field?: FieldAtom<any>;
+  error?: string;
+};
 ```
 
 ### InputText — [F] — input raíz del que derivan Phone/Search/Select
@@ -501,34 +532,34 @@ export type InputTextProps = TextInputProps /* RN */ & {
 ### InputPhone — [F]
 
 ```ts
-export type InputPhoneProps = InputTextProps & { fieldDial?: FieldAtom<any> }
-export type Dial = { id: string; label: string; value: string; length: number }
+export type InputPhoneProps = InputTextProps & { fieldDial?: FieldAtom<any> };
+export type Dial = { id: string; label: string; value: string; length: number };
 ```
 
 ### InputSearch — [L]
 
 ```ts
 export type InputSearchProps = InputTextProps & {
-  atom?: PrimitiveAtom<string>        // acoplamiento a Jotai
-  isRefetching?: boolean
-  isWritting?: boolean
-  onSearch?: (value: string) => void
-}
+  atom?: PrimitiveAtom<string>; // acoplamiento a Jotai
+  isRefetching?: boolean;
+  isWritting?: boolean;
+  onSearch?: (value: string) => void;
+};
 ```
 
 ### InputSelect — [F] — select sobre Sheet
 
 ```ts
 export type InputSelectProps = Omit<InputTextProps, "value" | "onChangeText"> & {
-  actionProps?: ActionProps
-  options?: InputSelectOption[]
-  sheetProps?: SheetProps
-  onSelectOption?: (option: InputSelectOption) => void
-  value?: any
-  type?: "input" | "action"
-  actionIcon?: React.ReactNode
-}
-export type InputSelectOption = { id: string; label: string; value: any }
+  actionProps?: ActionProps;
+  options?: InputSelectOption[];
+  sheetProps?: SheetProps;
+  onSelectOption?: (option: InputSelectOption) => void;
+  value?: any;
+  type?: "input" | "action";
+  actionIcon?: React.ReactNode;
+};
+export type InputSelectOption = { id: string; label: string; value: any };
 ```
 
 ### InputCheckbox — [F]
@@ -561,17 +592,17 @@ export type InputCalendarProps = CalendarProps /* react-native-calendars */ & {
 
 ```ts
 export type SignatureProps = {
-  field?: FieldAtom<File | null>      // File de expo-file-system
-  value?: File | null
-  onChange?: (file: File | null) => void
-  penColor?: string
-  backgroundColor?: string
-  strokeWidth?: number
-  h?: number
-  format?: "jpeg" | "png"
-  quality?: number
-  containerProps?: ViewProps
-}
+  field?: FieldAtom<File | null>; // File de expo-file-system
+  value?: File | null;
+  onChange?: (file: File | null) => void;
+  penColor?: string;
+  backgroundColor?: string;
+  strokeWidth?: number;
+  h?: number;
+  format?: "jpeg" | "png";
+  quality?: number;
+  containerProps?: ViewProps;
+};
 ```
 
 ### Segment — [G] — segmented control compuesto (Header/Control/Content/Footer, swipeable)
@@ -648,10 +679,10 @@ export type TabBarProps = BottomTabBarProps /* @react-navigation/bottom-tabs */ 
 ### Tabs
 
 ```ts
-export type TabsScreenParams = { icon?: React.ReactNode; index?: number; href?: Href }
+export type TabsScreenParams = { icon?: React.ReactNode; index?: number; href?: Href };
 export type TabsScreenProps = Omit<ScreenProps /* expo-router */, "options"> & {
-  options?: ScreenProps["options"] & TabsScreenParams
-}
+  options?: ScreenProps["options"] & TabsScreenParams;
+};
 ```
 
 ## 11. Negocio / KYC — [B]
@@ -660,23 +691,26 @@ export type TabsScreenProps = Omit<ScreenProps /* expo-router */, "options"> & {
 
 ```ts
 export type CameraProps = {
-  visible: boolean
-  onClose: () => void
-  onCapture: (file: File, documentDetected: boolean) => void | Promise<void>
-  requireFace?: boolean
-  requireDocument?: boolean
-  documentOptional?: boolean          // detecta y reporta pero no bloquea el shutter
-  allowCameraSwitch?: boolean
-  initialCamera?: "front" | "back"
-  labels?: Partial<CaptureLabels>
-  thresholds?: Partial<CaptureThresholds>
-  filenamePrefix?: string
-}
+  visible: boolean;
+  onClose: () => void;
+  onCapture: (file: File, documentDetected: boolean) => void | Promise<void>;
+  requireFace?: boolean;
+  requireDocument?: boolean;
+  documentOptional?: boolean; // detecta y reporta pero no bloquea el shutter
+  allowCameraSwitch?: boolean;
+  initialCamera?: "front" | "back";
+  labels?: Partial<CaptureLabels>;
+  thresholds?: Partial<CaptureThresholds>;
+  filenamePrefix?: string;
+};
 export type CaptureThresholds = {
-  minFaceWidth: number; stabilityFrames: number
-  debounceStableFrames: number; debounceMinIntervalMs: number
-  lostFaceTimerMs: number; lostDocTimerMs: number
-}
+  minFaceWidth: number;
+  stabilityFrames: number;
+  debounceStableFrames: number;
+  debounceMinIntervalMs: number;
+  lostFaceTimerMs: number;
+  lostDocTimerMs: number;
+};
 ```
 
 API razonablemente genérica, pero depende de `react-native-vision-camera` + tflite/opencv y su caso de uso es onboarding KYC.
@@ -710,26 +744,26 @@ Patrón genérico, pero el footer default usa `QueryMe` + `REDIRECT_ROLE` (redir
 
 ```ts
 export type LogsProps = {
-  atom: WritableAtom<LogEntry[], any, any>
-  title: string
-  sheetId: string
-  exportPrefix: string
-  emptySubtitle: string
-}
+  atom: WritableAtom<LogEntry[], any, any>;
+  title: string;
+  sheetId: string;
+  exportPrefix: string;
+  emptySubtitle: string;
+};
 ```
 
 ---
 
 ## Resumen de disposición
 
-| Grupo | Componentes |
-|---|---|
-| **[G] núcleo migrable** (27) | View, Text, SafeArea, Scroll, List, Main, Divider, Conditional, Omit, Valid, Button, Action, ActionRotate, Toggle, Badge, Card, Currency, Table, Accordion, Skeleton, Progress, Dots, Tooltip, Refresh, Sheet, Segment, Drop/Drops |
-| **[F] atados a form-atoms** (9) | Header, Error, InputText, InputPhone, InputSelect, InputCheckbox, InputCalendar, Signature, (InputSearch también [L]) |
-| **[L] patrón listados Jotai** (3) | HeaderFilter, BadgesFilter, InputSearch |
-| **[N] navegación** (2) | TabBar, Tabs |
-| **[B] negocio** (5) | Camera, Bell, HeaderUser, ScreenError, Notifications |
-| **[I] infra app** (6) | HeaderUpdate, UpdateModal, Splash, Theme, Logs, Toast (wiring) |
+| Grupo                             | Componentes                                                                                                                                                                                                                        |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[G] núcleo migrable** (27)      | View, Text, SafeArea, Scroll, List, Main, Divider, Conditional, Omit, Valid, Button, Action, ActionRotate, Toggle, Badge, Card, Currency, Table, Accordion, Skeleton, Progress, Dots, Tooltip, Refresh, Sheet, Segment, Drop/Drops |
+| **[F] atados a form-atoms** (9)   | Header, Error, InputText, InputPhone, InputSelect, InputCheckbox, InputCalendar, Signature, (InputSearch también [L])                                                                                                              |
+| **[L] patrón listados Jotai** (3) | HeaderFilter, BadgesFilter, InputSearch                                                                                                                                                                                            |
+| **[N] navegación** (2)            | TabBar, Tabs                                                                                                                                                                                                                       |
+| **[B] negocio** (5)               | Camera, Bell, HeaderUser, ScreenError, Notifications                                                                                                                                                                               |
+| **[I] infra app** (6)             | HeaderUpdate, UpdateModal, Splash, Theme, Logs, Toast (wiring)                                                                                                                                                                     |
 
 **Observaciones transversales**
 

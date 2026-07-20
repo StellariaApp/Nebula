@@ -1,9 +1,3 @@
-/**
- * Efectos base migrados de Stellaria (04 §1: blur/glass/shadows "tal cual") con
- * la extensión mandada: sombras DUALES (string CSS web / elevation map native).
- * Los `gradients` del contrato (02 §2.5) son cromáticos: sus valores llegan con
- * los temas (F1) — aquí solo existe el tipo.
- */
 import type { BlurLevel, GlassLevel, ShadowLevel } from "../theme/primitives.js";
 import type { DualShadow, GlassSurfaceRecipe } from "../theme/theme.js";
 
@@ -18,10 +12,6 @@ export const blur = {
   xxl: "24px",
 } as const satisfies Record<BlurLevel, string>;
 
-/**
- * Recetas glass del scheme light (las duales por tema llegan en F1).
- * `enabled` es un interruptor por-tema (ThemeGlass), no un token base.
- */
 export const glass = {
   surface: {
     subtle: {
@@ -43,8 +33,6 @@ export const glass = {
   noiseOpacity: 0.02,
 } as const;
 
-// Web: strings CSS exactos de Stellaria. Native: equivalencias provisionales
-// (elevation/radius/offset) — TODO(calibración F1/F2) en device real.
 export const shadows = {
   xxs: {
     web: "0 1px 2px rgba(9, 9, 11, 0.05)",

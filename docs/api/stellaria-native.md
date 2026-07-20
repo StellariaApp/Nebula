@@ -21,14 +21,14 @@ src/types/   animations, base, border, colors, dimensions, effects,
 
 ## 2. `src/ui/native` — `@stellaria/ui-native` — 39 componentes (ls verificado)
 
-| Categoría | Componentes |
-|---|---|
-| **Layout** (16) | AspectRatio, Box, Center, Column, Container, Divider, Flex, Grid (Col/Simple, store Jotai), Group (store Jotai), Header (BackButton/StatusError), Paper, Pressable, Row, SafeArea, Scroll, Space |
-| **Typography** (8) | Anchor, Blockquote, Code (Block/Inline, refractor), Highlight, List (store Jotai), Mark, Text (TextGlass/TextGradient), Title |
-| **Actions** (6) | Action, Button (+Group, useRipple/useButtonPressable, variants.ts), ButtonClose, ButtonCopy, ButtonFloating, ThemeSwitch (Skia + store) |
-| **Inputs** (7) | Checkbox, Chip, PasswordInput, SegmentedControl, Switch, TextInput, Textarea |
-| **Feedback** (1) | Loader (Circular/Dot/Dots) |
-| **Effects** (1) | LiquidGlass (shaders SKSL, 8 hooks, store Jotai, Provider/Target/Backdrop, presets, quality tiers) |
+| Categoría          | Componentes                                                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Layout** (16)    | AspectRatio, Box, Center, Column, Container, Divider, Flex, Grid (Col/Simple, store Jotai), Group (store Jotai), Header (BackButton/StatusError), Paper, Pressable, Row, SafeArea, Scroll, Space |
+| **Typography** (8) | Anchor, Blockquote, Code (Block/Inline, refractor), Highlight, List (store Jotai), Mark, Text (TextGlass/TextGradient), Title                                                                    |
+| **Actions** (6)    | Action, Button (+Group, useRipple/useButtonPressable, variants.ts), ButtonClose, ButtonCopy, ButtonFloating, ThemeSwitch (Skia + store)                                                          |
+| **Inputs** (7)     | Checkbox, Chip, PasswordInput, SegmentedControl, Switch, TextInput, Textarea                                                                                                                     |
+| **Feedback** (1)   | Loader (Circular/Dot/Dots)                                                                                                                                                                       |
+| **Effects** (1)    | LiquidGlass (shaders SKSL, 8 hooks, store Jotai, Provider/Target/Backdrop, presets, quality tiers)                                                                                               |
 
 **No existen aún** (pese a catálogos phase-2): Overlays, DataDisplay, Navigation, Charts, Carousels, AnimatedText, Micro-interactions, Domain.
 
@@ -63,25 +63,25 @@ Component/
 
 ## 4. `.claude/skills` — 17 skills + README (gobernanza)
 
-| Skill | Propósito | Relevancia para Nebula |
-|---|---|---|
-| 00-project-guardrails | Reglas del monorepo Stellaria | Adaptar (reescribir guardrails para Nebula) |
-| 10-monorepo-workspace | Crear/mover módulos sin romper pipelines | Adaptar |
-| 11-typescript-strict | Type-safety extremo | Migrar casi tal cual |
-| 20-ui-web-patterns | Patrones componentes web | Adaptar (React Aria + VE) |
-| 21-ui-native-patterns | Patrones componentes native | Migrar (base sólida) |
-| 22-style-system-tokens-governance | Gobernanza de tokens | Migrar |
-| 23-theme-a11y-motion | Theming/contraste/motion AA | Migrar |
-| 24-effects-glass-blur-gradients | Materiales visuales con guardrails | Migrar |
-| 30-services-domain-patterns | Servicios de dominio | No aplica (fuera de UI lib) |
-| 31-api-query-websocket | Fetching/caching | No aplica |
-| 32-enterprise-multi-tenant | Multi-tenant | No aplica |
-| 33-permissions-frontend-mirror | Espejo de permisos | Adaptar (permission gating es requisito de Nebula) |
-| 40-pos-offline-first | POS offline | No aplica |
-| 50-architecture-decisions | ADR-lite | Migrar |
-| 90-quality-gates | Gates por cambio | Migrar + ampliar (a11y CI, bundle budget) |
-| 91-git-pr-conventions | Convenciones git | Migrar |
-| 99-custom-skills-roadmap | Skills futuras | Revisar |
+| Skill                             | Propósito                                | Relevancia para Nebula                             |
+| --------------------------------- | ---------------------------------------- | -------------------------------------------------- |
+| 00-project-guardrails             | Reglas del monorepo Stellaria            | Adaptar (reescribir guardrails para Nebula)        |
+| 10-monorepo-workspace             | Crear/mover módulos sin romper pipelines | Adaptar                                            |
+| 11-typescript-strict              | Type-safety extremo                      | Migrar casi tal cual                               |
+| 20-ui-web-patterns                | Patrones componentes web                 | Adaptar (React Aria + VE)                          |
+| 21-ui-native-patterns             | Patrones componentes native              | Migrar (base sólida)                               |
+| 22-style-system-tokens-governance | Gobernanza de tokens                     | Migrar                                             |
+| 23-theme-a11y-motion              | Theming/contraste/motion AA              | Migrar                                             |
+| 24-effects-glass-blur-gradients   | Materiales visuales con guardrails       | Migrar                                             |
+| 30-services-domain-patterns       | Servicios de dominio                     | No aplica (fuera de UI lib)                        |
+| 31-api-query-websocket            | Fetching/caching                         | No aplica                                          |
+| 32-enterprise-multi-tenant        | Multi-tenant                             | No aplica                                          |
+| 33-permissions-frontend-mirror    | Espejo de permisos                       | Adaptar (permission gating es requisito de Nebula) |
+| 40-pos-offline-first              | POS offline                              | No aplica                                          |
+| 50-architecture-decisions         | ADR-lite                                 | Migrar                                             |
+| 90-quality-gates                  | Gates por cambio                         | Migrar + ampliar (a11y CI, bundle budget)          |
+| 91-git-pr-conventions             | Convenciones git                         | Migrar                                             |
+| 99-custom-skills-roadmap          | Skills futuras                           | Revisar                                            |
 
 ## 5. Contradicciones docs ↔ código detectadas (a resolver en ADRs / checkpoint)
 

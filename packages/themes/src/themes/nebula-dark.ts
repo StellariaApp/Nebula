@@ -1,15 +1,3 @@
-/**
- * nebula-dark — contraparte dark del default. Las escalas de roles se INVIERTEN
- * (ver scales.ts): `scale.600` del variantMap resuelve a indigo.400 crudo, etc.
- * `palettes` (identidad) queda sin invertir.
- *
- * Mapa rol→paso (pasos CRUDOS tras la inversión; validado por contrast-check):
- * - surface: dark.100 / dark.300 / dark.400 / dark.50
- * - text: gray.50 / gray.300 / gray.400 / gray.900 / dark.100
- * - border: gray.800 / gray.700 / gray.500 / indigo.400
- * - texto de estado: semantic.*.700 invertido = crudo *.300 sobre surface.base
- * - glass: recetas duales propias del scheme dark (los tokens base son light).
- */
 import {
   animation,
   blur,
@@ -25,23 +13,21 @@ import {
   type NebulaTheme,
 } from "@stellaria/nebula-tokens";
 
-import { flipScale } from "./scales.js";
+import { FlipScale } from "./scales.js";
 
 export const nebulaDark = {
   meta: { name: "nebula-dark", scheme: "dark", version: "0.1.0" },
   palettes,
   colors: {
-    // Paletas por nombre: identidad, NO se invierten (a diferencia de los roles,
-    // cuya escala es relativa al scheme — ver scales.ts).
     ...palettes,
-    primary: flipScale(palettes.indigo),
-    accent: flipScale(palettes.violet),
-    gray: flipScale(gray),
+    primary: FlipScale(palettes.indigo),
+    accent: FlipScale(palettes.violet),
+    gray: FlipScale(gray),
     semantic: {
-      success: flipScale(palettes.green),
-      warning: flipScale(palettes.yellow),
-      error: flipScale(palettes.red),
-      info: flipScale(palettes.blue),
+      success: FlipScale(palettes.green),
+      warning: FlipScale(palettes.yellow),
+      error: FlipScale(palettes.red),
+      info: FlipScale(palettes.blue),
     },
     surface: {
       base: palettes.dark["100"],

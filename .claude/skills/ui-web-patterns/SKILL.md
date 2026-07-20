@@ -15,21 +15,27 @@ Reescrito para el stack real de Nebula (ADR-002/003/004): **React Aria hooks + V
 
 ## Estructura por componente
 
+Plana, sin carpeta de categoría (ADR-019):
+
 ```
-components/<Category>/<Name>/
-  <Name>.tsx        # forwardRef; hooks de Aria + motion
-  <Name>.types.ts   # re-exporta/extiende el contrato compartido de nebula-tokens
-  <Name>.css.ts     # recipe() para variantes/sizes
-  vars.css.ts       # CSS vars locales (si aplica)
-  use<Name>.ts      # lógica (opcional)
+components/<Name>/
+  <Name>.tsx        forwardRef; hooks de Aria + motion
+  <Name>.types.ts   re-exporta/extiende el contrato compartido de nebula-tokens
+  <Name>.css.ts     recipe() para variantes/sizes — SOLO estructura
+  <Name>.vars.css.ts  CSS vars locales (color temable por variantMap)
+  use<Name>.ts      lógica (opcional)
+  <Nombre>.md        el porqué de lo no evidente (sustituye a los comentarios)
   index.ts
 ```
+
+Referencia completa y obligatoria: `docs/patterns/web-component-template.md`.
 
 ## Reglas
 
 - Los estilos SOLO leen roles semánticos del theme (`colors.surface.*`, `sizes.control.*`) vía vars — nunca paletas crudas ni hex.
 - **RSC**: presentacionales (Text, Title, Divider, Paper…) server-safe SIN `"use client"`; interactivos con `"use client"` en el boundary. Regla de lint propia.
-- Variantes pintan según `theme.variantMap` (recetas temables) — no lógica de color por componente.
+- Variantes pintan según `theme.variantMap` (recetas temables) — no lógica de color por componente: el `recipe()` define estructura y el color llega por vars locales que resuelve `ResolveVariant`.
+- **Estilos base dentro de `baseLayer`** (`@layer`): si no, pisan las style props del consumidor.
 - `aria-label` obligatorio en todo control solo-icono; focus visible con `colors.border.focus` (≥3:1).
 - Deps pesadas (charts/dnd/editor/datagrid/command/carousel) SOLO en subpath exports (ADR-014).
 

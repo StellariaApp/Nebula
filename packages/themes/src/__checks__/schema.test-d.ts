@@ -1,11 +1,3 @@
-/**
- * Sincronía de tipos schema ↔ contrato NebulaTheme (ADR-006). Se typechecka y
- * lintea pero NO se emite a dist (excluido en tsconfig.build.json).
- *
- * La dirección salida→contrato de variantMap no se comprueba aquí porque Zod
- * infiere opcionales como `clave?: T | undefined` y el contrato usa opcionales
- * exactos; esa dirección la garantiza loadTheme, tipado sin casts.
- */
 import type { NebulaTheme, VariantRecipe } from "@stellaria/nebula-tokens";
 import type { z } from "zod";
 
@@ -16,11 +8,7 @@ type SchemaTheme = z.output<typeof themeSchema>;
 type Expect<T extends true> = T;
 type Extends<A, B> = A extends B ? true : false;
 
-// ── 1. Todo NebulaTheme del contrato es aceptado estructuralmente por el schema ──
-
 export type CheckContractAssignableToSchema = Expect<Extends<NebulaTheme, SchemaTheme>>;
-
-// ── 2. La salida del schema cumple el contrato, sección por sección ──────────
 
 export type CheckMeta = Expect<Extends<SchemaTheme["meta"], NebulaTheme["meta"]>>;
 export type CheckPalettes = Expect<Extends<SchemaTheme["palettes"], NebulaTheme["palettes"]>>;
@@ -35,8 +23,6 @@ export type CheckZIndex = Expect<Extends<SchemaTheme["zIndex"], NebulaTheme["zIn
 export type CheckBreakpoints = Expect<
   Extends<SchemaTheme["breakpoints"], NebulaTheme["breakpoints"]>
 >;
-
-// ── 3. VariantRecipe campo a campo (módulo opcionales exactos) ───────────────
 
 type SchemaRecipe = SchemaTheme["variantMap"]["filled"];
 

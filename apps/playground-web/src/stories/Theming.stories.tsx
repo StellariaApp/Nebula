@@ -48,8 +48,8 @@ function ThemingShowcase() {
         Nebula theming
       </h1>
       <p style={{ color: vars.color.text.secondary, maxWidth: "60ch" }}>
-        Cambia el tema con la toolbar (Tema · Motion · viewport): todo se reconfigura por CSS
-        vars sobre la clase del tema, sin recompilar.
+        Cambia el tema con la toolbar (Tema · Motion · viewport): todo se reconfigura por CSS vars
+        sobre la clase del tema, sin recompilar.
       </p>
 
       <div

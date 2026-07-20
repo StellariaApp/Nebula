@@ -48,7 +48,7 @@
     },
     {
       "name": "Box (primitivo, por módulo)",
-      "path": "dist/components/Layout/Box/Box.js",
+      "path": "dist/components/Box/Box.js",
       "import": "{ Box }",
       "ignore": [
         "react",
@@ -58,7 +58,7 @@
     },
     {
       "name": "Text (primitivo, por módulo)",
-      "path": "dist/components/Typography/Text/Text.js",
+      "path": "dist/components/Text/Text.js",
       "import": "{ Text }",
       "ignore": [
         "react",
@@ -68,7 +68,7 @@
     },
     {
       "name": "Button (compuesto: Aria + motion, por módulo)",
-      "path": "dist/components/Actions/Button/Button.js",
+      "path": "dist/components/Button/Button.js",
       "import": "{ Button }",
       "ignore": [
         "react",

@@ -1,8 +1,3 @@
-/**
- * Tema de humo de F0 (scheme light): paletas REALES generadas por palette-gen
- * + roles semánticos default. Es el input del gate `pnpm check:contrast`
- * (docs/05 — gate F0). Los temas oficiales llegan en F1 (nebula-themes).
- */
 import {
   animation,
   blur,

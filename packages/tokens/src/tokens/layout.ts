@@ -1,21 +1,7 @@
-/**
- * Geometría, densidad y layout global migrados de Stellaria (04 §1) y adaptados
- * al contrato (02 §2.3): spacing pasa a `unit × scale` para densidad temable.
- */
-import type {
-  BreakpointName,
-  RadiusName,
-  SpacingName,
-  ZIndexName,
-} from "../theme/primitives.js";
+import type { BreakpointName, RadiusName, SpacingName, ZIndexName } from "../theme/primitives.js";
 import type { ThemeSizes, ThemeSpacing } from "../theme/theme.js";
 import type { Size } from "../types/variants.js";
 
-/**
- * px resueltos = `unit × scale[token]`. Con unit 4 reproduce EXACTAMENTE la
- * escala absoluta de Stellaria (0/2/4/8/16/24/32/48/64).
- * Densidad: compact (unit 3) ↔ comfortable (unit 5).
- */
 export const spacing = {
   unit: 4,
   scale: {
@@ -42,7 +28,6 @@ export const radius = {
   full: 9999,
 } as const satisfies Record<RadiusName, number>;
 
-/** Alturas de control compartidas W/N (02 §2.3 — valores cerrados). */
 export const sizes = {
   control: {
     xs: 30,

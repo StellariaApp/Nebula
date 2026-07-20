@@ -18,7 +18,6 @@ export type BaseProps = AnimationsProps &
   LayoutsProps &
   VariantsProps;
 
-/** Fix del bug de Stellaria (04 §1): ahora incluye KeysEffects. */
 export const KeysBase = [
   ...KeysAnimations,
   ...KeysSpacing,

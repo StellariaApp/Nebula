@@ -17,14 +17,14 @@
 
 ## Stories obligatorias por componente
 
-| Story | Qué cubre |
-|---|---|
-| `Default` | render base con props mínimas. |
-| `Variants` | todas las variantes del `variantMap` (filled/outline/light/glass/ghost/glow/gradient…). |
-| `Sizes` | escala `xs–xl` (heights de `sizes.control`). |
-| `States` | hover/active/focus/disabled/loading según aplique. |
-| `Dark` | fijado en `nebula-dark` vía `globals` (además del toggle de toolbar). |
-| `ReducedMotion` | fijado en reduced-motion; verifica el fallback de animación. |
+| Story           | Qué cubre                                                                               |
+| --------------- | --------------------------------------------------------------------------------------- |
+| `Default`       | render base con props mínimas.                                                          |
+| `Variants`      | todas las variantes del `variantMap` (filled/outline/light/glass/ghost/glow/gradient…). |
+| `Sizes`         | escala `xs–xl` (heights de `sizes.control`).                                            |
+| `States`        | hover/active/focus/disabled/loading según aplique.                                      |
+| `Dark`          | fijado en `nebula-dark` vía `globals` (además del toggle de toolbar).                   |
+| `ReducedMotion` | fijado en reduced-motion; verifica el fallback de animación.                            |
 
 **Play function de teclado** (obligatoria donde haya interacción): Tab/Enter/Space/flechas/Esc/Home/End según el patrón APG del componente (docs/03 §1). Usa `play` + `@storybook/test`.
 

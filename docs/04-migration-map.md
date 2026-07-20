@@ -4,60 +4,60 @@
 
 ## 1. `Stellaria/src/ui/tokens` → `@stellaria/nebula-tokens`
 
-| Archivo | Acción | Detalle |
-|---|---|---|
-| `src/tokens/colors.ts` | **Regenerar** | Escala 100–900 → **50–950** con `tools/palette-gen` (ADR-009); 16 paletas se conservan como identidad + roles semánticos nuevos (02 §2) |
-| `src/tokens/typography.ts` | Migrar | Geist Sans/Mono, escala y pesos tal cual; revisar `caption: 8` (posible fallo AA de legibilidad → subir en calibración) |
-| `src/tokens/animation.ts` | Migrar + extender | duration/easing se conservan; añadir `spring` presets y `motion.tier` (02 §2.4); `keyframes/transforms` se revisan (parte era CSS-only) |
-| `src/tokens/effects.ts` | Migrar + extender | blur/glass/shadows tal cual; **añadir `gradients`** (gap detectado — no existen); shadows duales (CSS string web / elevation map native) |
-| `src/tokens/layout.ts` | Migrar | breakpoints/zIndex |
+| Archivo                       | Acción                   | Detalle                                                                                                                                                    |
+| ----------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/tokens/colors.ts`        | **Regenerar**            | Escala 100–900 → **50–950** con `tools/palette-gen` (ADR-009); 16 paletas se conservan como identidad + roles semánticos nuevos (02 §2)                    |
+| `src/tokens/typography.ts`    | Migrar                   | Geist Sans/Mono, escala y pesos tal cual; revisar `caption: 8` (posible fallo AA de legibilidad → subir en calibración)                                    |
+| `src/tokens/animation.ts`     | Migrar + extender        | duration/easing se conservan; añadir `spring` presets y `motion.tier` (02 §2.4); `keyframes/transforms` se revisan (parte era CSS-only)                    |
+| `src/tokens/effects.ts`       | Migrar + extender        | blur/glass/shadows tal cual; **añadir `gradients`** (gap detectado — no existen); shadows duales (CSS string web / elevation map native)                   |
+| `src/tokens/layout.ts`        | Migrar                   | breakpoints/zIndex                                                                                                                                         |
 | `src/types/*.ts` (10 módulos) | **Migrar casi tal cual** | El sistema `<Cat>Props` + `Keys<Cat>` + `BaseProps/KeysBase` es la base del contrato compartido; fix conocido: `KeysBase` no incluye keys de effects (bug) |
-| `src/types/variants.ts` | Migrar + reconciliar | Set real (`filled\|outline\|light\|glass\|ghost\|glow\|gradient\|unstyled`) prevalece sobre el set del doc de arquitectura; se añade `variantMap` temable |
-| `src/theme/index.ts` | **Refactorizar** | De `themes={dark,light}` con semánticos planos → contrato `NebulaTheme` completo (roles surface/text/border, motion, variantMap) + Zod schema (ADR-006) |
-| — (nuevo) | Crear | `types/fields.ts` (`NebulaField<T>`, ADR-005) y `schema/theme.ts` (Zod) |
+| `src/types/variants.ts`       | Migrar + reconciliar     | Set real (`filled\|outline\|light\|glass\|ghost\|glow\|gradient\|unstyled`) prevalece sobre el set del doc de arquitectura; se añade `variantMap` temable  |
+| `src/theme/index.ts`          | **Refactorizar**         | De `themes={dark,light}` con semánticos planos → contrato `NebulaTheme` completo (roles surface/text/border, motion, variantMap) + Zod schema (ADR-006)    |
+| — (nuevo)                     | Crear                    | `types/fields.ts` (`NebulaField<T>`, ADR-005) y `schema/theme.ts` (Zod)                                                                                    |
 
 ## 2. `Stellaria/src/ui/native` → `@stellaria/nebula-native`
 
 ### Infraestructura
 
-| Origen | Acción | Destino / detalle |
-|---|---|---|
-| `src/hooks/{useDebounce,useDisclosure,useUncontrolled}` | Migrar | → `@stellaria/nebula-hooks` (cross-platform) |
-| `src/hooks/useTheme` | Refactorizar | → `@stellaria/nebula-hooks/useTheme` sobre el runtime dual (02 §4) |
-| `src/utils/animated.ts (CreateAnimated)` | Migrar | Mantiene los 4 `any` de frontera documentados |
-| `src/utils/styles.ts`, `src/utils/haptic.ts (triggerHaptic)` | Migrar | — |
-| `src/store/theme.ts` + `provider/StellProvider.tsx` | Refactorizar | → `NebulaProvider` (Unistyles configure + storage inyectable) |
-| `src/config`, `src/styles` | Revisar en scaffold | Contenido menor; se absorbe donde corresponda |
+| Origen                                                       | Acción              | Destino / detalle                                                  |
+| ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------------ |
+| `src/hooks/{useDebounce,useDisclosure,useUncontrolled}`      | Migrar              | → `@stellaria/nebula-hooks` (cross-platform)                       |
+| `src/hooks/useTheme`                                         | Refactorizar        | → `@stellaria/nebula-hooks/useTheme` sobre el runtime dual (02 §4) |
+| `src/utils/animated.ts (CreateAnimated)`                     | Migrar              | Mantiene los 4 `any` de frontera documentados                      |
+| `src/utils/styles.ts`, `src/utils/haptic.ts (triggerHaptic)` | Migrar              | —                                                                  |
+| `src/store/theme.ts` + `provider/StellProvider.tsx`          | Refactorizar        | → `NebulaProvider` (Unistyles configure + storage inyectable)      |
+| `src/config`, `src/styles`                                   | Revisar en scaffold | Contenido menor; se absorbe donde corresponda                      |
 
 ### Componentes (39) — evaluación individual
 
 **Migrar tal cual** (cambios solo de naming/tokens):
 
-| Categoría | Componentes |
-|---|---|
-| Layout | AspectRatio, Box, Center, Column, Container, Divider, Flex, Grid (+Col/Simple), Group, Paper, Pressable, Row, SafeArea, Scroll, Space |
-| Typography | Anchor, Blockquote, Code, Highlight, List, Mark, Text (+Glass/Gradient), Title |
-| Actions | Button (+Group/ripple/variants), Action→**ActionIcon** (rename), ButtonClose, ButtonCopy, ButtonFloating |
-| Feedback | Loader (Circular/Dot/Dots) |
+| Categoría  | Componentes                                                                                                                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Layout     | AspectRatio, Box, Center, Column, Container, Divider, Flex, Grid (+Col/Simple), Group, Paper, Pressable, Row, SafeArea, Scroll, Space |
+| Typography | Anchor, Blockquote, Code, Highlight, List, Mark, Text (+Glass/Gradient), Title                                                        |
+| Actions    | Button (+Group/ripple/variants), Action→**ActionIcon** (rename), ButtonClose, ButtonCopy, ButtonFloating                              |
+| Feedback   | Loader (Circular/Dot/Dots)                                                                                                            |
 
 **Migrar con refactor puntual** (gaps verificados en anexo C):
 
-| Componente | Refactor requerido |
-|---|---|
-| TextInput | **Añadir contrato a11y completo** (accessibilityLabel vinculado a FormField, value, error live-region) — gap crítico detectado |
-| Textarea | Ídem a11y + **fix dark mode** (bug documentado en stellaria-input-components-plan) |
-| Chip | **Fix ChipGroup sin selección** (bug documentado) |
-| Checkbox, Switch, PasswordInput, SegmentedControl | Migrar; alinear con FormField y `NebulaField` |
-| Header (Layout) | Se divide: parte field-header → **FormField**; parte screen-header → **Header/TopBar** (decisión de matriz §4.17) |
-| ThemeSwitch | Migrar → categoría Micro-interactions (`AnimatedThemeToggle`) |
-| LiquidGlass | Migrar completo (shaders, 8 hooks, store, presets, quality) y **continuar el plan v2** (estrategia de captura A, blur gaussiano, dispersión) como backlog Tier 3; `useGlassQuality` se generaliza a `useDeviceTier` en `@stellaria/nebula-hooks` |
+| Componente                                        | Refactor requerido                                                                                                                                                                                                                               |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| TextInput                                         | **Añadir contrato a11y completo** (accessibilityLabel vinculado a FormField, value, error live-region) — gap crítico detectado                                                                                                                   |
+| Textarea                                          | Ídem a11y + **fix dark mode** (bug documentado en stellaria-input-components-plan)                                                                                                                                                               |
+| Chip                                              | **Fix ChipGroup sin selección** (bug documentado)                                                                                                                                                                                                |
+| Checkbox, Switch, PasswordInput, SegmentedControl | Migrar; alinear con FormField y `NebulaField`                                                                                                                                                                                                    |
+| Header (Layout)                                   | Se divide: parte field-header → **FormField**; parte screen-header → **Header/TopBar** (decisión de matriz §4.17)                                                                                                                                |
+| ThemeSwitch                                       | Migrar → categoría Micro-interactions (`AnimatedThemeToggle`)                                                                                                                                                                                    |
+| LiquidGlass                                       | Migrar completo (shaders, 8 hooks, store, presets, quality) y **continuar el plan v2** (estrategia de captura A, blur gaussiano, dispersión) como backlog Tier 3; `useGlassQuality` se generaliza a `useDeviceTier` en `@stellaria/nebula-hooks` |
 
 **Deuda transversal al migrar**: cero tests → cada componente migrado entra con su testing contract (ADR-15); los `Keys*` colectores se auditan contra el contrato nuevo; `refractor` (Code) se revisa como subpath por peso.
 
 ## 3. `Stellaria/src/ui/web` → `@stellaria/nebula-web`
 
-| Archivo | Acción |
-|---|---|
+| Archivo                                                                                                 | Acción                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index.ts`, `src/theme.ts`, `src/runtime.ts` (`applyWebThemeClass`), `src/theme.css.ts` (clases vacías) | **Descartar** — stub sin contenido real; `@stellaria/nebula-web` se construye desde cero según 01 §4 (React Aria + VE + motion) con el contrato de theme de 02 |
 
 ## 4. Gobernanza

@@ -1,7 +1,8 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { vars } from "../../../theme/contract.css.js";
+import { vars } from "../../theme/contract.css.js";
+import { baseLayer } from "../../theme/layers.css.js";
 
 import {
   backdropFilter,
@@ -14,11 +15,6 @@ import {
   glow,
 } from "./Button.vars.css.js";
 
-/**
- * Recipe de Button: SOLO estructura (alturas de `sizes.control`, padding, radius,
- * tipografía, transición). El color llega por las vars locales que resuelve el
- * `variantMap` del tema — ver Button.vars.css.ts y ADR-018 §3.
- */
 export const button = recipe({
   base: {
     display: "inline-flex",
@@ -44,8 +40,6 @@ export const button = recipe({
     color: fg,
     backdropFilter,
     boxShadow: glow,
-    // Hot path: solo transform/opacity se animan con spring (motion); color y
-    // sombra transicionan por CSS con los tokens del tema (docs/03 §2).
     transitionProperty: "background, border-color, box-shadow, opacity",
     transitionDuration: vars.motion.duration.fast,
     transitionTimingFunction: vars.motion.easing.standard,
@@ -109,35 +103,25 @@ export const button = recipe({
 
 export type ButtonRecipeVariants = NonNullable<RecipeVariants<typeof button>>;
 
-/** Secciones laterales: no se encogen y centran su contenido (iconos). */
 export const section = style({
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexShrink: 0,
+  "@layer": {
+    [baseLayer]: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0,
+    },
+  },
 });
 
-/**
- * Atenúa el label mientras carga conservando el ancho del botón.
- *
- * Debe ser `opacity`, NO `visibility: hidden` ni `display: none`: esos sacan el
- * texto del árbol de accesibilidad y dejan al botón sin nombre discernible
- * (violación `button-name` que detectó el gate axe). Con `opacity` el lector de
- * pantalla sigue anunciando la acción, y `aria-busy` comunica la carga.
- */
 export const labelLoading = style({
   opacity: 0,
 });
 
-const spin = keyframes({
+const SPIN = keyframes({
   to: { transform: "rotate(360deg)" },
 });
 
-/**
- * Spinner de `loading`. La rotación se mantiene con reduced-motion (es un
- * indicador de progreso, no decoración) pero se ralentiza para reducir el
- * estímulo — docs/03 §2 regla 2.
- */
 export const spinner = style({
   position: "absolute",
   width: "1em",
@@ -145,7 +129,7 @@ export const spinner = style({
   borderRadius: vars.radius.full,
   border: "2px solid currentColor",
   borderTopColor: "transparent",
-  animation: `${spin} 700ms linear infinite`,
+  animation: `${SPIN} 700ms linear infinite`,
   "@media": {
     "(prefers-reduced-motion: reduce)": {
       animationDuration: "1800ms",

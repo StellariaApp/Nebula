@@ -1,14 +1,3 @@
-/**
- * playful — preset demostrativo (docs/02 §3, borrador aprobado): radius full,
- * densidad comfortable (unit 5), motion tier expressive, gradients agresivos.
- * `filled` pinta con gradient.brand (docs/02 §2.6: hasta el significado visual
- * de una variante es temable). Valores iniciales razonables; calibración visual
- * en W1.3/W1.4.
- *
- * Mapa rol→paso: surface light.50 / light.100 / light.50 / light.300 ·
- * text gray.900 / gray.700 / gray.600 / gray.50 / light.50 ·
- * border gray.200 / gray.300 / gray.600 / grape.600 · estado semantic.*.700.
- */
 import {
   animation,
   blur,
@@ -59,7 +48,6 @@ export const playful = {
     },
   },
   font,
-  // Radius full: todo muy redondeado.
   radius: { xxs: 4, xs: 6, sm: 10, md: 16, lg: 20, xl: 28, xxl: 36, full: 9999 },
   spacing: { unit: 5, scale: spacing.scale },
   sizes,
@@ -102,8 +90,6 @@ export const playful = {
     },
   },
   variantMap: {
-    // filled temable con gradiente (02 §2.6) — el gate AA de filled se valida
-    // igualmente sobre primary.600/700 en pairs.ts.
     filled: { background: "gradient.brand", foreground: "text.onPrimary", border: "none" },
     outline: { background: "transparent", foreground: "scale.600", border: "scale.600" },
     light: { background: "scale.500.16", foreground: "scale.700", border: "none" },

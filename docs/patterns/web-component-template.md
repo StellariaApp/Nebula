@@ -1,22 +1,29 @@
 # Plantilla canónica del componente web
 
 > Extraída de los tres pilotos de W1.4 (Box, Text, Button). **Vinculante para W2–W4**.
-> Decisiones de fondo en [ADR-018](../adr/ADR-018-anatomia-componente-web-w14.md); anatomía en `docs/01-architecture.md` §4.
+> Decisiones de fondo en [ADR-018](../adr/ADR-018-anatomia-componente-web-w14.md) y [ADR-019](../adr/ADR-019-convenciones-de-codigo.md); anatomía en `docs/01-architecture.md` §4.
+
+## 0. Convenciones (ADR-019)
+
+- **Sin comentarios en el código.** Si algo necesita explicación, va en un `<Nombre>.md` junto al módulo.
+- **Naming**: hooks `camelCase` · funciones `PascalCase` (incluido el API público) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case`. Las props y los retornos de librerías conservan su nombre. Lo verifica `@typescript-eslint/naming-convention` en el gate `lint`.
+- **Componentes planos**, sin carpeta de categoría.
 
 ## 1. Estructura de archivos
 
 ```
-packages/web/src/components/<Categoría>/<Nombre>/
+packages/web/src/components/<Nombre>/
   <Nombre>.tsx            componente (forwardRef + displayName)
   <Nombre>.types.ts       contrato de props
   <Nombre>.css.ts         recipe() / style() — SOLO estructura
   <Nombre>.vars.css.ts    createVar() locales (si la variante es temable)
   use<Nombre>.ts          lógica extraída (opcional)
+  <Nombre>.md             el porqué de lo no evidente (opcional)
   __tests__/<Nombre>.test.tsx
   index.ts                re-exports públicos
 ```
 
-Y su story en `apps/playground-web/src/stories/<Categoría>/<Nombre>.stories.tsx` (nunca dentro de `packages/web`, que queda libre de dependencias de Storybook).
+Y su story en `apps/playground-web/src/stories/<Nombre>.stories.tsx` (nunca dentro de `packages/web`, que queda libre de dependencias de Storybook).
 
 Registrar el componente en `packages/web/src/index.ts` (valor + tipos) y añadir su entry a `size-limit` en `package.json`, apuntando **al módulo** (`dist/components/…/X.js`), no al barrel.
 
@@ -53,11 +60,11 @@ export const x = recipe({
 });
 
 // X.tsx — el tema decide el color en runtime
-const resolved = resolveVariant(variant, color, theme);
-const cssVars = assignInlineVars({ [bg]: resolved.background, [fg]: resolved.foreground });
+const resolved = ResolveVariant(variant, color, theme);
+const css_vars = assignInlineVars({ [bg]: resolved.background, [fg]: resolved.foreground });
 ```
 
-`resolveVariant` (`src/theme/resolve-variant.ts`) traduce las referencias serializables (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`) a **`var(...)` del contrato**, nunca a hex — así el cambio de tema oficial sigue repintando por CSS. Aplica además los guardrails del tema: `effects.glass.enabled` off degrada la variante glass, `motion.tier: "minimal"` desactiva la animación.
+`ResolveVariant` (`src/theme/resolve-variant.ts`) traduce las referencias serializables (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`) a **`var(...)` del contrato**, nunca a hex — así el cambio de tema oficial sigue repintando por CSS. Aplica además los guardrails del tema: `effects.glass.enabled` off degrada la variante glass, `motion.tier: "minimal"` desactiva la animación.
 
 **`@layer` es obligatorio en los estilos base** de cualquier componente que acepte style props:
 
@@ -86,9 +93,10 @@ Sin capa, la clase base gana a la clase atómica de sprinkles y **pisa silencios
 ## 3. Tipado (TS 7 estricto)
 
 - **Toda prop opcional pública declara `| undefined`** (`className?: string | undefined`). Con `exactOptionalPropertyTypes`, si no, el consumidor no puede escribir `className={cond ? "x" : undefined}`.
+- Los `<Nombre>.md` sustituyen a los comentarios: documenta ahí las trampas ya pisadas, no en el archivo.
 - Polimorfismo con prop **`component`** (ADR-018 §2): tipar `XOwnProps` + `XProps<C>` y castear el `forwardRef` a una interfaz llamable genérica.
 - Props que `motion` redefine (`onAnimationStart`, `onDrag*`) se excluyen del contrato con `Omit`.
-- Los casts en la frontera React Aria ↔ motion se documentan con comentario: sus tipos DOM son estructuralmente incompatibles por diseño.
+- Los casts en la frontera React Aria ↔ motion se explican en el `<Nombre>.md` del componente: sus tipos DOM son estructuralmente incompatibles por diseño.
 
 ## 4. Testing contract (ADR-015)
 

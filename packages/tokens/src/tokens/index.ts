@@ -10,7 +10,6 @@ export { breakpoints, radius, sizes, spacing, zIndex } from "./layout.js";
 export * from "./palettes.js";
 export { family, font, letterSpacing, lineHeight, size, weight } from "./typography.js";
 
-/** Agregado base: paletas 50–950 generadas por tools/palette-gen (ADR-009). */
 export const tokens = {
   animation,
   font,

@@ -1,7 +1,3 @@
-/**
- * Semillas de carácter: el paso 500 legacy de cada paleta de Stellaria
- * (colors.ts 100–900). Orientan hue/chroma — la curva la pone el generador.
- */
 import type { CurveProfile } from "./curves.ts";
 
 export interface SeedSpec {
@@ -11,8 +7,8 @@ export interface SeedSpec {
 }
 
 export const PALETTE_SEEDS: readonly SeedSpec[] = [
-  { name: "indigo", seed: "#6366f1", profile: "chromatic" },
-  { name: "violet", seed: "#8b5cf6", profile: "chromatic" },
+  { name: "indigo", seed: "#3F37C9", profile: "chromatic" },
+  { name: "violet", seed: "#9D4EDD", profile: "chromatic" },
   { name: "green", seed: "#10b981", profile: "chromatic" },
   { name: "yellow", seed: "#f59e0b", profile: "chromatic" },
   { name: "red", seed: "#ef4444", profile: "chromatic" },
@@ -29,9 +25,4 @@ export const PALETTE_SEEDS: readonly SeedSpec[] = [
   { name: "dark", seed: "#1c1c1c", profile: "surface-dark" },
 ];
 
-/**
- * Gray canónico: con 50–950 (extremos incluidos) una sola escala neutra sirve
- * a ambos schemes — los temas eligen extremos opuestos. Semilla: el gris frío
- * de Stellaria (gray.light 700).
- */
 export const GRAY_SEED: SeedSpec = { name: "gray", seed: "#868e96", profile: "chromatic" };

@@ -28,7 +28,6 @@ describe("Box", () => {
     );
     const box = screen.getByTestId("box");
     expect(box.className.length).toBeGreaterThan(0);
-    // Los tokens NO deben acabar como estilo inline (zero-runtime, ADR-002).
     expect(box.getAttribute("style")).toBeNull();
   });
 

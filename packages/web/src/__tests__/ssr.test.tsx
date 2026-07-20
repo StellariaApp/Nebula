@@ -1,4 +1,3 @@
-// @vitest-environment node
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
@@ -6,7 +5,6 @@ import { ColorSchemeScript } from "../provider/color-scheme-script.js";
 import { NebulaProvider } from "../provider/nebula-provider.js";
 import { themeClass } from "../theme/themes.css.js";
 
-// Entorno node (sin window/document): si el render tocara el DOM, lanzaría.
 describe("SSR (sin window)", () => {
   it("NebulaProvider renderiza a HTML con el tema por defecto sin reventar", () => {
     const html = renderToStaticMarkup(
@@ -14,8 +12,8 @@ describe("SSR (sin window)", () => {
         <span>hola</span>
       </NebulaProvider>,
     );
-    expect(html).toContain(themeClass["nebula-light"]);
-    expect(html).toContain('data-scheme="light"');
+    expect(html).toContain(themeClass["nebula-dark"]);
+    expect(html).toContain('data-scheme="dark"');
     expect(html).toContain("hola");
   });
 

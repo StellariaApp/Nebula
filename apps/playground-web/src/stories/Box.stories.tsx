@@ -65,7 +65,15 @@ export const Polymorphic: Story = {
 
 export const Flex: Story = {
   render: () => (
-    <Box display="flex" gap="sm" justify="space-between" align="center" p="sm" bg="surface.sunken" r="md">
+    <Box
+      display="flex"
+      gap="sm"
+      justify="space-between"
+      align="center"
+      p="sm"
+      bg="surface.sunken"
+      r="md"
+    >
       <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
         uno
       </Box>
@@ -79,9 +87,9 @@ export const Flex: Story = {
   ),
 };
 
-export const Dark: Story = {
+export const Light: Story = {
   ...StyleProps,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "nebula-light" },
 };
 
 export const ReducedMotion: Story = {

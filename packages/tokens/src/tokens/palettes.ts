@@ -1,38 +1,31 @@
-/**
- * Las 16 paletas base 50–950 (11 pasos, OKLCH — ADR-009).
- *
- * ARCHIVO GENERADO por tools/palette-gen — NO editar a mano:
- *   pnpm gen:palette regen
- * Semillas: paso 500 legacy de Stellaria (solo orientan hue/carácter).
- */
 import type { PaletteName, Scale11 } from "../theme/primitives.js";
 
 export const indigo = {
   50: "#f4f6ff",
-  100: "#e6eaff",
-  200: "#d1d8ff",
-  300: "#b5bfff",
-  400: "#8e9aff",
-  500: "#7076fb",
-  600: "#5a5be5",
-  700: "#4947c6",
-  800: "#3936a4",
-  900: "#2c2984",
-  950: "#1c195e",
+  100: "#e5eaff",
+  200: "#d0d9ff",
+  300: "#b4c0ff",
+  400: "#8c9bff",
+  500: "#6c76ff",
+  600: "#5555f3",
+  700: "#4541d3",
+  800: "#3630af",
+  900: "#2a258d",
+  950: "#1a1565",
 } as const satisfies Scale11;
 
 export const violet = {
-  50: "#f7f5ff",
-  100: "#ebe8ff",
-  200: "#dbd4ff",
-  300: "#c6b8ff",
-  400: "#a98fff",
-  500: "#9264ff",
-  600: "#7c45e8",
-  700: "#6831c9",
-  800: "#5422a7",
-  900: "#421987",
-  950: "#2c0b60",
+  50: "#f9f4ff",
+  100: "#f1e5ff",
+  200: "#e6d0ff",
+  300: "#d7b1ff",
+  400: "#bf86f5",
+  500: "#a85fe7",
+  600: "#9141d0",
+  700: "#7b2eb3",
+  800: "#632094",
+  900: "#4f1777",
+  950: "#360a54",
 } as const satisfies Scale11;
 
 export const green = {
@@ -231,10 +224,6 @@ export const dark = {
   950: "#333333",
 } as const satisfies Scale11;
 
-/**
- * Gray canónico (neutro frío, curva estándar): con extremos 50/950 una sola
- * escala sirve a ambos schemes — los temas eligen extremos opuestos.
- */
 export const gray = {
   50: "#f6f7f8",
   100: "#e9ebed",

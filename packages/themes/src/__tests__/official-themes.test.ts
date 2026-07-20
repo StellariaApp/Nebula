@@ -1,18 +1,14 @@
-/**
- * Criterio W1.1: los 4 temas oficiales validan contra themeSchema, y son DATOS
- * serializables (ADR-006) — el round-trip JSON debe ser sin pérdida.
- */
 import { describe, expect, it } from "vitest";
 
-import { loadTheme } from "../load-theme.js";
+import { LoadTheme } from "../load-theme.js";
 import { officialThemeNames, officialThemes } from "../themes/official.js";
 
 describe.each(officialThemeNames)("tema oficial %s", (name) => {
   const theme = officialThemes[name];
 
   it("valida contra themeSchema tras round-trip JSON, sin pérdida", () => {
-    const roundTripped: unknown = JSON.parse(JSON.stringify(theme));
-    expect(loadTheme(roundTripped)).toEqual(theme);
+    const round_tripped: unknown = JSON.parse(JSON.stringify(theme));
+    expect(LoadTheme(round_tripped)).toEqual(theme);
   });
 
   it("meta.name coincide con la clave del registro", () => {

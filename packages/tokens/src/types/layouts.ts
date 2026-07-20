@@ -32,7 +32,8 @@ export type FlexProps = {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   wrap?: "nowrap" | "wrap" | "wrap-reverse" | boolean;
   align?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
-  justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+  justify?:
+    "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
   grow?: number | boolean;
   shrink?: number | boolean;
   basis?: number | "auto" | (string & Record<never, never>);

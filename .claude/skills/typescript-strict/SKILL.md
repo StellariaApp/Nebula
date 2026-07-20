@@ -5,6 +5,21 @@ description: Reglas de type-safety extremo de Nebula — presupuesto de any, pat
 
 # TypeScript estricto en Nebula
 
+## Convenciones de código (ADR-019, verificadas por lint)
+
+| Elemento                              | Convención                                   |
+| ------------------------------------- | -------------------------------------------- |
+| Hooks                                 | `camelCase` (`useTheme`)                     |
+| Funciones, incluido el API público    | `PascalCase` (`LoadTheme`, `ResolveVariant`) |
+| Componentes                           | `PascalCase`                                 |
+| Constantes globales                   | `UPPERCASE`                                  |
+| Constantes locales que declaras tú    | `snake_case` (`is_disabled`)                 |
+| Props del API y retornos de librerías | se conservan (`leftSection`, `buttonProps`)  |
+
+**Sin comentarios en el código**: si algo necesita explicarse, va en un `<Nombre>.md` junto al módulo. Los nombres de props no cambian nunca — son el contrato compartido con native y el JSON de los temas.
+
+`@typescript-eslint/naming-convention` lo hace cumplir en el gate `lint`; no depende de revisión manual.
+
 ## Reglas
 
 - Presupuesto de `any`: **0** en tokens/hooks/themes/icons; en web/native solo fronteras de framework documentadas con comentario (herencia Stellaria: `CreateAnimated` ×4 y similares).

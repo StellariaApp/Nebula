@@ -99,9 +99,9 @@ export const Alignment: Story = {
   ),
 };
 
-export const Dark: Story = {
+export const Light: Story = {
   ...Colors,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "nebula-light" },
 };
 
 export const ReducedMotion: Story = {

@@ -1,6 +1,7 @@
 # 02 — Sistema de temas dual (Web + Native)
 
-> Decisiones: TS-first + temas JSON (C2-Q2), escala 50–950 (C2-Q4), Geist como tipografía default, indigo/violet como tema default (decisión cerrada de Stellaria), glass/blur/gradients como tokens con guardrails.
+> Decisiones: TS-first + temas JSON (C2-Q2), escala 50–950 (C2-Q4), Geist como tipografía default, indigo/violet como tema default, glass/blur/gradients como tokens con guardrails.
+> **Identidad (ADR-020)**: el eje cromático de Nebula es `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet` en `tools/palette-gen/src/seeds.ts`) y el scheme por defecto es oscuro.
 
 ## 1. Modelo mental
 
@@ -81,12 +82,12 @@ Puntos clave:
 
 ## 3. Temas oficiales (`@stellaria/nebula-themes`)
 
-| Tema | Propósito |
-|---|---|
-| `nebula-light` / `nebula-dark` | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on (decisión Stellaria) |
-| `sober-light` / `sober-dark` | Demostración: radius mínimo, densidad compacta, motion minimal, sin glass — banca/enterprise |
-| `playful` | Demostración: radius full, densidad comfortable, motion expressive, gradients agresivos |
-| (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria) |
+| Tema                                       | Propósito                                                                                                                                                                             |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `nebula-light` / `nebula-dark`             | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`nebula-dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
+| `sober-light` / `sober-dark`               | Demostración: radius mínimo, densidad compacta, motion minimal, sin glass — banca/enterprise                                                                                          |
+| `playful`                                  | Demostración: radius full, densidad comfortable, motion expressive, gradients agresivos                                                                                               |
+| (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                                     |
 
 Los tres presets demostrativos son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
 
@@ -106,10 +107,10 @@ Los tres presets demostrativos son parte del criterio de aceptación del theming
 
 ## 6. Gaps a resolver en la migración (desde Stellaria)
 
-| Gap | Acción |
-|---|---|
-| No existen tokens `gradient.*` (docs los asumen) | Crear `effects.gradients` en el contrato (ver §2) |
+| Gap                                                     | Acción                                                                                          |
+| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| No existen tokens `gradient.*` (docs los asumen)        | Crear `effects.gradients` en el contrato (ver §2)                                               |
 | `glass.border`/`glass.noise` inconsistentes docs↔código | Contrato final: `glass.surface.* + noiseOpacity` (lo real) + `border` dentro de la receta glass |
-| Escala 100–900 implementada | Regenerar a 50–950 con palette-gen |
-| Web theme = clases VE vacías | Implementar `createThemeContract` + materialización de temas |
-| Colores semánticos planos (`success = green`) | Roles semánticos completos (§2.1) con sub-roles de superficie/texto/borde |
+| Escala 100–900 implementada                             | Regenerar a 50–950 con palette-gen                                                              |
+| Web theme = clases VE vacías                            | Implementar `createThemeContract` + materialización de temas                                    |
+| Colores semánticos planos (`success = green`)           | Roles semánticos completos (§2.1) con sub-roles de superficie/texto/borde                       |

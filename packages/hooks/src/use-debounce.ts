@@ -1,51 +1,42 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- * Devuelve `value` con un retraso de `delay` ms tras el último cambio.
- * Migrado de Stellaria (platform-agnostic: solo React + timers universales).
- */
 export function useDebounce<T>(value: T, delay = 500): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debounced_value, set_debounced_value] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedValue(value);
+      set_debounced_value(value);
     }, delay);
     return () => {
       clearTimeout(timer);
     };
   }, [value, delay]);
 
-  return debouncedValue;
+  return debounced_value;
 }
 
-/**
- * Versión callback: devuelve una función estable que ejecuta `callback` una vez
- * transcurridos `delay` ms desde la última invocación. La referencia al callback
- * se mantiene fresca sin recrear el debouncer.
- */
 export function useDebouncedCallback<Args extends unknown[]>(
   callback: (...args: Args) => void,
   delay = 500,
 ): (...args: Args) => void {
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const callbackRef = useRef(callback);
+  const timer_ref = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const callback_ref = useRef(callback);
 
   useEffect(() => {
-    callbackRef.current = callback;
+    callback_ref.current = callback;
   }, [callback]);
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timer_ref.current) clearTimeout(timer_ref.current);
     };
   }, []);
 
   return useCallback(
     (...args: Args) => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => {
-        callbackRef.current(...args);
+      if (timer_ref.current) clearTimeout(timer_ref.current);
+      timer_ref.current = setTimeout(() => {
+        callback_ref.current(...args);
       }, delay);
     },
     [delay],

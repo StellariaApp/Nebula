@@ -4,21 +4,22 @@
 
 Nebula es una librería UI universal **Web + React Native** (~213 componentes canónicos en v1) con API unificada por componente: los contratos viven en `@stellaria/nebula-tokens` y cada plataforma implementa solo la capa visual. La personalización entre productos radicalmente distintos se logra **exclusivamente vía temas** (`NebulaTheme`), nunca con forks. Se construye completa antes de migrar a sus consumidores (fonicredito, tfv); el código semilla es Stellaria (`C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend`).
 
-**Estado**: F0 (scaffold y fundaciones) cerrado — ver `docs/f0-closure.md`. Siguiente: F1 (theming dual + playgrounds).
+**Estado**: F0 cerrado (`docs/f0-closure.md`) y W1 cerrado (`docs/w1-closure.md`): theming web, playground Storybook con gates a11y/size, y los pilotos Box/Text/Button. Siguiente: W2 (Tier 1 web).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
-| Doc | Contenido |
-|---|---|
-| `docs/00-inventory.md` | Matriz de alcance: catálogos + componentes por app consumidora |
-| `docs/01-architecture.md` | Monorepo, grafo de deps, stack verificado, anatomía de componente, política de deps (§8) |
-| `docs/02-theming.md` | Contrato `NebulaTheme` (§2), temas oficiales, runtime dual, spec del Theme Creator |
-| `docs/03-a11y-motion-performance.md` | Contrato a11y por componente, reglas de motion, budgets, gates de CI (§4) |
-| `docs/04-migration-map.md` | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps |
-| `docs/05-roadmap.md` | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes |
-| `docs/adr/ADR-001…015` | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR** |
-| `docs/api/*.md` | Estado real de los repos fuente (anexos A/B/C) |
-| `prompts/` | Prompts de ejecución por fase |
+| Doc                                       | Contenido                                                                                |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `docs/00-inventory.md`                    | Matriz de alcance: catálogos + componentes por app consumidora                           |
+| `docs/01-architecture.md`                 | Monorepo, grafo de deps, stack verificado, anatomía de componente, política de deps (§8) |
+| `docs/02-theming.md`                      | Contrato `NebulaTheme` (§2), temas oficiales, runtime dual, spec del Theme Creator       |
+| `docs/03-a11y-motion-performance.md`      | Contrato a11y por componente, reglas de motion, budgets, gates de CI (§4)                |
+| `docs/04-migration-map.md`                | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps                     |
+| `docs/05-roadmap.md`                      | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes                        |
+| `docs/patterns/web-component-template.md` | **Plantilla canónica del componente web** — obligatoria al escribir cualquier componente |
+| `docs/adr/ADR-001…020`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
+| `docs/api/*.md`                           | Estado real de los repos fuente (anexos A/B/C)                                           |
+| `prompts/`                                | Prompts de ejecución por fase                                                            |
 
 ## Comandos
 
@@ -30,6 +31,17 @@ pnpm gen:palette regen             # regenera las 16 paletas 50-950 (escribe en 
 pnpm gen:palette from "#hex" --name x
 pnpm format                        # prettier
 ```
+
+## Convenciones de código (ADR-019 — verificadas por lint)
+
+- **Sin comentarios en el código.** Lo que necesite explicación va en un `<Nombre>.md` junto al módulo (`packages/web/src/components/Button/Button.md`).
+- **Naming**: hooks `camelCase` · funciones `PascalCase` incluido el API público (`LoadTheme`, `ResolveVariant`) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case`. Props del API y retornos de librerías conservan su nombre.
+- **Componentes planos**: `packages/web/src/components/<Nombre>/`, sin carpeta de categoría.
+- Simple y reutilizable; el código debe ser autoexplicativo.
+
+## Identidad visual (ADR-020)
+
+Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `nebula-dark` es el tema por defecto del provider y del playground. Cambiar las semillas cambia la identidad de los 4 temas.
 
 ## Particularidades técnicas (te ahorran sorpresas)
 

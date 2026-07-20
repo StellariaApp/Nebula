@@ -14,7 +14,7 @@ const REDUCED_MOTION_CSS =
   "*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}";
 
 const withTheme: Decorator = (Story, context) => {
-  const { theme = "nebula-light", reducedMotion = "no-preference" } = context.globals as {
+  const { theme = "nebula-dark", reducedMotion = "no-preference" } = context.globals as {
     theme?: OfficialThemeName;
     reducedMotion?: "reduce" | "no-preference";
   };
@@ -38,7 +38,7 @@ const withTheme: Decorator = (Story, context) => {
 const preview: Preview = {
   decorators: [withTheme],
   initialGlobals: {
-    theme: "nebula-light",
+    theme: "nebula-dark",
     reducedMotion: "no-preference",
   },
   globalTypes: {

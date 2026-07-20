@@ -9,12 +9,11 @@ import { useTheme } from "../theme/use-theme.js";
 
 afterEach(cleanup);
 
-/** Doble mínimo: useTheme solo lee identidad + themeName del contexto. */
 const fakeTheme = {
   meta: { name: "nebula-light", scheme: "light", version: "0.0.0" },
 } as unknown as NebulaTheme;
 
-function makeWrapper(value: ThemeContextValue) {
+function MakeWrapper(value: ThemeContextValue) {
   return function Wrapper({ children }: { children: ReactNode }) {
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
   };
@@ -29,7 +28,7 @@ describe("useTheme", () => {
       scheme: "light",
       systemScheme: "light",
     };
-    const { result } = renderHook(() => useTheme(), { wrapper: makeWrapper(value) });
+    const { result } = renderHook(() => useTheme(), { wrapper: MakeWrapper(value) });
 
     expect(result.current.themeName).toBe("nebula-light");
     expect(result.current.scheme).toBe("light");

@@ -12,7 +12,7 @@ interface MemoryStorage extends ThemeStorage {
   data: Record<string, string>;
 }
 
-function makeMemoryStorage(initial: Record<string, string> = {}): MemoryStorage {
+function MakeMemoryStorage(initial: Record<string, string> = {}): MemoryStorage {
   const data: Record<string, string> = { ...initial };
   return {
     data,
@@ -41,7 +41,7 @@ function Switcher() {
 
 describe("persistencia inyectable", () => {
   it("setTheme escribe el tema en el storage inyectado", () => {
-    const storage = makeMemoryStorage();
+    const storage = MakeMemoryStorage();
     const { getByTestId } = render(
       <NebulaProvider storage={storage} storageKey="k">
         <Switcher />
@@ -57,7 +57,7 @@ describe("persistencia inyectable", () => {
   });
 
   it("aplica el tema persistido al montar", () => {
-    const storage = makeMemoryStorage({ k: "nebula-dark" });
+    const storage = MakeMemoryStorage({ k: "nebula-dark" });
     const { container } = render(
       <NebulaProvider storage={storage} storageKey="k" defaultTheme="nebula-light">
         <span>x</span>

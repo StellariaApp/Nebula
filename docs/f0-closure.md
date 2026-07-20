@@ -14,13 +14,13 @@
 
 ## Gate verificado comando por comando
 
-| Comando | Resultado | Evidencia |
-|---|---|---|
-| `pnpm install` | ✅ limpio | lockfile estable, sin peer errors bloqueantes; pnpm self-managed a 11.13.0 |
-| `pnpm turbo build typecheck lint --force` | ✅ **22/22 tareas** | 6 paquetes core (build+typecheck+lint) + 2 tools (typecheck+lint), 9.6s sin caché |
-| `pnpm turbo check:contrast --force` | ✅ **28/28 pares PASS** | texto/superficies 4.5:1, semánticos 700, hover filled, focus ≥3:1 ×4 superficies; camino negativo verificado (FAIL → sugerencia + exit 1) |
-| `pnpm gen:palette from "#0ea5e9" --name sky` | ✅ | demo documentada en tools/README.md |
-| Contingencia TS | ✅ documentada | ADR-012: tsc 7.0.2 por paquete / lint 5.9.3 raíz, verificado con regla tipada disparando |
+| Comando                                      | Resultado               | Evidencia                                                                                                                                 |
+| -------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm install`                               | ✅ limpio               | lockfile estable, sin peer errors bloqueantes; pnpm self-managed a 11.13.0                                                                |
+| `pnpm turbo build typecheck lint --force`    | ✅ **22/22 tareas**     | 6 paquetes core (build+typecheck+lint) + 2 tools (typecheck+lint), 9.6s sin caché                                                         |
+| `pnpm turbo check:contrast --force`          | ✅ **28/28 pares PASS** | texto/superficies 4.5:1, semánticos 700, hover filled, focus ≥3:1 ×4 superficies; camino negativo verificado (FAIL → sugerencia + exit 1) |
+| `pnpm gen:palette from "#0ea5e9" --name sky` | ✅                      | demo documentada en tools/README.md                                                                                                       |
+| Contingencia TS                              | ✅ documentada          | ADR-012: tsc 7.0.2 por paquete / lint 5.9.3 raíz, verificado con regla tipada disparando                                                  |
 
 **Veredicto: GATE DE F0 EN VERDE.** F1 puede abrirse.
 

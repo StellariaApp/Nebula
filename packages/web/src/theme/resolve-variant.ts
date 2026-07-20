@@ -1,17 +1,3 @@
-/**
- * Resolver de `VariantRecipe` → valores CSS (ADR-018 §3).
- *
- * El `variantMap` es data NO-CSS del theme (ADR-016): vive en el objeto JS y por
- * tanto no puede hornearse en el `recipe()` de Vanilla Extract, que se resuelve en
- * build. Este módulo traduce las referencias serializables de una receta
- * (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`…) a valores CSS
- * que los componentes asignan a sus vars locales con `assignInlineVars`.
- *
- * Regla clave: las referencias a escala se resuelven a **`var(...)` del contrato**,
- * nunca a hex. Así, cambiar de tema oficial (cambio de clase CSS) repinta sin JS;
- * solo se recalcula cuando cambia la receta en sí (p.ej. `playful` pinta `filled`
- * con gradiente).
- */
 import type {
   GradientToken,
   NebulaTheme,
@@ -24,7 +10,6 @@ import type {
 
 import { vars } from "./contract.css.js";
 
-/** Escala semántica que resuelve las referencias `scale.*` de la receta. */
 export type ColorScale = SemanticScaleName;
 
 const SHADES = [
@@ -43,9 +28,10 @@ const SHADES = [
 
 type Shade = (typeof SHADES)[number];
 
-type ScaleVars = Record<Shade, string>;
+const TRANSPARENT_HOVER = "scale.500.10" as VariantBackground;
+const TRANSPARENT_ACTIVE = "scale.500.16" as VariantBackground;
 
-function scaleVarsFor(scale: ColorScale): ScaleVars {
+function ScaleVarsFor(scale: ColorScale): Record<Shade, string> {
   switch (scale) {
     case "primary":
       return vars.color.primary;
@@ -64,37 +50,33 @@ function scaleVarsFor(scale: ColorScale): ScaleVars {
   }
 }
 
-function isShade(value: string): value is Shade {
+function IsShade(value: string): value is Shade {
   return (SHADES as readonly string[]).includes(value);
 }
 
-/** Aplica alpha (0–100) a una var sin conocer su valor concreto. */
-function withAlpha(color: string, alphaPercent: number): string {
+function WithAlpha(color: string, alphaPercent: number): string {
   return `color-mix(in srgb, ${color} ${String(alphaPercent)}%, transparent)`;
 }
 
-function gradientCss(token: GradientToken): string {
-  const stops = token.stops
-    .map((stop) => `${stop.color} ${String(stop.position)}%`)
-    .join(", ");
+function GradientCss(token: GradientToken): string {
+  const stops = token.stops.map((stop) => `${stop.color} ${String(stop.position)}%`).join(", ");
   return token.type === "linear"
     ? `linear-gradient(${String(token.angle)}deg, ${stops})`
     : `radial-gradient(circle at 50% 50%, ${stops})`;
 }
 
-/** Traduce una referencia de color de la receta a un valor CSS. */
-export function resolveColorRef(ref: VariantColorRef, scale: ColorScale): string {
+export function ResolveColorRef(ref: VariantColorRef, scale: ColorScale): string {
   if (ref === "transparent" || ref === "currentColor") return ref;
 
   const [group, key, alpha] = ref.split(".");
   if (group === undefined || key === undefined) return "transparent";
 
   if (group === "scale") {
-    if (!isShade(key)) return "transparent";
-    const color = scaleVarsFor(scale)[key];
+    if (!IsShade(key)) return "transparent";
+    const color = ScaleVarsFor(scale)[key];
     if (alpha === undefined) return color;
     const parsed = Number(alpha);
-    return Number.isFinite(parsed) ? withAlpha(color, parsed) : color;
+    return Number.isFinite(parsed) ? WithAlpha(color, parsed) : color;
   }
   if (group === "surface") {
     return vars.color.surface[key as keyof typeof vars.color.surface] ?? "transparent";
@@ -108,28 +90,18 @@ export function resolveColorRef(ref: VariantColorRef, scale: ColorScale): string
   return "transparent";
 }
 
-function resolveBackground(
-  ref: VariantBackground,
-  scale: ColorScale,
-  theme: NebulaTheme,
-): string {
+function ResolveBackground(ref: VariantBackground, scale: ColorScale, theme: NebulaTheme): string {
   if (ref.startsWith("gradient.")) {
     const role = ref.slice("gradient.".length);
     const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
-    return token === undefined ? "transparent" : gradientCss(token);
+    return token === undefined ? "transparent" : GradientCss(token);
   }
-  return resolveColorRef(ref as VariantColorRef, scale);
+  return ResolveColorRef(ref as VariantColorRef, scale);
 }
 
-/**
- * Deriva el color de un estado interactivo desplazando la escala.
- * - `scale.N` → `scale.N±step` (el paso 600→700 de hover es el que valida
- *   `tools/contrast-check`, par "filled:hover").
- * - superficies translúcidas/transparentes → tinte de la escala activa.
- */
-function shiftRef(ref: VariantBackground, steps: number): VariantBackground {
+function ShiftRef(ref: VariantBackground, steps: number): VariantBackground {
   const [group, key, alpha] = ref.split(".");
-  if (group !== "scale" || key === undefined || !isShade(key)) return ref;
+  if (group !== "scale" || key === undefined || !IsShade(key)) return ref;
   const index = SHADES.indexOf(key);
   const next = SHADES[Math.min(SHADES.length - 1, Math.max(0, index + steps))];
   if (next === undefined) return ref;
@@ -142,76 +114,57 @@ export interface ResolvedVariant {
   backgroundActive: string;
   foreground: string;
   borderColor: string;
-  /** `0` cuando la receta declara `border: "none"`. */
   borderWidth: string;
-  /** Recetas glass ya resueltas, o `undefined` si el tema tiene glass off. */
   backdropFilter: string;
   glassBorder: string;
-  /** Sombra de halo para la variante `glow`, o `"none"`. */
   glow: string;
-  /** El tema desactiva el spring cuando `motion.tier === "minimal"`. */
   animated: boolean;
 }
 
-/**
- * Resuelve la receta de una variante en el tema activo, aplicando los guardrails
- * del theme: `effects.glass.enabled` off degrada `glass` a superficie sólida y
- * `motion.tier: "minimal"` desactiva la animación de press.
- */
-export function resolveVariant(
+const UNSTYLED: ResolvedVariant = {
+  background: "transparent",
+  backgroundHover: "transparent",
+  backgroundActive: "transparent",
+  foreground: "currentColor",
+  borderColor: "transparent",
+  borderWidth: "0",
+  backdropFilter: "none",
+  glassBorder: "transparent",
+  glow: "none",
+  animated: false,
+};
+
+export function ResolveVariant(
   variant: Variant,
   scale: ColorScale,
   theme: NebulaTheme,
 ): ResolvedVariant {
+  if (variant === "unstyled") return UNSTYLED;
+
   const recipe: VariantRecipe = theme.variantMap[variant];
-  const animated = theme.motion.tier !== "minimal";
+  const glass_on = theme.effects.glass.enabled && recipe.glass !== undefined;
+  const glass_recipe = vars.glass[recipe.glass ?? "default"];
+  const is_transparent = recipe.background === "transparent";
 
-  if (variant === "unstyled") {
-    return {
-      background: "transparent",
-      backgroundHover: "transparent",
-      backgroundActive: "transparent",
-      foreground: "currentColor",
-      borderColor: "transparent",
-      borderWidth: "0",
-      backdropFilter: "none",
-      glassBorder: "transparent",
-      glow: "none",
-      animated: false,
-    };
-  }
-
-  const glassOn = theme.effects.glass.enabled && recipe.glass !== undefined;
-  const glassLevel = recipe.glass ?? "default";
-  const glassRecipe = vars.glass[glassLevel];
-
-  // Fondo transparente (ghost/outline): el hover se insinúa con un tinte de la
-  // escala activa en vez de desplazar un paso inexistente.
-  const isTransparent = recipe.background === "transparent";
-  const hoverRef = isTransparent
-    ? (`scale.500.10` as VariantBackground)
-    : shiftRef(recipe.background, 1);
-  const activeRef = isTransparent
-    ? (`scale.500.16` as VariantBackground)
-    : shiftRef(recipe.background, 2);
+  const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, 1);
+  const active_ref = is_transparent ? TRANSPARENT_ACTIVE : ShiftRef(recipe.background, 2);
 
   return {
-    background: glassOn
-      ? glassRecipe.background
-      : resolveBackground(recipe.background, scale, theme),
-    backgroundHover: glassOn
-      ? glassRecipe.background
-      : resolveBackground(hoverRef, scale, theme),
-    backgroundActive: glassOn
-      ? glassRecipe.background
-      : resolveBackground(activeRef, scale, theme),
-    foreground: resolveColorRef(recipe.foreground, scale),
-    borderColor:
-      recipe.border === "none" ? "transparent" : resolveColorRef(recipe.border, scale),
+    background: glass_on
+      ? glass_recipe.background
+      : ResolveBackground(recipe.background, scale, theme),
+    backgroundHover: glass_on
+      ? glass_recipe.background
+      : ResolveBackground(hover_ref, scale, theme),
+    backgroundActive: glass_on
+      ? glass_recipe.background
+      : ResolveBackground(active_ref, scale, theme),
+    foreground: ResolveColorRef(recipe.foreground, scale),
+    borderColor: recipe.border === "none" ? "transparent" : ResolveColorRef(recipe.border, scale),
     borderWidth: recipe.border === "none" ? "0" : "1px",
-    backdropFilter: glassOn ? glassRecipe.backdropFilter : "none",
-    glassBorder: glassOn ? glassRecipe.border : "none",
+    backdropFilter: glass_on ? glass_recipe.backdropFilter : "none",
+    glassBorder: glass_on ? glass_recipe.border : "none",
     glow: recipe.glow === undefined ? "none" : vars.shadow[recipe.glow],
-    animated,
+    animated: theme.motion.tier !== "minimal",
   };
 }

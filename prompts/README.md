@@ -15,22 +15,22 @@ prompts/
 
 ## Índice
 
-| Etapa | Fase | Archivo | Contenido | Prompts |
-|---|---|---|---|---|
-| 1. Fundaciones | F0 | [1-fundaciones/F0-prompts.md](1-fundaciones/F0-prompts.md) | Scaffold + spike TS7 *(✅ 2026-07-15)* + tokens + tools + gobernanza | 4 |
-| 2. Web | W1 | [2-web/W1-prompts.md](2-web/W1-prompts.md) | Themes + runtime web + playground + piloto de anatomía | 4 |
-| | W2 | [2-web/W2-prompts.md](2-web/W2-prompts.md) | Tier 1 (foundation → nav core) | 5 |
-| | W3 | [2-web/W3-prompts.md](2-web/W3-prompts.md) | Tier 2 (inputs completos, patterns, DataGrid, charts, CardComplex ⚠️checkpoint) | 5 |
-| | W4 | [2-web/W4-prompts.md](2-web/W4-prompts.md) | Tier 3 (effects, DnD, rich content) | 4 |
-| | W5 | [2-web/W5-prompts.md](2-web/W5-prompts.md) | **Publicación web v1** 🚀 (⚠️ confirmar licencia/visibilidad) | 2 |
-| | W6 | [2-web/W6-prompts.md](2-web/W6-prompts.md) | Premium web: registry privado + commerce/sales/payments/people/maps | 3 |
-| 3. Theme Creator | TC | [3-theme-creator/TC-prompts.md](3-theme-creator/TC-prompts.md) | MVP → AA en vivo → catálogo completo + temas fonicredito/tfv-gold | 3 |
-| 4. Native | N1 | [4-native/N1-prompts.md](4-native/N1-prompts.md) | Runtime native + migración 39 de Stellaria + Tier 1 + lint de paridad | 4 |
-| | N2 | [4-native/N2-prompts.md](4-native/N2-prompts.md) | Tier 2 + TabBar adapter + native-camera | 3 |
-| | N3 | [4-native/N3-prompts.md](4-native/N3-prompts.md) | Tier 3 (LiquidGlass v2, shaders, charts) | 3 |
-| | N4 | [4-native/N4-prompts.md](4-native/N4-prompts.md) | **Publicación native v1** 🚀 | 1 |
-| | N5 | [4-native/N5-prompts.md](4-native/N5-prompts.md) | Premium native (paridad con W6) + cierre premium | 2 |
-| 5. Review | R | [5-review/R-prompts.md](5-review/R-prompts.md) | Gate de migración: re-verificación + planes/codemods fonicredito y tfv | 2 |
+| Etapa            | Fase | Archivo                                                        | Contenido                                                                       | Prompts |
+| ---------------- | ---- | -------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------- |
+| 1. Fundaciones   | F0   | [1-fundaciones/F0-prompts.md](1-fundaciones/F0-prompts.md)     | Scaffold + spike TS7 _(✅ 2026-07-15)_ + tokens + tools + gobernanza            | 4       |
+| 2. Web           | W1   | [2-web/W1-prompts.md](2-web/W1-prompts.md)                     | Themes + runtime web + playground + piloto de anatomía                          | 4       |
+|                  | W2   | [2-web/W2-prompts.md](2-web/W2-prompts.md)                     | Tier 1 (foundation → nav core)                                                  | 5       |
+|                  | W3   | [2-web/W3-prompts.md](2-web/W3-prompts.md)                     | Tier 2 (inputs completos, patterns, DataGrid, charts, CardComplex ⚠️checkpoint) | 5       |
+|                  | W4   | [2-web/W4-prompts.md](2-web/W4-prompts.md)                     | Tier 3 (effects, DnD, rich content)                                             | 4       |
+|                  | W5   | [2-web/W5-prompts.md](2-web/W5-prompts.md)                     | **Publicación web v1** 🚀 (⚠️ confirmar licencia/visibilidad)                   | 2       |
+|                  | W6   | [2-web/W6-prompts.md](2-web/W6-prompts.md)                     | Premium web: registry privado + commerce/sales/payments/people/maps             | 3       |
+| 3. Theme Creator | TC   | [3-theme-creator/TC-prompts.md](3-theme-creator/TC-prompts.md) | MVP → AA en vivo → catálogo completo + temas fonicredito/tfv-gold               | 3       |
+| 4. Native        | N1   | [4-native/N1-prompts.md](4-native/N1-prompts.md)               | Runtime native + migración 39 de Stellaria + Tier 1 + lint de paridad           | 4       |
+|                  | N2   | [4-native/N2-prompts.md](4-native/N2-prompts.md)               | Tier 2 + TabBar adapter + native-camera                                         | 3       |
+|                  | N3   | [4-native/N3-prompts.md](4-native/N3-prompts.md)               | Tier 3 (LiquidGlass v2, shaders, charts)                                        | 3       |
+|                  | N4   | [4-native/N4-prompts.md](4-native/N4-prompts.md)               | **Publicación native v1** 🚀                                                    | 1       |
+|                  | N5   | [4-native/N5-prompts.md](4-native/N5-prompts.md)               | Premium native (paridad con W6) + cierre premium                                | 2       |
+| 5. Review        | R    | [5-review/R-prompts.md](5-review/R-prompts.md)                 | Gate de migración: re-verificación + planes/codemods fonicredito y tfv          | 2       |
 
 ## Reglas de uso
 

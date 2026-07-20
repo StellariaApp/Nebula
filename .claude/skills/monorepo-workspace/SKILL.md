@@ -20,6 +20,7 @@ description: Cómo crear o mover paquetes/apps/tools en el workspace de Nebula s
 - [ ] Imports relativos con **especificador ESM explícito** (`./x.js`, `./dir/index.js`) — el dist debe ser ejecutable por Node sin bundler.
 - [ ] Deps internas con `workspace:*` respetando el grafo de docs/01 §2.
 - [ ] `src/index.ts` como único entrypoint público + README.
+- [ ] Convenciones de ADR-019: componentes planos (sin carpeta de categoría), sin comentarios en el código (usar `<Nombre>.md` junto al módulo) y naming hooks/funciones/constantes según la skill `typescript-strict`.
 
 ## Anti-patterns
 

@@ -17,15 +17,15 @@ pnpm check:contrast               # si tocaste tokens, themes o el contrato Nebu
 
 ## Gates de CI por fase (docs/03 §4 — se activan al montar cada pieza)
 
-| Gate | Qué valida | Herramienta | Desde |
-|---|---|---|---|
-| axe sobre stories | 0 violaciones a11y en TODAS las stories web | @storybook/addon-a11y + test-runner | F1 |
-| Contrast check | pares texto/superficie y estados AA de cada tema oficial | `tools/contrast-check` | **F0 (activo)** |
-| Keyboard tests | Tab/flechas/Esc/Enter en overlays, menús, combobox, tabs | Storybook play functions | F2 |
-| Reduced motion | fallbacks con `prefers-reduced-motion` / mock `ReduceMotion` | stories parametrizadas | F2 |
-| Bundle budget | primitivos ≤5 kB · compuestos ≤15 kB · patterns ≤35 kB gzip | size-limit por entry | F1 |
-| Native a11y | props `accessibility*` por contrato | lint + RNTL | F2 |
-| Tests unit/interaction | testing contract por componente (ADR-015) | Vitest/RTL + Jest/RNTL | F2 |
+| Gate                   | Qué valida                                                   | Herramienta                         | Desde           |
+| ---------------------- | ------------------------------------------------------------ | ----------------------------------- | --------------- |
+| axe sobre stories      | 0 violaciones a11y en TODAS las stories web                  | @storybook/addon-a11y + test-runner | F1              |
+| Contrast check         | pares texto/superficie y estados AA de cada tema oficial     | `tools/contrast-check`              | **F0 (activo)** |
+| Keyboard tests         | Tab/flechas/Esc/Enter en overlays, menús, combobox, tabs     | Storybook play functions            | F2              |
+| Reduced motion         | fallbacks con `prefers-reduced-motion` / mock `ReduceMotion` | stories parametrizadas              | F2              |
+| Bundle budget          | primitivos ≤5 kB · compuestos ≤15 kB · patterns ≤35 kB gzip  | size-limit por entry                | F1              |
+| Native a11y            | props `accessibility*` por contrato                          | lint + RNTL                         | F2              |
+| Tests unit/interaction | testing contract por componente (ADR-015)                    | Vitest/RTL + Jest/RNTL              | F2              |
 
 ## Gate de documentación
 

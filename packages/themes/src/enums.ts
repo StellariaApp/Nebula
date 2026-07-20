@@ -1,9 +1,3 @@
-/**
- * Espejos runtime de las uniones del contrato NebulaTheme (en nebula-tokens son
- * solo tipos — cero runtime, ADR-014). `enumValues` fuerza en compile-time que
- * cada tupla cubra la unión COMPLETA: ampliar el contrato rompe aquí hasta
- * espejar el nuevo miembro, manteniendo el Zod schema sincronizado (ADR-006).
- */
 import type {
   BlurLevel,
   BorderRole,
@@ -33,7 +27,6 @@ import type {
   ZIndexName,
 } from "@stellaria/nebula-tokens";
 
-/** Tupla literal validada contra la unión `Union` (error de compilación si falta un miembro). */
 export const enumValues =
   <Union extends string>() =>
   <const Values extends readonly Union[]>(

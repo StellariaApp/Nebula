@@ -1,12 +1,3 @@
-/**
- * `themeSchema` — Zod 4 derivado del contrato NebulaTheme (ADR-006). zod es
- * dependencia SOLO de este paquete (ADR-014). Valida ESTRUCTURA y rangos; el
- * cumplimiento AA de los valores de color lo valida tools/contrast-check
- * (docs/03 §4.2) — el schema no interpreta colores.
- *
- * Objetos `strict`: una clave desconocida es un error (típicamente un typo del
- * autor del tema o un tema de una versión futura del contrato).
- */
 import { paletteNames } from "@stellaria/nebula-tokens";
 import { z } from "zod";
 
@@ -39,13 +30,9 @@ import {
   zIndexNames,
 } from "./enums.js";
 
-/** Color CSS serializado (hex/rgb/oklch…): el formato lo interpreta culori en el gate AA. */
 const colorValue = z.string().min(1);
 
-/** Escala cromática 50–950 completa (ADR-009): record exhaustivo por paso. */
 const scale11 = z.record(z.enum(colorShades), colorValue);
-
-// ── Refs de VariantRecipe (1:1 con types/variants.ts) ────────────────────────
 
 const scaleRef = z.templateLiteral(["scale.", z.enum(colorShades)]);
 
@@ -80,21 +67,16 @@ const variantRecipe = z.strictObject({
   glow: z.enum(shadowLevels).optional(),
 });
 
-// ── Secciones ────────────────────────────────────────────────────────────────
-
 const meta = z.strictObject({
   name: z.string().min(1),
   scheme: z.enum(colorSchemes),
   version: z.string().min(1),
 });
 
-/**
- * Las 16 paletas base accesibles por nombre dentro de `colors` (`colors.teal`…).
- * Se derivan de `paletteNames` para no duplicar la lista del contrato.
- */
-const paletteScales = Object.fromEntries(
-  paletteNames.map((name) => [name, scale11]),
-) as Record<(typeof paletteNames)[number], typeof scale11>;
+const paletteScales = Object.fromEntries(paletteNames.map((name) => [name, scale11])) as Record<
+  (typeof paletteNames)[number],
+  typeof scale11
+>;
 
 const colors = z.strictObject({
   ...paletteScales,
@@ -112,7 +94,6 @@ const font = z.strictObject({
   size: z.record(z.enum(textSizeNames), z.number().positive()),
   weight: z.record(z.enum(fontWeightNames), z.number().min(1).max(1000)),
   lineHeight: z.record(z.enum(lineHeightNames), z.number().positive()),
-  // letterSpacing admite negativos (tight)
   letterSpacing: z.record(z.enum(letterSpacingNames), z.number()),
 });
 
@@ -175,8 +156,6 @@ const effects = z.strictObject({
   shadows: z.record(z.enum(shadowLevels), dualShadow),
   gradients: z.record(z.enum(gradientRoles), gradientToken),
 });
-
-// ── Contrato completo ────────────────────────────────────────────────────────
 
 export const themeSchema = z.strictObject({
   meta,

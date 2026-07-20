@@ -1,63 +1,54 @@
-/**
- * Núcleo del generador: hex semilla → escala 50–950 en OKLCH.
- * - L: curva fija por perfil (consistente entre paletas).
- * - C: campana anclada al chroma de la semilla en su paso más cercano.
- * - H: hue de la semilla, constante.
- * Todo se clampa al gamut sRGB antes de emitir hex.
- */
 import { clampChroma, converter, formatHex, parse } from "culori";
 
-import { CHROMA_MULT, SHADES, lCurveFor, type CurveProfile, type Shade } from "./curves.ts";
+import { CHROMA_MULT, LCurveFor, SHADES, type CurveProfile, type Shade } from "./curves.ts";
 
-const toOklch = converter("oklch");
+const TO_OKLCH = converter("oklch");
 
 export type GeneratedScale = Record<Shade, string>;
 
-export function generateScale(seedHex: string, profile: CurveProfile = "chromatic"): GeneratedScale {
+export function GenerateScale(
+  seedHex: string,
+  profile: CurveProfile = "chromatic",
+): GeneratedScale {
   const parsed = parse(seedHex);
   if (parsed === undefined) {
     throw new Error(`Color semilla inválido: "${seedHex}" (se espera hex tipo #4f46e5)`);
   }
-  const seed = toOklch(parsed);
-  const seedL = seed.l;
-  const seedC = seed.c;
-  const seedH = seed.h ?? 0;
+  const seed = TO_OKLCH(parsed);
+  const seed_hue = seed.h ?? 0;
+  const l_curve = LCurveFor(profile);
 
-  const lCurve = lCurveFor(profile);
-
-  // Paso cuya L es más cercana a la semilla: ahí el chroma coincide con ella.
-  let anchorIndex = 0;
-  let anchorDistance = Number.POSITIVE_INFINITY;
-  lCurve.forEach((l, i) => {
-    const distance = Math.abs(l - seedL);
-    if (distance < anchorDistance) {
-      anchorDistance = distance;
-      anchorIndex = i;
+  let anchor_index = 0;
+  let anchor_distance = Number.POSITIVE_INFINITY;
+  l_curve.forEach((l, i) => {
+    const distance = Math.abs(l - seed.l);
+    if (distance < anchor_distance) {
+      anchor_distance = distance;
+      anchor_index = i;
     }
   });
 
   const scale = {} as GeneratedScale;
   SHADES.forEach((shade, i) => {
-    const l = lCurve[i];
+    const l = l_curve[i];
     if (l === undefined) {
       throw new Error(`Curva L incompleta para el perfil "${profile}" (paso ${shade})`);
     }
     const c =
       profile === "chromatic"
-        ? (seedC * (CHROMA_MULT[i] ?? 0)) / (CHROMA_MULT[anchorIndex] ?? 1)
-        : seedC;
-    const inGamut = clampChroma({ mode: "oklch", l, c, h: seedH }, "oklch");
-    scale[shade] = formatHex(inGamut);
+        ? (seed.c * (CHROMA_MULT[i] ?? 0)) / (CHROMA_MULT[anchor_index] ?? 1)
+        : seed.c;
+    scale[shade] = formatHex(clampChroma({ mode: "oklch", l, c, h: seed_hue }, "oklch"));
   });
   return scale;
 }
 
-export function generateNamedScales(
+export function GenerateNamedScales(
   specs: readonly { name: string; seed: string; profile: CurveProfile }[],
 ): Record<string, GeneratedScale> {
   const out: Record<string, GeneratedScale> = {};
   for (const spec of specs) {
-    out[spec.name] = generateScale(spec.seed, spec.profile);
+    out[spec.name] = GenerateScale(spec.seed, spec.profile);
   }
   return out;
 }

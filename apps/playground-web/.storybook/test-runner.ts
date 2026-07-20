@@ -12,8 +12,8 @@ const config: TestRunnerConfig = {
     await injectAxe(page);
   },
   async postVisit(page, context) {
-    const storyContext = await getStoryContext(page, context);
-    const params = storyContext.parameters as { a11y?: { disable?: boolean } };
+    const story_context = await getStoryContext(page, context);
+    const params = story_context.parameters as { a11y?: { disable?: boolean } };
     if (params.a11y?.disable === true) return;
 
     await checkA11y(page, "#storybook-root", {

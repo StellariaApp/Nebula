@@ -1,10 +1,16 @@
-/**
- * Checks de tipos del contrato (criterio de aceptación F0.2).
- * Este archivo se typechecka y lintea pero NO se emite a dist
- * (excluido en tsconfig.build.json).
- */
 import type { NebulaTheme, PaletteName, Scale11 } from "../theme/index.js";
-import { animation, blur, breakpoints, font, glass, radius, shadows, sizes, spacing, zIndex } from "../tokens/index.js";
+import {
+  animation,
+  blur,
+  breakpoints,
+  font,
+  glass,
+  radius,
+  shadows,
+  sizes,
+  spacing,
+  zIndex,
+} from "../tokens/index.js";
 import {
   KeysBase,
   KeysEffects,
@@ -20,14 +26,10 @@ import {
   type VariantsProps,
 } from "../types/index.js";
 
-// ── Utilidades de aserción de tipos ──────────────────────────────────────────
-
 type Equal<A, B> =
   (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false;
 type Expect<T extends true> = T;
 type Extends<A, B> = A extends B ? true : false;
-
-// ── 1. BaseProps compone TODOS los *Props ────────────────────────────────────
 
 export type CheckAnimations = Expect<Extends<BaseProps, AnimationsProps>>;
 export type CheckSpacing = Expect<Extends<BaseProps, SpacingProps>>;
@@ -39,15 +41,11 @@ export type CheckEffects = Expect<Extends<BaseProps, EffectsProps>>;
 export type CheckLayouts = Expect<Extends<BaseProps, LayoutsProps>>;
 export type CheckVariants = Expect<Extends<BaseProps, VariantsProps>>;
 
-// ── 2. KeysBase cubre keyof BaseProps EXACTO (incluye effects — bug fix) ─────
-
 type KeysBaseUnion = (typeof KeysBase)[number];
 export type CheckKeysBaseExact = Expect<Equal<KeysBaseUnion, keyof BaseProps>>;
 export type CheckKeysBaseIncludesEffects = Expect<
   Extends<(typeof KeysEffects)[number], KeysBaseUnion>
 >;
-
-// ── 3. Objeto de ejemplo `satisfies NebulaTheme` ─────────────────────────────
 
 const smokeScale = {
   50: "#f4f6ff",

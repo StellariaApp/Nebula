@@ -1,17 +1,6 @@
 import { createThemeContract } from "@vanilla-extract/css";
 
-/**
- * Contrato de CSS vars (una sola vez, ADR-006/ADR-016). Es la PROYECCIÓN CSS de
- * `NebulaTheme`: solo las hojas materializables como CSS custom property. La data
- * no-CSS (variantMap, motion.spring, motion.tier, effects.glass.enabled, gradient
- * tokens, palettes de identidad, breakpoints) se consume desde el objeto `theme`
- * de JS vía contexto — nunca como var.
- *
- * Cada tema oficial materializa este contrato con `createTheme` (una clase CSS por
- * tema, ver themes.css.ts); los temas dinámicos lo inyectan en runtime con
- * `assignInlineVars` (ver theme-vars.ts + NebulaProvider).
- */
-const scale = (): Record<
+const Scale = (): Record<
   "50" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "950",
   null
 > => ({
@@ -30,14 +19,14 @@ const scale = (): Record<
 
 export const vars = createThemeContract({
   color: {
-    primary: scale(),
-    accent: scale(),
-    gray: scale(),
+    primary: Scale(),
+    accent: Scale(),
+    gray: Scale(),
     semantic: {
-      success: scale(),
-      warning: scale(),
-      error: scale(),
-      info: scale(),
+      success: Scale(),
+      warning: Scale(),
+      error: Scale(),
+      info: Scale(),
     },
     surface: { base: null, raised: null, overlay: null, sunken: null },
     text: { primary: null, secondary: null, muted: null, inverted: null, onPrimary: null },

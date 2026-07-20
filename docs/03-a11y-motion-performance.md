@@ -6,18 +6,18 @@
 
 Cada componente del catálogo declara en su `types.ts` (y verifica en tests) su contrato a11y. Por clase de componente:
 
-| Clase | Web (React Aria / APG) | Native (`accessibility*`) |
-|---|---|---|
-| Acciones (Button, ActionIcon, FAB…) | `useButton` — role, keyboard (Enter/Space), focus visible | `accessibilityRole="button"`, `accessibilityLabel` obligatorio si onlyIcon, `accessibilityState={{disabled, busy}}` |
-| Toggles (Switch, Checkbox, Radio, Chip) | `useSwitch/useCheckbox/useRadioGroup` — estado anunciado | `role="switch|checkbox|radio"`, `accessibilityState={{checked}}` |
-| Inputs de texto | `useTextField` — label SIEMPRE vinculado (FormField), error con `aria-describedby`+`aria-invalid` | `accessibilityLabel` desde FormField, `accessibilityValue`, error anunciado (`accessibilityLiveRegion`) — **gap actual de Stellaria TextInput/Textarea: se corrige al migrar** |
-| Selects/Combobox/Autocomplete | `useComboBox/useSelect/useListBox` — roving focus, type-ahead, aria-activedescendant | Sheet de opciones con `role="menu"`/listado accesible, foco inicial correcto |
-| Overlays (Modal/Drawer/Sheet/Popover) | `useDialog/useOverlay/usePopover` — focus trap, restore focus, Esc, scroll lock, `aria-modal` | `accessibilityViewIsModal`, foco al abrir, cierre con back/gesto anunciado |
-| Menús | `useMenu` — navegación por flechas, Home/End, type-ahead | ActionSheet nativo o lista con roles |
-| Tabs/SegmentedControl | `useTabList` — flechas, `aria-selected`, panel vinculado | `role="tablist/tab"`, `accessibilityState={{selected}}` |
-| Tablas/DataGrid | `useTable`/grid pattern — sort anunciado, navegación de celdas | headers asociados; en móvil, filas como items accesibles |
-| Feedback (Toast/Alert/Progress) | `role="status|alert"`, live regions; Progress con `aria-valuenow` | `accessibilityLiveRegion`, `accessibilityValue` en progress |
-| Charts | resumen textual + tabla de datos accesible como fallback | `accessibilityLabel` descriptivo por serie/punto clave |
+| Clase                                   | Web (React Aria / APG)                                                                            | Native (`accessibility*`)                                                                                                                                                      |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Acciones (Button, ActionIcon, FAB…)     | `useButton` — role, keyboard (Enter/Space), focus visible                                         | `accessibilityRole="button"`, `accessibilityLabel` obligatorio si onlyIcon, `accessibilityState={{disabled, busy}}`                                                            |
+| Toggles (Switch, Checkbox, Radio, Chip) | `useSwitch/useCheckbox/useRadioGroup` — estado anunciado                                          | `role="switch                                                                                                                                                                  | checkbox                                                    | radio"`, `accessibilityState={{checked}}` |
+| Inputs de texto                         | `useTextField` — label SIEMPRE vinculado (FormField), error con `aria-describedby`+`aria-invalid` | `accessibilityLabel` desde FormField, `accessibilityValue`, error anunciado (`accessibilityLiveRegion`) — **gap actual de Stellaria TextInput/Textarea: se corrige al migrar** |
+| Selects/Combobox/Autocomplete           | `useComboBox/useSelect/useListBox` — roving focus, type-ahead, aria-activedescendant              | Sheet de opciones con `role="menu"`/listado accesible, foco inicial correcto                                                                                                   |
+| Overlays (Modal/Drawer/Sheet/Popover)   | `useDialog/useOverlay/usePopover` — focus trap, restore focus, Esc, scroll lock, `aria-modal`     | `accessibilityViewIsModal`, foco al abrir, cierre con back/gesto anunciado                                                                                                     |
+| Menús                                   | `useMenu` — navegación por flechas, Home/End, type-ahead                                          | ActionSheet nativo o lista con roles                                                                                                                                           |
+| Tabs/SegmentedControl                   | `useTabList` — flechas, `aria-selected`, panel vinculado                                          | `role="tablist/tab"`, `accessibilityState={{selected}}`                                                                                                                        |
+| Tablas/DataGrid                         | `useTable`/grid pattern — sort anunciado, navegación de celdas                                    | headers asociados; en móvil, filas como items accesibles                                                                                                                       |
+| Feedback (Toast/Alert/Progress)         | `role="status                                                                                     | alert"`, live regions; Progress con `aria-valuenow`                                                                                                                            | `accessibilityLiveRegion`, `accessibilityValue` en progress |
+| Charts                                  | resumen textual + tabla de datos accesible como fallback                                          | `accessibilityLabel` descriptivo por serie/punto clave                                                                                                                         |
 
 Reglas transversales:
 
@@ -48,15 +48,15 @@ Reglas transversales:
 
 ### Budgets (gates de CI)
 
-| Métrica | Budget | Herramienta |
-|---|---|---|
-| Bundle web por componente (brotli, import individual **por módulo**) | primitivos ≤9 kB · compuestos ≤48 kB · patterns ≤70 kB (excl. peers pesados aislados) | size-limit por entry en CI |
-| Tree-shaking | importar `Button` no arrastra charts/dnd/editor (subpaths `@stellaria/nebula-web/charts` etc.) | size-limit + test de imports |
-| CSS | zero-runtime (VE); vars por tema, no clases duplicadas por tema | build check |
-| Native TTI del playground | sin regresión >10% entre releases | perf test en CI (maestro + trace) |
-| Re-renders | compound components no re-renderizan hijos no afectados (Jotai atómico) | why-did-you-render en playground + tests |
-| Listas | virtualización obligatoria ≥50 items (FlashList/SectionList native; react-virtual web) | contrato de List/DataGrid |
-| RSC | los presentacionales no llevan `"use client"`; regla de lint | eslint rule |
+| Métrica                                                              | Budget                                                                                         | Herramienta                              |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Bundle web por componente (brotli, import individual **por módulo**) | primitivos ≤9 kB · compuestos ≤48 kB · patterns ≤70 kB (excl. peers pesados aislados)          | size-limit por entry en CI               |
+| Tree-shaking                                                         | importar `Button` no arrastra charts/dnd/editor (subpaths `@stellaria/nebula-web/charts` etc.) | size-limit + test de imports             |
+| CSS                                                                  | zero-runtime (VE); vars por tema, no clases duplicadas por tema                                | build check                              |
+| Native TTI del playground                                            | sin regresión >10% entre releases                                                              | perf test en CI (maestro + trace)        |
+| Re-renders                                                           | compound components no re-renderizan hijos no afectados (Jotai atómico)                        | why-did-you-render en playground + tests |
+| Listas                                                               | virtualización obligatoria ≥50 items (FlashList/SectionList native; react-virtual web)         | contrato de List/DataGrid                |
+| RSC                                                                  | los presentacionales no llevan `"use client"`; regla de lint                                   | eslint rule                              |
 
 > **Revisión de budgets (2026-07-20, W1.4)**: los números originales (5/15/35 kB gzip) eran provisionales (roadmap, supuesto 4) y se fijaron antes de medir. Con la anatomía cerrada en ADR-018 —React Aria + `motion` con springs del theme— la medición real de Button es **45,1 kB brotli** (motion + `domAnimation` 27,7 · react-aria 9,75 · CSS y código propio ~7,6). El propietario ratificó mantener `motion` en toda la librería por la paridad exacta de física con Reanimated, asumiendo el coste; los budgets se elevan en consecuencia. Se mide **por módulo** (`dist/components/…/X.js`), no por el barrel, porque el barrel arrastra el CSS de todo el paquete vía `sideEffects` y no representa lo que consume quien importa un componente suelto.
 

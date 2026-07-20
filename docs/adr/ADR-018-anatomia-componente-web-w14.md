@@ -32,12 +32,12 @@ Consecuencia de diseño: **ningún componente lee paletas crudas ni hex**; el si
 
 ## Dependencias introducidas en `packages/web` (ADR-014 regla 6)
 
-| Dependencia | Versión | Tipo | Justificación |
-|---|---|---|---|
-| `react-aria` | ^3.50 | runtime | Capa de comportamiento/a11y (ADR-003); import por-hook, tree-shakeable |
-| `motion` | ^12.42 | runtime | Capa de motion (ADR-004), vía `LazyMotion`/`m` |
-| `@vanilla-extract/recipes` | ^0.5.7 | runtime¹ | `recipe()` de variantes (stack de docs/01 §3) |
-| `@vanilla-extract/sprinkles` | ^1.7 | runtime¹ | Style props atómicas de Box (equivalente web del Collector) |
+| Dependencia                  | Versión | Tipo     | Justificación                                                          |
+| ---------------------------- | ------- | -------- | ---------------------------------------------------------------------- |
+| `react-aria`                 | ^3.50   | runtime  | Capa de comportamiento/a11y (ADR-003); import por-hook, tree-shakeable |
+| `motion`                     | ^12.42  | runtime  | Capa de motion (ADR-004), vía `LazyMotion`/`m`                         |
+| `@vanilla-extract/recipes`   | ^0.5.7  | runtime¹ | `recipe()` de variantes (stack de docs/01 §3)                          |
+| `@vanilla-extract/sprinkles` | ^1.7    | runtime¹ | Style props atómicas de Box (equivalente web del Collector)            |
 
 ¹ CSS generado en build; el runtime que queda es la función de resolución de clases (~1 kB cada una).
 
@@ -48,13 +48,14 @@ Todas figuran ya en la tabla de docs/01 §8 y en ADR-002/003/004 — este ADR re
 - La anatomía resultante se documenta en `docs/patterns/web-component-template.md` y es **vinculante para W2–W4**.
 - **Budgets — medición real y revisión (2026-07-20)**: al cerrar W1.4 se midió el coste efectivo, y resultó muy superior a la estimación con la que se tomó la decisión (~5 kB):
 
-  | Pieza | brotli | Nota |
-  |---|---|---|
-  | `motion` (`LazyMotion` + `domAnimation` + `m`) | **27,7 kB** | `domMin` no ahorra (25,8 kB); cargar las features con `import()` perezoso EMPEORA el total (el chunk dinámico arrastra el módulo `motion/react` entero) |
-  | `react-aria` (`useButton`+`useHover`+`useFocusRing`+`mergeProps`+`useObjectRef`) | 9,75 kB | |
-  | Button completo (CSS + recipe + código propio) | **45,1 kB** | |
-  | Box / Text (primitivos) | 8,46 / 8,76 kB | domina el mapa de clases atómicas de sprinkles |
+  | Pieza                                                                            | brotli         | Nota                                                                                                                                                    |
+  | -------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `motion` (`LazyMotion` + `domAnimation` + `m`)                                   | **27,7 kB**    | `domMin` no ahorra (25,8 kB); cargar las features con `import()` perezoso EMPEORA el total (el chunk dinámico arrastra el módulo `motion/react` entero) |
+  | `react-aria` (`useButton`+`useHover`+`useFocusRing`+`mergeProps`+`useObjectRef`) | 9,75 kB        |                                                                                                                                                         |
+  | Button completo (CSS + recipe + código propio)                                   | **45,1 kB**    |                                                                                                                                                         |
+  | Box / Text (primitivos)                                                          | 8,46 / 8,76 kB | domina el mapa de clases atómicas de sprinkles                                                                                                          |
 
   Presentada la medición, el propietario **ratificó mantener `motion` en toda la librería** (la paridad exacta de física W/N pesa más que el bundle) y **elevar los budgets** de docs/03 §3: primitivos ≤9 kB · compuestos ≤48 kB · patterns ≤70 kB, medidos en **brotli y por módulo**. Alternativas descartadas en ese checkpoint: híbrido CSS-para-controles/motion-para-overlays (Button ~16 kB) y CSS en toda la librería.
+
 - `LazyMotion` debe montarse una sola vez por árbol: el patrón lo coloca dentro de cada componente animado con `strict`, y W2 evaluará subirlo a `NebulaProvider` si aparece anidamiento redundante.
 - Los primitivos sin interacción (Box, Text) NO importan motion: quien usa solo `Box` no paga el motor.

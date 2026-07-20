@@ -7,13 +7,13 @@
 
 ## Etiquetas de acoplamiento
 
-| Tag | Significado |
-|---|---|
-| **[G]** | Genérico — el patrón/API es reutilizable (aunque la implementación sea Mantine y haya que reescribirla) |
-| **[F]** | Genérico atado a `form-atoms` (`field: FieldAtom`) |
-| **[M]** | API dominada por passthrough de Mantine (la migración implica rediseñar el contrato, no portarlo) |
+| Tag     | Significado                                                                                                           |
+| ------- | --------------------------------------------------------------------------------------------------------------------- |
+| **[G]** | Genérico — el patrón/API es reutilizable (aunque la implementación sea Mantine y haya que reescribirla)               |
+| **[F]** | Genérico atado a `form-atoms` (`field: FieldAtom`)                                                                    |
+| **[M]** | API dominada por passthrough de Mantine (la migración implica rediseñar el contrato, no portarlo)                     |
 | **[B]** | Acoplado al negocio (tipos `User/Client/Website/WebsiteProduct/CompanyService/Subscription`, hooks de dominio, rutas) |
-| **[I]** | Infraestructura de la app (PWA, dev-mode, Novu, PDF, i18n) |
+| **[I]** | Infraestructura de la app (PWA, dev-mode, Novu, PDF, i18n)                                                            |
 
 ## Contratos transversales
 
@@ -62,22 +62,22 @@ export type ButtonProps<E = {}> = {
 
 ```ts
 export type ActionIconProps = PolymorphicComponentProps<any, Omit<ActionIconMantineProps, "c">> & {
-  c?: ExtendedColors
-  icon?: IconsKeys
-  iconProps?: Omit<IconProps, "icon">
-  sizeIcon?: number | string
-  component?: "button" | "div"
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  tooltipProps?: TooltipProps
-  tooltip?: string
-  isSelected?: boolean
-}
+  c?: ExtendedColors;
+  icon?: IconsKeys;
+  iconProps?: Omit<IconProps, "icon">;
+  sizeIcon?: number | string;
+  component?: "button" | "div";
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  tooltipProps?: TooltipProps;
+  tooltip?: string;
+  isSelected?: boolean;
+};
 ```
 
 ### Buttons — [G] — agrupador de botones
 
 ```ts
-export type ButtonsProps = FlexProps & { loading?: boolean; children?; shrink?: boolean }
+export type ButtonsProps = FlexProps & { loading?: boolean; children?; shrink?: boolean };
 ```
 
 ### Badge — [G/M]
@@ -108,15 +108,16 @@ export type BadgeProps = Omit<BadgePropsMantine, "c" | "color"> & {
 
 ```ts
 export type AvatarProps = FlexProps & {
-  title?: string; subtitle?: string
-  image?: string
-  icon?: IconsKeys
-  responsive?: boolean
-  orientation?: "left" | "right"
-  onlyImage?: boolean
-  shrink?: boolean
-  size?: "sm" | "md" | "lg"
-}
+  title?: string;
+  subtitle?: string;
+  image?: string;
+  icon?: IconsKeys;
+  responsive?: boolean;
+  orientation?: "left" | "right";
+  onlyImage?: boolean;
+  shrink?: boolean;
+  size?: "sm" | "md" | "lg";
+};
 ```
 
 ### Icon / Icons — [G]
@@ -137,11 +138,12 @@ export type IconsProps = { value?: IconsKeys; onChange?: (v: IconsKeys) => void;
 
 ```ts
 export type PaperProps = FlexProps & {
-  title?: string; subtitle?: string
-  children?: React.ReactNode
-  flat?: boolean
-  header?: HeaderProps
-}
+  title?: string;
+  subtitle?: string;
+  children?: React.ReactNode;
+  flat?: boolean;
+  header?: HeaderProps;
+};
 ```
 
 ### Paragraph — [M] — `TextProps (Mantine) & { component?: "p" | "div"; children? }`
@@ -174,12 +176,12 @@ export type LinkProps = Omit<LinkNextProps, "href"> & Omit<AnchorProps, "href" |
 
 ```ts
 export type SkeletonProps = {
-  root?: boolean
-  loading?: boolean
-  children?: React.ReactNode
-  skeleton?: React.ReactNode
-  count?: number
-}
+  root?: boolean;
+  loading?: boolean;
+  children?: React.ReactNode;
+  skeleton?: React.ReactNode;
+  count?: number;
+};
 ```
 
 ### Grid — [G]
@@ -221,10 +223,12 @@ export type GroupProps = FlexProps & {
 
 ```ts
 export type WrapProps = {
-  flex?: boolean; grow?: boolean; basis?: string
-  responsive?: boolean
-  animated?: boolean
-} & Omit<FlexProps, "flex" | "grow">
+  flex?: boolean;
+  grow?: boolean;
+  basis?: string;
+  responsive?: boolean;
+  animated?: boolean;
+} & Omit<FlexProps, "flex" | "grow">;
 ```
 
 ### Main — [G] — `MainProps = { fixed?: boolean } & FlexProps`
@@ -257,10 +261,13 @@ export type ContainerProps = {
 ### Conditional / Omit / Valid / Invert — [G] — render helpers
 
 ```ts
-export type ConditionalProps = { conditional?: boolean; children: [React.ReactNode, React.ReactNode] }  // ¡binario, distinto a fonicredito!
-export type OmitProps  = { omit?: boolean; children? }
-export type ValidProps = { valid?: boolean; children?; invalid?: React.ReactNode }
-export type InvertProps = { isInverted?: boolean; children? }  // invierte el orden de 2 hijos
+export type ConditionalProps = {
+  conditional?: boolean;
+  children: [React.ReactNode, React.ReactNode];
+}; // ¡binario, distinto a fonicredito!
+export type OmitProps = { omit?: boolean; children? };
+export type ValidProps = { valid?: boolean; children?; invalid?: React.ReactNode };
+export type InvertProps = { isInverted?: boolean; children? }; // invierte el orden de 2 hijos
 ```
 
 ### Rating — [G]
@@ -276,7 +283,7 @@ export type RatingProps = Omit<FlexProps, "c" | "color" | "onChange"> & {
 
 ### Warning — [G] — `FlexProps & { title?: string; icon?: IconsKeys; radius?: string }`
 
-### Tooltip — [G] ⚠️ *naming trap*: NO es un tooltip — es un **menú de acciones** (Mantine Menu)
+### Tooltip — [G] ⚠️ _naming trap_: NO es un tooltip — es un **menú de acciones** (Mantine Menu)
 
 ```ts
 export type TooltipProps = {
@@ -300,11 +307,11 @@ export type TooltipItemProps = {
 
 ```ts
 type Props = PopoverProps /* Mantine */ & {
-  icon?: IconsKeys
-  iconPosition?: "left" | "right"
-  label?: string
-  dropdown?: React.ReactNode
-}
+  icon?: IconsKeys;
+  iconPosition?: "left" | "right";
+  label?: string;
+  dropdown?: React.ReactNode;
+};
 ```
 
 ## 2. Overlays y modales
@@ -350,11 +357,11 @@ export type ModalDeleteProps = {
 
 ```ts
 export type AsideProps<T extends object = {}> = { width?: string; height?: string } & AsideHTML & {
-  flat?: boolean
-  opened?: boolean
-  initialState?: Aside<T>   // stores/aside
-  fullScreen?: boolean
-}
+    flat?: boolean;
+    opened?: boolean;
+    initialState?: Aside<T>; // stores/aside
+    fullScreen?: boolean;
+  };
 ```
 
 ### ViewDrawer — [G] — `{ children? }` (drawer de vista)
@@ -374,13 +381,13 @@ export type OverlayCancelProps = {
 
 ```ts
 type Props = {
-  image?: string
-  images?: (string | undefined)[]
-  imagesUploads?: (Upload | undefined)[]   // ⚠️ tipo de dominio Upload (con quality.thumbnail)
-  open: boolean
-  onClose: () => void
-  initialIndex?: number
-}
+  image?: string;
+  images?: (string | undefined)[];
+  imagesUploads?: (Upload | undefined)[]; // ⚠️ tipo de dominio Upload (con quality.thumbnail)
+  open: boolean;
+  onClose: () => void;
+  initialIndex?: number;
+};
 ```
 
 ### Player — [G/I] — modal de vídeo (react-player): `{ video?: string; open: boolean; onClose: () => void }`
@@ -417,13 +424,13 @@ export type HeaderProps = Omit<InputWrapperProps, "c" | "color"> & {
 ### Inputs — [F/M] — patrón uniforme: `<MantineInputProps> & { headerProps?: HeaderProps; field?: FieldAtom<any> }`
 
 ```ts
-export type InputTextProps   = TextInputProps   & { headerProps?; field? }
-export type InputNumberProps = NumberInputProps & { headerProps?; field? }
-export type InputSelectProps = SelectProps      & { headerProps?; field? }
-export type InputDialProps   = SelectProps      & { headerProps?; field? }   // select de prefijos telefónicos
-export type InputColorProps  = ColorInputProps  & { headerProps?; field? }
-export type InputSliderProps = SliderProps      & { label?; description?; headerProps?; field? }
-export type /* InputSwitch */ InputTextProps = SwitchProps & { headerProps?; field? }
+export type InputTextProps = TextInputProps & { headerProps?; field? };
+export type InputNumberProps = NumberInputProps & { headerProps?; field? };
+export type InputSelectProps = SelectProps & { headerProps?; field? };
+export type InputDialProps = SelectProps & { headerProps?; field? }; // select de prefijos telefónicos
+export type InputColorProps = ColorInputProps & { headerProps?; field? };
+export type InputSliderProps = SliderProps & { label?; description?; headerProps?; field? };
+export type /* InputSwitch */ InputTextProps = SwitchProps & { headerProps?; field? };
 // ⚠️ bug real: InputSwitch/types.ts exporta su tipo con el nombre equivocado "InputTextProps"
 ```
 
@@ -518,11 +525,14 @@ export type MapProps = MapGoogleProps /* @vis.gl/react-google-maps */ & {
 ### Segment — [G/M]
 
 ```ts
-export type SegmentProps = Omit<SegmentedControlProps & InputWrapperProps, "value" | "onChange" | "data"> & {
-  value?: any
-  onChange?: (v: any) => void
-  data?: { label: string; value: any }[]
-}
+export type SegmentProps = Omit<
+  SegmentedControlProps & InputWrapperProps,
+  "value" | "onChange" | "data"
+> & {
+  value?: any;
+  onChange?: (v: any) => void;
+  data?: { label: string; value: any }[];
+};
 ```
 
 ### Icons (picker), Rating — ver §1.
@@ -605,13 +615,15 @@ export type ListProps = FlexProps & {
 
 ```ts
 export type CarouselImagesProps = FlexProps & {
-  image?: string; images?: (string | undefined)[]; imagesUploads?: (Upload | undefined)[]
-  imageComponent?: React.ReactNode
-  icon?: IconsKeys
-  carouselProps?: Omit<CarouselProps, "children">
-  hidePreview?: boolean
-  hideImageBackground?: boolean
-}
+  image?: string;
+  images?: (string | undefined)[];
+  imagesUploads?: (Upload | undefined)[];
+  imageComponent?: React.ReactNode;
+  icon?: IconsKeys;
+  carouselProps?: Omit<CarouselProps, "children">;
+  hidePreview?: boolean;
+  hideImageBackground?: boolean;
+};
 ```
 
 ### GridList — [G] — conmutador list/grid/carousel
@@ -650,9 +662,15 @@ export type EmptyProps = Omit<FlexProps, "flex" | "color" | "c"> & {
 ### Accordion / AccordionList — [M]
 
 ```ts
-export type AccordionProps<M extends boolean = false> = AccordionPropsMantine<M> & {}
-export type AccordionListProps<M extends boolean = false> = AccordionPropsMantine<M> & { sticky?: boolean; flat?: boolean }
-export type AccordionListItemProps = AccordionItemPropsMantine & { icon?: IconsKeys; label?: string }
+export type AccordionProps<M extends boolean = false> = AccordionPropsMantine<M> & {};
+export type AccordionListProps<M extends boolean = false> = AccordionPropsMantine<M> & {
+  sticky?: boolean;
+  flat?: boolean;
+};
+export type AccordionListItemProps = AccordionItemPropsMantine & {
+  icon?: IconsKeys;
+  label?: string;
+};
 ```
 
 ### Tabs — [M] — `TabsPropsMantine & { flat?; variant?: "filled" | "light"; group?; scroll? }`
@@ -721,11 +739,11 @@ export type SearchProps = {
 
 ```ts
 export type ParamsFilterProps = {
-  value?: (key: string) => string | undefined
-  values?: (key: string) => string[] | undefined
-  onSet?: (key: string, value: string | string[]) => void
-  onDelete?: (key: string) => void
-}
+  value?: (key: string) => string | undefined;
+  values?: (key: string) => string[] | undefined;
+  onSet?: (key: string, value: string | string[]) => void;
+  onDelete?: (key: string) => void;
+};
 // Filter: { filter: IFilter; last?: boolean } & ParamsFilterProps
 // FilterItem: render por tipo (select/multiselect/radio/range/date/text) con Mantine
 // Filters: { isLoading?; filters?: IFilter[] } & ParamsFilterProps — popover contenedor
@@ -744,25 +762,25 @@ export type ParamsFilterProps = {
 
 ## 7. Acoplados al negocio — [B]
 
-| Componente | Props clave (verificadas) | Dominio |
-|---|---|---|
-| **Cart** | `{ type?, cartType?: WebsiteCartType, color?, path?, website?: Website, me?: User, currency? }` + `useWebsiteCart()` | e-commerce |
-| **Product** | `Omit<UnstyledButtonProps,"c"> & { product?: WebsiteProduct, isLoading?, isSelected?, animatedIndex?, animatedDelay?, onClick?, onAddToCart?: (WebsiteItem)=>void, onBuyNow? }` | e-commerce |
-| **Products** | `GridListProps & { isLoading?, products?: WebsiteProduct[], productProps? }` | e-commerce |
-| **Ware** | `{ path?, product?: WebsiteProduct, color? }` | almacenes |
-| **Categories / Category** | `GridListProps & { categories?: CategoryGlobal[], categoryProps?, isLoading? }` / `Omit<UnstyledButtonProps,...> & { category?: CategoryGlobal, size?, mini?, onClick?, href?: (c)=>string, animatedIndex? }` | catálogo |
-| **CardSubscription** | `CardProps & { subscription?: Subscription, isRecomended?, quantity?, buttons?, onClick? }` | pagos |
-| **Client** | `{ w?, client?: Partial<Client>, icon?, responsive?, showRole?, direction?, onlyImage?, checked?, verify? }` | CRM |
-| **AvatarUser** | `AvatarProps & { user?: User }` | usuarios |
-| **Me** | `UnstyledButtonProps & { menuProps?, avatarProps?, links?: Link[], linksMore?, avatar?: ReactNode \| ((me: User)=>ReactNode) }` — **server component async** (`await getMe()`) | auth |
-| **OptionClient/User/CompanyUser/Provider** | `{ option: ComboboxItem, checked?, <entidades>? }` — renderers de opciones de combobox por entidad | CRM |
-| **Option** | `{ checked?, label?, icon?, image? }` — genérico base de los anteriores [G] | — |
-| **Service / Services** | `UnstyledButtonProps & { label?, description?, icon?, href?, badge?, isSelected?, animated*, permission?: PermissionsKeys }` / `GridProps & { links?: Link[] }` | dashboard |
-| **PopoverCompanyService** | `{ companyService?: CompanyService }` + router push a dashboard | dashboard |
-| **Login / Register / ForgotPassword / Recover / Verify** | todos `(props: FormProps)` + hook de dominio (`useLogin`, `useRegister`, …) — pantallas de auth completas | auth |
-| **Bell / BellNovu / Inbox / Notification** | `BellProps = { new?, count?, dropdown?, className? }` [G]; BellNovu/Inbox/Notification atados a **Novu** | notificaciones |
-| **Aside/AsidePdf** | AsidePdf: render PDF dinámico (react-pdf), sin props | documentos |
-| **PoweredDocument** | footer "Powered by The Film Vault" para PDFs (react-pdf), sin props | marca |
+| Componente                                               | Props clave (verificadas)                                                                                                                                                                                     | Dominio        |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| **Cart**                                                 | `{ type?, cartType?: WebsiteCartType, color?, path?, website?: Website, me?: User, currency? }` + `useWebsiteCart()`                                                                                          | e-commerce     |
+| **Product**                                              | `Omit<UnstyledButtonProps,"c"> & { product?: WebsiteProduct, isLoading?, isSelected?, animatedIndex?, animatedDelay?, onClick?, onAddToCart?: (WebsiteItem)=>void, onBuyNow? }`                               | e-commerce     |
+| **Products**                                             | `GridListProps & { isLoading?, products?: WebsiteProduct[], productProps? }`                                                                                                                                  | e-commerce     |
+| **Ware**                                                 | `{ path?, product?: WebsiteProduct, color? }`                                                                                                                                                                 | almacenes      |
+| **Categories / Category**                                | `GridListProps & { categories?: CategoryGlobal[], categoryProps?, isLoading? }` / `Omit<UnstyledButtonProps,...> & { category?: CategoryGlobal, size?, mini?, onClick?, href?: (c)=>string, animatedIndex? }` | catálogo       |
+| **CardSubscription**                                     | `CardProps & { subscription?: Subscription, isRecomended?, quantity?, buttons?, onClick? }`                                                                                                                   | pagos          |
+| **Client**                                               | `{ w?, client?: Partial<Client>, icon?, responsive?, showRole?, direction?, onlyImage?, checked?, verify? }`                                                                                                  | CRM            |
+| **AvatarUser**                                           | `AvatarProps & { user?: User }`                                                                                                                                                                               | usuarios       |
+| **Me**                                                   | `UnstyledButtonProps & { menuProps?, avatarProps?, links?: Link[], linksMore?, avatar?: ReactNode \| ((me: User)=>ReactNode) }` — **server component async** (`await getMe()`)                                | auth           |
+| **OptionClient/User/CompanyUser/Provider**               | `{ option: ComboboxItem, checked?, <entidades>? }` — renderers de opciones de combobox por entidad                                                                                                            | CRM            |
+| **Option**                                               | `{ checked?, label?, icon?, image? }` — genérico base de los anteriores [G]                                                                                                                                   | —              |
+| **Service / Services**                                   | `UnstyledButtonProps & { label?, description?, icon?, href?, badge?, isSelected?, animated*, permission?: PermissionsKeys }` / `GridProps & { links?: Link[] }`                                               | dashboard      |
+| **PopoverCompanyService**                                | `{ companyService?: CompanyService }` + router push a dashboard                                                                                                                                               | dashboard      |
+| **Login / Register / ForgotPassword / Recover / Verify** | todos `(props: FormProps)` + hook de dominio (`useLogin`, `useRegister`, …) — pantallas de auth completas                                                                                                     | auth           |
+| **Bell / BellNovu / Inbox / Notification**               | `BellProps = { new?, count?, dropdown?, className? }` [G]; BellNovu/Inbox/Notification atados a **Novu**                                                                                                      | notificaciones |
+| **Aside/AsidePdf**                                       | AsidePdf: render PDF dinámico (react-pdf), sin props                                                                                                                                                          | documentos     |
+| **PoweredDocument**                                      | footer "Powered by The Film Vault" para PDFs (react-pdf), sin props                                                                                                                                           | marca          |
 
 ## 8. Infraestructura de app — [I]
 
@@ -776,11 +794,11 @@ export type ParamsFilterProps = {
 
 ## Resumen de disposición
 
-| Grupo | Cuenta | Componentes |
-|---|---|---|
-| **Genéricos (patrón migrable)** | ~59 | Button, ActionIcon, Buttons, Badge, Pill, Avatar, Icon, Icons, Paper, Paragraph, Divider, DividerTitle, Link, Skeleton, Grid, Group, Grow, Wrap, Main, Container, Section, Portal, Conditional, Omit, Valid, Invert, Rating, Warning, Tooltip(menu), Popover, Modal, ModalDelete, Aside, ViewDrawer, Preview, Player, Form, FormDelete, Header, InputText, InputNumber, InputSelect, InputDial, InputColor, InputSlider, InputSwitch, Segment, Dropzone, Editor, Signature, Card, List, Cards, Carousel, CarouselCards, CarouselImages, GridList, Empty, NotFound, Accordion, AccordionList, Tabs, Stepper, Pagination, Charts, Panel, Search, SearchInput, Filter/FilterItem/Filters, Navbar, Sidebar, Footer, Banner, Banderole, Feature, Breadcrumbs, Option |
-| **Negocio (se reconstruyen en app sobre Nebula)** | ~30 | Cart, Product, Products, Ware, Categories, Category, CardSubscription, Client, AvatarUser, Me, OptionClient, OptionUser, OptionCompanyUser, OptionProvider, Service, Services, PopoverCompanyService, Login, Register, ForgotPassword, Recover, Verify, BellNovu, Inbox, Notification, AsidePdf, PoweredDocument, Sidenav, OverlayCancel, Map |
-| **Infra app** | ~8 | BannerDev, BannerPWA, Dev, Toggles, Alert, Logo, Bell(wiring), EditorImage(Pintura) |
+| Grupo                                             | Cuenta | Componentes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Genéricos (patrón migrable)**                   | ~59    | Button, ActionIcon, Buttons, Badge, Pill, Avatar, Icon, Icons, Paper, Paragraph, Divider, DividerTitle, Link, Skeleton, Grid, Group, Grow, Wrap, Main, Container, Section, Portal, Conditional, Omit, Valid, Invert, Rating, Warning, Tooltip(menu), Popover, Modal, ModalDelete, Aside, ViewDrawer, Preview, Player, Form, FormDelete, Header, InputText, InputNumber, InputSelect, InputDial, InputColor, InputSlider, InputSwitch, Segment, Dropzone, Editor, Signature, Card, List, Cards, Carousel, CarouselCards, CarouselImages, GridList, Empty, NotFound, Accordion, AccordionList, Tabs, Stepper, Pagination, Charts, Panel, Search, SearchInput, Filter/FilterItem/Filters, Navbar, Sidebar, Footer, Banner, Banderole, Feature, Breadcrumbs, Option |
+| **Negocio (se reconstruyen en app sobre Nebula)** | ~30    | Cart, Product, Products, Ware, Categories, Category, CardSubscription, Client, AvatarUser, Me, OptionClient, OptionUser, OptionCompanyUser, OptionProvider, Service, Services, PopoverCompanyService, Login, Register, ForgotPassword, Recover, Verify, BellNovu, Inbox, Notification, AsidePdf, PoweredDocument, Sidenav, OverlayCancel, Map                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Infra app**                                     | ~8     | BannerDev, BannerPWA, Dev, Toggles, Alert, Logo, Bell(wiring), EditorImage(Pintura)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 **Observaciones transversales**
 

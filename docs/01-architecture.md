@@ -78,29 +78,29 @@ Reglas: `tokens` no depende de nada; `web`/`native` nunca se importan entre sí;
 
 ## 3. Stack verificado (npm, 2026-07-14)
 
-| Capa | Elección | Versión | Decisión |
-|---|---|---|---|
-| Monorepo | Turborepo / pnpm | 2.10.5 / 11.13 | ADR-001 |
-| Lenguaje | TypeScript | **7.0.2** | C2-Q8 / ADR-012 |
-| Web styling | Vanilla Extract (css/recipes/sprinkles) | 1.21 / 0.5.7 / 1.7 | ADR-002 |
-| Web behavior/a11y | **React Aria (hooks)** | react-aria 3.50 / react-aria-components 1.19 | ADR-003 (supersede "sin Radix") |
-| Web motion | **motion** | 12.42 | C2-Q5 / ADR-004 |
-| Web posicionamiento | Floating UI | 0.27 | (React Aria lo integra; directo solo si hace falta) |
-| Native runtime | Expo SDK / React Native | 57 / 0.86 | ADR-002 |
-| Native styling | Unistyles | 3.3 | ADR-002 |
-| Native motion | Reanimated / Gesture Handler | 4.5 / 3.0 | ADR-004 |
-| Native efectos | @shopify/react-native-skia | 2.8 | — |
-| Estado compuestos | Jotai (interno) | 2.20 | ADR-010 |
-| Forms | form-atoms (peer opcional, duck-typed) + Zod | 3.3.3 / 4.4 | C2-Q6 / ADR-005 |
-| Iconos | lucide-react / lucide-react-native | 1.24 / 1.24 | C2-Q3 / ADR-008 |
-| Charts | Recharts (web) / victory-native XL | 3.9 / 41.26 | C2-Q7 / ADR-011 |
-| Data grid | @tanstack/react-table + react-virtual | 8.21 / 3.14 | — |
-| DnD | @dnd-kit/core | 6.3 | — |
-| Rich text | TipTap (web) | (fijar en Etapa 2) | — |
-| Command | cmdk | 1.1 | — |
-| Carousel web | embla-carousel-react | 8.6 | — |
-| Playgrounds | Storybook + @storybook/react-native | 10.5 / 10.5 | C2-Q1 / ADR-007 |
-| Theme Creator | Next.js | 16.2 | — |
+| Capa                | Elección                                     | Versión                                      | Decisión                                            |
+| ------------------- | -------------------------------------------- | -------------------------------------------- | --------------------------------------------------- |
+| Monorepo            | Turborepo / pnpm                             | 2.10.5 / 11.13                               | ADR-001                                             |
+| Lenguaje            | TypeScript                                   | **7.0.2**                                    | C2-Q8 / ADR-012                                     |
+| Web styling         | Vanilla Extract (css/recipes/sprinkles)      | 1.21 / 0.5.7 / 1.7                           | ADR-002                                             |
+| Web behavior/a11y   | **React Aria (hooks)**                       | react-aria 3.50 / react-aria-components 1.19 | ADR-003 (supersede "sin Radix")                     |
+| Web motion          | **motion**                                   | 12.42                                        | C2-Q5 / ADR-004                                     |
+| Web posicionamiento | Floating UI                                  | 0.27                                         | (React Aria lo integra; directo solo si hace falta) |
+| Native runtime      | Expo SDK / React Native                      | 57 / 0.86                                    | ADR-002                                             |
+| Native styling      | Unistyles                                    | 3.3                                          | ADR-002                                             |
+| Native motion       | Reanimated / Gesture Handler                 | 4.5 / 3.0                                    | ADR-004                                             |
+| Native efectos      | @shopify/react-native-skia                   | 2.8                                          | —                                                   |
+| Estado compuestos   | Jotai (interno)                              | 2.20                                         | ADR-010                                             |
+| Forms               | form-atoms (peer opcional, duck-typed) + Zod | 3.3.3 / 4.4                                  | C2-Q6 / ADR-005                                     |
+| Iconos              | lucide-react / lucide-react-native           | 1.24 / 1.24                                  | C2-Q3 / ADR-008                                     |
+| Charts              | Recharts (web) / victory-native XL           | 3.9 / 41.26                                  | C2-Q7 / ADR-011                                     |
+| Data grid           | @tanstack/react-table + react-virtual        | 8.21 / 3.14                                  | —                                                   |
+| DnD                 | @dnd-kit/core                                | 6.3                                          | —                                                   |
+| Rich text           | TipTap (web)                                 | (fijar en Etapa 2)                           | —                                                   |
+| Command             | cmdk                                         | 1.1                                          | —                                                   |
+| Carousel web        | embla-carousel-react                         | 8.6                                          | —                                                   |
+| Playgrounds         | Storybook + @storybook/react-native          | 10.5 / 10.5                                  | C2-Q1 / ADR-007                                     |
+| Theme Creator       | Next.js                                      | 16.2                                         | —                                                   |
 
 ## 4. Anatomía de componente
 
@@ -129,13 +129,14 @@ Cada componente define `XxxProps` en un `types.ts` **compartido entre plataforma
 ### Native (`@stellaria/nebula-native`) — patrón consolidado de Stellaria
 
 ```
-components/<Category>/<Name>/
+components/<Name>/
   <Name>.tsx           forwardRef + displayName; CreateAnimated por defecto
   <Name>.types.ts      re-exporta/extiende el contrato compartido
   <Name>.styles.ts     Unistyles StyleSheet.create((theme) => …) + useVariants
   <Name>.collector.ts  filtra props tokenizadas vía Keys* (Collector pattern)
   components/…         sub-componentes
   hook/…               use<Name> (lógica)
+  <Nombre>.md           (opcional) el porqué de lo no evidente — ADR-019
   index.ts
 ```
 
@@ -145,14 +146,17 @@ components/<Category>/<Name>/
 ### Web (`@stellaria/nebula-web`) — nuevo, tres capas
 
 ```
-components/<Category>/<Name>/
+components/<Name>/
   <Name>.tsx           forwardRef; hooks de React Aria (behavior+a11y) + motion
   <Name>.types.ts      mismo contrato compartido
-  <Name>.css.ts        Vanilla Extract recipe() para variantes/sizes
-  vars.css.ts          CSS vars locales (si aplica)
+  <Name>.css.ts        Vanilla Extract recipe() para variantes/sizes (solo estructura)
+  <Name>.vars.css.ts   CSS vars locales — el color lo resuelve el variantMap del tema
   use<Name>.ts         lógica (opcional)
+  <Nombre>.md           (opcional) el porqué de lo no evidente — ADR-019
   index.ts
 ```
+
+> **Estructura plana** (ADR-019): sin carpeta de categoría. La plantilla completa y vinculante está en `docs/patterns/web-component-template.md`.
 
 1. **Capa de comportamiento**: hooks de React Aria (`useButton`, `useDialog`, `useComboBox`, `useMenu`…) — focus management, keyboard nav, ARIA correcto (ADR-003). HTML nativo donde baste (`<dialog>`, `<details>`).
 2. **Capa visual**: VE `recipe()` (variant × size × state) + `sprinkles` para style props en primitivos de Layout (equivalente web del Collector).
@@ -172,12 +176,12 @@ components/<Category>/<Name>/
 
 ```ts
 type CardComplexProps = {
-  media?:   { image?; images?; height?; component?; autoHide?; preview? }
-  badges?:  { title?; main?; footer?; grow?; wrap? }
-  actions?: { add?; action?; download?; preview? }   // cada una: { onClick, icon, color, permission, disabled }
-  meta?:    { createdAt?; updatedAt?; responsible? }
+  media?: { image?; images?; height?; component?; autoHide?; preview? };
+  badges?: { title?; main?; footer?; grow?; wrap? };
+  actions?: { add?; action?; download?; preview? }; // cada una: { onClick, icon, color, permission, disabled }
+  meta?: { createdAt?; updatedAt?; responsible? };
   // + title/description/href/isSelected/animated… planos
-}
+};
 ```
 
 El diseño fino de estos grupos se cierra en Etapa 2 con la migración de tfv como banco de pruebas.
@@ -208,25 +212,25 @@ Nebula no depende de ningún router:
 
 Regla: cada dependencia de runtime del core requiere justificación en tabla + alternativa evaluada + coste. Presupuesto: **cero dependencias en `@stellaria/nebula-tokens`**; mínimas en hooks; las pesadas (charts, dnd, tiptap, pintura) se aíslan en subpaths tree-shakeables o peers opcionales para no castigar al consumidor que no las usa.
 
-| Dependencia | Paquete | Justificación | Alternativa evaluada | Coste aprox. |
-|---|---|---|---|---|
-| react-aria (hooks por componente) | web | a11y APG completa sin DOM impuesto | headless propio (riesgo AA alto), Base UI (más joven, DOM propio) | por-hook, tree-shakeable |
-| motion | web | springs/layout anims/gestures | framer-motion (legacy name), CSS puro (insuficiente para motion alto) | ~5-30 kB según features usadas |
-| @vanilla-extract/* | web (build) | zero-runtime, theming por CSS vars | Panda CSS, StyleX (menos maduro para theme runtime dual) | 0 runtime |
-| floating-ui | web | posicionamiento (vía React Aria) | Popper v2 (legacy) | incluido en aria hooks |
-| unistyles 3 | native | styling con themes runtime, C++ core | StyleSheet plano (sin theming), tamagui (opinado) | nativo, sin JS runtime extra |
-| reanimated 4 + gesture-handler 3 + worklets | native | motion en UI thread | Animated core (limitado) | estándar del ecosistema |
-| skia | native | LiquidGlass/shaders/charts | — (único motor viable) | grande → lazy-load en Tier 3 |
-| jotai | web+native (interno) | compound state probado en ST; ya presente en ambos consumidores | Context (re-render cascades), zustand (no atómico) | ~4 kB |
-| lucide-react(-native) | icons | paridad exacta W/N, tree-shaking | set propio (proyecto entero), vector-icons (solo native) | por-icono |
-| recharts / victory-native | web/native (subpath charts) | catálogos + consumidores | skia puro (meses) | aislado en `@stellaria/nebula-web/charts` etc. |
-| @tanstack/react-table + virtual | web (subpath datagrid) | DataGrid enterprise | AG Grid (licencia) | aislado |
-| dnd-kit | web (subpath dnd) | catálogo DnD/Kanban | pragmatic-dnd (evaluar en Etapa 2) | aislado |
-| cmdk | web (subpath command) | CommandPalette | propio sobre Combobox (evaluar) | ~6 kB |
-| embla | web (subpath carousel) | Carousel | keen-slider | aislado |
-| tiptap | web (subpath editor) | RichTextEditor | lexical (evaluar en Etapa 2, ADR) | aislado |
-| form-atoms | **peer opcional** | contrato field de ambos consumidores | — | 0 si no se usa |
-| pintura | **peer opcional** | EditorImage (C1-Q6) | filerobot/open-source (futuro ADR) | 0 si no se usa |
+| Dependencia                                 | Paquete                     | Justificación                                                   | Alternativa evaluada                                                  | Coste aprox.                                   |
+| ------------------------------------------- | --------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------- |
+| react-aria (hooks por componente)           | web                         | a11y APG completa sin DOM impuesto                              | headless propio (riesgo AA alto), Base UI (más joven, DOM propio)     | por-hook, tree-shakeable                       |
+| motion                                      | web                         | springs/layout anims/gestures                                   | framer-motion (legacy name), CSS puro (insuficiente para motion alto) | ~5-30 kB según features usadas                 |
+| @vanilla-extract/*                          | web (build)                 | zero-runtime, theming por CSS vars                              | Panda CSS, StyleX (menos maduro para theme runtime dual)              | 0 runtime                                      |
+| floating-ui                                 | web                         | posicionamiento (vía React Aria)                                | Popper v2 (legacy)                                                    | incluido en aria hooks                         |
+| unistyles 3                                 | native                      | styling con themes runtime, C++ core                            | StyleSheet plano (sin theming), tamagui (opinado)                     | nativo, sin JS runtime extra                   |
+| reanimated 4 + gesture-handler 3 + worklets | native                      | motion en UI thread                                             | Animated core (limitado)                                              | estándar del ecosistema                        |
+| skia                                        | native                      | LiquidGlass/shaders/charts                                      | — (único motor viable)                                                | grande → lazy-load en Tier 3                   |
+| jotai                                       | web+native (interno)        | compound state probado en ST; ya presente en ambos consumidores | Context (re-render cascades), zustand (no atómico)                    | ~4 kB                                          |
+| lucide-react(-native)                       | icons                       | paridad exacta W/N, tree-shaking                                | set propio (proyecto entero), vector-icons (solo native)              | por-icono                                      |
+| recharts / victory-native                   | web/native (subpath charts) | catálogos + consumidores                                        | skia puro (meses)                                                     | aislado en `@stellaria/nebula-web/charts` etc. |
+| @tanstack/react-table + virtual             | web (subpath datagrid)      | DataGrid enterprise                                             | AG Grid (licencia)                                                    | aislado                                        |
+| dnd-kit                                     | web (subpath dnd)           | catálogo DnD/Kanban                                             | pragmatic-dnd (evaluar en Etapa 2)                                    | aislado                                        |
+| cmdk                                        | web (subpath command)       | CommandPalette                                                  | propio sobre Combobox (evaluar)                                       | ~6 kB                                          |
+| embla                                       | web (subpath carousel)      | Carousel                                                        | keen-slider                                                           | aislado                                        |
+| tiptap                                      | web (subpath editor)        | RichTextEditor                                                  | lexical (evaluar en Etapa 2, ADR)                                     | aislado                                        |
+| form-atoms                                  | **peer opcional**           | contrato field de ambos consumidores                            | —                                                                     | 0 si no se usa                                 |
+| pintura                                     | **peer opcional**           | EditorImage (C1-Q6)                                             | filerobot/open-source (futuro ADR)                                    | 0 si no se usa                                 |
 
 ## 9. Gobernanza (skills)
 

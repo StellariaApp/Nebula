@@ -1,8 +1,3 @@
-/**
- * Motor de contraste: WCAG 2.2 AA sobre pares de un NebulaTheme.
- * Mismo motor que usará el Theme Creator en vivo (02 §5.3).
- * Sugerencia de corrección: ajuste de L en OKLCH (dirección de mayor contraste).
- */
 import { clampChroma, converter, formatHex, parse, wcagContrast } from "culori";
 
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
@@ -21,8 +16,7 @@ export interface PairResult {
   suggestion?: string | undefined;
 }
 
-/** Busca el hex más cercano (ajustando SOLO L) que cumpla el ratio mínimo. */
-export function suggestFix(fg: string, bg: string, min: number): string | undefined {
+export function SuggestFix(fg: string, bg: string, min: number): string | undefined {
   const parsed = parse(fg);
   if (parsed === undefined) return undefined;
   const base = toOklch(parsed);
@@ -39,7 +33,7 @@ export function suggestFix(fg: string, bg: string, min: number): string | undefi
   return undefined;
 }
 
-export function checkTheme(theme: NebulaTheme, pairs: readonly ContrastPair[]): PairResult[] {
+export function CheckTheme(theme: NebulaTheme, pairs: readonly ContrastPair[]): PairResult[] {
   return pairs.map((pair) => {
     const fg = pair.fg(theme);
     const bg = pair.bg(theme);
@@ -52,7 +46,7 @@ export function checkTheme(theme: NebulaTheme, pairs: readonly ContrastPair[]): 
       ratio,
       min: pair.min,
       pass,
-      suggestion: pass ? undefined : suggestFix(fg, bg, pair.min),
+      suggestion: pass ? undefined : SuggestFix(fg, bg, pair.min),
     };
   });
 }

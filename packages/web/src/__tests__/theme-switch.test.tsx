@@ -18,7 +18,7 @@ function ThemeProbe() {
       data-name={themeName}
       data-scheme={scheme}
       onClick={() => {
-        setTheme("nebula-dark");
+        setTheme("nebula-light");
       }}
     >
       switch
@@ -34,9 +34,9 @@ describe("NebulaProvider — switch de tema por clase", () => {
       </NebulaProvider>,
     );
     const wrapper = container.firstElementChild as HTMLElement;
-    expect(wrapper.className).toBe(themeClass["nebula-light"]);
-    expect(wrapper.getAttribute("data-scheme")).toBe("light");
-    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula-light");
+    expect(wrapper.className).toBe(themeClass["nebula-dark"]);
+    expect(wrapper.getAttribute("data-scheme")).toBe("dark");
+    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula-dark");
   });
 
   it("setTheme reconfigura el subárbol cambiando SOLO la clase", () => {
@@ -46,16 +46,15 @@ describe("NebulaProvider — switch de tema por clase", () => {
       </NebulaProvider>,
     );
     const wrapper = container.firstElementChild as HTMLElement;
-    expect(wrapper.className).toBe(themeClass["nebula-light"]);
+    expect(wrapper.className).toBe(themeClass["nebula-dark"]);
 
     act(() => {
       getByTestId("probe").click();
     });
 
-    expect(wrapper.className).toBe(themeClass["nebula-dark"]);
-    expect(wrapper.getAttribute("data-scheme")).toBe("dark");
-    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula-dark");
-    // Cada tema es una clase distinta ⇒ distinta materialización de las vars.
+    expect(wrapper.className).toBe(themeClass["nebula-light"]);
+    expect(wrapper.getAttribute("data-scheme")).toBe("light");
+    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula-light");
     expect(themeClass["nebula-light"]).not.toBe(themeClass["nebula-dark"]);
   });
 

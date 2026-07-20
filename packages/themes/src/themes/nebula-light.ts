@@ -1,13 +1,3 @@
-/**
- * nebula-light — tema default (docs/02 §3): enterprise vibrante, indigo/violet,
- * Geist, motion standard, glass on (decisión Stellaria).
- *
- * Mapa rol→paso (validado por tools/contrast-check):
- * - surface: light.50 / light.100 / light.50 / light.300
- * - text: gray.900 / gray.700 / gray.600 / gray.50 / light.50
- * - border: gray.200 / gray.300 / gray.600 / indigo.600
- * - texto de estado: semantic.*.700 sobre surface.base
- */
 import {
   animation,
   blur,
@@ -28,8 +18,6 @@ export const nebulaLight = {
   meta: { name: "nebula-light", scheme: "light", version: "0.1.0" },
   palettes,
   colors: {
-    // Las 16 paletas accesibles por nombre (`colors.teal`…); los roles de abajo
-    // las sobrescriben donde comparten nombre. Identidad sin invertir.
     ...palettes,
     primary: palettes.indigo,
     accent: palettes.violet,

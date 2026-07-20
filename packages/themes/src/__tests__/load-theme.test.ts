@@ -1,46 +1,41 @@
-/**
- * loadTheme: rechaza estructuras inválidas con errores legibles (ruta incluida)
- * y expone los issues crudos de Zod para tooling (Theme Creator).
- */
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { describe, expect, it } from "vitest";
 
-import { loadTheme, ThemeValidationError } from "../load-theme.js";
+import { LoadTheme, ThemeValidationError } from "../load-theme.js";
 import { nebulaLight } from "../themes/nebula-light.js";
 
-/** Base serializada estructuralmente válida para mutar en cada caso. */
-function baseTheme(): NebulaTheme {
+function BaseTheme(): NebulaTheme {
   return JSON.parse(JSON.stringify(nebulaLight)) as NebulaTheme;
 }
 
-describe("loadTheme", () => {
+describe("LoadTheme", () => {
   it("acepta un tema válido y lo devuelve intacto", () => {
-    expect(loadTheme(baseTheme())).toEqual(nebulaLight);
+    expect(LoadTheme(BaseTheme())).toEqual(nebulaLight);
   });
 
   it("rechaza entradas que no son objeto", () => {
-    expect(() => loadTheme(null)).toThrow(ThemeValidationError);
-    expect(() => loadTheme("nebula")).toThrow(ThemeValidationError);
+    expect(() => LoadTheme(null)).toThrow(ThemeValidationError);
+    expect(() => LoadTheme("nebula")).toThrow(ThemeValidationError);
   });
 
   it("una sección obligatoria ausente produce un error que nombra la sección", () => {
-    const broken: unknown = { ...baseTheme(), colors: undefined };
-    expect(() => loadTheme(broken)).toThrow(/colors/);
+    const broken: unknown = { ...BaseTheme(), colors: undefined };
+    expect(() => LoadTheme(broken)).toThrow(/colors/);
   });
 
   it("un enum inválido produce un error que nombra la ruta", () => {
-    const base = baseTheme();
+    const base = BaseTheme();
     const broken: unknown = { ...base, meta: { ...base.meta, scheme: "sepia" } };
-    expect(() => loadTheme(broken)).toThrow(/scheme/);
+    expect(() => LoadTheme(broken)).toThrow(/scheme/);
   });
 
   it("una clave desconocida es rechazada (objetos estrictos)", () => {
-    const broken: unknown = { ...baseTheme(), colours: {} };
-    expect(() => loadTheme(broken)).toThrow(/colours/);
+    const broken: unknown = { ...BaseTheme(), colours: {} };
+    expect(() => LoadTheme(broken)).toThrow(/colours/);
   });
 
   it("una ref de variante fuera del contrato es rechazada", () => {
-    const base = baseTheme();
+    const base = BaseTheme();
     const broken: unknown = {
       ...base,
       variantMap: {
@@ -48,11 +43,11 @@ describe("loadTheme", () => {
         filled: { ...base.variantMap.filled, background: "scale.601" },
       },
     };
-    expect(() => loadTheme(broken)).toThrow(ThemeValidationError);
+    expect(() => LoadTheme(broken)).toThrow(ThemeValidationError);
   });
 
   it("un alpha fuera de 0–100 en `scale.<paso>.<alpha>` es rechazado", () => {
-    const base = baseTheme();
+    const base = BaseTheme();
     const broken: unknown = {
       ...base,
       variantMap: {
@@ -60,12 +55,12 @@ describe("loadTheme", () => {
         light: { ...base.variantMap.light, background: "scale.500.140" },
       },
     };
-    expect(() => loadTheme(broken)).toThrow(ThemeValidationError);
+    expect(() => LoadTheme(broken)).toThrow(ThemeValidationError);
   });
 
   it("expone los issues crudos de Zod en ThemeValidationError", () => {
     try {
-      loadTheme({});
+      LoadTheme({});
       expect.unreachable("debió lanzar");
     } catch (error) {
       expect(error).toBeInstanceOf(ThemeValidationError);

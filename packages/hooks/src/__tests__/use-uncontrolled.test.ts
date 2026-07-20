@@ -16,10 +16,10 @@ describe("useUncontrolled", () => {
     expect(result.current[0]).toBe("x");
   });
 
-  it("modo controlado: el padre manda y onChange se dispara sin mutar el local", () => {
-    const onChange = vi.fn<(value: string) => void>();
+  it("modo controlado: el padre manda y on_change se dispara sin mutar el local", () => {
+    const on_change = vi.fn<(value: string) => void>();
     const { result, rerender } = renderHook(
-      ({ v }) => useUncontrolled<string>(v, "def", onChange),
+      ({ v }) => useUncontrolled<string>(v, "def", on_change),
       { initialProps: { v: "a" } },
     );
     expect(result.current[0]).toBe("a");
@@ -27,7 +27,7 @@ describe("useUncontrolled", () => {
     act(() => {
       result.current[1]("b");
     });
-    expect(onChange).toHaveBeenCalledWith("b");
+    expect(on_change).toHaveBeenCalledWith("b");
     expect(result.current[0]).toBe("a"); // controlado: el valor solo cambia si el padre lo pasa
 
     rerender({ v: "b" });

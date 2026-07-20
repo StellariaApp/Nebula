@@ -1,8 +1,3 @@
-/**
- * Pares texto/superficie y estados a validar (docs/03 §1 reglas 2 y 4, §4.2):
- * - texto normal 4.5:1; large text y componentes UI 3:1; focus ≥3:1.
- * - disabled está EXENTO de contraste (WCAG 2.2 · 1.4.3) — no se valida.
- */
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 export interface ContrastPair {
@@ -15,10 +10,9 @@ export interface ContrastPair {
 const SURFACES = ["base", "raised", "overlay", "sunken"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 
-export function buildPairs(): ContrastPair[] {
+export function BuildPairs(): ContrastPair[] {
   const pairs: ContrastPair[] = [];
 
-  // Texto normal sobre cada superficie (4.5:1)
   for (const role of ["primary", "secondary", "muted"] as const) {
     for (const surface of SURFACES) {
       pairs.push({
@@ -30,7 +24,6 @@ export function buildPairs(): ContrastPair[] {
     }
   }
 
-  // Texto invertido sobre superficie invertida (tooltip/toast oscuro)
   pairs.push({
     label: "text.inverted / gray.900 (superficie invertida)",
     fg: (t) => t.colors.text.inverted,
@@ -38,7 +31,6 @@ export function buildPairs(): ContrastPair[] {
     min: 4.5,
   });
 
-  // Variante filled + estado hover (600 → 700)
   pairs.push(
     {
       label: "text.onPrimary / primary.600 (filled)",
@@ -54,7 +46,6 @@ export function buildPairs(): ContrastPair[] {
     },
   );
 
-  // Texto semántico (paso 700 designado para texto de estado) sobre base
   for (const status of STATUSES) {
     pairs.push({
       label: `semantic.${status}.700 (texto) / surface.base`,
@@ -64,7 +55,6 @@ export function buildPairs(): ContrastPair[] {
     });
   }
 
-  // Componentes UI (3:1): borde fuerte, filled como bloque, y focus ring
   for (const surface of SURFACES) {
     pairs.push(
       {

@@ -4,35 +4,35 @@
 
 ## Entregables por prompt
 
-| Prompt | Entregable | Estado |
-|---|---|---|
-| W1.1 | `@stellaria/nebula-themes`: schema Zod, 4 temas oficiales, `loadTheme` | ✅ |
-| W1.2 | Runtime web (`createThemeContract`, `NebulaProvider`, `ColorSchemeScript`) + hooks base | ✅ |
-| W1.3 | Playground Storybook 10.5 + gates `a11y` y `size` | ✅ |
-| W1.4 | Pilotos Box, Text y Button + patrón canónico | ✅ |
+| Prompt | Entregable                                                                              | Estado |
+| ------ | --------------------------------------------------------------------------------------- | ------ |
+| W1.1   | `@stellaria/nebula-themes`: schema Zod, 4 temas oficiales, `loadTheme`                  | ✅     |
+| W1.2   | Runtime web (`createThemeContract`, `NebulaProvider`, `ColorSchemeScript`) + hooks base | ✅     |
+| W1.3   | Playground Storybook 10.5 + gates `a11y` y `size`                                       | ✅     |
+| W1.4   | Pilotos Box, Text y Button + patrón canónico                                            | ✅     |
 
 ## Gate de W1 (docs/05-roadmap.md)
 
-| Criterio | Resultado |
-|---|---|
+| Criterio                                                      | Resultado                                                                                         |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Cambiar tema reconfigura los componentes **sin tocar código** | ✅ Verificado en test (`Button` resuelve vars distintas en los 4 temas) y en la story `AllThemes` |
-| axe en verde | ✅ **29/29 stories, 0 violaciones** (`turbo a11y`) |
-| size-limit en verde | ✅ 5/5 entries dentro de budget |
-| Testing contract de los pilotos | ✅ 39 tests en `nebula-web` (7 archivos) |
-| Pipeline completa | ✅ **29/29 tareas** (`turbo build typecheck test lint size --force`) |
-| Contraste de los temas | ✅ **5 temas × 28 pares, 0 fallos** (`pnpm check:contrast`) |
+| axe en verde                                                  | ✅ **29/29 stories, 0 violaciones** (`turbo a11y`)                                                |
+| size-limit en verde                                           | ✅ 5/5 entries dentro de budget                                                                   |
+| Testing contract de los pilotos                               | ✅ 39 tests en `nebula-web` (7 archivos)                                                          |
+| Pipeline completa                                             | ✅ **29/29 tareas** (`turbo build typecheck test lint size --force`)                              |
+| Contraste de los temas                                        | ✅ **5 temas × 28 pares, 0 fallos** (`pnpm check:contrast`)                                       |
 
 **Veredicto: GATE DE W1 EN VERDE.**
 
 ## Medidas reales de bundle (brotli, por módulo)
 
-| Entry | Tamaño | Budget |
-|---|---|---|
-| Box (primitivo) | 8,46 kB | 9 kB |
-| Text (primitivo) | 8,76 kB | 9 kB |
-| Button (compuesto) | 45,1 kB | 48 kB |
-| NebulaProvider | 12,55 kB | 15 kB |
-| useTheme | 6,73 kB | 9 kB |
+| Entry              | Tamaño   | Budget |
+| ------------------ | -------- | ------ |
+| Box (primitivo)    | 8,46 kB  | 9 kB   |
+| Text (primitivo)   | 8,76 kB  | 9 kB   |
+| Button (compuesto) | 45,1 kB  | 48 kB  |
+| NebulaProvider     | 12,55 kB | 15 kB  |
+| useTheme           | 6,73 kB  | 9 kB   |
 
 Los budgets de docs/03 §3 se **elevaron** en este cierre (5/15/35 kB gzip → 9/48/70 kB brotli) tras medir el coste real de la anatomía decidida: `motion` + `domAnimation` cuesta 27,7 kB y `react-aria` 9,75 kB. El propietario ratificó mantener `motion` en toda la librería priorizando la paridad exacta de física con Reanimated (ADR-018).
 

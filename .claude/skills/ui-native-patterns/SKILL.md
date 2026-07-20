@@ -9,15 +9,20 @@ Patrón consolidado de Stellaria (39 componentes verificados), adaptado a los no
 
 ## Estructura por componente
 
+Plana, sin carpeta de categoría (ADR-019). Sin comentarios en el código: lo no evidente va en `<Nombre>.md`.
+
 ```
-components/<Category>/<Name>/
-├── index.ts               # Re-exports públicos
-├── <Name>.tsx             # forwardRef + displayName + CreateAnimated
-├── <Name>.types.ts        # Tokens/Vars/Props sobre el contrato compartido de nebula-tokens
-├── <Name>.styles.ts       # Unistyles StyleSheet.create((theme) => …) + useVariants
-├── <Name>.collector.ts    # (si tiene props custom) Collector dedicado
-└── store/                 # (si usa Jotai) átomos + useStore hook
+components/<Name>/
+├── index.ts               Re-exports públicos
+├── <Name>.tsx             forwardRef + displayName + CreateAnimated
+├── <Name>.types.ts        Tokens/Vars/Props sobre el contrato compartido de nebula-tokens
+├── <Name>.styles.ts       Unistyles StyleSheet.create((theme) => …) + useVariants
+├── <Name>.collector.ts    (si tiene props custom) Collector dedicado
+├── <Nombre>.md            (opcional) el porqué de lo no evidente
+└── store/                 (si usa Jotai) átomos + useStore hook
 ```
+
+Naming de ADR-019: hooks `camelCase`, funciones `PascalCase`, constantes globales `UPPERCASE`, locales `snake_case`.
 
 ## Patrones establecidos
 
@@ -37,7 +42,8 @@ import { KeysBase } from "@stellaria/nebula-tokens";
 
 const CollectorKeys = ["customProp", ...KeysBase] as const; // props propias + KeysBase
 const ExcludeKeys = ["component_sub"] as const; // overrides de sub-componentes
-export const CollectorComponent = (props: ComponentProps) => Collector(props, CollectorSet, ExcludeSet);
+export const CollectorComponent = (props: ComponentProps) =>
+  Collector(props, CollectorSet, ExcludeSet);
 ```
 
 `KeysBase` ya incluye effects y data (bugs de Stellaria corregidos en F0.2) — auditar todo Collector migrado contra el contrato nuevo.

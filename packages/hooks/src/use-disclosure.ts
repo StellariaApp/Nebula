@@ -7,21 +7,17 @@ export interface UseDisclosureReturn {
   toggle: () => void;
 }
 
-/**
- * Estado booleano abierto/cerrado con acciones estables (modales, drawers,
- * disclosure). Migrado de Stellaria — platform-agnostic (solo React).
- */
 export function useDisclosure(initialState = false): UseDisclosureReturn {
-  const [opened, setOpened] = useState(initialState);
+  const [opened, set_opened] = useState(initialState);
 
   const open = useCallback(() => {
-    setOpened(true);
+    set_opened(true);
   }, []);
   const close = useCallback(() => {
-    setOpened(false);
+    set_opened(false);
   }, []);
   const toggle = useCallback(() => {
-    setOpened((prev) => !prev);
+    set_opened((prev) => !prev);
   }, []);
 
   return { opened, open, close, toggle };

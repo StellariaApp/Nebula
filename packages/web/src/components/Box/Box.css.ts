@@ -1,20 +1,10 @@
-/**
- * Sprinkles de Box — capa visual del primitivo (equivalente web del Collector de
- * native). Genera clases atómicas cuyos valores son `var(...)` del contrato, así
- * que el cambio de tema las repinta sin recomputar nada en JS.
- *
- * Solo tokens: los valores libres (`w="240px"`) los aplica el componente como
- * style inline (ver Box.tsx). Las paletas crudas NO se exponen — los componentes
- * leen roles semánticos y escalas semánticas (guardrail de docs/02 §2.1).
- */
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 
-import { vars } from "../../../theme/contract.css.js";
+import { vars } from "../../theme/contract.css.js";
 
 type Shade = keyof typeof vars.color.primary;
 
-/** `{ "primary.600": "var(--…)" , … }` con las keys tipadas como literales. */
-function scaleEntries<P extends string>(
+function ScaleEntries<P extends string>(
   prefix: P,
   scale: Record<Shade, string>,
 ): { [K in `${P}.${Shade}`]: string } {
@@ -25,7 +15,7 @@ function scaleEntries<P extends string>(
   return out;
 }
 
-function roleEntries<P extends string, K extends string>(
+function RoleEntries<P extends string, K extends string>(
   prefix: P,
   roles: Record<K, string>,
 ): { [R in `${P}.${K}`]: string } {
@@ -36,33 +26,27 @@ function roleEntries<P extends string, K extends string>(
   return out;
 }
 
-/** Roles semánticos: el set que cubre la mayoría de usos (y el único permitido en bordes). */
-const roleColors = {
+const ROLE_COLORS = {
   transparent: "transparent",
   currentColor: "currentColor",
   inherit: "inherit",
-  ...roleEntries("surface", vars.color.surface),
-  ...roleEntries("text", vars.color.text),
-  ...roleEntries("border", vars.color.border),
+  ...RoleEntries("surface", vars.color.surface),
+  ...RoleEntries("text", vars.color.text),
+  ...RoleEntries("border", vars.color.border),
 };
 
-/**
- * Roles + escalas semánticas, para `c`/`bg`. Las paletas crudas NO se exponen
- * (docs/02 §2.1). Cada entrada añade una clase atómica por propiedad, así que el
- * set se mantiene acotado: `bdc` usa solo roles para no triplicar el CSS.
- */
-const paletteColors = {
-  ...roleColors,
-  ...scaleEntries("primary", vars.color.primary),
-  ...scaleEntries("accent", vars.color.accent),
-  ...scaleEntries("gray", vars.color.gray),
-  ...scaleEntries("success", vars.color.semantic.success),
-  ...scaleEntries("warning", vars.color.semantic.warning),
-  ...scaleEntries("error", vars.color.semantic.error),
-  ...scaleEntries("info", vars.color.semantic.info),
+const PALETTE_COLORS = {
+  ...ROLE_COLORS,
+  ...ScaleEntries("primary", vars.color.primary),
+  ...ScaleEntries("accent", vars.color.accent),
+  ...ScaleEntries("gray", vars.color.gray),
+  ...ScaleEntries("success", vars.color.semantic.success),
+  ...ScaleEntries("warning", vars.color.semantic.warning),
+  ...ScaleEntries("error", vars.color.semantic.error),
+  ...ScaleEntries("info", vars.color.semantic.info),
 };
 
-const unresponsive = defineProperties({
+const UNRESPONSIVE = defineProperties({
   properties: {
     display: ["none", "flex", "block", "inline", "inline-flex", "inline-block", "grid"],
     position: ["relative", "absolute", "fixed", "sticky", "static"],
@@ -112,9 +96,9 @@ const unresponsive = defineProperties({
     borderTopRightRadius: vars.radius,
     borderBottomLeftRadius: vars.radius,
     borderBottomRightRadius: vars.radius,
-    color: paletteColors,
-    background: paletteColors,
-    borderColor: roleColors,
+    color: PALETTE_COLORS,
+    background: PALETTE_COLORS,
+    borderColor: ROLE_COLORS,
     boxShadow: vars.shadow,
     zIndex: vars.zIndex,
   },
@@ -162,5 +146,5 @@ const unresponsive = defineProperties({
   },
 });
 
-export const sprinkles = createSprinkles(unresponsive);
+export const sprinkles = createSprinkles(UNRESPONSIVE);
 export type Sprinkles = Parameters<typeof sprinkles>[0];

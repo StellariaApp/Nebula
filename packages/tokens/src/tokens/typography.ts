@@ -1,7 +1,3 @@
-/**
- * Tipografía base migrada de Stellaria (04 §1: "tal cual") con la escala
- * reorganizada en plano según el contrato ThemeFont (02 §2.2).
- */
 import type { ThemeFont } from "../theme/theme.js";
 
 export const family = {
@@ -20,7 +16,6 @@ export const size = {
   body2: 12,
   body3: 10,
   button: 14,
-  // TODO(calibración F1/F2): probable ajuste por legibilidad AA (roadmap, supuesto 9).
   caption: 8,
 } as const;
 
