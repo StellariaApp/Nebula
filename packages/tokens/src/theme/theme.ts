@@ -41,8 +41,23 @@ export interface ThemeMeta {
   version: string;
 }
 
-/** 1. COLOR — roles semánticos sobre escalas 50–950. */
-export interface ThemeColors {
+/**
+ * 1. COLOR — roles semánticos sobre escalas 50–950, MÁS las 16 paletas base
+ * accesibles por nombre (`colors.teal`, `colors.grape`…).
+ *
+ * Los roles (`primary`/`accent`/`gray`/`semantic`/`surface`/`text`/`border`) son
+ * lo que los componentes leen por defecto y lo que el gate `check:contrast`
+ * valida. Las paletas por nombre están disponibles para composiciones puntuales
+ * del consumidor; a diferencia de los roles, NO tienen semántica relativa al
+ * scheme (en un tema dark conservan su identidad, sin invertir).
+ *
+ * Nota de tipos: el mapeo es `[K in PaletteName]`, NO `keyof PaletteName` —
+ * `PaletteName` es una unión de literales, así que `keyof` daría los métodos de
+ * `String` (`charAt`, `toString`…) en vez de los nombres de paleta.
+ */
+export type ThemeColors = {
+  [K in PaletteName]: Scale11;
+} & {
   primary: Scale11;
   accent: Scale11;
   gray: Scale11;
@@ -50,7 +65,7 @@ export interface ThemeColors {
   surface: Record<SurfaceRole, string>;
   text: Record<TextRole, string>;
   border: Record<BorderRole, string>;
-}
+};
 
 /** 2. TIPOGRAFÍA — familia + escala plana + pesos. */
 export interface ThemeFont {

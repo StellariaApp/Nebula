@@ -24,6 +24,7 @@ export const smokeTheme = {
   meta: { name: "smoke-light", scheme: "light", version: "0.0.1" },
   palettes,
   colors: {
+    ...palettes,
     primary: palettes.indigo,
     accent: palettes.violet,
     gray,

@@ -24,7 +24,14 @@ export default defineConfig({
     sourcemap: true,
     cssCodeSplit: true,
     rollupOptions: {
-      external: [/^react/, /^@stellaria\//, /^@vanilla-extract\/dynamic/],
+      // react-aria cae en /^react/; motion y los runtimes de VE (recipes/sprinkles)
+      // son dependencies declaradas: se importan, no se bundlean (ADR-018).
+      external: [
+        /^react/,
+        /^@stellaria\//,
+        /^@vanilla-extract\/(dynamic|recipes|sprinkles)/,
+        /^motion/,
+      ],
       output: {
         preserveModules: true,
         preserveModulesRoot: "src",

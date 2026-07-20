@@ -88,7 +88,16 @@ const meta = z.strictObject({
   version: z.string().min(1),
 });
 
+/**
+ * Las 16 paletas base accesibles por nombre dentro de `colors` (`colors.teal`…).
+ * Se derivan de `paletteNames` para no duplicar la lista del contrato.
+ */
+const paletteScales = Object.fromEntries(
+  paletteNames.map((name) => [name, scale11]),
+) as Record<(typeof paletteNames)[number], typeof scale11>;
+
 const colors = z.strictObject({
+  ...paletteScales,
   primary: scale11,
   accent: scale11,
   gray: scale11,

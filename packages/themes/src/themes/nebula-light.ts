@@ -28,6 +28,9 @@ export const nebulaLight = {
   meta: { name: "nebula-light", scheme: "light", version: "0.1.0" },
   palettes,
   colors: {
+    // Las 16 paletas accesibles por nombre (`colors.teal`…); los roles de abajo
+    // las sobrescriben donde comparten nombre. Identidad sin invertir.
+    ...palettes,
     primary: palettes.indigo,
     accent: palettes.violet,
     gray,

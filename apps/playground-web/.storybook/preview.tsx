@@ -1,6 +1,6 @@
 import type { Decorator, Preview } from "@storybook/react-vite";
 
-import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
+import { Box, NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "nebula-light", title: "Nebula Light" },
@@ -22,7 +22,15 @@ const withTheme: Decorator = (Story, context) => {
     // key={theme} remonta el provider al cambiar de tema (defaultTheme es inicial).
     <NebulaProvider key={theme} defaultTheme={theme} storage={null}>
       {reducedMotion === "reduce" ? <style>{REDUCED_MOTION_CSS}</style> : null}
-      <Story />
+      {/*
+        El canvas pinta la superficie y el texto del tema activo. Sin esto, las
+        stories en tema oscuro se renderizan sobre el blanco de Storybook y axe
+        reporta contraste insuficiente — un falso negativo que no refleja cómo se
+        consume la librería (la app siempre pinta su superficie base).
+      */}
+      <Box bg="surface.base" c="text.primary" mih="100vh" p="md">
+        <Story />
+      </Box>
     </NebulaProvider>
   );
 };

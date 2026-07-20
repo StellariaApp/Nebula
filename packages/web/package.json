@@ -30,15 +30,51 @@
       "name": "NebulaProvider (runtime + CSS de temas)",
       "path": "dist/index.js",
       "import": "{ NebulaProvider }",
-      "ignore": ["react", "react-dom"],
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
       "limit": "15 kB"
     },
     {
       "name": "useTheme (sin CSS)",
       "path": "dist/index.js",
       "import": "{ useTheme }",
-      "ignore": ["react", "react-dom"],
-      "limit": "5 kB"
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Box (primitivo, por módulo)",
+      "path": "dist/components/Layout/Box/Box.js",
+      "import": "{ Box }",
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Text (primitivo, por módulo)",
+      "path": "dist/components/Typography/Text/Text.js",
+      "import": "{ Text }",
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Button (compuesto: Aria + motion, por módulo)",
+      "path": "dist/components/Actions/Button/Button.js",
+      "import": "{ Button }",
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
+      "limit": "48 kB"
     }
   ],
   "dependencies": {
@@ -46,11 +82,16 @@
     "@stellaria/nebula-icons": "workspace:*",
     "@stellaria/nebula-themes": "workspace:*",
     "@stellaria/nebula-tokens": "workspace:*",
-    "@vanilla-extract/dynamic": "^2.1.5"
+    "@vanilla-extract/dynamic": "^2.1.5",
+    "@vanilla-extract/recipes": "^0.5.7",
+    "@vanilla-extract/sprinkles": "^1.7.0",
+    "motion": "^12.42.2",
+    "react-aria": "^3.50.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^12.1.0",
     "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vanilla-extract/css": "^1.21.1",

@@ -50,13 +50,15 @@ Reglas transversales:
 
 | Métrica | Budget | Herramienta |
 |---|---|---|
-| Bundle web por componente (gzip, import individual) | primitivos ≤5 kB · compuestos ≤15 kB · patterns ≤35 kB (excl. peers pesados aislados) | size-limit por entry en CI |
+| Bundle web por componente (brotli, import individual **por módulo**) | primitivos ≤9 kB · compuestos ≤48 kB · patterns ≤70 kB (excl. peers pesados aislados) | size-limit por entry en CI |
 | Tree-shaking | importar `Button` no arrastra charts/dnd/editor (subpaths `@stellaria/nebula-web/charts` etc.) | size-limit + test de imports |
 | CSS | zero-runtime (VE); vars por tema, no clases duplicadas por tema | build check |
 | Native TTI del playground | sin regresión >10% entre releases | perf test en CI (maestro + trace) |
 | Re-renders | compound components no re-renderizan hijos no afectados (Jotai atómico) | why-did-you-render en playground + tests |
 | Listas | virtualización obligatoria ≥50 items (FlashList/SectionList native; react-virtual web) | contrato de List/DataGrid |
 | RSC | los presentacionales no llevan `"use client"`; regla de lint | eslint rule |
+
+> **Revisión de budgets (2026-07-20, W1.4)**: los números originales (5/15/35 kB gzip) eran provisionales (roadmap, supuesto 4) y se fijaron antes de medir. Con la anatomía cerrada en ADR-018 —React Aria + `motion` con springs del theme— la medición real de Button es **45,1 kB brotli** (motion + `domAnimation` 27,7 · react-aria 9,75 · CSS y código propio ~7,6). El propietario ratificó mantener `motion` en toda la librería por la paridad exacta de física con Reanimated, asumiendo el coste; los budgets se elevan en consecuencia. Se mide **por módulo** (`dist/components/…/X.js`), no por el barrel, porque el barrel arrastra el CSS de todo el paquete vía `sideEffects` y no representa lo que consume quien importa un componente suelto.
 
 ### Estrategias
 

@@ -31,6 +31,9 @@ export const nebulaDark = {
   meta: { name: "nebula-dark", scheme: "dark", version: "0.1.0" },
   palettes,
   colors: {
+    // Paletas por nombre: identidad, NO se invierten (a diferencia de los roles,
+    // cuya escala es relativa al scheme — ver scales.ts).
+    ...palettes,
     primary: flipScale(palettes.indigo),
     accent: flipScale(palettes.violet),
     gray: flipScale(gray),

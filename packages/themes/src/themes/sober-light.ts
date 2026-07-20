@@ -28,6 +28,7 @@ export const soberLight = {
   meta: { name: "sober-light", scheme: "light", version: "0.1.0" },
   palettes,
   colors: {
+    ...palettes,
     primary: palettes.blue,
     accent: palettes.teal,
     gray,

@@ -28,6 +28,7 @@ export const playful = {
   meta: { name: "playful", scheme: "light", version: "0.1.0" },
   palettes,
   colors: {
+    ...palettes,
     primary: palettes.grape,
     accent: palettes.pink,
     gray,
