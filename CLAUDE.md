@@ -35,7 +35,7 @@ pnpm format                        # prettier
 ## Convenciones de código (ADR-019 — verificadas por lint)
 
 - **Sin comentarios en el código.** Lo que necesite explicación va en un `<Nombre>.md` junto al módulo (`packages/web/src/components/Button/Button.md`).
-- **Naming**: hooks `camelCase` · funciones `PascalCase` incluido el API público (`LoadTheme`, `ResolveVariant`) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case`. Props del API y retornos de librerías conservan su nombre.
+- **Naming**: hooks `camelCase` · funciones `PascalCase` incluido el API público (`LoadTheme`, `ResolveVariant`) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case` · palabras cortas y abreviaturas de dominio (`bg`, `fg`, `svg`, `md`, `top`) `lowercase`. Props del API y retornos de librerías conservan su nombre.
 - **Componentes planos**: `packages/web/src/components/<Nombre>/`, sin carpeta de categoría.
 - Simple y reutilizable; el código debe ser autoexplicativo.
 

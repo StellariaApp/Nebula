@@ -14,9 +14,12 @@
 | Componentes                                | `PascalCase`          | `Button`                            |
 | Constantes globales                        | `UPPERCASE`           | `SHADES`, `CHROMATIC_L`             |
 | Constantes locales declaradas en el módulo | `snake_case`          | `is_disabled`, `css_vars`           |
+| Palabras cortas y abreviaturas de dominio  | `lowercase`           | `bg`, `fg`, `svg`, `md`, `top`      |
 | Props del API y retornos de librerías      | se conservan tal cual | `leftSection`, `buttonProps`        |
 
 Los hooks son la única excepción a PascalCase porque React los identifica por el prefijo `use` en tiempo de lint y de runtime.
+
+**Palabras cortas y abreviaturas de dominio** (CSS/markup: `bg`, `fg`, `svg`, `md`, `top`, `glow`…) van en `lowercase` aunque sean constantes globales — no se fuerzan a `UPPERCASE` (`BG`, `TOP`). Los compuestos siguen en `camelCase` (`bgHover`, `borderColor`). Es lo natural en el dominio CSS y lo que ya usan las CSS vars locales de los componentes (`Button.vars.css.ts`).
 
 Las **props no cambian**: son el contrato público compartido con native y `NebulaTheme` es un JSON serializable (`variantMap`, `noiseOpacity`…). Renombrarlas rompería los temas exportados y la paridad W/N.
 

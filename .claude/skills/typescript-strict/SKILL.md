@@ -14,7 +14,10 @@ description: Reglas de type-safety extremo de Nebula — presupuesto de any, pat
 | Componentes                           | `PascalCase`                                 |
 | Constantes globales                   | `UPPERCASE`                                  |
 | Constantes locales que declaras tú    | `snake_case` (`is_disabled`)                 |
+| Palabras cortas / abreviaturas        | `lowercase` (`bg`, `fg`, `svg`, `md`, `top`) |
 | Props del API y retornos de librerías | se conservan (`leftSection`, `buttonProps`)  |
+
+**Palabras cortas y abreviaturas de dominio** (CSS/markup) van en `lowercase` aunque sean globales — no se fuerzan a `UPPERCASE`; los compuestos siguen en `camelCase` (`bgHover`).
 
 **Sin comentarios en el código**: si algo necesita explicarse, va en un `<Nombre>.md` junto al módulo. Los nombres de props no cambian nunca — son el contrato compartido con native y el JSON de los temas.
 
