@@ -11,20 +11,73 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./packs": {
+      "types": "./dist/packs/index.d.ts",
+      "default": "./dist/packs/index.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run",
+    "size": "size-limit"
   },
-  "dependencies": {
-    "@stellaria/nebula-tokens": "workspace:*"
-  },
+  "size-limit": [
+    {
+      "name": "Icon + RegisterIcons (glue propio, lucide es peer)",
+      "path": "dist/index.js",
+      "import": "{ Icon, RegisterIcons }",
+      "ignore": ["react", "react-dom"],
+      "limit": "3 kB"
+    },
+    {
+      "name": "CreateIcons (factory tipado, glue propio)",
+      "path": "dist/__size__/create-icons.js",
+      "import": "{ set }",
+      "ignore": ["react", "react-dom"],
+      "limit": "3 kB"
+    },
+    {
+      "name": "CommonPack (glue; los SVG vienen de lucide peer)",
+      "path": "dist/__size__/common-pack.js",
+      "import": "{ set }",
+      "ignore": ["react", "react-dom"],
+      "limit": "3 kB"
+    },
+    {
+      "name": "AllIconsPack (glue de todos los packs; SVG vía lucide peer)",
+      "path": "dist/__size__/all-pack.js",
+      "import": "{ set }",
+      "ignore": ["react", "react-dom"],
+      "limit": "4 kB"
+    }
+  ],
+  "dependencies": {},
   "devDependencies": {
-    "typescript": "7.0.2"
+    "@size-limit/preset-small-lib": "^12.1.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^29.1.1",
+    "lucide-react": "^0.469.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "size-limit": "^12.1.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.400.0",
+    "react": "^19.2.7"
+  },
+  "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    }
   }
 }
