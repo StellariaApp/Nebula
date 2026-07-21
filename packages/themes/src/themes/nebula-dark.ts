@@ -112,15 +112,15 @@ export const nebulaDark = {
   },
   variantMap: {
     filled: { background: "scale.600", foreground: "text.onPrimary", border: "none" },
-    outline: { background: "transparent", foreground: "scale.600", border: "scale.600" },
-    light: { background: "scale.500.12", foreground: "scale.700", border: "none" },
+    outline: { background: "transparent", foreground: "scale.700", border: "scale.600" },
+    light: { background: "scale.500.12", foreground: "scale.800", border: "none" },
     glass: {
       background: "surface.overlay",
       foreground: "text.primary",
       border: "border.subtle",
       glass: "default",
     },
-    ghost: { background: "transparent", foreground: "scale.600", border: "none" },
+    ghost: { background: "transparent", foreground: "scale.700", border: "none" },
     glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },
     gradient: { background: "gradient.brand", foreground: "text.onPrimary", border: "none" },
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
