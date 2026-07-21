@@ -109,8 +109,8 @@ El resultado se expone en una var local (`glow`) que consume el CSS.
 
 ```ts
 "&[data-variant='glow']::after": { opacity: 0.55 },              // suave en reposo
-"&[data-variant='glow'][data-hovered='true']::after": {          // se potencia en hover
-  animationName: "none", opacity: 1, transform: "scale(1.06)",
+"&[data-variant='glow'][data-hovered='true']::after": {          // se potencia en hover (solo opacidad)
+  animationName: "none", opacity: 1,
 },
 "&[data-glow-idle='true']::after": { animationName: GLOW_PULSE }, // breathing sutil (opacity)
 ```

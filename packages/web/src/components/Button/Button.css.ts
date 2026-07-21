@@ -63,7 +63,7 @@ export const button = recipe({
       boxShadow: glow,
       opacity: 0,
       pointerEvents: "none",
-      transitionProperty: "opacity, transform",
+      transitionProperty: "opacity",
       transitionDuration: vars.motion.duration.base,
       transitionTimingFunction: vars.motion.easing.standard,
     },
@@ -90,7 +90,6 @@ export const button = recipe({
       "&[data-variant='glow'][data-hovered='true']::after": {
         animationName: "none",
         opacity: 1,
-        transform: "scale(1.06)",
       },
     },
     "@media": {
