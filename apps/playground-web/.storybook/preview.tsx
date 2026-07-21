@@ -1,6 +1,8 @@
+import { useEffect } from "react";
+
 import type { Decorator, Preview } from "@storybook/react-vite";
 
-import { Box, NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
+import { NebulaProvider, themeClass, vars, type OfficialThemeName } from "@stellaria/nebula-web";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "nebula-light", title: "Nebula Light" },
@@ -9,7 +11,6 @@ const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "playful", title: "Playful" },
 ];
 
-/** Colapsa animaciones/transiciones para simular prefers-reduced-motion. */
 const REDUCED_MOTION_CSS =
   "*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}";
 
@@ -18,19 +19,26 @@ const withTheme: Decorator = (Story, context) => {
     theme?: OfficialThemeName;
     reducedMotion?: "reduce" | "no-preference";
   };
+
+  useEffect(() => {
+    const { body } = document;
+    const cls = themeClass[theme];
+    body.classList.add(cls);
+    const prev_bg = body.style.background;
+    const prev_color = body.style.color;
+    body.style.background = vars.color.surface.base;
+    body.style.color = vars.color.text.primary;
+    return () => {
+      body.classList.remove(cls);
+      body.style.background = prev_bg;
+      body.style.color = prev_color;
+    };
+  }, [theme]);
+
   return (
-    // key={theme} remonta el provider al cambiar de tema (defaultTheme es inicial).
     <NebulaProvider key={theme} defaultTheme={theme} storage={null}>
       {reducedMotion === "reduce" ? <style>{REDUCED_MOTION_CSS}</style> : null}
-      {/*
-        El canvas pinta la superficie y el texto del tema activo. Sin esto, las
-        stories en tema oscuro se renderizan sobre el blanco de Storybook y axe
-        reporta contraste insuficiente — un falso negativo que no refleja cómo se
-        consume la librería (la app siempre pinta su superficie base).
-      */}
-      <Box bg="surface.base" c="text.primary" mih="100vh" p="md">
-        <Story />
-      </Box>
+      <Story />
     </NebulaProvider>
   );
 };
