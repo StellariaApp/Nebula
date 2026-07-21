@@ -5,6 +5,31 @@ export type { TextOwnProps, TextProps } from "./components/Text/index.js";
 export { Button } from "./components/Button/index.js";
 export type { ButtonProps } from "./components/Button/index.js";
 
+export { Title } from "./components/Title/index.js";
+export type { TitleOrder, TitleOwnProps, TitleProps } from "./components/Title/index.js";
+export { Anchor } from "./components/Anchor/index.js";
+export type {
+  AnchorOwnProps,
+  AnchorProps,
+  AnchorUnderline,
+} from "./components/Anchor/index.js";
+export { Highlight } from "./components/Highlight/index.js";
+export type { HighlightOwnProps, HighlightProps } from "./components/Highlight/index.js";
+export { Mark } from "./components/Mark/index.js";
+export type { MarkOwnProps, MarkProps } from "./components/Mark/index.js";
+export { Code } from "./components/Code/index.js";
+export type { CodeOwnProps, CodeProps } from "./components/Code/index.js";
+export { Blockquote } from "./components/Blockquote/index.js";
+export type { BlockquoteOwnProps, BlockquoteProps } from "./components/Blockquote/index.js";
+export { List, ListItem } from "./components/List/index.js";
+export type {
+  ListItemOwnProps,
+  ListItemProps,
+  ListOwnProps,
+  ListProps,
+  ListType,
+} from "./components/List/index.js";
+
 export { Flex } from "./components/Flex/index.js";
 export type { FlexOwnProps, FlexProps } from "./components/Flex/index.js";
 export { Center } from "./components/Center/index.js";

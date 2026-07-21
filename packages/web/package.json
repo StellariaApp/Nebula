@@ -196,6 +196,55 @@
       "limit": "48 kB"
     },
     {
+      "name": "Title (primitivo, por módulo)",
+      "path": "dist/components/Title/Title.js",
+      "import": "{ Title }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Anchor (primitivo compuesto sobre Text, por módulo)",
+      "path": "dist/components/Anchor/Anchor.js",
+      "import": "{ Anchor }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Mark (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Mark/Mark.js",
+      "import": "{ Mark }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Highlight (primitivo, por módulo)",
+      "path": "dist/components/Highlight/Highlight.js",
+      "import": "{ Highlight }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Code (primitivo, por módulo)",
+      "path": "dist/components/Code/Code.js",
+      "import": "{ Code }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Blockquote (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Blockquote/Blockquote.js",
+      "import": "{ Blockquote }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "List (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/List/List.js",
+      "import": "{ List }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
       "name": "Conditional (lógica pura, por módulo)",
       "path": "dist/components/Conditional/Conditional.js",
       "import": "{ Conditional }",
