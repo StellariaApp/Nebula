@@ -1,16 +1,21 @@
-import type {
-  GradientToken,
-  NebulaTheme,
-  SemanticScaleName,
-  Variant,
-  VariantBackground,
-  VariantColorRef,
-  VariantRecipe,
+import {
+  palettes,
+  type ColorExtended,
+  type GradientToken,
+  type NebulaTheme,
+  type PaletteName,
+  type SemanticScaleName,
+  type Variant,
+  type VariantBackground,
+  type VariantColorRef,
+  type VariantProps,
+  type VariantRecipe,
 } from "@stellaria/nebula-tokens";
 
 import { vars } from "./contract.css.js";
 
 export type ColorScale = SemanticScaleName;
+export type GradientProp = NonNullable<VariantProps["gradient"]>;
 
 const SHADES = [
   "50",
@@ -27,6 +32,8 @@ const SHADES = [
 ] as const;
 
 type Shade = (typeof SHADES)[number];
+
+const SEMANTIC_SCALES = ["primary", "accent", "gray", "success", "warning", "error", "info"] as const;
 
 const TRANSPARENT_HOVER = "scale.500.10" as VariantBackground;
 const TRANSPARENT_ACTIVE = "scale.500.16" as VariantBackground;
@@ -54,8 +61,25 @@ function IsShade(value: string): value is Shade {
   return (SHADES as readonly string[]).includes(value);
 }
 
+function IsSemanticScale(value: string): value is SemanticScaleName {
+  return (SEMANTIC_SCALES as readonly string[]).includes(value);
+}
+
+function IsPaletteName(value: string): value is PaletteName {
+  return value in palettes;
+}
+
 function WithAlpha(color: string, alphaPercent: number): string {
   return `color-mix(in srgb, ${color} ${String(alphaPercent)}%, transparent)`;
+}
+
+function Darken(color: string, percent: number): string {
+  return `color-mix(in srgb, ${color}, #000 ${String(percent)}%)`;
+}
+
+/** Halo suave tintado con el color del botón (no una sombra gris genérica). */
+function TintedGlow(color: string): string {
+  return `0 0 12px 0 ${WithAlpha(color, 40)}, 0 6px 16px -6px ${WithAlpha(color, 50)}`;
 }
 
 function GradientCss(token: GradientToken): string {
@@ -63,6 +87,68 @@ function GradientCss(token: GradientToken): string {
   return token.type === "linear"
     ? `linear-gradient(${String(token.angle)}deg, ${stops})`
     : `radial-gradient(circle at 50% 50%, ${stops})`;
+}
+
+// ── Modo plano: ColorExtended → color CSS + foreground legible ────────────────
+
+interface FlatColor {
+  base: string;
+  /** hex concreto si se conoce (para calcular contraste); null si es CSS var. */
+  concrete: string | null;
+}
+
+function ResolveColorExtended(color: string): FlatColor {
+  if (color === "transparent" || color === "currentColor" || color === "inherit") {
+    return { base: color, concrete: null };
+  }
+  if (color === "white") return { base: "#ffffff", concrete: "#ffffff" };
+  if (color === "black") return { base: "#000000", concrete: "#000000" };
+  if (color.startsWith("#")) return { base: color, concrete: color };
+
+  const [group, key, alpha] = color.split(".");
+  if (group === undefined) return { base: "transparent", concrete: null };
+
+  if (group === "surface" || group === "text" || group === "border") {
+    return { base: ResolveColorRef(color as VariantColorRef, "primary"), concrete: null };
+  }
+
+  const shade: Shade = key !== undefined && IsShade(key) ? key : "600";
+  let flat: FlatColor;
+  if (IsSemanticScale(group)) {
+    flat = { base: ScaleVarsFor(group)[shade], concrete: null };
+  } else if (IsPaletteName(group)) {
+    const hex = palettes[group][shade];
+    flat = { base: hex, concrete: hex };
+  } else {
+    return { base: "transparent", concrete: null };
+  }
+
+  if (alpha !== undefined) {
+    const parsed = Number(alpha);
+    return Number.isFinite(parsed) ? { base: WithAlpha(flat.base, parsed), concrete: null } : flat;
+  }
+  return flat;
+}
+
+function Luminance(hex: string): number {
+  const raw = hex.replace("#", "");
+  const full =
+    raw.length === 3
+      ? raw
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : raw;
+  const channel = (start: number): number => {
+    const value = Number.parseInt(full.slice(start, start + 2), 16) / 255;
+    return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
+}
+
+function OnColor(concrete: string | null): string {
+  if (concrete === null) return "#ffffff";
+  return Luminance(concrete) > 0.45 ? "#0b0b0b" : "#ffffff";
 }
 
 export function ResolveColorRef(ref: VariantColorRef, scale: ColorScale): string {
@@ -108,6 +194,12 @@ function ShiftRef(ref: VariantBackground, steps: number): VariantBackground {
   return (alpha === undefined ? `scale.${next}` : `scale.${next}.${alpha}`) as VariantBackground;
 }
 
+function GradientFromProp(prop: GradientProp): string {
+  const from = ResolveColorExtended(prop.from).base;
+  const to = ResolveColorExtended(prop.to).base;
+  return `linear-gradient(${String(prop.deg ?? 135)}deg, ${from}, ${to})`;
+}
+
 export interface ResolvedVariant {
   background: string;
   backgroundHover: string;
@@ -119,6 +211,7 @@ export interface ResolvedVariant {
   glassBorder: string;
   glow: string;
   animated: boolean;
+  gradientAnimated: boolean;
 }
 
 const UNSTYLED: ResolvedVariant = {
@@ -132,15 +225,66 @@ const UNSTYLED: ResolvedVariant = {
   glassBorder: "transparent",
   glow: "none",
   animated: false,
+  gradientAnimated: false,
 };
 
-export function ResolveVariant(
+/** Recetas del modo plano: el color es un base único, sin escala de 11 pasos. */
+function ResolveFlat(
+  variant: Variant,
+  flat: FlatColor,
+  theme: NebulaTheme,
+  gradientOverride: string | undefined,
+  gradientAnimated: boolean,
+): ResolvedVariant {
+  const { base } = flat;
+  const on = OnColor(flat.concrete);
+
+  const solid = (bg: string, hover: string, active: string, fg: string): ResolvedVariant => ({
+    background: bg,
+    backgroundHover: hover,
+    backgroundActive: active,
+    foreground: fg,
+    borderColor: "transparent",
+    borderWidth: "0",
+    backdropFilter: "none",
+    glassBorder: "none",
+    glow: "none",
+    animated: theme.motion.tier !== "minimal",
+    gradientAnimated: false,
+  });
+
+  switch (variant) {
+    case "outline":
+      return {
+        ...solid("transparent", WithAlpha(base, 10), WithAlpha(base, 16), base),
+        borderColor: base,
+        borderWidth: "1px",
+      };
+    case "light":
+      return solid(WithAlpha(base, 12), WithAlpha(base, 18), WithAlpha(base, 24), base);
+    case "ghost":
+      return solid("transparent", WithAlpha(base, 10), WithAlpha(base, 16), base);
+    case "glow":
+      return { ...solid(base, Darken(base, 12), Darken(base, 20), on), glow: TintedGlow(base) };
+    case "gradient": {
+      const bg = gradientOverride ?? base;
+      return { ...solid(bg, bg, bg, on), gradientAnimated: gradientOverride !== undefined && gradientAnimated };
+    }
+    case "glass":
+    case "filled":
+    default:
+      return solid(base, Darken(base, 12), Darken(base, 20), on);
+  }
+}
+
+/** Recetas del modo escala: `color` es una de las 7 escalas de rol del tema. */
+function ResolveScale(
   variant: Variant,
   scale: ColorScale,
   theme: NebulaTheme,
+  gradientOverride: string | undefined,
+  gradientAnimated: boolean,
 ): ResolvedVariant {
-  if (variant === "unstyled") return UNSTYLED;
-
   const recipe: VariantRecipe = theme.variantMap[variant];
   const glass_on = theme.effects.glass.enabled && recipe.glass !== undefined;
   const glass_recipe = vars.glass[recipe.glass ?? "default"];
@@ -149,22 +293,44 @@ export function ResolveVariant(
   const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, 1);
   const active_ref = is_transparent ? TRANSPARENT_ACTIVE : ShiftRef(recipe.background, 2);
 
+  const background = glass_on
+    ? glass_recipe.background
+    : (gradientOverride ?? ResolveBackground(recipe.background, scale, theme));
+  const hover = glass_on
+    ? glass_recipe.background
+    : (gradientOverride ?? ResolveBackground(hover_ref, scale, theme));
+  const active = glass_on
+    ? glass_recipe.background
+    : (gradientOverride ?? ResolveBackground(active_ref, scale, theme));
+
   return {
-    background: glass_on
-      ? glass_recipe.background
-      : ResolveBackground(recipe.background, scale, theme),
-    backgroundHover: glass_on
-      ? glass_recipe.background
-      : ResolveBackground(hover_ref, scale, theme),
-    backgroundActive: glass_on
-      ? glass_recipe.background
-      : ResolveBackground(active_ref, scale, theme),
+    background,
+    backgroundHover: hover,
+    backgroundActive: active,
     foreground: ResolveColorRef(recipe.foreground, scale),
     borderColor: recipe.border === "none" ? "transparent" : ResolveColorRef(recipe.border, scale),
     borderWidth: recipe.border === "none" ? "0" : "1px",
     backdropFilter: glass_on ? glass_recipe.backdropFilter : "none",
     glassBorder: glass_on ? glass_recipe.border : "none",
-    glow: recipe.glow === undefined ? "none" : vars.shadow[recipe.glow],
+    glow: recipe.glow === undefined ? "none" : TintedGlow(background),
     animated: theme.motion.tier !== "minimal",
+    gradientAnimated: gradientOverride !== undefined && gradientAnimated,
   };
+}
+
+export function ResolveVariant(
+  variant: Variant,
+  color: ColorExtended,
+  theme: NebulaTheme,
+  gradient?: GradientProp,
+): ResolvedVariant {
+  if (variant === "unstyled") return UNSTYLED;
+
+  const gradient_override =
+    variant === "gradient" && gradient !== undefined ? GradientFromProp(gradient) : undefined;
+  const gradient_animated = gradient?.animate === true;
+
+  return IsSemanticScale(color)
+    ? ResolveScale(variant, color, theme, gradient_override, gradient_animated)
+    : ResolveFlat(variant, ResolveColorExtended(color), theme, gradient_override, gradient_animated);
 }

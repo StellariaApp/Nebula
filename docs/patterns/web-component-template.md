@@ -90,6 +90,33 @@ Sin capa, la clase base gana a la clase atómica de sprinkles y **pisa silencios
 - Se desactiva con `useReducedMotion()` **y** con `motion.tier: "minimal"` del tema.
 - Solo `transform`/`opacity` (docs/03 §2). Color y sombra transicionan por CSS con los tokens.
 
+### Capa 3.1 — Variantes con efecto: glow tintado + idle (patrón para W2–W4)
+
+Toda variante con "halo/glow" (hoy `Button.glow`; mañana Badge, ActionIcon, Card, Chip…) sigue este patrón (ADR-021):
+
+1. **Tint del color, no sombra gris.** El halo se deriva del color resuelto del componente, nunca de `vars.shadow.*` genérico. En `resolve-variant.ts`:
+
+```ts
+function TintedGlow(color: string): string {
+  return `0 0 12px 0 ${WithAlpha(color, 40)}, 0 6px 16px -6px ${WithAlpha(color, 50)}`;
+}
+// modo escala: TintedGlow(background) · modo plano: TintedGlow(base)
+```
+
+El resultado se expone en una var local (`glow`) que consume el CSS.
+
+2. **Animar `::after`, nunca el `box-shadow` del elemento.** El halo vive en un pseudo `::after` (`inset: 0`, `z-index: -1`, `border-radius: inherit`, `box-shadow: <glow>`); todas las transiciones/animaciones son **solo `opacity`/`transform`** (docs/03 §2), GPU-friendly:
+
+```ts
+"&[data-variant='glow']::after": { opacity: 0.55 },              // suave en reposo
+"&[data-variant='glow'][data-hovered='true']::after": {          // se potencia en hover
+  animationName: "none", opacity: 1, transform: "scale(1.06)",
+},
+"&[data-glow-idle='true']::after": { animationName: GLOW_PULSE }, // breathing sutil (opacity)
+```
+
+3. **Reduced-motion + tier.** `data-glow-idle` solo se aplica cuando `resolved.animated` (tier ≠ `minimal`) **y** `!prefers-reduced-motion`; el glow suave y el realce en hover se conservan siempre. En sober (glow remapeado sin halo) el `glow` es `none` y el `::after` queda invisible: la variante se degrada sola por tema.
+
 ## 3. Tipado (TS 7 estricto)
 
 - **Toda prop opcional pública declara `| undefined`** (`className?: string | undefined`). Con `exactOptionalPropertyTypes`, si no, el consumidor no puede escribir `className={cond ? "x" : undefined}`.

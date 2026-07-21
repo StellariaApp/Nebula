@@ -44,6 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "filled",
       size = "md",
       color = "primary",
+      gradient,
       disabled = false,
       loading = false,
       fullWidth = false,
@@ -81,7 +82,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { hoverProps, isHovered } = useHover({ isDisabled: is_disabled });
     const { focusProps, isFocusVisible } = useFocusRing();
 
-    const resolved = useMemo(() => ResolveVariant(variant, color, theme), [variant, color, theme]);
+    const resolved = useMemo(
+      () => ResolveVariant(variant, color, theme, gradient),
+      [variant, color, theme, gradient],
+    );
 
     const css_vars = useMemo<CSSProperties>(
       () =>
@@ -100,6 +104,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const spring = theme.motion.spring.default;
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const glow_idle =
+      variant === "glow" && resolved.glow !== "none" && resolved.animated && prefers_reduced !== true;
 
     const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
       HTMLMotionProps<"button">,
@@ -119,6 +125,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           data-disabled={is_disabled ? "true" : undefined}
           data-loading={loading ? "true" : undefined}
           data-variant={variant}
+          data-glow-idle={glow_idle ? "true" : undefined}
+          data-gradient-animated={
+            resolved.gradientAnimated && prefers_reduced !== true ? "true" : undefined
+          }
           aria-busy={loading || undefined}
           animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
           transition={

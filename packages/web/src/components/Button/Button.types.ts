@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { SemanticScaleName, Size, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Size, Variant, VariantProps } from "@stellaria/nebula-tokens";
 import type { PressEvent } from "react-aria";
 
 type MotionConflictingProps =
@@ -22,7 +22,8 @@ export interface ButtonProps extends Omit<
 > {
   variant?: Variant | undefined;
   size?: Size | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
+  gradient?: VariantProps["gradient"] | undefined;
   disabled?: boolean | undefined;
   loading?: boolean | undefined;
   fullWidth?: boolean | undefined;

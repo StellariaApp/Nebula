@@ -15,6 +15,18 @@ import {
   glow,
 } from "./Button.vars.css.js";
 
+const GRADIENT_SHIFT = keyframes({
+  "0%": { backgroundPosition: "0% 50%" },
+  "50%": { backgroundPosition: "100% 50%" },
+  "100%": { backgroundPosition: "0% 50%" },
+});
+
+const GLOW_PULSE = keyframes({
+  "0%": { opacity: 0.45 },
+  "50%": { opacity: 0.7 },
+  "100%": { opacity: 0.45 },
+});
+
 export const button = recipe({
   base: {
     display: "inline-flex",
@@ -39,10 +51,22 @@ export const button = recipe({
     background: bg,
     color: fg,
     backdropFilter,
-    boxShadow: glow,
     transitionProperty: "background, border-color, box-shadow, opacity",
     transitionDuration: vars.motion.duration.fast,
     transitionTimingFunction: vars.motion.easing.standard,
+    "::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      zIndex: -1,
+      borderRadius: "inherit",
+      boxShadow: glow,
+      opacity: 0,
+      pointerEvents: "none",
+      transitionProperty: "opacity, transform",
+      transitionDuration: vars.motion.duration.base,
+      transitionTimingFunction: vars.motion.easing.standard,
+    },
     selectors: {
       "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
       "&[data-pressed='true']:not([data-disabled='true'])": { background: bgActive },
@@ -52,6 +76,22 @@ export const button = recipe({
       },
       "&[data-disabled='true']": { cursor: "not-allowed", opacity: 0.55 },
       "&[data-loading='true']": { cursor: "progress" },
+      "&[data-gradient-animated='true']": {
+        backgroundSize: "200% 200%",
+        animation: `${GRADIENT_SHIFT} 6s ease infinite`,
+      },
+      "&[data-variant='glow']::after": { opacity: 0.55 },
+      "&[data-glow-idle='true']::after": {
+        animationName: GLOW_PULSE,
+        animationDuration: "2800ms",
+        animationTimingFunction: "ease-in-out",
+        animationIterationCount: "infinite",
+      },
+      "&[data-variant='glow'][data-hovered='true']::after": {
+        animationName: "none",
+        opacity: 1,
+        transform: "scale(1.06)",
+      },
     },
     "@media": {
       "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
