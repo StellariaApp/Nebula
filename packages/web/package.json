@@ -75,6 +75,146 @@
         "react-dom"
       ],
       "limit": "48 kB"
+    },
+    {
+      "name": "Flex (primitivo, por módulo)",
+      "path": "dist/components/Flex/Flex.js",
+      "import": "{ Flex }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Center (primitivo, por módulo)",
+      "path": "dist/components/Center/Center.js",
+      "import": "{ Center }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Group (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Group/Group.js",
+      "import": "{ Group }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Grid (compuesto, por módulo)",
+      "path": "dist/components/Grid/Grid.js",
+      "import": "{ Grid }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "GridCol (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Grid/Col.js",
+      "import": "{ GridCol }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "SimpleGrid (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/SimpleGrid/SimpleGrid.js",
+      "import": "{ SimpleGrid }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Container (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Container/Container.js",
+      "import": "{ Container }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Scroll (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Scroll/Scroll.js",
+      "import": "{ Scroll }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Divider (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Divider/Divider.js",
+      "import": "{ Divider }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Space (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Space/Space.js",
+      "import": "{ Space }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "AspectRatio (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/AspectRatio/AspectRatio.js",
+      "import": "{ AspectRatio }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Paper (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Paper/Paper.js",
+      "import": "{ Paper }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "VisuallyHidden (primitivo, por módulo)",
+      "path": "dist/components/VisuallyHidden/VisuallyHidden.js",
+      "import": "{ VisuallyHidden }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "Portal (utilidad, por módulo)",
+      "path": "dist/components/Portal/Portal.js",
+      "import": "{ Portal }",
+      "ignore": ["react", "react-dom"],
+      "limit": "6 kB"
+    },
+    {
+      "name": "FocusTrap (utilidad: Aria FocusScope, por módulo)",
+      "path": "dist/components/FocusTrap/FocusTrap.js",
+      "import": "{ FocusTrap }",
+      "ignore": ["react", "react-dom"],
+      "limit": "16 kB"
+    },
+    {
+      "name": "Transition (compuesto: motion, por módulo)",
+      "path": "dist/components/Transition/Transition.js",
+      "import": "{ Transition }",
+      "ignore": ["react", "react-dom"],
+      "limit": "48 kB"
+    },
+    {
+      "name": "Collapse (compuesto: motion, por módulo)",
+      "path": "dist/components/Collapse/Collapse.js",
+      "import": "{ Collapse }",
+      "ignore": ["react", "react-dom"],
+      "limit": "48 kB"
+    },
+    {
+      "name": "Conditional (lógica pura, por módulo)",
+      "path": "dist/components/Conditional/Conditional.js",
+      "import": "{ Conditional }",
+      "ignore": ["react", "react-dom"],
+      "limit": "2 kB"
+    },
+    {
+      "name": "Valid (lógica pura, por módulo)",
+      "path": "dist/components/Valid/Valid.js",
+      "import": "{ Valid }",
+      "ignore": ["react", "react-dom"],
+      "limit": "2 kB"
+    },
+    {
+      "name": "Omit (lógica pura, por módulo)",
+      "path": "dist/components/Omit/Omit.js",
+      "import": "{ Omit }",
+      "ignore": ["react", "react-dom"],
+      "limit": "2 kB"
     }
   ],
   "dependencies": {

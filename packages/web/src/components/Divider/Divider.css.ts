@@ -1,0 +1,81 @@
+import { style } from "@vanilla-extract/css";
+import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
+
+import { vars } from "../../theme/contract.css.js";
+import { baseLayer } from "../../theme/layers.css.js";
+
+import { dividerColor, dividerStyle, dividerThickness } from "./Divider.vars.css.js";
+
+const lineBorder = {
+  borderColor: dividerColor,
+  borderStyle: dividerStyle,
+};
+
+export const root = recipe({
+  base: {
+    "@layer": {
+      [baseLayer]: {
+        boxSizing: "border-box",
+        border: 0,
+        margin: 0,
+      },
+    },
+  },
+  variants: {
+    orientation: {
+      horizontal: {},
+      vertical: {
+        alignSelf: "stretch",
+        minHeight: "1em",
+        borderInlineStartWidth: dividerThickness,
+        ...lineBorder,
+      },
+    },
+    withLabel: {
+      true: {
+        display: "flex",
+        alignItems: "center",
+        gap: vars.space.sm,
+      },
+      false: {},
+    },
+  },
+  compoundVariants: [
+    {
+      variants: { orientation: "horizontal", withLabel: false },
+      style: {
+        borderTopWidth: dividerThickness,
+        ...lineBorder,
+      },
+    },
+  ],
+  defaultVariants: {
+    orientation: "horizontal",
+    withLabel: false,
+  },
+});
+
+export type DividerRecipeVariants = NonNullable<RecipeVariants<typeof root>>;
+
+export const line = style({
+  borderTopWidth: dividerThickness,
+  borderColor: dividerColor,
+  borderStyle: dividerStyle,
+});
+
+export const grow = style({ flexGrow: 1 });
+
+export const fixed = style({ flexGrow: 0, flexBasis: vars.space.lg });
+
+export const label = style({
+  "@layer": {
+    [baseLayer]: {
+      flexShrink: 0,
+      color: vars.color.text.secondary,
+      fontFamily: vars.font.family.sans,
+      fontSize: vars.font.size.caption,
+      lineHeight: vars.font.lineHeight.tight,
+      whiteSpace: "nowrap",
+    },
+  },
+});
