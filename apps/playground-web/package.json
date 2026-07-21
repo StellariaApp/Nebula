@@ -12,9 +12,11 @@
   },
   "devDependencies": {
     "@stellaria/nebula-hooks": "workspace:*",
+    "@stellaria/nebula-icons": "workspace:*",
     "@stellaria/nebula-themes": "workspace:*",
     "@stellaria/nebula-tokens": "workspace:*",
     "@stellaria/nebula-web": "workspace:*",
+    "lucide-react": "^0.469.0",
     "@storybook/addon-a11y": "^10.5.2",
     "@storybook/react-vite": "^10.5.2",
     "@storybook/test-runner": "^0.24.4",
