@@ -55,7 +55,8 @@ También se corrigió un falso negativo del propio playground: el canvas no pint
 1. **`primary` de `nebula-light`**: apareció un cambio a `palettes.blue` sin commitear que contradecía docs/02 §3 (indigo/violet, decisión cerrada) y descuadraba light↔dark. Se restauró **indigo**; si se quiere blue, requiere ADR y actualizar docs/02 §3 y `nebula-dark` a la vez.
 2. **Paletas como CSS vars**: `colors.<paleta>` es accesible desde JS, pero NO se emite como CSS var ni se expone en las style props de `Box` (`bg="teal.500"` no existe). Añadirlas supondría ~176 vars por tema y duplicar el CSS de sprinkles; decidir en W2 si compensa.
 3. **`LazyMotion` por componente**: hoy cada componente animado monta el suyo. Evaluar en W2 subirlo a `NebulaProvider` si aparece anidamiento redundante.
-4. Calibraciones heredadas de F0 aún abiertas: springs, sombras native, `caption: 8px`, luminosidad de `yellow`.
+4. Calibraciones heredadas de F0: springs, sombras native y luminosidad de `yellow` siguen abiertas;
+   `caption: 8px` quedó resuelto en ADR-024/W2.V con `caption=12`.
 
 ## Arranque recomendado de W2 (Tier 1)
 

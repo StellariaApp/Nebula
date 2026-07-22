@@ -8,22 +8,22 @@
 
 ## Etapa 1 — Fundaciones
 
-### F0 — Scaffold y fundaciones _(en curso — spike TS 7 ejecutado el 2026-07-15, ver ADR-012)_
+### F0 — Scaffold y fundaciones _(cerrada — ver `docs/f0-closure.md`)_
 
 **Entregables**: monorepo Turborepo+pnpm con paquetes core vacíos y pipelines; **spike TS 7** ✅ (veredicto: todo verde salvo typescript-eslint → contingencia TS 5.9.3 solo en la cadena de lint); `@stellaria/nebula-tokens` con contrato `NebulaTheme` + types compartidos migrados de Stellaria; `tools/palette-gen` (OKLCH 50–950) y `tools/contrast-check`; skills de gobernanza.
 **Gate**: `turbo build/typecheck/lint` verde; paletas regeneradas pasan contrast-check.
 
 ## Etapa 2 — Web: desarrollo → publicación → premium
 
-### W1 — Theming web + playground web
+### W1 — Theming web + playground web _(cerrada — ver `docs/w1-closure.md`)_
 
 **Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `nebula-light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
 **Gate**: cambiar tema reconfigura los pilotos sin tocar código; axe y size-limit verdes; Button con testing contract al 100% (plantilla para todo lo demás).
 
-### W2 — Web Tier 1
+### W2 — Web Tier 1 _(en curso — checkpoint visual W2.V antes de continuar W2.3)_
 
 **Entregables**: Foundation/Layout, Typography, Utilities, `@stellaria/nebula-icons` (registry lucide), Buttons/Actions, sistema de forms (FormField + `NebulaField` + `useFieldProps`), inputs básicos, Combobox + Select/MultiSelect, overlays core (Modal, Drawer, Popover, Tooltip, Menu), feedback (Alert, Toast+provider, Loader, Skeleton, Progress), Card compound, Avatar, Badge, navegación core, EmptyState.
-**Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox.
+**Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox; láminas `Foundations/Visual QA` y review visual según `docs/06-visual-language.md`.
 
 ### W3 — Web Tier 2
 
@@ -115,6 +115,7 @@ typecheck TS7 estricto (lint con contingencia 5.9.3 — ADR-012) · lint (+regla
 6. **TipTap vs Lexical** y **cmdk vs propio**: provisionales; ADR definitivo en W4/W3.
 7. **Jest para native** vs unificar en Vitest: propuesto Jest; validar al abrir N1.
 8. **Grupos de props de `CardComplex`**: requiere revisión del propietario en W3.5 (checkpoint obligatorio).
-9. **`caption: 8px`**: probable ajuste por legibilidad AA — confirmar al calibrar.
+9. ~~**`caption: 8px`**~~ — **RESUELTO en ADR-024/W2.V**: `caption=12`, `body3=13` y ningún
+   texto informativo o interactivo baja de 12 px.
 10. **Storage de persistencia de tema** (MMKV recomendado, inyectable): confirmar que no debe imponerse.
 11. **Publicación pública vs privada del core** + **licencia** (MIT/BSL/propietaria): asumo core **público**; confirmar en W5.1 — bloquea W5.2.

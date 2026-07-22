@@ -7,7 +7,7 @@
 | Archivo                       | Acción                   | Detalle                                                                                                                                                    |
 | ----------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/tokens/colors.ts`        | **Regenerar**            | Escala 100–900 → **50–950** con `tools/palette-gen` (ADR-009); 16 paletas se conservan como identidad + roles semánticos nuevos (02 §2)                    |
-| `src/tokens/typography.ts`    | Migrar                   | Geist Sans/Mono, escala y pesos tal cual; revisar `caption: 8` (posible fallo AA de legibilidad → subir en calibración)                                    |
+| `src/tokens/typography.ts`    | Migrar + recalibrar       | Geist Sans/Mono; escala recalibrada por ADR-024 a `48…20`, cuerpo `16/14/13`, button `14` y caption `12`                                                   |
 | `src/tokens/animation.ts`     | Migrar + extender        | duration/easing se conservan; añadir `spring` presets y `motion.tier` (02 §2.4); `keyframes/transforms` se revisan (parte era CSS-only)                    |
 | `src/tokens/effects.ts`       | Migrar + extender        | blur/glass/shadows tal cual; **añadir `gradients`** (gap detectado — no existen); shadows duales (CSS string web / elevation map native)                   |
 | `src/tokens/layout.ts`        | Migrar                   | breakpoints/zIndex                                                                                                                                         |

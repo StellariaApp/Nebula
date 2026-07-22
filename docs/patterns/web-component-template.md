@@ -2,6 +2,8 @@
 
 > Extraída de los tres pilotos de W1.4 (Box, Text, Button). **Vinculante para W2–W4**.
 > Decisiones de fondo en [ADR-018](../adr/ADR-018-anatomia-componente-web-w14.md) y [ADR-019](../adr/ADR-019-convenciones-de-codigo.md); anatomía en `docs/01-architecture.md` §4.
+> Dirección visual, ritmo, densidad y effects budget en
+> [06-visual-language.md](../06-visual-language.md) — también vinculante desde W2.V.
 
 ## 0. Convenciones (ADR-019)
 
@@ -141,6 +143,16 @@ Mínimo por componente, en `__tests__/`:
 
 Seguir `apps/playground-web/STORIES-TEMPLATE.md`: `Default`, `Variants`, `Sizes`, `States`, `Dark`, `ReducedMotion` + play function de teclado. El gate `turbo a11y` corre axe sobre todas.
 
+Las matrices aisladas no cierran la review visual. Todo componente visual añade:
+
+- `Composition`: contexto creíble con jerarquía, contenido y componentes vecinos reales;
+- `AllThemes`: misma composición en `nebula-dark`, `nebula-light`, `sober-light` y `playful`;
+- phone + desktop cuando el ancho cambia su comportamiento;
+- densidad default + data-dense cuando aplique.
+
+La composición sigue `docs/06-visual-language.md`: cuerpo ≥12 px, medida de lectura, spacing por
+relación, una sola escalera de elevación y máximo un efecto dominante por región.
+
 **Cuidado con el contraste en las stories**: usar solo pares validados por `pnpm check:contrast` (p. ej. `text.onPrimary` va sobre `primary.600`, no sobre `primary.500`). Una story con una combinación arbitraria rompe el gate aunque el componente sea correcto.
 
 ## 6. Checklist antes de dar por cerrado un componente
@@ -152,3 +164,5 @@ Seguir `apps/playground-web/STORIES-TEMPLATE.md`: `Default`, `Variants`, `Sizes`
 - [ ] Entry de `size-limit` añadido y dentro de budget (docs/03 §3).
 - [ ] `"use client"` **solo** si el componente es interactivo; los presentacionales quedan server-safe.
 - [ ] Coherente en los 4 temas (sober y playful incluidos) — es el gate del theming.
+- [ ] `Composition` demuestra jerarquía y ritmo reales; no solo variantes aisladas.
+- [ ] Tipografía, spacing, elevación y efectos cumplen `docs/06-visual-language.md`.

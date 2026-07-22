@@ -2,6 +2,7 @@
 
 > Referencia canónica para W1.4–W4. Toda story CSF3 (Storybook 10.5). El gate a11y
 > (`turbo a11y`) corre axe sobre TODAS las stories; el gate `size` mide el bundle.
+> El gate visual y compositivo se define en `docs/06-visual-language.md`.
 
 ## Dónde viven las stories
 
@@ -25,8 +26,18 @@
 | `States`        | hover/active/focus/disabled/loading según aplique.                                      |
 | `Dark`          | fijado en `nebula-dark` vía `globals` (además del toggle de toolbar).                   |
 | `ReducedMotion` | fijado en reduced-motion; verifica el fallback de animación.                            |
+| `Composition`   | uso real con jerarquía, ritmo y componentes vecinos; obligatorio si es visual.          |
+| `AllThemes`     | misma composición en dark/light/sober/playful, sin cambiar props estructurales.         |
 
 **Play function de teclado** (obligatoria donde haya interacción): Tab/Enter/Space/flechas/Esc/Home/End según el patrón APG del componente (docs/03 §1). Usa `play` + `@storybook/test`.
+
+`Composition` no es una demo de marketing: debe revelar fallos de medida de texto, densidad,
+alineación, superficie, focus y estados. Usa contenido creíble y componentes Nebula; no recrea inputs,
+cards o botones con estilos libres. Cuando el ancho importe, se valida en phone y desktop desde la
+toolbar.
+
+`AllThemes` conserva exactamente la misma estructura. El tema puede cambiar color, radius, spacing,
+motion y efectos; la story no compensa un tema con props especiales.
 
 ## Reglas a11y (gate `turbo a11y`)
 
@@ -69,6 +80,16 @@ export const Variants: Story = {
 export const Dark: Story = { globals: { theme: "nebula-dark" } };
 
 export const ReducedMotion: Story = { globals: { reducedMotion: "reduce" } };
+
+export const Composition: Story = {
+  render: (args) => (
+    <section aria-labelledby="composition-title">
+      <h2 id="composition-title">Acciones de la cuenta</h2>
+      <p>Ejemplo en contexto, con texto y jerarquía suficientes para evaluar el ritmo.</p>
+      <Button {...args}>Guardar cambios</Button>
+    </section>
+  ),
+};
 
 export const KeyboardActivation: Story = {
   play: async ({ canvasElement }) => {

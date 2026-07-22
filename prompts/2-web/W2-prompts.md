@@ -1,19 +1,21 @@
 # Prompts W2 — Web Tier 1
 
-> 5 prompts secuenciales. Requiere W1 cerrado (`docs/w1-closure.md`). Todos los componentes siguen la plantilla canónica `docs\patterns\web-component-template.md` y el alcance viene de `docs\00-inventory.md` §1 (columna Tier=1, plataforma W/WN).
+> 5 prompts secuenciales + checkpoint visual W2.V antes de continuar W2.3. Requiere W1 cerrado (`docs/w1-closure.md`). Todos los componentes siguen la plantilla canónica `docs\patterns\web-component-template.md`, el lenguaje visual `docs\06-visual-language.md` y el alcance viene de `docs\00-inventory.md` §1 (columna Tier=1, plataforma W/WN).
 
 **Bloque común — inclúyelo al inicio de CADA prompt de esta fase:**
 
 ```
 Trabajas en C:\Users\Skr13\Documents\GitHub\Nebula (monorepo Nebula; W1 cerrado).
-LEE ANTES: docs\patterns\web-component-template.md (plantilla OBLIGATORIA), docs\00-inventory.md §1
+LEE ANTES: docs\patterns\web-component-template.md (plantilla OBLIGATORIA),
+docs\06-visual-language.md (jerarquía/ritmo/densidad/elevación/effects budget), docs\00-inventory.md §1
 (alcance y notas por componente), docs\03-a11y-motion-performance.md §1 (contrato a11y de tu clase de
 componentes), apps\playground-web\STORIES-TEMPLATE.md.
 REGLAS: cada componente entrega types compartidos (contrato en el espíritu de tokens/types, sin tipos
 web-only en la API pública de componentes WN) + implementación + testing contract (ADR-015) + stories
-(4 temas) + entrada size-limit. Solo roles semánticos del theme. Dependencias nuevas → pregunta antes
+(specimen + Composition + 4 temas) + entrada size-limit. Solo roles semánticos del theme. Dependencias nuevas → pregunta antes
 (ADR-014). Política de preguntas del propietario: duda de API → opciones + recomendación.
-GATE por prompt: turbo build/typecheck/lint/test/a11y/size verdes ANTES de reportar.
+GATE por prompt: turbo build/typecheck/lint/test/a11y/size verdes + review visual contra las láminas
+Foundations/Visual QA ANTES de reportar.
 ```
 
 ---
@@ -49,6 +51,34 @@ MISIÓN:
    (Text ya existe de W1.4.)
 
 REPORTE: API final del registry (con ejemplo de extensión) + tabla componente→estado.
+```
+
+## Checkpoint W2.V — Calibración visual transversal _(ejecutar antes de continuar W2.3)_
+
+```
+[BLOQUE COMÚN]
+LEE ADEMÁS: docs\adr\ADR-024-lenguaje-visual-y-calibracion-w2.md y
+docs\reviews\W2-visual-structural-review-2026-07-21.md.
+
+MISIÓN:
+1. Crear Foundations/Visual QA en playground-web con láminas Typography, Spacing, Surfaces,
+   Actions y Forms; las mismas composiciones deben poder verse en los 4 temas.
+2. Recalibrar los valores tipográficos al baseline de docs\06 §2 y hacer que Text/Title apliquen
+   sus defaults semánticos (body/heading, line-height, peso y tracking). Aplicar también la
+   calibración aprobada: ActionIcon ocupa ≈50 % del control, Button usa semibold/normal, Blockquote
+   fija body1+caption, Icon Gallery usa labels body3 y FormField respeta el ritmo 2/8/4.
+3. Calibrar shadows por theme: los niveles deben distinguirse tanto en nebula-light como en
+   nebula-dark; Paper demuestra la escalera 0–4 con superficie+borde+sombra coherentes.
+4. Eliminar duraciones/easings libres de Button y cualquier componente W1/W2 ya implementado;
+   derivar loops ambientales de motion tokens según docs\06 §6.
+5. Sustituir fixtures visuales libres por componentes/tokens Nebula y añadir Composition a Text,
+   Title, Paper, Button y FormField.
+6. Corregir la deriva documental señalada en el review cuando no reabra decisiones cerradas.
+
+NO ampliar NebulaTheme ni cambiar APIs públicas durante esta misión sin un ADR adicional y un
+checkpoint del propietario.
+
+REPORTE: before/after de las cinco láminas + tabla hallazgo→corrección→gate + deuda restante.
 ```
 
 ## Prompt W2.3 — Actions + sistema de forms + inputs básicos

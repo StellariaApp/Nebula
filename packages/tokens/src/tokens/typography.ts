@@ -6,17 +6,17 @@ export const family = {
 } as const;
 
 export const size = {
-  h1: 44,
-  h2: 36,
-  h3: 30,
-  h4: 24,
-  h5: 20,
-  h6: 18,
-  body1: 14,
-  body2: 12,
-  body3: 10,
+  h1: 48,
+  h2: 40,
+  h3: 32,
+  h4: 28,
+  h5: 24,
+  h6: 20,
+  body1: 16,
+  body2: 14,
+  body3: 13,
   button: 14,
-  caption: 8,
+  caption: 12,
 } as const;
 
 export const lineHeight = {

@@ -10,7 +10,7 @@
 | Elemento                                   | Convención            | Ejemplo                             |
 | ------------------------------------------ | --------------------- | ----------------------------------- |
 | Hooks                                      | `camelCase`           | `useTheme`, `useDisclosure`         |
-| Funciones (incluido el API público)        | **`PascalCase`**      | `LoadTheme`, `ResolveVariant`, `Cx` |
+| Funciones (incluido el API público)        | **`PascalCase`**      | `LoadTheme`, `ResolveVariant`, `cx` |
 | Componentes                                | `PascalCase`          | `Button`                            |
 | Constantes globales                        | `UPPERCASE`           | `SHADES`, `CHROMATIC_L`             |
 | Constantes locales declaradas en el módulo | `snake_case`          | `is_disabled`, `css_vars`           |

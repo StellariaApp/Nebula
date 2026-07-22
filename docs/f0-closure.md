@@ -27,7 +27,9 @@
 ## Estado real (matices que F1 debe conocer)
 
 1. **Contingencia ADR-012 activa**: revisar trimestralmente si typescript-eslint ya soporta TS 7 para retirar el pin 5.9.3.
-2. **Valores provisionales pendientes de calibración** (F1/F2): springs de motion, equivalencias native de las sombras duales, `caption: 8px` (probable fallo de legibilidad AA), y la luminosidad de `yellow` en pasos medios (consecuencia de la curva L consistente — decidir si se acepta o se introduce curva por-familia).
+2. **Valores provisionales pendientes de calibración** (F1/F2): springs de motion, equivalencias
+   native de las sombras duales y la luminosidad de `yellow` en pasos medios. `caption: 8px` quedó
+   resuelto posteriormente en ADR-024/W2.V con `caption=12`.
 3. **Gray canónico único** full-range (en lugar del par legacy light/dark): si el scheme dark de F1 necesita su propio gray, `palette-gen` lo genera en una línea.
 4. Paquetes `private: true` hasta decidir publicación (changesets + registry premium — mini-ADR pendiente, supuesto 5 del roadmap).
 5. El tema de humo de `tools/contrast-check` es la semilla natural de `nebula-light`.
