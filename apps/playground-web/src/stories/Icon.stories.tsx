@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { CreateIcons } from "@stellaria/nebula-icons";
 import { CommonPack, DashboardPack } from "@stellaria/nebula-icons/packs";
-import { Box, Text } from "@stellaria/nebula-web";
+import { Box, Text, vars } from "@stellaria/nebula-web";
 
 const { Icon, names } = CreateIcons({ ...CommonPack, ...DashboardPack });
 
@@ -17,11 +17,18 @@ type Story = StoryObj;
 /** Galería del set tipado (CommonPack + DashboardPack). `name` autocompleta y valida en compilación. */
 export const Gallery: Story = {
   render: () => (
-    <Box display="flex" gap="md" wrap="wrap">
+    <Box display="flex" gap="lg" wrap="wrap">
       {names.map((name) => (
-        <Box key={name} display="flex" direction="column" align="center" gap="xs" w={84}>
+        <Box
+          key={name}
+          display="flex"
+          direction="column"
+          align="center"
+          gap="sm"
+          w={`calc(${vars.space.xxl} * 2)`}
+        >
           <Icon name={name} size={28} />
-          <Text fz="caption" c="text.muted" ta="center">
+          <Text fz="body3" c="text.muted" ta="center">
             {name}
           </Text>
         </Box>

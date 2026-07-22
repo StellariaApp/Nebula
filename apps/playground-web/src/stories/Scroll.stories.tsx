@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Scroll>;
 
 export const Vertical: Story = {
   render: () => (
-    <Scroll axis="y" h={160} p="sm" bg="surface.sunken" r="md" tabIndex={0} aria-label="Lista">
+    <Scroll axis="y" h={120} p="sm" bg="surface.sunken" r="md" tabIndex={0} aria-label="Lista">
       {Array.from({ length: 20 }, (_, i) => (
         <Text key={i}>línea {i + 1}</Text>
       ))}
