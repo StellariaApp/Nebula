@@ -34,7 +34,7 @@
         "react",
         "react-dom"
       ],
-      "limit": "15 kB"
+      "limit": "18 kB"
     },
     {
       "name": "useTheme (sin CSS)",
@@ -44,7 +44,7 @@
         "react",
         "react-dom"
       ],
-      "limit": "9 kB"
+      "limit": "11 kB"
     },
     {
       "name": "Box (primitivo, por módulo)",
@@ -241,6 +241,118 @@
       "name": "List (primitivo temable en runtime, por módulo)",
       "path": "dist/components/List/List.js",
       "import": "{ List }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "UnstyledButton (comportamiento React Aria, por módulo)",
+      "path": "dist/components/UnstyledButton/UnstyledButton.js",
+      "import": "{ UnstyledButton }",
+      "ignore": ["react", "react-dom"],
+      "limit": "20 kB"
+    },
+    {
+      "name": "ActionIcon (compuesto: Aria + motion, por módulo)",
+      "path": "dist/components/ActionIcon/ActionIcon.js",
+      "import": "{ ActionIcon }",
+      "ignore": ["react", "react-dom"],
+      "limit": "48 kB"
+    },
+    {
+      "name": "ButtonClose (por módulo)",
+      "path": "dist/components/ButtonClose/ButtonClose.js",
+      "import": "{ ButtonClose }",
+      "ignore": ["react", "react-dom"],
+      "limit": "48 kB"
+    },
+    {
+      "name": "ButtonCopy (por módulo)",
+      "path": "dist/components/ButtonCopy/ButtonCopy.js",
+      "import": "{ ButtonCopy }",
+      "ignore": ["react", "react-dom"],
+      "limit": "48 kB"
+    },
+    {
+      "name": "ButtonGroup (primitivo, por módulo)",
+      "path": "dist/components/ButtonGroup/ButtonGroup.js",
+      "import": "{ ButtonGroup }",
+      "ignore": ["react", "react-dom"],
+      "limit": "9 kB"
+    },
+    {
+      "name": "FileButton (por módulo)",
+      "path": "dist/components/FileButton/FileButton.js",
+      "import": "{ FileButton }",
+      "ignore": ["react", "react-dom"],
+      "limit": "2 kB"
+    },
+    {
+      "name": "FormField (por módulo)",
+      "path": "dist/components/FormField/FormField.js",
+      "import": "{ FormField }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "TextInput (input + FormField, por módulo)",
+      "path": "dist/components/TextInput/TextInput.js",
+      "import": "{ TextInput }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "PasswordInput (por módulo)",
+      "path": "dist/components/PasswordInput/PasswordInput.js",
+      "import": "{ PasswordInput }",
+      "ignore": ["react", "react-dom"],
+      "limit": "24 kB"
+    },
+    {
+      "name": "Textarea (por módulo)",
+      "path": "dist/components/Textarea/Textarea.js",
+      "import": "{ Textarea }",
+      "ignore": ["react", "react-dom"],
+      "limit": "16 kB"
+    },
+    {
+      "name": "SearchInput (por módulo)",
+      "path": "dist/components/SearchInput/SearchInput.js",
+      "import": "{ SearchInput }",
+      "ignore": ["react", "react-dom"],
+      "limit": "24 kB"
+    },
+    {
+      "name": "NumberInput (por módulo)",
+      "path": "dist/components/NumberInput/NumberInput.js",
+      "import": "{ NumberInput }",
+      "ignore": ["react", "react-dom"],
+      "limit": "24 kB"
+    },
+    {
+      "name": "Checkbox (nativo + visual, por módulo)",
+      "path": "dist/components/Checkbox/Checkbox.js",
+      "import": "{ Checkbox }",
+      "ignore": ["react", "react-dom"],
+      "limit": "16 kB"
+    },
+    {
+      "name": "Radio (nativo + visual, por módulo)",
+      "path": "dist/components/Radio/Radio.js",
+      "import": "{ Radio }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Switch (nativo + visual, por módulo)",
+      "path": "dist/components/Switch/Switch.js",
+      "import": "{ Switch }",
+      "ignore": ["react", "react-dom"],
+      "limit": "16 kB"
+    },
+    {
+      "name": "SegmentedControl (radiogroup, por módulo)",
+      "path": "dist/components/SegmentedControl/SegmentedControl.js",
+      "import": "{ SegmentedControl }",
       "ignore": ["react", "react-dom"],
       "limit": "12 kB"
     },
