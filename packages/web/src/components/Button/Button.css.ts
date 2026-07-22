@@ -36,8 +36,8 @@ export const button = recipe({
     boxSizing: "border-box",
     margin: 0,
     fontFamily: vars.font.family.sans,
-    fontWeight: vars.font.weight.medium,
-    lineHeight: vars.font.lineHeight.tight,
+    fontWeight: vars.font.weight.semibold,
+    lineHeight: vars.font.lineHeight.normal,
     letterSpacing: vars.font.letterSpacing.normal,
     textDecoration: "none",
     whiteSpace: "nowrap",
@@ -78,13 +78,16 @@ export const button = recipe({
       "&[data-loading='true']": { cursor: "progress" },
       "&[data-gradient-animated='true']": {
         backgroundSize: "200% 200%",
-        animation: `${GRADIENT_SHIFT} 6s ease infinite`,
+        animationName: GRADIENT_SHIFT,
+        animationDuration: `calc(${vars.motion.duration.expressive} * 12)`,
+        animationTimingFunction: vars.motion.easing.standard,
+        animationIterationCount: "infinite",
       },
       "&[data-variant='glow']::after": { opacity: 0.55 },
       "&[data-glow-idle='true']::after": {
         animationName: GLOW_PULSE,
-        animationDuration: "2800ms",
-        animationTimingFunction: "ease-in-out",
+        animationDuration: `calc(${vars.motion.duration.expressive} * 6)`,
+        animationTimingFunction: vars.motion.easing.standard,
         animationIterationCount: "infinite",
       },
       "&[data-variant='glow'][data-hovered='true']::after": {
@@ -93,7 +96,7 @@ export const button = recipe({
       },
     },
     "@media": {
-      "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+      "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
     },
   },
   variants: {
@@ -126,7 +129,7 @@ export const button = recipe({
         height: vars.size.xl,
         paddingInline: vars.space.lg,
         gap: vars.space.sm,
-        fontSize: vars.font.size.h6,
+        fontSize: vars.font.size.body1,
       },
     },
     fullWidth: {
@@ -168,10 +171,13 @@ export const spinner = style({
   borderRadius: vars.radius.full,
   border: "2px solid currentColor",
   borderTopColor: "transparent",
-  animation: `${SPIN} 700ms linear infinite`,
+  animationName: SPIN,
+  animationDuration: vars.motion.duration.expressive,
+  animationTimingFunction: vars.motion.easing.standard,
+  animationIterationCount: "infinite",
   "@media": {
     "(prefers-reduced-motion: reduce)": {
-      animationDuration: "1800ms",
+      animationName: "none",
     },
   },
 });

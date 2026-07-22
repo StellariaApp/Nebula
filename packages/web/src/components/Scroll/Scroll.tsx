@@ -8,7 +8,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -17,8 +17,16 @@ import { scrollbarSize as scrollbarSizeVar } from "./Scroll.vars.css.js";
 import type { ScrollOwnProps, ScrollProps } from "./Scroll.types.js";
 
 const ScrollImpl = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(props, ref) {
-  const { component, axis = "y", gutter = false, scrollbarSize, className, style, children, ...rest } =
-    props as ScrollOwnProps & { style?: CSSProperties };
+  const {
+    component,
+    axis = "y",
+    gutter = false,
+    scrollbarSize,
+    className,
+    style,
+    children,
+    ...rest
+  } = props as ScrollOwnProps & { style?: CSSProperties };
 
   const css_vars =
     scrollbarSize === undefined
@@ -29,7 +37,7 @@ const ScrollImpl = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(props
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={Cx(styles.scroll({ axis, gutter }), className)}
+      className={cx(styles.scroll({ axis, gutter }), className)}
       style={{ ...css_vars, ...style }}
       {...rest}
     >

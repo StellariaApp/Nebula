@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Text } from "../Text/Text.js";
 
 import * as styles from "./Anchor.css.js";
@@ -21,7 +21,7 @@ const AnchorImpl = forwardRef<HTMLElement, AnchorOwnProps>(function Anchor(props
     <Text
       ref={ref}
       component={component ?? "a"}
-      className={Cx(styles.anchor, UNDERLINE_CLASS[underline], className)}
+      className={cx(styles.anchor, UNDERLINE_CLASS[underline], className)}
       {...external_attrs}
       {...rest}
     />

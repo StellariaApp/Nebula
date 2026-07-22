@@ -8,7 +8,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Grid.css.js";
@@ -16,10 +16,16 @@ import type { GridColOwnProps, GridColProps } from "./Grid.types.js";
 import { colOffset, colSpan } from "./Grid.vars.css.js";
 
 const ColImpl = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props, ref) {
-  const { component, span = "auto", offset = 0, className, style, ...rest } =
-    props as GridColOwnProps & {
-      style?: CSSProperties;
-    };
+  const {
+    component,
+    span = "auto",
+    offset = 0,
+    className,
+    style,
+    ...rest
+  } = props as GridColOwnProps & {
+    style?: CSSProperties;
+  };
 
   const is_numeric = typeof span === "number";
   const variant_class = is_numeric
@@ -37,7 +43,7 @@ const ColImpl = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props,
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={Cx(styles.colBase, variant_class, className)}
+      className={cx(styles.colBase, variant_class, className)}
       style={{ ...css_vars, ...style }}
       {...rest}
     />

@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import type { BoxOwnProps, BoxProps } from "./Box.types.js";
 
@@ -12,7 +12,7 @@ const BoxImpl = forwardRef<HTMLElement, BoxOwnProps>(function Box(props, ref) {
   return (
     <Component
       ref={ref}
-      className={Cx(sprinkle_class, className)}
+      className={cx(sprinkle_class, className)}
       {...(style === undefined ? {} : { style })}
       {...rest}
     />

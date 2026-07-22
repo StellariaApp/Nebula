@@ -9,7 +9,7 @@ import {
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -55,15 +55,15 @@ const DividerImpl = forwardRef<HTMLElement, DividerOwnProps>(function Divider(pr
       component={component ?? "div"}
       role="separator"
       aria-orientation={orientation}
-      className={Cx(styles.root({ orientation, withLabel: has_label }), className)}
+      className={cx(styles.root({ orientation, withLabel: has_label }), className)}
       style={{ ...css_vars, ...style }}
       {...rest}
     >
       {has_label ? (
         <>
-          <span aria-hidden="true" className={Cx(styles.line, left_class)} />
+          <span aria-hidden="true" className={cx(styles.line, left_class)} />
           <span className={styles.label}>{label}</span>
-          <span aria-hidden="true" className={Cx(styles.line, right_class)} />
+          <span aria-hidden="true" className={cx(styles.line, right_class)} />
         </>
       ) : null}
     </Box>

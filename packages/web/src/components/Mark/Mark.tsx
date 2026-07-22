@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Mark.css.js";
@@ -13,7 +13,7 @@ const MarkImpl = forwardRef<HTMLElement, MarkOwnProps>(function Mark(props, ref)
     <Box
       ref={ref}
       component={component ?? "mark"}
-      className={Cx(styles.mark({ color }), className)}
+      className={cx(styles.mark({ color }), className)}
       {...rest}
     />
   );

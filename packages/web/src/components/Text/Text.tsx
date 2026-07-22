@@ -6,7 +6,7 @@ import {
   type Ref,
 } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Text.css.js";
@@ -22,7 +22,7 @@ const TextImpl = forwardRef<HTMLElement, TextOwnProps>(function Text(props, ref)
     <Box
       ref={ref}
       component={component ?? "p"}
-      className={Cx(
+      className={cx(
         styles.text,
         inherit === true && styles.inheritStyles,
         is_clamped ? styles.clamp : truncate === true && styles.truncate,

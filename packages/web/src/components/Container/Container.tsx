@@ -9,7 +9,7 @@ import {
 import type { Size, Unit } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -27,33 +27,40 @@ const SIZE_WIDTH: Record<Size, number> = {
 
 function ResolveMaxWidth(size: Size | Unit, fluid: boolean): string {
   if (fluid) return "100%";
-  if (typeof size === "string" && size in SIZE_WIDTH) return `${String(SIZE_WIDTH[size as Size])}px`;
+  if (typeof size === "string" && size in SIZE_WIDTH)
+    return `${String(SIZE_WIDTH[size as Size])}px`;
   return LengthToCss(size);
 }
 
-const ContainerImpl = forwardRef<HTMLElement, ContainerOwnProps>(
-  function Container(props, ref) {
-    const { component, size = "md", fluid = false, px, style, className, children, ...rest } =
-      props as ContainerOwnProps & { style?: CSSProperties };
+const ContainerImpl = forwardRef<HTMLElement, ContainerOwnProps>(function Container(props, ref) {
+  const {
+    component,
+    size = "md",
+    fluid = false,
+    px,
+    style,
+    className,
+    children,
+    ...rest
+  } = props as ContainerOwnProps & { style?: CSSProperties };
 
-    const css_vars = assignInlineVars({
-      [containerSize]: ResolveMaxWidth(size, fluid),
-    });
+  const css_vars = assignInlineVars({
+    [containerSize]: ResolveMaxWidth(size, fluid),
+  });
 
-    return (
-      <Box
-        ref={ref}
-        component={component ?? "div"}
-        className={Cx(styles.container, className)}
-        px={px ?? "md"}
-        style={{ ...css_vars, ...style }}
-        {...rest}
-      >
-        {children}
-      </Box>
-    );
-  },
-);
+  return (
+    <Box
+      ref={ref}
+      component={component ?? "div"}
+      className={cx(styles.container, className)}
+      px={px ?? "md"}
+      style={{ ...css_vars, ...style }}
+      {...rest}
+    >
+      {children}
+    </Box>
+  );
+});
 
 interface ContainerComponent {
   <C extends ElementType = "div">(props: ContainerProps<C> & { ref?: Ref<Element> }): ReactElement;

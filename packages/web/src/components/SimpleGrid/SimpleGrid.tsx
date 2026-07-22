@@ -9,7 +9,7 @@ import {
 import type { BreakpointName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -45,43 +45,39 @@ function ColsVars(cols: SimpleGridCols): Record<string, string> {
   return out;
 }
 
-const SimpleGridImpl = forwardRef<HTMLElement, SimpleGridOwnProps>(
-  function SimpleGrid(props, ref) {
-    const {
-      component,
-      cols = 1,
-      spacing = "md",
-      verticalSpacing,
-      className,
-      style,
-      children,
-      ...rest
-    } = props as SimpleGridOwnProps & { style?: CSSProperties };
+const SimpleGridImpl = forwardRef<HTMLElement, SimpleGridOwnProps>(function SimpleGrid(props, ref) {
+  const {
+    component,
+    cols = 1,
+    spacing = "md",
+    verticalSpacing,
+    className,
+    style,
+    children,
+    ...rest
+  } = props as SimpleGridOwnProps & { style?: CSSProperties };
 
-    const css_vars = assignInlineVars({
-      ...ColsVars(cols),
-      [sgSpacingX]: SpaceToCss(spacing),
-      [sgSpacingY]: SpaceToCss(verticalSpacing ?? spacing),
-    });
+  const css_vars = assignInlineVars({
+    ...ColsVars(cols),
+    [sgSpacingX]: SpaceToCss(spacing),
+    [sgSpacingY]: SpaceToCss(verticalSpacing ?? spacing),
+  });
 
-    return (
-      <Box
-        ref={ref}
-        component={component ?? "div"}
-        className={Cx(styles.simpleGrid, className)}
-        style={{ ...css_vars, ...style }}
-        {...rest}
-      >
-        {children}
-      </Box>
-    );
-  },
-);
+  return (
+    <Box
+      ref={ref}
+      component={component ?? "div"}
+      className={cx(styles.simpleGrid, className)}
+      style={{ ...css_vars, ...style }}
+      {...rest}
+    >
+      {children}
+    </Box>
+  );
+});
 
 interface SimpleGridComponent {
-  <C extends ElementType = "div">(
-    props: SimpleGridProps<C> & { ref?: Ref<Element> },
-  ): ReactElement;
+  <C extends ElementType = "div">(props: SimpleGridProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
 }
 

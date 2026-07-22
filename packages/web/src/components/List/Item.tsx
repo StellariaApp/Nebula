@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./List.css.js";
@@ -11,7 +11,7 @@ const ItemImpl = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(pro
 
   if (icon === undefined || icon === null) {
     return (
-      <Box ref={ref} component={component ?? "li"} className={Cx(styles.item, className)} {...rest}>
+      <Box ref={ref} component={component ?? "li"} className={cx(styles.item, className)} {...rest}>
         {children}
       </Box>
     );
@@ -21,7 +21,7 @@ const ItemImpl = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(pro
     <Box
       ref={ref}
       component={component ?? "li"}
-      className={Cx(styles.itemWithIcon, className)}
+      className={cx(styles.itemWithIcon, className)}
       {...rest}
     >
       <span className={styles.itemIcon} aria-hidden="true">

@@ -6,7 +6,7 @@ import {
   type Ref,
 } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -33,7 +33,7 @@ const PaperImpl = forwardRef<HTMLElement, PaperOwnProps>(function Paper(props, r
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={Cx(styles.paper({ shadow, radius: named_radius, withBorder }), className)}
+      className={cx(styles.paper({ shadow, radius: named_radius, withBorder }), className)}
       style={{ ...inline_radius, ...style }}
       {...rest}
     >

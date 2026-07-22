@@ -50,7 +50,7 @@ function ToCssLength(value: number | string): string {
 
 export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyleProps {
   const sprinkle_props: Record<string, unknown> = {};
-  const style: CSSProperties = {};
+  const style: CSSProperties = props.style ?? {};
   const rest: Record<string, unknown> = {};
   let has_sprinkles = false;
   let has_style = false;
@@ -98,7 +98,7 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
   };
 }
 
-export function Cx(...values: (string | undefined | false)[]): string | undefined {
+export function cx(...values: (string | undefined | false)[]): string | undefined {
   const parts = values.filter((v): v is string => typeof v === "string" && v.length > 0);
   return parts.length > 0 ? parts.join(" ") : undefined;
 }

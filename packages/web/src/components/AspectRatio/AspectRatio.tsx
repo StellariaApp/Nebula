@@ -8,7 +8,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./AspectRatio.css.js";
@@ -17,8 +17,14 @@ import type { AspectRatioOwnProps, AspectRatioProps } from "./AspectRatio.types.
 
 const AspectRatioImpl = forwardRef<HTMLElement, AspectRatioOwnProps>(
   function AspectRatio(props, ref) {
-    const { component, ratio = 1, className, style, children, ...rest } =
-      props as AspectRatioOwnProps & { style?: CSSProperties };
+    const {
+      component,
+      ratio = 1,
+      className,
+      style,
+      children,
+      ...rest
+    } = props as AspectRatioOwnProps & { style?: CSSProperties };
 
     const css_vars = assignInlineVars({ [ratioVar]: String(ratio) });
 
@@ -26,7 +32,7 @@ const AspectRatioImpl = forwardRef<HTMLElement, AspectRatioOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={Cx(styles.aspectRatio, className)}
+        className={cx(styles.aspectRatio, className)}
         style={{ ...css_vars, ...style }}
         {...rest}
       >

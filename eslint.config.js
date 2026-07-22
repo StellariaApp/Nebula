@@ -31,7 +31,11 @@ export default tseslint.config(
           filter: { regex: "^use[A-Z]", match: true },
           format: ["camelCase"],
         },
-        { selector: "function", format: ["PascalCase"] },
+        {
+          selector: "function",
+          format: ["PascalCase"],
+          filter: { regex: "^[A-Z].{3,}$", match: true },
+        },
         {
           selector: "variable",
           modifiers: ["const", "global"],

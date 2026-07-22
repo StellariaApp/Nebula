@@ -11,7 +11,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -49,7 +49,7 @@ const ListImpl = forwardRef<HTMLElement, ListOwnProps>(function List(props, ref)
     <Box
       ref={ref}
       component={component ?? (type === "ordered" ? "ol" : "ul")}
-      className={Cx(
+      className={cx(
         styles.list,
         withPadding ? styles.withPadding : undefined,
         icon === undefined ? undefined : styles.unstyled,

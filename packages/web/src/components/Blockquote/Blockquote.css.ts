@@ -19,6 +19,8 @@ export const blockquote = style({
       background: vars.color.surface.raised,
       color: vars.color.text.secondary,
       fontFamily: vars.font.family.sans,
+      fontSize: vars.font.size.body1,
+      lineHeight: vars.font.lineHeight.normal,
     },
   },
 });
@@ -45,6 +47,7 @@ export const cite = style({
       display: "block",
       marginBlockStart: vars.space.xs,
       fontSize: vars.font.size.caption,
+      lineHeight: vars.font.lineHeight.normal,
       fontStyle: "normal",
       color: vars.color.text.muted,
     },

@@ -6,7 +6,7 @@ import {
   type Ref,
 } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -28,7 +28,7 @@ const SpaceImpl = forwardRef<HTMLElement, SpaceOwnProps>(function Space(props, r
       ref={ref}
       component={component ?? "div"}
       aria-hidden="true"
-      className={Cx(styles.space, className)}
+      className={cx(styles.space, className)}
       style={{ ...dimensions, ...style }}
       {...rest}
     />

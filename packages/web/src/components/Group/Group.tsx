@@ -9,7 +9,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -42,7 +42,7 @@ const GroupImpl = forwardRef<HTMLElement, GroupOwnProps>(function Group(props, r
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={Cx(styles.group, wrap ? styles.wrapOn : styles.wrapOff, className)}
+      className={cx(styles.group, wrap ? styles.wrapOn : styles.wrapOff, className)}
       align={align}
       justify={justify}
       data-grow={grow ? "true" : undefined}

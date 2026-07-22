@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Code.css.js";
@@ -13,7 +13,7 @@ const CodeImpl = forwardRef<HTMLElement, CodeOwnProps>(function Code(props, ref)
     <Box
       ref={ref}
       component={component ?? (block ? "pre" : "code")}
-      className={Cx(styles.base, block ? styles.block : styles.inline, className)}
+      className={cx(styles.base, block ? styles.block : styles.inline, className)}
       {...rest}
     />
   );

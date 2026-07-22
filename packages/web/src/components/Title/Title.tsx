@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Title.css.js";
@@ -13,7 +13,7 @@ const TitleImpl = forwardRef<HTMLElement, TitleOwnProps>(function Title(props, r
     <Box
       ref={ref}
       component={component ?? (`h${String(order)}` as ElementType)}
-      className={Cx(styles.heading, styles.orders[order], className)}
+      className={cx(styles.heading, styles.orders[order], className)}
       {...rest}
     />
   );

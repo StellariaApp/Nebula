@@ -8,7 +8,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
@@ -42,7 +42,7 @@ const GridImpl = forwardRef<HTMLElement, GridOwnProps>(function Grid(props, ref)
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={Cx(styles.grid({ wrap }), className)}
+      className={cx(styles.grid({ wrap }), className)}
       align={align}
       justify={justify}
       style={{ ...css_vars, ...style }}

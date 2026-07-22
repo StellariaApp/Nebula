@@ -8,6 +8,10 @@ export const text = style({
     [baseLayer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
+      fontSize: vars.font.size.body1,
+      fontWeight: vars.font.weight.regular,
+      lineHeight: vars.font.lineHeight.normal,
+      letterSpacing: vars.font.letterSpacing.normal,
       color: vars.color.text.primary,
     },
   },

@@ -1,6 +1,6 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./VisuallyHidden.css.js";
@@ -13,7 +13,7 @@ const VisuallyHiddenImpl = forwardRef<HTMLElement, VisuallyHiddenOwnProps>(
       <Box
         ref={ref}
         component={component ?? "span"}
-        className={Cx(styles.visuallyHidden, className)}
+        className={cx(styles.visuallyHidden, className)}
         {...rest}
       />
     );

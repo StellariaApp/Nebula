@@ -21,7 +21,7 @@ import {
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { Cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Button.css.js";
 import type { ButtonProps } from "./Button.types.js";
@@ -105,7 +105,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const spring = theme.motion.spring.default;
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
     const glow_idle =
-      variant === "glow" && resolved.glow !== "none" && resolved.animated && prefers_reduced !== true;
+      variant === "glow" &&
+      resolved.glow !== "none" &&
+      resolved.animated &&
+      prefers_reduced !== true;
 
     const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
       HTMLMotionProps<"button">,
@@ -117,7 +120,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <m.button
           {...dom_props}
           ref={ref}
-          className={Cx(styles.button({ size, fullWidth }), className)}
+          className={cx(styles.button({ size, fullWidth }), className)}
           style={{ ...css_vars, ...style } as MotionStyle}
           data-hovered={isHovered ? "true" : undefined}
           data-pressed={isPressed ? "true" : undefined}
@@ -144,13 +147,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         >
           {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
           {leftSection === undefined ? null : (
-            <span className={Cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+            <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
               {leftSection}
             </span>
           )}
-          <span className={Cx(loading && styles.labelLoading)}>{children}</span>
+          <span className={cx(loading && styles.labelLoading)}>{children}</span>
           {rightSection === undefined ? null : (
-            <span className={Cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+            <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
               {rightSection}
             </span>
           )}
