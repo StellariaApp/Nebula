@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -7,16 +7,13 @@ import { SearchInput } from "../SearchInput.js";
 afterEach(cleanup);
 
 describe("SearchInput", () => {
-  it("dispara onSearch con debounce", () => {
-    vi.useFakeTimers();
+  it("dispara onSearch con debounce", async () => {
     const on_search = vi.fn();
     render(<SearchInput label="Buscar" onSearch={on_search} debounce={50} />);
-    fireEvent.change(screen.getByLabelText("Buscar"), { target: { value: "abc" } });
-    act(() => {
-      vi.advanceTimersByTime(50);
+    await userEvent.type(screen.getByLabelText("Buscar"), "abc");
+    await waitFor(() => {
+      expect(on_search).toHaveBeenCalledWith("abc");
     });
-    expect(on_search).toHaveBeenCalledWith("abc");
-    vi.useRealTimers();
   });
 
   it("permite limpiar el valor", async () => {

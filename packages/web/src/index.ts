@@ -52,7 +52,11 @@ export type {
   FormFieldProps,
 } from "./components/FormField/index.js";
 export { FieldError } from "./components/FieldError/index.js";
-export type { ErrorDisplay, FieldErrorProps } from "./components/FieldError/index.js";
+export type {
+  ErrorDisplay,
+  FieldErrorPosition,
+  FieldErrorProps,
+} from "./components/FieldError/index.js";
 
 export { TextInput } from "./components/TextInput/index.js";
 export type { TextInputProps } from "./components/TextInput/index.js";

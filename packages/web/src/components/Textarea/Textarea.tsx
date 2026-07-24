@@ -7,7 +7,6 @@ import { useObjectRef } from "react-aria";
 
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
-import { FieldError } from "../FieldError/FieldError.js";
 import { FormField } from "../FormField/FormField.js";
 
 import type { TextareaProps } from "./Textarea.types.js";
@@ -46,14 +45,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       required,
     });
 
-    const use_tooltip = errorDisplay === "tooltip";
-    const form_error = use_tooltip
-      ? fp.isInvalid
-        ? true
-        : undefined
-      : error === true
-        ? true
-        : fp.errorMessage;
+    const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
 
     useEffect(() => {
       if (!autosize) return;
@@ -68,37 +60,30 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         label={label}
         description={description}
         error={form_error}
+        errorDisplay={errorDisplay}
+        status={fp.status}
         required={required}
         className={rootClassName}
       >
-        {(control) => {
-          const control_node = (
-            <div
-              className={field.field({ size, multiline: true })}
-              data-invalid={fp.isInvalid ? "true" : undefined}
-              data-disabled={fp.isDisabled ? "true" : undefined}
-            >
-              <textarea
-                {...control}
-                {...textarea_rest}
-                ref={ref}
-                rows={rows}
-                className={cx(field.input, field.textarea, className)}
-                value={fp.value}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => fp.onChange(event.target.value)}
-                disabled={fp.isDisabled}
-                required={required}
-              />
-            </div>
-          );
-          return use_tooltip ? (
-            <FieldError message={fp.errorMessage} status={fp.status}>
-              {control_node}
-            </FieldError>
-          ) : (
-            control_node
-          );
-        }}
+        {(control) => (
+          <div
+            className={field.field({ size, multiline: true })}
+            data-invalid={fp.isInvalid ? "true" : undefined}
+            data-disabled={fp.isDisabled ? "true" : undefined}
+          >
+            <textarea
+              {...control}
+              {...textarea_rest}
+              ref={ref}
+              rows={rows}
+              className={cx(field.input, field.textarea, className)}
+              value={fp.value}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => fp.onChange(event.target.value)}
+              disabled={fp.isDisabled}
+              required={required}
+            />
+          </div>
+        )}
       </FormField>
     );
   },

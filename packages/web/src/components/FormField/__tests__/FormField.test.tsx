@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { FormField } from "../FormField.js";
@@ -17,9 +17,9 @@ describe("FormField", () => {
     expect(label.getAttribute("for")).toBe(input.id);
   });
 
-  it("referencia description y error por aria-describedby", () => {
+  it("referencia description y error por aria-describedby (errorDisplay=text)", () => {
     render(
-      <FormField label="Clave" description="8+ caracteres" error="Muy corta">
+      <FormField label="Clave" description="8+ caracteres" error="Muy corta" errorDisplay="text">
         {(control) => <input {...control} data-testid="input" />}
       </FormField>,
     );

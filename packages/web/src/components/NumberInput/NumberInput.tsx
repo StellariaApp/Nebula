@@ -6,7 +6,6 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
-import { FieldError } from "../FieldError/FieldError.js";
 import { FormField } from "../FormField/FormField.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
@@ -49,14 +48,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     });
 
     const current = fp.value;
-    const use_tooltip = errorDisplay === "tooltip";
-    const form_error = use_tooltip
-      ? fp.isInvalid
-        ? true
-        : undefined
-      : error === true
-        ? true
-        : fp.errorMessage;
+    const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
 
     const Clamp = (next: number): number => {
       let clamped = next;
@@ -88,63 +80,56 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         label={label}
         description={description}
         error={form_error}
+        errorDisplay={errorDisplay}
+        status={fp.status}
         required={required}
         className={rootClassName}
       >
-        {(control) => {
-          const control_node = (
-            <div
-              className={field.field({ size })}
-              data-invalid={fp.isInvalid ? "true" : undefined}
-              data-disabled={fp.isDisabled ? "true" : undefined}
-            >
-              <input
-                {...control}
-                {...input_rest}
-                ref={ref}
-                type="number"
-                inputMode="decimal"
-                className={cx(field.input, styles.numberInput, className)}
-                value={display}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => HandleInput(event.target.value)}
-                disabled={fp.isDisabled}
-                required={required}
-                {...(min === undefined ? {} : { min })}
-                {...(max === undefined ? {} : { max })}
-                step={step}
-              />
-              {hideControls ? null : (
-                <div className={styles.stepper}>
-                  <UnstyledButton
-                    className={styles.stepperButton}
-                    aria-label={incrementLabel}
-                    tabIndex={-1}
-                    disabled={fp.isDisabled || at_max}
-                    onPress={() => Step(1)}
-                  >
-                    ▲
-                  </UnstyledButton>
-                  <UnstyledButton
-                    className={styles.stepperButton}
-                    aria-label={decrementLabel}
-                    tabIndex={-1}
-                    disabled={fp.isDisabled || at_min}
-                    onPress={() => Step(-1)}
-                  >
-                    ▼
-                  </UnstyledButton>
-                </div>
-              )}
-            </div>
-          );
-          return use_tooltip ? (
-            <FieldError message={fp.errorMessage} status={fp.status}>
-              {control_node}
-            </FieldError>
-          ) : (
-            control_node
-          );
-        }}
+        {(control) => (
+          <div
+            className={field.field({ size })}
+            data-invalid={fp.isInvalid ? "true" : undefined}
+            data-disabled={fp.isDisabled ? "true" : undefined}
+          >
+            <input
+              {...control}
+              {...input_rest}
+              ref={ref}
+              type="number"
+              inputMode="decimal"
+              className={cx(field.input, styles.numberInput, className)}
+              value={display}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => HandleInput(event.target.value)}
+              disabled={fp.isDisabled}
+              required={required}
+              {...(min === undefined ? {} : { min })}
+              {...(max === undefined ? {} : { max })}
+              step={step}
+            />
+            {hideControls ? null : (
+              <div className={styles.stepper}>
+                <UnstyledButton
+                  className={styles.stepperButton}
+                  aria-label={incrementLabel}
+                  tabIndex={-1}
+                  disabled={fp.isDisabled || at_max}
+                  onPress={() => Step(1)}
+                >
+                  ▲
+                </UnstyledButton>
+                <UnstyledButton
+                  className={styles.stepperButton}
+                  aria-label={decrementLabel}
+                  tabIndex={-1}
+                  disabled={fp.isDisabled || at_min}
+                  onPress={() => Step(-1)}
+                >
+                  ▼
+                </UnstyledButton>
+              </div>
+            )}
+          </div>
+        )}
       </FormField>
     );
   },

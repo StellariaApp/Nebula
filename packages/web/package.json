@@ -287,53 +287,53 @@
       "limit": "2 kB"
     },
     {
-      "name": "FormField (por módulo)",
+      "name": "FormField (compuesto: FieldError + motion, por módulo)",
       "path": "dist/components/FormField/FormField.js",
       "import": "{ FormField }",
       "ignore": ["react", "react-dom"],
-      "limit": "12 kB"
+      "limit": "48 kB"
     },
     {
-      "name": "FieldError (burbuja de error, por módulo)",
+      "name": "FieldError (burbuja: Transition + motion, por módulo)",
       "path": "dist/components/FieldError/FieldError.js",
       "import": "{ FieldError }",
       "ignore": ["react", "react-dom"],
-      "limit": "12 kB"
+      "limit": "48 kB"
     },
     {
-      "name": "TextInput (input + FormField, por módulo)",
+      "name": "TextInput (input + FormField + motion, por módulo)",
       "path": "dist/components/TextInput/TextInput.js",
       "import": "{ TextInput }",
       "ignore": ["react", "react-dom"],
-      "limit": "15 kB"
+      "limit": "48 kB"
     },
     {
-      "name": "PasswordInput (por módulo)",
+      "name": "PasswordInput (input acción: Aria + motion + forms, por módulo)",
       "path": "dist/components/PasswordInput/PasswordInput.js",
       "import": "{ PasswordInput }",
       "ignore": ["react", "react-dom"],
-      "limit": "24 kB"
+      "limit": "50 kB"
     },
     {
       "name": "Textarea (por módulo)",
       "path": "dist/components/Textarea/Textarea.js",
       "import": "{ Textarea }",
       "ignore": ["react", "react-dom"],
-      "limit": "16 kB"
+      "limit": "48 kB"
     },
     {
-      "name": "SearchInput (por módulo)",
+      "name": "SearchInput (input acción: Aria + motion + forms, por módulo)",
       "path": "dist/components/SearchInput/SearchInput.js",
       "import": "{ SearchInput }",
       "ignore": ["react", "react-dom"],
-      "limit": "24 kB"
+      "limit": "50 kB"
     },
     {
-      "name": "NumberInput (por módulo)",
+      "name": "NumberInput (input acción: Aria + motion + forms, por módulo)",
       "path": "dist/components/NumberInput/NumberInput.js",
       "import": "{ NumberInput }",
       "ignore": ["react", "react-dom"],
-      "limit": "24 kB"
+      "limit": "50 kB"
     },
     {
       "name": "Checkbox (nativo + visual, por módulo)",

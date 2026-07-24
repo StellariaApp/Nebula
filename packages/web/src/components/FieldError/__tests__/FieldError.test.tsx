@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { NebulaField } from "@stellaria/nebula-tokens";
@@ -34,18 +34,16 @@ describe("FieldError", () => {
         <input />
       </FieldError>,
     );
-    const alert = screen.getByRole("alert");
-    expect(alert.textContent).toBe("requerido");
-    expect(alert.getAttribute("data-open")).toBe("true");
+    expect(screen.getByRole("alert").textContent).toBe("requerido");
   });
 
-  it("no abre la burbuja si el field es inválido pero no touched", () => {
+  it("no monta la burbuja si el field es inválido pero no touched", () => {
     render(
       <FieldError field={Field({ status: "invalid", error: "requerido", touched: false })}>
         <input />
       </FieldError>,
     );
-    expect(screen.getByRole("alert", { hidden: true }).getAttribute("data-open")).toBeNull();
+    expect(screen.queryByRole("alert")).toBeNull();
   });
 
   it("acepta message/status resueltos por el input", () => {
@@ -63,7 +61,7 @@ describe("FieldError", () => {
         <input />
       </FieldError>,
     );
-    expect(screen.getByRole("alert", { hidden: true }).getAttribute("data-open")).toBeNull();
+    expect(screen.queryByRole("alert")).toBeNull();
     await waitFor(
       () => {
         expect(screen.getByRole("alert").textContent).toBe("Validando…");

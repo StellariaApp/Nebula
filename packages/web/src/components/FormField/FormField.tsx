@@ -4,6 +4,7 @@ import { forwardRef, useId, type ElementType, type ReactElement, type Ref } from
 
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
+import { FieldError } from "../FieldError/FieldError.js";
 
 import * as styles from "./FormField.css.js";
 import type {
@@ -18,6 +19,10 @@ const FormFieldImpl = forwardRef<HTMLElement, FormFieldOwnProps>(function FormFi
     label,
     description,
     error,
+    errorDisplay = "tooltip",
+    errorPosition,
+    errorOffset,
+    status,
     required = false,
     id,
     className,
@@ -32,11 +37,12 @@ const FormFieldImpl = forwardRef<HTMLElement, FormFieldOwnProps>(function FormFi
 
   const error_message = typeof error === "string" ? error : undefined;
   const is_invalid = error === true || error_message !== undefined;
+  const use_tooltip = errorDisplay === "tooltip";
 
   const described_by =
     [
       description === undefined || description === null ? null : description_id,
-      error_message ? error_id : null,
+      !use_tooltip && error_message ? error_id : null,
     ]
       .filter((value): value is string => value !== null)
       .join(" ") || undefined;
@@ -74,11 +80,24 @@ const FormFieldImpl = forwardRef<HTMLElement, FormFieldOwnProps>(function FormFi
         </div>
       ) : null}
       <div className={styles.body}>
-        {typeof children === "function" ? children(control) : children}
-        {error_message === undefined ? null : (
-          <span id={error_id} role="alert" className={styles.error}>
-            {error_message}
-          </span>
+        {use_tooltip ? (
+          <FieldError
+            message={error_message}
+            status={status}
+            position={errorPosition}
+            {...(errorOffset === undefined ? {} : { offset: errorOffset })}
+          >
+            {typeof children === "function" ? children(control) : children}
+          </FieldError>
+        ) : (
+          <>
+            {typeof children === "function" ? children(control) : children}
+            {error_message === undefined ? null : (
+              <span id={error_id} role="alert" className={styles.error}>
+                {error_message}
+              </span>
+            )}
+          </>
         )}
       </div>
     </Box>

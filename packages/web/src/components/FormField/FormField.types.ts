@@ -1,6 +1,9 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
+import type { FieldStatus } from "@stellaria/nebula-tokens";
+
 import type { BoxOwnProps } from "../Box/Box.types.js";
+import type { ErrorDisplay, FieldErrorPosition } from "../FieldError/FieldError.types.js";
 
 export interface FormFieldControlProps {
   id: string;
@@ -14,6 +17,10 @@ export interface FormFieldOwnProps extends Omit<BoxOwnProps, "component" | "chil
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
+  errorPosition?: FieldErrorPosition | undefined;
+  errorOffset?: number | undefined;
+  status?: FieldStatus | undefined;
   required?: boolean | undefined;
   id?: string | undefined;
   children?: ReactNode | ((control: FormFieldControlProps) => ReactNode) | undefined;

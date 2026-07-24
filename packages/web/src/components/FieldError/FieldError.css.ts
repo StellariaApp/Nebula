@@ -1,9 +1,11 @@
-import { style } from "@vanilla-extract/css";
+import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { bubbleBg, bubbleFg } from "./FieldError.vars.css.js";
+import { bubbleBg, bubbleFg, gap } from "./FieldError.vars.css.js";
+
+const GAP = fallbackVar(gap, "12px");
 
 export const wrapper = style({
   position: "relative",
@@ -15,56 +17,57 @@ export const bubble = style({
   "@layer": {
     [baseLayer]: {
       position: "absolute",
-      insetInlineStart: 0,
-      bottom: "calc(100% + 8px)",
       maxWidth: "100%",
+      width: "max-content",
       boxSizing: "border-box",
       paddingInline: vars.space.sm,
-      paddingBlock: vars.space.xxs,
+      paddingBlock: vars.space.xs,
       borderRadius: vars.radius.sm,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
-      lineHeight: vars.font.lineHeight.tight,
+      lineHeight: vars.font.lineHeight.normal,
       color: bubbleFg,
       background: bubbleBg,
       boxShadow: vars.shadow.md,
       zIndex: vars.zIndex.tooltip,
       pointerEvents: "none",
       whiteSpace: "normal",
-      opacity: 0,
-      transform: "translateY(4px)",
-      transitionProperty: "opacity, transform",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
       selectors: {
-        "&[data-open='true']": { opacity: 1, transform: "translateY(0)" },
-        "&[data-position='bottom']": {
-          bottom: "auto",
-          top: "calc(100% + 8px)",
-          transform: "translateY(-4px)",
-        },
-        "&[data-position='bottom'][data-open='true']": { transform: "translateY(0)" },
         "&::after": {
           content: '""',
           position: "absolute",
-          insetInlineStart: vars.space.md,
-          top: "100%",
           borderWidth: "5px",
           borderStyle: "solid",
           borderColor: "transparent",
-          borderTopColor: bubbleBg,
         },
-        "&[data-position='bottom']::after": {
-          top: "auto",
-          bottom: "100%",
-          borderTopColor: "transparent",
-          borderBottomColor: bubbleBg,
-        },
-      },
-      "@media": {
-        "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
       },
     },
   },
+});
+
+export const top = style({
+  bottom: `calc(100% + ${GAP})`,
+  selectors: { "&::after": { top: "100%", borderTopColor: bubbleBg } },
+});
+
+export const bottom = style({
+  top: `calc(100% + ${GAP})`,
+  selectors: { "&::after": { bottom: "100%", borderBottomColor: bubbleBg } },
+});
+
+export const start = style({
+  insetInlineStart: vars.space.xs,
+  selectors: { "&::after": { insetInlineStart: vars.space.md } },
+});
+
+export const end = style({
+  insetInlineEnd: vars.space.xs,
+  selectors: { "&::after": { insetInlineEnd: vars.space.md } },
+});
+
+export const center = style({
+  insetInline: 0,
+  marginInline: "auto",
+  selectors: { "&::after": { insetInlineStart: "calc(50% - 5px)" } },
 });

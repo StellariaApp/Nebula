@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import type { NebulaField } from "@stellaria/nebula-tokens";
+import type { FieldErrorPosition } from "@stellaria/nebula-web";
 import { Box, FieldError, NumberInput, Text, TextInput } from "@stellaria/nebula-web";
+
+const POSITIONS: FieldErrorPosition[] = [
+  "top-left",
+  "top",
+  "top-right",
+  "bottom-left",
+  "bottom",
+  "bottom-right",
+];
 
 const meta: Meta = {
   title: "Forms/FieldError",
@@ -52,6 +62,33 @@ export const Validating: Story = {
           Comprobando disponibilidad…
         </Text>
       </FieldError>
+    </Box>
+  ),
+};
+
+/** Las 6 posiciones (`position`), con la burbuja anclada por `inset`/`margin`. */
+export const Positions: Story = {
+  render: () => (
+    <Box
+      display="grid"
+      style={{ gridTemplateColumns: "repeat(3, 1fr)", rowGap: 88, columnGap: 32 }}
+      py="xxxl"
+      px="xl"
+    >
+      {POSITIONS.map((position) => (
+        <FieldError key={position} error={position} position={position}>
+          <Text
+            ta="center"
+            p="sm"
+            bg="surface.raised"
+            bdc="border.default"
+            r="md"
+            style={{ borderWidth: 1, borderStyle: "solid" }}
+          >
+            {position}
+          </Text>
+        </FieldError>
+      ))}
     </Box>
   ),
 };

@@ -6,12 +6,22 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
+import { Transition } from "../Transition/Transition.js";
 
 import * as styles from "./FieldError.css.js";
-import { bubbleBg, bubbleFg } from "./FieldError.vars.css.js";
-import type { FieldErrorProps } from "./FieldError.types.js";
+import { bubbleBg, bubbleFg, gap } from "./FieldError.vars.css.js";
+import type { FieldErrorPosition, FieldErrorProps } from "./FieldError.types.js";
 
 const VALIDATING_DELAY = 500;
+
+const POSITION_CLASS: Record<FieldErrorPosition, string | undefined> = {
+  top: cx(styles.bubble, styles.top, styles.center),
+  "top-left": cx(styles.bubble, styles.top, styles.start),
+  "top-right": cx(styles.bubble, styles.top, styles.end),
+  bottom: cx(styles.bubble, styles.bottom, styles.center),
+  "bottom-left": cx(styles.bubble, styles.bottom, styles.start),
+  "bottom-right": cx(styles.bubble, styles.bottom, styles.end),
+};
 
 export function FieldError(props: FieldErrorProps): ReactElement {
   const {
@@ -21,7 +31,8 @@ export function FieldError(props: FieldErrorProps): ReactElement {
     message,
     status,
     color: color_prop,
-    position = "top",
+    position = "top-right",
+    offset = 12,
     validatingLabel = "Validando…",
     className,
   } = props;
@@ -29,8 +40,7 @@ export function FieldError(props: FieldErrorProps): ReactElement {
   const explicit_message = typeof error === "string" ? error : undefined;
   const field_invalid = field !== undefined && field.touched && field.status === "invalid";
   const field_validating = field !== undefined && field.status === "validating";
-  const resolved_message =
-    message ?? explicit_message ?? (field_invalid ? field.error : undefined);
+  const resolved_message = message ?? explicit_message ?? (field_invalid ? field.error : undefined);
   const validating = status === "validating" || field_validating;
   const has_error = error === true || resolved_message !== undefined || field_invalid;
 
@@ -49,38 +59,24 @@ export function FieldError(props: FieldErrorProps): ReactElement {
     };
   }, [validating]);
 
-  const open = has_error || show_validating;
-
-  const [sticky, set_sticky] = useState<{ text: string | undefined; validating: boolean }>({
-    text: resolved_message,
-    validating: show_validating,
-  });
-
-  useEffect(() => {
-    if (open) set_sticky({ text: resolved_message, validating: show_validating });
-  }, [open, resolved_message, show_validating]);
-
-  const color = sticky.validating ? "info" : (color_prop ?? "error");
-  const label = sticky.validating ? validatingLabel : sticky.text;
+  const validating_now = show_validating && !has_error;
+  const open = has_error || validating_now;
+  const color = validating_now ? "info" : (color_prop ?? "error");
+  const label = validating_now ? validatingLabel : resolved_message;
   const visible = open && label !== undefined && label !== "";
 
   const css_vars = assignInlineVars({
-    [bubbleBg]: ScaleShade(color, "600"),
+    [bubbleBg]: ScaleShade(color, "500"),
     [bubbleFg]: ScaleShade(color, "50"),
+    [gap]: `${String(offset)}px`,
   });
 
   return (
     <div className={cx(styles.wrapper, className)} style={css_vars}>
       {children}
-      <span
-        className={styles.bubble}
-        role="alert"
-        data-open={visible ? "true" : undefined}
-        data-position={position === "bottom" ? "bottom" : undefined}
-        aria-hidden={visible ? undefined : true}
-      >
-        {label}
-      </span>
+      <Transition mounted={visible} transition="scale" className={POSITION_CLASS[position]}>
+        <span role="alert">{label}</span>
+      </Transition>
     </div>
   );
 }

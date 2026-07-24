@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fieldAtom, formAtom, useField, useForm, type FieldAtom } from "form-atoms";
-import { zodValidate } from "form-atoms/zod";
 import { z } from "zod";
 
 import type { FieldStatus, NebulaField } from "@stellaria/nebula-tokens";
@@ -16,21 +15,29 @@ export default meta;
 
 type Story = StoryObj;
 
+function ClearOnChange(schema: z.ZodType) {
+  return ({ value, event }: { value: unknown; event: string }): string[] => {
+    if (event === "change") return [];
+    const parsed = schema.safeParse(value);
+    return parsed.success ? [] : parsed.error.issues.map((issue) => issue.message);
+  };
+}
+
 const nameField = fieldAtom({
   value: "",
-  validate: zodValidate(z.string().min(2, "Mínimo 2 caracteres")),
+  validate: ClearOnChange(z.string().min(2, "Mínimo 2 caracteres")),
 });
 const emailField = fieldAtom({
   value: "",
-  validate: zodValidate(z.string().email("Correo no válido")),
+  validate: ClearOnChange(z.string().email("Correo no válido")),
 });
 const passwordField = fieldAtom({
   value: "",
-  validate: zodValidate(z.string().min(8, "Mínimo 8 caracteres")),
+  validate: ClearOnChange(z.string().min(8, "Mínimo 8 caracteres")),
 });
 const termsField = fieldAtom({
   value: false,
-  validate: zodValidate(z.literal(true, { message: "Debes aceptar los términos" })),
+  validate: ClearOnChange(z.literal(true, { message: "Debes aceptar los términos" })),
 });
 
 const signupForm = formAtom({
@@ -93,7 +100,12 @@ function SignupForm(): React.ReactElement {
   );
 }
 
-/** Formulario real: form-atoms + Zod validan; los inputs leen el estado por el contrato `NebulaField` (ADR-005). */
+/**
+ * Formulario real: form-atoms + Zod validan; los inputs leen el estado por el contrato
+ * `NebulaField` (ADR-005). El error aparece al enviar (o al salir del campo) y se limpia
+ * en cuanto el usuario escribe: `ClearOnChange` devuelve `[]` para el evento `change`,
+ * el field pasa a `valid` y la burbuja se desmonta sola.
+ */
 export const Signup: Story = {
   render: () => <SignupForm />,
 };

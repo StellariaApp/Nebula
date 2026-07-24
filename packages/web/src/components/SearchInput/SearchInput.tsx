@@ -6,7 +6,6 @@ import { useDebouncedCallback, useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
-import { FieldError } from "../FieldError/FieldError.js";
 import { FormField } from "../FormField/FormField.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
@@ -67,14 +66,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       debounced_search(next);
     };
 
-    const use_tooltip = errorDisplay === "tooltip";
-    const form_error = use_tooltip
-      ? fp.isInvalid
-        ? true
-        : undefined
-      : error === true
-        ? true
-        : fp.errorMessage;
+    const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
     const show_clear = clearable && fp.value.length > 0 && !fp.isDisabled;
 
     return (
@@ -82,49 +74,42 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         label={label}
         description={description}
         error={form_error}
+        errorDisplay={errorDisplay}
+        status={fp.status}
         required={required}
         className={rootClassName}
       >
-        {(control) => {
-          const control_node = (
-            <div
-              className={field.field({ size })}
-              data-invalid={fp.isInvalid ? "true" : undefined}
-              data-disabled={fp.isDisabled ? "true" : undefined}
-            >
-              <span className={field.section} aria-hidden="true">
-                {SEARCH_ICON}
-              </span>
-              <input
-                {...control}
-                {...input_rest}
-                ref={ref}
-                type="search"
-                className={cx(field.input, className)}
-                value={fp.value}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => HandleChange(event.target.value)}
-                disabled={fp.isDisabled}
-                required={required}
-              />
-              {show_clear ? (
-                <UnstyledButton
-                  className={field.section}
-                  aria-label={clearLabel}
-                  onPress={() => HandleChange("")}
-                >
-                  {CLEAR_ICON}
-                </UnstyledButton>
-              ) : null}
-            </div>
-          );
-          return use_tooltip ? (
-            <FieldError message={fp.errorMessage} status={fp.status}>
-              {control_node}
-            </FieldError>
-          ) : (
-            control_node
-          );
-        }}
+        {(control) => (
+          <div
+            className={field.field({ size })}
+            data-invalid={fp.isInvalid ? "true" : undefined}
+            data-disabled={fp.isDisabled ? "true" : undefined}
+          >
+            <span className={field.section} aria-hidden="true">
+              {SEARCH_ICON}
+            </span>
+            <input
+              {...control}
+              {...input_rest}
+              ref={ref}
+              type="search"
+              className={cx(field.input, className)}
+              value={fp.value}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => HandleChange(event.target.value)}
+              disabled={fp.isDisabled}
+              required={required}
+            />
+            {show_clear ? (
+              <UnstyledButton
+                className={field.section}
+                aria-label={clearLabel}
+                onPress={() => HandleChange("")}
+              >
+                {CLEAR_ICON}
+              </UnstyledButton>
+            ) : null}
+          </div>
+        )}
       </FormField>
     );
   },
