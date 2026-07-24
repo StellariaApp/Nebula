@@ -72,6 +72,16 @@ interface ListState<T> {
 
   Modal y Drawer superan la banda de compuestos (≤48 kB de docs/03 §3) por el `ButtonClose` de su cabecera, que trae `motion` vía ActionIcon. Se acepta a cambio de que el botón de cierre sea el mismo del sistema; la alternativa sería un botón ad-hoc sin motion, que rompería la coherencia visual por ~4 kB.
 
+- **Budgets medidos de la clase colección** (parte 2 de W2.4):
+
+  | Componente | Medido | Límite |
+  | --- | --- | --- |
+  | Select | 75,1 | 84 |
+  | Combobox | 81,5 | 90 |
+  | MultiSelect | 81,9 | 90 |
+
+  Son los módulos más pesados del catálogo y exceden incluso la banda de patterns (≤70 kB). El desglose lo explica: parten del **baseline de un input de formulario** (≈48 kB: FormField → FieldError → Transition → `motion`, más React Aria) y le suman la maquinaria de colección de react-stately (construcción de colección, `SelectionManager` y keyboard delegate, ≈27–33 kB). Ninguna de las dos mitades es opcional sin renunciar a una decisión ya cerrada: el error como burbuja animada (W2.3/W2.4) o la conformidad APG (ADR-003). Se registra la banda **colección ≤90 kB** y se revisará si aparece una vía de carga diferida para los patrones de §1.5.
+
 - Las entradas de barrel suben por la misma razón —el índice ahora alcanza el registro de overlays, y con él jotai—: `useTheme` de 11 a 13 kB y `NebulaProvider` de 18 a 20 kB.
 
 - **El gate a11y se corrige en este mismo PR**: `checkA11y` estaba acotado a `#storybook-root`, pero todos los overlays se renderizan en un portal fuera de ese nodo, así que axe nunca auditaba el contenido abierto. Pasa a auditar `body`. Al hacerlo aflora una violación real que el gate anterior no veía (contraste 1.02:1 del atajo de teclado sobre una fila de menú enfocada), corregida en `Menu.css.ts`. Verificado revirtiendo el fix: con el scope nuevo el gate falla; con el antiguo pasaba en verde.

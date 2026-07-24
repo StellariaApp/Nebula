@@ -178,3 +178,17 @@ export type {
 } from "./components/Menu/index.js";
 export { nebulaOverlays, useOverlayState } from "./overlays/index.js";
 export type { OverlayHandle, OverlayId, OverlayRegistry } from "./overlays/index.js";
+
+export { Select } from "./components/Select/index.js";
+export type { SelectProps } from "./components/Select/index.js";
+export { Combobox } from "./components/Combobox/index.js";
+export type { ComboboxMenuTrigger, ComboboxProps } from "./components/Combobox/index.js";
+export { MultiSelect } from "./components/MultiSelect/index.js";
+export type { MultiSelectProps } from "./components/MultiSelect/index.js";
+export { OptionList } from "./collections/index.js";
+export type {
+  OptionListProps,
+  OptionRenderState,
+  RenderOption,
+  SelectOption,
+} from "./collections/index.js";

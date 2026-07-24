@@ -529,6 +529,27 @@
       "limit": "42 kB"
     },
     {
+      "name": "Select (Aria select + colección stately, por módulo)",
+      "path": "dist/components/Select/Select.js",
+      "import": "{ Select }",
+      "ignore": ["react", "react-dom"],
+      "limit": "84 kB"
+    },
+    {
+      "name": "Combobox (Aria combobox + filtrado, por módulo)",
+      "path": "dist/components/Combobox/Combobox.js",
+      "import": "{ Combobox }",
+      "ignore": ["react", "react-dom"],
+      "limit": "90 kB"
+    },
+    {
+      "name": "MultiSelect (combobox múltiple + chips, por módulo)",
+      "path": "dist/components/MultiSelect/MultiSelect.js",
+      "import": "{ MultiSelect }",
+      "ignore": ["react", "react-dom"],
+      "limit": "90 kB"
+    },
+    {
       "name": "Registro de overlays (Jotai, por módulo)",
       "path": "dist/overlays/overlay-registry.js",
       "import": "{ nebulaOverlays, useOverlayState }",

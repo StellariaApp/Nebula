@@ -81,7 +81,12 @@ export const field = recipe({
           "&[data-invalid='true']:focus-within": {
             boxShadow: `0 0 0 2px ${vars.color.semantic.error["500"]}`,
           },
-          "&[data-disabled='true']": { opacity: 0.55, cursor: "not-allowed" },
+          "&[data-disabled='true']": {
+            cursor: "not-allowed",
+            background: vars.color.surface.sunken,
+            borderColor: vars.color.border.subtle,
+            color: vars.color.text.secondary,
+          },
         },
       },
     },

@@ -63,7 +63,7 @@ const FormFieldImpl = forwardRef<HTMLElement, FormFieldOwnProps>(function FormFi
       {has_header ? (
         <div className={styles.header}>
           {label === undefined || label === null ? null : (
-            <label htmlFor={input_id} className={styles.label}>
+            <label id={`${input_id}-label`} htmlFor={input_id} className={styles.label}>
               {label}
               {required ? (
                 <span className={styles.required} aria-hidden="true">

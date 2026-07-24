@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { Box, Button, Popover, Text, TextInput, Title } from "@stellaria/nebula-web";
 
@@ -87,6 +87,8 @@ export const KeyboardFlow: Story = {
 
     await userEvent.keyboard("{Escape}");
     await expect(within(document.body).queryByRole("dialog")).toBeNull();
-    await expect(trigger).toHaveFocus();
+    await waitFor(() => {
+      void expect(trigger).toHaveFocus();
+    });
   },
 };
