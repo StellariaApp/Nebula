@@ -294,11 +294,18 @@
       "limit": "12 kB"
     },
     {
+      "name": "FieldError (burbuja de error, por módulo)",
+      "path": "dist/components/FieldError/FieldError.js",
+      "import": "{ FieldError }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
       "name": "TextInput (input + FormField, por módulo)",
       "path": "dist/components/TextInput/TextInput.js",
       "import": "{ TextInput }",
       "ignore": ["react", "react-dom"],
-      "limit": "12 kB"
+      "limit": "15 kB"
     },
     {
       "name": "PasswordInput (por módulo)",

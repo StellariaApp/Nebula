@@ -6,6 +6,7 @@ import { useUncontrolled } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
+import { FieldError } from "../FieldError/FieldError.js";
 
 import { CheckboxGroupContext, type CheckboxGroupContextValue } from "./Checkbox.context.js";
 import * as styles from "./Checkbox.css.js";
@@ -25,6 +26,7 @@ export function CheckboxGroup(props: CheckboxGroupProps): ReactElement {
     required = false,
     name,
     orientation = "vertical",
+    errorDisplay = "tooltip",
     children,
   } = props;
 
@@ -42,10 +44,11 @@ export function CheckboxGroup(props: CheckboxGroupProps): ReactElement {
     set_group_value(next);
   };
 
+  const use_tooltip = errorDisplay === "tooltip";
   const error_message = typeof error === "string" ? error : undefined;
   const is_invalid = error === true || error_message !== undefined;
   const described_by =
-    [description ? description_id : null, error_message ? error_id : null]
+    [description ? description_id : null, !use_tooltip && error_message ? error_id : null]
       .filter((entry): entry is string => entry !== null)
       .join(" ") || undefined;
 
@@ -57,6 +60,12 @@ export function CheckboxGroup(props: CheckboxGroupProps): ReactElement {
     color,
     disabled,
   };
+
+  const items_node = (
+    <div className={cx(orientation === "horizontal" ? styles.listRow : styles.list)}>
+      <CheckboxGroupContext.Provider value={context}>{children}</CheckboxGroupContext.Provider>
+    </div>
+  );
 
   return (
     <div
@@ -81,10 +90,8 @@ export function CheckboxGroup(props: CheckboxGroupProps): ReactElement {
           {description}
         </span>
       )}
-      <div className={cx(orientation === "horizontal" ? styles.listRow : styles.list)}>
-        <CheckboxGroupContext.Provider value={context}>{children}</CheckboxGroupContext.Provider>
-      </div>
-      {error_message === undefined ? null : (
+      {use_tooltip ? <FieldError message={error_message}>{items_node}</FieldError> : items_node}
+      {use_tooltip || error_message === undefined ? null : (
         <span id={error_id} role="alert" className={field.error}>
           {error_message}
         </span>

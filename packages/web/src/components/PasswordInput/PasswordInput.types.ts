@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
+import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+
 export interface PasswordInputProps
   extends Omit<
     ComponentPropsWithoutRef<"input">,
@@ -19,5 +21,6 @@ export interface PasswordInputProps
   onChange?: ((value: string) => void) | undefined;
   showLabel?: string | undefined;
   hideLabel?: string | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
   rootClassName?: string | undefined;
 }

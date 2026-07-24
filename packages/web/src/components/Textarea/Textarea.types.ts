@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
+import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+
 export interface TextareaProps
   extends Omit<
     ComponentPropsWithoutRef<"textarea">,
@@ -18,5 +20,6 @@ export interface TextareaProps
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
   autosize?: boolean | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
   rootClassName?: string | undefined;
 }

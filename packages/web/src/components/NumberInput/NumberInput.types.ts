@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
+import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+
 export interface NumberInputProps
   extends Omit<
     ComponentPropsWithoutRef<"input">,
@@ -23,5 +25,6 @@ export interface NumberInputProps
   hideControls?: boolean | undefined;
   incrementLabel?: string | undefined;
   decrementLabel?: string | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
   rootClassName?: string | undefined;
 }

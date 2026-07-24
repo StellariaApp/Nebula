@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { Orientation, SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
+import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+
 export interface CheckboxProps
   extends Omit<
     ComponentPropsWithoutRef<"input">,
@@ -33,5 +35,6 @@ export interface CheckboxGroupProps {
   required?: boolean | undefined;
   name?: string | undefined;
   orientation?: Orientation | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
   children?: ReactNode | undefined;
 }

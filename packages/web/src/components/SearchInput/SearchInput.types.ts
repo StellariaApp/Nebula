@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
+import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+
 export interface SearchInputProps
   extends Omit<
     ComponentPropsWithoutRef<"input">,
@@ -21,5 +23,6 @@ export interface SearchInputProps
   debounce?: number | undefined;
   clearable?: boolean | undefined;
   clearLabel?: string | undefined;
+  errorDisplay?: ErrorDisplay | undefined;
   rootClassName?: string | undefined;
 }
