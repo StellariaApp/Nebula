@@ -155,3 +155,26 @@ export {
 export { ColorSchemeScript, type ColorSchemeScriptProps } from "./provider/color-scheme-script.js";
 
 export { useTheme } from "@stellaria/nebula-hooks";
+
+export { Popover } from "./components/Popover/index.js";
+export type {
+  OverlayTriggerElement,
+  PopoverPlacement,
+  PopoverProps,
+} from "./components/Popover/index.js";
+export { Tooltip } from "./components/Tooltip/index.js";
+export type { TooltipProps } from "./components/Tooltip/index.js";
+export { Modal } from "./components/Modal/index.js";
+export type { ModalProps, ModalSide, ModalSize } from "./components/Modal/index.js";
+export { Drawer } from "./components/Drawer/index.js";
+export type { DrawerProps } from "./components/Drawer/index.js";
+export { ContextMenu, Menu, MenuList } from "./components/Menu/index.js";
+export type {
+  ContextMenuProps,
+  MenuItemData,
+  MenuListOwnProps,
+  MenuListProps,
+  MenuProps,
+} from "./components/Menu/index.js";
+export { nebulaOverlays, useOverlayState } from "./overlays/index.js";
+export type { OverlayHandle, OverlayId, OverlayRegistry } from "./overlays/index.js";

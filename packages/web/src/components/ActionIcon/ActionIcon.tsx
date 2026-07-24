@@ -21,6 +21,7 @@ import {
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { PressProps } from "../../utils/press-props.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./ActionIcon.css.js";
@@ -59,7 +60,17 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const prefers_reduced = useReducedMotion();
     const is_disabled = disabled || loading;
 
-    const { onClick, onPress, type, ...dom_rest } = rest;
+    const {
+      onClick,
+      onPress,
+      onPressStart,
+      onPressEnd,
+      onPressUp,
+      onPressChange,
+      preventFocusOnPress,
+      type,
+      ...dom_rest
+    } = rest;
     const { buttonProps, isPressed } = useButton(
       {
         isDisabled: is_disabled,
@@ -72,7 +83,14 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
                 onClick(event as ReactMouseEvent<HTMLButtonElement>);
               },
             }),
-        ...(onPress === undefined ? {} : { onPress }),
+        ...PressProps({
+          onPress,
+          onPressStart,
+          onPressEnd,
+          onPressUp,
+          onPressChange,
+          preventFocusOnPress,
+        }),
       },
       ref,
     );

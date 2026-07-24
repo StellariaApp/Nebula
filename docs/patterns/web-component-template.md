@@ -44,6 +44,7 @@ Reglas aprendidas:
 
 - **Los handlers del consumidor se entregan A React Aria**, no al DOM por separado: `useButton({ onClick })` (React Aria trata `onClick` como alias de `onPress`). Si se pasan al DOM en paralelo, **la activación por teclado deja de funcionar** porque Aria gobierna el press y previene el click nativo.
 - Exponer también `onPress` (contrato compartido con native, que no tiene `onClick`).
+- **Y el ciclo de press completo** (`onPressStart`, `onPressEnd`, `onPressUp`, `onPressChange`, `preventFocusOnPress`) vía `utils/press-props.ts` — ADR-025. No es opcional: los hooks de trigger de overlay (`useMenuTrigger`, `useSelect`, `useComboBox`) abren desde `onPressStart`, así que un componente de acción que solo reenvíe `onPress` **no puede usarse como trigger**.
 - El estado se publica como `data-*` (`data-hovered`, `data-pressed`, `data-focus-visible`, `data-disabled`, `data-loading`) y el CSS reacciona a esos atributos. Nada de clases de estado calculadas en JS.
 
 ### Capa 2 — Visual: recipe de estructura + vars locales de color

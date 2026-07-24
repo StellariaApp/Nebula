@@ -1,7 +1,8 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { ColorExtended, Size, Variant, VariantProps } from "@stellaria/nebula-tokens";
-import type { PressEvent } from "react-aria";
+
+import type { PressLifecycleProps } from "../../utils/press-props.js";
 
 type MotionConflictingProps =
   | "onAnimationStart"
@@ -16,10 +17,9 @@ type MotionConflictingProps =
   | "onDragOver"
   | "onDrop";
 
-export interface ButtonProps extends Omit<
-  ComponentPropsWithoutRef<"button">,
-  "color" | "disabled" | MotionConflictingProps
-> {
+export interface ButtonProps
+  extends Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
+    PressLifecycleProps {
   variant?: Variant | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;
@@ -30,5 +30,4 @@ export interface ButtonProps extends Omit<
   leftSection?: ReactNode | undefined;
   rightSection?: ReactNode | undefined;
   children?: ReactNode | undefined;
-  onPress?: ((event: PressEvent) => void) | undefined;
 }

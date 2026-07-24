@@ -1,10 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { PressEvent } from "react-aria";
+import type { PressLifecycleProps } from "../../utils/press-props.js";
 
 export interface UnstyledButtonProps
-  extends Omit<ComponentPropsWithoutRef<"button">, "disabled"> {
+  extends Omit<ComponentPropsWithoutRef<"button">, "disabled">,
+    PressLifecycleProps {
   disabled?: boolean | undefined;
-  onPress?: ((event: PressEvent) => void) | undefined;
   children?: ReactNode | undefined;
 }

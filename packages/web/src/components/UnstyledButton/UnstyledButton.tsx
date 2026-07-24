@@ -4,6 +4,7 @@ import { forwardRef, useRef, type MouseEvent as ReactMouseEvent } from "react";
 
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
+import { PressProps } from "../../utils/press-props.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./UnstyledButton.css.js";
@@ -11,7 +12,20 @@ import type { UnstyledButtonProps } from "./UnstyledButton.types.js";
 
 export const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>(
   function UnstyledButton(props, forwardedRef) {
-    const { disabled = false, className, onClick, onPress, type, children, ...dom_rest } = props;
+    const {
+      disabled = false,
+      className,
+      onClick,
+      onPress,
+      onPressStart,
+      onPressEnd,
+      onPressUp,
+      onPressChange,
+      preventFocusOnPress,
+      type,
+      children,
+      ...dom_rest
+    } = props;
 
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
@@ -28,7 +42,14 @@ export const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>
                 onClick(event as ReactMouseEvent<HTMLButtonElement>);
               },
             }),
-        ...(onPress === undefined ? {} : { onPress }),
+        ...PressProps({
+          onPress,
+          onPressStart,
+          onPressEnd,
+          onPressUp,
+          onPressChange,
+          preventFocusOnPress,
+        }),
       },
       ref,
     );

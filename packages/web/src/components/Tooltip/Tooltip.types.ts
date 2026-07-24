@@ -1,0 +1,21 @@
+import type { ReactNode } from "react";
+
+import type { OverlayTriggerElement, PopoverPlacement } from "../Popover/Popover.types.js";
+
+export interface TooltipProps {
+  trigger: OverlayTriggerElement;
+  label: ReactNode;
+  placement?: PopoverPlacement | undefined;
+  offset?: number | undefined;
+  crossOffset?: number | undefined;
+  delay?: number | undefined;
+  closeDelay?: number | undefined;
+  disabled?: boolean | undefined;
+  opened?: boolean | undefined;
+  defaultOpened?: boolean | undefined;
+  onOpenChange?: ((opened: boolean) => void) | undefined;
+  withArrow?: boolean | undefined;
+  color?: "neutral" | "inverted" | undefined;
+  maw?: number | string | undefined;
+  className?: string | undefined;
+}

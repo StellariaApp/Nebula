@@ -236,12 +236,18 @@ importers:
       '@vanilla-extract/sprinkles':
         specifier: ^1.7.0
         version: 1.7.0(@vanilla-extract/css@1.21.1)
+      jotai:
+        specifier: ^2.20.2
+        version: 2.20.2(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.17)(react@19.2.7)
       motion:
         specifier: ^12.42.2
         version: 12.42.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react-aria:
         specifier: ^3.50.0
         version: 3.50.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react-stately:
+        specifier: ^3.48.0
+        version: 3.48.0(react@19.2.7)
     devDependencies:
       '@size-limit/preset-small-lib':
         specifier: ^12.1.0
