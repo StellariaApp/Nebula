@@ -18,7 +18,17 @@ El click fuera se detecta comparando `event.target` con el propio `<dialog>`: el
 
 ## Animación
 
-Entrada por `@keyframes` de CSS con los tokens `motion.duration.fast`/`easing`, y `prefers-reduced-motion` la reduce a 0,01 ms. **No hay animación de salida**: requeriría retrasar el `close()` real del elemento y mantener un estado de "cerrando" que se desincroniza con `opened`. Es un intercambio consciente; si se necesita, el sitio para resolverlo es un `Transition` alrededor del contenido, no del `<dialog>`.
+Entrada **y salida** con `OverlayMotion` (`overlays/overlay-motion.tsx`): spring de `theme.motion.spring`, con el preset elegido según el layout (`scale` centrado, `slide-*` en drawer y top, `fade` a pantalla completa).
+
+La salida obliga a **retrasar el `close()` nativo**: el elemento debe seguir en el top layer mientras el contenido anima. Se resuelve con un estado local `visible` que se enciende al abrir y solo se apaga en `onExitComplete`; el efecto que llama `showModal()`/`close()` observa ese estado, no `opened`. `opened` sigue siendo la única fuente de verdad del consumidor.
+
+El backdrop no puede animarse con motion (es un pseudo-elemento), así que entra con `@keyframes` y se desvanece por transición de `opacity` colgada de `&:not([data-open='true'])::backdrop`. `prefers-reduced-motion` reduce ambas a 0,01 ms.
+
+**Al escribir tests o play functions**: tras cerrar, el diálogo permanece en el DOM mientras dura la salida. Las aserciones de desmontaje van dentro de `waitFor`.
+
+## Nombre accesible del diálogo
+
+El `aria-labelledby` se enlaza con un id propio, no con el mecanismo de *slot* de `useDialog`: ese comprueba tras montar si existe un elemento con el id generado, y como el contenido ahora solo se monta al abrir, la comprobación fallaba y el diálogo se quedaba sin nombre (`aria-dialog-name`, serious).
 
 ## Scrim
 

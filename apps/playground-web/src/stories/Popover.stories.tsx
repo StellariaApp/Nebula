@@ -86,7 +86,9 @@ export const KeyboardFlow: Story = {
     await expect(await within(document.body).findByRole("dialog")).toBeInTheDocument();
 
     await userEvent.keyboard("{Escape}");
-    await expect(within(document.body).queryByRole("dialog")).toBeNull();
+    await waitFor(() => {
+      void expect(within(document.body).queryByRole("dialog")).toBeNull();
+    });
     await waitFor(() => {
       void expect(trigger).toHaveFocus();
     });

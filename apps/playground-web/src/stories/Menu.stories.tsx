@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { ActionIcon, Box, Button, Menu, Text, Title } from "@stellaria/nebula-web";
 import type { MenuItemData } from "@stellaria/nebula-web";
@@ -109,7 +109,9 @@ export const KeyboardFlow: Story = {
 
     await userEvent.keyboard("{End}");
     await userEvent.keyboard("{Escape}");
-    await expect(body.queryByRole("menu")).toBeNull();
+    await waitFor(() => {
+      void expect(body.queryByRole("menu")).toBeNull();
+    });
   },
 };
 

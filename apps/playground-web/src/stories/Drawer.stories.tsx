@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import {
   Box,
@@ -112,6 +112,8 @@ export const KeyboardFlow: Story = {
     await expect(await body.findByRole("dialog", { name: "Filtros" })).toBeInTheDocument();
 
     await userEvent.click(body.getByRole("button", { name: "Cerrar" }));
-    await expect(body.queryByRole("dialog")).toBeNull();
+    await waitFor(() => {
+      void expect(body.queryByRole("dialog")).toBeNull();
+    });
   },
 };

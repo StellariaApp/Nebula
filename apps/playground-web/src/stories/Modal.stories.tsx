@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { Box, Button, Modal, Text, TextInput, Title } from "@stellaria/nebula-web";
 import type { ModalProps } from "@stellaria/nebula-web";
@@ -117,7 +117,9 @@ export const KeyboardFlow: Story = {
     await expect(dialog).toBeInTheDocument();
 
     await userEvent.click(body.getByRole("button", { name: "Cerrar" }));
-    await expect(body.queryByRole("dialog")).toBeNull();
+    await waitFor(() => {
+      void expect(body.queryByRole("dialog")).toBeNull();
+    });
   },
 };
 

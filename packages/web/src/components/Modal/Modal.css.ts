@@ -7,26 +7,6 @@ import { baseLayer } from "../../theme/layers.css.js";
 import { backdropBlur, modalWidth } from "./Modal.vars.css.js";
 
 const FADE_IN = keyframes({ from: { opacity: 0 }, to: { opacity: 1 } });
-const POP_IN = keyframes({
-  from: { opacity: 0, transform: "translateY(8px) scale(0.98)" },
-  to: { opacity: 1, transform: "translateY(0) scale(1)" },
-});
-const SLIDE_START = keyframes({
-  from: { transform: "translateX(-100%)" },
-  to: { transform: "translateX(0)" },
-});
-const SLIDE_END = keyframes({
-  from: { transform: "translateX(100%)" },
-  to: { transform: "translateX(0)" },
-});
-const SLIDE_TOP = keyframes({
-  from: { transform: "translateY(-100%)" },
-  to: { transform: "translateY(0)" },
-});
-const SLIDE_BOTTOM = keyframes({
-  from: { transform: "translateY(100%)" },
-  to: { transform: "translateY(0)" },
-});
 
 export const dialog = recipe({
   base: {
@@ -41,23 +21,25 @@ export const dialog = recipe({
         maxWidth: "none",
         maxHeight: "none",
         overflow: "visible",
-        animationName: POP_IN,
-        animationDuration: vars.motion.duration.fast,
-        animationTimingFunction: vars.motion.easing.decelerate,
         selectors: {
           "&::backdrop": {
             background: `color-mix(in srgb, ${vars.color.gray["950"]} 62%, transparent)`,
             backdropFilter: backdropBlur,
             animationName: FADE_IN,
-            animationDuration: vars.motion.duration.fast,
+            animationDuration: vars.motion.duration.base,
             animationTimingFunction: vars.motion.easing.standard,
+            transitionProperty: "opacity",
+            transitionDuration: vars.motion.duration.base,
+            transitionTimingFunction: vars.motion.easing.standard,
           },
+          "&:not([data-open='true'])::backdrop": { opacity: 0 },
           "&:not([open])": { display: "none" },
         },
         "@media": {
           "(prefers-reduced-motion: reduce)": {
-            animationDuration: "0.01ms",
-            selectors: { "&::backdrop": { animationDuration: "0.01ms" } },
+            selectors: {
+              "&::backdrop": { animationDuration: "0.01ms", transitionDuration: "0.01ms" },
+            },
           },
         },
       },
@@ -96,7 +78,7 @@ export const dialog = recipe({
         margin: 0,
         marginInlineEnd: "auto",
         borderRadius: 0,
-        animationName: SLIDE_START,
+
       },
       "drawer-end": {
         width: modalWidth,
@@ -106,7 +88,7 @@ export const dialog = recipe({
         margin: 0,
         marginInlineStart: "auto",
         borderRadius: 0,
-        animationName: SLIDE_END,
+
       },
       "drawer-top": {
         width: "100vw",
@@ -114,7 +96,7 @@ export const dialog = recipe({
         margin: 0,
         marginBlockEnd: "auto",
         borderRadius: 0,
-        animationName: SLIDE_TOP,
+
       },
       "drawer-bottom": {
         width: "100vw",
@@ -122,7 +104,7 @@ export const dialog = recipe({
         margin: 0,
         marginBlockStart: "auto",
         borderRadius: 0,
-        animationName: SLIDE_BOTTOM,
+
       },
     },
     radius: {

@@ -5,6 +5,7 @@ import { cloneElement, useRef, type ReactElement } from "react";
 import { mergeProps, Overlay, useOverlayPosition, useTooltip, useTooltipTrigger } from "react-aria";
 import { useTooltipTriggerState } from "react-stately";
 
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Tooltip.css.js";
@@ -62,15 +63,20 @@ export function Tooltip(props: TooltipProps): ReactElement {
     ...(crossOffset === undefined ? {} : { crossOffset }),
   });
 
+  const presence = useOverlayPresence(state.isOpen);
+
   const trigger_node = cloneElement(trigger, { ...triggerProps, ref: trigger_ref });
 
   return (
     <>
       {trigger_node}
-      {state.isOpen ? (
+      {presence.render ? (
         <Overlay>
-          <div
+          <OverlayMotion
             {...mergeProps(trigger_tooltip_props, tooltipProps, overlayProps)}
+            open={state.isOpen}
+            onExitComplete={presence.OnExitComplete}
+            preset="fade"
             ref={tooltip_ref}
             className={cx(styles.tooltip({ color }), className)}
             style={{ ...overlayProps.style, ...(maw === undefined ? {} : { maxWidth: maw }) }}
@@ -79,7 +85,7 @@ export function Tooltip(props: TooltipProps): ReactElement {
             {withArrow ? (
               <div {...arrowProps} className={styles.arrow} data-placement={resolved_placement} />
             ) : null}
-          </div>
+          </OverlayMotion>
         </Overlay>
       ) : null}
     </>

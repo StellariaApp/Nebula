@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { Box, Combobox, Text, Title } from "@stellaria/nebula-web";
 import type { SelectOption } from "@stellaria/nebula-web";
@@ -114,7 +114,9 @@ export const KeyboardFlow: Story = {
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard("{Enter}");
 
-    await expect(body.queryByRole("listbox")).toBeNull();
+    await waitFor(() => {
+      void expect(body.queryByRole("listbox")).toBeNull();
+    });
     await expect(input).toHaveValue("Colombia");
   },
 };

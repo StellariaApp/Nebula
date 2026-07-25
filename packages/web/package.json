@@ -501,14 +501,14 @@
       "path": "dist/components/Popover/Popover.js",
       "import": "{ Popover }",
       "ignore": ["react", "react-dom"],
-      "limit": "32 kB"
+      "limit": "58 kB"
     },
     {
       "name": "Tooltip (Aria tooltip + posicionamiento, por módulo)",
       "path": "dist/components/Tooltip/Tooltip.js",
       "import": "{ Tooltip }",
       "ignore": ["react", "react-dom"],
-      "limit": "28 kB"
+      "limit": "54 kB"
     },
     {
       "name": "Modal (dialog nativo + useDialog, por módulo)",
@@ -529,14 +529,14 @@
       "path": "dist/components/Menu/Menu.js",
       "import": "{ Menu }",
       "ignore": ["react", "react-dom"],
-      "limit": "48 kB"
+      "limit": "74 kB"
     },
     {
       "name": "ContextMenu (Aria menu + overlay, por módulo)",
       "path": "dist/components/Menu/ContextMenu.js",
       "import": "{ ContextMenu }",
       "ignore": ["react", "react-dom"],
-      "limit": "42 kB"
+      "limit": "68 kB"
     },
     {
       "name": "Select (Aria select + colección stately, por módulo)",

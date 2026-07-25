@@ -4,6 +4,7 @@ import { useRef, useState, type KeyboardEvent, type MouseEvent, type ReactElemen
 
 import { DismissButton, Overlay, useOverlay } from "react-aria";
 
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { vars } from "../../theme/contract.css.js";
 
 import { MenuList } from "./MenuList.js";
@@ -53,6 +54,8 @@ export function ContextMenu(props: ContextMenuProps): ReactElement {
     set_anchor({ x: rect.left, y: rect.bottom });
   };
 
+  const presence = useOverlayPresence(anchor !== null);
+
   const HandleAction = (key: string): void => {
     onAction?.(key);
     Close();
@@ -63,15 +66,17 @@ export function ContextMenu(props: ContextMenuProps): ReactElement {
       <div onContextMenu={HandleContextMenu} onKeyDown={HandleKeyDown}>
         {children}
       </div>
-      {anchor === null ? null : (
+      {presence.render ? (
         <Overlay>
-          <div
+          <OverlayMotion
             {...overlayProps}
+            open={anchor !== null}
+            onExitComplete={presence.OnExitComplete}
             ref={overlay_ref}
             style={{
               position: "fixed",
-              left: anchor.x,
-              top: anchor.y,
+              left: anchor?.x ?? 0,
+              top: anchor?.y ?? 0,
               zIndex: vars.zIndex.dropdown,
               ...(width === undefined ? {} : { width }),
             }}
@@ -85,9 +90,9 @@ export function ContextMenu(props: ContextMenuProps): ReactElement {
               {...(className === undefined ? {} : { className })}
             />
             <DismissButton onDismiss={Close} />
-          </div>
+          </OverlayMotion>
         </Overlay>
-      )}
+      ) : null}
     </>
   );
 }

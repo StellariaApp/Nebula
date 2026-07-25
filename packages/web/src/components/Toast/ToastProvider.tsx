@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, type ReactElement } from "react";
 
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { AnimatePresence, domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { Portal } from "../Portal/Portal.js";
-import { Transition } from "../Transition/Transition.js";
 
 import * as styles from "./Toast.css.js";
 import type { ToastProviderProps, ToastRecord } from "./Toast.types.js";
@@ -96,6 +97,13 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
   const queue = useToastQueue();
   const visible = queue.slice(-max);
 
+  const { theme } = useTheme();
+  const prefers_reduced = useReducedMotion();
+  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
+  const spring = theme.motion.spring.default;
+  const from_top = position.startsWith("top");
+  const enter = { opacity: 0, y: from_top ? -16 : 16, scale: 0.96 };
+
   return (
     <>
       {children}
@@ -105,11 +113,31 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
           role="region"
           aria-label={regionLabel}
         >
-          {visible.map((toast) => (
-            <Transition key={toast.id} mounted transition="slide-up">
-              <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
-            </Transition>
-          ))}
+          <LazyMotion features={domAnimation} strict>
+            <AnimatePresence initial={false}>
+              {visible.map((toast) => (
+                <m.div
+                  key={toast.id}
+                  layout
+                  initial={enter}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ ...enter, scale: 0.94 }}
+                  transition={
+                    is_off
+                      ? { duration: 0 }
+                      : {
+                          type: "spring",
+                          stiffness: spring.stiffness,
+                          damping: spring.damping,
+                          mass: spring.mass,
+                        }
+                  }
+                >
+                  <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
+                </m.div>
+              ))}
+            </AnimatePresence>
+          </LazyMotion>
         </div>
       </Portal>
     </>

@@ -72,6 +72,32 @@ describe("Modal", () => {
     expect(OnClose).not.toHaveBeenCalled();
   });
 
+  it("el cierre diferido por la animación de salida termina", async () => {
+    function Controlled(): React.ReactElement {
+      const [opened, set_opened] = useState(true);
+      return (
+        <>
+          <button type="button" onClick={() => set_opened(false)}>
+            cerrar
+          </button>
+          <Modal opened={opened} onClose={() => set_opened(false)} title="Salida">
+            <span>contenido</span>
+          </Modal>
+        </>
+      );
+    }
+
+    const user = userEvent.setup();
+    render(<Controlled />);
+    expect(screen.getByRole("dialog", { name: "Salida" })).toBeDefined();
+
+    await user.click(screen.getByRole("button", { name: "cerrar" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).toBeNull();
+    });
+  });
+
   it("no expone diálogo cuando opened=false", () => {
     render(
       <Modal opened={false} onClose={() => undefined} title="X">

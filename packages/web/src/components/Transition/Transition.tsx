@@ -31,17 +31,41 @@ const PRESETS: Record<TransitionPreset, Phase> = {
 };
 
 export function Transition(props: TransitionProps): ReactElement {
-  const { mounted, transition = "fade", duration, className, style, children } = props;
+  const {
+    mounted,
+    transition = "fade",
+    spring: spring_name,
+    duration,
+    onExitComplete,
+    className,
+    style,
+    children,
+  } = props;
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
 
   const phase = PRESETS[transition];
   const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
   const seconds = (duration ?? theme.motion.duration.base) / 1000;
+  const spring = spring_name === undefined ? undefined : theme.motion.spring[spring_name];
+
+  const timing = is_off
+    ? { duration: 0 }
+    : spring === undefined
+      ? { duration: seconds }
+      : {
+          type: "spring" as const,
+          stiffness: spring.stiffness,
+          damping: spring.damping,
+          mass: spring.mass,
+        };
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <AnimatePresence initial={false}>
+      <AnimatePresence
+        initial={false}
+        {...(onExitComplete === undefined ? {} : { onExitComplete })}
+      >
         {mounted ? (
           <m.div
             className={className}
@@ -49,7 +73,7 @@ export function Transition(props: TransitionProps): ReactElement {
             initial={phase.from}
             animate={phase.to}
             exit={phase.from}
-            transition={is_off ? { duration: 0 } : { duration: seconds }}
+            transition={timing}
           >
             {children}
           </m.div>

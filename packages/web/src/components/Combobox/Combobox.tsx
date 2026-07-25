@@ -7,6 +7,7 @@ import { DismissButton, Overlay, useComboBox, useFilter, usePopover } from "reac
 import { Item, useComboBoxState } from "react-stately";
 
 import { OptionList } from "../../collections/option-list.js";
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { DisabledKeys, OptionByValue, type SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
@@ -141,6 +142,8 @@ export function Combobox(props: ComboboxProps): ReactElement {
 
   const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
 
+  const presence = useOverlayPresence(state.isOpen);
+
   const Close = (): void => {
     state.close();
   };
@@ -187,11 +190,13 @@ export function Combobox(props: ComboboxProps): ReactElement {
               {CHEVRON}
             </span>
           </UnstyledButton>
-          {state.isOpen ? (
+          {presence.render ? (
             <Overlay>
-              <div {...underlayProps} />
-              <div
+              {state.isOpen ? <div {...underlayProps} /> : null}
+              <OverlayMotion
                 {...popoverProps}
+                open={state.isOpen}
+                onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}
                 className={select_styles.dropdown}
                 style={{
@@ -209,7 +214,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
                   {...(emptyLabel === undefined ? {} : { emptyLabel })}
                 />
                 <DismissButton onDismiss={Close} />
-              </div>
+              </OverlayMotion>
             </Overlay>
           ) : null}
         </div>

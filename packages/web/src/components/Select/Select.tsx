@@ -14,6 +14,7 @@ import {
 import { Item, useSelectState } from "react-stately";
 
 import { OptionList } from "../../collections/option-list.js";
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { DisabledKeys, OptionByValue, type SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
 import { cx } from "../../utils/style-props.js";
@@ -101,6 +102,8 @@ export function Select(props: SelectProps): ReactElement {
   const selected = OptionByValue(data, fp.value);
   const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
 
+  const presence = useOverlayPresence(state.isOpen);
+
   const Close = (): void => {
     state.close();
   };
@@ -150,11 +153,13 @@ export function Select(props: SelectProps): ReactElement {
               {CHEVRON}
             </span>
           </button>
-          {state.isOpen ? (
+          {presence.render ? (
             <Overlay>
-              <div {...underlayProps} />
-              <div
+              {state.isOpen ? <div {...underlayProps} /> : null}
+              <OverlayMotion
                 {...popoverProps}
+                open={state.isOpen}
+                onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}
                 className={styles.dropdown}
                 style={{
@@ -172,7 +177,7 @@ export function Select(props: SelectProps): ReactElement {
                   {...(emptyLabel === undefined ? {} : { emptyLabel })}
                 />
                 <DismissButton onDismiss={Close} />
-              </div>
+              </OverlayMotion>
             </Overlay>
           ) : null}
         </div>

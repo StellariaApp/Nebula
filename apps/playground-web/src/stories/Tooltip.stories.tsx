@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { ActionIcon, Box, Button, Text, Title, Tooltip } from "@stellaria/nebula-web";
 
@@ -107,6 +107,8 @@ export const KeyboardFlow: Story = {
     await expect(await within(document.body).findByRole("tooltip")).toBeInTheDocument();
 
     await userEvent.tab();
-    await expect(within(document.body).queryByRole("tooltip")).toBeNull();
+    await waitFor(() => {
+      void expect(within(document.body).queryByRole("tooltip")).toBeNull();
+    });
   },
 };

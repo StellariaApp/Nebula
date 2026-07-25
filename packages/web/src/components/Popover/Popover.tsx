@@ -12,6 +12,7 @@ import {
 } from "react-aria";
 import { useOverlayTriggerState } from "react-stately";
 
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { cx } from "../../utils/style-props.js";
 import { FocusTrap } from "../FocusTrap/FocusTrap.js";
 
@@ -77,6 +78,8 @@ export function Popover(props: PopoverProps): ReactElement {
     popover_ref,
   );
 
+  const presence = useOverlayPresence(state.isOpen);
+
   const Close = (): void => {
     state.close();
   };
@@ -86,12 +89,14 @@ export function Popover(props: PopoverProps): ReactElement {
   return (
     <>
       {trigger_node}
-      {state.isOpen ? (
+      {presence.render ? (
         <Overlay>
-          {isNonModal === true ? null : <div {...underlayProps} />}
-          <FocusTrap active={isNonModal !== true} restoreFocus autoFocus>
-            <div
+          {isNonModal === true || !state.isOpen ? null : <div {...underlayProps} />}
+          <FocusTrap active={isNonModal !== true && state.isOpen} restoreFocus autoFocus>
+            <OverlayMotion
               {...mergeProps(popoverProps, overlayProps, dialogProps)}
+              open={state.isOpen}
+              onExitComplete={presence.OnExitComplete}
               ref={popover_ref}
               className={cx(styles.popover({ radius, padding }), className)}
               style={{ ...popoverProps.style, ...(width === undefined ? {} : { width }) }}
@@ -107,7 +112,7 @@ export function Popover(props: PopoverProps): ReactElement {
               ) : null}
               {children}
               <DismissButton onDismiss={Close} />
-            </div>
+            </OverlayMotion>
           </FocusTrap>
         </Overlay>
       ) : null}

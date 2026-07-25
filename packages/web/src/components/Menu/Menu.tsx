@@ -5,6 +5,8 @@ import { cloneElement, useRef, type ReactElement } from "react";
 import { DismissButton, Overlay, useMenuTrigger, usePopover, type PressEvent } from "react-aria";
 import { useMenuTriggerState } from "react-stately";
 
+import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
+
 import { MenuList } from "./MenuList.js";
 import type { MenuItemData, MenuProps } from "./Menu.types.js";
 
@@ -57,6 +59,8 @@ export function Menu(props: MenuProps): ReactElement {
     ref: trigger_ref,
   });
 
+  const presence = useOverlayPresence(state.isOpen);
+
   const Close = (): void => {
     state.close();
   };
@@ -69,11 +73,13 @@ export function Menu(props: MenuProps): ReactElement {
   return (
     <>
       {trigger_node}
-      {state.isOpen ? (
+      {presence.render ? (
         <Overlay>
-          <div {...underlayProps} />
-          <div
+          {state.isOpen ? <div {...underlayProps} /> : null}
+          <OverlayMotion
             {...popoverProps}
+            open={state.isOpen}
+            onExitComplete={presence.OnExitComplete}
             ref={popover_ref}
             style={{ ...popoverProps.style, ...(width === undefined ? {} : { width }) }}
           >
@@ -87,7 +93,7 @@ export function Menu(props: MenuProps): ReactElement {
               {...(className === undefined ? {} : { className })}
             />
             <DismissButton onDismiss={Close} />
-          </div>
+          </OverlayMotion>
         </Overlay>
       ) : null}
     </>
