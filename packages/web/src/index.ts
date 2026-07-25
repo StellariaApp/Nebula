@@ -225,3 +225,25 @@ export type {
   ToastProviderProps,
   ToastRecord,
 } from "./components/Toast/index.js";
+
+export { Badge } from "./components/Badge/index.js";
+export type { BadgeProps, BadgeVariant } from "./components/Badge/index.js";
+export { Avatar, AvatarGroup } from "./components/Avatar/index.js";
+export type { AvatarGroupProps, AvatarProps } from "./components/Avatar/index.js";
+export { BackgroundImage, Image } from "./components/Image/index.js";
+export type {
+  BackgroundImageProps,
+  ImageFit,
+  ImageProps,
+} from "./components/Image/index.js";
+export { Accordion } from "./components/Accordion/index.js";
+export type { AccordionItemData, AccordionProps } from "./components/Accordion/index.js";
+export { Card, CardActions, CardBadges, CardImage, CardMeta, CardSection } from "./components/Card/index.js";
+export type {
+  CardImageProps,
+  CardProps,
+  CardSectionProps,
+  CardSlotProps,
+} from "./components/Card/index.js";
+export { EmptyState } from "./components/EmptyState/index.js";
+export type { EmptyStateProps } from "./components/EmptyState/index.js";

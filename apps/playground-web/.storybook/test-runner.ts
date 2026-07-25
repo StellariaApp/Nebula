@@ -10,7 +10,15 @@ import { checkA11y, injectAxe } from "axe-playwright";
  * El contexto es `body`, no `#storybook-root`: los overlays (Popover, Tooltip, Modal,
  * Drawer, Menu) se renderizan en un portal fuera de la raíz de la story, así que
  * acotarlo a `#storybook-root` dejaba sin auditar justo el contenido de W2.4.
+ *
+ * Antes de auditar se deja asentar la animación de entrada: axe calcula el contraste
+ * sobre el color compuesto, y un elemento a media opacidad da falsos positivos de
+ * `color-contrast`. Es un margen fijo y no una espera a `getAnimations()`, porque las
+ * animaciones decorativas infinitas (spinner, shimmer, rayas, glow) nunca resuelven su
+ * promesa `finished` y colgarían el gate.
  */
+const SETTLE_MS = 400;
+
 const config: TestRunnerConfig = {
   async preVisit(page) {
     await injectAxe(page);
@@ -19,6 +27,8 @@ const config: TestRunnerConfig = {
     const story_context = await getStoryContext(page, context);
     const params = story_context.parameters as { a11y?: { disable?: boolean } };
     if (params.a11y?.disable === true) return;
+
+    await page.waitForTimeout(SETTLE_MS);
 
     await checkA11y(page, "body", {
       detailedReport: true,

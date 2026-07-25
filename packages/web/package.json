@@ -34,7 +34,7 @@
         "react",
         "react-dom"
       ],
-      "limit": "20 kB"
+      "limit": "22 kB"
     },
     {
       "name": "useTheme (sin CSS)",
@@ -607,6 +607,48 @@
       "import": "{ nebulaToast }",
       "ignore": ["react", "react-dom"],
       "limit": "4 kB"
+    },
+    {
+      "name": "Badge (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Badge/Badge.js",
+      "import": "{ Badge }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Avatar (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Avatar/Avatar.js",
+      "import": "{ Avatar }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Image (motion en la carga, por módulo)",
+      "path": "dist/components/Image/Image.js",
+      "import": "{ Image }",
+      "ignore": ["react", "react-dom"],
+      "limit": "42 kB"
+    },
+    {
+      "name": "Accordion (APG + Collapse + motion, por módulo)",
+      "path": "dist/components/Accordion/Accordion.js",
+      "import": "{ Accordion }",
+      "ignore": ["react", "react-dom"],
+      "limit": "42 kB"
+    },
+    {
+      "name": "Card (compound + motion, por módulo)",
+      "path": "dist/components/Card/index.js",
+      "import": "{ Card }",
+      "ignore": ["react", "react-dom"],
+      "limit": "44 kB"
+    },
+    {
+      "name": "EmptyState (motion de entrada, por módulo)",
+      "path": "dist/components/EmptyState/EmptyState.js",
+      "import": "{ EmptyState }",
+      "ignore": ["react", "react-dom"],
+      "limit": "40 kB"
     },
     {
       "name": "Conditional (lógica pura, por módulo)",
