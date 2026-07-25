@@ -467,24 +467,34 @@
       "limit": "12 kB"
     },
     {
-      "name": "Switch (nativo + visual, por módulo)",
+      "name": "Switch (nativo + motion con gesto, por módulo)",
       "path": "dist/components/Switch/Switch.js",
       "import": "{ Switch }",
       "ignore": [
         "react",
         "react-dom"
       ],
-      "limit": "16 kB"
+      "limit": "56 kB"
     },
     {
-      "name": "SegmentedControl (radiogroup, por módulo)",
-      "path": "dist/components/SegmentedControl/SegmentedControl.js",
-      "import": "{ SegmentedControl }",
+      "name": "Tabs (atajo sobre Segment, por módulo)",
+      "path": "dist/components/Tabs/Tabs.js",
+      "import": "{ Tabs }",
       "ignore": [
         "react",
         "react-dom"
       ],
-      "limit": "12 kB"
+      "limit": "60 kB"
+    },
+    {
+      "name": "Segment (compound: motion + gesto, por módulo)",
+      "path": "dist/components/Segment/index.js",
+      "import": "{ Segment }",
+      "ignore": [
+        "react",
+        "react-dom"
+      ],
+      "limit": "58 kB"
     },
     {
       "name": "Popover (Aria overlays + posicionamiento, por módulo)",

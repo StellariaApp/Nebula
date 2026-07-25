@@ -58,12 +58,11 @@ export const thumb = style({
   borderRadius: vars.radius.full,
   background: vars.color.surface.base,
   boxShadow: vars.shadow.xs,
-  transitionProperty: "transform",
-  transitionDuration: vars.motion.duration.base,
-  transitionTimingFunction: vars.motion.easing.standard,
+  touchAction: "none",
 });
 
 export const labelText = style({
+  userSelect: "none",
   "@layer": { [baseLayer]: { lineHeight: vars.font.lineHeight.tight } },
 });
 
@@ -76,14 +75,11 @@ export const listRow = style({
 });
 
 globalStyle(`${input}:checked + ${track}`, { background: switchColor });
-globalStyle(`${input}:checked + ${track} > ${thumb}`, {
-  transform: `translateX(calc(${switchW} - ${switchH}))`,
-});
 globalStyle(`${input}:focus-visible + ${track}`, {
   outline: `2px solid ${vars.color.border.focus}`,
   outlineOffset: "2px",
 });
 
-globalStyle(`${thumb}, ${track}`, {
+globalStyle(`${track}`, {
   "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
 });

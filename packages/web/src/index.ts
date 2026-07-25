@@ -74,12 +74,6 @@ export { Radio, RadioGroup } from "./components/Radio/index.js";
 export type { RadioGroupProps, RadioProps } from "./components/Radio/index.js";
 export { Switch, SwitchGroup } from "./components/Switch/index.js";
 export type { SwitchGroupProps, SwitchProps } from "./components/Switch/index.js";
-export { SegmentedControl } from "./components/SegmentedControl/index.js";
-export type {
-  SegmentedControlProps,
-  SegmentedData,
-  SegmentedItem,
-} from "./components/SegmentedControl/index.js";
 
 export { Flex } from "./components/Flex/index.js";
 export type { FlexOwnProps, FlexProps } from "./components/Flex/index.js";
@@ -192,3 +186,25 @@ export type {
   RenderOption,
   SelectOption,
 } from "./collections/index.js";
+
+export {
+  Segment,
+  SegmentContent,
+  SegmentContentItem,
+  SegmentControl,
+  SegmentControlItem,
+  SegmentFooter,
+  SegmentHeader,
+} from "./components/Segment/index.js";
+export type {
+  SegmentContentItemProps,
+  SegmentContentProps,
+  SegmentControlItemProps,
+  SegmentControlProps,
+  SegmentControlData,
+  SegmentItemData,
+  SegmentProps,
+  SegmentSectionProps,
+} from "./components/Segment/index.js";
+export { Tabs } from "./components/Tabs/index.js";
+export type { TabItem, TabsProps } from "./components/Tabs/index.js";

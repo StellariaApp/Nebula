@@ -17,6 +17,7 @@ export interface SwitchProps
   onChange?: ((checked: boolean) => void) | undefined;
   value?: string | undefined;
   disabled?: boolean | undefined;
+  draggable?: boolean | undefined;
   rootClassName?: string | undefined;
 }
 

@@ -1,0 +1,166 @@
+"use client";
+
+import {
+  Children,
+  isValidElement,
+  useRef,
+  type KeyboardEvent,
+  type ReactElement,
+  type ReactNode,
+} from "react";
+
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { domMax, LazyMotion, m } from "motion/react";
+
+import { vars } from "../../theme/contract.css.js";
+import { ScaleShade } from "../../utils/scale.js";
+import { cx } from "../../utils/style-props.js";
+
+import { useSegment } from "./Segment.context.js";
+import * as styles from "./Segment.css.js";
+import { indicatorColor } from "./Segment.vars.css.js";
+import type {
+  SegmentControlItemProps,
+  SegmentControlProps,
+  SegmentItemData,
+} from "./Segment.types.js";
+import { useSegmentIndicator } from "./use-segment-indicator.js";
+
+export function SegmentControlItem(_props: SegmentControlItemProps): null {
+  return null;
+}
+
+SegmentControlItem.displayName = "SegmentControlItem";
+
+function FromChildren(children: ReactNode): SegmentItemData[] {
+  return Children.toArray(children)
+    .filter((child): child is ReactElement<SegmentControlItemProps> => isValidElement(child))
+    .map((child) => ({
+      value: child.props.value,
+      label: child.props.children,
+      disabled: child.props.disabled,
+    }));
+}
+
+export function SegmentControl(props: SegmentControlProps): ReactElement {
+  const { data, children, className, "aria-label": aria_label } = props;
+  const segment = useSegment();
+
+  const items =
+    data === undefined
+      ? FromChildren(children)
+      : data.map((entry) => (typeof entry === "string" ? { value: entry, label: entry } : entry));
+  const active_index = Math.max(
+    0,
+    items.findIndex((item) => item.value === segment.value),
+  );
+
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const Enabled = (index: number): boolean => {
+    const item = items[index];
+    return item !== undefined && item.disabled !== true && !segment.disabled;
+  };
+
+  const Select = (index: number): void => {
+    const item = items[index];
+    if (item === undefined || !Enabled(index)) return;
+    segment.SetValue(item.value);
+  };
+
+  const indicator = useSegmentIndicator({
+    activeIndex: active_index,
+    count: items.length,
+    draggable: segment.draggable,
+    disabled: segment.disabled,
+    onSelect: Select,
+    isEnabled: Enabled,
+  });
+
+  const Step = (from: number, direction: 1 | -1): number => {
+    const total = items.length;
+    for (let step = 1; step <= total; step += 1) {
+      const next = (from + direction * step + total * total) % total;
+      if (Enabled(next)) return next;
+    }
+    return from;
+  };
+
+  const HandleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
+    const keys = ["ArrowRight", "ArrowLeft", "Home", "End"];
+    if (!keys.includes(event.key)) return;
+    event.preventDefault();
+    let next = active_index;
+    if (event.key === "ArrowRight") next = Step(active_index, 1);
+    if (event.key === "ArrowLeft") next = Step(active_index, -1);
+    if (event.key === "Home") next = Enabled(0) ? 0 : Step(0, 1);
+    if (event.key === "End")
+      next = Enabled(items.length - 1) ? items.length - 1 : Step(items.length - 1, -1);
+    Select(next);
+    tabs.current[next]?.focus();
+  };
+
+  const css_vars = assignInlineVars({
+    [indicatorColor]:
+      segment.color === "primary" ? vars.color.surface.base : ScaleShade(segment.color, "200"),
+  });
+
+  return (
+    <LazyMotion features={domMax} strict>
+      <div
+        ref={indicator.containerRef}
+        role={segment.hasPanels ? "tablist" : "radiogroup"}
+        aria-label={aria_label}
+        aria-orientation={segment.hasPanels ? "horizontal" : undefined}
+        className={cx(
+          styles.control({ size: segment.size, fullWidth: segment.fullWidth }),
+          className,
+        )}
+        data-disabled={segment.disabled ? "true" : undefined}
+        style={css_vars}
+        onKeyDown={HandleKeyDown}
+      >
+        <m.span
+          aria-hidden="true"
+          className={styles.indicator}
+          style={{ x: indicator.x, width: indicator.width, opacity: indicator.ready ? 1 : 0 }}
+          {...indicator.panHandlers}
+        />
+        {items.map((item, index) => {
+          const active = item.value === segment.value;
+          const item_disabled = segment.disabled || item.disabled === true;
+          return (
+            <button
+              key={item.value}
+              ref={(node) => {
+                tabs.current[index] = node;
+                indicator.SetItemRef(index)(node);
+              }}
+              type="button"
+              role={segment.hasPanels ? "tab" : "radio"}
+              aria-selected={segment.hasPanels ? active : undefined}
+              aria-checked={segment.hasPanels ? undefined : active}
+              aria-controls={
+                segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined
+              }
+              id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
+              tabIndex={active ? 0 : -1}
+              disabled={item_disabled}
+              className={styles.tab}
+              data-active={active ? "true" : undefined}
+              data-disabled={item_disabled ? "true" : undefined}
+              onClick={() => {
+                if (indicator.ConsumeDrag()) return;
+                Select(index);
+              }}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
+    </LazyMotion>
+  );
+}
+
+SegmentControl.displayName = "SegmentControl";

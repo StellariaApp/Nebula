@@ -101,7 +101,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Radio (+Group)                      | prim  | WN                      | 1    | P2·P3                                         | core    | Nuevo                                                                                       |
 | Switch (+Group)                     | prim  | WN                      | 1    | P2·P3·ST·FC(Toggle)·TFV(InputSwitch)          | core    | ST Switch                                                                                   |
 | Slider / RangeSlider                | prim  | WN                      | 2    | P2·P3·TFV(InputSlider)                        | core    | Nuevo                                                                                       |
-| SegmentedControl                    | comp  | WN                      | 1    | P2·P3·ST·FC(Segment.Control)·TFV(Segment)     | core    | ST SegmentedControl                                                                         |
+| Segment (Control + Content)         | comp  | WN                      | 1    | P2·P3·ST·FC(Segment)·TFV(Segment)             | core    | **ADR-026**: absorbe SegmentedControl; sin `Content` es el selector de valor (radiogroup)   |
 | Chip (+Group)                       | prim  | WN                      | 2    | P2·P3·ST                                      | core    | ST Chip (fix ChipGroup selección)                                                           |
 | PinInput                            | prim  | WN                      | 2    | P2·P3                                         | core    | Nuevo                                                                                       |
 | Rating                              | prim  | WN                      | 2    | P2·P3·TFV                                     | core    | Nuevo                                                                                       |
@@ -197,7 +197,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 
 | Componente     | Clas. | Plat        | Tier | Fuentes                | Destino | Base / nota                                                                       |
 | -------------- | ----- | ----------- | ---- | ---------------------- | ------- | --------------------------------------------------------------------------------- |
-| Tabs           | comp  | WN          | 1    | P3·FC(Segment.Content) | core    | —                                                                                 |
+| Tabs           | comp  | WN          | 1    | P3·FC(Segment.Content) | core    | Sobre `Segment` (ADR-026); adelantado de W2.5                                     |
 | TabBar         | comp  | N           | 2    | P2·FC                  | core    | C1-Q3: contrato propio (items declarativos) + adapter delgado de react-navigation |
 | SegmentedNav   | comp  | N           | 2    | P2                     | core    | —                                                                                 |
 | Breadcrumbs    | comp  | W(N tablet) | 2    | P2·P3·TFV              | core    | Sin acoplamiento a router (items declarativos)                                    |
@@ -412,7 +412,7 @@ No aplican a Nebula: `30-services`, `31-api-query`, `32-multi-tenant`, `40-pos-o
 | 34  | SafeArea      | SafeArea                   | core                              | —                                                                                                |
 | 35  | ScreenError   | EmptyState/EmptyModule     | app (composición)                 | Redirección por rol es de la app                                                                 |
 | 36  | Scroll        | Scroll                     | core                              | —                                                                                                |
-| 37  | Segment       | SegmentedControl + Tabs    | core                              | Control→SegmentedControl; Content swipeable→Tabs native                                          |
+| 37  | Segment       | Segment (compound)         | core                              | **ADR-026**: compound `Segment.Control`/`.Content`/`.Header`/`.Footer`; SegmentedControl y Tabs se conservan para el uso suelto |
 | 38  | Sheet         | BottomSheet                | core                              | La mejor implementación existente (snap points, sheetId)                                         |
 | 39  | Signature     | Signature                  | core                              | Skia                                                                                             |
 | 40  | Skeleton      | Skeleton                   | core                              | —                                                                                                |

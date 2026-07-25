@@ -1,11 +1,21 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 
-import { useUncontrolled } from "@stellaria/nebula-hooks";
+import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
+import {
+  domMax,
+  LazyMotion,
+  m,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type PanInfo,
+} from "motion/react";
 
+import { Rubber } from "../../utils/rubber.js";
 import { cx } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 
@@ -22,6 +32,8 @@ const SIZE: Record<Size, { w: number; h: number }> = {
   xl: { w: 52, h: 30 },
 };
 
+const FLICK_VELOCITY = 320;
+
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(props, ref) {
   const {
     label,
@@ -32,12 +44,16 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     onChange,
     value,
     disabled: disabled_prop,
+    draggable = true,
     className,
     rootClassName,
     ...input_rest
   } = props;
 
   const group = useSwitchGroupContext();
+  const { theme } = useTheme();
+  const prefers_reduced = useReducedMotion();
+
   const size = size_prop ?? group?.size ?? "md";
   const color = color_prop ?? group?.color ?? "primary";
   const disabled = disabled_prop ?? group?.disabled ?? false;
@@ -47,43 +63,98 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const is_checked = in_group ? group.value.includes(value) : local_checked;
 
   const dims = SIZE[size];
+  const travel = dims.w - dims.h;
+
+  const spring = theme.motion.spring.snappy;
+  const is_animated = prefers_reduced !== true && theme.motion.tier !== "minimal";
+  const can_drag = draggable && is_animated && !disabled;
+
+  const target = useMotionValue(is_checked ? travel : 0);
+  const x = useSpring(target, {
+    stiffness: spring.stiffness,
+    damping: spring.damping,
+    mass: spring.mass,
+  });
+
+  const dragged = useRef(false);
+  const origin = useRef(0);
+
+  useEffect(() => {
+    target.set(is_checked ? travel : 0);
+  }, [is_checked, travel, target]);
+
   const css_vars = assignInlineVars({
     [switchW]: `${String(dims.w)}px`,
     [switchH]: `${String(dims.h)}px`,
     [switchColor]: ScaleShade(color, "600"),
   });
 
-  const HandleChange = (): void => {
+  const SetChecked = (next: boolean): void => {
+    if (next === is_checked) {
+      target.set(next ? travel : 0);
+      return;
+    }
     if (in_group) group.toggle(value);
-    else set_local_checked(!is_checked);
+    else set_local_checked(next);
+  };
+
+  const HandleChange = (): void => {
+    if (dragged.current) {
+      dragged.current = false;
+      return;
+    }
+    SetChecked(!is_checked);
+  };
+
+  const HandlePanStart = (): void => {
+    origin.current = target.get();
+  };
+
+  const HandlePan = (_event: unknown, info: PanInfo): void => {
+    if (Math.abs(info.offset.x) > 2) dragged.current = true;
+    target.set(Rubber(origin.current + info.offset.x, 0, travel));
+  };
+
+  const HandlePanEnd = (_event: unknown, info: PanInfo): void => {
+    const landed = origin.current + info.offset.x;
+    const flicked = Math.abs(info.velocity.x) > FLICK_VELOCITY;
+    SetChecked(flicked ? info.velocity.x > 0 : landed > travel / 2);
   };
 
   return (
-    <label
-      className={cx(styles.root, rootClassName)}
-      data-disabled={disabled ? "true" : undefined}
-      style={css_vars}
-    >
-      <input
-        {...input_rest}
-        ref={ref}
-        type="checkbox"
-        role="switch"
-        className={cx(styles.input, className)}
-        checked={is_checked}
-        aria-checked={is_checked}
-        onChange={HandleChange}
-        disabled={disabled}
-        {...(value === undefined ? {} : { value })}
-        {...(group?.name === undefined ? {} : { name: group.name })}
-      />
-      <span className={styles.track} aria-hidden="true">
-        <span className={styles.thumb} />
-      </span>
-      {label === undefined || label === null ? null : (
-        <span className={styles.labelText}>{label}</span>
-      )}
-    </label>
+    <LazyMotion features={domMax} strict>
+      <label
+        className={cx(styles.root, rootClassName)}
+        data-disabled={disabled ? "true" : undefined}
+        style={css_vars}
+      >
+        <input
+          {...input_rest}
+          ref={ref}
+          type="checkbox"
+          role="switch"
+          className={cx(styles.input, className)}
+          checked={is_checked}
+          aria-checked={is_checked}
+          onChange={HandleChange}
+          disabled={disabled}
+          {...(value === undefined ? {} : { value })}
+          {...(group?.name === undefined ? {} : { name: group.name })}
+        />
+        <span className={styles.track} aria-hidden="true" draggable={false}>
+          <m.span
+            className={styles.thumb}
+            style={{ x: is_animated ? x : target }}
+            {...(can_drag
+              ? { onPanStart: HandlePanStart, onPan: HandlePan, onPanEnd: HandlePanEnd }
+              : {})}
+          />
+        </span>
+        {label === undefined || label === null ? null : (
+          <span className={styles.labelText}>{label}</span>
+        )}
+      </label>
+    </LazyMotion>
   );
 });
 

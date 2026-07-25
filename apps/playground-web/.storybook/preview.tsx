@@ -74,6 +74,10 @@ const preview: Preview = {
   },
   parameters: {
     layout: "fullscreen",
+    // El gate a11y lo corre `checkA11y` en test-runner.ts sobre `body`. Dejar además el test
+    // automático del addon lanza una segunda instancia de axe en paralelo y ambas chocan
+    // ("Axe is already running") en stories con animación en curso.
+    a11y: { test: "off" },
     viewport: {
       options: {
         phone: { name: "Phone", styles: { width: "576px", height: "900px" } },
