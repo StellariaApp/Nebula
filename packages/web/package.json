@@ -44,7 +44,7 @@
         "react",
         "react-dom"
       ],
-      "limit": "13 kB"
+      "limit": "15 kB"
     },
     {
       "name": "Box (primitivo, por módulo)",
@@ -565,6 +565,48 @@
       "import": "{ nebulaOverlays, useOverlayState }",
       "ignore": ["react", "react-dom"],
       "limit": "6 kB"
+    },
+    {
+      "name": "Alert (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Alert/Alert.js",
+      "import": "{ Alert }",
+      "ignore": ["react", "react-dom"],
+      "limit": "52 kB"
+    },
+    {
+      "name": "Loader (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Loader/Loader.js",
+      "import": "{ Loader }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Skeleton (primitivo temable en runtime, por módulo)",
+      "path": "dist/components/Skeleton/Skeleton.js",
+      "import": "{ Skeleton }",
+      "ignore": ["react", "react-dom"],
+      "limit": "12 kB"
+    },
+    {
+      "name": "Progress (bar + ring, por módulo)",
+      "path": "dist/components/Progress/Progress.js",
+      "import": "{ Progress }",
+      "ignore": ["react", "react-dom"],
+      "limit": "14 kB"
+    },
+    {
+      "name": "ToastProvider (Jotai + Transition, por módulo)",
+      "path": "dist/components/Toast/ToastProvider.js",
+      "import": "{ ToastProvider }",
+      "ignore": ["react", "react-dom"],
+      "limit": "58 kB"
+    },
+    {
+      "name": "nebulaToast (API imperativa, por módulo)",
+      "path": "dist/components/Toast/toast-store.js",
+      "import": "{ nebulaToast }",
+      "ignore": ["react", "react-dom"],
+      "limit": "4 kB"
     },
     {
       "name": "Conditional (lógica pura, por módulo)",
