@@ -44,7 +44,7 @@
         "react",
         "react-dom"
       ],
-      "limit": "15 kB"
+      "limit": "18 kB"
     },
     {
       "name": "Box (primitivo, por módulo)",
@@ -649,6 +649,20 @@
       "import": "{ EmptyState }",
       "ignore": ["react", "react-dom"],
       "limit": "40 kB"
+    },
+    {
+      "name": "NavLink (disclosure APG + Collapse + motion, por módulo)",
+      "path": "dist/components/NavLink/NavLink.js",
+      "import": "{ NavLink }",
+      "ignore": ["react", "react-dom"],
+      "limit": "42 kB"
+    },
+    {
+      "name": "Pagination (rango + motion, por módulo)",
+      "path": "dist/components/Pagination/Pagination.js",
+      "import": "{ Pagination }",
+      "ignore": ["react", "react-dom"],
+      "limit": "42 kB"
     },
     {
       "name": "Conditional (lógica pura, por módulo)",

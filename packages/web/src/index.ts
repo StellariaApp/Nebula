@@ -208,6 +208,10 @@ export type {
 } from "./components/Segment/index.js";
 export { Tabs } from "./components/Tabs/index.js";
 export type { TabItem, TabsProps } from "./components/Tabs/index.js";
+export { NavLink } from "./components/NavLink/index.js";
+export type { NavLinkOwnProps, NavLinkProps } from "./components/NavLink/index.js";
+export { Pagination } from "./components/Pagination/index.js";
+export type { PaginationProps } from "./components/Pagination/index.js";
 
 export { Alert } from "./components/Alert/index.js";
 export type { AlertProps, AlertVariant } from "./components/Alert/index.js";
