@@ -20,7 +20,7 @@
 **Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `nebula-light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
 **Gate**: cambiar tema reconfigura los pilotos sin tocar código; axe y size-limit verdes; Button con testing contract al 100% (plantilla para todo lo demás).
 
-### W2 — Web Tier 1 _(en curso — checkpoint visual W2.V antes de continuar W2.3)_
+### W2 — Web Tier 1 _(cerrada — ver `docs/w2-closure.md`)_
 
 **Entregables**: Foundation/Layout, Typography, Utilities, `@stellaria/nebula-icons` (registry lucide), Buttons/Actions, sistema de forms (FormField + `NebulaField` + `useFieldProps`), inputs básicos, Combobox + Select/MultiSelect, overlays core (Modal, Drawer, Popover, Tooltip, Menu), feedback (Alert, Toast+provider, Loader, Skeleton, Progress), Card compound, Avatar, Badge, navegación core, EmptyState.
 **Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox; láminas `Foundations/Visual QA` y review visual según `docs/06-visual-language.md`.

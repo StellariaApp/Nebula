@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -12,106 +14,95 @@ export default meta;
 type Story = StoryObj;
 
 export const NavLinks: Story = {
-  render: () => (
-    <Box maw={280} display="flex" direction="column" gap="xxs">
-      <NavLink label="Inicio" href="#inicio" leftSection="🏠" active />
-      <NavLink label="Clientes" href="#clientes" leftSection="👥" />
-      <NavLink label="Facturación" href="#facturacion" leftSection="🧾" rightSection={<Badge size="xs">3</Badge>} />
-      <NavLink label="Deshabilitado" href="#nada" leftSection="🚫" disabled />
-    </Box>
-  ),
-};
-
-export const NavLinkWithDescription: Story = {
-  render: () => (
-    <Box maw={320}>
-      <NavLink
-        label="Plan Profesional"
-        description="Renueva el 12 de agosto"
-        leftSection="💳"
-        active
-      />
-    </Box>
-  ),
-};
-
-export const NavLinkNested: Story = {
-  render: () => (
-    <Box maw={280}>
-      <NavLink label="Configuración" leftSection="⚙️" defaultOpened>
-        <NavLink label="Perfil" href="#perfil" />
-        <NavLink label="Seguridad" href="#seguridad" />
-        <NavLink label="Notificaciones" href="#notificaciones" />
-      </NavLink>
-    </Box>
-  ),
+  render: function Nav() {
+    const [active, set_active] = useState("inicio");
+    return (
+      <Paper withBorder radius="md" p="xs" style={{ maxWidth: 280 }}>
+        <Box display="flex" direction="column" gap="xxs">
+          <NavLink
+            label="Inicio"
+            leftSection="🏠"
+            active={active === "inicio"}
+            onPress={() => set_active("inicio")}
+          />
+          <NavLink
+            label="Clientes"
+            description="Cartera y seguimiento"
+            leftSection="👥"
+            active={active === "clientes"}
+            onPress={() => set_active("clientes")}
+          />
+          <NavLink
+            label="Cobranza"
+            leftSection="💳"
+            rightSection={<Badge size="xs" color="error">3</Badge>}
+            active={active === "cobranza"}
+            onPress={() => set_active("cobranza")}
+          />
+          <NavLink label="Reportes" leftSection="📊" defaultOpened>
+            <NavLink label="Ventas" href="#ventas" />
+            <NavLink label="Cartera vencida" href="#cartera" />
+          </NavLink>
+          <NavLink label="Archivado" leftSection="📦" disabled />
+        </Box>
+      </Paper>
+    );
+  },
 };
 
 export const Paginations: Story = {
-  render: () => (
-    <Box display="flex" direction="column" gap="lg">
-      <Pagination total={5} defaultValue={2} aria-label="Ejemplo básico" />
-      <Pagination total={20} defaultValue={10} aria-label="Ejemplo con elipsis" />
-      <Pagination
-        total={20}
-        defaultValue={1}
-        siblings={0}
-        boundaries={1}
-        aria-label="Ejemplo sin vecinos"
-      />
-      <Pagination
-        total={5}
-        defaultValue={2}
-        withControls={false}
-        aria-label="Ejemplo sin controles"
-      />
-    </Box>
-  ),
-};
-
-export const PaginationSizes: Story = {
-  render: () => (
-    <Box display="flex" direction="column" gap="md" style={{ alignItems: "flex-start" }}>
-      {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
-        <Pagination key={size} total={7} defaultValue={3} size={size} aria-label={`Tamaño ${size}`} />
-      ))}
-    </Box>
-  ),
-};
-
-export const PaginationStates: Story = {
-  render: () => (
-    <Box display="flex" direction="column" gap="md" style={{ alignItems: "flex-start" }}>
-      <Pagination total={7} defaultValue={1} aria-label="Primera página" />
-      <Pagination total={7} defaultValue={7} aria-label="Última página" />
-      <Pagination total={7} defaultValue={3} disabled aria-label="Deshabilitada" />
-    </Box>
-  ),
+  render: function Pages() {
+    const [page, set_page] = useState(5);
+    return (
+      <Box display="flex" direction="column" gap="lg">
+        <Pagination
+          total={10}
+          page={page}
+          onChange={set_page}
+          labels={{ root: "Resultados" }}
+        />
+        <Pagination total={20} defaultPage={10} withEdges labels={{ root: "Con extremos" }} />
+        <Pagination total={3} defaultPage={2} labels={{ root: "Pocas páginas" }} />
+        <Box display="flex" direction="column" gap="sm">
+          {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+            <Pagination
+              key={size}
+              total={7}
+              defaultPage={4}
+              size={size}
+              labels={{ root: `Tamaño ${size}` }}
+            />
+          ))}
+        </Box>
+        <Pagination total={10} defaultPage={3} disabled labels={{ root: "Deshabilitada" }} />
+      </Box>
+    );
+  },
 };
 
 export const Composition: Story = {
-  render: () => (
-    <Box display="flex" gap="xl" style={{ alignItems: "flex-start" }}>
-      <Box maw={240} display="flex" direction="column" gap="xxs">
-        <Title order={5}>Cuenta</Title>
-        <NavLink label="Resumen" href="#resumen" leftSection="📊" active />
-        <NavLink label="Movimientos" href="#movimientos" leftSection="💸" />
-        <NavLink label="Reportes" leftSection="📁" defaultOpened>
-          <NavLink label="Mensual" href="#mensual" />
-          <NavLink label="Anual" href="#anual" />
-        </NavLink>
-      </Box>
-      <Paper withBorder radius="md" p="lg" style={{ flex: 1 }}>
-        <Box display="flex" direction="column" gap="md">
-          <Text fw="semibold">Últimos movimientos</Text>
-          <Text c="text.secondary" fz="body3">
-            Mostrando la página 3 de 20.
-          </Text>
-          <Pagination total={20} defaultValue={3} aria-label="Movimientos" />
+  render: function Layout() {
+    const [page, set_page] = useState(1);
+    return (
+      <Box display="flex" gap="lg" style={{ alignItems: "flex-start" }}>
+        <Paper withBorder radius="md" p="xs" style={{ width: 240, flexShrink: 0 }}>
+          <Box display="flex" direction="column" gap="xxs">
+            <NavLink label="Resumen" leftSection="🏠" active />
+            <NavLink label="Solicitudes" leftSection="📄" />
+            <NavLink label="Reportes" leftSection="📊">
+              <NavLink label="Mensual" href="#mensual" />
+              <NavLink label="Anual" href="#anual" />
+            </NavLink>
+          </Box>
+        </Paper>
+        <Box style={{ flex: 1 }} display="flex" direction="column" gap="md">
+          <Title order={4}>Solicitudes</Title>
+          <Text c="text.secondary">Mostrando la página {page} de 12.</Text>
+          <Pagination total={12} page={page} onChange={set_page} withEdges />
         </Box>
-      </Paper>
-    </Box>
-  ),
+      </Box>
+    );
+  },
 };
 
 export const Dark: Story = { ...Composition, globals: { theme: "nebula-dark" } };
@@ -120,37 +111,21 @@ export const AllThemes: Story = { ...Composition, globals: { theme: "sober-light
 
 export const ReducedMotion: Story = { ...Paginations, globals: { reducedMotion: "reduce" } };
 
-/** Tab/Enter/flechas nativas del botón; el disclosure abre con Enter/Space y expone aria-expanded. */
+/** La página activa se anuncia con `aria-current` y los controles se deshabilitan en los extremos. */
 export const KeyboardFlow: Story = {
-  render: () => (
-    <Box maw={280}>
-      <NavLink label="Configuración" leftSection="⚙️">
-        <NavLink label="Perfil" href="#perfil" />
-      </NavLink>
-    </Box>
-  ),
+  render: () => <Pagination total={6} defaultPage={1} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: "Configuración" });
 
-    trigger.focus();
-    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(canvas.getByRole("navigation", { name: "Paginación" })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Página 1" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    await expect(canvas.getByRole("button", { name: "Página anterior" })).toBeDisabled();
 
-    await userEvent.keyboard("{Enter}");
-    await expect(trigger).toHaveAttribute("aria-expanded", "true");
-    await expect(canvas.getByRole("link", { name: "Perfil" })).toBeInTheDocument();
-  },
-};
-
-export const PaginationKeyboardFlow: Story = {
-  render: () => <Pagination total={5} defaultValue={1} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const next = canvas.getByRole("button", { name: "Página siguiente" });
-
-    next.focus();
-    await userEvent.keyboard("{Enter}");
-    await expect(canvas.getByRole("button", { name: "2" })).toHaveAttribute(
+    await userEvent.click(canvas.getByRole("button", { name: "Página siguiente" }));
+    await expect(canvas.getByRole("button", { name: "Página 2" })).toHaveAttribute(
       "aria-current",
       "page",
     );

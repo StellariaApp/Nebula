@@ -2,62 +2,130 @@ import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { NavLink } from "../../NavLink/NavLink.js";
 import { Pagination } from "../Pagination.js";
+import { PaginationRange } from "../pagination-range.js";
 
 afterEach(cleanup);
 
-describe("Pagination", () => {
-  it("marca la página actual con aria-current='page'", () => {
-    render(<Pagination total={5} defaultValue={3} />);
-    expect(screen.getByRole("button", { name: "3" }).getAttribute("aria-current")).toBe("page");
-    expect(screen.getByRole("button", { name: "2" }).getAttribute("aria-current")).toBeNull();
+describe("PaginationRange", () => {
+  it("sin recortar muestra todas las páginas", () => {
+    expect(PaginationRange(5, 1, 1, 1)).toEqual([1, 2, 3, 4, 5]);
   });
 
-  it("navega al hacer click en una página y notifica onChange", async () => {
+  it("recorta por el final cuando la página está al principio", () => {
+    expect(PaginationRange(20, 2, 1, 1)).toEqual([1, 2, 3, 4, 5, "dots-end", 20]);
+  });
+
+  it("recorta por el principio cuando la página está al final", () => {
+    expect(PaginationRange(20, 19, 1, 1)).toEqual([1, "dots-start", 16, 17, 18, 19, 20]);
+  });
+
+  it("recorta por ambos lados en el centro", () => {
+    expect(PaginationRange(20, 10, 1, 1)).toEqual([1, "dots-start", 9, 10, 11, "dots-end", 20]);
+  });
+
+  it("total 0 no produce items", () => {
+    expect(PaginationRange(0, 1, 1, 1)).toEqual([]);
+  });
+});
+
+describe("Pagination", () => {
+  it("es un nav con nombre accesible", () => {
+    render(<Pagination total={5} />);
+    expect(screen.getByRole("navigation", { name: "Paginación" })).toBeDefined();
+  });
+
+  it("marca la página activa con aria-current", () => {
+    render(<Pagination total={5} defaultPage={3} />);
+    expect(screen.getByRole("button", { name: "Página 3" }).getAttribute("aria-current")).toBe(
+      "page",
+    );
+  });
+
+  it("cambia de página al pulsar", async () => {
     const OnChange = vi.fn();
     const user = userEvent.setup();
-    render(<Pagination total={5} defaultValue={1} onChange={OnChange} />);
-
-    await user.click(screen.getByRole("button", { name: "3" }));
-    expect(OnChange).toHaveBeenCalledWith(3);
+    render(<Pagination total={5} onChange={OnChange} />);
+    await user.click(screen.getByRole("button", { name: "Página 4" }));
+    expect(OnChange).toHaveBeenCalledWith(4);
   });
 
-  it("los controles anterior/siguiente avanzan y se deshabilitan en los extremos", async () => {
+  it("los controles avanzan y retroceden", async () => {
+    const OnChange = vi.fn();
     const user = userEvent.setup();
-    render(<Pagination total={3} defaultValue={1} />);
+    render(<Pagination total={5} defaultPage={2} onChange={OnChange} />);
 
-    const prev = screen.getByRole("button", { name: "Página anterior" });
-    const next = screen.getByRole("button", { name: "Página siguiente" });
-    expect(prev.hasAttribute("disabled")).toBe(true);
-
-    await user.click(next);
-    expect(screen.getByRole("button", { name: "2" }).getAttribute("aria-current")).toBe("page");
-
-    await user.click(next);
-    expect(next.hasAttribute("disabled")).toBe(true);
+    await user.click(screen.getByRole("button", { name: "Página siguiente" }));
+    expect(OnChange).toHaveBeenLastCalledWith(3);
   });
 
-  it("inserta elipsis cuando hay más páginas que las visibles", () => {
-    render(<Pagination total={20} defaultValue={10} />);
-    expect(screen.getAllByText("…").length).toBeGreaterThan(0);
+  it("deshabilita el anterior en la primera página", () => {
+    render(<Pagination total={5} defaultPage={1} />);
+    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Página anterior" }).disabled).toBe(
+      true,
+    );
+  });
+
+  it("withEdges añade primera y última", () => {
+    render(<Pagination total={20} defaultPage={10} withEdges />);
+    expect(screen.getByRole("button", { name: "Primera página" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Última página" })).toBeDefined();
+  });
+
+  it("disabled bloquea todos los botones", () => {
+    render(<Pagination total={5} disabled />);
+    const buttons = screen.getAllByRole<HTMLButtonElement>("button");
+    expect(buttons.every((button) => button.disabled)).toBe(true);
   });
 
   it("respeta el modo controlado", () => {
-    render(<Pagination total={5} value={4} onChange={() => undefined} />);
-    expect(screen.getByRole("button", { name: "4" }).getAttribute("aria-current")).toBe("page");
+    render(<Pagination total={5} page={2} onChange={() => undefined} />);
+    expect(screen.getByRole("button", { name: "Página 2" }).getAttribute("aria-current")).toBe(
+      "page",
+    );
+  });
+});
+
+describe("NavLink", () => {
+  it("con href es un enlace", () => {
+    render(<NavLink label="Inicio" href="/" />);
+    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("href")).toBe("/");
   });
 
-  it("deshabilitado no navega", async () => {
-    const OnChange = vi.fn();
+  it("activo marca aria-current", () => {
+    render(<NavLink label="Inicio" href="/" active />);
+    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBe("page");
+  });
+
+  it("sin href es un botón que dispara onPress", async () => {
+    const OnPress = vi.fn();
     const user = userEvent.setup();
-    render(<Pagination total={5} defaultValue={1} onChange={OnChange} disabled />);
-
-    await user.click(screen.getByRole("button", { name: "2" }));
-    expect(OnChange).not.toHaveBeenCalled();
+    render(<NavLink label="Ajustes" onPress={OnPress} />);
+    await user.click(screen.getByRole("button", { name: "Ajustes" }));
+    expect(OnPress).toHaveBeenCalledTimes(1);
   });
 
-  it("nav expone aria-label", () => {
-    render(<Pagination total={5} aria-label="Resultados" />);
-    expect(screen.getByRole("navigation", { name: "Resultados" })).not.toBeNull();
+  it("con hijos se comporta como disclosure", async () => {
+    const user = userEvent.setup();
+    render(
+      <NavLink label="Reportes">
+        <NavLink label="Ventas" href="/ventas" />
+      </NavLink>,
+    );
+    const trigger = screen.getByRole("button", { name: "Reportes" });
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(trigger.getAttribute("aria-controls")).not.toBeNull();
+
+    await user.click(trigger);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("deshabilitado no dispara onPress", async () => {
+    const OnPress = vi.fn();
+    const user = userEvent.setup();
+    render(<NavLink label="Ajustes" onPress={OnPress} disabled />);
+    await user.click(screen.getByRole("button", { name: "Ajustes" }));
+    expect(OnPress).not.toHaveBeenCalled();
   });
 });

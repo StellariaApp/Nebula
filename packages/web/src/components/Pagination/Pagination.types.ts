@@ -1,16 +1,28 @@
 import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
+export interface PaginationLabels {
+  root?: string | undefined;
+  previous?: string | undefined;
+  next?: string | undefined;
+  first?: string | undefined;
+  last?: string | undefined;
+  page?: ((page: number) => string) | undefined;
+}
+
 export interface PaginationProps {
   total: number;
-  value?: number | undefined;
-  defaultValue?: number | undefined;
+  page?: number | undefined;
+  defaultPage?: number | undefined;
   onChange?: ((page: number) => void) | undefined;
   siblings?: number | undefined;
   boundaries?: number | undefined;
-  size?: Size | undefined;
-  disabled?: boolean | undefined;
   withControls?: boolean | undefined;
+  withEdges?: boolean | undefined;
+  disabled?: boolean | undefined;
+  size?: Size | undefined;
   color?: SemanticScaleName | undefined;
+  labels?: PaginationLabels | undefined;
   className?: string | undefined;
-  "aria-label"?: string | undefined;
 }
+
+export type PaginationItem = number | "dots-start" | "dots-end";

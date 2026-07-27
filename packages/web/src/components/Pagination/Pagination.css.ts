@@ -4,11 +4,9 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { bg, fg } from "./Pagination.vars.css.js";
+import { accent, activeFg } from "./Pagination.vars.css.js";
 
-export const root = style({ display: "inline-flex" });
-
-export const list = style({
+export const root = style({
   "@layer": {
     [baseLayer]: {
       display: "flex",
@@ -17,86 +15,40 @@ export const list = style({
       listStyle: "none",
       margin: 0,
       padding: 0,
+      fontFamily: vars.font.family.sans,
     },
   },
-});
-
-export const item = recipe({
-  base: {
-    "@layer": {
-      [baseLayer]: {
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        boxSizing: "border-box",
-        padding: 0,
-        borderRadius: vars.radius.md,
-        border: "none",
-        background: bg,
-        color: fg,
-        font: "inherit",
-        fontWeight: vars.font.weight.medium,
-        cursor: "pointer",
-        userSelect: "none",
-        transitionProperty: "background, color, opacity",
-        transitionDuration: vars.motion.duration.fast,
-        transitionTimingFunction: vars.motion.easing.standard,
-        selectors: {
-          "&:not([data-active='true']):hover:not(:disabled)": {
-            background: vars.color.surface.sunken,
-          },
-          "&[data-active='true']:hover:not(:disabled)": {
-            filter: "brightness(0.92)",
-          },
-          "&:focus-visible": {
-            outline: `2px solid ${vars.color.border.focus}`,
-            outlineOffset: "2px",
-          },
-          "&:disabled": { cursor: "not-allowed", opacity: 0.4 },
-        },
-        "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
-      },
-    },
-  },
-  variants: {
-    size: {
-      xs: { width: vars.size.xs, height: vars.size.xs, fontSize: vars.font.size.caption },
-      sm: { width: vars.size.sm, height: vars.size.sm, fontSize: vars.font.size.caption },
-      md: { width: vars.size.md, height: vars.size.md, fontSize: vars.font.size.body3 },
-      lg: { width: vars.size.lg, height: vars.size.lg, fontSize: vars.font.size.body2 },
-      xl: { width: vars.size.xl, height: vars.size.xl, fontSize: vars.font.size.body2 },
-    },
-  },
-  defaultVariants: { size: "md" },
 });
 
 export const control = recipe({
   base: {
     "@layer": {
       [baseLayer]: {
+        position: "relative",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         boxSizing: "border-box",
-        padding: 0,
-        borderRadius: vars.radius.md,
         border: "none",
         background: "transparent",
+        borderRadius: vars.radius.sm,
+        font: "inherit",
         color: vars.color.text.secondary,
         cursor: "pointer",
-        transitionProperty: "background, color, opacity",
+        transitionProperty: "background, color",
         transitionDuration: vars.motion.duration.fast,
         transitionTimingFunction: vars.motion.easing.standard,
         selectors: {
-          "&:hover:not(:disabled)": {
+          "&:hover:not(:disabled):not([data-active='true'])": {
             background: vars.color.surface.sunken,
             color: vars.color.text.primary,
           },
+          "&[data-active='true']": { color: activeFg },
+          "&:disabled": { cursor: "not-allowed", color: vars.color.text.muted },
           "&:focus-visible": {
             outline: `2px solid ${vars.color.border.focus}`,
             outlineOffset: "2px",
           },
-          "&:disabled": { cursor: "not-allowed", opacity: 0.4 },
         },
         "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
       },
@@ -104,15 +56,29 @@ export const control = recipe({
   },
   variants: {
     size: {
-      xs: { width: vars.size.xs, height: vars.size.xs },
-      sm: { width: vars.size.sm, height: vars.size.sm },
-      md: { width: vars.size.md, height: vars.size.md },
-      lg: { width: vars.size.lg, height: vars.size.lg },
-      xl: { width: vars.size.xl, height: vars.size.xl },
+      xs: { minWidth: "1.5rem", height: "1.5rem", fontSize: vars.font.size.caption },
+      sm: { minWidth: "1.75rem", height: "1.75rem", fontSize: vars.font.size.body3 },
+      md: { minWidth: "2rem", height: "2rem", fontSize: vars.font.size.body2 },
+      lg: { minWidth: "2.5rem", height: "2.5rem", fontSize: vars.font.size.body1 },
+      xl: { minWidth: "3rem", height: "3rem", fontSize: vars.font.size.h6 },
     },
   },
   defaultVariants: { size: "md" },
 });
+
+export const pill = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      inset: 0,
+      borderRadius: vars.radius.sm,
+      background: accent,
+      zIndex: 0,
+    },
+  },
+});
+
+export const value = style({ position: "relative", zIndex: 1 });
 
 export const dots = style({
   "@layer": {
@@ -120,9 +86,9 @@ export const dots = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      width: vars.size.md,
-      height: vars.size.md,
+      minWidth: "1.5rem",
       color: vars.color.text.muted,
+      userSelect: "none",
     },
   },
 });

@@ -15,7 +15,19 @@ export function Collapse(props: CollapseProps): ReactElement {
   const prefers_reduced = useReducedMotion();
 
   const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const seconds = (duration ?? theme.motion.duration.base) / 1000;
+  const spring = theme.motion.spring.default;
+  const seconds = duration === undefined ? undefined : duration / 1000;
+
+  const transition = is_off
+    ? { duration: 0 }
+    : seconds === undefined
+      ? {
+          type: "spring" as const,
+          stiffness: spring.stiffness,
+          damping: spring.damping,
+          mass: spring.mass,
+        }
+      : { duration: seconds };
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -24,8 +36,9 @@ export function Collapse(props: CollapseProps): ReactElement {
         style={{ ...HIDDEN, ...style } as MotionStyle}
         initial={false}
         animate={{ height: is_open ? "auto" : 0, opacity: is_open ? 1 : 0 }}
-        transition={is_off ? { duration: 0 } : { duration: seconds }}
+        transition={transition}
         aria-hidden={is_open ? undefined : true}
+        {...(is_open ? {} : { inert: true })}
       >
         {children}
       </m.div>

@@ -251,3 +251,12 @@ export type {
 } from "./components/Card/index.js";
 export { EmptyState } from "./components/EmptyState/index.js";
 export type { EmptyStateProps } from "./components/EmptyState/index.js";
+
+export { NavLink } from "./components/NavLink/index.js";
+export type { NavLinkProps } from "./components/NavLink/index.js";
+export { Pagination, PaginationRange } from "./components/Pagination/index.js";
+export type {
+  PaginationItem,
+  PaginationLabels,
+  PaginationProps,
+} from "./components/Pagination/index.js";
