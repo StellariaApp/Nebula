@@ -1,8 +1,19 @@
-El rango de páginas visibles (`PaginationRange`) sigue el algoritmo clásico de Mantine: calcula
-cuántos números caben (`siblings * 2 + 3 + boundaries * 2`) y decide con qué lado necesita elipsis
-(`…`) antes de generar el arreglo. No se extrajo a un hook porque es una función pura sin estado —
-vive junto al componente para no crear un archivo con una sola función de ~15 líneas.
+# Pagination
 
-Los botones de página numérica resuelven color con `ScaleShade` en cada render (como `Badge`), no
-con `data-*` + CSS: la página activa necesita el color de marca del tema, que solo se conoce en
-runtime.
+API declarativa (`page` / `total` / `onChange`) sin acoplamiento a router: el cableado de navegación queda en la app, como fija `docs/00-inventory.md` §1.10.
+
+## El rango vive en su propio módulo
+
+`PaginationRange` está en `pagination-range.ts`, no dentro del componente: es una función pura con bastantes casos frontera (recorte por un lado, por ambos, o sin recorte) y separarla permite probarla **como lógica pura**, sin montar React ni simular clicks. Su entrada de `size-limit` mide 192 B, así que el consumidor que solo quiera el cálculo no arrastra el componente.
+
+Calcula cuántos números caben (`siblings * 2 + boundaries * 2 + 3`) y decide de qué lado hacen falta elipsis antes de generar el arreglo.
+
+## La píldora del activo usa `layoutId`
+
+En vez de repintar el fondo de cada botón, un único elemento con `layoutId` **se desplaza** de una página a otra con el spring del tema. Da continuidad visual al cambio de página y evita animar `background` en varios nodos a la vez. Con `prefers-reduced-motion` o `motion.tier: "minimal"` el salto es instantáneo.
+
+El color se resuelve en runtime con `ScaleShade` sobre variables CSS locales, no con `data-*` + CSS estático: el tono de marca depende del tema activo.
+
+## Etiquetas
+
+Cada instancia debería recibir su propia `labels.root`: varias `nav` con el mismo nombre accesible en una misma vista disparan `landmark-unique` en axe. El texto por defecto ("Paginación") sirve cuando solo hay una.

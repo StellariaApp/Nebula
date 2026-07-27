@@ -56,7 +56,7 @@ describe("NavLink", () => {
 
   it("respeta el modo controlado de opened", () => {
     render(
-      <NavLink label="Configuración" opened onOpenedChange={() => undefined}>
+      <NavLink label="Configuración" opened onOpenChange={() => undefined}>
         <NavLink label="Perfil" href="/perfil" />
       </NavLink>,
     );

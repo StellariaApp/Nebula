@@ -5,7 +5,7 @@
 
 ## Estado
 
-**W2 cerrada.** El catálogo Tier 1 de `@stellaria/nebula-web` está completo: 68 componentes en `packages/web/src/components`, 62 archivos de test y 50 stories.
+**W2 cerrada.** El catálogo Tier 1 de `@stellaria/nebula-web` está completo: 68 componentes en `packages/web/src/components`, 63 archivos de test (**307 tests**) y 50 stories.
 
 ## Entregables contra el roadmap
 
@@ -31,7 +31,7 @@ Fuera de alcance web y justificado: `List (data, FlatList)` es solo native; `Bre
 
 | Criterio | Resultado |
 | --- | --- |
-| `pnpm turbo build typecheck lint test` | 29/29 tareas · **294 tests** |
+| `pnpm turbo build typecheck lint test` | 29/29 tareas · **307 tests** |
 | `pnpm --filter @stellaria/nebula-web size` | verde · 75 entradas, todas calibradas con medición real |
 | `pnpm --filter playground-web a11y` (axe) | **294/294 · 0 violaciones** |
 | `pnpm check:contrast` | verde |
