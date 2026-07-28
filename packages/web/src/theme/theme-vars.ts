@@ -12,6 +12,7 @@ function MapValues<K extends string, V, R>(
 }
 
 const Px = (n: number): string => `${String(n)}px`;
+const Em = (n: number): string => `${String(n)}em`;
 const Ms = (n: number): string => `${String(n)}ms`;
 const Num = (n: number): string => String(n);
 
@@ -37,7 +38,7 @@ export function ThemeToVars(theme: NebulaTheme) {
       size: MapValues(font.size, Px),
       weight: MapValues(font.weight, Num),
       lineHeight: MapValues(font.lineHeight, Num),
-      letterSpacing: MapValues(font.letterSpacing, Px),
+      letterSpacing: MapValues(font.letterSpacing, Em),
     },
     radius: MapValues(radius, Px),
     space: MapValues(spacing.scale, (mult) => Px(spacing.unit * mult)),

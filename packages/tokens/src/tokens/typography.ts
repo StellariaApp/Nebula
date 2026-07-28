@@ -38,9 +38,9 @@ export const weight = {
 } as const;
 
 export const letterSpacing = {
-  tight: -0.16,
+  tight: -0.03,
   normal: 0,
-  wide: 0.16,
+  wide: 0.08,
 } as const;
 
 export const font = {
