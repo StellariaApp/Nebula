@@ -6,9 +6,9 @@ export const halo = createVar();
 export const separator = createVar();
 
 const HALO = fallbackVar(halo, vars.color.border.focus);
-const SEPARATOR = fallbackVar(separator, vars.color.surface.base);
+const SEPARATOR = fallbackVar(separator, "transparent");
 
-const OFFSET = 3;
+const OFFSET = 4;
 const THICKNESS = 2;
 
 export const forcedColors = "(forced-colors: active)";

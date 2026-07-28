@@ -12,7 +12,11 @@ La razón de fondo, sin embargo, es el **anillo de dos tonos**: un separador del
 0 0 0 3px <separator>, 0 0 0 5px <halo>
 ```
 
-El separador cumple dos funciones a la vez, y por eso no es un adorno: garantiza que el anillo se distinga aunque el control se apoye sobre una superficie del mismo tono que el foco, y **es el `outline-offset`** de esta geometría — el hueco que separa el trazo del borde del control. `outline` no puede expresar lo primero, porque es un trazo único.
+El separador **es el `outline-offset`** de esta geometría: el hueco que separa el trazo del borde del control. Por defecto es `transparent`, de modo que deja ver la superficie que haya detrás y el anillo funciona igual sobre el canvas, sobre una Card o sobre la cabecera de un Modal.
+
+Su segunda función —la que motivó los dos tonos en ADR-036 regla 3— es opcional y se activa dándole color: un control cuyo fondo tenga el mismo tono que el foco puede declarar `separator` para que el anillo no se funda con él. `outline` no puede expresar eso, porque es un trazo único.
+
+**El defecto que corrigió esto**: el separador tenía por defecto `surface.base`, es decir el color del canvas. Sobre cualquier otra superficie pintaba una banda de un color que no correspondía —el caso visible fue el `ButtonClose` de la cabecera de un Modal, que es `surface.overlay`—. Un hueco de offset no puede tener color propio: por definición muestra lo que hay detrás.
 
 `OFFSET` (3) y `THICKNESS` (2) son las dos únicas cifras del anillo y gobiernan también el `outline` del fallback, de modo que recalibrar una no puede desincronizar las dos geometrías.
 

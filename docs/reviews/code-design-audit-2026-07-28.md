@@ -440,6 +440,56 @@ original se hizo sobre la lista de atajos.
 `docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 que la última
 consecuencia del propio ADR-032 exigía "en el mismo PR que implemente la decisión".
 
+### 5.5 Defectos visuales reportados tras T6 (revisión del propietario en el playground)
+
+Con T1–T6 cerrados y todos los gates en verde, la revisión visual encontró seis defectos. Ninguno es
+de arquitectura: son **relaciones de color y densidad correctas por contrato y erróneas a la vista**,
+que es precisamente la clase de defecto que ningún gate actual detecta. Se atacan en la sesión
+dedicada de `prompts/5-review/RV-revision-visual-contra-figma.md`, con acceso al Figma.
+
+**Los seis, tal como se reportaron:**
+
+1. **Modal y Drawer.** El propietario subió el contraste del cuerpo en light y mejoró, pero el borde
+   inferior de la cabecera queda muy fuerte, y en dark la relación se percibe **invertida**. El foco
+   del botón de cierre se veía raro — ese sí era un defecto propio y está corregido, ver abajo.
+2. **Accordion**: el hover se ve raro.
+3. **Checkbox, Radio y Switch** deberían compartir altura a igual `size`.
+4. **Segment** se ve raro en dark.
+5. **Pagination**: el hover no se ve.
+6. **NavLink** se ve mal, y es el que más estados simultáneos tiene.
+
+**Tres causas, no seis defectos.** El análisis de los cuatro medibles reduce la lista:
+
+- **`surface.sunken` como token de hover no funciona sobre el canvas.** Es literalmente el mismo
+  valor de hover en Accordion (`&:hover:not(:disabled)`) y en Pagination
+  (`&:hover:not(:disabled):not([data-active='true'])`), y en dark `sunken` y el canvas casi no se
+  distinguen. **2 y 5 son el mismo defecto.** La pregunta abierta es si falta un rol de «hover sobre
+  canvas» en el contrato, lo que sería ADR.
+- **La escalera de superficies dentro de un overlay.** `surface.overlay` en la cabecera y
+  `surface.sunken` en el cuerpo mantienen la misma relación en los dos esquemas, pero el salto es
+  mucho mayor en dark, donde el cuerpo se lee como un hueco en lugar de como una superficie hundida.
+  Afecta a Modal y Drawer por igual, que es lo que el punto 1 describe.
+- **Alturas en literales dentro del `.tsx`.** Checkbox y Radio declaran
+  `SIZE_PX = { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 }` y Switch
+  `SIZE = { md: { w: 38, h: 22 }, … }`: a `md`, 18 px contra 22. **El censo de ADR-033 solo miró los
+  `.css.ts`**, así que estos tres se le escaparon; llevarlos al contrato es aplicar la regla que ya
+  existe, no decidir nada nuevo.
+
+**Corregido en el acto**, por ser defecto propio de T6: el separador del anillo de foco tenía por
+defecto `surface.base` —el color del canvas— y por tanto pintaba una banda de color equivocado sobre
+cualquier otra superficie. El caso visible fue el `ButtonClose` de la cabecera de un Modal, que se
+apoya en `surface.overlay`. Pasa a `transparent`: un hueco de offset no puede tener color propio, por
+definición muestra lo que hay detrás. La protección de dos tonos de ADR-036 regla 3 sigue disponible
+declarando la var `separator`, que es donde corresponde — es la excepción, no el defecto.
+
+**Pendiente de aplicar, con el análisis hecho**: en `ButtonGroup` y en los `tab` de `Segment` los
+controles se solapan —`marginInlineStart: -1px` en el primero, `zIndex: 1` uniforme en el segundo— y
+sin gestión de apilado el anillo del elemento enfocado queda tapado por el vecino que va después en el
+DOM. Elevarlo desde el helper compartido no sirve: `position: relative` dentro de `focus.ring` haría
+que Checkbox, Radio, Accordion y `field` pasaran a estar posicionados **solo mientras tienen el foco**,
+y cualquier descendiente absoluto se reanclaría al enfocar. Corresponde elevarlo en los dos sitios
+donde el solapamiento existe y se conoce.
+
 ### Cruce con el trabajo en curso
 
 Durante esta sesión se aceptaron en paralelo **ADR-030** —el provider publica el contenedor de
