@@ -2,6 +2,8 @@ import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { breakpoints } from "@stellaria/nebula-tokens";
 
+import { baseLayer } from "../../theme/layers.css.js";
+
 import {
   sgCols,
   sgColsBase,
@@ -15,10 +17,14 @@ import {
 } from "./SimpleGrid.vars.css.js";
 
 export const simpleGrid = style({
-  display: "grid",
-  boxSizing: "border-box",
-  gridTemplateColumns: `repeat(${sgCols}, minmax(0, 1fr))`,
-  gap: `${sgSpacingY} ${sgSpacingX}`,
+  "@layer": {
+    [baseLayer]: {
+      display: "grid",
+      boxSizing: "border-box",
+      gridTemplateColumns: `repeat(${sgCols}, minmax(0, 1fr))`,
+      gap: `${sgSpacingY} ${sgSpacingX}`,
+    },
+  },
   vars: {
     [sgCols]: sgColsBase,
   },
