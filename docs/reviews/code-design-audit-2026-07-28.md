@@ -255,12 +255,13 @@ capturar el baseline antes de T4–T6 obligaría a regenerarlo tres veces.
 Todo lo cerrado está en `main`. Cada commit cerró con `build · typecheck · lint · test · size` en
 verde; el cierre del tramo añade `a11y` (55 suites, 338 tests).
 
-| Tramo   | Estado      | Commits                                                                                                                 |
-| ------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
-| T1      | **cerrado** | `1b3da87`                                                                                                               |
-| T2      | **cerrado** | `1369c9a`                                                                                                               |
-| T3      | **cerrado** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` `efdeccb` `ed1fc58` `f4c8914` `292f558` `1bb107a` `d4f1dc4` |
-| T4 – T8 | sin empezar | —                                                                                                                       |
+| Tramo   | Estado      | Commits                                                                                                                                                         |
+| ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| T1      | **cerrado** | `1b3da87`                                                                                                                                                       |
+| T2      | **cerrado** | `1369c9a`                                                                                                                                                       |
+| T3      | **cerrado** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` `efdeccb` `ed1fc58` `f4c8914` `292f558` `1bb107a` `d4f1dc4` + `cfdeeae` `07ba00b` (docs y enmienda) |
+| T4      | **cerrado** | `7b95585` `e4d5098` `95d9f43` `32851e3` `11c85fd`                                                                                                               |
+| T5 – T8 | sin empezar | —                                                                                                                                                               |
 
 Doce lotes por familia. Los seis primeros son de la primera sesión; los seis últimos cierran el tramo:
 Anchor y Highlight · Collapse y Transition · NavLink y Pagination · Modal y Toast · Select, Combobox y
@@ -291,6 +292,30 @@ nada de `utils/style-props.js` —ni siquiera `cx`— y por tanto nunca lo habí
 propio no crece. Es el suelo compartido subiendo, la misma forma que el escalón 9 → 9,5 kB de T2, y
 Pagination era el último módulo del catálogo en esa situación. Budget recalibrado a **40 kB** por
 decisión del propietario. Transition y Collapse siguen dentro de su budget de 48 sin tocarlo.
+
+### 5.1.1 T4 — la capa de motion, en cinco lotes
+
+Los tres contadores de C1–C5 quedan en cero: cero `type: "spring"` copiados a mano, cero
+`transitionProperty` escritos por componente, cero `LazyMotion` fuera del provider y cero
+`transitionDuration: "0.01ms"`. Los tokens que la auditoría midió sin usar —`easing.emphasized`,
+`easing.accelerate`, `duration.instant`, `duration.slow`— entran todos en circulación.
+
+El dato que no estaba previsto es el de peso. Mover el `LazyMotion` al provider **baja cada módulo con
+motion ~18 kB brotli** y sube el provider de 18,48 a 52,83: `size-limit` contaba el paquete de features
+una vez por módulo, la misma contabilidad que la regla 6 de ADR-032 corrigió para la hoja atómica. Se
+recalibraron **34 entradas**, el provider hacia arriba y 33 módulos hacia abajo, porque un budget con
+margen de sobra deja de señalar regresiones.
+
+Tres decisiones de implementación que el ADR no fijaba:
+
+- **Las transiciones se componen de `vars.motion.*`, no de las cadenas de `tokens/animation.ts`.** Esas
+  llevan la duración y la curva ya resueltas, así que un tema que recalibrara `motion.duration` dejaría
+  de repintar. Mismos nombres, misma semántica, tematizables.
+- **`surface` y `preset` son dos props de `OverlayMotion`, no una.** El ADR las colapsa, pero Modal
+  necesita transformadas distintas para la misma física —centrado escala, drawer desliza, pantalla
+  completa funde— y las tres son física de modal.
+- **La salida por tween acelerado se aplica a las seis superficies**, no solo a las cuatro que el ADR
+  nombra: la regla 2 está escrita como invariante y un spring no tiene duración con la que cumplirla.
 
 ### 5.2 Corrección pendiente de ADR-032 regla 3
 
@@ -332,10 +357,15 @@ original se hizo sobre la lista de atajos.
 
 ### 5.4 Deuda abierta
 
-1. **El invariante de `baseLayer` no tiene gate.** Verificarlo exige leer las fuentes: jsdom no resuelve
-   capas y el plugin de vanilla-extract intercepta `.css.ts` incluso con `?raw`, de modo que
-   `import.meta.glob` devuelve CSS compilado. Su sitio es un paquete en `tools/` como `check:contrast`,
-   lo que es cambio estructural y pide ADR propio.
+1. **Los invariantes de las hojas `.css.ts` no tienen gate.** Verificarlos exige leer las fuentes: jsdom
+   no resuelve capas y el plugin de vanilla-extract intercepta `.css.ts` incluso con `?raw`, de modo que
+   `import.meta.glob` devuelve el módulo compilado. Se volvió a comprobar en T4 —una aserción escrita
+   así pasa siempre y no vale nada— y se retiró antes de commitear. Sobre `.tsx` sí funciona, y ahí el
+   gate existe y está acompañado de un test que verifica que el escaneo ve fuente real antes de afirmar
+   nada. Su sitio es un paquete en `tools/` como `check:contrast`, lo que es cambio estructural y pide
+   ADR propio. **Ahora vigila dos invariantes, no uno**: `baseLayer` obligatorio y cero transiciones
+   escritas a mano. La alternativa barata es añadir `@types/node` para leer del disco desde vitest —tres
+   líneas de test— y eso también es dependencia nueva con ADR.
 2. **`XImpl` → `XComponent`** (commit `193d974`, recuperado de la sesión paralela) dejó en cada archivo
    la constante con el mismo nombre que la interfaz que la tipa:
    `export const Anchor = AnchorComponent as unknown as AnchorComponent;`. Compila, pero el nombre
@@ -349,6 +379,14 @@ original se hizo sobre la lista de atajos.
    archivos** —docs, stories, `CLAUDE.md`, componentes ya cerrados—, de modo que ejecutarlo dentro de un
    tramo entierra su diff. Se ha venido formateando archivo a archivo al tocarlo. Normalizarlo entero
    pide un commit propio de solo formato, aislado y con los gates en verde antes y después.
+6. **A8 sigue abierta y sin tramo asignado.** `Card` es el único componente que deriva el press de
+   `whileHover`/`whileTap` en vez del `isPressed` de React Aria, contra lo que fija la plantilla §Capa 3.
+   T4 migró su física al helper pero no tocó esa parte: corregirlo exige cablear los hooks de Aria en un
+   componente que hoy no los usa, y eso es trabajo de contrato, no de motion.
+7. **Los finales de línea del repositorio están mezclados.** Conviven archivos LF y CRLF sin
+   `.gitattributes` que lo normalice, lo que rompe cualquier edición por patrón multilínea y ya obligó a
+   rehacer una pasada en T4. `Segment/Content.tsx` llegó a tener dos bytes NUL literales dentro de
+   sendos literales de cadena, corregidos en `e4d5098`.
 
 **Cerradas al cierre de T3**: la enmienda de ADR-032 regla 3 (§5.2), y la actualización de
 `docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 que la última
