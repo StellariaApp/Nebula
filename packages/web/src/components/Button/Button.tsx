@@ -22,7 +22,7 @@ import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "rea
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { PressProps } from "../../utils/press-props.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Button.css.js";
 import type { ButtonProps } from "./Button.types.js";
@@ -72,8 +72,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onPressChange,
       preventFocusOnPress,
       type,
-      ...dom_rest
+      ...style_and_rest
     } = rest;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: dom_rest,
+    } = ExtractStyleProps(style_and_rest);
     const { buttonProps, isPressed } = useButton(
       {
         isDisabled: is_disabled,
@@ -138,8 +143,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <m.button
           {...dom_props}
           ref={ref}
-          className={cx(styles.button({ size, fullWidth }), className)}
-          style={{ ...css_vars, ...style } as MotionStyle}
+          className={cx(styles.button({ size, fullWidth }), sprinkle_class, className)}
+          style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
           data-hovered={isHovered ? "true" : undefined}
           data-pressed={isPressed ? "true" : undefined}
           data-focus-visible={isFocusVisible ? "true" : undefined}

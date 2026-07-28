@@ -155,4 +155,47 @@ describe("Button — theming (gate de W1)", () => {
     RenderButton(<Button>Sobrio</Button>, "sober-light");
     expect(screen.getByRole("button")).toBeDefined();
   });
+
+  it("acepta style props además de su propia clase base", () => {
+    RenderButton(<Button data-testid="sin">acción</Button>);
+    const sin = screen.getByTestId("sin").className.trim().split(/\s+/).length;
+    cleanup();
+
+    RenderButton(
+      <Button data-testid="con" p="xl" mt="lg">
+        acción
+      </Button>,
+    );
+    const con = screen.getByTestId("con").className.trim().split(/\s+/).length;
+
+    expect(con).toBe(sin + 2);
+  });
+
+  it("una style prop responsive emite una clase por condición", () => {
+    RenderButton(
+      <Button data-testid="plano" p="sm">
+        acción
+      </Button>,
+    );
+    const plano = screen.getByTestId("plano").className.trim().split(/\s+/).length;
+    cleanup();
+
+    RenderButton(
+      <Button data-testid="resp" p={{ base: "sm", tablet: "xl" }}>
+        acción
+      </Button>,
+    );
+    const resp = screen.getByTestId("resp").className.trim().split(/\s+/).length;
+
+    expect(resp).toBe(plano + 1);
+  });
+
+  it("la prop color sigue siendo la semántica, no una style prop", () => {
+    RenderButton(
+      <Button data-testid="btn" color="success" c="text.onPrimary">
+        acción
+      </Button>,
+    );
+    expect(screen.getByTestId("btn").getAttribute("color")).toBeNull();
+  });
 });
