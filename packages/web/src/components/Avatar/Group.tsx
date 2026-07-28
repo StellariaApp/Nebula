@@ -27,7 +27,9 @@ export function AvatarGroup(props: AvatarGroupProps): ReactElement {
   const css_vars = assignInlineVars({
     [avatarSize]: resolved_size,
     [avatarOverlap]:
-      spacing === undefined ? `calc(${resolved_size} * ${String(DEFAULT_OVERLAP)})` : LengthToCss(spacing),
+      spacing === undefined
+        ? `calc(${resolved_size} * ${String(DEFAULT_OVERLAP)})`
+        : LengthToCss(spacing),
   });
 
   return (
@@ -37,7 +39,11 @@ export function AvatarGroup(props: AvatarGroupProps): ReactElement {
       {...(aria_label === undefined ? {} : { role: "group", "aria-label": aria_label })}
     >
       {shown}
-      {rest > 0 ? <Avatar size={size} name={`+${String(rest)}`} /> : null}
+      {rest > 0 ? (
+        <Avatar size={size} alt={`+${String(rest)}`}>
+          <span aria-hidden="true">+{String(rest)}</span>
+        </Avatar>
+      ) : null}
     </span>
   );
 }
