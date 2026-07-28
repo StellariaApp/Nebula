@@ -13,6 +13,8 @@ import {
   type TargetAndTransition,
 } from "motion/react";
 
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+
 import type { TransitionPreset, TransitionProps } from "./Transition.types.js";
 
 interface Phase {
@@ -40,7 +42,14 @@ export function Transition(props: TransitionProps): ReactElement {
     className,
     style,
     children,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+  const merged_style =
+    sprinkle_style === undefined && style === undefined
+      ? undefined
+      : { ...sprinkle_style, ...style };
+
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
 
@@ -68,8 +77,8 @@ export function Transition(props: TransitionProps): ReactElement {
       >
         {mounted ? (
           <m.div
-            className={className}
-            {...(style === undefined ? {} : { style: style as MotionStyle })}
+            className={cx(sprinkle_class, className)}
+            {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
             initial={phase.from}
             animate={phase.to}
             exit={phase.from}
