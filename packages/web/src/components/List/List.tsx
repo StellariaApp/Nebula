@@ -20,7 +20,7 @@ import * as styles from "./List.css.js";
 import { listSpacing } from "./List.vars.css.js";
 import type { ListItemOwnProps, ListOwnProps, ListProps } from "./List.types.js";
 
-const ListImpl = forwardRef<HTMLElement, ListOwnProps>(function List(props, ref) {
+const ListComponent = forwardRef<HTMLElement, ListOwnProps>(function List(props, ref) {
   const {
     component,
     type = "unordered",
@@ -69,6 +69,6 @@ interface ListComponent {
   Item: typeof ListItem;
 }
 
-export const List = ListImpl as unknown as ListComponent;
+export const List = ListComponent as unknown as ListComponent;
 List.displayName = "List";
 List.Item = ListItem;

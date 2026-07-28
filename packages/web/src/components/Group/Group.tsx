@@ -17,7 +17,7 @@ import * as styles from "./Group.css.js";
 import type { GroupOwnProps, GroupProps } from "./Group.types.js";
 import { groupCount, groupGap } from "./Group.vars.css.js";
 
-const GroupImpl = forwardRef<HTMLElement, GroupOwnProps>(function Group(props, ref) {
+const GroupComponent = forwardRef<HTMLElement, GroupOwnProps>(function Group(props, ref) {
   const {
     component,
     gap = "md",
@@ -60,5 +60,5 @@ interface GroupComponent {
   displayName?: string;
 }
 
-export const Group = GroupImpl as unknown as GroupComponent;
+export const Group = GroupComponent as unknown as GroupComponent;
 Group.displayName = "Group";

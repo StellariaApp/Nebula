@@ -15,7 +15,7 @@ import * as styles from "./AspectRatio.css.js";
 import { ratio as ratioVar } from "./AspectRatio.vars.css.js";
 import type { AspectRatioOwnProps, AspectRatioProps } from "./AspectRatio.types.js";
 
-const AspectRatioImpl = forwardRef<HTMLElement, AspectRatioOwnProps>(
+const AspectRatioComponent = forwardRef<HTMLElement, AspectRatioOwnProps>(
   function AspectRatio(props, ref) {
     const {
       component,
@@ -49,5 +49,5 @@ interface AspectRatioComponent {
   displayName?: string;
 }
 
-export const AspectRatio = AspectRatioImpl as unknown as AspectRatioComponent;
+export const AspectRatio = AspectRatioComponent as unknown as AspectRatioComponent;
 AspectRatio.displayName = "AspectRatio";

@@ -32,40 +32,42 @@ function ResolveMaxWidth(size: Size | Unit, fluid: boolean): string {
   return LengthToCss(size);
 }
 
-const ContainerImpl = forwardRef<HTMLElement, ContainerOwnProps>(function Container(props, ref) {
-  const {
-    component,
-    size = "md",
-    fluid = false,
-    px,
-    style,
-    className,
-    children,
-    ...rest
-  } = props as ContainerOwnProps & { style?: CSSProperties };
+const ContainerComponent = forwardRef<HTMLElement, ContainerOwnProps>(
+  function Container(props, ref) {
+    const {
+      component,
+      size = "md",
+      fluid = false,
+      px,
+      style,
+      className,
+      children,
+      ...rest
+    } = props as ContainerOwnProps & { style?: CSSProperties };
 
-  const css_vars = assignInlineVars({
-    [containerSize]: ResolveMaxWidth(size, fluid),
-  });
+    const css_vars = assignInlineVars({
+      [containerSize]: ResolveMaxWidth(size, fluid),
+    });
 
-  return (
-    <Box
-      ref={ref}
-      component={component ?? "div"}
-      className={cx(styles.container, className)}
-      px={px ?? "md"}
-      style={{ ...css_vars, ...style }}
-      {...rest}
-    >
-      {children}
-    </Box>
-  );
-});
+    return (
+      <Box
+        ref={ref}
+        component={component ?? "div"}
+        className={cx(styles.container, className)}
+        px={px ?? "md"}
+        style={{ ...css_vars, ...style }}
+        {...rest}
+      >
+        {children}
+      </Box>
+    );
+  },
+);
 
 interface ContainerComponent {
   <C extends ElementType = "div">(props: ContainerProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
 }
 
-export const Container = ContainerImpl as unknown as ContainerComponent;
+export const Container = ContainerComponent as unknown as ContainerComponent;
 Container.displayName = "Container";

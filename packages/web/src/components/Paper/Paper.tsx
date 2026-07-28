@@ -13,7 +13,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Paper.css.js";
 import type { PaperOwnProps, PaperProps } from "./Paper.types.js";
 
-const PaperImpl = forwardRef<HTMLElement, PaperOwnProps>(function Paper(props, ref) {
+const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(props, ref) {
   const {
     component,
     shadow = "none",
@@ -47,5 +47,5 @@ interface PaperComponent {
   displayName?: string;
 }
 
-export const Paper = PaperImpl as unknown as PaperComponent;
+export const Paper = PaperComponent as unknown as PaperComponent;
 Paper.displayName = "Paper";

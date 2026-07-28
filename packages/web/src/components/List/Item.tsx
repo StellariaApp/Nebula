@@ -6,7 +6,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./List.css.js";
 import type { ListItemOwnProps, ListItemProps } from "./List.types.js";
 
-const ItemImpl = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(props, ref) {
+const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(props, ref) {
   const { component, icon, className, children, ...rest } = props;
 
   if (icon === undefined || icon === null) {
@@ -37,5 +37,5 @@ interface ListItemComponent {
   displayName?: string;
 }
 
-export const ListItem = ItemImpl as unknown as ListItemComponent;
+export const ListItem = ItemComponent as unknown as ListItemComponent;
 ListItem.displayName = "List.Item";

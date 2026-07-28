@@ -15,7 +15,7 @@ import * as styles from "./Grid.css.js";
 import type { GridColOwnProps, GridColProps } from "./Grid.types.js";
 import { colOffset, colSpan } from "./Grid.vars.css.js";
 
-const ColImpl = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props, ref) {
+const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props, ref) {
   const {
     component,
     span = "auto",
@@ -55,5 +55,5 @@ interface GridColComponent {
   displayName?: string;
 }
 
-export const GridCol = ColImpl as unknown as GridColComponent;
+export const GridCol = ColComponent as unknown as GridColComponent;
 GridCol.displayName = "Grid.Col";

@@ -12,7 +12,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Text.css.js";
 import type { TextOwnProps, TextProps } from "./Text.types.js";
 
-const TextImpl = forwardRef<HTMLElement, TextOwnProps>(function Text(props, ref) {
+const TextComponent = forwardRef<HTMLElement, TextOwnProps>(function Text(props, ref) {
   const { component, className, truncate, lines, inherit, style, ...rest } =
     props as TextOwnProps & { style?: CSSProperties };
 
@@ -39,5 +39,5 @@ interface TextComponent {
   displayName?: string;
 }
 
-export const Text = TextImpl as unknown as TextComponent;
+export const Text = TextComponent as unknown as TextComponent;
 Text.displayName = "Text";

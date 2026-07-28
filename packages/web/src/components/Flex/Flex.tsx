@@ -4,7 +4,7 @@ import { Box } from "../Box/Box.js";
 
 import type { FlexOwnProps, FlexProps } from "./Flex.types.js";
 
-const FlexImpl = forwardRef<HTMLElement, FlexOwnProps>(function Flex(props, ref) {
+const FlexComponent = forwardRef<HTMLElement, FlexOwnProps>(function Flex(props, ref) {
   const { component, inline = false, display, ...rest } = props;
   return (
     <Box
@@ -21,5 +21,5 @@ interface FlexComponent {
   displayName?: string;
 }
 
-export const Flex = FlexImpl as unknown as FlexComponent;
+export const Flex = FlexComponent as unknown as FlexComponent;
 Flex.displayName = "Flex";

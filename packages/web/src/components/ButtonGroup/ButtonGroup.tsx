@@ -6,7 +6,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./ButtonGroup.css.js";
 import type { ButtonGroupOwnProps, ButtonGroupProps } from "./ButtonGroup.types.js";
 
-const ButtonGroupImpl = forwardRef<HTMLElement, ButtonGroupOwnProps>(
+const ButtonGroupComponent = forwardRef<HTMLElement, ButtonGroupOwnProps>(
   function ButtonGroup(props, ref) {
     const { component, orientation = "horizontal", className, children, ...rest } = props;
 
@@ -35,5 +35,5 @@ interface ButtonGroupComponent {
   displayName?: string;
 }
 
-export const ButtonGroup = ButtonGroupImpl as unknown as ButtonGroupComponent;
+export const ButtonGroup = ButtonGroupComponent as unknown as ButtonGroupComponent;
 ButtonGroup.displayName = "ButtonGroup";

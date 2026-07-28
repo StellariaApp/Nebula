@@ -12,7 +12,7 @@ const UNDERLINE_CLASS: Record<AnchorUnderline, string> = {
   never: styles.underlineNever,
 };
 
-const AnchorImpl = forwardRef<HTMLElement, AnchorOwnProps>(function Anchor(props, ref) {
+const AnchorComponent = forwardRef<HTMLElement, AnchorOwnProps>(function Anchor(props, ref) {
   const { component, underline = "always", external = false, className, ...rest } = props;
 
   const external_attrs = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
@@ -33,5 +33,5 @@ interface AnchorComponent {
   displayName?: string;
 }
 
-export const Anchor = AnchorImpl as unknown as AnchorComponent;
+export const Anchor = AnchorComponent as unknown as AnchorComponent;
 Anchor.displayName = "Anchor";

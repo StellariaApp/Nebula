@@ -6,7 +6,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Title.css.js";
 import type { TitleOwnProps, TitleProps } from "./Title.types.js";
 
-const TitleImpl = forwardRef<HTMLElement, TitleOwnProps>(function Title(props, ref) {
+const TitleComponent = forwardRef<HTMLElement, TitleOwnProps>(function Title(props, ref) {
   const { component, order = 1, className, ...rest } = props;
 
   return (
@@ -24,5 +24,5 @@ interface TitleComponent {
   displayName?: string;
 }
 
-export const Title = TitleImpl as unknown as TitleComponent;
+export const Title = TitleComponent as unknown as TitleComponent;
 Title.displayName = "Title";

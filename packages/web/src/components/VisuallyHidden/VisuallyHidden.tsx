@@ -6,7 +6,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./VisuallyHidden.css.js";
 import type { VisuallyHiddenOwnProps, VisuallyHiddenProps } from "./VisuallyHidden.types.js";
 
-const VisuallyHiddenImpl = forwardRef<HTMLElement, VisuallyHiddenOwnProps>(
+const VisuallyHiddenComponent = forwardRef<HTMLElement, VisuallyHiddenOwnProps>(
   function VisuallyHidden(props, ref) {
     const { component, className, ...rest } = props;
     return (
@@ -27,5 +27,5 @@ interface VisuallyHiddenComponent {
   displayName?: string;
 }
 
-export const VisuallyHidden = VisuallyHiddenImpl as unknown as VisuallyHiddenComponent;
+export const VisuallyHidden = VisuallyHiddenComponent as unknown as VisuallyHiddenComponent;
 VisuallyHidden.displayName = "VisuallyHidden";

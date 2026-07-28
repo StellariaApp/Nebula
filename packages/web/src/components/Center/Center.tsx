@@ -4,7 +4,7 @@ import { Box } from "../Box/Box.js";
 
 import type { CenterOwnProps, CenterProps } from "./Center.types.js";
 
-const CenterImpl = forwardRef<HTMLElement, CenterOwnProps>(function Center(props, ref) {
+const CenterComponent = forwardRef<HTMLElement, CenterOwnProps>(function Center(props, ref) {
   const { component, inline = false, align, justify, ...rest } = props;
   return (
     <Box
@@ -23,5 +23,5 @@ interface CenterComponent {
   displayName?: string;
 }
 
-export const Center = CenterImpl as unknown as CenterComponent;
+export const Center = CenterComponent as unknown as CenterComponent;
 Center.displayName = "Center";

@@ -16,7 +16,7 @@ import * as styles from "./Scroll.css.js";
 import { scrollbarSize as scrollbarSizeVar } from "./Scroll.vars.css.js";
 import type { ScrollOwnProps, ScrollProps } from "./Scroll.types.js";
 
-const ScrollImpl = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(props, ref) {
+const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(props, ref) {
   const {
     component,
     axis = "y",
@@ -51,5 +51,5 @@ interface ScrollComponent {
   displayName?: string;
 }
 
-export const Scroll = ScrollImpl as unknown as ScrollComponent;
+export const Scroll = ScrollComponent as unknown as ScrollComponent;
 Scroll.displayName = "Scroll";

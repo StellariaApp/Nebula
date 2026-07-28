@@ -6,7 +6,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Code.css.js";
 import type { CodeOwnProps, CodeProps } from "./Code.types.js";
 
-const CodeImpl = forwardRef<HTMLElement, CodeOwnProps>(function Code(props, ref) {
+const CodeComponent = forwardRef<HTMLElement, CodeOwnProps>(function Code(props, ref) {
   const { component, block = false, className, ...rest } = props;
 
   return (
@@ -24,5 +24,5 @@ interface CodeComponent {
   displayName?: string;
 }
 
-export const Code = CodeImpl as unknown as CodeComponent;
+export const Code = CodeComponent as unknown as CodeComponent;
 Code.displayName = "Code";

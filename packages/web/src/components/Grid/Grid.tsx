@@ -17,7 +17,7 @@ import * as styles from "./Grid.css.js";
 import type { GridOwnProps, GridProps } from "./Grid.types.js";
 import { gridColumns, gridGrow, gridGutter } from "./Grid.vars.css.js";
 
-const GridImpl = forwardRef<HTMLElement, GridOwnProps>(function Grid(props, ref) {
+const GridComponent = forwardRef<HTMLElement, GridOwnProps>(function Grid(props, ref) {
   const {
     component,
     columns = 12,
@@ -59,6 +59,6 @@ interface GridComponent {
   Col: typeof GridCol;
 }
 
-export const Grid = GridImpl as unknown as GridComponent;
+export const Grid = GridComponent as unknown as GridComponent;
 Grid.displayName = "Grid";
 Grid.Col = GridCol;

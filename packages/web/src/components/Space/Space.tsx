@@ -13,7 +13,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Space.css.js";
 import type { SpaceOwnProps, SpaceProps } from "./Space.types.js";
 
-const SpaceImpl = forwardRef<HTMLElement, SpaceOwnProps>(function Space(props, ref) {
+const SpaceComponent = forwardRef<HTMLElement, SpaceOwnProps>(function Space(props, ref) {
   const { component, w, h, className, style, ...rest } = props as SpaceOwnProps & {
     style?: CSSProperties;
   };
@@ -40,5 +40,5 @@ interface SpaceComponent {
   displayName?: string;
 }
 
-export const Space = SpaceImpl as unknown as SpaceComponent;
+export const Space = SpaceComponent as unknown as SpaceComponent;
 Space.displayName = "Space";

@@ -24,7 +24,7 @@ function ResolveThickness(size: DividerSize | number): string {
   return LengthToCss(size);
 }
 
-const DividerImpl = forwardRef<HTMLElement, DividerOwnProps>(function Divider(props, ref) {
+const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divider(props, ref) {
   const {
     component,
     orientation = "horizontal",
@@ -75,5 +75,5 @@ interface DividerComponent {
   displayName?: string;
 }
 
-export const Divider = DividerImpl as unknown as DividerComponent;
+export const Divider = DividerComponent as unknown as DividerComponent;
 Divider.displayName = "Divider";

@@ -27,48 +27,54 @@ const SCALE: Record<SemanticScaleName, Record<string, string>> = {
   info: vars.color.semantic.info,
 };
 
-const BlockquoteImpl = forwardRef<HTMLElement, BlockquoteOwnProps>(function Blockquote(props, ref) {
-  const {
-    component,
-    color = "primary",
-    cite,
-    icon,
-    className,
-    style,
-    children,
-    ...rest
-  } = props as BlockquoteOwnProps & { style?: CSSProperties };
+const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
+  function Blockquote(props, ref) {
+    const {
+      component,
+      color = "primary",
+      cite,
+      icon,
+      className,
+      style,
+      children,
+      ...rest
+    } = props as BlockquoteOwnProps & { style?: CSSProperties };
 
-  const css_vars = assignInlineVars({ [accent]: SCALE[color]["500"] ?? "" });
+    const css_vars = assignInlineVars({ [accent]: SCALE[color]["500"] ?? "" });
 
-  const content = (
-    <div>
-      {children}
-      {cite === undefined || cite === null ? null : <cite className={styles.cite}>{cite}</cite>}
-    </div>
-  );
+    const content = (
+      <div>
+        {children}
+        {cite === undefined || cite === null ? null : <cite className={styles.cite}>{cite}</cite>}
+      </div>
+    );
 
-  return (
-    <Box
-      ref={ref}
-      component={component ?? "blockquote"}
-      className={cx(styles.blockquote, icon === undefined ? undefined : styles.withIcon, className)}
-      style={{ ...css_vars, ...style }}
-      {...rest}
-    >
-      {icon === undefined || icon === null ? (
-        content
-      ) : (
-        <>
-          <span className={styles.iconWrap} aria-hidden="true">
-            {icon}
-          </span>
-          {content}
-        </>
-      )}
-    </Box>
-  );
-});
+    return (
+      <Box
+        ref={ref}
+        component={component ?? "blockquote"}
+        className={cx(
+          styles.blockquote,
+          icon === undefined ? undefined : styles.withIcon,
+          className,
+        )}
+        style={{ ...css_vars, ...style }}
+        {...rest}
+      >
+        {icon === undefined || icon === null ? (
+          content
+        ) : (
+          <>
+            <span className={styles.iconWrap} aria-hidden="true">
+              {icon}
+            </span>
+            {content}
+          </>
+        )}
+      </Box>
+    );
+  },
+);
 
 interface BlockquoteComponent {
   <C extends ElementType = "blockquote">(
@@ -77,5 +83,5 @@ interface BlockquoteComponent {
   displayName?: string;
 }
 
-export const Blockquote = BlockquoteImpl as unknown as BlockquoteComponent;
+export const Blockquote = BlockquoteComponent as unknown as BlockquoteComponent;
 Blockquote.displayName = "Blockquote";

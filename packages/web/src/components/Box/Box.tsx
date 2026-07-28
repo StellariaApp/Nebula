@@ -4,7 +4,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import type { BoxOwnProps, BoxProps } from "./Box.types.js";
 
-const BoxImpl = forwardRef<HTMLElement, BoxOwnProps>(function Box(props, ref) {
+const BoxComponent = forwardRef<HTMLElement, BoxOwnProps>(function Box(props, ref) {
   const { component, className, ...style_and_rest } = props;
   const Component = component ?? "div";
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_and_rest);
@@ -24,5 +24,5 @@ interface BoxComponent {
   displayName?: string;
 }
 
-export const Box = BoxImpl as unknown as BoxComponent;
+export const Box = BoxComponent as unknown as BoxComponent;
 Box.displayName = "Box";
