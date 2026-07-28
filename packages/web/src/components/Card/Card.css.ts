@@ -4,6 +4,8 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
+import { pad } from "./Card.vars.css.js";
+
 export const card = recipe({
   base: {
     "@layer": {
@@ -46,10 +48,10 @@ export const card = recipe({
       xxl: { boxShadow: vars.shadow.xxl },
     },
     padding: {
-      none: { padding: 0 },
-      sm: { padding: vars.space.sm },
-      md: { padding: vars.space.md },
-      lg: { padding: vars.space.lg },
+      none: { vars: { [pad]: "0px" }, padding: pad },
+      md: { vars: { [pad]: vars.space.md }, padding: pad },
+      lg: { vars: { [pad]: vars.space.lg }, padding: pad },
+      xl: { vars: { [pad]: vars.space.xl }, padding: pad },
     },
     withBorder: {
       true: { "@layer": { [baseLayer]: { borderWidth: 1 } } },
@@ -60,11 +62,18 @@ export const card = recipe({
         "@layer": {
           [baseLayer]: {
             cursor: "pointer",
+            transitionProperty: "border-color, box-shadow",
+            transitionDuration: vars.motion.duration.fast,
+            transitionTimingFunction: vars.motion.easing.standard,
             selectors: {
+              "&:hover": { borderColor: vars.color.border.strong },
               "&:focus-visible": {
                 outline: `2px solid ${vars.color.border.focus}`,
                 outlineOffset: "2px",
               },
+            },
+            "@media": {
+              "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
             },
           },
         },
@@ -72,14 +81,20 @@ export const card = recipe({
       false: {},
     },
   },
-  defaultVariants: { radius: "md", shadow: "none", padding: "md", withBorder: true, interactive: false },
+  defaultVariants: {
+    radius: "md",
+    shadow: "none",
+    padding: "lg",
+    withBorder: true,
+    interactive: false,
+  },
 });
 
 export const sectionInset = style({
-  marginInline: `calc(${vars.space.md} * -1)`,
+  marginInline: `calc(${pad} * -1)`,
   selectors: {
-    "&:first-child": { marginBlockStart: `calc(${vars.space.md} * -1)` },
-    "&:last-child": { marginBlockEnd: `calc(${vars.space.md} * -1)` },
+    "&:first-child": { marginBlockStart: `calc(${pad} * -1)` },
+    "&:last-child": { marginBlockEnd: `calc(${pad} * -1)` },
   },
 });
 

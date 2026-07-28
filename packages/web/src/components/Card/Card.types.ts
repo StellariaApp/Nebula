@@ -6,7 +6,7 @@ export interface CardProps {
   children: ReactNode;
   radius?: RadiusName | undefined;
   shadow?: ShadowLevel | "none" | undefined;
-  padding?: "none" | "sm" | "md" | "lg" | undefined;
+  padding?: "none" | "md" | "lg" | "xl" | undefined;
   withBorder?: boolean | undefined;
   interactive?: boolean | undefined;
   onPress?: (() => void) | undefined;

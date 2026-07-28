@@ -9,12 +9,7 @@ import { cx } from "../../utils/style-props.js";
 import { Image } from "../Image/Image.js";
 
 import * as styles from "./Card.css.js";
-import type {
-  CardImageProps,
-  CardProps,
-  CardSectionProps,
-  CardSlotProps,
-} from "./Card.types.js";
+import type { CardImageProps, CardProps, CardSectionProps, CardSlotProps } from "./Card.types.js";
 
 const HOVER_LIFT = -2;
 
@@ -74,7 +69,7 @@ export function Card(props: CardProps): ReactElement {
     children,
     radius = "md",
     shadow = "none",
-    padding = "md",
+    padding = "lg",
     withBorder = true,
     interactive: interactive_prop,
     onPress,
