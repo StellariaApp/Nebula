@@ -11,6 +11,9 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Tooltip.css.js";
 import type { TooltipProps } from "./Tooltip.types.js";
 
+const OPEN_DELAY = 0;
+const CLOSE_DELAY = 150;
+
 export function Tooltip(props: TooltipProps): ReactElement {
   const {
     trigger,
@@ -18,8 +21,8 @@ export function Tooltip(props: TooltipProps): ReactElement {
     placement = "top",
     offset = 8,
     crossOffset,
-    delay,
-    closeDelay,
+    delay = OPEN_DELAY,
+    closeDelay = CLOSE_DELAY,
     disabled = false,
     opened,
     defaultOpened,
@@ -34,8 +37,8 @@ export function Tooltip(props: TooltipProps): ReactElement {
 
   const state = useTooltipTriggerState({
     isDisabled: disabled,
-    ...(delay === undefined ? {} : { delay }),
-    ...(closeDelay === undefined ? {} : { closeDelay }),
+    delay,
+    closeDelay,
     ...(opened === undefined ? {} : { isOpen: opened }),
     ...(defaultOpened === undefined ? {} : { defaultOpen: defaultOpened }),
     ...(onOpenChange === undefined ? {} : { onOpenChange }),
