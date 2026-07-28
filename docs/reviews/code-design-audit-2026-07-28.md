@@ -250,44 +250,64 @@ es precondición de T2, y T2 lo es de todo lo demás.
 T4, T5 y T6 son independientes entre sí y pueden ir en cualquier orden. T8 va al final a propósito:
 capturar el baseline antes de T4–T6 obligaría a regenerarlo tres veces.
 
-### 5.1 Estado de ejecución (2026-07-28, fin de la primera sesión)
+### 5.1 Estado de ejecución (2026-07-28, cierre de T3)
 
-Todo lo cerrado está en `main` y pusheado. Cada commit cerró con
-`build · typecheck · lint · test · size` en verde.
+Todo lo cerrado está en `main`. Cada commit cerró con `build · typecheck · lint · test · size` en
+verde; el cierre del tramo añade `a11y` (55 suites, 338 tests).
 
-| Tramo   | Estado       | Commits                                                     |
-| ------- | ------------ | ----------------------------------------------------------- |
-| T1      | **cerrado**  | `1b3da87`                                                   |
-| T2      | **cerrado**  | `1369c9a`                                                   |
-| T3      | **24 de 36** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` |
-| T4 – T8 | sin empezar  | —                                                           |
+| Tramo   | Estado      | Commits                                                                                                                 |
+| ------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
+| T1      | **cerrado** | `1b3da87`                                                                                                               |
+| T2      | **cerrado** | `1369c9a`                                                                                                               |
+| T3      | **cerrado** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` `efdeccb` `ed1fc58` `f4c8914` `292f558` `1bb107a` `d4f1dc4` |
+| T4 – T8 | sin empezar | —                                                                                                                       |
 
-**T3 hecho** (24): Button · ActionIcon · UnstyledButton · ButtonClose\* · ButtonCopy\* · Badge · Alert ·
-Card · TextInput · Textarea · PasswordInput · SearchInput · NumberInput · Checkbox · Radio · Switch ·
-Avatar · Loader · EmptyState · Skeleton · Image · Progress · FieldError · Accordion · Tooltip ·
-Popover · Menu\*. Los marcados con \* heredan por extensión de `ActionIconProps` / `MenuListOwnProps`.
+Doce lotes por familia. Los seis primeros son de la primera sesión; los seis últimos cierran el tramo:
+Anchor y Highlight · Collapse y Transition · NavLink y Pagination · Modal y Toast · Select, Combobox y
+MultiSelect · el compound de Segment y Tabs.
 
-**T3 pendiente** (12): Anchor · Collapse · Combobox · Highlight · Modal · MultiSelect · NavLink ·
-Pagination · Segment · Select · Toast · Transition. Son los de mayor superficie: colecciones, overlays
-con presencia y compound; varios tienen más de una rama de render.
+**Excluidos por no renderizar un elemento propio**: Conditional · Omit · Valid · Portal · FocusTrap ·
+FileButton, y dentro del compound de Segment, `Control.Item` y `Content.Item` — devuelven `null` y solo
+declaran datos que lee el padre. La consecuencia práctica está anotada en `Segment.md`: el panel de un
+`Content.Item` se sigue estilando por su `className`.
 
-**Excluidos de T3 por no tener elemento raíz propio**: Conditional · Omit · Valid · Portal · FocusTrap ·
-FileButton, más Drawer y Tabs, que delegan en Modal y Segment y heredarán de ellos.
+**Tres correcciones al recuento de esta sección.** El censo original se hizo sobre las extensiones
+directas de `BoxOwnProps` y sobre la suposición de que delegar implica heredar; ninguna de las dos se
+sostiene:
+
+- **Anchor y Highlight ya las aceptaban.** Extienden `TextOwnProps`, no `BoxOwnProps`, y delegan en
+  `Text` → `Box`, que es quien llama a `ExtractStyleProps`. Highlight ya traía además resuelta la
+  colisión de `color`. Se cerraron con tests, no con cambio de código (`efdeccb`).
+- **Drawer hereda de Modal, pero Tabs no heredaba de Segment.** `DrawerProps` extiende `ModalProps` y
+  el componente hace spread de `...modal_rest`; `TabsProps` era una interfaz cerrada que pasaba a
+  `Segment` prop por prop, de modo que habría quedado como el único componente del catálogo sin style
+  props. Corregido en `d4f1dc4`.
+- El total real del tramo es **37 componentes**, no 36.
+
+**Recalibración de `size-limit`.** Pagination pasó de 28,84 a 37,26 kB brotli contra un budget de
+34 kB. El delta es +8,42 kB y es íntegramente el runtime de sprinkles: Transition subió +8,74 y
+Collapse +8,79 en el mismo tramo por lo mismo. Los tres eran de los pocos módulos que no importaban
+nada de `utils/style-props.js` —ni siquiera `cx`— y por tanto nunca lo habían arrastrado; su código
+propio no crece. Es el suelo compartido subiendo, la misma forma que el escalón 9 → 9,5 kB de T2, y
+Pagination era el último módulo del catálogo en esa situación. Budget recalibrado a **40 kB** por
+decisión del propietario. Transition y Collapse siguen dentro de su budget de 48 sin tocarlo.
 
 ### 5.2 Corrección pendiente de ADR-032 regla 3
 
-La regla afirma que no hay colisión de nombres entre style props y props de componente. **Es falsa**, y
-la implementación destapó cuatro clases distintas, no una:
+La regla afirma que no hay colisión de nombres entre style props y props de componente. **Es falsa**.
+Con T3 cerrado el censo está completo: son cuatro clases, y la tercera tiene dos resoluciones
+distintas según si los valores del componente caben o no dentro del tipo de la style prop.
 
-| Clase                                        | Ejemplo                                                    | Resolución aplicada                        |
-| -------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------ |
-| Prop semántica de componente                 | `color` en Button, Badge, Alert, toggles; `shadow` en Card | omitir de `StyleProps`; queda el atajo `c` |
-| Atributo HTML real                           | `wrap` en `<textarea>` (hard/soft)                         | gana el atributo                           |
-| Propiedad CSS reutilizada con otra semántica | `position` en FieldError (`"bottom"`)                      | gana la prop del componente                |
-| Atajo que ya era prop del componente         | `maw` en Tooltip                                           | gana la prop, aplicada tras el spread      |
+| Clase                                                             | Ejemplos                                                                                                                      | Resolución aplicada                                           |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Prop semántica de componente                                      | `color` en Button, ActionIcon, Badge, Alert, toggles, NavLink, Pagination, Segment, Tabs, Highlight; `shadow` en Card y Paper | omitir de `StyleProps`; queda el atajo `c`                    |
+| Atributo HTML real                                                | `wrap` en `<textarea>` (hard/soft)                                                                                            | gana el atributo                                              |
+| Propiedad CSS reutilizada con otra semántica, valores ajenos      | `position` en FieldError (`"bottom"`) y en ToastProvider (`"top-start"`…)                                                     | omitir de `StyleProps`; gana la prop del componente           |
+| Propiedad CSS reutilizada con otra semántica, valores subconjunto | `padding` en Popover y Modal (`none\|sm\|md\|lg` ⊂ `SpacingName`)                                                             | la interfaz la estrecha; gana la prop, y `p` sigue disponible |
+| Atajo que ya era prop del componente                              | `maw` en Tooltip                                                                                                              | gana la prop, aplicada tras el spread                         |
 
-Afecta a cerca del 40 % del catálogo. La regla 3 debe reescribirse describiendo las cuatro; no se tocó
-en la primera sesión por ser enmienda de un ADR aceptado.
+Afecta a cerca del 40 % del catálogo. **La regla 3 sigue sin reescribirse**: es enmienda de un ADR
+aceptado y necesita decisión propia. Con el censo cerrado, la enmienda ya no tiene incógnitas.
 
 ### 5.3 Decisiones de diseño tomadas al implementar
 
@@ -297,9 +317,17 @@ en la primera sesión por ser enmienda de un ADR aceptado.
 - **Overlays**: el style de sprinkles se intercala entre el de React Aria —que posiciona— y el de la
   prop específica del componente, de modo que ninguna style prop pueda romper el posicionamiento.
 - **Frontera con motion**: los componentes que renderizan `m.*` necesitan cast a `MotionStyle` y, con
-  `exactOptionalPropertyTypes`, spread condicional del `style` (Card, EmptyState).
+  `exactOptionalPropertyTypes`, spread condicional del `style` (Card, EmptyState, Transition).
+- **Raíz semántica vs. raíz visual**: cuando no coinciden, las style props van donde ya iba
+  `className`, aunque eso deje alguna prop sin efecto. Pagination es el caso: van al `<nav>`, y `gap`
+  no separa los controles porque el flex vive en el `<ul>` interior. `className` y las style props
+  deben describir siempre el mismo nodo; abrir el espaciado será una prop propia del componente, no
+  mover las style props a otro elemento.
+- **Compound**: cada pieza aplica las suyas a su propio nodo (Segment, `Segment.Control`,
+  `Segment.Content`, `Header`/`Footer`), de modo que la barra puede llevar `maw` sin que la raíz cambie
+  de ancho.
 
-### 5.4 Deuda abierta de la primera sesión
+### 5.4 Deuda abierta
 
 1. **El invariante de `baseLayer` no tiene gate.** Verificarlo exige leer las fuentes: jsdom no resuelve
    capas y el plugin de vanilla-extract intercepta `.css.ts` incluso con `?raw`, de modo que
@@ -309,6 +337,15 @@ en la primera sesión por ser enmienda de un ADR aceptado.
    la constante con el mismo nombre que la interfaz que la tipa:
    `export const Anchor = AnchorComponent as unknown as AnchorComponent;`. Compila, pero el nombre
    `Impl` era justo lo que distinguía implementación de contrato público.
+3. **La enmienda de ADR-032 regla 3** (§5.2). El censo de colisiones ya está cerrado; falta escribirla.
+4. **`ToastProvider` no expone `className`.** Acepta style props pero no la clase del consumidor, que
+   es la única pieza del catálogo en esa asimetría. Su sitio natural es T7, junto al resto de la
+   ergonomía de consumo.
+5. **Los `.Item` del compound de Segment** no aceptan style props (§5.1). Abrirlo exige que
+   `SegmentContent` extraiga las style props de las props de cada hijo; se decide con evidencia de uso.
+6. **La documentación de ADR-032 sigue pendiente en sus propios docs.** Su última consecuencia dice que
+   `docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 se actualizan "en el
+   mismo PR que implemente la decisión". T3 la ha implementado y esos tres puntos no se han tocado.
 
 ### Cruce con el trabajo en curso
 
