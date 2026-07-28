@@ -24,6 +24,11 @@ Reglas transversales:
 
 1. **Navegación por teclado completa** en web: todo lo interactivo alcanzable y operable sin ratón; orden de foco lógico; `FocusTrap` en overlays; skip-links en AppShell.
 2. **Focus visible**: token `colors.border.focus` con contraste ≥3:1 contra la superficie; nunca `outline: none` sin reemplazo.
+
+   **Geometría única en web** (ADR-036): `packages/web/src/styles/focus.css.ts` es la única definición del anillo, y es un **anillo de dos tonos por `box-shadow`** —`0 0 0 2px <superficie>, 0 0 0 4px <foco>`—. Se elige `box-shadow` sobre `outline` porque sigue el `border-radius` real del control y porque `outline` no puede expresar el separador, que es lo que garantiza que el anillo se distinga sobre una superficie del mismo tono que el foco. El tono del halo se cambia declarando la var `halo`, no duplicando la regla; así el campo inválido conserva su anillo rojo con una sola geometría.
+
+   **`forced-colors` no es opcional.** En el modo de alto contraste de Windows el navegador descarta `box-shadow`, de modo que el helper emite además `outline: 2px solid transparent` bajo `@media (forced-colors: active)`, que el sistema repinta con su propio color. Sin esa regla, migrar a `box-shadow` sería una regresión de accesibilidad; va dentro del propio `ring` para que no se pueda migrar la geometría y olvidar el fallback.
+
 3. **Touch targets** ≥44×44pt native / 24px CSS mínimo AA (WCAG 2.2 — criterio 2.5.8).
 4. **Textos**: contraste 4.5:1 (3:1 para large text y componentes UI) — validado por tokens, no por auditoría manual (ver §4).
 5. `VisuallyHidden` y `aria-label` en todo control solo-icono (lint rule propia).

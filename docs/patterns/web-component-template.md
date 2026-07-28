@@ -184,6 +184,7 @@ relación, una sola escalera de elevación y máximo un efecto dominante por reg
 - [ ] Cero transiciones, duraciones y curvas escritas a mano: se componen de `styles/motion.css.ts` y la física de `utils/motion.ts` (ADR-034). Reduced-motion declarado, con su sustituto estático si anima por keyframes.
 - [ ] Cero hex y cero paletas crudas en el componente: solo roles y `variantMap`.
 - [ ] Cero alturas en literales: `vars.size.control.*` si es interactivo, `vars.size.compact.*` si no (ADR-033).
+- [ ] El anillo de foco sale de `styles/focus.css.ts` con `...focus.ring` — nunca un `outline` ni un `boxShadow` propios (ADR-036).
 - [ ] Entry de `size-limit` añadido y dentro de budget (docs/03 §3).
 - [ ] `"use client"` **solo** si el componente es interactivo; los presentacionales quedan server-safe.
 - [ ] Coherente en los 4 temas (sober y playful incluidos) — es el gate del theming.

@@ -262,7 +262,8 @@ verde; el cierre del tramo añade `a11y` (55 suites, 338 tests).
 | T3      | **cerrado** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` `efdeccb` `ed1fc58` `f4c8914` `292f558` `1bb107a` `d4f1dc4` + `cfdeeae` `07ba00b` (docs y enmienda) |
 | T4      | **cerrado** | `7b95585` `e4d5098` `95d9f43` `32851e3` `11c85fd` + `f50802d` `867a016`                                                                                         |
 | T5      | **cerrado** | `14cdbab` `745c06d`                                                                                                                                             |
-| T6 – T8 | sin empezar | —                                                                                                                                                               |
+| T6      | **cerrado** | `0b985ab`                                                                                                                                                       |
+| T7 – T8 | sin empezar | —                                                                                                                                                               |
 
 Doce lotes por familia. Los seis primeros son de la primera sesión; los seis últimos cierran el tramo:
 Anchor y Highlight · Collapse y Transition · NavLink y Pagination · Modal y Toast · Select, Combobox y
@@ -341,6 +342,26 @@ peldaño estaba bien elegido. De B4 quedan fuera, a propósito, los `outlineOffs
 foco y los unifica T6—, los hairlines de 1–3 px y las flechas de 8 px de Popover y Tooltip, que no
 tienen peldaño en la rejilla de 4 px y tokenizarlos sería inventar escala.
 
+### 5.1.3 T6 — el anillo de foco, y lo que su regla 4 no pagaba
+
+`styles/focus.css.ts` sustituye las trece definiciones. El anillo pasa a ser de dos tonos por
+`box-shadow`, con el tono del halo en una var —de modo que el campo inválido conserva su anillo rojo
+sin una segunda geometría— y con el fallback de `forced-colors` **dentro** del propio `ring`, para que
+no se pueda migrar la geometría y olvidarlo.
+
+**La regla 4 queda a medias, a propósito.** Pide un disparador único, `data-focus-visible`, pero solo
+tres archivos lo emiten hoy. Los otros diez se reparten en tres familias que no se convierten
+escribiendo CSS: seis usan `:focus-visible` nativo sobre elementos sin React Aria —y en Accordion,
+Pagination y Segment los botones se crean dentro de un `.map()`, así que un hook exige extraer un
+componente hijo por item—, tres pintan el anillo en un hermano del input oculto, y `field` usa
+`:focus-within` porque el foco cae en el `<input>` interior.
+
+El helper es agnóstico al disparador, de modo que **la geometría sí queda unificada en los trece**, que
+es el defecto que A4 denuncia y el único que el usuario percibe. La unificación de disparadores queda
+como paso propio con su alcance ya medido —`useFocusRing` en seis componentes y cuatro
+reestructurados—, y sin efecto visible: `:focus-visible` nativo y el de React Aria pintan en los mismos
+momentos para un botón corriente. Decisión del propietario en el checkpoint de apertura del tramo.
+
 ### 5.2 Corrección pendiente de ADR-032 regla 3
 
 La regla afirma que no hay colisión de nombres entre style props y props de componente. **Es falsa**.
@@ -399,15 +420,18 @@ original se hizo sobre la lista de atajos.
    ergonomía de consumo.
 4. **Los `.Item` del compound de Segment** no aceptan style props (§5.1). Abrirlo exige que
    `SegmentContent` extraiga las style props de las props de cada hijo; se decide con evidencia de uso.
-5. **El repositorio no cumple su propia configuración de Prettier.** `pnpm format` reescribe **173
+5. **El disparador único de foco de ADR-036 regla 4** (§5.1.3). Diez de los trece archivos siguen con
+   su disparador propio; unificarlos es trabajo de comportamiento, no de estilo, y no cambia nada de lo
+   que el usuario ve.
+6. **El repositorio no cumple su propia configuración de Prettier.** `pnpm format` reescribe **173
    archivos** —docs, stories, `CLAUDE.md`, componentes ya cerrados—, de modo que ejecutarlo dentro de un
    tramo entierra su diff. Se ha venido formateando archivo a archivo al tocarlo. Normalizarlo entero
    pide un commit propio de solo formato, aislado y con los gates en verde antes y después.
-6. **A8 sigue abierta y sin tramo asignado.** `Card` es el único componente que deriva el press de
+7. **A8 sigue abierta y sin tramo asignado.** `Card` es el único componente que deriva el press de
    `whileHover`/`whileTap` en vez del `isPressed` de React Aria, contra lo que fija la plantilla §Capa 3.
    T4 migró su física al helper pero no tocó esa parte: corregirlo exige cablear los hooks de Aria en un
    componente que hoy no los usa, y eso es trabajo de contrato, no de motion.
-7. **Los finales de línea del repositorio están mezclados.** Conviven archivos LF y CRLF sin
+8. **Los finales de línea del repositorio están mezclados.** Conviven archivos LF y CRLF sin
    `.gitattributes` que lo normalice, lo que rompe cualquier edición por patrón multilínea y ya obligó a
    rehacer una pasada en T4. `Segment/Content.tsx` llegó a tener dos bytes NUL literales dentro de
    sendos literales de cadena, corregidos en `e4d5098`.
