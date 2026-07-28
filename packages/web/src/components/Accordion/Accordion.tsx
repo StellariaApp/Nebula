@@ -5,14 +5,24 @@ import { useId, useMemo, useRef, type KeyboardEvent, type ReactElement } from "r
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
 import * as styles from "./Accordion.css.js";
 import type { AccordionProps } from "./Accordion.types.js";
 
 const CHEVRON = (
-  <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1.1em"
+    height="1.1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
@@ -29,7 +39,9 @@ export function Accordion(props: AccordionProps): ReactElement {
     disabled = false,
     chevronPosition = "end",
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const base_id = useId();
   const { theme } = useTheme();
@@ -66,21 +78,28 @@ export function Accordion(props: AccordionProps): ReactElement {
     return from;
   };
 
-  const HandleKeyDown = (index: number) => (event: KeyboardEvent<HTMLButtonElement>): void => {
-    const keys = ["ArrowDown", "ArrowUp", "Home", "End"];
-    if (!keys.includes(event.key)) return;
-    event.preventDefault();
-    let next = index;
-    if (event.key === "ArrowDown") next = Step(index, 1);
-    if (event.key === "ArrowUp") next = Step(index, -1);
-    if (event.key === "Home") next = Enabled(0) ? 0 : Step(0, 1);
-    if (event.key === "End") next = Enabled(data.length - 1) ? data.length - 1 : Step(data.length - 1, -1);
-    triggers.current[next]?.focus();
-  };
+  const HandleKeyDown =
+    (index: number) =>
+    (event: KeyboardEvent<HTMLButtonElement>): void => {
+      const keys = ["ArrowDown", "ArrowUp", "Home", "End"];
+      if (!keys.includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "ArrowDown") next = Step(index, 1);
+      if (event.key === "ArrowUp") next = Step(index, -1);
+      if (event.key === "Home") next = Enabled(0) ? 0 : Step(0, 1);
+      if (event.key === "End")
+        next = Enabled(data.length - 1) ? data.length - 1 : Step(data.length - 1, -1);
+      triggers.current[next]?.focus();
+    };
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <div className={cx(styles.root, className)} data-disabled={disabled ? "true" : undefined}>
+      <div
+        className={cx(styles.root, sprinkle_class, className)}
+        style={sprinkle_style}
+        data-disabled={disabled ? "true" : undefined}
+      >
         {data.map((item, index) => {
           const item_disabled = disabled || item.disabled === true;
           const is_open = open.includes(item.value);
@@ -151,7 +170,12 @@ export function Accordion(props: AccordionProps): ReactElement {
                 </button>
               </h3>
               <Collapse in={is_open}>
-                <div id={panel_id} role="region" aria-labelledby={trigger_id} className={styles.panel}>
+                <div
+                  id={panel_id}
+                  role="region"
+                  aria-labelledby={trigger_id}
+                  className={styles.panel}
+                >
                   {item.content}
                 </div>
               </Collapse>

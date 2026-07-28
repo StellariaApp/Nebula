@@ -6,7 +6,7 @@ import { mergeProps, Overlay, useOverlayPosition, useTooltip, useTooltipTrigger 
 import { useTooltipTriggerState } from "react-stately";
 
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Tooltip.css.js";
 import type { TooltipProps } from "./Tooltip.types.js";
@@ -28,7 +28,9 @@ export function Tooltip(props: TooltipProps): ReactElement {
     color = "neutral",
     maw,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const state = useTooltipTriggerState({
     isDisabled: disabled,
@@ -78,8 +80,12 @@ export function Tooltip(props: TooltipProps): ReactElement {
             onExitComplete={presence.OnExitComplete}
             preset="fade"
             ref={tooltip_ref}
-            className={cx(styles.tooltip({ color }), className)}
-            style={{ ...overlayProps.style, ...(maw === undefined ? {} : { maxWidth: maw }) }}
+            className={cx(styles.tooltip({ color }), sprinkle_class, className)}
+            style={{
+              ...overlayProps.style,
+              ...sprinkle_style,
+              ...(maw === undefined ? {} : { maxWidth: maw }),
+            }}
           >
             {label}
             {withArrow ? (

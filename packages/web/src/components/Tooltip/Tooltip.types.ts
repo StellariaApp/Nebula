@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 
 import type { OverlayTriggerElement, PopoverPlacement } from "../Popover/Popover.types.js";
+import type { StyleProps } from "../../utils/style-props.js";
 
-export interface TooltipProps {
+export interface TooltipProps extends Omit<StyleProps, "color" | "maw"> {
   trigger: OverlayTriggerElement;
   label: ReactNode;
   placement?: PopoverPlacement | undefined;

@@ -1,4 +1,5 @@
 import type { ReactElement, ReactNode, Ref } from "react";
+import type { StyleProps } from "../../utils/style-props.js";
 
 export type OverlayTriggerElement = ReactElement<
   Record<string, unknown> & { ref?: Ref<HTMLElement> | undefined }
@@ -16,7 +17,7 @@ export type PopoverPlacement =
   | "left"
   | "right";
 
-export interface PopoverProps {
+export interface PopoverProps extends StyleProps {
   trigger: OverlayTriggerElement;
   children: ReactNode;
   opened?: boolean | undefined;

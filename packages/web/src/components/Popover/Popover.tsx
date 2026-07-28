@@ -13,7 +13,7 @@ import {
 import { useOverlayTriggerState } from "react-stately";
 
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FocusTrap } from "../FocusTrap/FocusTrap.js";
 
 import * as styles from "./Popover.css.js";
@@ -39,7 +39,9 @@ export function Popover(props: PopoverProps): ReactElement {
     width,
     className,
     "aria-label": aria_label,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const state = useOverlayTriggerState({
     ...(opened === undefined ? { defaultOpen: defaultOpened } : { isOpen: opened }),
@@ -98,8 +100,12 @@ export function Popover(props: PopoverProps): ReactElement {
               open={state.isOpen}
               onExitComplete={presence.OnExitComplete}
               ref={popover_ref}
-              className={cx(styles.popover({ radius, padding }), className)}
-              style={{ ...popoverProps.style, ...(width === undefined ? {} : { width }) }}
+              className={cx(styles.popover({ radius, padding }), sprinkle_class, className)}
+              style={{
+                ...popoverProps.style,
+                ...sprinkle_style,
+                ...(width === undefined ? {} : { width }),
+              }}
             >
               <DismissButton onDismiss={Close} />
               {withArrow ? (

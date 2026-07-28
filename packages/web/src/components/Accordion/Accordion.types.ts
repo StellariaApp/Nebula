@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { StyleProps } from "../../utils/style-props.js";
 
 export interface AccordionItemData {
   value: string;
@@ -8,7 +9,7 @@ export interface AccordionItemData {
   icon?: ReactNode | undefined;
 }
 
-export interface AccordionProps {
+export interface AccordionProps extends StyleProps {
   data: readonly AccordionItemData[];
   multiple?: boolean | undefined;
   value?: readonly string[] | undefined;
