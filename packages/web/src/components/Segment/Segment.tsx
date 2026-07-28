@@ -4,7 +4,7 @@ import { useCallback, useId, useMemo, useState, type ReactElement } from "react"
 
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { SegmentContext, type SegmentContextValue } from "./Segment.context.js";
 import * as styles from "./Segment.css.js";
@@ -22,7 +22,9 @@ export function Segment(props: SegmentProps): ReactElement {
     fullWidth = false,
     draggable = true,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const base_id = useId();
   const [selected, set_selected] = useUncontrolled(value, defaultValue, onChange);
@@ -66,7 +68,11 @@ export function Segment(props: SegmentProps): ReactElement {
 
   return (
     <SegmentContext.Provider value={context}>
-      <div className={cx(styles.root, className)} data-disabled={disabled ? "true" : undefined}>
+      <div
+        className={cx(styles.root, sprinkle_class, className)}
+        style={sprinkle_style}
+        data-disabled={disabled ? "true" : undefined}
+      >
         {children}
       </div>
     </SegmentContext.Provider>

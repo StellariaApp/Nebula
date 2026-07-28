@@ -2,13 +2,15 @@ import type { ReactNode } from "react";
 
 import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
+import type { StyleProps } from "../../utils/style-props.js";
+
 export interface SegmentItemData {
   value: string;
   label: ReactNode;
   disabled?: boolean | undefined;
 }
 
-export interface SegmentProps {
+export interface SegmentProps extends Omit<StyleProps, "color"> {
   children: ReactNode;
   value?: string | undefined;
   defaultValue?: string | undefined;
@@ -23,7 +25,7 @@ export interface SegmentProps {
 
 export type SegmentControlData = ReadonlyArray<string | SegmentItemData>;
 
-export interface SegmentControlProps {
+export interface SegmentControlProps extends StyleProps {
   data?: SegmentControlData | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
@@ -36,7 +38,7 @@ export interface SegmentControlItemProps {
   disabled?: boolean | undefined;
 }
 
-export interface SegmentContentProps {
+export interface SegmentContentProps extends StyleProps {
   children: ReactNode;
   swipeable?: boolean | undefined;
   fill?: boolean | undefined;
@@ -49,7 +51,7 @@ export interface SegmentContentItemProps {
   className?: string | undefined;
 }
 
-export interface SegmentSectionProps {
+export interface SegmentSectionProps extends StyleProps {
   children: ReactNode;
   className?: string | undefined;
 }

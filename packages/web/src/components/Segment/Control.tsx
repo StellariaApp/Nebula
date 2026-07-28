@@ -14,7 +14,7 @@ import { domMax, LazyMotion, m } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useSegment } from "./Segment.context.js";
 import * as styles from "./Segment.css.js";
@@ -43,7 +43,8 @@ function FromChildren(children: ReactNode): SegmentItemData[] {
 }
 
 export function SegmentControl(props: SegmentControlProps): ReactElement {
-  const { data, children, className, "aria-label": aria_label } = props;
+  const { data, children, className, "aria-label": aria_label, ...style_rest } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   const segment = useSegment();
 
   const items =
@@ -114,10 +115,11 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
         aria-orientation={segment.hasPanels ? "horizontal" : undefined}
         className={cx(
           styles.control({ size: segment.size, fullWidth: segment.fullWidth }),
+          sprinkle_class,
           className,
         )}
         data-disabled={segment.disabled ? "true" : undefined}
-        style={css_vars}
+        style={{ ...css_vars, ...sprinkle_style }}
         onKeyDown={HandleKeyDown}
       >
         <m.span

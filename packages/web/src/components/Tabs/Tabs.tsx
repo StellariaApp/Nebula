@@ -21,10 +21,12 @@ export function Tabs(props: TabsProps): ReactElement {
     fill = false,
     className,
     "aria-label": aria_label,
+    ...style_rest
   } = props;
 
   return (
     <Segment
+      {...style_rest}
       size={size}
       color={color}
       disabled={disabled}

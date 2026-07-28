@@ -13,6 +13,12 @@ Compound que agrupa un control de segmentos con sus paneles, siguiendo la forma 
 </Segment>
 ```
 
+## Qué piezas del compound aceptan style props
+
+Las cuatro que renderizan un elemento propio: `Segment` (la columna raíz), `Segment.Control` (la barra), `Segment.Content` (el viewport) y `Segment.Header` / `Segment.Footer`. Cada una las aplica a su propio nodo, así que `Segment.Control` puede llevar `maw` sin que la raíz cambie de ancho.
+
+`Segment.Control.Item` y `Segment.Content.Item` **no** las aceptan: devuelven `null` y existen solo para declarar datos que lee el padre, como `Conditional` o `Portal`. La consecuencia práctica es que el panel de un `Content.Item` se sigue estilando por su `className`, que es lo que el padre le pasa al `div` del panel. Abrirlo exigiría que `SegmentContent` extrajese las style props de las props de cada hijo, y eso se decidirá con evidencia de uso.
+
 ## El rol ARIA depende de si hay paneles
 
 `Segment.Control` emite `tablist` + `tab` + `aria-controls` **solo cuando el Segment tiene un `Segment.Content`**; sin paneles cae a `radiogroup` + `radio`. Un `tablist` cuyas pestañas no controlan nada es ARIA incorrecto, y ese es también el motivo de que `SegmentedControl` siga existiendo aparte: es el selector de valor suelto y siempre es un radiogroup.

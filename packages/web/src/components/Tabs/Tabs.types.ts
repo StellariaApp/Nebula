@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
+import type { StyleProps } from "../../utils/style-props.js";
+
 export interface TabItem {
   value: string;
   label: ReactNode;
@@ -9,7 +11,7 @@ export interface TabItem {
   disabled?: boolean | undefined;
 }
 
-export interface TabsProps {
+export interface TabsProps extends Omit<StyleProps, "color"> {
   data: readonly TabItem[];
   value?: string | undefined;
   defaultValue?: string | undefined;
