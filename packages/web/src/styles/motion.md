@@ -6,14 +6,15 @@ Dos módulos, una decisión (ADR-034): **ningún componente vuelve a escribir a 
 
 `tokens/animation.ts` publica `transition.interaction`, `.layout` y `.overlay` como cadenas ya resueltas (`transform 120ms cubic-bezier(…)`). Usarlas tal cual congelaría duración y curva en el bundle: un tema que recalibre `motion.duration` dejaría de repintar, que es exactamente la fuga que `docs/02` prohíbe. Las composiciones de aquí llevan los mismos nombres y la misma semántica, pero apuntan a `vars.motion.*`, de modo que siguen siendo tematizables por CSS.
 
-## Las cuatro composiciones
+## Las cinco composiciones
 
-| Nombre        | Propiedades                                                                   | Tiempo                | Para qué                                                      |
-| ------------- | ----------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------- |
-| `interaction` | `background, border-color, color, text-decoration-color, box-shadow, opacity` | `fast` · `standard`   | realimentación de superficie: hover, press, foco, disabled    |
-| `layout`      | `transform, opacity`                                                          | `base` · `decelerate` | lo que se mueve o escala **por CSS**                          |
-| `overlay`     | `opacity, transform`                                                          | `base` · `standard`   | pseudo-elementos que no puede tocar motion, como `::backdrop` |
-| `value`       | `width, stroke-dashoffset`                                                    | `base` · `decelerate` | barras y anillos de progreso                                  |
+| Nombre        | Propiedades                                                                   | Tiempo                | Para qué                                                        |
+| ------------- | ----------------------------------------------------------------------------- | --------------------- | --------------------------------------------------------------- |
+| `interaction` | `background, border-color, color, text-decoration-color, box-shadow, opacity` | `fast` · `standard`   | realimentación de superficie: hover, press, foco, disabled      |
+| `layout`      | `transform, opacity`                                                          | `base` · `decelerate` | lo que se mueve o escala **por CSS**                            |
+| `overlay`     | `opacity, transform`                                                          | `base` · `standard`   | pseudo-elementos que no puede tocar motion, como `::backdrop`   |
+| `confirm`     | `opacity, transform`                                                          | `base` · `emphasized` | confirmación de estado: la marca de Checkbox, el punto de Radio |
+| `value`       | `width, stroke-dashoffset`                                                    | `base` · `decelerate` | barras y anillos de progreso                                    |
 
 Listar de más es gratis: `transition-property` no genera trabajo para una propiedad que no cambia. Es lo que permite que once de los diecisiete usos del catálogo colapsen en `interaction` sin listas por componente.
 
@@ -48,6 +49,16 @@ El ADR dice que «el `preset` de `OverlayMotion` deja de gobernar solo la transf
 
 `motion/react` admite un nombre de curva, una tupla de cuatro números o una función, pero **no** una cadena `cubic-bezier(...)` de CSS. `ToBezier` la traduce a la tupla. Si un tema publica una curva no parseable —`ease-in-out`, por ejemplo— la función devuelve `undefined` y el tween sale con la curva por defecto de motion en vez de romper.
 
+## `emphasized` solo confirma
+
+`confirm` es la única composición con la curva de rebase, y su sitio es la aparición del indicador que dice «tu acción se registró»: la marca del Checkbox y el punto del Radio. **No se usa en hover ni en transiciones de color** —ahí el rebase se lee como imprecisión, no como respuesta—, y por eso `interaction` sigue en `standard`.
+
+Las dos aparecían escritas con la forma abreviada `transition: "…"` en vez de las tres propiedades largas, así que sobrevivieron al primer barrido de la migración; las encontró leer el código, no el grep.
+
 ## Stagger con tope
 
 `Stagger` devuelve el paso en segundos, derivado de `duration.instant`. `StaggerDelay(index)` lo multiplica por el índice **acotado a 8**: a partir del noveno elemento el retardo deja de crecer, de modo que una lista larga no encadena una espera perceptible en su último item. Ambos devuelven 0 con `prefers-reduced-motion` o con `motion.tier: "minimal"`, lo que anula la orquestación entera sin ramas en el componente.
+
+Lo consumen las dos colecciones que aparecen como unidad dentro de un overlay: `collections/option-list.tsx` —Select, Combobox y MultiSelect— y `Menu/MenuList.tsx`. El retardo va **por item** y no con `staggerChildren`, porque el tope de la regla 8 no se puede expresar con `staggerChildren`: esa prop reparte linealmente y no admite techo.
+
+Los items pasan a ser `m.li`, con el mismo cast en la frontera con React Aria que ya usan los botones: los props del hook son `DOMAttributes` y motion los tipa aparte por diseño. Al filtrar en Combobox solo montan los items nuevos, así que la orquestación se repite únicamente sobre lo que cambia.

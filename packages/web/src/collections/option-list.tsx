@@ -2,16 +2,29 @@
 
 import { useRef, type ReactElement, type RefObject } from "react";
 
+import { useTheme } from "@stellaria/nebula-hooks";
+import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { useListBox, useOption } from "react-aria";
 import type { ListState, Node } from "react-stately";
 
+import { MotionOff, StaggerDelay, Tween, type MotionContext } from "../utils/motion.js";
 import { cx } from "../utils/style-props.js";
 
 import * as styles from "./option-list.css.js";
 import type { RenderOption, SelectOption } from "./options.js";
 
 const CHECK = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
@@ -21,18 +34,18 @@ interface RowProps {
   state: ListState<SelectOption>;
   renderOption: RenderOption | undefined;
   withCheck: boolean;
+  index: number;
+  motionContext: MotionContext;
 }
 
 function OptionRow(props: RowProps): ReactElement {
-  const { node, state, renderOption, withCheck } = props;
+  const { node, state, renderOption, withCheck, index, motionContext } = props;
   const ref = useRef<HTMLLIElement>(null);
   const data = node.value;
+  const is_off = MotionOff(motionContext);
 
-  const { optionProps, labelProps, descriptionProps, isSelected, isFocused, isDisabled } = useOption(
-    { key: node.key },
-    state,
-    ref,
-  );
+  const { optionProps, labelProps, descriptionProps, isSelected, isFocused, isDisabled } =
+    useOption({ key: node.key }, state, ref);
 
   const custom =
     renderOption === undefined || data === null
@@ -40,13 +53,19 @@ function OptionRow(props: RowProps): ReactElement {
       : renderOption(data, { isSelected, isFocused, isDisabled });
 
   return (
-    <li
-      {...optionProps}
+    <m.li
+      {...(optionProps as unknown as HTMLMotionProps<"li">)}
       ref={ref}
       className={styles.option}
       data-focused={isFocused ? "true" : undefined}
       data-selected={isSelected ? "true" : undefined}
       data-disabled={isDisabled ? "true" : undefined}
+      initial={is_off ? false : { opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        ...Tween("fast", "decelerate", motionContext),
+        delay: StaggerDelay(index, motionContext),
+      }}
     >
       {custom === undefined ? (
         <>
@@ -72,7 +91,7 @@ function OptionRow(props: RowProps): ReactElement {
       ) : (
         custom
       )}
-    </li>
+    </m.li>
   );
 }
 
@@ -100,16 +119,22 @@ export function OptionList(props: OptionListProps): ReactElement {
   const { listBoxProps } = useListBox(outer, state, listBoxRef);
   const nodes = [...state.collection];
 
+  const { theme } = useTheme();
+  const prefers_reduced = useReducedMotion();
+  const motion_context = { theme, reduced: prefers_reduced === true };
+
   return (
     <>
       <ul {...listBoxProps} ref={listBoxRef} className={cx(styles.listbox, className)}>
-        {nodes.map((node) => (
+        {nodes.map((node, index) => (
           <OptionRow
             key={node.key}
             node={node}
             state={state}
             renderOption={renderOption}
             withCheck={withCheck}
+            index={index}
+            motionContext={motion_context}
           />
         ))}
       </ul>

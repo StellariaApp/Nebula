@@ -61,7 +61,8 @@ export const inner = style({
   background: radioColor,
   opacity: 0,
   transform: "scale(0.4)",
-  transition: `opacity ${vars.motion.duration.fast} ${vars.motion.easing.standard}, transform ${vars.motion.duration.fast} ${vars.motion.easing.standard}`,
+  ...motion.confirm,
+  ...motion.reducedMotion,
 });
 
 export const labelText = style({

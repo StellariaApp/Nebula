@@ -132,6 +132,31 @@ Reglas:
   tokens (`expressive × 6` para breathing, `expressive × 12` para recorridos largos).
 - Reduced motion elimina loops ambientales y conserva el estado final legible.
 
+### 6.1 Física por superficie (ADR-034)
+
+Una sola física para todo el catálogo aplana la jerarquía: un tooltip y un modal no pesan lo mismo, y
+moverlos igual lo desmiente. La física la elige la **superficie**, no la transformada:
+
+| Superficie     | Entrada          | Por qué                                                            |
+| -------------- | ---------------- | ------------------------------------------------------------------ |
+| Tooltip        | tween `fast`     | no tiene masa; es una etiqueta que aparece, no un objeto que llega |
+| Popover · Menu | `spring.snappy`  | responden a una acción directa y deben sentirse inmediatos         |
+| Modal · Drawer | `spring.default` | ocupan la vista entera; su peso es parte del mensaje               |
+| Toast          | `spring.gentle`  | entra sin ser llamado, así que no debe irrumpir                    |
+
+**Toda salida es más rápida que su entrada**, con un tween acelerado a dos tercios de su duración. Al
+cerrar, el usuario ya decidió: sostener la animación es hacerle esperar por una confirmación que ya
+tiene.
+
+La curva con rebase (`easing.emphasized`) se reserva a la **confirmación de estado** —la marca de un
+checkbox, el punto de un radio, la aparición de un indicador de selección—, donde el rebase comunica
+que la acción se registró. En hover y en transiciones de color se lee como imprecisión, y ahí no se
+usa.
+
+Las colecciones que aparecen como unidad entran **escalonadas**, con el paso derivado de
+`duration.instant` y tope de ocho elementos: pasado ese punto el retardo deja de crecer para que una
+lista larga no haga esperar a su último item.
+
 ## 7. Calidad visual de un componente
 
 Además del testing contract, cada componente visual debe demostrar:

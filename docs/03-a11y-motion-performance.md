@@ -41,9 +41,16 @@ Reglas transversales:
 
 1. **Hot paths solo `transform` + `opacity`** (web: compositor; native: UI thread con Reanimated worklets). Nunca animar layout (width/height/top) en interacciones continuas; usar layout animations dedicadas (Reanimated Layout / motion layout) solo en transiciones discretas.
 2. **Reduced motion es obligatorio**: native `ReduceMotion.System` en TODA animación Reanimated (patrón ya presente en Stellaria/FC); web `prefers-reduced-motion` colapsa a fades ≤120ms o nada. El tier `minimal` del tema fuerza el mismo comportamiento.
+
+   **Idioma único en web** (ADR-034): `transitionProperty: "none"` **y** `animationName: "none"`, expuestos como `still` en `packages/web/src/styles/motion.css.ts`. Se retira `transitionDuration: "0.01ms"`, que era un truco para forzar el disparo de `transitionend` y que el catálogo no necesitaba. Lo que anima por keyframes compone `still` **con su sustituto estático** en vez de sustituirlo: un spinner congelado a media vuelta dice lo contrario de lo que quiere decir, así que apaga el giro y fija un aspecto estable. En JS, `MotionOff()` resuelve en un solo sitio `prefers-reduced-motion` y el tier, y todos los helpers degradan a duración cero por esa vía.
+
+   Deja de ser opcional: **todo componente que anime lo declara**.
+
 3. **Degradación en low-end** (native): `useGlassQuality` (patrón LiquidGlass de Stellaria: ultra/high/medium/low) se generaliza a un `useDeviceTier` en `@stellaria/nebula-hooks`; los efectos Skia bajan de calidad o se apagan.
 4. Haptics acompañan interacciones primarias en native (`triggerHaptic`), nunca en loops.
-5. Entrada escalonada (patrón `animatedIndex/animatedDelay` de FC/TFV) se estandariza como `stagger` en los patterns de listas, alimentado por motion tokens.
+5. Entrada escalonada (patrón `animatedIndex/animatedDelay` de FC/TFV) se estandariza como `stagger` en los patterns de listas, alimentado por motion tokens. En web es `Stagger`/`StaggerDelay` (`utils/motion.ts`): paso derivado de `duration.instant` y **tope de ocho elementos**, para que una lista larga no encadene un retardo perceptible en su último item.
+6. **Asimetría entrada/salida** (ADR-034): la entrada decelera con su duración plena; la salida acelera a dos tercios. Una salida nunca dura más que su entrada. La física la elige la superficie —tooltip, popover/menu, modal/drawer, toast—, no la transformada; el detalle está en `docs/06` §6.1.
+7. **Ninguna transición se escribe a mano.** Las cinco composiciones de `styles/motion.css.ts` —`interaction`, `layout`, `overlay`, `confirm` y `value`— cubren el catálogo y se componen de `vars.motion.*`, de modo que siguen siendo tematizables. Punto obligatorio del checklist de `docs/patterns/web-component-template.md` §6.
 
 ## 3. Performance
 

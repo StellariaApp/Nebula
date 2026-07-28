@@ -61,7 +61,8 @@ export const mark = style({
   width: "68%",
   height: "68%",
   opacity: 0,
-  transition: `opacity ${vars.motion.duration.fast} ${vars.motion.easing.standard}`,
+  ...motion.confirm,
+  ...motion.reducedMotion,
 });
 
 export const labelText = style({

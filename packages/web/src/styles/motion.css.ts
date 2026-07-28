@@ -20,6 +20,12 @@ export const overlay = {
   transitionTimingFunction: vars.motion.easing.standard,
 } as const;
 
+export const confirm = {
+  transitionProperty: "opacity, transform",
+  transitionDuration: vars.motion.duration.base,
+  transitionTimingFunction: vars.motion.easing.emphasized,
+} as const;
+
 export const value = {
   transitionProperty: "width, stroke-dashoffset",
   transitionDuration: vars.motion.duration.base,

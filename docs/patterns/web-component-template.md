@@ -100,17 +100,15 @@ Sin capa, la clase base gana a la clase atómica de sprinkles y **pisa silencios
 ### Capa 3 — Motion: `motion` v12 con los springs del theme (ADR-004/018)
 
 ```tsx
-<LazyMotion features={domAnimation} strict>
-  <m.button
-    animate={{ scale: animate && isPressed ? 0.98 : 1 }}
-    transition={animate ? { type: "spring", ...theme.motion.spring.default } : { duration: 0 }}
-  />
-</LazyMotion>
+<m.button
+  animate={{ scale: is_animated && isPressed ? 0.98 : 1 }}
+  transition={Spring("default", { theme, reduced: !is_animated })}
+/>
 ```
 
-- Siempre `m.*` + `LazyMotion` (nunca `motion.*`), con `strict`.
+- Siempre `m.*` (nunca `motion.*`). **El `LazyMotion` no se monta en el componente**: es único y vive en `NebulaProvider` con `domMax` (ADR-034 regla 5). Un `m.*` sin provider renderiza sin animación y en silencio, así que el provider es requisito, no recomendación.
 - El press se deriva del `isPressed` **de React Aria**, no de `whileTap` — una sola fuente de verdad de la interacción.
-- Se desactiva con `useReducedMotion()` **y** con `motion.tier: "minimal"` del tema.
+- **La física sale de `utils/motion.ts`**: `Spring`, `Tween`, `SurfaceTransition`, `ExitTween`, `Stagger`. Ningún componente vuelve a escribir `{ type: "spring", stiffness, damping, mass }` ni su ternario de reduced-motion; los helpers ya resuelven `useReducedMotion()` **y** `motion.tier: "minimal"`.
 - Solo `transform`/`opacity` (docs/03 §2). Color y sombra transicionan por CSS con los tokens.
 
 ### Capa 3.1 — Variantes con efecto: glow tintado + idle (patrón para W2–W4)
@@ -183,6 +181,7 @@ relación, una sola escalera de elevación y máximo un efecto dominante por reg
 - [ ] Acepta `StyleProps` y las aplica con `ExtractStyleProps` (ADR-032), salvo que no renderice un elemento propio.
 - [ ] Las colisiones de nombre resueltas a favor de la prop del componente, con el `Omit` o el estrechamiento explícito en el tipo.
 - [ ] Estilos base dentro de `baseLayer` — **obligatorio**, no opcional: sin capa, la clase base pisa en silencio la style prop del consumidor.
+- [ ] Cero transiciones, duraciones y curvas escritas a mano: se componen de `styles/motion.css.ts` y la física de `utils/motion.ts` (ADR-034). Reduced-motion declarado, con su sustituto estático si anima por keyframes.
 - [ ] Cero hex y cero paletas crudas en el componente: solo roles y `variantMap`.
 - [ ] Entry de `size-limit` añadido y dentro de budget (docs/03 §3).
 - [ ] `"use client"` **solo** si el componente es interactivo; los presentacionales quedan server-safe.
