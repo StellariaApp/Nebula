@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { domMax, LazyMotion, m } from "motion/react";
+import { m } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
@@ -107,61 +107,57 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
   });
 
   return (
-    <LazyMotion features={domMax} strict>
-      <div
-        ref={indicator.containerRef}
-        role={segment.hasPanels ? "tablist" : "radiogroup"}
-        aria-label={aria_label}
-        aria-orientation={segment.hasPanels ? "horizontal" : undefined}
-        className={cx(
-          styles.control({ size: segment.size, fullWidth: segment.fullWidth }),
-          sprinkle_class,
-          className,
-        )}
-        data-disabled={segment.disabled ? "true" : undefined}
-        style={{ ...css_vars, ...sprinkle_style }}
-        onKeyDown={HandleKeyDown}
-      >
-        <m.span
-          aria-hidden="true"
-          className={styles.indicator}
-          style={{ x: indicator.x, width: indicator.width, opacity: indicator.ready ? 1 : 0 }}
-          {...indicator.panHandlers}
-        />
-        {items.map((item, index) => {
-          const active = item.value === segment.value;
-          const item_disabled = segment.disabled || item.disabled === true;
-          return (
-            <button
-              key={item.value}
-              ref={(node) => {
-                tabs.current[index] = node;
-                indicator.SetItemRef(index)(node);
-              }}
-              type="button"
-              role={segment.hasPanels ? "tab" : "radio"}
-              aria-selected={segment.hasPanels ? active : undefined}
-              aria-checked={segment.hasPanels ? undefined : active}
-              aria-controls={
-                segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined
-              }
-              id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
-              tabIndex={active ? 0 : -1}
-              disabled={item_disabled}
-              className={styles.tab}
-              data-active={active ? "true" : undefined}
-              data-disabled={item_disabled ? "true" : undefined}
-              onClick={() => {
-                if (indicator.ConsumeDrag()) return;
-                Select(index);
-              }}
-            >
-              {item.label}
-            </button>
-          );
-        })}
-      </div>
-    </LazyMotion>
+    <div
+      ref={indicator.containerRef}
+      role={segment.hasPanels ? "tablist" : "radiogroup"}
+      aria-label={aria_label}
+      aria-orientation={segment.hasPanels ? "horizontal" : undefined}
+      className={cx(
+        styles.control({ size: segment.size, fullWidth: segment.fullWidth }),
+        sprinkle_class,
+        className,
+      )}
+      data-disabled={segment.disabled ? "true" : undefined}
+      style={{ ...css_vars, ...sprinkle_style }}
+      onKeyDown={HandleKeyDown}
+    >
+      <m.span
+        aria-hidden="true"
+        className={styles.indicator}
+        style={{ x: indicator.x, width: indicator.width, opacity: indicator.ready ? 1 : 0 }}
+        {...indicator.panHandlers}
+      />
+      {items.map((item, index) => {
+        const active = item.value === segment.value;
+        const item_disabled = segment.disabled || item.disabled === true;
+        return (
+          <button
+            key={item.value}
+            ref={(node) => {
+              tabs.current[index] = node;
+              indicator.SetItemRef(index)(node);
+            }}
+            type="button"
+            role={segment.hasPanels ? "tab" : "radio"}
+            aria-selected={segment.hasPanels ? active : undefined}
+            aria-checked={segment.hasPanels ? undefined : active}
+            aria-controls={segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined}
+            id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
+            tabIndex={active ? 0 : -1}
+            disabled={item_disabled}
+            className={styles.tab}
+            data-active={active ? "true" : undefined}
+            data-disabled={item_disabled ? "true" : undefined}
+            onClick={() => {
+              if (indicator.ConsumeDrag()) return;
+              Select(index);
+            }}
+          >
+            {item.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 

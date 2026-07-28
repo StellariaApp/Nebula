@@ -5,7 +5,7 @@ import { useState, type ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import type { RadiusName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
@@ -63,7 +63,7 @@ export function Image(props: ImageProps): ReactElement {
       {broken ? (
         <span className={styles.state}>{fallback ?? alt}</span>
       ) : (
-        <LazyMotion features={domAnimation} strict>
+        <>
           {status === "idle" && placeholder !== undefined ? (
             <span className={styles.state}>{placeholder}</span>
           ) : null}
@@ -92,7 +92,7 @@ export function Image(props: ImageProps): ReactElement {
               set_status("failed");
             }}
           />
-        </LazyMotion>
+        </>
       )}
     </span>
   );

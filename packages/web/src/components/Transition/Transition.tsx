@@ -5,8 +5,6 @@ import { type ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import {
   AnimatePresence,
-  domAnimation,
-  LazyMotion,
   m,
   useReducedMotion,
   type MotionStyle,
@@ -70,25 +68,20 @@ export function Transition(props: TransitionProps): ReactElement {
         };
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <AnimatePresence
-        initial={false}
-        {...(onExitComplete === undefined ? {} : { onExitComplete })}
-      >
-        {mounted ? (
-          <m.div
-            className={cx(sprinkle_class, className)}
-            {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
-            initial={phase.from}
-            animate={phase.to}
-            exit={phase.from}
-            transition={timing}
-          >
-            {children}
-          </m.div>
-        ) : null}
-      </AnimatePresence>
-    </LazyMotion>
+    <AnimatePresence initial={false} {...(onExitComplete === undefined ? {} : { onExitComplete })}>
+      {mounted ? (
+        <m.div
+          className={cx(sprinkle_class, className)}
+          {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
+          initial={phase.from}
+          animate={phase.to}
+          exit={phase.from}
+          transition={timing}
+        >
+          {children}
+        </m.div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 

@@ -13,6 +13,7 @@ import { ThemeContext, type ThemeContextValue } from "@stellaria/nebula-hooks";
 import { officialThemes } from "@stellaria/nebula-themes";
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { domMax, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
 import { vars } from "../theme/contract.css.js";
@@ -145,8 +146,10 @@ export function NebulaProvider({
         data-scheme={active.theme.meta.scheme}
       >
         <UNSAFE_PortalProvider getContainer={GetPortalContainer}>
-          {children}
-          <div ref={set_portal_node} data-nebula-portal="" />
+          <LazyMotion features={domMax} strict>
+            {children}
+            <div ref={set_portal_node} data-nebula-portal="" />
+          </LazyMotion>
         </UNSAFE_PortalProvider>
       </div>
     </ThemeContext.Provider>

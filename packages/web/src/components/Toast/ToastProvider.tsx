@@ -4,7 +4,7 @@ import { useEffect, useRef, type ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { AnimatePresence, domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -116,31 +116,29 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
           role="region"
           aria-label={regionLabel}
         >
-          <LazyMotion features={domAnimation} strict>
-            <AnimatePresence initial={false}>
-              {visible.map((toast) => (
-                <m.div
-                  key={toast.id}
-                  layout
-                  initial={enter}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ ...enter, scale: 0.94 }}
-                  transition={
-                    is_off
-                      ? { duration: 0 }
-                      : {
-                          type: "spring",
-                          stiffness: spring.stiffness,
-                          damping: spring.damping,
-                          mass: spring.mass,
-                        }
-                  }
-                >
-                  <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
-                </m.div>
-              ))}
-            </AnimatePresence>
-          </LazyMotion>
+          <AnimatePresence initial={false}>
+            {visible.map((toast) => (
+              <m.div
+                key={toast.id}
+                layout
+                initial={enter}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ ...enter, scale: 0.94 }}
+                transition={
+                  is_off
+                    ? { duration: 0 }
+                    : {
+                        type: "spring",
+                        stiffness: spring.stiffness,
+                        damping: spring.damping,
+                        mass: spring.mass,
+                      }
+                }
+              >
+                <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
+              </m.div>
+            ))}
+          </AnimatePresence>
         </div>
       </Portal>
     </>

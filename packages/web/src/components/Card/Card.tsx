@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { domAnimation, LazyMotion, m, useReducedMotion, type MotionStyle } from "motion/react";
+import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Image } from "../Image/Image.js";
@@ -109,37 +109,33 @@ export function Card(props: CardProps): ReactElement {
         }),
   };
 
-  return (
-    <LazyMotion features={domAnimation} strict>
-      {href !== undefined ? (
-        <m.a
-          {...motion_props}
-          href={href}
-          className={class_name}
-          {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-        >
-          {children}
-        </m.a>
-      ) : onPress !== undefined ? (
-        <m.button
-          {...motion_props}
-          type="button"
-          className={class_name}
-          onClick={onPress}
-          {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-        >
-          {children}
-        </m.button>
-      ) : (
-        <m.div
-          {...motion_props}
-          className={class_name}
-          {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-        >
-          {children}
-        </m.div>
-      )}
-    </LazyMotion>
+  return href !== undefined ? (
+    <m.a
+      {...motion_props}
+      href={href}
+      className={class_name}
+      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
+    >
+      {children}
+    </m.a>
+  ) : onPress !== undefined ? (
+    <m.button
+      {...motion_props}
+      type="button"
+      className={class_name}
+      onClick={onPress}
+      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
+    >
+      {children}
+    </m.button>
+  ) : (
+    <m.div
+      {...motion_props}
+      className={class_name}
+      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
+    >
+      {children}
+    </m.div>
   );
 }
 

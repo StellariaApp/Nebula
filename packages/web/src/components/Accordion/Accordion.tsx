@@ -3,7 +3,7 @@
 import { useId, useMemo, useRef, type KeyboardEvent, type ReactElement } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
@@ -94,96 +94,94 @@ export function Accordion(props: AccordionProps): ReactElement {
     };
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <div
-        className={cx(styles.root, sprinkle_class, className)}
-        style={sprinkle_style}
-        data-disabled={disabled ? "true" : undefined}
-      >
-        {data.map((item, index) => {
-          const item_disabled = disabled || item.disabled === true;
-          const is_open = open.includes(item.value);
-          const trigger_id = `${base_id}-trigger-${item.value}`;
-          const panel_id = `${base_id}-panel-${item.value}`;
+    <div
+      className={cx(styles.root, sprinkle_class, className)}
+      style={sprinkle_style}
+      data-disabled={disabled ? "true" : undefined}
+    >
+      {data.map((item, index) => {
+        const item_disabled = disabled || item.disabled === true;
+        const is_open = open.includes(item.value);
+        const trigger_id = `${base_id}-trigger-${item.value}`;
+        const panel_id = `${base_id}-panel-${item.value}`;
 
-          return (
-            <div key={item.value} className={styles.item}>
-              <h3>
-                <button
-                  ref={(node) => {
-                    triggers.current[index] = node;
-                  }}
-                  type="button"
-                  id={trigger_id}
-                  className={styles.trigger}
-                  aria-expanded={is_open}
-                  aria-controls={panel_id}
-                  disabled={item_disabled}
-                  data-open={is_open ? "true" : undefined}
-                  onClick={() => {
-                    Toggle(item.value);
-                  }}
-                  onKeyDown={HandleKeyDown(index)}
-                >
-                  {chevronPosition === "start" ? (
-                    <m.span
-                      className={styles.chevron}
-                      animate={{ rotate: is_open ? 180 : 0 }}
-                      transition={
-                        is_off
-                          ? { duration: 0 }
-                          : {
-                              type: "spring",
-                              stiffness: spring.stiffness,
-                              damping: spring.damping,
-                              mass: spring.mass,
-                            }
-                      }
-                    >
-                      {CHEVRON}
-                    </m.span>
-                  ) : null}
-                  {item.icon === undefined || item.icon === null ? null : (
-                    <span className={styles.icon} aria-hidden="true">
-                      {item.icon}
-                    </span>
-                  )}
-                  <span className={styles.label}>{item.label}</span>
-                  {chevronPosition === "end" ? (
-                    <m.span
-                      className={styles.chevron}
-                      animate={{ rotate: is_open ? 180 : 0 }}
-                      transition={
-                        is_off
-                          ? { duration: 0 }
-                          : {
-                              type: "spring",
-                              stiffness: spring.stiffness,
-                              damping: spring.damping,
-                              mass: spring.mass,
-                            }
-                      }
-                    >
-                      {CHEVRON}
-                    </m.span>
-                  ) : null}
-                </button>
-              </h3>
-              <Collapse in={is_open}>
-                <div
-                  id={panel_id}
-                  role="region"
-                  aria-labelledby={trigger_id}
-                  className={styles.panel}
-                >
-                  {item.content}
-                </div>
-              </Collapse>
-            </div>
-          );
-        })}
-      </div>
-    </LazyMotion>
+        return (
+          <div key={item.value} className={styles.item}>
+            <h3>
+              <button
+                ref={(node) => {
+                  triggers.current[index] = node;
+                }}
+                type="button"
+                id={trigger_id}
+                className={styles.trigger}
+                aria-expanded={is_open}
+                aria-controls={panel_id}
+                disabled={item_disabled}
+                data-open={is_open ? "true" : undefined}
+                onClick={() => {
+                  Toggle(item.value);
+                }}
+                onKeyDown={HandleKeyDown(index)}
+              >
+                {chevronPosition === "start" ? (
+                  <m.span
+                    className={styles.chevron}
+                    animate={{ rotate: is_open ? 180 : 0 }}
+                    transition={
+                      is_off
+                        ? { duration: 0 }
+                        : {
+                            type: "spring",
+                            stiffness: spring.stiffness,
+                            damping: spring.damping,
+                            mass: spring.mass,
+                          }
+                    }
+                  >
+                    {CHEVRON}
+                  </m.span>
+                ) : null}
+                {item.icon === undefined || item.icon === null ? null : (
+                  <span className={styles.icon} aria-hidden="true">
+                    {item.icon}
+                  </span>
+                )}
+                <span className={styles.label}>{item.label}</span>
+                {chevronPosition === "end" ? (
+                  <m.span
+                    className={styles.chevron}
+                    animate={{ rotate: is_open ? 180 : 0 }}
+                    transition={
+                      is_off
+                        ? { duration: 0 }
+                        : {
+                            type: "spring",
+                            stiffness: spring.stiffness,
+                            damping: spring.damping,
+                            mass: spring.mass,
+                          }
+                    }
+                  >
+                    {CHEVRON}
+                  </m.span>
+                ) : null}
+              </button>
+            </h3>
+            <Collapse in={is_open}>
+              <div
+                id={panel_id}
+                role="region"
+                aria-labelledby={trigger_id}
+                className={styles.panel}
+              >
+                {item.content}
+              </div>
+            </Collapse>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

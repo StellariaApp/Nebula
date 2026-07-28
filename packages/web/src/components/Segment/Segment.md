@@ -35,6 +35,8 @@ El arrastre está acotado por una banda elástica con resistencia asintótica (`
 
 Todo el motion —animación y gesto— se apaga con `prefers-reduced-motion` y con `motion.tier: "minimal"`. Sin él, el control sigue siendo operable por click y teclado: el gesto es una mejora progresiva, nunca el único camino.
 
-## Por qué `domMax` y no `domAnimation`
+## Por qué el catálogo entero carga `domMax`
 
-El resto del sistema carga `domAnimation`, que **no incluye gestos de arrastre**. Los componentes con pan (`Switch`, `Segment.Control`, `Segment.Content`, `SegmentedControl`) cargan `domMax`. Es la razón de que sus budgets suban de banda.
+`domAnimation` **no incluye gestos de arrastre**, y aquí hacen falta: el indicador de `Segment.Control` y el viewport de `Segment.Content` se mueven con `onPan`, igual que `Switch` y `SegmentedControl`. Cuando cada componente montaba su propio `LazyMotion`, esos cuatro cargaban `domMax` y los otros once `domAnimation`, de modo que bastaba con juntar un Switch y un botón en la misma vista para descargar los dos paquetes.
+
+Desde ADR-034 hay un solo `LazyMotion`, en `NebulaProvider`, y sus features son `domMax` precisamente porque este componente lo exige. El invariante lo vigila `src/__tests__/motion-provider.test.tsx`.

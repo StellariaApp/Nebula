@@ -4,7 +4,7 @@ import { useId, type ReactElement } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
@@ -16,13 +16,33 @@ import { accent, activeFg } from "./Pagination.vars.css.js";
 import { PaginationRange } from "./pagination-range.js";
 
 const ARROW = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m15 18-6-6 6-6" />
   </svg>
 );
 
 const DOUBLE_ARROW = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m17 18-6-6 6-6M11 18l-6-6 6-6" />
   </svg>
 );
@@ -108,53 +128,47 @@ export function Pagination(props: PaginationProps): ReactElement {
   );
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <nav
-        aria-label={text.root}
-        className={cx(sprinkle_class, className)}
-        style={sprinkle_style}
-      >
-        <ul className={styles.root} style={css_vars}>
-          {withEdges ? Control("first", text.first, DOUBLE_ARROW, 1, active === 1) : null}
-          {withControls ? Control("prev", text.previous, ARROW, active - 1, active === 1) : null}
+    <nav aria-label={text.root} className={cx(sprinkle_class, className)} style={sprinkle_style}>
+      <ul className={styles.root} style={css_vars}>
+        {withEdges ? Control("first", text.first, DOUBLE_ARROW, 1, active === 1) : null}
+        {withControls ? Control("prev", text.previous, ARROW, active - 1, active === 1) : null}
 
-          {items.map((item) =>
-            typeof item === "number" ? (
-              <li key={item}>
-                <button
-                  type="button"
-                  className={styles.control({ size })}
-                  data-active={item === active ? "true" : undefined}
-                  aria-label={text.page(item)}
-                  {...(item === active ? { "aria-current": "page" as const } : {})}
-                  disabled={disabled}
-                  onClick={() => {
-                    Go(item);
-                  }}
-                >
-                  {item === active ? (
-                    <m.span
-                      className={styles.pill}
-                      layoutId={pill_id}
-                      transition={transition}
-                      aria-hidden="true"
-                    />
-                  ) : null}
-                  <span className={styles.value}>{item}</span>
-                </button>
-              </li>
-            ) : (
-              <li key={item} className={styles.dots} aria-hidden="true">
-                …
-              </li>
-            ),
-          )}
+        {items.map((item) =>
+          typeof item === "number" ? (
+            <li key={item}>
+              <button
+                type="button"
+                className={styles.control({ size })}
+                data-active={item === active ? "true" : undefined}
+                aria-label={text.page(item)}
+                {...(item === active ? { "aria-current": "page" as const } : {})}
+                disabled={disabled}
+                onClick={() => {
+                  Go(item);
+                }}
+              >
+                {item === active ? (
+                  <m.span
+                    className={styles.pill}
+                    layoutId={pill_id}
+                    transition={transition}
+                    aria-hidden="true"
+                  />
+                ) : null}
+                <span className={styles.value}>{item}</span>
+              </button>
+            </li>
+          ) : (
+            <li key={item} className={styles.dots} aria-hidden="true">
+              …
+            </li>
+          ),
+        )}
 
-          {withControls ? Control("next", text.next, ARROW, active + 1, active === total) : null}
-          {withEdges ? Control("last", text.last, DOUBLE_ARROW, total, active === total) : null}
-        </ul>
-      </nav>
-    </LazyMotion>
+        {withControls ? Control("next", text.next, ARROW, active + 1, active === total) : null}
+        {withEdges ? Control("last", text.last, DOUBLE_ARROW, total, active === total) : null}
+      </ul>
+    </nav>
   );
 }
 

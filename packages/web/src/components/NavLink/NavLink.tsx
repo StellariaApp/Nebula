@@ -4,7 +4,7 @@ import { useId, type ReactElement } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -15,7 +15,17 @@ import type { NavLinkProps } from "./NavLink.types.js";
 import { accent, activeBg } from "./NavLink.vars.css.js";
 
 const CHEVRON = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
@@ -107,51 +117,47 @@ export function NavLink(props: NavLinkProps): ReactElement {
     "data-disabled": disabled ? "true" : undefined,
   };
 
-  return (
-    <LazyMotion features={domAnimation} strict>
-      {has_children ? (
-        <>
-          <button
-            {...shared}
-            type="button"
-            disabled={disabled}
-            aria-expanded={is_open}
-            aria-controls={panel_id}
-            {...(active ? { "aria-current": "page" as const } : {})}
-            onClick={() => {
-              set_open(!is_open);
-              onPress?.();
-            }}
-          >
-            {inner}
-          </button>
-          <Collapse in={is_open}>
-            <div id={panel_id} className={styles.children}>
-              {children}
-            </div>
-          </Collapse>
-        </>
-      ) : href !== undefined ? (
-        <a
-          {...shared}
-          href={disabled ? undefined : href}
-          {...(active ? { "aria-current": "page" as const } : {})}
-          {...(disabled ? { "aria-disabled": true } : {})}
-        >
-          {inner}
-        </a>
-      ) : (
-        <button
-          {...shared}
-          type="button"
-          disabled={disabled}
-          {...(active ? { "aria-current": "page" as const } : {})}
-          onClick={onPress}
-        >
-          {inner}
-        </button>
-      )}
-    </LazyMotion>
+  return has_children ? (
+    <>
+      <button
+        {...shared}
+        type="button"
+        disabled={disabled}
+        aria-expanded={is_open}
+        aria-controls={panel_id}
+        {...(active ? { "aria-current": "page" as const } : {})}
+        onClick={() => {
+          set_open(!is_open);
+          onPress?.();
+        }}
+      >
+        {inner}
+      </button>
+      <Collapse in={is_open}>
+        <div id={panel_id} className={styles.children}>
+          {children}
+        </div>
+      </Collapse>
+    </>
+  ) : href !== undefined ? (
+    <a
+      {...shared}
+      href={disabled ? undefined : href}
+      {...(active ? { "aria-current": "page" as const } : {})}
+      {...(disabled ? { "aria-disabled": true } : {})}
+    >
+      {inner}
+    </a>
+  ) : (
+    <button
+      {...shared}
+      type="button"
+      disabled={disabled}
+      {...(active ? { "aria-current": "page" as const } : {})}
+      onClick={onPress}
+    >
+      {inner}
+    </button>
   );
 }
 

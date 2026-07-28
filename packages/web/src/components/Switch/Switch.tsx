@@ -5,15 +5,7 @@ import { forwardRef, useEffect, useRef } from "react";
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import {
-  domMax,
-  LazyMotion,
-  m,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  type PanInfo,
-} from "motion/react";
+import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "motion/react";
 
 import { Rubber } from "../../utils/rubber.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -127,39 +119,37 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   };
 
   return (
-    <LazyMotion features={domMax} strict>
-      <label
-        className={cx(styles.root, sprinkle_class, rootClassName)}
-        data-disabled={disabled ? "true" : undefined}
-        style={{ ...css_vars, ...sprinkle_style }}
-      >
-        <input
-          {...input_rest}
-          ref={ref}
-          type="checkbox"
-          role="switch"
-          className={cx(styles.input, className)}
-          checked={is_checked}
-          aria-checked={is_checked}
-          onChange={HandleChange}
-          disabled={disabled}
-          {...(value === undefined ? {} : { value })}
-          {...(group?.name === undefined ? {} : { name: group.name })}
+    <label
+      className={cx(styles.root, sprinkle_class, rootClassName)}
+      data-disabled={disabled ? "true" : undefined}
+      style={{ ...css_vars, ...sprinkle_style }}
+    >
+      <input
+        {...input_rest}
+        ref={ref}
+        type="checkbox"
+        role="switch"
+        className={cx(styles.input, className)}
+        checked={is_checked}
+        aria-checked={is_checked}
+        onChange={HandleChange}
+        disabled={disabled}
+        {...(value === undefined ? {} : { value })}
+        {...(group?.name === undefined ? {} : { name: group.name })}
+      />
+      <span className={styles.track} aria-hidden="true" draggable={false}>
+        <m.span
+          className={styles.thumb}
+          style={{ x: is_animated ? x : target }}
+          {...(can_drag
+            ? { onPanStart: HandlePanStart, onPan: HandlePan, onPanEnd: HandlePanEnd }
+            : {})}
         />
-        <span className={styles.track} aria-hidden="true" draggable={false}>
-          <m.span
-            className={styles.thumb}
-            style={{ x: is_animated ? x : target }}
-            {...(can_drag
-              ? { onPanStart: HandlePanStart, onPan: HandlePan, onPanEnd: HandlePanEnd }
-              : {})}
-          />
-        </span>
-        {label === undefined || label === null ? null : (
-          <span className={styles.labelText}>{label}</span>
-        )}
-      </label>
-    </LazyMotion>
+      </span>
+      {label === undefined || label === null ? null : (
+        <span className={styles.labelText}>{label}</span>
+      )}
+    </label>
   );
 });
 

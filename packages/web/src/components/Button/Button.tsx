@@ -10,14 +10,7 @@ import {
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import {
-  LazyMotion,
-  domAnimation,
-  m,
-  useReducedMotion,
-  type HTMLMotionProps,
-  type MotionStyle,
-} from "motion/react";
+import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
@@ -139,49 +132,47 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     >;
 
     return (
-      <LazyMotion features={domAnimation} strict>
-        <m.button
-          {...dom_props}
-          ref={ref}
-          className={cx(styles.button({ size, fullWidth }), sprinkle_class, className)}
-          style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
-          data-hovered={isHovered ? "true" : undefined}
-          data-pressed={isPressed ? "true" : undefined}
-          data-focus-visible={isFocusVisible ? "true" : undefined}
-          data-disabled={is_disabled ? "true" : undefined}
-          data-loading={loading ? "true" : undefined}
-          data-variant={variant}
-          data-glow-idle={glow_idle ? "true" : undefined}
-          data-gradient-animated={
-            resolved.gradientAnimated && prefers_reduced !== true ? "true" : undefined
-          }
-          aria-busy={loading || undefined}
-          animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
-          transition={
-            is_animated
-              ? {
-                  type: "spring",
-                  stiffness: spring.stiffness,
-                  damping: spring.damping,
-                  mass: spring.mass,
-                }
-              : { duration: 0 }
-          }
-        >
-          {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
-          {leftSection === undefined ? null : (
-            <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
-              {leftSection}
-            </span>
-          )}
-          <span className={cx(loading && styles.labelLoading)}>{children}</span>
-          {rightSection === undefined ? null : (
-            <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
-              {rightSection}
-            </span>
-          )}
-        </m.button>
-      </LazyMotion>
+      <m.button
+        {...dom_props}
+        ref={ref}
+        className={cx(styles.button({ size, fullWidth }), sprinkle_class, className)}
+        style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
+        data-hovered={isHovered ? "true" : undefined}
+        data-pressed={isPressed ? "true" : undefined}
+        data-focus-visible={isFocusVisible ? "true" : undefined}
+        data-disabled={is_disabled ? "true" : undefined}
+        data-loading={loading ? "true" : undefined}
+        data-variant={variant}
+        data-glow-idle={glow_idle ? "true" : undefined}
+        data-gradient-animated={
+          resolved.gradientAnimated && prefers_reduced !== true ? "true" : undefined
+        }
+        aria-busy={loading || undefined}
+        animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
+        transition={
+          is_animated
+            ? {
+                type: "spring",
+                stiffness: spring.stiffness,
+                damping: spring.damping,
+                mass: spring.mass,
+              }
+            : { duration: 0 }
+        }
+      >
+        {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
+        {leftSection === undefined ? null : (
+          <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+            {leftSection}
+          </span>
+        )}
+        <span className={cx(loading && styles.labelLoading)}>{children}</span>
+        {rightSection === undefined ? null : (
+          <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+            {rightSection}
+          </span>
+        )}
+      </m.button>
     );
   },
 );
