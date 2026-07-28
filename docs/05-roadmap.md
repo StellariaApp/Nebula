@@ -40,6 +40,15 @@
 **Entregables**: changesets (mini-ADR); auditoría de exports/subpaths/sideEffects/peers; publicación npm bajo org `stellaria` de tokens/hooks/themes/icons/web (+ decisión del paquete paraguas `@stellaria/nebula` — ADR-013); READMEs de consumo; verificación de instalación en proyecto Next 16 virgen.
 **Gate**: install limpio en proyecto virgen → Button+tema funcionando; budgets publicados; ⚠️ requiere confirmar **licencia y visibilidad** (supuesto #11).
 
+Dos obligaciones del consumidor que la librería no puede resolver por él y que el README debe declarar:
+
+- **Cargar la tipografía** (ADR-031). La librería no emite `@font-face`; el tema declara la familia y la
+  app la carga o sobrescribe `font.family`. Sin esto recibe una tipografía distinta de la del catálogo,
+  en silencio.
+- **No envolver `NebulaProvider` en un ancestro con `transform`, `filter` o `contain`** (ADR-030). El
+  contenido de overlay se portaliza dentro del subárbol del provider; esas propiedades crean bloque
+  contenedor y desplazarían el overlay.
+
 ### W6 — Premium web
 
 **Entregables**: registry privado + mecánica de licencias (mini-ADR — supuesto #5); superficie **web** de `@stellaria/nebula-commerce`, `-sales`, `-payments`, `-people`, `-maps` (entidades duck-typed, cero imports de apps); galería Premium en playground web; publicación premium web.

@@ -1,8 +1,8 @@
 import type { ThemeFont } from "../theme/theme.js";
 
 export const family = {
-  sans: "Geist, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
-  mono: "Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+  sans: "Geist Variable, Geist, Geist Sans, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+  mono: "Geist Mono Variable, Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
 } as const;
 
 export const size = {

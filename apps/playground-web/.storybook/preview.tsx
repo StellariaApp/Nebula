@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+
 import type { Decorator, Preview } from "@storybook/react-vite";
 
 import { officialThemes } from "@stellaria/nebula-themes";
