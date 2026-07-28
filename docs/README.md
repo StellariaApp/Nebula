@@ -11,7 +11,7 @@
 | [04-migration-map.md](04-migration-map.md)                     | Stellaria→Nebula archivo por archivo; estrategia futura de adopción en apps (codemod directo, post-librería)                                                                                             |
 | [05-roadmap.md](05-roadmap.md)                                 | Roadmap por etapas: F0 fundaciones · W1–W6 web (dev→publicación→premium) · TC theme-creator · N1–N5 native (dev→publicación→premium) · R review/migración                                                |
 | [06-visual-language.md](06-visual-language.md)                 | **Especificación visual vinculante** (ADR-024): jerarquía, ritmo, densidad, elevación, effects budget y las láminas `Foundations/Visual QA`                                                              |
-| [adr/](adr/)                                                   | 29 ADRs (ADR-001…ADR-029)                                                                                                                                                                                |
+| [adr/](adr/)                                                   | 37 ADRs (ADR-001…ADR-037)                                                                                                                                                                                |
 | [api/](api/)                                                   | Anexos de inventario: [fonicredito](api/fonicredito-components.md) (52, props completas), [tfv](api/tfv-components.md) (117, props completas), [stellaria](api/stellaria-native.md) (39, estado/calidad) |
 | [patterns/](patterns/)                                         | [Plantilla canónica del componente web](patterns/web-component-template.md) — vinculante en W2–W4                                                                                                        |
 | [reviews/](reviews/)                                           | Auditorías puntuales con fecha. **No declaran decisiones cerradas**: lo que se acepta de una review se recoge en un ADR y en el doc correspondiente                                                      |
@@ -33,6 +33,8 @@ dependencias ni un budget. Donde contradice una decisión vigente, la contradicc
 review y se resuelve con ADR: así se hizo en
 [stellaria-ui-convergence-2026-07-27.md](reviews/stellaria-ui-convergence-2026-07-27.md), que originó
 ADR-027, ADR-028 y ADR-029, y donde el mínimo tipográfico de 12 px de ADR-024 prevaleció sobre los
-9–11 px de la guía.
+9–11 px de la guía. El mismo patrón produjo
+[code-design-audit-2026-07-28.md](reviews/code-design-audit-2026-07-28.md), del que salieron ADR-032 a
+ADR-037.
 
 **Decisiones cerradas en esta etapa**: scope npm **`@stellaria/nebula-*`** (org existente `stellaria`; ADR-013) · React Aria hooks (web) · Storybook 10 unificado · TS-first + temas JSON · lucide + registry · escala 50–950 · motion v12 · form-atoms duck-typed · victory-native XL · TypeScript 7 · dominios premium (@stellaria/nebula-commerce|sales|payments) · @stellaria/nebula-native-camera · TabBar con adapter · Card dual (compound + CardComplex) · Conditional unario+fallback · EditorImage peer-Pintura · librería completa antes de migrar apps.

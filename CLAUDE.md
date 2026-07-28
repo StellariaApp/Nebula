@@ -17,7 +17,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 | `docs/04-migration-map.md`                | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps                     |
 | `docs/05-roadmap.md`                      | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes                        |
 | `docs/patterns/web-component-template.md` | **Plantilla canónica del componente web** — obligatoria al escribir cualquier componente |
-| `docs/adr/ADR-001…020`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
+| `docs/adr/ADR-001…037`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
 | `docs/api/*.md`                           | Estado real de los repos fuente (anexos A/B/C)                                           |
 | `prompts/`                                | Prompts de ejecución por fase                                                            |
 
