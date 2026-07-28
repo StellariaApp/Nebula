@@ -1,6 +1,17 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 
+import { breakpoints } from "@stellaria/nebula-tokens";
+
 import { vars } from "../../theme/contract.css.js";
+
+const CONDITIONS = {
+  base: {},
+  phone: { "@media": `screen and (min-width: ${String(breakpoints.phone)}px)` },
+  tablet: { "@media": `screen and (min-width: ${String(breakpoints.tablet)}px)` },
+  laptop: { "@media": `screen and (min-width: ${String(breakpoints.laptop)}px)` },
+  desktop: { "@media": `screen and (min-width: ${String(breakpoints.desktop)}px)` },
+  wide: { "@media": `screen and (min-width: ${String(breakpoints.wide)}px)` },
+} as const;
 
 type Shade = keyof typeof vars.color.primary;
 
@@ -46,10 +57,11 @@ const PALETTE_COLORS = {
   ...ScaleEntries("info", vars.color.semantic.info),
 };
 
-const UNRESPONSIVE = defineProperties({
+const RESPONSIVE = defineProperties({
+  conditions: CONDITIONS,
+  defaultCondition: "base",
   properties: {
     display: ["none", "flex", "block", "inline", "inline-flex", "inline-block", "grid"],
-    position: ["relative", "absolute", "fixed", "sticky", "static"],
     flexDirection: ["row", "column", "row-reverse", "column-reverse"],
     flexWrap: ["nowrap", "wrap", "wrap-reverse"],
     alignItems: ["flex-start", "flex-end", "center", "stretch", "baseline"],
@@ -62,18 +74,8 @@ const UNRESPONSIVE = defineProperties({
       "space-around",
       "space-evenly",
     ],
-    overflow: ["visible", "hidden", "scroll", "auto"],
-    overflowX: ["visible", "hidden", "scroll", "auto"],
-    overflowY: ["visible", "hidden", "scroll", "auto"],
     textAlign: ["left", "center", "right", "justify"],
-    textTransform: ["none", "uppercase", "lowercase", "capitalize"],
-    textDecoration: ["none", "underline", "line-through"],
-    whiteSpace: ["normal", "nowrap", "pre", "pre-wrap", "pre-line"],
-    fontFamily: vars.font.family,
     fontSize: vars.font.size,
-    fontWeight: vars.font.weight,
-    lineHeight: vars.font.lineHeight,
-    letterSpacing: vars.font.letterSpacing,
     padding: vars.space,
     paddingInline: vars.space,
     paddingBlock: vars.space,
@@ -91,16 +93,6 @@ const UNRESPONSIVE = defineProperties({
     gap: vars.space,
     columnGap: vars.space,
     rowGap: vars.space,
-    borderRadius: vars.radius,
-    borderTopLeftRadius: vars.radius,
-    borderTopRightRadius: vars.radius,
-    borderBottomLeftRadius: vars.radius,
-    borderBottomRightRadius: vars.radius,
-    color: PALETTE_COLORS,
-    background: PALETTE_COLORS,
-    borderColor: ROLE_COLORS,
-    boxShadow: vars.shadow,
-    zIndex: vars.zIndex,
   },
   shorthands: {
     p: ["padding"],
@@ -119,6 +111,41 @@ const UNRESPONSIVE = defineProperties({
     mr: ["marginRight"],
     gapx: ["columnGap"],
     gapy: ["rowGap"],
+    direction: ["flexDirection"],
+    wrap: ["flexWrap"],
+    align: ["alignItems"],
+    justify: ["justifyContent"],
+    self: ["alignSelf"],
+    ta: ["textAlign"],
+    fz: ["fontSize"],
+  },
+});
+
+const UNRESPONSIVE = defineProperties({
+  properties: {
+    position: ["relative", "absolute", "fixed", "sticky", "static"],
+    overflow: ["visible", "hidden", "scroll", "auto"],
+    overflowX: ["visible", "hidden", "scroll", "auto"],
+    overflowY: ["visible", "hidden", "scroll", "auto"],
+    textTransform: ["none", "uppercase", "lowercase", "capitalize"],
+    textDecoration: ["none", "underline", "line-through"],
+    whiteSpace: ["normal", "nowrap", "pre", "pre-wrap", "pre-line"],
+    fontFamily: vars.font.family,
+    fontWeight: vars.font.weight,
+    lineHeight: vars.font.lineHeight,
+    letterSpacing: vars.font.letterSpacing,
+    borderRadius: vars.radius,
+    borderTopLeftRadius: vars.radius,
+    borderTopRightRadius: vars.radius,
+    borderBottomLeftRadius: vars.radius,
+    borderBottomRightRadius: vars.radius,
+    color: PALETTE_COLORS,
+    background: PALETTE_COLORS,
+    borderColor: ROLE_COLORS,
+    boxShadow: vars.shadow,
+    zIndex: vars.zIndex,
+  },
+  shorthands: {
     r: ["borderRadius"],
     rt: ["borderTopLeftRadius", "borderTopRightRadius"],
     rb: ["borderBottomLeftRadius", "borderBottomRightRadius"],
@@ -129,22 +156,15 @@ const UNRESPONSIVE = defineProperties({
     bdc: ["borderColor"],
     shadow: ["boxShadow"],
     z: ["zIndex"],
-    direction: ["flexDirection"],
-    wrap: ["flexWrap"],
-    align: ["alignItems"],
-    justify: ["justifyContent"],
-    self: ["alignSelf"],
-    ta: ["textAlign"],
     tt: ["textTransform"],
     td: ["textDecoration"],
     ws: ["whiteSpace"],
     ff: ["fontFamily"],
-    fz: ["fontSize"],
     fw: ["fontWeight"],
     lh: ["lineHeight"],
     ls: ["letterSpacing"],
   },
 });
 
-export const sprinkles = createSprinkles(UNRESPONSIVE);
+export const sprinkles = createSprinkles(RESPONSIVE, UNRESPONSIVE);
 export type Sprinkles = Parameters<typeof sprinkles>[0];

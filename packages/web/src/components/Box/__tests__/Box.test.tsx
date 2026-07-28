@@ -50,6 +50,23 @@ describe("Box", () => {
     expect(box.getAttribute("aria-label")).toBe("acción");
   });
 
+  it("una style prop responsive emite una clase por condición", () => {
+    render(<Box data-testid="plana" p="sm" />);
+    render(<Box data-testid="responsive" p={{ base: "sm", tablet: "lg", wide: "xxl" }} />);
+
+    const plana = screen.getByTestId("plana").className.trim().split(/\s+/);
+    const responsive = screen.getByTestId("responsive").className.trim().split(/\s+/);
+
+    expect(plana).toHaveLength(1);
+    expect(responsive).toHaveLength(3);
+    expect(responsive[0]).toBe(plana[0]);
+  });
+
+  it("una prop no responsive no admite condiciones", () => {
+    render(<Box data-testid="box" c="text.primary" r="md" />);
+    expect(screen.getByTestId("box").className.trim().split(/\s+/)).toHaveLength(2);
+  });
+
   it("expone el ref del elemento renderizado", () => {
     let node: Element | null = null;
     render(
