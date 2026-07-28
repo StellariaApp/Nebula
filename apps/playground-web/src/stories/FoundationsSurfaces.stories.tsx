@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ShadowLevel } from "@stellaria/nebula-tokens";
 import { Box, Flex, Paper, Text, Title } from "@stellaria/nebula-web";
 
-import { ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Surfaces",
@@ -116,6 +116,7 @@ export const Composition: Story = {
  * el componente está leyendo algo fuera del tema.
  */
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
       <Flex direction="column" gapy="md">

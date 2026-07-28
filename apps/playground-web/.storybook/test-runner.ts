@@ -5,7 +5,10 @@ import { checkA11y, injectAxe } from "axe-playwright";
  * Gate a11y (docs/03 §4.1): axe sobre TODAS las stories vía test-runner + Playwright
  * (ADR-017). Fallo = exit code ≠ 0. La regla `region` (todo el contenido dentro de
  * landmarks) se desactiva: las stories son fragmentos de componente, no páginas.
- * Una story puede exonerarse con `parameters.a11y.disable = true`.
+ * Una story puede exonerarse con `parameters.a11y.disable = true`, o desactivar reglas
+ * concretas con `parameters.a11y.rules`. Lo usan las láminas de comparación de temas:
+ * repiten la misma composición una vez por tema, así que cualquier landmark que contenga
+ * aparece duplicado por construcción y `landmark-unique` no es aplicable.
  *
  * El contexto es `body`, no `#storybook-root`: los overlays (Popover, Tooltip, Modal,
  * Drawer, Menu) se renderizan en un portal fuera de la raíz de la story, así que
@@ -25,7 +28,9 @@ const config: TestRunnerConfig = {
   },
   async postVisit(page, context) {
     const story_context = await getStoryContext(page, context);
-    const params = story_context.parameters as { a11y?: { disable?: boolean } };
+    const params = story_context.parameters as {
+      a11y?: { disable?: boolean; rules?: Record<string, { enabled: boolean }> };
+    };
     if (params.a11y?.disable === true) return;
 
     await page.waitForTimeout(SETTLE_MS);
@@ -33,7 +38,9 @@ const config: TestRunnerConfig = {
     await checkA11y(page, "body", {
       detailedReport: true,
       detailedReportOptions: { html: true },
-      axeOptions: { rules: { region: { enabled: false } } },
+      axeOptions: {
+        rules: { region: { enabled: false }, ...(params.a11y?.rules ?? {}) },
+      },
     });
   },
 };

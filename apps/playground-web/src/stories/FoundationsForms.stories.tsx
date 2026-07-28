@@ -16,7 +16,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Forms",
@@ -126,6 +126,7 @@ export const Groups: Story = {
 export const Composition: Story = { ...Groups };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
       <Flex direction="column" gapy="md">

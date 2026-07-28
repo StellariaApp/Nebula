@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Box, Text, Title, type TitleOrder } from "@stellaria/nebula-web";
 
-import { ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta<typeof Title> = {
   title: "Typography/Title",
@@ -65,6 +65,7 @@ export const Composition: Story = {
 };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">

@@ -10,6 +10,10 @@ import {
   type OfficialThemeName,
 } from "@stellaria/nebula-web";
 
+export const MATRIX_A11Y = {
+  a11y: { rules: { "landmark-unique": { enabled: false } } },
+};
+
 export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
   { name: "nebula-dark", label: "nebula-dark" },
   { name: "nebula-light", label: "nebula-light" },

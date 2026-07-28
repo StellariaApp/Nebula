@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { SpacingName } from "@stellaria/nebula-tokens";
 import { Box, Button, Divider, Flex, Paper, Text, Title } from "@stellaria/nebula-web";
 
-import { ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Spacing",
@@ -134,6 +134,7 @@ export const RegionRhythm: Story = {
 export const Composition: Story = { ...RegionRhythm };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix>
       <Flex direction="column" gapy="lg">

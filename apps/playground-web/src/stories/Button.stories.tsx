@@ -3,7 +3,7 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { Box, Button, Text } from "@stellaria/nebula-web";
 
-import { ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
 const VARIANTS = [
   "filled",
@@ -145,6 +145,7 @@ export const ReducedMotion: Story = {
  * misma estructura. Si una variante se rompe en una columna, el componente lee algo fuera del tema.
  */
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: (args) => (
     <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
       <Box display="flex" gap="sm" wrap="wrap">

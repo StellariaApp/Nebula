@@ -3,6 +3,8 @@ import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { Box, Button, Popover, Text, TextInput, Title } from "@stellaria/nebula-web";
 
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
+
 const meta: Meta<typeof Popover> = {
   title: "Overlays/Popover",
   component: Popover,
@@ -68,8 +70,8 @@ export const Composition: Story = {
 export const Dark: Story = { ...Default, globals: { theme: "nebula-dark" } };
 
 export const AllThemes: Story = {
-  ...Composition,
-  globals: { theme: "sober-light" },
+  parameters: MATRIX_A11Y,
+  render: (args, ctx) => <ThemeMatrix>{Composition.render?.(args, ctx)}</ThemeMatrix>,
 };
 
 export const ReducedMotion: Story = { ...Default, globals: { reducedMotion: "reduce" } };

@@ -15,6 +15,8 @@ import {
   ToastProvider,
 } from "@stellaria/nebula-web";
 
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
+
 const meta: Meta = {
   title: "Feedback/Overview",
   parameters: { layout: "padded" },
@@ -185,7 +187,10 @@ export const Composition: Story = {
 
 export const Dark: Story = { ...Composition, globals: { theme: "nebula-dark" } };
 
-export const AllThemes: Story = { ...Composition, globals: { theme: "sober-light" } };
+export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
+  render: (args, ctx) => <ThemeMatrix>{Composition.render?.(args, ctx)}</ThemeMatrix>,
+};
 
 export const ReducedMotion: Story = { ...Progresses, globals: { reducedMotion: "reduce" } };
 

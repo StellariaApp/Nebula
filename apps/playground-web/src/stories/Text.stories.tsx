@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Box, Text } from "@stellaria/nebula-web";
 
-import { ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
 const SIZES = ["h1", "h2", "h3", "h4", "h5", "h6", "body1", "body2", "body3", "caption"] as const;
 
@@ -133,6 +133,7 @@ export const Composition: Story = {
 };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="xs">

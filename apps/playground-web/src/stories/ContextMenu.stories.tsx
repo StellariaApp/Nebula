@@ -4,6 +4,8 @@ import { expect, fireEvent, within } from "storybook/test";
 import { Box, ContextMenu, Paper, Text, Title } from "@stellaria/nebula-web";
 import type { MenuItemData } from "@stellaria/nebula-web";
 
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
+
 const meta: Meta<typeof ContextMenu> = {
   title: "Overlays/ContextMenu",
   component: ContextMenu,
@@ -52,7 +54,10 @@ export const Composition: Story = {
 
 export const Dark: Story = { ...Composition, globals: { theme: "nebula-dark" } };
 
-export const AllThemes: Story = { ...Composition, globals: { theme: "playful" } };
+export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
+  render: (args, ctx) => <ThemeMatrix>{Composition.render?.(args, ctx)}</ThemeMatrix>,
+};
 
 export const ReducedMotion: Story = { ...Default, globals: { reducedMotion: "reduce" } };
 

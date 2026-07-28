@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Box, Divider, Flex, Text, Title } from "@stellaria/nebula-web";
 
-import { ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Typography",
@@ -160,6 +160,7 @@ export const Bilingual: Story = {
 export const Composition: Story = { ...Bilingual };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix>
       <Box style={{ maxWidth: "40ch" }}>

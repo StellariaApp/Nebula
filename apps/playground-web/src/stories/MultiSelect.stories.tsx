@@ -4,6 +4,8 @@ import { expect, userEvent, within } from "storybook/test";
 import { Box, MultiSelect, Text, Title } from "@stellaria/nebula-web";
 import type { SelectOption } from "@stellaria/nebula-web";
 
+import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
+
 const meta: Meta<typeof MultiSelect> = {
   title: "Inputs/MultiSelect",
   component: MultiSelect,
@@ -85,7 +87,10 @@ export const Composition: Story = {
 
 export const Dark: Story = { ...Composition, globals: { theme: "nebula-dark" } };
 
-export const AllThemes: Story = { ...Composition, globals: { theme: "sober-light" } };
+export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
+  render: (args, ctx) => <ThemeMatrix>{Composition.render?.(args, ctx)}</ThemeMatrix>,
+};
 
 export const ReducedMotion: Story = { ...Default, globals: { reducedMotion: "reduce" } };
 

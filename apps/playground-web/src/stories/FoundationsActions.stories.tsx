@@ -6,7 +6,7 @@ import { CommonPack } from "@stellaria/nebula-icons/packs";
 import type { Size, Variant } from "@stellaria/nebula-tokens";
 import { ActionIcon, Box, Button, Divider, Flex, Paper, Text, Title } from "@stellaria/nebula-web";
 
-import { ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
 const { Icon } = CreateIcons({ ...CommonPack });
 
@@ -133,6 +133,7 @@ export const Composition: Story = {
 };
 
 export const AllThemes: Story = {
+  parameters: MATRIX_A11Y,
   render: () => (
     <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
       <Flex direction="column" gapy="sm" align="flex-start">
