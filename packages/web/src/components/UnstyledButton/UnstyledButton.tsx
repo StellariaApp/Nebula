@@ -5,7 +5,7 @@ import { forwardRef, useRef, type MouseEvent as ReactMouseEvent } from "react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { PressProps } from "../../utils/press-props.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./UnstyledButton.css.js";
 import type { UnstyledButtonProps } from "./UnstyledButton.types.js";
@@ -24,8 +24,14 @@ export const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>
       preventFocusOnPress,
       type,
       children,
-      ...dom_rest
+      style,
+      ...style_and_rest
     } = props;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: dom_rest,
+    } = ExtractStyleProps(style_and_rest);
 
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
@@ -62,7 +68,8 @@ export const UnstyledButton = forwardRef<HTMLButtonElement, UnstyledButtonProps>
       <button
         {...dom_props}
         ref={ref}
-        className={cx(styles.unstyled, className)}
+        className={cx(styles.unstyled, sprinkle_class, className)}
+        style={{ ...sprinkle_style, ...style }}
         data-hovered={isHovered ? "true" : undefined}
         data-pressed={isPressed ? "true" : undefined}
         data-focus-visible={isFocusVisible ? "true" : undefined}

@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { ColorExtended, Size, Variant, VariantProps } from "@stellaria/nebula-tokens";
 
 import type { PressLifecycleProps } from "../../utils/press-props.js";
+import type { StyleProps } from "../../utils/style-props.js";
 
 type MotionConflictingProps =
   | "onAnimationStart"
@@ -18,7 +19,9 @@ type MotionConflictingProps =
   | "onDrop";
 
 export interface ActionIconProps
-  extends Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
+  extends
+    Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
+    Omit<StyleProps, "color">,
     PressLifecycleProps {
   variant?: Variant | undefined;
   size?: Size | undefined;
