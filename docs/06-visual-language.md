@@ -108,7 +108,11 @@ produce así un icono cercano a 21 px antes de correcciones ópticas propias del
 Reglas:
 
 - No apilar sombras para compensar superficies indistinguibles.
-- En dark, cada nivel debe distinguirse en la lámina de referencia mediante oclusión + rim/borde.
+- En dark el paso lo carga la **superficie**, no la sombra: negro sobre casi-negro no tiene recorrido.
+  El rim (`inset` claro del borde superior) progresa con el nivel y es el cue que separa dos niveles que
+  comparten superficie. Como los cinco niveles se reparten sobre cuatro roles, en dark se perciben tres
+  escalones de superficie —sunken, raised (1–2) y overlay (3–4)— más esa progresión; los pares que
+  colapsan no conviven adyacentes y no se compensan ampliando el contrato (ADR-028).
 - Una colección de cards usa el mismo nivel; hover no “salta” más de un nivel.
 - `withBorder` es parte del lenguaje de elevación, no una decoración arbitraria.
 

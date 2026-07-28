@@ -66,5 +66,12 @@
   vuelve a requerir ADR.
 - `docs/06` §6 queda enmendado en la calibración del glass, no en su presupuesto.
 - Las capturas dark anteriores a esta fecha dejan de ser referencia.
+- **Corrección tras la revisión visual (2026-07-28)**: la primera calibración escalaba la oclusión y
+  dejaba el rim casi plano (`sm` y `md` compartían 0,06). La lámina renderizada demostró que la oclusión
+  no produce escalera —negro sobre casi-negro no tiene recorrido— y que el cue real es el rim. Sus
+  opacidades pasan a ser estrictamente crecientes (0,04 → 0,20). La escalera de `docs/06` §5 declara
+  cinco niveles sobre cuatro roles de superficie, así que en dark se perciben **tres escalones de
+  superficie** más la progresión del rim; los pares que colapsan (1–2 y 3–4) no conviven adyacentes en
+  una interfaz real y no se compensan ampliando el contrato.
 - `packages/tokens/src/tokens/palettes.ts` se regeneró con `pnpm gen:palette regen`; solo cambió la
   escala `dark`.

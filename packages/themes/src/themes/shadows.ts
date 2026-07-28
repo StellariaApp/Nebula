@@ -14,7 +14,7 @@ export const darkShadows = {
     },
   },
   xs: {
-    web: `${RIM} rgba(255, 255, 255, 0.05), 0 2px 4px rgba(0, 0, 0, 0.45)`,
+    web: `${RIM} rgba(255, 255, 255, 0.07), 0 2px 4px rgba(0, 0, 0, 0.45)`,
     native: {
       elevation: 2,
       shadowColor: "#000000",
@@ -24,7 +24,7 @@ export const darkShadows = {
     },
   },
   sm: {
-    web: `${RIM} rgba(255, 255, 255, 0.06), 0 4px 10px rgba(0, 0, 0, 0.50)`,
+    web: `${RIM} rgba(255, 255, 255, 0.10), 0 4px 10px rgba(0, 0, 0, 0.50)`,
     native: {
       elevation: 4,
       shadowColor: "#000000",
@@ -34,7 +34,7 @@ export const darkShadows = {
     },
   },
   md: {
-    web: `${RIM} rgba(255, 255, 255, 0.06), 0 10px 24px rgba(0, 0, 0, 0.55)`,
+    web: `${RIM} rgba(255, 255, 255, 0.13), 0 10px 24px rgba(0, 0, 0, 0.55)`,
     native: {
       elevation: 6,
       shadowColor: "#000000",
@@ -44,7 +44,7 @@ export const darkShadows = {
     },
   },
   lg: {
-    web: `${RIM} rgba(255, 255, 255, 0.07), 0 18px 42px rgba(0, 0, 0, 0.60)`,
+    web: `${RIM} rgba(255, 255, 255, 0.16), 0 18px 42px rgba(0, 0, 0, 0.60)`,
     native: {
       elevation: 10,
       shadowColor: "#000000",
@@ -54,7 +54,7 @@ export const darkShadows = {
     },
   },
   xl: {
-    web: `${RIM} rgba(255, 255, 255, 0.08), 0 26px 58px rgba(0, 0, 0, 0.66)`,
+    web: `${RIM} rgba(255, 255, 255, 0.18), 0 26px 58px rgba(0, 0, 0, 0.66)`,
     native: {
       elevation: 14,
       shadowColor: "#000000",
@@ -64,7 +64,7 @@ export const darkShadows = {
     },
   },
   xxl: {
-    web: `${RIM} rgba(255, 255, 255, 0.09), 0 36px 84px rgba(0, 0, 0, 0.72)`,
+    web: `${RIM} rgba(255, 255, 255, 0.20), 0 36px 84px rgba(0, 0, 0, 0.72)`,
     native: {
       elevation: 20,
       shadowColor: "#000000",
