@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 
 import type { RadiusName, Unit } from "@stellaria/nebula-tokens";
+import type { StyleProps } from "../../utils/style-props.js";
 
 export type ImageFit = "cover" | "contain" | "fill" | "none" | "scale-down";
 
-export interface ImageProps {
+export interface ImageProps extends Omit<StyleProps, "color"> {
   src?: string | undefined;
   alt: string;
   width?: Unit | undefined;

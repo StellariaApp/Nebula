@@ -5,7 +5,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { LengthToCss } from "../../utils/token-css.js";
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Loader.css.js";
 import type { LoaderProps } from "./Loader.types.js";
@@ -20,7 +20,15 @@ function ResolveSize(size: LoaderProps["size"]): string {
 }
 
 export function Loader(props: LoaderProps): ReactElement {
-  const { variant = "spinner", size, color = "primary", label = "Cargando", className } = props;
+  const {
+    variant = "spinner",
+    size,
+    color = "primary",
+    label = "Cargando",
+    className,
+    ...style_rest
+  } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const css_vars = assignInlineVars({
     [loaderSize]: ResolveSize(size),
@@ -29,8 +37,8 @@ export function Loader(props: LoaderProps): ReactElement {
 
   return (
     <span
-      className={cx(styles.root, className)}
-      style={css_vars}
+      className={cx(styles.root, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
       role="status"
       aria-label={label}
       data-variant={variant}

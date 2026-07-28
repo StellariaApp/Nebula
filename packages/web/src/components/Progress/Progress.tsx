@@ -6,7 +6,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Progress.css.js";
 import type { ProgressProps, ProgressSegment } from "./Progress.types.js";
@@ -37,7 +37,9 @@ function Bar(props: ProgressProps): ReactElement {
     label,
     className,
     color = "primary",
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const list = Normalize(props);
   const total = list.reduce((sum, segment) => sum + segment.value, 0);
@@ -51,8 +53,8 @@ function Bar(props: ProgressProps): ReactElement {
   if (indeterminate) {
     return (
       <div
-        className={cx(styles.track, className)}
-        style={css_vars}
+        className={cx(styles.track, sprinkle_class, className)}
+        style={{ ...css_vars, ...sprinkle_style }}
         role="progressbar"
         {...(label === undefined ? {} : { "aria-label": label })}
       >

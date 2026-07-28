@@ -9,7 +9,7 @@ import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Image.css.js";
 import type { ImageProps } from "./Image.types.js";
@@ -35,7 +35,9 @@ export function Image(props: ImageProps): ReactElement {
     placeholder,
     loading = "lazy",
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -53,7 +55,11 @@ export function Image(props: ImageProps): ReactElement {
   });
 
   return (
-    <span className={cx(styles.root, className)} style={css_vars} data-status={status}>
+    <span
+      className={cx(styles.root, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
+      data-status={status}
+    >
       {broken ? (
         <span className={styles.state}>{fallback ?? alt}</span>
       ) : (

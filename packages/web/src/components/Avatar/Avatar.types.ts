@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 
 import type { SemanticScaleName, Size, Unit } from "@stellaria/nebula-tokens";
+import type { StyleProps } from "../../utils/style-props.js";
 
-export interface AvatarProps {
+export interface AvatarProps extends Omit<StyleProps, "color"> {
   src?: string | undefined;
   alt?: string | undefined;
   name?: string | undefined;

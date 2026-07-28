@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { Transition } from "../Transition/Transition.js";
 
@@ -35,7 +35,9 @@ export function FieldError(props: FieldErrorProps): ReactElement {
     offset = 12,
     validatingLabel = "Validando…",
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const explicit_message = typeof error === "string" ? error : undefined;
   const field_invalid = field !== undefined && field.touched && field.status === "invalid";
@@ -72,7 +74,10 @@ export function FieldError(props: FieldErrorProps): ReactElement {
   });
 
   return (
-    <div className={cx(styles.wrapper, className)} style={css_vars}>
+    <div
+      className={cx(styles.wrapper, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
+    >
       {children}
       <Transition mounted={visible} transition="scale" className={POSITION_CLASS[position]}>
         <span role="alert">{label}</span>

@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ScaleShade } from "../../utils/scale.js";
 import { LengthToCss } from "../../utils/token-css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Avatar.css.js";
 import type { AvatarProps } from "./Avatar.types.js";
@@ -30,7 +30,18 @@ export function Initials(name: string): string {
 }
 
 export function Avatar(props: AvatarProps): ReactElement {
-  const { src, alt, name, children, size, radius = "full", color = "primary", className } = props;
+  const {
+    src,
+    alt,
+    name,
+    children,
+    size,
+    radius = "full",
+    color = "primary",
+    className,
+    ...style_rest
+  } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const [failed, set_failed] = useState(false);
   const shows_image = src !== undefined && src !== "" && !failed;
@@ -46,8 +57,8 @@ export function Avatar(props: AvatarProps): ReactElement {
 
   return (
     <span
-      className={cx(styles.avatar({ radius }), className)}
-      style={css_vars}
+      className={cx(styles.avatar({ radius }), sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
       {...(shows_image || label === undefined ? {} : { role: "img", "aria-label": label })}
     >
       {shows_image ? (

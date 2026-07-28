@@ -5,7 +5,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Skeleton.css.js";
 import type { SkeletonProps } from "./Skeleton.types.js";
@@ -34,7 +34,9 @@ export function Skeleton(props: SkeletonProps): ReactElement {
     lines = 1,
     label = "Cargando contenido",
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   if (!loading) return <>{children}</>;
 
@@ -48,7 +50,12 @@ export function Skeleton(props: SkeletonProps): ReactElement {
 
   if (lines > 1) {
     return (
-      <div className={cx(styles.stack, className)} role="status" aria-label={label}>
+      <div
+        className={cx(styles.stack, sprinkle_class, className)}
+        style={sprinkle_style}
+        role="status"
+        aria-label={label}
+      >
         {Array.from({ length: lines }, (_, index) => (
           <span
             key={index}
@@ -64,7 +71,14 @@ export function Skeleton(props: SkeletonProps): ReactElement {
     );
   }
 
-  return <span className={cx(block, className)} style={css_vars} role="status" aria-label={label} />;
+  return (
+    <span
+      className={cx(block, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
+      role="status"
+      aria-label={label}
+    />
+  );
 }
 
 Skeleton.displayName = "Skeleton";

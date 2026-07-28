@@ -3,15 +3,16 @@
 import type { ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { domAnimation, LazyMotion, m, useReducedMotion, type MotionStyle } from "motion/react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./EmptyState.css.js";
 import type { EmptyStateProps } from "./EmptyState.types.js";
 
 export function EmptyState(props: EmptyStateProps): ReactElement {
-  const { title, description, icon, actions, size = "md", className } = props;
+  const { title, description, icon, actions, size = "md", className, ...style_rest } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -21,7 +22,8 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
   return (
     <LazyMotion features={domAnimation} strict>
       <m.div
-        className={cx(styles.root({ size }), className)}
+        className={cx(styles.root({ size }), sprinkle_class, className)}
+        {...(sprinkle_style === undefined ? {} : { style: sprinkle_style as MotionStyle })}
         initial={is_off ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={

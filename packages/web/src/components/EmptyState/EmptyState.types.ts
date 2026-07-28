@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import type { StyleProps } from "../../utils/style-props.js";
 
-export interface EmptyStateProps {
+export interface EmptyStateProps extends StyleProps {
   title: ReactNode;
   description?: ReactNode | undefined;
   icon?: ReactNode | undefined;

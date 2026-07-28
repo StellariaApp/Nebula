@@ -1,20 +1,16 @@
 import type { ReactNode } from "react";
 
 import type { FieldStatus, NebulaField } from "@stellaria/nebula-tokens";
+import type { StyleProps } from "../../utils/style-props.js";
 
 export type ErrorDisplay = "tooltip" | "text";
 
 export type FieldErrorPosition =
-  | "top"
-  | "top-left"
-  | "top-right"
-  | "bottom"
-  | "bottom-left"
-  | "bottom-right";
+  "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right";
 
 export type FieldErrorSource = Pick<NebulaField<unknown>, "status" | "error" | "touched">;
 
-export interface FieldErrorProps {
+export interface FieldErrorProps extends Omit<StyleProps, "color" | "position"> {
   children: ReactNode;
   field?: FieldErrorSource | undefined;
   error?: string | boolean | undefined;
