@@ -1,0 +1,163 @@
+import { officialThemes } from "@stellaria/nebula-themes";
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import { describe, expect, it } from "vitest";
+
+import * as css from "../../styles/motion.css.js";
+import { vars } from "../../theme/contract.css.js";
+import {
+  MotionOff,
+  Spring,
+  Stagger,
+  StaggerDelay,
+  SurfaceTransition,
+  ToBezier,
+  Tween,
+  type MotionContext,
+} from "../motion.js";
+
+const theme = officialThemes["nebula-dark"];
+const live: MotionContext = { theme, reduced: false };
+const off: MotionContext = { theme, reduced: true };
+
+function WithTier(tier: NebulaTheme["motion"]["tier"]): MotionContext {
+  return { theme: { ...theme, motion: { ...theme.motion, tier } }, reduced: false };
+}
+
+describe("composiciones CSS", () => {
+  it("apuntan a las vars del tema y no a valores horneados", () => {
+    for (const composition of [css.interaction, css.layout, css.overlay, css.value]) {
+      expect(composition.transitionDuration).toMatch(/^var\(--/);
+      expect(composition.transitionTimingFunction).toMatch(/^var\(--/);
+    }
+    expect(css.interaction.transitionDuration).toBe(vars.motion.duration.fast);
+    expect(css.interaction.transitionTimingFunction).toBe(vars.motion.easing.standard);
+  });
+
+  it("interaction no transiciona transform, que es del dominio de motion", () => {
+    expect(css.interaction.transitionProperty).not.toContain("transform");
+    expect(css.layout.transitionProperty).toContain("transform");
+  });
+
+  it("el idioma de reduced-motion es único y no usa el truco de 0.01ms", () => {
+    expect(css.still).toEqual({ transitionProperty: "none", animationName: "none" });
+    expect(css.reducedMotion["@media"][css.reducedMedia]).toEqual(css.still);
+  });
+});
+
+describe("MotionOff", () => {
+  it("se apaga con prefers-reduced-motion y con el tier minimal", () => {
+    expect(MotionOff(live)).toBe(false);
+    expect(MotionOff(off)).toBe(true);
+    expect(MotionOff(WithTier("minimal"))).toBe(true);
+    expect(MotionOff(WithTier("expressive"))).toBe(false);
+  });
+});
+
+describe("ToBezier", () => {
+  it("traduce la cadena del tema a la tupla que motion acepta", () => {
+    expect(ToBezier("cubic-bezier(0.2, 0, 0, 1)")).toEqual([0.2, 0, 0, 1]);
+    expect(ToBezier("cubic-bezier(0.34, 1.56, 0.64, 1)")).toEqual([0.34, 1.56, 0.64, 1]);
+  });
+
+  it("devuelve undefined ante una curva no parseable en vez de romper", () => {
+    expect(ToBezier("ease-in-out")).toBeUndefined();
+    expect(ToBezier("cubic-bezier(a, b, c, d)")).toBeUndefined();
+  });
+});
+
+describe("Spring", () => {
+  it("traduce el spring del tema", () => {
+    expect(Spring("snappy", live)).toEqual({
+      type: "spring",
+      stiffness: theme.motion.spring.snappy.stiffness,
+      damping: theme.motion.spring.snappy.damping,
+      mass: theme.motion.spring.snappy.mass,
+    });
+  });
+
+  it("degrada a duración cero cuando el motion está apagado", () => {
+    expect(Spring("default", off)).toEqual({ duration: 0 });
+    expect(Spring("default", WithTier("minimal"))).toEqual({ duration: 0 });
+  });
+});
+
+describe("Tween", () => {
+  it("convierte la duración del tema a segundos y la curva a tupla", () => {
+    expect(Tween("fast", "standard", live)).toEqual({
+      type: "tween",
+      duration: theme.motion.duration.fast / 1000,
+      ease: [0.2, 0, 0, 1],
+    });
+  });
+
+  it("acepta una duración literal en milisegundos", () => {
+    expect(Tween(90, "accelerate", live)).toMatchObject({ duration: 0.09 });
+  });
+
+  it("degrada a duración cero cuando el motion está apagado", () => {
+    expect(Tween("base", "standard", off)).toEqual({ duration: 0 });
+  });
+});
+
+describe("SurfaceTransition", () => {
+  it("da física distinta por superficie en la entrada", () => {
+    expect(SurfaceTransition("popover", "enter", live)).toMatchObject({
+      type: "spring",
+      stiffness: theme.motion.spring.snappy.stiffness,
+    });
+    expect(SurfaceTransition("modal", "enter", live)).toMatchObject({
+      type: "spring",
+      stiffness: theme.motion.spring.default.stiffness,
+    });
+    expect(SurfaceTransition("toast", "enter", live)).toMatchObject({
+      type: "spring",
+      stiffness: theme.motion.spring.gentle.stiffness,
+    });
+  });
+
+  it("el tooltip entra por tween, sin spring", () => {
+    expect(SurfaceTransition("tooltip", "enter", live)).toMatchObject({
+      type: "tween",
+      duration: theme.motion.duration.fast / 1000,
+    });
+  });
+
+  it("toda salida es un tween acelerado y más corto que su entrada", () => {
+    const surfaces = ["tooltip", "popover", "menu", "modal", "drawer", "toast"] as const;
+    const accelerate = ToBezier(theme.motion.easing.accelerate);
+
+    for (const surface of surfaces) {
+      const exit = SurfaceTransition(surface, "exit", live);
+      expect(exit).toMatchObject({ type: "tween", ease: accelerate });
+
+      const reference =
+        surface === "tooltip" ? theme.motion.duration.fast : theme.motion.duration.base;
+      expect(exit.duration).toBeLessThan(reference / 1000);
+    }
+  });
+
+  it("se apaga entera cuando el motion está apagado", () => {
+    expect(SurfaceTransition("modal", "enter", off)).toEqual({ duration: 0 });
+    expect(SurfaceTransition("modal", "exit", off)).toEqual({ duration: 0 });
+  });
+});
+
+describe("Stagger", () => {
+  it("deriva el paso de duration.instant", () => {
+    expect(Stagger(live)).toBe(theme.motion.duration.instant / 1000);
+  });
+
+  it("el retardo deja de crecer pasados ocho elementos", () => {
+    const step = Stagger(live);
+    expect(StaggerDelay(0, live)).toBe(0);
+    expect(StaggerDelay(3, live)).toBeCloseTo(3 * step);
+    expect(StaggerDelay(8, live)).toBeCloseTo(8 * step);
+    expect(StaggerDelay(40, live)).toBeCloseTo(8 * step);
+  });
+
+  it("se anula entero cuando el motion está apagado", () => {
+    expect(Stagger(off)).toBe(0);
+    expect(StaggerDelay(5, off)).toBe(0);
+    expect(StaggerDelay(5, WithTier("minimal"))).toBe(0);
+  });
+});
