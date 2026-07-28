@@ -18,7 +18,17 @@ import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 import type { ComboboxProps } from "./Combobox.types.js";
 
 const CHEVRON = (
-  <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1.1em"
+    height="1.1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
@@ -115,7 +125,11 @@ export function Combobox(props: ComboboxProps): ReactElement {
   const popover_ref = useRef<HTMLDivElement>(null);
   const listbox_ref = useRef<HTMLUListElement>(null);
 
-  const { inputProps, listBoxProps, buttonProps: trigger_props } = useComboBox(
+  const {
+    inputProps,
+    listBoxProps,
+    buttonProps: trigger_props,
+  } = useComboBox(
     {
       inputRef: input_ref,
       buttonRef: trigger_ref,
@@ -198,6 +212,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
               {state.isOpen ? <div {...underlayProps} /> : null}
               <OverlayMotion
                 {...popoverProps}
+                surface="popover"
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}

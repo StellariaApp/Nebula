@@ -97,6 +97,7 @@ export function Popover(props: PopoverProps): ReactElement {
           <FocusTrap active={isNonModal !== true && state.isOpen} restoreFocus autoFocus>
             <OverlayMotion
               {...mergeProps(popoverProps, overlayProps, dialogProps)}
+              surface="popover"
               open={state.isOpen}
               onExitComplete={presence.OnExitComplete}
               ref={popover_ref}

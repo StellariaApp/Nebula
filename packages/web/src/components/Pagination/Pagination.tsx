@@ -8,6 +8,7 @@ import { m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
+import { Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Pagination.css.js";
@@ -68,8 +69,7 @@ export function Pagination(props: PaginationProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.default;
+  const transition = Spring("default", { theme, reduced: prefers_reduced === true });
 
   const pill_id = useId();
   const [current, set_current] = useUncontrolled(page, defaultPage, onChange);
@@ -96,15 +96,6 @@ export function Pagination(props: PaginationProps): ReactElement {
     if (clamped === active) return;
     set_current(clamped);
   };
-
-  const transition = is_off
-    ? { duration: 0 }
-    : {
-        type: "spring" as const,
-        stiffness: spring.stiffness,
-        damping: spring.damping,
-        mass: spring.mass,
-      };
 
   const Control = (key: string, label: string, icon: ReactElement, to: number, off: boolean) => (
     <li key={key}>

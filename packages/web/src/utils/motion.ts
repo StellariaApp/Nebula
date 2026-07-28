@@ -67,6 +67,11 @@ export function Tween(
   };
 }
 
+export function ExitTween(reference: DurationName | number, context: MotionContext): Transition {
+  const ms = typeof reference === "number" ? reference : context.theme.motion.duration[reference];
+  return Tween(ms * EXIT_RATIO, "accelerate", context);
+}
+
 export function SurfaceTransition(
   surface: MotionSurface,
   phase: MotionPhase,
@@ -80,8 +85,7 @@ export function SurfaceTransition(
     return IsSpringName(enter) ? Spring(enter, context) : Tween(enter, "decelerate", context);
   }
 
-  const reference = IsSpringName(enter) ? "base" : enter;
-  return Tween(context.theme.motion.duration[reference] * EXIT_RATIO, "accelerate", context);
+  return ExitTween(IsSpringName(enter) ? "base" : enter, context);
 }
 
 export function Stagger(context: MotionContext): number {

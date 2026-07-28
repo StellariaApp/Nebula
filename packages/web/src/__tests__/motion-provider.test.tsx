@@ -34,6 +34,13 @@ describe("LazyMotion único (ADR-034 regla 5)", () => {
   });
 });
 
+describe("helper único de spring (ADR-034 regla 6)", () => {
+  it("ningún componente copia la física a mano", () => {
+    expect(FilesContaining('type: "spring"')).toEqual([]);
+    expect(FilesContaining("stiffness:")).toEqual([]);
+  });
+});
+
 describe("NebulaProvider es obligatorio", () => {
   it("un componente animado fuera del provider falla en voz alta", () => {
     expect(() =>

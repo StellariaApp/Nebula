@@ -5,6 +5,7 @@ import { useId, useMemo, useRef, type KeyboardEvent, type ReactElement } from "r
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { m, useReducedMotion } from "motion/react";
 
+import { Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
@@ -46,8 +47,7 @@ export function Accordion(props: AccordionProps): ReactElement {
   const base_id = useId();
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.default;
+  const chevron_transition = Spring("default", { theme, reduced: prefers_reduced === true });
 
   const controlled = useMemo(() => (value === undefined ? undefined : [...value]), [value]);
   const initial = useMemo(() => [...defaultValue], [defaultValue]);
@@ -128,16 +128,7 @@ export function Accordion(props: AccordionProps): ReactElement {
                   <m.span
                     className={styles.chevron}
                     animate={{ rotate: is_open ? 180 : 0 }}
-                    transition={
-                      is_off
-                        ? { duration: 0 }
-                        : {
-                            type: "spring",
-                            stiffness: spring.stiffness,
-                            damping: spring.damping,
-                            mass: spring.mass,
-                          }
-                    }
+                    transition={chevron_transition}
                   >
                     {CHEVRON}
                   </m.span>
@@ -152,16 +143,7 @@ export function Accordion(props: AccordionProps): ReactElement {
                   <m.span
                     className={styles.chevron}
                     animate={{ rotate: is_open ? 180 : 0 }}
-                    transition={
-                      is_off
-                        ? { duration: 0 }
-                        : {
-                            type: "spring",
-                            stiffness: spring.stiffness,
-                            damping: spring.damping,
-                            mass: spring.mass,
-                          }
-                    }
+                    transition={chevron_transition}
                   >
                     {CHEVRON}
                   </m.span>

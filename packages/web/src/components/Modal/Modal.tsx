@@ -14,10 +14,7 @@ import type { SizeValue } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { useDialog, usePreventScroll } from "react-aria";
 
-import {
-  OverlayMotion,
-  type OverlayMotionPreset,
-} from "../../overlays/overlay-motion.js";
+import { OverlayMotion, type OverlayMotionPreset } from "../../overlays/overlay-motion.js";
 import { vars } from "../../theme/contract.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
@@ -147,14 +144,13 @@ export function Modal(props: ModalProps): ReactElement {
       style={{ ...css_vars, ...sprinkle_style }}
       onCancel={HandleCancel}
       onClick={HandleClick}
-      {...(title === undefined || aria_label !== undefined
-        ? {}
-        : { "aria-labelledby": title_id })}
+      {...(title === undefined || aria_label !== undefined ? {} : { "aria-labelledby": title_id })}
       data-open={opened ? "true" : undefined}
       data-drawer={drawer === undefined || drawer === false ? undefined : "true"}
     >
       <OverlayMotion
         open={opened}
+        surface={layout.startsWith("drawer") ? "drawer" : "modal"}
         onExitComplete={HandleExitComplete}
         preset={MOTION_PRESET[layout]}
         ref={surface_ref}
@@ -168,9 +164,7 @@ export function Modal(props: ModalProps): ReactElement {
                   {title}
                 </h2>
               )}
-              {subtitle === undefined ? null : (
-                <span className={styles.subtitle}>{subtitle}</span>
-              )}
+              {subtitle === undefined ? null : <span className={styles.subtitle}>{subtitle}</span>}
             </div>
             {withCloseButton ? (
               <ButtonClose aria-label={closeLabel} size="sm" onPress={onClose} />

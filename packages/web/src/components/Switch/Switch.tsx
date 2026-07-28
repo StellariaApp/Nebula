@@ -7,6 +7,7 @@ import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "motion/react";
 
+import { MotionOff } from "../../utils/motion.js";
 import { Rubber } from "../../utils/rubber.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
@@ -62,16 +63,11 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const dims = SIZE[size];
   const travel = dims.w - dims.h;
 
-  const spring = theme.motion.spring.snappy;
-  const is_animated = prefers_reduced !== true && theme.motion.tier !== "minimal";
+  const is_animated = !MotionOff({ theme, reduced: prefers_reduced === true });
   const can_drag = draggable && is_animated && !disabled;
 
   const target = useMotionValue(is_checked ? travel : 0);
-  const x = useSpring(target, {
-    stiffness: spring.stiffness,
-    damping: spring.damping,
-    mass: spring.mass,
-  });
+  const x = useSpring(target, theme.motion.spring.snappy);
 
   const dragged = useRef(false);
   const origin = useRef(0);

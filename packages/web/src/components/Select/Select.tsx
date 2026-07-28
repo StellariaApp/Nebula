@@ -3,14 +3,7 @@
 import { useRef, type ReactElement } from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
-import {
-  DismissButton,
-  HiddenSelect,
-  Overlay,
-  useButton,
-  usePopover,
-  useSelect,
-} from "react-aria";
+import { DismissButton, HiddenSelect, Overlay, useButton, usePopover, useSelect } from "react-aria";
 import { Item, useSelectState } from "react-stately";
 
 import { OptionList } from "../../collections/option-list.js";
@@ -24,7 +17,17 @@ import * as styles from "./Select.css.js";
 import type { SelectProps } from "./Select.types.js";
 
 const CHEVRON = (
-  <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1.1em"
+    height="1.1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
@@ -161,6 +164,7 @@ export function Select(props: SelectProps): ReactElement {
               {state.isOpen ? <div {...underlayProps} /> : null}
               <OverlayMotion
                 {...popoverProps}
+                surface="popover"
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}

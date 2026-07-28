@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
+import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
@@ -52,8 +53,9 @@ export function NavLink(props: NavLinkProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.default;
+  const motion_context = { theme, reduced: prefers_reduced === true };
+  const is_off = MotionOff(motion_context);
+  const transition = Spring("default", motion_context);
 
   const panel_id = useId();
   const has_children = children !== undefined && children !== null;
@@ -63,15 +65,6 @@ export function NavLink(props: NavLinkProps): ReactElement {
     [accent]: ScaleShade(color, "700"),
     [activeBg]: `color-mix(in srgb, ${ScaleShade(color, "500")} 14%, transparent)`,
   });
-
-  const transition = is_off
-    ? { duration: 0 }
-    : {
-        type: "spring" as const,
-        stiffness: spring.stiffness,
-        damping: spring.damping,
-        mass: spring.mass,
-      };
 
   const inner = (
     <>

@@ -5,6 +5,7 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
+import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./EmptyState.css.js";
@@ -16,8 +17,8 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.gentle;
+  const motion_context = { theme, reduced: prefers_reduced === true };
+  const is_off = MotionOff(motion_context);
 
   return (
     <m.div
@@ -25,16 +26,7 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
       {...(sprinkle_style === undefined ? {} : { style: sprinkle_style as MotionStyle })}
       initial={is_off ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={
-        is_off
-          ? { duration: 0 }
-          : {
-              type: "spring",
-              stiffness: spring.stiffness,
-              damping: spring.damping,
-              mass: spring.mass,
-            }
-      }
+      transition={Spring("gentle", motion_context)}
     >
       {icon === undefined || icon === null ? null : (
         <span className={styles.icon} aria-hidden="true">

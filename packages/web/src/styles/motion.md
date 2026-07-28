@@ -38,6 +38,10 @@ Se retira `transitionDuration: "0.01ms"`, que era un truco para forzar el dispar
 | Modal · Drawer | `spring.default` |
 | Toast          | `spring.gentle`  |
 
+### `surface` y `preset` son dos props, no una
+
+El ADR dice que «el `preset` de `OverlayMotion` deja de gobernar solo la transformada y pasa a gobernar también la física». Colapsarlos no es posible: `Modal` necesita **transformadas distintas para la misma física** —centrado escala, `drawer-bottom` desliza hacia arriba, pantalla completa funde—, y todas ellas son la física de un modal. Así que `surface` gobierna la física y `preset` la transformada, y `Modal` es el único que las combina: elige la transformada por su layout y la superficie según sea drawer o no.
+
 **La salida es siempre un tween acelerado**, a dos tercios de la duración de referencia. El ADR lo fija explícitamente para Popover, Menu, Modal y Drawer, y lo deja implícito para Toast; se completa igual porque la regla 2 está escrita como invariante —«una salida nunca dura más que su entrada»— y un spring no tiene duración con la que cumplirla. Para las entradas por spring la referencia es `duration.base`; para Tooltip, su propia `duration.fast`, lo que deja la salida en 80 ms y estrena `duration.instant` en la escala.
 
 ## `ease` no acepta la cadena del tema

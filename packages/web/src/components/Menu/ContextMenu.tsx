@@ -70,6 +70,7 @@ export function ContextMenu(props: ContextMenuProps): ReactElement {
         <Overlay>
           <OverlayMotion
             {...overlayProps}
+            surface="menu"
             open={anchor !== null}
             onExitComplete={presence.OnExitComplete}
             ref={overlay_ref}

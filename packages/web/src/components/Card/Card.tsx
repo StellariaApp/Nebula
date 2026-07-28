@@ -5,6 +5,7 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
+import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Image } from "../Image/Image.js";
 
@@ -82,8 +83,8 @@ export function Card(props: CardProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.gentle;
+  const motion_context = { theme, reduced: prefers_reduced === true };
+  const is_off = MotionOff(motion_context);
 
   const interactive = interactive_prop ?? (onPress !== undefined || href !== undefined);
 
@@ -100,12 +101,7 @@ export function Card(props: CardProps): ReactElement {
       : {
           whileHover: { y: HOVER_LIFT },
           whileTap: { scale: 0.995 },
-          transition: {
-            type: "spring" as const,
-            stiffness: spring.stiffness,
-            damping: spring.damping,
-            mass: spring.mass,
-          },
+          transition: Spring("gentle", motion_context),
         }),
   };
 

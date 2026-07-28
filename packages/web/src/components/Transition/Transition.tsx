@@ -11,6 +11,7 @@ import {
   type TargetAndTransition,
 } from "motion/react";
 
+import { ExitTween, Spring, Tween } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import type { TransitionPreset, TransitionProps } from "./Transition.types.js";
@@ -52,20 +53,13 @@ export function Transition(props: TransitionProps): ReactElement {
   const prefers_reduced = useReducedMotion();
 
   const phase = PRESETS[transition];
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const seconds = (duration ?? theme.motion.duration.base) / 1000;
-  const spring = spring_name === undefined ? undefined : theme.motion.spring[spring_name];
+  const motion_context = { theme, reduced: prefers_reduced === true };
 
-  const timing = is_off
-    ? { duration: 0 }
-    : spring === undefined
-      ? { duration: seconds }
-      : {
-          type: "spring" as const,
-          stiffness: spring.stiffness,
-          damping: spring.damping,
-          mass: spring.mass,
-        };
+  const enter =
+    spring_name === undefined
+      ? Tween(duration ?? "base", "decelerate", motion_context)
+      : Spring(spring_name, motion_context);
+  const exit = ExitTween(duration ?? "base", motion_context);
 
   return (
     <AnimatePresence initial={false} {...(onExitComplete === undefined ? {} : { onExitComplete })}>
@@ -75,8 +69,8 @@ export function Transition(props: TransitionProps): ReactElement {
           {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
           initial={phase.from}
           animate={phase.to}
-          exit={phase.from}
-          transition={timing}
+          exit={{ ...phase.from, transition: exit }}
+          transition={enter}
         >
           {children}
         </m.div>

@@ -14,6 +14,7 @@ import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "mot
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -115,8 +116,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       [resolved],
     );
 
-    const spring = theme.motion.spring.default;
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const press_transition = Spring("default", { theme, reduced: !is_animated });
 
     const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
       HTMLMotionProps<"button">,
@@ -137,16 +138,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         data-variant={variant}
         aria-busy={loading || undefined}
         animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
-        transition={
-          is_animated
-            ? {
-                type: "spring",
-                stiffness: spring.stiffness,
-                damping: spring.damping,
-                mass: spring.mass,
-              }
-            : { duration: 0 }
-        }
+        transition={press_transition}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
         <span className={cx(styles.iconWrap, loading && styles.iconLoading)} aria-hidden="true">

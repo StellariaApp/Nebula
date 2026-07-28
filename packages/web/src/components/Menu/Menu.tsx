@@ -78,6 +78,7 @@ export function Menu(props: MenuProps): ReactElement {
           {state.isOpen ? <div {...underlayProps} /> : null}
           <OverlayMotion
             {...popoverProps}
+            surface="menu"
             open={state.isOpen}
             onExitComplete={presence.OnExitComplete}
             ref={popover_ref}

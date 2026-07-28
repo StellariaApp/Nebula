@@ -18,7 +18,7 @@ El click fuera se detecta comparando `event.target` con el propio `<dialog>`: el
 
 ## Animación
 
-Entrada **y salida** con `OverlayMotion` (`overlays/overlay-motion.tsx`): spring de `theme.motion.spring`, con el preset elegido según el layout (`scale` centrado, `slide-*` en drawer y top, `fade` a pantalla completa).
+Entrada **y salida** con `OverlayMotion` (`overlays/overlay-motion.tsx`), y desde ADR-034 con dos ejes independientes: `preset` elige la **transformada** según el layout (`scale` centrado, `slide-*` en drawer y top, `fade` a pantalla completa) y `surface` elige la **física** —`modal` o `drawer`—. Modal es el único componente que combina ambos, porque es el único con varias transformadas para la misma superficie. La entrada usa `spring.default`; la salida, un tween acelerado más corto, como todas las salidas del catálogo.
 
 La salida obliga a **retrasar el `close()` nativo**: el elemento debe seguir en el top layer mientras el contenido anima. Se resuelve con un estado local `visible` que se enciende al abrir y solo se apaga en `onExitComplete`; el efecto que llama `showModal()`/`close()` observa ese estado, no `opened`. `opened` sigue siendo la única fuente de verdad del consumidor.
 

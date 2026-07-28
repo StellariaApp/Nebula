@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
+import { SurfaceTransition } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { Portal } from "../Portal/Portal.js";
@@ -101,10 +102,9 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.default;
+  const motion_context = { theme, reduced: prefers_reduced === true };
   const from_top = position.startsWith("top");
-  const enter = { opacity: 0, y: from_top ? -16 : 16, scale: 0.96 };
+  const hidden = { opacity: 0, y: from_top ? -16 : 16, scale: 0.96 };
 
   return (
     <>
@@ -121,19 +121,14 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
               <m.div
                 key={toast.id}
                 layout
-                initial={enter}
+                initial={hidden}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ ...enter, scale: 0.94 }}
-                transition={
-                  is_off
-                    ? { duration: 0 }
-                    : {
-                        type: "spring",
-                        stiffness: spring.stiffness,
-                        damping: spring.damping,
-                        mass: spring.mass,
-                      }
-                }
+                exit={{
+                  ...hidden,
+                  scale: 0.94,
+                  transition: SurfaceTransition("toast", "exit", motion_context),
+                }}
+                transition={SurfaceTransition("toast", "enter", motion_context)}
               >
                 <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
               </m.div>

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type ReactElement,
-} from "react";
+import { useId, useMemo, useRef, useState, type KeyboardEvent, type ReactElement } from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
 import { DismissButton, Overlay, useComboBox, useFilter, usePopover } from "react-aria";
@@ -26,13 +19,32 @@ import * as styles from "./MultiSelect.css.js";
 import type { MultiSelectProps } from "./MultiSelect.types.js";
 
 const CHEVRON = (
-  <svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1.1em"
+    height="1.1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
 
 const CROSS = (
-  <svg viewBox="0 0 24 24" width="0.75em" height="0.75em" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="0.75em"
+    height="0.75em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={3}
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
     <path d="M6 6l12 12M18 6L6 18" />
   </svg>
 );
@@ -245,6 +257,7 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
               {state.isOpen ? <div {...underlayProps} /> : null}
               <OverlayMotion
                 {...popoverProps}
+                surface="popover"
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}

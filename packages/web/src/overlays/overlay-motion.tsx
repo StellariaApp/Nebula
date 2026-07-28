@@ -21,6 +21,8 @@ import {
   type TargetAndTransition,
 } from "motion/react";
 
+import { SurfaceTransition, type MotionSurface } from "../utils/motion.js";
+
 export type OverlayMotionPreset = "scale" | "fade" | "slide-up" | "slide-down";
 
 const PRESETS: Record<OverlayMotionPreset, { from: TargetAndTransition; to: TargetAndTransition }> =
@@ -68,6 +70,7 @@ export interface OverlayMotionProps extends Omit<
   "children" | "style" | "ref" | MotionConflictingProps
 > {
   open: boolean;
+  surface: MotionSurface;
   preset?: OverlayMotionPreset | undefined;
   onExitComplete?: (() => void) | undefined;
   style?: CSSProperties | undefined;
@@ -78,6 +81,7 @@ export const OverlayMotion = forwardRef<HTMLDivElement, OverlayMotionProps>(
   function OverlayMotion(props, ref): ReactElement {
     const {
       open,
+      surface,
       preset = "scale",
       onExitComplete,
       className,
@@ -88,8 +92,7 @@ export const OverlayMotion = forwardRef<HTMLDivElement, OverlayMotionProps>(
 
     const { theme } = useTheme();
     const prefers_reduced = useReducedMotion();
-    const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-    const spring = theme.motion.spring.default;
+    const motion_context = { theme, reduced: prefers_reduced === true };
 
     const frozen = useRef<CSSProperties | undefined>(style);
     if (open) frozen.current = style;
@@ -110,17 +113,11 @@ export const OverlayMotion = forwardRef<HTMLDivElement, OverlayMotionProps>(
             style={frozen.current as MotionStyle}
             initial={phase.from}
             animate={phase.to}
-            exit={phase.from}
-            transition={
-              is_off
-                ? { duration: 0 }
-                : {
-                    type: "spring",
-                    stiffness: spring.stiffness,
-                    damping: spring.damping,
-                    mass: spring.mass,
-                  }
-            }
+            exit={{
+              ...phase.from,
+              transition: SurfaceTransition(surface, "exit", motion_context),
+            }}
+            transition={SurfaceTransition(surface, "enter", motion_context)}
           >
             {children}
           </m.div>

@@ -76,6 +76,7 @@ export function Tooltip(props: TooltipProps): ReactElement {
         <Overlay>
           <OverlayMotion
             {...mergeProps(trigger_tooltip_props, tooltipProps, overlayProps)}
+            surface="tooltip"
             open={state.isOpen}
             onExitComplete={presence.OnExitComplete}
             preset="fade"

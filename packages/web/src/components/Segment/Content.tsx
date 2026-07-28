@@ -14,6 +14,7 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "motion/react";
 
+import { MotionOff } from "../../utils/motion.js";
 import { Rubber } from "../../utils/rubber.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -51,15 +52,10 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   const viewport = useRef<HTMLDivElement | null>(null);
   const [width, set_width] = useState(0);
 
-  const is_animated = prefers_reduced !== true && theme.motion.tier !== "minimal";
-  const spring = theme.motion.spring.default;
+  const is_animated = !MotionOff({ theme, reduced: prefers_reduced === true });
 
   const target = useMotionValue(0);
-  const x = useSpring(target, {
-    stiffness: spring.stiffness,
-    damping: spring.damping,
-    mass: spring.mass,
-  });
+  const x = useSpring(target, theme.motion.spring.default);
 
   const origin = useRef(0);
   const first = useRef(true);

@@ -9,6 +9,7 @@ import { m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
+import { Tween } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Image.css.js";
@@ -41,8 +42,7 @@ export function Image(props: ImageProps): ReactElement {
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
-  const is_off = prefers_reduced === true || theme.motion.tier === "minimal";
-  const spring = theme.motion.spring.gentle;
+  const fade_in = Tween("base", "decelerate", { theme, reduced: prefers_reduced === true });
 
   const [status, set_status] = useState<"idle" | "loaded" | "failed">("idle");
   const missing = src === undefined || src === "";
@@ -75,16 +75,7 @@ export function Image(props: ImageProps): ReactElement {
             style={{ objectFit: fit }}
             initial={{ opacity: 0 }}
             animate={{ opacity: status === "loaded" ? 1 : 0 }}
-            transition={
-              is_off
-                ? { duration: 0 }
-                : {
-                    type: "spring",
-                    stiffness: spring.stiffness,
-                    damping: spring.damping,
-                    mass: spring.mass,
-                  }
-            }
+            transition={fade_in}
             onLoad={() => {
               set_status("loaded");
             }}
