@@ -18,7 +18,22 @@ El click fuera se detecta comparando `event.target` con el propio `<dialog>`: el
 
 ## Animación
 
-Entrada **y salida** con `OverlayMotion` (`overlays/overlay-motion.tsx`), y desde ADR-034 con dos ejes independientes: `preset` elige la **transformada** según el layout (`scale` centrado, `slide-*` en drawer y top, `fade` a pantalla completa) y `surface` elige la **física** —`modal` o `drawer`—. Modal es el único componente que combina ambos, porque es el único con varias transformadas para la misma superficie. La entrada usa `spring.default`; la salida, un tween acelerado más corto, como todas las salidas del catálogo.
+Entrada **y salida** con `OverlayMotion` (`overlays/overlay-motion.tsx`), y desde ADR-034 con dos ejes independientes: `preset` elige la **transformada** según el layout (`scale` centrado, `slide-down` arriba, `edge-*` en drawer, `fade` a pantalla completa) y `surface` elige la **física** —`modal` o `drawer`—. Modal es el único componente que combina ambos, porque es el único con varias transformadas para la misma superficie. La entrada usa `spring.default`; la salida, un tween acelerado más corto, como todas las salidas del catálogo.
+
+## El `<dialog>` no es el panel
+
+Lo fue hasta que se corrigió: el elemento nativo llevaba fondo, sombra, radio y ancho, y `OverlayMotion` animaba un `div` interior. El resultado era que el zoom del modal escalaba **el contenido dentro de una caja quieta**, y que un drawer no podía deslizar porque su caja ya estaba pegada al borde.
+
+Ahora el reparto es:
+
+- **`<dialog>`**: contenedor a pantalla completa, transparente, sin sombra. Aporta el top layer, el `::backdrop` y la **colocación** del panel con flexbox (`centered`, `top`, `drawer-*`).
+- **`surface`**: el panel visible. Lleva fondo, sombra, radio y ancho, y es el nodo que anima.
+
+Así la transformada actúa sobre lo que el usuario percibe como el modal. Es también lo que permite que `edge-start`/`edge-end` desplacen el panel un 100 % de su propio ancho: el `overflow: hidden` del diálogo lo recorta mientras entra.
+
+`modalWidth` se sigue publicando como var en el `<dialog>` y la consume `surface` por herencia, así que el cálculo del ancho no cambió de sitio.
+
+**Limitación conocida**: `edge-start` y `edge-end` traducen en el eje físico (`x`), no en el lógico. En RTL el drawer entraría por el lado contrario al que indica su colocación, que sí es lógica (`justifyContent`). Se corrige cuando el catálogo aborde RTL como contrato, no antes.
 
 La salida obliga a **retrasar el `close()` nativo**: el elemento debe seguir en el top layer mientras el contenido anima. Se resuelve con un estado local `visible` que se enciende al abrir y solo se apaga en `onExitComplete`; el efecto que llama `showModal()`/`close()` observa ese estado, no `opened`. `opened` sigue siendo la única fuente de verdad del consumidor.
 

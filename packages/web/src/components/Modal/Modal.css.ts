@@ -9,19 +9,26 @@ import { backdropBlur, modalWidth } from "./Modal.vars.css.js";
 
 const FADE_IN = keyframes({ from: { opacity: 0 }, to: { opacity: 1 } });
 
+const TOP_INSET = "10vh";
+
 export const dialog = recipe({
   base: {
     "@layer": {
       [baseLayer]: {
         boxSizing: "border-box",
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
+        height: "100dvh",
+        maxWidth: "100vw",
+        maxHeight: "100dvh",
+        margin: 0,
         padding: 0,
         border: "none",
-        background: vars.color.surface.overlay,
+        background: "transparent",
         color: vars.color.text.primary,
-        boxShadow: vars.shadow.xxl,
-        maxWidth: "none",
-        maxHeight: "none",
-        overflow: "visible",
+        overflow: "hidden",
+        display: "flex",
         selectors: {
           "&::backdrop": {
             background: `color-mix(in srgb, ${vars.color.gray["950"]} 62%, transparent)`,
@@ -46,61 +53,57 @@ export const dialog = recipe({
   },
   variants: {
     layout: {
+      centered: { alignItems: "center", justifyContent: "center", padding: vars.space.md },
+      top: {
+        alignItems: "flex-start",
+        justifyContent: "center",
+        paddingInline: vars.space.md,
+        paddingBlock: `${TOP_INSET} ${vars.space.md}`,
+      },
+      fullScreen: { alignItems: "stretch" },
+      "drawer-start": { alignItems: "stretch", justifyContent: "flex-start" },
+      "drawer-end": { alignItems: "stretch", justifyContent: "flex-end" },
+      "drawer-top": { alignItems: "flex-start" },
+      "drawer-bottom": { alignItems: "flex-end" },
+    },
+  },
+  defaultVariants: { layout: "centered" },
+});
+
+export const surface = recipe({
+  base: {
+    "@layer": {
+      [baseLayer]: {
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
+        background: vars.color.surface.overlay,
+        color: vars.color.text.primary,
+        boxShadow: vars.shadow.xxl,
+        outline: "none",
+      },
+    },
+  },
+  variants: {
+    layout: {
       centered: {
         width: modalWidth,
-        maxWidth: "calc(100vw - 2rem)",
-        maxHeight: "calc(100vh - 2rem)",
-        margin: "auto",
+        maxWidth: "100%",
+        maxHeight: "100%",
         borderRadius: vars.radius.lg,
       },
       top: {
         width: modalWidth,
-        maxWidth: "calc(100vw - 2rem)",
-        maxHeight: "calc(100vh - 2rem)",
-        marginInline: "auto",
-        marginBlock: "10vh auto",
+        maxWidth: "100%",
+        maxHeight: "100%",
         borderRadius: vars.radius.lg,
       },
-      fullScreen: {
-        width: "100vw",
-        height: "100vh",
-        maxWidth: "100vw",
-        maxHeight: "100vh",
-        margin: 0,
-        borderRadius: 0,
-      },
-      "drawer-start": {
-        width: modalWidth,
-        maxWidth: "100vw",
-        height: "100vh",
-        maxHeight: "100vh",
-        margin: 0,
-        marginInlineEnd: "auto",
-        borderRadius: 0,
-      },
-      "drawer-end": {
-        width: modalWidth,
-        maxWidth: "100vw",
-        height: "100vh",
-        maxHeight: "100vh",
-        margin: 0,
-        marginInlineStart: "auto",
-        borderRadius: 0,
-      },
-      "drawer-top": {
-        width: "100vw",
-        maxWidth: "100vw",
-        margin: 0,
-        marginBlockEnd: "auto",
-        borderRadius: 0,
-      },
-      "drawer-bottom": {
-        width: "100vw",
-        maxWidth: "100vw",
-        margin: 0,
-        marginBlockStart: "auto",
-        borderRadius: 0,
-      },
+      fullScreen: { width: "100%", height: "100%", borderRadius: 0 },
+      "drawer-start": { width: modalWidth, maxWidth: "100%", height: "100%", borderRadius: 0 },
+      "drawer-end": { width: modalWidth, maxWidth: "100%", height: "100%", borderRadius: 0 },
+      "drawer-top": { width: "100%", maxHeight: "100%", borderRadius: 0 },
+      "drawer-bottom": { width: "100%", maxHeight: "100%", borderRadius: 0 },
     },
     radius: {
       none: { borderRadius: 0 },
@@ -110,14 +113,6 @@ export const dialog = recipe({
     },
   },
   defaultVariants: { layout: "centered" },
-});
-
-export const surface = style({
-  display: "flex",
-  flexDirection: "column",
-  maxHeight: "inherit",
-  height: "100%",
-  outline: "none",
 });
 
 export const header = style({

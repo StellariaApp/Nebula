@@ -37,10 +37,10 @@ const MOTION_PRESET: Record<Layout, OverlayMotionPreset> = {
   centered: "scale",
   top: "slide-down",
   fullScreen: "fade",
-  "drawer-start": "fade",
-  "drawer-end": "fade",
-  "drawer-top": "slide-down",
-  "drawer-bottom": "slide-up",
+  "drawer-start": "edge-start",
+  "drawer-end": "edge-end",
+  "drawer-top": "edge-top",
+  "drawer-bottom": "edge-bottom",
 };
 
 function ResolveLayout(
@@ -136,11 +136,7 @@ export function Modal(props: ModalProps): ReactElement {
     <dialog
       {...dialogProps}
       ref={dialog_ref}
-      className={cx(
-        styles.dialog({ layout, ...(radius === undefined ? {} : { radius }) }),
-        sprinkle_class,
-        className,
-      )}
+      className={cx(styles.dialog({ layout }), sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}
       onCancel={HandleCancel}
       onClick={HandleClick}
@@ -154,7 +150,7 @@ export function Modal(props: ModalProps): ReactElement {
         onExitComplete={HandleExitComplete}
         preset={MOTION_PRESET[layout]}
         ref={surface_ref}
-        className={styles.surface}
+        className={styles.surface({ layout, ...(radius === undefined ? {} : { radius }) })}
       >
         {has_header ? (
           <div className={styles.header}>

@@ -39,6 +39,14 @@ Se retira `transitionDuration: "0.01ms"`, que era un truco para forzar el dispar
 | Modal · Drawer | `spring.default` |
 | Toast          | `spring.gentle`  |
 
+### La entrada solo existe si `AnimatePresence` la deja ocurrir
+
+`AnimatePresence initial={false}` significa «no animes a los hijos que ya estaban al montar». Los overlays con presencia montan su `AnimatePresence` **y su hijo en el mismo render** —`useOverlayPresence` devuelve `render: render || open`, así que ambos se vuelven verdaderos a la vez—, de modo que esa prop les suprimía la entrada entera y dejaba solo la salida. Tooltip, Popover, Menu y ContextMenu aparecían de golpe y se iban con animación.
+
+Modal no lo sufría porque su `OverlayMotion` se monta con el diálogo, mucho antes de abrir, y para cuando `open` pasa a `true` el `AnimatePresence` ya estaba ahí.
+
+`initial={false}` está retirado. La regresión la cubre `overlays/__tests__/overlay-motion.test.tsx`, que comprueba que el overlay recién abierto está en su estado inicial —`opacity: 0`— y no en el final.
+
 ### `surface` y `preset` son dos props, no una
 
 El ADR dice que «el `preset` de `OverlayMotion` deja de gobernar solo la transformada y pasa a gobernar también la física». Colapsarlos no es posible: `Modal` necesita **transformadas distintas para la misma física** —centrado escala, `drawer-bottom` desliza hacia arriba, pantalla completa funde—, y todas ellas son la física de un modal. Así que `surface` gobierna la física y `preset` la transformada, y `Modal` es el único que las combina: elige la transformada por su layout y la superficie según sea drawer o no.

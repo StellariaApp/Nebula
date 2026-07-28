@@ -23,7 +23,15 @@ import {
 
 import { SurfaceTransition, type MotionSurface } from "../utils/motion.js";
 
-export type OverlayMotionPreset = "scale" | "fade" | "slide-up" | "slide-down";
+export type OverlayMotionPreset =
+  | "scale"
+  | "fade"
+  | "slide-up"
+  | "slide-down"
+  | "edge-start"
+  | "edge-end"
+  | "edge-top"
+  | "edge-bottom";
 
 const PRESETS: Record<OverlayMotionPreset, { from: TargetAndTransition; to: TargetAndTransition }> =
   {
@@ -31,6 +39,10 @@ const PRESETS: Record<OverlayMotionPreset, { from: TargetAndTransition; to: Targ
     fade: { from: { opacity: 0 }, to: { opacity: 1 } },
     "slide-up": { from: { opacity: 0, y: 12 }, to: { opacity: 1, y: 0 } },
     "slide-down": { from: { opacity: 0, y: -12 }, to: { opacity: 1, y: 0 } },
+    "edge-start": { from: { x: "-100%" }, to: { x: 0 } },
+    "edge-end": { from: { x: "100%" }, to: { x: 0 } },
+    "edge-top": { from: { y: "-100%" }, to: { y: 0 } },
+    "edge-bottom": { from: { y: "100%" }, to: { y: 0 } },
   };
 
 export interface OverlayPresence {
@@ -100,10 +112,7 @@ export const OverlayMotion = forwardRef<HTMLDivElement, OverlayMotionProps>(
     const phase = PRESETS[preset];
 
     return (
-      <AnimatePresence
-        initial={false}
-        {...(onExitComplete === undefined ? {} : { onExitComplete })}
-      >
+      <AnimatePresence {...(onExitComplete === undefined ? {} : { onExitComplete })}>
         {open ? (
           <m.div
             {...dom_rest}
