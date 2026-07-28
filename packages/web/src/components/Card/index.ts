@@ -16,9 +16,4 @@ export const Card = Object.assign(CardRoot, {
 });
 
 export { CardActions, CardBadges, CardImage, CardMeta, CardSection };
-export type {
-  CardImageProps,
-  CardProps,
-  CardSectionProps,
-  CardSlotProps,
-} from "./Card.types.js";
+export type { CardImageProps, CardProps, CardSectionProps, CardSlotProps } from "./Card.types.js";

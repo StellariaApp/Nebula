@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 
 import type { RadiusName, ShadowLevel, Unit } from "@stellaria/nebula-tokens";
 
-export interface CardProps {
+import type { StyleProps } from "../../utils/style-props.js";
+
+export interface CardProps extends Omit<StyleProps, "shadow"> {
   children: ReactNode;
   radius?: RadiusName | undefined;
   shadow?: ShadowLevel | "none" | undefined;

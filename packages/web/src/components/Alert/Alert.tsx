@@ -6,7 +6,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Alert.css.js";
@@ -59,7 +59,9 @@ export function Alert(props: AlertProps): ReactElement {
     live,
     actions,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const title_id = useId();
   const palette = Palette(variant, color);
@@ -74,8 +76,8 @@ export function Alert(props: AlertProps): ReactElement {
 
   return (
     <div
-      className={cx(styles.root, className)}
-      style={css_vars}
+      className={cx(styles.root, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
       data-variant={variant}
       {...(role === "off" ? {} : { role })}
       {...(title === undefined ? {} : { "aria-labelledby": title_id })}

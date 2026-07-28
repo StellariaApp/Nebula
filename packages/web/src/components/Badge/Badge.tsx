@@ -4,7 +4,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Badge.css.js";
 import type { BadgeProps, BadgeVariant } from "./Badge.types.js";
@@ -45,7 +45,9 @@ export function Badge(props: BadgeProps): ReactElement {
     rightSection,
     fullWidth = false,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const palette = Palette(variant, color);
 
@@ -57,8 +59,8 @@ export function Badge(props: BadgeProps): ReactElement {
 
   return (
     <span
-      className={cx(styles.badge({ size, radius, fullWidth }), className)}
-      style={css_vars}
+      className={cx(styles.badge({ size, radius, fullWidth }), sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
       data-variant={variant}
     >
       {variant === "dot" ? (

@@ -3,9 +3,9 @@
 import type { ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { domAnimation, LazyMotion, m, useReducedMotion, type MotionStyle } from "motion/react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Image } from "../Image/Image.js";
 
 import * as styles from "./Card.css.js";
@@ -76,7 +76,9 @@ export function Card(props: CardProps): ReactElement {
     href,
     className,
     "aria-label": aria_label,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -87,10 +89,12 @@ export function Card(props: CardProps): ReactElement {
 
   const class_name = cx(
     styles.card({ radius, shadow, padding, withBorder, interactive }),
+    sprinkle_class,
     className,
   );
 
   const motion_props = {
+    ...(sprinkle_style === undefined ? {} : { style: sprinkle_style as MotionStyle }),
     ...(is_off || !interactive
       ? {}
       : {
