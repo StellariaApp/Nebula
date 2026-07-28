@@ -1,6 +1,10 @@
 # ADR-020 — Identidad visual propia de Nebula (eje `#3F37C9 → #9D4EDD`)
 
 - **Estado**: aceptada · 2026-07-20 (decisión del propietario) · Actualiza `docs/02-theming.md` §3 y las semillas de ADR-009
+- **Enmendada por [ADR-028](ADR-028-elevacion-y-materiales-dark.md)** (2026-07-27): la identidad
+  incluye ahora también el **tinte del canvas**. La semilla `dark` pasa de `#1c1c1c` (neutro puro) a
+  `#161821`, cuyo tono OKLCH (275) es el mismo eje que `indigo #3F37C9`. Cambiar la semilla `dark`
+  vuelve a requerir ADR, igual que las de acento.
 - **Contexto**: los temas oficiales heredaban las semillas cromáticas de Stellaria (`indigo #6366f1`, `violet #8b5cf6`), que a su vez venían del set de Tailwind/Mantine. Nebula necesita identidad propia, alineada con el sistema visual de la marca Stellaria (dark-first, superficies muy oscuras, tipografía grande, acentos de color sobre fondo neutro) pero con su propio eje cromático.
 
 ## Decisión

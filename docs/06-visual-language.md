@@ -115,7 +115,10 @@ Reglas:
 ## 6. Effects budget
 
 - Máximo un efecto dominante por región: glow, glass o gradient.
-- Glass común usa blur `sm/md`; `lg+` se reserva a overlays puntuales y nunca se anida.
+- Las tres superficies de glass usan `blur.md` (subtle), `blur.xl` (default) y `blur.xxl` (strong) con
+  saturación de 130–140 % (ADR-028). El glass nunca se anida. La calibración anterior (`sm/md`) dejaba
+  el efecto por debajo del umbral perceptible; la escala `blur` en sí no cambió y sigue disponible para
+  otros usos.
 - `effects.glass.enabled=false` degrada a superficie sólida sin perder jerarquía.
 - Glow identifica una acción primaria, selección o feedback excepcional; no se aplica a listas
   completas.
@@ -165,13 +168,16 @@ del cierre de W2, sin introducir una dependencia hasta decidir la herramienta po
 
 ## 9. Deuda detectada al abrir W2.V
 
-- `caption=8`, `body3=10` y `body2=12` quedan por debajo del baseline.
-- `Text` no fija tamaño ni line-height por defecto.
-- `Title` usa el mismo peso y tracking en los seis niveles.
-- Los temas dark reutilizan sombras negras de light, por lo que varios niveles casi no se distinguen.
-- Button contiene duraciones/easings libres para gradient, glow, spinner y reduced motion.
-- Las stories prueban matrices de props, pero casi ninguna prueba composición real.
-- `FormField.stories.tsx` usa radius y padding libres en el fixture, ocultando la relación real entre
-  field y futuro input de Nebula.
+| Deuda                                                        | Estado                                                                                                                                                   |
+| ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `caption=8`, `body3=10` y `body2=12` por debajo del baseline | resuelta en W2.V (ADR-024)                                                                                                                               |
+| `Text` no fija tamaño ni line-height por defecto             | resuelta en W2.V                                                                                                                                         |
+| `Title` usa el mismo peso y tracking en los seis niveles     | resuelta en W2.V; el tracking se volvió efectivo en ADR-027                                                                                              |
+| Los temas dark reutilizan sombras negras de light            | **resuelta 2026-07-27 (ADR-028)**: `darkShadows` con oclusión + rim, superficies ensanchadas y semilla `dark` fría                                       |
+| Button con duraciones/easings libres                         | resuelta en W2.V                                                                                                                                         |
+| Las stories prueban matrices, casi ninguna composición real  | **parcial**: existen las cinco láminas `Foundations/Visual QA` y `Composition`/`AllThemes` en la base y en W2.4–W2.5; falta cubrir el resto del catálogo |
+| `FormField.stories.tsx` con radius y padding libres          | resuelta en W2.V                                                                                                                                         |
 
-El checkpoint W2.V corrige esta lista por lotes antes de producir más componentes visuales.
+El checkpoint W2.V corrigió el grueso de esta lista; la calibración de elevación se completó en el
+checkpoint de convergencia visual del 2026-07-27
+(`docs/reviews/stellaria-ui-convergence-2026-07-27.md`).

@@ -17,17 +17,17 @@ export const glass = {
     subtle: {
       background: "rgba(255, 255, 255, 0.48)",
       border: "1px solid rgba(255, 255, 255, 0.24)",
-      backdropFilter: `blur(${blur.sm})`,
+      backdropFilter: `blur(${blur.md}) saturate(130%)`,
     },
     default: {
       background: "rgba(255, 255, 255, 0.58)",
       border: "1px solid rgba(255, 255, 255, 0.28)",
-      backdropFilter: `blur(${blur.md})`,
+      backdropFilter: `blur(${blur.xl}) saturate(140%)`,
     },
     strong: {
       background: "rgba(255, 255, 255, 0.68)",
       border: "1px solid rgba(255, 255, 255, 0.34)",
-      backdropFilter: `blur(${blur.lg})`,
+      backdropFilter: `blur(${blur.xxl}) saturate(140%)`,
     },
   } satisfies Record<GlassLevel, GlassSurfaceRecipe>,
   noiseOpacity: 0.02,
@@ -35,47 +35,47 @@ export const glass = {
 
 export const shadows = {
   xxs: {
-    web: "0 1px 2px rgba(9, 9, 11, 0.05)",
+    web: "0 1px 1px rgba(9, 9, 11, 0.04)",
     native: {
       elevation: 1,
       shadowColor: "#09090b",
-      shadowOpacity: 0.05,
+      shadowOpacity: 0.04,
       shadowRadius: 1,
       shadowOffset: { width: 0, height: 1 },
     },
   },
   xs: {
-    web: "0 1px 2px rgba(9, 9, 11, 0.05)",
-    native: {
-      elevation: 1,
-      shadowColor: "#09090b",
-      shadowOpacity: 0.05,
-      shadowRadius: 1,
-      shadowOffset: { width: 0, height: 1 },
-    },
-  },
-  sm: {
-    web: "0 1px 2px rgba(9, 9, 11, 0.05)",
+    web: "0 1px 2px rgba(9, 9, 11, 0.06), 0 1px 1px rgba(9, 9, 11, 0.04)",
     native: {
       elevation: 2,
       shadowColor: "#09090b",
-      shadowOpacity: 0.05,
+      shadowOpacity: 0.06,
       shadowRadius: 2,
       shadowOffset: { width: 0, height: 1 },
     },
   },
+  sm: {
+    web: "0 2px 5px rgba(9, 9, 11, 0.07), 0 1px 2px rgba(9, 9, 11, 0.05)",
+    native: {
+      elevation: 4,
+      shadowColor: "#09090b",
+      shadowOpacity: 0.07,
+      shadowRadius: 5,
+      shadowOffset: { width: 0, height: 2 },
+    },
+  },
   md: {
-    web: "0 8px 20px rgba(9, 9, 11, 0.08)",
+    web: "0 8px 20px rgba(9, 9, 11, 0.09), 0 2px 6px rgba(9, 9, 11, 0.06)",
     native: {
       elevation: 6,
       shadowColor: "#09090b",
-      shadowOpacity: 0.08,
+      shadowOpacity: 0.09,
       shadowRadius: 10,
       shadowOffset: { width: 0, height: 4 },
     },
   },
   lg: {
-    web: "0 14px 32px rgba(9, 9, 11, 0.12)",
+    web: "0 14px 32px rgba(9, 9, 11, 0.12), 0 4px 10px rgba(9, 9, 11, 0.07)",
     native: {
       elevation: 10,
       shadowColor: "#09090b",
@@ -85,22 +85,22 @@ export const shadows = {
     },
   },
   xl: {
-    web: "0 22px 40px rgba(9, 9, 11, 0.16)",
+    web: "0 22px 44px rgba(9, 9, 11, 0.16), 0 6px 14px rgba(9, 9, 11, 0.08)",
     native: {
       elevation: 14,
       shadowColor: "#09090b",
       shadowOpacity: 0.16,
-      shadowRadius: 20,
+      shadowRadius: 22,
       shadowOffset: { width: 0, height: 11 },
     },
   },
   xxl: {
-    web: "0 32px 64px rgba(9, 9, 11, 0.24)",
+    web: "0 32px 68px rgba(9, 9, 11, 0.24), 0 10px 22px rgba(9, 9, 11, 0.10)",
     native: {
       elevation: 20,
       shadowColor: "#09090b",
       shadowOpacity: 0.24,
-      shadowRadius: 32,
+      shadowRadius: 34,
       shadowOffset: { width: 0, height: 16 },
     },
   },

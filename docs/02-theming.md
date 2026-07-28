@@ -1,7 +1,7 @@
 # 02 — Sistema de temas dual (Web + Native)
 
 > Decisiones: TS-first + temas JSON (C2-Q2), escala 50–950 (C2-Q4), Geist como tipografía default, indigo/violet como tema default, glass/blur/gradients como tokens con guardrails.
-> **Identidad (ADR-020)**: el eje cromático de Nebula es `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet` en `tools/palette-gen/src/seeds.ts`) y el scheme por defecto es oscuro.
+> **Identidad (ADR-020, enmendada por ADR-028)**: el eje cromático de Nebula es `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet` en `tools/palette-gen/src/seeds.ts`) y el scheme por defecto es oscuro. El canvas oscuro deriva del mismo eje: la semilla `dark` es `#161821` (tono OKLCH 275, el de `indigo`), no un neutro puro.
 
 ## 1. Modelo mental
 

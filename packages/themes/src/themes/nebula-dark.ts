@@ -6,7 +6,6 @@ import {
   gray,
   palettes,
   radius,
-  shadows,
   sizes,
   spacing,
   zIndex,
@@ -14,6 +13,7 @@ import {
 } from "@stellaria/nebula-tokens";
 
 import { FlipScale } from "./scales.js";
+import { darkShadows } from "./shadows.js";
 
 export const nebulaDark = {
   meta: { name: "nebula-dark", scheme: "dark", version: "0.1.0" },
@@ -32,7 +32,7 @@ export const nebulaDark = {
     surface: {
       base: palettes.dark["100"],
       raised: palettes.dark["300"],
-      overlay: palettes.dark["400"],
+      overlay: palettes.dark["500"],
       sunken: palettes.dark["50"],
     },
     text: {
@@ -64,25 +64,25 @@ export const nebulaDark = {
     glass: {
       surface: {
         subtle: {
-          background: "rgba(24, 24, 27, 0.48)",
-          border: "1px solid rgba(255, 255, 255, 0.08)",
-          backdropFilter: `blur(${blur.sm})`,
+          background: "rgba(15, 17, 25, 0.56)",
+          border: "1px solid rgba(255, 255, 255, 0.09)",
+          backdropFilter: `blur(${blur.md}) saturate(130%)`,
         },
         default: {
-          background: "rgba(24, 24, 27, 0.58)",
-          border: "1px solid rgba(255, 255, 255, 0.10)",
-          backdropFilter: `blur(${blur.md})`,
+          background: "rgba(15, 17, 25, 0.66)",
+          border: "1px solid rgba(255, 255, 255, 0.12)",
+          backdropFilter: `blur(${blur.xl}) saturate(140%)`,
         },
         strong: {
-          background: "rgba(24, 24, 27, 0.68)",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          backdropFilter: `blur(${blur.lg})`,
+          background: "rgba(15, 17, 25, 0.76)",
+          border: "1px solid rgba(255, 255, 255, 0.14)",
+          backdropFilter: `blur(${blur.xxl}) saturate(140%)`,
         },
       },
       noiseOpacity: 0.02,
       enabled: true,
     },
-    shadows,
+    shadows: darkShadows,
     gradients: {
       brand: {
         type: "linear",
