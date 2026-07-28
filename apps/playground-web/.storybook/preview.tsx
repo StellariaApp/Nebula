@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 import type { Decorator, Preview } from "@storybook/react-vite";
 
-import { NebulaProvider, themeClass, vars, type OfficialThemeName } from "@stellaria/nebula-web";
+import { officialThemes } from "@stellaria/nebula-themes";
+import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "nebula-light", title: "Nebula Light" },
@@ -22,14 +23,12 @@ const withTheme: Decorator = (Story, context) => {
 
   useEffect(() => {
     const { body } = document;
-    const cls = themeClass[theme];
-    body.classList.add(cls);
+    const colors = officialThemes[theme].colors;
     const prev_bg = body.style.background;
     const prev_color = body.style.color;
-    body.style.background = vars.color.surface.base;
-    body.style.color = vars.color.text.primary;
+    body.style.background = colors.surface.base;
+    body.style.color = colors.text.primary;
     return () => {
-      body.classList.remove(cls);
       body.style.background = prev_bg;
       body.style.color = prev_color;
     };

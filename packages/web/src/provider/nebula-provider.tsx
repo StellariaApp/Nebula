@@ -13,6 +13,7 @@ import { ThemeContext, type ThemeContextValue } from "@stellaria/nebula-hooks";
 import { officialThemes } from "@stellaria/nebula-themes";
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { UNSAFE_PortalProvider } from "react-aria";
 
 import { vars } from "../theme/contract.css.js";
 import { ThemeToVars } from "../theme/theme-vars.js";
@@ -81,6 +82,7 @@ export function NebulaProvider({
 }: NebulaProviderProps): ReactNode {
   const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme));
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
+  const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
 
   const store = useMemo<ThemeStorage | null>(
     () => (storage === undefined ? DefaultStorage() : storage),
@@ -121,6 +123,8 @@ export function NebulaProvider({
     };
   }, []);
 
+  const GetPortalContainer = useCallback(() => portal_node, [portal_node]);
+
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme: active.theme,
@@ -140,7 +144,10 @@ export function NebulaProvider({
         data-nebula-theme={active.name}
         data-scheme={active.theme.meta.scheme}
       >
-        {children}
+        <UNSAFE_PortalProvider getContainer={GetPortalContainer}>
+          {children}
+          <div ref={set_portal_node} data-nebula-portal="" />
+        </UNSAFE_PortalProvider>
       </div>
     </ThemeContext.Provider>
   );

@@ -21,3 +21,18 @@ Aplica los guardrails del tema: con `effects.glass.enabled` en false la variante
 ## layers.css.ts
 
 `baseLayer` existe para que los estilos base de los componentes cedan siempre ante las style props del consumidor, que sprinkles emite fuera de capas. Ver `components/Text/docs.md`.
+
+## Alcance del tema y contenido portalizado
+
+`NebulaProvider` aplica la clase del tema a un `<div>` propio, así que todas las vars del contract viven
+en ese subárbol. React Aria portaliza el contenido de `<Overlay>` a `document.body` por defecto, fuera
+de ese ámbito: el overlay se quedaría sin una sola var, no parcialmente estilado.
+
+Por eso el provider monta un contenedor (`data-nebula-portal`) como último hijo de su div y lo publica
+con `UNSAFE_PortalProvider` (ADR-030). Se referencia con estado y no con `useRef` a propósito: `Overlay`
+llama a `getContainer()` durante el render, y con una ref el primer render vería `null` y un overlay
+abierto por `defaultOpened` caería a `body`.
+
+Lo cubre `src/__tests__/portal-theme-scope.test.tsx` sobre los siete componentes que portalizan. Si ese
+test se cae, los dropdowns de la librería aparecen sin estilo en cualquier app que monte el provider en
+un subárbol.
