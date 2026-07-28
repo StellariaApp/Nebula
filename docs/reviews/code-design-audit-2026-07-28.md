@@ -250,6 +250,66 @@ es precondición de T2, y T2 lo es de todo lo demás.
 T4, T5 y T6 son independientes entre sí y pueden ir en cualquier orden. T8 va al final a propósito:
 capturar el baseline antes de T4–T6 obligaría a regenerarlo tres veces.
 
+### 5.1 Estado de ejecución (2026-07-28, fin de la primera sesión)
+
+Todo lo cerrado está en `main` y pusheado. Cada commit cerró con
+`build · typecheck · lint · test · size` en verde.
+
+| Tramo   | Estado       | Commits                                                     |
+| ------- | ------------ | ----------------------------------------------------------- |
+| T1      | **cerrado**  | `1b3da87`                                                   |
+| T2      | **cerrado**  | `1369c9a`                                                   |
+| T3      | **24 de 36** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` |
+| T4 – T8 | sin empezar  | —                                                           |
+
+**T3 hecho** (24): Button · ActionIcon · UnstyledButton · ButtonClose\* · ButtonCopy\* · Badge · Alert ·
+Card · TextInput · Textarea · PasswordInput · SearchInput · NumberInput · Checkbox · Radio · Switch ·
+Avatar · Loader · EmptyState · Skeleton · Image · Progress · FieldError · Accordion · Tooltip ·
+Popover · Menu\*. Los marcados con \* heredan por extensión de `ActionIconProps` / `MenuListOwnProps`.
+
+**T3 pendiente** (12): Anchor · Collapse · Combobox · Highlight · Modal · MultiSelect · NavLink ·
+Pagination · Segment · Select · Toast · Transition. Son los de mayor superficie: colecciones, overlays
+con presencia y compound; varios tienen más de una rama de render.
+
+**Excluidos de T3 por no tener elemento raíz propio**: Conditional · Omit · Valid · Portal · FocusTrap ·
+FileButton, más Drawer y Tabs, que delegan en Modal y Segment y heredarán de ellos.
+
+### 5.2 Corrección pendiente de ADR-032 regla 3
+
+La regla afirma que no hay colisión de nombres entre style props y props de componente. **Es falsa**, y
+la implementación destapó cuatro clases distintas, no una:
+
+| Clase                                        | Ejemplo                                                    | Resolución aplicada                        |
+| -------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------ |
+| Prop semántica de componente                 | `color` en Button, Badge, Alert, toggles; `shadow` en Card | omitir de `StyleProps`; queda el atajo `c` |
+| Atributo HTML real                           | `wrap` en `<textarea>` (hard/soft)                         | gana el atributo                           |
+| Propiedad CSS reutilizada con otra semántica | `position` en FieldError (`"bottom"`)                      | gana la prop del componente                |
+| Atajo que ya era prop del componente         | `maw` en Tooltip                                           | gana la prop, aplicada tras el spread      |
+
+Afecta a cerca del 40 % del catálogo. La regla 3 debe reescribirse describiendo las cuatro; no se tocó
+en la primera sesión por ser enmienda de un ADR aceptado.
+
+### 5.3 Decisiones de diseño tomadas al implementar
+
+- **Inputs**: las style props se aplican al `FormField` raíz, no al `<input>` interno — `w="100%"` o
+  `mt="md"` describen el campo, no la caja de texto. `className` sigue apuntando al input y
+  `rootClassName` a la raíz.
+- **Overlays**: el style de sprinkles se intercala entre el de React Aria —que posiciona— y el de la
+  prop específica del componente, de modo que ninguna style prop pueda romper el posicionamiento.
+- **Frontera con motion**: los componentes que renderizan `m.*` necesitan cast a `MotionStyle` y, con
+  `exactOptionalPropertyTypes`, spread condicional del `style` (Card, EmptyState).
+
+### 5.4 Deuda abierta de la primera sesión
+
+1. **El invariante de `baseLayer` no tiene gate.** Verificarlo exige leer las fuentes: jsdom no resuelve
+   capas y el plugin de vanilla-extract intercepta `.css.ts` incluso con `?raw`, de modo que
+   `import.meta.glob` devuelve CSS compilado. Su sitio es un paquete en `tools/` como `check:contrast`,
+   lo que es cambio estructural y pide ADR propio.
+2. **`XImpl` → `XComponent`** (commit `193d974`, recuperado de la sesión paralela) dejó en cada archivo
+   la constante con el mismo nombre que la interfaz que la tipa:
+   `export const Anchor = AnchorComponent as unknown as AnchorComponent;`. Compila, pero el nombre
+   `Impl` era justo lo que distinguía implementación de contrato público.
+
 ### Cruce con el trabajo en curso
 
 Durante esta sesión se aceptaron en paralelo **ADR-030** —el provider publica el contenedor de
