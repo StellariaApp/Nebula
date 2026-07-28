@@ -50,7 +50,7 @@ export const trigger = style({
       color: vars.color.text.primary,
       textAlign: "start",
       cursor: "pointer",
-      minHeight: "2.75rem",
+      minHeight: vars.size.control.md,
       ...motion.interaction,
       selectors: {
         "&:hover:not(:disabled)": { background: vars.color.surface.sunken },

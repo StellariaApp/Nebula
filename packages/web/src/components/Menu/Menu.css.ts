@@ -37,11 +37,12 @@ export const item = style({
       borderRadius: vars.radius.sm,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
+      fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.normal,
       color: vars.color.text.primary,
       cursor: "pointer",
       outline: "none",
-      minHeight: "2rem",
+      minHeight: vars.size.compact.lg,
       selectors: {
         "&[data-focused='true']": {
           background: vars.color.primary["600"],

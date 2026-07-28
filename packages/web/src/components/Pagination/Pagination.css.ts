@@ -34,6 +34,8 @@ export const control = recipe({
         background: "transparent",
         borderRadius: vars.radius.sm,
         font: "inherit",
+        fontWeight: vars.font.weight.semibold,
+        lineHeight: vars.font.lineHeight.normal,
         color: vars.color.text.secondary,
         cursor: "pointer",
         ...motion.interaction,

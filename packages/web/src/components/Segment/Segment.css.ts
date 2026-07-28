@@ -41,9 +41,9 @@ export const control = recipe({
     size: {
       xs: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
       sm: { height: vars.size.control.sm, fontSize: vars.font.size.body2 },
-      md: { height: vars.size.control.md, fontSize: vars.font.size.body1 },
-      lg: { height: vars.size.control.lg, fontSize: vars.font.size.body1 },
-      xl: { height: vars.size.control.xl, fontSize: vars.font.size.h6 },
+      md: { height: vars.size.control.md, fontSize: vars.font.size.button },
+      lg: { height: vars.size.control.lg, fontSize: vars.font.size.button },
+      xl: { height: vars.size.control.xl, fontSize: vars.font.size.body1 },
     },
     fullWidth: {
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
@@ -84,6 +84,8 @@ export const tab = style({
       border: "none",
       background: "transparent",
       font: "inherit",
+      fontWeight: vars.font.weight.semibold,
+      lineHeight: vars.font.lineHeight.normal,
       cursor: "pointer",
       color: vars.color.text.secondary,
       whiteSpace: "nowrap",

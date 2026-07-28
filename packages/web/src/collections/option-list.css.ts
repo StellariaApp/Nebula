@@ -32,7 +32,7 @@ export const option = style({
       color: vars.color.text.primary,
       cursor: "pointer",
       outline: "none",
-      minHeight: "2rem",
+      minHeight: vars.size.compact.lg,
       selectors: {
         "&[data-focused='true']": {
           background: vars.color.primary["600"],

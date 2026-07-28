@@ -5,7 +5,7 @@ import { baseLayer } from "../../theme/layers.css.js";
 
 import { toastAccent } from "./Toast.vars.css.js";
 
-const EDGE = "1rem";
+const EDGE = vars.space.md;
 
 export const region = style({
   "@layer": {

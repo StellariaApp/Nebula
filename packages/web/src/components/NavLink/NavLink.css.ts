@@ -17,7 +17,7 @@ export const root = style({
       boxSizing: "border-box",
       paddingInline: vars.space.sm,
       paddingBlock: vars.space.xs,
-      minHeight: "2.25rem",
+      minHeight: vars.size.control.sm,
       border: "none",
       background: "transparent",
       borderRadius: vars.radius.sm,
@@ -74,9 +74,15 @@ export const body = style({
 });
 
 export const label = style({
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
+  "@layer": {
+    [baseLayer]: {
+      fontWeight: vars.font.weight.medium,
+      lineHeight: vars.font.lineHeight.normal,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+    },
+  },
 });
 
 export const description = style({
@@ -105,7 +111,7 @@ export const children = style({
       marginInlineStart: vars.space.sm,
       display: "flex",
       flexDirection: "column",
-      gap: "2px",
+      gap: vars.space.xxs,
     },
   },
 });
