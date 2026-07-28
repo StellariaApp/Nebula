@@ -47,7 +47,8 @@ type NebulaTheme = {
   // 3. GEOMETRÍA Y DENSIDAD
   radius:  { xs…full }                           // un tema "sharp" pone todo en 0–2px
   spacing: { unit: number; scale: {...} }        // densidad: compact (unit 3) ↔ comfortable (unit 5)
-  sizes:   { control: { xs:30, sm:36, md:42, lg:50, xl:60 } }  // heights compartidas W/N
+  sizes:   { control: { xs:30, sm:36, md:42, lg:50, xl:60 },   // heights compartidas W/N
+             compact: { xs:20, sm:24, md:28, lg:32, xl:36 } }  // metadata y navegación compacta
 
   // 4. MOTION — tokens que los componentes consumen SIEMPRE vía theme
   motion: {

@@ -94,6 +94,30 @@ En un control solo-icono, el glifo ocupa aproximadamente la mitad del lado útil
 de `sizes.control`; no reutiliza tamaños de texto como escala de iconos. Un `ActionIcon md` de 42 px
 produce así un icono cercano a 21 px antes de correcciones ópticas propias del SVG.
 
+### 4.1 La segunda escala: `sizes.compact` (ADR-033)
+
+`sizes.control` expresa densidad **de control**, y forzar dentro de ella todo lo que tiene altura
+produce el defecto contrario: un badge tan alto como un botón. De ahí una segunda escala para lo que
+muestra metadata o navegación compacta y **no es un objetivo táctil**:
+
+- `xs` (20) · `sm` (24) · `md` (28) · `lg` (32) · `xl` (36), sobre la misma rejilla de 4 px de §3.
+- `compact.md` (28) y `control.md` (42) guardan relación 2:3 en los cinco peldaños, de modo que las
+  dos escalas conviven sin que una parezca un accidente de la otra.
+
+Reglas:
+
+- **Ningún componente declara alturas en literales.** Si una altura no cabe en ninguna de las dos
+  escalas, la discusión es qué peldaño falta, no qué `rem` escribir.
+- **Lo interactivo va en `control`, aunque parezca compacto.** Los items de una paginación son
+  objetivos táctiles: usan `control` desplazada un peldaño —una paginación `md` alinea con un input
+  `sm`— y así toda su escala queda sobre el mínimo de 24 px CSS de WCAG 2.2. Es también la razón de que
+  Pagination no ofrezca `xs`: por debajo de `control.xs` no hay peldaño.
+- **`compact` no satisface el mínimo táctil de 44 pt de native por definición.** Lo que la consuma no
+  puede ser interactivo; Badge lo cumple.
+
+El mismo nombre de tamaño sigue significando densidades distintas en escalas distintas, pero ahora la
+diferencia está declarada en el contrato y un tema puede recalibrar las dos.
+
 ## 5. Superficies y elevación
 
 | Nivel | Rol                          | Tratamiento esperado                                      |

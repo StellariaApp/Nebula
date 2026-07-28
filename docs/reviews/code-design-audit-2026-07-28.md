@@ -260,8 +260,9 @@ verde; el cierre del tramo añade `a11y` (55 suites, 338 tests).
 | T1      | **cerrado** | `1b3da87`                                                                                                                                                       |
 | T2      | **cerrado** | `1369c9a`                                                                                                                                                       |
 | T3      | **cerrado** | `83ca70d` `00bb48d` `956ca9c` `f54e641` `3cd5fa8` `f3fac90` `efdeccb` `ed1fc58` `f4c8914` `292f558` `1bb107a` `d4f1dc4` + `cfdeeae` `07ba00b` (docs y enmienda) |
-| T4      | **cerrado** | `7b95585` `e4d5098` `95d9f43` `32851e3` `11c85fd`                                                                                                               |
-| T5 – T8 | sin empezar | —                                                                                                                                                               |
+| T4      | **cerrado** | `7b95585` `e4d5098` `95d9f43` `32851e3` `11c85fd` + `f50802d` `867a016`                                                                                         |
+| T5      | **cerrado** | `14cdbab` `745c06d`                                                                                                                                             |
+| T6 – T8 | sin empezar | —                                                                                                                                                               |
 
 Doce lotes por familia. Los seis primeros son de la primera sesión; los seis últimos cierran el tramo:
 Anchor y Highlight · Collapse y Transition · NavLink y Pagination · Modal y Toast · Select, Combobox y
@@ -316,6 +317,29 @@ Tres decisiones de implementación que el ADR no fijaba:
   completa funde— y las tres son física de modal.
 - **La salida por tween acelerado se aplica a las seis superficies**, no solo a las cuatro que el ADR
   nombra: la regla 2 está escrita como invariante y un spring no tiene duración con la que cumplirla.
+
+### 5.1.2 T5 — las dos escalas, en dos lotes
+
+`ThemeSizes` gana `compact` y `vars.size` pasa a `vars.size.control.*` / `vars.size.compact.*`. Badge
+sale de sus literales, Pagination pasa a `control` desplazada un peldaño, y B2, B3 y B4 se resuelven
+con el censo corregido.
+
+Dos correcciones al enunciado de los hallazgos, ambas encontradas al aplicarlos:
+
+- **B2 contaba cinco componentes y son tres.** `ActionIcon` no tiene label —su `fontSize` dimensiona el
+  icono—, así que es falso positivo. Y de los cuatro restantes solo Segment y Pagination son labels de
+  control: Menu y NavLink son listas de texto, y ponerlas en `semibold` habría aplanado la jerarquía
+  que `docs/06` §1 pide preservar. Pasan a `medium`, que gobierna el peso sin competir con el
+  contenido.
+- **La regla 4 de ADR-033 no cerraba el caso de `xs`.** Al desplazar cinco nombres un peldaño hacia
+  abajo, `xs` se queda sin destino porque no hay peldaño bajo `control.xs`. Se retira del contrato de
+  Pagination: los cuatro que quedan son distintos entre sí y superan el mínimo de 24 px de WCAG 2.2,
+  mientras que el `xs` actual estaba justo en el límite que el propio ADR señala como riesgo.
+
+La escala `compact` absorbe exactamente los dos `2rem` de Menu y `option-list`, que es señal de que el
+peldaño estaba bien elegido. De B4 quedan fuera, a propósito, los `outlineOffset` —son el anillo de
+foco y los unifica T6—, los hairlines de 1–3 px y las flechas de 8 px de Popover y Tooltip, que no
+tienen peldaño en la rejilla de 4 px y tokenizarlos sería inventar escala.
 
 ### 5.2 Corrección pendiente de ADR-032 regla 3
 

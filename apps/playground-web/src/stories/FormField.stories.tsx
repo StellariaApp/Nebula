@@ -25,7 +25,7 @@ type Story = StoryObj<typeof FormField>;
 const INPUT_STYLE = {
   boxSizing: "border-box",
   width: "100%",
-  minHeight: vars.size.md,
+  minHeight: vars.size.control.md,
   border: `1px solid ${vars.color.border.default}`,
   borderRadius: vars.radius.md,
   paddingInline: vars.space.md,
