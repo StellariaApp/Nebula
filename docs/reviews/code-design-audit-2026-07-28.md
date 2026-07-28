@@ -306,8 +306,11 @@ distintas según si los valores del componente caben o no dentro del tipo de la 
 | Propiedad CSS reutilizada con otra semántica, valores subconjunto | `padding` en Popover y Modal (`none\|sm\|md\|lg` ⊂ `SpacingName`)                                                             | la interfaz la estrecha; gana la prop, y `p` sigue disponible |
 | Atajo que ya era prop del componente                              | `maw` en Tooltip                                                                                                              | gana la prop, aplicada tras el spread                         |
 
-Afecta a cerca del 40 % del catálogo. **La regla 3 sigue sin reescribirse**: es enmienda de un ADR
-aceptado y necesita decisión propia. Con el censo cerrado, la enmienda ya no tiene incógnitas.
+Afecta a cerca del 40 % del catálogo. **Regla 3 reescrita** con estas cuatro clases y su resolución, y
+la corrección registrada en Consecuencias de ADR-032 con la forma que fijó ADR-028: la regla daba por
+hecho que `StyleProps` no contenía `color`, `shadow` ni `padding`, cuando los contenía desde el día que
+se aceptó — `createSprinkles` publica el nombre largo de cada propiedad además de su atajo, y el censo
+original se hizo sobre la lista de atajos.
 
 ### 5.3 Decisiones de diseño tomadas al implementar
 
@@ -337,15 +340,19 @@ aceptado y necesita decisión propia. Con el censo cerrado, la enmienda ya no ti
    la constante con el mismo nombre que la interfaz que la tipa:
    `export const Anchor = AnchorComponent as unknown as AnchorComponent;`. Compila, pero el nombre
    `Impl` era justo lo que distinguía implementación de contrato público.
-3. **La enmienda de ADR-032 regla 3** (§5.2). El censo de colisiones ya está cerrado; falta escribirla.
-4. **`ToastProvider` no expone `className`.** Acepta style props pero no la clase del consumidor, que
+3. **`ToastProvider` no expone `className`.** Acepta style props pero no la clase del consumidor, que
    es la única pieza del catálogo en esa asimetría. Su sitio natural es T7, junto al resto de la
    ergonomía de consumo.
-5. **Los `.Item` del compound de Segment** no aceptan style props (§5.1). Abrirlo exige que
+4. **Los `.Item` del compound de Segment** no aceptan style props (§5.1). Abrirlo exige que
    `SegmentContent` extraiga las style props de las props de cada hijo; se decide con evidencia de uso.
-6. **La documentación de ADR-032 sigue pendiente en sus propios docs.** Su última consecuencia dice que
-   `docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 se actualizan "en el
-   mismo PR que implemente la decisión". T3 la ha implementado y esos tres puntos no se han tocado.
+5. **El repositorio no cumple su propia configuración de Prettier.** `pnpm format` reescribe **173
+   archivos** —docs, stories, `CLAUDE.md`, componentes ya cerrados—, de modo que ejecutarlo dentro de un
+   tramo entierra su diff. Se ha venido formateando archivo a archivo al tocarlo. Normalizarlo entero
+   pide un commit propio de solo formato, aislado y con los gates en verde antes y después.
+
+**Cerradas al cierre de T3**: la enmienda de ADR-032 regla 3 (§5.2), y la actualización de
+`docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 que la última
+consecuencia del propio ADR-032 exigía "en el mismo PR que implemente la decisión".
 
 ### Cruce con el trabajo en curso
 

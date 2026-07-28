@@ -32,11 +32,25 @@
    VisuallyHidden— se migran a `baseLayer` **antes** de ampliar nada. Hoy su comportamiento lo decide
    el orden de emisión del bundler.
 
-3. **Sin colisión de nombres.** Una style prop no puede ocultar una prop existente del componente. El
-   conjunto actual no colisiona —los atajos son `p`, `m`, `w`, `c`, `fz`, `r`, `gap`, `self`… y las
-   props de componente son `size`, `variant`, `color`, `radius`, `shadow`—, y esa separación pasa a ser
-   norma: `StyleProps` no incorporará jamás las claves `size`, `variant`, `color`, `radius`, `shadow`
-   ni `padding` sin abreviar.
+3. **Las colisiones de nombre se resuelven a favor del componente.** _(Regla reescrita al cierre de T3;
+   ver la corrección en Consecuencias.)_ Sprinkles publica sus atajos **y también los nombres largos de
+   la propiedad CSS**, de modo que `color`, `background`, `padding`, `position` o `wrap` son claves de
+   `StyleProps`. Colisionan con props existentes en cerca del **40 % del catálogo**, en cuatro clases:
+
+   | Clase                                                             | Ejemplos                                                                                                                      | Resolución                                                               |
+   | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+   | Prop semántica de componente                                      | `color` en Button, ActionIcon, Badge, Alert, toggles, NavLink, Pagination, Segment, Tabs, Highlight; `shadow` en Card y Paper | omitir de `StyleProps`; queda el atajo `c` o el nombre largo `boxShadow` |
+   | Atributo HTML real                                                | `wrap` en `<textarea>` (hard/soft)                                                                                            | gana el atributo; omitir de `StyleProps`                                 |
+   | Propiedad CSS reutilizada con otra semántica, valores ajenos      | `position` en FieldError (`"bottom"`) y en ToastProvider (`"top-start"`…)                                                     | omitir de `StyleProps`; gana la prop del componente                      |
+   | Propiedad CSS reutilizada con otra semántica, valores subconjunto | `padding` en Popover y Modal (`none\|sm\|md\|lg` ⊂ `SpacingName`)                                                             | la interfaz la estrecha; gana la prop, y `p` sigue disponible            |
+   | Atajo que ya era prop del componente                              | `maw` en Tooltip                                                                                                              | gana la prop, aplicada tras el spread del style de sprinkles             |
+
+   **La norma es que gana siempre la prop del componente**, y el consumidor conserva el atajo
+   equivalente. El coste de omitir una clave de `StyleProps` es local a ese componente y explícito en su
+   tipo; el de dejar ganar a la style prop sería un cambio silencioso de comportamiento.
+
+   Sigue en pie la mitad prospectiva de la regla original: `StyleProps` **no incorporará** las claves
+   `size`, `variant` ni `radius`, que son vocabulario de componente y no de CSS.
 
 4. **Sprinkles pasa a ser responsive** con los cinco breakpoints del tema:
    `phone` 576 · `tablet` 768 · `laptop` 1024 · `desktop` 1280 · `wide` 1536. Se define una condición
@@ -124,3 +138,18 @@
   requisito de N1, cubierto por el lint de paridad W/N.
 - `docs/patterns/web-component-template.md` §1 y §6 y `docs/01-architecture.md` §4 se actualizan en el
   mismo PR que implemente la decisión.
+- **Corrección tras la implementación (2026-07-28, cierre de T3)**: la regla 3 afirmaba que _«el
+  conjunto actual no colisiona»_ y que bastaba con no incorporar nunca `size`, `variant`, `color`,
+  `radius`, `shadow` ni `padding`. Era falsa en dos frentes. Primero, `StyleProps` **ya contenía**
+  `color`, `shadow` y `padding` el día que se aceptó el ADR, porque `createSprinkles` publica el nombre
+  largo de cada propiedad además de su atajo; el censo se hizo sobre la lista de atajos. Segundo, las
+  colisiones no son de una sola naturaleza: hay atributos HTML reales (`wrap`) y propiedades CSS
+  reutilizadas con otra semántica (`position`), que no se resuelven igual que una prop semántica de
+  componente. La regla 3 queda reescrita con las cuatro clases y su resolución, censadas sobre los 37
+  componentes del tramo. El detalle del hallazgo está en
+  `docs/reviews/code-design-audit-2026-07-28.md` §5.2.
+- **Recalibración adicional de `size-limit` (cierre de T3)**: `Pagination` pasa de 34 a **40 kB**. Es la
+  misma naturaleza que la regla 7 —suelo compartido, no tolerancia—: Pagination, Transition y Collapse
+  eran los últimos módulos que no importaban nada de `utils/style-props.js`, ni siquiera `cx`, y por
+  tanto nunca habían contado el runtime de sprinkles. Los tres suben ~8,4–8,8 kB brotli sin que su
+  código propio crezca; solo Pagination quedaba por debajo de su margen.

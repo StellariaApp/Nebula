@@ -27,7 +27,27 @@ packages/web/src/components/<Nombre>/
 
 Y su story en `apps/playground-web/src/stories/<Nombre>.stories.tsx` (nunca dentro de `packages/web`, que queda libre de dependencias de Storybook).
 
-Registrar el componente en `packages/web/src/index.ts` (valor + tipos) y añadir su entry a `size-limit` en `package.json`, apuntando **al módulo** (`dist/components/…/X.js`), no al barrel.
+**El contrato de props extiende `StyleProps`** (ADR-032): todo componente del catálogo las acepta, directamente o vía `BoxOwnProps`. La implementación llama a `ExtractStyleProps` sobre el resto de props y compone `className` y `style`:
+
+```tsx
+const { variant, size, className, style, ...style_rest } = props;
+const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
+// …
+<div
+  className={cx(styles.base({ variant, size }), sprinkle_class, className)}
+  style={{ ...css_vars, ...sprinkle_style, ...style }}
+/>;
+```
+
+Tres reglas aprendidas al propagarlas a los 37 componentes del tramo:
+
+- **Van al nodo que ya llevaba `className`**, aunque no sea el nodo visible. Si la raíz semántica y la visual no coinciden —`<nav>` sobre `<ul>` en Pagination—, gana la raíz: `className` y las style props deben describir siempre el mismo elemento. Lo que quede sin efecto se documenta en el `<Nombre>.md`.
+- **En un campo de formulario van al `FormField` raíz**, no al control interno: `w="100%"` describe el campo, no la caja de texto. `className` sigue apuntando al control y `rootClassName` a la raíz.
+- **En un overlay se intercalan** entre el `style` de React Aria —que posiciona— y el de la prop específica del componente, de modo que ninguna style prop pueda romper el posicionamiento.
+
+**Colisiones de nombre**: sprinkles publica también los nombres largos (`color`, `background`, `padding`, `position`, `wrap`…), así que la colisión con las props del componente es la norma y no la excepción. Gana siempre la prop del componente; ADR-032 regla 3 tiene las cuatro clases y su resolución. Los componentes que no renderizan un elemento propio —`Conditional`, `Portal`, `FocusTrap`, los `.Item` de un compound— quedan fuera.
+
+Registrar el componente en `packages/web/src/index.ts` (valor + tipos) y añadir su entry a `packages/web/.size-limit.js` —ya no a `package.json`, ADR-032 regla 6—, apuntando **al módulo** (`dist/components/…/X.js`), no al barrel.
 
 ## 2. Las tres capas
 
@@ -160,7 +180,9 @@ relación, una sola escalera de elevación y máximo un efecto dominante por reg
 
 - [ ] `pnpm turbo build typecheck lint test size` verde.
 - [ ] `pnpm turbo a11y --filter=playground-web` verde (0 violaciones).
-- [ ] Estilos base dentro de `baseLayer`.
+- [ ] Acepta `StyleProps` y las aplica con `ExtractStyleProps` (ADR-032), salvo que no renderice un elemento propio.
+- [ ] Las colisiones de nombre resueltas a favor de la prop del componente, con el `Omit` o el estrechamiento explícito en el tipo.
+- [ ] Estilos base dentro de `baseLayer` — **obligatorio**, no opcional: sin capa, la clase base pisa en silencio la style prop del consumidor.
 - [ ] Cero hex y cero paletas crudas en el componente: solo roles y `variantMap`.
 - [ ] Entry de `size-limit` añadido y dentro de budget (docs/03 §3).
 - [ ] `"use client"` **solo** si el componente es interactivo; los presentacionales quedan server-safe.

@@ -159,7 +159,7 @@ components/<Name>/
 > **Estructura plana** (ADR-019): sin carpeta de categoría. La plantilla completa y vinculante está en `docs/patterns/web-component-template.md`.
 
 1. **Capa de comportamiento**: hooks de React Aria (`useButton`, `useDialog`, `useComboBox`, `useMenu`…) — focus management, keyboard nav, ARIA correcto (ADR-003). HTML nativo donde baste (`<dialog>`, `<details>`).
-2. **Capa visual**: VE `recipe()` (variant × size × state) + `sprinkles` para style props en primitivos de Layout (equivalente web del Collector).
+2. **Capa visual**: VE `recipe()` (variant × size × state) + `sprinkles` para style props (equivalente web del Collector). Desde ADR-032 las acepta **todo el catálogo**, no solo los primitivos de layout, con condiciones responsive por los cinco breakpoints del tema; quedan fuera solo los componentes que no renderizan un elemento propio. `baseLayer` en los estilos base deja de ser opcional: es lo que garantiza que la style prop del consumidor gane a la decisión interna.
 3. **Capa de motion**: `motion` v12 con motion tokens; degradación a CSS transitions en componentes simples.
 
 **Build (ADR-016)**: `nebula-web` **precompila** su CSS de Vanilla Extract con Vite en modo librería (`preserveModules` + CSS por módulo vía `vite-plugin-lib-inject-css`); las `.d.ts` las emite `tsc` (TS 7). Los consumidores importan CSS ya extraído sin ejecutar el pipeline de VE (evita minutos de compilación VE por app). `sideEffects: ["*.css"]`; `typecheck` sigue en `tsc --noEmit`.
