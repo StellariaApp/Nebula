@@ -5,7 +5,7 @@ import { forwardRef, type ChangeEvent } from "react";
 import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 
 import type { TextInputProps } from "./TextInput.types.js";
@@ -29,8 +29,13 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       rootClassName,
       errorDisplay = "tooltip",
       type = "text",
-      ...input_rest
+      ...input_rest_and_style
     } = props;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: input_rest,
+    } = ExtractStyleProps(input_rest_and_style);
 
     const fp = useFieldProps({
       field: nebula_field,
@@ -52,7 +57,8 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         errorDisplay={errorDisplay}
         status={fp.status}
         required={required}
-        className={rootClassName}
+        className={cx(sprinkle_class, rootClassName)}
+        style={sprinkle_style}
       >
         {(control) => (
           <div

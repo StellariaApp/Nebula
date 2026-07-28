@@ -1,3 +1,4 @@
+import type { StyleProps } from "../../utils/style-props.js";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { Orientation, SemanticScaleName, Size } from "@stellaria/nebula-tokens";
@@ -5,10 +6,12 @@ import type { Orientation, SemanticScaleName, Size } from "@stellaria/nebula-tok
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
 export interface CheckboxProps
-  extends Omit<
-    ComponentPropsWithoutRef<"input">,
-    "size" | "onChange" | "checked" | "defaultChecked" | "type" | "color" | "disabled"
-  > {
+  extends
+    Omit<
+      ComponentPropsWithoutRef<"input">,
+      "size" | "onChange" | "checked" | "defaultChecked" | "type" | "color" | "disabled"
+    >,
+    Omit<StyleProps, "color"> {
   label?: ReactNode | undefined;
   size?: Size | undefined;
   color?: SemanticScaleName | undefined;

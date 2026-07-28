@@ -5,21 +5,40 @@ import { forwardRef, type ChangeEvent } from "react";
 import { useDebouncedCallback, useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import type { SearchInputProps } from "./SearchInput.types.js";
 
 const SEARCH_ICON = (
-  <svg viewBox="0 0 24 24" width="1.05em" height="1.05em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1.05em"
+    height="1.05em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <circle cx="11" cy="11" r="7" />
     <path d="M21 21l-4.3-4.3" />
   </svg>
 );
 
 const CLEAR_ICON = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
     <path d="M6 6l12 12M18 6L6 18" />
   </svg>
 );
@@ -44,8 +63,13 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       className,
       rootClassName,
       errorDisplay = "tooltip",
-      ...input_rest
+      ...input_rest_and_style
     } = props;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: input_rest,
+    } = ExtractStyleProps(input_rest_and_style);
 
     const fp = useFieldProps({
       field: nebula_field,
@@ -77,7 +101,8 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         errorDisplay={errorDisplay}
         status={fp.status}
         required={required}
-        className={rootClassName}
+        className={cx(sprinkle_class, rootClassName)}
+        style={sprinkle_style}
       >
         {(control) => (
           <div

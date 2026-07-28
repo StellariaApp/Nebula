@@ -16,7 +16,7 @@ import {
 } from "motion/react";
 
 import { Rubber } from "../../utils/rubber.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 
 import { useSwitchGroupContext } from "./Switch.context.js";
@@ -47,8 +47,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     draggable = true,
     className,
     rootClassName,
-    ...input_rest
+    ...input_rest_and_style
   } = props;
+  const {
+    className: sprinkle_class,
+    style: sprinkle_style,
+    rest: input_rest,
+  } = ExtractStyleProps(input_rest_and_style);
 
   const group = useSwitchGroupContext();
   const { theme } = useTheme();
@@ -124,9 +129,9 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   return (
     <LazyMotion features={domMax} strict>
       <label
-        className={cx(styles.root, rootClassName)}
+        className={cx(styles.root, sprinkle_class, rootClassName)}
         data-disabled={disabled ? "true" : undefined}
-        style={css_vars}
+        style={{ ...css_vars, ...sprinkle_style }}
       >
         <input
           {...input_rest}

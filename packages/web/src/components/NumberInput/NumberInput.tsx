@@ -5,7 +5,7 @@ import { forwardRef, type ChangeEvent } from "react";
 import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
@@ -34,8 +34,13 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       className,
       rootClassName,
       errorDisplay = "tooltip",
-      ...input_rest
+      ...input_rest_and_style
     } = props;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: input_rest,
+    } = ExtractStyleProps(input_rest_and_style);
 
     const fp = useFieldProps<number>({
       field: nebula_field,
@@ -83,7 +88,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         errorDisplay={errorDisplay}
         status={fp.status}
         required={required}
-        className={rootClassName}
+        className={cx(sprinkle_class, rootClassName)}
+        style={sprinkle_style}
       >
         {(control) => (
           <div

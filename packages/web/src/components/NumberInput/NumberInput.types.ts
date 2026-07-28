@@ -3,12 +3,25 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+import type { StyleProps } from "../../utils/style-props.js";
 
 export interface NumberInputProps
-  extends Omit<
-    ComponentPropsWithoutRef<"input">,
-    "value" | "defaultValue" | "onChange" | "size" | "color" | "disabled" | "required" | "type" | "min" | "max" | "step"
-  > {
+  extends
+    Omit<
+      ComponentPropsWithoutRef<"input">,
+      | "value"
+      | "defaultValue"
+      | "onChange"
+      | "size"
+      | "color"
+      | "disabled"
+      | "required"
+      | "type"
+      | "min"
+      | "max"
+      | "step"
+    >,
+    StyleProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

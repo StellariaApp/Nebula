@@ -6,7 +6,7 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 import { useObjectRef } from "react-aria";
 
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 
 import type { TextareaProps } from "./Textarea.types.js";
@@ -29,8 +29,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       rootClassName,
       errorDisplay = "tooltip",
-      ...textarea_rest
+      ...textarea_rest_and_style
     } = props;
+    const {
+      className: sprinkle_class,
+      style: sprinkle_style,
+      rest: textarea_rest,
+    } = ExtractStyleProps(textarea_rest_and_style);
 
     const local_ref = useRef<HTMLTextAreaElement>(null);
     const ref = useObjectRef(forwarded_ref ?? local_ref);
@@ -63,7 +68,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         errorDisplay={errorDisplay}
         status={fp.status}
         required={required}
-        className={rootClassName}
+        className={cx(sprinkle_class, rootClassName)}
+        style={sprinkle_style}
       >
         {(control) => (
           <div
@@ -78,7 +84,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               rows={rows}
               className={cx(field.input, field.textarea, className)}
               value={fp.value}
-              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => fp.onChange(event.target.value)}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+                fp.onChange(event.target.value)
+              }
               disabled={fp.isDisabled}
               required={required}
             />

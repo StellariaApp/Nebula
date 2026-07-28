@@ -7,7 +7,7 @@ import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { useObjectRef } from "react-aria";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 
 import { useCheckboxGroupContext } from "./Checkbox.context.js";
@@ -31,8 +31,13 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     error = false,
     className,
     rootClassName,
-    ...input_rest
+    ...input_rest_and_style
   } = props;
+  const {
+    className: sprinkle_class,
+    style: sprinkle_style,
+    rest: input_rest,
+  } = ExtractStyleProps(input_rest_and_style);
 
   const group = useCheckboxGroupContext();
   const size = size_prop ?? group?.size ?? "md";
@@ -62,9 +67,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
   return (
     <label
-      className={cx(styles.root, rootClassName)}
+      className={cx(styles.root, sprinkle_class, rootClassName)}
       data-disabled={disabled ? "true" : undefined}
-      style={css_vars}
+      style={{ ...css_vars, ...sprinkle_style }}
     >
       <input
         {...input_rest}
