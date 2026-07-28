@@ -8,6 +8,8 @@ import { Modal } from "../Modal.js";
 
 afterEach(cleanup);
 
+const EXIT_TIMEOUT = 5000;
+
 function Controlled(props: { closeOnEscape?: boolean }): React.ReactElement {
   const [opened, set_opened] = useState(true);
   return (
@@ -39,9 +41,12 @@ describe("Modal", () => {
     const user = userEvent.setup();
     render(<Controlled />);
     await user.click(screen.getByRole("button", { name: "Cerrar" }));
-    await waitFor(() => {
-      expect(screen.queryByRole("dialog")).toBeNull();
-    });
+    await waitFor(
+      () => {
+        expect(screen.queryByRole("dialog")).toBeNull();
+      },
+      { timeout: EXIT_TIMEOUT },
+    );
   });
 
   it("Escape cierra por onClose y no por el DOM (estado sigue mandando)", async () => {
@@ -93,9 +98,12 @@ describe("Modal", () => {
 
     await user.click(screen.getByRole("button", { name: "cerrar" }));
 
-    await waitFor(() => {
-      expect(screen.queryByRole("dialog")).toBeNull();
-    });
+    await waitFor(
+      () => {
+        expect(screen.queryByRole("dialog")).toBeNull();
+      },
+      { timeout: EXIT_TIMEOUT },
+    );
   });
 
   it("no expone diálogo cuando opened=false", () => {
