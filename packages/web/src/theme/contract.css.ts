@@ -73,7 +73,10 @@ export const vars = createThemeContract({
     xxl: null,
     xxxl: null,
   },
-  size: { xs: null, sm: null, md: null, lg: null, xl: null },
+  size: {
+    control: { xs: null, sm: null, md: null, lg: null, xl: null },
+    compact: { xs: null, sm: null, md: null, lg: null, xl: null },
+  },
   motion: {
     duration: { instant: null, fast: null, base: null, slow: null, expressive: null },
     easing: { standard: null, emphasized: null, decelerate: null, accelerate: null },

@@ -4,4 +4,5 @@ export type {
   PaginationItem,
   PaginationLabels,
   PaginationProps,
+  PaginationSize,
 } from "./Pagination.types.js";

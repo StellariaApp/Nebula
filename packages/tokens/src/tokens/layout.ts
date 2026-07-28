@@ -36,6 +36,13 @@ export const sizes = {
     lg: 50,
     xl: 60,
   } satisfies Record<Size, number>,
+  compact: {
+    xs: 20,
+    sm: 24,
+    md: 28,
+    lg: 32,
+    xl: 36,
+  } satisfies Record<Size, number>,
 } as const satisfies ThemeSizes;
 
 export const breakpoints = {

@@ -93,11 +93,11 @@ export const field = recipe({
   },
   variants: {
     size: {
-      xs: { minHeight: vars.size.xs, paddingInline: vars.space.sm, fontSize: vars.font.size.body3 },
-      sm: { minHeight: vars.size.sm, paddingInline: vars.space.sm, fontSize: vars.font.size.body2 },
-      md: { minHeight: vars.size.md, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
-      lg: { minHeight: vars.size.lg, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
-      xl: { minHeight: vars.size.xl, paddingInline: vars.space.lg, fontSize: vars.font.size.h6 },
+      xs: { minHeight: vars.size.control.xs, paddingInline: vars.space.sm, fontSize: vars.font.size.body3 },
+      sm: { minHeight: vars.size.control.sm, paddingInline: vars.space.sm, fontSize: vars.font.size.body2 },
+      md: { minHeight: vars.size.control.md, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
+      lg: { minHeight: vars.size.control.lg, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
+      xl: { minHeight: vars.size.control.xl, paddingInline: vars.space.lg, fontSize: vars.font.size.h6 },
     },
     multiline: {
       true: { alignItems: "stretch", paddingBlock: vars.space.sm },

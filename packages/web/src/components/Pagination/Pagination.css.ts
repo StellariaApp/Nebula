@@ -55,11 +55,26 @@ export const control = recipe({
   },
   variants: {
     size: {
-      xs: { minWidth: "1.5rem", height: "1.5rem", fontSize: vars.font.size.caption },
-      sm: { minWidth: "1.75rem", height: "1.75rem", fontSize: vars.font.size.body3 },
-      md: { minWidth: "2rem", height: "2rem", fontSize: vars.font.size.body2 },
-      lg: { minWidth: "2.5rem", height: "2.5rem", fontSize: vars.font.size.body1 },
-      xl: { minWidth: "3rem", height: "3rem", fontSize: vars.font.size.h6 },
+      sm: {
+        minWidth: vars.size.control.xs,
+        height: vars.size.control.xs,
+        fontSize: vars.font.size.body3,
+      },
+      md: {
+        minWidth: vars.size.control.sm,
+        height: vars.size.control.sm,
+        fontSize: vars.font.size.body2,
+      },
+      lg: {
+        minWidth: vars.size.control.md,
+        height: vars.size.control.md,
+        fontSize: vars.font.size.body1,
+      },
+      xl: {
+        minWidth: vars.size.control.lg,
+        height: vars.size.control.lg,
+        fontSize: vars.font.size.body1,
+      },
     },
   },
   defaultVariants: { size: "md" },
@@ -85,7 +100,7 @@ export const dots = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "1.5rem",
+      minWidth: vars.size.control.xs,
       color: vars.color.text.muted,
       userSelect: "none",
     },

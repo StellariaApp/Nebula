@@ -66,7 +66,7 @@ export const Paginations: Story = {
         <Pagination total={20} defaultPage={10} withEdges labels={{ root: "Con extremos" }} />
         <Pagination total={3} defaultPage={2} labels={{ root: "Pocas páginas" }} />
         <Box display="flex" direction="column" gap="sm">
-          {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+          {(["sm", "md", "lg", "xl"] as const).map((size) => (
             <Pagination
               key={size}
               total={7}

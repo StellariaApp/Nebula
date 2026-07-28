@@ -62,6 +62,7 @@ export interface ThemeSpacing {
 
 export interface ThemeSizes {
   control: Record<Size, number>;
+  compact: Record<Size, number>;
 }
 
 export interface ThemeMotion {

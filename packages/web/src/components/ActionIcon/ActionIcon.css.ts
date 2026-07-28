@@ -61,45 +61,45 @@ export const actionIcon = recipe({
       xs: {
         "@layer": {
           [baseLayer]: {
-            width: vars.size.xs,
-            height: vars.size.xs,
-            fontSize: `calc(${vars.size.xs} / 2)`,
+            width: vars.size.control.xs,
+            height: vars.size.control.xs,
+            fontSize: `calc(${vars.size.control.xs} / 2)`,
           },
         },
       },
       sm: {
         "@layer": {
           [baseLayer]: {
-            width: vars.size.sm,
-            height: vars.size.sm,
-            fontSize: `calc(${vars.size.sm} / 2)`,
+            width: vars.size.control.sm,
+            height: vars.size.control.sm,
+            fontSize: `calc(${vars.size.control.sm} / 2)`,
           },
         },
       },
       md: {
         "@layer": {
           [baseLayer]: {
-            width: vars.size.md,
-            height: vars.size.md,
-            fontSize: `calc(${vars.size.md} / 2)`,
+            width: vars.size.control.md,
+            height: vars.size.control.md,
+            fontSize: `calc(${vars.size.control.md} / 2)`,
           },
         },
       },
       lg: {
         "@layer": {
           [baseLayer]: {
-            width: vars.size.lg,
-            height: vars.size.lg,
-            fontSize: `calc(${vars.size.lg} / 2)`,
+            width: vars.size.control.lg,
+            height: vars.size.control.lg,
+            fontSize: `calc(${vars.size.control.lg} / 2)`,
           },
         },
       },
       xl: {
         "@layer": {
           [baseLayer]: {
-            width: vars.size.xl,
-            height: vars.size.xl,
-            fontSize: `calc(${vars.size.xl} / 2)`,
+            width: vars.size.control.xl,
+            height: vars.size.control.xl,
+            fontSize: `calc(${vars.size.control.xl} / 2)`,
           },
         },
       },

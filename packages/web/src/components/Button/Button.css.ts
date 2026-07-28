@@ -99,31 +99,31 @@ export const button = recipe({
   variants: {
     size: {
       xs: {
-        height: vars.size.xs,
+        height: vars.size.control.xs,
         paddingInline: vars.space.sm,
         gap: vars.space.xxs,
         fontSize: vars.font.size.body3,
       },
       sm: {
-        height: vars.size.sm,
+        height: vars.size.control.sm,
         paddingInline: vars.space.sm,
         gap: vars.space.xs,
         fontSize: vars.font.size.body2,
       },
       md: {
-        height: vars.size.md,
+        height: vars.size.control.md,
         paddingInline: vars.space.md,
         gap: vars.space.xs,
         fontSize: vars.font.size.button,
       },
       lg: {
-        height: vars.size.lg,
+        height: vars.size.control.lg,
         paddingInline: vars.space.md,
         gap: vars.space.sm,
         fontSize: vars.font.size.button,
       },
       xl: {
-        height: vars.size.xl,
+        height: vars.size.control.xl,
         paddingInline: vars.space.lg,
         gap: vars.space.sm,
         fontSize: vars.font.size.body1,

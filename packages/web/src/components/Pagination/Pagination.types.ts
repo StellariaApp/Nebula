@@ -1,6 +1,8 @@
-import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
+import type { SemanticScaleName } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type PaginationSize = "sm" | "md" | "lg" | "xl";
 
 export interface PaginationLabels {
   root?: string | undefined;
@@ -21,7 +23,7 @@ export interface PaginationProps extends Omit<StyleProps, "color"> {
   withControls?: boolean | undefined;
   withEdges?: boolean | undefined;
   disabled?: boolean | undefined;
-  size?: Size | undefined;
+  size?: PaginationSize | undefined;
   color?: SemanticScaleName | undefined;
   labels?: PaginationLabels | undefined;
   className?: string | undefined;

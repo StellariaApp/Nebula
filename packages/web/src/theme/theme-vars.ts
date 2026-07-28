@@ -42,7 +42,10 @@ export function ThemeToVars(theme: NebulaTheme) {
     },
     radius: MapValues(radius, Px),
     space: MapValues(spacing.scale, (mult) => Px(spacing.unit * mult)),
-    size: MapValues(sizes.control, Px),
+    size: {
+      control: MapValues(sizes.control, Px),
+      compact: MapValues(sizes.compact, Px),
+    },
     motion: {
       duration: MapValues(motion.duration, Ms),
       easing: motion.easing,

@@ -166,6 +166,7 @@ export const themeSchema = z.strictObject({
   spacing,
   sizes: z.strictObject({
     control: z.record(z.enum(sizeNames), z.number().positive()),
+    compact: z.record(z.enum(sizeNames), z.number().positive()),
   }),
   motion,
   effects,

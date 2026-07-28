@@ -255,4 +255,5 @@ export type {
   PaginationItem,
   PaginationLabels,
   PaginationProps,
+  PaginationSize,
 } from "./components/Pagination/index.js";
