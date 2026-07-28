@@ -32,6 +32,15 @@ prompts/
 |                  | N5   | [4-native/N5-prompts.md](4-native/N5-prompts.md)               | Premium native (paridad con W6) + cierre premium                                | 2       |
 | 5. Review        | R    | [5-review/R-prompts.md](5-review/R-prompts.md)                 | Gate de migración: re-verificación + planes/codemods fonicredito y tfv          | 2       |
 
+## Prompts transversales
+
+No pertenecen a una fase: auditan lo ya construido y producen informe + ADRs, sin implementar. Se
+ejecutan entre fases, cuando su hallazgo abarataría el trabajo de la siguiente.
+
+| Código | Archivo                                                                                                | Contenido                                                                                     | Requiere  |
+| ------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | --------- |
+| WV     | [2-web/WV-variantes-y-cobertura-de-tematizacion.md](2-web/WV-variantes-y-cobertura-de-tematizacion.md) | Qué componentes deben aceptar `variant` y con qué coste de contrato, bundle, paridad W/N y a11y | W2 cerrado |
+
 ## Reglas de uso
 
 1. **Orden**: F0 → W1…W5 → W6 → N1…N4 → N5 → R. Flexibilidades permitidas: **TC** corre en paralelo desde el cierre de W1 (hitos: TC.1 tras W1, TC.2 tras W2, TC.3 tras W4); **W6** puede solaparse con el arranque de N1 (el core native solo necesita W5); **N5** requiere N4 + W6.
