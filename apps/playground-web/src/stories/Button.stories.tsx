@@ -3,6 +3,8 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { Box, Button, Text } from "@stellaria/nebula-web";
 
+import { ThemeMatrix, rosette } from "../fixtures/themes.js";
+
 const VARIANTS = [
   "filled",
   "outline",
@@ -138,13 +140,13 @@ export const ReducedMotion: Story = {
   ),
 };
 
-/** Los 4 temas lado a lado: el gate visual de W1. */
+/**
+ * Los cuatro temas oficiales lado a lado, más Rosette como tema de producto: mismas props,
+ * misma estructura. Si una variante se rompe en una columna, el componente lee algo fuera del tema.
+ */
 export const AllThemes: Story = {
   render: (args) => (
-    <Box display="flex" direction="column" gap="md">
-      <Text fz="body2" c="text.muted">
-        Cambia el tema en la toolbar: los mismos componentes se reconfiguran sin tocar props.
-      </Text>
+    <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
       <Box display="flex" gap="sm" wrap="wrap">
         {VARIANTS.map((variant) => (
           <Button key={variant} {...args} variant={variant}>
@@ -152,7 +154,7 @@ export const AllThemes: Story = {
           </Button>
         ))}
       </Box>
-    </Box>
+    </ThemeMatrix>
   ),
 };
 
@@ -185,4 +187,26 @@ export const DisabledIsNotFocusable: Story = {
     await userEvent.tab();
     await expect(button).not.toHaveFocus();
   },
+};
+
+/** Una acción principal por región; el resto baja de jerarquía por variante, no por tamaño. */
+export const Composition: Story = {
+  render: () => (
+    <Box display="flex" direction="column" gap="lg" style={{ maxWidth: "52ch" }}>
+      <Box display="flex" direction="column" gap="sm">
+        <Text fz="h5" fw="semibold" lh="tight">
+          Confirmar dispersión
+        </Text>
+        <Text fz="body2" c="text.secondary">
+          Se enviarán 128 transferencias por un total de MXN 1,248,300.00. La operación no se puede
+          revertir una vez liquidada.
+        </Text>
+      </Box>
+      <Box display="flex" gap="sm" wrap="wrap">
+        <Button>Confirmar dispersión</Button>
+        <Button variant="outline">Revisar lote</Button>
+        <Button variant="ghost">Cancelar</Button>
+      </Box>
+    </Box>
+  ),
 };

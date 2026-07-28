@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Box, Text } from "@stellaria/nebula-web";
 
+import { ThemeMatrix } from "../fixtures/themes.js";
+
 const SIZES = ["h1", "h2", "h3", "h4", "h5", "h6", "body1", "body2", "body3", "caption"] as const;
 
 const SAMPLE = "El veloz murciélago hindú comía feliz cardillo y kiwi.";
@@ -107,4 +109,43 @@ export const Light: Story = {
 export const ReducedMotion: Story = {
   ...Default,
   globals: { reducedMotion: "reduce" },
+};
+
+/** Composición real: jerarquía, medida de lectura y metadata en un bloque creíble. */
+export const Composition: Story = {
+  render: () => (
+    <Box display="flex" direction="column" gap="sm" style={{ maxWidth: "62ch" }}>
+      <Text component="p" fz="caption" ff="mono" tt="uppercase" ls="wide" c="text.muted">
+        Movimiento
+      </Text>
+      <Text fz="h5" fw="semibold" lh="tight">
+        Transferencia SPEI recibida
+      </Text>
+      <Text c="text.secondary">
+        El depósito se acreditó en la cuenta operativa y ya está disponible para dispersión. La
+        conciliación automática lo emparejó con la factura A-1042.
+      </Text>
+      <Text fz="caption" c="text.muted">
+        27 de julio, 09:14 · referencia 7788123 · MXN 48,900.00
+      </Text>
+    </Box>
+  ),
+};
+
+export const AllThemes: Story = {
+  render: () => (
+    <ThemeMatrix>
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="body2" fw="semibold">
+          Transferencia recibida
+        </Text>
+        <Text fz="body3" c="text.secondary">
+          Conciliada con la factura A-1042
+        </Text>
+        <Text fz="caption" c="text.muted">
+          27 de julio · MXN 48,900.00
+        </Text>
+      </Box>
+    </ThemeMatrix>
+  ),
 };
