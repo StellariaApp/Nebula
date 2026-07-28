@@ -494,7 +494,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Pagination/Pagination.js",
     import: "{ Pagination }",
     ignore: ["react", "react-dom"],
-    limit: "34 kB",
+    limit: "40 kB",
   },
   {
     name: "PaginationRange (lógica pura, por módulo)",

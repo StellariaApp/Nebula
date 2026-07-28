@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
 import * as styles from "./NavLink.css.js";
@@ -36,7 +36,9 @@ export function NavLink(props: NavLinkProps): ReactElement {
     defaultOpened = false,
     onOpenChange,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -99,8 +101,8 @@ export function NavLink(props: NavLinkProps): ReactElement {
   );
 
   const shared = {
-    className: cx(styles.root, className),
-    style: css_vars,
+    className: cx(styles.root, sprinkle_class, className),
+    style: { ...css_vars, ...sprinkle_style },
     "data-active": active ? "true" : undefined,
     "data-disabled": disabled ? "true" : undefined,
   };

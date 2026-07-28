@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 
 import type { SemanticScaleName } from "@stellaria/nebula-tokens";
 
-export interface NavLinkProps {
+import type { StyleProps } from "../../utils/style-props.js";
+
+export interface NavLinkProps extends Omit<StyleProps, "color"> {
   label: ReactNode;
   description?: ReactNode | undefined;
   href?: string | undefined;

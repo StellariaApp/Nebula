@@ -14,6 +14,10 @@ En vez de repintar el fondo de cada botón, un único elemento con `layoutId` **
 
 El color se resuelve en runtime con `ScaleShade` sobre variables CSS locales, no con `data-*` + CSS estático: el tono de marca depende del tema activo.
 
+## Dónde aterrizan las style props
+
+En el `<nav>`, que es la raíz y el elemento al que ya apuntaba `className`. La barra visible es el `<ul>` interior, así que `mt`, `mb`, `w`, `bg` o `r` se comportan como se espera pero **`gap` no separa los controles**: ese espaciado lo fija `styles.root` sobre el `<ul>` y no es alcanzable desde fuera. Si algún día hace falta abrirlo, será como prop propia del componente, no moviendo las style props a otro elemento — `className` y las style props deben seguir describiendo el mismo nodo.
+
 ## Etiquetas
 
 Cada instancia debería recibir su propia `labels.root`: varias `nav` con el mismo nombre accesible en una misma vista disparan `landmark-unique` en axe. El texto por defecto ("Paginación") sirve cuando solo hay una.

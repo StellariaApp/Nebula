@@ -8,6 +8,7 @@ import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ScaleShade } from "../../utils/scale.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Pagination.css.js";
 import type { PaginationProps } from "./Pagination.types.js";
@@ -41,7 +42,9 @@ export function Pagination(props: PaginationProps): ReactElement {
     color = "primary",
     labels,
     className,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -106,7 +109,11 @@ export function Pagination(props: PaginationProps): ReactElement {
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <nav aria-label={text.root} className={className}>
+      <nav
+        aria-label={text.root}
+        className={cx(sprinkle_class, className)}
+        style={sprinkle_style}
+      >
         <ul className={styles.root} style={css_vars}>
           {withEdges ? Control("first", text.first, DOUBLE_ARROW, 1, active === 1) : null}
           {withControls ? Control("prev", text.previous, ARROW, active - 1, active === 1) : null}
