@@ -38,4 +38,51 @@ describe("Anchor", () => {
     await userEvent.tab();
     expect(screen.getByRole("link")).toBe(document.activeElement);
   });
+
+  it("acepta style props además de sus propias clases base", () => {
+    render(
+      <Anchor href="/x" data-testid="sin">
+        ir
+      </Anchor>,
+    );
+    const sin = screen.getByTestId("sin").className.trim().split(/\s+/).length;
+    cleanup();
+
+    render(
+      <Anchor href="/x" data-testid="con" p="xl" mt="lg">
+        ir
+      </Anchor>,
+    );
+    const con = screen.getByTestId("con").className.trim().split(/\s+/).length;
+
+    expect(con).toBe(sin + 2);
+  });
+
+  it("una style prop responsive emite una clase por condición", () => {
+    render(
+      <Anchor href="/x" data-testid="plano" p="sm">
+        ir
+      </Anchor>,
+    );
+    const plano = screen.getByTestId("plano").className.trim().split(/\s+/).length;
+    cleanup();
+
+    render(
+      <Anchor href="/x" data-testid="resp" p={{ base: "sm", tablet: "xl" }}>
+        ir
+      </Anchor>,
+    );
+    const resp = screen.getByTestId("resp").className.trim().split(/\s+/).length;
+
+    expect(resp).toBe(plano + 1);
+  });
+
+  it("las props de dimensión llegan al estilo inline", () => {
+    render(
+      <Anchor href="/x" data-testid="ancho" maw={320}>
+        ir
+      </Anchor>,
+    );
+    expect(screen.getByTestId("ancho").style.maxWidth).toBe("320px");
+  });
 });

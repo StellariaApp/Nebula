@@ -29,4 +29,33 @@ describe("Highlight", () => {
     expect(screen.queryByText("Hola", { selector: "mark" })).toBeNull();
     expect(screen.getByText("Hola mundo")).toBeDefined();
   });
+
+  it("acepta style props además de sus propias clases base", () => {
+    render(
+      <Highlight highlight="zzz" data-testid="sin">
+        Hola mundo
+      </Highlight>,
+    );
+    const sin = screen.getByTestId("sin").className.trim().split(/\s+/).length;
+    cleanup();
+
+    render(
+      <Highlight highlight="zzz" data-testid="con" p="xl" mt="lg">
+        Hola mundo
+      </Highlight>,
+    );
+    const con = screen.getByTestId("con").className.trim().split(/\s+/).length;
+
+    expect(con).toBe(sin + 2);
+  });
+
+  it("la prop color sigue siendo la semántica del mark, no una style prop", () => {
+    render(
+      <Highlight highlight="mundo" data-testid="hl" color="success" c="text.secondary">
+        Hola mundo
+      </Highlight>,
+    );
+    expect(screen.getByTestId("hl").getAttribute("color")).toBeNull();
+    expect(screen.getByText("mundo").tagName).toBe("MARK");
+  });
 });
