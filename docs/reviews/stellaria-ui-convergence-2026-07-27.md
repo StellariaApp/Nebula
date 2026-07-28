@@ -203,8 +203,8 @@ Deuda que sale de esta sesión:
    resolverá con borde al aterrizar N1.
 4. **Visual regression sigue sin automatizar.** `docs/06` §8 lo condiciona a un ADR de herramienta; las
    láminas dan por fin un baseline estable contra el que compararía.
-5. **Los `AllThemes` de W2.4–W2.5 siguen fijando un solo tema** en la toolbar en lugar de usar
-   `ThemeMatrix`. Migrarlos es mecánico y conviene hacerlo antes de que W3 multiplique el patrón.
+5. ~~**Los `AllThemes` de W2.4–W2.5 siguen fijando un solo tema**~~. **Resuelto el 2026-07-28**, y no
+   era mecánico como se afirmó aquí: ver §6.
 6. **Deuda heredada de W2 no tocada aquí**: budgets de la clase colección (Select/Combobox/MultiSelect,
    75–82 kB), `domMax` vs `domAnimation` en componentes con gesto, y decidir si `Tabs` sobrevive como
    envoltorio de `Segment`.
@@ -212,3 +212,37 @@ Deuda que sale de esta sesión:
 Los elementos de `docs/stellaria-ui/` que no pertenecen a esta fase quedan mapeados en §2.4 y no se
 adelantaron: Header de producto, SectionHeader, FeatureCard, ProductPreview, PricingConfigurator,
 PreferencesDock, CookieBanner y el fondo ambiental de grid/estrellas/glows.
+
+## 6. Addendum — 2026-07-28
+
+Al ejecutar la deuda #5 (migrar los `AllThemes` a `ThemeMatrix`, descrita arriba como "mecánica")
+apareció un defecto que la bloqueaba y que es más grave que la propia deuda.
+
+**El contenido portalizado de los overlays se renderiza fuera del ámbito del tema.** `NebulaProvider`
+aplica la clase de Vanilla Extract a un `<div>` propio; React Aria portaliza el contenido de `<Overlay>`
+a `document.body`, fuera de ese subárbol. Como color, radio, espaciado, sombra y z-index vienen todos de
+esas vars, el overlay no se degrada parcialmente: se renderiza sin estilo.
+
+Alcance: `Popover`, `Tooltip`, `Menu`, `ContextMenu`, `Select`, `Combobox` y `MultiSelect`. `Modal` y
+`Drawer` no, porque montan un `<dialog>` nativo en su sitio.
+
+Estaba abierto desde W2.4 y **ningún gate podía verlo**: el decorator del playground añadía la clase del
+tema a `document.body`, cubriendo el destino del portal, de modo que axe —que audita `body` justamente
+para alcanzar los overlays— medía el contraste correcto. El propio código que debía exponer el defecto
+lo ocultaba.
+
+Resuelto en ADR-030: el provider publica un contenedor de portales dentro de su div temado vía
+`UNSAFE_PortalProvider` (ya en `react-aria@3.50.0`, sin dependencia nueva), el decorator deja de añadir
+la clase a `body`, y `portal-theme-scope.test.tsx` cubre los siete componentes —verificado en rojo sin
+el fix y en verde con él—. Con eso la migración de las trece stories sí fue posible.
+
+Dos lecciones para el resto del programa:
+
+1. **Era un bloqueante de W5.** Cualquier consumidor que montara el provider en un subárbol —el caso
+   normal— habría recibido los dropdowns sin estilo. Se cierra antes de publicar, no después.
+2. **Un gate que se apoya en el entorno del playground puede estar midiendo el entorno y no la
+   librería.** Conviene revisar si queda algún otro caso donde el decorator aporte algo que el
+   consumidor no tendrá.
+
+Gates tras el addendum: `build typecheck lint test` 29/29 · **362 tests** · axe **338/338** ya sin el
+enmascaramiento · `check:contrast` y `size` en verde.
