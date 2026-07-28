@@ -17,7 +17,7 @@ import { OptionList } from "../../collections/option-list.js";
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { DisabledKeys, type SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 import * as select_styles from "../Select/Select.css.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
@@ -63,7 +63,9 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
     removeLabel = (option) => `Quitar ${option.label}`,
     className,
     rootClassName,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const controlled = useMemo(() => (value === undefined ? undefined : [...value]), [value]);
   const initial = useMemo(() => [...defaultValue], [defaultValue]);
@@ -186,7 +188,8 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
       errorDisplay={errorDisplay}
       status={fp.status}
       required={required}
-      className={rootClassName}
+      className={cx(sprinkle_class, rootClassName)}
+      style={sprinkle_style}
     >
       {(control) => (
         <div

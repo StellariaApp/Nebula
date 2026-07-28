@@ -5,8 +5,9 @@ import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 import type { RenderOption, SelectOption } from "../../collections/options.js";
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
+import type { StyleProps } from "../../utils/style-props.js";
 
-export interface SelectProps {
+export interface SelectProps extends StyleProps {
   data: readonly SelectOption[];
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

@@ -17,7 +17,7 @@ import { OptionList } from "../../collections/option-list.js";
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import { DisabledKeys, OptionByValue, type SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./Select.css.js";
@@ -51,7 +51,9 @@ export function Select(props: SelectProps): ReactElement {
     className,
     rootClassName,
     name,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const fp = useFieldProps<string>({
     field: nebula_field,
@@ -116,7 +118,8 @@ export function Select(props: SelectProps): ReactElement {
       errorDisplay={errorDisplay}
       status={fp.status}
       required={required}
-      className={rootClassName}
+      className={cx(sprinkle_class, rootClassName)}
+      style={sprinkle_style}
     >
       {({ "aria-required": _required, ...control }) => (
         <div
