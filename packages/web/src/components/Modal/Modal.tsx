@@ -19,7 +19,7 @@ import {
   type OverlayMotionPreset,
 } from "../../overlays/overlay-motion.js";
 import { vars } from "../../theme/contract.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Modal.css.js";
@@ -84,7 +84,9 @@ export function Modal(props: ModalProps): ReactElement {
     className,
     bodyClassName,
     "aria-label": aria_label,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const dialog_ref = useRef<HTMLDialogElement>(null);
   const surface_ref = useRef<HTMLDivElement>(null);
@@ -137,8 +139,12 @@ export function Modal(props: ModalProps): ReactElement {
     <dialog
       {...dialogProps}
       ref={dialog_ref}
-      className={cx(styles.dialog({ layout, ...(radius === undefined ? {} : { radius }) }), className)}
-      style={css_vars}
+      className={cx(
+        styles.dialog({ layout, ...(radius === undefined ? {} : { radius }) }),
+        sprinkle_class,
+        className,
+      )}
+      style={{ ...css_vars, ...sprinkle_style }}
       onCancel={HandleCancel}
       onClick={HandleClick}
       {...(title === undefined || aria_label !== undefined

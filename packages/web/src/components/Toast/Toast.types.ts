@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import type { SemanticScaleName } from "@stellaria/nebula-tokens";
 
+import type { StyleProps } from "../../utils/style-props.js";
+
 export type ToastPosition =
   | "top-start"
   | "top"
@@ -28,7 +30,7 @@ export interface ToastRecord extends ToastOptions {
   dismissible: boolean;
 }
 
-export interface ToastProviderProps {
+export interface ToastProviderProps extends Omit<StyleProps, "position"> {
   children?: ReactNode | undefined;
   position?: ToastPosition | undefined;
   max?: number | undefined;

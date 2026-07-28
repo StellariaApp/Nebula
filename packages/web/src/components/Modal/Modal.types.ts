@@ -2,11 +2,13 @@ import type { ReactNode } from "react";
 
 import type { Size, SizeValue } from "@stellaria/nebula-tokens";
 
+import type { StyleProps } from "../../utils/style-props.js";
+
 export type ModalSize = Size;
 
 export type ModalSide = "start" | "end" | "top" | "bottom";
 
-export interface ModalProps {
+export interface ModalProps extends StyleProps {
   opened: boolean;
   onClose: () => void;
   children: ReactNode;

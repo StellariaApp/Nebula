@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
 
 import { ScaleShade } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { Portal } from "../Portal/Portal.js";
 
@@ -92,7 +92,9 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
     duration = 4500,
     closeLabel = "Cerrar notificación",
     regionLabel = "Notificaciones",
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const queue = useToastQueue();
   const visible = queue.slice(-max);
@@ -109,7 +111,8 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
       {children}
       <Portal>
         <div
-          className={cx(styles.region, styles.placement[position])}
+          className={cx(styles.region, styles.placement[position], sprinkle_class)}
+          style={sprinkle_style}
           role="region"
           aria-label={regionLabel}
         >
