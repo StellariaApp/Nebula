@@ -74,7 +74,7 @@ export const Hierarchy: Story = {
 /** Cuerpo y metadata: ningún tamaño informativo baja de 12 px (ADR-024). */
 export const BodyAndMetadata: Story = {
   render: () => (
-    <Box component="section" p="lg" bg="surface.base">
+    <Box component="section" p="lg" bg="surface.base" style={{ maxWidth: "68ch" }}>
       <Row token="body1 · 16" note="cuerpo por defecto, formularios y lectura">
         <Text>{LEAD_ES}</Text>
       </Row>

@@ -13,12 +13,32 @@ export default meta;
 
 type Story = StoryObj;
 
-const levels: { level: number; role: string; shadow: ShadowLevel | "none"; border: boolean }[] = [
-  { level: 0, role: "canvas / sunken", shadow: "none", border: false },
-  { level: 1, role: "card / panel", shadow: "xs", border: true },
-  { level: 2, role: "elemento elevado / sticky", shadow: "sm", border: true },
-  { level: 3, role: "dropdown / popover", shadow: "md", border: true },
-  { level: 4, role: "modal / drawer", shadow: "lg", border: true },
+type SurfaceRoleName = "surface.sunken" | "surface.raised" | "surface.overlay";
+
+const levels: {
+  level: number;
+  role: string;
+  surface: SurfaceRoleName;
+  shadow: ShadowLevel | "none";
+  border: boolean;
+}[] = [
+  { level: 0, role: "canvas / sunken", surface: "surface.sunken", shadow: "none", border: false },
+  { level: 1, role: "card / panel", surface: "surface.raised", shadow: "xs", border: true },
+  {
+    level: 2,
+    role: "elemento elevado / sticky",
+    surface: "surface.raised",
+    shadow: "sm",
+    border: true,
+  },
+  {
+    level: 3,
+    role: "dropdown / popover",
+    surface: "surface.overlay",
+    shadow: "md",
+    border: true,
+  },
+  { level: 4, role: "modal / drawer", surface: "surface.overlay", shadow: "lg", border: true },
 ];
 
 const SHADOW_STEPS: ShadowLevel[] = ["xxs", "xs", "sm", "md", "lg", "xl", "xxl"];
@@ -33,12 +53,12 @@ function Ladder(): React.ReactElement {
           shadow={step.shadow}
           radius="md"
           p="lg"
-          {...(step.level === 0 ? { bg: "surface.sunken" as const } : {})}
+          bg={step.surface}
         >
           <Flex justify="space-between" align="baseline" gapx="md">
             <Text fw="semibold">Nivel {step.level}</Text>
             <Text fz="caption" ff="mono" c="text.muted">
-              shadow {step.shadow}
+              {step.surface} · shadow {step.shadow}
             </Text>
           </Flex>
           <Text fz="body2" c="text.secondary" mt="xs">
@@ -50,7 +70,10 @@ function Ladder(): React.ReactElement {
   );
 }
 
-/** La escalera 0–4 de docs/06 §5. Cada nivel debe distinguirse sin apilar sombras. */
+/**
+ * La escalera 0–4 de docs/06 §5, con el rol de superficie que el documento asigna a cada nivel.
+ * La superficie es la mitad del contraste; la sombra sola no sostiene la escalera en dark.
+ */
 export const ElevationLadder: Story = {
   render: () => (
     <Box p="lg" bg="surface.base">
