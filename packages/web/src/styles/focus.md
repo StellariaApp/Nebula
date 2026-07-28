@@ -9,10 +9,16 @@
 La razón de fondo, sin embargo, es el **anillo de dos tonos**: un separador del color de la superficie y un halo del color de foco.
 
 ```
-0 0 0 2px <separator>, 0 0 0 4px <halo>
+0 0 0 3px <separator>, 0 0 0 5px <halo>
 ```
 
-El separador garantiza que el anillo se distinga aunque el control se apoye sobre una superficie del mismo tono que el foco. `outline` no puede expresarlo: es un trazo único.
+El separador cumple dos funciones a la vez, y por eso no es un adorno: garantiza que el anillo se distinga aunque el control se apoye sobre una superficie del mismo tono que el foco, y **es el `outline-offset`** de esta geometría — el hueco que separa el trazo del borde del control. `outline` no puede expresar lo primero, porque es un trazo único.
+
+`OFFSET` (3) y `THICKNESS` (2) son las dos únicas cifras del anillo y gobiernan también el `outline` del fallback, de modo que recalibrar una no puede desincronizar las dos geometrías.
+
+## El campo no recolorea su borde al enfocarse
+
+Antes de unificar, `field` pintaba `borderColor: focus` **y** un anillo, que juntos se leían como un solo filo azul grueso. Al añadir el separador esa combinación se partió en dos líneas azules con un hueco oscuro entre medias. El borde recoloreado sobra: el anillo ya comunica el foco, y mantener los dos duplica la señal.
 
 ## El tono se cambia por var, no duplicando la regla
 

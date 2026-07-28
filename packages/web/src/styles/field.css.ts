@@ -74,10 +74,7 @@ export const field = recipe({
           "&:hover:not([data-disabled='true']):not([data-invalid='true'])": {
             borderColor: vars.color.border.strong,
           },
-          "&:focus-within": {
-            borderColor: vars.color.border.focus,
-            ...focus.ring,
-          },
+          "&:focus-within": focus.ring,
           "&[data-invalid='true']": { borderColor: vars.color.semantic.error["500"] },
           "&[data-invalid='true']:focus-within": {
             vars: { [focus.halo]: vars.color.semantic.error["500"] },
