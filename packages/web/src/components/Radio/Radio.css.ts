@@ -1,6 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -79,7 +80,4 @@ export const listRow = style({
 
 globalStyle(`${input}:checked + ${dot}`, { borderColor: radioColor });
 globalStyle(`${input}:checked + ${dot} > ${inner}`, { opacity: 1, transform: "scale(1)" });
-globalStyle(`${input}:focus-visible + ${dot}`, {
-  outline: `2px solid ${vars.color.border.focus}`,
-  outlineOffset: "2px",
-});
+globalStyle(`${input}:focus-visible + ${dot}`, focus.ring);

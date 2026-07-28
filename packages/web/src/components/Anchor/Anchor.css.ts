@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -14,8 +15,7 @@ export const anchor = style({
       ...motion.reducedMotion,
       selectors: {
         "&:focus-visible": {
-          outline: `2px solid ${vars.color.border.focus}`,
-          outlineOffset: "2px",
+          ...focus.ring,
         },
       },
     },

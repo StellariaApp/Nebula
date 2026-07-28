@@ -1,6 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -74,10 +75,7 @@ export const listRow = style({
 });
 
 globalStyle(`${input}:checked + ${track}`, { background: switchColor });
-globalStyle(`${input}:focus-visible + ${track}`, {
-  outline: `2px solid ${vars.color.border.focus}`,
-  outlineOffset: "2px",
-});
+globalStyle(`${input}:focus-visible + ${track}`, focus.ring);
 
 globalStyle(`${track}`, {
   ...motion.reducedMotion,

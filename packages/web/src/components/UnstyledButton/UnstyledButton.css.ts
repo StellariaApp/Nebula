@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -21,8 +22,7 @@ export const unstyled = style({
       borderRadius: vars.radius.xs,
       selectors: {
         "&[data-focus-visible='true']": {
-          outline: `2px solid ${vars.color.border.focus}`,
-          outlineOffset: "2px",
+          ...focus.ring,
         },
         "&[data-disabled='true']": {
           cursor: "not-allowed",

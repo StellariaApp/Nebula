@@ -2,6 +2,7 @@ import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -68,8 +69,7 @@ export const button = recipe({
       "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
       "&[data-pressed='true']:not([data-disabled='true'])": { background: bgActive },
       "&[data-focus-visible='true']": {
-        outline: `2px solid ${vars.color.border.focus}`,
-        outlineOffset: "2px",
+        ...focus.ring,
       },
       "&[data-disabled='true']": { cursor: "not-allowed", opacity: 0.55 },
       "&[data-loading='true']": { cursor: "progress" },

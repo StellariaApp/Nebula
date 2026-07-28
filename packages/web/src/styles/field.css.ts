@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
+import * as focus from "./focus.css.js";
 import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
 import { baseLayer } from "../theme/layers.css.js";
@@ -75,11 +76,11 @@ export const field = recipe({
           },
           "&:focus-within": {
             borderColor: vars.color.border.focus,
-            boxShadow: `0 0 0 2px ${vars.color.border.focus}`,
+            ...focus.ring,
           },
           "&[data-invalid='true']": { borderColor: vars.color.semantic.error["500"] },
           "&[data-invalid='true']:focus-within": {
-            boxShadow: `0 0 0 2px ${vars.color.semantic.error["500"]}`,
+            vars: { [focus.halo]: vars.color.semantic.error["500"] },
           },
           "&[data-disabled='true']": {
             cursor: "not-allowed",

@@ -2,6 +2,7 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
+import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -67,8 +68,7 @@ export const card = recipe({
             selectors: {
               "&:hover": { borderColor: vars.color.border.strong },
               "&:focus-visible": {
-                outline: `2px solid ${vars.color.border.focus}`,
-                outlineOffset: "2px",
+                ...focus.ring,
               },
             },
             "@media": {
