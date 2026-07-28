@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -50,9 +51,7 @@ export const trigger = style({
       textAlign: "start",
       cursor: "pointer",
       minHeight: "2.75rem",
-      transitionProperty: "background",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
       selectors: {
         "&:hover:not(:disabled)": { background: vars.color.surface.sunken },
         "&:focus-visible": {
@@ -61,7 +60,7 @@ export const trigger = style({
         },
         "&:disabled": { cursor: "not-allowed", color: vars.color.text.muted },
       },
-      "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
+      ...motion.reducedMotion,
     },
   },
 });

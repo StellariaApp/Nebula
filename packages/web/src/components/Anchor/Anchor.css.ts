@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -9,9 +10,8 @@ export const anchor = style({
       color: "inherit",
       cursor: "pointer",
       borderRadius: vars.radius.xs,
-      transitionProperty: "color, text-decoration-color",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
+      ...motion.reducedMotion,
       selectors: {
         "&:focus-visible": {
           outline: `2px solid ${vars.color.border.focus}`,

@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -48,14 +49,12 @@ export const chevron = style({
       display: "inline-flex",
       flexShrink: 0,
       color: vars.color.text.secondary,
-      transitionProperty: "transform",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.layout,
       selectors: {
         "&[data-open='true']": { transform: "rotate(180deg)" },
       },
       "@media": {
-        "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" },
+        "(prefers-reduced-motion: reduce)": motion.still,
       },
     },
   },

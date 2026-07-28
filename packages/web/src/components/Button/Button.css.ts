@@ -1,6 +1,7 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -51,9 +52,7 @@ export const button = recipe({
     background: bg,
     color: fg,
     backdropFilter,
-    transitionProperty: "background, border-color, box-shadow, opacity",
-    transitionDuration: vars.motion.duration.fast,
-    transitionTimingFunction: vars.motion.easing.standard,
+    ...motion.interaction,
     "::after": {
       content: '""',
       position: "absolute",
@@ -63,9 +62,7 @@ export const button = recipe({
       boxShadow: glow,
       opacity: 0,
       pointerEvents: "none",
-      transitionProperty: "opacity",
-      transitionDuration: vars.motion.duration.base,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
     },
     selectors: {
       "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
@@ -96,7 +93,7 @@ export const button = recipe({
       },
     },
     "@media": {
-      "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
+      "(prefers-reduced-motion: reduce)": motion.still,
     },
   },
   variants: {
@@ -176,8 +173,6 @@ export const spinner = style({
   animationTimingFunction: vars.motion.easing.standard,
   animationIterationCount: "infinite",
   "@media": {
-    "(prefers-reduced-motion: reduce)": {
-      animationName: "none",
-    },
+    "(prefers-reduced-motion: reduce)": motion.still,
   },
 });

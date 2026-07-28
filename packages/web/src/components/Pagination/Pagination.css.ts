@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -35,9 +36,7 @@ export const control = recipe({
         font: "inherit",
         color: vars.color.text.secondary,
         cursor: "pointer",
-        transitionProperty: "background, color",
-        transitionDuration: vars.motion.duration.fast,
-        transitionTimingFunction: vars.motion.easing.standard,
+        ...motion.interaction,
         selectors: {
           "&:hover:not(:disabled):not([data-active='true'])": {
             background: vars.color.surface.sunken,
@@ -50,7 +49,7 @@ export const control = recipe({
             outlineOffset: "2px",
           },
         },
-        "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
+        ...motion.reducedMotion,
       },
     },
   },

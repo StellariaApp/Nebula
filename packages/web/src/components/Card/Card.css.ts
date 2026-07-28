@@ -1,6 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -62,9 +63,7 @@ export const card = recipe({
         "@layer": {
           [baseLayer]: {
             cursor: "pointer",
-            transitionProperty: "border-color, box-shadow",
-            transitionDuration: vars.motion.duration.fast,
-            transitionTimingFunction: vars.motion.easing.standard,
+            ...motion.interaction,
             selectors: {
               "&:hover": { borderColor: vars.color.border.strong },
               "&:focus-visible": {
@@ -73,7 +72,7 @@ export const card = recipe({
               },
             },
             "@media": {
-              "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
+              "(prefers-reduced-motion: reduce)": motion.still,
             },
           },
         },

@@ -1,6 +1,7 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -27,7 +28,7 @@ export const skeleton = recipe({
         borderRadius: skeletonRadius,
         background: vars.color.surface.sunken,
         "@media": {
-          "(prefers-reduced-motion: reduce)": { animationName: "none", backgroundImage: "none" },
+          "(prefers-reduced-motion: reduce)": { ...motion.still, backgroundImage: "none" },
         },
       },
     },

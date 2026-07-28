@@ -13,7 +13,7 @@ Dos módulos, una decisión (ADR-034): **ningún componente vuelve a escribir a 
 | `interaction` | `background, border-color, color, text-decoration-color, box-shadow, opacity` | `fast` · `standard`   | realimentación de superficie: hover, press, foco, disabled    |
 | `layout`      | `transform, opacity`                                                          | `base` · `decelerate` | lo que se mueve o escala **por CSS**                          |
 | `overlay`     | `opacity, transform`                                                          | `base` · `standard`   | pseudo-elementos que no puede tocar motion, como `::backdrop` |
-| `value`       | `width, stroke-dashoffset`                                                    | `base` · `standard`   | barras y anillos de progreso                                  |
+| `value`       | `width, stroke-dashoffset`                                                    | `base` · `decelerate` | barras y anillos de progreso                                  |
 
 Listar de más es gratis: `transition-property` no genera trabajo para una propiedad que no cambia. Es lo que permite que once de los diecisiete usos del catálogo colapsen en `interaction` sin listas por componente.
 
@@ -25,7 +25,7 @@ Listar de más es gratis: `transition-property` no genera trabajo para una propi
 
 Se retira `transitionDuration: "0.01ms"`, que era un truco para forzar el disparo de `transitionend` y que aquí nadie necesitaba.
 
-**No es automático**: se declara componente a componente. Una animación que comunica que el sistema sigue trabajando —el giro de `Loader`— no debe congelarse, porque un spinner detenido dice lo contrario de lo que quiere decir. `docs/03` §2 pide colapsar a fades cortos «o nada», no apagar la señal de progreso.
+**No es automático**: se declara componente a componente, y en los que animan por keyframes se **compone con su sustituto estático**. Congelar un spinner a media vuelta diría lo contrario de lo que quiere decir, así que `Loader` apaga la animación y a cambio fija un aspecto estable (`borderTopColor: currentColor`, opacidad reducida); `Skeleton` apaga el barrido y retira su gradiente; `Progress` indeterminado se queda al 100 % de ancho en vez de a medias. Se escriben como `{ ...motion.still, …el sustituto }`.
 
 ## La física por superficie
 

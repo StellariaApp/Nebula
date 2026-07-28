@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -50,9 +51,8 @@ export const box = style({
       borderRadius: vars.radius.sm,
       background: vars.color.surface.raised,
       color: vars.color.text.onPrimary,
-      transitionProperty: "background, border-color",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
+      ...motion.reducedMotion,
     },
   },
 });

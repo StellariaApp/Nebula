@@ -23,6 +23,14 @@ function FilesContaining(token: string): string[] {
     .sort();
 }
 
+describe("el escaneo de fuentes ve código real", () => {
+  it("recibe el fuente de los componentes, no un módulo compilado", () => {
+    const entries = Object.entries(sources).filter(([path]) => !path.includes("__tests__"));
+    expect(entries.length).toBeGreaterThan(60);
+    expect(FilesContaining("displayName")).toContain("components/Button/Button.tsx");
+  });
+});
+
 describe("LazyMotion único (ADR-034 regla 5)", () => {
   it("solo el provider lo monta", () => {
     expect(FilesContaining("<LazyMotion")).toEqual(["provider/nebula-provider.tsx"]);

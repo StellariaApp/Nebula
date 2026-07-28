@@ -1,6 +1,7 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -28,9 +29,7 @@ export const dialog = recipe({
             animationName: FADE_IN,
             animationDuration: vars.motion.duration.base,
             animationTimingFunction: vars.motion.easing.standard,
-            transitionProperty: "opacity",
-            transitionDuration: vars.motion.duration.base,
-            transitionTimingFunction: vars.motion.easing.standard,
+            ...motion.overlay,
           },
           "&:not([data-open='true'])::backdrop": { opacity: 0 },
           "&:not([open])": { display: "none" },
@@ -38,7 +37,7 @@ export const dialog = recipe({
         "@media": {
           "(prefers-reduced-motion: reduce)": {
             selectors: {
-              "&::backdrop": { animationDuration: "0.01ms", transitionDuration: "0.01ms" },
+              "&::backdrop": motion.still,
             },
           },
         },
@@ -78,7 +77,6 @@ export const dialog = recipe({
         margin: 0,
         marginInlineEnd: "auto",
         borderRadius: 0,
-
       },
       "drawer-end": {
         width: modalWidth,
@@ -88,7 +86,6 @@ export const dialog = recipe({
         margin: 0,
         marginInlineStart: "auto",
         borderRadius: 0,
-
       },
       "drawer-top": {
         width: "100vw",
@@ -96,7 +93,6 @@ export const dialog = recipe({
         margin: 0,
         marginBlockEnd: "auto",
         borderRadius: 0,
-
       },
       "drawer-bottom": {
         width: "100vw",
@@ -104,7 +100,6 @@ export const dialog = recipe({
         margin: 0,
         marginBlockStart: "auto",
         borderRadius: 0,
-
       },
     },
     radius: {

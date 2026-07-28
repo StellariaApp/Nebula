@@ -23,7 +23,7 @@ export const overlay = {
 export const value = {
   transitionProperty: "width, stroke-dashoffset",
   transitionDuration: vars.motion.duration.base,
-  transitionTimingFunction: vars.motion.easing.standard,
+  transitionTimingFunction: vars.motion.easing.decelerate,
 } as const;
 
 export const still = {

@@ -1,5 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -37,10 +38,8 @@ export const fill = style({
     [baseLayer]: {
       height: "100%",
       borderRadius: "inherit",
-      transitionProperty: "width",
-      transitionDuration: vars.motion.duration.base,
-      transitionTimingFunction: vars.motion.easing.decelerate,
-      "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
+      ...motion.value,
+      ...motion.reducedMotion,
     },
   },
 });
@@ -54,7 +53,7 @@ export const striped = style({
   animationDuration: "0.8s",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
-  "@media": { "(prefers-reduced-motion: reduce)": { animationName: "none" } },
+  ...motion.reducedMotion,
 });
 
 export const indeterminate = style({
@@ -69,7 +68,7 @@ export const indeterminate = style({
       animationDuration: "1.2s",
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
-      "@media": { "(prefers-reduced-motion: reduce)": { animationName: "none", width: "100%" } },
+      "@media": { "(prefers-reduced-motion: reduce)": { ...motion.still, width: "100%" } },
     },
   },
 });
@@ -100,14 +99,12 @@ export const ringSpin = style({
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   transformOrigin: "center",
-  "@media": { "(prefers-reduced-motion: reduce)": { animationName: "none" } },
+  ...motion.reducedMotion,
 });
 
 export const ringArc = style({
-  transitionProperty: "stroke-dashoffset",
-  transitionDuration: vars.motion.duration.base,
-  transitionTimingFunction: vars.motion.easing.decelerate,
-  "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
+  ...motion.value,
+  ...motion.reducedMotion,
 });
 
 export const ringLabel = style({

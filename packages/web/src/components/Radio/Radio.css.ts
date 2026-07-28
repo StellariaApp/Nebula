@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -47,9 +48,8 @@ export const dot = style({
       borderColor: vars.color.border.strong,
       borderRadius: vars.radius.full,
       background: vars.color.surface.raised,
-      transitionProperty: "border-color",
-      transitionDuration: vars.motion.duration.fast,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
+      ...motion.reducedMotion,
     },
   },
 });

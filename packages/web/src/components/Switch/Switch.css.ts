@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -42,9 +43,7 @@ export const track = style({
       height: switchH,
       borderRadius: vars.radius.full,
       background: vars.color.border.strong,
-      transitionProperty: "background",
-      transitionDuration: vars.motion.duration.base,
-      transitionTimingFunction: vars.motion.easing.standard,
+      ...motion.interaction,
     },
   },
 });
@@ -81,5 +80,5 @@ globalStyle(`${input}:focus-visible + ${track}`, {
 });
 
 globalStyle(`${track}`, {
-  "@media": { "(prefers-reduced-motion: reduce)": { transitionDuration: "0.01ms" } },
+  ...motion.reducedMotion,
 });

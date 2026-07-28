@@ -1,5 +1,6 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -44,7 +45,7 @@ export const spinner = style({
       animationIterationCount: "infinite",
       "@media": {
         "(prefers-reduced-motion: reduce)": {
-          animationName: "none",
+          ...motion.still,
           borderTopColor: "currentColor",
           opacity: 0.5,
         },
@@ -65,7 +66,7 @@ const dotBase = style({
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       "@media": {
-        "(prefers-reduced-motion: reduce)": { animationName: "none", opacity: 0.55 },
+        "(prefers-reduced-motion: reduce)": { ...motion.still, opacity: 0.55 },
       },
     },
   },
@@ -83,7 +84,7 @@ const barBase = style({
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       "@media": {
-        "(prefers-reduced-motion: reduce)": { animationName: "none", transform: "scaleY(0.7)" },
+        "(prefers-reduced-motion: reduce)": { ...motion.still, transform: "scaleY(0.7)" },
       },
     },
   },
