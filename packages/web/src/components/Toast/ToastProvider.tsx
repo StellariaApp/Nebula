@@ -6,6 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { SurfaceTransition } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -14,7 +15,7 @@ import { Portal } from "../Portal/Portal.js";
 
 import * as styles from "./Toast.css.js";
 import type { ToastProviderProps, ToastRecord } from "./Toast.types.js";
-import { toastAccent } from "./Toast.vars.css.js";
+import { toastAccent, toastBackdrop, toastBg, toastBorder, toastFg } from "./Toast.vars.css.js";
 import { nebulaToast, useToastQueue } from "./toast-store.js";
 
 const LIVE: Record<string, "assertive" | "polite"> = { error: "assertive", warning: "assertive" };
@@ -40,7 +41,20 @@ function ToastItem(props: ItemProps): ReactElement {
     };
   }, [toast.id, toast.duration, fallbackDuration]);
 
-  const css_vars = assignInlineVars({ [toastAccent]: ScaleShade(toast.color, "600") });
+  const { theme } = useTheme();
+  const resolved = toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
+
+  const css_vars = assignInlineVars({
+    [toastAccent]: ScaleShade(toast.color, "600"),
+    ...(resolved === null
+      ? {}
+      : {
+          [toastBg]: resolved.background,
+          [toastFg]: resolved.foreground,
+          [toastBorder]: resolved.borderColor,
+          [toastBackdrop]: resolved.backdropFilter,
+        }),
+  });
 
   return (
     <div

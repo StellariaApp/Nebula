@@ -2,6 +2,24 @@
 
 Cola imperativa (`nebulaToast`) sobre un store de Jotai, y un único `ToastProvider` que la pinta en un portal. El consumidor no monta toasts: los pide.
 
+## `variant` es una opción del toast, no del provider
+
+`ToastOptions.variant` viaja con cada notificación —`nebulaToast.error(msg, { variant: "filled" })`—
+porque el provider es único y una cola puede mezclar toasts de distinta prominencia. El subconjunto es
+`filled · light · glass` (ADR-038).
+
+`gradient` y `glow` quedan fuera: un toast entra sin ser llamado (`spring.gentle`, `docs/06` §6.1) y
+`docs/06` §6 reserva el glow a una acción o selección principal. Un aviso que se apila en una cola no
+es eso.
+
+Sin `variant`, el toast conserva `surface.overlay` y nada cambia: el recipe usa `fallbackVar`.
+
+## La franja de acento no depende de la variante
+
+`toastAccent` —el borde izquierdo de 3 px— sigue saliendo de `ScaleShade(color, "600")` en todas las
+variantes, incluida `filled`. Es el cue que identifica la severidad y debe permanecer legible aunque la
+superficie cambie; ligarlo a la receta lo habría fundido con el fondo en `filled`.
+
 ## Dónde aterrizan las style props
 
 `ToastProvider` renderiza `{children}` y, en un portal aparte, la región de notificaciones. Los children son la app entera, así que el único nodo propio del componente es esa región: ahí van la clase atómica y el estilo de dimensión.

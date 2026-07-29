@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName } from "@stellaria/nebula-tokens";
+import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type ToastVariant = Extract<Variant, "filled" | "light" | "glass">;
 
 export type ToastPosition =
   | "top-start"
@@ -16,6 +18,7 @@ export interface ToastOptions {
   id?: string | undefined;
   title?: ReactNode | undefined;
   message?: ReactNode | undefined;
+  variant?: ToastVariant | undefined;
   color?: SemanticScaleName | undefined;
   icon?: ReactNode | undefined;
   duration?: number | undefined;
