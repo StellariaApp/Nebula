@@ -1,14 +1,83 @@
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, Variant } from "@stellaria/nebula-tokens";
+
+import { ResolveBackground, ResolveRef, SEMANTIC_SCALES, ShiftRef } from "./resolve.ts";
 
 export interface ContrastPair {
   label: string;
   fg: (theme: NebulaTheme) => string;
   bg: (theme: NebulaTheme) => string;
   min: number;
+  /** El par no aplica a este tema concreto: no se evalúa ni cuenta como PASS. */
+  skip?: (theme: NebulaTheme) => boolean;
 }
 
 const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
+
+const VARIANTS: readonly Variant[] = [
+  "filled",
+  "outline",
+  "light",
+  "glass",
+  "ghost",
+  "glow",
+  "gradient",
+  "unstyled",
+];
+
+function VariantForeground(theme: NebulaTheme, variant: Variant, scale: string): string {
+  const recipe = theme.variantMap[variant];
+  return (
+    ResolveRef(theme, recipe.foreground, scale as never, theme.colors.surface.base) ??
+    theme.colors.text.primary
+  );
+}
+
+function BuildVariantPairs(): ContrastPair[] {
+  const pairs: ContrastPair[] = [];
+
+  for (const variant of VARIANTS) {
+    if (variant === "unstyled") continue;
+
+    for (const scale of SEMANTIC_SCALES) {
+      pairs.push({
+        label: `variantMap.${variant} · ${scale} (texto)`,
+        fg: (t) => VariantForeground(t, variant, scale),
+        bg: (t) =>
+          ResolveBackground(t, variant, t.variantMap[variant], scale, VariantForeground(t, variant, scale))
+            ?.bg ?? t.colors.surface.base,
+        min: 4.5,
+      });
+
+      pairs.push({
+        label: `variantMap.${variant} · ${scale} (texto:hover)`,
+        skip: (t) => !t.variantMap[variant].background.startsWith("scale."),
+        fg: (t) => VariantForeground(t, variant, scale),
+        bg: (t) => {
+          const recipe = t.variantMap[variant];
+          const hovered = { ...recipe, background: ShiftRef(recipe.background, 1) };
+          return (
+            ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))?.bg ??
+            t.colors.surface.base
+          );
+        },
+        min: 4.5,
+      });
+
+      pairs.push({
+        label: `variantMap.${variant} · ${scale} (borde)`,
+        skip: (t) => !t.variantMap[variant].border.startsWith("scale."),
+        fg: (t) =>
+          ResolveRef(t, t.variantMap[variant].border, scale, t.colors.surface.base) ??
+          t.colors.surface.base,
+        bg: (t) => t.colors.surface.base,
+        min: 3,
+      });
+    }
+  }
+
+  return pairs;
+}
 
 export function BuildPairs(): ContrastPair[] {
   const pairs: ContrastPair[] = [];
@@ -30,21 +99,6 @@ export function BuildPairs(): ContrastPair[] {
     bg: (t) => t.colors.gray["900"],
     min: 4.5,
   });
-
-  pairs.push(
-    {
-      label: "text.onPrimary / primary.600 (filled)",
-      fg: (t) => t.colors.text.onPrimary,
-      bg: (t) => t.colors.primary["600"],
-      min: 4.5,
-    },
-    {
-      label: "text.onPrimary / primary.700 (filled:hover)",
-      fg: (t) => t.colors.text.onPrimary,
-      bg: (t) => t.colors.primary["700"],
-      min: 4.5,
-    },
-  );
 
   for (const status of STATUSES) {
     pairs.push({
@@ -77,6 +131,8 @@ export function BuildPairs(): ContrastPair[] {
     bg: (t) => t.colors.surface.base,
     min: 3,
   });
+
+  pairs.push(...BuildVariantPairs());
 
   return pairs;
 }

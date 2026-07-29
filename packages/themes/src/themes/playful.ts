@@ -68,9 +68,9 @@ export const playful = {
         type: "linear",
         angle: 135,
         stops: [
-          { color: palettes.grape["500"], position: 0 },
-          { color: palettes.pink["500"], position: 55 },
-          { color: palettes.orange["400"], position: 100 },
+          { color: palettes.grape["600"], position: 0 },
+          { color: palettes.pink["600"], position: 55 },
+          { color: palettes.orange["600"], position: 100 },
         ],
       },
       accent: {

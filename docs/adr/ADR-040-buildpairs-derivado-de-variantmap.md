@@ -1,6 +1,6 @@
 # ADR-040 — `BuildPairs` derivado de `variantMap` en `tools/contrast-check`
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV)
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV; ejecutada en el tramo V1)
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §3.4.
 
 ## Contexto
@@ -91,3 +91,36 @@ una superficie **no cubierta**.
 - `docs/03` §4.2 se actualiza para decir lo que el gate hace de verdad.
 - Beneficio colateral: el Theme Creator (`docs/02` §5.3) valida en vivo las recetas de variante que hoy
   no puede validar, que es donde un tenant tiene más probabilidad de romper AA.
+
+## Ejecución (2026-07-28, tramo V1)
+
+**Encontró un fallo real al primer intento, y era justo el que motivaba el ADR.** El par literal
+`text.onPrimary / primary.600 (filled)` pasaba con 5,53:1 en `playful`, pero ese tema remapea
+`variantMap.filled.background` a `gradient.brand`, de modo que el componente pintaba otra cosa. Los
+**tres** stops del gradiente fallaban contra el texto blanco —grape.500 3,90 · pink.500 3,92 ·
+orange.400 **2,60**—, no solo el más claro. Corregido subiendo los tres al peldaño 600 (5,53 · 5,49 ·
+5,06), que conserva los mismos tonos y la identidad «gradientes agresivos» del preset. Los dos pares
+literales se retiran: los derivados los cubren y además no mienten.
+
+**Dónde vive la aritmética.** El ADR proponía extraerla a `@stellaria/nebula-tokens`. Se descartó al
+implementarlo: hoy tokens es **solo tipos y datos**, sin una sola función exportada, y meterle lógica
+por primera vez es un cambio de forma de un paquete que importa todo el grafo. La resolución vive en
+`tools/contrast-check/src/resolve.ts`, y la protección contra deriva es **fallar cerrado**: una
+referencia que el tool no sepa resolver lanza `UnsupportedRefError` en vez de omitirse en silencio, de
+modo que ampliar `VariantColorRef` sin actualizar el tool pone el gate en rojo, no en verde.
+
+**`ContrastPair` gana `skip?`.** Si un par no aplica a un tema —el borde de `glass` es `border.subtle`
+en tres temas y `border.default` en sober, ninguno de los dos con identidad; el hover no existe cuando
+el fondo no es una referencia de escala— la alternativa era compararlo consigo mismo y producir un
+FAIL de 1,00:1. La exención es ahora explícita y auditable por tema, no un valor de relleno.
+
+**El borde solo se evalúa cuando lleva identidad**, es decir cuando la receta lo declara como
+`scale.*`. Un hairline decorativo de rol —`border.subtle` sobre una superficie glass— no es
+«información requerida para identificar el componente» (WCAG 1.4.11), y el gate ya lo trataba así: sus
+pares de borde cubrían `strong` y `focus`, nunca `subtle`. Incluirlo habría fabricado 28 fallos que
+contradicen una exención existente y deliberada.
+
+**Cobertura resultante**: de 28 pares por tema a **113–126** según el tema (los temas con glass
+desactivado evalúan más, porque la variante degrada a receta plana y deja de estar exenta). Se derivan
+texto, texto en hover y borde para las 7 escalas de las 7 variantes evaluables; `unstyled` queda exenta
+por no pintar nada.

@@ -576,8 +576,18 @@ sola vez. Ninguno bloquea nada.
 | ------- | --------------- | ----------------------------------------------------------------------------------------- |
 | V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`             |
 | V2 + V3 | **cerrado**     | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio     |
-| V1      | sin empezar     | **bloqueado por edición concurrente** de `pairs.ts` (ADR-044, otra sesión)               |
+| V1      | **cerrado**     | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo)     |
 | V4 – V8 | sin empezar     | —                                                                                          |
+
+**V1 encontró lo que §3.4 predecía, aunque no donde yo lo busqué.** Las 224 combinaciones que medí a
+mano pasaban porque las medí con el `variantMap` de entonces. El gate derivado, en cambio, evalúa lo
+que el tema dice **hoy**: `playful.variantMap.filled` es `gradient.brand`, y sus tres stops fallaban
+contra el texto blanco —2,60:1 el peor—. El par literal que el gate traía comprobaba `primary.600` y
+pasaba con 5,53. Es exactamente la mentira que ADR-040 describía, y ningún gate anterior podía verla.
+Corregido subiendo los tres stops al peldaño 600.
+
+La moraleja es la del propio informe: **una medición manual vale para el día en que se hace**. La
+cobertura pasa de 28 pares por tema a 113–126.
 
 **V2 y V3 resultaron ser un solo tramo, no dos.** El plan los separaba, pero V2 lleva Badge a 13,94 kB
 contra un budget de 12: aislado aterrizaría en rojo, de modo que la recalibración va en el mismo commit.

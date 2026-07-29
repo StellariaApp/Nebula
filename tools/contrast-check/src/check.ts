@@ -34,7 +34,8 @@ export function SuggestFix(fg: string, bg: string, min: number): string | undefi
 }
 
 export function CheckTheme(theme: NebulaTheme, pairs: readonly ContrastPair[]): PairResult[] {
-  return pairs.map((pair) => {
+  const applicable = pairs.filter((pair) => pair.skip?.(theme) !== true);
+  return applicable.map((pair) => {
     const fg = pair.fg(theme);
     const bg = pair.bg(theme);
     const ratio = wcagContrast(fg, bg);
