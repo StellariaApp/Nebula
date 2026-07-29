@@ -9,12 +9,11 @@
         "figma-developer-mcp@0.13.2",
         "--stdio",
         "--no-telemetry",
+        "--env",
+        ".env",
         "--image-dir",
         ".figma"
-      ],
-      "env": {
-        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
-      }
+      ]
     }
   }
 }
