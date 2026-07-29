@@ -47,8 +47,8 @@ export const nebulaLight = {
     },
     border: {
       subtle: gray["50"],
-      default: gray["100"],
-      strong: gray["300"],
+      default: gray["200"],
+      strong: gray["500"],
       focus: palettes.indigo["500"],
       disabled: gray["300"],
     },

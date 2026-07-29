@@ -48,8 +48,8 @@ export const nebulaDark = {
     },
     border: {
       subtle: gray["950"],
-      default: gray["900"],
-      strong: gray["700"],
+      default: gray["800"],
+      strong: gray["600"],
       focus: palettes.indigo["400"],
       disabled: gray["900"],
     },
