@@ -90,6 +90,12 @@ tampoco lo mira.
   y UnstyledButton dejan de atenuarse enteros. Sus iconos y bordes recuperan intensidad propia y pasan
   a declarar su estado por color.
 - **Precede al baseline de ADR-037.** Capturar antes obligaría a regenerar 14 componentes.
+- **Rebase de dos presupuestos de `size-limit`.** El contrato de Vanilla Extract viaja en cada módulo,
+  de modo que cada entrada nueva cuesta en los 71 budgets a la vez. Entre ADR-044 (2 superficies),
+  ADR-045 (5 peldaños) y este ADR (3 roles) se han añadido **10 entradas** sin que los presupuestos se
+  revisaran, y los dos más ajustados cruzaron: `Card` (22,04 / 22 kB) y `NavLink`, que quedaba a 0,06
+  kB. Suben a 23 y 22 kB respectivamente. Es un rebase por crecimiento del contrato, no una concesión
+  a un componente: ninguno de los dos ganó código.
 - **Paridad native sin coste hoy**: `packages/native/src` no consume roles de color todavía.
 - **La ejecución va en dos tiempos**: este ADR entrega el contrato y la calibración de los cuatro temas;
   la normalización componente a componente es G1.10, al final del tramo de geometría, por decisión del

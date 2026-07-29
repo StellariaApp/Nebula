@@ -473,7 +473,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Card/index.js",
     import: "{ Card }",
     ignore: ["react", "react-dom"],
-    limit: "22 kB",
+    limit: "23 kB",
   },
   {
     name: "EmptyState (motion de entrada, por módulo)",
@@ -487,7 +487,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/NavLink/NavLink.js",
     import: "{ NavLink }",
     ignore: ["react", "react-dom"],
-    limit: "21 kB",
+    limit: "22 kB",
   },
   {
     name: "Pagination (motion, por módulo)",

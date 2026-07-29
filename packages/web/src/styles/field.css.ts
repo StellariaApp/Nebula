@@ -58,7 +58,6 @@ export const field = recipe({
       [baseLayer]: {
         display: "flex",
         alignItems: "center",
-        gap: vars.space.xs,
         boxSizing: "border-box",
         width: "100%",
         fontFamily: vars.font.family.sans,
@@ -81,9 +80,9 @@ export const field = recipe({
           },
           "&[data-disabled='true']": {
             cursor: "not-allowed",
-            background: vars.color.surface.sunken,
-            borderColor: vars.color.border.subtle,
-            color: vars.color.text.secondary,
+            background: vars.color.surface.disabled,
+            borderColor: vars.color.border.disabled,
+            color: vars.color.text.disabled,
           },
         },
       },
@@ -91,11 +90,36 @@ export const field = recipe({
   },
   variants: {
     size: {
-      xs: { minHeight: vars.size.control.xs, paddingInline: vars.space.sm, fontSize: vars.font.size.body3 },
-      sm: { minHeight: vars.size.control.sm, paddingInline: vars.space.sm, fontSize: vars.font.size.body2 },
-      md: { minHeight: vars.size.control.md, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
-      lg: { minHeight: vars.size.control.lg, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
-      xl: { minHeight: vars.size.control.xl, paddingInline: vars.space.lg, fontSize: vars.font.size.h6 },
+      xs: {
+        minHeight: vars.size.control.xs,
+        paddingInline: vars.space.sm,
+        gap: vars.space.sm,
+        fontSize: vars.font.size.body3,
+      },
+      sm: {
+        minHeight: vars.size.control.sm,
+        paddingInline: vars.space.sm,
+        gap: vars.space.sm,
+        fontSize: vars.font.size.body2,
+      },
+      md: {
+        minHeight: vars.size.control.md,
+        paddingInline: vars.space.md,
+        gap: vars.space.u3,
+        fontSize: vars.font.size.body1,
+      },
+      lg: {
+        minHeight: vars.size.control.lg,
+        paddingInline: vars.space.md,
+        gap: vars.space.u3,
+        fontSize: vars.font.size.body1,
+      },
+      xl: {
+        minHeight: vars.size.control.xl,
+        paddingInline: vars.space.lg,
+        gap: vars.space.md,
+        fontSize: vars.font.size.h6,
+      },
     },
     multiline: {
       true: { alignItems: "stretch", paddingBlock: vars.space.sm },
