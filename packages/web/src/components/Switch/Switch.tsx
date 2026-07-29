@@ -3,7 +3,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
-import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "motion/react";
 
@@ -17,13 +16,7 @@ import * as styles from "./Switch.css.js";
 import { switchColor, switchH, switchW } from "./Switch.vars.css.js";
 import type { SwitchProps } from "./Switch.types.js";
 
-const SIZE: Record<Size, { w: number; h: number }> = {
-  xs: { w: 28, h: 16 },
-  sm: { w: 32, h: 18 },
-  md: { w: 38, h: 22 },
-  lg: { w: 46, h: 26 },
-  xl: { w: 52, h: 30 },
-};
+const TRACK_RATIO = 1.75;
 
 const FLICK_VELOCITY = 320;
 
@@ -60,8 +53,9 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const [local_checked, set_local_checked] = useUncontrolled(checked, defaultChecked, onChange);
   const is_checked = in_group ? group.value.includes(value) : local_checked;
 
-  const dims = SIZE[size];
-  const travel = dims.w - dims.h;
+  const track_h = theme.sizes.control[size] / 2;
+  const track_w = track_h * TRACK_RATIO;
+  const travel = track_w - track_h;
 
   const is_animated = !MotionOff({ theme, reduced: prefers_reduced === true });
   const can_drag = draggable && is_animated && !disabled;
@@ -77,8 +71,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   }, [is_checked, travel, target]);
 
   const css_vars = assignInlineVars({
-    [switchW]: `${String(dims.w)}px`,
-    [switchH]: `${String(dims.h)}px`,
+    [switchW]: `${String(track_w)}px`,
+    [switchH]: `${String(track_h)}px`,
     [switchColor]: ScaleShade(color, "600"),
   });
 

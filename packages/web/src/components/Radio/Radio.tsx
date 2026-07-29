@@ -2,7 +2,6 @@
 
 import { forwardRef } from "react";
 
-import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -10,10 +9,8 @@ import { ScaleShade } from "../../utils/scale.js";
 
 import { useRadioGroupContext } from "./Radio.context.js";
 import * as styles from "./Radio.css.js";
-import { radioColor, radioSize } from "./Radio.vars.css.js";
+import { radioColor } from "./Radio.vars.css.js";
 import type { RadioProps } from "./Radio.types.js";
-
-const SIZE_PX: Record<Size, number> = { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 };
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
   const {
@@ -39,14 +36,11 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(pro
 
   const is_checked = group === null ? undefined : group.value === value;
 
-  const css_vars = assignInlineVars({
-    [radioSize]: `${String(SIZE_PX[size])}px`,
-    [radioColor]: ScaleShade(color, "600"),
-  });
+  const css_vars = assignInlineVars({ [radioColor]: ScaleShade(color, "600") });
 
   return (
     <label
-      className={cx(styles.root, sprinkle_class, rootClassName)}
+      className={cx(styles.root, styles.size[size], sprinkle_class, rootClassName)}
       data-disabled={disabled ? "true" : undefined}
       style={{ ...css_vars, ...sprinkle_style }}
     >

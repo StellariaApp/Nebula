@@ -3,7 +3,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 
 import { useUncontrolled } from "@stellaria/nebula-hooks";
-import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { useObjectRef } from "react-aria";
 
@@ -12,10 +11,8 @@ import { ScaleShade } from "../../utils/scale.js";
 
 import { useCheckboxGroupContext } from "./Checkbox.context.js";
 import * as styles from "./Checkbox.css.js";
-import { checkboxColor, checkboxSize } from "./Checkbox.vars.css.js";
+import { checkboxColor } from "./Checkbox.vars.css.js";
 import type { CheckboxProps } from "./Checkbox.types.js";
-
-const SIZE_PX: Record<Size, number> = { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 };
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
   const {
@@ -55,10 +52,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     if (merged_ref.current !== null) merged_ref.current.indeterminate = indeterminate;
   }, [indeterminate, merged_ref, is_checked]);
 
-  const css_vars = assignInlineVars({
-    [checkboxSize]: `${String(SIZE_PX[size])}px`,
-    [checkboxColor]: ScaleShade(color, "600"),
-  });
+  const css_vars = assignInlineVars({ [checkboxColor]: ScaleShade(color, "600") });
 
   const HandleChange = (): void => {
     if (in_group) group.toggle(value);
@@ -67,7 +61,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
   return (
     <label
-      className={cx(styles.root, sprinkle_class, rootClassName)}
+      className={cx(styles.root, styles.size[size], sprinkle_class, rootClassName)}
       data-disabled={disabled ? "true" : undefined}
       style={{ ...css_vars, ...sprinkle_style }}
     >

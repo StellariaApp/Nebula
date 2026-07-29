@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
@@ -33,6 +33,17 @@ export const input = style({
   whiteSpace: "nowrap",
   border: 0,
 });
+
+export const size = styleVariants(
+  {
+    xs: vars.size.control.xs,
+    sm: vars.size.control.sm,
+    md: vars.size.control.md,
+    lg: vars.size.control.lg,
+    xl: vars.size.control.xl,
+  },
+  (control) => ({ vars: { [radioSize]: `calc(${control} / 2)` } }),
+);
 
 export const dot = style({
   "@layer": {
