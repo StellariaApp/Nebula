@@ -344,10 +344,23 @@ tienen peldaño en la rejilla de 4 px y tokenizarlos sería inventar escala.
 
 ### 5.1.3 T6 — el anillo de foco, y lo que su regla 4 no pagaba
 
-`styles/focus.css.ts` sustituye las trece definiciones. El anillo pasa a ser de dos tonos por
-`box-shadow`, con el tono del halo en una var —de modo que el campo inválido conserva su anillo rojo
-sin una segunda geometría— y con el fallback de `forced-colors` **dentro** del propio `ring`, para que
-no se pueda migrar la geometría y olvidarlo.
+`styles/focus.css.ts` sustituye las trece definiciones: `outline: 2px solid <halo>` con
+`outline-offset: 4px`, y el tono en una var, de modo que el campo inválido conserva su anillo rojo sin
+una segunda geometría.
+
+**La geometría llegó ahí por dos correcciones sucesivas, ambas encontradas mirando la pantalla y no el
+código**, y las dos enmiendan ADR-036 —ver su bullet de corrección—. Primero se implementó el anillo
+de dos tonos por `box-shadow` que fijaba la regla 2. Sobre el `ButtonClose` de la cabecera de un Modal
+apareció un cerco de color ajeno al fondo: el separador tenía por defecto el color del canvas y ese no
+es el color de un overlay. Al hacerlo transparente desapareció el hueco entero, que es lo que destapó
+el fondo del asunto: **un `box-shadow` con spread es una forma maciza**, y el hueco solo existe si una
+capa interior opaca tapa el interior de la exterior. Es decir, `box-shadow` no puede dar un hueco
+transparente, y ningún color de separador es correcto sobre todas las superficies.
+
+`outline-offset` sí lo da, porque su hueco no se pinta. Y la premisa que había descartado `outline`
+—que no respeta el `border-radius`— era falsa ya cuando se escribió el ADR: Chrome la cumple desde la
+94, Firefox desde la 88 y Safari desde la 16.4. Con `outline` cae también la regla 6: el fallback de
+`forced-colors` existía para compensar que `box-shadow` se descarta en alto contraste.
 
 **La regla 4 queda a medias, a propósito.** Pide un disparador único, `data-focus-visible`, pero solo
 tres archivos lo emiten hoy. Los otros diez se reparten en tres familias que no se convierten
@@ -475,12 +488,9 @@ dedicada de `prompts/5-review/RV-revision-visual-contra-figma.md`, con acceso al
   `.css.ts`**, así que estos tres se le escaparon; llevarlos al contrato es aplicar la regla que ya
   existe, no decidir nada nuevo.
 
-**Corregido en el acto**, por ser defecto propio de T6: el separador del anillo de foco tenía por
-defecto `surface.base` —el color del canvas— y por tanto pintaba una banda de color equivocado sobre
-cualquier otra superficie. El caso visible fue el `ButtonClose` de la cabecera de un Modal, que se
-apoya en `surface.overlay`. Pasa a `transparent`: un hueco de offset no puede tener color propio, por
-definición muestra lo que hay detrás. La protección de dos tonos de ADR-036 regla 3 sigue disponible
-declarando la var `separator`, que es donde corresponde — es la excepción, no el defecto.
+**Corregido en el acto**, por ser defecto propio de T6: el anillo de foco no dejaba ver la
+superficie de detrás. La corrección completa —y las dos premisas de ADR-036 que se cayeron por el
+camino— está en §5.1.3.
 
 **Pendiente de aplicar, con el análisis hecho**: en `ButtonGroup` y en los `tab` de `Segment` los
 controles se solapan —`marginInlineStart: -1px` en el primero, `zIndex: 1` uniforme en el segundo— y
