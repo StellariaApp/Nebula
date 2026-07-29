@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+import type { SegmentVariant } from "../Segment/Segment.types.js";
 
 export interface TabItem {
   value: string;
@@ -17,6 +18,7 @@ export interface TabsProps extends Omit<StyleProps, "color"> {
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
   size?: Size | undefined;
+  variant?: SegmentVariant | undefined;
   color?: SemanticScaleName | undefined;
   disabled?: boolean | undefined;
   fullWidth?: boolean | undefined;

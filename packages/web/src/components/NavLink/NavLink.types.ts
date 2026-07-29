@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName } from "@stellaria/nebula-tokens";
+import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type NavLinkVariant = Extract<Variant, "filled" | "light" | "ghost">;
 
 export interface NavLinkProps extends Omit<StyleProps, "color"> {
   label: ReactNode;
@@ -11,6 +13,7 @@ export interface NavLinkProps extends Omit<StyleProps, "color"> {
   onPress?: (() => void) | undefined;
   active?: boolean | undefined;
   disabled?: boolean | undefined;
+  variant?: NavLinkVariant | undefined;
   color?: SemanticScaleName | undefined;
   leftSection?: ReactNode | undefined;
   rightSection?: ReactNode | undefined;

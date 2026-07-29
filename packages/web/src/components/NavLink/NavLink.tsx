@@ -6,7 +6,7 @@ import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
@@ -39,6 +39,7 @@ export function NavLink(props: NavLinkProps): ReactElement {
     onPress,
     active = false,
     disabled = false,
+    variant = "light",
     color = "primary",
     leftSection,
     rightSection,
@@ -61,9 +62,11 @@ export function NavLink(props: NavLinkProps): ReactElement {
   const has_children = children !== undefined && children !== null;
   const [is_open, set_open] = useUncontrolled(opened, defaultOpened, onOpenChange);
 
+  const resolved = ResolveVariant(variant, color, theme);
+
   const css_vars = assignInlineVars({
-    [accent]: ScaleShade(color, "700"),
-    [activeBg]: `color-mix(in srgb, ${ScaleShade(color, "500")} 14%, transparent)`,
+    [accent]: resolved.foreground,
+    [activeBg]: resolved.background,
   });
 
   const inner = (

@@ -21,3 +21,14 @@ En el `<nav>`, que es la raíz y el elemento al que ya apuntaba `className`. La 
 ## Etiquetas
 
 Cada instancia debería recibir su propia `labels.root`: varias `nav` con el mismo nombre accesible en una misma vista disparan `landmark-unique` en axe. El texto por defecto ("Paginación") sirve cuando solo hay una.
+
+## La página activa sale del `variantMap`
+
+`PaginationVariant` es `Extract<Variant, "filled" | "outline" | "light" | "ghost">` con default
+`filled`, que reproduce lo que Pagination hacía a mano: `accent` ← `resolved.background` y `activeFg` ←
+`resolved.foreground`, en vez de `ScaleShade(color, "600")` y `text.onPrimary` horneados.
+
+El subconjunto es el más amplio de la navegación porque la píldora activa es una superficie completa y
+admite las cuatro lecturas: sólida, contorneada, tintada o sin fondo. Quedan fuera `glass`, `glow` y
+`gradient`: una paginación es una colección de items y `docs/06` §6 excluye el glow de las listas
+completas.

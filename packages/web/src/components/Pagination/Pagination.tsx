@@ -6,8 +6,7 @@ import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { vars } from "../../theme/contract.css.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -60,6 +59,7 @@ export function Pagination(props: PaginationProps): ReactElement {
     withEdges = false,
     disabled = false,
     size = "md",
+    variant = "filled",
     color = "primary",
     labels,
     className,
@@ -86,9 +86,11 @@ export function Pagination(props: PaginationProps): ReactElement {
     page: labels?.page ?? ((value: number) => `Página ${String(value)}`),
   };
 
+  const resolved = ResolveVariant(variant, color, theme);
+
   const css_vars = assignInlineVars({
-    [accent]: ScaleShade(color, "600"),
-    [activeFg]: vars.color.text.onPrimary,
+    [accent]: resolved.background,
+    [activeFg]: resolved.foreground,
   });
 
   const Go = (next: number): void => {

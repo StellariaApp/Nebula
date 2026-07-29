@@ -55,3 +55,16 @@ Era `base`, y en `nebula-dark` eso es **exactamente el color del canvas** (`#080
 | playful      |  1.06 |    1.06 |
 
 **Residual anotado**: la pista sigue en `surface.sunken`, que en dark está por debajo del canvas (1.01 contra él), así que el control no tiene contorno propio en ese tema — se lee por la píldora, no por la ranura. Corregirlo es el mismo problema de simetría entre esquemas que la calibración del 2026-07-28 dejó fuera a propósito: obligaría a recalibrar `sunken` u `overlay` globalmente. Se resuelve en el tramo de ADR-038, cuando Segment pase a resolver su superficie desde `variantMap`.
+
+## La píldora activa sale del `variantMap`
+
+`SegmentVariant` es `Extract<Variant, "filled" | "light">` y viaja por el contexto hasta
+`Segment.Control`, que resuelve `indicatorColor` ← `resolved.background` e `indicatorFg` ←
+`resolved.foreground` para el label del item activo. Sin `variant`, la píldora conserva la calibración
+de `surface.overlay` documentada arriba: el cambio es aditivo.
+
+**`ghost` se excluyó a propósito**, aunque ADR-038 lo listaba. Su fondo es transparente, de modo que la
+píldora desaparecería y la selección quedaría expresada **solo** por el color del texto. Eso es
+información de estado de un componente de UI, que WCAG 2.2 exige que sea perceptible con 3:1 (criterio
+1.4.11), y dos labels que solo difieren en tono no lo garantizan. `Tabs`, que es un atajo sobre este
+compound, hereda el mismo subconjunto.

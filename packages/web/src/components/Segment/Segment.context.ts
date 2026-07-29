@@ -4,10 +4,13 @@ import { createContext, useContext } from "react";
 
 import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
 
+import type { SegmentVariant } from "./Segment.types.js";
+
 export interface SegmentContextValue {
   value: string;
   SetValue: (next: string) => void;
   size: Size;
+  variant: SegmentVariant | undefined;
   color: SemanticScaleName;
   disabled: boolean;
   fullWidth: boolean;

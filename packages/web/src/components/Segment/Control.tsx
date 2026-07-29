@@ -9,16 +9,18 @@ import {
   type ReactNode,
 } from "react";
 
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useSegment } from "./Segment.context.js";
 import * as styles from "./Segment.css.js";
-import { indicatorColor } from "./Segment.vars.css.js";
+import { indicatorColor, indicatorFg } from "./Segment.vars.css.js";
 import type {
   SegmentControlItemProps,
   SegmentControlProps,
@@ -101,9 +103,17 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     tabs.current[next]?.focus();
   };
 
+  const { theme } = useTheme();
+  const resolved =
+    segment.variant === undefined
+      ? null
+      : ResolveVariant(segment.variant, segment.color, theme);
+
   const css_vars = assignInlineVars({
     [indicatorColor]:
-      segment.color === "primary" ? vars.color.surface.overlay : ScaleShade(segment.color, "200"),
+      resolved?.background ??
+      (segment.color === "primary" ? vars.color.surface.overlay : ScaleShade(segment.color, "200")),
+    ...(resolved === null ? {} : { [indicatorFg]: resolved.foreground }),
   });
 
   return (

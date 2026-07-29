@@ -13,6 +13,7 @@ export function Tabs(props: TabsProps): ReactElement {
     defaultValue,
     onChange,
     size = "md",
+    variant,
     color = "primary",
     disabled = false,
     fullWidth = false,
@@ -28,6 +29,7 @@ export function Tabs(props: TabsProps): ReactElement {
     <Segment
       {...style_rest}
       size={size}
+      {...(variant === undefined ? {} : { variant })}
       color={color}
       disabled={disabled}
       fullWidth={fullWidth}
