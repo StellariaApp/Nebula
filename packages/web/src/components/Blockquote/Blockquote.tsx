@@ -6,26 +6,15 @@ import {
   type Ref,
 } from "react";
 
-import type { SemanticScaleName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../theme/contract.css.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Blockquote.css.js";
 import { accent } from "./Blockquote.vars.css.js";
 import type { BlockquoteOwnProps, BlockquoteProps } from "./Blockquote.types.js";
-
-const SCALE: Record<SemanticScaleName, Record<string, string>> = {
-  primary: vars.color.primary,
-  accent: vars.color.accent,
-  gray: vars.color.gray,
-  success: vars.color.semantic.success,
-  warning: vars.color.semantic.warning,
-  error: vars.color.semantic.error,
-  info: vars.color.semantic.info,
-};
 
 const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
   function Blockquote(props, ref) {
@@ -40,7 +29,7 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
       ...rest
     } = props as BlockquoteOwnProps & { style?: CSSProperties };
 
-    const css_vars = assignInlineVars({ [accent]: SCALE[color]["500"] ?? "" });
+    const css_vars = assignInlineVars({ [accent]: ResolveAccent(color, "500") });
 
     const content = (
       <div>

@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { SurfaceTransition } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
@@ -45,7 +45,7 @@ function ToastItem(props: ItemProps): ReactElement {
   const resolved = toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
 
   const css_vars = assignInlineVars({
-    [toastAccent]: ScaleShade(toast.color, "600"),
+    [toastAccent]: ResolveAccent(toast.color, "600"),
     ...(resolved === null
       ? {}
       : {

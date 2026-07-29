@@ -1,12 +1,12 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
-import type { SemanticScaleName } from "@stellaria/nebula-tokens";
+import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
 export interface BlockquoteOwnProps extends Omit<BoxOwnProps, "component" | "color"> {
   component?: ElementType | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   cite?: ReactNode | undefined;
   icon?: ReactNode | undefined;
 }

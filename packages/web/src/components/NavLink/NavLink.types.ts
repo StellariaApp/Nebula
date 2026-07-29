@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -14,7 +14,7 @@ export interface NavLinkProps extends Omit<StyleProps, "color"> {
   active?: boolean | undefined;
   disabled?: boolean | undefined;
   variant?: NavLinkVariant | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   leftSection?: ReactNode | undefined;
   rightSection?: ReactNode | undefined;
   children?: ReactNode | undefined;

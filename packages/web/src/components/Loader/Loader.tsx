@@ -4,7 +4,7 @@ import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { LengthToCss } from "../../utils/token-css.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Loader.css.js";
@@ -32,7 +32,7 @@ export function Loader(props: LoaderProps): ReactElement {
 
   const css_vars = assignInlineVars({
     [loaderSize]: ResolveSize(size),
-    [loaderColor]: ScaleShade(color, "600"),
+    [loaderColor]: ResolveAccent(color, "600"),
   });
 
   return (

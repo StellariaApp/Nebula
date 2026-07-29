@@ -1,4 +1,4 @@
-import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -27,7 +27,7 @@ export interface PaginationProps extends Omit<StyleProps, "color"> {
   disabled?: boolean | undefined;
   size?: PaginationSize | undefined;
   variant?: PaginationVariant | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   labels?: PaginationLabels | undefined;
   className?: string | undefined;
 }

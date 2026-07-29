@@ -1,13 +1,13 @@
 import { createContext, useContext } from "react";
 
-import type { SemanticScaleName, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 export interface SwitchGroupContextValue {
   name: string | undefined;
   value: string[];
   toggle: (value: string) => void;
   size: Size;
-  color: SemanticScaleName;
+  color: ColorExtended;
   disabled: boolean;
 }
 

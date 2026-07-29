@@ -1,7 +1,7 @@
 import type { StyleProps } from "../../utils/style-props.js";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { Orientation, SemanticScaleName, Size } from "@stellaria/nebula-tokens";
+import type { Orientation, ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
@@ -15,7 +15,7 @@ export interface RadioProps
   value: string;
   label?: ReactNode | undefined;
   size?: Size | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   rootClassName?: string | undefined;
 }
@@ -28,7 +28,7 @@ export interface RadioGroupProps {
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
   size?: Size | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   required?: boolean | undefined;
   name?: string | undefined;

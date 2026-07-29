@@ -114,3 +114,30 @@ conserva 0,56 kB de holgura, del orden del que ADR-022 dejó sobre su máximo.
 
 Paper, Avatar y Progress **no se recalibran todavía**: no adoptan `variant` hasta V4 y subir su budget
 antes de que lo necesiten dejaría el gate sin señal durante todo el tramo intermedio.
+
+## Segundo escalón: «primitivo con color extendido» ≤13,5 kB (tramo V6)
+
+Ejecutar la convención de ADR-021 —toda prop de color es `ColorExtended`— tiene un coste de bundle que
+aquel ADR tampoco pesó: el tipo admite las **16 paletas crudas**, así que el resolutor las arrastra.
+`palettes` pesa ~1 kB brotli y lo paga todo componente que acepte el tipo, use o no una paleta.
+
+| Componente | Antes |     Después | Budget          |
+| ---------- | ----: | ----------: | --------------- |
+| Mark       |  9,43 |       11,85 | 12 → **13,5**   |
+| Blockquote | 11,22 |       12,10 | 12 → **13,5**   |
+| Highlight  | 10,04 |       12,36 | 12 → **13,5**   |
+| Loader     | 11,40 |       12,37 | 12 → **13,5**   |
+| Radio      | 11,61 |       12,65 | 12 → **13,5**   |
+
+Es un **suelo compartido**, no un exceso individual: los cinco cruzan por la misma causa y en el mismo
+orden de magnitud, que es el criterio que ADR-032 §7 admite para recalibrar. El número sigue la regla de
+ADR-022: máximo medido (Radio 12,65) más ~0,7 kB de headroom.
+
+Mark no llegó a rebasar —11,85 contra 12— pero entra en el escalón: cruzarlo con cualquier cambio
+posterior sería inevitable y dejarlo fuera haría que dos componentes del mismo grupo tuvieran límites
+distintos por accidente de medición.
+
+**La alternativa que no se tomó**: restringir `ColorExtended` a roles, hex y keywords en los primitivos
+pequeños, dejando las paletas crudas solo para los componentes de acción. Ahorraría el kilobyte, pero
+fragmentaría el tipo en dos —`color` significaría cosas distintas según el componente— que es
+exactamente el defecto que ADR-041 acaba de retirar del catálogo con `variant`.

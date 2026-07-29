@@ -5,7 +5,7 @@ import { forwardRef } from "react";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 
 import { useRadioGroupContext } from "./Radio.context.js";
 import * as styles from "./Radio.css.js";
@@ -36,7 +36,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(pro
 
   const is_checked = group === null ? undefined : group.value === value;
 
-  const css_vars = assignInlineVars({ [radioColor]: ScaleShade(color, "600") });
+  const css_vars = assignInlineVars({ [radioColor]: ResolveAccent(color, "600") });
 
   return (
     <label

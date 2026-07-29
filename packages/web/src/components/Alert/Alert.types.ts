@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -9,7 +9,7 @@ export type AlertVariant = Extract<Variant, "filled" | "outline" | "light" | "gl
 export interface AlertProps extends Omit<StyleProps, "color"> {
   children?: ReactNode | undefined;
   title?: ReactNode | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   variant?: AlertVariant | undefined;
   icon?: ReactNode | undefined;
   withCloseButton?: boolean | undefined;

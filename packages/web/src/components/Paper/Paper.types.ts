@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import type {
   RadiusName,
-  SemanticScaleName,
+  ColorExtended,
   ShadowLevel,
   Variant,
 } from "@stellaria/nebula-tokens";
@@ -20,7 +20,7 @@ export interface PaperOwnProps extends Omit<BoxOwnProps, "component" | "shadow" 
   radius?: RadiusName | number | undefined;
   withBorder?: boolean | undefined;
   variant?: PaperVariant | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
 }
 
 export type PaperProps<C extends ElementType = "div"> = PaperOwnProps & {

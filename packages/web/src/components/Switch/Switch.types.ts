@@ -1,7 +1,7 @@
 import type { StyleProps } from "../../utils/style-props.js";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { Orientation, SemanticScaleName, Size } from "@stellaria/nebula-tokens";
+import type { Orientation, ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
@@ -14,7 +14,7 @@ export interface SwitchProps
     Omit<StyleProps, "color"> {
   label?: ReactNode | undefined;
   size?: Size | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   checked?: boolean | undefined;
   defaultChecked?: boolean | undefined;
   onChange?: ((checked: boolean) => void) | undefined;
@@ -32,7 +32,7 @@ export interface SwitchGroupProps {
   defaultValue?: string[] | undefined;
   onChange?: ((value: string[]) => void) | undefined;
   size?: Size | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   name?: string | undefined;
   orientation?: Orientation | undefined;

@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
@@ -45,7 +45,7 @@ export function Alert(props: AlertProps): ReactElement {
   const css_vars = assignInlineVars({
     [bg]: resolved.background,
     [fg]: resolved.foreground,
-    [accent]: variant === "filled" ? vars.color.text.onPrimary : ScaleShade(color, "600"),
+    [accent]: variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
     [borderColor]: resolved.borderColor,
   });
 

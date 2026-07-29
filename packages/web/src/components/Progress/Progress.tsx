@@ -9,7 +9,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { LengthToCss } from "../../utils/token-css.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Progress.css.js";
@@ -93,7 +93,7 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
       >
         <span
           className={styles.indeterminate}
-          style={{ background: ScaleShade(color, "600") }}
+          style={{ background: ResolveAccent(color, "600") }}
           aria-hidden="true"
         />
       </div>
@@ -116,7 +116,7 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
           className={cx(styles.fill, striped && styles.striped)}
           style={{
             width: `${String(Math.min(100, Math.max(0, (segment.value / max) * 100)))}%`,
-            background: ScaleShade(segment.color ?? color, "600"),
+            background: ResolveAccent(segment.color ?? color, "600"),
           }}
           {...(segment.label === undefined ? { "aria-hidden": true } : { title: segment.label })}
         />
@@ -185,7 +185,7 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
               cy={box / 2}
               r={radius}
               fill="none"
-              stroke={ScaleShade(segment.color ?? color, "600")}
+              stroke={ResolveAccent(segment.color ?? color, "600")}
               strokeWidth={stroke}
               strokeLinecap="round"
               strokeDasharray={`${String(dash)} ${String(circumference - dash)}`}

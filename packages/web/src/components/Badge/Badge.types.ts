@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName, Size, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -13,7 +13,7 @@ export interface BadgeProps extends Omit<StyleProps, "color"> {
   children?: ReactNode | undefined;
   variant?: BadgeVariant | undefined;
   dot?: boolean | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   size?: Size | undefined;
   radius?: "sm" | "md" | "full" | undefined;
   leftSection?: ReactNode | undefined;

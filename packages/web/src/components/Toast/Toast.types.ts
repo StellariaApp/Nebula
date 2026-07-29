@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -19,7 +19,7 @@ export interface ToastOptions {
   title?: ReactNode | undefined;
   message?: ReactNode | undefined;
   variant?: ToastVariant | undefined;
-  color?: SemanticScaleName | undefined;
+  color?: ColorExtended | undefined;
   icon?: ReactNode | undefined;
   duration?: number | undefined;
   dismissible?: boolean | undefined;
@@ -28,7 +28,7 @@ export interface ToastOptions {
 
 export interface ToastRecord extends ToastOptions {
   id: string;
-  color: SemanticScaleName;
+  color: ColorExtended;
   duration: number;
   dismissible: boolean;
 }

@@ -15,7 +15,7 @@ import { m } from "motion/react";
 
 import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useSegment } from "./Segment.context.js";
@@ -112,7 +112,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
   const css_vars = assignInlineVars({
     [indicatorColor]:
       resolved?.background ??
-      (segment.color === "primary" ? vars.color.surface.overlay : ScaleShade(segment.color, "200")),
+      (segment.color === "primary" ? vars.color.surface.overlay : ResolveAccent(segment.color, "200")),
     ...(resolved === null ? {} : { [indicatorFg]: resolved.foreground }),
   });
 

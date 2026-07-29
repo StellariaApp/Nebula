@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Badge.css.js";
@@ -48,7 +48,7 @@ export function Badge(props: BadgeProps): ReactElement {
       {dot ? (
         <span
           className={styles.dot}
-          style={{ color: ScaleShade(color, "600") }}
+          style={{ color: ResolveAccent(color, "600") }}
           aria-hidden="true"
         />
       ) : null}

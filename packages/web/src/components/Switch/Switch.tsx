@@ -9,7 +9,7 @@ import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "mo
 import { MotionOff } from "../../utils/motion.js";
 import { Rubber } from "../../utils/rubber.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveAccent } from "../../utils/scale.js";
 
 import { useSwitchGroupContext } from "./Switch.context.js";
 import * as styles from "./Switch.css.js";
@@ -73,7 +73,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const css_vars = assignInlineVars({
     [switchW]: `${String(track_w)}px`,
     [switchH]: `${String(track_h)}px`,
-    [switchColor]: ScaleShade(color, "600"),
+    [switchColor]: ResolveAccent(color, "600"),
   });
 
   const SetChecked = (next: boolean): void => {

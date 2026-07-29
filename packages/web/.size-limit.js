@@ -168,18 +168,18 @@ const MODULE_BUDGETS = [
     limit: "12 kB",
   },
   {
-    name: "Mark (primitivo temable en runtime, por módulo)",
+    name: "Mark (primitivo con color extendido, por módulo)",
     path: "dist/components/Mark/Mark.js",
     import: "{ Mark }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "13.5 kB",
   },
   {
-    name: "Highlight (primitivo, por módulo)",
+    name: "Highlight (primitivo con color extendido, por módulo)",
     path: "dist/components/Highlight/Highlight.js",
     import: "{ Highlight }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Code (primitivo, por módulo)",
@@ -189,11 +189,11 @@ const MODULE_BUDGETS = [
     limit: "9.5 kB",
   },
   {
-    name: "Blockquote (primitivo temable en runtime, por módulo)",
+    name: "Blockquote (primitivo con color extendido, por módulo)",
     path: "dist/components/Blockquote/Blockquote.js",
     import: "{ Blockquote }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "13.5 kB",
   },
   {
     name: "List (primitivo temable en runtime, por módulo)",
@@ -301,11 +301,11 @@ const MODULE_BUDGETS = [
     limit: "16 kB",
   },
   {
-    name: "Radio (nativo + visual, por módulo)",
+    name: "Radio (nativo + visual con color extendido, por módulo)",
     path: "dist/components/Radio/Radio.js",
     import: "{ Radio }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Switch (nativo + motion con gesto, por módulo)",
@@ -406,11 +406,11 @@ const MODULE_BUDGETS = [
     limit: "35 kB",
   },
   {
-    name: "Loader (primitivo temable en runtime, por módulo)",
+    name: "Loader (primitivo con color extendido, por módulo)",
     path: "dist/components/Loader/Loader.js",
     import: "{ Loader }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Skeleton (primitivo temable en runtime, por módulo)",

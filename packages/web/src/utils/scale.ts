@@ -1,4 +1,4 @@
-import type { SemanticScaleName } from "@stellaria/nebula-tokens";
+import { palettes, type ColorExtended, type SemanticScaleName } from "@stellaria/nebula-tokens";
 
 import { vars } from "../theme/contract.css.js";
 
@@ -12,6 +12,43 @@ export const SEMANTIC_SCALES: Record<SemanticScaleName, Record<string, string>> 
   info: vars.color.semantic.info,
 };
 
+const ROLES: Record<string, Record<string, string>> = {
+  surface: vars.color.surface,
+  text: vars.color.text,
+  border: vars.color.border,
+};
+
 export function ScaleShade(color: SemanticScaleName, shade: string): string {
   return SEMANTIC_SCALES[color][shade] ?? "";
+}
+
+function WithAlpha(color: string, percent: number): string {
+  return `color-mix(in srgb, ${color} ${String(percent)}%, transparent)`;
+}
+
+export function ResolveAccent(color: ColorExtended, shade = "600"): string {
+  if (color === "transparent" || color === "currentColor" || color === "inherit") return color;
+  if (color === "white") return "#ffffff";
+  if (color === "black") return "#000000";
+  if (color.startsWith("#")) return color;
+
+  const [group, key, alpha] = color.split(".");
+  if (group === undefined) return "transparent";
+
+  const role = ROLES[group];
+  if (role !== undefined) return key === undefined ? "transparent" : (role[key] ?? "transparent");
+
+  const step = key ?? shade;
+  const scale = SEMANTIC_SCALES[group as SemanticScaleName] as Record<string, string> | undefined;
+  const base =
+    scale !== undefined
+      ? (scale[key === undefined ? shade : step] ?? "")
+      : group in palettes
+        ? ((palettes[group as keyof typeof palettes] as Record<string, string>)[step] ?? "")
+        : "";
+  if (base === "") return "transparent";
+
+  if (alpha === undefined) return base;
+  const parsed = Number(alpha);
+  return Number.isFinite(parsed) ? WithAlpha(base, parsed) : base;
 }
