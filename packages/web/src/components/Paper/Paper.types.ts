@@ -1,14 +1,26 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type { RadiusName, ShadowLevel } from "@stellaria/nebula-tokens";
+import type {
+  RadiusName,
+  SemanticScaleName,
+  ShadowLevel,
+  Variant,
+} from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
-export interface PaperOwnProps extends Omit<BoxOwnProps, "component" | "shadow"> {
+export type PaperVariant = Extract<
+  Variant,
+  "filled" | "outline" | "light" | "glass" | "glow" | "gradient"
+>;
+
+export interface PaperOwnProps extends Omit<BoxOwnProps, "component" | "shadow" | "color"> {
   component?: ElementType | undefined;
   shadow?: ShadowLevel | "none" | undefined;
   radius?: RadiusName | number | undefined;
   withBorder?: boolean | undefined;
+  variant?: PaperVariant | undefined;
+  color?: SemanticScaleName | undefined;
 }
 
 export type PaperProps<C extends ElementType = "div"> = PaperOwnProps & {

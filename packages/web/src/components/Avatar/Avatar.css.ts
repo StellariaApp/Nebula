@@ -1,10 +1,17 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { avatarBg, avatarFg, avatarOverlap, avatarSize } from "./Avatar.vars.css.js";
+import {
+  avatarBg,
+  avatarBorder,
+  avatarBorderWidth,
+  avatarFg,
+  avatarOverlap,
+  avatarSize,
+} from "./Avatar.vars.css.js";
 
 export const avatar = recipe({
   base: {
@@ -21,6 +28,9 @@ export const avatar = recipe({
         overflow: "hidden",
         background: avatarBg,
         color: avatarFg,
+        borderStyle: "solid",
+        borderWidth: fallbackVar(avatarBorderWidth, "0"),
+        borderColor: fallbackVar(avatarBorder, "transparent"),
         fontFamily: vars.font.family.sans,
         fontWeight: vars.font.weight.semibold,
         fontSize: `calc(${avatarSize} / 2.6)`,

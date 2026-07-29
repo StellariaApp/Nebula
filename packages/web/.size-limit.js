@@ -112,11 +112,11 @@ const MODULE_BUDGETS = [
     limit: "12 kB",
   },
   {
-    name: "Paper (primitivo temable en runtime, por módulo)",
+    name: "Paper (primitivo temable con variantes en runtime, por módulo)",
     path: "dist/components/Paper/Paper.js",
     import: "{ Paper }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "14.5 kB",
   },
   {
     name: "VisuallyHidden (primitivo, por módulo)",
@@ -448,11 +448,11 @@ const MODULE_BUDGETS = [
     limit: "14.5 kB",
   },
   {
-    name: "Avatar (primitivo temable en runtime, por módulo)",
+    name: "Avatar (primitivo temable con variantes en runtime, por módulo)",
     path: "dist/components/Avatar/Avatar.js",
     import: "{ Avatar }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "14.5 kB",
   },
   {
     name: "Image (motion en la carga, por módulo)",

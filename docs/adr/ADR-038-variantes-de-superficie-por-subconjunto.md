@@ -116,6 +116,24 @@ cromática. Sin patrón fijado, W3 los escribe a mano y la deriva pasa de dos co
   (`src/ui/tokens/src/types/variants.ts:6`, idéntica) ya la implementa.
 - **El gate de contraste no cubre esto**: `BuildPairs` no lee `variantMap` y cubre 1 de las 56
   combinaciones variante×escala. **ADR-040** lo corrige y debe ir antes de propagar el patrón.
+- **Todo componente que adopte `variant` pasa a ser componente cliente.** `ResolveVariant` lee el
+  `variantMap` del objeto `theme` en runtime, así que exige `useTheme()` y con él `"use client"`. El
+  ADR no pesó este coste cuando se aceptó: midió contrato, bundle, paridad W/N y a11y, no RSC.
+
+  El catálogo tenía **tres** presentacionales server-safe —Badge, Paper y Progress—. Badge lo perdió al
+  ejecutarse V2 y el defecto pasó inadvertido porque la regla de lint que `docs/03` §3 promete —«los
+  presentacionales no llevan `use client`»— **no está implementada**. Se corrigió en el tramo V4.
+
+  **Decisión del propietario (2026-07-28, checkpoint de V4)**: se acepta el cambio. Paper y Progress
+  también pasan a cliente al adoptar `variant`. Las dos alternativas evaluadas y descartadas fueron
+  excluirlos del subconjunto —que habría conservado RSC a cambio de enmendar este ADR— y darles una
+  variante zero-runtime, que habría reintroducido el defecto que V2 acababa de corregir.
+
+  **Consecuencia para `docs/03` §3**: el catálogo web queda sin primitivos de superficie renderizables
+  en servidor. La fila de RSC de la tabla de budgets se acota en consecuencia: la regla sigue valiendo
+  para presentacionales sin theming en runtime —los de composición pura, que son la mayoría de la capa
+  de layout— y deja de valer para los temables con variantes.
+
 - `docs/02-theming.md` §2 punto 3 deja de ser una promesa incumplida.
   `docs/patterns/web-component-template.md` §2 gana la forma canónica del subconjunto, y
   `docs/00-inventory.md` refleja la nueva API de los componentes afectados, todo en el mismo PR.

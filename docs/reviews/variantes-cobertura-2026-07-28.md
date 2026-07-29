@@ -577,7 +577,15 @@ sola vez. Ninguno bloquea nada.
 | V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`             |
 | V2 + V3 | **cerrado**     | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio     |
 | V1      | **cerrado**     | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo)     |
-| V4 – V8 | sin empezar     | —                                                                                          |
+| V4 – V8 | en curso        | —                                                                                          |
+
+**Coste que la auditoría no midió: RSC.** `ResolveVariant` necesita el `theme` en runtime, así que
+todo componente que adopte `variant` pasa a ser cliente. El catálogo tenía tres presentacionales
+server-safe —Badge, Paper y Progress— y los tres los pierde. Badge lo perdió en V2 **sin que ningún
+gate lo dijera**: la regla de lint de `docs/03` §3 que lo habría detectado no está implementada.
+
+El propietario aceptó el cambio en el checkpoint de V4. Queda anotado en ADR-038 y acota la fila de RSC
+de `docs/03` §3, que ahora distingue presentacionales con y sin theming en runtime.
 
 **V1 encontró lo que §3.4 predecía, aunque no donde yo lo busqué.** Las 224 combinaciones que medí a
 mano pasaban porque las medí con el `variantMap` de entonces. El gate derivado, en cambio, evalúa lo

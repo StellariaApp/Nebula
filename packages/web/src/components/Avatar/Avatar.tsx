@@ -3,15 +3,16 @@
 import { useState, type ReactElement } from "react";
 
 import type { Size } from "@stellaria/nebula-tokens";
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ScaleShade } from "../../utils/scale.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Avatar.css.js";
 import type { AvatarProps } from "./Avatar.types.js";
-import { avatarBg, avatarFg, avatarSize } from "./Avatar.vars.css.js";
+import { avatarBg, avatarBorder, avatarBorderWidth, avatarFg, avatarSize } from "./Avatar.vars.css.js";
 
 const SIZE: Record<Size, number> = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
 
@@ -37,6 +38,7 @@ export function Avatar(props: AvatarProps): ReactElement {
     children,
     size,
     radius = "full",
+    variant = "light",
     color = "primary",
     className,
     ...style_rest
@@ -46,10 +48,15 @@ export function Avatar(props: AvatarProps): ReactElement {
   const [failed, set_failed] = useState(false);
   const shows_image = src !== undefined && src !== "" && !failed;
 
+  const { theme } = useTheme();
+  const resolved = ResolveVariant(variant, color, theme);
+
   const css_vars = assignInlineVars({
     [avatarSize]: ResolveAvatarSize(size),
-    [avatarBg]: `color-mix(in srgb, ${ScaleShade(color, "500")} 18%, transparent)`,
-    [avatarFg]: ScaleShade(color, "700"),
+    [avatarBg]: resolved.background,
+    [avatarFg]: resolved.foreground,
+    [avatarBorder]: resolved.borderColor,
+    [avatarBorderWidth]: resolved.borderWidth,
   });
 
   const initials = name === undefined ? "" : Initials(name);
