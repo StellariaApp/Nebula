@@ -55,10 +55,10 @@ export const card = recipe({
       xxl: { boxShadow: vars.shadow.xxl },
     },
     padding: {
-      none: { vars: { [pad]: "0px" }, padding: pad },
-      md: { vars: { [pad]: vars.space.md }, padding: pad },
-      lg: { vars: { [pad]: vars.space.lg }, padding: pad },
-      xl: { vars: { [pad]: vars.space.xl }, padding: pad },
+      none: { vars: { [pad]: "0px" }, padding: pad, gap: 0 },
+      md: { vars: { [pad]: vars.space.md }, padding: pad, gap: vars.space.sm },
+      lg: { vars: { [pad]: vars.space.lg }, padding: pad, gap: vars.space.md },
+      xl: { vars: { [pad]: vars.space.xl }, padding: pad, gap: vars.space.lg },
     },
     withBorder: {
       true: { "@layer": { [baseLayer]: { borderWidth: 1 } } },

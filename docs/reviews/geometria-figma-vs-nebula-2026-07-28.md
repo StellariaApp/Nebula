@@ -134,9 +134,20 @@ valor y chevron contra 12 del Figma, y un texto de 16 px donde el Figma pone 12.
 | Plan Card | padding 24, gap 16, radius **16**, borde 1 (**2** si actual) | radius por variante |
 | Address Card | sin padding raíz, radius 12 | — |
 
-**Gana el Figma en dos cosas concretas**: padding **asimétrico** (16 vertical / 20 horizontal), que
-Nebula no puede expresar porque su prop `padding` es uniforme; y el **borde de 2 px como marca de
-selección**, que es un recurso que Nebula no usa.
+**Corrección (2026-07-29), al ejecutar G1.5.** Esta sección daba dos cosas por ganadas y ninguna se
+sostiene al aplicarlas:
+
+- **Padding asimétrico**: lo usa **uno** de los tres cards medidos. `Plan Card` es 24 uniforme y
+  `Address Card` no tiene padding de raíz. Además `pad` es una sola variable que `sectionInset` niega
+  con `calc(pad * -1)`; partirla en dos ejes obliga a duplicar esa negación. Evidencia de una
+  instancia, coste alto: **no se hace**.
+- **Borde de 2 px como selección**: requiere un prop `selected` que Card no tiene. Es ampliación de
+  API, no calibración: **sale del tramo** y necesita decisión propia.
+
+**Lo que sí falta, y no estaba en esta tabla**: la raíz de Card es `flex` en columna **sin `gap`**, así
+que el ritmo vertical entre título, cuerpo y acciones lo pone el consumidor. Los dos cards del archivo
+que tienen padding sí lo declaran (16→8 y 24→16). Se resuelve derivando el gap del padding un peldaño
+por debajo, que es la regla «dentro < entre» de `docs/06` §3 y reproduce ambos exactamente.
 
 ### 2.5 Nav Tab Bar / Nav Tab Item
 

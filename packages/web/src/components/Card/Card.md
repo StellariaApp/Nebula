@@ -48,3 +48,40 @@ siendo legible sin ninguna de las dos.
 
 El lift se mantiene deliberadamente en 2 px: `docs/06` §5 pide que el hover no salte más de un nivel de
 la escalera de elevación.
+
+## El `gap` deriva del `padding` (G1.5)
+
+La raíz era `flex` en columna **sin `gap`**: el ritmo vertical entre título, cuerpo y acciones lo ponía
+el consumidor, y dos cards del mismo producto podían quedar distintos sin que nada lo detectara. Los
+cards del archivo de referencia sí lo declaran —`Metric Card` con padding 16 y gap 8, `Plan Card` con
+padding 24 y gap 16—.
+
+La regla no se eligió, se dedujo de `docs/06` §3: **dentro < entre**. El hueco interno de un card es un
+peldaño por debajo de su propio padding, que reproduce exactamente los dos cards medidos:
+
+| `padding` | valor | `gap` |
+| --------- | ----: | ----: |
+| `none`    |     0 |     0 |
+| `md`      |    16 | 8 (`sm`) |
+| `lg`      |    24 | 16 (`md`) |
+| `xl`      |    32 | 24 (`lg`) |
+
+`padding="none"` lleva `gap: 0` a propósito: es el modo que usan los cards seccionados —los que
+combinan `sectionInset` con `sectionBorder`—, donde un hueco separaría el borde de una sección de la
+siguiente y rompería la lectura de lista continua.
+
+**Pendiente de comprobación visual**: un card con `padding` distinto de `none` *y* secciones con borde
+recibe ahora hueco entre ellas. No hay caso así en el archivo de referencia ni en las láminas, pero
+conviene mirarlo cuando se capture el baseline de ADR-037.
+
+## Dos cosas que el plan proponía y no se hicieron
+
+**Padding asimétrico** (16 vertical / 20 horizontal, de `Metric Card`): el informe de geometría lo dio
+por ganador del archivo de diseño, y al ir a aplicarlo no se sostiene. Solo **uno** de los tres cards
+medidos lo usa —`Plan Card` es 24 uniforme y `Address Card` no tiene padding de raíz—, y `pad` es una
+sola variable que `sectionInset` **niega** con `calc(pad * -1)`: partirla en dos ejes obliga a
+duplicar esa negación. Coste alto, evidencia de una sola instancia.
+
+**Borde de 2 px como marca de selección** (`Plan Card` en `Variant=Current`): requiere un prop
+`selected` que Card no tiene, y la evidencia es una variante de un card. Es ampliación de API, no
+calibración, así que sale del tramo de geometría y necesita su propia decisión.
