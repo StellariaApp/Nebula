@@ -1,10 +1,17 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { fallbackVar, keyframes, style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { ringSize, trackHeight, trackRadius } from "./Progress.vars.css.js";
+import {
+  ringSize,
+  trackBg,
+  trackBorder,
+  trackBorderWidth,
+  trackHeight,
+  trackRadius,
+} from "./Progress.vars.css.js";
 
 const SLIDE = keyframes({
   from: { transform: "translateX(-100%)" },
@@ -28,7 +35,10 @@ export const track = style({
       width: "100%",
       height: trackHeight,
       borderRadius: trackRadius,
-      background: vars.color.surface.sunken,
+      background: fallbackVar(trackBg, vars.color.surface.sunken),
+      borderStyle: "solid",
+      borderWidth: fallbackVar(trackBorderWidth, "0"),
+      borderColor: fallbackVar(trackBorder, "transparent"),
     },
   },
 });

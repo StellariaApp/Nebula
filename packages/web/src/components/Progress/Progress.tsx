@@ -1,16 +1,27 @@
+"use client";
+
 import type { ReactElement } from "react";
 
-import type { Size } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, Size } from "@stellaria/nebula-tokens";
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Progress.css.js";
 import type { ProgressProps, ProgressSegment } from "./Progress.types.js";
-import { ringSize, trackHeight, trackRadius } from "./Progress.vars.css.js";
+import {
+  ringSize,
+  trackBg,
+  trackBorder,
+  trackBorderWidth,
+  trackHeight,
+  trackRadius,
+} from "./Progress.vars.css.js";
 
 const BAR_HEIGHT: Record<Size, number> = { xs: 4, sm: 6, md: 8, lg: 12, xl: 16 };
 const RING_SIZE: Record<Size, number> = { xs: 32, sm: 44, md: 60, lg: 84, xl: 112 };
@@ -27,7 +38,29 @@ function Normalize(props: ProgressProps): ProgressSegment[] {
   return [{ value, color }];
 }
 
-function Bar(props: ProgressProps): ReactElement {
+interface Track {
+  vars: Record<string, string>;
+  stroke: string;
+}
+
+function TrackVars(
+  variant: ProgressProps["variant"],
+  color: NonNullable<ProgressProps["color"]>,
+  theme: NebulaTheme,
+): Track {
+  if (variant === undefined) return { vars: {}, stroke: vars.color.surface.sunken };
+  const resolved = ResolveVariant(variant, color, theme);
+  return {
+    vars: assignInlineVars({
+      [trackBg]: resolved.background,
+      [trackBorder]: resolved.borderColor,
+      [trackBorderWidth]: resolved.borderWidth,
+    }),
+    stroke: resolved.background === "transparent" ? "none" : resolved.background,
+  };
+}
+
+function Bar(props: ProgressProps, track: Track): ReactElement {
   const {
     max = 100,
     size,
@@ -54,7 +87,7 @@ function Bar(props: ProgressProps): ReactElement {
     return (
       <div
         className={cx(styles.track, sprinkle_class, className)}
-        style={{ ...css_vars, ...sprinkle_style }}
+        style={{ ...track.vars, ...css_vars, ...sprinkle_style }}
         role="progressbar"
         {...(label === undefined ? {} : { "aria-label": label })}
       >
@@ -69,8 +102,8 @@ function Bar(props: ProgressProps): ReactElement {
 
   return (
     <div
-      className={cx(styles.track, className)}
-      style={css_vars}
+      className={cx(styles.track, sprinkle_class, className)}
+      style={{ ...track.vars, ...css_vars, ...sprinkle_style }}
       role="progressbar"
       aria-valuenow={Math.round(percent)}
       aria-valuemin={0}
@@ -92,7 +125,7 @@ function Bar(props: ProgressProps): ReactElement {
   );
 }
 
-function Ring(props: ProgressProps): ReactElement {
+function Ring(props: ProgressProps, track: Track): ReactElement {
   const {
     max = 100,
     size,
@@ -136,7 +169,7 @@ function Ring(props: ProgressProps): ReactElement {
           cy={box / 2}
           r={radius}
           fill="none"
-          stroke={vars.color.surface.sunken}
+          stroke={track.stroke}
           strokeWidth={stroke}
         />
         {(indeterminate ? [{ value: max * 0.25, color }] : list).map((segment, index) => {
@@ -169,7 +202,9 @@ function Ring(props: ProgressProps): ReactElement {
 }
 
 export function Progress(props: ProgressProps): ReactElement {
-  return props.type === "ring" ? Ring(props) : Bar(props);
+  const { theme } = useTheme();
+  const track = TrackVars(props.variant, props.color ?? "primary", theme);
+  return props.type === "ring" ? Ring(props, track) : Bar(props, track);
 }
 
 Progress.displayName = "Progress";

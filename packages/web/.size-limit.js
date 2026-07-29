@@ -420,11 +420,11 @@ const MODULE_BUDGETS = [
     limit: "12 kB",
   },
   {
-    name: "Progress (bar + ring, por módulo)",
+    name: "Progress (bar + ring con variantes, por módulo)",
     path: "dist/components/Progress/Progress.js",
     import: "{ Progress }",
     ignore: ["react", "react-dom"],
-    limit: "14 kB",
+    limit: "16 kB",
   },
   {
     name: "ToastProvider (Jotai + Transition, por módulo)",

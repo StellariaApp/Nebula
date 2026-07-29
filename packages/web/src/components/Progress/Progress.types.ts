@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 
-import type { SemanticScaleName, Size, Unit } from "@stellaria/nebula-tokens";
+import type { SemanticScaleName, Size, Unit, Variant } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type ProgressVariant = Extract<Variant, "light" | "outline" | "ghost">;
 
 export interface ProgressSegment {
   value: number;
@@ -14,6 +16,7 @@ export interface ProgressProps extends Omit<StyleProps, "color"> {
   segments?: readonly ProgressSegment[] | undefined;
   max?: number | undefined;
   type?: "bar" | "ring" | undefined;
+  variant?: ProgressVariant | undefined;
   color?: SemanticScaleName | undefined;
   size?: Size | Unit | undefined;
   thickness?: number | undefined;
