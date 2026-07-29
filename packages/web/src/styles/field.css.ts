@@ -136,9 +136,9 @@ export const field = recipe({
     surface: {
       outline: {
         vars: {
-          [bg]: vars.color.surface.raised,
+          [bg]: vars.color.surface.sunken,
           [bd]: vars.color.border.default,
-          [bgHover]: vars.color.surface.raised,
+          [bgHover]: vars.color.surface.sunken,
           [bdHover]: vars.color.border.strong,
           [bgDisabled]: vars.color.surface.disabled,
           [bdDisabled]: vars.color.border.disabled,
@@ -148,7 +148,7 @@ export const field = recipe({
         vars: {
           [bg]: vars.color.surface.sunken,
           [bd]: "transparent",
-          [bgHover]: vars.color.surface.hover,
+          [bgHover]: vars.color.surface.active,
           [bdHover]: "transparent",
           [bgDisabled]: vars.color.surface.disabled,
           [bdDisabled]: "transparent",

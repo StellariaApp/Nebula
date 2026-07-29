@@ -102,3 +102,18 @@ Aun así, el propietario quiere el eje disponible. Este ADR fija **cómo** se ha
   tokens, el lint de paridad lo verifica por nombre de prop, no por tipo compartido.
 - Se ejecuta en W3, antes de cerrar el bloque de inputs completos, y `docs/00-inventory.md` §1.4 y las
   fichas de API de los campos se actualizan en ese PR.
+- **Corrección tras la revisión visual (2026-07-29)**: el punto 2 fijaba `outline` = `surface.raised` +
+  `border.default` para «reproducir exactamente el comportamiento actual». El comportamiento actual era
+  el defecto: `raised` está a **1.017** del canvas en light y a **1.012** en dark, porque ADR-028
+  resolvió la escalera de elevación con el rim de `effects.shadows` en dark y con la sombra en light, y
+  un campo no lleva sombra. `outline` pasa a `surface.sunken` + `border.default` —**1.062 en los dos
+  esquemas**, oscureciendo en light y aclarando en dark—, que
+  es además el rol que le corresponde por significado. `outline` y `filled` quedan compartiendo relleno
+  y diferenciándose por el borde, que es lo que dicen sus nombres. En el mismo cambio, el hover de
+  `filled` pasa de `surface.hover` a `surface.active`: los cuatro temas oficiales resuelven `hover` y
+  `sunken` al mismo peldaño, de modo que un `filled` —sin borde— no tenía ninguna respuesta al puntero.
+  El detalle medido está en `packages/web/src/styles/field.md`.
+- **Deuda de a11y que este eje no cierra**: `border.default` mide 1.39 contra el canvas en light y 2.27
+  en dark, por debajo del 3:1 de SC 1.4.11 para el límite visual de un componente. Afecta al contorno en
+  reposo de todo campo `outline`, y se resuelve recalibrando `colors.border.default` en los cinco temas,
+  no en la receta. El punto de a11y de estas consecuencias solo cubría `underline` y `unstyled`.

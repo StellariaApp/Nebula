@@ -473,3 +473,34 @@ Suavizarlo agranda ese hueco; endurecerlo va contra la dirección que el propiet
 La salida que resuelve las dos cosas es separar el fondo del campo del canvas, de modo que el borde
 deje de ser el único identificador y pueda ser tan suave como se quiera. Es cambio de componente y de
 rol de superficie, no de la escala de bordes, y no se hace aquí.
+
+## 8. El fondo del campo se separa del canvas · **CERRADA** — la salida que dejó planteada §7
+
+El propietario lo pidió con esas palabras: «contraste con el bg de los inputs en light más oscuro y en
+dark más claro». Es exactamente la salida del párrafo anterior, y se ejecuta en la receta.
+
+`outline` —el default de los dieciséis campos— pasa de `surface.raised` a `surface.sunken`:
+
+| Tema         | antes (`raised`) | ahora (`sunken`) | dirección |
+| ------------ | ---------------: | ---------------: | --------- |
+| nebula-light |            1.017 |            1.062 | oscurece  |
+| nebula-dark  |            1.012 |            1.062 | aclara    |
+
+El escalón queda **idéntico en los dos esquemas** e invierte su signo con el modo, que es la propiedad
+que ADR-044 fijó para los roles que responden al puntero y que aquí sirve igual para el reposo.
+
+`raised` no estaba mal calibrado. ADR-028 resolvió la escalera de elevación con el **rim** de
+`effects.shadows` en dark y con la sombra en light: una Card a 1.01 se distingue porque lleva sombra. Un
+campo no lleva sombra, así que heredaba el 1.01 sin el cue que lo compensa. Por eso la corrección es de
+la receta y no del tema, y por eso `border.default` —medido de nuevo tras el ajuste del propietario:
+**1.39 en light, 2.27 en dark**— ya no es el único identificador de un input.
+
+De paso se corrige un defecto de `filled` que la revisión no había mirado: su `bgHover` era
+`surface.hover`, y en los cuatro temas oficiales `hover` y `sunken` resuelven al mismo peldaño
+(índice 300). Con el borde transparente, eso era un campo sin ninguna respuesta al puntero. Pasa a
+`surface.active`: 1.083 en light, 1.075 en dark.
+
+**Sigue abierto** el 3:1 de SC 1.4.11 para el contorno en reposo. Este cambio suma un cue, no sustituye
+al borde, y `border.default` sigue por debajo del mínimo en los dos esquemas. Resolverlo es recalibrar
+el rol en los cinco temas —con el Figma delante, que es lo que §7 demostró que hace falta— y no cabe en
+un cambio de receta.
