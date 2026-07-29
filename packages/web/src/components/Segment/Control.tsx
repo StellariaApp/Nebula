@@ -103,7 +103,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
 
   const css_vars = assignInlineVars({
     [indicatorColor]:
-      segment.color === "primary" ? vars.color.surface.base : ScaleShade(segment.color, "200"),
+      segment.color === "primary" ? vars.color.surface.overlay : ScaleShade(segment.color, "200"),
   });
 
   return (
