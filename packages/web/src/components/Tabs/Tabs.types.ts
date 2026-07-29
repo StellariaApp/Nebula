@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
-import type { SegmentVariant } from "../Segment/Segment.types.js";
+import type { SegmentSize, SegmentVariant } from "../Segment/Segment.types.js";
 
 export interface TabItem {
   value: string;
@@ -17,7 +17,7 @@ export interface TabsProps extends Omit<StyleProps, "color"> {
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
-  size?: Size | undefined;
+  size?: SegmentSize | undefined;
   variant?: SegmentVariant | undefined;
   color?: ColorExtended | undefined;
   disabled?: boolean | undefined;

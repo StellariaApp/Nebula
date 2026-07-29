@@ -72,7 +72,7 @@ Alturas de Nebula: `control` = 30 · 36 · 42 · 50 · 60 (`xs`…`xl`).
 
 | | Figma (`Pagination Item`) | Nebula (`Pagination`) |
 | --- | --- | --- |
-| Alto | **~27 px** (hug: 6+6 + texto 12) | **42 px** en `md` (`control.md` forzado) |
+| Alto | **~27 px** (hug: 6+6 + texto 12) | **36 px** en `md` (`control.sm`, ya desplazada) |
 | Padding | 6 / 10 | — (alto fijo, sin padding) |
 | Radius | 6 | 6 (`sm`) ✔ |
 | Texto | 12 / 500 (600 activo) | `body2`–`body1` |
@@ -80,9 +80,15 @@ Alturas de Nebula: `control` = 30 · 36 · 42 · 50 · 60 (`xs`…`xl`).
 | Activo | fill `#2C6FD1`, texto blanco | por `variant` |
 | Disabled | fill sólido + texto al 40 % | opacidad global |
 
-**Gana el Figma.** Un paginador numérico a 42 px de alto es un botón de formulario, no un paginador.
-El Figma lo resuelve por padding y deja que el contenido mande. Es literalmente el defecto que el
-propietario reportó como «tamaño y espacio de los botones».
+**Corrección (2026-07-29): gana Nebula, y no hay nada que cambiar.** La primera versión de este informe
+dijo que Pagination forzaba `control.md` (42 px). Es falso: sus variantes están **desplazadas un
+peldaño** —`sm`→`control.xs`, `md`→`control.sm`, `lg`→`control.md`, `xl`→`control.lg`— y su unión de
+tamaños estrecha a `PaginationSize` sin `xs`. Ya implementa exactamente lo que `docs/06` §4.1 prescribe
+y lo que este informe iba a proponer.
+
+La diferencia que queda —36 px contra ~27— es que **el Figma está por debajo de lo que `docs/06` fija
+para un objetivo táctil**. Ahí gana `docs/06`, como fija RV.1. **G1.2 se cierra sin cambios de alto**;
+queda solo revisar el `gap` de 2 px entre ítems.
 
 ### 2.2 Pills / Segment — el más distinto
 

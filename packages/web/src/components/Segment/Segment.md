@@ -68,3 +68,24 @@ píldora desaparecería y la selección quedaría expresada **solo** por el colo
 información de estado de un componente de UI, que WCAG 2.2 exige que sea perceptible con 3:1 (criterio
 1.4.11), y dos labels que solo difieren en tono no lo garantizan. `Tabs`, que es un atajo sobre este
 compound, hereda el mismo subconjunto.
+
+## Por qué `size` empieza en `sm` y no en `xs` (ADR-047)
+
+`docs/06` §4.1 fija que lo interactivo usa `sizes.control` **desplazada un peldaño**, y que por debajo
+de `control.xs` no hay peldaño al que desplazarse. Un `radiogroup` o un `tablist` son objetivos
+táctiles, así que la otra escala —`sizes.compact`— está vedada aquí: la propia sección dice que lo que
+la consuma no puede ser interactivo, aunque sus valores (20–36) aterricen casi exactos sobre el diseño.
+
+De ahí que `md` sea `control.sm` (36) y no `control.md` (42), y que `SegmentSize` no ofrezca `xs`. Es la
+misma decisión que ya tomó `Pagination`, y por el mismo motivo: **un `Segment md` alinea con un input
+`sm`**. `Tabs` lo hereda porque es un atajo sobre este compound.
+
+## Los dos `4px` del contenedor son el mismo valor
+
+`control` tiene `padding: space.xs` y el indicador tiene `top`/`bottom: space.xs`. **Deben leer el mismo
+token**: el indicador se posiciona en absoluto dentro del contenedor, así que si el padding y sus insets
+se separan, la píldora deja de encajar en el hueco. Antes eran dos literales `"3px"` sincronizados a
+mano, que es exactamente lo que ADR-033 prohíbe y lo que el censo de los `.css.ts` no vio.
+
+El radio del contenedor, del indicador y de cada tab es `full` en los tres, no `md`/`sm`: el control se
+lee como conmutador y no como caja, que era el defecto reportado en dark.

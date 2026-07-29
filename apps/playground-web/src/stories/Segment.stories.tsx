@@ -99,7 +99,7 @@ export const WithChildren: Story = {
 export const Sizes: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md" align="flex-start">
-      {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+      {(["sm", "md", "lg", "xl"] as const).map((size) => (
         <Segment key={size} size={size} defaultValue="lista">
           <Segment.Control aria-label={size} data={["Lista", "Tabla"]} />
         </Segment>

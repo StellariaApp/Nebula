@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -10,6 +10,8 @@ export interface SegmentItemData {
   disabled?: boolean | undefined;
 }
 
+export type SegmentSize = "sm" | "md" | "lg" | "xl";
+
 export type SegmentVariant = Extract<Variant, "filled" | "light">;
 
 export interface SegmentProps extends Omit<StyleProps, "color"> {
@@ -17,7 +19,7 @@ export interface SegmentProps extends Omit<StyleProps, "color"> {
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
-  size?: Size | undefined;
+  size?: SegmentSize | undefined;
   variant?: SegmentVariant | undefined;
   color?: ColorExtended | undefined;
   disabled?: boolean | undefined;

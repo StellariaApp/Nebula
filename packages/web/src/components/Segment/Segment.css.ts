@@ -27,9 +27,9 @@ export const control = recipe({
         position: "relative",
         display: "inline-flex",
         boxSizing: "border-box",
-        padding: "3px",
+        padding: vars.space.xs,
         background: vars.color.surface.sunken,
-        borderRadius: vars.radius.md,
+        borderRadius: vars.radius.full,
         fontFamily: vars.font.family.sans,
         alignSelf: "flex-start",
         selectors: {
@@ -40,11 +40,10 @@ export const control = recipe({
   },
   variants: {
     size: {
-      xs: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
-      sm: { height: vars.size.control.sm, fontSize: vars.font.size.body2 },
-      md: { height: vars.size.control.md, fontSize: vars.font.size.button },
-      lg: { height: vars.size.control.lg, fontSize: vars.font.size.button },
-      xl: { height: vars.size.control.xl, fontSize: vars.font.size.body1 },
+      sm: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
+      md: { height: vars.size.control.sm, fontSize: vars.font.size.body2 },
+      lg: { height: vars.size.control.md, fontSize: vars.font.size.button },
+      xl: { height: vars.size.control.lg, fontSize: vars.font.size.body1 },
     },
     fullWidth: {
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
@@ -60,11 +59,11 @@ export const indicator = style({
   "@layer": {
     [baseLayer]: {
       position: "absolute",
-      top: "3px",
-      bottom: "3px",
+      top: vars.space.xs,
+      bottom: vars.space.xs,
       insetInlineStart: 0,
       background: indicatorColor,
-      borderRadius: vars.radius.sm,
+      borderRadius: vars.radius.full,
       boxShadow: vars.shadow.xxs,
       touchAction: "none",
       zIndex: 0,
@@ -81,7 +80,7 @@ export const tab = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      paddingInline: vars.space.sm,
+      paddingInline: vars.space.u3,
       border: "none",
       background: "transparent",
       font: "inherit",
@@ -91,7 +90,7 @@ export const tab = style({
       color: vars.color.text.secondary,
       whiteSpace: "nowrap",
       userSelect: "none",
-      borderRadius: vars.radius.sm,
+      borderRadius: vars.radius.full,
       ...motion.interaction,
       outline: "none",
       selectors: {

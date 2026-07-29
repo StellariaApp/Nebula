@@ -2,14 +2,14 @@
 
 import { createContext, useContext } from "react";
 
-import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended } from "@stellaria/nebula-tokens";
 
-import type { SegmentVariant } from "./Segment.types.js";
+import type { SegmentSize, SegmentVariant } from "./Segment.types.js";
 
 export interface SegmentContextValue {
   value: string;
   SetValue: (next: string) => void;
-  size: Size;
+  size: SegmentSize;
   variant: SegmentVariant | undefined;
   color: ColorExtended;
   disabled: boolean;
