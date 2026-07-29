@@ -321,3 +321,72 @@ cosas se resuelven en el mismo sitio.
 - No porta los 10–11 px de texto del Figma. Se porta la **relación** entre label, valor y helper.
 - No corrige las incoherencias del Figma: se implementa el valor de light en ambos esquemas.
 - No captura el baseline de ADR-037. Eso va **después** de G1.9, no antes.
+
+---
+
+## 7. G1.10 — El estado `disabled` (añadido 2026-07-29)
+
+Observación del propietario al revisar G1.0–G1.3: el estado deshabilitado «no tiene diseño» y casi
+ningún componente lo trata. La medición matiza el diagnóstico: **el problema no es cobertura, es que
+la misma cosa se dice de cinco maneras**.
+
+### El censo
+
+| | Componentes |
+| --- | ---: |
+| Aceptan la prop `disabled` | **23** |
+| La estilan en su `.css.ts` | **13** |
+| Delegan correctamente | **7** — Combobox, NumberInput, PasswordInput, SearchInput, TextInput y Textarea en el recipe `field`; Tabs en Segment |
+| Sin cobertura | **3** — FileButton, Tooltip, Portal |
+
+De los 3 sin cobertura, `Portal` no es visual y `Tooltip` deshabilitado significa «no se muestra».
+**El único hueco real de cobertura es `FileButton`.**
+
+### Las cinco recetas
+
+| Receta | Componentes |
+| ------ | ----------- |
+| `background` + `opacity` | ActionIcon · Button |
+| `opacity` sola | Checkbox · Radio · Switch · UnstyledButton |
+| `color` solo | Accordion · Menu · Pagination · Segment |
+| `background` + `color` | NavLink |
+| `background` + `borderColor` + `color` | `field` |
+
+Un `Button` deshabilitado se atenúa entero; un `Pagination` deshabilitado solo se le apaga el texto y
+conserva su fondo a plena intensidad. Puestos uno al lado del otro no parecen el mismo estado.
+
+### Lo que hace el archivo de diseño
+
+Una sola receta, verificada en tres componentes —`Pagination Item`, `Pill` y `Nav Tab Item`—:
+
+- **Fill sólido**: `#E6ECF3` en light, `#1B2540` en dark. No es transparencia: es una superficie.
+- **Texto al 40 % de opacidad**, sobre ese fill.
+
+Es decir: el diseño **no atenúa el elemento entero**. Le cambia la superficie y atenúa solo el texto,
+de modo que la caja sigue leyéndose como caja y lo que desaparece es la llamada a la acción.
+
+### Por qué ningún gate lo detectó
+
+`check:contrast` **exime `disabled` explícitamente** —WCAG 1.4.3 no exige contraste mínimo para
+controles deshabilitados—, y axe tampoco lo mira. Es la misma clase de punto ciego que motivó toda esta
+revisión: maquinaria correcta, verificada por un gate que mira a otro sitio.
+
+### Lo que hay que decidir
+
+1. **¿Receta única o dos?** El diseño usa una. Nebula podría necesitar dos —una para controles con
+   superficie propia (Button, Pagination, Pill) y otra para controles sin ella (Checkbox, Radio,
+   Switch)—, porque atenuar un checkbox por superficie no significa nada.
+2. **¿Rol nuevo `surface.disabled`?** El fill del diseño (`#E6ECF3` light / `#1B2540` dark) no
+   corresponde a ningún rol actual: en light está entre `sunken` y `raised`, y en dark coincide casi
+   con `border.subtle`. Si la respuesta es que falta el rol, **es ADR** y afecta a los cuatro temas,
+   como ADR-044.
+3. **¿La opacidad del texto es token o literal?** El 40 % del diseño no existe en el contrato. O entra
+   como token, o se expresa con `text.muted` y se acepta que no es lo mismo.
+
+### Alcance
+
+Toca **14 componentes** —los 13 que ya lo estilan más FileButton— y no depende de nada de G1.0–G1.9,
+así que puede ejecutarse en paralelo o al final. Va al final por decisión del propietario.
+
+**Precede al baseline de ADR-037**: normalizar el disabled cambia el aspecto de 14 componentes, y
+capturar antes obligaría a regenerar.
