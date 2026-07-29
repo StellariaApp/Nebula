@@ -1,7 +1,8 @@
 # ADR-038 — Variantes de superficie por subconjunto declarado de `Variant`
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV; decisión del propietario
-  registrada, pendiente de aceptación al abrir el tramo)
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV; primer lote ejecutado en el
+  tramo V2 — Alert y Badge. Card, Paper, Avatar, Toast, Progress, Segment, Tabs, NavLink y Pagination
+  quedan para V4 y V5)
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §0, §1.1 y §2.A.
 
 ## Contexto

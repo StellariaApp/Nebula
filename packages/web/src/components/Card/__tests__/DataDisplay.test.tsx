@@ -18,8 +18,8 @@ describe("Badge", () => {
     expect(badge.getAttribute("data-variant")).toBe("filled");
   });
 
-  it("la variante dot no aporta texto adicional al lector", () => {
-    render(<Badge variant="dot">Activo</Badge>);
+  it("el punto no aporta texto adicional al lector", () => {
+    render(<Badge dot>Activo</Badge>);
     expect(screen.getByText("Activo").textContent).toBe("Activo");
   });
 });

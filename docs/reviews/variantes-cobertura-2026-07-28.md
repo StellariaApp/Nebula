@@ -572,10 +572,35 @@ sola vez. Ninguno bloquea nada.
 
 ### 5.1 Estado de ejecución
 
-| Tramo   | Estado          | Nota                                                                             |
-| ------- | --------------- | -------------------------------------------------------------------------------- |
-| V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`     |
-| V1 – V8 | sin empezar     | —                                                                                 |
+| Tramo   | Estado          | Nota                                                                                     |
+| ------- | --------------- | ----------------------------------------------------------------------------------------- |
+| V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`             |
+| V2 + V3 | **cerrado**     | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio     |
+| V1      | sin empezar     | **bloqueado por edición concurrente** de `pairs.ts` (ADR-044, otra sesión)               |
+| V4 – V8 | sin empezar     | —                                                                                          |
+
+**V2 y V3 resultaron ser un solo tramo, no dos.** El plan los separaba, pero V2 lleva Badge a 13,94 kB
+contra un budget de 12: aislado aterrizaría en rojo, de modo que la recalibración va en el mismo commit.
+Es un defecto del plan, no de la decisión.
+
+**Dos correcciones que la medición impuso sobre §3.2:**
+
+- **Alert no paga los +2,2 kB**: midió 30,43 frente a 30,44 antes, porque ya arrastraba
+  `ResolveVariant` por su cadena `ButtonClose → ActionIcon`. El delta solo aplica a módulos que no
+  dependan ya de un componente de acción, así que Card, Toast, NavLink y el resto de V4/V5 **hay que
+  medirlos uno a uno**, no proyectarlos.
+- **Solo se recalibró una entrada**, no las seis proyectadas. Paper, Avatar, Divider, Loader y Progress
+  no adoptan `variant` todavía; subirles el budget antes de que lo necesiten dejaría el gate sin señal
+  durante todo el tramo intermedio.
+
+**Corrección a §3.4**: el informe predijo que el gate derivado de `variantMap` destaparía fallos. Se
+midieron las **224 combinaciones** (8 variantes × 7 escalas × 4 temas) con la aritmética validada contra
+la salida real del CLI, y **no falla ninguna**: 147 pares de texto, 21 de gradiente contra cada stop, 6
+de glass compuesto y 28 de borde con identidad. Las escalas se invierten correctamente en dark
+—`primary.800` es `#3630af` en light y `#d0d9ff` en dark—, que es lo que sostiene las recetas en ambos
+esquemas. El caso más ajustado es el gradiente de `playful`, a 4,75:1. Eso **debilita el argumento de
+«V1 antes que V2»**: la validación que V1 automatiza ya se hizo a mano, de modo que V1 conserva su valor
+—tenants y regresiones— pero deja de ser precondición.
 
 Con V0 cerrado, la afirmación «todo `variant` del catálogo es un subconjunto de `Variant` resuelto
 contra `variantMap`» es cierta para los cuatro componentes que hoy exponen el prop, y por primera vez

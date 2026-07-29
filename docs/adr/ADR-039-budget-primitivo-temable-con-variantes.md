@@ -1,6 +1,7 @@
 # ADR-039 — Escalón de budget «primitivo temable con variantes en runtime»
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV)
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV; ejecutada junto a ADR-038 en
+  el tramo V2+V3)
 - **Enmienda**: [ADR-022](ADR-022-budget-primitivos-temables-runtime.md) y `docs/03` §3.
 - **Precondición de**: [ADR-038](ADR-038-variantes-de-superficie-por-subconjunto.md).
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §3.2.
@@ -92,3 +93,24 @@ Y dos pasan sin margen útil: Card 21,64 / 22 y NavLink 20,95 / 21.
   NavLink, Pagination, Toast y Alert absorben el delta dentro de su límite actual.
 - El escalón nuevo **no es una licencia**. Un primitivo que adopte `variant` y aun así rebase 14,5 kB
   se adelgaza o reduce su subconjunto; la regla de ADR-032 §7 sigue vigente para el exceso individual.
+
+## Ejecución (2026-07-28, tramo V2+V3)
+
+Se recalibró **una sola entrada**, no las tres proyectadas, porque la medición corrigió la proyección
+en dos puntos:
+
+| Componente | Antes |  Proyectado | **Medido** | Budget      |
+| ---------- | ----: | ----------: | ---------: | ----------- |
+| Badge      | 11,57 |       13,77 |  **13,94** | 12 → **14,5** |
+| Alert      | 30,44 |       32,64 |  **30,43** | 35 (sin tocar) |
+
+**Alert no paga nada.** La proyección asumía +2,2 kB, pero Alert ya arrastraba `ResolveVariant` por su
+cadena `ButtonClose → ActionIcon`, de modo que el import ya estaba en su grafo. Es un recordatorio de
+que el delta de +2,07–2,21 kB solo aplica a módulos que **no** dependan ya de un componente de acción;
+Card, Toast y NavLink habrá que medirlos uno a uno en V4/V5 en vez de proyectarlos.
+
+Badge midió 13,94 frente a los 13,85 proyectados —0,09 kB de diferencia—, así que el escalón de 14,5 kB
+conserva 0,56 kB de holgura, del orden del que ADR-022 dejó sobre su máximo.
+
+Paper, Avatar y Progress **no se recalibran todavía**: no adoptan `variant` hasta V4 y subir su budget
+antes de que lo necesiten dejaría el gate sin señal durante todo el tramo intermedio.

@@ -42,7 +42,7 @@ export const Alerts: Story = {
 export const AlertVariants: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md" maw={520}>
-      {(["light", "filled", "outline"] as const).map((variant) => (
+      {(["light", "filled", "outline", "glass"] as const).map((variant) => (
         <Alert key={variant} variant={variant} color="success" title={variant}>
           Variante {variant} del aviso.
         </Alert>

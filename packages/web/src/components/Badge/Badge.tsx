@@ -1,43 +1,21 @@
 import type { ReactElement } from "react";
 
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../theme/contract.css.js";
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Badge.css.js";
-import type { BadgeProps, BadgeVariant } from "./Badge.types.js";
+import type { BadgeProps } from "./Badge.types.js";
 import { bg, borderColor, fg } from "./Badge.vars.css.js";
-
-function Palette(
-  variant: BadgeVariant,
-  color: NonNullable<BadgeProps["color"]>,
-): { bg: string; fg: string; border: string } {
-  if (variant === "filled") {
-    return { bg: ScaleShade(color, "600"), fg: vars.color.text.onPrimary, border: "transparent" };
-  }
-  if (variant === "outline") {
-    return { bg: "transparent", fg: ScaleShade(color, "700"), border: ScaleShade(color, "500") };
-  }
-  if (variant === "dot") {
-    return {
-      bg: vars.color.surface.raised,
-      fg: vars.color.text.primary,
-      border: vars.color.border.default,
-    };
-  }
-  return {
-    bg: `color-mix(in srgb, ${ScaleShade(color, "500")} 14%, transparent)`,
-    fg: ScaleShade(color, "700"),
-    border: "transparent",
-  };
-}
 
 export function Badge(props: BadgeProps): ReactElement {
   const {
     children,
     variant = "light",
+    dot = false,
     color = "primary",
     size = "md",
     radius = "full",
@@ -49,12 +27,13 @@ export function Badge(props: BadgeProps): ReactElement {
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
-  const palette = Palette(variant, color);
+  const { theme } = useTheme();
+  const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bg]: palette.bg,
-    [fg]: palette.fg,
-    [borderColor]: palette.border,
+    [bg]: resolved.background,
+    [fg]: resolved.foreground,
+    [borderColor]: resolved.borderColor,
   });
 
   return (
@@ -62,8 +41,9 @@ export function Badge(props: BadgeProps): ReactElement {
       className={cx(styles.badge({ size, radius, fullWidth }), sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}
       data-variant={variant}
+      data-dot={dot ? "true" : undefined}
     >
-      {variant === "dot" ? (
+      {dot ? (
         <span
           className={styles.dot}
           style={{ color: ScaleShade(color, "600") }}

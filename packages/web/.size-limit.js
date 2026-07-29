@@ -441,11 +441,11 @@ const MODULE_BUDGETS = [
     limit: "4 kB",
   },
   {
-    name: "Badge (primitivo temable en runtime, por módulo)",
+    name: "Badge (primitivo temable con variantes en runtime, por módulo)",
     path: "dist/components/Badge/Badge.js",
     import: "{ Badge }",
     ignore: ["react", "react-dom"],
-    limit: "12 kB",
+    limit: "14.5 kB",
   },
   {
     name: "Avatar (primitivo temable en runtime, por módulo)",

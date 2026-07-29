@@ -6,7 +6,7 @@ import { Badge } from "../Badge.js";
 
 afterEach(cleanup);
 
-const variants: BadgeVariant[] = ["light", "filled", "outline", "dot"];
+const variants: BadgeVariant[] = ["light", "filled", "outline", "ghost", "gradient"];
 
 describe("Badge", () => {
   it("renderiza su contenido", () => {
@@ -22,8 +22,8 @@ describe("Badge", () => {
     }
   });
 
-  it("la variante dot añade un punto decorativo, no un texto extra", () => {
-    render(<Badge variant="dot">Pendiente</Badge>);
+  it("el punto decorativo no añade texto y es ortogonal a la variante", () => {
+    render(<Badge dot>Pendiente</Badge>);
     expect(screen.getByText("Pendiente").textContent).toBe("Pendiente");
     const dot = screen.getByText("Pendiente").querySelector("[aria-hidden='true']");
     expect(dot).not.toBeNull();

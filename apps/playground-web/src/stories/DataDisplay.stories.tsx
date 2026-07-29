@@ -51,7 +51,7 @@ export const Badges: Story = {
         ))}
       </Box>
       <Box display="flex" gap="sm" style={{ flexWrap: "wrap" }}>
-        {(["light", "filled", "outline", "dot"] as const).map((variant) => (
+        {(["light", "filled", "outline", "ghost", "gradient"] as const).map((variant) => (
           <Badge key={variant} variant={variant} color="success">
             {variant}
           </Badge>
@@ -175,7 +175,7 @@ export const Composition: Story = {
                 <Title order={5}>Ana García</Title>
                 <Card.Meta>Última actividad hace 2 días</Card.Meta>
               </Box>
-              <Badge color="success" variant="dot">
+              <Badge color="success" variant="outline" dot>
                 Al corriente
               </Badge>
             </Box>
