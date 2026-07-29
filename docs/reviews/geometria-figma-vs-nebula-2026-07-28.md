@@ -277,8 +277,9 @@ En orden de impacto medido:
 | 2 | Escala de radius | **Re-fasar a múltiplos de 4** — ADR-046, contra la recomendación |
 | 3 | Ejecución del nivel 3 | **Tramo propio de geometría** (§6) |
 
-Queda **una pregunta abierta**: si `Breadcrumbs` entra en el catálogo. Hoy no está en
-`docs/00-inventory.md`, así que añadirlo es alcance nuevo, no calibración. Se decide al abrir el tramo.
+`Breadcrumbs` **entra**. No era alcance nuevo: ya estaba en `docs/00-inventory.md` como componente
+`core` de tier 2 —«sin acoplamiento a router, items declarativos»—, simplemente no se ha construido.
+G1.9 lo implementa con la geometría del Figma.
 
 ## 6. El tramo de geometría (**G1**)
 
@@ -298,7 +299,7 @@ vez y de forma coherente, y el baseline de ADR-037 se captura una sola vez al fi
 | G1.6 | **Modal** — región `footer` con padding y borde superior | idem |
 | G1.7 | **Tabs** — lámina propia: ítem `u2_5`/`md`, gap `u1_5`, activo con borde inferior 2 px | idem |
 | G1.8 | **Paper / Drawer** — documentar medidas canónicas de panel y sidebar en sus `.md` | — |
-| G1.9 | **Breadcrumbs**, si entra | + inventario y a11y APG |
+| G1.9 | **Breadcrumbs** — componente nuevo, ya inventariado (tier 2, `core`) | + a11y APG |
 
 **G1.0 va primero y solo.** Es el único paso que mueve el catálogo entero, y conviene que su cambio
 visual se vea aislado antes de empezar a recalibrar componentes encima.

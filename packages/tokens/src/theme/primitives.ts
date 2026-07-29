@@ -55,7 +55,21 @@ export type LetterSpacingName = "tight" | "normal" | "wide";
 
 export type RadiusName = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "full";
 
-export type SpacingName = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl";
+export type SpacingName =
+  | "none"
+  | "xxs"
+  | "xs"
+  | "u1_5"
+  | "sm"
+  | "u2_5"
+  | "u3"
+  | "u3_5"
+  | "md"
+  | "u5"
+  | "lg"
+  | "xl"
+  | "xxl"
+  | "xxxl";
 
 export type MotionTier = "minimal" | "standard" | "expressive";
 

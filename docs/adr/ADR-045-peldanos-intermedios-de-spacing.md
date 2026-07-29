@@ -60,6 +60,16 @@ componente la decisión que **ADR-033** le quitó, así que no es viable.
    bloques, `Stack`, `Group`— y los `u*` son para **densidad interna de control**: padding de un
    elemento interactivo y hueco entre sus partes. La regla se escribe en `docs/06`.
 
+5. **Los `u*` no se exponen como style props.** Sprinkles genera una clase atómica por valor × 17
+   propiedades de espaciado × 6 breakpoints; añadir cinco valores generaba **~510 clases** y sacaba de
+   presupuesto a 35 entradas de `size-limit`, la hoja atómica compartida incluida. `Box.css.ts` define
+   `LAYOUT_SPACE` —los nueve miembros de talla— y las 17 propiedades responsive lo consumen en lugar de
+   `vars.space`.
+
+   No es una concesión al presupuesto: es el punto 4 aplicado. Los style props son la API de **layout**,
+   y los `u*` son densidad interna, que vive en el `.css.ts` del componente. `vars.space.u3` sigue
+   disponible ahí y no cuesta runtime porque VE lo resuelve en build.
+
 ## Alternativas
 
 - **Re-escalar el tramo bajo de 2 en 2** (0·2·4·6·8·10·12·16·20·24·32·48) con nombres de talla
@@ -82,6 +92,12 @@ componente la decisión que **ADR-033** le quitó, así que no es viable.
 - **El schema de Zod deriva del enum** (`spacingNames`), así que la validación se propaga sin editar
   `schema.ts`, igual que en ADR-044.
 - **Paridad native sin coste hoy**: `packages/native/src` aún no consume `spacing.scale`.
+- **Coste de bundle cero**, gracias al punto 5. Medido: con los cinco valores en Sprinkles, 35 entradas
+  de `size-limit` se salían de budget —`Sprinkles: runtime` pasaba de 16 a 18,36 kB y arrastraba a todo
+  componente que importa la hoja—. Con `LAYOUT_SPACE` el gate vuelve a 9/9 sin tocar un solo
+  presupuesto.
+- **La API de style props no crece**: `p`, `m`, `gap` y sus 14 atajos siguen aceptando los mismos nueve
+  valores que antes. Ampliar el contrato **no** amplía la superficie pública de `Box`.
 - **Habilita el nivel 3** del plan de geometría: Segment, Pagination, NavLink, `field` y Tabs no pueden
   recalibrarse sin estos peldaños.
 - **`docs/02` §2 y `docs/06`** se actualizan en el mismo PR con la escala ampliada y con la regla de

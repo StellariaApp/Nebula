@@ -46,8 +46,11 @@ type NebulaTheme = {
           weight; lineHeight; letterSpacing }
 
   // 3. GEOMETRÍA Y DENSIDAD
-  radius:  { xs…full }                           // un tema "sharp" pone todo en 0–2px
+  radius:  { xxs:0, xs:4, sm:8, md:12, lg:16, xl:20, xxl:28, full }  // múltiplos de 4 (ADR-046)
   spacing: { unit: number; scale: {...} }        // densidad: compact (unit 3) ↔ comfortable (unit 5)
+           // tallas para layout: none xxs xs sm md lg xl xxl xxxl
+           // múltiplos para densidad de control: u1_5 u2_5 u3 u3_5 u5 (ADR-045)
+           // los u* NO se exponen como style props — ver ADR-045 §5
   sizes:   { control: { xs:30, sm:36, md:42, lg:50, xl:60 },   // heights compartidas W/N
              compact: { xs:20, sm:24, md:28, lg:32, xl:36 } }  // metadata y navegación compacta
 

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import type { SpacingName } from "@stellaria/nebula-tokens";
 import { Box, Button, Divider, Flex, Paper, Text, Title } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
@@ -13,7 +12,7 @@ export default meta;
 
 type Story = StoryObj;
 
-const rhythm: { token: SpacingName; base: string; role: string }[] = [
+const rhythm = [
   { token: "xxs", base: "2 px", role: "corrección óptica; no separa elementos distintos" },
   { token: "xs", base: "4 px", role: "icono+label muy compacto, label+required" },
   { token: "sm", base: "8 px", role: "relación interna directa" },
@@ -22,7 +21,7 @@ const rhythm: { token: SpacingName; base: string; role: string }[] = [
   { token: "xl", base: "32 px", role: "separación de secciones" },
   { token: "xxl", base: "48 px", role: "regiones de página" },
   { token: "xxxl", base: "64 px", role: "separación editorial/hero" },
-];
+] as const;
 
 /** La escala con su significado compositivo (docs/06 §3). El ancho de la barra es el token. */
 export const Scale: Story = {

@@ -52,7 +52,20 @@ Reglas:
 
 ## 3. Ritmo espacial
 
-La escala existente forma una cuadrícula base de 4 px:
+La escala tiene **dos ejes** (ADR-045), y confundirlos es el error que hay que evitar:
+
+- **Tallas** —`none` … `xxxl`— para **layout**: márgenes, huecos entre bloques, separación de
+  secciones. Son las únicas que los style props (`p`, `m`, `gap`) exponen.
+- **Múltiplos** —`u1_5`=6, `u2_5`=10, `u3`=12, `u3_5`=14, `u5`=20 px— para **densidad interna de un
+  control**: su padding y el hueco entre sus partes. Viven en el `.css.ts` del componente y **no** son
+  style props: un consumidor no decide la densidad interna de un control, la decide el tema.
+
+La regla práctica: si el valor separa dos cosas, es talla; si define cuánto respira una sola, es
+múltiplo.
+
+### 3.1 Las tallas (layout)
+
+Forman una cuadrícula base de 4 px:
 
 | Token  | Nebula default | Significado                                      |
 | ------ | -------------: | ------------------------------------------------ |
