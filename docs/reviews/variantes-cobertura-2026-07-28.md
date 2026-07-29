@@ -577,7 +577,34 @@ sola vez. Ninguno bloquea nada.
 | V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`             |
 | V2 + V3 | **cerrado**     | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio     |
 | V1      | **cerrado**     | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo)     |
-| V4 – V8 | en curso        | —                                                                                          |
+| V4      | **cerrado**     | Paper, Avatar, Card, Progress y Toast                                                     |
+| V5      | **cerrado**     | Segment, Tabs, NavLink y Pagination                                                       |
+| V6      | **cerrado**     | 18 de 21 componentes con `color` cumplen ya la convención de ADR-021                      |
+| V7 – V8 | sin empezar     | trabajo dentro de W3                                                                       |
+
+**Tres subconjuntos de ADR-038 no sobrevivieron a la implementación**, y los tres por la misma razón:
+el ADR los asignó sobre el papel y el componente real los desmiente.
+
+- **Progress sin `filled`**: en una barra, el `background` de la receta es el track, y `filled` lo
+  resuelve al mismo `scale.600` del relleno. El indicador desaparecería dentro de su contenedor.
+- **Segment y Tabs sin `ghost`**: un fondo transparente borra la píldora y deja la selección expresada
+  solo por el color del texto, que WCAG 2.2 no admite como información de estado (1.4.11).
+- **Paper y Card con `glow` estático**, no con el `::after` animado de la plantilla: ese patrón es para
+  controles, y `docs/06` §6 fija que las sombras no animan.
+
+**Dos costes que la auditoría no midió y aparecieron al ejecutar:**
+
+1. **RSC.** `ResolveVariant` necesita el theme en runtime, así que todo componente que adopte `variant`
+   pasa a cliente. El catálogo tenía tres presentacionales server-safe —Badge, Paper y Progress— y los
+   tres los pierde. Badge lo perdió en V2 **sin que ningún gate lo dijera**, porque la regla de lint de
+   `docs/03` §3 no está implementada. Aceptado por el propietario.
+2. **`palettes` en V6.** `ColorExtended` admite las 16 paletas crudas, de modo que ~1 kB brotli viaja
+   con todo componente que acepte el tipo. Cinco primitivos cruzaron el escalón de 12 kB y ADR-039 gana
+   un segundo escalón para ellos.
+
+**El delta de bundle no es proyectable.** Alert y Toast pagaron ~0 kB porque ya arrastraban
+`ResolveVariant` por su cadena de dependencias; Paper pagó 3,04. Hay que medir componente a componente.
+El módulo más ajustado del catálogo es ahora **NavLink, 20,88 contra 21**.
 
 **Coste que la auditoría no midió: RSC.** `ResolveVariant` necesita el `theme` en runtime, así que
 todo componente que adopte `variant` pasa a ser cliente. El catálogo tenía tres presentacionales
