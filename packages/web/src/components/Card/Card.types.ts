@@ -1,11 +1,24 @@
 import type { ReactNode } from "react";
 
-import type { RadiusName, ShadowLevel, Unit } from "@stellaria/nebula-tokens";
+import type {
+  RadiusName,
+  SemanticScaleName,
+  ShadowLevel,
+  Unit,
+  Variant,
+} from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface CardProps extends Omit<StyleProps, "shadow"> {
+export type CardVariant = Extract<
+  Variant,
+  "filled" | "outline" | "light" | "glass" | "glow" | "gradient"
+>;
+
+export interface CardProps extends Omit<StyleProps, "shadow" | "color"> {
   children: ReactNode;
+  variant?: CardVariant | undefined;
+  color?: SemanticScaleName | undefined;
   radius?: RadiusName | undefined;
   shadow?: ShadowLevel | "none" | undefined;
   padding?: "none" | "md" | "lg" | "xl" | undefined;

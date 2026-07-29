@@ -5,12 +5,16 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Image } from "../Image/Image.js";
 
 import * as styles from "./Card.css.js";
 import type { CardImageProps, CardProps, CardSectionProps, CardSlotProps } from "./Card.types.js";
+import { backdropFilter, bg, borderColor, fg, glow } from "./Card.vars.css.js";
 
 const HOVER_LIFT = -2;
 
@@ -68,6 +72,8 @@ CardActions.displayName = "CardActions";
 export function Card(props: CardProps): ReactElement {
   const {
     children,
+    variant,
+    color = "primary",
     radius = "md",
     shadow = "none",
     padding = "lg",
@@ -88,14 +94,36 @@ export function Card(props: CardProps): ReactElement {
 
   const interactive = interactive_prop ?? (onPress !== undefined || href !== undefined);
 
+  const resolved = variant === undefined ? null : ResolveVariant(variant, color, theme);
+
   const class_name = cx(
-    styles.card({ radius, shadow, padding, withBorder, interactive }),
+    styles.card({
+      radius,
+      shadow,
+      padding,
+      withBorder: withBorder || resolved?.borderWidth === "1px",
+      interactive,
+      glowing: resolved !== null && resolved.glow !== "none",
+    }),
     sprinkle_class,
     className,
   );
 
+  const variant_vars =
+    resolved === null
+      ? {}
+      : assignInlineVars({
+          [bg]: resolved.background,
+          [fg]: resolved.foreground,
+          [borderColor]: resolved.borderColor,
+          [backdropFilter]: resolved.backdropFilter,
+          [glow]: resolved.glow,
+        });
+
+  const root_style = { ...variant_vars, ...sprinkle_style } as MotionStyle;
+
   const motion_props = {
-    ...(sprinkle_style === undefined ? {} : { style: sprinkle_style as MotionStyle }),
+    style: root_style,
     ...(is_off || !interactive
       ? {}
       : {

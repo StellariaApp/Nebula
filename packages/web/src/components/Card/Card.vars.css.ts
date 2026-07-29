@@ -1,3 +1,8 @@
 import { createVar } from "@vanilla-extract/css";
 
 export const pad = createVar();
+export const bg = createVar();
+export const fg = createVar();
+export const borderColor = createVar();
+export const glow = createVar();
+export const backdropFilter = createVar();

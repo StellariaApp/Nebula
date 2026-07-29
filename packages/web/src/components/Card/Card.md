@@ -1,5 +1,24 @@
 # Card
 
+## `variant` es opcional y aditivo
+
+Sin `variant`, Card pinta lo de siempre: `surface.raised` + `text.primary` + `border.default`. Con
+`variant`, `ResolveVariant` sobrescribe las tres piezas contra `theme.variantMap` (ADR-038). El recipe
+usa `fallbackVar`, así que la var local solo existe cuando hay variante y ningún uso previo cambia.
+
+Card es el componente con el subconjunto más amplio del catálogo —los seis: `filled`, `outline`,
+`light`, `glass`, `glow` y `gradient`—. Es el único caso en que `docs/06` §6 admite las tres capas de
+efecto, porque una card puede ser raíz de su región y objeto único de atención. La contrapartida está en
+el propio §6 y no la puede vigilar el tipo: **una colección de cards usa el mismo nivel**, así que
+`glow` y `gradient` son para la card destacada, no para la lista.
+
+`withBorder` y la variante conviven: el borde se dibuja si el consumidor lo pide **o** si la receta
+resuelta lo trae (`outline`).
+
+El glow va a `boxShadow` por la variante `glowing` del recipe, no al `::after` animado de la plantilla
+(§3.1). Ese patrón es para controles; una card ya tiene su propio motion de hover y `docs/06` §6 fija
+que las sombras no animan.
+
 ## El padding vive en una var, no en el recipe
 
 `CardSection` sangra hasta el borde de la card restando el padding con margen negativo. Mientras ese

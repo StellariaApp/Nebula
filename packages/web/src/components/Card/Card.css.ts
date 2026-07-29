@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
@@ -6,7 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { pad } from "./Card.vars.css.js";
+import { backdropFilter, bg, borderColor, fg, glow, pad } from "./Card.vars.css.js";
 
 export const card = recipe({
   base: {
@@ -16,12 +16,13 @@ export const card = recipe({
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        background: vars.color.surface.raised,
-        color: vars.color.text.primary,
+        background: fallbackVar(bg, vars.color.surface.raised),
+        color: fallbackVar(fg, vars.color.text.primary),
         fontFamily: vars.font.family.sans,
         borderStyle: "solid",
         borderWidth: 0,
-        borderColor: vars.color.border.default,
+        borderColor: fallbackVar(borderColor, vars.color.border.default),
+        backdropFilter: fallbackVar(backdropFilter, "none"),
         overflow: "hidden",
         textAlign: "start",
         textDecoration: "none",
@@ -29,6 +30,10 @@ export const card = recipe({
     },
   },
   variants: {
+    glowing: {
+      true: { "@layer": { [baseLayer]: { boxShadow: glow } } },
+      false: {},
+    },
     radius: {
       xxs: { borderRadius: vars.radius.xxs },
       xs: { borderRadius: vars.radius.xs },
@@ -86,6 +91,7 @@ export const card = recipe({
     padding: "lg",
     withBorder: true,
     interactive: false,
+    glowing: false,
   },
 });
 
