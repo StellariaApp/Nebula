@@ -46,11 +46,11 @@ control y **deriva de `sizes.control`**», y ActionIcon ya lo implementa como
 
 | `size` | `control` | `control / 2` | Switch `h` antes | Checkbox/Radio antes |
 | ------ | --------: | ------------: | ---------------: | -------------------: |
-| xs     |        30 |            15 |        16 (**+1**) |          14 (**−1**) |
-| sm     |        36 |            18 |        18 (**0**)  |          16 (**−2**) |
-| md     |        42 |            21 |        22 (**+1**) |          18 (**−3**) |
-| lg     |        50 |            25 |        26 (**+1**) |          20 (**−5**) |
-| xl     |        60 |            30 |        30 (**0**)  |          24 (**−6**) |
+| xs     |        30 |            15 |      16 (**+1**) |          14 (**−1**) |
+| sm     |        36 |            18 |       18 (**0**) |          16 (**−2**) |
+| md     |        42 |            21 |      22 (**+1**) |          18 (**−3**) |
+| lg     |        50 |            25 |      26 (**+1**) |          20 (**−5**) |
+| xl     |        60 |            30 |       30 (**0**) |          24 (**−6**) |
 
 **Switch ya cumplía la regla sin declararla**: cae dentro de 1 px en los cinco peldaños y coincide
 exacto en `sm` y `xl`. Los que se habían desviado —hasta 6 px— eran Checkbox y Radio. No hacía falta
@@ -59,13 +59,13 @@ escapado.
 
 ### Antes / después
 
-| Componente     | Antes (fuente)                     | Después (fuente)                                          |
-| -------------- | ---------------------------------- | --------------------------------------------------------- |
-| Checkbox       | `SIZE_PX` en `.tsx`, 14→24         | `styleVariants` → `calc(control.<size> / 2)`, 15→30        |
-| Radio          | `SIZE_PX` en `.tsx`, 14→24         | `styleVariants` → `calc(control.<size> / 2)`, 15→30        |
-| Switch (alto)  | `SIZE.h` en `.tsx`, 16→30          | `theme.sizes.control[size] / 2`, 15→30                     |
-| Switch (ancho) | `SIZE.w` en `.tsx`, 28→52          | `track_h * TRACK_RATIO` (1,75), 26,25→52,5                 |
-| Switch (gesto) | `travel = SIZE.w - SIZE.h`         | `travel = track_w - track_h`, derivado del mismo contrato  |
+| Componente     | Antes (fuente)             | Después (fuente)                                          |
+| -------------- | -------------------------- | --------------------------------------------------------- |
+| Checkbox       | `SIZE_PX` en `.tsx`, 14→24 | `styleVariants` → `calc(control.<size> / 2)`, 15→30       |
+| Radio          | `SIZE_PX` en `.tsx`, 14→24 | `styleVariants` → `calc(control.<size> / 2)`, 15→30       |
+| Switch (alto)  | `SIZE.h` en `.tsx`, 16→30  | `theme.sizes.control[size] / 2`, 15→30                    |
+| Switch (ancho) | `SIZE.w` en `.tsx`, 28→52  | `track_h * TRACK_RATIO` (1,75), 26,25→52,5                |
+| Switch (gesto) | `travel = SIZE.w - SIZE.h` | `travel = track_w - track_h`, derivado del mismo contrato |
 
 **Cambio visual deliberado**: Checkbox y Radio crecen entre 1 y 6 px según el peldaño; Switch se mueve
 como mucho 1 px. Es la misma clase de cambio que ADR-033 asumió para Badge y Pagination, y por el
@@ -285,13 +285,13 @@ además las superficies obligaría a recalibrar `sunken` u `overlay` globalmente
 
 ## 4. Lo que queda
 
-| Causa / defecto                                  | Estado                                        |
-| ------------------------------------------------ | --------------------------------------------- |
-| (c) alturas de Checkbox · Radio · Switch (def. 3) | **cerrada**                                   |
-| (a) hover sobre canvas (def. 2 y 5)              | **cerrada** · ADR-044 + recalibración de texto |
-| (b) escalera dentro de overlay (def. 1)          | **cerrada** · `border.subtle` en dark          |
-| (4) densidad de Segment en dark                  | sin abrir · **el Figma no tiene Segment**     |
-| (6) estados de NavLink                           | sin abrir · **pase propio**, no ajuste de token |
+| Causa / defecto                                   | Estado                                          |
+| ------------------------------------------------- | ----------------------------------------------- |
+| (c) alturas de Checkbox · Radio · Switch (def. 3) | **cerrada**                                     |
+| (a) hover sobre canvas (def. 2 y 5)               | **cerrada** · ADR-044 + recalibración de texto  |
+| (b) escalera dentro de overlay (def. 1)           | **cerrada** · `border.subtle` en dark           |
+| (4) densidad de Segment en dark                   | sin abrir · **el Figma no tiene Segment**       |
+| (6) estados de NavLink                            | sin abrir · **pase propio**, no ajuste de token |
 
 **Los síntomas de Pagination, NavLink y Segment no se tocan todavía, a propósito.** ADR-038 de la
 auditoría WV (`docs/reviews/variantes-cobertura-2026-07-28.md`) hace que esos tres resuelvan su
@@ -307,12 +307,12 @@ recetas contra ellos.
 Archivo consultado: `Polaris` (`SYZgKuK5o70lmfxVNljxww`), vía MCP de REST API. Las cuatro preguntas
 que quedaron abiertas en la primera sesión, y su estado:
 
-| # | Pregunta                                                    | Estado                                            |
-| - | ----------------------------------------------------------- | ------------------------------------------------- |
-| 1 | Escalón mínimo perceptible de un hover de superficie        | **resuelta** · ~1.08 · a `docs/06` §5.1           |
-| 2 | Relación entre superficies dentro de un contenedor elevado  | **resuelta**, y el propietario decidió lo contrario |
-| 3 | Si el hover sobre canvas sube o baja                        | **resuelta** · el signo depende del esquema        |
-| 4 | Jerarquía de los estados simultáneos de NavLink             | **sin resolver** · el Figma no tiene el estado     |
+| #   | Pregunta                                                   | Estado                                              |
+| --- | ---------------------------------------------------------- | --------------------------------------------------- |
+| 1   | Escalón mínimo perceptible de un hover de superficie       | **resuelta** · ~1.08 · a `docs/06` §5.1             |
+| 2   | Relación entre superficies dentro de un contenedor elevado | **resuelta**, y el propietario decidió lo contrario |
+| 3   | Si el hover sobre canvas sube o baja                       | **resuelta** · el signo depende del esquema         |
+| 4   | Jerarquía de los estados simultáneos de NavLink            | **sin resolver** · el Figma no tiene el estado      |
 
 ### Lo que el Figma resuelve y `docs/06` no decía — incorporado
 
@@ -342,12 +342,12 @@ que quedaron abiertas en la primera sesión, y su estado:
 
 ## 6. Gates de la segunda sesión
 
-| Gate                                | Resultado                                            |
-| ----------------------------------- | ---------------------------------------------------- |
-| `build · typecheck · lint · test`   | 29/29 tasks · **452 tests**                          |
-| `check:contrast`                    | **38 pares × 5 temas · 0 FAIL** (28 pares antes)     |
-| `size-limit`                        | 9/9 tasks · ninguna entrada fuera de budget          |
-| `a11y` (axe sobre Storybook)        | **55 suites · 338 tests**                            |
+| Gate                              | Resultado                                        |
+| --------------------------------- | ------------------------------------------------ |
+| `build · typecheck · lint · test` | 29/29 tasks · **452 tests**                      |
+| `check:contrast`                  | **38 pares × 5 temas · 0 FAIL** (28 pares antes) |
+| `size-limit`                      | 9/9 tasks · ninguna entrada fuera de budget      |
+| `a11y` (axe sobre Storybook)      | **55 suites · 338 tests**                        |
 
 Los roles nuevos suman **10 pares** al gate de contraste —3 roles de texto y 2 de borde sobre cada una
 de las dos superficies—, de modo que `hover` y `active` nacen cubiertos y no repiten el hueco que dejó
@@ -355,15 +355,82 @@ que `sunken` se usara como hover sin que nada lo midiera.
 
 ## 7. Archivos tocados
 
-| Capa            | Archivos                                                                        |
-| --------------- | ------------------------------------------------------------------------------- |
-| Contrato        | `tokens/src/theme/primitives.ts` · `tokens/src/__checks__/contract.test-d.ts`   |
-| Enum y schema   | `themes/src/enums.ts` (Zod deriva de aquí, no se edita)                         |
-| Temas           | `nebula-dark` · `nebula-light` · `playful` · `sober-light`                       |
-| Contrato web    | `web/src/theme/contract.css.ts`                                                 |
-| Componentes     | `Accordion.css.ts` · `Pagination.css.ts`                                        |
-| Gate            | `tools/contrast-check/src/pairs.ts` · `smoke-theme.ts`                          |
-| Docs            | ADR-044 · `docs/02` §2 · `docs/06` §5.1 y §5.2 · este informe                    |
+| Capa          | Archivos                                                                      |
+| ------------- | ----------------------------------------------------------------------------- |
+| Contrato      | `tokens/src/theme/primitives.ts` · `tokens/src/__checks__/contract.test-d.ts` |
+| Enum y schema | `themes/src/enums.ts` (Zod deriva de aquí, no se edita)                       |
+| Temas         | `nebula-dark` · `nebula-light` · `playful` · `sober-light`                    |
+| Contrato web  | `web/src/theme/contract.css.ts`                                               |
+| Componentes   | `Accordion.css.ts` · `Pagination.css.ts`                                      |
+| Gate          | `tools/contrast-check/src/pairs.ts` · `smoke-theme.ts`                        |
+| Docs          | ADR-044 · `docs/02` §2 · `docs/06` §5.1 y §5.2 · este informe                 |
 
 `Modal.css.ts` **no se toca**: la causa (b) resultó estar en `border.subtle` del tema, no en el
 componente.
+
+---
+
+## 6. Simetría de superficies en dark · **CERRADA** — el residual de §3, resuelto
+
+§3 dejó anotado que el salto `overlay`/`sunken` seguía siendo 1.14 en dark contra 1.06 en light, y que
+simetrizarlo «obligaría a recalibrar `sunken` u `overlay` globalmente. No se hace aquí». El propietario
+volvió sobre ello tras ver el resultado: «no puedes cambiar la escala de colores directamente en el
+theme dark, así solucionas todos los problemas al mismo tiempo».
+
+Tenía razón, y la medición lo confirma: **el defecto no era de dirección sino de magnitud**, y estaba
+en un solo valor.
+
+### La medición
+
+`sunken` en `nebula-dark` era `dark.50` (`#06080f`), **por debajo del canvas** (`dark.100`, `#080a12`).
+Eso producía dos fallos opuestos a la vez:
+
+| Relación                      | light (referencia) | dark antes | Efecto en dark                   |
+| ----------------------------- | -----------------: | ---------: | -------------------------------- |
+| `overlay`/`sunken` — modal    |              1.062 |  **1.142** | el cuerpo se lee como un agujero |
+| `sunken`/`base` — pista, code |              1.062 |  **1.012** | la superficie no existe          |
+
+Un salto 2,3× **de más** contra la cabecera y 5× **de menos** contra el canvas, con el mismo token.
+
+### La decisión
+
+`sunken` pasa de `dark.50` a `dark.300` (`#0f1119`). Es el único valor de la rampa que deja las dos
+relaciones dentro de la banda de los temas light:
+
+| Candidato       | `overlay`/`sunken` | `sunken`/`base` |
+| --------------- | -----------------: | --------------: |
+| `dark.50` antes |              1.142 |           1.012 |
+| `dark.200`      |              1.106 |           1.020 |
+| **`dark.300`**  |          **1.075** |       **1.049** |
+| `dark.400`      |              1.040 |           1.085 |
+| light           |              1.062 |           1.062 |
+
+`overlay` **no se toca**: sigue a 1.128 del canvas, que es la elevación por superficie que ADR-028
+exige en dark, donde la sombra no tiene recorrido sobre negro.
+
+En dark, «hundido» pasa a expresarse como una elevación leve en vez de como una excavación. No es una
+licencia: por debajo del canvas no hay suelo, y el propio ADR-044 ya había establecido que 1.01 contra
+el fondo «no es un hover débil, es ninguno». El mismo umbral se aplicaba aquí.
+
+### Alcance — por qué arregla varias cosas a la vez
+
+Todo lo que usa `surface.sunken` estaba invisible contra el canvas en dark y deja de estarlo: cuerpo
+del Modal y del Drawer, pista de `Segment`, `Code`, pista de `Progress`, placeholder de `Image`,
+`Skeleton` y el fondo de campo deshabilitado. **Un valor, ocho superficies.**
+
+Con esto, `Segment` en dark queda con escalera completa —canvas → pista 1.049 → píldora 1.075— en vez
+de con la píldora flotando sobre una ranura inexistente.
+
+### Colapsos aceptados, y por qué
+
+En `nebula-dark`, `sunken` queda ahora en el mismo valor que `raised`, igual que `active` ya coincidía
+con `overlay`. Entre `base` y `overlay` la rampa solo ofrece tres peldaños, así que algún colapso es
+inevitable, y estos son los menos dañinos: «área hundida» y «tarjeta elevada» son ambas superficies
+por encima del canvas y por debajo de un overlay, y rara vez necesitan distinguirse entre sí. Lo que sí
+debía seguir separado —`hover` de la superficie sobre la que se aplica— lo está.
+
+El contrato ya tolera este tipo de colapso: en los temas light, `base` y `overlay` valen ambos
+`#ffffff`.
+
+**Deuda anotada**: un `Code` dentro de una `Card` queda sin distinción en dark. Si aparece en una
+composición real, la salida es ensanchar la rampa `dark` —no reasignar roles—, y eso es ADR-028.

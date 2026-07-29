@@ -33,7 +33,7 @@ export const nebulaDark = {
       base: palettes.dark["100"],
       raised: palettes.dark["300"],
       overlay: palettes.dark["500"],
-      sunken: palettes.dark["50"],
+      sunken: palettes.dark["300"],
       hover: palettes.dark["400"],
       active: palettes.dark["500"],
     },
