@@ -221,6 +221,9 @@ importers:
 
   packages/web:
     dependencies:
+      '@internationalized/date':
+        specifier: ^3.12.2
+        version: 3.12.2
       '@stellaria/nebula-hooks':
         specifier: workspace:*
         version: link:../hooks

@@ -21,6 +21,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       required = false,
       disabled = false,
       size = "md",
+      surface = "outline",
       field: nebula_field,
       value,
       defaultValue = Number.NaN,
@@ -93,7 +94,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       >
         {(control) => (
           <div
-            className={field.field({ size })}
+            className={field.field({ size, surface })}
             data-invalid={fp.isInvalid ? "true" : undefined}
             data-disabled={fp.isDisabled ? "true" : undefined}
           >

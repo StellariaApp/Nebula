@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
+import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export interface TextareaProps
@@ -18,6 +19,7 @@ export interface TextareaProps
   required?: boolean | undefined;
   disabled?: boolean | undefined;
   size?: Size | undefined;
+  surface?: FieldSurface | undefined;
   field?: NebulaField<string> | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;

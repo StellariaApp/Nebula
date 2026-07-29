@@ -1,10 +1,17 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import * as focus from "./focus.css.js";
 import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
 import { baseLayer } from "../theme/layers.css.js";
+
+export const bg = createVar();
+export const bd = createVar();
+export const bgHover = createVar();
+export const bdHover = createVar();
+export const bgDisabled = createVar();
+export const bdDisabled = createVar();
 
 export const root = style({
   "@layer": {
@@ -62,16 +69,17 @@ export const field = recipe({
         width: "100%",
         fontFamily: vars.font.family.sans,
         color: vars.color.text.primary,
-        background: vars.color.surface.raised,
+        background: bg,
         borderWidth: "1px",
         borderStyle: "solid",
-        borderColor: vars.color.border.default,
+        borderColor: bd,
         borderRadius: vars.radius.md,
         ...motion.interaction,
         ...motion.reducedMotion,
         selectors: {
           "&:hover:not([data-disabled='true']):not([data-invalid='true'])": {
-            borderColor: vars.color.border.strong,
+            background: bgHover,
+            borderColor: bdHover,
           },
           "&:focus-within": focus.ring,
           "&[data-invalid='true']": { borderColor: vars.color.semantic.error["500"] },
@@ -80,8 +88,8 @@ export const field = recipe({
           },
           "&[data-disabled='true']": {
             cursor: "not-allowed",
-            background: vars.color.surface.disabled,
-            borderColor: vars.color.border.disabled,
+            background: bgDisabled,
+            borderColor: bdDisabled,
             color: vars.color.text.disabled,
           },
         },
@@ -125,8 +133,56 @@ export const field = recipe({
       true: { alignItems: "stretch", paddingBlock: vars.space.sm },
       false: {},
     },
+    surface: {
+      outline: {
+        vars: {
+          [bg]: vars.color.surface.raised,
+          [bd]: vars.color.border.default,
+          [bgHover]: vars.color.surface.raised,
+          [bdHover]: vars.color.border.strong,
+          [bgDisabled]: vars.color.surface.disabled,
+          [bdDisabled]: vars.color.border.disabled,
+        },
+      },
+      filled: {
+        vars: {
+          [bg]: vars.color.surface.sunken,
+          [bd]: "transparent",
+          [bgHover]: vars.color.surface.hover,
+          [bdHover]: "transparent",
+          [bgDisabled]: vars.color.surface.disabled,
+          [bdDisabled]: "transparent",
+        },
+      },
+      underline: {
+        borderWidth: "0 0 1px",
+        borderRadius: 0,
+        paddingInline: 0,
+        vars: {
+          [bg]: "transparent",
+          [bd]: vars.color.border.default,
+          [bgHover]: "transparent",
+          [bdHover]: vars.color.border.strong,
+          [bgDisabled]: "transparent",
+          [bdDisabled]: vars.color.border.disabled,
+        },
+      },
+      unstyled: {
+        borderWidth: 0,
+        borderRadius: 0,
+        paddingInline: 0,
+        vars: {
+          [bg]: "transparent",
+          [bd]: "transparent",
+          [bgHover]: "transparent",
+          [bdHover]: "transparent",
+          [bgDisabled]: "transparent",
+          [bdDisabled]: "transparent",
+        },
+      },
+    },
   },
-  defaultVariants: { size: "md", multiline: false },
+  defaultVariants: { size: "md", multiline: false, surface: "outline" },
 });
 
 export type FieldRecipeVariants = NonNullable<RecipeVariants<typeof field>>;

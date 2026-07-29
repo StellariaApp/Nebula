@@ -55,6 +55,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       required = false,
       disabled = false,
       size = "md",
+      surface = "outline",
       field: nebula_field,
       value,
       defaultValue = "",
@@ -97,7 +98,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       >
         {(control) => (
           <div
-            className={field.field({ size })}
+            className={field.field({ size, surface })}
             data-invalid={fp.isInvalid ? "true" : undefined}
             data-disabled={fp.isDisabled ? "true" : undefined}
           >

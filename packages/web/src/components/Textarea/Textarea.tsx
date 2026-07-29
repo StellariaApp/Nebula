@@ -20,6 +20,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       required = false,
       disabled = false,
       size = "md",
+      surface = "outline",
       field: nebula_field,
       value,
       defaultValue = "",
@@ -73,7 +74,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       >
         {(control) => (
           <div
-            className={field.field({ size, multiline: true })}
+            className={field.field({ size, surface, multiline: true })}
             data-invalid={fp.isInvalid ? "true" : undefined}
             data-disabled={fp.isDisabled ? "true" : undefined}
           >

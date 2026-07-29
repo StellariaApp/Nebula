@@ -52,6 +52,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       required = false,
       disabled = false,
       size = "md",
+      surface = "outline",
       field: nebula_field,
       value,
       defaultValue = "",
@@ -106,7 +107,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       >
         {(control) => (
           <div
-            className={field.field({ size })}
+            className={field.field({ size, surface })}
             data-invalid={fp.isInvalid ? "true" : undefined}
             data-disabled={fp.isDisabled ? "true" : undefined}
           >

@@ -43,6 +43,8 @@ export function Select(props: SelectProps): ReactElement {
     required = false,
     disabled = false,
     size = "md",
+
+    surface = "outline",
     field: nebula_field,
     value,
     defaultValue = "",
@@ -126,7 +128,7 @@ export function Select(props: SelectProps): ReactElement {
     >
       {({ "aria-required": _required, ...control }) => (
         <div
-          className={field.field({ size })}
+          className={field.field({ size, surface })}
           data-invalid={fp.isInvalid ? "true" : undefined}
           data-disabled={fp.isDisabled ? "true" : undefined}
         >

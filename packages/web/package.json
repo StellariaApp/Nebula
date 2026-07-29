@@ -26,6 +26,7 @@
     "size": "size-limit"
   },
   "dependencies": {
+    "@internationalized/date": "^3.12.2",
     "@stellaria/nebula-hooks": "workspace:*",
     "@stellaria/nebula-icons": "workspace:*",
     "@stellaria/nebula-themes": "workspace:*",

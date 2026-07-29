@@ -119,6 +119,18 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Signature                           | comp  | WN                      | 2    | P3·FC·TFV                                     | core    | FC Signature (Skia) native; web canvas nuevo                                                |
 | Dropzone                            | comp  | W                       | 2    | P3(§14)·TFV                                   | core    | Nuevo; contrato `field`                                                                     |
 
+> **Eje `surface` (ADR-042, ejecutado en W3.1)**: todo campo de esta sección acepta
+> `surface="outline" | "filled" | "underline" | "unstyled"`, con `outline` por defecto. Es una
+> variante del recipe compartido `styles/field.css.ts` —zero-runtime, sin `ResolveVariant` y sin
+> entrar en `NebulaTheme`—, y se declara en el `FormField` raíz, no en el control interno.
+> `glass`, `glow` y `gradient` quedan excluidos por contrato (`docs/06` §6).
+
+> **Valor de las fechas (ADR-047)**: `DatePicker`, `DatePickerInput`, `Calendar`, `DateTimePicker`,
+> `TimeInput`, `MonthPicker` y `YearPicker` exponen **strings ISO 8601**
+> (`YYYY-MM-DD`, `HH:mm`, `YYYY-MM-DDTHH:mm`, `YYYY-MM`, `YYYY`) y `DateRangePicker` usa
+> `DateRange` de `@stellaria/nebula-tokens`. `@internationalized/date` es motor interno y no aparece
+> en la API pública, de modo que el contrato `WN` no obliga a `packages/native` a adoptarla.
+
 ### 1.5 Combobox Patterns (web)
 
 | Componente        | Clas.  | Plat | Tier | Fuentes         | Destino | Nota                                                                           |

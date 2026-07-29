@@ -44,6 +44,8 @@ export function Combobox(props: ComboboxProps): ReactElement {
     required = false,
     disabled = false,
     size = "md",
+
+    surface = "outline",
     field: nebula_field,
     value,
     defaultValue = "",
@@ -178,7 +180,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
     >
       {(control) => (
         <div
-          className={field.field({ size })}
+          className={field.field({ size, surface })}
           data-invalid={fp.isInvalid ? "true" : undefined}
           data-disabled={fp.isDisabled ? "true" : undefined}
         >

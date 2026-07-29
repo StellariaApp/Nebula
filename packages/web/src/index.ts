@@ -58,6 +58,9 @@ export type {
   FieldErrorProps,
 } from "./components/FieldError/index.js";
 
+export { FIELD_SURFACES } from "./styles/field-surface.js";
+export type { FieldSurface } from "./styles/field-surface.js";
+
 export { TextInput } from "./components/TextInput/index.js";
 export type { TextInputProps } from "./components/TextInput/index.js";
 export { PasswordInput } from "./components/PasswordInput/index.js";
@@ -68,6 +71,51 @@ export { SearchInput } from "./components/SearchInput/index.js";
 export type { SearchInputProps } from "./components/SearchInput/index.js";
 export { NumberInput } from "./components/NumberInput/index.js";
 export type { NumberInputProps } from "./components/NumberInput/index.js";
+export { Fieldset } from "./components/Fieldset/index.js";
+export type { FieldsetProps, FieldsetVariant } from "./components/Fieldset/index.js";
+export { Rating } from "./components/Rating/index.js";
+export type { RatingProps } from "./components/Rating/index.js";
+export { PinInput } from "./components/PinInput/index.js";
+export type { PinInputProps, PinInputType } from "./components/PinInput/index.js";
+export { TagsInput } from "./components/TagsInput/index.js";
+export type { TagsInputProps } from "./components/TagsInput/index.js";
+export { FileInput } from "./components/FileInput/index.js";
+export type { FileInputProps } from "./components/FileInput/index.js";
+export { JsonInput } from "./components/JsonInput/index.js";
+export type { JsonInputProps } from "./components/JsonInput/index.js";
+export { ColorInput, ColorPicker } from "./components/ColorPicker/index.js";
+export type {
+  ColorFormat,
+  ColorInputProps,
+  ColorPickerLabels,
+  ColorPickerProps,
+} from "./components/ColorPicker/index.js";
+
+export { Calendar, RangeCalendar } from "./components/Calendar/index.js";
+export type {
+  CalendarLabels,
+  CalendarProps,
+  RangeCalendarProps,
+} from "./components/Calendar/index.js";
+export { DatePicker, DatePickerInput } from "./components/DatePicker/index.js";
+export type {
+  DateGranularity,
+  DatePickerInputProps,
+  DatePickerProps,
+  DateRangePickerProps,
+} from "./components/DatePicker/index.js";
+export { DateRangePicker } from "./components/DateRangePicker/index.js";
+export { DateTimePicker } from "./components/DateTimePicker/index.js";
+export type { DateTimePickerProps } from "./components/DateTimePicker/index.js";
+export { TimeInput } from "./components/TimeInput/index.js";
+export type { TimeInputProps } from "./components/TimeInput/index.js";
+export { MonthPicker, YearPicker } from "./components/MonthPicker/index.js";
+export type {
+  MonthPickerProps,
+  PeriodPickerLabels,
+  YearPickerProps,
+} from "./components/MonthPicker/index.js";
+
 export { Checkbox, CheckboxGroup } from "./components/Checkbox/index.js";
 export type { CheckboxGroupProps, CheckboxProps } from "./components/Checkbox/index.js";
 export { Radio, RadioGroup } from "./components/Radio/index.js";

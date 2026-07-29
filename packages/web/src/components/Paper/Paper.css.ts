@@ -11,7 +11,7 @@ export const paper = recipe({
     "@layer": {
       [baseLayer]: {
         boxSizing: "border-box",
-        background: fallbackVar(bg, vars.color.surface.raised),
+        background: fallbackVar(bg, vars.color.surface.base),
         color: fallbackVar(fg, vars.color.text.primary),
         borderStyle: "solid",
         borderWidth: 0,

@@ -1,6 +1,6 @@
 # ADR-042 — El tratamiento de superficie de un campo es un eje local del recipe `field`, no una `Variant`
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV) · **ejecución diferida a W3**
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV) · **ejecutada en W3.1** (2026-07-29)
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §2.B.
 
 ## Contexto

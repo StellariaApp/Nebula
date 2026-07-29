@@ -5,6 +5,7 @@ import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 import type { RenderOption, SelectOption } from "../../collections/options.js";
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
+import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type ComboboxMenuTrigger = "input" | "focus" | "manual";
@@ -19,6 +20,7 @@ export interface ComboboxProps extends StyleProps {
   required?: boolean | undefined;
   disabled?: boolean | undefined;
   size?: Size | undefined;
+  surface?: FieldSurface | undefined;
   field?: NebulaField<string> | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;
