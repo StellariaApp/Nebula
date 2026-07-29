@@ -12,7 +12,7 @@ export interface DividerOwnProps extends Omit<BoxOwnProps, "component" | "color"
   component?: ElementType | undefined;
   orientation?: Orientation | undefined;
   size?: DividerSize | number | undefined;
-  variant?: DividerStyle | undefined;
+  lineStyle?: DividerStyle | undefined;
   color?: BorderRole | undefined;
   label?: ReactNode | undefined;
   labelPosition?: DividerLabelPosition | undefined;

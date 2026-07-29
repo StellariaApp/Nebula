@@ -212,7 +212,7 @@ export type { TabItem, TabsProps } from "./components/Tabs/index.js";
 export { Alert } from "./components/Alert/index.js";
 export type { AlertProps, AlertVariant } from "./components/Alert/index.js";
 export { Loader } from "./components/Loader/index.js";
-export type { LoaderProps, LoaderVariant } from "./components/Loader/index.js";
+export type { LoaderProps, LoaderType } from "./components/Loader/index.js";
 export { Skeleton } from "./components/Skeleton/index.js";
 export type { SkeletonAnimation, SkeletonProps } from "./components/Skeleton/index.js";
 export { Progress } from "./components/Progress/index.js";

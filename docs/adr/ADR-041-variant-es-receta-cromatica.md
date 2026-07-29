@@ -1,6 +1,6 @@
 # ADR-041 — `variant` significa receta cromática: renombrado de los ejes de Divider y Loader
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV)
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV; ejecutada en el tramo V0)
 - **Precondición de**: [ADR-038](ADR-038-variantes-de-superficie-por-subconjunto.md).
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §0.1 y §3.5.
 
@@ -76,3 +76,16 @@ distintas.
 - Tras este ADR, la afirmación verificable del catálogo pasa a ser **«todo `variant` es un subconjunto
   de `Variant` resuelto contra `variantMap`»**, comprobable con un lint en vez de con una lista.
 - `docs/00-inventory.md` y las fichas de API de Divider y Loader se actualizan en el mismo PR.
+
+## Ejecución (2026-07-28, tramo V0)
+
+- `LoaderVariant` pasa a `LoaderType`; el atributo publicado pasa de `data-variant` a `data-type`.
+  No lo consumía ningún selector CSS —solo los tests—, así que el renombrado no toca la hoja de estilos.
+- `DividerStyle` **conserva su nombre**: ya describía el eje correctamente y solo estaba mal expuesto.
+- Ambos nombres se verificaron libres de colisión contra `sprinkles.properties` antes de aplicarlos:
+  `lineHeight` es clave de sprinkles, pero `lineStyle` no lo es —no existe la propiedad CSS
+  `line-style`— y `type` tampoco. Es la comprobación que ADR-032 regla 3 dejó como obligatoria después
+  de que el censo original de colisiones resultara incompleto.
+- Archivos tocados: los dos `types.ts`, los dos `.tsx`, `Divider.md`, `Loader.md` (nuevo),
+  tres suites de test —incluida `Skeleton.test.tsx`, que ejercita Loader—, dos stories y los dos
+  barrels de exportación.

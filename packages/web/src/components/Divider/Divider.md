@@ -8,4 +8,6 @@ Solo horizontal. Se compone de dos líneas (`border-top` con las vars) y el text
 
 ## Color, grosor y estilo por vars
 
-`color` es un rol de borde (`subtle/default/strong/focus`), nunca un hex; `size` mapea a un grosor local (`xs…xl` → 1…5 px, constante de layout, no token de tema) o acepta un valor libre; `variant` es el `border-style`. Los tres se publican como vars locales para que un cambio de tema repinte el color por CSS.
+`color` es un rol de borde (`subtle/default/strong/focus`), nunca un hex; `size` mapea a un grosor local (`xs…xl` → 1…5 px, constante de layout, no token de tema) o acepta un valor libre; `lineStyle` es el `border-style`. Los tres se publican como vars locales para que un cambio de tema repinte el color por CSS.
+
+El eje se llamó `variant` hasta ADR-041. Se renombró porque no es una receta cromática: en el resto del catálogo `variant` significa un subconjunto de `Variant` resuelto contra `theme.variantMap`, y un `border-style` no tiene nada que ver con eso. `lineStyle` nombra la propiedad CSS que expresa y no colisiona con ninguna clave de sprinkles.

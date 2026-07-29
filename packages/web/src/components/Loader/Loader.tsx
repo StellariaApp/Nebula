@@ -21,7 +21,7 @@ function ResolveSize(size: LoaderProps["size"]): string {
 
 export function Loader(props: LoaderProps): ReactElement {
   const {
-    variant = "spinner",
+    type = "spinner",
     size,
     color = "primary",
     label = "Cargando",
@@ -41,15 +41,15 @@ export function Loader(props: LoaderProps): ReactElement {
       style={{ ...css_vars, ...sprinkle_style }}
       role="status"
       aria-label={label}
-      data-variant={variant}
+      data-type={type}
     >
-      {variant === "spinner" ? <span className={styles.spinner} aria-hidden="true" /> : null}
-      {variant === "dots"
+      {type === "spinner" ? <span className={styles.spinner} aria-hidden="true" /> : null}
+      {type === "dots"
         ? ([0, 1, 2] as const).map((index) => (
             <span key={index} className={styles.dot[index]} aria-hidden="true" />
           ))
         : null}
-      {variant === "bars"
+      {type === "bars"
         ? ([0, 1, 2, 3] as const).map((index) => (
             <span key={index} className={styles.bar[index]} aria-hidden="true" />
           ))

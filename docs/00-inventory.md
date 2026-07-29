@@ -388,7 +388,7 @@ No aplican a Nebula: `30-services`, `31-api-query`, `32-multi-tenant`, `40-pos-o
 | 10  | Conditional   | Conditional                | core                              | C1-Q7: API unaria `when`+`fallback`                                                              |
 | 11  | Currency      | CurrencyDisplay            | core                              | Sin acoplamiento; formateo Intl                                                                  |
 | 12  | Divider       | Divider                    | core                              | —                                                                                                |
-| 13  | Dots          | Loader (variante dots)     | core                              | —                                                                                                |
+| 13  | Dots          | Loader (`type="dots"`)     | core                              | ADR-041: el eje de forma del Loader es `type`, no `variant`                                      |
 | 14  | Drop          | Drop                       | core                              | Decorativo                                                                                       |
 | 15  | Drops         | Drops                      | core                              | Composición con safe-area                                                                        |
 | 16  | Error         | FormField (slot error)     | core (absorbido)                  | Tooltip de error del field                                                                       |

@@ -34,9 +34,9 @@ export const WithLabel: Story = {
 export const Variants: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md">
-      <Divider variant="solid" />
-      <Divider variant="dashed" />
-      <Divider variant="dotted" color="strong" size="md" />
+      <Divider lineStyle="solid" />
+      <Divider lineStyle="dashed" />
+      <Divider lineStyle="dotted" color="strong" size="md" />
     </Box>
   ),
 };

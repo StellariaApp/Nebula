@@ -546,7 +546,7 @@ Formato de `docs/reviews/code-design-audit-2026-07-28.md` §5. Cada tramo cierra
 
 | Tramo | Contenido                                                                                              | ADR     | Depende de | ¿Bloquea W3?                         |
 | ----- | ------------------------------------------------------------------------------------------------------ | ------- | ---------- | ------------------------------------ |
-| V0    | Renombrado de los ejes de Divider y Loader; `variant` pasa a significar una sola cosa                 | ADR-041 | —          | no — paralelo                        |
+| V0    | ~~Renombrado de los ejes de Divider y Loader~~ · **cerrado 2026-07-28**                              | ADR-041 | —          | no — paralelo                        |
 | V1    | `BuildPairs` derivado de `variantMap`; triaje y corrección de los fallos que destape                   | ADR-040 | —          | no — paralelo, **pero precede a V3** |
 | V2    | Subconjuntos declarados + `ResolveVariant` en Alert y Badge (unifica la deriva de §0.2)                | ADR-038 | V0         | **sí**                               |
 | V3    | Escalón «temable con variantes» ≤14,5 kB; Progress a 16; medición pegada entrada por entrada           | ADR-039 | V2         | **sí**                               |
@@ -569,6 +569,18 @@ V4, V5 y V6 pueden solaparse con W3 sin bloquearlo, porque son aplicación de un
 V7 y V8 **no son tramos previos a W3 sino trabajo dentro de W3**: V7 entrega `GradientText` con el
 resto de W3, y V8 espera a que existan los 24 campos definitivos (hoy 9) para decidir el reparto una
 sola vez. Ninguno bloquea nada.
+
+### 5.1 Estado de ejecución
+
+| Tramo   | Estado          | Nota                                                                             |
+| ------- | --------------- | -------------------------------------------------------------------------------- |
+| V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`     |
+| V1 – V8 | sin empezar     | —                                                                                 |
+
+Con V0 cerrado, la afirmación «todo `variant` del catálogo es un subconjunto de `Variant` resuelto
+contra `variantMap`» es cierta para los cuatro componentes que hoy exponen el prop, y por primera vez
+es comprobable con un lint en vez de con una lista de excepciones. Alert y Badge siguen resolviendo su
+receta a mano —eso lo cierra V2—, pero ya no hay ningún `variant` que signifique otra cosa.
 
 ---
 

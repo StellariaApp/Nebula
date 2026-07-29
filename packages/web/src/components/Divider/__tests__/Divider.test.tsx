@@ -25,7 +25,7 @@ describe("Divider", () => {
   });
 
   it("resuelve color, grosor y estilo en vars locales (sin hex)", () => {
-    render(<Divider color="strong" size="md" variant="dashed" />);
+    render(<Divider color="strong" size="md" lineStyle="dashed" />);
     const style = screen.getByRole("separator").getAttribute("style") ?? "";
     expect(style).toContain("var(--");
     expect(style).toContain("dashed");

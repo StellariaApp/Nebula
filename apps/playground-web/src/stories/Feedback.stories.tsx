@@ -69,11 +69,11 @@ export const AlertDismissible: Story = {
 export const Loaders: Story = {
   render: () => (
     <Box display="flex" gap="xl" style={{ alignItems: "center" }}>
-      {(["spinner", "dots", "bars"] as const).map((variant) => (
-        <Box key={variant} display="flex" direction="column" gap="xs" style={{ alignItems: "center" }}>
-          <Loader variant={variant} size="lg" />
+      {(["spinner", "dots", "bars"] as const).map((type) => (
+        <Box key={type} display="flex" direction="column" gap="xs" style={{ alignItems: "center" }}>
+          <Loader type={type} size="lg" />
           <Text fz="caption" c="text.secondary">
-            {variant}
+            {type}
           </Text>
         </Box>
       ))}

@@ -39,8 +39,8 @@ describe("Loader", () => {
     expect(screen.getByRole("status", { name: "Buscando resultados" })).toBeDefined();
   });
 
-  it("expone la variante como data-variant", () => {
-    render(<Loader variant="dots" />);
-    expect(screen.getByRole("status").getAttribute("data-variant")).toBe("dots");
+  it("expone el tipo como data-type", () => {
+    render(<Loader type="dots" />);
+    expect(screen.getByRole("status").getAttribute("data-type")).toBe("dots");
   });
 });

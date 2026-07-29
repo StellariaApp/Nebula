@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
-import type { LoaderVariant } from "../Loader.types.js";
+import type { LoaderType } from "../Loader.types.js";
 import { Loader } from "../Loader.js";
 
 afterEach(cleanup);
 
-const variants: LoaderVariant[] = ["spinner", "dots", "bars"];
+const types: LoaderType[] = ["spinner", "dots", "bars"];
 
 describe("Loader", () => {
   it("es un status con nombre accesible por defecto", () => {
@@ -19,11 +19,11 @@ describe("Loader", () => {
     expect(screen.getByRole("status", { name: "Sincronizando movimientos" })).toBeDefined();
   });
 
-  it("las tres variantes conservan el status y ocultan sus piezas", () => {
-    for (const variant of variants) {
-      const { unmount } = render(<Loader variant={variant} />);
+  it("los tres tipos conservan el status y ocultan sus piezas", () => {
+    for (const type of types) {
+      const { unmount } = render(<Loader type={type} />);
       const root = screen.getByRole("status");
-      expect(root.getAttribute("data-variant")).toBe(variant);
+      expect(root.getAttribute("data-type")).toBe(type);
       for (const piece of Array.from(root.children)) {
         expect(piece.getAttribute("aria-hidden")).toBe("true");
       }

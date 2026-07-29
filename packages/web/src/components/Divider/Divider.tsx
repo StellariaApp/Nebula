@@ -29,7 +29,7 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
     component,
     orientation = "horizontal",
     size = "xs",
-    variant = "solid",
+    lineStyle = "solid",
     color = "default",
     label,
     labelPosition = "center",
@@ -43,7 +43,7 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
   const css_vars = assignInlineVars({
     [dividerColor]: vars.color.border[color],
     [dividerThickness]: ResolveThickness(size),
-    [dividerStyle]: variant,
+    [dividerStyle]: lineStyle,
   });
 
   const left_class = labelPosition === "left" ? styles.fixed : styles.grow;
