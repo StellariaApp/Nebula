@@ -67,6 +67,7 @@ export function Modal(props: ModalProps): ReactElement {
     children,
     title,
     subtitle,
+    footer,
     size = "md",
     fullScreen = false,
     blurred = false,
@@ -168,6 +169,7 @@ export function Modal(props: ModalProps): ReactElement {
           </div>
         ) : null}
         <div className={cx(styles.body({ padding }), bodyClassName)}>{children}</div>
+        {footer === undefined ? null : <div className={styles.footer}>{footer}</div>}
       </OverlayMotion>
     </dialog>
   );

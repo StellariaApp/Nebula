@@ -122,7 +122,7 @@ export const header = style({
       alignItems: "flex-start",
       gap: vars.space.md,
       paddingInline: vars.space.lg,
-      paddingBlock: vars.space.md,
+      paddingBlock: vars.space.u5,
       borderBottomStyle: "solid",
       borderBottomWidth: 1,
       borderBottomColor: vars.color.border.subtle,
@@ -161,14 +161,35 @@ export const subtitle = style({
   },
 });
 
+export const footer = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      flexWrap: "wrap",
+      gap: vars.space.u3,
+      paddingInline: vars.space.lg,
+      paddingBlock: vars.space.md,
+      borderTopStyle: "solid",
+      borderTopWidth: 1,
+      borderTopColor: vars.color.border.subtle,
+    },
+  },
+});
+
 export const body = recipe({
   base: {
     flex: 1,
     minHeight: 0,
     overflowY: "auto",
     background: vars.color.surface.sunken,
-    borderBottomLeftRadius: vars.radius.sm,
-    borderBottomRightRadius: vars.radius.sm,
+    selectors: {
+      "&:last-child": {
+        borderBottomLeftRadius: vars.radius.sm,
+        borderBottomRightRadius: vars.radius.sm,
+      },
+    },
   },
   variants: {
     padding: {

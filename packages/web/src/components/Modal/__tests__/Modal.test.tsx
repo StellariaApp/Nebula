@@ -31,6 +31,23 @@ describe("Modal", () => {
     expect(screen.getByRole("dialog", { name: "Confirmar" })).toBeDefined();
   });
 
+  it("el footer se renderiza fuera del cuerpo y no se anida en él", () => {
+    render(
+      <Modal opened onClose={() => {}} title="Confirmar" footer={<button type="button">Guardar</button>}>
+        <p>Contenido</p>
+      </Modal>,
+    );
+    const guardar = screen.getByRole("button", { name: "Guardar" });
+    const contenido = screen.getByText("Contenido");
+    expect(guardar).toBeDefined();
+    expect(contenido.parentElement?.contains(guardar)).toBe(false);
+  });
+
+  it("sin footer no se renderiza la región", () => {
+    render(<Controlled />);
+    expect(screen.queryByRole("button", { name: "Guardar" })).toBeNull();
+  });
+
   it("renderiza subtítulo y botón de cierre", () => {
     render(<Controlled />);
     expect(screen.getByText("Esta acción no se puede deshacer")).toBeDefined();

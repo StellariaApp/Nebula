@@ -14,6 +14,7 @@ export interface ModalProps extends StyleProps {
   children: ReactNode;
   title?: ReactNode | undefined;
   subtitle?: ReactNode | undefined;
+  footer?: ReactNode | undefined;
   size?: SizeValue | undefined;
   fullScreen?: boolean | undefined;
   blurred?: boolean | undefined;

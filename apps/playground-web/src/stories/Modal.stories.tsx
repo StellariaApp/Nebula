@@ -74,14 +74,20 @@ export const WithoutCloseButton: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Demo title="Invitar al equipo" subtitle="Se enviará un correo con la invitación" size="sm">
+    <Demo
+      title="Invitar al equipo"
+      subtitle="Se enviará un correo con la invitación"
+      size="sm"
+      footer={
+        <>
+          <Button variant="outline">Cancelar</Button>
+          <Button>Enviar invitación</Button>
+        </>
+      }
+    >
       <Box display="flex" direction="column" gap="md">
         <TextInput label="Correo" placeholder="persona@empresa.com" required />
         <TextInput label="Cargo" placeholder="Analista" />
-        <Box display="flex" gap="sm" style={{ justifyContent: "flex-end" }}>
-          <Button variant="outline">Cancelar</Button>
-          <Button>Enviar invitación</Button>
-        </Box>
       </Box>
     </Demo>
   ),
