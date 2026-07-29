@@ -35,7 +35,8 @@ type NebulaTheme = {
   colors: {
     primary: Scale11; accent: Scale11; gray: Scale11
     semantic: { success; warning; error; info }: Scale11
-    surface:  { base; raised; overlay; sunken }  // superficies por elevación
+    surface:  { base; raised; overlay; sunken     // superficies por elevación
+                hover; active }                  // superficies por interacción (ADR-044)
     text:     { primary; secondary; muted; inverted; onPrimary }
     border:   { subtle; default; strong; focus }
   }

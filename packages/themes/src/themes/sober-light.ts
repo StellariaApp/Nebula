@@ -32,6 +32,8 @@ export const soberLight = {
       raised: palettes.light["50"],
       overlay: palettes.light["50"],
       sunken: gray["100"],
+      hover: palettes.light["500"],
+      active: palettes.light["600"],
     },
     text: {
       primary: gray["950"],

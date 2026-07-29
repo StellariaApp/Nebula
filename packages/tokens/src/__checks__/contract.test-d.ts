@@ -94,7 +94,14 @@ export const smokeTheme = {
       error: smokeScale,
       info: smokeScale,
     },
-    surface: { base: "#ffffff", raised: "#f8f9fa", overlay: "#ffffff", sunken: "#f1f3f5" },
+    surface: {
+      base: "#ffffff",
+      raised: "#f8f9fa",
+      overlay: "#ffffff",
+      sunken: "#f1f3f5",
+      hover: "#f1f3f5",
+      active: "#e9ecef",
+    },
     text: {
       primary: "#1a1b1e",
       secondary: "#495057",

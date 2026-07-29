@@ -34,6 +34,8 @@ export const nebulaDark = {
       raised: palettes.dark["300"],
       overlay: palettes.dark["500"],
       sunken: palettes.dark["50"],
+      hover: palettes.dark["400"],
+      active: palettes.dark["500"],
     },
     text: {
       primary: gray["50"],
@@ -43,7 +45,7 @@ export const nebulaDark = {
       onPrimary: palettes.dark["100"],
     },
     border: {
-      subtle: gray["800"],
+      subtle: gray["950"],
       default: gray["700"],
       strong: gray["500"],
       focus: palettes.indigo["400"],

@@ -54,7 +54,7 @@ export const trigger = style({
       minHeight: vars.size.control.md,
       ...motion.interaction,
       selectors: {
-        "&:hover:not(:disabled)": { background: vars.color.surface.sunken },
+        "&:hover:not(:disabled)": { background: vars.color.surface.hover },
         "&:focus-visible": {
           ...focus.ring,
         },

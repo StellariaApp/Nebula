@@ -57,7 +57,14 @@ export const semanticStatuses = enumValues<SemanticStatus>()([
   "info",
 ]);
 
-export const surfaceRoles = enumValues<SurfaceRole>()(["base", "raised", "overlay", "sunken"]);
+export const surfaceRoles = enumValues<SurfaceRole>()([
+  "base",
+  "raised",
+  "overlay",
+  "sunken",
+  "hover",
+  "active",
+]);
 
 export const textRoles = enumValues<TextRole>()([
   "primary",

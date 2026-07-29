@@ -140,6 +140,26 @@ Reglas:
 - Una colección de cards usa el mismo nivel; hover no “salta” más de un nivel.
 - `withBorder` es parte del lenguaje de elevación, no una decoración arbitraria.
 
+### 5.1 El escalón de interacción
+
+Una superficie que responde al puntero **no cambia de nivel de elevación**: usa los roles
+`surface.hover` y `surface.active`, que no participan en la escalera anterior (ADR-044).
+
+- **Magnitud ~1.08** de relación contra la superficie sobre la que se apoya el elemento. Medido en el
+  diseño de referencia sobre dos componentes independientes: 1.075 en light y 1.078 en dark.
+- **El signo depende del esquema**: en light el hover **oscurece**; en dark **aclara**. Es la razón de
+  que un rol de elevación no pueda hacer de hover — su dirección la fija el nivel, no el esquema.
+- `active` se calibra al **doble del delta** de `hover`, no al doble del ratio.
+
+### 5.2 Regiones dentro de un contenedor elevado
+
+Cabecera, cuerpo y pie de un overlay son **dos superficies**: cabecera y pie comparten la del
+contenedor, el cuerpo contrasta. El borde de 1 px acompaña esa separación y no la duplica.
+
+El separador se calibra **por proporción, no por espejo de paleta**: el mismo peldaño reflejado
+(`gray.200` ↔ `gray.800`) produce 1.39 en light y 1.98 en dark, porque las superficies dark están
+comprimidas contra el negro. El objetivo es **~1.3–1.4 en ambos esquemas**.
+
 ## 6. Effects budget
 
 - Máximo un efecto dominante por región: glow, glass o gradient.

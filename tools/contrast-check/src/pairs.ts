@@ -7,7 +7,7 @@ export interface ContrastPair {
   min: number;
 }
 
-const SURFACES = ["base", "raised", "overlay", "sunken"] as const;
+const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 
 export function BuildPairs(): ContrastPair[] {

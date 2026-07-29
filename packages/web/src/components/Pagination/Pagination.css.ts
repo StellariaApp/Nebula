@@ -42,7 +42,7 @@ export const control = recipe({
         ...motion.interaction,
         selectors: {
           "&:hover:not(:disabled):not([data-active='true'])": {
-            background: vars.color.surface.sunken,
+            background: vars.color.surface.hover,
             color: vars.color.text.primary,
           },
           "&[data-active='true']": { color: activeFg },

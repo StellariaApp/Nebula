@@ -3,9 +3,10 @@
 > Ejecución de `prompts/5-review/RV-revision-visual-contra-figma.md` sobre los seis defectos que el
 > propietario reportó tras cerrar T1–T6 (`docs/reviews/code-design-audit-2026-07-28.md` §5.5).
 >
-> **Estado: parcial.** La causa (c) está cerrada. Las causas (a) y (b) están **diagnosticadas con
-> medición** y esperan dos cosas: el MCP de Figma —que no estaba disponible en la sesión— y el
-> checkpoint del propietario, porque la salida más probable amplía `NebulaTheme`.
+> **Estado: las tres causas cerradas.** (c) se cerró en la primera sesión. (a) y (b) se cerraron en la
+> segunda, con el MCP de Figma ya disponible y con el checkpoint del propietario resuelto: la causa (a)
+> amplía `NebulaTheme` con dos roles (**ADR-044**) y la (b) resulta ser un defecto de calibración de
+> `border.subtle`, no de superficies.
 
 ---
 
@@ -16,9 +17,13 @@ RV.1 pide recorrer el playground en los cuatro temas. Las tres causas de §5.5 r
 en vez de juzgándolas a ojo. Eso convierte «se ve raro» en un número que se puede discutir, y hace que
 el diagnóstico no dependa de Figma.
 
-Lo que **sí** depende de Figma y del ojo del propietario es la **decisión**: qué relación debe tener
-un hover sobre canvas, y cuánto debe separarse la cabecera del cuerpo de un overlay. Eso queda abierto
-en §2 y §3.
+Lo que **sí** dependía de Figma y del ojo del propietario era la **decisión**: qué relación debe tener
+un hover sobre canvas, y cuánto debe separarse la cabecera del cuerpo de un overlay. La segunda sesión
+las cerró —§2 y §3— con el MCP disponible y dos checkpoints resueltos.
+
+Un matiz que conviene no perder: el Figma se usó como **fuente de intención**, no como pixel-perfect.
+De las cuatro preguntas abiertas resolvió tres, en una el propietario decidió lo contrario de lo que
+el archivo muestra, y en otra el archivo directamente no tiene el estado. El detalle está en §5.
 
 ---
 
@@ -105,7 +110,7 @@ verificada por un gate que miraba a otro sitio— y un argumento más para ADR-0
 
 ---
 
-## 2. Causa (a) — `surface.sunken` como hover sobre canvas · **DIAGNOSTICADA, ABIERTA**
+## 2. Causa (a) — `surface.sunken` como hover sobre canvas · **CERRADA (ADR-044)**
 
 Afecta a Accordion (defecto 2) y Pagination (defecto 5), que usan literalmente el mismo token de hover.
 
@@ -143,7 +148,58 @@ Las dos salidas posibles, ambas de contrato:
 Ambas tocan `NebulaTheme`, los cuatro temas, el schema de Zod, el Theme Creator y la paridad native.
 **Checkpoint obligatorio antes de tocarlo**, tal como pide RV.1.
 
-## 3. Causa (b) — la escalera dentro de un overlay · **DIAGNOSTICADA, ABIERTA**
+### Lo que respondió el Figma
+
+Dos componentes independientes del archivo `Polaris` —`Menu Item` en `State=Hover` y
+`Sidebar Nav Item` en `State=Active`— coinciden en el mismo valor:
+
+| Modo  | Superficie | Hover     | Escalón | Dirección         |
+| ----- | ---------- | --------- | ------: | ----------------- |
+| Light | `#FFFFFF`  | `#F4F7FB` |   1.075 | baja (oscurece)   |
+| Dark  | `#0A0F1C`  | `#111827` |   1.078 | **sube** (aclara) |
+
+El escalón es **simétrico** y **el signo se invierte con el esquema**. Eso descarta la segunda salida
+—reutilizar `surface.raised`—: la dirección de un rol de elevación la fija el nivel, no el esquema.
+
+### La decisión
+
+El propietario eligió en el checkpoint **ampliar el contrato con los dos roles**, `hover` y `active`,
+en lugar de solo `hover`: ampliar cuesta lo mismo una vez que dos y evita repetir la migración de los
+cuatro temas, el schema, el Theme Creator y la paridad native. Queda en **ADR-044**.
+
+### Antes / después
+
+| Tema         | hover antes (`sunken`) | ratio vs canvas | hover después | ratio vs canvas |
+| ------------ | ---------------------- | --------------: | ------------- | --------------: |
+| nebula-dark  | `dark.50`              |        **1.01** | `dark.400`    |       **1.085** |
+| nebula-light | `light.300`            |            1.06 | `light.300`   |           1.062 |
+| playful      | `light.300`            |            1.06 | `light.300`   |           1.062 |
+| sober-light  | `gray.100`             |            1.11 | `light.500`   |           1.072 |
+
+En dark el hover pasa de **inexistente a perceptible** y cambia de signo: antes oscurecía 1 %, ahora
+aclara 8,5 %. Los cuatro temas quedan dentro de 1.06–1.09, contra un rango previo de 1.01–1.11.
+
+`sober-light` toma sus valores de la paleta `light` porque `gray` no tiene escalón fino —`gray.100` ya
+salta a 1.114— y porque ese tema ya mezclaba ambas paletas.
+
+### El tope que apareció al calibrar `active`
+
+`active` no cabía en los temas light: `text.muted` estaba a **0.04 del suelo AA** (4.54 sobre
+`light.300`), así que ninguna superficie podía ser más oscura que `sunken` sin romper el gate.
+
+El propietario decidió oscurecer `text.muted` a `gray.700`. Como `secondary` ya ocupaba ese peldaño,
+la escalera de texto de `nebula-light` y `playful` se desplaza entera para no colapsar dos roles:
+
+| Rol       | Antes      | Después    | AA sobre `active` |
+| --------- | ---------- | ---------- | ----------------: |
+| primary   | `gray.900` | `gray.900` |              9.84 |
+| secondary | `gray.700` | `gray.800` |              7.68 |
+| muted     | `gray.600` | `gray.700` |              5.65 |
+
+Los gaps pasan de 2+1 peldaños a 1+1, y `muted` gana 1,15 puntos de margen sobre el mínimo.
+`nebula-dark` y `sober-light` no se tocan: ya pasaban.
+
+## 3. Causa (b) — la escalera dentro de un overlay · **CERRADA**
 
 Afecta a Modal y Drawer (defecto 1).
 
@@ -173,6 +229,58 @@ Sospecha a validar con Figma: probablemente el cuerpo de un overlay no deba ser 
 sino la misma superficie que la cabecera con el separador expresado por borde. Eso lo resolvería sin
 tocar el contrato, y es la razón de no proponer un rol nuevo aquí hasta verlo.
 
+### Lo que respondió el Figma, y por qué no se aplicó
+
+La sospecha era correcta: el Modal del Figma (`#152:1528`) es **una sola superficie**. `header`, `body`
+y `footer` no tienen fill propio —heredan el del contenedor— y la separación es un borde de 1 px:
+
+| Modo  | Contenedor | Separador | Relación |
+| ----- | ---------- | --------- | -------: |
+| Light | `#FFFFFF`  | `#E6ECF3` |     1.19 |
+| Dark  | `#05070D`  | `#1B2540` |     1.33 |
+
+**El propietario decidió no adoptarlo**: cabecera y pie comparten color y el cuerpo contrasta, como
+estaba. `docs/06` §5 no especificaba este caso, así que no hay conflicto con doc cerrado y la decisión
+del propietario gobierna. Queda registrada en `docs/06` §5.2.
+
+### La causa real: el separador, no las superficies
+
+Con las dos superficies confirmadas como intencionales, la medición del borde señala al culpable:
+
+| Tema         | salto `overlay`/`sunken` | borde `subtle` / superficie |
+| ------------ | -----------------------: | --------------------------: |
+| nebula-dark  |                    1.142 |                   **1.984** |
+| nebula-light |                    1.062 |                       1.390 |
+| playful      |                    1.062 |                       1.390 |
+| sober-light  |                    1.195 |                       1.390 |
+
+`border.subtle` en dark estaba a **1.98 contra 1.39 de los temas light y 1.33 del Figma**: un 43 % más
+fuerte que su equivalente. Y `subtle` ya era el borde más suave del contrato, así que ningún componente
+podía pedir algo más flojo.
+
+El origen es que los temas eligen el borde por **espejo de paleta** —`gray.200` en light, `gray.800` en
+dark— y el espejo no conserva la proporción: las superficies dark están comprimidas contra el negro, de
+modo que el mismo peldaño reflejado pesa mucho más. Es la misma clase de error que ADR-028 corrigió
+para las superficies.
+
+Eso explica exactamente lo reportado. En light el salto de superficie es flojo (1.06) y el borde carga
+la separación; en dark disparan **las dos señales a la vez** y el borde va desbocado. No estaba
+invertido el orden: estaba desproporcionado el separador.
+
+### Antes / después
+
+| Tema        | `border.subtle` antes | /base | /raised | /overlay | después    | /base | /raised | /overlay |
+| ----------- | --------------------- | ----: | ------: | -------: | ---------- | ----: | ------: | -------: |
+| nebula-dark | `gray.800`            |  2.24 |    2.13 |     1.98 | `gray.950` |  1.31 |    1.25 |     1.17 |
+
+Los temas light no se tocan: su 1.39 ya era el objetivo. La corrección **no es del Modal** —es de
+`border.subtle` en dark— y alcanza a todo componente con borde sutil del catálogo. En la cabecera del
+Modal quedan dos señales suaves, salto de superficie 1.14 más borde 1.17, en vez de una desbocada.
+
+**Residual anotado**: el salto `overlay`/`sunken` sigue siendo 1.14 en dark contra 1.06 en light. Con
+los separadores ya proporcionados la señal total queda mucho más pareja entre esquemas, y simetrizar
+además las superficies obligaría a recalibrar `sunken` u `overlay` globalmente. No se hace aquí.
+
 ---
 
 ## 4. Lo que queda
@@ -180,9 +288,9 @@ tocar el contrato, y es la razón de no proponer un rol nuevo aquí hasta verlo.
 | Causa / defecto                                  | Estado                                        |
 | ------------------------------------------------ | --------------------------------------------- |
 | (c) alturas de Checkbox · Radio · Switch (def. 3) | **cerrada**                                   |
-| (a) hover sobre canvas (def. 2 y 5)              | diagnosticada · checkpoint de contrato        |
-| (b) escalera dentro de overlay (def. 1)          | diagnosticada · pendiente de Figma            |
-| (4) densidad de Segment en dark                  | sin abrir                                     |
+| (a) hover sobre canvas (def. 2 y 5)              | **cerrada** · ADR-044 + recalibración de texto |
+| (b) escalera dentro de overlay (def. 1)          | **cerrada** · `border.subtle` en dark          |
+| (4) densidad de Segment en dark                  | sin abrir · **el Figma no tiene Segment**     |
 | (6) estados de NavLink                           | sin abrir · **pase propio**, no ajuste de token |
 
 **Los síntomas de Pagination, NavLink y Segment no se tocan todavía, a propósito.** ADR-038 de la
@@ -194,16 +302,68 @@ El orden se deduce de ahí: **las causas (a) y (b) son sobre los roles del contr
 variante los referencian.** Los roles tienen que estar bien antes de que once componentes escriban
 recetas contra ellos.
 
-## 5. Lo que Figma tendría que resolver
+## 5. Lo que el Figma resolvió, y lo que no
 
-Lista de decisiones que `docs/06` no especifica y que quedaron abiertas por no tener la referencia de
-diseño. Se incorporan a `docs/06` cuando se cierren:
+Archivo consultado: `Polaris` (`SYZgKuK5o70lmfxVNljxww`), vía MCP de REST API. Las cuatro preguntas
+que quedaron abiertas en la primera sesión, y su estado:
 
-1. **Escalón mínimo perceptible de un hover de superficie**, expresado como relación y no como color,
-   válido en light y dark.
-2. **Relación entre superficies dentro de un contenedor elevado** (cabecera/cuerpo de overlay): si hay
-   dos superficies o una sola con separador.
-3. **Si el hover de un elemento sobre canvas sube o baja** respecto a él. Hoy baja (`sunken`), que es
-   contraintuitivo para un estado de respuesta y es lo que rompe en dark.
-4. **Jerarquía de los estados simultáneos de NavLink** —activo, hover, disabled, con hijos, con
-   descripción, con secciones—, que es el defecto 6 y el que el propietario señala como peor.
+| # | Pregunta                                                    | Estado                                            |
+| - | ----------------------------------------------------------- | ------------------------------------------------- |
+| 1 | Escalón mínimo perceptible de un hover de superficie        | **resuelta** · ~1.08 · a `docs/06` §5.1           |
+| 2 | Relación entre superficies dentro de un contenedor elevado  | **resuelta**, y el propietario decidió lo contrario |
+| 3 | Si el hover sobre canvas sube o baja                        | **resuelta** · el signo depende del esquema        |
+| 4 | Jerarquía de los estados simultáneos de NavLink             | **sin resolver** · el Figma no tiene el estado     |
+
+### Lo que el Figma resuelve y `docs/06` no decía — incorporado
+
+- **Magnitud y signo del escalón de interacción** (§5.1 de `docs/06`): ~1.08 en ambos esquemas, con el
+  signo invertido —oscurece en light, aclara en dark—. Es el hallazgo que sostiene ADR-044.
+- **Calibración del separador por proporción y no por espejo de paleta** (§5.2): el Figma da 1.19 en
+  light y 1.33 en dark, ambos del mismo orden. El espejo `gray.200` ↔ `gray.800` daba 1.39 y 1.98.
+
+### Lo que el Figma resuelve y **no** se adopta
+
+- **Overlay de una sola superficie.** El Modal del Figma separa cabecera, cuerpo y pie solo con borde.
+  El propietario mantiene las dos superficies. Registrado en `docs/06` §5.2 como decisión suya.
+- **El overlay dark del Figma (`#05070D`) es más oscuro que su canvas (`#0A0F1C`).** `docs/06` §5
+  nivel 4 y ADR-028 dicen `overlay` —más claro—. Gana `docs/06`, como fija RV.1. No implementado.
+
+### Lo que el Figma no cubre
+
+- **Accordion y Segment no existen en el archivo.** El defecto 4 —densidad de Segment en dark— se queda
+  sin referencia de diseño y habrá que resolverlo contra `docs/06` o pedir la lámina.
+- **NavLink no tiene estado de hover.** `Sidebar Nav Item` declara `Default`, `Active` y `Disabled`
+  —por `Layout=Full|Compact` y modo—, y `Nav Tab Item` declara `Active|Inactive|More|Disable`. Ninguno
+  tiene `Hover`. Peor: `Sidebar Nav Item` usa para `Active` **el mismo fill** que `Menu Item` usa para
+  `Hover` (`#F4F7FB` / `#111827`). Esa colisión hay que resolverla en el pase propio de NavLink, y el
+  Figma no la resuelve.
+
+---
+
+## 6. Gates de la segunda sesión
+
+| Gate                                | Resultado                                            |
+| ----------------------------------- | ---------------------------------------------------- |
+| `build · typecheck · lint · test`   | 29/29 tasks · **452 tests**                          |
+| `check:contrast`                    | **38 pares × 5 temas · 0 FAIL** (28 pares antes)     |
+| `size-limit`                        | 9/9 tasks · ninguna entrada fuera de budget          |
+| `a11y` (axe sobre Storybook)        | **55 suites · 338 tests**                            |
+
+Los roles nuevos suman **10 pares** al gate de contraste —3 roles de texto y 2 de borde sobre cada una
+de las dos superficies—, de modo que `hover` y `active` nacen cubiertos y no repiten el hueco que dejó
+que `sunken` se usara como hover sin que nada lo midiera.
+
+## 7. Archivos tocados
+
+| Capa            | Archivos                                                                        |
+| --------------- | ------------------------------------------------------------------------------- |
+| Contrato        | `tokens/src/theme/primitives.ts` · `tokens/src/__checks__/contract.test-d.ts`   |
+| Enum y schema   | `themes/src/enums.ts` (Zod deriva de aquí, no se edita)                         |
+| Temas           | `nebula-dark` · `nebula-light` · `playful` · `sober-light`                       |
+| Contrato web    | `web/src/theme/contract.css.ts`                                                 |
+| Componentes     | `Accordion.css.ts` · `Pagination.css.ts`                                        |
+| Gate            | `tools/contrast-check/src/pairs.ts` · `smoke-theme.ts`                          |
+| Docs            | ADR-044 · `docs/02` §2 · `docs/06` §5.1 y §5.2 · este informe                    |
+
+`Modal.css.ts` **no se toca**: la causa (b) resultó estar en `border.subtle` del tema, no en el
+componente.
