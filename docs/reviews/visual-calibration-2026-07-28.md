@@ -434,3 +434,42 @@ El contrato ya tolera este tipo de colapso: en los temas light, `base` y `overla
 
 **Deuda anotada**: un `Code` dentro de una `Card` queda sin distinción en dark. Si aparece en una
 composición real, la salida es ensanchar la rampa `dark` —no reasignar roles—, y eso es ADR-028.
+
+---
+
+## 7. El separador, revisado en pantalla · **CERRADA**
+
+§3 corrigió `border.subtle` en dark tomando como objetivo el 1.39 de los temas light: «los temas light
+no se tocan: su 1.39 ya era el objetivo». Al revisarlo el propietario en el playground, la conclusión
+fue la contraria —el separador se percibe **demasiado marcado en los dos esquemas**—, y la referencia
+apoya esa lectura: el archivo de Figma mide **1.19 en light**, no 1.39. El anclaje se había hecho sobre
+el valor existente de Nebula, no sobre el diseño.
+
+| Tema         | antes | ahora | fuente              |
+| ------------ | ----: | ----: | ------------------- |
+| nebula-light | 1.390 | 1.073 | `gray.50`           |
+| playful      | 1.390 | 1.073 | `gray.50`           |
+| nebula-dark  | 1.331 | 1.202 | `palettes.dark.600` |
+| sober-light  | 1.296 | 1.296 | sin cambio          |
+
+Los dos esquemas bajan y **conservan su proporción relativa**: dark queda por encima de light —1.20
+contra 1.07— igual que en el Figma, donde la separación en dark también es la más fuerte de las dos.
+`sober-light` no se toca: es el tema de alto contraste por definición y su 1.296 es deliberado.
+
+### En dark el separador sale de la paleta `dark`, no de `gray`
+
+`gray.950` era el peldaño más suave que ofrecía la rampa gris (1.331). Bajar más obligaba a cambiar de
+fuente, y la elección natural es `palettes.dark`, que es de donde salen las superficies desde ADR-028.
+Tiene una ventaja sobre seguir en gris: al compartir familia de tono con la superficie, el separador se
+lee como **un peldaño tonal de la propia superficie** en vez de como un gris ajeno superpuesto.
+
+### Lo que queda abierto: `border.default`
+
+Es un rol distinto y no se toca aquí. Mide **1.74 contra el canvas en los temas light**, por debajo del
+3:1 que `docs/03` §1 regla 4 exige a los componentes UI, y el caso importa: el fondo del campo es
+`surface.raised`, a 1.02 del canvas, así que **el borde es lo único que identifica un input**.
+
+Suavizarlo agranda ese hueco; endurecerlo va contra la dirección que el propietario pide para la escala.
+La salida que resuelve las dos cosas es separar el fondo del campo del canvas, de modo que el borde
+deje de ser el único identificador y pueda ser tan suave como se quiera. Es cambio de componente y de
+rol de superficie, no de la escala de bordes, y no se hace aquí.

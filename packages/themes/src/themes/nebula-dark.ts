@@ -45,7 +45,7 @@ export const nebulaDark = {
       onPrimary: palettes.dark["100"],
     },
     border: {
-      subtle: gray["950"],
+      subtle: palettes.dark["600"],
       default: gray["700"],
       strong: gray["500"],
       focus: palettes.indigo["400"],

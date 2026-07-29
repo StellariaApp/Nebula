@@ -43,7 +43,7 @@ export const playful = {
       onPrimary: palettes.light["50"],
     },
     border: {
-      subtle: gray["200"],
+      subtle: gray["50"],
       default: gray["300"],
       strong: gray["600"],
       focus: palettes.grape["600"],
