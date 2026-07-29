@@ -13,11 +13,11 @@ export const root = style({
       position: "relative",
       display: "flex",
       alignItems: "center",
-      gap: vars.space.sm,
+      gap: vars.space.u2_5,
       width: "100%",
       boxSizing: "border-box",
-      paddingInline: vars.space.sm,
-      paddingBlock: vars.space.xs,
+      paddingInline: vars.space.u3,
+      paddingBlock: vars.space.u2_5,
       minHeight: vars.size.control.sm,
       border: "none",
       background: "transparent",
@@ -32,10 +32,14 @@ export const root = style({
       ...motion.interaction,
       selectors: {
         "&:hover:not([data-disabled='true'])": {
-          background: vars.color.surface.sunken,
+          background: vars.color.surface.hover,
           color: vars.color.text.primary,
         },
         "&[data-active='true']": { background: activeBg, color: accent },
+        "&[data-active='true']:hover:not([data-disabled='true'])": {
+          background: activeBg,
+          color: accent,
+        },
         "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
         "&:focus-visible": {
           ...focus.ring,
@@ -68,7 +72,7 @@ export const section = style({
 export const body = style({
   display: "flex",
   flexDirection: "column",
-  gap: "1px",
+  gap: vars.space.xxs,
   flex: 1,
   minWidth: 0,
 });
