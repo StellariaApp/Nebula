@@ -125,7 +125,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 > entrar en `NebulaTheme`—, y se declara en el `FormField` raíz, no en el control interno.
 > `glass`, `glow` y `gradient` quedan excluidos por contrato (`docs/06` §6).
 
-> **Valor de las fechas (ADR-047)**: `DatePicker`, `DatePickerInput`, `Calendar`, `DateTimePicker`,
+> **Valor de las fechas (ADR-050)**: `DatePicker`, `DatePickerInput`, `Calendar`, `DateTimePicker`,
 > `TimeInput`, `MonthPicker` y `YearPicker` exponen **strings ISO 8601**
 > (`YYYY-MM-DD`, `HH:mm`, `YYYY-MM-DDTHH:mm`, `YYYY-MM`, `YYYY`) y `DateRangePicker` usa
 > `DateRange` de `@stellaria/nebula-tokens`. `@internationalized/date` es motor interno y no aparece

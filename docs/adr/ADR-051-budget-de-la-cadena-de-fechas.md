@@ -1,6 +1,9 @@
-# ADR-048 — Banda de budget para los compuestos de fecha (≤90 kB) y sinceramiento de la banda de colección
+# ADR-051 — Banda de budget para los compuestos de fecha (≤90 kB) y sinceramiento de la banda de colección
 
 - **Estado**: aceptada · 2026-07-29 (checkpoint de W3.1)
+- **Renumerada**: nació como ADR-048 en la sesión de W3.1 y colisionó con ADR-048 (`surface.disabled`,
+  `text.disabled` y `border.disabled`), que aterrizó antes en `main`. El número lo fija el orden de
+  llegada.
 - **Enmienda**: `docs/03-a11y-motion-performance.md` §3 (tabla de budgets).
 - **Precedentes**: ADR-022 (primitivos temables en runtime), ADR-039 (primitivos con variantes), ADR-032 §6–§7 (sesgo de la hoja atómica).
 

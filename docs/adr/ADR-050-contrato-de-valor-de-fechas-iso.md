@@ -1,6 +1,8 @@
-# ADR-047 — El valor público de los componentes de fecha es un string ISO; `@internationalized/date` queda dentro
+# ADR-050 — El valor público de los componentes de fecha es un string ISO; `@internationalized/date` queda dentro
 
 - **Estado**: aceptada · 2026-07-29 (checkpoint de apertura de W3.1)
+- **Renumerada**: nació como ADR-047 en la sesión de W3.1 y colisionó con ADR-047 (Segment y Tabs en la
+  escala `control` desplazada), que aterrizó antes en `main`. El número lo fija el orden de llegada.
 - **Enmienda**: `docs/00-inventory.md` §1.4 y `docs/01-architecture.md` §8 (tabla de dependencias).
 - **Requiere**: ADR-014 regla 6 (toda dependencia nueva post-scaffold necesita mini-ADR).
 
