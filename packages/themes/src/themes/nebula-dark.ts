@@ -30,11 +30,11 @@ export const nebulaDark = {
       info: FlipScale(palettes.blue),
     },
     surface: {
-      base: palettes.dark["100"],
-      raised: palettes.dark["300"],
-      overlay: palettes.dark["500"],
+      base: palettes.dark["50"],
+      raised: palettes.dark["100"],
+      overlay: palettes.dark["50"],
       sunken: palettes.dark["300"],
-      hover: palettes.dark["400"],
+      hover: palettes.dark["300"],
       active: palettes.dark["500"],
     },
     text: {
