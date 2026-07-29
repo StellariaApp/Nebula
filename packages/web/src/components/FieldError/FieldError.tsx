@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { vars } from "../../theme/contract.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { Transition } from "../Transition/Transition.js";
@@ -69,7 +70,7 @@ export function FieldError(props: FieldErrorProps): ReactElement {
 
   const css_vars = assignInlineVars({
     [bubbleBg]: ScaleShade(color, "600"),
-    [bubbleFg]: ScaleShade(color, "50"),
+    [bubbleFg]: vars.color.text.onPrimary,
     [gap]: `${String(offset)}px`,
   });
 
