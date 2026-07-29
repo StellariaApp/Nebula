@@ -94,6 +94,13 @@ export function BuildPairs(): ContrastPair[] {
   }
 
   pairs.push({
+    label: "text.disabled / surface.disabled (suelo, exento de AA)",
+    fg: (t) => t.colors.text.disabled,
+    bg: (t) => t.colors.surface.disabled,
+    min: 1.5,
+  });
+
+  pairs.push({
     label: "text.inverted / gray.900 (superficie invertida)",
     fg: (t) => t.colors.text.inverted,
     bg: (t) => t.colors.gray["900"],

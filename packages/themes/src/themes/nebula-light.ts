@@ -35,6 +35,7 @@ export const nebulaLight = {
       sunken: palettes.light["300"],
       hover: palettes.light["300"],
       active: palettes.light["500"],
+      disabled: palettes.light["600"],
     },
     text: {
       primary: gray["900"],
@@ -42,12 +43,14 @@ export const nebulaLight = {
       muted: gray["700"],
       inverted: gray["50"],
       onPrimary: palettes.light["50"],
+      disabled: gray["400"],
     },
     border: {
       subtle: gray["50"],
       default: gray["100"],
       strong: gray["300"],
       focus: palettes.indigo["500"],
+      disabled: gray["300"],
     },
   },
   font,

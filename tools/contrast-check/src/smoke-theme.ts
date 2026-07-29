@@ -36,6 +36,7 @@ export const smokeTheme = {
       sunken: light[300],
       hover: light[300],
       active: light[500],
+      disabled: light[600],
     },
     text: {
       primary: gray[900],
@@ -43,12 +44,14 @@ export const smokeTheme = {
       muted: gray[700],
       inverted: gray[50],
       onPrimary: light[50],
+      disabled: gray[400],
     },
     border: {
       subtle: gray[200],
       default: gray[300],
       strong: gray[600],
       focus: palettes.indigo[600],
+      disabled: gray[300],
     },
   },
   font,

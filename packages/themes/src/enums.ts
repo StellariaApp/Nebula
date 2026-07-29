@@ -64,6 +64,7 @@ export const surfaceRoles = enumValues<SurfaceRole>()([
   "sunken",
   "hover",
   "active",
+  "disabled",
 ]);
 
 export const textRoles = enumValues<TextRole>()([
@@ -72,9 +73,16 @@ export const textRoles = enumValues<TextRole>()([
   "muted",
   "inverted",
   "onPrimary",
+  "disabled",
 ]);
 
-export const borderRoles = enumValues<BorderRole>()(["subtle", "default", "strong", "focus"]);
+export const borderRoles = enumValues<BorderRole>()([
+  "subtle",
+  "default",
+  "strong",
+  "focus",
+  "disabled",
+]);
 
 export const fontFamilyNames = enumValues<FontFamilyName>()(["sans", "mono"]);
 

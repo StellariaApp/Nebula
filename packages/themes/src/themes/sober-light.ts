@@ -34,6 +34,7 @@ export const soberLight = {
       sunken: gray["100"],
       hover: palettes.light["500"],
       active: palettes.light["600"],
+      disabled: palettes.light["700"],
     },
     text: {
       primary: gray["950"],
@@ -41,12 +42,14 @@ export const soberLight = {
       muted: gray["700"],
       inverted: gray["50"],
       onPrimary: palettes.light["50"],
+      disabled: gray["400"],
     },
     border: {
       subtle: gray["200"],
       default: gray["300"],
       strong: gray["700"],
       focus: palettes.blue["600"],
+      disabled: gray["300"],
     },
   },
   font,

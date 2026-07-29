@@ -25,11 +25,24 @@ export type PaletteName =
 
 export type SemanticStatus = "success" | "warning" | "error" | "info";
 
-export type SurfaceRole = "base" | "raised" | "overlay" | "sunken" | "hover" | "active";
+export type SurfaceRole =
+  | "base"
+  | "raised"
+  | "overlay"
+  | "sunken"
+  | "hover"
+  | "active"
+  | "disabled";
 
-export type TextRole = "primary" | "secondary" | "muted" | "inverted" | "onPrimary";
+export type TextRole =
+  | "primary"
+  | "secondary"
+  | "muted"
+  | "inverted"
+  | "onPrimary"
+  | "disabled";
 
-export type BorderRole = "subtle" | "default" | "strong" | "focus";
+export type BorderRole = "subtle" | "default" | "strong" | "focus" | "disabled";
 
 export type FontFamilyName = "sans" | "mono";
 
