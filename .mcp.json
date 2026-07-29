@@ -1,8 +1,20 @@
 {
   "mcpServers": {
     "figma": {
-      "type": "http",
-      "url": "http://127.0.0.1:3845/mcp"
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "figma-developer-mcp@0.13.2",
+        "--stdio",
+        "--no-telemetry",
+        "--image-dir",
+        ".figma"
+      ],
+      "env": {
+        "FIGMA_API_KEY": "${FIGMA_API_KEY}"
+      }
     }
   }
 }

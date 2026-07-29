@@ -29,3 +29,6 @@ spike/
 # OS / editor
 .DS_Store
 Thumbs.db
+
+# Figma MCP (descargas de assets)
+.figma/
