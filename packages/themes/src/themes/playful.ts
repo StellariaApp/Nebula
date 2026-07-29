@@ -44,8 +44,8 @@ export const playful = {
     },
     border: {
       subtle: gray["50"],
-      default: gray["300"],
-      strong: gray["600"],
+      default: gray["100"],
+      strong: gray["300"],
       focus: palettes.grape["600"],
     },
   },
