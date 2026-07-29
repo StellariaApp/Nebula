@@ -162,7 +162,14 @@ export const subtitle = style({
 });
 
 export const body = recipe({
-  base: { flex: 1, minHeight: 0, overflowY: "auto" },
+  base: {
+    flex: 1,
+    minHeight: 0,
+    overflowY: "auto",
+    background: vars.color.surface.sunken,
+    borderBottomLeftRadius: vars.radius.sm,
+    borderBottomRightRadius: vars.radius.sm,
+  },
   variants: {
     padding: {
       none: { padding: 0 },
