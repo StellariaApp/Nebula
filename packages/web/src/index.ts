@@ -382,3 +382,15 @@ export type {
   CreatableSelectProps,
   SearchableSelectProps,
 } from "./components/Combobox/index.js";
+export { Tag } from "./components/Tag/index.js";
+export type { TagProps, TagVariant } from "./components/Tag/index.js";
+export { ThemeIcon } from "./components/ThemeIcon/index.js";
+export type { ThemeIconProps, ThemeIconVariant } from "./components/ThemeIcon/index.js";
+export { Kbd } from "./components/Kbd/index.js";
+export type { KbdProps } from "./components/Kbd/index.js";
+export { ColorSwatch } from "./components/ColorSwatch/index.js";
+export type { ColorSwatchProps } from "./components/ColorSwatch/index.js";
+export { Indicator } from "./components/Indicator/index.js";
+export type { IndicatorPlacement, IndicatorProps } from "./components/Indicator/index.js";
+export { Spoiler } from "./components/Spoiler/index.js";
+export type { SpoilerProps } from "./components/Spoiler/index.js";

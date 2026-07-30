@@ -85,6 +85,12 @@ de `docs/03` §1 exige el patrón APG completo de grid de fechas con navegación
 - **Queda registrado el techo real de la librería**: ningún módulo del catálogo debería superar
   90 kB sin un ADR que lo justifique, y el candidato natural a romperlo (DataGrid, W3.4) nace ya
   aislado en subpath.
+- **`useTheme (sin CSS)` pasa de 17 a 20 kB en W3.3**, por la misma razón y con la misma evidencia:
+  al añadir los seis primitivos del bloque A crecieron **las dos** entradas que miden el barrel
+  —`NebulaProvider` 57,7 → 58,6 kB y `useTheme` a 17,64— mientras `Button`, que mide su propio módulo,
+  se quedó clavado en 29,94. Ese contraste es la firma del suelo compartido: crece con el catálogo, no
+  porque el hook engorde. **Las dos entradas de barrel son termómetros del catálogo, no presupuestos de
+  una pieza**; lo que protege al consumidor es la entrada por módulo, y ninguna de esas se movió.
 - **`NebulaProvider` pasa de 56 a 60 kB.** Esa entrada mide el barrel (`dist/index.js`), y el barrel
   arrastra el CSS de todo el paquete por `sideEffects: ["*.css"]`. Los 19 componentes de W3.1 lo
   llevaron a 56,12 kB, 118 B por encima. Es exactamente el caso que ADR-032 §7 llama **suelo

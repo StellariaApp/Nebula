@@ -11,7 +11,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "17 kB",
+    limit: "20 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
