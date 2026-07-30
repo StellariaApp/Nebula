@@ -119,6 +119,12 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Signature                           | comp  | WN                      | 2    | P3·FC·TFV                                     | core    | FC Signature (Skia) native; web canvas nuevo                                                |
 | Dropzone                            | comp  | W                       | 2    | P3(§14)·TFV                                   | core    | Nuevo; contrato `field`                                                                     |
 
+> **§1.4 cerrada tras W3.2.** `InputPhone`, `InputDial`, `InputCurrency`, `Signature` y `Dropzone`
+> se entregaron en W3.2. `InputPhone` gobierna dos valores —número nacional y **código ISO** del país,
+> no el prefijo (ADR-053 punto 6)—; el dataset de 227 prefijos vive en `collections/dial-codes` y
+> mide 866 B. `Dropzone` **no recibe `variant`** (ADR-038, sexta exclusión): su superficie ya la
+> gobierna el estado de arrastre.
+
 > **§1.4 completa tras W3.1.** `Slider/RangeSlider`, `Chip (+Group)` y `NativeSelect` son Tier 2 de
 > esta sección y no aparecían en ningún prompt de W3; se absorbieron en W3.1 por decisión del
 > propietario (checkpoint de apertura). `GradientText` (ADR-043, adelantado de W4 a W3) también se
@@ -145,6 +151,11 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | AsyncSelect       | patrón | W    | 2    | P3              | core    | —                                                                              |
 | TransferList      | patrón | W    | 3    | P3              | core    | —                                                                              |
 | VirtualizedSelect | patrón | W    | 2    | P3              | core    | TanStack Virtual                                                               |
+
+> **§1.5 en W3.2**: `SearchableSelect`, `CreatableSelect` y `AsyncSelect` se entregaron como
+> composiciones sobre la primitiva `Combobox`, junto a `Autocomplete` (§1.4). Los cuatro miden lo
+> mismo que `Combobox` más unos cientos de bytes. `TransferList` y `VirtualizedSelect` siguen
+> pendientes (W4 y W3.4).
 
 ### 1.6 Data Display
 
