@@ -82,7 +82,7 @@ export const search = style({
       font: "inherit",
       padding: 0,
       selectors: {
-        "&::placeholder": { color: vars.color.text.muted },
+        "&::placeholder": { color: vars.color.text.placeholder },
       },
     },
   },
