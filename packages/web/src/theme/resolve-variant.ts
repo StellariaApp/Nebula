@@ -1,6 +1,7 @@
 import {
   palettes,
   type ColorExtended,
+  type GradientRole,
   type GradientToken,
   type NebulaTheme,
   type PaletteName,
@@ -198,6 +199,15 @@ function GradientFromProp(prop: GradientProp): string {
   const from = ResolveColorExtended(prop.from).base;
   const to = ResolveColorExtended(prop.to).base;
   return `linear-gradient(${String(prop.deg ?? 135)}deg, ${from}, ${to})`;
+}
+
+export function ResolveGradient(
+  gradient: GradientRole | GradientProp,
+  theme: NebulaTheme,
+): string {
+  if (typeof gradient !== "string") return GradientFromProp(gradient);
+  const token = theme.effects.gradients[gradient];
+  return token === undefined ? "transparent" : GradientCss(token);
 }
 
 export interface ResolvedVariant {

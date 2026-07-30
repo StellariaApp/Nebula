@@ -1,6 +1,6 @@
 # ADR-043 — La tipografía no recibe `variant`; `GradientText` se adelanta de W4 a W3
 
-- **Estado**: **propuesta** · 2026-07-28 (checkpoint de la auditoría WV)
+- **Estado**: **aceptada** · 2026-07-28 (checkpoint de la auditoría WV) · **ejecutada en W3.1** (2026-07-29)
 - **Enmienda**: `docs/05-roadmap.md` §W3/§W4 y `docs/00-inventory.md` §1.13.
 - **Auditoría de origen**: `docs/reviews/variantes-cobertura-2026-07-28.md` §2.C.
 
@@ -89,3 +89,22 @@ text` con `color: transparent` sin fallback es un fallo de accesibilidad silenci
   web. `docs/04-migration-map.md` recoge el cambio.
 - **Contraste**: `GradientText` entra en el alcance de ADR-040 por la regla de evaluar cada stop del
   token de gradiente contra la superficie.
+
+## Ejecución (W3.1, 2026-07-29)
+
+`GradientText` mide **12,83 kB** contra el budget de 14,5 (primitivo temable en runtime) y reutiliza
+`ResolveGradient`, extraído de `theme/resolve-variant.ts` para no duplicar la lectura del token.
+
+Dos precisiones que la implementación obligó a fijar, ambas documentadas en
+`packages/web/src/components/GradientText/GradientText.md`:
+
+1. **No lleva prop `animated`.** El punto 2 de este ADR deja `AnimatedGradient` en W4 como componente
+   propio, y animar un gradiente de texto exige mover `background-position`, que no es `transform` ni
+   `opacity` y por tanto incumple `docs/03` §2 y `docs/06` §6.
+2. **La degradación «el tema baja el effects budget» no se implementó porque no existe la palanca.**
+   `NebulaTheme` solo tiene `effects.glass.enabled`, que es específica de glass, y los cuatro temas
+   oficiales —sober incluido— pueblan `effects.gradients`. Sí se implementaron las tres degradaciones
+   que sí son verificables: `@supports` sin soporte de recorte, **forced-colors** (el caso grave: el
+   modo fuerza `color` pero no resetea `-webkit-text-fill-color`, así que el titular quedaría
+   invisible en alto contraste) y `text-decoration-color`. Añadir una palanca de gradientes al
+   contrato compartido requiere su propio ADR; queda como deuda del cierre de W3.1.

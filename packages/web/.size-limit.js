@@ -168,6 +168,13 @@ const MODULE_BUDGETS = [
     limit: "12 kB",
   },
   {
+    name: "GradientText (primitivo temable en runtime, por módulo)",
+    path: "dist/components/GradientText/GradientText.js",
+    import: "{ GradientText }",
+    ignore: ["react", "react-dom"],
+    limit: "14.5 kB",
+  },
+  {
     name: "Mark (primitivo con color extendido, por módulo)",
     path: "dist/components/Mark/Mark.js",
     import: "{ Mark }",

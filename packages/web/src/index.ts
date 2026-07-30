@@ -14,6 +14,11 @@ export type {
   AnchorUnderline,
 } from "./components/Anchor/index.js";
 export { Highlight } from "./components/Highlight/index.js";
+export { GradientText } from "./components/GradientText/index.js";
+export type {
+  GradientTextOwnProps,
+  GradientTextProps,
+} from "./components/GradientText/index.js";
 export type { HighlightOwnProps, HighlightProps } from "./components/Highlight/index.js";
 export { Mark } from "./components/Mark/index.js";
 export type { MarkOwnProps, MarkProps } from "./components/Mark/index.js";

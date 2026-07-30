@@ -269,7 +269,8 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | --------------------------------------------------------------------- | ---- | ---- | ---------------------- | ------- | ------------------------------------------------------ |
 | LiquidGlass                                                           | N    | 3    | ST (¡no está en P2!)   | core    | Migrar ST completo (plan v2 parcialmente implementado) |
 | GlassSurface                                                          | WN   | 2    | P2·P3                  | core    | Tokens glass.surface                                   |
-| GradientText / GradientBorder / GradientBackground / AnimatedGradient | WN   | 3    | P2·P3·ST(TextGradient) | core    | ⚠️ requiere crear tokens `gradient.*` (hoy no existen) |
+| GradientText                                                          | WN   | 2    | P2·P3·ST(TextGradient) | core    | **ADR-043**: adelantado de W4 a W3; entregado en W3.1. `background-clip: text` sobre `effects.gradients`; sin prop `animated` |
+| GradientBorder / GradientBackground / AnimatedGradient / MeshGradient / GrainyGradient | WN   | 3    | P2·P3                  | core    | W4. Los tokens `gradient.*` ya existen (`effects.gradients` en el contrato) |
 | BlurView / BlurOverlay                                                | WN   | 2    | P2·P3·ST(Blur factory) | core    | ST Blur factory en Layout                              |
 | NoiseTexture / NoiseOverlay                                           | WN   | 3    | P2·P3                  | core    | —                                                      |
 | MeshGradient / GrainyGradient                                         | WN   | 3    | P2·P3                  | core    | —                                                      |
