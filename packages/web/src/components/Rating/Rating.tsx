@@ -115,7 +115,6 @@ export function Rating(props: RatingProps): ReactElement {
           id={id}
           role={readOnly ? "img" : "radiogroup"}
           aria-label={readOnly ? `${String(fp.value)} de ${String(count)}` : undefined}
-          aria-readonly={readOnly ? true : undefined}
           className={cx(styles.group, className)}
           style={css_vars}
           data-disabled={fp.isDisabled ? "true" : undefined}
