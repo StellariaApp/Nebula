@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, PermissionProps, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type NavLinkVariant = Extract<Variant, "filled" | "light" | "ghost">;
 
-export interface NavLinkProps extends Omit<StyleProps, "color"> {
+export interface NavLinkProps extends Omit<StyleProps, "color">, PermissionProps {
   label: ReactNode;
   description?: ReactNode | undefined;
   href?: string | undefined;

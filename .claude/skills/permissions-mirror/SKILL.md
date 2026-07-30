@@ -7,13 +7,30 @@ description: Spec de PermissionGate de Nebula (docs/01 §6) — gating de permis
 
 Adaptación del patrón `PermissionsKeys` de tfv y la skill 33 de Stellaria: Nebula NO define keys de negocio ni consulta backends — **la app inyecta el resolver**.
 
-## Contrato (docs/01 §6)
+## Contrato (docs/01 §6 · ADR-056)
 
+- `@stellaria/nebula-tokens` — contrato sin runtime, compartido W/N:
+  - `NebulaPermissions` (interfaz vacía que la app **aumenta** con `keys`) → `PermissionKey`.
+  - `PermissionDeniedMode = "hide" | "disable"` y `PermissionProps { permission?, permissionMode? }`.
 - `@stellaria/nebula-hooks`:
-  - `PermissionProvider<K extends string>` — recibe `resolver: (key: K) => boolean` de la app; las keys quedan tipadas por la app vía el generic.
-  - `usePermission(key: K): boolean`.
-- Componente core `PermissionGate` (`<PermissionGate permission="x" fallback={…}>`).
-- Props `permission` en las acciones de `CardComplex`/`Menu`/`Button` consumen el mismo provider.
+  - `PermissionProvider<K extends PermissionKey>` — recibe `resolver: (key: K) => boolean` de la app.
+  - `usePermission(key)` · `usePermissionResolver()` (varias keys en un render, para colecciones) · `usePermissionGranted(key | undefined)` (el que usan los componentes).
+- Componente core `PermissionGate` (`<PermissionGate permission="x" fallback={…}>`, `mode="hide" | "disable"`).
+- Prop `permission` en `Button`, `ActionIcon`, `QuickAction`, `NavLink` y en los items de `Menu` y `Tabs`; `CardComplex` en W3.5. Default `permissionMode="hide"` en todas.
+
+## Cómo se tipan las keys en una app
+
+```ts
+declare module "@stellaria/nebula-tokens" {
+  interface NebulaPermissions {
+    keys: "cobros.ver" | "cobros.anular";
+  }
+}
+```
+
+Una vez por app. A partir de ahí un typo en cualquier `permission` del catálogo es error de
+compilación. Sin aumentar el registro, `PermissionKey` es `string` y el sistema funciona igual, pero
+sin la red.
 
 ## Reglas obligatorias
 

@@ -6,6 +6,7 @@ export * from "./dimensions.js";
 export * from "./effects.js";
 export * from "./fields.js";
 export * from "./layouts.js";
+export * from "./permissions.js";
 export * from "./spacing.js";
 export * from "./typography.js";
 export * from "./variants.js";

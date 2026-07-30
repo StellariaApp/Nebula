@@ -70,6 +70,13 @@ export default tseslint.config(
     },
   },
   {
+    // ADR-056: `NebulaPermissions` es un punto de extensión por declaration
+    // merging. Tiene que estar vacía — una propiedad propia chocaría con la que
+    // declara la app al aumentar la interfaz.
+    files: ["packages/tokens/src/types/permissions.ts"],
+    rules: { "@typescript-eslint/no-empty-object-type": "off" },
+  },
+  {
     files: ["**/*.{js,mjs,cjs}", "**/*.config.ts"],
     ...tseslint.configs.disableTypeChecked,
   },

@@ -458,3 +458,18 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { PermissionGate } from "./components/PermissionGate/index.js";
+export type { PermissionGateProps } from "./components/PermissionGate/index.js";
+export {
+  PermissionProvider,
+  usePermission,
+  usePermissionGranted,
+  usePermissionResolver,
+} from "@stellaria/nebula-hooks";
+export type { PermissionProviderProps, PermissionResolver } from "@stellaria/nebula-hooks";
+export type {
+  NebulaPermissions,
+  PermissionDeniedMode,
+  PermissionKey,
+  PermissionProps,
+} from "@stellaria/nebula-tokens";

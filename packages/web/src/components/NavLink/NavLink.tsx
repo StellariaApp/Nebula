@@ -2,7 +2,7 @@
 
 import { useId, type ReactElement } from "react";
 
-import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
+import { usePermissionGranted, useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
@@ -31,7 +31,7 @@ const CHEVRON = (
   </svg>
 );
 
-export function NavLink(props: NavLinkProps): ReactElement {
+export function NavLink(props: NavLinkProps): ReactElement | null {
   const {
     label,
     description,
@@ -39,6 +39,8 @@ export function NavLink(props: NavLinkProps): ReactElement {
     onPress,
     active = false,
     disabled = false,
+    permission,
+    permissionMode = "hide",
     variant = "light",
     color = "primary",
     leftSection,
@@ -53,6 +55,9 @@ export function NavLink(props: NavLinkProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
+  const granted = usePermissionGranted(permission);
+  const denied = !granted;
+  const is_disabled = disabled || (denied && permissionMode === "disable");
   const prefers_reduced = useReducedMotion();
   const motion_context = { theme, reduced: prefers_reduced === true };
   const is_off = MotionOff(motion_context);
@@ -110,15 +115,17 @@ export function NavLink(props: NavLinkProps): ReactElement {
     className: cx(styles.root, sprinkle_class, className),
     style: { ...css_vars, ...sprinkle_style },
     "data-active": active ? "true" : undefined,
-    "data-disabled": disabled ? "true" : undefined,
+    "data-disabled": is_disabled ? "true" : undefined,
   };
+
+  if (denied && permissionMode === "hide") return null;
 
   return has_children ? (
     <>
       <button
         {...shared}
         type="button"
-        disabled={disabled}
+        disabled={is_disabled}
         aria-expanded={is_open}
         aria-controls={panel_id}
         {...(active ? { "aria-current": "page" as const } : {})}
@@ -138,9 +145,9 @@ export function NavLink(props: NavLinkProps): ReactElement {
   ) : href !== undefined ? (
     <a
       {...shared}
-      href={disabled ? undefined : href}
+      href={is_disabled ? undefined : href}
       {...(active ? { "aria-current": "page" as const } : {})}
-      {...(disabled ? { "aria-disabled": true } : {})}
+      {...(is_disabled ? { "aria-disabled": true } : {})}
     >
       {inner}
     </a>
@@ -148,7 +155,7 @@ export function NavLink(props: NavLinkProps): ReactElement {
     <button
       {...shared}
       type="button"
-      disabled={disabled}
+      disabled={is_disabled}
       {...(active ? { "aria-current": "page" as const } : {})}
       onClick={onPress}
     >

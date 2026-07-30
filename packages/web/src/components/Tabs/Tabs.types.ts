@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended } from "@stellaria/nebula-tokens";
+import type { ColorExtended, PermissionProps } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 import type { SegmentSize, SegmentVariant } from "../Segment/Segment.types.js";
 
-export interface TabItem {
+export interface TabItem extends PermissionProps {
   value: string;
   label: ReactNode;
   content: ReactNode;

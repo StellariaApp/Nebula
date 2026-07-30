@@ -13,3 +13,17 @@ export {
 } from "./use-field-props.js";
 export { useTheme } from "./theme/use-theme.js";
 export { ThemeContext, type ThemeContextValue } from "./theme/theme-context.js";
+export {
+  usePermission,
+  usePermissionGranted,
+  usePermissionResolver,
+} from "./permission/use-permission.js";
+export {
+  PermissionProvider,
+  type PermissionProviderProps,
+} from "./permission/permission-provider.js";
+export {
+  PermissionContext,
+  type PermissionContextValue,
+  type PermissionResolver,
+} from "./permission/permission-context.js";

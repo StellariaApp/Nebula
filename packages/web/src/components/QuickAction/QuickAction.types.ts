@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type {
   ColorExtended,
+  PermissionProps,
   RadiusName,
   Size,
   Variant,
@@ -30,7 +31,8 @@ export interface QuickActionProps
   extends
     Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
     Omit<StyleProps, "color">,
-    PressLifecycleProps {
+    PressLifecycleProps,
+    PermissionProps {
   label: ReactNode;
   icon?: ReactNode | undefined;
   description?: ReactNode | undefined;

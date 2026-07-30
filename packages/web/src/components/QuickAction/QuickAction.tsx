@@ -9,7 +9,7 @@ import {
   type Ref,
 } from "react";
 
-import { useTheme } from "@stellaria/nebula-hooks";
+import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useLink, useObjectRef } from "react-aria";
@@ -53,6 +53,8 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       href,
       target,
       rel,
+      permission,
+      permissionMode = "hide",
       className,
       style,
       ...rest
@@ -62,7 +64,9 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     const local_ref = useRef<HTMLElement>(null);
     const ref = useObjectRef<HTMLElement>(forwardedRef ?? local_ref);
     const prefers_reduced = useReducedMotion();
-    const is_disabled = disabled || loading;
+    const granted = usePermissionGranted(permission);
+    const denied = !granted;
+    const is_disabled = disabled || loading || (denied && permissionMode === "disable");
     const is_link = href !== undefined && !is_disabled;
 
     const {
@@ -183,6 +187,8 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
         </span>
       </>
     );
+
+    if (denied && permissionMode === "hide") return null;
 
     return is_link ? (
       <m.a

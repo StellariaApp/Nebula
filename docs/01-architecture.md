@@ -196,9 +196,12 @@ El diseño fino de estos grupos se cierra en Etapa 2 con la migración de tfv co
 
 ## 6. Permission gating
 
-- `@stellaria/nebula-hooks`: `PermissionProvider` (recibe un `resolver: (key: string) => boolean` de la app) + `usePermission(key)`.
-- `PermissionGate` (componente core) y props `permission` en acciones de `CardComplex`/`Menu`/`Button` consumen ese provider.
-- Espejo del patrón de tfv (`PermissionsKeys`) y de la skill 33 de Stellaria, pero con las keys tipadas por la app vía generics (`PermissionProvider<K extends string>`).
+- **Contrato en `@stellaria/nebula-tokens`** (`types/permissions.ts`, sin runtime, compartido W/N — ADR-056): `PermissionKey`, `PermissionDeniedMode` (`hide | disable`) y `PermissionProps` (`permission?`, `permissionMode?`).
+- `@stellaria/nebula-hooks`: `PermissionProvider` (recibe un `resolver: (key: PermissionKey) => boolean` de la app), `usePermission(key)`, `usePermissionResolver()` para resolver varias keys en un render, y `usePermissionGranted(key | undefined)` que es el que consumen los componentes.
+- `PermissionGate` (componente core) y la prop `permission` en `Button`, `ActionIcon`, `QuickAction`, `NavLink` y en los items de `Menu` y `Tabs` consumen ese provider. `CardComplex` la recibe en su grupo de acciones (W3.5). El default de `permissionMode` es `hide` en todas.
+- **Las keys las tipa la app aumentando `NebulaPermissions`** (declaration merging), lo que tipa el catálogo entero sin anotar generics en el punto de uso; los generics de `usePermission<K>`/`PermissionGate<K>` siguen disponibles y ahora están constreñidos a `PermissionKey`. Sin aumentar el registro, `PermissionKey` es `string`.
+- Espejo del patrón de tfv (`PermissionsKeys`) y de la skill 33 de Stellaria. **Ausencia de provider = denegación**: sin él, todo lo que lleve `permission` se oculta o se deshabilita, nunca se muestra.
+- El gating es de UI, no de seguridad: el backend sigue siendo la autoridad.
 
 ## 7. Adapters de navegación
 

@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 
+import type { PermissionProps } from "@stellaria/nebula-tokens";
+
 import type { OverlayTriggerElement, PopoverPlacement } from "../Popover/Popover.types.js";
 
-export interface MenuItemData {
+export interface MenuItemData extends PermissionProps {
   key: string;
   label: ReactNode;
   textValue?: string | undefined;

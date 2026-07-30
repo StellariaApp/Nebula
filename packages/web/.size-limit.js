@@ -839,6 +839,13 @@ const MODULE_BUDGETS = [
     ignore: ["react", "react-dom"],
     limit: "48 kB",
   },
+  {
+    name: "PermissionGate (lógica pura + contexto, por módulo)",
+    path: "dist/components/PermissionGate/PermissionGate.js",
+    import: "{ PermissionGate }",
+    ignore: ["react", "react-dom"],
+    limit: "9.5 kB",
+  },
 ];
 
 const SPRINKLES_SHEET = "Box.css.ts.vanilla.css";

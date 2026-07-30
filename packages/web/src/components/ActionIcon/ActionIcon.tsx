@@ -8,7 +8,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
-import { useTheme } from "@stellaria/nebula-hooks";
+import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
@@ -42,6 +42,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       gradient,
       disabled = false,
       loading = false,
+      permission,
+      permissionMode = "hide",
       children,
       className,
       style,
@@ -52,7 +54,9 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
     const prefers_reduced = useReducedMotion();
-    const is_disabled = disabled || loading;
+    const granted = usePermissionGranted(permission);
+    const denied = !granted;
+    const is_disabled = disabled || loading || (denied && permissionMode === "disable");
 
     const {
       onClick,
@@ -123,6 +127,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       HTMLMotionProps<"button">,
       "style"
     >;
+
+    if (denied && permissionMode === "hide") return null;
 
     return (
       <m.button

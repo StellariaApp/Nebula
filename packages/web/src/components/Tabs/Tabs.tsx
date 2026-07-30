@@ -1,7 +1,10 @@
 "use client";
 
-import type { ReactElement } from "react";
+import { useMemo, type ReactElement } from "react";
 
+import { usePermissionResolver } from "@stellaria/nebula-hooks";
+
+import { ApplyPermissions } from "../../utils/permission.js";
 import { Segment } from "../Segment/index.js";
 
 import type { TabsProps } from "./Tabs.types.js";
@@ -25,6 +28,9 @@ export function Tabs(props: TabsProps): ReactElement {
     ...style_rest
   } = props;
 
+  const resolve = usePermissionResolver();
+  const tabs = useMemo(() => ApplyPermissions(data, resolve), [data, resolve]);
+
   return (
     <Segment
       {...style_rest}
@@ -34,13 +40,13 @@ export function Tabs(props: TabsProps): ReactElement {
       disabled={disabled}
       fullWidth={fullWidth}
       draggable={draggable}
-      defaultValue={defaultValue ?? data[0]?.value ?? ""}
+      defaultValue={defaultValue ?? tabs[0]?.value ?? ""}
       {...(value === undefined ? {} : { value })}
       {...(onChange === undefined ? {} : { onChange })}
       {...(className === undefined ? {} : { className })}
     >
       <Segment.Control
-        data={data.map((tab) => ({
+        data={tabs.map((tab) => ({
           value: tab.value,
           label: tab.label,
           disabled: tab.disabled,
@@ -48,7 +54,7 @@ export function Tabs(props: TabsProps): ReactElement {
         {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
       />
       <Segment.Content swipeable={swipeable} fill={fill}>
-        {data.map((tab) => (
+        {tabs.map((tab) => (
           <Segment.Content.Item key={tab.value} value={tab.value}>
             {tab.content}
           </Segment.Content.Item>

@@ -1,13 +1,14 @@
 "use client";
 
-import { useRef, type ReactElement } from "react";
+import { useMemo, useRef, type ReactElement } from "react";
 
-import { useTheme } from "@stellaria/nebula-hooks";
+import { usePermissionResolver, useTheme } from "@stellaria/nebula-hooks";
 import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { useMenu, useMenuItem } from "react-aria";
 import { Item, useTreeState, type Node, type TreeState } from "react-stately";
 
 import { MotionOff, StaggerDelay, Tween, type MotionContext } from "../../utils/motion.js";
+import { ApplyPermissions } from "../../utils/permission.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Menu.css.js";
@@ -96,10 +97,13 @@ export function MenuList(props: MenuListProps): ReactElement {
 
   const ref = useRef<HTMLUListElement>(null);
 
+  const resolve = usePermissionResolver();
+  const gated = useMemo(() => ApplyPermissions(items, resolve), [items, resolve]);
+
   const state = useTreeState<MenuItemData>({
-    items,
+    items: gated,
     selectionMode: "none",
-    disabledKeys: items.filter((entry) => entry.disabled === true).map((entry) => entry.key),
+    disabledKeys: gated.filter((entry) => entry.disabled === true).map((entry) => entry.key),
     children: (entry: MenuItemData) => (
       <Item
         key={entry.key}
