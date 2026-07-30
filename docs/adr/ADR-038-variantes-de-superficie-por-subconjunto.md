@@ -171,3 +171,28 @@ La regla 6 —«los componentes de W3 nacen con su subconjunto»— se cumple: C
 W3.1, aunque su primera implementación usó una `Palette()` local que se retiró en el mismo tramo.
 Los otros cuatro componentes que la regla nombra —Banner, StatusBadge, Stepper y CardComplex— siguen
 pendientes en W3.3 y W3.5.
+
+### Decisiones anticipadas para W3.2 (checkpoint del propietario, 2026-07-30)
+
+**Stepper: `filled · light · outline`.** La regla 6 lo nombra pero la tabla de la regla 3 no le daba
+fila; esta la cierra. El eje describe **cómo se pinta el paso completado** —círculo sólido, círculo
+tintado o solo aro—, que es la misma lógica marcado/sin-marcar de Chip: los pasos pendientes se quedan
+en `border.default` + `text.muted` con independencia de la variante, porque son la caja vacía sobre la
+que se lee el avance. Se evaluó y descartó el subconjunto corto `filled · light` de Segment: en un
+bullet de 24 px `outline` es la única de las tres que distingue «completado» de «activo» sin recurrir
+al icono. La demanda registrada es cero —el wrapper de tfv es `StepperPropsMantine & { fullScreen }`,
+sin `variant`, mientras que su Tabs sí lo añade (`docs/api/tfv-components.md:676-678`)—, pero se
+prefirió cumplir la regla 6 antes que enmendarla por tercera vez.
+
+**Dropzone no recibe `variant`.** Es la sexta exclusión del ADR, y por un motivo que no es ninguno de
+los de la regla 3: **su superficie ya está gobernada por el estado de arrastre**, no por el consumidor.
+Reposo, arrastre aceptado y arrastre rechazado son tres recetas que pinta el propio componente; añadir
+un eje de tres miembros encima da nueve combinaciones que habría que diseñar y que `BuildPairs`
+(ADR-040) tendría que medir. La referencia coincide: tfv resuelve la personalización con un `colorBG`
+suelto y sin variantes (`docs/api/tfv-components.md:464-479`). Lleva `color`, que gobierna el acento de
+aceptación, y borde discontinuo fijo.
+
+Con esto, «contrato `field`» en la fila de Dropzone de `docs/00-inventory.md` §1.4 queda leído como el
+contrato de **valor** —`NebulaField` + `useFieldProps`—, no como el recipe visual `styles/field.css.ts`.
+El eje `surface` de ADR-042 no le aplica: `underline` no significa nada en un área de soltar y el
+recipe no produce borde discontinuo.
