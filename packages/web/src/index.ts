@@ -71,6 +71,17 @@ export { SearchInput } from "./components/SearchInput/index.js";
 export type { SearchInputProps } from "./components/SearchInput/index.js";
 export { NumberInput } from "./components/NumberInput/index.js";
 export type { NumberInputProps } from "./components/NumberInput/index.js";
+export { Slider, RangeSlider } from "./components/Slider/index.js";
+export type {
+  RangeSliderProps,
+  RangeSliderValue,
+  SliderMark,
+  SliderProps,
+} from "./components/Slider/index.js";
+export { Chip, ChipGroup } from "./components/Chip/index.js";
+export type { ChipGroupProps, ChipProps, ChipVariant } from "./components/Chip/index.js";
+export { NativeSelect } from "./components/NativeSelect/index.js";
+export type { NativeSelectGroup, NativeSelectProps } from "./components/NativeSelect/index.js";
 export { Fieldset } from "./components/Fieldset/index.js";
 export type { FieldsetProps, FieldsetSurface } from "./components/Fieldset/index.js";
 export { Rating } from "./components/Rating/index.js";

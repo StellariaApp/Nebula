@@ -119,6 +119,11 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Signature                           | comp  | WN                      | 2    | P3·FC·TFV                                     | core    | FC Signature (Skia) native; web canvas nuevo                                                |
 | Dropzone                            | comp  | W                       | 2    | P3(§14)·TFV                                   | core    | Nuevo; contrato `field`                                                                     |
 
+> **§1.4 completa tras W3.1.** `Slider/RangeSlider`, `Chip (+Group)` y `NativeSelect` son Tier 2 de
+> esta sección y no aparecían en ningún prompt de W3; se absorbieron en W3.1 por decisión del
+> propietario (checkpoint de apertura). `GradientText` (ADR-043, adelantado de W4 a W3) también se
+> entregó en W3.1 y queda desglosado en §1.13 como Tier 2.
+
 > **Eje `surface` (ADR-042, ejecutado en W3.1)**: todo campo de esta sección acepta
 > `surface="outline" | "filled" | "underline" | "unstyled"`, con `outline` por defecto. Es una
 > variante del recipe compartido `styles/field.css.ts` —zero-runtime, sin `ResolveVariant` y sin
