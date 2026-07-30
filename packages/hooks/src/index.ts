@@ -2,6 +2,11 @@ export { useDebounce, useDebouncedCallback } from "./use-debounce.js";
 export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure.js";
 export { useUncontrolled } from "./use-uncontrolled.js";
 export {
+  useStepper,
+  type UseStepperInput,
+  type UseStepperReturn,
+} from "./use-stepper.js";
+export {
   useFieldProps,
   type FieldPropsResult,
   type UseFieldPropsInput,
