@@ -301,7 +301,11 @@ export type {
   ImageProps,
 } from "./components/Image/index.js";
 export { Accordion } from "./components/Accordion/index.js";
-export type { AccordionItemData, AccordionProps } from "./components/Accordion/index.js";
+export type {
+  AccordionItemData,
+  AccordionProps,
+  AccordionValue,
+} from "./components/Accordion/index.js";
 export { Card, CardActions, CardBadges, CardImage, CardMeta, CardSection } from "./components/Card/index.js";
 export type {
   CardImageProps,
@@ -394,3 +398,24 @@ export { Indicator } from "./components/Indicator/index.js";
 export type { IndicatorPlacement, IndicatorProps } from "./components/Indicator/index.js";
 export { Spoiler } from "./components/Spoiler/index.js";
 export type { SpoilerProps } from "./components/Spoiler/index.js";
+export { Table } from "./components/Table/index.js";
+export type {
+  TableAlign,
+  TableCellProps,
+  TableProps,
+  TableRowProps,
+  TableScrollProps,
+  TableSectionProps,
+} from "./components/Table/index.js";
+export { Timeline } from "./components/Timeline/index.js";
+export type {
+  TimelineItem,
+  TimelineProps,
+  TimelineVariant,
+} from "./components/Timeline/index.js";
+export { Stat } from "./components/Stat/index.js";
+export type { StatProps, StatTrend } from "./components/Stat/index.js";
+export { Banderole } from "./components/Banderole/index.js";
+export type { BanderoleProps, BanderoleVariant } from "./components/Banderole/index.js";
+export { GridList } from "./components/GridList/index.js";
+export type { GridListMode, GridListProps } from "./components/GridList/index.js";

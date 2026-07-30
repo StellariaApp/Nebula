@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
 import * as styles from "./Accordion.css.js";
-import type { AccordionProps } from "./Accordion.types.js";
+import type { AccordionProps, AccordionValue } from "./Accordion.types.js";
 
 const CHEVRON = (
   <svg
@@ -28,14 +28,19 @@ const CHEVRON = (
   </svg>
 );
 
-const EMPTY: readonly string[] = [];
+function ToList(value: string | readonly string[] | undefined): string[] {
+  if (value === undefined) return [];
+  return typeof value === "string" ? [value] : [...value];
+}
 
-export function Accordion(props: AccordionProps): ReactElement {
+export function Accordion<Multiple extends boolean = false>(
+  props: AccordionProps<Multiple>,
+): ReactElement {
   const {
     data,
-    multiple = false,
+    multiple,
     value,
-    defaultValue = EMPTY,
+    defaultValue,
     onChange,
     disabled = false,
     chevronPosition = "end",
@@ -44,14 +49,22 @@ export function Accordion(props: AccordionProps): ReactElement {
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
+  const is_multiple = multiple === true;
+
   const base_id = useId();
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
   const chevron_transition = Spring("default", { theme, reduced: prefers_reduced === true });
 
-  const controlled = useMemo(() => (value === undefined ? undefined : [...value]), [value]);
-  const initial = useMemo(() => [...defaultValue], [defaultValue]);
-  const [open, set_open] = useUncontrolled<string[]>(controlled, initial, onChange);
+  const controlled = useMemo(() => (value === undefined ? undefined : ToList(value)), [value]);
+  const initial = useMemo(() => ToList(defaultValue), [defaultValue]);
+
+  const Emit = (next: string[]): void => {
+    if (onChange === undefined) return;
+    onChange((is_multiple ? next : next[0]) as AccordionValue<Multiple>);
+  };
+
+  const [open, set_open] = useUncontrolled<string[]>(controlled, initial, Emit);
 
   const triggers = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -62,7 +75,7 @@ export function Accordion(props: AccordionProps): ReactElement {
 
   const Toggle = (item_value: string): void => {
     const is_open = open.includes(item_value);
-    if (multiple) {
+    if (is_multiple) {
       set_open(is_open ? open.filter((entry) => entry !== item_value) : [...open, item_value]);
       return;
     }
@@ -151,12 +164,7 @@ export function Accordion(props: AccordionProps): ReactElement {
               </button>
             </h3>
             <Collapse in={is_open}>
-              <div
-                id={panel_id}
-                role="region"
-                aria-labelledby={trigger_id}
-                className={styles.panel}
-              >
+              <div id={panel_id} aria-labelledby={trigger_id} className={styles.panel}>
                 {item.content}
               </div>
             </Collapse>

@@ -9,12 +9,16 @@ export interface AccordionItemData {
   icon?: ReactNode | undefined;
 }
 
-export interface AccordionProps extends StyleProps {
+export type AccordionValue<Multiple extends boolean> = Multiple extends true
+  ? string[]
+  : string | undefined;
+
+export interface AccordionProps<Multiple extends boolean = false> extends StyleProps {
   data: readonly AccordionItemData[];
-  multiple?: boolean | undefined;
-  value?: readonly string[] | undefined;
-  defaultValue?: readonly string[] | undefined;
-  onChange?: ((value: string[]) => void) | undefined;
+  multiple?: Multiple | undefined;
+  value?: AccordionValue<Multiple> | undefined;
+  defaultValue?: AccordionValue<Multiple> | undefined;
+  onChange?: ((value: AccordionValue<Multiple>) => void) | undefined;
   disabled?: boolean | undefined;
   chevronPosition?: "start" | "end" | undefined;
   className?: string | undefined;

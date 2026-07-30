@@ -30,8 +30,11 @@ describe("Accordion", () => {
     const trigger = screen.getByRole("button", { name: "Envío" });
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
 
-    const region = screen.getByRole("region", { name: "Envío" });
-    expect(region.id).toBe(trigger.getAttribute("aria-controls"));
+    const panel_id = trigger.getAttribute("aria-controls");
+    const panel = panel_id === null ? null : document.getElementById(panel_id);
+    expect(panel).not.toBeNull();
+    expect(panel?.getAttribute("aria-labelledby")).toBe(trigger.id);
+    expect(panel?.getAttribute("role")).toBeNull();
   });
 
   it("en modo simple cerrar el anterior al abrir otro", async () => {
@@ -40,10 +43,19 @@ describe("Accordion", () => {
     render(<Accordion data={DATA} onChange={OnChange} />);
 
     await user.click(screen.getByRole("button", { name: "Envío" }));
-    expect(OnChange).toHaveBeenLastCalledWith(["envio"]);
+    expect(OnChange).toHaveBeenLastCalledWith("envio");
 
     await user.click(screen.getByRole("button", { name: "Pago" }));
-    expect(OnChange).toHaveBeenLastCalledWith(["pago"]);
+    expect(OnChange).toHaveBeenLastCalledWith("pago");
+  });
+
+  it("en simple emite undefined al cerrar el único abierto", async () => {
+    const OnChange = vi.fn();
+    const user = userEvent.setup();
+    render(<Accordion data={DATA} defaultValue="envio" onChange={OnChange} />);
+
+    await user.click(screen.getByRole("button", { name: "Envío" }));
+    expect(OnChange).toHaveBeenLastCalledWith(undefined);
   });
 
   it("multiple acumula los abiertos", async () => {
@@ -89,7 +101,7 @@ describe("Accordion", () => {
   });
 
   it("respeta el modo controlado", () => {
-    render(<Accordion data={DATA} value={["pago"]} onChange={() => undefined} />);
+    render(<Accordion data={DATA} value="pago" onChange={() => undefined} />);
     expect(screen.getByRole("button", { name: "Pago" }).getAttribute("aria-expanded")).toBe("true");
   });
 });

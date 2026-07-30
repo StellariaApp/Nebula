@@ -111,8 +111,8 @@ export const Images: Story = {
 export const Accordions: Story = {
   render: () => (
     <Box maw={560} display="flex" direction="column" gap="lg">
-      <Accordion data={FAQ} defaultValue={["envio"]} />
-      <Accordion data={FAQ} multiple chevronPosition="start" />
+      <Accordion data={FAQ} defaultValue="envio" />
+      <Accordion data={FAQ} multiple chevronPosition="start" defaultValue={["envio", "pago"]} />
     </Box>
   ),
 };
@@ -220,9 +220,11 @@ export const KeyboardFlow: Story = {
 
     await userEvent.keyboard("{Enter}");
     await expect(first).toHaveAttribute("aria-expanded", "true");
-    await expect(
-      canvas.getByRole("region", { name: "¿Cuánto tarda el envío?" }),
-    ).toBeInTheDocument();
+    const panel_id = first.getAttribute("aria-controls") ?? "";
+    await expect(document.getElementById(panel_id)).toHaveAttribute(
+      "aria-labelledby",
+      first.id,
+    );
 
     await userEvent.keyboard("{ArrowDown}");
     await expect(canvas.getByRole("button", { name: "¿Qué formas de pago aceptan?" })).toHaveFocus();
