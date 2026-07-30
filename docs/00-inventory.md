@@ -325,10 +325,10 @@ Genéricos disfrazados de dominio → **core** (sin acoplamiento real; formateo/
 
 | Componente                    | Plat | Fuentes            | Destino                                                                |
 | ----------------------------- | ---- | ------------------ | ---------------------------------------------------------------------- |
-| StatusBadge                   | WN   | P2·P3              | core (Badge + mapa semántico de estados configurable por theme)        |
+| StatusBadge                   | WN   | P2·P3              | core (Badge + mapa semántico **inyectado por provider**; colores del vocabulario del tema — **ADR-055**) |
 | CurrencyDisplay               | WN   | P2·P3·FC(Currency) | core (FC Currency como base)                                           |
 | DateDisplay                   | WN   | P2·P3              | core                                                                   |
-| InfiniteList / SearchableList | WN   | P2                 | core (integración TanStack Query duck-typed)                           |
+| InfiniteList / SearchableList | WN   | P2                 | core (TanStack Query duck-typed: acepta el objeto de query **y** props sueltas — checkpoint W3.3) |
 | PermissionGate                | WN   | P3                 | core (@stellaria/nebula-hooks `usePermission` con provider inyectable) |
 | EmptyModule                   | W    | P3                 | core (variante de EmptyState)                                          |
 | QuickAction                   | WN   | P2·P3              | core (Card+ActionIcon preset)                                          |
