@@ -92,10 +92,10 @@ describe("Fieldset", () => {
   });
 
   it("resuelve una clase distinta por variante", () => {
-    const { unmount } = render(<Fieldset legend="A" variant="default" />);
+    const { unmount } = render(<Fieldset legend="A" surface="outline" />);
     const base = screen.getByRole("group", { name: "A" }).className;
     unmount();
-    render(<Fieldset legend="A" variant="filled" />);
+    render(<Fieldset legend="A" surface="filled" />);
     expect(screen.getByRole("group", { name: "A" }).className).not.toBe(base);
   });
 });

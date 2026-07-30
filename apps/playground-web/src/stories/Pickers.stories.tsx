@@ -158,7 +158,7 @@ export const Composition: Story = {
             <ColorInput label="Color de portada" defaultValue="#9d4edd" swatches={SWATCHES} />
           </Box>
         </Fieldset>
-        <Fieldset legend="Archivos" variant="filled">
+        <Fieldset legend="Archivos" surface="filled">
           <FileInput label="Portada" accept="image/*" />
         </Fieldset>
         <Rating label="Calidad estimada" defaultValue={4} />

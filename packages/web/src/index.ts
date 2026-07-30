@@ -72,7 +72,7 @@ export type { SearchInputProps } from "./components/SearchInput/index.js";
 export { NumberInput } from "./components/NumberInput/index.js";
 export type { NumberInputProps } from "./components/NumberInput/index.js";
 export { Fieldset } from "./components/Fieldset/index.js";
-export type { FieldsetProps, FieldsetVariant } from "./components/Fieldset/index.js";
+export type { FieldsetProps, FieldsetSurface } from "./components/Fieldset/index.js";
 export { Rating } from "./components/Rating/index.js";
 export type { RatingProps } from "./components/Rating/index.js";
 export { PinInput } from "./components/PinInput/index.js";

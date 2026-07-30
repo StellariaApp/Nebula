@@ -23,8 +23,8 @@ export const root = recipe({
     },
   },
   variants: {
-    variant: {
-      default: {
+    surface: {
+      outline: {
         padding: vars.space.md,
         borderWidth: 1,
         borderStyle: "solid",
@@ -41,7 +41,7 @@ export const root = recipe({
       unstyled: { padding: 0, border: "none", background: "transparent" },
     },
   },
-  defaultVariants: { variant: "default" },
+  defaultVariants: { surface: "outline" },
 });
 
 export const legend = style({

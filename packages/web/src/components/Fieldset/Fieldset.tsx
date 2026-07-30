@@ -10,7 +10,7 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
     const {
       legend,
       description,
-      variant = "default",
+      surface = "outline",
       disabled = false,
       children,
       className,
@@ -29,7 +29,7 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
       <fieldset
         {...rest}
         ref={ref}
-        className={cx(styles.root({ variant }), sprinkle_class, className)}
+        className={cx(styles.root({ surface }), sprinkle_class, className)}
         style={sprinkle_style}
         disabled={disabled}
         aria-describedby={
