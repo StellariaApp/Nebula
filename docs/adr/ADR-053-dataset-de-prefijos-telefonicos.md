@@ -74,6 +74,11 @@ el bundle**. Se midió campo por campo:
   `tokens/palettes.ts`. A diferencia de aquel, no tiene todavía comando `gen:`: se generó una vez desde
   el volcado y el procedimiento queda escrito en `dial-codes.md`. Si el volcado se actualiza, se
   regenera con el mismo filtro y las mismas normalizaciones.
+- **El volcado se conserva en `collections/dial-codes.source.json`**, junto al archivo que genera y a
+  su documento. No cuelga de `components/InputDial/` porque el dataset no pertenece a un componente
+  —`InputPhone` lo usa igual y `DialCodes()` es API pública— y no entra en ningún bundle: Vite parte
+  de un único entry y sigue imports, `tsc` solo emite declaraciones, y `files: ["dist"]` no lo
+  publica. Sin la fuente al lado, la regla «este archivo es generado» no sería accionable.
 - **Cinco funciones nuevas en el API público** —`DialCodes`, `DialByCode`, `FlagEmoji`, `FlagImageUrl`,
   `CountryName`/`CountryNamer`— más el tipo `DialOption`. Son utilidades puras, sin React, y por tanto
   server-safe.
