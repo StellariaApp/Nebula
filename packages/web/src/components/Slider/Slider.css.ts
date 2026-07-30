@@ -1,11 +1,11 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { sliderColor } from "./Slider.vars.css.js";
+import { sliderColor, trackBg, trackBorder, trackBorderWidth } from "./Slider.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -27,10 +27,17 @@ export const track = style({
     [baseLayer]: {
       position: "relative",
       width: "100%",
+      boxSizing: "border-box",
       borderRadius: vars.radius.full,
-      background: vars.color.surface.sunken,
+      background: fallbackVar(trackBg, vars.color.surface.sunken),
+      borderStyle: "solid",
+      borderWidth: fallbackVar(trackBorderWidth, "0"),
+      borderColor: fallbackVar(trackBorder, "transparent"),
       selectors: {
-        "&[data-disabled='true']": { background: vars.color.surface.disabled },
+        "&[data-disabled='true']": {
+          background: vars.color.surface.disabled,
+          borderColor: "transparent",
+        },
       },
     },
   },

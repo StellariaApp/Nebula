@@ -7,16 +7,23 @@ import { baseLayer } from "../../theme/layers.css.js";
 
 import { chipBg, chipBorder, chipFg } from "./Chip.vars.css.js";
 
+export const groupRoot = style({
+  "@layer": {
+    [baseLayer]: {
+      border: "none",
+      margin: 0,
+      padding: 0,
+      minWidth: 0,
+    },
+  },
+});
+
 export const group = style({
   "@layer": {
     [baseLayer]: {
       display: "flex",
       flexWrap: "wrap",
       gap: vars.space.sm,
-      border: "none",
-      margin: 0,
-      padding: 0,
-      minWidth: 0,
     },
   },
 });

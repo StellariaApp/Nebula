@@ -16,6 +16,11 @@ const OPCIONES = [
   { value: "ar", label: "Argentina", disabled: true },
 ];
 
+function Track(): HTMLElement {
+  const input = screen.getAllByRole("slider")[0] as HTMLElement;
+  return input.parentElement?.parentElement?.parentElement as HTMLElement;
+}
+
 describe("Slider", () => {
   it("expone un slider con el valor y los límites", () => {
     render(<Slider label="Volumen" value={40} min={0} max={100} />);
@@ -68,6 +73,24 @@ describe("Slider", () => {
   it("formatea el valor mostrado", () => {
     render(<Slider label="Precio" value={40} formatValue={(v) => `${String(v)} €`} />);
     expect(screen.getByText("40 €")).toBeDefined();
+  });
+
+  it("sin variant no emite vars de track", () => {
+    render(<Slider label="V" value={40} />);
+    expect(Track().getAttribute("style")).toBeNull();
+  });
+
+  it("cada variante resuelve un track distinto sin tocar el color del relleno", () => {
+    const seen = new Set<string>();
+    const accents = new Set<string>();
+    for (const variant of ["light", "outline", "ghost"] as const) {
+      const view = render(<Slider label="V" value={40} variant={variant} />);
+      seen.add(Track().getAttribute("style") ?? "");
+      accents.add(Track().parentElement?.getAttribute("style") ?? "");
+      view.unmount();
+    }
+    expect(seen.size).toBe(3);
+    expect(accents.size).toBe(1);
   });
 
   it("lee el valor de un NebulaField", () => {
@@ -160,6 +183,33 @@ describe("ChipGroup", () => {
     );
     await userEvent.click(screen.getByRole("checkbox", { name: "A" }));
     expect(on_change).toHaveBeenLastCalledWith([]);
+  });
+
+  it("solo tinta el chip marcado; el resto queda en los roles neutros", () => {
+    render(
+      <ChipGroup label="Plan" multiple defaultValue={["free"]}>
+        <Chip value="free">Gratuito</Chip>
+        <Chip value="pro">Pro</Chip>
+      </ChipGroup>,
+    );
+    const marked = screen.getByRole("checkbox", { name: "Gratuito" }).closest("label");
+    const plain = screen.getByRole("checkbox", { name: "Pro" }).closest("label");
+    expect(plain?.getAttribute("style")).toMatch(/transparent/);
+    expect(marked?.getAttribute("style")).not.toBe(plain?.getAttribute("style"));
+  });
+
+  it("resuelve una receta distinta por variante del subconjunto", () => {
+    const seen = new Set<string>();
+    for (const variant of ["filled", "outline", "light"] as const) {
+      const view = render(
+        <ChipGroup label="G" variant={variant} defaultValue={["a"]}>
+          <Chip value="a">A</Chip>
+        </ChipGroup>,
+      );
+      seen.add(screen.getByRole("radio", { name: "A" }).closest("label")?.getAttribute("style") ?? "");
+      view.unmount();
+    }
+    expect(seen.size).toBe(3);
   });
 
   it("propaga size/color/disabled a los chips", () => {

@@ -22,6 +22,7 @@ export function RangeSlider(props: RangeSliderProps): ReactElement {
     disabled = false,
     size = "md",
     color = "primary",
+    variant,
     min = 0,
     max = 100,
     step = 1,
@@ -87,6 +88,7 @@ export function RangeSlider(props: RangeSliderProps): ReactElement {
           step={step}
           size={size}
           color={color}
+          variant={variant}
           disabled={fp.isDisabled}
           marks={marks}
           withValue={withValue}

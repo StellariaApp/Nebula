@@ -2,6 +2,7 @@
 
 import { useId, useRef, type ReactElement, type ReactNode } from "react";
 
+import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import {
   mergeProps,
@@ -13,14 +14,15 @@ import {
 } from "react-aria";
 import { useSliderState } from "react-stately";
 
-import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, NebulaTheme, Size } from "@stellaria/nebula-tokens";
 
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Slider.css.js";
-import { sliderColor } from "./Slider.vars.css.js";
-import type { SliderMark } from "./Slider.types.js";
+import { sliderColor, trackBg, trackBorder, trackBorderWidth } from "./Slider.vars.css.js";
+import type { SliderMark, SliderVariant } from "./Slider.types.js";
 
 interface ThumbProps {
   index: number;
@@ -78,6 +80,20 @@ function Thumb(props: ThumbProps): ReactElement {
   );
 }
 
+function TrackVars(
+  variant: SliderVariant | undefined,
+  color: ColorExtended,
+  theme: NebulaTheme,
+): Record<string, string> {
+  if (variant === undefined) return {};
+  const resolved = ResolveVariant(variant, color, theme);
+  return {
+    [trackBg]: resolved.background,
+    [trackBorder]: resolved.borderColor,
+    [trackBorderWidth]: resolved.borderWidth,
+  };
+}
+
 export interface SliderBaseProps {
   values: number[];
   onChange: (values: number[]) => void;
@@ -87,6 +103,7 @@ export interface SliderBaseProps {
   step: number;
   size: Size;
   color: ColorExtended;
+  variant?: SliderVariant | undefined;
   disabled: boolean;
   marks?: readonly SliderMark[] | undefined;
   withValue: boolean;
@@ -108,6 +125,7 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
     step,
     size,
     color,
+    variant,
     disabled,
     marks,
     withValue,
@@ -121,6 +139,7 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
 
   const track_ref = useRef<HTMLDivElement>(null);
   const formatter = useNumberFormatter();
+  const { theme } = useTheme();
 
   const state = useSliderState({
     value: values,
@@ -165,6 +184,7 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
           {...trackProps}
           ref={track_ref}
           className={cx(styles.track, styles.trackSize[size])}
+          style={assignInlineVars(TrackVars(variant, color, theme))}
           data-disabled={disabled ? "true" : undefined}
         >
           <div

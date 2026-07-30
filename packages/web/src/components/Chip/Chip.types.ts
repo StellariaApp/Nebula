@@ -1,10 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export type ChipVariant = "filled" | "outline" | "light";
+export type ChipVariant = Extract<Variant, "filled" | "outline" | "light">;
 
 export interface ChipProps
   extends Omit<

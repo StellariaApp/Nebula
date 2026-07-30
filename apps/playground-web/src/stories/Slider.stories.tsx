@@ -57,6 +57,24 @@ export const Sizes: Story = {
   ),
 };
 
+export const Variants: Story = {
+  render: () => (
+    <Box maw={420} display="flex" direction="column" gap="xl">
+      <Slider label="sin variant — track en surface.sunken" defaultValue={50} />
+      {(["light", "outline", "ghost"] as const).map((variant) => (
+        <Slider key={variant} variant={variant} label={variant} defaultValue={50} />
+      ))}
+      <Slider label="light + color" variant="light" color="success" defaultValue={70} />
+      <RangeSlider
+        label="outline en rango"
+        variant="outline"
+        color="warning"
+        defaultValue={{ start: 25, end: 75 }}
+      />
+    </Box>
+  ),
+};
+
 export const States: Story = {
   render: () => (
     <Box maw={420} display="flex" direction="column" gap="xl">
@@ -87,13 +105,23 @@ export const Chips: Story = {
         <Chip value="a11y">Accesibilidad</Chip>
         <Chip value="motion">Motion</Chip>
       </ChipGroup>
-      <Box display="flex" gap="sm" wrap="wrap">
-        {(["filled", "outline", "light"] as const).map((variant) => (
-          <Chip key={variant} variant={variant} defaultChecked>
+      {(["filled", "outline", "light"] as const).map((variant) => (
+        <Box key={variant} display="flex" gap="sm" wrap="wrap" align="center">
+          <Text fz="caption" c="text.muted" w={64}>
             {variant}
+          </Text>
+          <Chip variant={variant} defaultChecked>
+            Marcado
           </Chip>
-        ))}
-      </Box>
+          <Chip variant={variant}>Sin marcar</Chip>
+          <Chip variant={variant} color="success" defaultChecked>
+            success
+          </Chip>
+          <Chip variant={variant} color="error" defaultChecked>
+            error
+          </Chip>
+        </Box>
+      ))}
     </Box>
   ),
 };

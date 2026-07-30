@@ -137,3 +137,37 @@ cromática. Sin patrón fijado, W3 los escribe a mano y la deriva pasa de dos co
 - `docs/02-theming.md` §2 punto 3 deja de ser una promesa incumplida.
   `docs/patterns/web-component-template.md` §2 gana la forma canónica del subconjunto, y
   `docs/00-inventory.md` refleja la nueva API de los componentes afectados, todo en el mismo PR.
+
+## Ejecución — enmiendas a la tabla de la regla 3
+
+La tabla de la regla 3 se escribió antes de implementar. Tres filas cambiaron al hacerlo, y la razón
+es la misma en las tres: **el subconjunto depende de qué superficie pinta el `background` de la
+receta**, no solo del effects budget.
+
+| Componente | Tabla original    | Entregado                    | Tramo |
+| ---------- | ----------------- | ---------------------------- | ----- |
+| Progress   | `filled · light`  | `light · outline · ghost`    | V5    |
+| Slider     | —                 | `light · outline · ghost`    | W3.1  |
+| Chip       | `filled · outline · light · ghost · gradient` | `filled · outline · light` | W3.1 |
+
+**Progress y Slider pierden `filled` y ganan `outline · ghost`.** En los dos, el `background` de la
+receta es el **track**, y el indicador —relleno de la barra, relleno del slider— conserva el acento
+`scale.600`. `filled` resuelve el track a ese mismo `scale.600`: el indicador desaparecería dentro de
+su propio carril. `outline` y `ghost` sí tienen sentido porque dejan el track transparente y lo
+distinguen por el borde. El razonamiento completo y la medición de contraste están en
+`Progress.md`; `Slider.md` registra que aplica el mismo precedente.
+
+**Slider no estaba en la tabla** porque no estaba en el alcance de W2: es Tier 2 de `docs/00-inventory`
+§1.4 y se absorbió en W3.1.
+
+**Chip pierde `ghost` y `gradient`.** `ghost` resuelve a fondo y borde transparentes, que es
+exactamente el reposo de un chip **sin marcar**: un chip marcado en `ghost` sería indistinguible de uno
+sin marcar, y el estado de selección es la única información que un chip transporta. `gradient` cae
+en la exclusión de `docs/06` §6 —«no es fondo dominante en tablas, formularios ni lectura larga»—
+porque un chip vive en colección dentro de un formulario o una barra de filtros; Badge conserva
+`gradient` porque etiqueta un elemento suelto. Queda en `Chip.md`.
+
+La regla 6 —«los componentes de W3 nacen con su subconjunto»— se cumple: Chip nació con `variant` en
+W3.1, aunque su primera implementación usó una `Palette()` local que se retiró en el mismo tramo.
+Los otros cuatro componentes que la regla nombra —Banner, StatusBadge, Stepper y CardComplex— siguen
+pendientes en W3.3 y W3.5.

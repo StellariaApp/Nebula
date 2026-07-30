@@ -2,16 +2,17 @@
 
 import { forwardRef, useState } from "react";
 
-import { useUncontrolled } from "@stellaria/nebula-hooks";
+import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useChipGroupContext } from "./Chip.context.js";
 import * as styles from "./Chip.css.js";
 import { chipBg, chipBorder, chipFg } from "./Chip.vars.css.js";
-import type { ChipProps, ChipVariant } from "./Chip.types.js";
+import type { ChipProps } from "./Chip.types.js";
 
 const CHECK = (
   <svg
@@ -28,31 +29,6 @@ const CHECK = (
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
-
-function Palette(
-  variant: ChipVariant,
-  color: string,
-  checked: boolean,
-): { bg: string; fg: string; border: string } {
-  if (!checked) {
-    return {
-      bg: "transparent",
-      fg: ResolveAccent("text.primary"),
-      border: ResolveAccent("border.default"),
-    };
-  }
-  if (variant === "outline") {
-    return { bg: "transparent", fg: color, border: color };
-  }
-  if (variant === "light") {
-    return {
-      bg: `color-mix(in srgb, ${color} 14%, transparent)`,
-      fg: color,
-      border: "transparent",
-    };
-  }
-  return { bg: color, fg: ResolveAccent("text.onPrimary"), border: color };
-}
 
 export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props, ref) {
   const {
@@ -88,13 +64,13 @@ export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props,
   const is_checked = in_group ? group.value.includes(value) : local;
 
   const [focus_visible, set_focus_visible] = useState(false);
-  const resolved = ResolveAccent(color, "600");
-  const palette = Palette(variant, resolved, is_checked);
+  const { theme } = useTheme();
+  const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [chipBg]: palette.bg,
-    [chipFg]: palette.fg,
-    [chipBorder]: palette.border,
+    [chipBg]: is_checked ? resolved.background : "transparent",
+    [chipFg]: is_checked ? resolved.foreground : ResolveAccent("text.primary"),
+    [chipBorder]: is_checked ? resolved.borderColor : ResolveAccent("border.default"),
   });
 
   const Toggle = (): void => {

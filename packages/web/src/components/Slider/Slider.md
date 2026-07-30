@@ -4,6 +4,20 @@
 `{ start, end }`. Los dos envuelven la base en `FormField`, así que el `<label>` lo pinta el campo y
 la base solo recibe `ariaLabel` / `ariaLabelledBy`.
 
+## `variant` pinta el track, no el relleno
+
+Es el precedente de `Progress` (`Progress.md`) aplicado tal cual. El subconjunto es
+`light · outline · ghost` y **excluye `filled` a propósito**: en un slider el `background` de la receta
+es el track, y `filled` lo resuelve a `scale.600`, el mismo color del relleno — el valor desaparecería
+dentro de su propio carril.
+
+El reparto es `track ← resolved.background` y relleno ← `ResolveAccent(color, "600")`, que no cambia con
+la variante. Sin `variant` no se emite ninguna var y el track sigue en `surface.sunken`, igual que antes.
+
+El track además consume `resolved.borderColor`/`borderWidth`, que es lo que distingue `outline` de
+`ghost`; como el relleno es un hijo absoluto con `inset-block: 0`, queda dentro del borde sin cálculo
+extra.
+
 ## El input nativo va oculto, no estilado
 
 `useSliderThumb` devuelve `inputProps` para **un `<input type="range">` visualmente oculto**: es la

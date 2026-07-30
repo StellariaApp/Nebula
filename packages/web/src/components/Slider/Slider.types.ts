@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended, NebulaField, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, NebulaField, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type SliderVariant = Extract<Variant, "light" | "outline" | "ghost">;
 
 export interface SliderMark {
   value: number;
@@ -19,6 +21,7 @@ interface SliderBaseProps extends Omit<StyleProps, "color"> {
   disabled?: boolean | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;
+  variant?: SliderVariant | undefined;
   min?: number | undefined;
   max?: number | undefined;
   step?: number | undefined;
