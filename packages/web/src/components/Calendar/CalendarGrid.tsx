@@ -9,7 +9,7 @@ import {
   isToday,
   type CalendarDate,
 } from "@internationalized/date";
-import { mergeProps, useCalendarCell, useCalendarGrid, useFocusRing } from "react-aria";
+import { mergeProps, useCalendarCell, useCalendarGrid, useFocusRing, useHover } from "react-aria";
 import type { CalendarState, RangeCalendarState } from "react-stately";
 
 import type { Size } from "@stellaria/nebula-tokens";
@@ -50,12 +50,15 @@ function Cell(props: CellProps): ReactElement {
   } = useCalendarCell({ date }, state, ref);
 
   const { focusProps, isFocusVisible } = useFocusRing();
+  const { hoverProps, isHovered } = useHover({ isDisabled });
 
   const outside = isOutsideVisibleRange || date.month !== currentMonth.month;
   if (outside) return <td className={styles.cellWrapper} />;
 
   const range = HighlightedRange(state);
   const in_range = range !== null && date.compare(range.start) >= 0 && date.compare(range.end) <= 0;
+  const is_edge =
+    range !== null && (isSameDay(date, range.start) || isSameDay(date, range.end));
 
   return (
     <td
@@ -66,10 +69,12 @@ function Cell(props: CellProps): ReactElement {
       data-range-end={range !== null && isSameDay(date, range.end) ? "true" : undefined}
     >
       <div
-        {...mergeProps(buttonProps, focusProps)}
+        {...mergeProps(buttonProps, focusProps, hoverProps)}
         ref={ref}
         className={cx(styles.cell, styles.cellSize[size])}
         data-selected={isSelected ? "true" : undefined}
+        data-range-middle={in_range && !is_edge ? "true" : undefined}
+        data-hovered={isHovered ? "true" : undefined}
         data-disabled={isDisabled ? "true" : undefined}
         data-unavailable={isUnavailable ? "true" : undefined}
         data-today={isToday(date, getLocalTimeZone()) ? "true" : undefined}

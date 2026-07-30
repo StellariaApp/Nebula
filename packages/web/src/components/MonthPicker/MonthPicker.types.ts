@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 
-import type { NebulaField, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, NebulaField, Size } from "@stellaria/nebula-tokens";
+
+import type { CalendarVariant } from "../Calendar/Calendar.types.js";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -11,9 +13,11 @@ export interface PeriodPickerLabels {
   nextRange?: string | undefined;
 }
 
-interface PeriodPickerBaseProps extends StyleProps {
+interface PeriodPickerBaseProps extends Omit<StyleProps, "color"> {
   label?: ReactNode | undefined;
   size?: Size | undefined;
+  variant?: CalendarVariant | undefined;
+  color?: ColorExtended | undefined;
   locale?: string | undefined;
   minValue?: string | undefined;
   maxValue?: string | undefined;

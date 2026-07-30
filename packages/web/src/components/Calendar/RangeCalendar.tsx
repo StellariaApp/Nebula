@@ -3,20 +3,26 @@
 import { useMemo, type ReactElement } from "react";
 
 import type { CalendarDate, DateValue } from "@internationalized/date";
-import { useFieldProps } from "@stellaria/nebula-hooks";
+import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 import type { DateRange } from "@stellaria/nebula-tokens";
 import type { AriaRangeCalendarProps } from "react-aria";
 
 import { EmptyRange, FormatDate, ParseDate } from "../../utils/date.js";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { RangeCalendarView } from "./CalendarView.js";
 import type { RangeCalendarProps } from "./Calendar.types.js";
+import { dayBg, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
 
 export function RangeCalendar(props: RangeCalendarProps): ReactElement {
   const {
     label,
     size = "md",
+    variant = "filled",
+    color = "primary",
     locale,
     minValue,
     maxValue,
@@ -71,6 +77,15 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
       : { isDateUnavailable: (date: DateValue) => isDateUnavailable(FormatDate(date as CalendarDate)) }),
   };
 
+  const { theme } = useTheme();
+  const resolved = ResolveVariant(variant, color, theme);
+  const day_vars = assignInlineVars({
+    [dayBg]: resolved.background,
+    [dayFg]: resolved.foreground,
+    [dayBorder]: resolved.borderColor,
+    [rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`,
+  });
+
   return (
     <RangeCalendarView
       calendar={calendar}
@@ -79,7 +94,7 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
       labels={labels}
       visibleMonths={visibleMonths}
       className={cx(sprinkle_class, className)}
-      style={sprinkle_style}
+      style={{ ...day_vars, ...sprinkle_style }}
     />
   );
 }

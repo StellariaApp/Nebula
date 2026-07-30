@@ -2,10 +2,14 @@
 
 import { useMemo, useState, type ReactElement } from "react";
 
-import { useFieldProps } from "@stellaria/nebula-hooks";
+import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 import { useLocale } from "react-aria";
 
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+
+import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { dayBg, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
 import { CalendarHeader } from "../Calendar/CalendarHeader.js";
 
 import * as styles from "./GridPicker.css.js";
@@ -30,6 +34,8 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
   const {
     label,
     size = "md",
+    variant = "filled",
+    color = "primary",
     locale: locale_prop,
     minValue = "",
     maxValue = "",
@@ -63,8 +69,19 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
     [locale, year, minValue, maxValue],
   );
 
+  const { theme } = useTheme();
+  const resolved = ResolveVariant(variant, color, theme);
+  const day_vars = assignInlineVars({
+    [dayBg]: resolved.background,
+    [dayFg]: resolved.foreground,
+    [dayBorder]: resolved.borderColor,
+  });
+
   return (
-    <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style}>
+    <div
+      className={cx(styles.root, sprinkle_class, className)}
+      style={{ ...day_vars, ...sprinkle_style }}
+    >
       <CalendarHeader
         title={String(year)}
         size={size}

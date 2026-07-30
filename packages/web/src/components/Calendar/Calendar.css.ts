@@ -1,9 +1,11 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+
+import { dayBg, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -111,7 +113,7 @@ export const cellWrapper = style({
       padding: 0,
       textAlign: "center",
       selectors: {
-        "&[data-range-selected='true']": { background: vars.color.primary["100"] },
+        "&[data-range-selected='true']": { background: fallbackVar(rangeBg, vars.color.primary["100"]) },
         "&[data-range-start='true']": {
           borderStartStartRadius: vars.radius.full,
           borderEndStartRadius: vars.radius.full,
@@ -141,14 +143,23 @@ export const cell = style({
       ...motion.interaction,
       ...motion.reducedMotion,
       selectors: {
-        "&[data-hovered='true']:not([data-disabled='true']):not([data-selected='true'])": {
+        "&[data-hovered='true']:not([data-disabled='true'])": {
           background: vars.color.surface.hover,
         },
         "&[data-focus-visible='true']": focus.ring,
-        "&[data-selected='true']": {
-          background: vars.color.primary["600"],
-          color: vars.color.text.onPrimary,
+        "&[data-selected='true']:not([data-range-middle='true'])": {
+          background: fallbackVar(dayBg, vars.color.primary["600"]),
+          color: fallbackVar(dayFg, vars.color.text.onPrimary),
+          borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,
+        },
+        "&[data-range-middle='true']": {
+          background: "transparent",
+          borderRadius: 0,
+          fontWeight: vars.font.weight.medium,
+        },
+        "&[data-range-middle='true'][data-hovered='true']:not([data-disabled='true'])": {
+          background: vars.color.surface.hover,
         },
         "&[data-disabled='true']": {
           color: vars.color.text.disabled,

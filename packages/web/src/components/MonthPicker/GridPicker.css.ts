@@ -1,9 +1,11 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+
+import { dayBg, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
 
 export const grid = style({
   "@layer": {
@@ -36,8 +38,9 @@ export const cell = style({
         },
         "&:focus-visible": focus.ring,
         "&[data-selected='true']": {
-          background: vars.color.primary["600"],
-          color: vars.color.text.onPrimary,
+          background: fallbackVar(dayBg, vars.color.primary["600"]),
+          color: fallbackVar(dayFg, vars.color.text.onPrimary),
+          borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,
         },
         "&[data-disabled='true']": { color: vars.color.text.disabled, cursor: "not-allowed" },

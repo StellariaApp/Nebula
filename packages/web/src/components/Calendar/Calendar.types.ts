@@ -1,17 +1,21 @@
 import type { ReactNode } from "react";
 
-import type { DateRange, NebulaField, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, DateRange, NebulaField, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type CalendarVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost">;
 
 export interface CalendarLabels {
   previousMonth?: string | undefined;
   nextMonth?: string | undefined;
 }
 
-interface CalendarBaseProps extends StyleProps {
+interface CalendarBaseProps extends Omit<StyleProps, "color"> {
   label?: ReactNode | undefined;
   size?: Size | undefined;
+  variant?: CalendarVariant | undefined;
+  color?: ColorExtended | undefined;
   locale?: string | undefined;
   minValue?: string | undefined;
   maxValue?: string | undefined;
