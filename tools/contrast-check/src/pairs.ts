@@ -12,6 +12,7 @@ export interface ContrastPair {
 }
 
 const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active"] as const;
+const FIELD_SURFACES = ["sunken", "base", "raised", "overlay"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 
 const VARIANTS: readonly Variant[] = [
@@ -91,6 +92,15 @@ export function BuildPairs(): ContrastPair[] {
         min: 4.5,
       });
     }
+  }
+
+  for (const surface of FIELD_SURFACES) {
+    pairs.push({
+      label: `text.placeholder / surface.${surface} (fondo de campo)`,
+      fg: (t) => t.colors.text.placeholder,
+      bg: (t) => t.colors.surface[surface],
+      min: 4.5,
+    });
   }
 
   pairs.push({

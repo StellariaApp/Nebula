@@ -40,6 +40,7 @@ export const soberLight = {
       primary: gray["950"],
       secondary: gray["800"],
       muted: gray["700"],
+      placeholder: gray["700"],
       inverted: gray["50"],
       onPrimary: palettes.light["50"],
       disabled: gray["400"],

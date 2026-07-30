@@ -71,6 +71,7 @@ export const textRoles = enumValues<TextRole>()([
   "primary",
   "secondary",
   "muted",
+  "placeholder",
   "inverted",
   "onPrimary",
   "disabled",

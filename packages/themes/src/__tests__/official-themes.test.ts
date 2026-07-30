@@ -50,3 +50,31 @@ describe("interruptores de preset (docs/02 §2 punto 2)", () => {
     expect(theme.spacing.unit).toBe(5);
   });
 });
+
+describe("rol de placeholder (ADR-052)", () => {
+  it("los cuatro temas lo declaran como color literal", () => {
+    for (const name of officialThemeNames) {
+      expect(officialThemes[name].colors.text.placeholder).toMatch(/^#[0-9a-f]{6}$/);
+    }
+  });
+
+  it("nunca es el mismo peldaño que el valor escrito", () => {
+    for (const name of officialThemeNames) {
+      const { text } = officialThemes[name].colors;
+      expect(text.placeholder).not.toBe(text.primary);
+    }
+  });
+
+  it("solo nebula-light y playful lo atenúan respecto a muted; dark y sober-light están en su suelo", () => {
+    for (const name of ["nebula-light", "playful"] as const) {
+      const { text, gray } = officialThemes[name].colors;
+      expect(text.muted).toBe(gray["700"]);
+      expect(text.placeholder).toBe(gray["600"]);
+    }
+
+    for (const name of ["nebula-dark", "sober-light"] as const) {
+      const { text } = officialThemes[name].colors;
+      expect(text.placeholder).toBe(text.muted);
+    }
+  });
+});

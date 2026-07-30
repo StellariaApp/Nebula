@@ -504,3 +504,35 @@ De paso se corrige un defecto de `filled` que la revisión no había mirado: su 
 al borde, y `border.default` sigue por debajo del mínimo en los dos esquemas. Resolverlo es recalibrar
 el rol en los cinco temas —con el Figma delante, que es lo que §7 demostró que hace falta— y no cabe en
 un cambio de receta.
+
+## 9. El placeholder gana rol propio · **CERRADA (ADR-052)**
+
+Reportado dos veces sobre el playground: el placeholder no se distingue del valor escrito. La primera
+vuelta corrigió lo que se podía sin tocar el contrato —dark de `gray.400` a `gray.500`, separación
+2.32 → 3.26— y **en light falló el gate**: `gray.600` daba la separación buscada pero caía a 4.20 sobre
+`surface.active`.
+
+Ese fallo era la pista. `text.muted` es un rol de propósito general y debe cumplir 4.5:1 sobre las seis
+superficies del contrato; un placeholder solo se apoya sobre el fondo de un campo. Mientras compartan
+rol, el placeholder queda calibrado por el peor caso de un rol que no es el suyo — y la rampa gris no
+tiene medio peldaño: de `gray.700` a `gray.600` el contraste sobre el campo salta de 6.11 a 4.54.
+
+| Tema         | `muted`    | `placeholder`  | sobre el campo | separación vs. valor |
+| ------------ | ---------- | -------------- | -------------: | -------------------: |
+| nebula-light | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
+| playful      | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
+| nebula-dark  | `gray.500` | `gray.500`     |           5.38 |                 3.26 |
+| sober-light  | `gray.700` | `gray.700`     |           5.43 |                 2.32 |
+
+**dark y sober-light ya estaban en su suelo**: el peldaño siguiente cae a 3.90 y 4.04 sobre su fondo de
+campo. El propietario eligió AA estricto sobre la alternativa de declarar un suelo de 3:1 para
+placeholders, que habría dado light `gray.500` y dark `gray.600` a cambio de enmendar `docs/03` §1
+regla 4.
+
+Dos efectos colaterales, los dos en la dirección correcta:
+
+- **El campo deshabilitado** pinta su placeholder con `text.disabled` en vez de heredar `muted` sobre
+  `surface.disabled`, que era el par más apretado del eje.
+- **`filled` deja de oscurecer el relleno en hover.** El `surface.active` que §8 le había puesto dejaba
+  el placeholder a 4.20 con el puntero encima: oscurecer el fondo **bajo el texto** cuesta contraste.
+  Su hover pasa a ser el borde apareciendo, el mismo idioma de `outline`.

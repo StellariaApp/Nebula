@@ -110,9 +110,12 @@ Aun así, el propietario quiere el eje disponible. Este ADR fija **cómo** se ha
   esquemas**, oscureciendo en light y aclarando en dark—, que
   es además el rol que le corresponde por significado. `outline` y `filled` quedan compartiendo relleno
   y diferenciándose por el borde, que es lo que dicen sus nombres. En el mismo cambio, el hover de
-  `filled` pasa de `surface.hover` a `surface.active`: los cuatro temas oficiales resuelven `hover` y
-  `sunken` al mismo peldaño, de modo que un `filled` —sin borde— no tenía ninguna respuesta al puntero.
-  El detalle medido está en `packages/web/src/styles/field.md`.
+  `filled` deja de resolverse con `surface.hover`: los cuatro temas oficiales lo resuelven al mismo
+  peldaño que `sunken`, de modo que un `filled` —sin borde— no tenía ninguna respuesta al puntero. Pasa
+  a comunicarlo con el borde apareciendo (`transparent` → `border.default`), el mismo idioma de
+  `outline`. El intento intermedio de oscurecer el relleno con `surface.active` se descartó en ADR-052:
+  oscurecer el fondo bajo el texto cuesta contraste y dejaba el placeholder a 4.20. El detalle medido
+  está en `packages/web/src/styles/field.md`.
 - **Deuda de a11y que este eje no cierra**: `border.default` mide 1.39 contra el canvas en light y 2.27
   en dark, por debajo del 3:1 de SC 1.4.11 para el límite visual de un componente. Afecta al contorno en
   reposo de todo campo `outline`, y se resuelve recalibrando `colors.border.default` en los cinco temas,

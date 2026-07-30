@@ -36,9 +36,12 @@ type NebulaTheme = {
     primary: Scale11; accent: Scale11; gray: Scale11
     semantic: { success; warning; error; info }: Scale11
     surface:  { base; raised; overlay; sunken     // superficies por elevación
-                hover; active }                  // superficies por interacción (ADR-044)
-    text:     { primary; secondary; muted; inverted; onPrimary }
-    border:   { subtle; default; strong; focus }
+                hover; active                    // superficies por interacción (ADR-044)
+                disabled }                       // estado deshabilitado (ADR-048)
+    text:     { primary; secondary; muted; inverted; onPrimary
+                placeholder                      // solo sobre el fondo de un campo (ADR-052)
+                disabled }                       // estado deshabilitado (ADR-048)
+    border:   { subtle; default; strong; focus; disabled }
   }
 
   // 2. TIPOGRAFÍA — familia + escala + pesos (Geist Sans/Mono default)

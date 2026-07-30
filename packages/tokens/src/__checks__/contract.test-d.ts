@@ -107,6 +107,7 @@ export const smokeTheme = {
       primary: "#1a1b1e",
       secondary: "#495057",
       muted: "#868e96",
+      placeholder: "#868e96",
       inverted: "#ffffff",
       onPrimary: "#ffffff",
       disabled: "#9fa5ac",

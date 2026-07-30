@@ -38,6 +38,7 @@ export type TextRole =
   | "primary"
   | "secondary"
   | "muted"
+  | "placeholder"
   | "inverted"
   | "onPrimary"
   | "disabled";

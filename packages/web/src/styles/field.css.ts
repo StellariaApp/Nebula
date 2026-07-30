@@ -148,8 +148,8 @@ export const field = recipe({
         vars: {
           [bg]: vars.color.surface.sunken,
           [bd]: "transparent",
-          [bgHover]: vars.color.surface.active,
-          [bdHover]: "transparent",
+          [bgHover]: vars.color.surface.sunken,
+          [bdHover]: vars.color.border.default,
           [bgDisabled]: vars.color.surface.disabled,
           [bdDisabled]: "transparent",
         },
@@ -202,8 +202,9 @@ export const input = style({
       outline: "none",
       appearance: "none",
       selectors: {
-        "&::placeholder": { color: vars.color.text.muted },
+        "&::placeholder": { color: vars.color.text.placeholder },
         "&:disabled": { cursor: "not-allowed" },
+        "&:disabled::placeholder": { color: vars.color.text.disabled },
       },
     },
   },

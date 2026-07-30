@@ -65,20 +65,49 @@ propietario.
 Con esto `outline` y `filled` comparten relleno y se diferencian por el borde, que es exactamente lo
 que dicen sus nombres. Enmienda el punto 2 de [ADR-042](../../../../docs/adr/ADR-042-eje-surface-del-recipe-field.md).
 
-### El hover de `filled`
+### El hover de `filled` aparece como borde, no como relleno
 
 `filled` tenía `bgHover: surface.hover`, y en los cuatro temas oficiales `hover` y `sunken` resuelven
 al **mismo peldaño** (índice 300). Como `filled` también lleva el borde transparente, el resultado era
-un campo sin ninguna respuesta al puntero. Pasa a `surface.active` (índice 500): 1.083 en light y 1.075
-en dark, el escalón que ADR-044 fija para una respuesta de un nivel.
+un campo sin ninguna respuesta al puntero.
 
-`outline` no necesita escalón de relleno porque su hover lo comunica el borde:
-`border.default` → `border.strong` es 1.39 → 3.50 en light y 2.27 → 4.15 en dark.
+El primer arreglo fue `bgHover: surface.active`, y el rol de placeholder demostró que estaba mal:
+oscurecer el relleno **bajo el texto** cuesta contraste, y en los tres temas de escala light dejaba el
+placeholder a 4.20 sobre un campo con el puntero encima. Así que `filled` deja el relleno quieto y su
+hover pasa a ser el borde apareciendo —`transparent` → `border.default`—, que es el mismo idioma que
+usa `outline` y no toca el fondo del texto.
+
+`outline` tampoco necesita escalón de relleno: su hover lo comunica el borde endureciéndose,
+`border.default` → `border.strong`, que es 1.39 → 3.50 en light y 2.27 → 4.15 en dark.
+
+## El placeholder tiene rol propio (ADR-052)
+
+`&::placeholder` usaba `text.muted`. `text.muted` es un rol de propósito general y debe cumplir 4.5:1
+**sobre las seis superficies**, incluida `surface.active`; un placeholder solo se apoya en el fondo de
+un campo. Mientras compartieran rol, atenuar el placeholder era imposible sin arrastrar los demás usos
+de `muted`.
+
+Con rol propio, el peldaño que light no podía dar pasa a estar disponible:
+
+| Tema         | antes (`muted`) | ahora (`placeholder`) | sobre el campo | separación vs. valor |
+| ------------ | --------------- | --------------------- | -------------: | -------------------: |
+| nebula-light | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
+| playful      | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
+| nebula-dark  | `gray.500`      | `gray.500`            |           5.38 |                 3.26 |
+| sober-light  | `gray.700`      | `gray.700`            |           5.43 |                 2.32 |
+
+**dark y sober-light ya estaban en su suelo** y no se mueven: el siguiente peldaño de la rampa gris cae
+a 3.90 y 4.04 sobre su fondo de campo, por debajo del mínimo de texto. En sober-light además es
+coherente con su identidad de tema de alto contraste. No hay medio peldaño en la rampa.
+
+Un campo deshabilitado pinta su placeholder con `text.disabled` (`&:disabled::placeholder`), que es el
+rol correcto y el que WCAG exime por componente inactivo. Antes heredaba `muted` sobre
+`surface.disabled`, el par más apretado de todos.
 
 ### Lo que sigue abierto
 
 El borde en reposo (`border.default`) mide **1.39** contra el canvas en light y **2.27** en dark, por
-debajo del 3:1 que WCAG 2.2 SC 1.4.11 exige al límite visual de un componente de UI. Este cambio no
-lo introduce ni lo empeora —el relleno suma, no resta—, pero tampoco lo resuelve: el contorno en
-reposo de un campo sigue siendo la deuda de a11y del eje, y arreglarlo es recalibrar
+debajo del 3:1 que WCAG 2.2 SC 1.4.11 exige al límite visual de un componente de UI. Ningún cambio de
+esta serie lo introduce ni lo empeora —el relleno suma, no resta—, pero tampoco lo resuelve: el
+contorno en reposo de un campo sigue siendo la deuda de a11y del eje, y arreglarlo es recalibrar
 `colors.border.default` en los cinco temas, no tocar la receta.
