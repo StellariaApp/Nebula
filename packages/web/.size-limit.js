@@ -1,10 +1,10 @@
 const MODULE_BUDGETS = [
   {
-    name: "NebulaProvider (runtime + CSS de temas)",
+    name: "NebulaProvider (runtime + CSS de temas, desde el barrel)",
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "60 kB",
+    limit: "62 kB",
   },
   {
     name: "useTheme (sin CSS)",
@@ -782,6 +782,62 @@ const MODULE_BUDGETS = [
     import: "{ Omit }",
     ignore: ["react", "react-dom"],
     limit: "2 kB",
+  },
+  {
+    name: "StatusBadge (Badge + mapa inyectado, por módulo)",
+    path: "dist/components/StatusBadge/StatusBadge.js",
+    import: "{ StatusBadge }",
+    ignore: ["react", "react-dom"],
+    limit: "15 kB",
+  },
+  {
+    name: "StatusMapProvider (contexto de presentación, por módulo)",
+    path: "dist/components/StatusBadge/StatusMapProvider.js",
+    import: "{ StatusMapProvider }",
+    ignore: ["react", "react-dom"],
+    limit: "2 kB",
+  },
+  {
+    name: "CurrencyDisplay (Intl + locale de Aria, por módulo)",
+    path: "dist/components/CurrencyDisplay/CurrencyDisplay.js",
+    import: "{ CurrencyDisplay }",
+    ignore: ["react", "react-dom"],
+    limit: "48 kB",
+  },
+  {
+    name: "DateDisplay (Intl + locale de Aria, por módulo)",
+    path: "dist/components/DateDisplay/DateDisplay.js",
+    import: "{ DateDisplay }",
+    ignore: ["react", "react-dom"],
+    limit: "48 kB",
+  },
+  {
+    name: "InfiniteList (colección + Button/Loader/Alert, por módulo)",
+    path: "dist/components/InfiniteList/InfiniteList.js",
+    import: "{ InfiniteList }",
+    ignore: ["react", "react-dom"],
+    limit: "80 kB",
+  },
+  {
+    name: "SearchableList (InfiniteList + SearchInput, por módulo)",
+    path: "dist/components/SearchableList/SearchableList.js",
+    import: "{ SearchableList }",
+    ignore: ["react", "react-dom"],
+    limit: "80 kB",
+  },
+  {
+    name: "EmptyModule (EmptyState + superficie, por módulo)",
+    path: "dist/components/EmptyModule/EmptyModule.js",
+    import: "{ EmptyModule }",
+    ignore: ["react", "react-dom"],
+    limit: "48 kB",
+  },
+  {
+    name: "QuickAction (Aria button/link + motion, por módulo)",
+    path: "dist/components/QuickAction/QuickAction.js",
+    import: "{ QuickAction }",
+    ignore: ["react", "react-dom"],
+    limit: "48 kB",
   },
 ];
 

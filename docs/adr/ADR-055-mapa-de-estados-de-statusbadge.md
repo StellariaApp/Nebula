@@ -1,7 +1,7 @@
 # ADR-055 — El mapa de estados de `StatusBadge` no entra en `NebulaTheme`
 
-- **Estado**: **aceptada** · 2026-07-30 (checkpoint de apertura de W3.3) · **pendiente de ejecución**
-  (bloque C de W3.3)
+- **Estado**: **aceptada** · 2026-07-30 (checkpoint de apertura de W3.3) · **ejecutada** en el bloque C
+  de W3.3
 - **Enmienda**: `docs/00-inventory.md` §1.18, fila `StatusBadge`.
 - **Relacionado**: ADR-038 (subconjuntos de `variant`), ADR-053 (dónde vive el dato de dominio).
 
@@ -63,3 +63,21 @@ lecturas y el doc es cerrado.
   provider + prop cuando llegue su turno, sin coordinación de tokens.
 - **Sin provider, `StatusBadge` exige `map`.** No hay mapa por defecto: inventarse uno sería adivinar el
   dominio, y un estado desconocido debe fallar de forma visible en desarrollo, no pintarse en gris.
+
+## Ejecución (bloque C de W3.3)
+
+Tres precisiones que la decisión no fijaba y que la implementación tuvo que resolver:
+
+1. **El fallo visible es visual, no un `console.warn`.** Un estado sin mapear se pinta `outline` sobre
+   `error` con la clave cruda por etiqueta. No se introduce `process.env.NODE_ENV` ni logging: el
+   paquete no tiene hoy ninguna de las dos cosas, y un dato sin mapear en una tabla de cien filas se ve
+   cien veces mientras que un warning se pierde entre cien warnings idénticos.
+
+2. **`map` sustituye al provider, no se fusiona con él.** Fusionar obligaría a decidir qué gana clave a
+   clave y haría imposible que un punto de uso apague un estado que el provider define.
+
+3. **`StatusMap<S>` es `Readonly<Record<S, StatusDescriptor>>`, exhaustivo.** Un mapa tipado contra una
+   unión cerrada obliga a declarar los estados que faltan en vez de descubrirlos en rojo en producción;
+   el caso abierto sigue disponible con `StatusMap` sin parámetro.
+
+El subconjunto de `variant` que hereda quedó fijado en la enmienda de ADR-038 para W3.3 bloque C.

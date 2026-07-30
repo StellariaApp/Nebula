@@ -196,3 +196,31 @@ Con esto, «contrato `field`» en la fila de Dropzone de `docs/00-inventory.md` 
 contrato de **valor** —`NebulaField` + `useFieldProps`—, no como el recipe visual `styles/field.css.ts`.
 El eje `surface` de ADR-042 no le aplica: `underline` no significa nada en un área de soltar y el
 recipe no produce borde discontinuo.
+
+### Decisiones para W3.3 bloque C (checkpoint del propietario, 2026-07-30)
+
+**StatusBadge hereda las cinco de Badge: `filled · outline · light · ghost · gradient`.** La regla 6 lo
+nombra y la tabla de la regla 3 no le daba fila; esta la cierra. Se evaluó recortar `gradient`
+aplicando el precedente de Chip —`docs/06` §6 lo excluye como fondo dominante en tablas, y una columna
+de estados es una tabla— y también el subconjunto corto `filled · outline · light`, idéntico a Chip.
+
+El propietario eligió la herencia completa: el hábitat que se prioriza es el **estado suelto**
+—cabecera de un detalle, esquina de una tarjeta—, que es exactamente el caso por el que Badge conserva
+`gradient` («etiqueta un elemento suelto»). Un StatusBadge no es un chip: no tiene estado
+marcado/sin-marcar con el que `ghost` pueda colisionar, de modo que el argumento que recortó a Chip no
+se traslada. La contención en tablas densas queda como decisión de composición.
+
+**QuickAction declara la unión `Variant` entera**, igual que `Button` y `ActionIcon`. No estaba en
+ninguna tabla de este ADR; `docs/00-inventory.md` §1.18 lo define como «Card+ActionIcon preset», y de
+ahí salían las dos alternativas: `CardVariant` —las seis de Card, lectura literal del preset— o un
+subconjunto propio `filled · outline · light · ghost`, argumentado sobre `docs/06` §6 porque un
+QuickAction vive en rejilla de 4-8 y ni `glow` ni `gradient` deberían repetirse en la misma región.
+
+El propietario eligió la lectura de **acción**: QuickAction es un control pulsable con ciclo de press
+completo, así que expone el mismo eje que el resto de controles. Incluye `unstyled`, que la regla 3
+declara no propagable; la regla habla de los componentes de **superficie** que ganaron `variant` en
+V2–V5, y aquí llega por la puerta de `Button`, que también lo tiene. `ResolveVariant` devuelve la
+receta `UNSTYLED` y la geometría del tile se conserva.
+
+Con estas dos filas, los cinco componentes que la regla 6 nombra quedan en tres entregados —Chip
+(W3.1), Stepper (W3.2) y StatusBadge (W3.3)— y dos pendientes: Banner y CardComplex, ambos en W3.5.

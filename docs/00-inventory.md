@@ -325,13 +325,13 @@ Genéricos disfrazados de dominio → **core** (sin acoplamiento real; formateo/
 
 | Componente                    | Plat | Fuentes            | Destino                                                                |
 | ----------------------------- | ---- | ------------------ | ---------------------------------------------------------------------- |
-| StatusBadge                   | WN   | P2·P3              | core (Badge + mapa semántico **inyectado por provider**; colores del vocabulario del tema — **ADR-055**) |
+| StatusBadge                   | WN   | P2·P3              | core (Badge + mapa semántico **inyectado por provider**; colores del vocabulario del tema — **ADR-055**; `variant` hereda el subconjunto de Badge) |
 | CurrencyDisplay               | WN   | P2·P3·FC(Currency) | core (FC Currency como base)                                           |
 | DateDisplay                   | WN   | P2·P3              | core                                                                   |
-| InfiniteList / SearchableList | WN   | P2                 | core (TanStack Query duck-typed: acepta el objeto de query **y** props sueltas — checkpoint W3.3) |
+| InfiniteList / SearchableList | WN   | P2                 | core (TanStack Query duck-typed: `InfiniteQueryLike` estructural; las props sueltas ganan al objeto de query) |
 | PermissionGate                | WN   | P3                 | core (@stellaria/nebula-hooks `usePermission` con provider inyectable) |
-| EmptyModule                   | W    | P3                 | core (variante de EmptyState)                                          |
-| QuickAction                   | WN   | P2·P3              | core (Card+ActionIcon preset)                                          |
+| EmptyModule                   | W    | P3                 | core (variante de EmptyState: superficie + ilustración + acción secundaria) |
+| QuickAction                   | WN   | P2·P3              | core (preset Card+ActionIcon; `variant` sobre la unión completa — **ADR-038**, enmienda W3.3) |
 | Form (orquestador)            | WN   | P3·TFV             | core (banderole+header+fields+submit/cancel; no es form engine)        |
 
 Dominio real → **paquetes premium** (asignación propuesta; los paquetes se crean cuando su primer módulo se implemente, no antes):
