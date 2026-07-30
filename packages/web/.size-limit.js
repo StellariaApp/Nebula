@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "56 kB",
+    limit: "60 kB",
   },
   {
     name: "useTheme (sin CSS)",

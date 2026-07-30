@@ -85,3 +85,9 @@ de `docs/03` §1 exige el patrón APG completo de grid de fechas con navegación
 - **Queda registrado el techo real de la librería**: ningún módulo del catálogo debería superar
   90 kB sin un ADR que lo justifique, y el candidato natural a romperlo (DataGrid, W3.4) nace ya
   aislado en subpath.
+- **`NebulaProvider` pasa de 56 a 60 kB.** Esa entrada mide el barrel (`dist/index.js`), y el barrel
+  arrastra el CSS de todo el paquete por `sideEffects: ["*.css"]`. Los 19 componentes de W3.1 lo
+  llevaron a 56,12 kB, 118 B por encima. Es exactamente el caso que ADR-032 §7 llama **suelo
+  compartido medido** —crece con el catálogo, no por engordar un componente—, así que se recalibra con
+  headroom en vez de adelgazar nada. El número a vigilar sigue siendo el de cada módulo suelto, que es
+  lo que paga quien importa un componente.
