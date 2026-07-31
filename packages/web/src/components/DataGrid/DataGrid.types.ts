@@ -15,6 +15,38 @@ export interface DataGridLabels {
   page: (current: number, total: number) => string;
   previous: string;
   next: string;
+  search: string;
+  columnMenu: (column: string) => string;
+  hideColumn: string;
+  resetColumns: string;
+  resize: (column: string) => string;
+  filters: string;
+  clearFilter: string;
+  clearFilters: string;
+  selectedCount: (count: number) => string;
+  clearSelection: string;
+  exportCsv: string;
+}
+
+export interface DataGridFilterChip {
+  id: string;
+  label: string;
+  onClear?: (() => void) | undefined;
+}
+
+export interface DataGridBulkAction {
+  id: string;
+  label: string;
+  icon?: ReactNode | undefined;
+  destructive?: boolean | undefined;
+  onAction: (keys: readonly string[]) => void;
+}
+
+export interface DataGridExport {
+  filename?: string | undefined;
+  delimiter?: string | undefined;
+  /** Con selección activa exporta solo lo seleccionado; por defecto exporta todas las filas. */
+  selectionOnly?: boolean | undefined;
 }
 
 export interface DataGridProps<T> extends Omit<StyleProps, "color"> {
@@ -38,6 +70,25 @@ export interface DataGridProps<T> extends Omit<StyleProps, "color"> {
   caption?: string | undefined;
   captionVisible?: boolean | undefined;
   onRowClick?: ((row: T) => void) | undefined;
+
+  withToolbar?: boolean | undefined;
+  search?: string | undefined;
+  onSearchChange?: ((query: string) => void) | undefined;
+  searchPlaceholder?: string | undefined;
+  activeFilters?: readonly DataGridFilterChip[] | undefined;
+  onClearFilters?: (() => void) | undefined;
+  filterPanel?: ReactNode | undefined;
+  bulkActions?: readonly DataGridBulkAction[] | undefined;
+  toolbarSection?: ReactNode | undefined;
+
+  withColumnMenu?: boolean | undefined;
+  hiddenColumns?: readonly string[] | undefined;
+  defaultHiddenColumns?: readonly string[] | undefined;
+  onHiddenColumnsChange?: ((ids: string[]) => void) | undefined;
+  resizable?: boolean | undefined;
+
+  exportCsv?: boolean | DataGridExport | undefined;
+
   labels?: Partial<DataGridLabels> | undefined;
   className?: string | undefined;
 }

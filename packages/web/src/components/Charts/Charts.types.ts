@@ -80,3 +80,56 @@ export interface TrendIndicatorProps extends Omit<StyleProps, "color" | "directi
   label?: string | undefined;
   className?: string | undefined;
 }
+
+export interface RadarChartProps extends Omit<ChartBaseProps, "xAxis" | "yAxis"> {
+  /** Clave del eje angular: cada valor distinto es un vértice del polígono. */
+  angleKey: string;
+  fillOpacity?: number | undefined;
+  withAxisLabels?: boolean | undefined;
+  maxValue?: number | undefined;
+}
+
+export interface ChartLegendEntry {
+  key: string;
+  label: string;
+  color: string;
+}
+
+export interface ChartLegendProps extends Omit<StyleProps, "color"> {
+  entries: readonly ChartLegendEntry[];
+  hidden?: readonly string[] | undefined;
+  onToggle?: ((key: string) => void) | undefined;
+  label?: string | undefined;
+  className?: string | undefined;
+}
+
+export interface ChartTooltipDatum {
+  key: string;
+  label: string;
+  value: string | number;
+  color: string;
+}
+
+export interface ChartTooltipProps extends Omit<StyleProps, "color"> {
+  title?: ReactNode | undefined;
+  items: readonly ChartTooltipDatum[];
+  format?: ((value: string | number, key: string) => string) | undefined;
+  className?: string | undefined;
+}
+
+export interface ChartPanelItem {
+  id: string;
+  title?: ReactNode | undefined;
+  description?: ReactNode | undefined;
+  action?: ReactNode | undefined;
+  span?: 1 | 2 | 3 | undefined;
+  content: ReactNode;
+}
+
+export interface ChartPanelProps extends Omit<StyleProps, "color"> {
+  panels: readonly ChartPanelItem[];
+  cols?: 1 | 2 | 3 | undefined;
+  gap?: "sm" | "md" | "lg" | undefined;
+  label?: string | undefined;
+  className?: string | undefined;
+}

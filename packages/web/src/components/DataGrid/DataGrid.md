@@ -1,40 +1,62 @@
 # DataGrid
 
-Vive en el subpath `@stellaria/nebula-web/datagrid` (ADR-014 regla 3, ADR-058). Importar `Button` no
-lo arrastra: `dist/index.js` no lo menciona.
+Subpath `@stellaria/nebula-web/datagrid`. Motor: `@tanstack/react-table` + `@tanstack/react-virtual`
+(ADR-058). W3.4 entregó la base —orden, selección, paginación, virtualización desde 50 filas—; W4.4
+añade toolbar, menú de columna, panel de filtros, resize, export CSV y el patrón de teclado completo.
 
-## TanStack aporta el modelo; el DOM es de Nebula
+## El patrón de teclado cambia quién es focusable
 
-`@tanstack/react-table` es headless de verdad —una sola dependencia transitiva, `table-core`— y aquí
-solo se usa como motor de sorting, selección y paginación. La tabla que sale al DOM es `<table>`
-semántica con `<th scope="col">` y `aria-sort`, no una rejilla de `div`s.
+Hasta W4.4 cada fila pulsable era una parada de tabulación. Con el patrón de grid de APG, **toda la
+tabla tiene una sola parada** y el foco se mueve por celda con las flechas. Es un cambio de
+comportamiento consciente: una tabla de 200 filas con `onRowClick` metía 200 paradas en el orden de
+tabulación de la página, que es exactamente lo que el patrón de grid existe para evitar.
 
-`ColumnDef` y `SortingState` se reexportan desde el subpath a propósito: definir columnas exige el
-tipo, y obligar al consumidor a instalar `@tanstack/react-table` solo para importar un tipo sería una
-dependencia de más en su `package.json`.
+`Enter` sobre cualquier celda de una fila pulsable sigue activándola: el evento burbujea de la celda al
+`<tr>`, que es donde vive el handler.
 
-## La virtualización se enciende sola
+`useGridKeyboard` mueve el foco con `focus()` sobre el DOM, **no con estado de React**. Mover el foco
+en una tabla virtualizada de mil filas no puede costar un re-render, y el `tabIndex` de las celdas se
+reescribe imperativamente por la misma razón.
 
-Por debajo de `virtualizeFrom` (50 por defecto, el umbral que fija el gate de W3 en `docs/03` §3) las
-filas se pintan todas. A partir de ahí entra `@tanstack/react-virtual` y solo se montan las visibles,
-con dos `<tr aria-hidden>` de relleno arriba y abajo que sostienen la altura del scroll.
+Cobertura: flechas, `Home`/`End` (extremos de la fila), `Ctrl+Home`/`Ctrl+End` (primera y última celda
+del grid) y `PageUp`/`PageDown` (diez filas). Los límites se recortan, no se envuelven: en un grid,
+salirse por abajo y aparecer arriba desorienta.
 
-Los rellenos son filas de tabla y no `padding` del `<tbody>` porque un `<table>` no admite otra cosa
-entre `<tr>`s sin romper el modelo de la tabla —y con él la navegación por filas del lector de
-pantalla—. Van con `aria-hidden` para que no se cuenten como filas de datos.
+## `withColumnMenu` obliga a mostrar la toolbar
 
-El umbral es prop y no constante porque depende de la altura de fila del producto: 50 filas de 44 px
-caben en dos pantallas, 50 filas de 120 px no.
+La condición de montaje de la toolbar incluye `withColumnMenu && hidden.length > 0`, y no es
+cosmético: sin ella, ocultar una columna desde su menú dejaba al usuario **sin ninguna forma de
+recuperarla** —el botón de restaurar vive en la toolbar, y la toolbar no se montaba si no había
+búsqueda, filtros ni acciones—. Lo destapó un test que ocultaba una columna y buscaba el botón.
 
-## `sortDescFirst` es de TanStack, y se conserva
+## El CSV se sanea contra inyección de fórmulas
 
-Una columna numérica ordena **descendente** en el primer click; una de texto, ascendente. No es un
-defecto: es el default de `table-core` y es el que la gente espera —el importe más alto primero, el
-nombre por la A—. Se documenta aquí porque sorprende al escribir el primer test.
+Una celda que empieza por `=`, `+`, `-` o `@` **la ejecuta Excel** al abrir el fichero: es el vector de
+CSV injection, y en una tabla que exporta datos escritos por usuarios es una vía real. `ToCsv`
+antepone un apóstrofo a esas celdas, que es la convención de la hoja de cálculo para «esto es texto».
 
-## Fila pulsable
+El resto del escapado es el de RFC 4180 —comillas dobladas, entrecomillado cuando hay delimitador o
+salto de línea— y el fichero sale con BOM para que Excel lo abra en UTF-8 sin preguntar.
 
-`onRowClick` añade `tabIndex={0}` y maneja Enter y Espacio, no solo el click. Sin eso la fila sería
-inalcanzable por teclado, que es lo que `docs/03` §1 prohíbe para cualquier cosa accionable. La fila
-**no** recibe `role="button"`: seguiría siendo una fila de tabla y cambiarle el rol la sacaría del
-modelo de la tabla.
+`ToCsv` se exporta desde el subpath y tiene tests propios: la corrección de un fichero que el usuario
+descarga no puede depender de una función privada sin cobertura.
+
+## Export: qué filas salen
+
+Por defecto **todas** las del modelo core, no las de la página visible: quien pulsa «exportar» en una
+tabla paginada espera el conjunto, no la página. Con `selectionOnly` y selección activa, solo lo
+seleccionado. Las columnas ocultas nunca salen —si el usuario las quitó de la vista, quitarlas del
+fichero es lo coherente— y la columna de selección tampoco.
+
+## Resize por teclado, no solo por puntero
+
+El asa es un `<button>` con nombre accesible que responde a las flechas en pasos de 16 px, además del
+arrastre. Un asa que solo funciona con ratón es un control inaccesible, y el `cursor: col-resize` no lo
+salva.
+
+## Budget
+
+87,34 kB brotli, banda propia de 95 kB. Se intentaron dos deferrals —la toolbar y el `Menu` de la
+cabecera— y **ninguno movió la aguja**: el peso es la composición (tabla + virtualizador + Checkbox +
+Button + SearchInput + Menu + Tag), no una rama aislable. Queda medido en `docs/03` §3 en vez de
+esconderse tras un `lazy` que no ahorra nada y añade una frontera de Suspense.

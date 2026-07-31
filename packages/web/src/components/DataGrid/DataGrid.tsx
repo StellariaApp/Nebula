@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, type ReactElement } from "react";
+import { useCallback, useMemo, useRef, useState, type ReactElement } from "react";
 
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 import {
@@ -9,8 +9,12 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  type Cell,
   type ColumnDef,
+  type ColumnSizingState,
+  type Row,
   type RowSelectionState,
+  type VisibilityState,
 } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
@@ -19,23 +23,34 @@ import { Button } from "../Button/Button.js";
 import { Checkbox } from "../Checkbox/Checkbox.js";
 import { Loader } from "../Loader/Loader.js";
 
+import { ColumnHeader } from "./ColumnHeader.js";
+import { DownloadCsv, ToCsv } from "./csv.js";
 import * as styles from "./DataGrid.css.js";
-import type { DataGridLabels, DataGridProps } from "./DataGrid.types.js";
+import { DATA_GRID_LABELS } from "./labels.js";
+import { DataGridToolbar } from "./Toolbar.js";
 
-const DEFAULT_LABELS: DataGridLabels = {
-  empty: "Sin datos",
-  loading: "Cargando datos",
-  selectAll: "Seleccionar todas las filas",
-  selectRow: "Seleccionar fila",
-  sortAscending: "Ordenar ascendente",
-  sortDescending: "Ordenar descendente",
-  clearSort: "Quitar orden",
-  page: (current, total) => `Página ${String(current)} de ${String(total)}`,
-  previous: "Anterior",
-  next: "Siguiente",
-};
+import { useGridKeyboard } from "./useGridKeyboard.js";
+import type { DataGridExport, DataGridProps } from "./DataGrid.types.js";
 
-const SORT_ICON = { asc: "▲", desc: "▼", none: "↕" } as const;
+const SELECT_COLUMN = "__select";
+const PAGE_STEP = 10;
+const MIN_WIDTH = 60;
+const DEFAULT_WIDTH = 150;
+
+function HeaderText(column: ColumnDef<unknown>, id: string): string {
+  return typeof column.header === "string" ? column.header : id;
+}
+
+/** El valor de una celda es `unknown`: solo los primitivos tienen una representación textual útil. */
+function CellText(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean" || typeof value === "bigint") {
+    return String(value);
+  }
+  if (value instanceof Date) return value.toISOString();
+  return "";
+}
 
 export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
   const {
@@ -59,13 +74,35 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     caption,
     captionVisible = false,
     onRowClick,
+
+    withToolbar = false,
+    search,
+    onSearchChange,
+    searchPlaceholder,
+    activeFilters = [],
+    onClearFilters,
+    filterPanel,
+    bulkActions = [],
+    toolbarSection,
+
+    withColumnMenu = false,
+    hiddenColumns,
+    defaultHiddenColumns = [],
+    onHiddenColumnsChange,
+    resizable = false,
+
+    exportCsv = false,
+
     labels,
     className,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
-  const text = { ...DEFAULT_LABELS, ...labels };
+  const text = useMemo(
+    () => (labels === undefined ? DATA_GRID_LABELS : { ...DATA_GRID_LABELS, ...labels }),
+    [labels],
+  );
 
   const [sort_state, set_sort_state] = useUncontrolled(sorting, defaultSorting, onSortingChange);
   const [selected_keys, set_selected_keys] = useUncontrolled(
@@ -73,6 +110,17 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     defaultSelected,
     onSelectedChange as ((value: readonly string[]) => void) | undefined,
   );
+  const [hidden, set_hidden] = useUncontrolled<readonly string[]>(
+    hiddenColumns,
+    defaultHiddenColumns,
+    onHiddenColumnsChange === undefined
+      ? undefined
+      : (next) => {
+          onHiddenColumnsChange([...next]);
+        },
+  );
+  const [sizing, set_sizing] = useState<ColumnSizingState>({});
+  const [resizing_id, set_resizing_id] = useState<string | null>(null);
 
   const selection = useMemo<RowSelectionState>(() => {
     const map: RowSelectionState = {};
@@ -80,11 +128,20 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     return map;
   }, [selected_keys]);
 
+  const visibility = useMemo<VisibilityState>(() => {
+    const map: VisibilityState = {};
+    for (const id of hidden) map[id] = false;
+    return map;
+  }, [hidden]);
+
   const all_columns = useMemo<ColumnDef<T>[]>(() => {
     if (!selectable) return [...columns];
     const picker: ColumnDef<T> = {
-      id: "__select",
+      id: SELECT_COLUMN,
       size: 40,
+      enableHiding: false,
+      enableSorting: false,
+      enableResizing: false,
       header: ({ table }) => (
         <Checkbox
           aria-label={text.selectAll}
@@ -111,9 +168,17 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
   const table = useReactTable<T>({
     data: data as T[],
     columns: all_columns,
-    state: { sorting: sort_state, rowSelection: selection },
+    state: {
+      sorting: sort_state,
+      rowSelection: selection,
+      columnVisibility: visibility,
+      columnSizing: sizing,
+    },
     ...(getRowId === undefined ? {} : { getRowId }),
     enableRowSelection: selectable,
+    enableColumnResizing: resizable,
+    columnResizeMode: "onChange",
+    onColumnSizingChange: set_sizing,
     onSortingChange: (updater) => {
       const next = typeof updater === "function" ? updater(sort_state) : updater;
       set_sort_state(next);
@@ -121,6 +186,10 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     onRowSelectionChange: (updater) => {
       const next = typeof updater === "function" ? updater(selection) : updater;
       set_selected_keys(Object.keys(next).filter((key) => next[key] === true));
+    },
+    onColumnVisibilityChange: (updater) => {
+      const next = typeof updater === "function" ? updater(visibility) : updater;
+      set_hidden(Object.keys(next).filter((key) => next[key] === false));
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -142,11 +211,56 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
 
   const virtual_rows = is_virtual ? virtualizer.getVirtualItems() : [];
   const pad_top = is_virtual ? (virtual_rows[0]?.start ?? 0) : 0;
-  const pad_bottom = is_virtual
-    ? virtualizer.getTotalSize() - (virtual_rows.at(-1)?.end ?? 0)
-    : 0;
+  const pad_bottom = is_virtual ? virtualizer.getTotalSize() - (virtual_rows.at(-1)?.end ?? 0) : 0;
   const visible = is_virtual ? virtual_rows.map((entry) => rows[entry.index]) : rows;
-  const column_count = all_columns.length;
+  const leaf_columns = table.getVisibleLeafColumns();
+  const column_count = leaf_columns.length;
+
+  const keyboard = useGridKeyboard(true, PAGE_STEP);
+
+  const ResizeByKey = useCallback(
+    (id: string, delta: number): void => {
+      set_sizing((current) => {
+        const base = current[id] ?? table.getColumn(id)?.getSize() ?? DEFAULT_WIDTH;
+        return { ...current, [id]: Math.max(MIN_WIDTH, base + delta) };
+      });
+    },
+    [table],
+  );
+
+  const Export = useMemo(() => {
+    if (exportCsv === false) return undefined;
+    const options: DataGridExport = exportCsv === true ? {} : exportCsv;
+    return (): void => {
+      const data_columns = leaf_columns.filter((column) => column.id !== SELECT_COLUMN);
+      const headers = data_columns.map((column) =>
+        HeaderText(column.columnDef as ColumnDef<unknown>, column.id),
+      );
+      const source: Row<T>[] =
+        options.selectionOnly === true && selected_keys.length > 0
+          ? table.getRowModel().rows.filter((row) => row.getIsSelected())
+          : table.getCoreRowModel().rows;
+      const body = source.map((row) =>
+        row
+          .getAllCells()
+          .filter(
+            (cell: Cell<T, unknown>) =>
+              cell.column.id !== SELECT_COLUMN && cell.column.getIsVisible(),
+          )
+          .map((cell: Cell<T, unknown>) => CellText(cell.getValue())),
+      );
+      DownloadCsv(ToCsv(headers, body, options.delimiter), options.filename ?? "datos");
+    };
+  }, [exportCsv, leaf_columns, selected_keys, table]);
+
+  const show_toolbar =
+    withToolbar ||
+    onSearchChange !== undefined ||
+    activeFilters.length > 0 ||
+    bulkActions.length > 0 ||
+    Export !== undefined ||
+    toolbarSection !== undefined ||
+    (withColumnMenu && hidden.length > 0);
 
   return (
     <div
@@ -154,13 +268,50 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
       style={sprinkle_style}
       data-virtual={is_virtual ? "true" : undefined}
     >
+      {show_toolbar ? (
+        <DataGridToolbar
+          labels={text}
+          search={search}
+          onSearchChange={onSearchChange}
+          searchPlaceholder={searchPlaceholder}
+          activeFilters={activeFilters}
+          onClearFilters={onClearFilters}
+          bulkActions={bulkActions}
+          selectedKeys={selected_keys}
+          onClearSelection={() => {
+            set_selected_keys([]);
+          }}
+          onExport={Export}
+          section={toolbarSection}
+          hiddenCount={hidden.length}
+          onResetColumns={
+            withColumnMenu
+              ? () => {
+                  set_hidden([]);
+                }
+              : undefined
+          }
+        />
+      ) : null}
+
+      {filterPanel === undefined ? null : (
+        <div className={styles.panel} role="group" aria-label={text.filters}>
+          {filterPanel}
+        </div>
+      )}
+
       <div
         ref={scroller_ref}
         className={styles.scroller}
         style={{ maxHeight }}
         data-testid="datagrid-scroller"
       >
-        <table className={styles.table} aria-busy={loading ? "true" : undefined}>
+        <table
+          ref={keyboard.gridRef}
+          className={styles.table}
+          aria-busy={loading ? "true" : undefined}
+          onKeyDown={keyboard.OnKeyDown}
+        >
           {caption === undefined ? null : (
             <caption className={captionVisible ? styles.caption : undefined}>
               {captionVisible ? caption : <span className={styles.caption}>{caption}</span>}
@@ -169,31 +320,56 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
           <thead className={styles.head}>
             {table.getHeaderGroups().map((group) => (
               <tr key={group.id}>
-                {group.headers.map((header) => {
-                  const sortable = header.column.getCanSort();
-                  const direction = header.column.getIsSorted();
+                {group.headers.map((header, index) => {
+                  const column = header.column;
+                  const direction = column.getIsSorted();
+                  const label_text = HeaderText(column.columnDef as ColumnDef<unknown>, column.id);
                   return (
                     <th
                       key={header.id}
                       scope="col"
-                      className={styles.th}
+                      className={cx(styles.th, styles.cellFocus)}
+                      style={resizable ? { width: header.getSize() } : undefined}
                       {...(direction === false
                         ? {}
                         : { "aria-sort": direction === "asc" ? "ascending" : "descending" })}
+                      {...keyboard.CellProps(0, index)}
                     >
-                      {header.isPlaceholder ? null : sortable ? (
-                        <button
-                          type="button"
-                          className={styles.sortButton}
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span className={styles.sortIcon} aria-hidden="true">
-                            {direction === false ? SORT_ICON.none : SORT_ICON[direction]}
-                          </span>
-                        </button>
-                      ) : (
-                        flexRender(header.column.columnDef.header, header.getContext())
+                      {header.isPlaceholder ? null : (
+                        <ColumnHeader
+                          label={flexRender(column.columnDef.header, header.getContext())}
+                          textLabel={label_text}
+                          sortable={column.getCanSort()}
+                          direction={direction}
+                          onToggleSort={column.getToggleSortingHandler()}
+                          onSort={(next) => {
+                            if (next === false) {
+                              column.clearSorting();
+                              return;
+                            }
+                            column.toggleSorting(next === "desc", false);
+                          }}
+                          withMenu={withColumnMenu && column.id !== SELECT_COLUMN}
+                          canHide={column.getCanHide()}
+                          onHide={() => {
+                            column.toggleVisibility(false);
+                          }}
+                          resizable={resizable && column.getCanResize()}
+                          resizing={resizing_id === column.id}
+                          onResizeStart={(event) => {
+                            set_resizing_id(column.id);
+                            header.getResizeHandler()(event.nativeEvent);
+                            const Stop = (): void => {
+                              set_resizing_id(null);
+                              window.removeEventListener("pointerup", Stop);
+                            };
+                            window.addEventListener("pointerup", Stop);
+                          }}
+                          onResizeKey={(delta) => {
+                            ResizeByKey(column.id, delta);
+                          }}
+                          labels={text}
+                        />
                       )}
                     </th>
                   );
@@ -215,7 +391,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                 </td>
               </tr>
             ) : (
-              visible.map((row) =>
+              visible.map((row, position) =>
                 row === undefined ? null : (
                   <tr
                     key={row.id}
@@ -225,19 +401,23 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     {...(onRowClick === undefined
                       ? {}
                       : {
-                          tabIndex: 0,
                           onClick: () => {
                             onRowClick(row.original);
                           },
                           onKeyDown: (event) => {
-                            if (event.key !== "Enter" && event.key !== " ") return;
+                            if (event.key !== "Enter") return;
                             event.preventDefault();
                             onRowClick(row.original);
                           },
                         })}
                   >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className={styles.td} style={{ height: rowHeight }}>
+                    {row.getVisibleCells().map((cell, index) => (
+                      <td
+                        key={cell.id}
+                        className={cx(styles.td, styles.cellFocus)}
+                        style={{ height: rowHeight }}
+                        {...keyboard.CellProps(position + 1, index)}
+                      >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     ))}
@@ -264,7 +444,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
           <p className={styles.status} aria-live="polite">
             {text.page(table.getState().pagination.pageIndex + 1, table.getPageCount())}
           </p>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div className={styles.toolbarGap}>
             <Button
               size="sm"
               variant="outline"

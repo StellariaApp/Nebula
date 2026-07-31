@@ -42,3 +42,49 @@ leen como un error.
 
 El sentido sigue llegando por tres vías que no dependen del color: la flecha, el signo del número y el
 texto solo-lector (`al alza` / `a la baja` / `sin cambios`).
+
+## W4.4 — charts completos
+
+`RadarChart`, `ChartLegend`, `ChartTooltip` y `ChartPanel` cierran §1.12 del inventario.
+
+### La deuda de Recharts, evaluada y no reabierta
+
+`docs/w3-closure.md` §Deuda 2 dejó el número escrito «por si el coste justifica reabrir ADR-011 en W4,
+cuando lleguen los charts completos». Medido ahora, con los charts completos dentro:
+
+| Entrada          | Medido      | Con Recharts |
+| ---------------- | ----------- | ------------ |
+| `BarChart`       | 115,54 kB   | sí           |
+| `SparkLine`      | 13,47 kB    | **no**       |
+| `TrendIndicator` | 11,18 kB    | **no**       |
+
+El coste creció 1,6 kB respecto a W3.4 (113,94 → 115,54) al entrar `RadarChart`, que reutiliza el
+motor ya presente. **No se reabre ADR-011**, y la razón es que ninguna de las dos condiciones que
+justificarían hacerlo se cumple:
+
+1. **El coste no se ha desbordado.** Añadir el cuarto tipo de gráfico costó 1,6 kB, no otro motor: la
+   curva es plana porque Recharts ya estaba pagado.
+2. **El aislamiento funciona.** `dist/index.js` no menciona `recharts` (verificado en cada cierre de
+   tramo), y las dos piezas que un dashboard usa en cantidad —`SparkLine` en cada fila de una tabla,
+   `TrendIndicator` en cada tarjeta— **no lo tocan**: son SVG propio, 13,47 y 11,18 kB.
+
+Sustituirlo significaría escribir el motor cartesiano, el polar, ejes, escalas, tooltips y
+responsividad sobre d3 o Skia. Son meses, y el beneficio solo lo nota quien importa `/charts`, que es
+precisamente quien ha decidido que quiere gráficos. La deuda 2 de W3 queda **cerrada como evaluada y
+asumida**, no como pendiente.
+
+### `ChartLegend` y `ChartTooltip` no los usa Recharts
+
+Son componentes **nuestros**, para quien quiera legenda o tooltip fuera del lienzo: una leyenda
+compartida entre varios paneles, un tooltip en una tabla de apoyo, un resumen sin gráfico. Los charts
+siguen usando los de Recharts por dentro, porque sustituirlos exigiría reimplementar su posicionamiento
+sobre el canvas.
+
+`ChartLegend` con `onToggle` es un grupo de botones de dos estados (`aria-pressed`), no una lista de
+adornos: si sirve para encender y apagar series, tiene que anunciarse como control.
+
+### `ChartPanel` es una retícula, no un contenedor de gráficos
+
+No sabe nada de charts: recibe `content` como `ReactNode`. Cada panel con título es una `<section>`
+etiquetada, de modo que un lector de pantalla puede saltar entre paneles de un dashboard. `span` se
+recorta al número de columnas para que un panel no desborde la retícula en móvil.

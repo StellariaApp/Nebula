@@ -147,11 +147,11 @@ describe("DataGrid", () => {
     expect(container.querySelector("[data-virtual='true']")).not.toBeNull();
   });
 
-  it("una fila pulsable responde a Enter", async () => {
+  it("una fila pulsable responde a Enter desde la celda enfocada", async () => {
     const on_click = vi.fn();
     render(<DataGrid data={FILAS} columns={COLUMNS} getRowId={Key} onRowClick={on_click} />);
-    const rows = screen.getAllByRole("row");
-    rows[1]?.focus();
+    const cell = screen.getAllByRole("row")[1]?.querySelector<HTMLElement>("td");
+    cell?.focus();
     await userEvent.keyboard("{Enter}");
     expect(on_click).toHaveBeenCalledWith(FILAS[0]);
   });

@@ -67,6 +67,7 @@ export const head = style({
 export const th = style({
   "@layer": {
     [baseLayer]: {
+      position: "relative",
       textAlign: "start",
       whiteSpace: "nowrap",
       paddingInline: vars.space.sm,
@@ -161,5 +162,131 @@ export const empty = style({
 export const spacer = style({
   "@layer": {
     [baseLayer]: { padding: 0, border: 0 },
+  },
+});
+
+export const toolbar = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: vars.space.sm,
+      padding: vars.space.sm,
+      borderBottom: `1px solid ${vars.color.border.subtle}`,
+      background: vars.color.surface.base,
+    },
+  },
+});
+
+export const toolbarSearch = style({
+  "@layer": {
+    [baseLayer]: { flex: "1 1 220px", minWidth: 180 },
+  },
+});
+
+export const toolbarGap = style({
+  "@layer": {
+    [baseLayer]: { marginInlineStart: "auto", display: "flex", alignItems: "center", gap: vars.space.xxs },
+  },
+});
+
+export const chips = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: vars.space.xxs,
+      width: "100%",
+    },
+  },
+});
+
+export const bulkBar = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: vars.space.xs,
+      width: "100%",
+      padding: vars.space.xs,
+      borderRadius: vars.radius.sm,
+      background: vars.color.surface.hover,
+    },
+  },
+});
+
+export const bulkCount = style({
+  "@layer": {
+    [baseLayer]: {
+      margin: 0,
+      fontSize: vars.font.size.body3,
+      fontWeight: vars.font.weight.medium,
+      color: vars.color.text.secondary,
+    },
+  },
+});
+
+export const panel = style({
+  "@layer": {
+    [baseLayer]: {
+      padding: vars.space.sm,
+      borderBottom: `1px solid ${vars.color.border.subtle}`,
+      background: vars.color.surface.sunken,
+    },
+  },
+});
+
+export const headCell = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.xxs,
+      minWidth: 0,
+    },
+  },
+});
+
+export const resizer = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      insetBlock: 0,
+      insetInlineEnd: 0,
+      width: 8,
+      padding: 0,
+      border: "none",
+      background: "transparent",
+      cursor: "col-resize",
+      touchAction: "none",
+      selectors: {
+        "&::after": {
+          content: "",
+          position: "absolute",
+          insetBlock: 6,
+          insetInlineEnd: 3,
+          width: 2,
+          borderRadius: 1,
+          background: vars.color.border.subtle,
+        },
+        "&:hover::after, &[data-resizing='true']::after": {
+          background: vars.color.border.focus,
+        },
+        "&:focus-visible": { ...focus.ring },
+      },
+    },
+  },
+});
+
+export const cellFocus = style({
+  "@layer": {
+    [baseLayer]: {
+      selectors: {
+        "&:focus-visible": { ...focus.ring, outlineOffset: "-2px" },
+      },
+    },
   },
 });
