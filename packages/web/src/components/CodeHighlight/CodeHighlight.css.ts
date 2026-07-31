@@ -1,0 +1,121 @@
+import { createVar, style } from "@vanilla-extract/css";
+
+import { vars } from "../../theme/contract.css.js";
+import { baseLayer } from "../../theme/layers.css.js";
+
+export const scrollHeight = createVar();
+
+export const root = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "relative",
+      boxSizing: "border-box",
+      borderRadius: vars.radius.md,
+      border: `1px solid ${vars.color.border.subtle}`,
+      background: vars.color.surface.sunken,
+      overflow: "hidden",
+    },
+  },
+});
+
+export const header = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: vars.space.sm,
+      padding: `${vars.space.xxs} ${vars.space.xs}`,
+      borderBottom: `1px solid ${vars.color.border.subtle}`,
+      background: vars.color.surface.base,
+      fontSize: vars.font.size.caption,
+      color: vars.color.text.muted,
+      fontFamily: vars.font.family.mono,
+    },
+  },
+});
+
+export const floatingCopy = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      insetBlockStart: vars.space.xxs,
+      insetInlineEnd: vars.space.xxs,
+      zIndex: 1,
+    },
+  },
+});
+
+export const scroll = style({
+  "@layer": {
+    [baseLayer]: {
+      maxHeight: scrollHeight,
+      overflow: "auto",
+    },
+  },
+});
+
+export const pre = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      margin: 0,
+      padding: 0,
+      fontFamily: vars.font.family.mono,
+      fontSize: vars.font.size.body3,
+      lineHeight: vars.font.lineHeight.relaxed,
+      color: vars.color.text.primary,
+      direction: "ltr",
+      textAlign: "left",
+    },
+  },
+});
+
+export const gutter = style({
+  "@layer": {
+    [baseLayer]: {
+      flex: "0 0 auto",
+      padding: `${vars.space.sm} ${vars.space.xs}`,
+      borderInlineEnd: `1px solid ${vars.color.border.subtle}`,
+      color: vars.color.text.muted,
+      textAlign: "right",
+      userSelect: "none",
+      fontVariantNumeric: "tabular-nums",
+      whiteSpace: "pre",
+    },
+  },
+});
+
+export const source = style({
+  "@layer": {
+    [baseLayer]: {
+      flex: 1,
+      minWidth: 0,
+      padding: vars.space.sm,
+      whiteSpace: "pre",
+      fontFamily: "inherit",
+      fontSize: "inherit",
+      lineHeight: "inherit",
+    },
+  },
+});
+
+export const tabList = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.xxs,
+      padding: `${vars.space.xxs} ${vars.space.xs}`,
+      borderBottom: `1px solid ${vars.color.border.subtle}`,
+      background: vars.color.surface.base,
+      overflowX: "auto",
+    },
+  },
+});
+
+export const bare = style({
+  "@layer": {
+    [baseLayer]: { border: "none", borderRadius: 0, background: "transparent" },
+  },
+});

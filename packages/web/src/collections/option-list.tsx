@@ -12,6 +12,7 @@ import { cx } from "../utils/style-props.js";
 
 import * as styles from "./option-list.css.js";
 import type { RenderOption, SelectOption } from "./options.js";
+import { useWindowedList } from "./use-windowed-list.js";
 
 const CHECK = (
   <svg
@@ -102,8 +103,15 @@ export interface OptionListProps {
   renderOption?: RenderOption | undefined;
   withCheck?: boolean | undefined;
   emptyLabel?: string | undefined;
+  virtualizeFrom?: number | undefined;
+  rowHeight?: number | undefined;
+  viewportHeight?: number | undefined;
   className?: string | undefined;
 }
+
+const DEFAULT_ROW_HEIGHT = 36;
+const DEFAULT_VIEWPORT = 288;
+const OVERSCAN = 6;
 
 export function OptionList(props: OptionListProps): ReactElement {
   const {
@@ -113,6 +121,9 @@ export function OptionList(props: OptionListProps): ReactElement {
     renderOption,
     withCheck = true,
     emptyLabel = "Sin resultados",
+    virtualizeFrom,
+    rowHeight = DEFAULT_ROW_HEIGHT,
+    viewportHeight = DEFAULT_VIEWPORT,
     className,
   } = props;
 
@@ -123,20 +134,49 @@ export function OptionList(props: OptionListProps): ReactElement {
   const prefers_reduced = useReducedMotion();
   const motion_context = { theme, reduced: prefers_reduced === true };
 
+  const windowed = virtualizeFrom !== undefined && nodes.length >= virtualizeFrom;
+  const focused_key = state.selectionManager.focusedKey;
+  const focused_index =
+    focused_key === null ? -1 : nodes.findIndex((node) => node.key === focused_key);
+
+  const view = useWindowedList({
+    count: nodes.length,
+    rowHeight,
+    viewportHeight,
+    overscan: OVERSCAN,
+    focusedIndex: focused_index,
+    enabled: windowed,
+    scrollRef: listBoxRef,
+  });
+
+  const visible = windowed ? nodes.slice(view.start, view.end) : nodes;
+
   return (
     <>
-      <ul {...listBoxProps} ref={listBoxRef} className={cx(styles.listbox, className)}>
-        {nodes.map((node, index) => (
+      <ul
+        {...listBoxProps}
+        ref={listBoxRef}
+        className={cx(styles.listbox, className)}
+        data-windowed={windowed ? "true" : undefined}
+        onScroll={windowed ? view.OnScroll : undefined}
+      >
+        {windowed && view.padStart > 0 ? (
+          <li aria-hidden="true" style={{ height: view.padStart }} />
+        ) : null}
+        {visible.map((node, index) => (
           <OptionRow
             key={node.key}
             node={node}
             state={state}
             renderOption={renderOption}
             withCheck={withCheck}
-            index={index}
+            index={windowed ? 0 : index}
             motionContext={motion_context}
           />
         ))}
+        {windowed && view.padEnd > 0 ? (
+          <li aria-hidden="true" style={{ height: view.padEnd }} />
+        ) : null}
       </ul>
       {nodes.length === 0 ? <div className={styles.empty}>{emptyLabel}</div> : null}
     </>

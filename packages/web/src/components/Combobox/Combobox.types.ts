@@ -32,6 +32,8 @@ export interface ComboboxProps extends StyleProps {
   renderOption?: RenderOption | undefined;
   placement?: PopoverPlacement | undefined;
   maxDropdownHeight?: number | undefined;
+  virtualizeFrom?: number | undefined;
+  optionHeight?: number | undefined;
   emptyLabel?: string | undefined;
   clearLabel?: string | undefined;
   toggleLabel?: string | undefined;

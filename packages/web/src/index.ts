@@ -379,12 +379,14 @@ export {
   AsyncSelect,
   CreatableSelect,
   SearchableSelect,
+  VirtualizedSelect,
 } from "./components/Combobox/index.js";
 export type {
   AsyncSelectProps,
   AutocompleteProps,
   CreatableSelectProps,
   SearchableSelectProps,
+  VirtualizedSelectProps,
 } from "./components/Combobox/index.js";
 export { Tag } from "./components/Tag/index.js";
 export type { TagProps, TagVariant } from "./components/Tag/index.js";
@@ -577,3 +579,34 @@ export type {
 } from "./components/Lightbox/index.js";
 export { ImageGallery } from "./components/ImageGallery/index.js";
 export type { ImageGalleryProps } from "./components/ImageGallery/index.js";
+
+export { CodeHighlight, CodeHighlightTabs, CODE_HIGHLIGHT_LABELS } from "./components/CodeHighlight/index.js";
+export type {
+  CodeHighlightLabels,
+  CodeHighlightProps,
+  CodeHighlightTab,
+  CodeHighlightTabsProps,
+} from "./components/CodeHighlight/index.js";
+export { TransferList, TRANSFER_LIST_LABELS } from "./components/TransferList/index.js";
+export type {
+  TransferListLabels,
+  TransferListPane,
+  TransferListProps,
+} from "./components/TransferList/index.js";
+export { GlobalSearch, GLOBAL_SEARCH_LABELS } from "./components/GlobalSearch/index.js";
+export type {
+  GlobalSearchLabels,
+  GlobalSearchProps,
+  GlobalSearchResult,
+} from "./components/GlobalSearch/index.js";
+export { TypographyStylesProvider } from "./components/TypographyStylesProvider/index.js";
+export type {
+  TypographyStylesProviderOwnProps,
+  TypographyStylesProviderProps,
+} from "./components/TypographyStylesProvider/index.js";
+export { DirectionProvider, useDirection } from "./components/DirectionProvider/index.js";
+export type {
+  Direction,
+  DirectionContextValue,
+  DirectionProviderProps,
+} from "./components/DirectionProvider/index.js";

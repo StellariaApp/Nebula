@@ -57,6 +57,8 @@ export function Combobox(props: ComboboxProps): ReactElement {
     renderOption,
     placement = "bottom start",
     maxDropdownHeight,
+    virtualizeFrom,
+    optionHeight,
     emptyLabel,
     toggleLabel = "Mostrar opciones",
     className,
@@ -232,6 +234,9 @@ export function Combobox(props: ComboboxProps): ReactElement {
                   listBoxProps={listBoxProps as unknown as Record<string, unknown>}
                   {...(renderOption === undefined ? {} : { renderOption })}
                   {...(emptyLabel === undefined ? {} : { emptyLabel })}
+                  {...(virtualizeFrom === undefined ? {} : { virtualizeFrom })}
+                  {...(optionHeight === undefined ? {} : { rowHeight: optionHeight })}
+                  {...(maxDropdownHeight === undefined ? {} : { viewportHeight: maxDropdownHeight })}
                 />
                 <DismissButton onDismiss={Close} />
               </OverlayMotion>

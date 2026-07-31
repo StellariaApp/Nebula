@@ -121,7 +121,7 @@ typecheck TS7 estricto (lint con contingencia 5.9.3 — ADR-012) · lint (+regla
 3. ~~Presets demostrativos `sober` y `playful`~~ — **APROBADOS** nombre y dirección.
 4. **Valores finales de motion tokens y budgets de bundle**: provisionales, se calibran en W1/W2.
 5. **Changesets** y mecánica exacta del registry privado premium: se decide con mini-ADR en W5/W6.1.
-6. **TipTap vs Lexical**: provisional; ADR definitivo en W4. ~~**cmdk vs propio**~~ — **RESUELTO en ADR-057/W3.4**: propio sobre React Aria; cmdk descartado al verificar que arrastra 4 paquetes de Radix, uno de ellos un sistema de diálogo completo.
+6. ~~**TipTap vs Lexical**~~ + ~~**cmdk vs propio**~~ — **SUPUESTO CERRADO POR COMPLETO**. La mitad de cmdk la cerró **ADR-057/W3.4** (propio sobre React Aria; cmdk descartado al verificar que arrastra 4 paquetes de Radix, uno de ellos un sistema de diálogo completo). La del editor la cierra **ADR-061/W4.3**: TipTap 3.29.2 es definitivo y Lexical queda descartado por seguir en 0.x —mismo criterio que descartó `@dnd-kit/react` en ADR-060—, con W5 publicando el core.
 7. **Jest para native** vs unificar en Vitest: propuesto Jest; validar al abrir N1.
 8. ~~**Grupos de props de `CardComplex`**~~ — **RESUELTO en el checkpoint de W3.5**: `media`/`badges`/`actions`/`meta` + básicas planas, con `actions` como lista tipada `CardAction[]` con ranura de posición en vez de las cuatro props con nombre de tfv. Registrado en `docs/01` §4.
 9. ~~**`caption: 8px`**~~ — **RESUELTO en ADR-024/W2.V**: `caption=12`, `body3=13` y ningún

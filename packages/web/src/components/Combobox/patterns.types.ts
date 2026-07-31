@@ -26,3 +26,5 @@ export interface AsyncSelectProps
   errorLabel?: string | undefined;
   initialData?: readonly SelectOption[] | undefined;
 }
+
+export type VirtualizedSelectProps = Omit<ComboboxProps, "allowsCustomValue">;

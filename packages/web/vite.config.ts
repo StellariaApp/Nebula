@@ -28,6 +28,7 @@ export default defineConfig({
         "dnd/index": resolve(import.meta.dirname, "src/dnd/index.ts"),
         "carousel/index": resolve(import.meta.dirname, "src/carousel/index.ts"),
         "media/index": resolve(import.meta.dirname, "src/media/index.ts"),
+        "editor/index": resolve(import.meta.dirname, "src/editor/index.ts"),
       },
       formats: ["es"],
     },
@@ -48,6 +49,8 @@ export default defineConfig({
         /^recharts/,
         /^@dnd-kit\//,
         /^embla-carousel/,
+        /^@tiptap\//,
+        /^prosemirror-/,
       ],
       output: {
         preserveModules: true,
