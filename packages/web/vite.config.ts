@@ -25,6 +25,9 @@ export default defineConfig({
         "command/index": resolve(import.meta.dirname, "src/command/index.ts"),
         "charts/index": resolve(import.meta.dirname, "src/charts/index.ts"),
         "datagrid/index": resolve(import.meta.dirname, "src/datagrid/index.ts"),
+        "dnd/index": resolve(import.meta.dirname, "src/dnd/index.ts"),
+        "carousel/index": resolve(import.meta.dirname, "src/carousel/index.ts"),
+        "media/index": resolve(import.meta.dirname, "src/media/index.ts"),
       },
       formats: ["es"],
     },
@@ -43,6 +46,8 @@ export default defineConfig({
         // consumidor las deduplique con las suyas.
         /^@tanstack\//,
         /^recharts/,
+        /^@dnd-kit\//,
+        /^embla-carousel/,
       ],
       output: {
         preserveModules: true,

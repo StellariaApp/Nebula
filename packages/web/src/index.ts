@@ -568,3 +568,12 @@ export type {
 } from "./components/MeshGradientBg/index.js";
 export { StarField } from "./components/StarField/index.js";
 export type { StarDensity, StarFieldProps } from "./components/StarField/index.js";
+
+export { Lightbox, LIGHTBOX_LABELS } from "./components/Lightbox/index.js";
+export type {
+  LightboxImage,
+  LightboxLabels,
+  LightboxProps,
+} from "./components/Lightbox/index.js";
+export { ImageGallery } from "./components/ImageGallery/index.js";
+export type { ImageGalleryProps } from "./components/ImageGallery/index.js";
