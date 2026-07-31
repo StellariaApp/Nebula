@@ -29,14 +29,17 @@ hay tres salidas, todas en CSS y ninguna dependiente de JS:
 ## Lo que no lleva
 
 **No hay prop `animated`.** ADR-043 punto 2 deja `AnimatedGradient` en W4 como componente propio; y
-animar un gradiente de texto exige mover `background-position`, que no es `transform` ni `opacity` y
-por tanto incumple `docs/03` §2 y `docs/06` §6. Cuando llegue, será con su propia decisión de motion.
+animar un gradiente **de texto** exige mover `background-position`, que no es `transform` ni `opacity`
+y por tanto incumple `docs/03` §2 y `docs/06` §6. `AnimatedGradient` (W4.1) resuelve el caso general
+por otra vía —anima una capa sobredimensionada que lleva el gradiente pintado— que aquí no sirve,
+porque el recorte va sobre las glifas.
 
-**No hay degradación por effects budget del tema.** ADR-043 la menciona («o el tema baja el effects
-budget»), pero `NebulaTheme` no tiene hoy ninguna palanca de gradientes: `effects.glass.enabled` es
-específica de glass y los cuatro temas oficiales —sober incluido— pueblan `effects.gradients`.
-Añadir esa palanca es un cambio del contrato compartido y necesita su propio ADR; queda anotado como
-deuda en el cierre de W3.1 en vez de inventar aquí una semántica que el tema no declara.
+**No hay degradación por effects budget del tema, y ya no es deuda.** ADR-043 la mencionaba («o el
+tema baja el effects budget») y este `.md` la dejó anotada como deuda del cierre de W3.1.
+[ADR-059](../../../../../docs/adr/ADR-059-alcance-de-glass-enabled-y-degradacion-de-gradientes.md)
+la cierra por decisión: `effects.glass.enabled` gobierna solo glass, blur y ruido; un gradiente se
+neutraliza por sus **propios tokens** y no se añade ninguna palanca al contrato. Toda la familia de
+W4.1 sigue esta regla, así que lo que era una excepción de `GradientText` pasa a ser la norma.
 
 ## Medida de lectura
 

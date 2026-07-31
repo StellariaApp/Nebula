@@ -533,3 +533,38 @@ export type {
   PermissionKey,
   PermissionProps,
 } from "@stellaria/nebula-tokens";
+
+export { GlassSurface } from "./components/GlassSurface/index.js";
+export type {
+  GlassFallbackSurface,
+  GlassSurfaceOwnProps,
+  GlassSurfaceProps,
+} from "./components/GlassSurface/index.js";
+export { BlurOverlay } from "./components/BlurOverlay/index.js";
+export type { BlurOverlayProps } from "./components/BlurOverlay/index.js";
+export { NoiseOverlay } from "./components/NoiseOverlay/index.js";
+export type { NoiseOverlayProps } from "./components/NoiseOverlay/index.js";
+export { GradientBorder } from "./components/GradientBorder/index.js";
+export type {
+  GradientBorderOwnProps,
+  GradientBorderProps,
+  GradientBorderSurface,
+} from "./components/GradientBorder/index.js";
+export { GradientBackground } from "./components/GradientBackground/index.js";
+export type {
+  GradientBackgroundOwnProps,
+  GradientBackgroundProps,
+} from "./components/GradientBackground/index.js";
+export { AnimatedGradient } from "./components/AnimatedGradient/index.js";
+export type {
+  AnimatedGradientOwnProps,
+  AnimatedGradientProps,
+  AnimatedGradientSpeed,
+} from "./components/AnimatedGradient/index.js";
+export { MeshGradientBg } from "./components/MeshGradientBg/index.js";
+export type {
+  MeshGradientBgOwnProps,
+  MeshGradientBgProps,
+} from "./components/MeshGradientBg/index.js";
+export { StarField } from "./components/StarField/index.js";
+export type { StarDensity, StarFieldProps } from "./components/StarField/index.js";

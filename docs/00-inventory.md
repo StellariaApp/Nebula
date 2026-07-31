@@ -285,6 +285,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | BlurView / BlurOverlay                                                | WN   | 2    | P2·P3·ST(Blur factory) | core    | ST Blur factory en Layout                              |
 | NoiseTexture / NoiseOverlay                                           | WN   | 3    | P2·P3                  | core    | —                                                      |
 | MeshGradient / GrainyGradient                                         | WN   | 3    | P2·P3                  | core    | —                                                      |
+| StarField                                                             | WN   | 3    | Rosettee (`stellaria-background`) | core | **Adición aprobada en W4.1** (petición del propietario): retícula + estrellas de la identidad Stellaria, con parallax de scroll opcional. Entregado en web en W4.1 |
 | Aurora, ChromaRing, EnergyOrb, SiriOrb, SkiaRipple, WaveScrawler      | N    | 3    | P2                     | core    | Skia; lazy-load                                        |
 | Drop / Drops (decorativo)                                             | N    | 3    | P2·FC                  | core    | FC Drop/Drops                                          |
 
@@ -351,7 +352,7 @@ Regla de frontera: un componente entra a un paquete de dominio solo si (1) su se
 
 ## 2. Conteo de la matriz canónica
 
-- **Core confirmado**: ~213 componentes canónicos únicos WN/W/N (los 177 P2 + 204 P3 colapsan por API unificada; + adiciones aprobadas en C1-Q5: Banner, Feature, Player, Section, ChartPanel, ImageGallery-web; + LiquidGlass y EditorImage).
+- **Core confirmado**: ~214 componentes canónicos únicos WN/W/N (los 177 P2 + 204 P3 colapsan por API unificada; + adiciones aprobadas en C1-Q5: Banner, Feature, Player, Section, ChartPanel, ImageGallery-web; + LiquidGlass y EditorImage; + **StarField**, aprobado en el checkpoint de W4.1).
 - **Dominios premium** (C1-Q1): ~24 componentes repartidos en `@stellaria/nebula-commerce`, `@stellaria/nebula-sales`, `@stellaria/nebula-payments` (+ `people` y `maps`, confirmados 2026-07-14) y `@stellaria/nebula-native-camera` (C1-Q2).
 - **Descartes**: Shadow (P2), ActionRotate (FC), Invert/Grow/Wrap/DividerTitle/Warning/CarouselCards (TFV).
 

@@ -84,7 +84,7 @@ type NebulaTheme = {
 Puntos clave:
 
 1. **Los componentes solo leen roles semánticos** (`colors.surface.raised`, `colors.text.muted`, `sizes.control.md`, `motion.spring.default`) — nunca paletas crudas ni hex. Por eso un tema con valores radicalmente distintos (radius 0, densidad compacta, motion minimal, sin glass, tipografía serif) reconfigura TODOS los componentes sin tocar código.
-2. **`motion.tier` y `effects.glass.enabled`** son interruptores de tema: el tema "enterprise sobrio" apaga glass y baja motion; el tema "vibrant" los sube. Los componentes consultan el tier, no hardcodean intensidades.
+2. **`motion.tier` y `effects.glass.enabled`** son interruptores de tema: el tema "enterprise sobrio" apaga glass y baja motion; el tema "vibrant" los sube. Los componentes consultan el tier, no hardcodean intensidades. **Alcance de `glass.enabled` ([ADR-059](adr/ADR-059-alcance-de-glass-enabled-y-degradacion-de-gradientes.md))**: gobierna solo los materiales de compositor —glass, blur y ruido—. Los gradientes no lo consultan: se neutralizan por sus propios tokens (sober define `brand`/`accent` monocromos) y su animación la gobierna `motion.tier`.
 3. **`variantMap`** hace que hasta el significado visual de `variant="filled"` sea temable (p.ej. `playful` hace que `filled` use `gradient.brand`). Esta afirmación fue **falsa entre W2 y el tramo V2**: solo Button y ActionIcon leían el mapa, mientras Alert y Badge reimplementaban las recetas a mano y divergían del contrato y entre sí. ADR-038 la restablece; el censo está en `docs/reviews/variantes-cobertura-2026-07-28.md` §0.
 4. Escala **50–950** (C2-Q4): regenerar las 16 paletas de Stellaria es mecánico; `tools/palette-gen` (OKLCH) lo automatiza y el Theme Creator lo expone.
 

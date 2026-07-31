@@ -210,6 +210,23 @@ export function ResolveGradient(
   return token === undefined ? "transparent" : GradientCss(token);
 }
 
+/** Color plano equivalente a un gradiente: su primer stop. Para las ramas sin soporte de mask/clip. */
+export function ResolveGradientEdge(
+  gradient: GradientRole | GradientProp,
+  theme: NebulaTheme,
+): string {
+  if (typeof gradient !== "string") return ResolveColorExtended(gradient.from).base;
+  const first = theme.effects.gradients[gradient]?.stops[0];
+  return first === undefined ? "transparent" : first.color;
+}
+
+export function ResolveGradientToken(
+  gradient: GradientRole,
+  theme: NebulaTheme,
+): GradientToken | undefined {
+  return theme.effects.gradients[gradient];
+}
+
 export interface ResolvedVariant {
   background: string;
   backgroundHover: string;
