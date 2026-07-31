@@ -1,0 +1,14 @@
+{
+  "name": "nebula-tools-figma-measure",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mide geometría y tipografía sobre los PNG exportados de Figma en .figma/ (WR1.2)",
+  "scripts": {
+    "measure": "node measure.mjs",
+    "type-scale": "node type-scale.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}
