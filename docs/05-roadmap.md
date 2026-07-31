@@ -25,7 +25,7 @@
 **Entregables**: Foundation/Layout, Typography, Utilities, `@stellaria/nebula-icons` (registry lucide), Buttons/Actions, sistema de forms (FormField + `NebulaField` + `useFieldProps`), inputs básicos, Combobox + Select/MultiSelect, overlays core (Modal, Drawer, Popover, Tooltip, Menu), feedback (Alert, Toast+provider, Loader, Skeleton, Progress), Card compound, Avatar, Badge, navegación core, EmptyState.
 **Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox; láminas `Foundations/Visual QA` y review visual según `docs/06-visual-language.md`.
 
-### W3 — Web Tier 2
+### W3 — Web Tier 2 ✅ CERRADA (docs/w3-closure.md)
 
 **Entregables**: inputs completos (fechas/hora/calendar, Color, File, Tags, Pin, Rating, Autocomplete, Combobox patterns, InputPhone/Dial/Currency, Signature, Dropzone, JsonInput, Fieldset), data display extendido, Search/Filter/Filters, CommandPalette, DataGrid básico, charts básicos, AppShell, Panel, Section, Main, Banner, Feature, `CardComplex` (⚠️ checkpoint del propietario para los grupos de props), PermissionGate, InfiniteList/SearchableList, StatusBadge/CurrencyDisplay/DateDisplay, Form orquestador, ModalDelete/FormDelete, Stepper y overlays/utilidades restantes.
 **Gate**: ídem W2 + keyboard tests de datagrid; virtualización ≥50 items.

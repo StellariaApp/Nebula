@@ -4,7 +4,7 @@
 
 Nebula es una librería UI universal **Web + React Native** (~213 componentes canónicos en v1) con API unificada por componente: los contratos viven en `@stellaria/nebula-tokens` y cada plataforma implementa solo la capa visual. La personalización entre productos radicalmente distintos se logra **exclusivamente vía temas** (`NebulaTheme`), nunca con forks. Se construye completa antes de migrar a sus consumidores (fonicredito, tfv); el código semilla es Stellaria (`C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend`).
 
-**Estado**: F0 cerrado (`docs/f0-closure.md`) y W1 cerrado (`docs/w1-closure.md`): theming web, playground Storybook con gates a11y/size, y los pilotos Box/Text/Button. Siguiente: W2 (Tier 1 web).
+**Estado**: F0, W1, W2 y **W3 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`). El catálogo web Tier 1 + Tier 2 está completo: **130 componentes**, 755 tests, tres subpaths (`/command`, `/charts`, `/datagrid`). Siguiente: **W4** (Tier 3 web — efectos, DnD, rich content, DataGrid avanzado, charts completos, RTL).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
