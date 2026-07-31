@@ -97,9 +97,10 @@ describe("NProgress", () => {
     expect(screen.queryByRole("progressbar")).toBeNull();
   });
 
-  it("controlado publica el valor", () => {
-    render(<NProgress loading value={42} withinPortal={false} />);
-    expect(screen.getByRole("progressbar").getAttribute("aria-valuenow")).toBe("42");
+  it("controlado publica el valor con nombre accesible", () => {
+    render(<NProgress loading value={42} label="Cargando el informe" withinPortal={false} />);
+    const meter = screen.getByRole("progressbar", { name: "Cargando el informe" });
+    expect(meter.getAttribute("aria-valuenow")).toBe("42");
   });
 });
 

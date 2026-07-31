@@ -69,12 +69,11 @@ export function NProgress(props: NProgressProps): ReactElement | null {
       />
       <VisuallyHidden
         role="progressbar"
+        aria-label={label}
         aria-valuenow={Math.round(progress)}
         aria-valuemin={0}
         aria-valuemax={100}
-      >
-        {label}
-      </VisuallyHidden>
+      />
     </div>
   );
 
