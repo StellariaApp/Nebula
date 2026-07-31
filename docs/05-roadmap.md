@@ -35,6 +35,12 @@
 **Entregables**: Glass/Effects (con tokens `gradients`), DnD/Kanban, Rich Content (RichTextEditor, CodeHighlight, EditorImage peer-Pintura, Player, ImageGallery, Carousel), DataGrid avanzado, charts completos, TransferList/VirtualizedSelect, GlobalSearch, TypographyStylesProvider, DirectionProvider (RTL).
 **Gate**: subpaths aislados verificados; reduced-motion en todos los efectos; catálogo web al 100% (o excepciones aprobadas).
 
+### WR — Web Refine: auditoría visual del catálogo _(entre W4 y W5)_
+
+**Entregables**: censo de cobertura contra `00-inventory`; baseline del archivo de diseño en disco; auditoría visual de los 144 componentes con superficie repartida en 8 familias (estructura, jerarquía, peso visual, espaciado, tipografía, en los 4 temas); consolidado por causa; plan de alineación ejecutado.
+**Gate**: `docs/wr-closure.md`; los cuatro gates en verde tras cada tramo; los ADRs de las causas de contrato aprobados; **declaración explícita de que el aspecto está estable para capturar el baseline de ADR-037**.
+**Por qué antes de W5**: publicar un catálogo cuya calibración visual no se ha auditado convierte cada defecto en una incidencia de terceros, y los arreglos de calibración pasan de trabajo interno a breaking visual con versión. Prompts en `prompts/2.1-web-refine/`.
+
 ### W5 — Publicación web v1 🚀
 
 **Entregables**: changesets (mini-ADR); auditoría de exports/subpaths/sideEffects/peers; publicación npm bajo org `stellaria` de tokens/hooks/themes/icons/web (+ decisión del paquete paraguas `@stellaria/nebula` — ADR-013); READMEs de consumo; verificación de instalación en proyecto Next 16 virgen.
