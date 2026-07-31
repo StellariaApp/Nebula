@@ -176,15 +176,25 @@ components/<Name>/
 
 ```ts
 type CardComplexProps = {
-  media?: { image?; images?; height?; component?; autoHide?; preview? };
+  media?: { image?; alt?; height?; component?; hidden? };
   badges?: { title?; main?; footer?; grow?; wrap? };
-  actions?: { add?; action?; download?; preview? }; // cada una: { onClick, icon, color, permission, disabled }
-  meta?: { createdAt?; updatedAt?; responsible? };
-  // + title/description/href/isSelected/animated… planos
+  actions?: CardAction[]; // { key, label, slot?, icon?, onPress?, permission?, permissionMode?, color?, disabled? }
+  meta?: { createdAt?; updatedAt?; responsible?: CardPerson; locale? };
+  // + title/description/href/selected/loading/lines… planos
 };
 ```
 
-El diseño fino de estos grupos se cierra en Etapa 2 con la migración de tfv como banco de pruebas.
+**Cerrado en el checkpoint de W3.5** (supuesto #8 del roadmap). El grupo `actions` era el único con
+trade-off: el boceto original lo escribía como las cuatro props con nombre de tfv
+(`add`/`action`/`download`/`preview`) y se decidió **lista tipada con ranura de posición**. Motivos:
+saca del catálogo común el vocabulario de un producto concreto —«download» no significa nada en una
+card de usuarios—, no topa en cuatro, y hereda `permission` de ADR-056 con el mismo `ApplyPermissions`
+que ya usan `Menu`, `Tabs` y `CommandPalette`. `slot` conserva lo único que las props con nombre
+aportaban: dónde cae cada acción.
+
+Dos props de la referencia **no cruzan** por la regla de frontera de `00-inventory` §1.18:
+`responsible: Partial<User>` pasa a `CardPerson` duck-typed, e `imagesUploads: Upload[]` desaparece
+—`media.component` cubre el caso—.
 
 ## 5. Sistema de forms (ADR-005)
 

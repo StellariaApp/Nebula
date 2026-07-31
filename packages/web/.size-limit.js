@@ -7,11 +7,11 @@ const MODULE_BUDGETS = [
     limit: "66 kB",
   },
   {
-    name: "useTheme (sin CSS)",
+    name: "useTheme (sin CSS, desde el barrel)",
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "22 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
@@ -915,6 +915,13 @@ const MODULE_BUDGETS = [
     import: "{ QuickAction }",
     ignore: ["react", "react-dom"],
     limit: "48 kB",
+  },
+  {
+    name: "CardComplex (grupos de props sobre los compounds, por módulo)",
+    path: "dist/components/CardComplex/CardComplex.js",
+    import: "{ CardComplex }",
+    ignore: ["react", "react-dom"],
+    limit: "80 kB",
   },
   {
     name: "Filter (render por tipo; fechas en chunk diferido, por módulo)",

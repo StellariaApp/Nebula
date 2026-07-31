@@ -458,6 +458,18 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { CardComplex } from "./components/CardComplex/index.js";
+export type {
+  CardAction,
+  CardActionSlot,
+  CardBadge,
+  CardBadgeGroups,
+  CardComplexProps,
+  CardMedia,
+  CardMetaData,
+  CardPerson,
+} from "./components/CardComplex/index.js";
+
 export { Filter, Filters, StateAccessors } from "./components/Filters/index.js";
 export type {
   FilterAccessors,
