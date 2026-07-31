@@ -458,6 +458,15 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { Section } from "./components/Section/index.js";
+export type { SectionProps } from "./components/Section/index.js";
+export { Main } from "./components/Main/index.js";
+export type { MainProps } from "./components/Main/index.js";
+export { Banner } from "./components/Banner/index.js";
+export type { BannerProps, BannerSize, BannerVariant } from "./components/Banner/index.js";
+export { Feature } from "./components/Feature/index.js";
+export type { FeatureProps } from "./components/Feature/index.js";
+
 export { Burger } from "./components/Burger/index.js";
 export type { BurgerProps } from "./components/Burger/index.js";
 export { Overlay } from "./components/Overlay/index.js";

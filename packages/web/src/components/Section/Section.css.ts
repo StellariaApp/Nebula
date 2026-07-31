@@ -1,0 +1,94 @@
+import { style } from "@vanilla-extract/css";
+
+import { vars } from "../../theme/contract.css.js";
+import { baseLayer } from "../../theme/layers.css.js";
+
+export const section = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.md,
+      minWidth: 0,
+      fontFamily: vars.font.family.sans,
+      selectors: {
+        "&[data-divided='true']": {
+          paddingBlockEnd: vars.space.lg,
+          borderBlockEnd: `1px solid ${vars.color.border.subtle}`,
+        },
+      },
+    },
+  },
+});
+
+export const head = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: vars.space.md,
+      flexWrap: "wrap",
+      minWidth: 0,
+    },
+  },
+});
+
+export const heading = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.xxs,
+      minWidth: 0,
+    },
+  },
+});
+
+export const title = style({
+  "@layer": {
+    [baseLayer]: {
+      margin: 0,
+      fontSize: vars.font.size.h5,
+      fontWeight: vars.font.weight.semibold,
+      lineHeight: vars.font.lineHeight.tight,
+      color: vars.color.text.primary,
+    },
+  },
+});
+
+export const description = style({
+  "@layer": {
+    [baseLayer]: {
+      margin: 0,
+      maxWidth: "62ch",
+      fontSize: vars.font.size.body3,
+      lineHeight: vars.font.lineHeight.relaxed,
+      color: vars.color.text.secondary,
+    },
+  },
+});
+
+export const actions = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.xs,
+      flexShrink: 0,
+    },
+  },
+});
+
+export const body = style({
+  "@layer": {
+    [baseLayer]: { position: "relative", minWidth: 0 },
+  },
+});
+
+export const foot = style({
+  "@layer": {
+    [baseLayer]: { minWidth: 0 },
+  },
+});
