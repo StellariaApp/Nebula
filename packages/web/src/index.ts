@@ -458,6 +458,21 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { Burger } from "./components/Burger/index.js";
+export type { BurgerProps } from "./components/Burger/index.js";
+export { Overlay } from "./components/Overlay/index.js";
+export type { OverlayBlur, OverlayProps } from "./components/Overlay/index.js";
+export { Affix } from "./components/Affix/index.js";
+export type { AffixPosition, AffixProps } from "./components/Affix/index.js";
+export { LoadingOverlay } from "./components/LoadingOverlay/index.js";
+export type { LoadingOverlayProps } from "./components/LoadingOverlay/index.js";
+export { NProgress } from "./components/NProgress/index.js";
+export type { NProgressProps } from "./components/NProgress/index.js";
+export { HoverCard } from "./components/HoverCard/index.js";
+export type { HoverCardProps } from "./components/HoverCard/index.js";
+export { Dialog } from "./components/Dialog/index.js";
+export type { DialogCorner, DialogProps } from "./components/Dialog/index.js";
+
 export { CardComplex } from "./components/CardComplex/index.js";
 export type {
   CardAction,
