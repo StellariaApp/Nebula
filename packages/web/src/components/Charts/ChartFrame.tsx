@@ -61,9 +61,13 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
       <div
         className={styles.canvas}
         style={{ height }}
-        role="img"
-        {...(has_title ? { "aria-labelledby": title_id } : {})}
-        {...(has_summary ? { "aria-describedby": summary_id } : {})}
+        {...(has_title || has_summary
+          ? {
+              role: "img",
+              "aria-labelledby": has_title ? title_id : summary_id,
+              ...(has_title && has_summary ? { "aria-describedby": summary_id } : {}),
+            }
+          : {})}
       >
         {children}
       </div>

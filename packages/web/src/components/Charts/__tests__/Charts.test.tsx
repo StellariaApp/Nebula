@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { BarChart } from "../CartesianCharts.js";
 import { Points, SparkLine } from "../SparkLine.js";
 import { Direction, TrendIndicator } from "../TrendIndicator.js";
 
@@ -48,6 +49,51 @@ describe("SparkLine", () => {
   });
 });
 
+describe("ChartFrame — nombre accesible", () => {
+  it("con title el canvas es role=img nombrado", () => {
+    render(
+      <BarChart data={[{ name: "Ene", v: 1 }]} series={[{ key: "v" }]} title="Cobros" height={80} />,
+    );
+    expect(screen.getByRole("img", { name: "Cobros" })).toBeDefined();
+  });
+
+  it("solo con summary, el resumen nombra en vez de quedar anónimo", () => {
+    render(
+      <BarChart
+        data={[{ name: "Ene", v: 1 }]}
+        series={[{ key: "v" }]}
+        summary="Suben los cobros"
+        height={80}
+      />,
+    );
+    expect(screen.getByRole("img", { name: "Suben los cobros" })).toBeDefined();
+  });
+
+  it("sin title ni summary no emite un role=img anónimo ni aria-hidden", () => {
+    const { container } = render(
+      <BarChart data={[{ name: "Ene", v: 1 }]} series={[{ key: "v" }]} height={80} />,
+    );
+    expect(screen.queryByRole("img")).toBeNull();
+    const canvas = container.querySelector("figure > div");
+    expect(canvas?.getAttribute("role")).toBeNull();
+    expect(canvas?.getAttribute("aria-hidden")).toBeNull();
+  });
+
+  it("la tabla alternativa lista los datos", () => {
+    render(
+      <BarChart
+        data={[{ name: "Ene", v: 42 }]}
+        series={[{ key: "v", label: "Ventas" }]}
+        title="Cobros"
+        withDataTable
+        height={80}
+      />,
+    );
+    expect(screen.getByRole("columnheader", { name: "Ventas" })).toBeDefined();
+    expect(screen.getByRole("cell", { name: "42" })).toBeDefined();
+  });
+});
+
 describe("Direction", () => {
   it("deriva el sentido del signo", () => {
     expect(Direction(3)).toBe("up");
@@ -78,5 +124,12 @@ describe("TrendIndicator", () => {
   it("el cero se lee como sin cambios", () => {
     render(<TrendIndicator value={0} />);
     expect(screen.getByText("sin cambios")).toBeDefined();
+  });
+
+  it("el color va en la flecha, no en el número — contraste AA", () => {
+    const { container } = render(<TrendIndicator value={12} />);
+    const arrow = container.querySelector("[aria-hidden='true']");
+    expect(arrow?.textContent).toBe("▲");
+    expect(container.querySelector("[data-direction='up']")?.className).not.toContain("arrow");
   });
 });

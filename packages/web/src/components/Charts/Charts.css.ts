@@ -111,17 +111,22 @@ export const trend = style({
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
-      selectors: {
-        "&[data-direction='up']": { color: vars.color.semantic.success["600"] },
-        "&[data-direction='down']": { color: vars.color.semantic.error["600"] },
-        "&[data-direction='flat']": { color: vars.color.text.muted },
-      },
+      fontVariantNumeric: "tabular-nums",
+      color: vars.color.text.primary,
     },
   },
 });
 
 export const arrow = style({
   "@layer": {
-    [baseLayer]: { lineHeight: 0, fontSize: "0.85em" },
+    [baseLayer]: {
+      lineHeight: 0,
+      fontSize: "0.85em",
+      selectors: {
+        "[data-direction='up'] &": { color: vars.color.semantic.success["600"] },
+        "[data-direction='down'] &": { color: vars.color.semantic.error["600"] },
+        "[data-direction='flat'] &": { color: vars.color.text.muted },
+      },
+    },
   },
 });
