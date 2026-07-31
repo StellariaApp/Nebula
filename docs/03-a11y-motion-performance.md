@@ -83,6 +83,10 @@ Reglas transversales:
 >
 > Dos budgets propios en el mismo bloque, por la misma razón que `Chip` tiene el suyo: **StatusBadge 15 kB** (medido 14,55) porque compone `Badge`, que solo ya mide 14,1 contra un techo de clase de 14,5 —cualquier componente que lo componga sale de esa clase por construcción—, y **PermissionGate 9,5 kB** (medido 9,39), que sí cabe en composición pura.
 
+> **Revisión de budgets (2026-07-30, W3.4.1)**: la entrada del barrel sube de **62 a 66 kB** (medido 63,86) al entrar `Search` y `Filters`, tal y como el checkpoint del bloque C anticipó al conservar la medición desde el barrel. `CommandPalette`, `DataGrid` y los charts no la tocarán: van en subpath (ADR-014 regla 3).
+>
+> Se estrena además un campo `deferred` en las entradas de `.size-limit.js`, que excluye de la medición los chunks que el módulo carga con `import()` dinámico. Es la misma corrección de sesgo que ADR-032 §6 aplicó a la hoja de sprinkles: `size-limit` bundlea con esbuild sin code-splitting, así que sumaba al presupuesto un chunk que el consumidor **no** descarga de entrada. `Filter` renderiza los siete tipos del descriptor y las dos ramas de fecha valen ~40 kB brotli —medido: 110,7 kB con ellas inlineadas, 70,6 sin ellas—, de modo que sin diferirlas toda app con filtros pagaría la cadena de fechas sin declarar ni una. Con `lazy` + `Suspense`, `Filter` 71,4 · `Filters` 76,5 · `Search` 77,8 kB, los tres dentro de **compuestos de colección ≤80 kB**: componen `MultiSelect` (75 kB), así que esa es su clase y no `patterns ≤70`.
+
 ### Estrategias
 
 - **Web**: VE compila a CSS estático; recipes generan clases, no estilos inline; `motion` importado por feature; React Aria hooks por componente (no el paquete entero). SSR-safe (Next 16): sin acceso a `window` en render.

@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "62 kB",
+    limit: "66 kB",
   },
   {
     name: "useTheme (sin CSS)",
@@ -917,6 +917,30 @@ const MODULE_BUDGETS = [
     limit: "48 kB",
   },
   {
+    name: "Filter (render por tipo; fechas en chunk diferido, por módulo)",
+    path: "dist/components/Filters/Filter.js",
+    import: "{ Filter }",
+    ignore: ["react", "react-dom"],
+    deferred: ["DatePicker.js", "DateRangePicker.js"],
+    limit: "80 kB",
+  },
+  {
+    name: "Filters (popover + colección; fechas diferidas, por módulo)",
+    path: "dist/components/Filters/Filters.js",
+    import: "{ Filters }",
+    ignore: ["react", "react-dom"],
+    deferred: ["DatePicker.js", "DateRangePicker.js"],
+    limit: "80 kB",
+  },
+  {
+    name: "Search (barra con slots + Filters; fechas diferidas, por módulo)",
+    path: "dist/components/Search/Search.js",
+    import: "{ Search }",
+    ignore: ["react", "react-dom"],
+    deferred: ["DatePicker.js", "DateRangePicker.js"],
+    limit: "80 kB",
+  },
+  {
     name: "PermissionGate (lógica pura + contexto, por módulo)",
     path: "dist/components/PermissionGate/PermissionGate.js",
     import: "{ PermissionGate }",
@@ -942,10 +966,15 @@ const SHARED = [
 ];
 
 function WithoutSharedSheet(entry) {
+  const { deferred, ...rest } = entry;
   return {
-    ...entry,
+    ...rest,
     modifyEsbuildConfig(config) {
-      config.external = [...(config.external ?? []), `*${SPRINKLES_SHEET}`];
+      config.external = [
+        ...(config.external ?? []),
+        `*${SPRINKLES_SHEET}`,
+        ...(deferred ?? []).map((chunk) => `*${chunk}`),
+      ];
       return config;
     },
   };

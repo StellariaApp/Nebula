@@ -458,6 +458,21 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { Filter, Filters, StateAccessors } from "./components/Filters/index.js";
+export type {
+  FilterAccessors,
+  FilterDescriptor,
+  FilterKind,
+  FilterLabels,
+  FilterOption,
+  FilterProps,
+  FiltersProps,
+  FilterState,
+  FilterValue,
+} from "./components/Filters/index.js";
+export { Search } from "./components/Search/index.js";
+export type { SearchLabels, SearchProps } from "./components/Search/index.js";
+
 export { PermissionGate } from "./components/PermissionGate/index.js";
 export type { PermissionGateProps } from "./components/PermissionGate/index.js";
 export {
