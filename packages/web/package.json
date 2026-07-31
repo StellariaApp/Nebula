@@ -17,6 +17,14 @@
     "./command": {
       "types": "./dist/command/index.d.ts",
       "default": "./dist/command/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "default": "./dist/charts/index.js"
+    },
+    "./datagrid": {
+      "types": "./dist/datagrid/index.d.ts",
+      "default": "./dist/datagrid/index.js"
     }
   },
   "files": [
@@ -35,13 +43,16 @@
     "@stellaria/nebula-icons": "workspace:*",
     "@stellaria/nebula-themes": "workspace:*",
     "@stellaria/nebula-tokens": "workspace:*",
+    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-virtual": "^3.14.9",
     "@vanilla-extract/dynamic": "^2.1.5",
     "@vanilla-extract/recipes": "^0.5.7",
     "@vanilla-extract/sprinkles": "^1.7.0",
     "jotai": "^2.20.2",
     "motion": "^12.42.2",
     "react-aria": "^3.50.0",
-    "react-stately": "^3.48.0"
+    "react-stately": "^3.48.0",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^12.1.0",

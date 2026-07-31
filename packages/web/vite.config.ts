@@ -23,6 +23,8 @@ export default defineConfig({
       entry: {
         index: resolve(import.meta.dirname, "src/index.ts"),
         "command/index": resolve(import.meta.dirname, "src/command/index.ts"),
+        "charts/index": resolve(import.meta.dirname, "src/charts/index.ts"),
+        "datagrid/index": resolve(import.meta.dirname, "src/datagrid/index.ts"),
       },
       formats: ["es"],
     },
@@ -37,6 +39,10 @@ export default defineConfig({
         /^@stellaria\//,
         /^@vanilla-extract\/(dynamic|recipes|sprinkles)/,
         /^motion/,
+        // Deps de subpath (ADR-058): se importan, no se bundlean, para que el
+        // consumidor las deduplique con las suyas.
+        /^@tanstack\//,
+        /^recharts/,
       ],
       output: {
         preserveModules: true,
