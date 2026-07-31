@@ -2,6 +2,11 @@ export { useDebounce, useDebouncedCallback } from "./use-debounce.js";
 export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure.js";
 export { useUncontrolled } from "./use-uncontrolled.js";
 export {
+  useBreakpointDown,
+  useBreakpointUp,
+  useMediaQuery,
+} from "./use-media-query.js";
+export {
   useStepper,
   type UseStepperInput,
   type UseStepperReturn,

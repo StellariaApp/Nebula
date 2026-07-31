@@ -3,7 +3,16 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Badge, Box, NavLink, Pagination, Paper, Text, Title } from "@stellaria/nebula-web";
+import {
+  Badge,
+  Box,
+  Breadcrumbs,
+  NavLink,
+  Pagination,
+  Paper,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
@@ -135,4 +144,66 @@ export const KeyboardFlow: Story = {
       "page",
     );
   },
+};
+
+const RUTA = [
+  { key: "inicio", label: "Inicio", href: "#inicio" },
+  { key: "cartera", label: "Cartera", href: "#cartera" },
+  { key: "sucursal", label: "Sucursal Norte", href: "#sucursal" },
+  { key: "expediente", label: "Expediente 40-118" },
+];
+
+const RUTA_LARGA = [
+  { key: "inicio", label: "Inicio", href: "#inicio" },
+  { key: "admin", label: "Administración", href: "#admin" },
+  { key: "catalogos", label: "Catálogos", href: "#catalogos" },
+  { key: "productos", label: "Productos", href: "#productos" },
+  { key: "credito", label: "Crédito simple", href: "#credito" },
+  { key: "condiciones", label: "Condiciones" },
+];
+
+export const Migas: Story = {
+  render: () => (
+    <Box display="flex" direction="column" gap="lg" maw={620}>
+      <Box>
+        <Text component="p" fz="caption" c="text.muted" mb="xxs">
+          Ruta corta: se muestra entera
+        </Text>
+        <Breadcrumbs items={RUTA} labels={{ nav: "Ruta corta" }} />
+      </Box>
+      <Box>
+        <Text component="p" fz="caption" c="text.muted" mb="xxs">
+          Ruta de seis niveles: los intermedios se colapsan tras el primero
+        </Text>
+        <Breadcrumbs items={RUTA_LARGA} labels={{ nav: "Ruta larga" }} />
+      </Box>
+      <Box>
+        <Text component="p" fz="caption" c="text.muted" mb="xxs">
+          Separador propio y tamaño compacto
+        </Text>
+        <Breadcrumbs items={RUTA} separator="›" size="sm" labels={{ nav: "Ruta compacta" }} />
+      </Box>
+    </Box>
+  ),
+};
+
+export const MigasTeclado: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const inicio = canvas.getAllByRole("link", { name: "Inicio" })[0];
+    inicio?.focus();
+    await expect(inicio).toHaveFocus();
+    await userEvent.tab();
+    await expect(canvas.getAllByRole("link", { name: "Cartera" })[0]).toHaveFocus();
+  },
+  render: () => <Breadcrumbs items={RUTA} />,
+};
+
+export const MigasAllThemes: Story = {
+  parameters: MATRIX_A11Y,
+  render: () => (
+    <ThemeMatrix>
+      <Breadcrumbs items={RUTA} />
+    </ThemeMatrix>
+  ),
 };

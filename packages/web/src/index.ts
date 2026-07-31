@@ -610,3 +610,19 @@ export type {
   DirectionContextValue,
   DirectionProviderProps,
 } from "./components/DirectionProvider/index.js";
+
+export { Countdown, COUNTDOWN_LABELS, SplitRemaining } from "./components/Countdown/index.js";
+export type {
+  CountdownLabels,
+  CountdownParts,
+  CountdownProps,
+} from "./components/Countdown/index.js";
+export { ScrollProgress } from "./components/ScrollProgress/index.js";
+export type { ScrollProgressProps } from "./components/ScrollProgress/index.js";
+
+export { Breadcrumbs, CollapseItems, BREADCRUMBS_LABELS } from "./components/Breadcrumbs/index.js";
+export type {
+  BreadcrumbItem,
+  BreadcrumbsLabels,
+  BreadcrumbsProps,
+} from "./components/Breadcrumbs/index.js";

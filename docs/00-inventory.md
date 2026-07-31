@@ -53,7 +53,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Panel                                       | patrón | W    | 2    | P3·TFV                                      | core    | Nuevo (master-detail con resize); API inspirada en TFV Panel             |
 | Main                                        | patrón | WN   | 1    | P2·FC·TFV                                   | core    | FC Main (header/footer/background/keyboard) como referencia de API       |
 | Section                                     | patrón | W    | 2    | TFV(Container/Section)                      | core    | Nuevo; sección con title/slots/loading/error — generaliza TFV Container  |
-| Header (screen/TopBar)                      | comp   | WN   | 1    | P2(§8)·ST·FC                                | core    | ST Header (BackButton/StatusError) + animated-on-scroll de FC HeaderUser |
+| Header (screen/TopBar)                      | comp   | WN   | 1    | P2(§8)·ST·FC                                | core    | ST Header (BackButton/StatusError) + animated-on-scroll de FC HeaderUser. ⚠️ **Web sin implementar**: hoy solo existe el slot `header` de `AppShell`. Pendiente de decisión del propietario (ver `docs/w4-closure.md` §Cobertura) |
 
 ### 1.2 Typography
 
@@ -201,7 +201,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | CircleLoader                     | prim  | N    | 2    | P2                         | core    | Variante de Loader                                                                                     |
 | Progress / RingProgress          | comp  | WN   | 1    | P2·P3·FC(Progress)         | core    | FC Progress (segmentos, spring/timing) como referencia                                                 |
 | Skeleton                         | prim  | WN   | 1    | P2·P3·FC·TFV               | core    | FC Skeleton (shimmer/pulse) + integración `isLoading` en primitivos                                    |
-| Countdown                        | comp  | WN   | 3    | P2                         | core    | —                                                                                                      |
+| Countdown                        | comp  | WN   | 3    | P2                         | core    | Web entregado en W4.4; valor ISO (ADR-050)                                                                                                      |
 | LoadingOverlay                   | comp  | WN   | 2    | P2·P3                      | core    | —                                                                                                      |
 | NProgress                        | util  | W    | 3    | P3                         | core    | —                                                                                                      |
 
@@ -228,12 +228,12 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Tabs           | comp  | WN          | 1    | P3·FC(Segment.Content) | core    | Sobre `Segment` (ADR-026); adelantado de W2.5                                     |
 | TabBar         | comp  | N           | 2    | P2·FC                  | core    | C1-Q3: contrato propio (items declarativos) + adapter delgado de react-navigation |
 | SegmentedNav   | comp  | N           | 2    | P2                     | core    | —                                                                                 |
-| Breadcrumbs    | comp  | W(N tablet) | 2    | P2·P3·TFV              | core    | Sin acoplamiento a router (items declarativos)                                    |
+| Breadcrumbs    | comp  | W(N tablet) | 2    | P2·P3·TFV              | core    | Web entregado en la auditoría de cierre de W4: items declarativos, adapter por `component`, colapso de intermedios                                    |
 | NavLink        | comp  | WN          | 1    | P2·P3                  | core    | —                                                                                 |
 | Stepper        | comp  | WN          | 2    | P2·P3·TFV              | core    | —                                                                                 |
 | Pagination     | comp  | WN          | 1    | P2·P3·TFV              | core    | API declarativa (page/total/onChange); wiring de router queda en app              |
 | Burger         | prim  | WN          | 2    | P2·P3                  | core    | —                                                                                 |
-| ScrollProgress | prim  | WN          | 3    | P2                     | core    | —                                                                                 |
+| ScrollProgress | prim  | WN          | 3    | P2                     | core    | Web entregado en W4.4                                                                                 |
 
 ### 1.11 Command & Search (web-first)
 
@@ -308,9 +308,9 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 | Collapse                   | WN   | 1    | P2·P3                            | core        | —                                                               |
 | FocusTrap                  | W    | 1    | P2·P3                            | core        | Vía React Aria                                                  |
 | VisuallyHidden             | WN   | 1    | P2·P3                            | core        | —                                                               |
-| MediaQuery / useMediaQuery | WN   | 2    | P2                               | core (hook) | —                                                               |
+| MediaQuery / useMediaQuery | WN   | 2    | P2                               | core (hook) | Web entregado en la auditoría de cierre de W4: `useMediaQuery` + `useBreakpointUp/Down` en `@stellaria/nebula-hooks`                                                               |
 | KeyboardAware              | N    | 1    | P2·FC(Main)                      | core        | —                                                               |
-| ThemeProvider              | WN   | 1    | P2·P3·ST(StellProvider)          | core        | Contrato de theme dual (02-theming)                             |
+| ThemeProvider              | WN   | 1    | P2·P3·ST(StellProvider)          | core        | **Se implementa como `NebulaProvider`** (docs/02 §4) — la fila nombra el concepto, no el export                             |
 | ColorSchemeScript          | W    | 1    | P3                               | core        | Anti-flash SSR                                                  |
 | DirectionProvider          | W    | 3    | P3                               | core        | RTL                                                             |
 | Conditional / Valid / Omit | WN   | 1    | P2·P3·FC·TFV                     | core        | C1-Q7: API unaria `when` + `fallback` (cubre el binario de TFV) |
