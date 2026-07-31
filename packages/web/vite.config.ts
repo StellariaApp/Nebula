@@ -17,7 +17,13 @@ export default defineConfig({
   plugins: [vanillaExtractPlugin({ identifiers: "debug" }), libInjectCss()],
   build: {
     lib: {
-      entry: resolve(import.meta.dirname, "src/index.ts"),
+      // Un entry por subpath export (ADR-014 regla 3). `preserveModules` mantiene
+      // el árbol, así que el aislamiento real lo da que `src/index.ts` NO
+      // reexporte nada de estos subpaths.
+      entry: {
+        index: resolve(import.meta.dirname, "src/index.ts"),
+        "command/index": resolve(import.meta.dirname, "src/command/index.ts"),
+      },
       formats: ["es"],
     },
     outDir: "dist",

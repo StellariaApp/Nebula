@@ -941,6 +941,20 @@ const MODULE_BUDGETS = [
     limit: "80 kB",
   },
   {
+    name: "CommandPalette (subpath /command: Aria combobox + Modal)",
+    path: "dist/command/index.js",
+    import: "{ CommandPalette }",
+    ignore: ["react", "react-dom"],
+    limit: "80 kB",
+  },
+  {
+    name: "CommandScore (scoring puro, sin UI)",
+    path: "dist/components/CommandPalette/command-score.js",
+    import: "{ CommandScore }",
+    ignore: ["react", "react-dom"],
+    limit: "2 kB",
+  },
+  {
     name: "PermissionGate (lógica pura + contexto, por módulo)",
     path: "dist/components/PermissionGate/PermissionGate.js",
     import: "{ PermissionGate }",

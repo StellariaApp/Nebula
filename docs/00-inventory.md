@@ -239,7 +239,7 @@ Una fila por componente canónico. Los nombres de consumidores que mapean a cada
 
 | Componente       | Clas.  | Plat | Tier | Fuentes                              | Destino                                                    |
 | ---------------- | ------ | ---- | ---- | ------------------------------------ | ---------------------------------------------------------- |
-| CommandPalette   | patrón | W    | 2    | P3                                   | core (cmdk o propio — ADR)                                 |
+| CommandPalette   | patrón | W    | 2    | P3                                   | core — **propio sobre React Aria**, subpath `/command` (**ADR-057**) |
 | GlobalSearch     | patrón | W    | 3    | P3                                   | core                                                       |
 | Search (slots)   | patrón | WN   | 2    | P3·FC(HeaderFilter/BadgesFilter)·TFV | core — API por callbacks/searchParams; atoms quedan en app |
 | Filter / Filters | patrón | WN   | 2    | P3·TFV                               | core — descriptor declarativo `Filter` de TFV como base    |
