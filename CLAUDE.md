@@ -4,7 +4,7 @@
 
 Nebula es una librería UI universal **Web + React Native** (~213 componentes canónicos en v1) con API unificada por componente: los contratos viven en `@stellaria/nebula-tokens` y cada plataforma implementa solo la capa visual. La personalización entre productos radicalmente distintos se logra **exclusivamente vía temas** (`NebulaTheme`), nunca con forks. Se construye completa antes de migrar a sus consumidores (fonicredito, tfv); el código semilla es Stellaria (`C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend`).
 
-**Estado**: F0, W1, W2 y **W3 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`). El catálogo web Tier 1 + Tier 2 está completo: **130 componentes**, 755 tests, tres subpaths (`/command`, `/charts`, `/datagrid`). Siguiente: **W4** (Tier 3 web — efectos, DnD, rich content, DataGrid avanzado, charts completos, RTL).
+**Estado**: F0, W1, W2, W3 y **W4 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`). **El catálogo web está completo salvo una fila pendiente de decisión** (`Header` — ver `docs/w4-closure.md` §Cobertura): 154 componentes, 1043 tests, siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`). Siguiente: **WR** (`prompts/2.1-web-refine/` — auditoría visual del catálogo y plan de alineación, entre W4 y W5) y después **W5** (publicación web v1).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
@@ -17,7 +17,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 | `docs/04-migration-map.md`                | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps                     |
 | `docs/05-roadmap.md`                      | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes                        |
 | `docs/patterns/web-component-template.md` | **Plantilla canónica del componente web** — obligatoria al escribir cualquier componente |
-| `docs/adr/ADR-001…037`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
+| `docs/adr/ADR-001…061`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
 | `docs/api/*.md`                           | Estado real de los repos fuente (anexos A/B/C)                                           |
 | `prompts/`                                | Prompts de ejecución por fase                                                            |
 
