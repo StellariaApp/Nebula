@@ -458,6 +458,15 @@ export type {
   QuickActionOrientation,
   QuickActionProps,
 } from "./components/QuickAction/index.js";
+export { AppShell } from "./components/AppShell/index.js";
+export type { AppShellLabels, AppShellProps } from "./components/AppShell/index.js";
+export { Panel } from "./components/Panel/index.js";
+export type {
+  PanelLabels,
+  PanelOrientation,
+  PanelProps,
+} from "./components/Panel/index.js";
+
 export { Section } from "./components/Section/index.js";
 export type { SectionProps } from "./components/Section/index.js";
 export { Main } from "./components/Main/index.js";

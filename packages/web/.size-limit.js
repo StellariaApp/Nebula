@@ -917,6 +917,20 @@ const MODULE_BUDGETS = [
     limit: "48 kB",
   },
   {
+    name: "AppShell (grid de landmarks + skip-link, por módulo)",
+    path: "dist/components/AppShell/AppShell.js",
+    import: "{ AppShell }",
+    ignore: ["react", "react-dom"],
+    limit: "12 kB",
+  },
+  {
+    name: "Panel (master-detail con separador operable, por módulo)",
+    path: "dist/components/Panel/Panel.js",
+    import: "{ Panel }",
+    ignore: ["react", "react-dom"],
+    limit: "12 kB",
+  },
+  {
     name: "Section (patrón con estados de carga y error, por módulo)",
     path: "dist/components/Section/Section.js",
     import: "{ Section }",
