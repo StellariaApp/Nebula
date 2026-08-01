@@ -80,17 +80,24 @@ NO escribas plan de acción, NO priorices entre familias y NO toques código. Es
 
 ## Las ocho familias
 
-### WR2.1 — Layout y superficie (19)
+### WR2.1 — Layout y superficie (20)
 
 ```
 [BLOQUE COMÚN]
 
 FAMILIA: Box, Flex, Center, Group, Grid, SimpleGrid, Container, Scroll, Divider, Space, AspectRatio,
-Paper, AppShell, Panel, Main, Section, Affix, Overlay, LoadingOverlay.
+Paper, AppShell, Panel, Main, Section, Header, Affix, Overlay, LoadingOverlay.
 
 FOCO PROPIO DE ESTA FAMILIA: la escalera de elevación de docs\06 §5 y ADR-028. Es la familia que
 define el suelo sobre el que se apoyan las otras siete: si `Paper` y `Section` no comparten criterio
 de superficie+borde+sombra, todo lo que contengan hereda la incoherencia.
+
+`Header` es NUEVO (ADR-062, 2026-07-31) y entra aquí por dos motivos, los dos auditables:
+  - Es el contenido del slot `header` de `AppShell` y del de `Main`. La terna Header/AppShell/Main
+    tiene que leerse como una sola cabecera, no como tres criterios de padding distintos.
+  - Su estado `floating` es la ÚNICA superficie de esta familia que usa cristal (`vars.glass.default`
+    + `radius.lg` + `shadow.lg`). Mide dónde cae en la escalera de elevación de §5: es una superficie
+    flotante sobre el contenido, y no debería competir con la de un `Modal`.
 ```
 
 ### WR2.2 — Tipografía y contenido (13)
@@ -217,6 +224,12 @@ degradación por tema de ADR-059. Verifica en los cuatro temas que:
 
 ## Comprobación de reparto
 
-Los 144 componentes con superficie visual están asignados, sin solapes. Si añades un componente al
+Los **145** componentes con superficie visual están asignados, sin solapes. Si añades un componente al
 catálogo, añádelo también a su familia aquí, o quedará fuera de la auditoría sin que nadie lo note —
 que es exactamente lo que pasó con `Breadcrumbs` durante dos tramos.
+
+**Verificado el 2026-07-31**, cruzando las ocho listas contra `packages\web\src\components`: 20 + 13
+
+- 15 + 27 + 15 + 32 + 13 + 10 = **145**, sin solapes, sin nombres sin directorio y sin excluido que
+  aparezca además en una familia. 155 directorios − 10 excluidos = 145. La regla de arriba se cumplió
+  una vez: `Header` entró al catálogo ese mismo día y esta comprobación lo cazó fuera del reparto.

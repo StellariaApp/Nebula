@@ -6,6 +6,13 @@
 >
 > **Requiere**: W4 cerrado.
 > **Bloquea**: W5 y el baseline de screenshots de ADR-037.
+>
+> ## 📍 Estado: **[`docs/wr-estado-2026-08-01.md`](../../docs/wr-estado-2026-08-01.md)** — léelo antes de empezar
+>
+> WR1 y WR2 están **cerrados**; WR3 entregó su consolidado y su plan; de WR4 van **T0 y T4**. El
+> siguiente paso es **T2**. El documento de estado trae además la **frontera de confianza**: la
+> auditoría ejecutó la mitad de su propio método —nadie miró el catálogo y no se abrió Figma— y eso
+> condiciona lo que se puede afirmar.
 
 ---
 
@@ -36,12 +43,12 @@ y la extracción de Figma no aguanta que ocho agentes llamen a la API por su cue
 
 ## Las cuatro fases
 
-| Fase | Archivo | Contenido | Prompts | Paralelizable |
-| ---- | ------- | --------- | ------- | ------------- |
-| **WR1** | [WR1-prompts.md](WR1-prompts.md) | Preparación: censo de cobertura + baseline de Figma a disco | 2 | No |
-| **WR2** | [WR2-prompts.md](WR2-prompts.md) | Auditoría visual por familia | 8 | **Sí — 8 agentes** |
-| **WR3** | [WR3-prompts.md](WR3-prompts.md) | Consolidación por causa + plan de alineación | 1 | No |
-| **WR4** | [WR4-prompts.md](WR4-prompts.md) | Ejecución de los tramos del plan + cierre | 1 + N | Parcial |
+| Fase    | Archivo                          | Contenido                                                   | Prompts | Paralelizable      |
+| ------- | -------------------------------- | ----------------------------------------------------------- | ------- | ------------------ |
+| **WR1** | [WR1-prompts.md](WR1-prompts.md) | Preparación: censo de cobertura + baseline de Figma a disco | 2       | No                 |
+| **WR2** | [WR2-prompts.md](WR2-prompts.md) | Auditoría visual por familia                                | 8       | **Sí — 8 agentes** |
+| **WR3** | [WR3-prompts.md](WR3-prompts.md) | Consolidación por causa + plan de alineación                | 1       | No                 |
+| **WR4** | [WR4-prompts.md](WR4-prompts.md) | Ejecución de los tramos del plan + cierre                   | 1 + N   | Parcial            |
 
 **Orden estricto.** WR2 no arranca sin el censo de WR1.1 en verde: no tiene sentido auditar el aspecto
 de un catálogo cuya extensión no está verificada — es exactamente el fallo que destapó cuatro
@@ -62,13 +69,13 @@ componentes ausentes al cerrar W4.
 
 ## Acceso al diseño
 
-| Dato | Valor |
-| ---- | ----- |
-| Archivo | `Polaris` |
-| URL | `https://www.figma.com/design/SYZgKuK5o70lmfxVNljxww/Polaris?node-id=6-2252` |
-| `fileKey` | `SYZgKuK5o70lmfxVNljxww` |
-| Nodo raíz del canvas | `6:2252` |
-| MCP | `figma-developer-mcp` (configurado en `.mcp.json`, key en `.env`) |
+| Dato                 | Valor                                                                        |
+| -------------------- | ---------------------------------------------------------------------------- |
+| Archivo              | `Polaris`                                                                    |
+| URL                  | `https://www.figma.com/design/SYZgKuK5o70lmfxVNljxww/Polaris?node-id=6-2252` |
+| `fileKey`            | `SYZgKuK5o70lmfxVNljxww`                                                     |
+| Nodo raíz del canvas | `6:2252`                                                                     |
+| MCP                  | `figma-developer-mcp` (configurado en `.mcp.json`, key en `.env`)            |
 
 **La cuota es el recurso escaso.** La extracción de julio murió con un 429 y el sondeo del
 **2026-07-31 sigue devolviendo 429**, con `Retry-After` de 157 316 s (~43,7 h): disponible a partir
@@ -89,13 +96,13 @@ así que si la cuota no ha vuelto se audita igual y lo que se resiente son los h
 
 Se revisan **en orden** porque un error de la primera invalida el juicio sobre las siguientes.
 
-| # | Magnitud | Qué se mide | Vara |
-| - | -------- | ----------- | ---- |
-| 1 | **Estructura** | Qué elementos hay, en qué orden, qué anida a qué | `docs/06` §1–2; la anatomía del componente hermano |
-| 2 | **Jerarquía** | Qué se lee primero; contraste de peso, tamaño y color entre título, cuerpo y metadato | `docs/06` §2, §4 |
-| 3 | **Peso visual** | Superficie, borde, sombra y saturación: cuánto pesa el componente en su región | `docs/06` §5 (elevación), §6 (effects budget) |
-| 4 | **Espaciado** | Padding interno, gap entre hijos, margen entre bloques; ritmo | `docs/06` §3; `spacing.scale` y los `u*` de ADR-045 |
-| 5 | **Tipografía** | Tamaño, peso, line-height y tracking por rol de texto | `docs/06` §2; `font.size`/`weight`/`lineHeight` |
+| #   | Magnitud        | Qué se mide                                                                           | Vara                                                |
+| --- | --------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| 1   | **Estructura**  | Qué elementos hay, en qué orden, qué anida a qué                                      | `docs/06` §1–2; la anatomía del componente hermano  |
+| 2   | **Jerarquía**   | Qué se lee primero; contraste de peso, tamaño y color entre título, cuerpo y metadato | `docs/06` §2, §4                                    |
+| 3   | **Peso visual** | Superficie, borde, sombra y saturación: cuánto pesa el componente en su región        | `docs/06` §5 (elevación), §6 (effects budget)       |
+| 4   | **Espaciado**   | Padding interno, gap entre hijos, margen entre bloques; ritmo                         | `docs/06` §3; `spacing.scale` y los `u*` de ADR-045 |
+| 5   | **Tipografía**  | Tamaño, peso, line-height y tracking por rol de texto                                 | `docs/06` §2; `font.size`/`weight`/`lineHeight`     |
 
 ### Qué cuenta como hallazgo
 
@@ -133,10 +140,13 @@ pasarlas por la especificación es lo que hay que evitar, no lo que hay que hace
 
 ## Alcance
 
-**144 componentes con superficie visual** de los 154 del catálogo. Se excluyen los 10 que no pintan
+**145 componentes con superficie visual** de los 155 del catálogo. Se excluyen los 10 que no pintan
 nada: `Conditional`, `Valid`, `Omit`, `Portal`, `FocusTrap`, `VisuallyHidden`, `PermissionGate`,
 `DirectionProvider`, `Transition` y `Collapse` (los dos últimos son maquinaria de animación sin
 aspecto propio).
+
+> El 155.º es `Header` (ADR-062, 2026-07-31), asignado a **WR2.1**. `ColorSchemeScript` y
+> `NebulaProvider` no cuentan: viven en `src/provider`, no en `src/components`, y no pintan.
 
 ## Lo que esta fase no es
 
