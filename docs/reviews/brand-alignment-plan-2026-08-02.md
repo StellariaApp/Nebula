@@ -252,6 +252,33 @@ en los dos temas que lo declaran, y `Nav` deja de leer `vars.glass.default`.
 la vez, así que un control con menos tinte también pierde desenfoque. La receta de control propia
 sigue siendo trabajo de B2.
 
+## 5.4 B3 intentado: la escalera existe, pero arrastra el color (2026-08-02)
+
+Se aplicó la escalera de ADR-065 a los cinco temas y **funciona**: los tres pares adyacentes superan
+1.08 en los cuatro esquemas, y ningún par comparte color. La asignación, ya calculada y verificada:
+
+| Tema                       | `sunken`    | `base`      | `raised`    | `overlay`  | Ratios                |
+| -------------------------- | ----------- | ----------- | ----------- | ---------- | --------------------- |
+| `nebula-dark`              | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` | 1.098 · 1.094 · 1.134 |
+| `nebula-light` · `playful` | `light.800` | `light.600` | `light.400` | `light.50` | 1.108 · 1.084 · 1.110 |
+| `sober-light`              | `gray.300`  | `gray.200`  | `gray.100`  | `gray.50`  | 1.251 · 1.163 · 1.114 |
+
+**Y se revirtió**, porque mover las superficies rompe el color que se apoya en ellas: `check:contrast`
+pasa de 0 a **73 fallos** repartidos por los cinco temas. No son un tipo, son tres:
+
+1. **Bordes**: `border.strong` y `border.focus` contra las superficies nuevas caen por debajo del 3:1
+   de UI y de foco.
+2. **Texto sobre el lienzo**: los roles semánticos y las variantes `ghost`/`light` pierden el 4.5:1
+   cuando el lienzo light baja de blanco a `#eaeaea`.
+3. **`disabled`**: al desplazar `surface.disabled` a un extremo de la paleta, `text.disabled` deja de
+   cumplir su propio suelo de 1.5.
+
+La lección para quien retome T3: **no es un tramo de superficies, es un tramo de tema completo.**
+ADR-065 ya avisaba de que «once componentes de tres familias cambian de aspecto»; lo que no dice —y
+esto lo añade la medición— es que la escalera arrastra **bordes, textos y estados**, y que
+`check:contrast` sí detecta el arrastre aunque no vea el escalón en sí. Hay que recalibrar los cuatro
+grupos a la vez o el gate se queda en rojo.
+
 ## 6. Riesgo principal
 
 **Mover las escalas del contrato (B1) toca todo el catálogo.** `radius`, `sizes.control` y `spacing`
