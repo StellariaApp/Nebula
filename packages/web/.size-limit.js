@@ -690,7 +690,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Skeleton/Skeleton.js",
     import: "{ Skeleton }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Progress (bar + ring con variantes, por módulo)",

@@ -43,10 +43,17 @@ export const letterSpacing = {
   wide: 0.08,
 } as const;
 
+export const display = {
+  size: "clamp(3.25rem, 5.2vw, 4.25rem)",
+  lineHeight: 0.95,
+  letterSpacing: -0.055,
+} as const;
+
 export const font = {
   family,
   size,
   lineHeight,
   weight,
   letterSpacing,
+  display,
 } as const satisfies ThemeFont;

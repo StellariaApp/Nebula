@@ -52,8 +52,9 @@ Reglas:
 
 ### 2.2 La escala de prosa (ADR-066)
 
-`TypographyStylesProvider` —la lectura larga— es **el único componente del catálogo con escala
-propia**. No es un defecto: es contrato, y por eso está escrito aquí. Lo que puede y no puede
+`TypographyStylesProvider` —la lectura larga— es uno de los **dos únicos registros del catálogo
+fuera de §2.1**; el otro es el display de §2.4. No es un defecto: es contrato, y por eso está escrito
+aquí. Lo que puede y no puede
 apartarse de §2.1:
 
 | Puede cambiar                          | No puede cambiar                                          |
@@ -83,6 +84,28 @@ dentro de `caption` a 10.5 px.
 
 Un bloque ya fijó su tamaño; volver a aplicarle el factor inline es contarlo dos veces. `0.9em` no
 existe en el sistema.
+
+### 2.4 El registro display (ADR-076)
+
+El titular de una landing no es el `h1` del sistema. `font.display` es un registro propio y sus tres
+magnitudes van juntas porque juntas lo definen:
+
+| Magnitud        | Valor                            |
+| --------------- | -------------------------------- |
+| `size`          | `clamp(3.25rem, 5.2vw, 4.25rem)` |
+| `lineHeight`    | 0.95                             |
+| `letterSpacing` | -0.055                           |
+
+Un titular a 68 px con el interlineado de cuerpo no es el mismo registro más grande: es otra cosa.
+Por eso no son tres tokens sueltos repartidos entre tres escalas que se calibran por separado.
+
+**No toca la escala de producto**: `h1` sigue en 48 px. El registro vive al lado y hoy lo consume un
+único sitio, `Hero size="xl"`. Es también la única magnitud tipográfica del contrato que es una
+cadena, y está contenida a propósito: si el `clamp()` viviera dentro de `font.size`, cualquier tema
+podría hacer fluido el `body2`.
+
+Las dos excepciones de §2.1 tiran en direcciones opuestas —la prosa hacia la lectura, el display
+hacia el impacto—, y eso es lo que confirma que §2.1 es el centro y no un punto de partida.
 
 ## 3. Ritmo espacial
 

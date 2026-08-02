@@ -76,6 +76,7 @@ export const vars = createThemeContract({
     },
     lineHeight: { tight: null, normal: null, relaxed: null },
     letterSpacing: { tight: null, normal: null, wide: null },
+    display: { size: null, lineHeight: null, letterSpacing: null },
   },
   radius: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null, full: null },
   space: {

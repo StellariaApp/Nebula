@@ -45,12 +45,19 @@ export type ThemeColors = {
   border: Record<BorderRole, string>;
 };
 
+export interface ThemeDisplay {
+  size: string;
+  lineHeight: number;
+  letterSpacing: number;
+}
+
 export interface ThemeFont {
   family: Record<FontFamilyName, string>;
   size: Record<TextSizeName, number>;
   weight: Record<FontWeightName, number>;
   lineHeight: Record<LineHeightName, number>;
   letterSpacing: Record<LetterSpacingName, number>;
+  display: ThemeDisplay;
 }
 
 export type ThemeRadius = Record<RadiusName, number>;

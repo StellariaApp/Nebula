@@ -95,6 +95,11 @@ const font = z.strictObject({
   weight: z.record(z.enum(fontWeightNames), z.number().min(1).max(1000)),
   lineHeight: z.record(z.enum(lineHeightNames), z.number().positive()),
   letterSpacing: z.record(z.enum(letterSpacingNames), z.number()),
+  display: z.strictObject({
+    size: z.string().min(1),
+    lineHeight: z.number().positive(),
+    letterSpacing: z.number(),
+  }),
 });
 
 const spacing = z.strictObject({

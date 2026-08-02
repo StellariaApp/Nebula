@@ -58,7 +58,7 @@ export function Hero(props: HeroProps): ReactElement {
   const css_vars = assignInlineVars({
     [contentMax]: LengthToCss(contentWidth),
     [bg]: resolved.background,
-    [fg]: resolved.foreground,
+    [fg]: color === "transparent" ? theme.colors.text.primary : resolved.foreground,
     [borderColor]: resolved.borderColor,
     [borderWidth]: resolved.borderWidth,
     [backdropFilter]: resolved.backdropFilter,

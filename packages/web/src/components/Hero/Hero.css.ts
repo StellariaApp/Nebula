@@ -197,5 +197,13 @@ export const titleSize = styleVariants({
   sm: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h5 } } },
   md: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h4 } } },
   lg: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h3 } } },
-  xl: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h2 } } },
+  xl: {
+    "@layer": {
+      [baseLayer]: {
+        fontSize: vars.font.display.size,
+        lineHeight: vars.font.display.lineHeight,
+        letterSpacing: vars.font.display.letterSpacing,
+      },
+    },
+  },
 });

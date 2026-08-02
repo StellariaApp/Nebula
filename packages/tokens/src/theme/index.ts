@@ -38,6 +38,7 @@ export type {
   ThemeBreakpoints,
   ThemeColors,
   ThemeEffects,
+  ThemeDisplay,
   ThemeFont,
   ThemeGlass,
   ThemeMeta,

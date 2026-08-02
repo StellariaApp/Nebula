@@ -39,6 +39,11 @@ export function ThemeToVars(theme: NebulaTheme) {
       weight: MapValues(font.weight, Num),
       lineHeight: MapValues(font.lineHeight, Num),
       letterSpacing: MapValues(font.letterSpacing, Em),
+      display: {
+        size: font.display.size,
+        lineHeight: Num(font.display.lineHeight),
+        letterSpacing: Em(font.display.letterSpacing),
+      },
     },
     radius: MapValues(radius, Px),
     space: MapValues(spacing.scale, (mult) => Px(spacing.unit * mult)),
