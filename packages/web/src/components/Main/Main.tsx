@@ -17,7 +17,7 @@ export function Main(props: MainProps): ReactElement {
     header,
     footer,
     background,
-    centered = TextTrackCueList,
+    centered = false,
     padded = false,
     contentWidth,
     spacing,
