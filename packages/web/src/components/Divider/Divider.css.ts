@@ -23,8 +23,11 @@ export const root = recipe({
   },
   variants: {
     orientation: {
-      horizontal: {},
+      horizontal: {
+        width: "100%",
+      },
       vertical: {
+        height: "100%",
         alignSelf: "stretch",
         minHeight: "1em",
         borderInlineStartWidth: dividerThickness,

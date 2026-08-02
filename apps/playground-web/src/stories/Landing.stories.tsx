@@ -300,13 +300,13 @@ function Page(): ReactElement {
       background={<StarField parallax />}
     >
       <Portada />
-      <Divider borderColor="border.subtle" />
+      <Divider borderColor="border.subtle.40" />
       <Numbers />
-      <Divider borderColor="border.subtle" maw={1180} />
+      <Divider borderColor="border.subtle.40" maw={1180} />
       <Capabilities />
-      <Divider borderColor="border.subtle" maw={1180} />
+      <Divider borderColor="border.subtle.40" maw={1180} />
       <Pricing />
-      <Divider borderColor="border.subtle" maw={1180} />
+      <Divider borderColor="border.subtle.40" maw={1180} />
       <Security />
     </Main>
   );
