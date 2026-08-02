@@ -23,7 +23,7 @@ export function Main(props: MainProps): ReactElement {
     header,
     footer,
     background,
-    centered = false,
+    centered = true,
     padded = false,
     contentWidth,
     spacing,
