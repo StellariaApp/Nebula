@@ -4,7 +4,9 @@
 
 Nebula es una librería UI universal **Web + React Native** (~213 componentes canónicos en v1) con API unificada por componente: los contratos viven en `@stellaria/nebula-tokens` y cada plataforma implementa solo la capa visual. La personalización entre productos radicalmente distintos se logra **exclusivamente vía temas** (`NebulaTheme`), nunca con forks. Se construye completa antes de migrar a sus consumidores (fonicredito, tfv); el código semilla es Stellaria (`C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend`).
 
-**Estado**: F0, W1, W2, W3 y **W4 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`). **El catálogo web está completo salvo una fila pendiente de decisión** (`Header` — ver `docs/w4-closure.md` §Cobertura): 154 componentes, 1043 tests, siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`). Siguiente: **WR** (`prompts/2.1-web-refine/` — auditoría visual del catálogo y plan de alineación, entre W4 y W5) y después **W5** (publicación web v1).
+**Estado**: F0, W1, W2, W3 y **W4 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`). **El catálogo web está completo**: 158 componentes (`Header` en ADR-062, `Nav` en ADR-068, `Reveal` y `Footer` en ADR-070; `Banner` renombrado a `Hero`), siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`).
+
+**Ahora mismo estamos en WR** (`prompts/2.1-web-refine/`), a medias. **Lee `docs/wr-estado-2026-08-01.md` antes de tocar nada**: trae qué está hecho, por dónde se sigue (T3), las decisiones abiertas y —lo más importante— la frontera de confianza de la auditoría. Después de WR viene **W5** (publicación web v1).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
