@@ -1,0 +1,13 @@
+{
+  "name": "nebula-tools-render-measure",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mide el catálogo renderizado (Storybook estático) por tema: color resuelto, geometría y relaciones de luminancia — el instrumento de WR2",
+  "scripts": {
+    "measure": "node measure.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}
