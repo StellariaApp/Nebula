@@ -102,7 +102,7 @@ export function StarField(props: StarFieldProps): ReactElement {
         ...(zIndex === undefined ? {} : { zIndex }),
         ...sprinkle_style,
       }}
-      data-fixed={fixed ? "true" : undefined}
+      data-fixed={fixed || parallax ? "true" : undefined}
       data-twinkle={twinkling ? "true" : "false"}
       aria-hidden="true"
       {...rest}

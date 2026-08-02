@@ -45,6 +45,20 @@ El parallax escribe `transform` directamente sobre el nodo desde un `requestAnim
 coalescencia (un frame pendiente como máximo) y el listener es `passive`. No pasa por estado de React:
 un `setState` por evento de scroll re-renderizaría hasta 72 estrellas por frame.
 
+### `parallax` ancla el campo al viewport
+
+Un campo `absolute` dentro de la página **ya se desplaza 1:1 con el scroll**, así que sumarle un
+`translate3d` de 0.045 no produce parallax: produce un fondo que viaja al 95.5 % de la velocidad del
+contenido. Medido sobre la landing antes de corregirlo, con el campo a 2850 px de alto: 18 px de
+desfase a 400 de scroll y 54 px a 1200. Sobre 1200 px de recorrido, invisible.
+
+Por eso `parallax` activa el mismo anclaje que `fixed`. Con el campo anclado, el `translate3d` deja de
+sumarse al desplazamiento del contenedor y pasa a **ser** el desplazamiento: el fondo recorre esos
+mismos 54 px mientras el contenido recorre 1200, que es el 4.5 % que los factores declaran.
+
+La consecuencia a tener presente es de composición: **un `StarField` con `parallax` es un fondo de
+página**, no un fondo de región. Para teñir solo una banda, el campo va sin `parallax`.
+
 ## Colores
 
 `color` tiñe retícula y estrellas (6 % la retícula, 70 % las estrellas) y `accentColor` marca una de
@@ -62,7 +76,14 @@ región que lo aloja tiene que estar posicionada y, si el contenido va encima, l
 
 ```tsx
 <Box pos="relative" style={{ isolation: "isolate" }}>
-  <StarField density="lg" parallax />
+  <StarField density="lg" />
   <Container style={{ position: "relative" }}>{hero}</Container>
 </Box>
+```
+
+Con `fixed` o con `parallax` deja de ser un absoluto y se ancla al viewport, que es el montaje de
+fondo de página — el de `Main background`:
+
+```tsx
+<Main background={<StarField parallax />}>{sections}</Main>
 ```
