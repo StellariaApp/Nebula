@@ -38,8 +38,8 @@ export const soberLight = {
     },
     text: {
       primary: gray["950"],
-      secondary: gray["800"],
-      muted: gray["700"],
+      secondary: gray["900"],
+      muted: gray["800"],
       placeholder: gray["700"],
       inverted: gray["50"],
       onPrimary: palettes.light["50"],
