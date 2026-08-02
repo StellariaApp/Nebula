@@ -262,3 +262,18 @@ colapsables y `PermissionGate`. `Nav.Links.Link` es horizontal, de una línea y 
 Comparten el rol `link` y nada más.
 
 Tampoco es `Tabs`. Las tabs controlan qué panel se ve dentro de la página; esto navega.
+
+## El indicador entra y sale con un fade
+
+El activo puede **no existir**: arriba del todo, antes de que ninguna sección cruce el marcador, no
+hay enlace activo (ADR-075). El indicador tiene entonces dos estados más que una simple posición, y
+saltar entre ellos de golpe se lee como un parpadeo.
+
+Entra con `Tween("fast", "standard")` y sale con `ExitTween("fast")`, que es la regla de `docs/06`
+§6.1 —toda salida es más rápida que su entrada, a dos tercios y con curva acelerada—. Con
+`prefers-reduced-motion` o `tier: "minimal"` el cambio vuelve a ser instantáneo, porque las dos
+transiciones salen de las utilidades de motion y no del componente.
+
+**El hook conserva la última geometría** para el desvanecido. Sin eso, al perder el activo el rect
+pasa a cero y la píldora se aplasta a 0 px de alto y salta a la izquierda mientras se desvanece;
+medido, ahora mantiene sus 40 px y su `x` durante toda la salida.

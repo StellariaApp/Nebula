@@ -3,9 +3,15 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { useMotionValue, useReducedMotion, useSpring, type MotionValue } from "motion/react";
+import {
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type MotionValue,
+  type Transition,
+} from "motion/react";
 
-import { SpringOptions } from "../../utils/motion.js";
+import { ExitTween, SpringOptions, Tween } from "../../utils/motion.js";
 
 interface Rect {
   x: number;
@@ -22,6 +28,8 @@ export interface NavIndicatorApi {
   y: number;
   height: number;
   ready: boolean;
+  fadeIn: Transition;
+  fadeOut: Transition;
 }
 
 const EMPTY: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -38,6 +46,7 @@ export function useNavIndicator(active: string | undefined): NavIndicatorApi {
   const first = useRef(true);
 
   const [rect, set_rect] = useState<Rect>(EMPTY);
+  const last = useRef<Rect>(EMPTY);
 
   const target_x = useMotionValue(0);
   const target_w = useMotionValue(0);
@@ -106,6 +115,7 @@ export function useNavIndicator(active: string | undefined): NavIndicatorApi {
 
   useEffect(() => {
     if (rect.width === 0) return;
+    last.current = rect;
 
     if (first.current || !is_animated) {
       target_x.jump(rect.x);
@@ -125,8 +135,10 @@ export function useNavIndicator(active: string | undefined): NavIndicatorApi {
     SetItemRef,
     x: is_animated ? spring_x : target_x,
     width: is_animated ? spring_w : target_w,
-    y: rect.y,
-    height: rect.height,
+    y: rect.width > 0 ? rect.y : last.current.y,
+    height: rect.width > 0 ? rect.height : last.current.height,
     ready: rect.width > 0,
+    fadeIn: Tween("fast", "standard", { theme, reduced: prefers_reduced === true }),
+    fadeOut: ExitTween("fast", { theme, reduced: prefers_reduced === true }),
   };
 }

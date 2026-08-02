@@ -172,8 +172,10 @@ export function NavLinks(props: NavLinksProps): ReactElement {
             width: indicator.width,
             top: indicator.y,
             height: indicator.height,
-            opacity: indicator.ready ? 1 : 0,
           }}
+          initial={false}
+          animate={{ opacity: indicator.ready ? 1 : 0 }}
+          transition={indicator.ready ? indicator.fadeIn : indicator.fadeOut}
         />
       ) : null}
       <NavLinksContext.Provider value={context}>{children}</NavLinksContext.Provider>
