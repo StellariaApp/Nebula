@@ -137,7 +137,7 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 
 | #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por      |
 | ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| **B0** | Cierre del backlog visual abierto            | `StarField parallax` no funciona · espaciados de Hero/Nav/Footer ya tocados en el árbol                                                                                    | nada               |
+| **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                              | nada               |
 | **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato                                                      | checkpoint         |
 | **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                                    | B1 (radio de card) |
 | **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado  |
@@ -147,15 +147,15 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 
 ## 4. El backlog abierto, mapeado
 
-| #   | Punto                                         | Tramo | Nota                                                         |
-| --- | --------------------------------------------- | ----- | ------------------------------------------------------------ |
-| 1   | `data-padded` por defecto                     | —     | ✅ corregido en `5edafb6`                                    |
-| 2   | `StarField parallax` no funciona              | B0    | Diagnosticar antes de tocar: puede ser reduced-motion o tier |
-| 3   | `Hero size="xl"` se queda pequeño             | B4    | Es D5: 48 fijos contra 52-68 fluidos                         |
-| 4   | `mih` de los botones — Stellaria usa 48       | B1    | Es D3: 48 cae entre `control.md` 42 y `lg` 50                |
-| 5   | Variante `glass` de los botones muy fuerte    | B2    | Es D2: falta la receta de cristal de control                 |
-| 6   | Espaciados de Hero, Nav y Footer              | B0    | Ya tocados en el árbol; falta consolidar y medir             |
-| 7   | Sufijo `.NN` de opacidad (`border.subtle.40`) | B5    | ✅ cerrado en ADR-071                                        |
+| #   | Punto                                         | Tramo | Nota                                                        |
+| --- | --------------------------------------------- | ----- | ----------------------------------------------------------- |
+| 1   | `data-padded` por defecto                     | —     | ✅ corregido en `5edafb6`                                   |
+| 2   | `StarField parallax` no funciona              | B0    | ✅ era el anclaje, no motion. Diagnóstico en `StarField.md` |
+| 3   | `Hero size="xl"` se queda pequeño             | B4    | Es D5: 48 fijos contra 52-68 fluidos                        |
+| 4   | `mih` de los botones — Stellaria usa 48       | B1    | Es D3: 48 cae entre `control.md` 42 y `lg` 50               |
+| 5   | Variante `glass` de los botones muy fuerte    | B2    | Es D2: falta la receta de cristal de control                |
+| 6   | Espaciados de Hero, Nav y Footer              | B0→B1 | ✅ medidos (§5.2). Los dos defectos que salieron son de B1  |
+| 7   | Sufijo `.NN` de opacidad (`border.subtle.40`) | B5    | ✅ cerrado en ADR-071                                       |
 
 ## 5. Lo que este plan NO decide
 
@@ -187,6 +187,37 @@ un nodo). **Ese fallo no es de B5 y sigue abierto.**
 La lección es la misma que la de §6 pero al revés: no basta con que un gate no detecte un peldaño mal
 elegido; hay que comprobar que el gate **está midiendo algo**. Un gate que aborta y uno que pasa se
 parecen demasiado en un log.
+
+## 5.2 El ritmo vertical, medido (B0, 2026-08-02)
+
+Medido sobre `patterns-landing--demo` con `tools/render-measure`, a 1600 y a 1280 px. Los dos anchos
+dan lo mismo salvo el ancho de viewport, así que la tabla es única:
+
+| Elemento                       | Padding vertical | Gap             |
+| ------------------------------ | ---------------- | --------------- |
+| `Nav`                          | 12 (`u3`)        | —               |
+| `Hero`                         | **90 literal**   | 16 (`md`)       |
+| `Section`                      | **90 literal**   | 16 (`md`)       |
+| `Main.content` entre secciones | 0                | **64 (`xxxl`)** |
+| `Footer`                       | 32 (`xl`)        | 32 (`xl`)       |
+
+**El carril está bien**: `Section` y el interior del `Footer` miden 1180 en los dos anchos, como fija
+la enmienda 2 de ADR-070.
+
+Dos hallazgos que B1 tiene que resolver, y que explican por qué el ritmo «no cuadra» a ojo:
+
+1. **Entre dos secciones adyacentes hay 244 px** — 90 del padding inferior de una, 64 del gap de
+   `Main`, 90 del padding superior de la siguiente. Nadie decidió 244: es la suma de dos mecanismos
+   que no se hablan, el padding del componente y el gap del contenedor de página. Mientras los dos
+   sigan vivos, mover el peldaño de sección a los 120 de la marca da 304, no 120.
+
+2. **`90` es el único valor del ritmo que no cae en la rejilla de 4 px** de §3.1 (90/4 = 22.5), y
+   está escrito como literal en `Hero.css.ts` **y** en `Section.css.ts`, duplicado en los dos. Eso
+   incumple §4.1 —«ningún componente declara alturas en literales»— junto con los `minHeight`
+   240/160/120/80 de ambos.
+
+Los dos son de **B1**: elegir el peldaño y decidir quién gobierna el ritmo entre secciones mueve el
+contrato y necesita checkpoint. B0 los deja medidos, no corregidos.
 
 ## 6. Riesgo principal
 
