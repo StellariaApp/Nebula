@@ -1,16 +1,9 @@
 export { useDebounce, useDebouncedCallback } from "./use-debounce.js";
 export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure.js";
 export { useUncontrolled } from "./use-uncontrolled.js";
-export {
-  useBreakpointDown,
-  useBreakpointUp,
-  useMediaQuery,
-} from "./use-media-query.js";
-export {
-  useStepper,
-  type UseStepperInput,
-  type UseStepperReturn,
-} from "./use-stepper.js";
+export { useBreakpointDown, useBreakpointUp, useMediaQuery } from "./use-media-query.js";
+export { useScrolled, type UseScrolledOptions } from "./use-scrolled.js";
+export { useStepper, type UseStepperInput, type UseStepperReturn } from "./use-stepper.js";
 export {
   useFieldProps,
   type FieldPropsResult,
