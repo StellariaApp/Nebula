@@ -50,6 +50,40 @@ Reglas:
 - La semántica HTML no se elige por apariencia. `order` define jerarquía; si se necesita otra escala
   visual, debe conservarse el heading correcto con composición/polimorfismo explícito.
 
+### 2.2 La escala de prosa (ADR-066)
+
+`TypographyStylesProvider` —la lectura larga— es **el único componente del catálogo con escala
+propia**. No es un defecto: es contrato, y por eso está escrito aquí. Lo que puede y no puede
+apartarse de §2.1:
+
+| Puede cambiar                          | No puede cambiar                                          |
+| -------------------------------------- | --------------------------------------------------------- |
+| `lineHeight` → `relaxed`               | El suelo de 12 px                                         |
+| La medida de línea (60–70 caracteres)  | Los pesos de heading (`h1`–`h2` bold, `h3`–`h6` semibold) |
+| El ritmo vertical entre bloques        | El tracking (`tight` en `h1`–`h3`)                        |
+| El dimensionado del código, según §2.3 | El tamaño del cuerpo de lectura                           |
+
+**El cuerpo de la prosa es `body1`**, no `body2`: §2.1 ya asigna `body1` a «cuerpo por defecto,
+formularios y lectura», y el componente dedicado a leer no puede ser el que no usa el tamaño de
+lectura. Lo que distingue a la prosa de la UI es el interlineado, no un cuerpo más pequeño.
+
+### 2.3 El dimensionado del código (ADR-066)
+
+Un solo criterio para todo el catálogo:
+
+| Caso                   | Regla                | Resultado                    |
+| ---------------------- | -------------------- | ---------------------------- |
+| Código **inline**      | `max(0.875em, 12px)` | 14 px dentro de `body1`      |
+| Código en **bloque**   | `body3` absoluto     | 13 px                        |
+| `code` dentro de `pre` | hereda (`1em`)       | 13 px, no vuelve a reducirse |
+
+El `max()` no es defensivo, es el mecanismo: convierte el suelo de §2.1 en algo que garantiza el CSS
+en vez de algo que hay que recordar. A `0.875em` puro, un `code` dentro de `body3` cae a 11.4 px y
+dentro de `caption` a 10.5 px.
+
+Un bloque ya fijó su tamaño; volver a aplicarle el factor inline es contarlo dos veces. `0.9em` no
+existe en el sistema.
+
 ## 3. Ritmo espacial
 
 La escala tiene **dos ejes** (ADR-045), y confundirlos es el error que hay que evitar:
@@ -121,6 +155,14 @@ Reglas:
 
 - **Ningún componente declara alturas en literales.** Si una altura no cabe en ninguna de las dos
   escalas, la discusión es qué peldaño falta, no qué `rem` escribir.
+- **Un control declara `minHeight`, nunca `height`.** Su render de **una línea** cae exacto en el
+  peldaño; puede excederlo cuando su contenido es multilínea. Un control con descripción —la variante
+  de `NavLink`— es legítimo que mida más que su peldaño: lo que no es legítimo es que lo mida sin
+  motivo. `height` fija está prohibida porque recorta el contenido en vez de responder a él.
+- **Un hijo interactivo no desborda el peldaño de su padre.** Si un control anida otro, el interior
+  sale de un peldaño inferior o el exterior sube. Medido: un `Tag sm` declara 28 px y renderiza
+  **38** porque el `ActionIcon` de su botón de cierre mide 36. La altura declarada que el contenido
+  desborda no es una altura, es una intención.
 - **Lo interactivo va en `control`, aunque parezca compacto.** Los items de una paginación son
   objetivos táctiles: usan `control` desplazada un peldaño —una paginación `md` alinea con un input
   `sm`— y así toda su escala queda sobre el mínimo de 24 px CSS de WCAG 2.2. Es también la razón de que
@@ -144,6 +186,22 @@ diferencia está declarada en el contrato y un tema puede recalibrar las dos.
 
 Reglas:
 
+- **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065), medido como relación de
+  luminancia entre sus roles de superficie, **en los dos esquemas** y en todo par adyacente —incluido
+  `sunken`↔`base`—. La regla que lo justifica cabe en una frase: **un escalón de elevación nunca
+  separa menos que un escalón de hover**, que §5.1 fija en ~1.08. Si subir un nivel entero se nota
+  menos que pasar el ratón por encima, la escalera no es una jerarquía.
+- **Ningún par de niveles comparte color exacto.** En particular `surface.overlay` ≠ `surface.base`:
+  un overlay que pinta el color del lienzo depende del borde y de la sombra para existir.
+- **Es el mismo número en los dos esquemas.** §5.2 avisa de que el espejo de paleta no sirve para el
+  separador, y es cierto para `gray`; pero las paletas neutras `dark` y `light` son **simétricas en
+  ratio** peldaño a peldaño (50→400 da 1.098 y 1.110), así que aquí el espejo _es_ proporción, que es
+  justo lo que §5.2 pide. Una escalera conforme existe dentro de las paletas actuales sin ampliar el
+  contrato.
+- **En un esquema light la escalera se construye bajando el lienzo, no subiendo el overlay.** Es la
+  consecuencia menos obvia del número: cuando `surface.raised` ya es blanco puro no queda recorrido
+  por encima, y los niveles 3–4 se quedan sin sitio. Con escalón 1.08, un `raised` conforme no pasa de
+  luminancia 0.9222.
 - No apilar sombras para compensar superficies indistinguibles.
 - En dark el paso lo carga la **superficie**, no la sombra: negro sobre casi-negro no tiene recorrido.
   El rim (`inset` claro del borde superior) progresa con el nivel y es el cue que separa dos niveles que
@@ -172,6 +230,26 @@ contenedor, el cuerpo contrasta. El borde de 1 px acompaña esa separación y no
 El separador se calibra **por proporción, no por espejo de paleta**: el mismo peldaño reflejado
 (`gray.200` ↔ `gray.800`) produce 1.39 en light y 1.98 en dark, porque las superficies dark están
 comprimidas contra el negro. El objetivo es **~1.3–1.4 en ambos esquemas**.
+
+### 5.3 La escalera de sombras (ADR-065)
+
+La asignación de sombra por nivel es **vinculante**, no orientativa:
+
+| Nivel | Rol                | Sombra              | Dónde                                                                                          |
+| ----: | ------------------ | ------------------- | ---------------------------------------------------------------------------------------------- |
+|     0 | canvas / sunken    | ninguna             | `AppShell`, `Main`                                                                             |
+|     1 | card / panel       | `xxs`/`xs` opcional | `Paper`, `Card`, `Section`, `Panel`, card de `Kanban`                                          |
+|     2 | elevado / sticky   | `sm`                | `Header` fijo, cabeceras pegajosas                                                             |
+|     3 | dropdown / popover | `md`                | `Menu`, `Popover`, `Select`, `DatePicker`, `ColorPicker`, `HoverCard`, `Tooltip`, `FieldError` |
+|     4 | modal / drawer     | `lg`                | `Modal`, `Drawer`, `Dialog`, `Toast`, `Header` flotante                                        |
+
+`xl` y `xxl` siguen en la escala y siguen disponibles como prop de consumidor en `Paper`, `Card` y
+`GlassSurface`. Lo que no son es **nivel estructural**: ningún componente del catálogo los usa para
+declarar su elevación.
+
+**El orden de aplicación no es negociable**: la sombra baja _después_ de que el escalón de superficie
+suba. Bajarla antes deja los overlays menos separados que hoy. La sombra se baja porque la superficie
+ya separa, no porque este documento lo diga.
 
 ## 6. Effects budget
 
@@ -252,7 +330,39 @@ Estas láminas son el baseline de W2.V. Axe y contrast-check siguen siendo gates
 lámina añade el gate humano que hoy falta. Automatizar diffs de captura queda como requisito antes
 del cierre de W2, sin introducir una dependencia hasta decidir la herramienta por ADR.
 
-## 9. Deuda detectada al abrir W2.V
+## 9. Color categórico en datos (ADR-067)
+
+Una serie de datos **no significa nada**: es la tercera, no es un error ni un aviso. Por eso los roles
+semánticos no son una paleta categórica, y reutilizarlos como tal es el defecto — no su calibración.
+Un rol semántico no tiene ninguna obligación de distinguirse de otro, porque no es lo que se le pide.
+
+Tres criterios, calculables sobre los valores del tema sin necesidad de render:
+
+| Criterio                                                         | Umbral | Se aplica a         |
+| ---------------------------------------------------------------- | -----: | ------------------- |
+| Relación de luminancia entre series **adyacentes** en la leyenda |  ≥1.10 | pares consecutivos  |
+| ΔE2000 en visión normal                                          |    ≥15 | **todos** los pares |
+| ΔE2000 bajo simulación protán **y** deután                       |    ≥10 | **todos** los pares |
+
+Los umbrales están calibrados contra **Okabe-Ito**, que los cumple con margen (1.118 · 22.2 · 11.6).
+Se validan contra una referencia y no a ojo por un motivo concreto: la primera versión de este
+criterio pedía ΔE ≥12 para dicromatismo, y **ni Okabe-Ito lo alcanza**. Un umbral que la referencia
+del campo no cumple no es exigente, es inservible.
+
+**El ratio de luminancia se exige solo entre series adyacentes, y es deliberado**: exigirlo a todos
+los pares es imposible incluso para Okabe-Ito, cuyo peor par global cae a 1.025 — seis colores
+distinguibles no caben en seis niveles de gris distintos. Lo que se confunde en la práctica es lo que
+se toca: líneas vecinas, segmentos contiguos de una barra apilada.
+
+Reglas:
+
+- Las series sin color explícito salen de `colors.chartCategorical`, la secuencia ordenada del tema,
+  **no** de los roles semánticos. Un rol semántico se usa cuando la serie significa eso.
+- El color no es el único canal (WCAG 1.4.1). Cuando el tipo de gráfico lo permita, la serie se
+  distingue además por trazo, marcador, textura o etiqueta directa. Los tres umbrales son el suelo,
+  no el sustituto.
+
+## 10. Deuda detectada al abrir W2.V
 
 | Deuda                                                        | Estado                                                                                                                                                   |
 | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
