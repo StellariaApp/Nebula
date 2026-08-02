@@ -8,17 +8,10 @@ export type { ButtonProps } from "./components/Button/index.js";
 export { Title } from "./components/Title/index.js";
 export type { TitleOrder, TitleOwnProps, TitleProps } from "./components/Title/index.js";
 export { Anchor } from "./components/Anchor/index.js";
-export type {
-  AnchorOwnProps,
-  AnchorProps,
-  AnchorUnderline,
-} from "./components/Anchor/index.js";
+export type { AnchorOwnProps, AnchorProps, AnchorUnderline } from "./components/Anchor/index.js";
 export { Highlight } from "./components/Highlight/index.js";
 export { GradientText } from "./components/GradientText/index.js";
-export type {
-  GradientTextOwnProps,
-  GradientTextProps,
-} from "./components/GradientText/index.js";
+export type { GradientTextOwnProps, GradientTextProps } from "./components/GradientText/index.js";
 export type { HighlightOwnProps, HighlightProps } from "./components/Highlight/index.js";
 export { Mark } from "./components/Mark/index.js";
 export type { MarkOwnProps, MarkProps } from "./components/Mark/index.js";
@@ -44,10 +37,7 @@ export type { ButtonCloseProps } from "./components/ButtonClose/index.js";
 export { ButtonCopy } from "./components/ButtonCopy/index.js";
 export type { ButtonCopyProps } from "./components/ButtonCopy/index.js";
 export { ButtonGroup } from "./components/ButtonGroup/index.js";
-export type {
-  ButtonGroupOwnProps,
-  ButtonGroupProps,
-} from "./components/ButtonGroup/index.js";
+export type { ButtonGroupOwnProps, ButtonGroupProps } from "./components/ButtonGroup/index.js";
 export { FileButton } from "./components/FileButton/index.js";
 export type { FileButtonPayload, FileButtonProps } from "./components/FileButton/index.js";
 export { FormField } from "./components/FormField/index.js";
@@ -174,10 +164,7 @@ export type {
 export { Space } from "./components/Space/index.js";
 export type { SpaceOwnProps, SpaceProps } from "./components/Space/index.js";
 export { AspectRatio } from "./components/AspectRatio/index.js";
-export type {
-  AspectRatioOwnProps,
-  AspectRatioProps,
-} from "./components/AspectRatio/index.js";
+export type { AspectRatioOwnProps, AspectRatioProps } from "./components/AspectRatio/index.js";
 export { Paper } from "./components/Paper/index.js";
 export type { PaperOwnProps, PaperProps } from "./components/Paper/index.js";
 
@@ -295,18 +282,21 @@ export type { BadgeProps, BadgeVariant } from "./components/Badge/index.js";
 export { Avatar, AvatarGroup } from "./components/Avatar/index.js";
 export type { AvatarGroupProps, AvatarProps } from "./components/Avatar/index.js";
 export { BackgroundImage, Image } from "./components/Image/index.js";
-export type {
-  BackgroundImageProps,
-  ImageFit,
-  ImageProps,
-} from "./components/Image/index.js";
+export type { BackgroundImageProps, ImageFit, ImageProps } from "./components/Image/index.js";
 export { Accordion } from "./components/Accordion/index.js";
 export type {
   AccordionItemData,
   AccordionProps,
   AccordionValue,
 } from "./components/Accordion/index.js";
-export { Card, CardActions, CardBadges, CardImage, CardMeta, CardSection } from "./components/Card/index.js";
+export {
+  Card,
+  CardActions,
+  CardBadges,
+  CardImage,
+  CardMeta,
+  CardSection,
+} from "./components/Card/index.js";
 export type {
   CardImageProps,
   CardProps,
@@ -348,11 +338,7 @@ export type {
   SignatureProps,
 } from "./components/Signature/index.js";
 export { Dropzone } from "./components/Dropzone/index.js";
-export type {
-  DropzoneKind,
-  DropzoneLabels,
-  DropzoneProps,
-} from "./components/Dropzone/index.js";
+export type { DropzoneKind, DropzoneLabels, DropzoneProps } from "./components/Dropzone/index.js";
 export { Stepper } from "./components/Stepper/index.js";
 export type {
   StepperLabels,
@@ -410,11 +396,7 @@ export type {
   TableSectionProps,
 } from "./components/Table/index.js";
 export { Timeline } from "./components/Timeline/index.js";
-export type {
-  TimelineItem,
-  TimelineProps,
-  TimelineVariant,
-} from "./components/Timeline/index.js";
+export type { TimelineItem, TimelineProps, TimelineVariant } from "./components/Timeline/index.js";
 export { Stat } from "./components/Stat/index.js";
 export type { StatProps, StatTrend } from "./components/Stat/index.js";
 export { Banderole } from "./components/Banderole/index.js";
@@ -431,10 +413,7 @@ export type {
   StatusMapProviderProps,
 } from "./components/StatusBadge/index.js";
 export { CurrencyDisplay } from "./components/CurrencyDisplay/index.js";
-export type {
-  CurrencyDisplayProps,
-  CurrencySign,
-} from "./components/CurrencyDisplay/index.js";
+export type { CurrencyDisplayProps, CurrencySign } from "./components/CurrencyDisplay/index.js";
 export { DateDisplay } from "./components/DateDisplay/index.js";
 export type {
   DateDisplayMode,
@@ -456,18 +435,11 @@ export type {
 export { EmptyModule } from "./components/EmptyModule/index.js";
 export type { EmptyModuleProps, EmptyModuleSurface } from "./components/EmptyModule/index.js";
 export { QuickAction } from "./components/QuickAction/index.js";
-export type {
-  QuickActionOrientation,
-  QuickActionProps,
-} from "./components/QuickAction/index.js";
+export type { QuickActionOrientation, QuickActionProps } from "./components/QuickAction/index.js";
 export { AppShell } from "./components/AppShell/index.js";
 export type { AppShellLabels, AppShellProps } from "./components/AppShell/index.js";
 export { Panel } from "./components/Panel/index.js";
-export type {
-  PanelLabels,
-  PanelOrientation,
-  PanelProps,
-} from "./components/Panel/index.js";
+export type { PanelLabels, PanelOrientation, PanelProps } from "./components/Panel/index.js";
 
 export { Section } from "./components/Section/index.js";
 export type { SectionProps } from "./components/Section/index.js";
@@ -475,6 +447,8 @@ export { Main } from "./components/Main/index.js";
 export type { MainProps } from "./components/Main/index.js";
 export { Banner } from "./components/Banner/index.js";
 export type { BannerProps, BannerSize, BannerVariant } from "./components/Banner/index.js";
+export { Header, HEADER_LABELS } from "./components/Header/index.js";
+export type { HeaderLabels, HeaderOrder, HeaderProps } from "./components/Header/index.js";
 export { Feature } from "./components/Feature/index.js";
 export type { FeatureProps } from "./components/Feature/index.js";
 
@@ -572,15 +546,15 @@ export { StarField } from "./components/StarField/index.js";
 export type { StarDensity, StarFieldProps } from "./components/StarField/index.js";
 
 export { Lightbox, LIGHTBOX_LABELS } from "./components/Lightbox/index.js";
-export type {
-  LightboxImage,
-  LightboxLabels,
-  LightboxProps,
-} from "./components/Lightbox/index.js";
+export type { LightboxImage, LightboxLabels, LightboxProps } from "./components/Lightbox/index.js";
 export { ImageGallery } from "./components/ImageGallery/index.js";
 export type { ImageGalleryProps } from "./components/ImageGallery/index.js";
 
-export { CodeHighlight, CodeHighlightTabs, CODE_HIGHLIGHT_LABELS } from "./components/CodeHighlight/index.js";
+export {
+  CodeHighlight,
+  CodeHighlightTabs,
+  CODE_HIGHLIGHT_LABELS,
+} from "./components/CodeHighlight/index.js";
 export type {
   CodeHighlightLabels,
   CodeHighlightProps,

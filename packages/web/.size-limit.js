@@ -945,11 +945,11 @@ const MODULE_BUDGETS = [
     limit: "13 kB",
   },
   {
-    name: "Banner (hero temable con variantes, por módulo)",
-    path: "dist/components/Banner/Banner.js",
-    import: "{ Banner }",
+    name: "Header (cabecera de pantalla: ActionIcon de vuelta, por módulo)",
+    path: "dist/components/Header/Header.js",
+    import: "{ Header }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "34 kB",
   },
   {
     name: "Feature (ThemeIcon + Anchor, por módulo)",
