@@ -50,13 +50,15 @@ function ToCssLength(value: number | string): string {
 
 export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyleProps {
   const sprinkle_props: Record<string, unknown> = {};
-  const style: CSSProperties = props.style ?? {};
+  const own_style = props.style as CSSProperties | undefined;
+  const style: CSSProperties = { ...own_style };
   const rest: Record<string, unknown> = {};
   let has_sprinkles = false;
-  let has_style = false;
+  let has_style = own_style !== undefined;
 
   for (const [key, value] of Object.entries(props)) {
     if (value === undefined) continue;
+    if (key === "style") continue;
 
     if (SPRINKLE_KEYS.has(key as never)) {
       sprinkle_props[key] = value;
