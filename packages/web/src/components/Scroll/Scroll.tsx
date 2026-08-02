@@ -12,9 +12,12 @@ import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
+import { Momentum } from "./components/Momentum.js";
 import * as styles from "./Scroll.css.js";
 import { scrollbarSize as scrollbarSizeVar } from "./Scroll.vars.css.js";
 import type { ScrollOwnProps, ScrollProps } from "./Scroll.types.js";
+
+const WHEEL_GAIN = 1.5;
 
 const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(props, ref) {
   const {
@@ -22,6 +25,11 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
     axis = "y",
     gutter = false,
     scrollbarSize,
+    shadows = false,
+    smooth = false,
+    momentum = false,
+    spring = "default",
+    multiplier = WHEEL_GAIN,
     className,
     style,
     children,
@@ -33,14 +41,31 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
       ? undefined
       : assignInlineVars({ [scrollbarSizeVar]: LengthToCss(scrollbarSize) });
 
+  const shadow_class = !shadows
+    ? undefined
+    : axis === "x"
+      ? styles.inlineShadows
+      : axis === "xy"
+        ? styles.bothShadows
+        : styles.blockShadows;
+
+  const shared = {
+    component: component ?? "div",
+    className: cx(styles.scroll({ axis, gutter, smooth }), shadow_class, className),
+    style: { ...css_vars, ...style },
+    ...rest,
+  };
+
+  if (momentum) {
+    return (
+      <Momentum {...shared} axis={axis} spring={spring} multiplier={multiplier} forwardedRef={ref}>
+        {children}
+      </Momentum>
+    );
+  }
+
   return (
-    <Box
-      ref={ref}
-      component={component ?? "div"}
-      className={cx(styles.scroll({ axis, gutter }), className)}
-      style={{ ...css_vars, ...style }}
-      {...rest}
-    >
+    <Box ref={ref} {...shared}>
       {children}
     </Box>
   );

@@ -3,6 +3,11 @@ export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure.js";
 export { useUncontrolled } from "./use-uncontrolled.js";
 export { useBreakpointDown, useBreakpointUp, useMediaQuery } from "./use-media-query.js";
 export { useScrolled, type UseScrolledOptions } from "./use-scrolled.js";
+export {
+  useMomentumScroll,
+  type MomentumAxis,
+  type UseMomentumScrollOptions,
+} from "./use-momentum-scroll.js";
 export { useStepper, type UseStepperInput, type UseStepperReturn } from "./use-stepper.js";
 export {
   useFieldProps,

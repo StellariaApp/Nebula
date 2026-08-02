@@ -84,11 +84,11 @@ const MODULE_BUDGETS = [
     limit: "13 kB",
   },
   {
-    name: "Scroll (primitivo temable en runtime, por módulo)",
+    name: "Scroll (budget propio: arrastra el subcomponente de momentum, por módulo)",
     path: "dist/components/Scroll/Scroll.js",
     import: "{ Scroll }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "14.5 kB",
   },
   {
     name: "Divider (primitivo temable en runtime, por módulo)",

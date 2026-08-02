@@ -1,11 +1,12 @@
 import { officialThemes } from "@stellaria/nebula-themes";
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, SpringConfig } from "@stellaria/nebula-tokens";
 import { describe, expect, it } from "vitest";
 
 import * as css from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import {
   MotionOff,
+  ScrollSpring,
   Spring,
   Stagger,
   StaggerDelay,
@@ -159,5 +160,29 @@ describe("Stagger", () => {
     expect(Stagger(off)).toBe(0);
     expect(StaggerDelay(5, off)).toBe(0);
     expect(StaggerDelay(5, WithTier("minimal"))).toBe(0);
+  });
+});
+
+describe("ScrollSpring", () => {
+  it("baja la frecuencia a la mitad y conserva el amortiguamiento del token", () => {
+    for (const name of ["gentle", "default", "snappy"] as const) {
+      const token = theme.motion.spring[name];
+      const scroll = ScrollSpring(name, theme);
+
+      const Ratio = (config: SpringConfig): number =>
+        config.damping / (2 * Math.sqrt(config.stiffness * config.mass));
+      const Frequency = (config: SpringConfig): number => Math.sqrt(config.stiffness / config.mass);
+
+      expect(Frequency(scroll)).toBeCloseTo(Frequency(token) / 2);
+      expect(Ratio(scroll)).toBeCloseTo(Ratio(token));
+      expect(scroll.mass).toBe(token.mass);
+    }
+  });
+
+  it("cada tema decide su propia física de scroll", () => {
+    const playful = officialThemes.playful;
+    expect(ScrollSpring("default", playful).stiffness).toBe(
+      playful.motion.spring.default.stiffness * 0.25,
+    );
   });
 });

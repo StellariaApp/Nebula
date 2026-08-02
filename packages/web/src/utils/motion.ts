@@ -1,8 +1,16 @@
-import type { DurationName, EasingName, NebulaTheme, SpringName } from "@stellaria/nebula-tokens";
+import type {
+  DurationName,
+  EasingName,
+  NebulaTheme,
+  SpringConfig,
+  SpringName,
+} from "@stellaria/nebula-tokens";
 import type { Transition } from "motion/react";
 
 const EXIT_RATIO = 2 / 3;
 const STAGGER_CAP = 8;
+const SCROLL_STIFFNESS = 0.25;
+const SCROLL_DAMPING = 0.5;
 const BEZIER = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
 
 export type MotionSurface = "tooltip" | "popover" | "menu" | "modal" | "drawer" | "toast";
@@ -48,6 +56,15 @@ export function Spring(name: SpringName, context: MotionContext): Transition {
     type: "spring",
     stiffness: config.stiffness,
     damping: config.damping,
+    mass: config.mass,
+  };
+}
+
+export function ScrollSpring(name: SpringName, theme: NebulaTheme): SpringConfig {
+  const config = theme.motion.spring[name];
+  return {
+    stiffness: config.stiffness * SCROLL_STIFFNESS,
+    damping: config.damping * SCROLL_DAMPING,
     mass: config.mass,
   };
 }
