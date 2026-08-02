@@ -26,9 +26,34 @@ export const kbd = style({
 });
 
 export const size = styleVariants({
-  xs: { minWidth: 18, height: 18, paddingInline: 4, fontSize: 10 },
-  sm: { minWidth: 20, height: 20, paddingInline: 5, fontSize: 11 },
-  md: { minWidth: 24, height: 24, paddingInline: 6, fontSize: 12 },
-  lg: { minWidth: 28, height: 28, paddingInline: 8, fontSize: 14 },
-  xl: { minWidth: 34, height: 34, paddingInline: 10, fontSize: 16 },
+  xs: {
+    minWidth: vars.size.compact.xs,
+    height: vars.size.compact.xs,
+    paddingInline: vars.space.xxs,
+    fontSize: vars.font.size.caption,
+  },
+  sm: {
+    minWidth: vars.size.compact.sm,
+    height: vars.size.compact.sm,
+    paddingInline: vars.space.xs,
+    fontSize: vars.font.size.caption,
+  },
+  md: {
+    minWidth: vars.size.compact.md,
+    height: vars.size.compact.md,
+    paddingInline: vars.space.xs,
+    fontSize: vars.font.size.body3,
+  },
+  lg: {
+    minWidth: vars.size.compact.lg,
+    height: vars.size.compact.lg,
+    paddingInline: vars.space.sm,
+    fontSize: vars.font.size.body2,
+  },
+  xl: {
+    minWidth: vars.size.compact.xl,
+    height: vars.size.compact.xl,
+    paddingInline: vars.space.sm,
+    fontSize: vars.font.size.body1,
+  },
 });

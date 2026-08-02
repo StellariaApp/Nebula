@@ -7,6 +7,8 @@ import { baseLayer } from "../../theme/layers.css.js";
 
 import { ratingColor } from "./Rating.vars.css.js";
 
+const TOUCH_TARGET = 24;
+
 export const group = style({
   "@layer": {
     [baseLayer]: {
@@ -38,7 +40,19 @@ export const item = style({
       lineHeight: 0,
       ...motion.interaction,
       ...motion.reducedMotion,
+      "::after": {
+        content: "",
+        position: "absolute",
+        top: "50%",
+        insetInlineStart: "50%",
+        translate: "-50% -50%",
+        minWidth: TOUCH_TARGET,
+        minHeight: TOUCH_TARGET,
+        width: "100%",
+        height: "100%",
+      },
       selectors: {
+        "&[data-readonly='true']::after": { content: "none" },
         "&[data-active='true']": { color: ratingColor },
         "&[data-focus-visible='true']": focus.ring,
         "&[data-readonly='true']": { cursor: "default" },

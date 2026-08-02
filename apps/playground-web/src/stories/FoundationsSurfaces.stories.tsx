@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import type { ShadowLevel } from "@stellaria/nebula-tokens";
-import { Box, Flex, Paper, Text, Title } from "@stellaria/nebula-web";
+import { Box, Card, Flex, Paper, Section, Text, Title } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
@@ -78,6 +78,40 @@ export const ElevationLadder: Story = {
   render: () => (
     <Box p="lg" bg="surface.base">
       <Ladder />
+    </Box>
+  ),
+};
+
+/**
+ * Los primitivos de superficie SIN props, sobre el lienzo. Existe porque la escalera de arriba pasa
+ * `bg` explícito en los cinco niveles y por eso no pudo detectar que `Paper` había perdido su
+ * superficie por defecto: durante dos días pintó el color del lienzo con los cuatro gates en verde
+ * (WR2.1 A-1). Si un default vuelve a romperse, se ve aquí.
+ */
+export const Defaults: Story = {
+  render: () => (
+    <Box p="xl" bg="surface.base">
+      <Text fz="body2" c="text.secondary" mb="md">
+        Ninguna de las tres cajas lleva props de superficie. Las que deben distinguirse del lienzo
+        son `Paper` y `Card` (nivel 1); `Section` no pinta superficie por diseño.
+      </Text>
+      <Flex direction="column" gapy="md">
+        <Paper p="lg">
+          <Text fz="caption" ff="mono" c="text.muted">
+            {"<Paper />"} — debe verse sobre surface.base
+          </Text>
+        </Paper>
+        <Card p="lg">
+          <Text fz="caption" ff="mono" c="text.muted">
+            {"<Card />"} — misma superficie que Paper, mismo nivel
+          </Text>
+        </Card>
+        <Section title="<Section />">
+          <Text fz="caption" ff="mono" c="text.muted">
+            sin superficie propia: es un contenedor de ritmo
+          </Text>
+        </Section>
+      </Flex>
     </Box>
   ),
 };

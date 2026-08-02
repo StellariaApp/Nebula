@@ -59,11 +59,31 @@ export const remove = style({
 });
 
 export const size = styleVariants({
-  xs: { minHeight: 18, paddingInline: vars.space.xs, fontSize: vars.font.size.caption },
-  sm: { minHeight: 22, paddingInline: vars.space.xs, fontSize: vars.font.size.caption },
-  md: { minHeight: 26, paddingInline: vars.space.sm, fontSize: vars.font.size.body3 },
-  lg: { minHeight: 32, paddingInline: vars.space.sm, fontSize: vars.font.size.body2 },
-  xl: { minHeight: 38, paddingInline: vars.space.md, fontSize: vars.font.size.body1 },
+  xs: {
+    minHeight: vars.size.compact.xs,
+    paddingInline: vars.space.xs,
+    fontSize: vars.font.size.caption,
+  },
+  sm: {
+    minHeight: vars.size.compact.sm,
+    paddingInline: vars.space.xs,
+    fontSize: vars.font.size.caption,
+  },
+  md: {
+    minHeight: vars.size.compact.md,
+    paddingInline: vars.space.sm,
+    fontSize: vars.font.size.body3,
+  },
+  lg: {
+    minHeight: vars.size.compact.lg,
+    paddingInline: vars.space.sm,
+    fontSize: vars.font.size.body2,
+  },
+  xl: {
+    minHeight: vars.size.compact.xl,
+    paddingInline: vars.space.md,
+    fontSize: vars.font.size.body1,
+  },
 });
 
 export const radius = styleVariants({

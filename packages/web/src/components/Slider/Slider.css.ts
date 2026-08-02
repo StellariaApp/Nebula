@@ -7,6 +7,8 @@ import { baseLayer } from "../../theme/layers.css.js";
 
 import { sliderColor, trackBg, trackBorder, trackBorderWidth } from "./Slider.vars.css.js";
 
+const TOUCH_TARGET = 24;
+
 export const root = style({
   "@layer": {
     [baseLayer]: {
@@ -73,6 +75,17 @@ export const thumb = style({
       cursor: "grab",
       ...motion.interaction,
       ...motion.reducedMotion,
+      "::after": {
+        content: "",
+        position: "absolute",
+        top: "50%",
+        insetInlineStart: "50%",
+        translate: "-50% -50%",
+        minWidth: TOUCH_TARGET,
+        minHeight: TOUCH_TARGET,
+        width: "100%",
+        height: "100%",
+      },
       selectors: {
         "&[data-focus-visible='true']": focus.ring,
         "&[data-dragging='true']": { cursor: "grabbing" },
@@ -145,18 +158,21 @@ export const row = style({
   },
 });
 
+const Track = (step: string): string => `calc(${step} / 8)`;
+const Thumb = (step: string): string => `calc(${step} / 2)`;
+
 export const trackSize = styleVariants({
-  xs: { height: 4 },
-  sm: { height: 5 },
-  md: { height: 6 },
-  lg: { height: 8 },
-  xl: { height: 10 },
+  xs: { height: Track(vars.size.control.xs) },
+  sm: { height: Track(vars.size.control.sm) },
+  md: { height: Track(vars.size.control.md) },
+  lg: { height: Track(vars.size.control.lg) },
+  xl: { height: Track(vars.size.control.xl) },
 });
 
 export const thumbSize = styleVariants({
-  xs: { width: 12, height: 12 },
-  sm: { width: 14, height: 14 },
-  md: { width: 16, height: 16 },
-  lg: { width: 20, height: 20 },
-  xl: { width: 24, height: 24 },
+  xs: { width: Thumb(vars.size.control.xs), height: Thumb(vars.size.control.xs) },
+  sm: { width: Thumb(vars.size.control.sm), height: Thumb(vars.size.control.sm) },
+  md: { width: Thumb(vars.size.control.md), height: Thumb(vars.size.control.md) },
+  lg: { width: Thumb(vars.size.control.lg), height: Thumb(vars.size.control.lg) },
+  xl: { width: Thumb(vars.size.control.xl), height: Thumb(vars.size.control.xl) },
 });

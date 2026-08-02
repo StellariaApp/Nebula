@@ -53,7 +53,7 @@ export const bare = style({});
 
 export const badge = style({
   "@layer": {
-    [baseLayer]: { paddingInline: 4 },
+    [baseLayer]: { paddingInline: vars.space.xxs },
   },
 });
 
@@ -78,12 +78,34 @@ export const processing = style({
   },
 });
 
+const Dot = (step: string): string => `calc(${step} / 2)`;
+
 export const size = styleVariants({
-  xs: { minWidth: 8, height: 8, fontSize: 8 },
-  sm: { minWidth: 12, height: 12, fontSize: 9 },
-  md: { minWidth: 16, height: 16, fontSize: 10 },
-  lg: { minWidth: 20, height: 20, fontSize: 11 },
-  xl: { minWidth: 24, height: 24, fontSize: 12 },
+  xs: {
+    minWidth: Dot(vars.size.compact.xs),
+    height: Dot(vars.size.compact.xs),
+    fontSize: vars.font.size.caption,
+  },
+  sm: {
+    minWidth: Dot(vars.size.compact.sm),
+    height: Dot(vars.size.compact.sm),
+    fontSize: vars.font.size.caption,
+  },
+  md: {
+    minWidth: Dot(vars.size.compact.md),
+    height: Dot(vars.size.compact.md),
+    fontSize: vars.font.size.caption,
+  },
+  lg: {
+    minWidth: Dot(vars.size.compact.lg),
+    height: Dot(vars.size.compact.lg),
+    fontSize: vars.font.size.body3,
+  },
+  xl: {
+    minWidth: Dot(vars.size.compact.xl),
+    height: Dot(vars.size.compact.xl),
+    fontSize: vars.font.size.body2,
+  },
 });
 
 export const placement = styleVariants({
