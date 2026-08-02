@@ -147,6 +147,20 @@ const MODULE_BUDGETS = [
     limit: "20 kB",
   },
   {
+    name: "Footer (compound de pie de página, por módulo)",
+    path: "dist/components/Footer/index.js",
+    import: "{ Footer }",
+    ignore: ["react", "react-dom"],
+    limit: "13 kB",
+  },
+  {
+    name: "Reveal (motion + IntersectionObserver, por módulo)",
+    path: "dist/components/Reveal/Reveal.js",
+    import: "{ Reveal }",
+    ignore: ["react", "react-dom"],
+    limit: "20 kB",
+  },
+  {
     name: "Collapse (compuesto: motion, por módulo)",
     path: "dist/components/Collapse/Collapse.js",
     import: "{ Collapse }",
@@ -957,6 +971,13 @@ const MODULE_BUDGETS = [
     import: "{ Header }",
     ignore: ["react", "react-dom"],
     limit: "34 kB",
+  },
+  {
+    name: "Hero (banda de portada temable con variantes, por módulo)",
+    path: "dist/components/Hero/Banner.js",
+    import: "{ Hero }",
+    ignore: ["react", "react-dom"],
+    limit: "15.5 kB",
   },
   {
     name: "Feature (ThemeIcon + Anchor, por módulo)",

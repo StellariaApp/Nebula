@@ -1,14 +1,17 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
-import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Unit, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export type BannerVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
+export type HeroVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
 
-export type BannerSize = "sm" | "md" | "lg" | "xl";
+export type HeroSize = "sm" | "md" | "lg" | "xl";
 
-export interface BannerProps extends Omit<StyleProps, "color" | "align" | "left" | "right" | "bottom"> {
+export interface HeroProps extends Omit<
+  StyleProps,
+  "color" | "align" | "left" | "right" | "bottom"
+> {
   title?: ReactNode | undefined;
   subtitle?: ReactNode | undefined;
   hiper?: ReactNode | undefined;
@@ -16,10 +19,14 @@ export interface BannerProps extends Omit<StyleProps, "color" | "align" | "left"
   image?: string | undefined;
   imageAlt?: string | undefined;
   overlayOpacity?: number | undefined;
-  variant?: BannerVariant | undefined;
+  variant?: HeroVariant | undefined;
   color?: ColorExtended | undefined;
-  size?: BannerSize | undefined;
+  size?: HeroSize | undefined;
   align?: "start" | "center" | undefined;
+  order?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  contentWidth?: Unit | undefined;
+  id?: string | undefined;
+  style?: CSSProperties | undefined;
   actions?: ReactNode | undefined;
   left?: ReactNode | undefined;
   right?: ReactNode | undefined;

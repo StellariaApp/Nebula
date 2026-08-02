@@ -4,6 +4,8 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
+import { contentGap, contentMax } from "./Main.vars.css.js";
+
 export const root = style({
   "@layer": {
     [baseLayer]: {
@@ -23,27 +25,9 @@ export const backdrop = style({
     [baseLayer]: {
       position: "absolute",
       inset: 0,
-      zIndex: 0,
+      zIndex: vars.zIndex.base,
       pointerEvents: "none",
       overflow: "hidden",
-    },
-  },
-});
-
-export const header = style({
-  "@layer": {
-    [baseLayer]: {
-      position: "relative",
-      zIndex: 1,
-      flexShrink: 0,
-      selectors: {
-        "&[data-sticky='true']": {
-          position: "sticky",
-          insetBlockStart: 0,
-          zIndex: 2,
-          background: vars.color.surface.base,
-        },
-      },
     },
   },
 });
@@ -64,23 +48,16 @@ export const content = style({
           alignItems: "center",
           justifyContent: "center",
         },
-      },
-    },
-  },
-});
-
-export const footer = style({
-  "@layer": {
-    [baseLayer]: {
-      position: "relative",
-      zIndex: 1,
-      flexShrink: 0,
-      selectors: {
-        "&[data-sticky='true']": {
-          position: "sticky",
-          insetBlockEnd: 0,
-          zIndex: 2,
-          background: vars.color.surface.base,
+        "&[data-railed='true']": {
+          boxSizing: "border-box",
+          width: "100%",
+          maxWidth: contentMax,
+          marginInline: "auto",
+        },
+        "&[data-spacing='true']": {
+          display: "flex",
+          flexDirection: "column",
+          gap: contentGap,
         },
       },
     },
@@ -93,7 +70,7 @@ export const skip = style({
       position: "absolute",
       insetBlockStart: vars.space.xs,
       insetInlineStart: vars.space.xs,
-      zIndex: 10,
+      zIndex: vars.zIndex.overlay,
       padding: `${vars.space.xs} ${vars.space.sm}`,
       borderRadius: vars.radius.sm,
       background: vars.color.surface.raised,

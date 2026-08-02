@@ -1,13 +1,21 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
+import { useId, type ElementType, type ReactElement } from "react";
+
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { m } from "motion/react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
 import { LoadingOverlay } from "../LoadingOverlay/LoadingOverlay.js";
+import { useReveal } from "../Reveal/use-reveal.js";
 
 import * as styles from "./Section.css.js";
 import type { SectionProps } from "./Section.types.js";
+import { contentMax } from "./Section.vars.css.js";
+
+const DEFAULT_WIDTH = 1180;
 
 export function Section(props: SectionProps): ReactElement {
   const {
@@ -20,14 +28,17 @@ export function Section(props: SectionProps): ReactElement {
     loading = false,
     error,
     empty,
+    size = "md",
     isEmpty = false,
     order = 2,
     divided = false,
+    reveal = false,
+    contentWidth = DEFAULT_WIDTH,
     className,
     "aria-label": aria_label,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const title_id = useId();
   const has_title = title !== undefined;
@@ -39,12 +50,23 @@ export function Section(props: SectionProps): ReactElement {
       ? {}
       : { "aria-label": aria_label };
 
+  const rail_vars = assignInlineVars({ [contentMax]: LengthToCss(contentWidth) });
+  const revealed = useReveal();
+  const Root: ElementType = reveal ? m.section : "section";
+
   return (
-    <section
-      className={cx(styles.section, sprinkle_class, className)}
-      style={sprinkle_style}
+    <Root
+      {...(reveal ? { ref: revealed.ref } : {})}
+      className={cx(styles.section, styles.size[size], sprinkle_class, className)}
+      style={{ ...rail_vars, ...sprinkle_style }}
       data-divided={divided ? "true" : undefined}
+      data-reveal={reveal ? revealed["data-reveal"] : undefined}
+      {...(reveal ? { initial: false } : {})}
+      {...(reveal && revealed.animate !== undefined
+        ? { animate: revealed.animate, transition: revealed.transition }
+        : {})}
       {...labelling}
+      {...rest}
     >
       {has_title || description !== undefined || actions !== undefined ? (
         <div className={styles.head}>
@@ -54,9 +76,7 @@ export function Section(props: SectionProps): ReactElement {
                 {title}
               </Heading>
             ) : null}
-            {description === undefined ? null : (
-              <p className={styles.description}>{description}</p>
-            )}
+            {description === undefined ? null : <p className={styles.description}>{description}</p>}
           </div>
           {actions === undefined && aside === undefined ? null : (
             <div className={styles.actions}>
@@ -85,7 +105,7 @@ export function Section(props: SectionProps): ReactElement {
       </div>
 
       {footer === undefined ? null : <div className={styles.foot}>{footer}</div>}
-    </section>
+    </Root>
   );
 }
 

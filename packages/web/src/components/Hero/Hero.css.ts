@@ -1,20 +1,28 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { backdropFilter, bg, borderColor, borderWidth, fg, veil } from "./Banner.vars.css.js";
+import {
+  backdropFilter,
+  bg,
+  borderColor,
+  borderWidth,
+  contentMax,
+  fg,
+  veil,
+} from "./Hero.vars.css.js";
 
-export const banner = style({
+export const hero = style({
   "@layer": {
     [baseLayer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
-      gap: vars.space.lg,
+      gap: vars.space.md,
       boxSizing: "border-box",
+      width: "100%",
       overflow: "hidden",
-      borderRadius: vars.radius.lg,
       borderStyle: "solid",
       borderWidth,
       borderColor,
@@ -60,9 +68,12 @@ export const body = style({
       zIndex: 1,
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.xs,
+      gap: vars.space.md,
       minWidth: 0,
       flex: 1,
+      boxSizing: "border-box",
+      maxWidth: fallbackVar(contentMax, "none"),
+      marginInline: "auto",
     },
   },
 });
@@ -81,7 +92,16 @@ export const hiper = style({
       fontWeight: vars.font.weight.semibold,
       textTransform: "uppercase",
       letterSpacing: vars.font.letterSpacing.wide,
-      opacity: 0.85,
+    },
+  },
+});
+
+export const header = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.sm,
     },
   },
 });
@@ -101,7 +121,6 @@ export const subtitle = style({
     [baseLayer]: {
       margin: 0,
       fontSize: vars.font.size.body1,
-      opacity: 0.9,
     },
   },
 });
@@ -113,7 +132,6 @@ export const description = style({
       maxWidth: "62ch",
       fontSize: vars.font.size.body3,
       lineHeight: vars.font.lineHeight.relaxed,
-      opacity: 0.85,
     },
   },
 });
@@ -122,7 +140,7 @@ export const actions = style({
   "@layer": {
     [baseLayer]: {
       display: "flex",
-      gap: vars.space.xs,
+      gap: vars.space.md,
       flexWrap: "wrap",
       marginBlockStart: vars.space.xs,
     },
@@ -136,15 +154,31 @@ export const bottom = style({
 });
 
 export const size = styleVariants({
-  sm: { padding: vars.space.md, minHeight: 120 },
-  md: { padding: vars.space.lg, minHeight: 180 },
-  lg: { padding: vars.space.xl, minHeight: 260 },
-  xl: { padding: vars.space.xxl, minHeight: 340 },
+  xl: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 90, minHeight: 240 },
+    },
+  },
+  lg: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 60, minHeight: 160 },
+    },
+  },
+  md: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.lg, paddingBlock: 40, minHeight: 120 },
+    },
+  },
+  sm: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.md, paddingBlock: 20, minHeight: 80 },
+    },
+  },
 });
 
 export const titleSize = styleVariants({
-  sm: { fontSize: vars.font.size.h5 },
-  md: { fontSize: vars.font.size.h4 },
-  lg: { fontSize: vars.font.size.h3 },
-  xl: { fontSize: vars.font.size.h2 },
+  sm: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h5 } } },
+  md: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h4 } } },
+  lg: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h3 } } },
+  xl: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h2 } } },
 });

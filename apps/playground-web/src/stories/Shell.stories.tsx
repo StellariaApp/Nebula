@@ -3,7 +3,7 @@ import { useState, type ReactElement } from "react";
 
 import {
   AppShell,
-  Banner,
+  Hero,
   Box,
   Burger,
   Button,
@@ -29,7 +29,14 @@ export default meta;
 type Story = StoryObj<typeof AppShell>;
 
 const ICON_STAR = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="m12 3 2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 17.3 6.2 20.8l1.6-6.6L2.6 9.8l6.8-.5z" />
   </svg>
 );
@@ -44,7 +51,9 @@ function Shell(): ReactElement {
       header={
         <>
           <Burger opened={opened} onChange={set_opened} size="sm" />
-          <Text fz="body1" fw="semibold">Conciliación</Text>
+          <Text fz="body1" fw="semibold">
+            Conciliación
+          </Text>
         </>
       }
       navbar={
@@ -96,8 +105,8 @@ export const MasterDetail: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="sm">
       <Text fz="body3" c="text.secondary">
-        El separador es operable con teclado: enfócalo con Tab y usa las flechas, o Inicio y Fin para
-        ir a los topes.
+        El separador es operable con teclado: enfócalo con Tab y usa las flechas, o Inicio y Fin
+        para ir a los topes.
       </Text>
       <Box h={320} style={{ border: "1px solid var(--nebula-border)" }}>
         <Panel
@@ -126,11 +135,11 @@ export const MasterDetail: Story = {
   ),
 };
 
-export const Hero: Story = {
+export const HeroBand: Story = {
   parameters: { layout: "padded" },
   render: () => (
     <Box display="flex" direction="column" gap="lg">
-      <Banner
+      <Hero
         hiper="Novedad"
         title="Concilia en un clic"
         subtitle="Sin hojas de cálculo"
@@ -157,12 +166,12 @@ export const Hero: Story = {
   ),
 };
 
-export const BannerVariants: Story = {
+export const HeroVariants: Story = {
   parameters: { layout: "padded" },
   render: () => (
     <Box display="flex" direction="column" gap="md">
       {(["filled", "outline", "light", "glass"] as const).map((variant) => (
-        <Banner key={variant} variant={variant} title={variant} size="sm" />
+        <Hero key={variant} variant={variant} title={variant} size="sm" />
       ))}
     </Box>
   ),
@@ -173,7 +182,7 @@ export const AllThemes: Story = {
   render: () => (
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">
-        <Banner title="Concilia en un clic" size="sm" />
+        <Hero title="Concilia en un clic" size="sm" />
         <Feature icon={ICON_STAR} title="Automática" description="Por importe y fecha." />
         <Burger />
       </Box>

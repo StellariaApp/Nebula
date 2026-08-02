@@ -1,7 +1,11 @@
-import { style } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
+
+import { fallbackVar } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+
+import { contentMax } from "./Section.vars.css.js";
 
 export const section = style({
   "@layer": {
@@ -11,6 +15,10 @@ export const section = style({
       flexDirection: "column",
       gap: vars.space.md,
       minWidth: 0,
+      boxSizing: "border-box",
+      width: "100%",
+      maxWidth: fallbackVar(contentMax, "none"),
+      marginInline: "auto",
       fontFamily: vars.font.family.sans,
       selectors: {
         "&[data-divided='true']": {
@@ -90,5 +98,28 @@ export const body = style({
 export const foot = style({
   "@layer": {
     [baseLayer]: { minWidth: 0 },
+  },
+});
+
+export const size = styleVariants({
+  xl: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 90, minHeight: 240 },
+    },
+  },
+  lg: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 60, minHeight: 160 },
+    },
+  },
+  md: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.lg, paddingBlock: 40, minHeight: 120 },
+    },
+  },
+  sm: {
+    "@layer": {
+      [baseLayer]: { paddingInline: vars.space.md, paddingBlock: 20, minHeight: 80 },
+    },
   },
 });

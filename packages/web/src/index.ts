@@ -463,14 +463,30 @@ export type { AppShellLabels, AppShellProps } from "./components/AppShell/index.
 export { Panel } from "./components/Panel/index.js";
 export type { PanelLabels, PanelOrientation, PanelProps } from "./components/Panel/index.js";
 
+export { Reveal } from "./components/Reveal/index.js";
+export type { RevealPreset, RevealProps } from "./components/Reveal/index.js";
 export { Section } from "./components/Section/index.js";
 export type { SectionProps } from "./components/Section/index.js";
+export {
+  Footer,
+  FooterBrand,
+  FooterGroup,
+  FooterLegal,
+  FooterLink,
+} from "./components/Footer/index.js";
+export type {
+  FooterBrandProps,
+  FooterGroupProps,
+  FooterLegalProps,
+  FooterLinkProps,
+  FooterProps,
+} from "./components/Footer/index.js";
 export { Main } from "./components/Main/index.js";
 export type { MainProps } from "./components/Main/index.js";
-export { Banner } from "./components/Banner/index.js";
-export type { BannerProps, BannerSize, BannerVariant } from "./components/Banner/index.js";
 export { Header, HEADER_LABELS } from "./components/Header/index.js";
 export type { HeaderLabels, HeaderOrder, HeaderProps } from "./components/Header/index.js";
+export { Hero } from "./components/Hero/index.js";
+export type { HeroProps, HeroSize, HeroVariant } from "./components/Hero/index.js";
 export { Feature } from "./components/Feature/index.js";
 export type { FeatureProps } from "./components/Feature/index.js";
 

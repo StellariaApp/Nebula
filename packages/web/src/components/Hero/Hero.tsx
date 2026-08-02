@@ -1,18 +1,29 @@
 "use client";
 
-import type { ReactElement } from "react";
+import { useId, type ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { LengthToCss } from "../../utils/token-css.js";
 
-import * as styles from "./Banner.css.js";
-import type { BannerProps } from "./Banner.types.js";
-import { backdropFilter, bg, borderColor, borderWidth, fg, veil } from "./Banner.vars.css.js";
+import * as styles from "./Hero.css.js";
+import type { HeroProps } from "./Hero.types.js";
+import {
+  backdropFilter,
+  bg,
+  borderColor,
+  borderWidth,
+  contentMax,
+  fg,
+  veil,
+} from "./Hero.vars.css.js";
 
-export function Banner(props: BannerProps): ReactElement {
+const DEFAULT_WIDTH = 1400;
+
+export function Hero(props: HeroProps): ReactElement {
   const {
     title,
     subtitle,
@@ -21,10 +32,12 @@ export function Banner(props: BannerProps): ReactElement {
     image,
     imageAlt = "",
     overlayOpacity = 0.55,
-    variant = "light",
-    color = "primary",
-    size = "md",
+    variant = "filled",
+    color = "transparent",
+    size = "lg",
     align = "start",
+    order = 1,
+    contentWidth = DEFAULT_WIDTH,
     actions,
     left,
     right,
@@ -33,13 +46,17 @@ export function Banner(props: BannerProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
   const has_image = image !== undefined;
 
+  const title_id = useId();
+  const Title = `h${String(order)}` as "h2";
+
   const css_vars = assignInlineVars({
+    [contentMax]: LengthToCss(contentWidth),
     [bg]: resolved.background,
     [fg]: resolved.foreground,
     [borderColor]: resolved.borderColor,
@@ -52,10 +69,12 @@ export function Banner(props: BannerProps): ReactElement {
 
   return (
     <section
-      className={cx(styles.banner, styles.size[size], sprinkle_class, className)}
+      className={cx(styles.hero, styles.size[size], sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}
       data-variant={variant}
       data-align={align}
+      {...(title === undefined ? {} : { "aria-labelledby": title_id })}
+      {...rest}
     >
       {has_image ? (
         <>
@@ -68,13 +87,15 @@ export function Banner(props: BannerProps): ReactElement {
 
       <div className={styles.body}>
         {hiper === undefined ? null : <p className={styles.hiper}>{hiper}</p>}
-        {title === undefined ? null : (
-          <p className={cx(styles.title, styles.titleSize[size])}>{title}</p>
-        )}
-        {subtitle === undefined ? null : <p className={styles.subtitle}>{subtitle}</p>}
-        {description === undefined ? null : (
-          <p className={styles.description}>{description}</p>
-        )}
+        <div className={styles.header}>
+          {title === undefined ? null : (
+            <Title className={cx(styles.title, styles.titleSize[size])} id={title_id}>
+              {title}
+            </Title>
+          )}
+          {subtitle === undefined ? null : <p className={styles.subtitle}>{subtitle}</p>}
+          {description === undefined ? null : <p className={styles.description}>{description}</p>}
+        </div>
         {children}
         {actions === undefined ? null : <div className={styles.actions}>{actions}</div>}
       </div>
@@ -85,4 +106,4 @@ export function Banner(props: BannerProps): ReactElement {
   );
 }
 
-Banner.displayName = "Banner";
+Hero.displayName = "Hero";

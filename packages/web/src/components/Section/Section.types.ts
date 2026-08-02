@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 
+import type { Unit } from "@stellaria/nebula-tokens";
+
 import type { StyleProps } from "../../utils/style-props.js";
+
+export type SectionSize = "sm" | "md" | "lg" | "xl";
 
 export interface SectionProps extends Omit<StyleProps, "color"> {
   children?: ReactNode | undefined;
@@ -15,6 +19,10 @@ export interface SectionProps extends Omit<StyleProps, "color"> {
   isEmpty?: boolean | undefined;
   order?: 2 | 3 | 4 | 5 | 6 | undefined;
   divided?: boolean | undefined;
+  reveal?: boolean | undefined;
+  contentWidth?: Unit | undefined;
+  id?: string | undefined;
+  size?: SectionSize | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
 }

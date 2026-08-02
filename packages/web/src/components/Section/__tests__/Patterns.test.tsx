@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
-import { Banner } from "../../Banner/Banner.js";
+import { Hero } from "../../Hero/Hero.js";
 import { Feature } from "../../Feature/Feature.js";
 import { Main } from "../../Main/Main.js";
 import { Section } from "../Section.js";
@@ -64,7 +64,11 @@ describe("Main", () => {
   });
 
   it("el skip-link apunta al contenido", () => {
-    render(<Main withSkipLink id="contenido-principal">cuerpo</Main>);
+    render(
+      <Main withSkipLink id="contenido-principal">
+        cuerpo
+      </Main>,
+    );
     const skip = screen.getByRole("link", { name: "Saltar al contenido" });
     expect(skip.getAttribute("href")).toBe("#contenido-principal");
     expect(screen.getByRole("main").getAttribute("id")).toBe("contenido-principal");
@@ -79,12 +83,56 @@ describe("Main", () => {
     render(<Main background={<span>adorno</span>}>cuerpo</Main>);
     expect(screen.getByText("adorno").closest("[aria-hidden='true']")).not.toBeNull();
   });
+
+  it("sin contentWidth ni spacing el main no cambia respecto a hoy", () => {
+    render(<Main>cuerpo</Main>);
+    const main = screen.getByRole("main");
+
+    expect(main.getAttribute("data-railed")).toBeNull();
+    expect(main.getAttribute("data-spacing")).toBeNull();
+    expect(main.getAttribute("style") ?? "").toBe("");
+  });
+
+  it("contentWidth acota el contenido y viaja como var", () => {
+    render(<Main contentWidth={1180}>cuerpo</Main>);
+    const main = screen.getByRole("main");
+
+    expect(main.getAttribute("data-railed")).toBe("true");
+    expect(main.getAttribute("style") ?? "").toContain("1180px");
+    expect(main.getAttribute("style") ?? "").not.toContain("max-width");
+  });
+
+  it("spacing acepta un token de espaciado y lo resuelve a var del contrato", () => {
+    render(<Main spacing="xxl">cuerpo</Main>);
+    const main = screen.getByRole("main");
+
+    expect(main.getAttribute("data-spacing")).toBe("true");
+    expect(main.getAttribute("style") ?? "").toContain("var(--");
+  });
+
+  it("el carril va en el main, no en la raíz: el fondo sigue a sangre", () => {
+    const { container } = render(
+      <Main contentWidth={960} background={<span>adorno</span>}>
+        cuerpo
+      </Main>,
+    );
+    const backdrop = screen.getByText("adorno").closest("[aria-hidden='true']");
+
+    expect(container.firstElementChild?.getAttribute("data-railed")).toBeNull();
+    expect(backdrop?.getAttribute("data-railed")).toBeNull();
+    expect(screen.getByRole("main").getAttribute("data-railed")).toBe("true");
+  });
 });
 
-describe("Banner", () => {
+describe("Hero", () => {
   it("pinta la jerarquía completa de textos", () => {
     render(
-      <Banner hiper="Novedad" title="Concilia en un clic" subtitle="Sin hojas de cálculo" description="Conecta tu banco." />,
+      <Hero
+        hiper="Novedad"
+        title="Concilia en un clic"
+        subtitle="Sin hojas de cálculo"
+        description="Conecta tu banco."
+      />,
     );
     expect(screen.getByText("Novedad")).toBeDefined();
     expect(screen.getByText("Concilia en un clic")).toBeDefined();
@@ -95,15 +143,25 @@ describe("Banner", () => {
   it("cada variante del subconjunto resuelve una receta distinta", () => {
     const seen = new Set<string>();
     for (const variant of ["filled", "outline", "light", "glass"] as const) {
-      const view = render(<Banner title="X" variant={variant} />);
+      const view = render(<Hero title="X" variant={variant} color="primary" />);
       seen.add(screen.getByText("X").closest("section")?.getAttribute("style") ?? "");
       view.unmount();
     }
     expect(seen.size).toBe(4);
   });
 
+  it('el color por defecto es "transparent": la banda no pinta fondo propio', () => {
+    render(<Hero title="X" />);
+    const inline = screen.getByText("X").closest("section")?.getAttribute("style") ?? "";
+    const bg = /--bg[^:]*:\s*([^;]+);/.exec(inline)?.[1]?.trim();
+
+    expect(bg).toBe("transparent");
+  });
+
   it("la imagen de fondo lleva alt y su velo es decorativo", () => {
-    const { container } = render(<Banner title="X" image="hero.png" imageAlt="Equipo trabajando" />);
+    const { container } = render(
+      <Hero title="X" image="hero.png" imageAlt="Equipo trabajando" />,
+    );
     expect(screen.getByRole("img", { name: "Equipo trabajando" })).toBeDefined();
     expect(container.querySelector("[aria-hidden='true']")).not.toBeNull();
   });
