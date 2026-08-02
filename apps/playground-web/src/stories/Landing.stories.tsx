@@ -292,13 +292,7 @@ function Foot(): ReactElement {
 
 function Page(): ReactElement {
   return (
-    <Main
-      withSkipLink
-      spacing="xxxl"
-      header={<Bar />}
-      footer={<Foot />}
-      background={<StarField parallax />}
-    >
+    <Main withSkipLink header={<Bar />} footer={<Foot />} background={<StarField parallax />}>
       <Portada />
       <Divider borderColor="border.subtle.40" />
       <Numbers />

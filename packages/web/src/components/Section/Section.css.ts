@@ -2,6 +2,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import { fallbackVar } from "@vanilla-extract/css";
 
+import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
@@ -104,22 +105,38 @@ export const foot = style({
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 90, minHeight: 240 },
+      [baseLayer]: {
+        paddingInline: vars.space.xl,
+        paddingBlock: BAND_PADDING.xl,
+        minHeight: BAND_MIN_HEIGHT.xl,
+      },
     },
   },
   lg: {
     "@layer": {
-      [baseLayer]: { paddingInline: vars.space.xl, paddingBlock: 60, minHeight: 160 },
+      [baseLayer]: {
+        paddingInline: vars.space.xl,
+        paddingBlock: BAND_PADDING.lg,
+        minHeight: BAND_MIN_HEIGHT.lg,
+      },
     },
   },
   md: {
     "@layer": {
-      [baseLayer]: { paddingInline: vars.space.lg, paddingBlock: 40, minHeight: 120 },
+      [baseLayer]: {
+        paddingInline: vars.space.lg,
+        paddingBlock: BAND_PADDING.md,
+        minHeight: BAND_MIN_HEIGHT.md,
+      },
     },
   },
   sm: {
     "@layer": {
-      [baseLayer]: { paddingInline: vars.space.md, paddingBlock: 20, minHeight: 80 },
+      [baseLayer]: {
+        paddingInline: vars.space.md,
+        paddingBlock: BAND_PADDING.sm,
+        minHeight: BAND_MIN_HEIGHT.sm,
+      },
     },
   },
 });

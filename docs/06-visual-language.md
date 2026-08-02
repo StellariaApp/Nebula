@@ -126,20 +126,22 @@ Reglas de composición:
 
 ## 4. Densidad y controles
 
-`sizes.control` expresa densidad, no importancia:
+`sizes.control` expresa densidad, no importancia. La escala vive sobre una **rejilla de 8**, con
+distancia constante entre peldaños para que un tema pueda recalibrarla sin recalcular a mano
+(ADR-072):
 
-- `xs` (30) solo para toolbars densas y acciones auxiliares;
-- `sm` (36) para data-dense;
-- `md` (42) es el default de producto;
-- `lg` (50) para formularios prominentes y touch frecuente;
-- `xl` (60) para hero/onboarding, no para tablas.
+- `xs` (32) solo para toolbars densas y acciones auxiliares;
+- `sm` (40) para data-dense;
+- `md` (48) es el default de producto, y es la medida de acción de la marca;
+- `lg` (56) para formularios prominentes y touch frecuente;
+- `xl` (64) para hero/onboarding, no para tablas.
 
 La acción principal se distingue primero por variante y jerarquía, no inflando su tamaño. Los targets
 mantienen WCAG 2.2: 24 px CSS mínimo en web y 44 pt en native.
 
 En un control solo-icono, el glifo ocupa aproximadamente la mitad del lado útil del control y deriva
-de `sizes.control`; no reutiliza tamaños de texto como escala de iconos. Un `ActionIcon md` de 42 px
-produce así un icono cercano a 21 px antes de correcciones ópticas propias del SVG.
+de `sizes.control`; no reutiliza tamaños de texto como escala de iconos. Un `ActionIcon md` de 48 px
+produce así un icono cercano a 24 px antes de correcciones ópticas propias del SVG.
 
 ### 4.1 La segunda escala: `sizes.compact` (ADR-033)
 
@@ -148,8 +150,11 @@ produce el defecto contrario: un badge tan alto como un botón. De ahí una segu
 muestra metadata o navegación compacta y **no es un objetivo táctil**:
 
 - `xs` (20) · `sm` (24) · `md` (28) · `lg` (32) · `xl` (36), sobre la misma rejilla de 4 px de §3.
-- `compact.md` (28) y `control.md` (42) guardan relación 2:3 en los cinco peldaños, de modo que las
-  dos escalas conviven sin que una parezca un accidente de la otra.
+- **Lo que separa a las dos escalas es el objetivo táctil, no una proporción** (ADR-072). Hasta
+  ADR-072 este documento afirmaba una relación 2:3 «en los cinco peldaños» que **solo se cumplía en
+  tres**: `lg` daba 32/50 = 0.64 y `xl` 36/60 = 0.60. Se retiró en vez de fingirla. Las dos escalas
+  conviven porque una es objetivo táctil y la otra no —que es verificable—, no porque sus números
+  rimen.
 
 Reglas:
 

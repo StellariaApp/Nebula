@@ -25,21 +25,21 @@ export const spacing = {
 export const radius = {
   xxs: 0,
   xs: 4,
-  sm: 8,
+  sm: 9,
   md: 12,
   lg: 16,
   xl: 20,
-  xxl: 28,
+  xxl: 32,
   full: 9999,
 } as const satisfies Record<RadiusName, number>;
 
 export const sizes = {
   control: {
-    xs: 30,
-    sm: 36,
-    md: 42,
-    lg: 50,
-    xl: 60,
+    xs: 32,
+    sm: 40,
+    md: 48,
+    lg: 56,
+    xl: 64,
   } satisfies Record<Size, number>,
   compact: {
     xs: 20,

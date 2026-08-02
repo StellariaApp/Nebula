@@ -138,7 +138,7 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 | #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por      |
 | ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                              | nada               |
-| **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato                                                      | checkpoint         |
+| **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                | checkpoint ✅      |
 | **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                                    | B1 (radio de card) |
 | **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado  |
 | **B4** | Registro display del hero (**D5**)           | Escala fluida `clamp()` para el titular, separada de la escala de producto. `Hero size="xl"`                                                                               | B1                 |
@@ -218,6 +218,17 @@ Dos hallazgos que B1 tiene que resolver, y que explican por qué el ritmo «no c
 
 Los dos son de **B1**: elegir el peldaño y decidir quién gobierna el ritmo entre secciones mueve el
 contrato y necesita checkpoint. B0 los deja medidos, no corregidos.
+
+**Resueltos en B1** (ADR-072), medido de nuevo sobre el render el mismo día:
+
+| Elemento                 | Antes | Después                     |
+| ------------------------ | ----: | --------------------------- |
+| `Section`/`Hero` padding |    90 | **120** (medida de marca)   |
+| `Section` `min-height`   |   240 | 320                         |
+| `Main.content` gap       |    64 | — (lo gobierna la banda)    |
+| **Entre dos secciones**  |   244 | **240**, leído no calculado |
+| `Nav` `min-height`       |    50 | 56 (`control.lg`)           |
+| Carril                   |  1180 | 1180                        |
 
 ## 6. Riesgo principal
 
