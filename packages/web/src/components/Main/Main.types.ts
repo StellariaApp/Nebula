@@ -14,6 +14,8 @@ export interface MainProps extends Omit<StyleProps, "color" | "background"> {
   contentWidth?: Unit | undefined;
   spacing?: SpacingValue | undefined;
   momentum?: boolean | undefined;
+  bounce?: boolean | undefined;
+  smooth?: boolean | undefined;
   spring?: SpringName | undefined;
   multiplier?: number | undefined;
   skipLabel?: string | undefined;

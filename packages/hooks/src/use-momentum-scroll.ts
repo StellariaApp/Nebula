@@ -1,6 +1,8 @@
-import { useEffect, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 
 import type { SpringConfig } from "@stellaria/nebula-tokens";
+
+import { RubberOffset } from "./rubber.js";
 
 export type MomentumAxis = "x" | "y";
 
@@ -9,6 +11,8 @@ export interface UseMomentumScrollOptions {
   axis?: MomentumAxis | undefined;
   spring?: SpringConfig | undefined;
   multiplier?: number | undefined;
+  bounce?: number | undefined;
+  onBounce?: ((offset: number) => void) | undefined;
 }
 
 const DEFAULT_SPRING: SpringConfig = { stiffness: 170, damping: 26, mass: 1 };
@@ -18,11 +22,20 @@ const MAX_STEP = 1 / 30;
 const FIRST_STEP = 1 / 60;
 const REST_DISTANCE = 0.5;
 const REST_VELOCITY = 5;
+const BOUNCE_EPSILON = 0.05;
+const HOLD_MS = 120;
+const BOUNCE_RATE = 4;
 
 interface Scroller {
   node: HTMLElement;
   wheel: EventTarget;
   scroll: EventTarget;
+}
+
+function useLatest<T>(value: T): RefObject<T> {
+  const ref = useRef(value);
+  ref.current = value;
+  return ref;
 }
 
 function ElementScroller(node: HTMLElement): Scroller {
@@ -94,6 +107,8 @@ function Subscribe(
   axis: MomentumAxis,
   spring: SpringConfig,
   multiplier: number,
+  bounce: number,
+  onBounce: ((offset: number) => void) | undefined,
 ): () => void {
   const { node } = scroller;
   const { stiffness, damping, mass } = spring;
@@ -105,6 +120,24 @@ function Subscribe(
     let frame = 0;
     let stamp = 0;
     let applied = target;
+    let strain = 0;
+    let recoil = 0;
+    let reported = 0;
+    let holding = false;
+    let release = 0;
+
+    const Report = (): void => {
+      const offset = bounce <= 0 ? 0 : RubberOffset(strain, bounce);
+      if (Math.abs(offset - reported) < BOUNCE_EPSILON) return;
+      reported = offset;
+      onBounce?.(offset);
+    };
+
+    const Start = (): void => {
+      if (frame !== 0) return;
+      stamp = 0;
+      frame = window.requestAnimationFrame(Step);
+    };
 
     const Step = (time: number): void => {
       const elapsed = (time - stamp) / 1000;
@@ -115,18 +148,33 @@ function Subscribe(
       velocity += ((stiffness * distance - damping * velocity) / mass) * step;
       position += velocity * step;
 
-      const resting =
+      if (!holding) {
+        const back = stiffness * BOUNCE_RATE;
+        const drag = damping * Math.sqrt(BOUNCE_RATE);
+        recoil += ((-back * strain - drag * recoil) / mass) * step;
+        strain += recoil * step;
+      }
+
+      const settled =
         Math.abs(target - position) < REST_DISTANCE && Math.abs(velocity) < REST_VELOCITY;
-      if (resting) {
+      const slack =
+        holding || (Math.abs(strain) < REST_DISTANCE && Math.abs(recoil) < REST_VELOCITY);
+
+      if (settled) {
         position = target;
         velocity = 0;
-        frame = 0;
+      }
+      if (slack && !holding) {
+        strain = 0;
+        recoil = 0;
       }
 
       Apply(node, horizontal, position);
       applied = Offset(node, horizontal);
+      Report();
 
-      if (!resting) frame = window.requestAnimationFrame(Step);
+      if (settled && slack) frame = 0;
+      else frame = window.requestAnimationFrame(Step);
     };
 
     const OnWheel = (event: WheelEvent): void => {
@@ -140,15 +188,27 @@ function Subscribe(
       if (OwnedByNested(event, node, horizontal, delta)) return;
 
       const next = Clamp(target + delta, room);
-      if (next === target) return;
+      const excess = target + delta - next;
+
+      if (next === target && (bounce <= 0 || excess === 0)) return;
 
       event.preventDefault();
       target = next;
 
-      if (frame === 0) {
-        stamp = 0;
-        frame = window.requestAnimationFrame(Step);
+      if (bounce > 0 && excess !== 0) {
+        strain += excess;
+        recoil = 0;
+        holding = true;
+        window.clearTimeout(release);
+        release = window.setTimeout(Release, HOLD_MS);
       }
+
+      Start();
+    };
+
+    const Release = (): void => {
+      holding = false;
+      Start();
     };
 
     const OnScroll = (): void => {
@@ -159,7 +219,12 @@ function Subscribe(
       target = current;
       position = current;
       velocity = 0;
+      strain = 0;
+      recoil = 0;
+      holding = false;
+      window.clearTimeout(release);
       applied = current;
+      Report();
     };
 
     scroller.wheel.addEventListener("wheel", OnWheel as EventListener, { passive: false });
@@ -169,6 +234,7 @@ function Subscribe(
       scroller.wheel.removeEventListener("wheel", OnWheel as EventListener);
       scroller.scroll.removeEventListener("scroll", OnScroll);
       if (frame !== 0) window.cancelAnimationFrame(frame);
+      window.clearTimeout(release);
     };
   }
 }
@@ -192,14 +258,24 @@ export function useMomentumScroll(
     axis = "y",
     spring = DEFAULT_SPRING,
     multiplier = DEFAULT_MULTIPLIER,
+    bounce = 0,
+    onBounce,
   } = options;
   const { stiffness, damping, mass } = spring;
+  const report = useLatest(onBounce);
 
   useEffect(() => {
     const node = ref.current;
     if (!enabled || node === null || typeof window === "undefined") return;
-    return Subscribe(ElementScroller(node), axis, { stiffness, damping, mass }, multiplier);
-  }, [ref, enabled, axis, stiffness, damping, mass, multiplier]);
+    return Subscribe(
+      ElementScroller(node),
+      axis,
+      { stiffness, damping, mass },
+      multiplier,
+      bounce,
+      (offset) => report.current?.(offset),
+    );
+  }, [ref, report, enabled, axis, stiffness, damping, mass, multiplier, bounce]);
 }
 
 /**
@@ -211,19 +287,128 @@ export function useMomentumScroll(
  * `useMomentumScroll` está en dónde escucha: el `wheel` en `window` y el `scroll` en `document`,
  * porque el scroll de la página **no se despacha en `documentElement`**.
  */
+export interface UseAnchorSpringOptions {
+  enabled?: boolean | undefined;
+  spring?: SpringConfig | undefined;
+}
+
+/**
+ * Lleva los saltos de ancla con el **muelle del tema** en vez de con `scroll-behavior: smooth`, cuya
+ * curva la decide el navegador y no se puede calibrar. Así la rueda y los enlaces comparten física, y
+ * `spring` gobierna las dos.
+ *
+ * Solo se queda los clics que puede resolver: ancla interna, con destino existente y sin modificador.
+ * Descuenta el `scroll-padding-top` del documento, de modo que la sección no queda debajo de una
+ * barra fija, y al llegar publica el hash para que quien escuche `hashchange` se entere.
+ */
+export function useAnchorSpring(options: UseAnchorSpringOptions = {}): void {
+  const { enabled = true, spring = DEFAULT_SPRING } = options;
+  const { stiffness, damping, mass } = spring;
+
+  useEffect(() => {
+    if (!enabled || typeof window === "undefined") return;
+
+    let frame = 0;
+    let stamp = 0;
+
+    const Stop = (): void => {
+      if (frame !== 0) window.cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    const Glide = (to: number, href: string): void => {
+      const root = document.scrollingElement ?? document.documentElement;
+      if (!(root instanceof HTMLElement)) return;
+
+      let position = window.scrollY;
+      let velocity = 0;
+      stamp = 0;
+
+      const Step = (time: number): void => {
+        const elapsed = (time - stamp) / 1000;
+        const step = stamp === 0 ? FIRST_STEP : Math.min(Math.max(elapsed, 0), MAX_STEP);
+        stamp = time;
+
+        const distance = to - position;
+        velocity += ((stiffness * distance - damping * velocity) / mass) * step;
+        position += velocity * step;
+
+        const resting =
+          Math.abs(to - position) < REST_DISTANCE && Math.abs(velocity) < REST_VELOCITY;
+        if (resting) position = to;
+
+        window.scrollTo({ top: position, behavior: "instant" });
+
+        if (resting) {
+          frame = 0;
+          return;
+        }
+        frame = window.requestAnimationFrame(Step);
+      };
+
+      Stop();
+      window.history.pushState(null, "", href);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+      frame = window.requestAnimationFrame(Step);
+    };
+
+    const OnClick = (event: MouseEvent): void => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const anchor = event.target instanceof Element ? event.target.closest("a[href^='#']") : null;
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+
+      const href = anchor.getAttribute("href");
+      if (href === null || href === "#") return;
+
+      const node = document.getElementById(href.slice(1));
+      if (node === null) return;
+
+      const root = document.documentElement;
+      const pad = Number.parseFloat(getComputedStyle(root).scrollPaddingTop);
+      const gutter = Number.isFinite(pad) ? pad : 0;
+      const limit = root.scrollHeight - window.innerHeight;
+      const to = Math.min(
+        Math.max(node.getBoundingClientRect().top + window.scrollY - gutter, 0),
+        Math.max(limit, 0),
+      );
+
+      event.preventDefault();
+      Glide(to, href);
+    };
+
+    window.addEventListener("click", OnClick);
+    window.addEventListener("wheel", Stop, { passive: true });
+    window.addEventListener("touchstart", Stop, { passive: true });
+
+    return () => {
+      window.removeEventListener("click", OnClick);
+      window.removeEventListener("wheel", Stop);
+      window.removeEventListener("touchstart", Stop);
+      Stop();
+    };
+  }, [enabled, stiffness, damping, mass]);
+}
+
 export function useMomentumPage(options: UseMomentumScrollOptions = {}): void {
   const {
     enabled = true,
     axis = "y",
     spring = DEFAULT_SPRING,
     multiplier = DEFAULT_MULTIPLIER,
+    bounce = 0,
+    onBounce,
   } = options;
   const { stiffness, damping, mass } = spring;
+  const report = useLatest(onBounce);
 
   useEffect(() => {
     if (!enabled || typeof window === "undefined") return;
     const scroller = PageScroller();
     if (scroller === null) return;
-    return Subscribe(scroller, axis, { stiffness, damping, mass }, multiplier);
-  }, [enabled, axis, stiffness, damping, mass, multiplier]);
+    return Subscribe(scroller, axis, { stiffness, damping, mass }, multiplier, bounce, (offset) =>
+      report.current?.(offset),
+    );
+  }, [report, enabled, axis, stiffness, damping, mass, multiplier, bounce]);
 }

@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useMomentumPage, useMomentumScroll } from "../use-momentum-scroll.js";
 
 const FRAME = 16;
+const HOLD_BELOW = 90;
 
 let frames: ((time: number) => void)[] = [];
 let clock = 0;
@@ -48,9 +49,15 @@ function Wheel(node: HTMLElement, init: WheelEventInit = {}): WheelEvent {
   return event;
 }
 
+function Release(): void {
+  vi.advanceTimersByTime(200);
+  Run();
+}
+
 beforeEach(() => {
   frames = [];
   clock = 0;
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
   vi.stubGlobal("requestAnimationFrame", (fn: (time: number) => void) => {
     frames.push(fn);
     return frames.length;
@@ -64,6 +71,7 @@ afterEach(() => {
   cleanup();
   document.body.innerHTML = "";
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 
 describe("useMomentumScroll", () => {
@@ -186,6 +194,183 @@ describe("useMomentumScroll", () => {
     expect(remove.mock.calls.some(([type]) => type === "wheel")).toBe(true);
     expect(remove.mock.calls.some(([type]) => type === "scroll")).toBe(true);
     remove.mockRestore();
+  });
+});
+
+describe("useMomentumScroll · rebote en el límite", () => {
+  it("sin bounce, la rueda en el tope no produce nada", () => {
+    const { node } = Scroller();
+    const on_bounce = vi.fn();
+    renderHook(() => {
+      useMomentumScroll({ current: node }, { onBounce: on_bounce });
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -300 });
+      Run();
+    });
+
+    expect(on_bounce).not.toHaveBeenCalled();
+  });
+
+  it("con bounce, el exceso estira y vuelve a cero", () => {
+    const { node, Position } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        {
+          bounce: 80,
+          onBounce: (offset) => {
+            seen.push(offset);
+          },
+        },
+      );
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -300 });
+      Run();
+    });
+
+    expect(Math.min(...seen)).toBeLessThan(0);
+    expect(seen.at(-1)).not.toBe(0);
+
+    act(Release);
+
+    expect(seen.at(-1)).toBe(0);
+    expect(Position()).toBe(0);
+  });
+
+  it("mientras siguen llegando muescas, el borde se queda estirado", () => {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        {
+          bounce: 80,
+          onBounce: (offset) => {
+            seen.push(offset);
+          },
+        },
+      );
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -200 });
+      Run();
+    });
+    const first = seen.at(-1) ?? 0;
+
+    act(() => {
+      vi.advanceTimersByTime(60);
+      Wheel(node, { deltaY: -200 });
+      Run();
+    });
+    const second = seen.at(-1) ?? 0;
+
+    expect(second).toBeLessThan(first);
+    expect(seen.every((value) => value <= 0)).toBe(true);
+
+    act(Release);
+    expect(seen.at(-1)).toBe(0);
+  });
+
+  it("la resistencia acota el estiramiento por debajo del tope", () => {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        {
+          bounce: 80,
+          onBounce: (offset) => {
+            seen.push(offset);
+          },
+        },
+      );
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -5000 });
+      Run();
+    });
+
+    expect(Math.abs(Math.min(...seen))).toBeLessThan(80);
+  });
+
+  it("con bounce sí cancela el evento en el tope: el gesto es suyo", () => {
+    const { node } = Scroller();
+    renderHook(() => {
+      useMomentumScroll({ current: node }, { bounce: 80 });
+    });
+
+    let event: WheelEvent | undefined;
+    act(() => {
+      event = Wheel(node, { deltaY: -300 });
+    });
+
+    expect(event?.defaultPrevented).toBe(true);
+  });
+
+  it("un scroll ajeno devuelve el rebote a cero", () => {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        {
+          bounce: 80,
+          onBounce: (offset) => {
+            seen.push(offset);
+          },
+        },
+      );
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -300 });
+      Run(3);
+    });
+
+    expect(seen.at(-1)).not.toBe(0);
+
+    act(() => {
+      node.scrollTop = 500;
+      node.dispatchEvent(new Event("scroll"));
+    });
+
+    expect(seen.at(-1)).toBe(0);
+  });
+
+  it("el muelle no tira mientras el gesto sigue vivo", () => {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        {
+          bounce: 80,
+          onBounce: (offset) => {
+            seen.push(offset);
+          },
+        },
+      );
+    });
+
+    act(() => {
+      Wheel(node, { deltaY: -300 });
+      Run();
+    });
+    const held = seen.at(-1) ?? 0;
+
+    act(() => {
+      vi.advanceTimersByTime(HOLD_BELOW);
+      Run();
+    });
+
+    expect(seen.at(-1)).toBe(held);
   });
 });
 

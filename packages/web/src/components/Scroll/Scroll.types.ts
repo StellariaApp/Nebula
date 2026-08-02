@@ -13,6 +13,7 @@ export interface ScrollOwnProps extends Omit<BoxOwnProps, "component"> {
   shadows?: boolean | undefined;
   smooth?: boolean | undefined;
   momentum?: boolean | undefined;
+  bounce?: boolean | undefined;
   spring?: SpringName | undefined;
   multiplier?: number | undefined;
 }
@@ -25,6 +26,7 @@ export interface MomentumProps extends BoxOwnProps {
   axis: ScrollAxis;
   spring: SpringName;
   multiplier: number;
+  bounce: boolean;
   style?: CSSProperties | undefined;
   forwardedRef?: Ref<Element> | undefined;
 }

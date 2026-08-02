@@ -4,7 +4,9 @@ import {
   Children,
   Fragment,
   isValidElement,
+  useCallback,
   useMemo,
+  useRef,
   type ReactElement,
   type ReactNode,
 } from "react";
@@ -23,6 +25,7 @@ import type { NavLinkItemProps, NavLinksProps } from "./Nav.types.js";
 import { indicatorBg, indicatorBorder, indicatorFg } from "./Nav.vars.css.js";
 import { useNavActive, type NavItem } from "./use-nav-active.js";
 import { useNavIndicator } from "./use-nav-indicator.js";
+import { useStickyChrome } from "./use-sticky-chrome.js";
 
 export function NavLinksLink(props: NavLinkItemProps): ReactElement {
   const {
@@ -108,13 +111,25 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     return collected;
   }, [children]);
 
+  const list_ref = useRef<HTMLElement>(null);
+  const chrome = useStickyChrome(list_ref);
+
   const resolved_active = useNavActive(items, {
     mode: activeMode,
     active,
     offset: spyOffset,
+    chrome,
   });
 
   const indicator = useNavIndicator(withIndicator ? resolved_active.href : undefined);
+
+  const SetRoot = useCallback(
+    (node: HTMLElement | null): void => {
+      list_ref.current = node;
+      indicator.containerRef(node);
+    },
+    [indicator],
+  );
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
@@ -141,7 +156,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
 
   return (
     <nav
-      ref={indicator.containerRef}
+      ref={SetRoot}
       aria-label={aria_label ?? text.links}
       className={cx(styles.links({ align }), sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}

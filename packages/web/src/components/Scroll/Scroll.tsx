@@ -28,6 +28,7 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
     shadows = false,
     smooth = false,
     momentum = false,
+    bounce = true,
     spring = "default",
     multiplier = WHEEL_GAIN,
     className,
@@ -51,14 +52,26 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
 
   const shared = {
     component: component ?? "div",
-    className: cx(styles.scroll({ axis, gutter, smooth }), shadow_class, className),
+    className: cx(
+      styles.scroll({ axis, gutter, smooth }),
+      shadow_class,
+      momentum && bounce ? styles.bouncing : undefined,
+      className,
+    ),
     style: { ...css_vars, ...style },
     ...rest,
   };
 
   if (momentum) {
     return (
-      <Momentum {...shared} axis={axis} spring={spring} multiplier={multiplier} forwardedRef={ref}>
+      <Momentum
+        {...shared}
+        axis={axis}
+        spring={spring}
+        multiplier={multiplier}
+        bounce={bounce}
+        forwardedRef={ref}
+      >
         {children}
       </Momentum>
     );

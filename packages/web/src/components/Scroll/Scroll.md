@@ -44,6 +44,26 @@ La inercia necesita JS, pero **`Scroll` no lleva `"use client"`**. Cuando `momen
 
 Lo que sí cambia es el **bundle**: con un empaquetador normal —sin frontera RSC— el módulo de `Scroll` arrastra el subcomponente aunque nadie encienda la prop. Son 1,15 kB medidos, y por eso el presupuesto de `Scroll` sube (ver `docs/03` §3). Es el precio de tener una sola caja en vez de dos.
 
+### `bounce` — el rebote en el límite
+
+Encendido cuando `momentum` lo está ([ADR-074](../../../../../docs/adr/ADR-074-rebote-en-el-limite-del-scroll.md)),
+porque parar en seco era un defecto del momentum y no una funcionalidad que ampliar. Se apaga con
+`bounce={false}`.
+
+Lo que excede el límite no se descarta: alimenta una tensión con muelle propio que el hook comunica
+por `onBounce`, y `Scroll` la aplica como `transform` **a sus hijos directos**. No envuelve el
+contenido en una caja —alteraría el flex o el grid del consumidor— ni transforma el scroller, que
+movería también su fondo, su borde y su barra. El precio son dos casos que no rebotan: un hijo con
+`transform` propio y un nodo de texto suelto, que no es un elemento.
+
+**Mientras siguen llegando muescas, el muelle no tira.** Una rueda es una ráfaga, no un evento, y
+recuperando desde el primer frame el resultado eran dientes de sierra en vez de un estiramiento. Cada
+muesca contra el límite rearma un temporizador de 120 ms; hasta que expira, la tensión se acumula y
+se pinta pero no se integra.
+
+Con `bounce`, el evento en el tope **sí** se cancela, al revés que en la nota de abajo: un scroller
+que dibuja su propio límite se queda el gesto en vez de encadenarlo al padre.
+
 ### Lo que no hace, a propósito
 
 El gesto táctil no genera `wheel`, así que en móvil manda la inercia del sistema operativo, que es mejor que cualquier simulación en el hilo principal. `ctrl`+rueda sigue haciendo zoom. Un scroller anidado con recorrido se queda su gesto. En el tope el evento **no** se cancela, de modo que el scroll encadena al contenedor padre como haría sin la prop. Y cualquier scroll ajeno —barra arrastrada, teclado, `scrollIntoView`, un ancla— resincroniza el destino y mata el muelle en el acto.

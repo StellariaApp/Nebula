@@ -1,11 +1,11 @@
-import { createVar, fallbackVar, keyframes, style } from "@vanilla-extract/css";
+import { createVar, fallbackVar, globalStyle, keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { reducedMedia } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { scrollbarSize } from "./Scroll.vars.css.js";
+import { bounceOffset, scrollbarSize } from "./Scroll.vars.css.js";
 
 const size = fallbackVar(scrollbarSize, "8px");
 
@@ -185,6 +185,20 @@ export const bothShadows = style({
           ...Bands([...BLOCK, ...INLINE]),
           selectors: { "&:dir(rtl)": BandsRtl([...BLOCK, ...INLINE]) },
         },
+      },
+    },
+  },
+});
+
+export const bouncing = style({});
+
+globalStyle(`${bouncing} > *`, {
+  "@layer": {
+    [baseLayer]: {
+      transform: `translate3d(0, ${fallbackVar(bounceOffset, "0px")}, 0)`,
+      willChange: "transform",
+      "@media": {
+        [reducedMedia]: { transform: "none" },
       },
     },
   },

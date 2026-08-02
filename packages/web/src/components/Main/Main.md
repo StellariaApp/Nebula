@@ -23,6 +23,31 @@ decelera 27 → 221 → 447 y el campo de estrellas sigue valiendo `0.045 × scr
 Un `Main` con `momentum` gobierna el scroll de **toda la página**. Por eso la prop no existe en
 `Section` ni en `Hero`: no hay un momentum «de región».
 
+### `smooth` — los enlaces con la física del tema
+
+Encendido por defecto ([ADR-075](../../../../../docs/adr/ADR-075-el-chrome-fijo-entra-en-la-navegacion-por-ancla.md)).
+Un clic en un ancla interna no salta: lo lleva **el mismo muelle que la rueda**, así que `spring`
+gobierna las dos y la página tiene una sola física. `scroll-behavior: smooth` no habría servido: su
+curva la decide el navegador y no se puede calibrar. Se mantiene igualmente como respaldo para lo que
+el hook no intercepta —teclado, `scrollIntoView`, `scrollTo` programáticos—.
+
+`Main` también publica `scroll-padding-top` con la altura de la barra fija que encuentre en su slot
+`header`, medida con `ResizeObserver`. Sin eso, el ancla deja la sección debajo del chrome. El
+consumidor no pasa ningún número: si tuviera que hacerlo, el dato lo tendría cada landing y no el
+sistema.
+
+### `bounce` — el rebote en el límite
+
+Encendido con `momentum` ([ADR-074](../../../../../docs/adr/ADR-074-rebote-en-el-limite-del-scroll.md)).
+El transform se aplica a **`main.content` y solo a él**, y esa precisión es la decisión entera: un
+`transform` crea _containing block_ para los `position: fixed` que tenga dentro, así que
+transformarlo más arriba habría roto el `StarField parallax`. Como el `backdrop` es hermano del
+contenido y no su padre, el campo sigue anclado al viewport.
+
+Medido durante un rebote de 99 px: `position: fixed` y `top: 0` constantes, `scrollY` en 0 —el
+rebote no mueve el scroll, es desplazamiento visual— y al terminar, con `scrollY` 1319, el parallax
+valía 59.355 px contra 59.35 esperados.
+
 ## `spacing` no se usa con bandas
 
 `spacing` pone un `gap` entre los hijos directos y existe para el contenido que **no** son bandas —un

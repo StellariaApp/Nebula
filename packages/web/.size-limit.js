@@ -88,7 +88,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Scroll/Scroll.js",
     import: "{ Scroll }",
     ignore: ["react", "react-dom"],
-    limit: "15 kB",
+    limit: "15.5 kB",
   },
   {
     name: "Divider (primitivo temable en runtime, por módulo)",
@@ -767,7 +767,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Nav/index.js",
     import: "{ Nav }",
     ignore: ["react", "react-dom"],
-    limit: "33 kB",
+    limit: "34 kB",
   },
   {
     name: "Pagination (motion, por módulo)",
@@ -959,11 +959,11 @@ const MODULE_BUDGETS = [
     limit: "48 kB",
   },
   {
-    name: "Main (layout de pantalla + skip-link + momentum de página, por módulo)",
+    name: "Main (layout de pantalla + skip-link + scroll de página, por módulo)",
     path: "dist/components/Main/Main.js",
     import: "{ Main }",
     ignore: ["react", "react-dom"],
-    limit: "14 kB",
+    limit: "15 kB",
   },
   {
     name: "Header (cabecera de pantalla: ActionIcon de vuelta, por módulo)",

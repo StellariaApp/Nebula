@@ -119,7 +119,7 @@ describe("useScrollSpy", () => {
     expect(frames).toHaveLength(1);
   });
 
-  it("enabled false no suscribe y devuelve la primera", () => {
+  it("enabled false no suscribe y no activa nada", () => {
     Section("uno", 0);
     Section("dos", 100);
     const add = vi.spyOn(window, "addEventListener");
@@ -130,7 +130,7 @@ describe("useScrollSpy", () => {
       Flush();
     });
 
-    expect(result.current).toBe("uno");
+    expect(result.current).toBeUndefined();
     expect(add.mock.calls.some(([type]) => type === "scroll")).toBe(false);
     add.mockRestore();
   });

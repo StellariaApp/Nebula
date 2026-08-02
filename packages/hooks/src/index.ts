@@ -3,10 +3,13 @@ export { useDisclosure, type UseDisclosureReturn } from "./use-disclosure.js";
 export { useUncontrolled } from "./use-uncontrolled.js";
 export { useBreakpointDown, useBreakpointUp, useMediaQuery } from "./use-media-query.js";
 export { useScrolled, type UseScrolledOptions } from "./use-scrolled.js";
+export { Rubber, RubberOffset, RUBBER_LIMIT } from "./rubber.js";
 export {
+  useAnchorSpring,
   useMomentumPage,
   useMomentumScroll,
   type MomentumAxis,
+  type UseAnchorSpringOptions,
   type UseMomentumScrollOptions,
 } from "./use-momentum-scroll.js";
 export { useScrollSpy, type UseScrollSpyOptions } from "./use-scroll-spy.js";
