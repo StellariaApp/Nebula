@@ -54,3 +54,41 @@ describe("ExtractStyleProps", () => {
     expect(result.style).toEqual({ maxWidth: "900px" });
   });
 });
+
+describe("ExtractStyleProps · opacidad en referencias de color (ADR-071)", () => {
+  it("un rol con opacidad sale por style, no por sprinkles", () => {
+    const result = ExtractStyleProps({ borderColor: "border.subtle.40" });
+
+    expect(result.className).toBeUndefined();
+    expect(result.style?.borderColor).toContain("color-mix(in srgb,");
+    expect(result.style?.borderColor).toContain("40%");
+  });
+
+  it("un rol sin opacidad sigue saliendo por sprinkles", () => {
+    const result = ExtractStyleProps({ borderColor: "border.subtle" });
+
+    expect(result.className).toBeDefined();
+    expect(result.style).toBeUndefined();
+  });
+
+  it("una superficie con opacidad sale por style", () => {
+    const result = ExtractStyleProps({ bg: "surface.raised.60" });
+
+    expect(result.className).toBeUndefined();
+    expect(result.style?.background).toContain("60%");
+  });
+
+  it("un peldaño de escala no admite opacidad: sigue por sprinkles", () => {
+    expect(ExtractStyleProps({ bg: "accent.500" }).className).toBeDefined();
+    expect(ExtractStyleProps({ bg: "accent.500" }).style).toBeUndefined();
+  });
+
+  it("las shorthands resuelven a la propiedad larga", () => {
+    expect(ExtractStyleProps({ c: "text.primary.70" }).style?.color).toContain("70%");
+    expect(ExtractStyleProps({ bdc: "border.strong.20" }).style?.borderColor).toContain("20%");
+  });
+
+  it("no toca props que no son de color", () => {
+    expect(ExtractStyleProps({ id: "a.b.40" }).rest).toEqual({ id: "a.b.40" });
+  });
+});

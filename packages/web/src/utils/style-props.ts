@@ -1,6 +1,17 @@
 import type { CSSProperties } from "react";
 
-import { sprinkles, type Sprinkles } from "../components/Box/Box.css.js";
+import { ROLE_COLORS, sprinkles, type Sprinkles } from "../components/Box/Box.css.js";
+
+const COLOR_PROPS = {
+  color: "color",
+  c: "color",
+  background: "background",
+  bg: "background",
+  borderColor: "borderColor",
+  bdc: "borderColor",
+} as const satisfies Record<string, keyof CSSProperties>;
+
+const ROLE_TONES: Record<string, string | undefined> = ROLE_COLORS;
 
 const DIMENSION_PROPS = {
   w: "width",
@@ -27,8 +38,23 @@ const SPRINKLE_KEYS = sprinkles.properties;
 
 export type DimensionProp = keyof typeof DIMENSION_PROPS;
 export type UnitlessProp = keyof typeof UNITLESS_PROPS;
+export type ColorProp = keyof typeof COLOR_PROPS;
 
-export type StyleProps = Sprinkles & {
+type ColorLiteral = "transparent" | "currentColor" | "inherit";
+
+type RoleOpacity = `${Exclude<NonNullable<Sprinkles["borderColor"]>, ColorLiteral>}.${number}`;
+
+type PaletteValue = NonNullable<Sprinkles["color"]> | RoleOpacity;
+type RoleValue = NonNullable<Sprinkles["borderColor"]> | RoleOpacity;
+
+export type StyleProps = Omit<Sprinkles, ColorProp> & {
+  color?: PaletteValue | undefined;
+  c?: PaletteValue | undefined;
+  background?: PaletteValue | undefined;
+  bg?: PaletteValue | undefined;
+  borderColor?: RoleValue | undefined;
+  bdc?: RoleValue | undefined;
+} & {
   [K in DimensionProp]?: number | string | undefined;
 } & {
   grow?: number | boolean | undefined;
@@ -48,6 +74,21 @@ function ToCssLength(value: number | string): string {
   return typeof value === "number" ? `${String(value)}px` : value;
 }
 
+function ResolveOpacity(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+
+  const cut = value.lastIndexOf(".");
+  if (cut <= 0 || cut === value.length - 1) return undefined;
+
+  const percent = Number(value.slice(cut + 1));
+  if (!Number.isFinite(percent)) return undefined;
+
+  const tone = ROLE_TONES[value.slice(0, cut)];
+  return tone === undefined
+    ? undefined
+    : `color-mix(in srgb, ${tone} ${String(percent)}%, transparent)`;
+}
+
 export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyleProps {
   const sprinkle_props: Record<string, unknown> = {};
   const own_style = props.style as CSSProperties | undefined;
@@ -59,6 +100,15 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
   for (const [key, value] of Object.entries(props)) {
     if (value === undefined) continue;
     if (key === "style") continue;
+
+    if (key in COLOR_PROPS) {
+      const mixed = ResolveOpacity(value);
+      if (mixed !== undefined) {
+        Object.assign(style, { [COLOR_PROPS[key as ColorProp]]: mixed });
+        has_style = true;
+        continue;
+      }
+    }
 
     if (SPRINKLE_KEYS.has(key as never)) {
       sprinkle_props[key] = value;

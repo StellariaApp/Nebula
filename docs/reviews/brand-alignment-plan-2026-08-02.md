@@ -135,15 +135,15 @@ sirve de patrón: se midió una landing, se extrajo la regla, se metió en el si
 
 Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuente.
 
-| #      | Tramo                                        | Contenido                                                                                                                                                 | Bloqueado por      |
-| ------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| **B0** | Cierre del backlog visual abierto            | `StarField parallax` no funciona · espaciados de Hero/Nav/Footer ya tocados en el árbol                                                                   | nada               |
-| **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato                                     | checkpoint         |
-| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                   | B1 (radio de card) |
-| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                          | nada — T2 cerrado  |
-| **B4** | Registro display del hero (**D5**)           | Escala fluida `clamp()` para el titular, separada de la escala de producto. `Hero size="xl"`                                                              | B1                 |
-| **B5** | Opacidad en las referencias de color         | Sufijo `.NN` en style props: `borderColor="border.subtle.40"`. La gramática ya existe en `variantMap` (`scale.500.12`)                                    | nada               |
-| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está | B0-B5              |
+| #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por      |
+| ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| **B0** | Cierre del backlog visual abierto            | `StarField parallax` no funciona · espaciados de Hero/Nav/Footer ya tocados en el árbol                                                                                    | nada               |
+| **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato                                                      | checkpoint         |
+| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                                    | B1 (radio de card) |
+| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado  |
+| **B4** | Registro display del hero (**D5**)           | Escala fluida `clamp()` para el titular, separada de la escala de producto. `Hero size="xl"`                                                                               | B1                 |
+| **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba | nada               |
+| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                  | B0-B5              |
 
 ## 4. El backlog abierto, mapeado
 
@@ -155,7 +155,7 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 | 4   | `mih` de los botones — Stellaria usa 48       | B1    | Es D3: 48 cae entre `control.md` 42 y `lg` 50                |
 | 5   | Variante `glass` de los botones muy fuerte    | B2    | Es D2: falta la receta de cristal de control                 |
 | 6   | Espaciados de Hero, Nav y Footer              | B0    | Ya tocados en el árbol; falta consolidar y medir             |
-| 7   | Sufijo `.NN` de opacidad (`border.subtle.40`) | B5    | —                                                            |
+| 7   | Sufijo `.NN` de opacidad (`border.subtle.40`) | B5    | ✅ cerrado en ADR-071                                        |
 
 ## 5. Lo que este plan NO decide
 
@@ -165,6 +165,28 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 - **Si las tres landings migran o solo sirven de referencia.** B6 las reconstruye en el playground
   como prueba del sistema; migrar los repos reales es otra fase.
 - **Nada de native.** Todo lo de aquí es la capa visual web.
+
+## 5.1 Lo que B5 dejó a la vista sobre los gates (2026-08-02)
+
+B5 se adelantó a B0 porque `main` no compilaba: la landing ya escribía `borderColor="border.subtle.40"`
+contra una gramática que no existía. Al ejecutarlo aparecieron **tres gates que llevaban tiempo sin
+poder dar un veredicto**, y ninguno lo anunciaba:
+
+| Gate             | Estado real en `main`                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `typecheck`      | **Rojo** — 4 errores en `Landing.stories.tsx`                                                                                                                      |
+| `size-limit`     | **No arrancaba** — el presupuesto de `Hero` apuntaba a `dist/components/Hero/Banner.js`, que dejó de existir con el renombrado. La corrida abortaba antes de medir |
+| `a11y`           | **Rojo** — 4 tests fallando, 2 suites                                                                                                                              |
+| `check:contrast` | Verde, 111 pares · 0 FAIL                                                                                                                                          |
+
+Los tres primeros quedan corregidos o acotados: `typecheck` y `size-limit` en verde —este último con
+0 excedidos sobre 192 entradas, incluidos los tres que ya estaban rebasados sin que nadie lo viera—
+y `a11y` baja de 4 fallos a **1**, preexistente, en `Layout/Shell › AllThemes` (`color-contrast`,
+un nodo). **Ese fallo no es de B5 y sigue abierto.**
+
+La lección es la misma que la de §6 pero al revés: no basta con que un gate no detecte un peldaño mal
+elegido; hay que comprobar que el gate **está midiendo algo**. Un gate que aborta y uno que pasa se
+parecen demasiado en un log.
 
 ## 6. Riesgo principal
 

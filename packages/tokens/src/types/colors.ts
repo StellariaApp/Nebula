@@ -15,9 +15,12 @@ export type ColorRoleToken = `surface.${SurfaceRole}` | `text.${TextRole}` | `bo
 
 export type ColorToken = ColorScaleName | `${ColorScaleName}.${ColorShade}` | ColorRoleToken;
 
+export type ColorAlpha =
+  `${ColorScaleName}.${ColorShade}.${number}` | `${ColorRoleToken}.${number}`;
+
 export type ColorExtended =
   | ColorToken
-  | `${ColorScaleName}.${ColorShade}.${number}`
+  | ColorAlpha
   | "white"
   | "black"
   | "inherit"

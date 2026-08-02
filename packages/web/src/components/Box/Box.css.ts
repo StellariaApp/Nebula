@@ -37,7 +37,7 @@ function RoleEntries<P extends string, K extends string>(
   return out;
 }
 
-const ROLE_COLORS = {
+export const ROLE_COLORS = {
   transparent: "transparent",
   currentColor: "currentColor",
   inherit: "inherit",

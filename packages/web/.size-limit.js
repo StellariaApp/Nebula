@@ -25,7 +25,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Text/Text.js",
     import: "{ Text }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "Button (compuesto: Aria + motion, por módulo)",
@@ -88,14 +88,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Scroll/Scroll.js",
     import: "{ Scroll }",
     ignore: ["react", "react-dom"],
-    limit: "14.5 kB",
+    limit: "15 kB",
   },
   {
     name: "Divider (primitivo temable en runtime, por módulo)",
     path: "dist/components/Divider/Divider.js",
     import: "{ Divider }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Space (primitivo temable en runtime, por módulo)",
@@ -592,7 +592,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Tabs/Tabs.js",
     import: "{ Tabs }",
     ignore: ["react", "react-dom"],
-    limit: "32 kB",
+    limit: "32.5 kB",
   },
   {
     name: "Segment (compound: motion + gesto, por módulo)",
@@ -746,7 +746,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Card/index.js",
     import: "{ Card }",
     ignore: ["react", "react-dom"],
-    limit: "23 kB",
+    limit: "23.5 kB",
   },
   {
     name: "EmptyState (motion de entrada, por módulo)",
@@ -760,7 +760,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/NavLink/NavLink.js",
     import: "{ NavLink }",
     ignore: ["react", "react-dom"],
-    limit: "22 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Nav (compound: indicador con spring + scroll-spy, por módulo)",
@@ -977,7 +977,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Hero/Hero.js",
     import: "{ Hero }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "Feature (ThemeIcon + Anchor, por módulo)",
@@ -1113,7 +1113,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/PermissionGate/PermissionGate.js",
     import: "{ PermissionGate }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "GlassSurface (primitivo temable con variantes en runtime, por módulo)",

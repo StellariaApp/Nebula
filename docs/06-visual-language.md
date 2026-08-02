@@ -251,6 +251,23 @@ declarar su elevación.
 suba. Bajarla antes deja los overlays menos separados que hoy. La sombra se baja porque la superficie
 ya separa, no porque este documento lo diga.
 
+### 5.4 La opacidad en las referencias de color (ADR-071)
+
+Un rol de color admite un sufijo de opacidad —`border.subtle.40`, `surface.raised.60`— en las tres
+props de color de los style props. Es la misma gramática que las escalas ya usaban internamente
+(`scale.500.10` en el hover transparente de `variantMap`), extendida a `surface`, `text` y `border`.
+
+Dónde se usa y dónde no:
+
+| Se usa en                                       | No se usa en                                          |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| Superficies, bordes y separadores               | **Texto informativo o interactivo**                   |
+| Decoración que se apoya sobre un fondo conocido | Cualquier par que `check:contrast` deba poder validar |
+
+La razón del segundo lado de la tabla es que **ningún gate ve la opacidad compuesta**:
+`check:contrast` mide el token, no el color resultante, así que un `text.primary.40` puede pasar el
+gate y ser ilegible. Un texto a opacidad parcial se mide sobre el render antes de darlo por bueno.
+
 ## 6. Effects budget
 
 - Máximo un efecto dominante por región: glow, glass o gradient.

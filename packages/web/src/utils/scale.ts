@@ -26,6 +26,12 @@ function WithAlpha(color: string, percent: number): string {
   return `color-mix(in srgb, ${color} ${String(percent)}%, transparent)`;
 }
 
+function ApplyAlpha(color: string, alpha: string | undefined): string {
+  if (alpha === undefined) return color;
+  const parsed = Number(alpha);
+  return Number.isFinite(parsed) ? WithAlpha(color, parsed) : color;
+}
+
 export function ResolveAccent(color: ColorExtended, shade = "600"): string {
   if (color === "transparent" || color === "currentColor" || color === "inherit") return color;
   if (color === "white") return "#ffffff";
@@ -36,7 +42,10 @@ export function ResolveAccent(color: ColorExtended, shade = "600"): string {
   if (group === undefined) return "transparent";
 
   const role = ROLES[group];
-  if (role !== undefined) return key === undefined ? "transparent" : (role[key] ?? "transparent");
+  if (role !== undefined) {
+    const tone = key === undefined ? undefined : role[key];
+    return tone === undefined ? "transparent" : ApplyAlpha(tone, alpha);
+  }
 
   const step = key ?? shade;
   const scale = SEMANTIC_SCALES[group as SemanticScaleName] as Record<string, string> | undefined;
@@ -48,7 +57,5 @@ export function ResolveAccent(color: ColorExtended, shade = "600"): string {
         : "";
   if (base === "") return "transparent";
 
-  if (alpha === undefined) return base;
-  const parsed = Number(alpha);
-  return Number.isFinite(parsed) ? WithAlpha(base, parsed) : base;
+  return ApplyAlpha(base, alpha);
 }
