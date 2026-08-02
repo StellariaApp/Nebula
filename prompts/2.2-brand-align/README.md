@@ -10,8 +10,20 @@
 Actúa como ingeniero de UI en C:\Users\Skr13\Documents\GitHub\Nebula.
 
 Fase WB — afinamiento de marca. Nebula tiene que ser la base sobre la que se construyen las
-landings y los productos de Stellaria: personalizable por tema, pero **de base totalmente
-Stellaria**.
+landings y los productos de Stellaria.
+
+EL PRINCIPIO QUE ORDENA LA FASE — no lo pierdas de vista en ninguna decisión:
+  **Entre productos solo cambia el color.** Nebula es indigo→violet porque es el neutro del
+  sistema, no el color de un producto: Rosette es rosa, Stellaria azul, Lagrange rojo-naranja,
+  y cada uno llega por tema, nunca por fork.
+
+  La vara de medir que sale de ahí:
+    Si dos landings difieren en algo que NO es color, la que difiere está mal — o el
+    sistema no tiene ese algo.
+
+  Radio, ritmo, alto de control, mecánica del cristal, escalera de elevación y registro
+  tipográfico NO son decisiones de producto. Que hoy las tres difieran en las seis cosas no
+  es variedad de marca: es que el sistema no las fijó y cada landing rellenó el hueco a mano.
 
 ANTES DE TOCAR NADA, LEE EN ESTE ORDEN
   1. CLAUDE.md — guardrails, convenciones y política de trabajo con el propietario.
@@ -43,10 +55,9 @@ POR DÓNDE EMPEZAR
   consumen los 158 componentes:
     radio de card 32 (hoy radius.xxl=28) · radio de acción 9 (sm=8) ·
     alto de acción 48 (control.md=42, lg=50) · padding de sección 120 (space.xxxl=64)
-  Y la pregunta de fondo que abre ese checkpoint: si «de base es totalmente Stellaria»,
-  ¿cambian las semillas del tema por defecto (hoy indigo→violet, ADR-020) o Stellaria
-  entra como un tema oficial más? Las tres landings son rosa/rojo o azul, ninguna es el eje
-  actual.
+  Por el principio de arriba, la decision es UNA para los tres productos: estos peldanos son
+  del sistema, no de Stellaria. No cabe «radio 32 en Rosette y 28 en Lagrange».
+  Las semillas del tema por defecto NO se tocan: indigo→violet se queda como neutro.
 
 CÓMO TRABAJAR AQUÍ — lo que esta fase aprendió por las malas
   · MIDE, no estimes. Usa tools/render-measure/ sobre el Storybook estático. Cuatro bugs
@@ -70,9 +81,9 @@ CÓMO TRABAJAR AQUÍ — lo que esta fase aprendió por las malas
     el formato en su propio commit antes de los de contenido.
 
 CRITERIO DE CIERRE DE LA FASE
-  B6: reconstruir las tres landings en el playground usando SOLO componentes de Nebula.
-  Si alguna de las tres no sale sin escribir CSS propio, el sistema todavía no está
-  alineado — y ese es el único veredicto que cuenta.
+  B6: reconstruir las tres landings en el playground con UNA SOLA composición y TRES TEMAS.
+  Si para pasar de una a otra hace falta una prop distinta —y no solo un color distinto—,
+  el sistema todavía no está alineado. Ese es el único veredicto que cuenta.
 
 Empieza leyendo los cuatro documentos y dime qué encuentras antes de escribir código.
 ```

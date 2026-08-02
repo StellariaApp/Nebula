@@ -5,6 +5,26 @@
 > distintas. El objetivo de este plan es que **Nebula sea la base**, de modo que las tres se puedan
 > reconstruir sobre ella sin recablear, y que un tercero pueda personalizarlas por tema sin forks.
 
+## 0. El principio que ordena todo el plan
+
+**Entre productos solo cambia el color.** Nebula es indigo→violet porque es el neutro del sistema,
+no el color de ningún producto: Rosette es rosa, Stellaria azul y Lagrange rojo-naranja, y cada uno
+llega por tema (`NebulaTheme`), nunca por fork.
+
+La consecuencia es la vara de medir de esta fase:
+
+> Si dos landings difieren en algo que **no es color**, la que difiere está mal — o el sistema no
+> tiene ese algo.
+
+Radio, ritmo, alto de control, mecánica del cristal, escalera de elevación y registro tipográfico
+**no son decisiones de producto**. Que hoy las tres difieran en las seis cosas no es variedad de
+marca: es que el sistema no las fijó, y cada landing rellenó el hueco a mano. Los seis
+desalineamientos de §2 son exactamente esos huecos.
+
+El patrón ya está probado en el repo: la lámina `AllThemes` del playground rinde la misma
+composición en los cuatro temas oficiales **más el tema `rosette`**, y lo único que cambia es el
+color. Eso es lo que tiene que ser cierto para una landing entera.
+
 ## 1. Lo que aporta cada landing, medido en su código
 
 | Landing       | Repo                       | Lo que hace bien                                            | Lo que hace mal                                 |
@@ -68,6 +88,9 @@ su propia escala: ninguna encontraba la suya en un sistema. Hay que decidir en u
 —mover las escalas a la marca, o snapear la marca a las escalas— pero **no se puede dejar a medias**,
 porque a medias es exactamente el estado actual.
 
+Por §0, la decisión es **una sola para los tres productos**: estos peldaños no son de Stellaria, son
+del sistema. No cabe «radio 32 en Rosette y 28 en Lagrange».
+
 ### D4 · En dark la elevación no es sombra
 
 Stellaria y Lagrange coinciden y es deliberado:
@@ -112,15 +135,15 @@ sirve de patrón: se midió una landing, se extrajo la regla, se metió en el si
 
 Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuente.
 
-| #      | Tramo                                        | Contenido                                                                                                              | Bloqueado por      |
-| ------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| **B0** | Cierre del backlog visual abierto            | `StarField parallax` no funciona · espaciados de Hero/Nav/Footer ya tocados en el árbol                                | nada               |
-| **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato  | checkpoint         |
-| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                | B1 (radio de card) |
-| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                       | nada — T2 cerrado  |
-| **B4** | Registro display del hero (**D5**)           | Escala fluida `clamp()` para el titular, separada de la escala de producto. `Hero size="xl"`                           | B1                 |
-| **B5** | Opacidad en las referencias de color         | Sufijo `.NN` en style props: `borderColor="border.subtle.40"`. La gramática ya existe en `variantMap` (`scale.500.12`) | nada               |
-| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: si una de las tres no sale sin CSS propio, el sistema aún no está                             | B0-B5              |
+| #      | Tramo                                        | Contenido                                                                                                                                                 | Bloqueado por      |
+| ------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| **B0** | Cierre del backlog visual abierto            | `StarField parallax` no funciona · espaciados de Hero/Nav/Footer ya tocados en el árbol                                                                   | nada               |
+| **B1** | Escalas contra la marca (**D3**)             | Decisión de peldaños: radio 32, radio 9, control 48, sección 120. **Requiere checkpoint** — mueve tokens del contrato                                     | checkpoint         |
+| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                   | B1 (radio de card) |
+| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                          | nada — T2 cerrado  |
+| **B4** | Registro display del hero (**D5**)           | Escala fluida `clamp()` para el titular, separada de la escala de producto. `Hero size="xl"`                                                              | B1                 |
+| **B5** | Opacidad en las referencias de color         | Sufijo `.NN` en style props: `borderColor="border.subtle.40"`. La gramática ya existe en `variantMap` (`scale.500.12`)                                    | nada               |
+| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está | B0-B5              |
 
 ## 4. El backlog abierto, mapeado
 
@@ -136,10 +159,9 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 
 ## 5. Lo que este plan NO decide
 
-- **Si `nebula-dark` pasa a ser el tema de Stellaria o sigue siendo el neutro del sistema.** Hoy la
-  identidad de Nebula es el eje indigo→violet de ADR-020 y las tres landings son rosa/rojo o azul.
-  Si «de base es totalmente Stellaria», hay que decidir si eso cambia las semillas del tema por
-  defecto o si Stellaria es un tema oficial más. **Es la primera pregunta del checkpoint de B1.**
+- **Las semillas del tema por defecto no se tocan.** Nebula sigue siendo indigo→violet (ADR-020)
+  porque es el **neutro del sistema**, no el color de ningún producto — ver §0. Rosette, Stellaria y
+  Lagrange entran como temas de producto.
 - **Si las tres landings migran o solo sirven de referencia.** B6 las reconstruye en el playground
   como prueba del sistema; migrar los repos reales es otra fase.
 - **Nada de native.** Todo lo de aquí es la capa visual web.
