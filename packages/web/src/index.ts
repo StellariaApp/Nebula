@@ -308,6 +308,28 @@ export type { EmptyStateProps } from "./components/EmptyState/index.js";
 
 export { NavLink } from "./components/NavLink/index.js";
 export type { NavLinkProps } from "./components/NavLink/index.js";
+export {
+  Nav,
+  NavActions,
+  NavDivider,
+  NavLinks,
+  NavLinksLink,
+  NavLogo,
+  NAV_LABELS,
+} from "./components/Nav/index.js";
+export type {
+  NavActiveMode,
+  NavDividerProps,
+  NavLabels,
+  NavLinkItemProps,
+  NavLinksAlign,
+  NavLinksProps,
+  NavLogoProps,
+  NavProps,
+  NavResolvedMode,
+  NavSize,
+  NavSlotProps,
+} from "./components/Nav/index.js";
 export { Pagination, PaginationRange } from "./components/Pagination/index.js";
 export type {
   PaginationItem,

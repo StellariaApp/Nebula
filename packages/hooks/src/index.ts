@@ -8,6 +8,7 @@ export {
   type MomentumAxis,
   type UseMomentumScrollOptions,
 } from "./use-momentum-scroll.js";
+export { useScrollSpy, type UseScrollSpyOptions } from "./use-scroll-spy.js";
 export { useStepper, type UseStepperInput, type UseStepperReturn } from "./use-stepper.js";
 export {
   useFieldProps,

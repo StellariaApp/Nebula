@@ -4,14 +4,14 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "70 kB",
+    limit: "71 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "26 kB",
+    limit: "27 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
@@ -747,6 +747,13 @@ const MODULE_BUDGETS = [
     import: "{ NavLink }",
     ignore: ["react", "react-dom"],
     limit: "22 kB",
+  },
+  {
+    name: "Nav (compound: indicador con spring + scroll-spy, por módulo)",
+    path: "dist/components/Nav/index.js",
+    import: "{ Nav }",
+    ignore: ["react", "react-dom"],
+    limit: "33 kB",
   },
   {
     name: "Pagination (motion, por módulo)",

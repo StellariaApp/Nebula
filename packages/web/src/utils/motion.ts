@@ -60,6 +60,11 @@ export function Spring(name: SpringName, context: MotionContext): Transition {
   };
 }
 
+export function SpringOptions(name: SpringName, theme: NebulaTheme): SpringConfig {
+  const config = theme.motion.spring[name];
+  return { stiffness: config.stiffness, damping: config.damping, mass: config.mass };
+}
+
 export function ScrollSpring(name: SpringName, theme: NebulaTheme): SpringConfig {
   const config = theme.motion.spring[name];
   return {
