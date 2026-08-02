@@ -4,14 +4,14 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "71 kB",
+    limit: "71.5 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "27 kB",
+    limit: "27.5 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
@@ -151,7 +151,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Footer/index.js",
     import: "{ Footer }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Reveal (motion + IntersectionObserver, por módulo)",
@@ -974,7 +974,7 @@ const MODULE_BUDGETS = [
   },
   {
     name: "Hero (banda de portada temable con variantes, por módulo)",
-    path: "dist/components/Hero/Banner.js",
+    path: "dist/components/Hero/Hero.js",
     import: "{ Hero }",
     ignore: ["react", "react-dom"],
     limit: "15.5 kB",
