@@ -76,11 +76,11 @@ export function Nav(props: NavProps): ReactElement {
         ...(floating
           ? { [max_var]: LengthToCss(floatingWidth), [gap_var]: LengthToCss(floatingGap) }
           : {}),
-        [surfaceBg]: glass_on ? vars.glass.default.background : vars.color.surface.raised,
+        [surfaceBg]: glass_on ? vars.glass.subtle.background : vars.color.surface.raised,
         [surfaceBorder]: glass_on
-          ? vars.glass.default.border
+          ? vars.glass.subtle.border
           : `1px solid ${vars.color.border.subtle}`,
-        [surfaceBackdrop]: glass_on ? vars.glass.default.backdropFilter : "none",
+        [surfaceBackdrop]: glass_on ? vars.glass.subtle.backdropFilter : "none",
       })
     : {};
 

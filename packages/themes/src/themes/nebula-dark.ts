@@ -124,7 +124,7 @@ export const nebulaDark = {
       background: "surface.overlay",
       foreground: "text.primary",
       border: "border.subtle",
-      glass: "default",
+      glass: "subtle",
     },
     ghost: { background: "transparent", foreground: "scale.700", border: "none" },
     glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },

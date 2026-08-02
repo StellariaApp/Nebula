@@ -230,6 +230,28 @@ contrato y necesita checkpoint. B0 los deja medidos, no corregidos.
 | `Nav` `min-height`       |    50 | 56 (`control.lg`)           |
 | Carril                   |  1180 | 1180                        |
 
+## 5.3 Primer paso de D2: el cristal baja un escalón (2026-08-02)
+
+Medido sobre la landing, el nav y el botón `variant="glass"` usaban **exactamente el mismo material**:
+`rgba(15,17,25,0.66)` + `blur(16px) saturate(1.4)`, es decir `glass.default`. Esa es la evidencia
+directa de D2 — la receta de una card de 400 px aplicada a un control de 48, donde no hay área que
+desenfocar y el tinte al 66 % se lee como relleno.
+
+A petición del propietario los dos bajan un escalón, al peldaño que ya existe:
+
+|            | Antes (`default`)          | Ahora (`subtle`)          |
+| ---------- | -------------------------- | ------------------------- |
+| Fondo      | `rgba(15,17,25,0.66)`      | `rgba(15,17,25,0.56)`     |
+| Desenfoque | `blur(16px) saturate(1.4)` | `blur(8px) saturate(1.3)` |
+
+Se cambia **quién usa qué nivel**, no los valores de los niveles: `variantMap.glass` pasa a `subtle`
+en los dos temas que lo declaran, y `Nav` deja de leer `vars.glass.default`.
+
+**Esto no cierra D2.** El plan pide una receta **por clase de superficie** —control ≈ `scale.500` al
+3-6 % con borde al 10 %— y `subtle` sigue siendo una receta de superficie: baja las tres magnitudes a
+la vez, así que un control con menos tinte también pierde desenfoque. La receta de control propia
+sigue siendo trabajo de B2.
+
 ## 6. Riesgo principal
 
 **Mover las escalas del contrato (B1) toca todo el catálogo.** `radius`, `sizes.control` y `spacing`
