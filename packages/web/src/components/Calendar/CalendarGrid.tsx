@@ -20,7 +20,9 @@ import * as styles from "./Calendar.css.js";
 
 type AnyCalendarState = CalendarState | RangeCalendarState;
 
-function HighlightedRange(state: AnyCalendarState): { start: CalendarDate; end: CalendarDate } | null {
+function HighlightedRange(
+  state: AnyCalendarState,
+): { start: CalendarDate; end: CalendarDate } | null {
   if (!("highlightedRange" in state)) return null;
   const range = state.highlightedRange;
   if (range === null || range === undefined) return null;
@@ -57,8 +59,7 @@ function Cell(props: CellProps): ReactElement {
 
   const range = HighlightedRange(state);
   const in_range = range !== null && date.compare(range.start) >= 0 && date.compare(range.end) <= 0;
-  const is_edge =
-    range !== null && (isSameDay(date, range.start) || isSameDay(date, range.end));
+  const is_edge = range !== null && (isSameDay(date, range.start) || isSameDay(date, range.end));
 
   return (
     <td

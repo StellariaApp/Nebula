@@ -57,9 +57,7 @@ describe("DataGrid — toolbar", () => {
   it("monta el buscador cuando hay onSearchChange", async () => {
     const user = userEvent.setup();
     const on_search = vi.fn();
-    render(
-      <DataGrid data={FILAS} columns={COLUMNS} getRowId={Key} onSearchChange={on_search} />,
-    );
+    render(<DataGrid data={FILAS} columns={COLUMNS} getRowId={Key} onSearchChange={on_search} />);
     await user.type(screen.getByLabelText(DATA_GRID_LABELS.search), "ac");
     expect(on_search).toHaveBeenCalled();
   });
@@ -76,9 +74,7 @@ describe("DataGrid — toolbar", () => {
       />,
     );
     expect(screen.getByText("Estado: activo")).toBeDefined();
-    await user.click(
-      screen.getByRole("button", { name: /Quitar el filtro/ }),
-    );
+    await user.click(screen.getByRole("button", { name: /Quitar el filtro/ }));
     expect(on_clear).toHaveBeenCalledTimes(1);
   });
 
@@ -96,7 +92,9 @@ describe("DataGrid — toolbar", () => {
     );
     expect(screen.queryByRole("button", { name: "Borrar" })).toBeNull();
 
-    await user.click(screen.getAllByRole("checkbox", { name: DATA_GRID_LABELS.selectRow })[0] as HTMLElement);
+    await user.click(
+      screen.getAllByRole("checkbox", { name: DATA_GRID_LABELS.selectRow })[0] as HTMLElement,
+    );
     expect(screen.getByText(DATA_GRID_LABELS.selectedCount(1))).toBeDefined();
 
     await user.click(screen.getByRole("button", { name: "Borrar" }));

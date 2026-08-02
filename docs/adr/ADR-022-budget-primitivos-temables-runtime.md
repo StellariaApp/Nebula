@@ -7,20 +7,20 @@
 
 Un primitivo de layout que (1) se compone sobre `Box` y (2) resuelve su variante/config del tema en runtime —vía `recipe()` de Vanilla Extract y/o `assignInlineVars` de `@vanilla-extract/dynamic`, que es exactamente el patrón cerrado en ADR-018— arranca de un suelo por encima de 9 kB:
 
-| Coste | brotli |
-| --- | --- |
-| `Box` (base compartida: mapa de sprinkles + contrato) | 8,6 kB |
+| Coste                                                                         | brotli         |
+| ----------------------------------------------------------------------------- | -------------- |
+| `Box` (base compartida: mapa de sprinkles + contrato)                         | 8,6 kB         |
 | runtime de `recipe` y/o `assignInlineVars` + helpers de token (`SpaceToCss`…) | +0,6 a +2,7 kB |
 
 Medición real por módulo (W2):
 
-| Componente | brotli | Mecánica |
-| --- | --- | --- |
-| Flex · Center · VisuallyHidden | 8,7 · 8,7 · 8,8 | composición pura de Box (sin runtime) |
-| AspectRatio | 9,2 | `assignInlineVars` (1 var) |
-| Space · Container · Group · Paper | 10,1 · 10,6 · 10,7 · 10,7 | recipe / vars / helpers |
-| SimpleGrid · Scroll · Grid · Divider | 10,8 · 11,0 · 11,3 · 11,3 | recipe + vars |
-| Transition · Collapse | 26,7 · 24,8 | `motion` (ya en budget de compuestos ≤48) |
+| Componente                           | brotli                    | Mecánica                                  |
+| ------------------------------------ | ------------------------- | ----------------------------------------- |
+| Flex · Center · VisuallyHidden       | 8,7 · 8,7 · 8,8           | composición pura de Box (sin runtime)     |
+| AspectRatio                          | 9,2                       | `assignInlineVars` (1 var)                |
+| Space · Container · Group · Paper    | 10,1 · 10,6 · 10,7 · 10,7 | recipe / vars / helpers                   |
+| SimpleGrid · Scroll · Grid · Divider | 10,8 · 11,0 · 11,3 · 11,3 | recipe + vars                             |
+| Transition · Collapse                | 26,7 · 24,8               | `motion` (ya en budget de compuestos ≤48) |
 
 ## Decisión
 

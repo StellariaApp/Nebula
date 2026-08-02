@@ -33,7 +33,11 @@ const VALIDATING_FIELD: NebulaField<string> = {
 export const Tooltip: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="xl" maw={360} pt="xl">
-      <TextInput label="Correo" defaultValue="no-es-un-correo" error="Formato de correo no válido" />
+      <TextInput
+        label="Correo"
+        defaultValue="no-es-un-correo"
+        error="Formato de correo no válido"
+      />
       <NumberInput label="Edad" value={200} error="Debe ser menor que 120" max={120} />
     </Box>
   ),
@@ -58,7 +62,13 @@ export const Validating: Story = {
   render: () => (
     <Box maw={320} pt="xl">
       <FieldError field={VALIDATING_FIELD}>
-        <Text p="sm" bg="surface.raised" bdc="border.default" r="md" style={{ borderWidth: 1, borderStyle: "solid" }}>
+        <Text
+          p="sm"
+          bg="surface.raised"
+          bdc="border.default"
+          r="md"
+          style={{ borderWidth: 1, borderStyle: "solid" }}
+        >
           Comprobando disponibilidad…
         </Text>
       </FieldError>

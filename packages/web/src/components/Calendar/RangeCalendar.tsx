@@ -74,7 +74,10 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
     ...(typeof label === "string" ? { "aria-label": label } : {}),
     ...(isDateUnavailable === undefined
       ? {}
-      : { isDateUnavailable: (date: DateValue) => isDateUnavailable(FormatDate(date as CalendarDate)) }),
+      : {
+          isDateUnavailable: (date: DateValue) =>
+            isDateUnavailable(FormatDate(date as CalendarDate)),
+        }),
   };
 
   const { theme } = useTheme();

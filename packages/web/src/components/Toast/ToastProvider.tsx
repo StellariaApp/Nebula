@@ -42,7 +42,8 @@ function ToastItem(props: ItemProps): ReactElement {
   }, [toast.id, toast.duration, fallbackDuration]);
 
   const { theme } = useTheme();
-  const resolved = toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
+  const resolved =
+    toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
 
   const css_vars = assignInlineVars({
     [toastAccent]: ResolveAccent(toast.color, "600"),

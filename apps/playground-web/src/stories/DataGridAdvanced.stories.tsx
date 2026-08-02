@@ -84,7 +84,15 @@ function Grid(): ReactElement {
       activeFilters={
         estado === null
           ? []
-          : [{ id: "estado", label: `Estado: ${estado}`, onClear: () => { set_estado(null); } }]
+          : [
+              {
+                id: "estado",
+                label: `Estado: ${estado}`,
+                onClear: () => {
+                  set_estado(null);
+                },
+              },
+            ]
       }
       onClearFilters={() => {
         set_estado(null);

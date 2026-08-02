@@ -65,9 +65,7 @@ export function Dialog(props: DialogProps): ReactElement {
           initial={is_off ? false : { opacity: 0, y: from_top ? -12 : 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={is_off ? { opacity: 1 } : { opacity: 0, y: from_top ? -8 : 8 }}
-          transition={
-            opened ? Spring("gentle", motion_context) : ExitTween("fast", motion_context)
-          }
+          transition={opened ? Spring("gentle", motion_context) : ExitTween("fast", motion_context)}
         >
           {title === undefined && !withCloseButton ? null : (
             <div className={styles.head}>

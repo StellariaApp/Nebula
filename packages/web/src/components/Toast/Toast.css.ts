@@ -64,7 +64,12 @@ export const toast = style({
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: { display: "inline-flex", flexShrink: 0, color: toastAccent, marginBlockStart: "1px" },
+    [baseLayer]: {
+      display: "inline-flex",
+      flexShrink: 0,
+      color: toastAccent,
+      marginBlockStart: "1px",
+    },
   },
 });
 

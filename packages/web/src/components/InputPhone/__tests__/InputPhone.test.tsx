@@ -113,7 +113,13 @@ describe("InputCurrency", () => {
   it("respeta min y max", async () => {
     const on_change = vi.fn();
     render(
-      <InputCurrency label="Importe" currency="USD" locale="en-US" max={100} onChange={on_change} />,
+      <InputCurrency
+        label="Importe"
+        currency="USD"
+        locale="en-US"
+        max={100}
+        onChange={on_change}
+      />,
     );
     await userEvent.type(screen.getByLabelText("Importe"), "500");
     expect(on_change).toHaveBeenLastCalledWith(100);

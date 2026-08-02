@@ -46,7 +46,11 @@ export const NavLinks: Story = {
           <NavLink
             label="Cobranza"
             leftSection="💳"
-            rightSection={<Badge size="xs" color="error">3</Badge>}
+            rightSection={
+              <Badge size="xs" color="error">
+                3
+              </Badge>
+            }
             active={active === "cobranza"}
             onPress={() => set_active("cobranza")}
           />
@@ -66,12 +70,7 @@ export const Paginations: Story = {
     const [page, set_page] = useState(5);
     return (
       <Box display="flex" direction="column" gap="lg">
-        <Pagination
-          total={10}
-          page={page}
-          onChange={set_page}
-          labels={{ root: "Resultados" }}
-        />
+        <Pagination total={10} page={page} onChange={set_page} labels={{ root: "Resultados" }} />
         <Pagination total={20} defaultPage={10} withEdges labels={{ root: "Con extremos" }} />
         <Pagination total={3} defaultPage={2} labels={{ root: "Pocas páginas" }} />
         <Box display="flex" direction="column" gap="sm">

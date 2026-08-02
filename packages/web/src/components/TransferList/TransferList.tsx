@@ -113,9 +113,7 @@ function Pane(props: PaneProps): ReactElement {
           </button>
         ))}
       </div>
-      {options.length === 0 ? (
-        <p className={styles.empty}>{pane?.empty ?? emptyLabel}</p>
-      ) : null}
+      {options.length === 0 ? <p className={styles.empty}>{pane?.empty ?? emptyLabel}</p> : null}
       {pane?.title === undefined ? <span className={styles.paneCount}>{countLabel}</span> : null}
     </div>
   );
@@ -136,11 +134,7 @@ export function TransferList(props: TransferListProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? TRANSFER_LIST_LABELS : { ...TRANSFER_LIST_LABELS, ...labels }),
@@ -151,7 +145,11 @@ export function TransferList(props: TransferListProps): ReactElement {
   const [selected, set_selected] = useUncontrolled<readonly string[]>(
     value,
     defaultValue,
-    onChange === undefined ? undefined : (next) => { onChange([...next]); },
+    onChange === undefined
+      ? undefined
+      : (next) => {
+          onChange([...next]);
+        },
   );
 
   const [marked_source, set_marked_source] = useState<string[]>([]);

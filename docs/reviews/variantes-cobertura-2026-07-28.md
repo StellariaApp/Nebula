@@ -14,11 +14,11 @@
 Las tres cifras del prompt se reprodujeron. Dos son correctas; la tercera oculta el hallazgo central de
 la auditoría.
 
-| Medición del prompt                        | Resultado                                                                   |
-| ------------------------------------------ | --------------------------------------------------------------------------- |
-| 6 de 68 aceptan `variant`                  | **Correcto** — Button, ActionIcon, Alert, Badge, Divider, Loader            |
-| 21 de 68 aceptan `color`                   | **Correcto** — pero sobre **5 tipos distintos** (§0.2)                      |
-| `Variant` tiene 8 miembros, contrato W/N   | **Correcto** — `packages/tokens/src/types/variants.ts:16-17`                |
+| Medición del prompt                      | Resultado                                                        |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| 6 de 68 aceptan `variant`                | **Correcto** — Button, ActionIcon, Alert, Badge, Divider, Loader |
+| 21 de 68 aceptan `color`                 | **Correcto** — pero sobre **5 tipos distintos** (§0.2)           |
+| `Variant` tiene 8 miembros, contrato W/N | **Correcto** — `packages/tokens/src/types/variants.ts:16-17`     |
 
 ### 0.1 Solo 2 de esos 6 consumen `variantMap`
 
@@ -27,14 +27,14 @@ la auditoría.
 `variant` que es una unión local, y ninguno lee `theme.variantMap`. Peor: las cuatro uniones locales
 viven en **tres ejes semánticos distintos**.
 
-| Componente | Unión declarada                              | Archivo                     | Eje                          | ¿lee `variantMap`? |
-| ---------- | -------------------------------------------- | --------------------------- | ---------------------------- | ------------------ |
-| Button     | `Variant` (8)                                | `Button.types.ts:26`        | receta cromática             | **sí**             |
-| ActionIcon | `Variant` (8)                                | `ActionIcon.types.ts:26`    | receta cromática             | **sí**             |
-| Alert      | `"light" \| "filled" \| "outline"`           | `Alert.types.ts:7`          | receta cromática (a mano)    | no                 |
-| Badge      | `"light" \| "filled" \| "outline" \| "dot"`  | `Badge.types.ts:7`          | receta cromática + **forma** | no                 |
-| Divider    | `"solid" \| "dashed" \| "dotted"`            | `Divider.types.ts:8`        | **`borderStyle`**            | no                 |
-| Loader     | `"spinner" \| "dots" \| "bars"`              | `Loader.types.ts:4`         | **forma de la animación**    | no                 |
+| Componente | Unión declarada                             | Archivo                  | Eje                          | ¿lee `variantMap`? |
+| ---------- | ------------------------------------------- | ------------------------ | ---------------------------- | ------------------ |
+| Button     | `Variant` (8)                               | `Button.types.ts:26`     | receta cromática             | **sí**             |
+| ActionIcon | `Variant` (8)                               | `ActionIcon.types.ts:26` | receta cromática             | **sí**             |
+| Alert      | `"light" \| "filled" \| "outline"`          | `Alert.types.ts:7`       | receta cromática (a mano)    | no                 |
+| Badge      | `"light" \| "filled" \| "outline" \| "dot"` | `Badge.types.ts:7`       | receta cromática + **forma** | no                 |
+| Divider    | `"solid" \| "dashed" \| "dotted"`           | `Divider.types.ts:8`     | **`borderStyle`**            | no                 |
+| Loader     | `"spinner" \| "dots" \| "bars"`             | `Loader.types.ts:4`      | **forma de la animación**    | no                 |
 
 La consecuencia es verificable y contradice `docs/02-theming.md` §2 punto 3 («hasta el significado
 visual de `variant="filled"` es temable»): **`playful` remapea `filled` a `gradient.brand`**
@@ -45,16 +45,16 @@ pero **no** a Alert ni a Badge, que seguirán pintando `scale.600` plano.
 
 Alert y Badge reimplementan a mano las mismas tres recetas. No coinciden entre sí ni con el contrato:
 
-| Receta `light`  | `variantMap` (nebula-dark:116) | Alert (`Alert.tsx:41-46`) | Badge (`Badge.tsx:30-34`) |
-| --------------- | ------------------------------ | ------------------------- | ------------------------- |
-| background      | `scale.500.12`                 | `scale.500` @ **12 %**    | `scale.500` @ **14 %**    |
-| foreground      | `scale.800`                    | `text.primary`            | `scale.700`               |
-| border          | `none`                         | `scale.500` @ 28 %        | `transparent`             |
+| Receta `light` | `variantMap` (nebula-dark:116) | Alert (`Alert.tsx:41-46`) | Badge (`Badge.tsx:30-34`) |
+| -------------- | ------------------------------ | ------------------------- | ------------------------- |
+| background     | `scale.500.12`                 | `scale.500` @ **12 %**    | `scale.500` @ **14 %**    |
+| foreground     | `scale.800`                    | `text.primary`            | `scale.700`               |
+| border         | `none`                         | `scale.500` @ 28 %        | `transparent`             |
 
-| Receta `outline` | `variantMap`                | Alert                     | Badge                     |
-| ---------------- | --------------------------- | ------------------------- | ------------------------- |
-| foreground       | `scale.700`                 | `text.primary`            | `scale.700`               |
-| border           | `scale.600`                 | `scale.500`               | `scale.500`               |
+| Receta `outline` | `variantMap` | Alert          | Badge       |
+| ---------------- | ------------ | -------------- | ----------- |
+| foreground       | `scale.700`  | `text.primary` | `scale.700` |
+| border           | `scale.600`  | `scale.500`    | `scale.500` |
 
 Tres definiciones divergentes de un mismo nombre, sin que ningún gate lo detecte. Trece componentes
 usan `ScaleShade` (`utils/scale.ts`) —Alert, Avatar, Badge, Checkbox, FieldError, Loader, NavLink,
@@ -66,13 +66,13 @@ su **receta** no.
 ADR-021 fija que «cualquier prop de color de componente usa `ColorExtended` (convención)». De los 21
 componentes con `color`, **2** la cumplen:
 
-| Tipo de `color`             | Nº | Componentes                                                                                                                          |
-| --------------------------- | -: | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `ColorExtended` (ADR-021)   |  2 | Button, ActionIcon                                                                                                                   |
-| `SemanticScaleName`         | 16 | Alert, Avatar, Badge, Blockquote, Checkbox, Highlight, Loader, Mark, NavLink, Pagination, Progress, Radio, Segment, Switch, Tabs, Toast |
-| `BorderRole`                |  1 | Divider                                                                                                                              |
-| `"error" \| "info"`         |  1 | FieldError                                                                                                                           |
-| `"neutral" \| "inverted"`   |  1 | Tooltip                                                                                                                              |
+| Tipo de `color`           |  Nº | Componentes                                                                                                                             |
+| ------------------------- | --: | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `ColorExtended` (ADR-021) |   2 | Button, ActionIcon                                                                                                                      |
+| `SemanticScaleName`       |  16 | Alert, Avatar, Badge, Blockquote, Checkbox, Highlight, Loader, Mark, NavLink, Pagination, Progress, Radio, Segment, Switch, Tabs, Toast |
+| `BorderRole`              |   1 | Divider                                                                                                                                 |
+| `"error" \| "info"`       |   1 | FieldError                                                                                                                              |
+| `"neutral" \| "inverted"` |   1 | Tooltip                                                                                                                                 |
 
 Se registra como **conflicto con ADR-021**, no se corrige aquí (regla de sesión: una conclusión que
 choca con un ADR aceptado se registra, no se aplica). Divider, FieldError y Tooltip son excepciones
@@ -94,28 +94,28 @@ tramo.
 
 ### 1.1 Superficie (20)
 
-| Componente     | `variant` hoy      | Variantes con sentido                       | Tratamiento              | Coste (medido/budget)  | Prioridad |
-| -------------- | ------------------ | ------------------------------------------- | ------------------------ | ---------------------- | --------- |
-| Button         | `Variant` (8)      | las 8                                       | ya cubierto              | 29,92 / 34             | —         |
-| ActionIcon     | `Variant` (8)      | las 8                                       | ya cubierto              | 29,64 / 34             | —         |
-| ButtonClose    | hereda ActionIcon  | las 8                                       | ya cubierto              | 29,79 / 34             | —         |
-| ButtonCopy     | hereda ActionIcon  | las 8                                       | ya cubierto              | 29,82 / 34             | —         |
-| Alert          | local (3)          | `filled·outline·light·glass`                | **unificar** subconjunto | 30,44 + 2,2 = 32,6 / 35 | **P1**   |
-| Badge          | local (3+`dot`)    | `filled·outline·light·ghost` + `dot` aparte | **unificar** subconjunto | 11,57 + 2,2 = 13,8 / 12 **✗** | **P1** |
-| Card           | —                  | `filled·outline·light·glass·glow·gradient`  | subconjunto              | 19,44 + 2,2 = 21,6 / 22 (0,4 margen) | P2 |
-| Paper          | —                  | `filled·outline·light·glass`                | subconjunto              | 10,90 + 2,2 = 13,1 / 12 **✗** | P2 |
-| Avatar         | —                  | `filled·light·outline`                      | subconjunto              | 11,65 + 2,2 = 13,9 / 12 **✗** | P3 |
-| Segment        | —                  | `filled·light·ghost` (indicador)            | subconjunto              | 28,14 + 2,2 = 30,3 / 32 | P2       |
-| Tabs           | —                  | ídem Segment (es su atajo)                  | subconjunto              | 28,24 + 2,2 = 30,4 / 32 | P2       |
-| NavLink        | —                  | `filled·light·ghost`                        | subconjunto              | 18,75 + 2,2 = 21,0 / 21 (0,05 margen) | P3 |
-| Pagination     | —                  | `filled·light·outline·ghost`                | subconjunto              | 18,99 + 2,2 = 21,2 / 22 | P3       |
-| Toast          | —                  | `filled·light·glass`                        | subconjunto              | 35,87 + 2,2 = 38,1 / 41 | P3       |
-| Tooltip        | `color` (2)        | ninguna: es superficie de sistema           | no aplica                | 31,57 / 36             | —         |
-| Modal          | —                  | ninguna: nivel 4 de `docs/06` §5            | no aplica                | 35,21 / 40             | —         |
-| Drawer         | —                  | ídem Modal                                  | no aplica                | 35,27 / 40             | —         |
-| Popover        | —                  | ninguna: nivel 3 de `docs/06` §5            | no aplica                | 35,11 / 40             | —         |
-| Menu           | —                  | ídem Popover                                | no aplica                | 50,67 / 58             | —         |
-| Image          | —                  | ninguna: la superficie es el contenido      | no aplica                | 17,73 / 20             | —         |
+| Componente  | `variant` hoy     | Variantes con sentido                       | Tratamiento              | Coste (medido/budget)                 | Prioridad |
+| ----------- | ----------------- | ------------------------------------------- | ------------------------ | ------------------------------------- | --------- |
+| Button      | `Variant` (8)     | las 8                                       | ya cubierto              | 29,92 / 34                            | —         |
+| ActionIcon  | `Variant` (8)     | las 8                                       | ya cubierto              | 29,64 / 34                            | —         |
+| ButtonClose | hereda ActionIcon | las 8                                       | ya cubierto              | 29,79 / 34                            | —         |
+| ButtonCopy  | hereda ActionIcon | las 8                                       | ya cubierto              | 29,82 / 34                            | —         |
+| Alert       | local (3)         | `filled·outline·light·glass`                | **unificar** subconjunto | 30,44 + 2,2 = 32,6 / 35               | **P1**    |
+| Badge       | local (3+`dot`)   | `filled·outline·light·ghost` + `dot` aparte | **unificar** subconjunto | 11,57 + 2,2 = 13,8 / 12 **✗**         | **P1**    |
+| Card        | —                 | `filled·outline·light·glass·glow·gradient`  | subconjunto              | 19,44 + 2,2 = 21,6 / 22 (0,4 margen)  | P2        |
+| Paper       | —                 | `filled·outline·light·glass`                | subconjunto              | 10,90 + 2,2 = 13,1 / 12 **✗**         | P2        |
+| Avatar      | —                 | `filled·light·outline`                      | subconjunto              | 11,65 + 2,2 = 13,9 / 12 **✗**         | P3        |
+| Segment     | —                 | `filled·light·ghost` (indicador)            | subconjunto              | 28,14 + 2,2 = 30,3 / 32               | P2        |
+| Tabs        | —                 | ídem Segment (es su atajo)                  | subconjunto              | 28,24 + 2,2 = 30,4 / 32               | P2        |
+| NavLink     | —                 | `filled·light·ghost`                        | subconjunto              | 18,75 + 2,2 = 21,0 / 21 (0,05 margen) | P3        |
+| Pagination  | —                 | `filled·light·outline·ghost`                | subconjunto              | 18,99 + 2,2 = 21,2 / 22               | P3        |
+| Toast       | —                 | `filled·light·glass`                        | subconjunto              | 35,87 + 2,2 = 38,1 / 41               | P3        |
+| Tooltip     | `color` (2)       | ninguna: es superficie de sistema           | no aplica                | 31,57 / 36                            | —         |
+| Modal       | —                 | ninguna: nivel 4 de `docs/06` §5            | no aplica                | 35,21 / 40                            | —         |
+| Drawer      | —                 | ídem Modal                                  | no aplica                | 35,27 / 40                            | —         |
+| Popover     | —                 | ninguna: nivel 3 de `docs/06` §5            | no aplica                | 35,11 / 40                            | —         |
+| Menu        | —                 | ídem Popover                                | no aplica                | 50,67 / 58                            | —         |
+| Image       | —                 | ninguna: la superficie es el contenido      | no aplica                | 17,73 / 20                            | —         |
 
 Los cinco overlays quedan fuera por `docs/06` §5: su superficie **es** su nivel de elevación
 (`surface.overlay` + sombra + rim). Un `Popover variant="filled" color="error"` rompería la escalera y
@@ -123,21 +123,21 @@ la física por superficie de ADR-034. Tooltip ya resuelve el caso legítimo con 
 
 ### 1.2 Campo de formulario (13)
 
-| Componente    | `variant` hoy | Variantes con sentido | Tratamiento         | Coste                       |
-| ------------- | ------------- | --------------------- | ------------------- | --------------------------- |
-| FormField     | —             | ninguna               | no aplica           | 21,43 / 24                  |
-| TextInput     | —             | ver §2.B              | **ya cubierto**     | 22,38 / 25                  |
-| Textarea      | —             | ver §2.B              | ya cubierto         | 22,46 / 26                  |
-| PasswordInput | —             | ver §2.B              | ya cubierto         | 31,39 / 36                  |
-| SearchInput   | —             | ver §2.B              | ya cubierto         | 31,38 / 36                  |
-| NumberInput   | —             | ver §2.B              | ya cubierto         | 31,57 / 36                  |
-| Select        | —             | ver §2.B              | ya cubierto         | 58,70 / 67                  |
-| MultiSelect   | —             | ver §2.B              | ya cubierto         | 65,57 / 75                  |
-| Combobox      | —             | ver §2.B              | ya cubierto         | 65,09 / 74                  |
-| Checkbox      | —             | ninguna cromática     | no aplica (`color`) | 12,03 / 16                  |
-| Radio         | —             | ninguna cromática     | no aplica (`color`) | 11,60 / 12                  |
-| Switch        | —             | ninguna cromática     | no aplica (`color`) | 25,79 / 30                  |
-| FieldError    | —             | ninguna               | no aplica           | 20,04 / 23                  |
+| Componente    | `variant` hoy | Variantes con sentido | Tratamiento         | Coste      |
+| ------------- | ------------- | --------------------- | ------------------- | ---------- |
+| FormField     | —             | ninguna               | no aplica           | 21,43 / 24 |
+| TextInput     | —             | ver §2.B              | **ya cubierto**     | 22,38 / 25 |
+| Textarea      | —             | ver §2.B              | ya cubierto         | 22,46 / 26 |
+| PasswordInput | —             | ver §2.B              | ya cubierto         | 31,39 / 36 |
+| SearchInput   | —             | ver §2.B              | ya cubierto         | 31,38 / 36 |
+| NumberInput   | —             | ver §2.B              | ya cubierto         | 31,57 / 36 |
+| Select        | —             | ver §2.B              | ya cubierto         | 58,70 / 67 |
+| MultiSelect   | —             | ver §2.B              | ya cubierto         | 65,57 / 75 |
+| Combobox      | —             | ver §2.B              | ya cubierto         | 65,09 / 74 |
+| Checkbox      | —             | ninguna cromática     | no aplica (`color`) | 12,03 / 16 |
+| Radio         | —             | ninguna cromática     | no aplica (`color`) | 11,60 / 12 |
+| Switch        | —             | ninguna cromática     | no aplica (`color`) | 25,79 / 30 |
+| FieldError    | —             | ninguna               | no aplica           | 20,04 / 23 |
 
 Los nueve campos comparten **una sola** definición de superficie: el recipe `field` de
 `packages/web/src/styles/field.css.ts:55`, con `surface.raised` + `border.default` y solo dos ejes
@@ -145,27 +145,27 @@ Los nueve campos comparten **una sola** definición de superficie: el recipe `fi
 
 ### 1.3 Tipografía (8)
 
-| Componente | `variant` hoy | Tratamiento                                    | Coste       |
-| ---------- | ------------- | ---------------------------------------------- | ----------- |
-| Text       | —             | **ya cubierto por style props** (§2.C)         | 9,13 / 9,5  |
-| Title      | —             | ya cubierto por style props                    | 9,14 / 9,5  |
-| Anchor     | —             | ya cubierto (`underline`, `external`)          | 9,51 / 12   |
-| Highlight  | —             | ya cubierto (`color`)                          | 10,04 / 12  |
-| Mark       | —             | ya cubierto (`color`)                          | 9,43 / 12   |
-| Code       | —             | ya cubierto (`block`)                          | 9,13 / 9,5  |
-| Blockquote | —             | ya cubierto (`color`, `icon`, `cite`)          | 11,22 / 12  |
-| List       | —             | ya cubierto (`type`, `icon`, `spacing`)        | 11,09 / 12  |
+| Componente | `variant` hoy | Tratamiento                             | Coste      |
+| ---------- | ------------- | --------------------------------------- | ---------- |
+| Text       | —             | **ya cubierto por style props** (§2.C)  | 9,13 / 9,5 |
+| Title      | —             | ya cubierto por style props             | 9,14 / 9,5 |
+| Anchor     | —             | ya cubierto (`underline`, `external`)   | 9,51 / 12  |
+| Highlight  | —             | ya cubierto (`color`)                   | 10,04 / 12 |
+| Mark       | —             | ya cubierto (`color`)                   | 9,43 / 12  |
+| Code       | —             | ya cubierto (`block`)                   | 9,13 / 9,5 |
+| Blockquote | —             | ya cubierto (`color`, `icon`, `cite`)   | 11,22 / 12 |
+| List       | —             | ya cubierto (`type`, `icon`, `spacing`) | 11,09 / 12 |
 
 Text y Title tienen **9,13 y 9,14 kB contra un budget de 9,5**: 370 B de margen. Aunque la respuesta a
 la pregunta C fuera afirmativa, `ResolveVariant` (+2,2 kB) no cabe. Ver §2.C.
 
 ### 1.4 Feedback (3)
 
-| Componente | `variant` hoy         | Tratamiento                                                    | Coste                            |
-| ---------- | --------------------- | -------------------------------------------------------------- | -------------------------------- |
-| Loader     | `spinner\|dots\|bars` | **renombrar el eje** — es forma, no receta (§3.5)               | 11,41 / 12                       |
-| Progress   | —                     | subconjunto `filled·light` (la barra ya es una superficie)      | 12,21 + 2,2 = 14,4 / 14 **✗**   |
-| Skeleton   | —                     | no aplica                                                       | 11,61 / 12                       |
+| Componente | `variant` hoy         | Tratamiento                                                | Coste                         |
+| ---------- | --------------------- | ---------------------------------------------------------- | ----------------------------- |
+| Loader     | `spinner\|dots\|bars` | **renombrar el eje** — es forma, no receta (§3.5)          | 11,41 / 12                    |
+| Progress   | —                     | subconjunto `filled·light` (la barra ya es una superficie) | 12,21 + 2,2 = 14,4 / 14 **✗** |
+| Skeleton   | —                     | no aplica                                                  | 11,61 / 12                    |
 
 ### 1.5 Estructural (24) — todos `no aplica`
 
@@ -185,20 +185,20 @@ Dos matices:
 
 De `docs/00-inventory.md` §1 y `docs/05` §W3–W4.
 
-| Componente                    | Fase | Clase        | Variantes con sentido                | Tratamiento                       |
-| ----------------------------- | ---- | ------------ | ------------------------------------ | --------------------------------- |
-| Chip (+Group)                 | W3   | superficie   | `filled·outline·light·ghost`         | subconjunto — **nace con ellas**  |
-| Banner                        | W3   | superficie   | `filled·light·glass·gradient`        | subconjunto — nace con ellas      |
-| StatusBadge                   | W3   | superficie   | hereda Badge                         | subconjunto                       |
-| Stepper                       | W3   | superficie   | `filled·light` (el indicador)        | subconjunto                       |
-| Feature · Section · Panel     | W3   | estructural  | ninguna                              | no aplica                         |
-| CardComplex                   | W3   | superficie   | hereda Card                          | subconjunto (⚠️ checkpoint W3.5)  |
-| Fieldset                      | W3   | campo        | ninguna                              | no aplica                         |
-| DataGrid · AppShell           | W3   | estructural  | ninguna                              | no aplica                         |
-| Rating · PinInput · TagsInput | W3   | campo        | ninguna                              | no aplica                         |
-| **GradientText**              | W4   | tipografía   | —                                    | **es la respuesta a la C**        |
-| GradientBorder/Background     | W4   | superficie   | —                                    | pertenece a W4                    |
-| Glass/Effects                 | W4   | superficie   | —                                    | pertenece a W4                    |
+| Componente                    | Fase | Clase       | Variantes con sentido         | Tratamiento                      |
+| ----------------------------- | ---- | ----------- | ----------------------------- | -------------------------------- |
+| Chip (+Group)                 | W3   | superficie  | `filled·outline·light·ghost`  | subconjunto — **nace con ellas** |
+| Banner                        | W3   | superficie  | `filled·light·glass·gradient` | subconjunto — nace con ellas     |
+| StatusBadge                   | W3   | superficie  | hereda Badge                  | subconjunto                      |
+| Stepper                       | W3   | superficie  | `filled·light` (el indicador) | subconjunto                      |
+| Feature · Section · Panel     | W3   | estructural | ninguna                       | no aplica                        |
+| CardComplex                   | W3   | superficie  | hereda Card                   | subconjunto (⚠️ checkpoint W3.5) |
+| Fieldset                      | W3   | campo       | ninguna                       | no aplica                        |
+| DataGrid · AppShell           | W3   | estructural | ninguna                       | no aplica                        |
+| Rating · PinInput · TagsInput | W3   | campo       | ninguna                       | no aplica                        |
+| **GradientText**              | W4   | tipografía  | —                             | **es la respuesta a la C**       |
+| GradientBorder/Background     | W4   | superficie  | —                             | pertenece a W4                   |
+| Glass/Effects                 | W4   | superficie  | —                             | pertenece a W4                   |
 
 **Este es el argumento de urgencia**: Chip, Banner, StatusBadge, Stepper y CardComplex son cinco
 componentes de W3 que van a necesitar recetas cromáticas. Si el patrón no se decide antes, W3 los
@@ -231,17 +231,17 @@ Las 8 no tienen sentido sobre nada que no sea una acción:
 
 Subconjuntos propuestos, derivados de las reglas anteriores:
 
-| Componente        | Subconjunto                                            |
-| ----------------- | ------------------------------------------------------ |
-| Card · Paper      | `filled · outline · light · glass · glow · gradient`   |
-| Alert · Banner    | `filled · outline · light · glass`                     |
-| Badge · Chip      | `filled · outline · light · ghost · gradient`          |
-| Toast             | `filled · light · glass`                               |
-| Segment · Tabs    | `filled · light · ghost`                               |
-| NavLink           | `filled · light · ghost`                               |
-| Pagination        | `filled · outline · light · ghost`                     |
-| Avatar            | `filled · outline · light`                             |
-| Progress          | `filled · light`                                       |
+| Componente     | Subconjunto                                          |
+| -------------- | ---------------------------------------------------- |
+| Card · Paper   | `filled · outline · light · glass · glow · gradient` |
+| Alert · Banner | `filled · outline · light · glass`                   |
+| Badge · Chip   | `filled · outline · light · ghost · gradient`        |
+| Toast          | `filled · light · glass`                             |
+| Segment · Tabs | `filled · light · ghost`                             |
+| NavLink        | `filled · light · ghost`                             |
+| Pagination     | `filled · outline · light · ghost`                   |
+| Avatar         | `filled · outline · light`                           |
+| Progress       | `filled · light`                                     |
 
 **Alternativa**: dejarlo como está y que cada componente siga escribiendo su receta a mano. Es más
 barata en bundle (0 kB) y no toca ningún budget, pero es exactamente lo que produjo la deriva de §0.2 y
@@ -351,17 +351,17 @@ text` no aplica, y reduced-motion en la variante animada. `GradientBorder`, `Gra
 Ampliar la unión `Variant` obliga, por cada miembro nuevo, a tocar **8 sitios de código más N temas de
 tenant**, censados por lectura directa:
 
-| Sitio                                                          | Qué obliga                                   |
-| -------------------------------------------------------------- | -------------------------------------------- |
-| `packages/tokens/src/types/variants.ts:16-17`                  | la unión                                     |
-| `packages/themes/src/enums.ts` (`variants`)                    | el array runtime, exhaustivo por tipo        |
-| `packages/themes/src/load-theme.ts:36-45`                      | literal exhaustivo escrito a mano            |
-| `packages/themes/src/themes/nebula-dark.ts:113`                | 1 receta                                     |
-| `packages/themes/src/themes/nebula-light.ts:92`                | 1 receta                                     |
-| `packages/themes/src/themes/sober-light.ts:91`                 | 1 receta                                     |
-| `packages/themes/src/themes/playful.ts:92`                     | 1 receta                                     |
-| `packages/web/src/theme/resolve-variant.ts` (`ResolveFlat`)    | 1 rama del switch de modo plano              |
-| **Cada tema de tenant**                                        | 1 receta — hoy 0, planificados 2 (§3.1.1)    |
+| Sitio                                                       | Qué obliga                                |
+| ----------------------------------------------------------- | ----------------------------------------- |
+| `packages/tokens/src/types/variants.ts:16-17`               | la unión                                  |
+| `packages/themes/src/enums.ts` (`variants`)                 | el array runtime, exhaustivo por tipo     |
+| `packages/themes/src/load-theme.ts:36-45`                   | literal exhaustivo escrito a mano         |
+| `packages/themes/src/themes/nebula-dark.ts:113`             | 1 receta                                  |
+| `packages/themes/src/themes/nebula-light.ts:92`             | 1 receta                                  |
+| `packages/themes/src/themes/sober-light.ts:91`              | 1 receta                                  |
+| `packages/themes/src/themes/playful.ts:92`                  | 1 receta                                  |
+| `packages/web/src/theme/resolve-variant.ts` (`ResolveFlat`) | 1 rama del switch de modo plano           |
+| **Cada tema de tenant**                                     | 1 receta — hoy 0, planificados 2 (§3.1.1) |
 
 Y hay un coste que no es de código: `schema.ts:173` valida `variantMap` con
 `z.record(z.enum(variants), variantRecipe)`, de modo que **todo JSON de tema existente deja de validar**
@@ -421,19 +421,19 @@ que se añade es la lógica de resolución y las `palettes` de tokens.
 Con ese delta, y contra la medición completa de `pnpm --filter @stellaria/nebula-web size` (78 entradas,
 **todas en verde** hoy), **seis componentes se saldrían de su budget**:
 
-| Componente | Medido |  Budget | Con `ResolveVariant` | Exceso    |
-| ---------- | -----: | ------: | -------------------: | --------- |
-| Badge      |  11,57 |      12 |            **13,77** | +1,77     |
-| Avatar     |  11,65 |      12 |            **13,85** | +1,85     |
-| Divider    |  11,61 |      12 |            **13,81** | +1,81     |
-| Loader     |  11,41 |      12 |            **13,61** | +1,61     |
-| Paper      |  10,90 |      12 |            **13,10** | +1,10     |
-| Progress   |  12,21 |      14 |            **14,41** | +0,41     |
+| Componente | Medido | Budget | Con `ResolveVariant` | Exceso |
+| ---------- | -----: | -----: | -------------------: | ------ |
+| Badge      |  11,57 |     12 |            **13,77** | +1,77  |
+| Avatar     |  11,65 |     12 |            **13,85** | +1,85  |
+| Divider    |  11,61 |     12 |            **13,81** | +1,81  |
+| Loader     |  11,41 |     12 |            **13,61** | +1,61  |
+| Paper      |  10,90 |     12 |            **13,10** | +1,10  |
+| Progress   |  12,21 |     14 |            **14,41** | +0,41  |
 
 Y dos pasan sin margen útil: **Card** 21,64 / 22 (0,36 kB) y **NavLink** 20,95 / 21 (0,05 kB).
 
 Los cinco primeros pertenecen todos al escalón **«primitivo temable en runtime ≤12 kB» de ADR-022**.
-Esto es exactamente la situación que ADR-032 §7 tipifica: no es el exceso de *un* componente —que se
+Esto es exactamente la situación que ADR-032 §7 tipifica: no es el exceso de _un_ componente —que se
 corrige adelgazándolo, nunca subiendo el budget— sino **el suelo compartido de un escalón entero**
 subiendo por una decisión de arquitectura, igual que el paso de 9 a 9,5 kB de T2 y que la
 recalibración de Pagination en T3. Si el propietario aprueba A, hay que recalibrar el escalón a
@@ -444,7 +444,7 @@ componentes del escalón de 12 kB —recetas resueltas por `recipe()` de VE en b
 `vars` que `ResolveVariant`—. Cuesta 0 kB, pero **pierde `variantMap`**: un tema no podría remapear
 `filled` a `gradient.brand` como hace `playful`. Es decir, resuelve el bundle reintroduciendo
 exactamente el problema de §0.1. **No se recomienda**, pero es la disyuntiva honesta y el propietario
-debe verla: *o* Badge pesa 13,8 kB *o* Badge no es realmente temable.
+debe verla: _o_ Badge pesa 13,8 kB _o_ Badge no es realmente temable.
 
 ### 3.3 Coste de paridad W/N
 
@@ -510,14 +510,14 @@ Consecuencias). Se propone como su propio tramo.
 Redactados tras el checkpoint del §6, **todos en estado `propuesta`**. La numeración arranca en
 **ADR-038**, verificada con `ls docs/adr/` (último existente: `ADR-037-gate-de-regresion-visual.md`).
 
-| Nº                                                            | Título                                                                            | Origen        |
-| ------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------- |
-| [ADR-038](../adr/ADR-038-variantes-de-superficie-por-subconjunto.md) | Variantes de superficie por subconjunto declarado de `Variant`             | pregunta A    |
-| [ADR-039](../adr/ADR-039-budget-primitivo-temable-con-variantes.md)  | Escalón «primitivo temable con variantes en runtime» ≤14,5 kB              | pregunta A    |
-| [ADR-040](../adr/ADR-040-buildpairs-derivado-de-variantmap.md)       | `BuildPairs` derivado de `variantMap` en `tools/contrast-check`            | independiente |
-| [ADR-041](../adr/ADR-041-variant-es-receta-cromatica.md)             | `variant` significa receta cromática: renombrado de Divider y Loader       | independiente |
-| [ADR-042](../adr/ADR-042-eje-surface-del-recipe-field.md)            | El tratamiento de superficie de un campo es eje local del recipe `field`   | pregunta B    |
-| [ADR-043](../adr/ADR-043-tipografia-sin-variant-y-gradienttext-a-w3.md) | La tipografía no recibe `variant`; `GradientText` de W4 a W3            | pregunta C    |
+| Nº                                                                      | Título                                                                   | Origen        |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------- |
+| [ADR-038](../adr/ADR-038-variantes-de-superficie-por-subconjunto.md)    | Variantes de superficie por subconjunto declarado de `Variant`           | pregunta A    |
+| [ADR-039](../adr/ADR-039-budget-primitivo-temable-con-variantes.md)     | Escalón «primitivo temable con variantes en runtime» ≤14,5 kB            | pregunta A    |
+| [ADR-040](../adr/ADR-040-buildpairs-derivado-de-variantmap.md)          | `BuildPairs` derivado de `variantMap` en `tools/contrast-check`          | independiente |
+| [ADR-041](../adr/ADR-041-variant-es-receta-cromatica.md)                | `variant` significa receta cromática: renombrado de Divider y Loader     | independiente |
+| [ADR-042](../adr/ADR-042-eje-surface-del-recipe-field.md)               | El tratamiento de superficie de un campo es eje local del recipe `field` | pregunta B    |
+| [ADR-043](../adr/ADR-043-tipografia-sin-variant-y-gradienttext-a-w3.md) | La tipografía no recibe `variant`; `GradientText` de W4 a W3             | pregunta C    |
 
 **No se propone ningún ADR de ampliación de la unión `Variant`**, porque ninguna conclusión de esta
 auditoría lo requiere (§3.1.1). Es el resultado más importante del informe: la decisión con más
@@ -546,7 +546,7 @@ Formato de `docs/reviews/code-design-audit-2026-07-28.md` §5. Cada tramo cierra
 
 | Tramo | Contenido                                                                                              | ADR     | Depende de | ¿Bloquea W3?                         |
 | ----- | ------------------------------------------------------------------------------------------------------ | ------- | ---------- | ------------------------------------ |
-| V0    | ~~Renombrado de los ejes de Divider y Loader~~ · **cerrado 2026-07-28**                              | ADR-041 | —          | no — paralelo                        |
+| V0    | ~~Renombrado de los ejes de Divider y Loader~~ · **cerrado 2026-07-28**                                | ADR-041 | —          | no — paralelo                        |
 | V1    | `BuildPairs` derivado de `variantMap`; triaje y corrección de los fallos que destape                   | ADR-040 | —          | no — paralelo, **pero precede a V3** |
 | V2    | Subconjuntos declarados + `ResolveVariant` en Alert y Badge (unifica la deriva de §0.2)                | ADR-038 | V0         | **sí**                               |
 | V3    | Escalón «temable con variantes» ≤14,5 kB; Progress a 16; medición pegada entrada por entrada           | ADR-039 | V2         | **sí**                               |
@@ -572,15 +572,15 @@ sola vez. Ninguno bloquea nada.
 
 ### 5.1 Estado de ejecución
 
-| Tramo   | Estado          | Nota                                                                                     |
-| ------- | --------------- | ----------------------------------------------------------------------------------------- |
-| V0      | **cerrado**     | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`             |
-| V2 + V3 | **cerrado**     | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio     |
-| V1      | **cerrado**     | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo)     |
-| V4      | **cerrado**     | Paper, Avatar, Card, Progress y Toast                                                     |
-| V5      | **cerrado**     | Segment, Tabs, NavLink y Pagination                                                       |
-| V6      | **cerrado**     | 18 de 21 componentes con `color` cumplen ya la convención de ADR-021                      |
-| V7 – V8 | sin empezar     | trabajo dentro de W3                                                                       |
+| Tramo   | Estado      | Nota                                                                                 |
+| ------- | ----------- | ------------------------------------------------------------------------------------ |
+| V0      | **cerrado** | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`         |
+| V2 + V3 | **cerrado** | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio |
+| V1      | **cerrado** | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo) |
+| V4      | **cerrado** | Paper, Avatar, Card, Progress y Toast                                                |
+| V5      | **cerrado** | Segment, Tabs, NavLink y Pagination                                                  |
+| V6      | **cerrado** | 18 de 21 componentes con `color` cumplen ya la convención de ADR-021                 |
+| V7 – V8 | sin empezar | trabajo dentro de W3                                                                 |
 
 **Tres subconjuntos de ADR-038 no sobrevivieron a la implementación**, y los tres por la misma razón:
 el ADR los asignó sobre el papel y el componente real los desmiente.
@@ -656,14 +656,14 @@ receta a mano —eso lo cierra V2—, pero ya no hay ningún `variant` que signi
 
 ## 6. Checkpoint — resuelto el 2026-07-28
 
-| Pregunta                    | Decisión del propietario                                                                                        | ADR              |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------- |
-| **A** — superficie          | **Sí, con recalibración.** Subconjunto declarado + `ResolveVariant`, aceptando el escalón de budget nuevo       | ADR-038, ADR-039 |
-| **B** — campos              | **Eje `surface` local del recipe `field`, diferido a W3.** No se usa la unión `Variant`                         | ADR-042          |
-| **C** — tipografía          | **No procede**, y `GradientText` se adelanta de W4 a W3                                                         | ADR-043          |
-| Independiente — contraste   | **Se abre.** `BuildPairs` derivado de `variantMap`                                                              | ADR-040          |
-| Independiente — nombres     | **Se abre.** Renombrado de `Divider.variant` → `lineStyle` y `Loader.variant` → `type`                          | ADR-041          |
-| Independiente — `color`     | **Se abre.** `ColorExtended` en los 16 componentes que hoy usan `SemanticScaleName`                             | ejecuta ADR-021  |
+| Pregunta                  | Decisión del propietario                                                                                  | ADR              |
+| ------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------- |
+| **A** — superficie        | **Sí, con recalibración.** Subconjunto declarado + `ResolveVariant`, aceptando el escalón de budget nuevo | ADR-038, ADR-039 |
+| **B** — campos            | **Eje `surface` local del recipe `field`, diferido a W3.** No se usa la unión `Variant`                   | ADR-042          |
+| **C** — tipografía        | **No procede**, y `GradientText` se adelanta de W4 a W3                                                   | ADR-043          |
+| Independiente — contraste | **Se abre.** `BuildPairs` derivado de `variantMap`                                                        | ADR-040          |
+| Independiente — nombres   | **Se abre.** Renombrado de `Divider.variant` → `lineStyle` y `Loader.variant` → `type`                    | ADR-041          |
+| Independiente — `color`   | **Se abre.** `ColorExtended` en los 16 componentes que hoy usan `SemanticScaleName`                       | ejecuta ADR-021  |
 
 Las seis decisiones están redactadas en `docs/adr/ADR-038…043`, todas en estado **`propuesta`**: se
 aceptan al abrir su tramo, con el doc que enmiendan actualizado en el mismo PR (`docs/02` §2.3 y

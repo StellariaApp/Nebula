@@ -40,7 +40,13 @@ export function Tag(props: TagProps): ReactElement {
 
   return (
     <span
-      className={cx(styles.tag, styles.size[size], styles.radius[radius], sprinkle_class, className)}
+      className={cx(
+        styles.tag,
+        styles.size[size],
+        styles.radius[radius],
+        sprinkle_class,
+        className,
+      )}
       style={{ ...css_vars, ...sprinkle_style }}
       data-variant={variant}
       data-disabled={disabled ? "true" : undefined}

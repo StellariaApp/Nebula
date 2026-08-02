@@ -43,7 +43,7 @@ El backdrop no puede animarse con motion (es un pseudo-elemento), así que entra
 
 ## Nombre accesible del diálogo
 
-El `aria-labelledby` se enlaza con un id propio, no con el mecanismo de *slot* de `useDialog`: ese comprueba tras montar si existe un elemento con el id generado, y como el contenido ahora solo se monta al abrir, la comprobación fallaba y el diálogo se quedaba sin nombre (`aria-dialog-name`, serious).
+El `aria-labelledby` se enlaza con un id propio, no con el mecanismo de _slot_ de `useDialog`: ese comprueba tras montar si existe un elemento con el id generado, y como el contenido ahora solo se monta al abrir, la comprobación fallaba y el diálogo se quedaba sin nombre (`aria-dialog-name`, serious).
 
 ## Scrim
 

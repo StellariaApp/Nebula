@@ -7,11 +7,7 @@ import { Tag } from "../Tag/Tag.js";
 import { SearchInput } from "../SearchInput/SearchInput.js";
 
 import * as styles from "./DataGrid.css.js";
-import type {
-  DataGridBulkAction,
-  DataGridFilterChip,
-  DataGridLabels,
-} from "./DataGrid.types.js";
+import type { DataGridBulkAction, DataGridFilterChip, DataGridLabels } from "./DataGrid.types.js";
 
 export interface DataGridToolbarProps {
   labels: DataGridLabels;
@@ -99,7 +95,11 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
       ) : null}
 
       {has_selection ? (
-        <div className={styles.bulkBar} role="group" aria-label={labels.selectedCount(selectedKeys.length)}>
+        <div
+          className={styles.bulkBar}
+          role="group"
+          aria-label={labels.selectedCount(selectedKeys.length)}
+        >
           <p className={styles.bulkCount} aria-live="polite">
             {labels.selectedCount(selectedKeys.length)}
           </p>

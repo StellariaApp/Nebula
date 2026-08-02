@@ -13,35 +13,35 @@
 
 ## Entregables contra el roadmap
 
-| Tramo    | Entregable                                                                                        | Estado |
-| -------- | ----------------------------------------------------------------------------------------------- | ------ |
-| **W4.1** | GlassSurface, BlurOverlay, NoiseOverlay                                                           | ✅     |
-| **W4.1** | GradientBorder, GradientBackground, AnimatedGradient, MeshGradientBg (`grain` cubre GrainyGradient) | ✅   |
-| **W4.1** | **StarField** — adición aprobada en checkpoint (retícula + estrellas de Stellaria)                | ✅     |
-| **W4.2** | `/dnd`: DragDropContext, Draggable, Droppable, SortableList, KanbanBoard/Column/Card              | ✅     |
-| **W4.2** | `/carousel`: Carousel sobre Embla con el contrato de items de GridList                            | ✅     |
-| **W4.2** | ImageGallery + Lightbox (zoom/pan/slideshow propios, entry principal)                             | ✅     |
-| **W4.2** | `/media`: Player                                                                                  | ✅     |
-| **W4.3** | `/editor`: RichTextEditor (TipTap) + EditorImage (peer opcional de Pintura)                       | ✅     |
-| **W4.3** | CodeHighlight (+Tabs) con botón de copia                                                          | ✅     |
-| **W4.3** | TransferList, VirtualizedSelect, GlobalSearch                                                     | ✅     |
-| **W4.3** | TypographyStylesProvider, DirectionProvider + auditoría RTL                                       | ✅     |
-| **W4.4** | DataGrid avanzado: toolbar, menú de columna, panel de filtros, resize, export CSV, teclado de grid | ✅    |
-| **W4.4** | Charts completos: RadarChart, ChartLegend, ChartTooltip, ChartPanel                               | ✅     |
-| **W4.4** | **Countdown y ScrollProgress** — Tier 3 que ningún prompt de W4 nombraba                          | ✅     |
+| Tramo    | Entregable                                                                                          | Estado |
+| -------- | --------------------------------------------------------------------------------------------------- | ------ |
+| **W4.1** | GlassSurface, BlurOverlay, NoiseOverlay                                                             | ✅     |
+| **W4.1** | GradientBorder, GradientBackground, AnimatedGradient, MeshGradientBg (`grain` cubre GrainyGradient) | ✅     |
+| **W4.1** | **StarField** — adición aprobada en checkpoint (retícula + estrellas de Stellaria)                  | ✅     |
+| **W4.2** | `/dnd`: DragDropContext, Draggable, Droppable, SortableList, KanbanBoard/Column/Card                | ✅     |
+| **W4.2** | `/carousel`: Carousel sobre Embla con el contrato de items de GridList                              | ✅     |
+| **W4.2** | ImageGallery + Lightbox (zoom/pan/slideshow propios, entry principal)                               | ✅     |
+| **W4.2** | `/media`: Player                                                                                    | ✅     |
+| **W4.3** | `/editor`: RichTextEditor (TipTap) + EditorImage (peer opcional de Pintura)                         | ✅     |
+| **W4.3** | CodeHighlight (+Tabs) con botón de copia                                                            | ✅     |
+| **W4.3** | TransferList, VirtualizedSelect, GlobalSearch                                                       | ✅     |
+| **W4.3** | TypographyStylesProvider, DirectionProvider + auditoría RTL                                         | ✅     |
+| **W4.4** | DataGrid avanzado: toolbar, menú de columna, panel de filtros, resize, export CSV, teclado de grid  | ✅     |
+| **W4.4** | Charts completos: RadarChart, ChartLegend, ChartTooltip, ChartPanel                                 | ✅     |
+| **W4.4** | **Countdown y ScrollProgress** — Tier 3 que ningún prompt de W4 nombraba                            | ✅     |
 
 ## Gate verificable
 
-| Criterio                                       | Resultado                                                       |
-| ---------------------------------------------- | --------------------------------------------------------------- |
-| `pnpm turbo build typecheck lint test`         | **29/29 tareas**                                                  |
-| `pnpm turbo test`                              | **1043** web · 28 hooks · 27 themes · 15 icons                    |
-| `pnpm --filter @stellaria/nebula-web size`     | **187 entradas · 0 excedidas**                                    |
-| `pnpm --filter playground-web a11y` (axe)      | **81 suites / 543 tests · 0 violaciones**                         |
-| `pnpm check:contrast`                          | 5 temas · 0 FAIL                                                  |
-| Subpaths aislados                              | verificado sobre `dist/index.js` — ver §Subpaths                  |
-| Reduced-motion en todos los efectos            | `AnimatedGradient` y `StarField` paran por media query **y** por `motion.tier`; el resto no anima |
-| Catálogo web                                   | 100 % salvo `Header`, pendiente de decisión — ver §Cobertura       |
+| Criterio                                   | Resultado                                                                                         |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `pnpm turbo build typecheck lint test`     | **29/29 tareas**                                                                                  |
+| `pnpm turbo test`                          | **1043** web · 28 hooks · 27 themes · 15 icons                                                    |
+| `pnpm --filter @stellaria/nebula-web size` | **187 entradas · 0 excedidas**                                                                    |
+| `pnpm --filter playground-web a11y` (axe)  | **81 suites / 543 tests · 0 violaciones**                                                         |
+| `pnpm check:contrast`                      | 5 temas · 0 FAIL                                                                                  |
+| Subpaths aislados                          | verificado sobre `dist/index.js` — ver §Subpaths                                                  |
+| Reduced-motion en todos los efectos        | `AnimatedGradient` y `StarField` paran por media query **y** por `motion.tier`; el resto no anima |
+| Catálogo web                               | 100 % salvo `Header`, pendiente de decisión — ver §Cobertura                                      |
 
 ## Subpaths
 
@@ -49,26 +49,26 @@ Siete exports, ninguno alcanzable desde el barrel. Verificado sobre `dist/index.
 menciones** a `recharts`, `@tanstack/*`, `@dnd-kit/*`, `embla-carousel`, `react-player`, `@tiptap/*`,
 `prosemirror-*`, ni a los componentes que los usan.
 
-| Subpath     | Contenido                                                       | Dependencias                                        |
-| ----------- | --------------------------------------------------------------- | --------------------------------------------------- |
-| `/command`  | CommandPalette                                                   | ninguna (ADR-057)                                   |
-| `/charts`   | Bar/Line/Area/Pie/**Radar** + SparkLine/TrendIndicator + **Legend/Tooltip/Panel** | `recharts`                        |
-| `/datagrid` | DataGrid + `ToCsv`                                               | `@tanstack/react-table`, `@tanstack/react-virtual`  |
-| `/dnd`      | DragDrop + Kanban                                                | `@dnd-kit/core|sortable|utilities|modifiers`        |
-| `/carousel` | Carousel                                                         | `embla-carousel-react`                              |
-| `/media`    | Player                                                           | `react-player`                                      |
-| `/editor`   | RichTextEditor + EditorImage                                     | `@tiptap/react|starter-kit|pm`; Pintura como **peer opcional** |
+| Subpath     | Contenido                                                                         | Dependencias                                       |
+| ----------- | --------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `/command`  | CommandPalette                                                                    | ninguna (ADR-057)                                  |
+| `/charts`   | Bar/Line/Area/Pie/**Radar** + SparkLine/TrendIndicator + **Legend/Tooltip/Panel** | `recharts`                                         |
+| `/datagrid` | DataGrid + `ToCsv`                                                                | `@tanstack/react-table`, `@tanstack/react-virtual` |
+| `/dnd`      | DragDrop + Kanban                                                                 | `@dnd-kit/core                                     | sortable    | utilities                           | modifiers` |
+| `/carousel` | Carousel                                                                          | `embla-carousel-react`                             |
+| `/media`    | Player                                                                            | `react-player`                                     |
+| `/editor`   | RichTextEditor + EditorImage                                                      | `@tiptap/react                                     | starter-kit | pm`; Pintura como **peer opcional** |
 
 `ChartLegend`, `ChartTooltip`, `ChartPanel`, `SparkLine` y `TrendIndicator` viven en `/charts` pero
 **no tocan Recharts**: son SVG y CSS propios, entre 11 y 13 kB.
 
 ## Decisiones tomadas en W4
 
-| ADR     | Decisión                                                                             | Supuesto |
-| ------- | -------------------------------------------------------------------------------------- | -------- |
-| **059** | `effects.glass.enabled` gobierna solo glass/blur/ruido; los gradientes se neutralizan por sus tokens | — |
-| **060** | dnd-kit línea estable 6.x, embla, react-player como dep de subpath, y el subpath `/media` | —      |
-| **061** | TipTap definitivo, `CodeHighlight` sin resaltador, ventana propia, Pintura duck-typed  | **#6**   |
+| ADR     | Decisión                                                                                             | Supuesto |
+| ------- | ---------------------------------------------------------------------------------------------------- | -------- |
+| **059** | `effects.glass.enabled` gobierna solo glass/blur/ruido; los gradientes se neutralizan por sus tokens | —        |
+| **060** | dnd-kit línea estable 6.x, embla, react-player como dep de subpath, y el subpath `/media`            | —        |
+| **061** | TipTap definitivo, `CodeHighlight` sin resaltador, ventana propia, Pintura duck-typed                | **#6**   |
 
 **Supuesto #6 cerrado por completo.** La mitad de cmdk la cerró ADR-057 en W3.4; la del editor la
 cierra ADR-061. Ambas por el mismo criterio: una dependencia **0.x** no entra en un paquete que se
@@ -83,17 +83,17 @@ Recorridas **todas** las filas de §1 con `Plat` W o WN y destino `core`, en los
 huecos que la primera pasada de cierre no vio, porque comprobó Tier 3 componente a componente pero
 heredó de `w3-closure.md` la afirmación de que Tier 1–2 estaba completo en vez de reverificarla:
 
-| Fila | Tier | Resultado |
-| ---- | ---- | --------- |
-| `Countdown` | 3 | Construido en W4.4 |
-| `ScrollProgress` | 3 | Construido en W4.4 |
-| `Breadcrumbs` | **2** | **Nunca se construyó.** Se nombró en el prompt de W2.5, `w2-closure` lo aplazó correctamente por ser Tier 2, y W3 —que era el tramo de Tier 2— no lo recogió. Construido en la auditoría de cierre |
-| `MediaQuery / useMediaQuery` | 2 | **Nunca se construyó.** Entregado como `useMediaQuery` + `useBreakpointUp/Down` en `@stellaria/nebula-hooks` |
+| Fila                         | Tier  | Resultado                                                                                                                                                                                          |
+| ---------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Countdown`                  | 3     | Construido en W4.4                                                                                                                                                                                 |
+| `ScrollProgress`             | 3     | Construido en W4.4                                                                                                                                                                                 |
+| `Breadcrumbs`                | **2** | **Nunca se construyó.** Se nombró en el prompt de W2.5, `w2-closure` lo aplazó correctamente por ser Tier 2, y W3 —que era el tramo de Tier 2— no lo recogió. Construido en la auditoría de cierre |
+| `MediaQuery / useMediaQuery` | 2     | **Nunca se construyó.** Entregado como `useMediaQuery` + `useBreakpointUp/Down` en `@stellaria/nebula-hooks`                                                                                       |
 
 Y una fila que **queda abierta**:
 
-| Fila | Tier | Estado |
-| ---- | ---- | ------ |
+| Fila                     | Tier  | Estado                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------ | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Header (screen/TopBar)` | **1** | Sin implementar en web. Hoy solo existe el slot `header?: ReactNode` de `AppShell`, que es un hueco donde colgar contenido, no el componente. Las tres fuentes de la fila son native (P2 §8, ST, FC) y su nota describe cosas native —BackButton, StatusError, animated-on-scroll—, así que es plausible que siempre fuera native-first; pero **nadie lo escribió como excepción**. Necesita decisión del propietario: componente web propio, o excepción justificada con el slot de `AppShell` + `Section`/`Main` como respuesta |
 
 `ThemeProvider` (§1.17, WN, Tier 1) aparecía como hueco en el barrido automático y **no lo es**: se

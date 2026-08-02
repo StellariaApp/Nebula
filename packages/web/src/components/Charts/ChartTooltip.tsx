@@ -11,11 +11,7 @@ import type { ChartTooltipProps } from "./Charts.types.js";
 
 export function ChartTooltip(props: ChartTooltipProps): ReactElement {
   const { title, items, format, className, ...style_rest } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   return (
     <div

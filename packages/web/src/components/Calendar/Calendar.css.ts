@@ -113,7 +113,9 @@ export const cellWrapper = style({
       padding: 0,
       textAlign: "center",
       selectors: {
-        "&[data-range-selected='true']": { background: fallbackVar(rangeBg, vars.color.primary["100"]) },
+        "&[data-range-selected='true']": {
+          background: fallbackVar(rangeBg, vars.color.primary["100"]),
+        },
         "&[data-range-start='true']": {
           borderStartStartRadius: vars.radius.full,
           borderEndStartRadius: vars.radius.full,
@@ -180,11 +182,31 @@ export const cell = style({
 });
 
 export const cellSize = styleVariants({
-  xs: { height: vars.size.control.xs, minWidth: vars.size.control.xs, fontSize: vars.font.size.body3 },
-  sm: { height: vars.size.control.sm, minWidth: vars.size.control.sm, fontSize: vars.font.size.body3 },
-  md: { height: vars.size.control.md, minWidth: vars.size.control.md, fontSize: vars.font.size.body2 },
-  lg: { height: vars.size.control.lg, minWidth: vars.size.control.lg, fontSize: vars.font.size.body1 },
-  xl: { height: vars.size.control.xl, minWidth: vars.size.control.xl, fontSize: vars.font.size.body1 },
+  xs: {
+    height: vars.size.control.xs,
+    minWidth: vars.size.control.xs,
+    fontSize: vars.font.size.body3,
+  },
+  sm: {
+    height: vars.size.control.sm,
+    minWidth: vars.size.control.sm,
+    fontSize: vars.font.size.body3,
+  },
+  md: {
+    height: vars.size.control.md,
+    minWidth: vars.size.control.md,
+    fontSize: vars.font.size.body2,
+  },
+  lg: {
+    height: vars.size.control.lg,
+    minWidth: vars.size.control.lg,
+    fontSize: vars.font.size.body1,
+  },
+  xl: {
+    height: vars.size.control.xl,
+    minWidth: vars.size.control.xl,
+    fontSize: vars.font.size.body1,
+  },
 });
 
 export const navSize = styleVariants({

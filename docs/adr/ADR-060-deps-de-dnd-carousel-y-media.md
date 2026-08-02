@@ -50,15 +50,15 @@
 
 - **Coste medido** (brotli, por módulo, `pnpm --filter @stellaria/nebula-web size`)
 
-  | Entrada             | Medido    | Banda                          |
-  | ------------------- | --------- | ------------------------------ |
-  | `DragDropContext`   | 14,23 kB  | compuestos ≤48                 |
-  | `SortableList`      | 26,68 kB  | compuestos ≤48                 |
-  | `KanbanBoard`       | 29,07 kB  | compuestos ≤48                 |
-  | `Carousel`          | 38,02 kB  | compuestos ≤48                 |
-  | `Lightbox`          | 38,05 kB  | compuestos ≤48                 |
-  | `ImageGallery`      | 38,77 kB  | compuestos ≤48                 |
-  | `Player`            | 37,90 kB  | **media ≤70** (banda nueva)    |
+  | Entrada           | Medido   | Banda                       |
+  | ----------------- | -------- | --------------------------- |
+  | `DragDropContext` | 14,23 kB | compuestos ≤48              |
+  | `SortableList`    | 26,68 kB | compuestos ≤48              |
+  | `KanbanBoard`     | 29,07 kB | compuestos ≤48              |
+  | `Carousel`        | 38,02 kB | compuestos ≤48              |
+  | `Lightbox`        | 38,05 kB | compuestos ≤48              |
+  | `ImageGallery`    | 38,77 kB | compuestos ≤48              |
+  | `Player`          | 37,90 kB | **media ≤70** (banda nueva) |
 
   **`react-player` necesita `deferred`, y el número sin él es el hallazgo de este ADR.** Medido con
   todo inlineado, `Player` da **509,68 kB** brotli: react-player declara diez dependencias de

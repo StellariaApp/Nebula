@@ -52,7 +52,12 @@ describe("SparkLine", () => {
 describe("ChartFrame — nombre accesible", () => {
   it("con title el canvas es role=img nombrado", () => {
     render(
-      <BarChart data={[{ name: "Ene", v: 1 }]} series={[{ key: "v" }]} title="Cobros" height={80} />,
+      <BarChart
+        data={[{ name: "Ene", v: 1 }]}
+        series={[{ key: "v" }]}
+        title="Cobros"
+        height={80}
+      />,
     );
     expect(screen.getByRole("img", { name: "Cobros" })).toBeDefined();
   });

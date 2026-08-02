@@ -67,7 +67,10 @@ describe("Breadcrumbs", () => {
     const on_select = vi.fn();
     render(
       <Breadcrumbs
-        items={[{ key: "a", label: "Volver", onSelect: on_select }, { key: "b", label: "Aquí" }]}
+        items={[
+          { key: "a", label: "Volver", onSelect: on_select },
+          { key: "b", label: "Aquí" },
+        ]}
       />,
     );
     await user.click(screen.getByRole("button", { name: "Volver" }));
@@ -76,7 +79,11 @@ describe("Breadcrumbs", () => {
 
   it("acepta un adapter de router por prop component", () => {
     function RouterLink(props: { href?: string; children?: React.ReactNode }) {
-      return <a data-router="true" href={props.href}>{props.children}</a>;
+      return (
+        <a data-router="true" href={props.href}>
+          {props.children}
+        </a>
+      );
     }
     render(
       <Breadcrumbs

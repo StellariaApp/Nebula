@@ -6,13 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
 
 export type FilterKind =
-  | "select"
-  | "multiselect"
-  | "radio"
-  | "range"
-  | "date"
-  | "daterange"
-  | "text";
+  "select" | "multiselect" | "radio" | "range" | "date" | "daterange" | "text";
 
 export interface FilterOption {
   value: string;

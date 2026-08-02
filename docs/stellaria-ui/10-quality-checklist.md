@@ -91,4 +91,3 @@
 ## Criterio de aprobación
 
 Una contribución está aprobada cuando mejora el sistema completo, no solo una captura. Debe ser reusable, tematizable, accesible, documentada y verificable.
-

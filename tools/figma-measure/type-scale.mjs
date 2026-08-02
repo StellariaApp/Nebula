@@ -100,7 +100,9 @@ for (const px of SIZES) {
   });
   console.log(`${String(px).padStart(4)} | ${cells.join("   | ")}`);
 }
-console.log("\nEl par (cap, x) desambigua: (7,5)=10 (8,6)=11 (9,6)=12 (9,7)=13 (10,8)=14 (11,9)=16");
+console.log(
+  "\nEl par (cap, x) desambigua: (7,5)=10 (8,6)=11 (9,6)=12 (9,7)=13 (10,8)=14 (11,9)=16",
+);
 
 if (probe !== "") {
   console.log(`\nAnchos de tinta de «${probe}» (compara con el ancho medido en el PNG):\n`);

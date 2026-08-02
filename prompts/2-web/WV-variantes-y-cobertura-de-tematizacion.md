@@ -103,7 +103,7 @@ No basta con decir que más variantes dan más configuración. Mide:
 decisión afectaría:
 
 | Componente | Clase (superficie / campo / tipografía / estructural) | `variant` hoy | Variantes con sentido | Tratamiento | Coste | Prioridad |
-| --- | --- | --- | --- | --- | --- | --- |
+| ---------- | ----------------------------------------------------- | ------------- | --------------------- | ----------- | ----- | --------- |
 
 Tratamientos: `añadir ahora` · `subconjunto` · `no aplica` · `ya cubierto por props existentes` ·
 `pertenece a W3/W4` · `requiere ampliar contrato`.

@@ -53,7 +53,13 @@ export const Dial: Story = {
           <img src={FlagImageUrl(code)} alt="" width={20} height={15} style={{ borderRadius: 2 }} />
         )}
       />
-      <InputDial label="Dataset acotado" data={[{ code: "MX", dial: "+52" }, { code: "US", dial: "+1" }]} />
+      <InputDial
+        label="Dataset acotado"
+        data={[
+          { code: "MX", dial: "+52" },
+          { code: "US", dial: "+1" },
+        ]}
+      />
     </Box>
   ),
 };
@@ -64,7 +70,13 @@ export const Currency: Story = {
       <InputCurrency label="Importe (MXN)" currency="MXN" locale="es-MX" defaultValue={1234.5} />
       <InputCurrency label="Amount (USD)" currency="USD" locale="en-US" defaultValue={99} />
       <InputCurrency label="Importe (EUR)" currency="EUR" locale="es-ES" defaultValue={2500} />
-      <InputCurrency label="Sin decimales" currency="CLP" locale="es-CL" precision={0} defaultValue={45000} />
+      <InputCurrency
+        label="Sin decimales"
+        currency="CLP"
+        locale="es-CL"
+        precision={0}
+        defaultValue={45000}
+      />
     </Box>
   ),
 };

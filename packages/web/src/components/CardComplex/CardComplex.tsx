@@ -9,7 +9,13 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Avatar } from "../Avatar/Avatar.js";
 import { Badge } from "../Badge/Badge.js";
-import { Card, CardBadges, CardImage, CardMeta as CardMetaSlot, CardActions } from "../Card/Card.js";
+import {
+  Card,
+  CardBadges,
+  CardImage,
+  CardMeta as CardMetaSlot,
+  CardActions,
+} from "../Card/Card.js";
 import { DateDisplay } from "../DateDisplay/DateDisplay.js";
 import { Skeleton } from "../Skeleton/Skeleton.js";
 
@@ -91,10 +97,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const resolve = usePermissionResolver();
-  const allowed = useMemo(
-    () => ApplyPermissions(actions ?? [], resolve),
-    [actions, resolve],
-  );
+  const allowed = useMemo(() => ApplyPermissions(actions ?? [], resolve), [actions, resolve]);
 
   const BySlot = (slot: CardActionSlot): CardAction[] =>
     allowed.filter((action) => (action.slot ?? "header") === slot);
@@ -225,7 +228,9 @@ export function CardComplex(props: CardComplexProps): ReactElement {
           </CardMetaSlot>
         )}
 
-        {footer === undefined && footer_actions.length === 0 && badges?.footer === undefined ? null : (
+        {footer === undefined &&
+        footer_actions.length === 0 &&
+        badges?.footer === undefined ? null : (
           <div className={styles.foot}>
             {badges?.footer === undefined ? (
               <span />

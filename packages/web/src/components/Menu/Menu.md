@@ -1,6 +1,6 @@
 # Menu / ContextMenu
 
-Patrón APG *menu button*: `useMenuTrigger` + `useMenu` + `useTreeState`, con la colección construida desde el array `items` (misma forma de API que Select/Combobox, decidida en el checkpoint de W2.4).
+Patrón APG _menu button_: `useMenuTrigger` + `useMenu` + `useTreeState`, con la colección construida desde el array `items` (misma forma de API que Select/Combobox, decidida en el checkpoint de W2.4).
 
 ## Por qué `Enter` necesita un handler propio
 
@@ -20,7 +20,7 @@ case ' ':
   if (trigger === 'longPress' || e.isDefaultPrevented()) return;
 ```
 
-`usePress` (dentro de nuestro `Button`) sí hace `preventDefault` en `Enter` sobre un `<button>` nativo, así que esa rama siempre se sale y el menú no abriría con teclado. React Aria lo reconoce en un comentario de su propio código: *"it's only through PressResponder magic that this works for RSP and RAC. it does not work in aria examples"*. Su `Pressable` no sirve aquí porque solo acepta elementos DOM (`ReactElement<DOMAttributes, string>`), no componentes como `Button`.
+`usePress` (dentro de nuestro `Button`) sí hace `preventDefault` en `Enter` sobre un `<button>` nativo, así que esa rama siempre se sale y el menú no abriría con teclado. React Aria lo reconoce en un comentario de su propio código: _"it's only through PressResponder magic that this works for RSP and RAC. it does not work in aria examples"_. Su `Pressable` no sirve aquí porque solo acepta elementos DOM (`ReactElement<DOMAttributes, string>`), no componentes como `Button`.
 
 La solución es componer `onPress` sobre el del trigger y abrir cuando `pointerType === "keyboard"`. No hay doble apertura: en `Enter` el `onKeyDown` de aria ya se salió, y `ArrowDown`/`ArrowUp` siguen resolviéndose por su propia rama (que no tiene la guarda de `isDefaultPrevented`), abriendo con foco en el primer o último item.
 

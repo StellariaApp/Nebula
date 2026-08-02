@@ -104,4 +104,3 @@ globalStyle(`${item}[data-focused='true'] ${description}`, {
 globalStyle(`${item}[data-focused='true'] ${shortcut}`, {
   "@layer": { [baseLayer]: { color: "inherit" } },
 });
-

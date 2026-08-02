@@ -15,13 +15,27 @@ import { CAROUSEL_LABELS } from "./labels.js";
 import type { CarouselProps } from "./Carousel.types.js";
 
 const CHEVRON_LEFT = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M15 18l-6-6 6-6" />
   </svg>
 );
 
 const CHEVRON_RIGHT = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M9 18l6-6-6-6" />
   </svg>
 );
@@ -49,11 +63,7 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? CAROUSEL_LABELS : { ...CAROUSEL_LABELS, ...labels }),
@@ -123,9 +133,7 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     >
       <div className={styles.viewport} ref={viewport_ref}>
         <div className={styles.container} data-axis={axis}>
-          {total === 0 && empty !== undefined ? (
-            <p className={styles.emptySlot}>{empty}</p>
-          ) : null}
+          {total === 0 && empty !== undefined ? <p className={styles.emptySlot}>{empty}</p> : null}
           {items.map((item, position) => (
             <div
               key={getKey(item, position)}

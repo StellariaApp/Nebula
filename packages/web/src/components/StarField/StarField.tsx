@@ -43,11 +43,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const animated = theme.motion.tier !== "minimal";
@@ -112,10 +108,7 @@ export function StarField(props: StarFieldProps): ReactElement {
       {...rest}
     >
       {grid ? (
-        <span
-          ref={grid_ref}
-          className={cx(styles.layer, styles.grid, fade && styles.faded)}
-        />
+        <span ref={grid_ref} className={cx(styles.layer, styles.grid, fade && styles.faded)} />
       ) : null}
       <span ref={stars_ref} className={cx(styles.layer, fade && styles.faded)}>
         {stars.map((item) => {

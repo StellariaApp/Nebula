@@ -8,24 +8,24 @@
 
 La escala de spacing resuelve a estos píxeles (`unit` = 4, `scale` son multiplicadores):
 
-| Nombre | none | xxs | xs | sm | md | lg | xl | xxl | xxxl |
-| ------ | ---: | --: | -: | -: | -: | -: | -: | --: | ---: |
-| px     |    0 |   2 |  4 |  8 | 16 | 24 | 32 |  48 |   64 |
+| Nombre | none | xxs |  xs |  sm |  md |  lg |  xl | xxl | xxxl |
+| ------ | ---: | --: | --: | --: | --: | --: | --: | --: | ---: |
+| px     |    0 |   2 |   4 |   8 |  16 |  24 |  32 |  48 |   64 |
 
 **Entre `sm` (8) y `md` (16) no hay nada.** Y ahí es donde el archivo de diseño pone casi todo su
 padding de control, medido nodo a nodo:
 
-| Componente del Figma | Padding / gap |
-| -------------------- | ------------- |
-| Pagination Item      | 6 / 10        |
-| Pill                 | 6 / 12        |
-| Menu Item            | 8 / 12        |
+| Componente del Figma | Padding / gap   |
+| -------------------- | --------------- |
+| Pagination Item      | 6 / 10          |
+| Pill                 | 6 / 12          |
+| Menu Item            | 8 / 12          |
 | Sidebar Nav Item     | 10 / 12, gap 10 |
-| Nav Tab Item         | 10 / 16, gap 6 |
+| Nav Tab Item         | 10 / 16, gap 6  |
 | FieldSelect (input)  | 14 / 16, gap 12 |
-| Metric Card          | 16 / 20       |
-| Modal (header)       | 20 / 24       |
-| Breadcrumbs          | 14 / 32       |
+| Metric Card          | 16 / 20         |
+| Modal (header)       | 20 / 24         |
+| Breadcrumbs          | 14 / 32         |
 
 Un componente que necesita 12 px solo puede elegir 8 —queda apretado— o 16 —queda inflado—. Es la
 causa raíz de que la implementación se perciba menos armónica que el diseño, y no un defecto de
@@ -41,13 +41,13 @@ componente la decisión que **ADR-033** le quitó, así que no es viable.
 
 2. **Los miembros nuevos se nombran por su múltiplo de `unit`**, no por talla de camiseta:
 
-   | Nombre  | Multiplicador | px |
-   | ------- | ------------: | -: |
-   | `u1_5`  |           1,5 |  6 |
-   | `u2_5`  |           2,5 | 10 |
-   | `u3`    |             3 | 12 |
-   | `u3_5`  |           3,5 | 14 |
-   | `u5`    |             5 | 20 |
+   | Nombre | Multiplicador |  px |
+   | ------ | ------------: | --: |
+   | `u1_5` |           1,5 |   6 |
+   | `u2_5` |           2,5 |  10 |
+   | `u3`   |             3 |  12 |
+   | `u3_5` |           3,5 |  14 |
+   | `u5`   |             5 |  20 |
 
    La escala de tallas no admite intercalados sin renombrar —no hay nombre natural entre `sm` y `md`
    que no sea `sm2`—, y renombrar rompería los 9 miembros actuales y todos los `.css.ts`. Nombrar por

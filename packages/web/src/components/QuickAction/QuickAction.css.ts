@@ -121,11 +121,31 @@ export const icon = recipe({
   },
   variants: {
     size: {
-      xs: { width: vars.size.compact.md, height: vars.size.compact.md, fontSize: vars.font.size.body3 },
-      sm: { width: vars.size.compact.lg, height: vars.size.compact.lg, fontSize: vars.font.size.body2 },
-      md: { width: vars.size.control.sm, height: vars.size.control.sm, fontSize: vars.font.size.body1 },
-      lg: { width: vars.size.control.md, height: vars.size.control.md, fontSize: vars.font.size.h6 },
-      xl: { width: vars.size.control.lg, height: vars.size.control.lg, fontSize: vars.font.size.h5 },
+      xs: {
+        width: vars.size.compact.md,
+        height: vars.size.compact.md,
+        fontSize: vars.font.size.body3,
+      },
+      sm: {
+        width: vars.size.compact.lg,
+        height: vars.size.compact.lg,
+        fontSize: vars.font.size.body2,
+      },
+      md: {
+        width: vars.size.control.sm,
+        height: vars.size.control.sm,
+        fontSize: vars.font.size.body1,
+      },
+      lg: {
+        width: vars.size.control.md,
+        height: vars.size.control.md,
+        fontSize: vars.font.size.h6,
+      },
+      xl: {
+        width: vars.size.control.lg,
+        height: vars.size.control.lg,
+        fontSize: vars.font.size.h5,
+      },
     },
   },
   defaultVariants: { size: "md" },

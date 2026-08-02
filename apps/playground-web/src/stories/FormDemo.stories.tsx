@@ -5,7 +5,15 @@ import { fieldAtom, formAtom, useField, useForm, type FieldAtom } from "form-ato
 import { z } from "zod";
 
 import type { FieldStatus, NebulaField } from "@stellaria/nebula-tokens";
-import { Box, Button, Checkbox, PasswordInput, Text, TextInput, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Checkbox,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from "@stellaria/nebula-web";
 
 const meta: Meta = {
   title: "Forms/Form (form-atoms + Zod)",

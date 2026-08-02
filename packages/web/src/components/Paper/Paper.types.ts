@@ -1,11 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type {
-  RadiusName,
-  ColorExtended,
-  ShadowLevel,
-  Variant,
-} from "@stellaria/nebula-tokens";
+import type { RadiusName, ColorExtended, ShadowLevel, Variant } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 

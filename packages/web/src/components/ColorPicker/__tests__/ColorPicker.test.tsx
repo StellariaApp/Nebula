@@ -28,7 +28,9 @@ describe("ColorPicker", () => {
 
   it("marca la muestra activa con aria-pressed", () => {
     render(<ColorPicker label="Color" value="#3f37c9" swatches={SWATCHES} />);
-    expect(screen.getByRole("button", { name: "#3f37c9" }).getAttribute("aria-pressed")).toBe("true");
+    expect(screen.getByRole("button", { name: "#3f37c9" }).getAttribute("aria-pressed")).toBe(
+      "true",
+    );
   });
 
   it("añade el canal alpha solo con withAlpha", () => {

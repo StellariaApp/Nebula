@@ -28,10 +28,10 @@ superficie que responde al puntero. El archivo de diseño (`Polaris`, `SYZgKuK5o
 resuelve con dos componentes independientes —`Menu Item` en `State=Hover` y `Sidebar Nav Item` en
 `State=Active`— que coinciden en valor:
 
-| Modo  | Superficie | Hover     |  Escalón | Dirección           |
-| ----- | ---------- | --------- | -------: | ------------------- |
-| Light | `#FFFFFF`  | `#F4F7FB` |    1.075 | baja (oscurece)     |
-| Dark  | `#0A0F1C`  | `#111827` |    1.078 | **sube** (aclara)   |
+| Modo  | Superficie | Hover     | Escalón | Dirección         |
+| ----- | ---------- | --------- | ------: | ----------------- |
+| Light | `#FFFFFF`  | `#F4F7FB` |   1.075 | baja (oscurece)   |
+| Dark  | `#0A0F1C`  | `#111827` |   1.078 | **sube** (aclara) |
 
 Dos hechos que el contrato actual no puede expresar:
 
@@ -46,7 +46,7 @@ desaparece en dark. Que se usara como hover fue una apropiación por falta de un
 Es la alternativa que la revisión dejó planteada, y el Figma la descarta. La dirección de `raised`
 la fija la elevación —una superficie elevada aclara en dark y aclara también en light—, mientras que
 la del hover depende del esquema. Un rol de elevación no puede cubrir un rol de interacción cuyo
-signo cambia. Además `docs/06` §5 fija que «hover no *salta* más de un nivel»: usar el nivel 1 como
+signo cambia. Además `docs/06` §5 fija que «hover no _salta_ más de un nivel»: usar el nivel 1 como
 hover del nivel 0 convierte esa regla en tautología y deja sin expresar la diferencia entre una card
 y una fila con el puntero encima.
 
@@ -64,12 +64,12 @@ y una fila con el puntero encima.
 
 3. **Calibración en los cuatro temas oficiales**, con el escalón del Figma como objetivo:
 
-   | Tema         | canvas (`base`)   | `hover`               | ratio | `active`              | ratio |
-   | ------------ | ----------------- | --------------------- | ----: | --------------------- | ----: |
-   | nebula-dark  | `dark.100`        | `dark.400` (sube)     | 1.085 | `dark.500` (sube)     | 1.128 |
-   | nebula-light | `light.50`        | `light.300` (baja)    | 1.062 | `light.500` (baja)    | 1.150 |
-   | playful      | `light.50`        | `light.300` (baja)    | 1.062 | `light.500` (baja)    | 1.150 |
-   | sober-light  | `gray.50`         | `light.500` (baja)    | 1.072 | `light.600` (baja)    | 1.122 |
+   | Tema         | canvas (`base`) | `hover`            | ratio | `active`           | ratio |
+   | ------------ | --------------- | ------------------ | ----: | ------------------ | ----: |
+   | nebula-dark  | `dark.100`      | `dark.400` (sube)  | 1.085 | `dark.500` (sube)  | 1.128 |
+   | nebula-light | `light.50`      | `light.300` (baja) | 1.062 | `light.500` (baja) | 1.150 |
+   | playful      | `light.50`      | `light.300` (baja) | 1.062 | `light.500` (baja) | 1.150 |
+   | sober-light  | `gray.50`       | `light.500` (baja) | 1.072 | `light.600` (baja) | 1.122 |
 
    `active` se calibra al doble del delta de `hover`, no al doble del ratio: la pulsación es un
    estado momentáneo que debe leerse sin ambigüedad.

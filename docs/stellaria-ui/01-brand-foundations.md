@@ -58,16 +58,16 @@ Rosette, Lagrange y futuros productos pueden adoptar un acento propio. El acento
 
 ## Escala de personalidad
 
-| Capa | Compartida | Personalizable |
-| --- | --- | --- |
-| Tipografía | Familia, escala y jerarquía | Peso puntual del wordmark |
-| Layout | Contenedores, ritmo y breakpoints | Orden de secciones |
-| Superficies | Profundidad, borde y blur | Tinte leve del acento |
-| Color | Roles semánticos | Valores de `brand.primary` y `brand.bright` |
-| Movimiento | Duraciones y easing | Un gesto distintivo |
-| Fondo | Grid, estrellas y máscara | Color de estrellas destacadas |
-| Voz | Claridad, precisión y honestidad | Vocabulario del dominio |
-| Imágenes | Calidad, tratamiento y radios | Dirección artística específica |
+| Capa        | Compartida                        | Personalizable                              |
+| ----------- | --------------------------------- | ------------------------------------------- |
+| Tipografía  | Familia, escala y jerarquía       | Peso puntual del wordmark                   |
+| Layout      | Contenedores, ritmo y breakpoints | Orden de secciones                          |
+| Superficies | Profundidad, borde y blur         | Tinte leve del acento                       |
+| Color       | Roles semánticos                  | Valores de `brand.primary` y `brand.bright` |
+| Movimiento  | Duraciones y easing               | Un gesto distintivo                         |
+| Fondo       | Grid, estrellas y máscara         | Color de estrellas destacadas               |
+| Voz         | Claridad, precisión y honestidad  | Vocabulario del dominio                     |
+| Imágenes    | Calidad, tratamiento y radios     | Dirección artística específica              |
 
 ## Rosette como referencia
 
@@ -96,4 +96,3 @@ Rosette demuestra cómo personalizar la casa sin romperla:
 - Hacer que la metáfora espacial domine el contenido.
 - Usar negro puro, blanco puro en grandes superficies o glows saturados.
 - Reducir texto funcional por debajo de los mínimos definidos en esta guía.
-

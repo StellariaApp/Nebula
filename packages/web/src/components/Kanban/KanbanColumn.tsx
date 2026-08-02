@@ -26,11 +26,7 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const heading_id = useId();
   const { setNodeRef, isOver } = useDroppable({ id });

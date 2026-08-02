@@ -206,7 +206,9 @@ describe("ChipGroup", () => {
           <Chip value="a">A</Chip>
         </ChipGroup>,
       );
-      seen.add(screen.getByRole("radio", { name: "A" }).closest("label")?.getAttribute("style") ?? "");
+      seen.add(
+        screen.getByRole("radio", { name: "A" }).closest("label")?.getAttribute("style") ?? "",
+      );
       view.unmount();
     }
     expect(seen.size).toBe(3);
@@ -258,9 +260,7 @@ describe("NativeSelect", () => {
   });
 
   it("anuncia el error", () => {
-    render(
-      <NativeSelect label="País" data={OPCIONES} error="Elige un país" errorDisplay="text" />,
-    );
+    render(<NativeSelect label="País" data={OPCIONES} error="Elige un país" errorDisplay="text" />);
     expect(screen.getByLabelText("País").getAttribute("aria-invalid")).toBe("true");
     expect(screen.getByRole("alert").textContent).toBe("Elige un país");
   });

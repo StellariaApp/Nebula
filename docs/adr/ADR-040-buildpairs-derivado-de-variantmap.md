@@ -62,7 +62,7 @@ una superficie **no cubierta**.
    bajando el mínimo.**
 
 6. **Este ADR precede a la propagación de ADR-038.** Descubrir que las recetas actuales fallan AA
-   *después* de propagarlas a once componentes multiplica por once el trabajo de corrección.
+   _después_ de propagarlas a once componentes multiplica por once el trabajo de corrección.
 
 ## Alternativas
 

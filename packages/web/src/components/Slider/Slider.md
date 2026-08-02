@@ -21,7 +21,7 @@ extra.
 ## El input nativo va oculto, no estilado
 
 `useSliderThumb` devuelve `inputProps` para **un `<input type="range">` visualmente oculto**: es la
-pieza que aporta rol, valor, límites y teclado. Si se monta a la vista, el navegador pinta *además*
+pieza que aporta rol, valor, límites y teclado. Si se monta a la vista, el navegador pinta _además_
 su propio track y su propio pulgar encima del track y del thumb de Nebula. Por eso el input va
 dentro de `VisuallyHidden` de `react-aria` — el mismo patrón que `ColorPicker` — y todo lo que se ve
 son los `div` de `track`, `fill` y `thumb`.

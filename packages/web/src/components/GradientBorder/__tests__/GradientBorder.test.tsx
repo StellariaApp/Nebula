@@ -48,7 +48,9 @@ describe("GradientBorder", () => {
   });
 
   it("acepta un gradiente propio con from/to/deg", () => {
-    render(<GradientBorder gradient={{ from: "#3f37c9", to: "#9d4edd", deg: 90 }} data-testid="gb" />);
+    render(
+      <GradientBorder gradient={{ from: "#3f37c9", to: "#9d4edd", deg: 90 }} data-testid="gb" />,
+    );
     const style = screen.getByTestId("gb").getAttribute("style") ?? "";
     expect(style).toMatch(/90deg/);
   });

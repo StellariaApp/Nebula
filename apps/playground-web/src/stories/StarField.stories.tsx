@@ -140,8 +140,8 @@ export const ReducedMotion: Story = {
         <StarField density="lg" />
       </Sky>
       <Text component="p" fz="caption" c="text.muted" mt="sm">
-        Sin parpadeo y sin parallax: las estrellas se quedan a opacidad 0.6 y escala 1, uniformes. El
-        listener de scroll no llega a registrarse.
+        Sin parpadeo y sin parallax: las estrellas se quedan a opacidad 0.6 y escala 1, uniformes.
+        El listener de scroll no llega a registrarse.
       </Text>
     </Box>
   ),

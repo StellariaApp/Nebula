@@ -12,9 +12,7 @@ function Day(day: number, month = "July", year = 2026): RegExp {
 }
 
 function Cell(day: number): HTMLElement {
-  const found = screen
-    .getAllByRole("button")
-    .filter((node) => node.textContent === String(day));
+  const found = screen.getAllByRole("button").filter((node) => node.textContent === String(day));
   if (found.length !== 1) {
     throw new Error(`Se esperaba una celda con el día ${String(day)}, hay ${String(found.length)}`);
   }
@@ -24,7 +22,9 @@ function Cell(day: number): HTMLElement {
 describe("Calendar", () => {
   it("marca como seleccionada la fecha del valor ISO", () => {
     render(<Calendar label="Fecha" value="2026-07-29" />);
-    expect(screen.getByRole("button", { name: Day(29) }).getAttribute("data-selected")).toBe("true");
+    expect(screen.getByRole("button", { name: Day(29) }).getAttribute("data-selected")).toBe(
+      "true",
+    );
   });
 
   it("emite un string ISO al elegir un día", async () => {

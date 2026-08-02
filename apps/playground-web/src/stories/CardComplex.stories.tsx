@@ -21,19 +21,40 @@ export default meta;
 type Story = StoryObj<typeof CardComplex>;
 
 const ICON_EDIT = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M4 20h4L20 8l-4-4L4 16v4z" />
   </svg>
 );
 
 const ICON_DOWNLOAD = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 3v12M7 10l5 5 5-5M4 21h16" />
   </svg>
 );
 
 const ICON_TRASH = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14" />
   </svg>
 );
@@ -105,8 +126,8 @@ export const ConPermisos: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="sm">
       <Text fz="body3" c="text.secondary">
-        «Anular factura» lleva <code>permission</code> y el resolver la deniega, así que desaparece de
-        la tarjeta — mismo contrato de ADR-056 que Menu, Tabs y CommandPalette.
+        «Anular factura» lleva <code>permission</code> y el resolver la deniega, así que desaparece
+        de la tarjeta — mismo contrato de ADR-056 que Menu, Tabs y CommandPalette.
       </Text>
       <PermissionProvider resolver={(key) => key !== "facturas.anular"}>
         <Box maw={420}>

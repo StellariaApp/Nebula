@@ -11,7 +11,7 @@ W3.3 lo repite: «Accordion (multiple tipado como FC)». La semilla tipa el valo
 
 ```ts
 export type AccordionValue<Multiple extends boolean> =
-  (Multiple extends true ? string[] : string | undefined) | undefined
+  (Multiple extends true ? string[] : string | undefined) | undefined;
 ```
 
 La implementación entregada en W2 no lo hace: `value`, `defaultValue` y `onChange` hablan **siempre**

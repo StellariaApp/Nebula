@@ -221,12 +221,11 @@ export const KeyboardFlow: Story = {
     await userEvent.keyboard("{Enter}");
     await expect(first).toHaveAttribute("aria-expanded", "true");
     const panel_id = first.getAttribute("aria-controls") ?? "";
-    await expect(document.getElementById(panel_id)).toHaveAttribute(
-      "aria-labelledby",
-      first.id,
-    );
+    await expect(document.getElementById(panel_id)).toHaveAttribute("aria-labelledby", first.id);
 
     await userEvent.keyboard("{ArrowDown}");
-    await expect(canvas.getByRole("button", { name: "¿Qué formas de pago aceptan?" })).toHaveFocus();
+    await expect(
+      canvas.getByRole("button", { name: "¿Qué formas de pago aceptan?" }),
+    ).toHaveFocus();
   },
 };

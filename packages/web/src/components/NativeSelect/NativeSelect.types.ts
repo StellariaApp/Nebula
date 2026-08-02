@@ -13,7 +13,8 @@ export interface NativeSelectGroup {
 }
 
 export interface NativeSelectProps
-  extends Omit<
+  extends
+    Omit<
       ComponentPropsWithoutRef<"select">,
       "size" | "color" | "value" | "defaultValue" | "onChange" | "disabled" | "required"
     >,

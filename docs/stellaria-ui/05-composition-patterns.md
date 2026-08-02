@@ -108,4 +108,3 @@ Evitar tres secciones consecutivas con cards. Alternar entre:
 - Descriptor breve.
 - Endoso y contexto de la propuesta.
 - Legal y enlaces secundarios con contraste suficiente.
-

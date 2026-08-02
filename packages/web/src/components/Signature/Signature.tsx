@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type PointerEvent, type ReactElement } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+  type ReactElement,
+} from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
 
@@ -195,12 +202,7 @@ export function Signature(props: SignatureProps): ReactElement {
             onPointerCancel={Up}
           />
           <div className={styles.actions}>
-            <Button
-              variant="ghost"
-              size="sm"
-              disabled={fp.isDisabled || !signed}
-              onPress={Undo}
-            >
+            <Button variant="ghost" size="sm" disabled={fp.isDisabled || !signed} onPress={Undo}>
               {text.undo}
             </Button>
             <Button

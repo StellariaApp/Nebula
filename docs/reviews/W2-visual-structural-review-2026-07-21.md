@@ -32,13 +32,13 @@ Button y FormField como conjunto de calibración transversal.
 Las capturas de ActionIcon, Button, Blockquote, la galería de Icon y FormField confirmaron que la
 deuda no era solo una impresión general. W2.V adopta estos criterios verificables:
 
-| Componente | Evidencia observada | Criterio de corrección |
-| ---------- | ------------------- | ---------------------- |
-| ActionIcon | icono de 14 px perdido dentro del control md y dominado por el focus ring | glifo derivado al 50 % de `sizes.control`; md ≈21 px |
-| Button | label 14/medium con poca presencia dentro de 42 px | semibold + `lineHeight.normal`; cualquier cambio de altura se calibra globalmente |
-| Blockquote | atribución de 8 px y cuerpo dependiente de herencia | cuerpo `body1/normal`; atribución `caption/normal` de 12 px |
-| Icon gallery | nombres de 8 px debajo de iconos de 28 px | nombre `body3`, gap interno `sm` y ancho derivado de spacing tokens |
-| FormField | label 12, ayuda/error 8 y gap uniforme de 2 px | label 14, ayuda/error 12 y ritmo label→ayuda→control→error de 2/8/4 px |
+| Componente   | Evidencia observada                                                       | Criterio de corrección                                                            |
+| ------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| ActionIcon   | icono de 14 px perdido dentro del control md y dominado por el focus ring | glifo derivado al 50 % de `sizes.control`; md ≈21 px                              |
+| Button       | label 14/medium con poca presencia dentro de 42 px                        | semibold + `lineHeight.normal`; cualquier cambio de altura se calibra globalmente |
+| Blockquote   | atribución de 8 px y cuerpo dependiente de herencia                       | cuerpo `body1/normal`; atribución `caption/normal` de 12 px                       |
+| Icon gallery | nombres de 8 px debajo de iconos de 28 px                                 | nombre `body3`, gap interno `sm` y ancho derivado de spacing tokens               |
+| FormField    | label 12, ayuda/error 8 y gap uniforme de 2 px                            | label 14, ayuda/error 12 y ritmo label→ayuda→control→error de 2/8/4 px            |
 
 ## Qué está bien y debe preservarse
 

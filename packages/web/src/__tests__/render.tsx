@@ -15,10 +15,7 @@ function Wrapper({ children }: { children: ReactNode }): ReactElement {
   );
 }
 
-export function render(
-  ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">,
-): RenderResult {
+export function render(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">): RenderResult {
   return rtl_render(ui, { wrapper: Wrapper, ...options });
 }
 

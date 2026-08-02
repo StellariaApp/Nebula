@@ -3,7 +3,14 @@
 import { useRef, useState, type ReactElement } from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
-import { DismissButton, Overlay, useButton, useFocusRing, usePopover, mergeProps } from "react-aria";
+import {
+  DismissButton,
+  Overlay,
+  useButton,
+  useFocusRing,
+  usePopover,
+  mergeProps,
+} from "react-aria";
 import { useOverlayTriggerState } from "react-stately";
 
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
@@ -59,7 +66,10 @@ export function ColorInput(props: ColorInputProps): ReactElement {
   const shown = draft ?? fp.value;
   const parsed = ParseColorValue(fp.value);
   const malformed = fp.value.trim() !== "" && parsed === null;
-  const form_error = fp.errorMessage ?? (malformed ? "Color no reconocido" : undefined) ?? (fp.isInvalid ? true : undefined);
+  const form_error =
+    fp.errorMessage ??
+    (malformed ? "Color no reconocido" : undefined) ??
+    (fp.isInvalid ? true : undefined);
   const invalid = fp.isInvalid || malformed;
 
   const state = useOverlayTriggerState({});

@@ -42,7 +42,9 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
           initial={is_off ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={is_off ? { opacity: 1 } : { opacity: 0 }}
-          transition={visible ? Tween("fast", "standard", motion_context) : ExitTween("fast", motion_context)}
+          transition={
+            visible ? Tween("fast", "standard", motion_context) : ExitTween("fast", motion_context)
+          }
         >
           <Overlay
             color={color}

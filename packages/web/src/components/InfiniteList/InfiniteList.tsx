@@ -58,7 +58,8 @@ export function InfiniteList<T, TPage = readonly T[]>(
 
   const sentinel_ref = useRef<HTMLDivElement | null>(null);
   const load_more = source.loadMore;
-  const can_load = source.hasMore && !source.loadingMore && !source.loading && load_more !== undefined;
+  const can_load =
+    source.hasMore && !source.loadingMore && !source.loading && load_more !== undefined;
 
   useEffect(() => {
     if (!autoLoad || !can_load) return;

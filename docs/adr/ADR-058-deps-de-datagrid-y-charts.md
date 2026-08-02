@@ -10,11 +10,11 @@
 Tres dependencias de runtime en `@stellaria/nebula-web`, las tres **aisladas en subpath** (ADR-014
 regla 3) y ninguna alcanzable desde `dist/index.js`:
 
-| Dependencia | Versión | Subpath | Motivo |
-| --- | --- | --- | --- |
-| `@tanstack/react-table` | 8.21.3 | `/datagrid` | motor headless de tabla: sorting, selección, paginación; la UI es de Nebula |
-| `@tanstack/react-virtual` | 3.14.9 | `/datagrid` | virtualización ≥50 filas que exige el gate de W3 |
-| `recharts` | 3.10.1 | `/charts` | fijado por ADR-011 |
+| Dependencia               | Versión | Subpath     | Motivo                                                                      |
+| ------------------------- | ------- | ----------- | --------------------------------------------------------------------------- |
+| `@tanstack/react-table`   | 8.21.3  | `/datagrid` | motor headless de tabla: sorting, selección, paginación; la UI es de Nebula |
+| `@tanstack/react-virtual` | 3.14.9  | `/datagrid` | virtualización ≥50 filas que exige el gate de W3                            |
+| `recharts`                | 3.10.1  | `/charts`   | fijado por ADR-011                                                          |
 
 ## Coste medido, no estimado
 

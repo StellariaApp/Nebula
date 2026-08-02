@@ -72,7 +72,8 @@ export function ResolveRef(
     if (base === undefined) throw new UnsupportedRefError(ref);
     return alpha === undefined ? base : Composite(base, backdrop, Number(alpha) / 100);
   }
-  if (group === "surface") return theme.colors.surface[key as keyof NebulaTheme["colors"]["surface"]];
+  if (group === "surface")
+    return theme.colors.surface[key as keyof NebulaTheme["colors"]["surface"]];
   if (group === "text") return theme.colors.text[key as keyof NebulaTheme["colors"]["text"]];
   if (group === "border") return theme.colors.border[key as keyof NebulaTheme["colors"]["border"]];
 
@@ -145,7 +146,8 @@ export function ResolveBackground(
 function Luminance(hex: string): number {
   const rgb = toRgb(parse(hex));
   if (rgb === undefined) throw new UnsupportedRefError(hex);
-  const channel = (v: number): number => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  const channel = (v: number): number =>
+    v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
   return 0.2126 * channel(rgb.r) + 0.7152 * channel(rgb.g) + 0.0722 * channel(rgb.b);
 }
 

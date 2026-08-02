@@ -35,8 +35,9 @@ sacarlo del array y marcarlo `disabled`.
 
    ```ts
    export interface NebulaPermissions {}
-   export type PermissionKey =
-     NebulaPermissions extends { keys: infer K extends string } ? K : string;
+   export type PermissionKey = NebulaPermissions extends { keys: infer K extends string }
+     ? K
+     : string;
    ```
 
    La app lo aumenta una vez:
@@ -73,12 +74,12 @@ sacarlo del array y marcarlo `disabled`.
 
 5. **Superficies que la reciben**, y por qué:
 
-   | Componente | Sin permiso, `hide` | Sin permiso, `disable` |
-   | ---------- | ------------------- | ---------------------- |
-   | `Button` · `ActionIcon` · `QuickAction` | no renderiza | `disabled` real, no un envoltorio inerte |
-   | `NavLink` | no renderiza | `disabled`, y el `href` se retira |
-   | `MenuItemData` | sale de la colección | entra en `disabledKeys` |
-   | `TabItem` | sale de la colección, y su contenido con ella | pestaña deshabilitada |
+   | Componente                              | Sin permiso, `hide`                           | Sin permiso, `disable`                   |
+   | --------------------------------------- | --------------------------------------------- | ---------------------------------------- |
+   | `Button` · `ActionIcon` · `QuickAction` | no renderiza                                  | `disabled` real, no un envoltorio inerte |
+   | `NavLink`                               | no renderiza                                  | `disabled`, y el `href` se retira        |
+   | `MenuItemData`                          | sale de la colección                          | entra en `disabledKeys`                  |
+   | `TabItem`                               | sale de la colección, y su contenido con ella | pestaña deshabilitada                    |
 
    `ButtonCopy` la hereda de `ActionIconProps`. `CardComplex` la recibirá en W3.5 en su grupo de
    acciones, que es lo que §6 nombra y aún no existe.

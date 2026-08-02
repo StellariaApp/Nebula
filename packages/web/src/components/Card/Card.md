@@ -59,10 +59,10 @@ padding 24 y gap 16—.
 La regla no se eligió, se dedujo de `docs/06` §3: **dentro < entre**. El hueco interno de un card es un
 peldaño por debajo de su propio padding, que reproduce exactamente los dos cards medidos:
 
-| `padding` | valor | `gap` |
-| --------- | ----: | ----: |
-| `none`    |     0 |     0 |
-| `md`      |    16 | 8 (`sm`) |
+| `padding` | valor |     `gap` |
+| --------- | ----: | --------: |
+| `none`    |     0 |         0 |
+| `md`      |    16 |  8 (`sm`) |
 | `lg`      |    24 | 16 (`md`) |
 | `xl`      |    32 | 24 (`lg`) |
 
@@ -70,7 +70,7 @@ peldaño por debajo de su propio padding, que reproduce exactamente los dos card
 combinan `sectionInset` con `sectionBorder`—, donde un hueco separaría el borde de una sección de la
 siguiente y rompería la lectura de lista continua.
 
-**Pendiente de comprobación visual**: un card con `padding` distinto de `none` *y* secciones con borde
+**Pendiente de comprobación visual**: un card con `padding` distinto de `none` _y_ secciones con borde
 recibe ahora hueco entre ellas. No hay caso así en el archivo de referencia ni en las láminas, pero
 conviene mirarlo cuando se capture el baseline de ADR-037.
 

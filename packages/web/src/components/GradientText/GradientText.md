@@ -18,11 +18,11 @@ recorte no se aplica, el texto se pinta transparente sobre su fondo y desaparece
 hay tres salidas, todas en CSS y ninguna dependiente de JS:
 
 1. **Sin soporte de recorte** — `@supports not ((background-clip: text) or (-webkit-background-clip:
-   text))` devuelve `background-image: none` y pinta `fallbackColor`.
+text))` devuelve `background-image: none` y pinta `fallbackColor`.
 2. **Forced colors** (alto contraste de Windows) — es el caso que más se olvida: el modo fuerza
    `color` pero **no** resetea `-webkit-text-fill-color`, así que un `transparent` heredado deja el
    titular invisible con el sistema en alto contraste. Se repone `-webkit-text-fill-color:
-   currentColor` y se pinta `CanvasText`.
+currentColor` y se pinta `CanvasText`.
 3. **Subrayado** — `text-decoration-color` se fija a `fallbackColor` porque la línea también se
    recortaría y quedaría invisible.
 

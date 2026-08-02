@@ -34,9 +34,9 @@ medidas**.
 
 ### La escala de spacing tiene un agujero justo donde vive la UI densa
 
-| Escala           | Valores en px                                 |
-| ---------------- | --------------------------------------------- |
-| Nebula (`space`) | 0 · 2 · 4 · **8** · **16** · 24 · 32 · 48 · 64 |
+| Escala           | Valores en px                                                    |
+| ---------------- | ---------------------------------------------------------------- |
+| Nebula (`space`) | 0 · 2 · 4 · **8** · **16** · 24 · 32 · 48 · 64                   |
 | Figma (usados)   | 4 · **6** · 8 · **10** · **12** · **14** · 16 · **20** · 24 · 32 |
 
 Entre `sm` (8) y `md` (16) Nebula **no tiene nada**. Y ahí es exactamente donde el Figma pone casi todo
@@ -48,10 +48,10 @@ inflado—. Eso es lo que se ve.
 
 ### La escala de radius está desfasada dos píxeles
 
-| Escala        | Valores en px                          |
-| ------------- | -------------------------------------- |
-| Nebula        | 0 · 2 · **6** · **10** · **14** · 20 · 28 |
-| Figma (usados)| 6 · **8** · **12** · 14 · **16** · 999 |
+| Escala         | Valores en px                             |
+| -------------- | ----------------------------------------- |
+| Nebula         | 0 · 2 · **6** · **10** · **14** · 20 · 28 |
+| Figma (usados) | 6 · **8** · **12** · 14 · **16** · 999    |
 
 Las dos son progresiones de +4, pero desfasadas: Nebula va 2·6·10·14, el Figma va 4·8·12·16. Solo
 coinciden en 6 y 14. El Figma redondea sistemáticamente más que Nebula en cards (12 contra 10) y en
@@ -70,15 +70,15 @@ Alturas de Nebula: `control` = 30 · 36 · 42 · 50 · 60 (`xs`…`xl`).
 
 ### 2.1 Pagination — el más desalineado
 
-| | Figma (`Pagination Item`) | Nebula (`Pagination`) |
-| --- | --- | --- |
-| Alto | **~27 px** (hug: 6+6 + texto 12) | **36 px** en `md` (`control.sm`, ya desplazada) |
-| Padding | 6 / 10 | — (alto fijo, sin padding) |
-| Radius | 6 | 6 (`sm`) ✔ |
-| Texto | 12 / 500 (600 activo) | `body2`–`body1` |
-| Gap | — | 2 (`xxs`) |
-| Activo | fill `#2C6FD1`, texto blanco | por `variant` |
-| Disabled | fill sólido + texto al 40 % | opacidad global |
+|          | Figma (`Pagination Item`)        | Nebula (`Pagination`)                           |
+| -------- | -------------------------------- | ----------------------------------------------- |
+| Alto     | **~27 px** (hug: 6+6 + texto 12) | **36 px** en `md` (`control.sm`, ya desplazada) |
+| Padding  | 6 / 10                           | — (alto fijo, sin padding)                      |
+| Radius   | 6                                | 6 (`sm`) ✔                                      |
+| Texto    | 12 / 500 (600 activo)            | `body2`–`body1`                                 |
+| Gap      | —                                | 2 (`xxs`)                                       |
+| Activo   | fill `#2C6FD1`, texto blanco     | por `variant`                                   |
+| Disabled | fill sólido + texto al 40 %      | opacidad global                                 |
 
 **Corrección (2026-07-29): gana Nebula, y no hay nada que cambiar.** La primera versión de este informe
 dijo que Pagination forzaba `control.md` (42 px). Es falso: sus variantes están **desplazadas un
@@ -92,15 +92,15 @@ queda solo revisar el `gap` de 2 px entre ítems.
 
 ### 2.2 Pills / Segment — el más distinto
 
-| | Figma (`Pills`) | Nebula (`Segment`) |
-| --- | --- | --- |
-| Radius contenedor | **999** | 10 (`md`) |
-| Radius ítem | **999** | 6 (`sm`) |
-| Padding contenedor | 4 | **`"3px"` literal** |
-| Padding ítem | 6 / 12 | `paddingInline` 8, sin bloque |
-| Alto ítem | ~25 px (hug) | **42 px** (`control.md`) |
-| Texto | 11 / 500 | `button` (14) |
-| Activo | fill azul + `0 1px 2px rgba(0,0,0,.06)` | por `variant`, sin sombra |
+|                    | Figma (`Pills`)                         | Nebula (`Segment`)            |
+| ------------------ | --------------------------------------- | ----------------------------- |
+| Radius contenedor  | **999**                                 | 10 (`md`)                     |
+| Radius ítem        | **999**                                 | 6 (`sm`)                      |
+| Padding contenedor | 4                                       | **`"3px"` literal**           |
+| Padding ítem       | 6 / 12                                  | `paddingInline` 8, sin bloque |
+| Alto ítem          | ~25 px (hug)                            | **42 px** (`control.md`)      |
+| Texto              | 11 / 500                                | `button` (14)                 |
+| Activo             | fill azul + `0 1px 2px rgba(0,0,0,.06)` | por `variant`, sin sombra     |
 
 **Gana el Figma, y por mucho.** Nebula tiene un rectángulo redondeado de 42 px; el Figma, una píldora
 de 25. Es la causa más probable del «Segment se ve raro en dark» (defecto 4 de §5.5): a esa altura y
@@ -111,16 +111,16 @@ misma vía que Checkbox y Radio, y **no lo detectó el censo**.
 
 ### 2.3 FieldSelect — el más parecido, y el que enseña el patrón
 
-| | Figma (`FieldSelect`) | Nebula (`field` compartido) |
-| --- | --- | --- |
-| Alto input | 43 | **42** (`control.md`) ✔ |
-| Padding inline | 16 | **16** (`md`) ✔ |
-| Radius | 12 | 10 (`md`) |
-| Gap input↔chevron | **12** | **4** (`xs`) |
-| Gap label↔input | 7 | 8 (`sm`) ✔ |
-| Texto valor | 12 | **16** (`body1`) |
-| Label | 12 / 600 + sub 10 / 400 | `body2`, sin sub-label |
-| Helper | 11 / 500 | `caption` (12) |
+|                   | Figma (`FieldSelect`)   | Nebula (`field` compartido) |
+| ----------------- | ----------------------- | --------------------------- |
+| Alto input        | 43                      | **42** (`control.md`) ✔     |
+| Padding inline    | 16                      | **16** (`md`) ✔             |
+| Radius            | 12                      | 10 (`md`)                   |
+| Gap input↔chevron | **12**                  | **4** (`xs`)                |
+| Gap label↔input   | 7                       | 8 (`sm`) ✔                  |
+| Texto valor       | 12                      | **16** (`body1`)            |
+| Label             | 12 / 600 + sub 10 / 400 | `body2`, sin sub-label      |
+| Helper            | 11 / 500                | `caption` (12)              |
 
 **Empate técnico en la caja, gana el Figma en el interior.** El alto y el padding coinciden —buena
 señal: la escala `control` de Nebula está bien elegida—. Lo que falla es el aire interno: 4 px entre
@@ -128,11 +128,11 @@ valor y chevron contra 12 del Figma, y un texto de 16 px donde el Figma pone 12.
 
 ### 2.4 Cards
 
-| | Figma | Nebula (`Card`) |
-| --- | --- | --- |
-| Metric Card | padding **16 / 20**, gap 8, radius 12, borde 1 | padding uniforme 16 · 24 · 32 |
-| Plan Card | padding 24, gap 16, radius **16**, borde 1 (**2** si actual) | radius por variante |
-| Address Card | sin padding raíz, radius 12 | — |
+|              | Figma                                                        | Nebula (`Card`)               |
+| ------------ | ------------------------------------------------------------ | ----------------------------- |
+| Metric Card  | padding **16 / 20**, gap 8, radius 12, borde 1               | padding uniforme 16 · 24 · 32 |
+| Plan Card    | padding 24, gap 16, radius **16**, borde 1 (**2** si actual) | radius por variante           |
+| Address Card | sin padding raíz, radius 12                                  | —                             |
 
 **Corrección (2026-07-29), al ejecutar G1.5.** Esta sección daba dos cosas por ganadas y ninguna se
 sostiene al aplicarlas:
@@ -151,25 +151,25 @@ por debajo, que es la regla «dentro < entre» de `docs/06` §3 y reproduce ambo
 
 ### 2.5 Nav Tab Bar / Nav Tab Item
 
-| | Figma | Nebula (`Tabs`) |
-| --- | --- | --- |
-| Padding ítem | 10 / 16 | **`Tabs` no tiene `.css.ts` propio** |
-| Gap | 6 | — |
-| Activo | borde inferior **2 px** azul | — |
-| Barra | fila, borde inferior 1 px | — |
+|              | Figma                        | Nebula (`Tabs`)                      |
+| ------------ | ---------------------------- | ------------------------------------ |
+| Padding ítem | 10 / 16                      | **`Tabs` no tiene `.css.ts` propio** |
+| Gap          | 6                            | —                                    |
+| Activo       | borde inferior **2 px** azul | —                                    |
+| Barra        | fila, borde inferior 1 px    | —                                    |
 
 **Gana el Figma por incomparecencia.** `Tabs` se compone de otros componentes y no declara su propia
 lámina, así que no hay geometría que comparar.
 
 ### 2.6 Sidebar Nav Item contra NavLink
 
-| | Figma (`Sidebar Nav Item`) | Nebula (`NavLink`) |
-| --- | --- | --- |
-| Padding (full) | **10 / 12** | **4 / 8** |
-| Gap | **10** | 8 (`sm`) |
-| Alto | hug (~36) | `minHeight` 36 (`control.sm`) ✔ |
-| Compact | **44 × 44**, padding 12 | por `control` |
-| Radius | 8 | 6 (`sm`) |
+|                | Figma (`Sidebar Nav Item`) | Nebula (`NavLink`)              |
+| -------------- | -------------------------- | ------------------------------- |
+| Padding (full) | **10 / 12**                | **4 / 8**                       |
+| Gap            | **10**                     | 8 (`sm`)                        |
+| Alto           | hug (~36)                  | `minHeight` 36 (`control.sm`) ✔ |
+| Compact        | **44 × 44**, padding 12    | por `control`                   |
+| Radius         | 8                          | 6 (`sm`)                        |
 
 **Gana el Figma.** Mismo alto final, pero Nebula lo consigue con `minHeight` y padding mínimo, así que
 el texto queda pegado a los bordes; el Figma lo consigue con padding real. Es coherente con que el
@@ -177,12 +177,12 @@ propietario señale NavLink como el peor.
 
 ### 2.7 Modal
 
-| | Figma | Nebula |
-| --- | --- | --- |
-| Radius | **16** | 14 (`lg`) |
+|        | Figma   | Nebula                  |
+| ------ | ------- | ----------------------- |
+| Radius | **16**  | 14 (`lg`)               |
 | Header | 20 / 24 | **16 / 24** (`md`/`lg`) |
-| Body | 24 | 24 (`lg`) ✔ |
-| Footer | 16 / 24 | **no existe** |
+| Body   | 24      | 24 (`lg`) ✔             |
+| Footer | 16 / 24 | **no existe**           |
 
 **Casi empate.** La diferencia real es que Nebula **no tiene footer** en el Modal, y el Figma lo trata
 como región con su propio padding y borde superior.
@@ -194,12 +194,12 @@ icono de inicio 14 px, todos los ítems en azul de enlace.
 
 ### 2.9 Notifications Panel y Sidebar (contenedor)
 
-| | Figma |
-| --- | --- |
+|                     | Figma                                                               |
+| ------------------- | ------------------------------------------------------------------- |
 | Notifications Panel | ancho **360**, radius **12**, sin padding raíz (las filas lo ponen) |
-| Sidebar abierto | **300 × 640**, borde 1 px |
-| Sidebar cerrado | **60** de ancho |
-| Sidebar móvil | padding 10 / 12, `space-between` |
+| Sidebar abierto     | **300 × 640**, borde 1 px                                           |
+| Sidebar cerrado     | **60** de ancho                                                     |
+| Sidebar móvil       | padding 10 / 12, `space-between`                                    |
 
 Nebula los resolvería con `Paper` + `Drawer`. **El Figma aporta las medidas canónicas**, que hoy no
 están escritas en ningún sitio.
@@ -232,11 +232,11 @@ sentido recalibrar componentes contra una escala que no puede expresar los valor
 El problema es que `SpacingName` es una unión cerrada de 9 miembros y el salto 8 → 16 no tiene
 peldaños. Tres salidas:
 
-| Opción | Qué implica | Coste |
-| --- | --- | --- |
-| **A. Añadir peldaños intermedios** (`xs2`=6, `sm2`=12, `md2`=20 o similar) | La unión crece a 12 miembros; los nombres se vuelven feos | Bajo en código, alto en nomenclatura |
-| **B. Re-escalar a una progresión de 2 en el tramo bajo** (0·2·4·6·8·10·12·16·20·24·32·48) | Coherente con el Figma y con la mayoría de sistemas; renombra todo | Alto: toca cada `.css.ts` |
-| **C. Dejar `space` como está y que la densidad viva en `sizes`** | Cero cambio de contrato; los componentes que necesiten 12 lo derivan de `control` | Medio: cada componente resuelve por su cuenta, que es lo que ADR-033 vino a impedir |
+| Opción                                                                                    | Qué implica                                                                       | Coste                                                                               |
+| ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **A. Añadir peldaños intermedios** (`xs2`=6, `sm2`=12, `md2`=20 o similar)                | La unión crece a 12 miembros; los nombres se vuelven feos                         | Bajo en código, alto en nomenclatura                                                |
+| **B. Re-escalar a una progresión de 2 en el tramo bajo** (0·2·4·6·8·10·12·16·20·24·32·48) | Coherente con el Figma y con la mayoría de sistemas; renombra todo                | Alto: toca cada `.css.ts`                                                           |
+| **C. Dejar `space` como está y que la densidad viva en `sizes`**                          | Cero cambio de contrato; los componentes que necesiten 12 lo derivan de `control` | Medio: cada componente resuelve por su cuenta, que es lo que ADR-033 vino a impedir |
 
 **DECIDIDO: opción A** (`ADR-045`). Cinco miembros nuevos nombrados por múltiplo de `unit`: `u1_5`=6,
 `u2_5`=10, `u3`=12, `u3_5`=14, `u5`=20. Estrictamente aditivo: ningún nombre ni valor existente cambia.
@@ -263,17 +263,17 @@ capturado su baseline; después obligaría a regenerarlo entero.
 
 En orden de impacto medido:
 
-| # | Componente | Cambio | Depende de |
-| - | ---------- | ------ | ---------- |
-| 1 | **Segment** | Radius `full` en contenedor e ítem; alto por padding (6/12) en vez de `control`; retirar el literal `"3px"`; sombra sutil en el ítem activo | Nivel 1 (necesita 6 y 12) |
-| 2 | **Pagination** | Alto por padding (6/10) en vez de `control`; conservar radius `sm` | Nivel 1 |
-| 3 | **NavLink** | Padding 10/12 y gap 10 en vez de 4/8; variante compacta 44×44 | Nivel 1 · y su pase propio de §5.5 |
-| 4 | **`field`** | Gap valor↔adorno de 4 → 12; revisar `body1` (16) como texto de campo en `md` | Nivel 1 |
-| 5 | **Card** | Admitir padding asimétrico; borde de 2 px como marca de selección | — |
-| 6 | **Modal** | Añadir región `footer` con su padding y borde superior | — |
-| 7 | **Tabs** | Darle lámina propia: ítem 10/16, gap 6, activo con borde inferior 2 px | Nivel 1 |
-| 8 | **Breadcrumbs** | **Componente nuevo**: 14/32, gap 8, chevron 12, borde inferior | Nivel 1 · entra por inventario |
-| 9 | **Paper / Drawer** | Documentar las medidas canónicas de panel (360 ancho, radius 12) y de sidebar (300/60 × 640) | — |
+| #   | Componente         | Cambio                                                                                                                                      | Depende de                         |
+| --- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| 1   | **Segment**        | Radius `full` en contenedor e ítem; alto por padding (6/12) en vez de `control`; retirar el literal `"3px"`; sombra sutil en el ítem activo | Nivel 1 (necesita 6 y 12)          |
+| 2   | **Pagination**     | Alto por padding (6/10) en vez de `control`; conservar radius `sm`                                                                          | Nivel 1                            |
+| 3   | **NavLink**        | Padding 10/12 y gap 10 en vez de 4/8; variante compacta 44×44                                                                               | Nivel 1 · y su pase propio de §5.5 |
+| 4   | **`field`**        | Gap valor↔adorno de 4 → 12; revisar `body1` (16) como texto de campo en `md`                                                                | Nivel 1                            |
+| 5   | **Card**           | Admitir padding asimétrico; borde de 2 px como marca de selección                                                                           | —                                  |
+| 6   | **Modal**          | Añadir región `footer` con su padding y borde superior                                                                                      | —                                  |
+| 7   | **Tabs**           | Darle lámina propia: ítem 10/16, gap 6, activo con borde inferior 2 px                                                                      | Nivel 1                            |
+| 8   | **Breadcrumbs**    | **Componente nuevo**: 14/32, gap 8, chevron 12, borde inferior                                                                              | Nivel 1 · entra por inventario     |
+| 9   | **Paper / Drawer** | Documentar las medidas canónicas de panel (360 ancho, radius 12) y de sidebar (300/60 × 640)                                                | —                                  |
 
 ### Lo que no entra en el plan
 
@@ -282,17 +282,17 @@ En orden de impacto medido:
 - **El azul `#2C6FD1`** que el Figma usa para activo/enlace no es el eje de Nebula (ADR-020,
   `#3F37C9 → #9D4EDD`). La geometría se porta; **el color no**.
 - **Los tamaños de texto del Figma (10–11 px)** quedan por debajo de lo que `docs/03` admite para texto
-  de UI. Se porta la *relación* —label más pequeño que valor, helper más pequeño que label—, no el px.
+  de UI. Se porta la _relación_ —label más pequeño que valor, helper más pequeño que label—, no el px.
 
 ---
 
 ## 5. Decisiones tomadas
 
-| # | Decisión | Resultado |
-| - | -------- | --------- |
-| 1 | Escala de spacing | **Peldaños intermedios aditivos** — ADR-045 |
-| 2 | Escala de radius | **Re-fasar a múltiplos de 4** — ADR-046, contra la recomendación |
-| 3 | Ejecución del nivel 3 | **Tramo propio de geometría** (§6) |
+| #   | Decisión              | Resultado                                                        |
+| --- | --------------------- | ---------------------------------------------------------------- |
+| 1   | Escala de spacing     | **Peldaños intermedios aditivos** — ADR-045                      |
+| 2   | Escala de radius      | **Re-fasar a múltiplos de 4** — ADR-046, contra la recomendación |
+| 3   | Ejecución del nivel 3 | **Tramo propio de geometría** (§6)                               |
 
 `Breadcrumbs` **entra**. No era alcance nuevo: ya estaba en `docs/00-inventory.md` como componente
 `core` de tier 2 —«sin acoplamiento a router, items declarativos»—, simplemente no se ha construido.
@@ -305,18 +305,18 @@ vez y de forma coherente, y el baseline de ADR-037 se captura una sola vez al fi
 
 ### Orden, y por qué es este
 
-| Paso | Contenido | Gate de salida |
-| ---- | --------- | -------------- |
-| G1.0 | ADR-045 y ADR-046 en código: `spacing.scale` +5 miembros, `radius` re-fasado, `docs/02` y `docs/06` | `build typecheck lint test` · `check:contrast` · `size` |
-| G1.1 | **Segment** — radius `full`, alto por padding `u1_5`/`u3`, retirar el literal `"3px"`, sombra en el ítem activo | + revisión visual en los 4 temas |
-| G1.2 | **Pagination** — alto por padding `u1_5`/`u2_5`, conservar radius `sm` | idem |
-| G1.3 | **NavLink** — padding `u2_5`/`u3`, gap `u2_5`, variante compacta cuadrada | idem · **absorbe el pase propio del defecto 6** |
-| G1.4 | **`field`** — gap valor↔adorno `xs`→`u3`; revisar `body1` como texto de campo en `md` | idem |
-| G1.5 | **Card** — padding asimétrico; borde de 2 px como marca de selección | idem |
-| G1.6 | **Modal** — región `footer` con padding y borde superior | idem |
-| G1.7 | **Tabs** — lámina propia: ítem `u2_5`/`md`, gap `u1_5`, activo con borde inferior 2 px | idem |
-| G1.8 | **Paper / Drawer** — documentar medidas canónicas de panel y sidebar en sus `.md` | — |
-| G1.9 | **Breadcrumbs** — componente nuevo, ya inventariado (tier 2, `core`) | + a11y APG |
+| Paso | Contenido                                                                                                       | Gate de salida                                          |
+| ---- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| G1.0 | ADR-045 y ADR-046 en código: `spacing.scale` +5 miembros, `radius` re-fasado, `docs/02` y `docs/06`             | `build typecheck lint test` · `check:contrast` · `size` |
+| G1.1 | **Segment** — radius `full`, alto por padding `u1_5`/`u3`, retirar el literal `"3px"`, sombra en el ítem activo | + revisión visual en los 4 temas                        |
+| G1.2 | **Pagination** — alto por padding `u1_5`/`u2_5`, conservar radius `sm`                                          | idem                                                    |
+| G1.3 | **NavLink** — padding `u2_5`/`u3`, gap `u2_5`, variante compacta cuadrada                                       | idem · **absorbe el pase propio del defecto 6**         |
+| G1.4 | **`field`** — gap valor↔adorno `xs`→`u3`; revisar `body1` como texto de campo en `md`                           | idem                                                    |
+| G1.5 | **Card** — padding asimétrico; borde de 2 px como marca de selección                                            | idem                                                    |
+| G1.6 | **Modal** — región `footer` con padding y borde superior                                                        | idem                                                    |
+| G1.7 | **Tabs** — lámina propia: ítem `u2_5`/`md`, gap `u1_5`, activo con borde inferior 2 px                          | idem                                                    |
+| G1.8 | **Paper / Drawer** — documentar medidas canónicas de panel y sidebar en sus `.md`                               | —                                                       |
+| G1.9 | **Breadcrumbs** — componente nuevo, ya inventariado (tier 2, `core`)                                            | + a11y APG                                              |
 
 **G1.0 va primero y solo.** Es el único paso que mueve el catálogo entero, y conviene que su cambio
 visual se vea aislado antes de empezar a recalibrar componentes encima.
@@ -343,25 +343,25 @@ la misma cosa se dice de cinco maneras**.
 
 ### El censo
 
-| | Componentes |
-| --- | ---: |
-| Aceptan la prop `disabled` | **23** |
-| La estilan en su `.css.ts` | **13** |
-| Delegan correctamente | **7** — Combobox, NumberInput, PasswordInput, SearchInput, TextInput y Textarea en el recipe `field`; Tabs en Segment |
-| Sin cobertura | **3** — FileButton, Tooltip, Portal |
+|                            |                                                                                                           Componentes |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------: |
+| Aceptan la prop `disabled` |                                                                                                                **23** |
+| La estilan en su `.css.ts` |                                                                                                                **13** |
+| Delegan correctamente      | **7** — Combobox, NumberInput, PasswordInput, SearchInput, TextInput y Textarea en el recipe `field`; Tabs en Segment |
+| Sin cobertura              |                                                                                   **3** — FileButton, Tooltip, Portal |
 
 De los 3 sin cobertura, `Portal` no es visual y `Tooltip` deshabilitado significa «no se muestra».
 **El único hueco real de cobertura es `FileButton`.**
 
 ### Las cinco recetas
 
-| Receta | Componentes |
-| ------ | ----------- |
-| `background` + `opacity` | ActionIcon · Button |
-| `opacity` sola | Checkbox · Radio · Switch · UnstyledButton |
-| `color` solo | Accordion · Menu · Pagination · Segment |
-| `background` + `color` | NavLink |
-| `background` + `borderColor` + `color` | `field` |
+| Receta                                 | Componentes                                |
+| -------------------------------------- | ------------------------------------------ |
+| `background` + `opacity`               | ActionIcon · Button                        |
+| `opacity` sola                         | Checkbox · Radio · Switch · UnstyledButton |
+| `color` solo                           | Accordion · Menu · Pagination · Segment    |
+| `background` + `color`                 | NavLink                                    |
+| `background` + `borderColor` + `color` | `field`                                    |
 
 Un `Button` deshabilitado se atenúa entero; un `Pagination` deshabilitado solo se le apaga el texto y
 conserva su fondo a plena intensidad. Puestos uno al lado del otro no parecen el mismo estado.

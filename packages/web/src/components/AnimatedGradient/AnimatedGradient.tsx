@@ -17,10 +17,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./AnimatedGradient.css.js";
-import type {
-  AnimatedGradientOwnProps,
-  AnimatedGradientProps,
-} from "./AnimatedGradient.types.js";
+import type { AnimatedGradientOwnProps, AnimatedGradientProps } from "./AnimatedGradient.types.js";
 import { gradientImage, scrimAlpha } from "./AnimatedGradient.vars.css.js";
 
 const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnProps>(

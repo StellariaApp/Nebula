@@ -5,7 +5,10 @@ const CELL = "[data-grid-cell='true']";
 export interface GridKeyboard {
   gridRef: RefObject<HTMLTableElement | null>;
   OnKeyDown: (event: KeyboardEvent<HTMLTableElement>) => void;
-  CellProps: (row: number, col: number) => {
+  CellProps: (
+    row: number,
+    col: number,
+  ) => {
     "data-grid-cell": "true";
     "data-row": number;
     "data-col": number;

@@ -24,7 +24,7 @@ la misma operación con otro nombre (`xor` ≡ `exclude` para dos capas opacas).
 ## Las dos degradaciones
 
 1. **Sin `mask-composite`** — `@supports not ((mask-composite: exclude) or (-webkit-mask-composite:
-   xor))` oculta el `::before` y pone un `border: 1px solid` con el **primer stop** del gradiente
+xor))` oculta el `::before` y pone un `border: 1px solid` con el **primer stop** del gradiente
    (`ResolveGradientEdge`). Sin esa rama el `::before` pintaría un rectángulo de gradiente macizo
    encima de todo, que es peor que no tener anillo.
 2. **Forced colors** — mismo camino con `CanvasText`. El sistema no repinta un `background` de

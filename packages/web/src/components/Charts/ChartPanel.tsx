@@ -11,11 +11,7 @@ import type { ChartPanelProps } from "./Charts.types.js";
 
 export function ChartPanel(props: ChartPanelProps): ReactElement {
   const { panels, cols = 2, gap = "md", label, className, ...style_rest } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const auto_id = useId();
   const css_vars = assignInlineVars({ [styles.panelCols]: String(cols) });

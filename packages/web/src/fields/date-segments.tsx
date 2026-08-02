@@ -29,7 +29,10 @@ function Segment(props: SegmentProps): ReactElement {
       data-placeholder={segment.isPlaceholder ? "true" : undefined}
       data-literal={segment.type === "literal" ? "true" : undefined}
       data-disabled={state.isDisabled ? "true" : undefined}
-      style={{ ...segmentProps.style, minWidth: segment.maxValue === undefined ? undefined : "1ch" }}
+      style={{
+        ...segmentProps.style,
+        minWidth: segment.maxValue === undefined ? undefined : "1ch",
+      }}
     >
       {segment.text}
     </div>

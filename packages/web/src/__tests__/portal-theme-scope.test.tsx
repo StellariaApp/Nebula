@@ -44,9 +44,7 @@ describe("alcance del tema en contenido portalizado", () => {
 
   it("Tooltip", async () => {
     const user = userEvent.setup();
-    render(
-      <Tooltip label="ayuda portalizada" trigger={<Button>señalar</Button>} delay={0} />,
-    );
+    render(<Tooltip label="ayuda portalizada" trigger={<Button>señalar</Button>} delay={0} />);
     await user.hover(screen.getByRole("button", { name: "señalar" }));
     await ExpectScoped("ayuda portalizada");
   });

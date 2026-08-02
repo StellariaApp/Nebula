@@ -57,7 +57,11 @@ export function Timeline(props: TimelineProps): ReactElement {
             <span className={styles.bullet} data-reached={reached ? "true" : undefined}>
               {item.bullet}
             </span>
-            <span className={styles.line} data-reached={index < active ? "true" : undefined} aria-hidden="true" />
+            <span
+              className={styles.line}
+              data-reached={index < active ? "true" : undefined}
+              aria-hidden="true"
+            />
             <div className={styles.body}>
               <span className={styles.title}>{item.title}</span>
               {item.meta === undefined ? null : <span className={styles.meta}>{item.meta}</span>}

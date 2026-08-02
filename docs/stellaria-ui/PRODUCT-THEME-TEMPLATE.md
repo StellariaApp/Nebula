@@ -17,13 +17,13 @@ Copiar este archivo para cada producto. Sustituir los campos entre corchetes.
 
 ## Tema
 
-| Token | Valor |
-| --- | --- |
-| `brand.primary` | `[hex]` |
-| `brand.bright` | `[hex]` |
-| `brand.onPrimary` | `[hex]` |
-| `brand.gradientAngle` | `[deg]` |
-| `brand.glowOpacity` | `[0.00]` |
+| Token                 | Valor    |
+| --------------------- | -------- |
+| `brand.primary`       | `[hex]`  |
+| `brand.bright`        | `[hex]`  |
+| `brand.onPrimary`     | `[hex]`  |
+| `brand.gradientAngle` | `[deg]`  |
+| `brand.glowOpacity`   | `[0.00]` |
 
 ## Derivados
 
@@ -78,12 +78,12 @@ Justificación si solo existe uno: `[texto]`
 
 ## Contraste
 
-| Combinación | Ratio | Resultado |
-| --- | --- | --- |
-| Primary / onPrimary | `[ratio]` | `[AA/Fail]` |
-| Bright / canvas | `[ratio]` | `[AA/Decorativo]` |
-| Text secondary / surface | `[ratio]` | `[AA/Fail]` |
-| Focus / canvas | `[ratio]` | `[AA/Fail]` |
+| Combinación              | Ratio     | Resultado         |
+| ------------------------ | --------- | ----------------- |
+| Primary / onPrimary      | `[ratio]` | `[AA/Fail]`       |
+| Bright / canvas          | `[ratio]` | `[AA/Decorativo]` |
+| Text secondary / surface | `[ratio]` | `[AA/Fail]`       |
+| Focus / canvas           | `[ratio]` | `[AA/Fail]`       |
 
 ## Diferencias permitidas
 
@@ -100,4 +100,3 @@ Justificación si solo existe uno: `[texto]`
 - Responsable técnico: `[nombre]`
 - Versión del tema: `[semver]`
 - Fecha: `[YYYY-MM-DD]`
-

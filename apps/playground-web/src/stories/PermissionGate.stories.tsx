@@ -31,11 +31,7 @@ export default meta;
 
 type Story = StoryObj<typeof PermissionGate>;
 
-type AppPermission =
-  | "cobros.ver"
-  | "cobros.crear"
-  | "cobros.anular"
-  | "reportes.exportar";
+type AppPermission = "cobros.ver" | "cobros.crear" | "cobros.anular" | "reportes.exportar";
 
 const ALL: AppPermission[] = ["cobros.ver", "cobros.crear", "cobros.anular", "reportes.exportar"];
 
@@ -49,13 +45,27 @@ const LABELS: Record<AppPermission, string> = {
 const Gate: (props: PermissionGateProps<AppPermission>) => ReactElement = PermissionGate;
 
 const ICON_TRASH = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14" />
   </svg>
 );
 
 const ICON_DOWNLOAD = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 3v12M7 10l5 5 5-5M4 21h16" />
   </svg>
 );
@@ -92,7 +102,11 @@ function Panel(): ReactElement {
               {ICON_DOWNLOAD}
             </ActionIcon>
             <Menu
-              trigger={<ActionIcon aria-label="Más acciones" variant="ghost">{ICON_DOTS}</ActionIcon>}
+              trigger={
+                <ActionIcon aria-label="Más acciones" variant="ghost">
+                  {ICON_DOTS}
+                </ActionIcon>
+              }
               aria-label="Más acciones"
               items={[
                 { key: "ver", label: "Ver detalle", permission: "cobros.ver" },
@@ -153,7 +167,11 @@ function Panel(): ReactElement {
         <Tabs
           aria-label="Secciones del cobro"
           data={[
-            { value: "resumen", label: "Resumen", content: <Text fz="body3">Resumen del cobro.</Text> },
+            {
+              value: "resumen",
+              label: "Resumen",
+              content: <Text fz="body3">Resumen del cobro.</Text>,
+            },
             {
               value: "auditoria",
               label: "Auditoría",
@@ -181,8 +199,8 @@ function Demo(): ReactElement {
         <Box display="flex" direction="column" gap="sm">
           <Title order={6}>Resolver de ejemplo</Title>
           <Text fz="body3" c="text.secondary">
-            La app inyecta <Code>{"resolver: (key: AppPermission) => boolean"}</Code>. Nebula no conoce
-            ninguna de estas keys: solo las transporta tipadas.
+            La app inyecta <Code>{"resolver: (key: AppPermission) => boolean"}</Code>. Nebula no
+            conoce ninguna de estas keys: solo las transporta tipadas.
           </Text>
           <Box display="flex" gap="md" wrap="wrap">
             {ALL.map((key) => (
@@ -207,8 +225,8 @@ function Demo(): ReactElement {
 
       <Text fz="caption" c="text.muted">
         Los controles y los items de colección llevan la prop <Code>permission</Code>: sin permiso
-        desaparecen, y con <Code>permissionMode=&quot;disable&quot;</Code> se quedan deshabilitados de
-        verdad. <Code>PermissionGate</Code> cubre lo que no es un control —aquí, el detalle del
+        desaparecen, y con <Code>permissionMode=&quot;disable&quot;</Code> se quedan deshabilitados
+        de verdad. <Code>PermissionGate</Code> cubre lo que no es un control —aquí, el detalle del
         cobro— y es el único que necesita <Code>inert</Code>, porque su contenido es arbitrario.
       </Text>
     </Box>

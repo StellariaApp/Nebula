@@ -114,8 +114,8 @@ export const Galeria: Story = {
     <Box maw={720}>
       <ImageGallery images={IMAGES} label="Fotos del expediente" withSlideshow />
       <Text component="p" fz="caption" c="text.muted" mt="sm">
-        Activa una miniatura para abrir el visor: rueda o <code>+</code>/<code>-</code> para el zoom,
-        arrastre o flechas para el encuadre, <code>0</code> para restablecer.
+        Activa una miniatura para abrir el visor: rueda o <code>+</code>/<code>-</code> para el
+        zoom, arrastre o flechas para el encuadre, <code>0</code> para restablecer.
       </Text>
     </Box>
   ),
@@ -125,13 +125,20 @@ function VisorSuelto(): ReactElement {
   const [opened, set_opened] = useState(false);
   return (
     <>
-      <Button variant="outline" onPress={() => { set_opened(true); }}>
+      <Button
+        variant="outline"
+        onPress={() => {
+          set_opened(true);
+        }}
+      >
         Abrir el visor
       </Button>
       <Lightbox
         images={IMAGES}
         opened={opened}
-        onClose={() => { set_opened(false); }}
+        onClose={() => {
+          set_opened(false);
+        }}
         withThumbnails
         withSlideshow
       />
@@ -146,8 +153,8 @@ export const Video: Story = {
     <Box maw={560}>
       <Player src="https://www.w3schools.com/html/mov_bbb.mp4" />
       <Text component="p" fz="caption" c="text.muted" mt="sm">
-        Sin <code>opened</code>, <code>Player</code> es un marco incrustado. Con <code>opened</code>,
-        el mismo marco va dentro de un <code>Modal</code>.
+        Sin <code>opened</code>, <code>Player</code> es un marco incrustado. Con <code>opened</code>
+        , el mismo marco va dentro de un <code>Modal</code>.
       </Text>
     </Box>
   ),
@@ -190,8 +197,8 @@ export const Composition: Story = {
       </Box>
       <ImageGallery images={IMAGES.slice(0, 4)} cols={4} ratio={1} label="Fotos del inmueble" />
       <Text component="p" c="text.secondary" mt="md" maw={520}>
-        La galería abre el visor con zoom, encuadre y pase de diapositivas. El carrusel de abajo repite
-        el mismo contrato de items para una lectura secuencial.
+        La galería abre el visor con zoom, encuadre y pase de diapositivas. El carrusel de abajo
+        repite el mismo contrato de items para una lectura secuencial.
       </Text>
     </Card>
   ),

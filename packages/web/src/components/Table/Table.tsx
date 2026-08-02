@@ -91,7 +91,12 @@ function Row(props: TableRowProps): ReactElement {
 
   return (
     <tr
-      className={cx(styles.row, onPress === undefined ? undefined : styles.pressable, sprinkle_class, className)}
+      className={cx(
+        styles.row,
+        onPress === undefined ? undefined : styles.pressable,
+        sprinkle_class,
+        className,
+      )}
       style={sprinkle_style}
       data-selected={selected ? "true" : undefined}
       {...(selected ? { "aria-selected": true } : {})}

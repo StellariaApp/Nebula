@@ -71,8 +71,8 @@ export const SinAsa: Story = {
     return (
       <Box maw={360}>
         <Text component="p" fz="caption" c="text.muted" mb="xs">
-          Con <code>withHandle=false</code> la fila entera arrastra. El sensor solo activa a partir de
-          6 px, así que un click sobre la fila sigue funcionando.
+          Con <code>withHandle=false</code> la fila entera arrastra. El sensor solo activa a partir
+          de 6 px, así que un click sobre la fila sigue funcionando.
         </Text>
         <SortableList
           items={items}
@@ -149,7 +149,11 @@ function Tablero(): React.ReactElement {
         <KanbanCard
           title={task.title}
           meta={<span>{task.owner}</span>}
-          badge={<Badge variant="light" size="sm">{task.id}</Badge>}
+          badge={
+            <Badge variant="light" size="sm">
+              {task.id}
+            </Badge>
+          }
         />
       )}
       onMove={OnMove}
@@ -166,8 +170,8 @@ export const ReducedMotion: Story = {
     <Box maw={520}>
       <Lista />
       <Text component="p" fz="caption" c="text.muted" mt="sm">
-        El reordenamiento sigue funcionando: lo que se reduce es la transición de la fila que cede el
-        sitio, no la operación.
+        El reordenamiento sigue funcionando: lo que se reduce es la transición de la fila que cede
+        el sitio, no la operación.
       </Text>
     </Box>
   ),
@@ -181,7 +185,8 @@ export const Composition: Story = {
       </Title>
       <Text component="p" c="text.secondary" mb="lg" maw={520}>
         Las tarjetas se arrastran enteras y las columnas aceptan soltar aunque estén vacías. Con
-        teclado: tabula hasta una tarjeta, pulsa espacio, mueve con las flechas y suelta con espacio.
+        teclado: tabula hasta una tarjeta, pulsa espacio, mueve con las flechas y suelta con
+        espacio.
       </Text>
       <Tablero />
     </Box>

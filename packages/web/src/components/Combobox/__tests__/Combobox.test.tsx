@@ -97,7 +97,9 @@ describe("Combobox", () => {
 
   it("marca aria-invalid cuando hay error", () => {
     render(<Combobox label="País" data={DATA} error="Campo obligatorio" />);
-    expect(screen.getByRole("combobox", { name: "País" }).getAttribute("aria-invalid")).toBe("true");
+    expect(screen.getByRole("combobox", { name: "País" }).getAttribute("aria-invalid")).toBe(
+      "true",
+    );
   });
 
   it("refleja el valor controlado en el input", () => {

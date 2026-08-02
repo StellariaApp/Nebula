@@ -29,14 +29,14 @@ si se paga, sino si además se expone.
 2. **La API pública no la menciona.** `value`, `defaultValue` y `onChange` de todos los componentes de
    fecha son **strings ISO 8601**:
 
-   | Componente                        | Formato               | Ejemplo                |
-   | --------------------------------- | --------------------- | ---------------------- |
-   | `DatePicker`, `Calendar`, `DatePickerInput` | `YYYY-MM-DD`  | `"2026-07-29"`         |
-   | `TimeInput`                       | `HH:mm` / `HH:mm:ss`  | `"14:30"`              |
-   | `DateTimePicker`                  | `YYYY-MM-DDTHH:mm`    | `"2026-07-29T14:30"`   |
-   | `MonthPicker`                     | `YYYY-MM`             | `"2026-07"`            |
-   | `YearPicker`                      | `YYYY`                | `"2026"`               |
-   | `DateRangePicker`                 | `DateRange` de tokens | `{ start, end }` de `YYYY-MM-DD` |
+   | Componente                                  | Formato               | Ejemplo                          |
+   | ------------------------------------------- | --------------------- | -------------------------------- |
+   | `DatePicker`, `Calendar`, `DatePickerInput` | `YYYY-MM-DD`          | `"2026-07-29"`                   |
+   | `TimeInput`                                 | `HH:mm` / `HH:mm:ss`  | `"14:30"`                        |
+   | `DateTimePicker`                            | `YYYY-MM-DDTHH:mm`    | `"2026-07-29T14:30"`             |
+   | `MonthPicker`                               | `YYYY-MM`             | `"2026-07"`                      |
+   | `YearPicker`                                | `YYYY`                | `"2026"`                         |
+   | `DateRangePicker`                           | `DateRange` de tokens | `{ start, end }` de `YYYY-MM-DD` |
 
    El valor vacío es `""` (y `{ start: "", end: "" }` en el rango), coherente con `Select`, que ya usa
    `""` como «sin selección». `DateRange` vive en `@stellaria/nebula-tokens`

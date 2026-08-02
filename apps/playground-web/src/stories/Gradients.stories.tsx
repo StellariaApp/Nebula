@@ -170,8 +170,8 @@ export const Composition: Story = {
           Diseña una vez, <GradientText inherit>publica en dos plataformas</GradientText>
         </Title>
         <Text component="p" c="text.secondary" mb="lg" maw={440}>
-          El fondo es el único efecto dominante de la región: el gradiente deriva detrás de un velo, el
-          titular usa el mismo eje cromático y el cuerpo se queda en un rol legible.
+          El fondo es el único efecto dominante de la región: el gradiente deriva detrás de un velo,
+          el titular usa el mismo eje cromático y el cuerpo se queda en un rol legible.
         </Text>
         <Group gap="sm">
           <Button variant="filled">Empezar</Button>

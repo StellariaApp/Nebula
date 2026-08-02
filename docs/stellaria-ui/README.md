@@ -58,4 +58,3 @@ Los archivos históricos `docs/design-style.md` y `docs/page-template.md` siguen
 ## Regla de adopción
 
 Un producto no debe copiar colores hexadecimales o sombras directamente desde Rosette. Debe consumir tokens semánticos y declarar un tema de producto. Si una necesidad no cabe en los tokens existentes, primero se documenta el nuevo rol semántico y después se implementa.
-

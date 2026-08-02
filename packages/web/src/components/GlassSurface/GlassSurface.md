@@ -28,7 +28,7 @@ necesitas jerarquía dentro de un glass, usa `Paper` o un borde, no otro `GlassS
    no-CSS del tema (`docs/02` §4): no existe como var del contract. El atributo `data-glass="off"` deja
    la degradación observable en tests y en el inspector.
 2. **Sin soporte de `backdrop-filter`** — `@supports not ((backdrop-filter: blur(1px)) or
-   (-webkit-backdrop-filter: blur(1px)))` sustituye el fondo translúcido por la var `solidBg`. Sin esa
+(-webkit-backdrop-filter: blur(1px)))` sustituye el fondo translúcido por la var `solidBg`. Sin esa
    rama la superficie quedaría semitransparente sin desenfoque, que es el peor de los dos mundos: se
    ve el contenido de detrás **nítido** a través del panel.
 3. **Forced colors** — `background: Canvas` y `backdrop-filter: none`. La capa de grano se oculta con

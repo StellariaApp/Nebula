@@ -139,10 +139,22 @@ export const Stats: Story = {
   render: () => (
     <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
       <Paper p="lg" radius="md" withBorder>
-        <Stat label="Ingresos" value={MXN.format(68700)} trend="up" diff="12,4 %" description="vs. mes anterior" />
+        <Stat
+          label="Ingresos"
+          value={MXN.format(68700)}
+          trend="up"
+          diff="12,4 %"
+          description="vs. mes anterior"
+        />
       </Paper>
       <Paper p="lg" radius="md" withBorder>
-        <Stat label="Cancelaciones" value="14" trend="down" diff="3,1 %" description="vs. mes anterior" />
+        <Stat
+          label="Cancelaciones"
+          value="14"
+          trend="down"
+          diff="3,1 %"
+          description="vs. mes anterior"
+        />
       </Paper>
       <Paper p="lg" radius="md" withBorder>
         <Stat label="Clientes activos" value="1 284" trend="flat" diff="0 %" size="lg" />

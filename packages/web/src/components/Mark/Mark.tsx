@@ -1,4 +1,10 @@
-import { forwardRef, type CSSProperties, type ElementType, type ReactElement, type Ref } from "react";
+import {
+  forwardRef,
+  type CSSProperties,
+  type ElementType,
+  type ReactElement,
+  type Ref,
+} from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
@@ -11,7 +17,13 @@ import type { MarkOwnProps, MarkProps } from "./Mark.types.js";
 import { markBg, markFg } from "./Mark.vars.css.js";
 
 const MarkComponent = forwardRef<HTMLElement, MarkOwnProps>(function Mark(props, ref) {
-  const { component, color = "warning", className, style, ...rest } = props as MarkOwnProps & {
+  const {
+    component,
+    color = "warning",
+    className,
+    style,
+    ...rest
+  } = props as MarkOwnProps & {
     style?: CSSProperties;
   };
 

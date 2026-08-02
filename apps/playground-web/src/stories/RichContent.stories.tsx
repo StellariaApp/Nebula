@@ -209,8 +209,8 @@ export const Composition: Story = {
         Documentación del componente
       </Title>
       <Text component="p" c="text.secondary" mb="lg" maw={520}>
-        Prosa del CMS, ejemplo de uso por fichero y editor de notas: las tres superficies comparten la
-        tipografía y la escala del tema.
+        Prosa del CMS, ejemplo de uso por fichero y editor de notas: las tres superficies comparten
+        la tipografía y la escala del tema.
       </Text>
       <TypographyStylesProvider mb="lg" dangerouslySetInnerHTML={{ __html: ARTICLE }} />
       <CodeHighlightTabs

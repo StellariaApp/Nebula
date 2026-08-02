@@ -126,4 +126,3 @@ Cuando el producto involucre identidad, adultos, finanzas u otros dominios sensi
 - Layout a 320px sin scroll horizontal accidental.
 - Reduced motion.
 - Lectura correcta sin color ni iconos decorativos.
-

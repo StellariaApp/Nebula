@@ -17,8 +17,10 @@ export interface CreatableSelectProps extends Omit<ComboboxProps, "allowsCustomV
   shouldCreate?: ((label: string, data: readonly SelectOption[]) => boolean) | undefined;
 }
 
-export interface AsyncSelectProps
-  extends Omit<ComboboxProps, "data" | "inputValue" | "onInputChange"> {
+export interface AsyncSelectProps extends Omit<
+  ComboboxProps,
+  "data" | "inputValue" | "onInputChange"
+> {
   load: (query: string) => Promise<readonly SelectOption[]>;
   debounce?: number | undefined;
   minQueryLength?: number | undefined;

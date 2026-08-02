@@ -4,11 +4,7 @@ import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export type IndicatorPlacement =
-  | "top-start"
-  | "top-end"
-  | "bottom-start"
-  | "bottom-end";
+export type IndicatorPlacement = "top-start" | "top-end" | "bottom-start" | "bottom-end";
 
 export interface IndicatorProps extends Omit<StyleProps, "color"> {
   children: ReactNode;

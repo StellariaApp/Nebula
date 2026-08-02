@@ -11,36 +11,36 @@ tres primeros **subpath exports** del paquete.
 
 ## Entregables contra el roadmap
 
-| Tramo    | Entregable                                                                                                     | Estado |
-| -------- | ---------------------------------------------------------------------------------------------------------------- | ------ |
-| **W3.1** | Calendar, DatePicker(+Input), DateRangePicker, DateTimePicker, TimeInput, MonthPicker, YearPicker                | ✅     |
-| **W3.1** | ColorInput/ColorPicker, FileInput, TagsInput, PinInput, Rating, Fieldset, JsonInput, Slider/RangeSlider, Chip     | ✅     |
-| **W3.2** | InputPhone, InputDial, InputCurrency, Signature, Dropzone                                                        | ✅     |
-| **W3.2** | Form orquestador, FormDelete, ModalDelete, Stepper (+`useStepper`)                                              | ✅     |
-| **W3.2** | Autocomplete, SearchableSelect, CreatableSelect, AsyncSelect                                                     | ✅     |
-| **W3.3** | Table, Timeline, Accordion genérico, GridList, Stat, Spoiler, Kbd, ThemeIcon, ColorSwatch, Image, Indicator, Tag, Banderole | ✅ |
-| **W3.3** | StatusBadge (+StatusMapProvider), CurrencyDisplay, DateDisplay, InfiniteList, SearchableList, EmptyModule, QuickAction | ✅ |
-| **W3.3** | PermissionGate + `usePermission`/`PermissionProvider` + prop `permission` en el catálogo                          | ✅     |
-| **W3.4** | Search, Filter/Filters (descriptor declarativo)                                                                  | ✅     |
-| **W3.4** | CommandPalette — subpath `/command`                                                                              | ✅     |
-| **W3.4** | DataGrid básico — subpath `/datagrid`                                                                            | ✅     |
-| **W3.4** | Charts básicos + SparkLine + TrendIndicator — subpath `/charts`                                                  | ✅     |
-| **W3.5** | AppShell, Panel, Section, Main, Banner, Feature, Burger, NProgress, LoadingOverlay, Dialog, HoverCard, Affix, Overlay | ✅ |
-| **W3.5** | **CardComplex** con los grupos de props cerrados en checkpoint                                                    | ✅     |
+| Tramo    | Entregable                                                                                                                  | Estado |
+| -------- | --------------------------------------------------------------------------------------------------------------------------- | ------ |
+| **W3.1** | Calendar, DatePicker(+Input), DateRangePicker, DateTimePicker, TimeInput, MonthPicker, YearPicker                           | ✅     |
+| **W3.1** | ColorInput/ColorPicker, FileInput, TagsInput, PinInput, Rating, Fieldset, JsonInput, Slider/RangeSlider, Chip               | ✅     |
+| **W3.2** | InputPhone, InputDial, InputCurrency, Signature, Dropzone                                                                   | ✅     |
+| **W3.2** | Form orquestador, FormDelete, ModalDelete, Stepper (+`useStepper`)                                                          | ✅     |
+| **W3.2** | Autocomplete, SearchableSelect, CreatableSelect, AsyncSelect                                                                | ✅     |
+| **W3.3** | Table, Timeline, Accordion genérico, GridList, Stat, Spoiler, Kbd, ThemeIcon, ColorSwatch, Image, Indicator, Tag, Banderole | ✅     |
+| **W3.3** | StatusBadge (+StatusMapProvider), CurrencyDisplay, DateDisplay, InfiniteList, SearchableList, EmptyModule, QuickAction      | ✅     |
+| **W3.3** | PermissionGate + `usePermission`/`PermissionProvider` + prop `permission` en el catálogo                                    | ✅     |
+| **W3.4** | Search, Filter/Filters (descriptor declarativo)                                                                             | ✅     |
+| **W3.4** | CommandPalette — subpath `/command`                                                                                         | ✅     |
+| **W3.4** | DataGrid básico — subpath `/datagrid`                                                                                       | ✅     |
+| **W3.4** | Charts básicos + SparkLine + TrendIndicator — subpath `/charts`                                                             | ✅     |
+| **W3.5** | AppShell, Panel, Section, Main, Banner, Feature, Burger, NProgress, LoadingOverlay, Dialog, HoverCard, Affix, Overlay       | ✅     |
+| **W3.5** | **CardComplex** con los grupos de props cerrados en checkpoint                                                              | ✅     |
 
 ## Gate verificable
 
-| Criterio                                       | Resultado                                                                 |
-| ---------------------------------------------- | ------------------------------------------------------------------------- |
-| `pnpm turbo build typecheck lint`              | **25/25 tareas**                                                          |
-| `pnpm turbo test`                              | **755** web · 24 hooks · 27 themes · 15 icons                             |
-| `pnpm --filter @stellaria/nebula-web size`     | **157 entradas · 0 excedidas**; 130/130 componentes con presupuesto        |
-| `pnpm --filter playground-web a11y` (axe)      | **74 suites / 477 tests · 0 violaciones**                                 |
-| `pnpm check:contrast`                          | 5 temas · 590 pares · **0 FAIL**                                          |
-| Keyboard tests de DataGrid                     | sorting por cabecera, selección por casilla, paginación y fila con Enter   |
-| Virtualización ≥50 items                       | `DataGrid` a partir de `virtualizeFrom` (50 por defecto), con test de umbral |
-| Presets sober/playful                          | láminas `AllThemes` en cada familia nueva                                  |
-| Subpaths aislados                              | ver §Subpaths                                                             |
+| Criterio                                   | Resultado                                                                    |
+| ------------------------------------------ | ---------------------------------------------------------------------------- |
+| `pnpm turbo build typecheck lint`          | **25/25 tareas**                                                             |
+| `pnpm turbo test`                          | **755** web · 24 hooks · 27 themes · 15 icons                                |
+| `pnpm --filter @stellaria/nebula-web size` | **157 entradas · 0 excedidas**; 130/130 componentes con presupuesto          |
+| `pnpm --filter playground-web a11y` (axe)  | **74 suites / 477 tests · 0 violaciones**                                    |
+| `pnpm check:contrast`                      | 5 temas · 590 pares · **0 FAIL**                                             |
+| Keyboard tests de DataGrid                 | sorting por cabecera, selección por casilla, paginación y fila con Enter     |
+| Virtualización ≥50 items                   | `DataGrid` a partir de `virtualizeFrom` (50 por defecto), con test de umbral |
+| Presets sober/playful                      | láminas `AllThemes` en cada familia nueva                                    |
+| Subpaths aislados                          | ver §Subpaths                                                                |
 
 ## Subpaths
 
@@ -48,11 +48,11 @@ Tres exports nuevos, ninguno alcanzable desde el barrel. Verificado sobre `dist/
 `Button` pesa **50,46 kB** y no menciona `recharts`, `@tanstack/*`, `DataGrid`, `BarChart` ni
 `CommandPalette`.
 
-| Subpath     | Contenido                                    | Dependencias nuevas                              |
-| ----------- | -------------------------------------------- | ------------------------------------------------ |
-| `/command`  | CommandPalette + CommandScore                | **ninguna** (ADR-057)                            |
+| Subpath     | Contenido                                    | Dependencias nuevas                                |
+| ----------- | -------------------------------------------- | -------------------------------------------------- |
+| `/command`  | CommandPalette + CommandScore                | **ninguna** (ADR-057)                              |
 | `/datagrid` | DataGrid                                     | `@tanstack/react-table`, `@tanstack/react-virtual` |
-| `/charts`   | Bar/Line/Area/Pie + SparkLine/TrendIndicator | `recharts`                                       |
+| `/charts`   | Bar/Line/Area/Pie + SparkLine/TrendIndicator | `recharts`                                         |
 
 El aislamiento no lo da el build sino que `src/index.ts` no reexporta nada de ellos; `preserveModules`
 mantiene el árbol y cada entry sale por su lado.
@@ -61,16 +61,16 @@ mantiene el árbol y cada entry sale por su lado.
 
 19 ADRs entre el **040** y el **058**. Los que cambian contrato o cierran supuestos del roadmap:
 
-| ADR     | Decisión                                                                                | Supuesto |
-| ------- | ----------------------------------------------------------------------------------------- | -------- |
-| **050** | El valor de fecha que cruza la API pública es un string ISO, no `Date`                    | —        |
-| **051** | Banda «compuestos de fecha ≤90 kB» y sinceramiento de «colección ≤80»                     | —        |
-| **054** | `Accordion` genérico sobre `Multiple` (cambio incompatible, asumido)                      | —        |
-| **055** | El mapa de estados de `StatusBadge` **no** entra en `NebulaTheme`                          | —        |
-| **056** | Prop `permission` en el catálogo + registro de keys por declaration merging                | —        |
-| **057** | `CommandPalette` propio sobre React Aria; **cmdk descartado**                              | **#6** (mitad) |
-| **058** | Deps de DataGrid y charts, con el coste de Recharts medido                                 | —        |
-| —       | Grupos de props de `CardComplex` (checkpoint, registrado en `docs/01` §4)                  | **#8**   |
+| ADR     | Decisión                                                                    | Supuesto       |
+| ------- | --------------------------------------------------------------------------- | -------------- |
+| **050** | El valor de fecha que cruza la API pública es un string ISO, no `Date`      | —              |
+| **051** | Banda «compuestos de fecha ≤90 kB» y sinceramiento de «colección ≤80»       | —              |
+| **054** | `Accordion` genérico sobre `Multiple` (cambio incompatible, asumido)        | —              |
+| **055** | El mapa de estados de `StatusBadge` **no** entra en `NebulaTheme`           | —              |
+| **056** | Prop `permission` en el catálogo + registro de keys por declaration merging | —              |
+| **057** | `CommandPalette` propio sobre React Aria; **cmdk descartado**               | **#6** (mitad) |
+| **058** | Deps de DataGrid y charts, con el coste de Recharts medido                  | —              |
+| —       | Grupos de props de `CardComplex` (checkpoint, registrado en `docs/01` §4)   | **#8**         |
 
 **ADR-038 queda ejecutado**: los cinco componentes que su regla 6 nombraba nacieron con su subconjunto
 de `variant` — Chip (W3.1), Stepper (W3.2), StatusBadge (W3.3), CardComplex y Banner (W3.5). Ninguno

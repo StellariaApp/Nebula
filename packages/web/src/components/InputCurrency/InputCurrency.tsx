@@ -82,7 +82,8 @@ export const InputCurrency = forwardRef<HTMLInputElement, InputCurrencyProps>(
     };
 
     const display =
-      draft ?? (Number.isFinite(fp.value) ? FormatAmount(fp.value, locale, currency, precision) : "");
+      draft ??
+      (Number.isFinite(fp.value) ? FormatAmount(fp.value, locale, currency, precision) : "");
 
     return (
       <FormField

@@ -4,10 +4,7 @@ import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export type BadgeVariant = Extract<
-  Variant,
-  "filled" | "outline" | "light" | "ghost" | "gradient"
->;
+export type BadgeVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost" | "gradient">;
 
 export interface BadgeProps extends Omit<StyleProps, "color"> {
   children?: ReactNode | undefined;

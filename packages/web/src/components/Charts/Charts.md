@@ -52,11 +52,11 @@ texto solo-lector (`al alza` / `a la baja` / `sin cambios`).
 `docs/w3-closure.md` §Deuda 2 dejó el número escrito «por si el coste justifica reabrir ADR-011 en W4,
 cuando lleguen los charts completos». Medido ahora, con los charts completos dentro:
 
-| Entrada          | Medido      | Con Recharts |
-| ---------------- | ----------- | ------------ |
-| `BarChart`       | 115,54 kB   | sí           |
-| `SparkLine`      | 13,47 kB    | **no**       |
-| `TrendIndicator` | 11,18 kB    | **no**       |
+| Entrada          | Medido    | Con Recharts |
+| ---------------- | --------- | ------------ |
+| `BarChart`       | 115,54 kB | sí           |
+| `SparkLine`      | 13,47 kB  | **no**       |
+| `TrendIndicator` | 11,18 kB  | **no**       |
 
 El coste creció 1,6 kB respecto a W3.4 (113,94 → 115,54) al entrar `RadarChart`, que reutiliza el
 motor ya presente. **No se reabre ADR-011**, y la razón es que ninguna de las dos condiciones que

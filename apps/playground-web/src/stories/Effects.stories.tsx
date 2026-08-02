@@ -115,13 +115,21 @@ export const Guardrail: Story = {
 
 export const VeloConBlur: Story = {
   render: () => (
-    <Box position="relative" maw={420} p="lg" r="lg" bg="surface.raised" style={{ isolation: "isolate" }}>
+    <Box
+      position="relative"
+      maw={420}
+      p="lg"
+      r="lg"
+      bg="surface.raised"
+      style={{ isolation: "isolate" }}
+    >
       <Title order={4} mb="xxs">
         Proyección trimestral
       </Title>
       <Text component="p" fz="body2" c="text.secondary">
-        El detalle de la proyección queda ilegible hasta desbloquear el módulo. El desenfoque no oculta
-        el contenido de un lector de pantalla: la región de detrás va marcada con <code>inert</code>.
+        El detalle de la proyección queda ilegible hasta desbloquear el módulo. El desenfoque no
+        oculta el contenido de un lector de pantalla: la región de detrás va marcada con{" "}
+        <code>inert</code>.
       </Text>
       <BlurOverlay radius="lg" center>
         <Button variant="filled" size="sm">
@@ -186,7 +194,12 @@ export const ReducedMotion: Story = {
 export const Composition: Story = {
   render: () => (
     <Box position="relative" r="xl" style={{ overflow: "hidden", isolation: "isolate" }}>
-      <MeshGradientBg gradient="brand" grain radius="xl" style={{ position: "absolute", inset: 0 }} />
+      <MeshGradientBg
+        gradient="brand"
+        grain
+        radius="xl"
+        style={{ position: "absolute", inset: 0 }}
+      />
       <Box position="relative" p="xl">
         <Group justify="space-between" mb="lg">
           <Text component="p" fz="caption" fw="semibold" tt="uppercase" ls="wide" c="text.muted">

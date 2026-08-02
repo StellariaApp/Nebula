@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { useMotionValue, useReducedMotion, useSpring, type MotionValue, type PanInfo } from "motion/react";
+import {
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type MotionValue,
+  type PanInfo,
+} from "motion/react";
 
 import { Rubber } from "../../utils/rubber.js";
 
@@ -169,9 +175,7 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
       const flick = Math.abs(info.velocity.x) > FLICK_VELOCITY;
       const step = flick ? (info.velocity.x > 0 ? 1 : -1) : 0;
       const nearest = Nearest(center);
-      const index = flick
-        ? Math.min(count - 1, Math.max(0, activeIndex + step))
-        : nearest;
+      const index = flick ? Math.min(count - 1, Math.max(0, activeIndex + step)) : nearest;
       onSelect(index);
     },
     [rects, activeIndex, count, Nearest, onSelect, target_x],

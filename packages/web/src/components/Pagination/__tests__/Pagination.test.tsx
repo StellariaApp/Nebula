@@ -62,9 +62,9 @@ describe("Pagination", () => {
 
   it("deshabilita el anterior en la primera página", () => {
     render(<Pagination total={5} defaultPage={1} />);
-    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Página anterior" }).disabled).toBe(
-      true,
-    );
+    expect(
+      screen.getByRole<HTMLButtonElement>("button", { name: "Página anterior" }).disabled,
+    ).toBe(true);
   });
 
   it("withEdges añade primera y última", () => {

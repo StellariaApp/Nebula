@@ -153,7 +153,13 @@ describe("ChartPanel", () => {
     render(
       <ChartPanel
         panels={[
-          { id: "a", title: "T", description: "D", action: <button type="button">A</button>, content: <p>c</p> },
+          {
+            id: "a",
+            title: "T",
+            description: "D",
+            action: <button type="button">A</button>,
+            content: <p>c</p>,
+          },
         ]}
       />,
     );

@@ -2,7 +2,14 @@ import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, NumberInput, PasswordInput, SearchInput, Textarea, TextInput } from "@stellaria/nebula-web";
+import {
+  Box,
+  NumberInput,
+  PasswordInput,
+  SearchInput,
+  Textarea,
+  TextInput,
+} from "@stellaria/nebula-web";
 
 const meta: Meta = {
   title: "Forms/Inputs",
@@ -35,7 +42,11 @@ export const Sizes: Story = {
 export const Password: Story = {
   render: () => (
     <Box maw={360}>
-      <PasswordInput label="Contraseña" description="Mínimo 8 caracteres" defaultValue="secreto123" />
+      <PasswordInput
+        label="Contraseña"
+        description="Mínimo 8 caracteres"
+        defaultValue="secreto123"
+      />
     </Box>
   ),
 };

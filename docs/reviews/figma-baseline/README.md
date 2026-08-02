@@ -4,12 +4,12 @@
 > complementa después. **Las imágenes no se versionan**: viven en `.figma/` (ignorado), el refine se
 > hace en local. Lo que sí está en el repo es este índice, las medidas derivadas y el instrumento.
 
-| Artefacto | Ruta | Versionado |
-| --------- | ---- | ---------- |
-| Imágenes fuente (93 PNG, 7 MB) | `.figma/` | ❌ (`.gitignore`) |
-| Medidas derivadas | `docs/reviews/figma-baseline/measurements.json` | ✅ |
-| Tabla tipográfica de Geist | `docs/reviews/figma-baseline/type-scale.json` | ✅ |
-| Instrumento | `tools/figma-measure/` | ✅ |
+| Artefacto                      | Ruta                                            | Versionado        |
+| ------------------------------ | ----------------------------------------------- | ----------------- |
+| Imágenes fuente (93 PNG, 7 MB) | `.figma/`                                       | ❌ (`.gitignore`) |
+| Medidas derivadas              | `docs/reviews/figma-baseline/measurements.json` | ✅                |
+| Tabla tipográfica de Geist     | `docs/reviews/figma-baseline/type-scale.json`   | ✅                |
+| Instrumento                    | `tools/figma-measure/`                          | ✅                |
 
 ---
 
@@ -20,10 +20,10 @@ son dos anclas independientes contra los valores que
 [`geometria-figma-vs-nebula-2026-07-28.md`](../geometria-figma-vs-nebula-2026-07-28.md) sí llegó a
 sacar por API antes del 429:
 
-| Elemento | Medido en el PNG | API (julio) |
-| -------- | ---------------- | ----------- |
-| `Pagination Item`, alto de la píldora | **27 px** | ~27 px (hug: 6+6 + texto 12) |
-| `Metric Card`, grosor de borde | **1 px** (752×120 sobre un relleno de 750×118) | 1 px |
+| Elemento                              | Medido en el PNG                               | API (julio)                  |
+| ------------------------------------- | ---------------------------------------------- | ---------------------------- |
+| `Pagination Item`, alto de la píldora | **27 px**                                      | ~27 px (hug: 6+6 + texto 12) |
+| `Metric Card`, grosor de borde        | **1 px** (752×120 sobre un relleno de 750×118) | 1 px                         |
 
 **Cómo re-verificar antes de fiarte de una hoja concreta**: busca en ella un borde que el diseño
 declare de 1 px y comprueba que mide 1 píxel. Las dos anclas cubren dos hojas de noventa y tres; el
@@ -73,12 +73,12 @@ no deja tinta: eso queda como NO MEDIDO hasta que vuelva la API.
 
 Salen de `measurements.json` y sirven de ejemplo de lo que el instrumento da sin trabajo manual:
 
-| Componente | Medida |
-| ---------- | ------ |
-| `Field` | Input **168 px** de ancho; el halo de foco añade **4 px por lado** (176 contra 168) |
-| `Pagination Item` | Píldora **27 px** de alto; la deshabilitada mide **36×27** |
-| `Metric Card` | Relleno **750×118**, borde **1 px** |
-| `Divider` | Marco 318×182 → **90 px** por esquema |
+| Componente        | Medida                                                                              |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `Field`           | Input **168 px** de ancho; el halo de foco añade **4 px por lado** (176 contra 168) |
+| `Pagination Item` | Píldora **27 px** de alto; la deshabilitada mide **36×27**                          |
+| `Metric Card`     | Relleno **750×118**, borde **1 px**                                                 |
+| `Divider`         | Marco 318×182 → **90 px** por esquema                                               |
 
 ## 5. Mapeo Polaris → familia de WR2
 
@@ -87,16 +87,16 @@ dominio** (Invoice Row, Warehouse Card, Client Card, Production Stage…). Las d
 descartan**: son la mejor evidencia de composición —cómo el diseño combina las piezas del sistema en
 algo real—, que es lo que la sección «Coherencia de familia» busca.
 
-| Familia WR2 | Hojas de referencia |
-| ----------- | ------------------- |
-| **WR2.1** Layout y superficie | Divider, Template, Toolbar, Sidebar, Sidebar Company, Sidebar Warehouse, Chat Panel, Notifications Panel, Permission Section, Brand Panel/Auth |
-| **WR2.2** Tipografía y contenido | Text, Title, Link, Section Label, Keyboard Hint |
-| **WR2.3** Acciones y navegación | Button, Icon Button, Breadcrumbs, Pagination, Pagination Item, Stepper, Stepper Step, Nav Tab Bar, Nav Tab Item, Sidebar Nav Item, Menu Item, Mobile Header, Header |
-| **WR2.4** Campos de formulario | Field, FieldSearch, FieldSelect, FieldPills, Checkbox, Radio, Toggle, Pill, Pills, Role Chip, Strength Meter, Image Upload Zone |
-| **WR2.5** Colecciones y overlays | Modal, User Options Menu, Floating Indicator |
-| **WR2.6** Datos y feedback | Badge, Avatar, Status Icon, Toast, Error Banner, Empty State, Table Header, Metric Card, Plan Card, Module Card, Service Card, Provider Card, User Card, Client Card, Company Card, Address Card, Billing Account Card, Warehouse Card, Notification Item, y todas las filas de dominio (`* Row`, `* Entry`, `* Node`, `* Item`) |
-| **WR2.7** Fechas y media | Map, Warehouse Map, Chat Message, Logo |
-| **WR2.8** Efectos y DnD | — (el diseño no cubre esta familia; queda NO MEDIDO) |
+| Familia WR2                      | Hojas de referencia                                                                                                                                                                                                                                                                                                              |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **WR2.1** Layout y superficie    | Divider, Template, Toolbar, Sidebar, Sidebar Company, Sidebar Warehouse, Chat Panel, Notifications Panel, Permission Section, Brand Panel/Auth                                                                                                                                                                                   |
+| **WR2.2** Tipografía y contenido | Text, Title, Link, Section Label, Keyboard Hint                                                                                                                                                                                                                                                                                  |
+| **WR2.3** Acciones y navegación  | Button, Icon Button, Breadcrumbs, Pagination, Pagination Item, Stepper, Stepper Step, Nav Tab Bar, Nav Tab Item, Sidebar Nav Item, Menu Item, Mobile Header, Header                                                                                                                                                              |
+| **WR2.4** Campos de formulario   | Field, FieldSearch, FieldSelect, FieldPills, Checkbox, Radio, Toggle, Pill, Pills, Role Chip, Strength Meter, Image Upload Zone                                                                                                                                                                                                  |
+| **WR2.5** Colecciones y overlays | Modal, User Options Menu, Floating Indicator                                                                                                                                                                                                                                                                                     |
+| **WR2.6** Datos y feedback       | Badge, Avatar, Status Icon, Toast, Error Banner, Empty State, Table Header, Metric Card, Plan Card, Module Card, Service Card, Provider Card, User Card, Client Card, Company Card, Address Card, Billing Account Card, Warehouse Card, Notification Item, y todas las filas de dominio (`* Row`, `* Entry`, `* Node`, `* Item`) |
+| **WR2.7** Fechas y media         | Map, Warehouse Map, Chat Message, Logo                                                                                                                                                                                                                                                                                           |
+| **WR2.8** Efectos y DnD          | — (el diseño no cubre esta familia; queda NO MEDIDO)                                                                                                                                                                                                                                                                             |
 
 ## 6. Cómo usar el instrumento
 

@@ -8,26 +8,26 @@
 
 Las dos escalas son progresiones de +4 desfasadas 2 px:
 
-| Escala             | Valores en px                          |
-| ------------------ | -------------------------------------- |
-| Nebula (`radius`)  | 0 · **2** · **6** · **10** · **14** · 20 · 28 |
-| Figma (medidos)    | — · **4** · **8** · **12** · 14 · **16** · 999 |
+| Escala            | Valores en px                                  |
+| ----------------- | ---------------------------------------------- |
+| Nebula (`radius`) | 0 · **2** · **6** · **10** · **14** · 20 · 28  |
+| Figma (medidos)   | — · **4** · **8** · **12** · 14 · **16** · 999 |
 
 Solo coinciden en 6 —el ítem de paginación— y en 14. El diseño redondea sistemáticamente más: 12 en
 cards y paneles contra 10 de Nebula, 16 en el Modal contra 14.
 
 El censo de consumidores es de **72 usos** en `packages/web/src`:
 
-| Token | Usos |
-| ----- | ---: |
-| `sm`  |   22 |
-| `full`|   17 |
-| `md`  |   15 |
-| `xs`  |    6 |
-| `lg`  |    6 |
-| `xxs` |    2 |
-| `xxl` |    2 |
-| `xl`  |    2 |
+| Token  | Usos |
+| ------ | ---: |
+| `sm`   |   22 |
+| `full` |   17 |
+| `md`   |   15 |
+| `xs`   |    6 |
+| `lg`   |    6 |
+| `xxs`  |    2 |
+| `xxl`  |    2 |
+| `xl`   |    2 |
 
 Todos consumen el token por nombre, ninguno escribe un valor: re-fasar la escala mueve los 72 sin
 tocar un solo `.css.ts`.

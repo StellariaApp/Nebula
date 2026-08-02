@@ -4,12 +4,12 @@ Los cuatro son composiciones sobre la primitiva `Combobox` (§1.5 del inventario
 implementaciones nuevas: el motor de React Aria, el popover, la lista y el contrato de campo ya
 estaban. Por eso los cuatro miden lo mismo que `Combobox` más unos cientos de bytes.
 
-| Patrón | Qué añade |
-| ------ | --------- |
-| `Autocomplete` | `allowsCustomValue` — el valor escrito vale aunque no esté en la lista |
-| `SearchableSelect` | Lo contrario: filtra pero solo deja elegir de la lista |
-| `CreatableSelect` | Una opción sintética «Crear …» cuando lo escrito no existe |
-| `AsyncSelect` | Debounce sobre la consulta y carga remota con estado |
+| Patrón             | Qué añade                                                              |
+| ------------------ | ---------------------------------------------------------------------- |
+| `Autocomplete`     | `allowsCustomValue` — el valor escrito vale aunque no esté en la lista |
+| `SearchableSelect` | Lo contrario: filtra pero solo deja elegir de la lista                 |
+| `CreatableSelect`  | Una opción sintética «Crear …» cuando lo escrito no existe             |
+| `AsyncSelect`      | Debounce sobre la consulta y carga remota con estado                   |
 
 ## `CreatableSelect` marca la opción nueva con un prefijo reservado
 

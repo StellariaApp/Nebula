@@ -45,8 +45,13 @@ function BuildVariantPairs(): ContrastPair[] {
         label: `variantMap.${variant} · ${scale} (texto)`,
         fg: (t) => VariantForeground(t, variant, scale),
         bg: (t) =>
-          ResolveBackground(t, variant, t.variantMap[variant], scale, VariantForeground(t, variant, scale))
-            ?.bg ?? t.colors.surface.base,
+          ResolveBackground(
+            t,
+            variant,
+            t.variantMap[variant],
+            scale,
+            VariantForeground(t, variant, scale),
+          )?.bg ?? t.colors.surface.base,
         min: 4.5,
       });
 
@@ -58,8 +63,8 @@ function BuildVariantPairs(): ContrastPair[] {
           const recipe = t.variantMap[variant];
           const hovered = { ...recipe, background: ShiftRef(recipe.background, 1) };
           return (
-            ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))?.bg ??
-            t.colors.surface.base
+            ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))
+              ?.bg ?? t.colors.surface.base
           );
         },
         min: 4.5,

@@ -5,10 +5,10 @@
 `InputPhone` gobierna **dos valores independientes**, como el `InputPhone` de fonicredito
 (`field` + `fieldDial`):
 
-| Prop | Valor | Ejemplo |
-| ---- | ----- | ------- |
-| `field` · `value` · `onChange` | número nacional, solo dígitos, espacios y guiones | `"5512345678"` |
-| `fieldDial` · `dialValue` · `onDialChange` | **código ISO del país**, no el prefijo | `"MX"` |
+| Prop                                       | Valor                                             | Ejemplo        |
+| ------------------------------------------ | ------------------------------------------------- | -------------- |
+| `field` · `value` · `onChange`             | número nacional, solo dígitos, espacios y guiones | `"5512345678"` |
+| `fieldDial` · `dialValue` · `onDialChange` | **código ISO del país**, no el prefijo            | `"MX"`         |
 
 El prefijo no puede ser la clave de la selección: `+1` son Estados Unidos, Canadá y una docena de
 países más. `DialByCode("MX")?.dial` lo traduce cuando hay que componer el E.164 (ADR-053 punto 6).

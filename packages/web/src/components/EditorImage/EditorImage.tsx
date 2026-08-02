@@ -37,11 +37,7 @@ export function EditorImage(props: EditorImageProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? EDITOR_IMAGE_LABELS : { ...EDITOR_IMAGE_LABELS, ...labels }),

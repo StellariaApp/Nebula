@@ -25,7 +25,11 @@ export interface FieldPropsResult<T> {
 export function useFieldProps<T>(input: UseFieldPropsInput<T>): FieldPropsResult<T> {
   const { field, value, defaultValue, onChange, error, disabled = false, required = false } = input;
 
-  const [uncontrolled_value, set_uncontrolled_value] = useUncontrolled(value, defaultValue, onChange);
+  const [uncontrolled_value, set_uncontrolled_value] = useUncontrolled(
+    value,
+    defaultValue,
+    onChange,
+  );
 
   const resolved_value = field ? field.value : uncontrolled_value;
   const resolved_on_change = field ? field.setValue : set_uncontrolled_value;

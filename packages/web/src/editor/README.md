@@ -2,10 +2,10 @@
 
 Subpath de contenido enriquecido. Dos componentes con dependencias muy distintas:
 
-| Componente       | Dependencia                                              |
-| ---------------- | -------------------------------------------------------- |
-| `RichTextEditor` | `@tiptap/react` + `@tiptap/starter-kit` (directas, MIT)   |
-| `EditorImage`    | **Pintura — peer opcional, licencia comercial**           |
+| Componente       | Dependencia                                             |
+| ---------------- | ------------------------------------------------------- |
+| `RichTextEditor` | `@tiptap/react` + `@tiptap/starter-kit` (directas, MIT) |
+| `EditorImage`    | **Pintura — peer opcional, licencia comercial**         |
 
 ## `RichTextEditor`
 

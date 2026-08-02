@@ -6,8 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 export type FieldsetSurface = Exclude<FieldSurface, "underline">;
 
 export interface FieldsetProps
-  extends Omit<ComponentPropsWithoutRef<"fieldset">, "color" | "disabled">,
-    StyleProps {
+  extends Omit<ComponentPropsWithoutRef<"fieldset">, "color" | "disabled">, StyleProps {
   legend?: ReactNode | undefined;
   description?: ReactNode | undefined;
   surface?: FieldsetSurface | undefined;

@@ -11,17 +11,17 @@
 
 W3.1 midió la cadena de fechas con `size-limit` por módulo, brotli, tras `pnpm build`:
 
-| Módulo                          | Medido   |
-| ------------------------------- | -------- |
-| YearPicker                      | 19,81 kB |
-| MonthPicker                     | 20,64 kB |
-| RangeCalendar                   | 42,39 kB |
-| Calendar                        | 42,62 kB |
-| TimeInput                       | 58,28 kB |
-| DatePickerInput                 | 70,19 kB |
-| DateTimePicker                  | 84,17 kB |
-| DatePicker                      | 84,20 kB |
-| DateRangePicker                 | 84,89 kB |
+| Módulo          | Medido   |
+| --------------- | -------- |
+| YearPicker      | 19,81 kB |
+| MonthPicker     | 20,64 kB |
+| RangeCalendar   | 42,39 kB |
+| Calendar        | 42,62 kB |
+| TimeInput       | 58,28 kB |
+| DatePickerInput | 70,19 kB |
+| DateTimePicker  | 84,17 kB |
+| DatePicker      | 84,20 kB |
+| DateRangePicker | 84,89 kB |
 
 La tabla de `docs/03` §3 declara **compuestos ≤48 kB** y **patterns ≤70 kB**. Tres de los nueve
 módulos exceden la banda superior en ~21 %.

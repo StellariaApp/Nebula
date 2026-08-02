@@ -105,8 +105,8 @@ export const Ligeros: Story = {
       <Box display="flex" direction="column" gap="xs">
         <Title order={6}>SparkLine y TrendIndicator</Title>
         <Text fz="body3" c="text.secondary">
-          Los dos se dibujan con SVG propio y no arrastran Recharts: 12 y 10 kB frente a los 114 de un
-          BarChart. Por eso pueden vivir dentro de una tarjeta o de una fila de tabla.
+          Los dos se dibujan con SVG propio y no arrastran Recharts: 12 y 10 kB frente a los 114 de
+          un BarChart. Por eso pueden vivir dentro de una tarjeta o de una fila de tabla.
         </Text>
       </Box>
 
@@ -118,7 +118,11 @@ export const Ligeros: Story = {
           </Box>
         </Card>
         <Card p="md" withBorder radius="md">
-          <Stat label="Devoluciones" value="3 100" diff={<TrendIndicator value={-12} invertColors />} />
+          <Stat
+            label="Devoluciones"
+            value="3 100"
+            diff={<TrendIndicator value={-12} invertColors />}
+          />
           <Box mt="sm">
             <SparkLine data={[32, 28, 41, 26, 39, 31]} color="error" label="Devoluciones" />
           </Box>

@@ -1,6 +1,12 @@
 import type { ReactNode } from "react";
 
-import type { ColorExtended, DateRange, NebulaField, Size, Variant } from "@stellaria/nebula-tokens";
+import type {
+  ColorExtended,
+  DateRange,
+  NebulaField,
+  Size,
+  Variant,
+} from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 

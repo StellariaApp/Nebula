@@ -236,7 +236,9 @@ export function Combobox(props: ComboboxProps): ReactElement {
                   {...(emptyLabel === undefined ? {} : { emptyLabel })}
                   {...(virtualizeFrom === undefined ? {} : { virtualizeFrom })}
                   {...(optionHeight === undefined ? {} : { rowHeight: optionHeight })}
-                  {...(maxDropdownHeight === undefined ? {} : { viewportHeight: maxDropdownHeight })}
+                  {...(maxDropdownHeight === undefined
+                    ? {}
+                    : { viewportHeight: maxDropdownHeight })}
                 />
                 <DismissButton onDismiss={Close} />
               </OverlayMotion>

@@ -115,9 +115,7 @@ describe("DatePickerInput", () => {
 
 describe("DateRangePicker", () => {
   it("expone dos grupos de segmentos", () => {
-    render(
-      <DateRangePicker label="Periodo" value={{ start: "2026-07-01", end: "2026-07-31" }} />,
-    );
+    render(<DateRangePicker label="Periodo" value={{ start: "2026-07-01", end: "2026-07-31" }} />);
     expect(screen.getAllByRole("spinbutton").length).toBeGreaterThanOrEqual(6);
   });
 

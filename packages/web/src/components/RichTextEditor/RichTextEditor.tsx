@@ -40,11 +40,7 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? RICH_TEXT_LABELS : { ...RICH_TEXT_LABELS, ...labels }),

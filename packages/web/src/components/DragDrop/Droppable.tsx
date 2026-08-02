@@ -11,11 +11,7 @@ import type { DroppableProps } from "./DragDrop.types.js";
 
 export function Droppable(props: DroppableProps): ReactElement {
   const { id, children, disabled = false, label, className, ...style_rest } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const { setNodeRef, isOver } = useDroppable({ id, disabled });
 

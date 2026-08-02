@@ -39,11 +39,7 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const keys = useMemo(() => items.map((item, index) => getKey(item, index)), [items, getKey]);
 
@@ -64,13 +60,7 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
         strategy={axis === "x" ? horizontalListSortingStrategy : verticalListSortingStrategy}
       >
         <ul
-          className={cx(
-            styles.list,
-            styles.axis[axis],
-            styles.gap[gap],
-            sprinkle_class,
-            className,
-          )}
+          className={cx(styles.list, styles.axis[axis], styles.gap[gap], sprinkle_class, className)}
           style={sprinkle_style}
           {...(label === undefined ? {} : { "aria-label": label })}
           {...rest}

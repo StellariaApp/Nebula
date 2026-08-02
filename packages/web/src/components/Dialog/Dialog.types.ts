@@ -4,7 +4,10 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type DialogCorner = "bottom-end" | "bottom-start" | "top-end" | "top-start";
 
-export interface DialogProps extends Omit<StyleProps, "color" | "top" | "right" | "bottom" | "left" | "position" | "zIndex"> {
+export interface DialogProps extends Omit<
+  StyleProps,
+  "color" | "top" | "right" | "bottom" | "left" | "position" | "zIndex"
+> {
   opened: boolean;
   onClose?: (() => void) | undefined;
   children?: ReactNode | undefined;

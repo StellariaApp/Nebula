@@ -54,7 +54,10 @@ export function FormatDate(value: CalendarDate | CalendarDateTime | null | undef
   return `${Pad(value.year, 4)}-${Pad(value.month, 2)}-${Pad(value.day, 2)}`;
 }
 
-export function FormatTime(value: Time | CalendarDateTime | null | undefined, seconds = false): string {
+export function FormatTime(
+  value: Time | CalendarDateTime | null | undefined,
+  seconds = false,
+): string {
   if (value === null || value === undefined) return "";
   const base = `${Pad(value.hour, 2)}:${Pad(value.minute, 2)}`;
   return seconds ? `${base}:${Pad(value.second, 2)}` : base;

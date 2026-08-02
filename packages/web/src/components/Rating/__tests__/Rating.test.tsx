@@ -16,7 +16,9 @@ describe("Rating", () => {
 
   it("marca como checked solo la estrella del valor", () => {
     render(<Rating label="Valoración" value={3} />);
-    const checked = screen.getAllByRole("radio").filter((n) => n.getAttribute("aria-checked") === "true");
+    const checked = screen
+      .getAllByRole("radio")
+      .filter((n) => n.getAttribute("aria-checked") === "true");
     expect(checked).toHaveLength(1);
     expect(checked[0]?.getAttribute("aria-label")).toBe("3 de 5");
   });
@@ -49,10 +51,7 @@ describe("Rating", () => {
 
   it("lee el valor de un NebulaField", () => {
     render(
-      <Rating
-        label="V"
-        field={{ value: 5, setValue: vi.fn(), status: "valid", touched: true }}
-      />,
+      <Rating label="V" field={{ value: 5, setValue: vi.fn(), status: "valid", touched: true }} />,
     );
     expect(screen.getByRole("radio", { name: "5 de 5" }).getAttribute("aria-checked")).toBe("true");
   });

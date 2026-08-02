@@ -12,7 +12,13 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Avatar.css.js";
 import type { AvatarProps } from "./Avatar.types.js";
-import { avatarBg, avatarBorder, avatarBorderWidth, avatarFg, avatarSize } from "./Avatar.vars.css.js";
+import {
+  avatarBg,
+  avatarBorder,
+  avatarBorderWidth,
+  avatarFg,
+  avatarSize,
+} from "./Avatar.vars.css.js";
 
 const SIZE: Record<Size, number> = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
 

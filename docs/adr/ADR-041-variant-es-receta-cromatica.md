@@ -31,8 +31,8 @@ distintas.
 
 2. **Renombrados**:
 
-   | Componente | Antes                                    | Después                                      |
-   | ---------- | ---------------------------------------- | -------------------------------------------- |
+   | Componente | Antes                                      | Después                                      |
+   | ---------- | ------------------------------------------ | -------------------------------------------- |
    | Divider    | `variant: "solid" \| "dashed" \| "dotted"` | `lineStyle: "solid" \| "dashed" \| "dotted"` |
    | Loader     | `variant: "spinner" \| "dots" \| "bars"`   | `type: "spinner" \| "dots" \| "bars"`        |
 
@@ -42,7 +42,7 @@ distintas.
 
 3. **Ninguno de los dos adopta `variant` cromático.** Un Divider es una línea de un rol de borde
    (`color: BorderRole`) y un Loader es un indicador de una escala semántica (`color:
-   SemanticScaleName`); ninguno pinta fondo, primer plano y borde a la vez, que es la condición de
+SemanticScaleName`); ninguno pinta fondo, primer plano y borde a la vez, que es la condición de
    ADR-038 regla 1. Sus budgets se quedan en 12 kB (ADR-039 consecuencias).
 
 4. **Se hace ahora.** Los paquetes siguen `private: true` y sin consumidores externos, la misma

@@ -7,7 +7,8 @@ import type { StyleProps } from "../../utils/style-props.js";
 export type ChipVariant = Extract<Variant, "filled" | "outline" | "light">;
 
 export interface ChipProps
-  extends Omit<
+  extends
+    Omit<
       ComponentPropsWithoutRef<"input">,
       "size" | "color" | "type" | "checked" | "defaultChecked" | "onChange" | "children"
     >,

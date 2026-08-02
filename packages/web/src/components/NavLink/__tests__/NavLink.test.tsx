@@ -15,9 +15,7 @@ describe("NavLink", () => {
 
   it("marca aria-current='page' cuando está activo", () => {
     render(<NavLink label="Inicio" href="/inicio" active />);
-    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBe(
-      "page",
-    );
+    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBe("page");
   });
 
   it("renderiza como botón y ejecuta onPress al hacer click", async () => {
@@ -60,8 +58,8 @@ describe("NavLink", () => {
         <NavLink label="Perfil" href="/perfil" />
       </NavLink>,
     );
-    expect(screen.getByRole("button", { name: "Configuración" }).getAttribute("aria-expanded")).toBe(
-      "true",
-    );
+    expect(
+      screen.getByRole("button", { name: "Configuración" }).getAttribute("aria-expanded"),
+    ).toBe("true");
   });
 });

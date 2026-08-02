@@ -80,11 +80,7 @@ export const States: Story = {
     <Box maw={420} display="flex" direction="column" gap="xl">
       <Slider label="Con marcas" defaultValue={50} marks={MARKS} />
       <Slider label="Con paso de 10" defaultValue={40} step={10} />
-      <Slider
-        label="Formateado"
-        defaultValue={35}
-        formatValue={(v) => `${String(v)} %`}
-      />
+      <Slider label="Formateado" defaultValue={35} formatValue={(v) => `${String(v)} %`} />
       <Slider label="Sin valor visible" defaultValue={60} withValue={false} />
       <Slider label="Deshabilitado" defaultValue={30} disabled />
       <Slider label="Con error" defaultValue={10} error="Debe superar 20" />

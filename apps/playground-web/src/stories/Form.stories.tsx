@@ -93,7 +93,11 @@ export const WithError: Story = {
       <Form>
         <Form.Header title="Alta" />
         <Form.Content>
-          <TextInput label="Correo" error="Ya existe una cuenta con este correo" errorDisplay="text" />
+          <TextInput
+            label="Correo"
+            error="Ya existe una cuenta con este correo"
+            errorDisplay="text"
+          />
         </Form.Content>
         <Form.Footer error="Revisa los campos marcados." onCancel={() => undefined} />
       </Form>
@@ -169,9 +173,7 @@ export const ComboboxPatterns: Story = {
     const Load = useMemo(
       () => async (query: string) => {
         await new Promise((resolve) => setTimeout(resolve, 400));
-        return PAISES.filter((option) =>
-          option.label.toLowerCase().includes(query.toLowerCase()),
-        );
+        return PAISES.filter((option) => option.label.toLowerCase().includes(query.toLowerCase()));
       },
       [],
     );

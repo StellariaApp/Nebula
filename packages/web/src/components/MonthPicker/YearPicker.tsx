@@ -31,7 +31,7 @@ function YearItems(start: number, count: number, min: string, max: string): Grid
 }
 
 function PageStart(anchor: number, per_page: number): number {
-  return anchor - ((anchor % per_page) + per_page) % per_page;
+  return anchor - (((anchor % per_page) + per_page) % per_page);
 }
 
 export function YearPicker(props: YearPickerProps): ReactElement {

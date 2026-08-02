@@ -16,7 +16,13 @@ const RESULTS: GlobalSearchResult[] = [
 
 function Open(props: Partial<Parameters<typeof GlobalSearch>[0]> = {}) {
   return (
-    <GlobalSearch results={RESULTS} onQueryChange={vi.fn()} opened onOpenChange={vi.fn()} {...props} />
+    <GlobalSearch
+      results={RESULTS}
+      onQueryChange={vi.fn()}
+      opened
+      onOpenChange={vi.fn()}
+      {...props}
+    />
   );
 }
 

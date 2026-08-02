@@ -9,7 +9,10 @@ export interface AffixPosition {
   left?: number | string | undefined;
 }
 
-export interface AffixProps extends Omit<StyleProps, "color" | "top" | "right" | "bottom" | "left" | "position" | "zIndex"> {
+export interface AffixProps extends Omit<
+  StyleProps,
+  "color" | "top" | "right" | "bottom" | "left" | "position" | "zIndex"
+> {
   children: ReactNode;
   position?: AffixPosition | undefined;
   zIndex?: number | undefined;

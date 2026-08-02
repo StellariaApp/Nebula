@@ -38,11 +38,7 @@ export function Player(props: PlayerProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? PLAYER_LABELS : { ...PLAYER_LABELS, ...labels }),

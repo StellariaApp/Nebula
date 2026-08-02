@@ -20,11 +20,11 @@ recetas cromáticas escritas a mano, `Divider` (`solid|dashed|dotted`) es `borde
 La duplicación ya produjo deriva verificable. La receta `light` existe hoy en tres definiciones
 incompatibles:
 
-| Origen                                        | background          | foreground     | border             |
-| --------------------------------------------- | ------------------- | -------------- | ------------------ |
-| `themes/nebula-dark.ts:116` (contrato)        | `scale.500.12`      | `scale.800`    | `none`             |
-| `components/Alert/Alert.tsx:41-46`            | `scale.500` @ 12 %  | `text.primary` | `scale.500` @ 28 % |
-| `components/Badge/Badge.tsx:30-34`            | `scale.500` @ **14 %** | `scale.700` | `transparent`      |
+| Origen                                 | background             | foreground     | border             |
+| -------------------------------------- | ---------------------- | -------------- | ------------------ |
+| `themes/nebula-dark.ts:116` (contrato) | `scale.500.12`         | `scale.800`    | `none`             |
+| `components/Alert/Alert.tsx:41-46`     | `scale.500` @ 12 %     | `text.primary` | `scale.500` @ 28 % |
+| `components/Badge/Badge.tsx:30-34`     | `scale.500` @ **14 %** | `scale.700`    | `transparent`      |
 
 Ningún gate lo detecta. Y la consecuencia es funcional, no estética: `playful` remapea `filled` a
 `gradient.brand` (`packages/themes/src/__tests__/official-themes.test.ts:49`); ese remapeo llega a
@@ -41,7 +41,10 @@ cromática. Sin patrón fijado, W3 los escribe a mano y la deriva pasa de dos co
    componente invente un miembro:
 
    ```ts
-   export type BadgeVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost" | "gradient">;
+   export type BadgeVariant = Extract<
+     Variant,
+     "filled" | "outline" | "light" | "ghost" | "gradient"
+   >;
    ```
 
 2. **La receta la resuelve `ResolveVariant` contra `theme.variantMap`.** Se retiran las funciones
@@ -59,17 +62,17 @@ cromática. Sin patrón fijado, W3 los escribe a mano y la deriva pasa de dos co
      Banner).
    - `unstyled` no se propaga: el caso está resuelto estructuralmente por `UnstyledButton`.
 
-   | Componente        | Subconjunto                                          |
-   | ----------------- | ---------------------------------------------------- |
-   | Card · Paper      | `filled · outline · light · glass · glow · gradient` |
-   | Alert · Banner    | `filled · outline · light · glass`                   |
-   | Badge · Chip      | `filled · outline · light · ghost · gradient`        |
-   | Toast             | `filled · light · glass`                             |
-   | Segment · Tabs    | `filled · light · ghost`                             |
-   | NavLink           | `filled · light · ghost`                             |
-   | Pagination        | `filled · outline · light · ghost`                   |
-   | Avatar            | `filled · outline · light`                           |
-   | Progress          | `filled · light`                                     |
+   | Componente     | Subconjunto                                          |
+   | -------------- | ---------------------------------------------------- |
+   | Card · Paper   | `filled · outline · light · glass · glow · gradient` |
+   | Alert · Banner | `filled · outline · light · glass`                   |
+   | Badge · Chip   | `filled · outline · light · ghost · gradient`        |
+   | Toast          | `filled · light · glass`                             |
+   | Segment · Tabs | `filled · light · ghost`                             |
+   | NavLink        | `filled · light · ghost`                             |
+   | Pagination     | `filled · outline · light · ghost`                   |
+   | Avatar         | `filled · outline · light`                           |
+   | Progress       | `filled · light`                                     |
 
 4. **La unión `Variant` no se amplía.** Los ocho miembros ya tienen receta en los cuatro temas
    oficiales, de modo que esta decisión tiene coste de contrato **cero**. Los dos candidatos que
@@ -144,11 +147,11 @@ La tabla de la regla 3 se escribió antes de implementar. Tres filas cambiaron a
 es la misma en las tres: **el subconjunto depende de qué superficie pinta el `background` de la
 receta**, no solo del effects budget.
 
-| Componente | Tabla original    | Entregado                    | Tramo |
-| ---------- | ----------------- | ---------------------------- | ----- |
-| Progress   | `filled · light`  | `light · outline · ghost`    | V5    |
-| Slider     | —                 | `light · outline · ghost`    | W3.1  |
-| Chip       | `filled · outline · light · ghost · gradient` | `filled · outline · light` | W3.1 |
+| Componente | Tabla original                                | Entregado                  | Tramo |
+| ---------- | --------------------------------------------- | -------------------------- | ----- |
+| Progress   | `filled · light`                              | `light · outline · ghost`  | V5    |
+| Slider     | —                                             | `light · outline · ghost`  | W3.1  |
+| Chip       | `filled · outline · light · ghost · gradient` | `filled · outline · light` | W3.1  |
 
 **Progress y Slider pierden `filled` y ganan `outline · ghost`.** En los dos, el `background` de la
 receta es el **track**, y el indicador —relleno de la barra, relleno del slider— conserva el acento

@@ -76,7 +76,8 @@ export const Inline: Story = {
         Un sistema, <GradientText inherit>muchos productos</GradientText>
       </Title>
       <Text component="p" c="text.secondary" mt="sm">
-        El gradiente acentúa dos palabras del titular. El resto del texto se queda en un color sólido:
+        El gradiente acentúa dos palabras del titular. El resto del texto se queda en un color
+        sólido:
         <Text component="span" c="text.muted">
           {" "}
           docs/06 §6 prohíbe que un gradiente pinte texto principal.
@@ -90,8 +91,8 @@ export const Fallback: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md" maw={520}>
       <Text component="p" fz="caption" c="text.muted">
-        El color de fallback es el que se pinta sin soporte de <code>background-clip: text</code>, en
-        forced-colors y en el subrayado. Se ve activando el alto contraste del sistema.
+        El color de fallback es el que se pinta sin soporte de <code>background-clip: text</code>,
+        en forced-colors y en el subrayado. Se ve activando el alto contraste del sistema.
       </Text>
       <Title order={2}>
         <GradientText inherit fallbackColor="text.primary">
@@ -134,15 +135,24 @@ export const ReducedMotion: Story = {
 export const Composition: Story = {
   render: () => (
     <Paper maw={560} p="xl" radius="lg" withBorder shadow="sm">
-      <Text component="p" fz="caption" fw="semibold" tt="uppercase" ls="wide" c="text.muted" mb="sm">
+      <Text
+        component="p"
+        fz="caption"
+        fw="semibold"
+        tt="uppercase"
+        ls="wide"
+        c="text.muted"
+        mb="sm"
+      >
         Nebula
       </Text>
       <Title order={1} mb="sm">
         Un design system, <GradientText inherit>cuatro temas</GradientText>
       </Title>
       <Text component="p" c="text.secondary" mb="lg">
-        El gradiente es el único efecto dominante de esta región, sobre una superficie sólida y con el
-        cuerpo del texto en un rol legible. Es el uso que docs/06 §6 autoriza: hero y titular corto.
+        El gradiente es el único efecto dominante de esta región, sobre una superficie sólida y con
+        el cuerpo del texto en un rol legible. Es el uso que docs/06 §6 autoriza: hero y titular
+        corto.
       </Text>
       <Button variant="filled">Empezar</Button>
     </Paper>

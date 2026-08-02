@@ -7,12 +7,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 export type ToastVariant = Extract<Variant, "filled" | "light" | "glass">;
 
 export type ToastPosition =
-  | "top-start"
-  | "top"
-  | "top-end"
-  | "bottom-start"
-  | "bottom"
-  | "bottom-end";
+  "top-start" | "top" | "top-end" | "bottom-start" | "bottom" | "bottom-end";
 
 export interface ToastOptions {
   id?: string | undefined;

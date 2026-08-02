@@ -17,14 +17,14 @@ país: `name`, `code`, `emoji`, `unicode`, `dial_code`, `image`. Son 56 kB de JS
 La pregunta real no era «¿de dónde salen los datos?» sino **cuánto de ese volcado tiene que viajar en
 el bundle**. Se midió campo por campo:
 
-| Campo     | ¿Derivable? | Cómo |
-| --------- | ----------- | ---- |
-| `emoji`   | **Sí**, 227/227 exactos | Indicadores regionales a partir del ISO |
-| `unicode` | **Sí**      | Es el mismo emoji en notación textual |
-| `image`   | **Sí**, 227/227 exactos | Plantilla del CDN + código ISO |
-| `name`    | **Sí, y mejor** | `Intl.DisplayNames`, que además lo traduce; el volcado solo trae inglés |
-| `code`    | No          | — |
-| `dial_code` | No        | — |
+| Campo       | ¿Derivable?             | Cómo                                                                    |
+| ----------- | ----------------------- | ----------------------------------------------------------------------- |
+| `emoji`     | **Sí**, 227/227 exactos | Indicadores regionales a partir del ISO                                 |
+| `unicode`   | **Sí**                  | Es el mismo emoji en notación textual                                   |
+| `image`     | **Sí**, 227/227 exactos | Plantilla del CDN + código ISO                                          |
+| `name`      | **Sí, y mejor**         | `Intl.DisplayNames`, que además lo traduce; el volcado solo trae inglés |
+| `code`      | No                      | —                                                                       |
+| `dial_code` | No                      | —                                                                       |
 
 ## Decisión
 

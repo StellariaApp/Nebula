@@ -5,7 +5,10 @@ const CONTAINS = 100;
 const SEQUENTIAL = 10;
 
 function Normalize(value: string): string {
-  return value.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  return value
+    .toLocaleLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
 }
 
 function Subsequence(haystack: string, needle: string): number {

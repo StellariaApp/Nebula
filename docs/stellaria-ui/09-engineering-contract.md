@@ -180,4 +180,3 @@ Matriz mínima:
 ## Criterio de finalización
 
 Un componente no está terminado si solo “se ve bien”. Debe tener contrato, estados, accesibilidad, tema, responsive, documentación y pruebas.
-

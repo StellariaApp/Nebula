@@ -44,9 +44,7 @@ describe("StatusBadge", () => {
   });
 
   it("las props del punto de uso ganan al descriptor", () => {
-    const mapped = render(
-      <StatusBadge<Shipment> status="shipped" map={SHIPMENT_MAP} />,
-    );
+    const mapped = render(<StatusBadge<Shipment> status="shipped" map={SHIPMENT_MAP} />);
     const with_descriptor = screen.getByText("En ruta").getAttribute("style");
     mapped.unmount();
 
@@ -130,9 +128,7 @@ describe("DateDisplay", () => {
   });
 
   it("mode relative usa Intl.RelativeTimeFormat contra el now inyectado", () => {
-    render(
-      <DateDisplay value="2026-07-27T12:00:00Z" mode="relative" locale="en-US" now={now} />,
-    );
+    render(<DateDisplay value="2026-07-27T12:00:00Z" mode="relative" locale="en-US" now={now} />);
     expect(screen.getByText("3 days ago")).toBeDefined();
   });
 
@@ -150,9 +146,7 @@ describe("DateDisplay", () => {
   });
 
   it("en relativo el absoluto viaja en title, no en aria-label", () => {
-    render(
-      <DateDisplay value="2026-07-29T12:00:00Z" mode="relative" locale="en-US" now={now} />,
-    );
+    render(<DateDisplay value="2026-07-29T12:00:00Z" mode="relative" locale="en-US" now={now} />);
     const node = screen.getByText("yesterday");
     expect(node.getAttribute("title")).toBeTruthy();
     expect(node.getAttribute("aria-label")).toBeNull();

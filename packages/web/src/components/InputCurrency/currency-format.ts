@@ -12,9 +12,7 @@ export function ParseAmount(raw: string, locale: string): number {
   const negative = raw.trim().startsWith("-");
   const kept = raw.replace(/[^\d.,]/g, "");
   const normalized =
-    separator === ","
-      ? kept.replace(/\./g, "").replace(",", ".")
-      : kept.replace(/,/g, "");
+    separator === "," ? kept.replace(/\./g, "").replace(",", ".") : kept.replace(/,/g, "");
   const parsed = Number(normalized);
   if (!Number.isFinite(parsed)) return Number.NaN;
   return negative ? -parsed : parsed;

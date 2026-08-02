@@ -1,6 +1,12 @@
 "use client";
 
-import { forwardRef, type CSSProperties, type ElementType, type ReactElement, type Ref } from "react";
+import {
+  forwardRef,
+  type CSSProperties,
+  type ElementType,
+  type ReactElement,
+  type Ref,
+} from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";

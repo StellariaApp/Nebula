@@ -25,13 +25,13 @@ catálogo: el Figma resuelve el mismo control con una píldora de 25 px dentro d
 
 1. **`Segment` adopta la escala desplazada**, con el mismo mapeo que `Pagination`:
 
-   | `size` | Antes            | Después          | px  |
-   | ------ | ---------------- | ---------------- | --: |
-   | `xs`   | `control.xs`     | **retirado**     |  —  |
-   | `sm`   | `control.sm`     | `control.xs`     |  30 |
-   | `md`   | `control.md`     | `control.sm`     |  36 |
-   | `lg`   | `control.lg`     | `control.md`     |  42 |
-   | `xl`   | `control.xl`     | `control.lg`     |  50 |
+   | `size` | Antes        | Después      |  px |
+   | ------ | ------------ | ------------ | --: |
+   | `xs`   | `control.xs` | **retirado** |   — |
+   | `sm`   | `control.sm` | `control.xs` |  30 |
+   | `md`   | `control.md` | `control.sm` |  36 |
+   | `lg`   | `control.lg` | `control.md` |  42 |
+   | `xl`   | `control.xl` | `control.lg` |  50 |
 
 2. **`SegmentSize = "sm" | "md" | "lg" | "xl"`**, declarado en `Segment.types.ts` con la misma forma
    que `PaginationSize`. `SegmentContextValue.size` lo consume en lugar de `Size`.

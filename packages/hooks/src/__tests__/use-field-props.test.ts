@@ -40,7 +40,9 @@ describe("useFieldProps", () => {
 
   it("marca inválido y expone el mensaje del field solo si touched + invalid", () => {
     const touched_invalid = MakeField({ status: "invalid", error: "requerido", touched: true });
-    const { result } = renderHook(() => useFieldProps({ field: touched_invalid, defaultValue: "" }));
+    const { result } = renderHook(() =>
+      useFieldProps({ field: touched_invalid, defaultValue: "" }),
+    );
     expect(result.current.isInvalid).toBe(true);
     expect(result.current.errorMessage).toBe("requerido");
 

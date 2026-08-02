@@ -3,7 +3,10 @@ import { type ReactElement, type SVGProps } from "react";
 import { RenderIcon } from "./render.js";
 import type { IconComponent } from "./types.js";
 
-export interface CreatedIconProps<Name extends string> extends Omit<SVGProps<SVGSVGElement>, "name"> {
+export interface CreatedIconProps<Name extends string> extends Omit<
+  SVGProps<SVGSVGElement>,
+  "name"
+> {
   name: Name;
   size?: number | string | undefined;
   label?: string | undefined;

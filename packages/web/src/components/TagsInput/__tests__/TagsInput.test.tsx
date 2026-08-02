@@ -132,7 +132,12 @@ describe("JsonInput", () => {
   it("no formatea si formatOnBlur es false", async () => {
     const on_change = vi.fn();
     render(
-      <JsonInput label="Payload" defaultValue='{"a":1}' formatOnBlur={false} onChange={on_change} />,
+      <JsonInput
+        label="Payload"
+        defaultValue='{"a":1}'
+        formatOnBlur={false}
+        onChange={on_change}
+      />,
     );
     await userEvent.click(screen.getByLabelText("Payload"));
     await userEvent.tab();

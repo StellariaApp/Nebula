@@ -25,11 +25,7 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const first = tabs[0]?.value ?? "";
   const [active, set_active] = useUncontrolled(value, defaultValue ?? first, onChange);
@@ -42,10 +38,7 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style} {...rest}>
       <div className={styles.tabList}>
         <Segment value={active} onChange={set_active} size="sm">
-          <Segment.Control
-            data={data}
-            {...(label === undefined ? {} : { "aria-label": label })}
-          />
+          <Segment.Control data={data} {...(label === undefined ? {} : { "aria-label": label })} />
         </Segment>
       </div>
       {current === undefined ? null : (

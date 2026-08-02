@@ -105,14 +105,14 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
 
   const { theme } = useTheme();
   const resolved =
-    segment.variant === undefined
-      ? null
-      : ResolveVariant(segment.variant, segment.color, theme);
+    segment.variant === undefined ? null : ResolveVariant(segment.variant, segment.color, theme);
 
   const css_vars = assignInlineVars({
     [indicatorColor]:
       resolved?.background ??
-      (segment.color === "primary" ? vars.color.surface.overlay : ResolveAccent(segment.color, "200")),
+      (segment.color === "primary"
+        ? vars.color.surface.overlay
+        : ResolveAccent(segment.color, "200")),
     ...(resolved === null ? {} : { [indicatorFg]: resolved.foreground }),
   });
 

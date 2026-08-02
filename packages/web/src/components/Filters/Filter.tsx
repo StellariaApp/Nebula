@@ -138,13 +138,7 @@ export function Filter(props: FilterProps): ReactElement {
         );
       }
       case "text":
-        return (
-          <TextInput
-            {...shared}
-            value={accessors.value(filter.key) ?? ""}
-            onChange={Set}
-          />
-        );
+        return <TextInput {...shared} value={accessors.value(filter.key) ?? ""} onChange={Set} />;
       case "select":
       default:
         return (

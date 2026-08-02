@@ -113,7 +113,12 @@ describe("permission en controles", () => {
     const Wrapper = Granting([]);
     render(
       <Wrapper>
-        <NavLink label="Ajustes" href="/ajustes" permission="nav.ajustes" permissionMode="disable" />
+        <NavLink
+          label="Ajustes"
+          href="/ajustes"
+          permission="nav.ajustes"
+          permissionMode="disable"
+        />
       </Wrapper>,
     );
     const link = screen.getByText("Ajustes").closest("a");
@@ -176,8 +181,18 @@ describe("permission en colecciones", () => {
         <Tabs
           aria-label="Secciones"
           data={[
-            { value: "general", label: "General", content: "contenido general", permission: "tab.general" },
-            { value: "auditoria", label: "Auditoría", content: "contenido auditoría", permission: "tab.auditoria" },
+            {
+              value: "general",
+              label: "General",
+              content: "contenido general",
+              permission: "tab.general",
+            },
+            {
+              value: "auditoria",
+              label: "Auditoría",
+              content: "contenido auditoría",
+              permission: "tab.auditoria",
+            },
           ]}
         />
       </Wrapper>,
@@ -194,8 +209,18 @@ describe("permission en colecciones", () => {
         <Tabs
           aria-label="Secciones"
           data={[
-            { value: "general", label: "General", content: "contenido general", permission: "tab.general" },
-            { value: "auditoria", label: "Auditoría", content: "contenido auditoría", permission: "tab.auditoria" },
+            {
+              value: "general",
+              label: "General",
+              content: "contenido general",
+              permission: "tab.general",
+            },
+            {
+              value: "auditoria",
+              label: "Auditoría",
+              content: "contenido auditoría",
+              permission: "tab.auditoria",
+            },
           ]}
         />
       </Wrapper>,

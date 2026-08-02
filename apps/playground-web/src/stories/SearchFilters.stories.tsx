@@ -156,7 +156,11 @@ export const SinBuscador: Story = {
       hideSearch
       filters={FILTERS}
       before={<Title order={6}>Movimientos</Title>}
-      after={<Button size="md" variant="ghost">Nuevo</Button>}
+      after={
+        <Button size="md" variant="ghost">
+          Nuevo
+        </Button>
+      }
     />
   ),
 };

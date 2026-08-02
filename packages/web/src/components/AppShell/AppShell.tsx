@@ -51,9 +51,7 @@ export function AppShell(props: AppShellProps): ReactElement {
   const has_aside = aside !== undefined;
 
   const css_vars = assignInlineVars({
-    [navWidth]: has_navbar
-      ? `${String(collapsed ? collapsedWidth : navbarWidth)}px`
-      : "0px",
+    [navWidth]: has_navbar ? `${String(collapsed ? collapsedWidth : navbarWidth)}px` : "0px",
     [aside_var]: has_aside ? `${String(asideWidth)}px` : "0px",
     [headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
   });
@@ -68,9 +66,7 @@ export function AppShell(props: AppShellProps): ReactElement {
         {text.skipToContent}
       </a>
 
-      {header === undefined ? null : (
-        <header className={styles.header}>{header}</header>
-      )}
+      {header === undefined ? null : <header className={styles.header}>{header}</header>}
 
       {has_navbar ? (
         <nav
@@ -97,9 +93,7 @@ export function AppShell(props: AppShellProps): ReactElement {
         </aside>
       ) : null}
 
-      {footer === undefined ? null : (
-        <footer className={styles.footer}>{footer}</footer>
-      )}
+      {footer === undefined ? null : <footer className={styles.footer}>{footer}</footer>}
     </div>
   );
 }

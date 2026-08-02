@@ -5,13 +5,7 @@ import type { SpringName } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type TransitionPreset =
-  | "fade"
-  | "scale"
-  | "pop"
-  | "slide-up"
-  | "slide-down"
-  | "slide-left"
-  | "slide-right";
+  "fade" | "scale" | "pop" | "slide-up" | "slide-down" | "slide-left" | "slide-right";
 
 export interface TransitionProps extends StyleProps {
   mounted: boolean;

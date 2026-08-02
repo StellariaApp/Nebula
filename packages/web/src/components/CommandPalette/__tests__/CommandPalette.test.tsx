@@ -50,10 +50,48 @@ describe("ParseHotkey", () => {
 
   it("exige que los modificadores coincidan exactamente", () => {
     const combo = ParseHotkey("mod+k");
-    expect(Matches({ key: "k", metaKey: true, ctrlKey: false, shiftKey: false, altKey: false } as KeyboardEvent, combo)).toBe(true);
-    expect(Matches({ key: "k", metaKey: false, ctrlKey: true, shiftKey: false, altKey: false } as KeyboardEvent, combo)).toBe(true);
-    expect(Matches({ key: "k", metaKey: false, ctrlKey: false, shiftKey: false, altKey: false } as KeyboardEvent, combo)).toBe(false);
-    expect(Matches({ key: "k", metaKey: true, ctrlKey: false, shiftKey: true, altKey: false } as KeyboardEvent, combo)).toBe(false);
+    expect(
+      Matches(
+        {
+          key: "k",
+          metaKey: true,
+          ctrlKey: false,
+          shiftKey: false,
+          altKey: false,
+        } as KeyboardEvent,
+        combo,
+      ),
+    ).toBe(true);
+    expect(
+      Matches(
+        {
+          key: "k",
+          metaKey: false,
+          ctrlKey: true,
+          shiftKey: false,
+          altKey: false,
+        } as KeyboardEvent,
+        combo,
+      ),
+    ).toBe(true);
+    expect(
+      Matches(
+        {
+          key: "k",
+          metaKey: false,
+          ctrlKey: false,
+          shiftKey: false,
+          altKey: false,
+        } as KeyboardEvent,
+        combo,
+      ),
+    ).toBe(false);
+    expect(
+      Matches(
+        { key: "k", metaKey: true, ctrlKey: false, shiftKey: true, altKey: false } as KeyboardEvent,
+        combo,
+      ),
+    ).toBe(false);
   });
 });
 

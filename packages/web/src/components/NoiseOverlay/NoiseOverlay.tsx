@@ -13,11 +13,7 @@ import type { NoiseOverlayProps } from "./NoiseOverlay.types.js";
 
 export function NoiseOverlay(props: NoiseOverlayProps): ReactElement {
   const { opacity, radius = "none", fixed = false, zIndex, className, ...style_rest } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
   const enabled = theme.effects.glass.enabled;
@@ -27,13 +23,7 @@ export function NoiseOverlay(props: NoiseOverlayProps): ReactElement {
 
   return (
     <span
-      className={cx(
-        grain,
-        styles.radius[radius],
-        fixed && styles.fixed,
-        sprinkle_class,
-        className,
-      )}
+      className={cx(grain, styles.radius[radius], fixed && styles.fixed, sprinkle_class, className)}
       style={{
         ...css_vars,
         ...(zIndex === undefined ? {} : { zIndex }),

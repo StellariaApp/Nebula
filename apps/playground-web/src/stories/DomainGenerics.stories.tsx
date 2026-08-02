@@ -56,8 +56,20 @@ interface Movimiento {
 }
 
 const MOVIMIENTOS: Movimiento[] = [
-  { id: "M-1042", cliente: "Aurora S.A.", estado: "conciliado", importe: 12400, fecha: "2026-07-29" },
-  { id: "M-1043", cliente: "Nébula Ltda.", estado: "pendiente", importe: 8900, fecha: "2026-07-28" },
+  {
+    id: "M-1042",
+    cliente: "Aurora S.A.",
+    estado: "conciliado",
+    importe: 12400,
+    fecha: "2026-07-29",
+  },
+  {
+    id: "M-1043",
+    cliente: "Nébula Ltda.",
+    estado: "pendiente",
+    importe: 8900,
+    fecha: "2026-07-28",
+  },
   { id: "M-1044", cliente: "Stellaria", estado: "en_ruta", importe: 45300, fecha: "2026-07-22" },
   { id: "M-1045", cliente: "Cosmos", estado: "devuelto", importe: -2100, fecha: "2026-06-14" },
 ];
@@ -65,26 +77,54 @@ const MOVIMIENTOS: Movimiento[] = [
 const NOW = new Date("2026-07-30T12:00:00Z");
 
 const ICON_PLUS = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 5v14M5 12h14" />
   </svg>
 );
 
 const ICON_UP = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 19V5M5 12l7-7 7 7" />
   </svg>
 );
 
 const ICON_CARD = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <rect x="2" y="5" width="20" height="14" rx="2" />
     <path d="M2 10h20" />
   </svg>
 );
 
 const ICON_BOX = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8" />
   </svg>
 );
@@ -143,7 +183,13 @@ export const Formatters: Story = {
           {" · "}
           <DateDisplay value="2026-07-28T09:30:00Z" mode="relative" locale="es-MX" now={NOW} />
           {" · "}
-          <DateDisplay value="2026-01-04T09:30:00Z" mode="auto" locale="es-MX" timeZone="UTC" now={NOW} />
+          <DateDisplay
+            value="2026-01-04T09:30:00Z"
+            mode="auto"
+            locale="es-MX"
+            timeZone="UTC"
+            now={NOW}
+          />
         </Text>
       </Box>
     </Box>

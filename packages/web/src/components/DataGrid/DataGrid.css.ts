@@ -187,7 +187,12 @@ export const toolbarSearch = style({
 
 export const toolbarGap = style({
   "@layer": {
-    [baseLayer]: { marginInlineStart: "auto", display: "flex", alignItems: "center", gap: vars.space.xxs },
+    [baseLayer]: {
+      marginInlineStart: "auto",
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.xxs,
+    },
   },
 });
 

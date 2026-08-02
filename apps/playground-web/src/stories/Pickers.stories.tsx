@@ -54,12 +54,7 @@ export const Surfaces: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md" maw={360}>
       {(["outline", "filled", "underline", "unstyled"] as FieldSurface[]).map((surface) => (
-        <TagsInput
-          key={surface}
-          surface={surface}
-          label={surface}
-          defaultValue={["nebula"]}
-        />
+        <TagsInput key={surface} surface={surface} label={surface} defaultValue={["nebula"]} />
       ))}
     </Box>
   ),

@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState, type ReactElement } from "react";
 
-import { Box, Button, Card, Code, Kbd, PermissionProvider, Text, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Card,
+  Code,
+  Kbd,
+  PermissionProvider,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import { CommandPalette, type CommandItem } from "@stellaria/nebula-web/command";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
@@ -16,19 +25,40 @@ export default meta;
 type Story = StoryObj<typeof CommandPalette>;
 
 const ICON_PLUS = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 5v14M5 12h14" />
   </svg>
 );
 
 const ICON_UP = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 19V5M5 12l7-7 7 7" />
   </svg>
 );
 
 const ICON_GEAR = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <circle cx="12" cy="12" r="3" />
     <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
   </svg>
@@ -130,7 +160,9 @@ function Demo(props: { gated?: boolean }): ReactElement {
       </Card>
 
       {props.gated === true ? (
-        <PermissionProvider resolver={(key) => key !== "cobros.anular"}>{palette}</PermissionProvider>
+        <PermissionProvider resolver={(key) => key !== "cobros.anular"}>
+          {palette}
+        </PermissionProvider>
       ) : (
         palette
       )}

@@ -21,7 +21,9 @@ describe("MultiSelect", () => {
   });
 
   it("renderiza un chip por valor seleccionado", () => {
-    render(<MultiSelect label="Países" data={DATA} value={["mx", "cl"]} onChange={() => undefined} />);
+    render(
+      <MultiSelect label="Países" data={DATA} value={["mx", "cl"]} onChange={() => undefined} />,
+    );
     expect(screen.getByText("México")).toBeDefined();
     expect(screen.getByText("Chile")).toBeDefined();
   });
@@ -51,9 +53,7 @@ describe("MultiSelect", () => {
   it("quita un valor desde su chip", async () => {
     const OnChange = vi.fn();
     const user = userEvent.setup();
-    render(
-      <MultiSelect label="Países" data={DATA} value={["mx", "cl"]} onChange={OnChange} />,
-    );
+    render(<MultiSelect label="Países" data={DATA} value={["mx", "cl"]} onChange={OnChange} />);
     await user.click(screen.getByRole("button", { name: "Quitar México" }));
     expect(OnChange).toHaveBeenCalledWith(["cl"]);
   });
@@ -79,7 +79,9 @@ describe("MultiSelect", () => {
     );
     await user.click(screen.getByRole("button", { name: /Países/ }));
     await screen.findByRole("listbox");
-    expect(screen.getByRole("option", { name: "Chile" }).getAttribute("aria-disabled")).toBe("true");
+    expect(screen.getByRole("option", { name: "Chile" }).getAttribute("aria-disabled")).toBe(
+      "true",
+    );
     expect(screen.getByRole("option", { name: "México" }).getAttribute("aria-disabled")).toBeNull();
   });
 

@@ -103,32 +103,26 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
   const start_ref = useRef<HTMLDivElement>(null);
   const end_ref = useRef<HTMLDivElement>(null);
 
-  const {
-    groupProps,
-    startFieldProps,
-    endFieldProps,
-    buttonProps,
-    dialogProps,
-    calendarProps,
-  } = useDateRangePicker(
-    {
-      isDisabled: fp.isDisabled,
-      isReadOnly: readOnly,
-      isRequired: required,
-      granularity: "day",
-      ...(min === null ? {} : { minValue: min }),
-      ...(max === null ? {} : { maxValue: max }),
-      ...(typeof label === "string" ? { "aria-label": label } : {}),
-      ...(isDateUnavailable === undefined
-        ? {}
-        : {
-            isDateUnavailable: (date: DateValue) =>
-              isDateUnavailable(FormatDate(date as CalendarDate)),
-          }),
-    },
-    state,
-    group_ref,
-  );
+  const { groupProps, startFieldProps, endFieldProps, buttonProps, dialogProps, calendarProps } =
+    useDateRangePicker(
+      {
+        isDisabled: fp.isDisabled,
+        isReadOnly: readOnly,
+        isRequired: required,
+        granularity: "day",
+        ...(min === null ? {} : { minValue: min }),
+        ...(max === null ? {} : { maxValue: max }),
+        ...(typeof label === "string" ? { "aria-label": label } : {}),
+        ...(isDateUnavailable === undefined
+          ? {}
+          : {
+              isDateUnavailable: (date: DateValue) =>
+                isDateUnavailable(FormatDate(date as CalendarDate)),
+            }),
+      },
+      state,
+      group_ref,
+    );
 
   const start_state = useDateFieldState({ ...startFieldProps, locale, createCalendar });
   const end_state = useDateFieldState({ ...endFieldProps, locale, createCalendar });

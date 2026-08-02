@@ -9,8 +9,4 @@ export type {
   FormHeaderProps,
   FormProps,
 } from "./Form.types.js";
-export type {
-  DeleteAlert,
-  FormDeleteProps,
-  ModalDeleteProps,
-} from "./FormDelete.types.js";
+export type { DeleteAlert, FormDeleteProps, ModalDeleteProps } from "./FormDelete.types.js";

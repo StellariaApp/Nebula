@@ -71,7 +71,9 @@ describe("AppShell", () => {
 
 describe("Panel", () => {
   it("el separador publica su valor y sus topes", () => {
-    render(<Panel master={<p>lista</p>} detail={<p>detalle</p>} defaultSize={320} min={160} max={640} />);
+    render(
+      <Panel master={<p>lista</p>} detail={<p>detalle</p>} defaultSize={320} min={160} max={640} />,
+    );
     const separator = screen.getByRole("separator", { name: "Redimensionar paneles" });
     expect(separator.getAttribute("aria-valuenow")).toBe("320");
     expect(separator.getAttribute("aria-valuemin")).toBe("160");

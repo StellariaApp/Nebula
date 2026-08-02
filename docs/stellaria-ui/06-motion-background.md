@@ -6,19 +6,19 @@ El movimiento comunica profundidad, continuidad o cambio de estado. Debe sentirs
 
 ## Tokens de motion
 
-| Token | Duración | Uso |
-| --- | --- | --- |
-| `motion.instant` | `100ms` | Feedback inmediato |
-| `motion.fast` | `160–220ms` | Hover, pressed, tooltip |
-| `motion.normal` | `300–350ms` | Card y panel |
-| `motion.slow` | `480ms` | Indicador y cambio de layout |
-| `motion.reveal` | `800ms` | Entrada de sección |
+| Token            | Duración    | Uso                          |
+| ---------------- | ----------- | ---------------------------- |
+| `motion.instant` | `100ms`     | Feedback inmediato           |
+| `motion.fast`    | `160–220ms` | Hover, pressed, tooltip      |
+| `motion.normal`  | `300–350ms` | Card y panel                 |
+| `motion.slow`    | `480ms`     | Indicador y cambio de layout |
+| `motion.reveal`  | `800ms`     | Entrada de sección           |
 
 Easing:
 
 ```css
---ease-standard: cubic-bezier(.2, 0, 0, 1);
---ease-expressive: cubic-bezier(.22, 1, .36, 1);
+--ease-standard: cubic-bezier(0.2, 0, 0, 1);
+--ease-expressive: cubic-bezier(0.22, 1, 0.36, 1);
 ```
 
 ## Reveal
@@ -105,4 +105,3 @@ Con `prefers-reduced-motion: reduce`:
 - Desactivar estrellas, ambient drift, preview float, pulsos y bordes orbitales.
 - Mantener cambios de estado instantáneos o casi instantáneos.
 - Nunca ocultar información porque una animación fue desactivada.
-

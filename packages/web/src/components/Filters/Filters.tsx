@@ -19,7 +19,14 @@ import type { FiltersProps, FilterState } from "./Filters.types.js";
 const EMPTY_STATE: FilterState = {};
 
 const ICON_FILTER = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M3 5h18l-7 8v6l-4-2v-4z" />
   </svg>
 );
@@ -57,7 +64,13 @@ export function Filters(props: FiltersProps): ReactElement {
       size={size}
       leftSection={ICON_FILTER}
       {...(active > 0
-        ? { rightSection: <Badge size="xs" variant="filled">{active}</Badge> }
+        ? {
+            rightSection: (
+              <Badge size="xs" variant="filled">
+                {active}
+              </Badge>
+            ),
+          }
         : {})}
     >
       {text.trigger}

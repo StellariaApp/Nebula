@@ -9,7 +9,9 @@ type AppPermission = "orders.read" | "orders.write";
 
 function Wrapper(resolver: (key: AppPermission) => boolean) {
   return function Provider(props: { children: ReactNode }): ReactElement {
-    return <PermissionProvider<AppPermission> resolver={resolver}>{props.children}</PermissionProvider>;
+    return (
+      <PermissionProvider<AppPermission> resolver={resolver}>{props.children}</PermissionProvider>
+    );
   };
 }
 

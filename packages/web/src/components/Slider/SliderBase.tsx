@@ -202,7 +202,13 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
               disabled={disabled}
               label={thumbLabels?.[index]}
               labelledBy={ariaLabelledBy}
-              name={name === undefined ? undefined : values.length > 1 ? `${name}.${String(index)}` : name}
+              name={
+                name === undefined
+                  ? undefined
+                  : values.length > 1
+                    ? `${name}.${String(index)}`
+                    : name
+              }
             />
           ))}
           {!with_marks || marks === undefined ? null : (

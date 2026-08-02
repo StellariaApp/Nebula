@@ -8,13 +8,13 @@
 El censo del catálogo encontró **cinco recetas distintas** para el mismo estado entre los 13
 componentes que lo estilan:
 
-| Receta | Componentes |
-| ------ | ----------- |
-| `background` + `opacity` | ActionIcon · Button |
-| `opacity` sola | Checkbox · Radio · Switch · UnstyledButton |
-| `color` solo | Accordion · Menu · Pagination · Segment |
-| `background` + `color` | NavLink |
-| `background` + `borderColor` + `color` | `field` |
+| Receta                                 | Componentes                                |
+| -------------------------------------- | ------------------------------------------ |
+| `background` + `opacity`               | ActionIcon · Button                        |
+| `opacity` sola                         | Checkbox · Radio · Switch · UnstyledButton |
+| `color` solo                           | Accordion · Menu · Pagination · Segment    |
+| `background` + `color`                 | NavLink                                    |
+| `background` + `borderColor` + `color` | `field`                                    |
 
 Un `Button` deshabilitado se atenúa entero; un `Pagination` deshabilitado solo apaga el texto y conserva
 su fondo a plena intensidad. No parecen el mismo estado porque no se expresan igual.
@@ -59,7 +59,7 @@ tampoco lo mira.
 
    - **Con superficie** (Button, ActionIcon, Pagination, Segment, NavLink, Menu, Accordion, `field`,
      FileButton): `background: surface.disabled`, `color: text.disabled`, y `borderColor:
-     border.disabled` donde ya hubiera borde.
+border.disabled` donde ya hubiera borde.
    - **Sin superficie** (Checkbox, Radio, Switch, UnstyledButton): el glifo y su borde toman
      `border.disabled` y la etiqueta `text.disabled`. Pintarles un fondo no significa nada: su caja
      **es** el glifo.

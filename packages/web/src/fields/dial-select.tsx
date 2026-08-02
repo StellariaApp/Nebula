@@ -162,7 +162,7 @@ export function DialSelect(props: DialSelectProps): ReactElement {
         {...inputProps}
         ref={input_ref}
         className={cx(field.input, styles.input, compact ? styles.inputCompact : undefined)}
-        value={state.isOpen ? query : (selected === undefined ? "" : dial)}
+        value={state.isOpen ? query : selected === undefined ? "" : dial}
         {...(controlId === undefined ? {} : { id: controlId })}
         {...(describedBy === undefined ? {} : { "aria-describedby": describedBy })}
         {...(invalid ? { "aria-invalid": true } : {})}

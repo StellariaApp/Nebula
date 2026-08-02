@@ -146,9 +146,17 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
 
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
     const glow_idle =
-      variant === "glow" && resolved.glow !== "none" && resolved.animated && prefers_reduced !== true;
+      variant === "glow" &&
+      resolved.glow !== "none" &&
+      resolved.animated &&
+      prefers_reduced !== true;
 
-    const dom_props = mergeProps(is_link ? linkProps : buttonProps, hoverProps, focusProps, dom_rest);
+    const dom_props = mergeProps(
+      is_link ? linkProps : buttonProps,
+      hoverProps,
+      focusProps,
+      dom_rest,
+    );
 
     const shared = {
       className: cx(

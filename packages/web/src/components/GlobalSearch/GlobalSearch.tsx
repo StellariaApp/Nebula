@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useId,
-  useMemo,
-  useState,
-  type KeyboardEvent,
-  type ReactElement,
-} from "react";
+import { useEffect, useId, useMemo, useState, type KeyboardEvent, type ReactElement } from "react";
 
 import { useDebounce } from "@stellaria/nebula-hooks";
 
@@ -71,11 +64,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
     () => (labels === undefined ? GLOBAL_SEARCH_LABELS : { ...GLOBAL_SEARCH_LABELS, ...labels }),

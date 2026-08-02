@@ -34,11 +34,7 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const {
-    className: sprinkle_class,
-    style: sprinkle_style,
-    rest,
-  } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const [opened, set_opened] = useState(false);
   const [index, set_index] = useState(0);

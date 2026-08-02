@@ -89,9 +89,7 @@ export function Rating(props: RatingProps): ReactElement {
   };
 
   const Label = (index: number): string =>
-    itemLabel === undefined
-      ? `${String(index)} de ${String(count)}`
-      : itemLabel(index);
+    itemLabel === undefined ? `${String(index)} de ${String(count)}` : itemLabel(index);
 
   const Symbol = (filled: boolean): ReactNode => {
     if (filled) return fullSymbol ?? STAR;
@@ -122,9 +120,7 @@ export function Rating(props: RatingProps): ReactElement {
             Hover(null);
           }}
         >
-          {name === undefined ? null : (
-            <input type="hidden" name={name} value={String(fp.value)} />
-          )}
+          {name === undefined ? null : <input type="hidden" name={name} value={String(fp.value)} />}
           {[...new Array(count).keys()].map((index) => {
             const position = index + 1;
             const filled = displayed >= position;

@@ -31,7 +31,15 @@ export interface CalendarViewProps extends ViewShellProps {
 }
 
 export function CalendarView(props: CalendarViewProps): ReactElement {
-  const { calendar, size, locale: locale_prop, labels, visibleMonths = 1, className, style } = props;
+  const {
+    calendar,
+    size,
+    locale: locale_prop,
+    labels,
+    visibleMonths = 1,
+    className,
+    style,
+  } = props;
 
   const { locale: ambient } = useLocale();
   const locale = locale_prop ?? ambient;
@@ -71,7 +79,15 @@ export interface RangeCalendarViewProps extends ViewShellProps {
 }
 
 export function RangeCalendarView(props: RangeCalendarViewProps): ReactElement {
-  const { calendar, size, locale: locale_prop, labels, visibleMonths = 1, className, style } = props;
+  const {
+    calendar,
+    size,
+    locale: locale_prop,
+    labels,
+    visibleMonths = 1,
+    className,
+    style,
+  } = props;
 
   const { locale: ambient } = useLocale();
   const locale = locale_prop ?? ambient;

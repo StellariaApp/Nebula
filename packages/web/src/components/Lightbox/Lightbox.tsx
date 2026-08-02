@@ -29,7 +29,14 @@ const DEFAULT_MAX_ZOOM = 4;
 const PERCENT = 100;
 
 const Icon = (path: string): ReactElement => (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d={path} />
   </svg>
 );
@@ -196,9 +203,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
             />
           </div>
 
-          {image.caption === undefined ? null : (
-            <p className={styles.caption}>{image.caption}</p>
-          )}
+          {image.caption === undefined ? null : <p className={styles.caption}>{image.caption}</p>}
 
           <div className={styles.bar}>
             <div className={styles.group}>

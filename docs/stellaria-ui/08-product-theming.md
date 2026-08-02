@@ -49,19 +49,19 @@ Ocultar logos y preguntar: ¿la interfaz todavía parece parte de Stellaria? Si 
 
 ## Matriz 80/20
 
-| Elemento | Stellaria | Producto |
-| --- | --- | --- |
-| Canvas y superficies | Sí | No |
-| Tipografía y escala | Sí | Ajuste mínimo |
-| Espaciado y radios | Sí | No |
-| Grid y estrellas | Sí | Color de estrella destacada |
-| Header flotante | Sí | Logo y status |
-| Focus y estados | Sí | No |
-| Color primario | No | Sí |
-| Gradiente | Estructura | Colores |
-| Motivo especial | Límite y motion | Sí |
-| Copy | Principios | Vocabulario |
-| Preview e imágenes | Calidad y formato | Sí |
+| Elemento             | Stellaria         | Producto                    |
+| -------------------- | ----------------- | --------------------------- |
+| Canvas y superficies | Sí                | No                          |
+| Tipografía y escala  | Sí                | Ajuste mínimo               |
+| Espaciado y radios   | Sí                | No                          |
+| Grid y estrellas     | Sí                | Color de estrella destacada |
+| Header flotante      | Sí                | Logo y status               |
+| Focus y estados      | Sí                | No                          |
+| Color primario       | No                | Sí                          |
+| Gradiente            | Estructura        | Colores                     |
+| Motivo especial      | Límite y motion   | Sí                          |
+| Copy                 | Principios        | Vocabulario                 |
+| Preview e imágenes   | Calidad y formato | Sí                          |
 
 ## Reglas de color
 
@@ -73,15 +73,15 @@ Ocultar logos y preguntar: ¿la interfaz todavía parece parte de Stellaria? Si 
 
 ## Ejemplo: Rosette
 
-| Campo | Valor |
-| --- | --- |
-| Personalidad | Cercana, premium, operativa |
-| Primary | `#F43F5E` |
-| Bright | `#FB7185` |
-| Motivo | Borde orbital |
-| Glow | Rosa, opacidad `.16` |
-| Secundarios | Cyan para acciones especiales; verde para éxito |
-| Narrativa | Conversación, control y escala |
+| Campo        | Valor                                           |
+| ------------ | ----------------------------------------------- |
+| Personalidad | Cercana, premium, operativa                     |
+| Primary      | `#F43F5E`                                       |
+| Bright       | `#FB7185`                                       |
+| Motivo       | Borde orbital                                   |
+| Glow         | Rosa, opacidad `.16`                            |
+| Secundarios  | Cyan para acciones especiales; verde para éxito |
+| Narrativa    | Conversación, control y escala                  |
 
 ## Ejemplo hipotético: producto analítico
 
@@ -111,4 +111,3 @@ Un tema está listo cuando:
 - Incluye un único motivo distintivo.
 - Se prueba en Button, Input, Card, Header, Notice y data visualization.
 - Se compara visualmente con al menos otro producto Stellaria.
-

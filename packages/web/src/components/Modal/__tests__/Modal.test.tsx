@@ -33,7 +33,12 @@ describe("Modal", () => {
 
   it("el footer se renderiza fuera del cuerpo y no se anida en él", () => {
     render(
-      <Modal opened onClose={() => {}} title="Confirmar" footer={<button type="button">Guardar</button>}>
+      <Modal
+        opened
+        onClose={() => {}}
+        title="Confirmar"
+        footer={<button type="button">Guardar</button>}
+      >
         <p>Contenido</p>
       </Modal>,
     );

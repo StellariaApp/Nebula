@@ -61,24 +61,24 @@ interface ListState<T> {
 - `jotai` pasa a ser dependencia declarada de `@stellaria/nebula-web` (ya aprobada por ADR-010 y presente en la tabla de §8; no requiere ADR propio).
 - **Budgets medidos de la clase overlay** (brotli por módulo), calibrados al aterrizar la primera tanda como manda el precedente de ADR-018/ADR-022:
 
-  | Componente | Medido | Límite | Composición |
-  | --- | --- | --- | --- |
-  | Registro de overlays | 3,4 | 6 | jotai |
-  | Tooltip | 22,5 | 28 | aria tooltip + posicionamiento |
-  | Popover | 26,2 | 32 | aria overlays + FocusScope |
-  | ContextMenu | 35,8 | 42 | aria menu + colección stately |
-  | Menu | 41,6 | 48 | + trigger y posicionamiento |
-  | Modal · Drawer | 50,1 | 56 | `<dialog>` + useDialog + ButtonClose (arrastra motion) |
+  | Componente           | Medido | Límite | Composición                                            |
+  | -------------------- | ------ | ------ | ------------------------------------------------------ |
+  | Registro de overlays | 3,4    | 6      | jotai                                                  |
+  | Tooltip              | 22,5   | 28     | aria tooltip + posicionamiento                         |
+  | Popover              | 26,2   | 32     | aria overlays + FocusScope                             |
+  | ContextMenu          | 35,8   | 42     | aria menu + colección stately                          |
+  | Menu                 | 41,6   | 48     | + trigger y posicionamiento                            |
+  | Modal · Drawer       | 50,1   | 56     | `<dialog>` + useDialog + ButtonClose (arrastra motion) |
 
   Modal y Drawer superan la banda de compuestos (≤48 kB de docs/03 §3) por el `ButtonClose` de su cabecera, que trae `motion` vía ActionIcon. Se acepta a cambio de que el botón de cierre sea el mismo del sistema; la alternativa sería un botón ad-hoc sin motion, que rompería la coherencia visual por ~4 kB.
 
 - **Budgets medidos de la clase colección** (parte 2 de W2.4):
 
-  | Componente | Medido | Límite |
-  | --- | --- | --- |
-  | Select | 75,1 | 84 |
-  | Combobox | 81,5 | 90 |
-  | MultiSelect | 81,9 | 90 |
+  | Componente  | Medido | Límite |
+  | ----------- | ------ | ------ |
+  | Select      | 75,1   | 84     |
+  | Combobox    | 81,5   | 90     |
+  | MultiSelect | 81,9   | 90     |
 
   Son los módulos más pesados del catálogo y exceden incluso la banda de patterns (≤70 kB). El desglose lo explica: parten del **baseline de un input de formulario** (≈48 kB: FormField → FieldError → Transition → `motion`, más React Aria) y le suman la maquinaria de colección de react-stately (construcción de colección, `SelectionManager` y keyboard delegate, ≈27–33 kB). Ninguna de las dos mitades es opcional sin renunciar a una decisión ya cerrada: el error como burbuja animada (W2.3/W2.4) o la conformidad APG (ADR-003). Se registra la banda **colección ≤90 kB** y se revisará si aparece una vía de carga diferida para los patrones de §1.5.
 

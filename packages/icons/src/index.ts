@@ -1,9 +1,5 @@
 export { Icon, type IconProps } from "./Icon.js";
-export {
-  CreateIcons,
-  type CreatedIconProps,
-  type IconSet,
-} from "./CreateIcons.js";
+export { CreateIcons, type CreatedIconProps, type IconSet } from "./CreateIcons.js";
 export {
   ClearIcons,
   HasIcon,

@@ -65,7 +65,8 @@ describe("Lightbox", () => {
 
   it("el zoom sale por transform, no por width/height", () => {
     render(<Open />);
-    const style = screen.getByRole("group", { name: LIGHTBOX_LABELS.region }).getAttribute("style") ?? "";
+    const style =
+      screen.getByRole("group", { name: LIGHTBOX_LABELS.region }).getAttribute("style") ?? "";
     expect(style).toMatch(/scale\(1\)/);
     expect(style).not.toMatch(/width|height/);
   });

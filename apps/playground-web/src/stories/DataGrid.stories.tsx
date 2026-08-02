@@ -106,8 +106,8 @@ export const Virtualizado: Story = {
     <Box display="flex" direction="column" gap="sm">
       <Title order={6}>1 000 filas, virtualización activa</Title>
       <Text fz="body3" c="text.secondary">
-        Por encima de <code>virtualizeFrom</code> (50) solo se montan las filas visibles; el scroll lo
-        sostienen dos filas de relleno con <code>aria-hidden</code>.
+        Por encima de <code>virtualizeFrom</code> (50) solo se montan las filas visibles; el scroll
+        lo sostienen dos filas de relleno con <code>aria-hidden</code>.
       </Text>
       <DataGrid
         data={Dataset(1000)}

@@ -29,7 +29,14 @@ export default meta;
 type Story = StoryObj<typeof Overlay>;
 
 const ICON_UP = (
-  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth={2}>
+  <svg
+    viewBox="0 0 24 24"
+    width="1em"
+    height="1em"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
     <path d="M12 19V5M5 12l7-7 7 7" />
   </svg>
 );
@@ -111,10 +118,7 @@ export const Tarjetas: Story = {
         HoverCard abre con el puntero y también con el foco: prueba con Tab.
       </Text>
       <Box>
-        <HoverCard
-          openDelay={150}
-          trigger={<Button variant="ghost">Ada Lovelace</Button>}
-        >
+        <HoverCard openDelay={150} trigger={<Button variant="ghost">Ada Lovelace</Button>}>
           <Box display="flex" gap="sm" align="center">
             <Avatar name="Ada Lovelace" size="md" />
             <Box display="flex" direction="column">

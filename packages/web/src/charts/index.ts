@@ -1,8 +1,4 @@
-export {
-  AreaChart,
-  BarChart,
-  LineChart,
-} from "../components/Charts/CartesianCharts.js";
+export { AreaChart, BarChart, LineChart } from "../components/Charts/CartesianCharts.js";
 export { PieChart } from "../components/Charts/PieChart.js";
 export { RadarChart } from "../components/Charts/RadarChart.js";
 export { SparkLine } from "../components/Charts/SparkLine.js";

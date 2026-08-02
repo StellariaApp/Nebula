@@ -15,9 +15,7 @@ export function FileButton(props: FileButtonProps): ReactElement {
 
   const HandleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const files = event.target.files;
-    const payload: FileButtonPayload = multiple
-      ? Array.from(files ?? [])
-      : (files?.[0] ?? null);
+    const payload: FileButtonPayload = multiple ? Array.from(files ?? []) : (files?.[0] ?? null);
     onChange(payload);
     event.target.value = "";
   };

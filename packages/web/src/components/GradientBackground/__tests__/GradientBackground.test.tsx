@@ -75,7 +75,11 @@ describe("GradientBackground", () => {
 
   it("acepta un gradiente propio y style props", () => {
     render(
-      <GradientBackground gradient={{ from: "primary.500", to: "accent.400" }} p="xl" data-testid="gbg" />,
+      <GradientBackground
+        gradient={{ from: "primary.500", to: "accent.400" }}
+        p="xl"
+        data-testid="gbg"
+      />,
     );
     const node = screen.getByTestId("gbg");
     expect(node.getAttribute("style") ?? "").toMatch(/--color-primary-500/);

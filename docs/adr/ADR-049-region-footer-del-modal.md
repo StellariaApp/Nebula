@@ -7,11 +7,11 @@
 
 `Modal` tiene tres regiones en el archivo de referencia (`#152:1528`) y **dos** en Nebula:
 
-| Región | Figma | Nebula |
-| ------ | ----- | ------ |
-| header | padding 20/24, borde inferior 1 px | padding 16/24, borde inferior 1 px |
-| body   | padding 24, gap 16 | padding 24 (`lg`) |
-| footer | padding 16/24, gap 12, **borde superior 1 px**, alineado al final | **no existe** |
+| Región | Figma                                                             | Nebula                             |
+| ------ | ----------------------------------------------------------------- | ---------------------------------- |
+| header | padding 20/24, borde inferior 1 px                                | padding 16/24, borde inferior 1 px |
+| body   | padding 24, gap 16                                                | padding 24 (`lg`)                  |
+| footer | padding 16/24, gap 12, **borde superior 1 px**, alineado al final | **no existe**                      |
 
 Sin región propia, las acciones de un modal se escriben dentro de `children`, es decir **dentro del
 body**. El body pinta `surface.sunken`, de modo que los botones de confirmar y cancelar quedan sobre la

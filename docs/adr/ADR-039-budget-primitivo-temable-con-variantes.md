@@ -29,14 +29,14 @@ de tema, de modo que lo único que se añade es la lógica de resolución más l
 Aplicado sobre la medición completa de `pnpm --filter @stellaria/nebula-web size` —78 entradas, todas
 en verde hoy—, seis componentes rebasan su límite:
 
-| Componente | Medido |  Budget | Con `ResolveVariant` | Exceso |
-| ---------- | -----: | ------: | -------------------: | -----: |
-| Badge      |  11,57 |      12 |            **13,77** | +1,77  |
-| Avatar     |  11,65 |      12 |            **13,85** | +1,85  |
-| Divider    |  11,61 |      12 |            **13,81** | +1,81  |
-| Loader     |  11,41 |      12 |            **13,61** | +1,61  |
-| Paper      |  10,90 |      12 |            **13,10** | +1,10  |
-| Progress   |  12,21 |      14 |            **14,41** | +0,41  |
+| Componente | Medido | Budget | Con `ResolveVariant` | Exceso |
+| ---------- | -----: | -----: | -------------------: | -----: |
+| Badge      |  11,57 |     12 |            **13,77** |  +1,77 |
+| Avatar     |  11,65 |     12 |            **13,85** |  +1,85 |
+| Divider    |  11,61 |     12 |            **13,81** |  +1,81 |
+| Loader     |  11,41 |     12 |            **13,61** |  +1,61 |
+| Paper      |  10,90 |     12 |            **13,10** |  +1,10 |
+| Progress   |  12,21 |     14 |            **14,41** |  +0,41 |
 
 Y dos pasan sin margen útil: Card 21,64 / 22 y NavLink 20,95 / 21.
 
@@ -99,10 +99,10 @@ Y dos pasan sin margen útil: Card 21,64 / 22 y NavLink 20,95 / 21.
 Se recalibró **una sola entrada**, no las tres proyectadas, porque la medición corrigió la proyección
 en dos puntos:
 
-| Componente | Antes |  Proyectado | **Medido** | Budget      |
-| ---------- | ----: | ----------: | ---------: | ----------- |
-| Badge      | 11,57 |       13,77 |  **13,94** | 12 → **14,5** |
-| Alert      | 30,44 |       32,64 |  **30,43** | 35 (sin tocar) |
+| Componente | Antes | Proyectado | **Medido** | Budget         |
+| ---------- | ----: | ---------: | ---------: | -------------- |
+| Badge      | 11,57 |      13,77 |  **13,94** | 12 → **14,5**  |
+| Alert      | 30,44 |      32,64 |  **30,43** | 35 (sin tocar) |
 
 **Alert no paga nada.** La proyección asumía +2,2 kB, pero Alert ya arrastraba `ResolveVariant` por su
 cadena `ButtonClose → ActionIcon`, de modo que el import ya estaba en su grafo. Es un recordatorio de
@@ -121,13 +121,13 @@ Ejecutar la convención de ADR-021 —toda prop de color es `ColorExtended`— t
 aquel ADR tampoco pesó: el tipo admite las **16 paletas crudas**, así que el resolutor las arrastra.
 `palettes` pesa ~1 kB brotli y lo paga todo componente que acepte el tipo, use o no una paleta.
 
-| Componente | Antes |     Después | Budget          |
-| ---------- | ----: | ----------: | --------------- |
-| Mark       |  9,43 |       11,85 | 12 → **13,5**   |
-| Blockquote | 11,22 |       12,10 | 12 → **13,5**   |
-| Highlight  | 10,04 |       12,36 | 12 → **13,5**   |
-| Loader     | 11,40 |       12,37 | 12 → **13,5**   |
-| Radio      | 11,61 |       12,65 | 12 → **13,5**   |
+| Componente | Antes | Después | Budget        |
+| ---------- | ----: | ------: | ------------- |
+| Mark       |  9,43 |   11,85 | 12 → **13,5** |
+| Blockquote | 11,22 |   12,10 | 12 → **13,5** |
+| Highlight  | 10,04 |   12,36 | 12 → **13,5** |
+| Loader     | 11,40 |   12,37 | 12 → **13,5** |
+| Radio      | 11,61 |   12,65 | 12 → **13,5** |
 
 Es un **suelo compartido**, no un exceso individual: los cinco cruzan por la misma causa y en el mismo
 orden de magnitud, que es el criterio que ADR-032 §7 admite para recalibrar. El número sigue la regla de

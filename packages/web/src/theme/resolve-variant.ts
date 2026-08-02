@@ -34,7 +34,15 @@ const SHADES = [
 
 type Shade = (typeof SHADES)[number];
 
-const SEMANTIC_SCALES = ["primary", "accent", "gray", "success", "warning", "error", "info"] as const;
+const SEMANTIC_SCALES = [
+  "primary",
+  "accent",
+  "gray",
+  "success",
+  "warning",
+  "error",
+  "info",
+] as const;
 
 const TRANSPARENT_HOVER = "scale.500.10" as VariantBackground;
 const TRANSPARENT_ACTIVE = "scale.500.16" as VariantBackground;
@@ -201,10 +209,7 @@ function GradientFromProp(prop: GradientProp): string {
   return `linear-gradient(${String(prop.deg ?? 135)}deg, ${from}, ${to})`;
 }
 
-export function ResolveGradient(
-  gradient: GradientRole | GradientProp,
-  theme: NebulaTheme,
-): string {
+export function ResolveGradient(gradient: GradientRole | GradientProp, theme: NebulaTheme): string {
   if (typeof gradient !== "string") return GradientFromProp(gradient);
   const token = theme.effects.gradients[gradient];
   return token === undefined ? "transparent" : GradientCss(token);
@@ -295,7 +300,10 @@ function ResolveFlat(
       return { ...solid(base, Darken(base, 12), Darken(base, 20), on), glow: TintedGlow(base) };
     case "gradient": {
       const bg = gradientOverride ?? base;
-      return { ...solid(bg, bg, bg, on), gradientAnimated: gradientOverride !== undefined && gradientAnimated };
+      return {
+        ...solid(bg, bg, bg, on),
+        gradientAnimated: gradientOverride !== undefined && gradientAnimated,
+      };
     }
     case "glass":
     case "filled":
@@ -359,5 +367,11 @@ export function ResolveVariant(
 
   return IsSemanticScale(color)
     ? ResolveScale(variant, color, theme, gradient_override, gradient_animated)
-    : ResolveFlat(variant, ResolveColorExtended(color), theme, gradient_override, gradient_animated);
+    : ResolveFlat(
+        variant,
+        ResolveColorExtended(color),
+        theme,
+        gradient_override,
+        gradient_animated,
+      );
 }

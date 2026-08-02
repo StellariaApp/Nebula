@@ -196,4 +196,3 @@ Reglas:
 - Drawer: preferido en mobile para controles secundarios.
 - Toast: mensajes breves, máximo una acción y duración pausada al hover/foco.
 - Z-index según la escala compartida.
-

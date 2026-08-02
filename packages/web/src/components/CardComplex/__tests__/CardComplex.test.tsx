@@ -35,7 +35,9 @@ describe("CardComplex", () => {
   });
 
   it("cada acción cae en su ranura", () => {
-    const { container } = render(<CardComplex title="F-1042" media={{ image: "x.png", alt: "" }} actions={ACTIONS} />);
+    const { container } = render(
+      <CardComplex title="F-1042" media={{ image: "x.png", alt: "" }} actions={ACTIONS} />,
+    );
     expect(screen.getByRole("button", { name: "Editar" })).toBeDefined();
     expect(screen.getByRole("button", { name: "Ver detalle" })).toBeDefined();
     const media = container.querySelector("[class*='mediaActions']");
@@ -53,7 +55,9 @@ describe("CardComplex", () => {
 
   it("una acción dispara su onPress", async () => {
     const on_press = vi.fn();
-    render(<CardComplex title="F-1042" actions={[{ key: "a", label: "Editar", onPress: on_press }]} />);
+    render(
+      <CardComplex title="F-1042" actions={[{ key: "a", label: "Editar", onPress: on_press }]} />,
+    );
     await userEvent.click(screen.getByRole("button", { name: "Editar" }));
     expect(on_press).toHaveBeenCalledTimes(1);
   });
@@ -80,14 +84,19 @@ describe("CardComplex", () => {
         <CardComplex
           title="F-1042"
           actions={[
-            { key: "anular", label: "Anular", permission: "cards.anular", permissionMode: "disable" },
+            {
+              key: "anular",
+              label: "Anular",
+              permission: "cards.anular",
+              permissionMode: "disable",
+            },
           ]}
         />
       </PermissionProvider>,
     );
-    expect(
-      screen.getByRole("button", { name: "Anular" }).getAttribute("data-disabled"),
-    ).toBe("true");
+    expect(screen.getByRole("button", { name: "Anular" }).getAttribute("data-disabled")).toBe(
+      "true",
+    );
   });
 
   it("meta formatea fechas y nombra al responsable", () => {
