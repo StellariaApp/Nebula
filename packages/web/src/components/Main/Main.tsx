@@ -2,14 +2,18 @@
 
 import { useId, type ReactElement } from "react";
 
+import { useMediaQuery, useMomentumPage, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { MotionOff, ScrollSpring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss, SpaceToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Main.css.js";
 import type { MainProps } from "./Main.types.js";
 import { contentGap, contentMax } from "./Main.vars.css.js";
+
+const REDUCED = "(prefers-reduced-motion: reduce)";
 
 export function Main(props: MainProps): ReactElement {
   const {
@@ -21,6 +25,9 @@ export function Main(props: MainProps): ReactElement {
     padded = false,
     contentWidth,
     spacing,
+    momentum = false,
+    spring = "default",
+    multiplier = 1.5,
     skipLabel = "Saltar al contenido",
     withSkipLink = false,
     id,
@@ -28,6 +35,15 @@ export function Main(props: MainProps): ReactElement {
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+
+  const { theme } = useTheme();
+  const reduced = useMediaQuery(REDUCED);
+
+  useMomentumPage({
+    enabled: momentum && !MotionOff({ theme, reduced }),
+    spring: ScrollSpring(spring, theme),
+    multiplier,
+  });
 
   const auto_id = useId();
   const content_id = id ?? auto_id;

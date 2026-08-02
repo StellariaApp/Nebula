@@ -959,11 +959,11 @@ const MODULE_BUDGETS = [
     limit: "48 kB",
   },
   {
-    name: "Main (layout de pantalla + skip-link, por módulo)",
+    name: "Main (layout de pantalla + skip-link + momentum de página, por módulo)",
     path: "dist/components/Main/Main.js",
     import: "{ Main }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "14 kB",
   },
   {
     name: "Header (cabecera de pantalla: ActionIcon de vuelta, por módulo)",

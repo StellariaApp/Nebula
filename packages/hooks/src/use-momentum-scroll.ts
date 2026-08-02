@@ -19,6 +19,21 @@ const FIRST_STEP = 1 / 60;
 const REST_DISTANCE = 0.5;
 const REST_VELOCITY = 5;
 
+interface Scroller {
+  node: HTMLElement;
+  wheel: EventTarget;
+  scroll: EventTarget;
+}
+
+function ElementScroller(node: HTMLElement): Scroller {
+  return { node, wheel: node, scroll: node };
+}
+
+function PageScroller(): Scroller | null {
+  const node = document.scrollingElement ?? document.documentElement;
+  return node instanceof HTMLElement ? { node, wheel: window, scroll: document } : null;
+}
+
 function Clamp(value: number, max: number): number {
   return Math.min(Math.max(value, 0), max);
 }
@@ -74,32 +89,15 @@ function OwnedByNested(
   return false;
 }
 
-/**
- * Inercia con muelle sobre la rueda del ratón. `spring` son los tres números del tema
- * (`theme.motion.spring[name]`), de modo que la física es la misma que la de `motion` y Reanimated.
- *
- * No secuestra el gesto cuando no le pertenece: el táctil no genera `wheel` y se queda con la
- * inercia del sistema, `ctrl`+rueda sigue haciendo zoom, un scroller anidado con recorrido se lo
- * queda, y en el tope el evento no se cancela para que el encadenamiento al padre se conserve.
- * Cualquier scroll ajeno —barra arrastrada, teclado, `scrollIntoView`, anclas— resincroniza el
- * destino y mata el muelle. `enabled: false` no suscribe nada.
- */
-export function useMomentumScroll(
-  ref: RefObject<HTMLElement | null>,
-  options: UseMomentumScrollOptions = {},
-): void {
-  const {
-    enabled = true,
-    axis = "y",
-    spring = DEFAULT_SPRING,
-    multiplier = DEFAULT_MULTIPLIER,
-  } = options;
+function Subscribe(
+  scroller: Scroller,
+  axis: MomentumAxis,
+  spring: SpringConfig,
+  multiplier: number,
+): () => void {
+  const { node } = scroller;
   const { stiffness, damping, mass } = spring;
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!enabled || node === null || typeof window === "undefined") return;
-
+  {
     const horizontal = axis === "x";
     let target = Offset(node, horizontal);
     let position = target;
@@ -164,13 +162,68 @@ export function useMomentumScroll(
       applied = current;
     };
 
-    node.addEventListener("wheel", OnWheel, { passive: false });
-    node.addEventListener("scroll", OnScroll, { passive: true });
+    scroller.wheel.addEventListener("wheel", OnWheel as EventListener, { passive: false });
+    scroller.scroll.addEventListener("scroll", OnScroll, { passive: true });
 
     return () => {
-      node.removeEventListener("wheel", OnWheel);
-      node.removeEventListener("scroll", OnScroll);
+      scroller.wheel.removeEventListener("wheel", OnWheel as EventListener);
+      scroller.scroll.removeEventListener("scroll", OnScroll);
       if (frame !== 0) window.cancelAnimationFrame(frame);
     };
+  }
+}
+
+/**
+ * Inercia con muelle sobre la rueda del ratón. `spring` son los tres números del tema
+ * (`theme.motion.spring[name]`), de modo que la física es la misma que la de `motion` y Reanimated.
+ *
+ * No secuestra el gesto cuando no le pertenece: el táctil no genera `wheel` y se queda con la
+ * inercia del sistema, `ctrl`+rueda sigue haciendo zoom, un scroller anidado con recorrido se lo
+ * queda, y en el tope el evento no se cancela para que el encadenamiento al padre se conserve.
+ * Cualquier scroll ajeno —barra arrastrada, teclado, `scrollIntoView`, anclas— resincroniza el
+ * destino y mata el muelle. `enabled: false` no suscribe nada.
+ */
+export function useMomentumScroll(
+  ref: RefObject<HTMLElement | null>,
+  options: UseMomentumScrollOptions = {},
+): void {
+  const {
+    enabled = true,
+    axis = "y",
+    spring = DEFAULT_SPRING,
+    multiplier = DEFAULT_MULTIPLIER,
+  } = options;
+  const { stiffness, damping, mass } = spring;
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!enabled || node === null || typeof window === "undefined") return;
+    return Subscribe(ElementScroller(node), axis, { stiffness, damping, mass }, multiplier);
   }, [ref, enabled, axis, stiffness, damping, mass, multiplier]);
+}
+
+/**
+ * La misma inercia, sobre el scroll de la **página** en vez de sobre un contenedor.
+ *
+ * El scroller es `document.scrollingElement`, así que `window.scrollY` sigue siendo la fuente de
+ * verdad: los efectos anclados al scroll del documento —parallax, scroll-spy, revelado por
+ * viewport— no se enteran de que hay un muelle por medio. La única diferencia con
+ * `useMomentumScroll` está en dónde escucha: el `wheel` en `window` y el `scroll` en `document`,
+ * porque el scroll de la página **no se despacha en `documentElement`**.
+ */
+export function useMomentumPage(options: UseMomentumScrollOptions = {}): void {
+  const {
+    enabled = true,
+    axis = "y",
+    spring = DEFAULT_SPRING,
+    multiplier = DEFAULT_MULTIPLIER,
+  } = options;
+  const { stiffness, damping, mass } = spring;
+
+  useEffect(() => {
+    if (!enabled || typeof window === "undefined") return;
+    const scroller = PageScroller();
+    if (scroller === null) return;
+    return Subscribe(scroller, axis, { stiffness, damping, mass }, multiplier);
+  }, [enabled, axis, stiffness, damping, mass, multiplier]);
 }

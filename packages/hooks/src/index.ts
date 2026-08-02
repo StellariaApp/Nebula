@@ -4,6 +4,7 @@ export { useUncontrolled } from "./use-uncontrolled.js";
 export { useBreakpointDown, useBreakpointUp, useMediaQuery } from "./use-media-query.js";
 export { useScrolled, type UseScrolledOptions } from "./use-scrolled.js";
 export {
+  useMomentumPage,
   useMomentumScroll,
   type MomentumAxis,
   type UseMomentumScrollOptions,

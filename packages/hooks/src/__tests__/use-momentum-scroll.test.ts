@@ -1,7 +1,7 @@
 import { act, cleanup, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useMomentumScroll } from "../use-momentum-scroll.js";
+import { useMomentumPage, useMomentumScroll } from "../use-momentum-scroll.js";
 
 const FRAME = 16;
 
@@ -186,5 +186,94 @@ describe("useMomentumScroll", () => {
     expect(remove.mock.calls.some(([type]) => type === "wheel")).toBe(true);
     expect(remove.mock.calls.some(([type]) => type === "scroll")).toBe(true);
     remove.mockRestore();
+  });
+});
+
+function PageScroller(): () => number {
+  const root = document.documentElement;
+  let top = 0;
+
+  Object.defineProperty(root, "scrollHeight", { value: 4000, configurable: true });
+  Object.defineProperty(root, "clientHeight", { value: 800, configurable: true });
+  Object.defineProperty(root, "scrollTop", {
+    configurable: true,
+    get: () => top,
+    set: (value: number) => {
+      top = value;
+    },
+  });
+  root.scrollTo = (options?: ScrollToOptions | number, y?: number): void => {
+    if (typeof options === "number") top = y ?? top;
+    else if (options?.top !== undefined) top = options.top;
+  };
+
+  return () => top;
+}
+
+describe("useMomentumPage", () => {
+  it("lleva el scroll del documento al destino con el muelle", () => {
+    const Position = PageScroller();
+    renderHook(() => {
+      useMomentumPage();
+    });
+
+    let event: WheelEvent | undefined;
+    act(() => {
+      event = new WheelEvent("wheel", { bubbles: true, cancelable: true, deltaY: 300 });
+      window.dispatchEvent(event);
+    });
+
+    expect(event?.defaultPrevented).toBe(true);
+    expect(Position()).toBe(0);
+
+    act(Run);
+    expect(Position()).toBe(300);
+  });
+
+  it("el scroll de la página resincroniza aunque se despache en document", () => {
+    const Position = PageScroller();
+    renderHook(() => {
+      useMomentumPage();
+    });
+
+    act(() => {
+      window.dispatchEvent(new WheelEvent("wheel", { cancelable: true, deltaY: 300 }));
+      frames = [];
+      document.documentElement.scrollTop = 1500;
+      document.dispatchEvent(new Event("scroll"));
+      Run();
+    });
+
+    expect(Position()).toBe(1500);
+  });
+
+  it("escucha el wheel en window y el scroll en document, no en el elemento", () => {
+    PageScroller();
+    const on_window = vi.spyOn(window, "addEventListener");
+    const on_document = vi.spyOn(document, "addEventListener");
+    const on_root = vi.spyOn(document.documentElement, "addEventListener");
+
+    renderHook(() => {
+      useMomentumPage();
+    });
+
+    expect(on_window.mock.calls.some(([type]) => type === "wheel")).toBe(true);
+    expect(on_document.mock.calls.some(([type]) => type === "scroll")).toBe(true);
+    expect(on_root.mock.calls.length).toBe(0);
+
+    on_window.mockRestore();
+    on_document.mockRestore();
+    on_root.mockRestore();
+  });
+
+  it("enabled false no suscribe nada", () => {
+    PageScroller();
+    const on_window = vi.spyOn(window, "addEventListener");
+    renderHook(() => {
+      useMomentumPage({ enabled: false });
+    });
+
+    expect(on_window.mock.calls.some(([type]) => type === "wheel")).toBe(false);
+    on_window.mockRestore();
   });
 });
