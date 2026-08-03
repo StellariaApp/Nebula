@@ -1,6 +1,6 @@
 import type { NebulaTheme, Variant } from "@stellaria/nebula-tokens";
 
-import { ResolveBackground, ResolveRef, SEMANTIC_SCALES, ShiftRef } from "./resolve.ts";
+import { OnColor, ResolveBackground, ResolveRef, SEMANTIC_SCALES, ShiftRef } from "./resolve.ts";
 
 export interface ContrastPair {
   label: string;
@@ -26,8 +26,26 @@ const VARIANTS: readonly Variant[] = [
   "unstyled",
 ];
 
+const ON_FILL = "text.onPrimary";
+
+function FillHex(theme: NebulaTheme): string | undefined {
+  const background = theme.variantMap.filled.background;
+  if (background.startsWith("gradient.")) {
+    const role = background.slice("gradient.".length);
+    const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
+    return token?.stops[0]?.color;
+  }
+  const [group, key, alpha] = background.split(".");
+  if (group !== "scale" || key === undefined || alpha !== undefined) return undefined;
+  return ResolveRef(theme, `scale.${key}`, "primary", theme.colors.surface.base) ?? undefined;
+}
+
 function VariantForeground(theme: NebulaTheme, variant: Variant, scale: string): string {
   const recipe = theme.variantMap[variant];
+  if (recipe.foreground === ON_FILL) {
+    const fill = FillHex(theme);
+    if (fill !== undefined) return OnColor(fill);
+  }
   return (
     ResolveRef(theme, recipe.foreground, scale as never, theme.colors.surface.base) ??
     theme.colors.text.primary
@@ -61,7 +79,8 @@ function BuildVariantPairs(): ContrastPair[] {
         fg: (t) => VariantForeground(t, variant, scale),
         bg: (t) => {
           const recipe = t.variantMap[variant];
-          const hovered = { ...recipe, background: ShiftRef(recipe.background, 1) };
+          const deepen = t.meta.scheme === "dark" ? -1 : 1;
+          const hovered = { ...recipe, background: ShiftRef(recipe.background, deepen) };
           return (
             ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))
               ?.bg ?? t.colors.surface.base

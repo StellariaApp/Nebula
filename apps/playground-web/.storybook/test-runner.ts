@@ -14,23 +14,18 @@ import { checkA11y, injectAxe } from "axe-playwright";
  * Drawer, Menu) se renderizan en un portal fuera de la raíz de la story, así que
  * acotarlo a `#storybook-root` dejaba sin auditar justo el contenido de W2.4.
  *
- * Antes de auditar se deja asentar la animación de entrada: axe calcula el contraste
- * sobre el color compuesto, y un elemento a media opacidad da falsos positivos de
- * `color-contrast`. Es un margen fijo y no una espera a `getAnimations()`, porque las
- * animaciones decorativas infinitas (spinner, shimmer, rayas, glow) nunca resuelven su
- * promesa `finished` y colgarían el gate.
+ * Antes de auditar se deja asentar la animación de entrada: axe calcula el contraste sobre el
+ * color compuesto, y un elemento a media opacidad da falsos positivos de `color-contrast`.
  *
- * Al margen fijo se le suma una espera acotada a que ningún `[data-reveal]` esté a media
- * opacidad. El margen solo no basta desde que el reveal pinta de verdad su estado oculto:
- * la sexta tarjeta de `Motion/Reveal › Stagger` sigue entrando a los 400 ms —retardo de
- * stagger más los 682 ms del muelle— y axe la pillaba traslúcida. Se acota a un selector
- * concreto, así que las animaciones decorativas infinitas siguen sin poder colgar el gate,
- * y si aun así no asienta se sigue adelante en vez de fallar por la espera.
+ * Al margen fijo se le suma una espera acotada a que **no quede ninguna animación finita en
+ * curso**. Las decorativas infinitas —spinner, shimmer, rayas, glow— se ignoran por su
+ * `iterations: Infinity`, que es lo que impedía esperar a `getAnimations()` sin colgar el gate.
+ * El margen solo no bastaba: la sexta tarjeta de `Motion/Reveal › Stagger`, el globo de
+ * `FieldError` y el botón de un estado vacío seguían entrando a los 400 ms y axe los medía
+ * traslúcidos. Si aun así no asienta se sigue adelante en vez de fallar por la espera.
  */
 const SETTLE_MS = 400;
-const REVEAL_SETTLE_MS = 2500;
-const OPAQUE = 0.99;
-const CLEAR = 0.01;
+const MOTION_SETTLE_MS = 2500;
 
 const config: TestRunnerConfig = {
   async preVisit(page) {
@@ -46,13 +41,13 @@ const config: TestRunnerConfig = {
     await page.waitForTimeout(SETTLE_MS);
     await page
       .waitForFunction(
-        (range) =>
-          [...document.querySelectorAll("[data-reveal]")].every((node) => {
-            const value = Number(getComputedStyle(node).opacity);
-            return value < range.clear || value > range.opaque;
+        () =>
+          document.getAnimations().every((animation) => {
+            if (animation.playState !== "running") return true;
+            return animation.effect?.getTiming().iterations === Infinity;
           }),
-        { clear: CLEAR, opaque: OPAQUE },
-        { timeout: REVEAL_SETTLE_MS },
+        undefined,
+        { timeout: MOTION_SETTLE_MS },
       )
       .catch(() => undefined);
 

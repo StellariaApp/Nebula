@@ -1,5 +1,7 @@
 import type { GlassSurfaceRecipe, NebulaTheme } from "@stellaria/nebula-tokens";
 
+import { OnColor } from "./ink.js";
+
 function MapValues<K extends string, V, R>(
   record: Record<K, V>,
   fn: (value: V) => R,
@@ -17,6 +19,22 @@ const Ms = (n: number): string => `${String(n)}ms`;
 const Num = (n: number): string => String(n);
 
 const SOLID = "solid ";
+const FILL_SCALE = "scale.";
+
+/** La tinta del relleno de marca la decide la luminancia del propio relleno, no el autor del tema. */
+function OnFill(theme: NebulaTheme): string {
+  const ref = theme.variantMap.filled.background;
+  if (ref.startsWith("gradient.")) {
+    const role = ref.slice("gradient.".length);
+    const stop = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]]
+      ?.stops[0]?.color;
+    return stop === undefined ? theme.colors.text.onPrimary : OnColor(stop);
+  }
+  if (!ref.startsWith(FILL_SCALE)) return theme.colors.text.onPrimary;
+  const shade = ref.slice(FILL_SCALE.length);
+  const fill = theme.colors.primary[shade as keyof NebulaTheme["colors"]["primary"]];
+  return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill);
+}
 
 function GlassRecipe(recipe: GlassSurfaceRecipe): GlassSurfaceRecipe & { borderColor: string } {
   const cut = recipe.border.indexOf(SOLID);
@@ -40,7 +58,7 @@ export function ThemeToVars(theme: NebulaTheme) {
         info: colors.semantic.info,
       },
       surface: colors.surface,
-      text: colors.text,
+      text: { ...colors.text, onPrimary: OnFill(theme) },
       border: colors.border,
     },
     font: {

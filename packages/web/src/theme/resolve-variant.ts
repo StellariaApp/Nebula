@@ -15,6 +15,7 @@ import {
 } from "@stellaria/nebula-tokens";
 
 import { vars } from "./contract.css.js";
+import { OnColor } from "./ink.js";
 
 export type ColorScale = SemanticScaleName;
 export type GradientProp = NonNullable<VariantProps["gradient"]>;
@@ -138,27 +139,6 @@ function ResolveColorExtended(color: string): FlatColor {
     return Number.isFinite(parsed) ? { base: WithAlpha(flat.base, parsed), concrete: null } : flat;
   }
   return flat;
-}
-
-function Luminance(hex: string): number {
-  const raw = hex.replace("#", "");
-  const full =
-    raw.length === 3
-      ? raw
-          .split("")
-          .map((c) => c + c)
-          .join("")
-      : raw;
-  const channel = (start: number): number => {
-    const value = Number.parseInt(full.slice(start, start + 2), 16) / 255;
-    return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
-  };
-  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
-}
-
-function OnColor(concrete: string | null): string {
-  if (concrete === null) return "#ffffff";
-  return Luminance(concrete) > 0.45 ? "#0b0b0b" : "#ffffff";
 }
 
 export function ResolveColorRef(ref: VariantColorRef, scale: ColorScale): string {
@@ -337,8 +317,9 @@ function ResolveScale(
   const glass_recipe = vars.glass[glassClass ?? recipe.glass ?? "default"];
   const is_transparent = recipe.background === "transparent";
 
-  const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, 1);
-  const active_ref = is_transparent ? TRANSPARENT_ACTIVE : ShiftRef(recipe.background, 2);
+  const deepen = theme.meta.scheme === "dark" ? -1 : 1;
+  const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, deepen);
+  const active_ref = is_transparent ? TRANSPARENT_ACTIVE : ShiftRef(recipe.background, deepen * 2);
 
   const background = glass_on
     ? glass_recipe.background
