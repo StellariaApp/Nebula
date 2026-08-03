@@ -70,9 +70,9 @@ export const nebulaDark = {
     glass: {
       surface: {
         control: {
-          background: "rgba(255, 255, 255, 0.05)",
+          background: "rgba(255, 255, 255, 0.03)",
           border: "1px solid rgba(255, 255, 255, 0.10)",
-          backdropFilter: `blur(${blur.sm}) saturate(120%)`,
+          backdropFilter: `blur(${blur.xs}) saturate(120%)`,
         },
         subtle: {
           background: "rgba(15, 17, 25, 0.46)",

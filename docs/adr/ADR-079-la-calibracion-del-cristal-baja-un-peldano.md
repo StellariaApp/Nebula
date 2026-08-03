@@ -38,8 +38,19 @@ translúcida», y para el caso en que sí haga falta desenfoque marcado están `
 - **Verificado sobre el render** con el método de §5.5 del plan de marca: el chrome pasa de
   `rgba(15,17,25,0.66)` + `blur(16px)` a `rgba(15,17,25,0.56)` + `blur(12px)`.
 
-- **El control no se toca.** `glass.control` sigue en `rgba(255,255,255,0.05)` + `blur(4px)`: bajarlo
-  otro peldaño lo dejaría en 2 px, donde el efecto desaparece del todo y el borde se queda solo.
+- **El control baja también, y el motivo por el que no iba a hacerlo resultó ser un bug.** Este ADR
+  cerró diciendo que `glass.control` se quedaba en `rgba(255,255,255,0.05)` + `blur(4px)` porque
+  bajarlo «lo dejaría en 2 px, donde el efecto desaparece del todo y **el borde se queda solo**».
+
+  Esa frase se escribió con el borde del cristal roto: los controles pintaban `border.subtle` —gris
+  oscuro sobre fondo oscuro— en vez del `rgba(255,255,255,0.10)` de su receta, porque nadie consumía
+  `glassBorder`. Con el borde arreglado, «el borde se queda solo» dejó de ser una pérdida y pasó a ser
+  **la definición del control**: es lo que D2 describe del botón de Rosette, «sutil, con borde, sin
+  blur».
+
+  Validado sobre el render por el propietario, `control` queda en `rgba(255,255,255,0.03)` +
+  `blur(2px)` en dark y `rgba(15,17,25,0.02)` en light. El botón se define por su filo y no por su
+  relleno.
 
 - **`docs/06` §6 pierde la frase sobre el umbral.** La calibración `md/xl/xxl` deja de ser la vigente,
   y la explicación de por qué se subió pasa a ser historia de ADR-028, no regla en vigor.
