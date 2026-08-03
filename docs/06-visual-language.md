@@ -312,10 +312,10 @@ gate y ser ilegible. Un texto a opacidad parcial se mide sobre el render antes d
 ## 6. Effects budget
 
 - Máximo un efecto dominante por región: glow, glass o gradient.
-- Las tres superficies de glass usan `blur.md` (subtle), `blur.xl` (default) y `blur.xxl` (strong) con
-  saturación de 130–140 % (ADR-028). El glass nunca se anida. La calibración anterior (`sm/md`) dejaba
-  el efecto por debajo del umbral perceptible; la escala `blur` en sí no cambió y sigue disponible para
-  otros usos.
+- Las tres superficies de glass usan `blur.sm` (subtle), `blur.lg` (default) y `blur.xl` (strong) con
+  saturación de 130–140 % (ADR-079, que baja un peldaño la calibración de ADR-028). El glass nunca se
+  anida. `subtle` ya no separa por desenfoque sino por transparencia; para desenfoque marcado están
+  `default` y `strong`. La escala `blur` en sí no cambió y sigue disponible para otros usos.
 - `effects.glass.enabled=false` degrada a superficie sólida sin perder jerarquía.
 - Glow identifica una acción primaria, selección o feedback excepcional; no se aplica a listas
   completas.
