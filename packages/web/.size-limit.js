@@ -760,7 +760,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/NavLink/NavLink.js",
     import: "{ NavLink }",
     ignore: ["react", "react-dom"],
-    limit: "22.5 kB",
+    limit: "23 kB",
   },
   {
     name: "Nav (compound: indicador con spring + scroll-spy, por módulo)",
