@@ -6,16 +6,15 @@ import { CommonPack } from "@stellaria/nebula-icons/packs";
 import { palettes } from "@stellaria/nebula-tokens";
 import {
   ActionIcon,
-  AppShell,
   Avatar,
   Badge,
   Box,
+  Breadcrumbs,
   Button,
   Card,
   Divider,
   GlassSurface,
   GradientText,
-  Header,
   Indicator,
   Menu,
   NavLink,
@@ -25,6 +24,8 @@ import {
   Title,
   Tooltip,
   VisuallyHidden,
+  vars,
+  type BreadcrumbItem,
   type MenuItemData,
 } from "@stellaria/nebula-web";
 
@@ -158,15 +159,17 @@ const INVITED: Company[] = [
  * -- en claro saldria gris sobre negro -- asi que va en blanco fijo, como en las dos referencias.
  */
 const ON_CANVAS = {
-  background: "rgba(255, 255, 255, 0.92)",
-  color: palettes.dark["100"],
+  background: "rgba(255, 255, 255, 0.14)",
+  backdropFilter: "blur(6px) saturate(120%)",
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  color: palettes.light["50"],
 } as const;
 
 function Cover({ company }: { company: Company }): ReactElement {
   return (
     <Box
       position="relative"
-      h={200}
+      h={180}
       display="flex"
       align="center"
       justify="center"
@@ -210,7 +213,7 @@ function Cover({ company }: { company: Company }): ReactElement {
 
       <Box
         position="absolute"
-        style={{ bottom: 14, right: 14, ...ON_CANVAS }}
+        style={{ bottom: 12, right: 12, ...ON_CANVAS }}
         r="md"
         display="flex"
         gap="xxs"
@@ -225,7 +228,7 @@ function Cover({ company }: { company: Company }): ReactElement {
                 variant="unstyled"
                 size="xs"
                 aria-label={SERVICE_LABEL[service]}
-                style={{ color: palettes.dark["100"] }}
+                style={{ color: palettes.light["50"] }}
               >
                 <Icon name={service} />
               </ActionIcon>
@@ -250,8 +253,8 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
         <Cover company={company} />
       </Card.Section>
 
-      <Box p="lg" display="flex" direction="column" gap="xxs">
-        <Text component="h3" fz="h5" fw="semibold">
+      <Box p="md" display="flex" direction="column" gap="xxs">
+        <Text component="h3" fz="body1" fw="semibold">
           {company.name}
         </Text>
         <Text fz="body3" c="text.secondary">
@@ -261,7 +264,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="lg" py="md" display="flex" direction="column" gap="xs">
+      <Box px="md" py="sm" display="flex" direction="column" gap="xxs">
         <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Sectores
         </Text>
@@ -274,7 +277,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="lg" py="md" display="flex" align="center" justify="space-between" gap="sm">
+      <Box px="md" py="sm" display="flex" align="center" justify="space-between" gap="sm">
         <Box display="flex" align="center" gap="xxs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.created}</Text>
@@ -287,7 +290,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="lg" py="md" display="flex" align="center" gap="sm">
+      <Box px="md" py="sm" display="flex" align="center" gap="sm">
         <Avatar name={company.owner.name} size="md" radius="full" variant="light" color="accent" />
         <Box display="flex" direction="column" miw={0}>
           <Text fz="caption" fw="semibold">
@@ -304,19 +307,19 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
 type IconName = Parameters<typeof Icon>[0]["name"];
 
-function NavIcon({ name }: { name: IconName }): ReactElement {
+function NavIcon({ name, muted = false }: { name: IconName; muted?: boolean }): ReactElement {
   return (
     <Box
       display="flex"
       align="center"
       justify="center"
-      w={28}
-      h={28}
+      w={24}
+      h={24}
       r="sm"
-      bg="primary.100"
-      c="primary.700"
+      bg={muted ? "surface.hover" : "primary.100"}
+      c={muted ? "text.disabled" : "primary.700"}
     >
-      <Icon name={name} />
+      <Icon name={name} size={14} />
     </Box>
   );
 }
@@ -324,7 +327,14 @@ function NavIcon({ name }: { name: IconName }): ReactElement {
 function Side(): ReactElement {
   return (
     <Box display="flex" direction="column" h="100%">
-      <Box px="lg" py="md" display="flex" align="center" gap="sm">
+      <Box
+        px="md"
+        h={CHROME_H}
+        display="flex"
+        align="center"
+        gap="sm"
+        style={{ boxSizing: "border-box", flexShrink: 0, ...EDGE }}
+      >
         <Box c="primary.600" display="flex">
           <Icon name="film" size={24} />
         </Box>
@@ -333,10 +343,8 @@ function Side(): ReactElement {
         </Text>
       </Box>
 
-      <Divider />
-
       <Box px="md" py="sm">
-        <GlassSurface level="subtle" radius="md" withBorder p="md">
+        <GlassSurface level="control" radius="md" withBorder p="md">
           <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
             Super Administrador
           </Text>
@@ -359,24 +367,41 @@ function Side(): ReactElement {
       </Box>
 
       <Box px="md" display="flex" direction="column" gap="xxs">
-        <NavLink label="Actividad" href="#actividad" leftSection={<NavIcon name="activity" />} />
+        <NavLink
+          label="Actividad"
+          href="#actividad"
+          py="xxs"
+          leftSection={<NavIcon name="activity" />}
+        />
         <NavLink
           label="Soporte"
           href="#soporte"
           disabled
-          leftSection={<NavIcon name="lifebuoy" />}
+          py="xxs"
+          c="text.disabled"
+          leftSection={<NavIcon name="lifebuoy" muted />}
         />
         <NavLink
           label="Ir a Mis Empresas"
           href="#empresas"
           active
+          py="xxs"
           leftSection={<NavIcon name="building" />}
         />
       </Box>
 
       <Box style={{ marginTop: "auto" }}>
-        <Divider />
-        <Box p="sm" display="flex" align="center" gap="sm">
+        <Box
+          px="md"
+          h={CHROME_H}
+          display="flex"
+          align="center"
+          gap="sm"
+          style={{
+            boxSizing: "border-box",
+            borderTop: `1px solid ${vars.glass.default.borderColor}`,
+          }}
+        >
           <Avatar name="William Jesus Covarrubias" size="sm" radius="full" />
           <Box display="flex" direction="column" miw={0} style={{ flex: 1 }}>
             <Text fz="caption" fw="semibold">
@@ -407,46 +432,121 @@ function CompanyGrid({ companies }: { companies: Company[] }): ReactElement {
   );
 }
 
+const CHROME_H = 72;
+const SIDEBAR_W = 380;
+
+const EDGE = {
+  border: "none",
+  borderBottom: `1px solid ${vars.glass.default.borderColor}`,
+} as const;
+
+function SectionHead({
+  title,
+  subtitle,
+  action,
+}: {
+  title: string;
+  subtitle: string;
+  action?: ReactNode;
+}): ReactElement {
+  return (
+    <GlassSurface
+      component="header"
+      level="default"
+      radius={0}
+      h={CHROME_H}
+      px="lg"
+      style={EDGE}
+      display="flex"
+      align="center"
+      justify="space-between"
+      gap="md"
+    >
+      <Box display="flex" direction="column" gap="xxs" miw={0}>
+        <Title order={2} fz="h5">
+          {title}
+        </Title>
+        <Text fz="body3" c="text.secondary">
+          {subtitle}
+        </Text>
+      </Box>
+      {action}
+    </GlassSurface>
+  );
+}
+
+const TRAIL: BreadcrumbItem[] = [
+  { key: "home", label: "Inicio", href: "#inicio" },
+  { key: "companies", label: "Mis Empresas" },
+];
+
 function CompanyBoard(): ReactElement {
   return (
-    <AppShell
-      navbarWidth={300}
-      headerHeight={76}
-      header={
-        <Header
-          title="Mis Empresas"
-          subtitle="Ve todas las empresas que has creado y administras"
-          rightSection={
-            <Button size="sm" rightSection={<Icon name="plus" />}>
-              Crear Empresa
-            </Button>
-          }
-        />
-      }
-      navbar={<Side />}
-    >
-      <Box position="relative" style={{ isolation: "isolate" }}>
-        <StarField aurora density="sm" grid={false} />
+    <Box position="relative" display="flex" h="100vh" style={{ isolation: "isolate" }}>
+      <StarField fixed aurora density="sm" />
 
-        <Box position="relative" display="flex" direction="column" gap="xl" style={{ zIndex: 1 }}>
-          <VisuallyHidden>
-            <Title order={2}>Empresas que administras</Title>
-          </VisuallyHidden>
-          <CompanyGrid companies={OWNED} />
+      <GlassSurface
+        component="aside"
+        level="subtle"
+        radius={0}
+        w={SIDEBAR_W}
+        h="100vh"
+        style={{
+          flexShrink: 0,
+          zIndex: 1,
+          borderRight: `1px solid ${vars.glass.default.borderColor}`,
+        }}
+        aria-label="Navegación principal"
+      >
+        <Side />
+      </GlassSurface>
 
-          <Box display="flex" direction="column" gap="xxs" mt="lg">
-            <Title order={2} fz="h4">
-              Empresas invitadas
-            </Title>
-            <Text fz="body2" c="text.secondary">
-              Estas son las empresas que te han invitado a unirte a su equipo
-            </Text>
+      <Box
+        component="main"
+        display="flex"
+        direction="column"
+        style={{ flex: 1, minWidth: 0, overflowY: "auto", zIndex: 1 }}
+      >
+        <VisuallyHidden>
+          <Title order={1}>Panel de empresas</Title>
+        </VisuallyHidden>
+        <Box component="section" display="flex" direction="column">
+          <SectionHead
+            title="Mis Empresas"
+            subtitle="Ve todas las empresas que has creado y administras"
+            action={
+              <Button size="sm" rightSection={<Icon name="plus" />}>
+                Crear Empresa
+              </Button>
+            }
+          />
+
+          <GlassSurface
+            level="control"
+            radius={0}
+            px="lg"
+            py="xs"
+            style={{ border: "none", borderBottom: `1px solid ${vars.glass.control.borderColor}` }}
+          >
+            <Breadcrumbs items={TRAIL} size="sm" />
+          </GlassSurface>
+
+          <Box p="lg">
+            <CompanyGrid companies={OWNED} />
           </Box>
+        </Box>
 
-          <CompanyGrid companies={INVITED} />
+        <Box component="section" display="flex" direction="column">
+          <SectionHead
+            title="Empresas invitadas"
+            subtitle="Estas son las empresas que te han invitado a unirte a su equipo"
+          />
+          <Box p="lg">
+            <CompanyGrid companies={INVITED} />
+          </Box>
         </Box>
       </Box>
-    </AppShell>
+    </Box>
   );
 }
 
