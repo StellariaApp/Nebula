@@ -28,15 +28,68 @@ interface ProductSeed {
   accent: Scale11;
   from: string;
   to: string;
+  tint: string;
+  wash: number;
+  lift: number;
 }
 
 const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
-  rosette: { primary: palettes.rose, accent: palettes.pink, from: "#f43f5e", to: "#fb7185" },
-  stellaria: { primary: palettes.blue, accent: palettes.cyan, from: "#0099b3", to: "#22b8cf" },
-  lagrange: { primary: palettes.red, accent: palettes.orange, from: "#ed4142", to: "#f08512" },
+  rosette: {
+    primary: palettes.rose,
+    accent: palettes.pink,
+    from: palettes.rose["500"],
+    to: palettes.pink["400"],
+    tint: palettes.rose["900"],
+    wash: 0.009,
+    lift: -12,
+  },
+  stellaria: {
+    primary: palettes.blue,
+    accent: palettes.cyan,
+    from: palettes.blue["500"],
+    to: palettes.cyan["400"],
+    tint: palettes.blue["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  lagrange: {
+    primary: palettes.orange,
+    accent: palettes.pink,
+    from: palettes.pink["400"],
+    to: palettes.orange["300"],
+    tint: palettes.orange["200"],
+    wash: 0.009,
+    lift: 6,
+  },
 };
 
 const FOCUS_STEP = { dark: "400", light: "600" } as const;
+const CHANNEL_MAX = 255;
+
+function Channels(hex: string): [number, number, number] {
+  const raw = hex.replace("#", "");
+  return [
+    Number.parseInt(raw.slice(0, 2), 16),
+    Number.parseInt(raw.slice(2, 4), 16),
+    Number.parseInt(raw.slice(4, 6), 16),
+  ];
+}
+
+function Shade(hex: string, seed: ProductSeed, sign: number): string {
+  const base = Channels(hex);
+  const tint = Channels(seed.tint);
+  const mixed = base.map((value, i) => {
+    const blended = value * (1 - seed.wash) + (tint[i] as number) * seed.wash;
+    return Math.max(0, Math.min(CHANNEL_MAX, Math.round(blended + seed.lift * sign)));
+  });
+  return `#${mixed.map((value) => value.toString(16).padStart(2, "0")).join("")}`;
+}
+
+function Canvas<T extends Record<string, string>>(surface: T, seed: ProductSeed, sign: number): T {
+  return Object.fromEntries(
+    Object.entries(surface).map(([role, hex]) => [role, Shade(hex, seed, sign)]),
+  ) as T;
+}
 
 export function BuildProduct(name: ProductName, scheme: "dark" | "light"): NebulaTheme {
   const seed = PRODUCT_SEEDS[name];
@@ -50,6 +103,7 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
       ...base.colors,
       primary: dark ? FlipScale(seed.primary) : seed.primary,
       accent: dark ? FlipScale(seed.accent) : seed.accent,
+      surface: Canvas(base.colors.surface, seed, dark ? 1 : -1),
       border: { ...base.colors.border, focus: seed.primary[FOCUS_STEP[scheme]] },
     },
     effects: {

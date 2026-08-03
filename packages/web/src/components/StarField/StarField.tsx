@@ -87,14 +87,14 @@ export function StarField(props: StarFieldProps): ReactElement {
   const tint = ResolveAccent(accent, "400");
 
   const css_vars = assignInlineVars({
-    [gridColor]: WithAlpha(base, 6),
+    [gridColor]: WithAlpha(base, 4),
     [gridCell]: `${String(gridSize)}px`,
     [starColor]: WithAlpha(base, 70),
     [starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,
     [accentColor]: tint,
     [accentGlow]: `0 0 12px ${WithAlpha(tint, 45)}`,
-    [auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 26),
-    [auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 14),
+    [auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 24),
+    [auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 12),
   });
 
   const twinkling = twinkle && animated;
