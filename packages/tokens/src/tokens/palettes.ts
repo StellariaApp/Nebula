@@ -85,17 +85,17 @@ export const blue = {
 } as const satisfies Scale11;
 
 export const orange = {
-  50: "#fff5ed",
-  100: "#ffe6d4",
-  200: "#ffd0ae",
-  300: "#ffb072",
-  400: "#e97f00",
-  500: "#b46100",
-  600: "#904c00",
-  700: "#783e00",
-  800: "#613100",
-  900: "#4b2500",
-  950: "#331700",
+  50: "#fff4f0",
+  100: "#ffe5da",
+  200: "#ffcfb9",
+  300: "#ffae89",
+  400: "#fe6b00",
+  500: "#c85200",
+  600: "#9e3f00",
+  700: "#843400",
+  800: "#6b2800",
+  900: "#531e00",
+  950: "#381200",
 } as const satisfies Scale11;
 
 export const teal = {

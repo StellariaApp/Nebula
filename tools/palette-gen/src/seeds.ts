@@ -13,7 +13,7 @@ export const PALETTE_SEEDS: readonly SeedSpec[] = [
   { name: "yellow", seed: "#f59e0b", profile: "chromatic" },
   { name: "red", seed: "#ef4444", profile: "chromatic" },
   { name: "blue", seed: "#2b7fff", profile: "chromatic" },
-  { name: "orange", seed: "#ff922b", profile: "chromatic" },
+  { name: "orange", seed: "#ff6b00", profile: "chromatic" },
   { name: "teal", seed: "#20c997", profile: "chromatic" },
   { name: "pink", seed: "#f06595", profile: "chromatic" },
   { name: "cyan", seed: "#0ea5e9", profile: "chromatic" },
