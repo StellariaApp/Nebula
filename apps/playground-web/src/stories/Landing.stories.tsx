@@ -322,11 +322,17 @@ export const Demo: Story = {
  * `Stellaria` y `Lagrange` rinden el mismo componente `Page` y solo cambian de
  * tema — ni una prop distinta. Si para pasar de una a otra hiciera falta cambiar
  * algo que no es color, el sistema no estaría alineado.
+ *
+ * El `Box` no es decoración: el provider de la story queda anidado dentro del
+ * global del toolbar, así que el tema de producto tiene que pintar su propio
+ * lienzo o hereda el fondo del de fuera y el texto se pierde.
  */
 export const Rosette: Story = {
   render: () => (
     <NebulaProvider defaultTheme={rosette} storage={null}>
-      <Page />
+      <Box bg="surface.base" c="text.primary">
+        <Page />
+      </Box>
     </NebulaProvider>
   ),
 };
@@ -334,7 +340,9 @@ export const Rosette: Story = {
 export const Stellaria: Story = {
   render: () => (
     <NebulaProvider defaultTheme={stellaria} storage={null}>
-      <Page />
+      <Box bg="surface.base" c="text.primary">
+        <Page />
+      </Box>
     </NebulaProvider>
   ),
 };
@@ -342,7 +350,9 @@ export const Stellaria: Story = {
 export const Lagrange: Story = {
   render: () => (
     <NebulaProvider defaultTheme={lagrange} storage={null}>
-      <Page />
+      <Box bg="surface.base" c="text.primary">
+        <Page />
+      </Box>
     </NebulaProvider>
   ),
 };
