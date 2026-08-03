@@ -459,7 +459,16 @@ export type { EmptyModuleProps, EmptyModuleSurface } from "./components/EmptyMod
 export { QuickAction } from "./components/QuickAction/index.js";
 export type { QuickActionOrientation, QuickActionProps } from "./components/QuickAction/index.js";
 export { AppShell } from "./components/AppShell/index.js";
-export type { AppShellLabels, AppShellProps } from "./components/AppShell/index.js";
+export type {
+  AppShellContentProps,
+  AppShellHeaderProps,
+  AppShellLabels,
+  AppShellProps,
+  AppShellRailProps,
+  AppShellSectionProps,
+  AppShellSidebarProps,
+  AppShellSubbarProps,
+} from "./components/AppShell/index.js";
 export { Panel } from "./components/Panel/index.js";
 export type { PanelLabels, PanelOrientation, PanelProps } from "./components/Panel/index.js";
 

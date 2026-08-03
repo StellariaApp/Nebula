@@ -35,9 +35,10 @@ export const header = style({
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
-      paddingInline: vars.space.md,
       background: vars.color.surface.raised,
-      borderBlockEnd: `1px solid ${vars.color.border.subtle}`,
+      paddingInline: vars.space.md,
+      paddingBlock: vars.space.sm,
+      borderBlock: `1px solid ${vars.color.border.subtle}`,
       minWidth: 0,
     },
   },
@@ -122,5 +123,130 @@ export const skip = style({
         "&:focus-visible": { transform: "translateY(0)", ...focus.ring },
       },
     },
+  },
+});
+
+export const chromeHeight = createVar();
+export const railWidth = createVar();
+
+/** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
+export const rail = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "grid",
+      gridTemplateAreas: `"rail main"`,
+      gridTemplateColumns: `${railWidth} 1fr`,
+      blockSize: "100dvh",
+      minWidth: 0,
+      background: vars.color.surface.base,
+      color: vars.color.text.primary,
+      fontFamily: vars.font.family.sans,
+      isolation: "isolate",
+    },
+  },
+});
+
+export const sidebar = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "rail",
+      display: "flex",
+      flexDirection: "column",
+      blockSize: "100dvh",
+      minWidth: 0,
+      overflowY: "auto",
+      overflowX: "hidden",
+      zIndex: 1,
+      borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+export const sidebarSlot = style({
+  "@layer": {
+    [baseLayer]: {
+      boxSizing: "border-box",
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.sm,
+      blockSize: chromeHeight,
+      paddingInline: vars.space.lg,
+      flexShrink: 0,
+      minWidth: 0,
+    },
+  },
+});
+
+export const sidebarTop = style({
+  "@layer": {
+    [baseLayer]: { borderBlockEnd: `1px solid ${vars.glass.default.borderColor}` },
+  },
+});
+
+export const sidebarBody = style({
+  "@layer": {
+    [baseLayer]: { flex: 1, minHeight: 0, overflowY: "auto" },
+  },
+});
+
+export const sidebarBottom = style({
+  "@layer": {
+    [baseLayer]: {
+      marginBlockStart: "auto",
+      borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+export const railMain = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "main",
+      minWidth: 0,
+      minHeight: 0,
+      overflowY: "auto",
+      display: "flex",
+      flexDirection: "column",
+      zIndex: 1,
+    },
+  },
+});
+
+export const section = style({
+  "@layer": {
+    [baseLayer]: { display: "flex", flexDirection: "column", minWidth: 0 },
+  },
+});
+
+export const sectionHeader = style({
+  "@layer": {
+    [baseLayer]: {
+      boxSizing: "border-box",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: vars.space.md,
+      blockSize: chromeHeight,
+      paddingInline: vars.space.lg,
+      minWidth: 0,
+      borderBlockEnd: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+export const sectionSub = style({
+  "@layer": {
+    [baseLayer]: {
+      paddingInline: vars.space.lg,
+      paddingBlock: vars.space.xs,
+      borderBlockEnd: `1px solid ${vars.glass.control.borderColor}`,
+      minWidth: 0,
+    },
+  },
+});
+
+export const content = style({
+  "@layer": {
+    [baseLayer]: { padding: vars.space.lg, minWidth: 0 },
   },
 });

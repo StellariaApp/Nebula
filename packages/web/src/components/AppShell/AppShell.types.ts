@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import type { GlassLevel } from "@stellaria/nebula-tokens";
+
 import type { StyleProps } from "../../utils/style-props.js";
 
 export interface AppShellLabels {
@@ -25,5 +27,55 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   padded?: boolean | undefined;
   labels?: Partial<AppShellLabels> | undefined;
   contentId?: string | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" | "background"> {
+  children?: ReactNode | undefined;
+  /** Barra a altura completa. Su presencia cambia el shell al modo carril. */
+  sidebar?: ReactNode | undefined;
+  /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
+  backdrop?: ReactNode | undefined;
+  sidebarWidth?: number | undefined;
+  chromeHeight?: number | undefined;
+  labels?: Partial<AppShellLabels> | undefined;
+  contentId?: string | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellSidebarProps {
+  children?: ReactNode | undefined;
+  top?: ReactNode | undefined;
+  bottom?: ReactNode | undefined;
+  level?: GlassLevel | undefined;
+  className?: string | undefined;
+  "aria-label"?: string | undefined;
+}
+
+export interface AppShellSectionProps {
+  children: ReactNode;
+  className?: string | undefined;
+  "aria-label"?: string | undefined;
+  "aria-labelledby"?: string | undefined;
+}
+
+export interface AppShellHeaderProps {
+  title?: ReactNode | undefined;
+  subtitle?: ReactNode | undefined;
+  order?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  actions?: ReactNode | undefined;
+  children?: ReactNode | undefined;
+  level?: GlassLevel | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellSubbarProps {
+  children: ReactNode;
+  level?: GlassLevel | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellContentProps extends Omit<StyleProps, "color"> {
+  children: ReactNode;
   className?: string | undefined;
 }
