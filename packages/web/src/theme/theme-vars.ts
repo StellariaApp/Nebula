@@ -1,4 +1,4 @@
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { GlassSurfaceRecipe, NebulaTheme } from "@stellaria/nebula-tokens";
 
 function MapValues<K extends string, V, R>(
   record: Record<K, V>,
@@ -15,6 +15,16 @@ const Px = (n: number): string => `${String(n)}px`;
 const Em = (n: number): string => `${String(n)}em`;
 const Ms = (n: number): string => `${String(n)}ms`;
 const Num = (n: number): string => String(n);
+
+const SOLID = "solid ";
+
+function GlassRecipe(recipe: GlassSurfaceRecipe): GlassSurfaceRecipe & { borderColor: string } {
+  const cut = recipe.border.indexOf(SOLID);
+  return {
+    ...recipe,
+    borderColor: cut === -1 ? recipe.border : recipe.border.slice(cut + SOLID.length).trim(),
+  };
+}
 
 export function ThemeToVars(theme: NebulaTheme) {
   const { colors, font, radius, spacing, sizes, motion, effects, zIndex } = theme;
@@ -59,10 +69,10 @@ export function ThemeToVars(theme: NebulaTheme) {
     blur: effects.blur,
     shadow: MapValues(effects.shadows, (s) => s.web),
     glass: {
-      control: effects.glass.surface.control,
-      subtle: effects.glass.surface.subtle,
-      default: effects.glass.surface.default,
-      strong: effects.glass.surface.strong,
+      control: GlassRecipe(effects.glass.surface.control),
+      subtle: GlassRecipe(effects.glass.surface.subtle),
+      default: GlassRecipe(effects.glass.surface.default),
+      strong: GlassRecipe(effects.glass.surface.strong),
       noiseOpacity: Num(effects.glass.noiseOpacity),
     },
     zIndex: MapValues(zIndex, Num),

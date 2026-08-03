@@ -345,8 +345,12 @@ function ResolveScale(
     backgroundHover: hover,
     backgroundActive: active,
     foreground: ResolveColorRef(recipe.foreground, scale),
-    borderColor: recipe.border === "none" ? "transparent" : ResolveColorRef(recipe.border, scale),
-    borderWidth: recipe.border === "none" ? "0" : "1px",
+    borderColor: glass_on
+      ? glass_recipe.borderColor
+      : recipe.border === "none"
+        ? "transparent"
+        : ResolveColorRef(recipe.border, scale),
+    borderWidth: glass_on || recipe.border !== "none" ? "1px" : "0",
     backdropFilter: glass_on ? glass_recipe.backdropFilter : "none",
     glassBorder: glass_on ? glass_recipe.border : "none",
     glow: recipe.glow === undefined ? "none" : TintedGlow(background),
