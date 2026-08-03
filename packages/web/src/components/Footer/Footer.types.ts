@@ -10,6 +10,7 @@ export interface FooterProps extends StyleProps {
   contentWidth?: Unit | undefined;
   spacing?: SpacingValue | undefined;
   sticky?: boolean | undefined;
+  glass?: boolean | undefined;
   withBorder?: boolean | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;

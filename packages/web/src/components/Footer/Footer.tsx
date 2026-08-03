@@ -120,6 +120,7 @@ export function Footer(props: FooterProps): ReactElement {
     contentWidth = DEFAULT_WIDTH,
     spacing,
     sticky = false,
+    glass = false,
     withBorder = true,
     className,
     "aria-label": aria_label,
@@ -146,6 +147,7 @@ export function Footer(props: FooterProps): ReactElement {
       className={cx(styles.root, sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}
       data-sticky={sticky ? "true" : undefined}
+      data-glass={glass ? "true" : undefined}
       data-with-border={withBorder ? "true" : undefined}
       {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
       {...rest}

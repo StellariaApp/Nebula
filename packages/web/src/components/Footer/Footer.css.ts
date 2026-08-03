@@ -23,6 +23,11 @@ export const root = style({
         "&[data-with-border='true']": {
           borderBlockStart: `1px solid ${vars.color.border.subtle}`,
         },
+        "&[data-glass='true']": {
+          background: vars.glass.subtle.background,
+          borderBlockStart: `1px solid ${vars.glass.subtle.borderColor}`,
+          backdropFilter: vars.glass.subtle.backdropFilter,
+        },
         "&[data-sticky='true']": {
           position: "sticky",
           insetBlockEnd: 0,

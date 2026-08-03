@@ -129,7 +129,7 @@ function Portada(): ReactElement {
       id="inicio"
       size="xl"
       hiper="Cierre de marzo en 4 días"
-      mih={600}
+      mih="100vh"
       title={
         <>
           Concilia sin <GradientText>hojas de cálculo</GradientText>
@@ -139,7 +139,7 @@ function Portada(): ReactElement {
       actions={
         <>
           <Button>Probar gratis</Button>
-          <Button variant="glass">Ver una demo</Button>
+          <Button variant="glass">Ver una Nebula</Button>
         </>
       }
     />
@@ -151,6 +151,7 @@ function Numbers(): ReactElement {
     <Section
       id="solucion"
       size="xl"
+      variant="glass"
       reveal
       title="Lo que cambia el primer mes"
       description="Medido sobre 40 equipos de finanzas que migraron desde una hoja compartida."
@@ -255,9 +256,28 @@ function Security(): ReactElement {
   );
 }
 
+function Contacto(): ReactElement {
+  return (
+    <Section
+      id="contacto"
+      size="xl"
+      reveal
+      title="Cierra marzo con nosotros"
+      description="Te acompañamos en la primera conciliación. Sin permanencia y sin tarjeta."
+    >
+      <Box display="flex" gap="md" wrap="wrap">
+        <Button size="lg">Probar gratis</Button>
+        <Button size="lg" variant="glass">
+          Hablar con ventas
+        </Button>
+      </Box>
+    </Section>
+  );
+}
+
 function Foot(): ReactElement {
   return (
-    <Footer contentWidth={RAIL}>
+    <Footer contentWidth={RAIL} glass>
       <Footer.Brand
         href="#inicio"
         aria-label="Inicio"
@@ -301,19 +321,16 @@ function Page(): ReactElement {
       background={<StarField parallax />}
     >
       <Portada />
-      <Divider borderColor="border.default.50" />
       <Numbers />
-      <Divider borderColor="border.default.50" maw={1180} />
       <Capabilities />
-      <Divider borderColor="border.default.50" maw={1180} />
       <Pricing />
-      <Divider borderColor="border.default.50" maw={1180} />
       <Security />
+      <Contacto />
     </Main>
   );
 }
 
-export const Demo: Story = {
+export const Nebula: Story = {
   render: () => <Page />,
 };
 
@@ -381,7 +398,7 @@ export const AllThemes: Story = {
         <Box display="flex" gap="md">
           <Button size="sm">Probar</Button>
           <Button size="sm" variant="outline">
-            Demo
+            Nebula
           </Button>
         </Box>
         <Stat label="Días de cierre" value="4" diff="-62 %" trend="down" />
