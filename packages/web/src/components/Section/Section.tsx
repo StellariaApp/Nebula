@@ -32,6 +32,7 @@ export function Section(props: SectionProps): ReactElement {
     isEmpty = false,
     order = 2,
     divided = false,
+    glass = false,
     reveal = false,
     contentWidth = DEFAULT_WIDTH,
     className,
@@ -60,7 +61,7 @@ export function Section(props: SectionProps): ReactElement {
       {...(reveal ? { ref: revealed.ref } : {})}
       className={cx(styles.section, styles.size[size], sprinkle_class, className)}
       style={{ ...rail_vars, ...sprinkle_style }}
-      data-divided={divided ? "true" : undefined}
+      data-glass={glass ? "true" : undefined}
       data-reveal={reveal ? revealed["data-reveal"] : undefined}
       {...(animating
         ? {
@@ -72,43 +73,50 @@ export function Section(props: SectionProps): ReactElement {
       {...labelling}
       {...rest}
     >
-      {has_title || description !== undefined || actions !== undefined ? (
-        <div className={styles.head}>
-          <div className={styles.heading}>
-            {has_title ? (
-              <Heading className={styles.title} id={title_id}>
-                {title}
-              </Heading>
-            ) : null}
-            {description === undefined ? null : <p className={styles.description}>{description}</p>}
-          </div>
-          {actions === undefined && aside === undefined ? null : (
-            <div className={styles.actions}>
-              {aside}
-              {actions}
+      <div
+        className={cx(styles.rail, styles.railSize[size])}
+        data-divided={divided ? "true" : undefined}
+      >
+        {has_title || description !== undefined || actions !== undefined ? (
+          <div className={styles.head}>
+            <div className={styles.heading}>
+              {has_title ? (
+                <Heading className={styles.title} id={title_id}>
+                  {title}
+                </Heading>
+              ) : null}
+              {description === undefined ? null : (
+                <p className={styles.description}>{description}</p>
+              )}
             </div>
-          )}
-        </div>
-      ) : null}
+            {actions === undefined && aside === undefined ? null : (
+              <div className={styles.actions}>
+                {aside}
+                {actions}
+              </div>
+            )}
+          </div>
+        ) : null}
 
-      <div className={styles.body}>
-        {error !== undefined ? (
-          typeof error === "string" ? (
-            <Alert color="error" live="alert">
-              {error}
-            </Alert>
+        <div className={styles.body}>
+          {error !== undefined ? (
+            typeof error === "string" ? (
+              <Alert color="error" live="alert">
+                {error}
+              </Alert>
+            ) : (
+              error
+            )
+          ) : isEmpty && empty !== undefined ? (
+            empty
           ) : (
-            error
-          )
-        ) : isEmpty && empty !== undefined ? (
-          empty
-        ) : (
-          children
-        )}
-        <LoadingOverlay visible={loading} />
-      </div>
+            children
+          )}
+          <LoadingOverlay visible={loading} />
+        </div>
 
-      {footer === undefined ? null : <div className={styles.foot}>{footer}</div>}
+        {footer === undefined ? null : <div className={styles.foot}>{footer}</div>}
+      </div>
     </Root>
   );
 }

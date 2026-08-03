@@ -12,6 +12,24 @@ export const section = style({
   "@layer": {
     [baseLayer]: {
       position: "relative",
+      boxSizing: "border-box",
+      width: "100%",
+      minWidth: 0,
+      fontFamily: vars.font.family.sans,
+      selectors: {
+        "&[data-glass='true']": {
+          background: vars.glass.band.background,
+          backdropFilter: vars.glass.band.backdropFilter,
+          borderBlock: `1px solid ${vars.glass.band.borderColor}`,
+        },
+      },
+    },
+  },
+});
+
+export const rail = style({
+  "@layer": {
+    [baseLayer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -20,7 +38,6 @@ export const section = style({
       width: "100%",
       maxWidth: fallbackVar(contentMax, "none"),
       marginInline: "auto",
-      fontFamily: vars.font.family.sans,
       selectors: {
         "&[data-divided='true']": {
           paddingBlockEnd: vars.space.lg,
@@ -105,38 +122,29 @@ export const foot = style({
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [baseLayer]: {
-        paddingInline: vars.space.xl,
-        paddingBlock: BAND_PADDING.xl,
-        minHeight: BAND_MIN_HEIGHT.xl,
-      },
+      [baseLayer]: { paddingBlock: BAND_PADDING.xl, minHeight: BAND_MIN_HEIGHT.xl },
     },
   },
   lg: {
     "@layer": {
-      [baseLayer]: {
-        paddingInline: vars.space.xl,
-        paddingBlock: BAND_PADDING.lg,
-        minHeight: BAND_MIN_HEIGHT.lg,
-      },
+      [baseLayer]: { paddingBlock: BAND_PADDING.lg, minHeight: BAND_MIN_HEIGHT.lg },
     },
   },
   md: {
     "@layer": {
-      [baseLayer]: {
-        paddingInline: vars.space.lg,
-        paddingBlock: BAND_PADDING.md,
-        minHeight: BAND_MIN_HEIGHT.md,
-      },
+      [baseLayer]: { paddingBlock: BAND_PADDING.md, minHeight: BAND_MIN_HEIGHT.md },
     },
   },
   sm: {
     "@layer": {
-      [baseLayer]: {
-        paddingInline: vars.space.md,
-        paddingBlock: BAND_PADDING.sm,
-        minHeight: BAND_MIN_HEIGHT.sm,
-      },
+      [baseLayer]: { paddingBlock: BAND_PADDING.sm, minHeight: BAND_MIN_HEIGHT.sm },
     },
   },
+});
+
+export const railSize = styleVariants({
+  xl: { "@layer": { [baseLayer]: { paddingInline: vars.space.xl } } },
+  lg: { "@layer": { [baseLayer]: { paddingInline: vars.space.xl } } },
+  md: { "@layer": { [baseLayer]: { paddingInline: vars.space.lg } } },
+  sm: { "@layer": { [baseLayer]: { paddingInline: vars.space.md } } },
 });

@@ -14,6 +14,11 @@ export const blur = {
 
 export const glass = {
   surface: {
+    band: {
+      background: "rgba(255, 255, 255, 0.55)",
+      border: "1px solid rgba(15, 17, 25, 0.08)",
+      backdropFilter: `blur(${blur.xxs}) saturate(110%)`,
+    },
     control: {
       background: "rgba(15, 17, 25, 0.02)",
       border: "1px solid rgba(15, 17, 25, 0.10)",

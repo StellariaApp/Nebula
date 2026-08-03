@@ -175,6 +175,7 @@ function Capabilities(): ReactElement {
       id="capacidades"
       size="xl"
       reveal
+      glass
       title="Capacidades"
       description="Tres piezas, un solo flujo."
     >
@@ -236,6 +237,7 @@ function Security(): ReactElement {
       id="seguridad"
       size="xl"
       reveal
+      glass
       title="Seguridad"
       description="Los datos del banco no salen de tu región, y cada acceso queda registrado."
       footer={
@@ -270,7 +272,9 @@ function Contacto(): ReactElement {
       description="Te acompañamos en la primera conciliación. Sin permanencia y sin tarjeta."
     >
       <Box display="flex" gap="md" wrap="wrap">
-        <Button size="lg">Probar gratis</Button>
+        <Button size="lg" variant="gradient">
+          Probar gratis
+        </Button>
         <Button size="lg" variant="glass">
           Hablar con ventas
         </Button>

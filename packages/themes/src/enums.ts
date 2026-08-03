@@ -179,7 +179,13 @@ export const blurLevels = enumValues<BlurLevel>()([
 
 export const shadowLevels = enumValues<ShadowLevel>()(["xxs", "xs", "sm", "md", "lg", "xl", "xxl"]);
 
-export const glassLevels = enumValues<GlassLevel>()(["control", "subtle", "default", "strong"]);
+export const glassLevels = enumValues<GlassLevel>()([
+  "band",
+  "control",
+  "subtle",
+  "default",
+  "strong",
+]);
 
 export const gradientRoles = enumValues<GradientRole>()(["brand", "accent", "surface"]);
 

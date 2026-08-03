@@ -69,6 +69,7 @@ export function ThemeToVars(theme: NebulaTheme) {
     blur: effects.blur,
     shadow: MapValues(effects.shadows, (s) => s.web),
     glass: {
+      band: GlassRecipe(effects.glass.surface.band),
       control: GlassRecipe(effects.glass.surface.control),
       subtle: GlassRecipe(effects.glass.surface.subtle),
       default: GlassRecipe(effects.glass.surface.default),

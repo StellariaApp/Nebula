@@ -54,17 +54,25 @@ export const Default: Story = {
   ),
 };
 
+const LEVELS = [
+  { level: "band", blur: "xxs", role: "franja de página" },
+  { level: "control", blur: "xs", role: "botón o campo" },
+  { level: "subtle", blur: "sm", role: "tarjeta" },
+  { level: "default", blur: "lg", role: "chrome" },
+  { level: "strong", blur: "xl", role: "overlay" },
+] as const;
+
 export const Niveles: Story = {
   render: () => (
     <Backdrop h={260}>
       <Box display="flex" gap="md" wrap="wrap">
-        {(["subtle", "default", "strong"] as const).map((level) => (
-          <GlassSurface key={level} level={level} p="md" miw={160}>
+        {LEVELS.map((item) => (
+          <GlassSurface key={item.level} level={item.level} p="md" miw={160}>
             <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
-              level=&quot;{level}&quot;
+              level=&quot;{item.level}&quot;
             </Text>
             <Text component="p" fz="body2">
-              Blur {level === "subtle" ? "md" : level === "default" ? "xl" : "xxl"}
+              Blur {item.blur} · {item.role}
             </Text>
           </GlassSurface>
         ))}

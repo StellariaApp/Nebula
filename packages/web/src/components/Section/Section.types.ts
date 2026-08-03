@@ -19,6 +19,7 @@ export interface SectionProps extends Omit<StyleProps, "color"> {
   isEmpty?: boolean | undefined;
   order?: 2 | 3 | 4 | 5 | 6 | undefined;
   divided?: boolean | undefined;
+  glass?: boolean | undefined;
   reveal?: boolean | undefined;
   contentWidth?: Unit | undefined;
   id?: string | undefined;

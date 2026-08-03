@@ -316,6 +316,10 @@ gate y ser ilegible. Un texto a opacidad parcial se mide sobre el render antes d
   saturación de 130–140 % (ADR-079, que baja un peldaño la calibración de ADR-028). El glass nunca se
   anida. `subtle` ya no separa por desenfoque sino por transparencia; para desenfoque marcado están
   `default` y `strong`. La escala `blur` en sí no cambió y sigue disponible para otros usos.
+- Por debajo de esas tres hay dos peldaños que se nombran por lo que visten, no por cuánto tapan:
+  `control` (`blur.xs`) para un botón o un campo, y `band` (`blur.xxs`) para una franja de página
+  (ADR-082). En los dos manda el tinte, no el desenfoque. `band` se usa **alternando** secciones: si
+  todas la llevan, deja de haber contraste entre regiones y solo quedan líneas.
 - `effects.glass.enabled=false` degrada a superficie sólida sin perder jerarquía.
 - Glow identifica una acción primaria, selección o feedback excepcional; no se aplica a listas
   completas.

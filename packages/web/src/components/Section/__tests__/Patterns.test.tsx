@@ -159,9 +159,7 @@ describe("Hero", () => {
   });
 
   it("la imagen de fondo lleva alt y su velo es decorativo", () => {
-    const { container } = render(
-      <Hero title="X" image="hero.png" imageAlt="Equipo trabajando" />,
-    );
+    const { container } = render(<Hero title="X" image="hero.png" imageAlt="Equipo trabajando" />);
     expect(screen.getByRole("img", { name: "Equipo trabajando" })).toBeDefined();
     expect(container.querySelector("[aria-hidden='true']")).not.toBeNull();
   });
@@ -180,5 +178,53 @@ describe("Feature", () => {
   it("sin href no hay enlace", () => {
     render(<Feature title="Conciliación" />);
     expect(screen.queryByRole("link")).toBeNull();
+  });
+});
+
+describe("Section — la banda de cristal", () => {
+  it("sin glass no marca nada", () => {
+    render(
+      <Section id="s" title="T">
+        cuerpo
+      </Section>,
+    );
+    expect(document.getElementById("s")?.getAttribute("data-glass")).toBeNull();
+  });
+
+  it("con glass marca la banda, no el carril", () => {
+    render(
+      <Section id="s" glass title="T">
+        cuerpo
+      </Section>,
+    );
+    const band = document.getElementById("s");
+
+    expect(band?.getAttribute("data-glass")).toBe("true");
+    expect(band?.querySelector(":scope > div")?.getAttribute("data-glass")).toBeNull();
+  });
+
+  it("el carril sigue llevando el divisor, para que no cruce la banda entera", () => {
+    render(
+      <Section id="s" divided glass title="T">
+        cuerpo
+      </Section>,
+    );
+    const band = document.getElementById("s");
+
+    expect(band?.getAttribute("data-divided")).toBeNull();
+    expect(band?.querySelector(":scope > div")?.getAttribute("data-divided")).toBe("true");
+  });
+
+  it("el ancho de carril viaja como var en la banda y el contenido cuelga del carril", () => {
+    render(
+      <Section id="s" contentWidth={900} title="Capacidades">
+        cuerpo
+      </Section>,
+    );
+    const band = document.getElementById("s");
+    const rail = band?.querySelector(":scope > div");
+
+    expect(band?.getAttribute("style") ?? "").toContain("900px");
+    expect(rail?.textContent).toContain("cuerpo");
   });
 });

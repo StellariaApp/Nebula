@@ -91,7 +91,7 @@ export type BlurLevel = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl
 
 export type ShadowLevel = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
-export type GlassLevel = "control" | "subtle" | "default" | "strong";
+export type GlassLevel = "band" | "control" | "subtle" | "default" | "strong";
 
 export type GradientRole = "brand" | "accent" | "surface";
 

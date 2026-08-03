@@ -119,6 +119,7 @@ export const vars = createThemeContract({
   blur: { none: null, xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
   shadow: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
   glass: {
+    band: { background: null, border: null, borderColor: null, backdropFilter: null },
     control: { background: null, border: null, borderColor: null, backdropFilter: null },
     subtle: { background: null, border: null, borderColor: null, backdropFilter: null },
     default: { background: null, border: null, borderColor: null, backdropFilter: null },
