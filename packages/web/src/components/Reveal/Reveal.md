@@ -108,3 +108,17 @@ las style props y el `id` siguen aterrizando donde siempre. `Reveal` es el mismo
 polimórfica encima, para lo que no es un componente del catálogo.
 
 Cuando un componente no anima por sí mismo, `Reveal component={X}` sigue siendo la vía.
+
+## Por qué el disparo recorta el viewport por abajo
+
+`amount` es un umbral sobre **el alto del elemento**, no sobre el del viewport, y esa diferencia se
+nota en una landing: una sección de 500 px alcanza su 20 % en cuanto asoma 100 px, así que la
+animación termina mucho antes de que el lector llegue a ella.
+
+Medido sobre la landing con el default anterior, las secciones se revelaban con su borde superior a
+**~800 px** de un viewport de 900 — es decir, casi fuera de pantalla.
+
+Por eso el `rootMargin` por defecto es `0px 0px -25% 0px`: el cuarto inferior del viewport deja de
+contar como visible, y el disparo se retrasa hasta que la sección está de verdad entrando. Medido
+después, el borde superior queda entre **547 y 583 px**. `amount` sigue disponible para ajustar por
+caso, y `rootMargin` se puede sobrescribir entero.

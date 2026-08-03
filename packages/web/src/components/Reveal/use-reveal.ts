@@ -25,6 +25,7 @@ export const REVEAL_PRESETS: Record<RevealPreset, Phase> = {
 };
 
 export const REVEAL_AMOUNT = 0.2;
+export const REVEAL_ROOT_MARGIN = "0px 0px -25% 0px";
 
 export interface UseRevealOptions {
   preset?: RevealPreset | undefined;
@@ -51,7 +52,7 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
     duration,
     once = true,
     amount = REVEAL_AMOUNT,
-    rootMargin,
+    rootMargin = REVEAL_ROOT_MARGIN,
     index,
   } = options;
 
@@ -83,7 +84,7 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
         if (entry.isIntersecting) set_shown(true);
         else if (!once) set_shown(false);
       },
-      { threshold: amount, ...(rootMargin === undefined ? {} : { rootMargin }) },
+      { threshold: amount, rootMargin },
     );
 
     observer.observe(element);
