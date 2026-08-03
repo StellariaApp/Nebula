@@ -13,11 +13,14 @@ import {
   Button,
   Card,
   Divider,
+  GlassSurface,
+  GradientText,
   Header,
   Indicator,
   Menu,
   NavLink,
   SimpleGrid,
+  StarField,
   Text,
   Title,
   Tooltip,
@@ -143,29 +146,46 @@ const INVITED: Company[] = [
     renews: "23/07/2026",
     owner: { name: "Pixit Admin", email: "rbabajanov@gmail.com" },
     mark: (
-      <Text fz="h3" fw="bold" ff="mono" ls="wide">
+      <Text fz="h3" fw="bold" ff="mono" ls="wide" style={{ color: palettes.light["200"] }}>
         PIXIT
       </Text>
     ),
   },
 ];
 
+/**
+ * El cover es lienzo de marca: negro en los dos esquemas. Su cromado no puede seguir al tema
+ * -- en claro saldria gris sobre negro -- asi que va en blanco fijo, como en las dos referencias.
+ */
+const ON_CANVAS = {
+  background: "rgba(255, 255, 255, 0.92)",
+  color: palettes.dark["100"],
+} as const;
+
 function Cover({ company }: { company: Company }): ReactElement {
   return (
     <Box
       position="relative"
-      h={190}
+      h={200}
       display="flex"
       align="center"
       justify="center"
-      style={{ background: palettes.dark["100"] }}
+      style={{
+        background: `radial-gradient(120% 90% at 50% 0%, ${palettes.dark["300"]} 0%, ${palettes.dark["100"]} 70%)`,
+      }}
     >
       <Box c="warning.400" display="flex" align="center" justify="center">
         {company.mark}
       </Box>
 
       <Box position="absolute" style={{ top: 12, left: 12 }}>
-        <ActionIcon variant="light" size="sm" aria-label={`Ampliar ${company.name}`}>
+        <ActionIcon
+          variant="unstyled"
+          size="sm"
+          r="sm"
+          style={ON_CANVAS}
+          aria-label={`Ampliar ${company.name}`}
+        >
           <Icon name="expand" />
         </ActionIcon>
       </Box>
@@ -175,7 +195,13 @@ function Cover({ company }: { company: Company }): ReactElement {
           items={CARD_ACTIONS}
           aria-label={`Acciones de ${company.name}`}
           trigger={
-            <ActionIcon variant="light" size="sm" aria-label={`Acciones de ${company.name}`}>
+            <ActionIcon
+              variant="unstyled"
+              size="sm"
+              r="sm"
+              style={ON_CANVAS}
+              aria-label={`Acciones de ${company.name}`}
+            >
               <Icon name="more" />
             </ActionIcon>
           }
@@ -184,11 +210,10 @@ function Cover({ company }: { company: Company }): ReactElement {
 
       <Box
         position="absolute"
-        style={{ bottom: 12, right: 12 }}
+        style={{ bottom: 14, right: 14, ...ON_CANVAS }}
+        r="md"
         display="flex"
         gap="xxs"
-        bg="surface.overlay"
-        r="sm"
         p="xxs"
       >
         {company.services.map((service) => (
@@ -196,7 +221,12 @@ function Cover({ company }: { company: Company }): ReactElement {
             key={service}
             label={SERVICE_LABEL[service]}
             trigger={
-              <ActionIcon variant="ghost" size="xs" aria-label={SERVICE_LABEL[service]}>
+              <ActionIcon
+                variant="unstyled"
+                size="xs"
+                aria-label={SERVICE_LABEL[service]}
+                style={{ color: palettes.dark["100"] }}
+              >
                 <Icon name={service} />
               </ActionIcon>
             }
@@ -215,24 +245,24 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder radius="md" padding="none">
+    <Card withBorder radius="lg" padding="none" variant="glass">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>
 
-      <Box p="md" display="flex" direction="column" gap="xxs">
-        <Text component="h3" fz="body2" fw="semibold">
+      <Box p="lg" display="flex" direction="column" gap="xxs">
+        <Text component="h3" fz="h5" fw="semibold">
           {company.name}
         </Text>
-        <Text fz="body3" c="accent.600">
+        <Text fz="body3" c="text.secondary">
           {company.tagline}
         </Text>
       </Box>
 
       <Divider />
 
-      <Box p="md" display="flex" direction="column" gap="xs">
-        <Text fz="caption" c="text.muted">
+      <Box px="lg" py="md" display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Sectores
         </Text>
         <Box>
@@ -244,7 +274,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" align="center" justify="space-between" gap="sm">
+      <Box px="lg" py="md" display="flex" align="center" justify="space-between" gap="sm">
         <Box display="flex" align="center" gap="xxs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.created}</Text>
@@ -257,8 +287,8 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" align="center" gap="sm">
-        <Avatar name={company.owner.name} size="sm" radius="full" />
+      <Box px="lg" py="md" display="flex" align="center" gap="sm">
+        <Avatar name={company.owner.name} size="md" radius="full" variant="light" color="accent" />
         <Box display="flex" direction="column" miw={0}>
           <Text fz="caption" fw="semibold">
             {company.owner.name}
@@ -272,36 +302,55 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
   );
 }
 
+type IconName = Parameters<typeof Icon>[0]["name"];
+
+function NavIcon({ name }: { name: IconName }): ReactElement {
+  return (
+    <Box
+      display="flex"
+      align="center"
+      justify="center"
+      w={28}
+      h={28}
+      r="sm"
+      bg="primary.100"
+      c="primary.700"
+    >
+      <Icon name={name} />
+    </Box>
+  );
+}
+
 function Side(): ReactElement {
   return (
     <Box display="flex" direction="column" h="100%">
-      <Box p="md" display="flex" align="center" gap="sm">
-        <Box c="text.primary" display="flex">
-          <Icon name="film" size={22} />
+      <Box px="lg" py="md" display="flex" align="center" gap="sm">
+        <Box c="primary.600" display="flex">
+          <Icon name="film" size={24} />
         </Box>
-        <Text fz="body2" fw="bold" ls="wide">
-          THE FILM VAULT
+        <Text fz="body1" fw="bold" ls="wide">
+          <GradientText>THE FILM VAULT</GradientText>
         </Text>
       </Box>
 
       <Divider />
 
-      <Box p="sm">
-        <Card withBorder radius="md" padding="md" variant="light" color="primary">
-          <Text fz="caption" c="text.muted">
+      <Box px="md" py="sm">
+        <GlassSurface level="subtle" radius="md" withBorder p="md">
+          <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
             Super Administrador
           </Text>
-          <Box display="flex" align="center" gap="xs" mt="xxs">
+          <Box display="flex" align="center" gap="xs" mt="xxs" c="accent.600">
             <Icon name="code" />
-            <Text fz="body3" fw="semibold">
+            <Text fz="body3" fw="semibold" c="text.primary">
               Super Administrador
             </Text>
           </Box>
-        </Card>
+        </GlassSurface>
       </Box>
 
-      <Box px="md" py="xs" display="flex" align="center" justify="space-between">
-        <Text fz="caption" c="text.muted">
+      <Box px="lg" pt="md" pb="xs" display="flex" align="center" justify="space-between">
+        <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Administrador
         </Text>
         <ActionIcon variant="ghost" size="xs" aria-label="Recargar permisos">
@@ -309,14 +358,19 @@ function Side(): ReactElement {
         </ActionIcon>
       </Box>
 
-      <Box px="sm" display="flex" direction="column" gap="xxs">
-        <NavLink label="Actividad" href="#actividad" leftSection={<Icon name="activity" />} />
-        <NavLink label="Soporte" href="#soporte" disabled leftSection={<Icon name="lifebuoy" />} />
+      <Box px="md" display="flex" direction="column" gap="xxs">
+        <NavLink label="Actividad" href="#actividad" leftSection={<NavIcon name="activity" />} />
+        <NavLink
+          label="Soporte"
+          href="#soporte"
+          disabled
+          leftSection={<NavIcon name="lifebuoy" />}
+        />
         <NavLink
           label="Ir a Mis Empresas"
           href="#empresas"
           active
-          leftSection={<Icon name="building" />}
+          leftSection={<NavIcon name="building" />}
         />
       </Box>
 
@@ -371,22 +425,26 @@ function CompanyBoard(): ReactElement {
       }
       navbar={<Side />}
     >
-      <Box display="flex" direction="column" gap="xl">
-        <VisuallyHidden>
-          <Title order={2}>Empresas que administras</Title>
-        </VisuallyHidden>
-        <CompanyGrid companies={OWNED} />
+      <Box position="relative" style={{ isolation: "isolate" }}>
+        <StarField aurora density="sm" grid={false} />
 
-        <Box display="flex" direction="column" gap="xxs">
-          <Title order={2} fz="body1">
-            Empresas invitadas
-          </Title>
-          <Text fz="body3" c="text.secondary">
-            Estas son las empresas que te han invitado a unirte a su equipo
-          </Text>
+        <Box position="relative" display="flex" direction="column" gap="xl" style={{ zIndex: 1 }}>
+          <VisuallyHidden>
+            <Title order={2}>Empresas que administras</Title>
+          </VisuallyHidden>
+          <CompanyGrid companies={OWNED} />
+
+          <Box display="flex" direction="column" gap="xxs" mt="lg">
+            <Title order={2} fz="h4">
+              Empresas invitadas
+            </Title>
+            <Text fz="body2" c="text.secondary">
+              Estas son las empresas que te han invitado a unirte a su equipo
+            </Text>
+          </Box>
+
+          <CompanyGrid companies={INVITED} />
         </Box>
-
-        <CompanyGrid companies={INVITED} />
       </Box>
     </AppShell>
   );
