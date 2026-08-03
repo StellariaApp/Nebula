@@ -1,3 +1,4 @@
+import type { TextSizeName } from "../theme/primitives.js";
 import type { ThemeFont } from "../theme/theme.js";
 
 export const family = {
@@ -18,6 +19,20 @@ export const size = {
   button: 14,
   caption: 12,
 } as const;
+
+export const leading = {
+  h1: 1.0,
+  h2: 1.05,
+  h3: 1.1,
+  h4: 1.15,
+  h5: 1.2,
+  h6: 1.25,
+  body1: 1.6,
+  body2: 1.55,
+  body3: 1.5,
+  button: 1.2,
+  caption: 1.45,
+} as const satisfies Record<TextSizeName, number>;
 
 export const lineHeight = {
   tight: 1.2,
@@ -52,6 +67,7 @@ export const display = {
 export const font = {
   family,
   size,
+  leading,
   lineHeight,
   weight,
   letterSpacing,

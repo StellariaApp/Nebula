@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import { ROLE_COLORS, sprinkles, type Sprinkles } from "../components/Box/Box.css.js";
+import { FONT_LEADING, ROLE_COLORS, sprinkles, type Sprinkles } from "../components/Box/Box.css.js";
 
 const COLOR_PROPS = {
   color: "color",
@@ -35,6 +35,7 @@ const UNITLESS_PROPS = {
 } as const satisfies Record<string, keyof CSSProperties>;
 
 const SPRINKLE_KEYS = sprinkles.properties;
+const LEADING = new Set(Object.keys(FONT_LEADING));
 
 export type DimensionProp = keyof typeof DIMENSION_PROPS;
 export type UnitlessProp = keyof typeof UNITLESS_PROPS;
@@ -113,6 +114,7 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     if (SPRINKLE_KEYS.has(key as never)) {
       sprinkle_props[key] = value;
       has_sprinkles = true;
+      if (key === "fz" && typeof value === "string" && LEADING.has(value)) sprinkle_props.lh ??= value;
       continue;
     }
 

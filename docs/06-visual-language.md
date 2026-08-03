@@ -40,7 +40,10 @@ Reglas:
 
 - Ningún texto informativo o interactivo baja de 12 px.
 - `Text` sin props usa `body1` + `lineHeight.normal`; no hereda el default del navegador.
-- `Title` usa `tight`; `h1–h2` son `bold`, `h3–h6` son `semibold`.
+- **El interlineado lo trae el tamaño** (`font.leading`, ADR-077): decrece de 1.00 en `h1` a 1.25 en
+  `h6`, y sube a 1.45-1.60 en el cuerpo. `tight`/`normal`/`relaxed` quedan para overrides
+  deliberados, y `fz` arrastra el interlineado de su peldaño. `h1–h2` son `bold`, `h3–h6` son
+  `semibold`.
 - `letterSpacing.tight` se reserva a `h1–h3`; headings compactos y cuerpo usan `normal`.
 - Labels de controles usan `button` o el tamaño denso correspondiente, `semibold` y
   `lineHeight.normal`; no se corrige su presencia agregando padding local.

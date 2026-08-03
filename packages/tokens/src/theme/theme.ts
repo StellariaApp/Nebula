@@ -54,6 +54,7 @@ export interface ThemeDisplay {
 export interface ThemeFont {
   family: Record<FontFamilyName, string>;
   size: Record<TextSizeName, number>;
+  leading: Record<TextSizeName, number>;
   weight: Record<FontWeightName, number>;
   lineHeight: Record<LineHeightName, number>;
   letterSpacing: Record<LetterSpacingName, number>;

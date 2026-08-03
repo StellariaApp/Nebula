@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "71.5 kB",
+    limit: "72 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
@@ -60,7 +60,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Grid/Grid.js",
     import: "{ Grid }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "13.5 kB",
   },
   {
     name: "GridCol (primitivo temable en runtime, por módulo)",
@@ -151,7 +151,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Footer/index.js",
     import: "{ Footer }",
     ignore: ["react", "react-dom"],
-    limit: "13.5 kB",
+    limit: "14 kB",
   },
   {
     name: "Reveal (motion + IntersectionObserver, por módulo)",
@@ -172,7 +172,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Title/Title.js",
     import: "{ Title }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "Anchor (primitivo compuesto sobre Text, por módulo)",
@@ -207,7 +207,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Code/Code.js",
     import: "{ Code }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "Blockquote (primitivo con color extendido, por módulo)",
@@ -256,7 +256,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/ButtonGroup/ButtonGroup.js",
     import: "{ ButtonGroup }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "FileButton (por módulo)",
@@ -599,7 +599,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Segment/index.js",
     import: "{ Segment }",
     ignore: ["react", "react-dom"],
-    limit: "32 kB",
+    limit: "32.5 kB",
   },
   {
     name: "Popover (Aria overlays + posicionamiento, por módulo)",
@@ -725,7 +725,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Avatar/Avatar.js",
     import: "{ Avatar }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "Image (motion en la carga, por módulo)",
@@ -809,7 +809,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Kbd/Kbd.js",
     import: "{ Kbd }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "Stat (primitivo temable en runtime, por módulo)",
@@ -851,7 +851,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Timeline/Timeline.js",
     import: "{ Timeline }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "ColorSwatch (compuesto sobre UnstyledButton, por módulo)",
@@ -963,7 +963,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Main/Main.js",
     import: "{ Main }",
     ignore: ["react", "react-dom"],
-    limit: "15 kB",
+    limit: "15.5 kB",
   },
   {
     name: "Header (cabecera de pantalla: ActionIcon de vuelta, por módulo)",
@@ -1169,7 +1169,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/StarField/StarField.js",
     import: "{ StarField }",
     ignore: ["react", "react-dom"],
-    limit: "14.5 kB",
+    limit: "15 kB",
   },
   {
     name: "Lightbox (compuesto: Modal + zoom/pan propio, por módulo)",
@@ -1359,7 +1359,7 @@ const SHARED = [
   {
     name: "Sprinkles: runtime (compartido, se descarga una vez)",
     path: `dist/components/Box/${SPRINKLES_RUNTIME}`,
-    limit: "17 kB",
+    limit: "17.5 kB",
   },
 ];
 

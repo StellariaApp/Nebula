@@ -8,7 +8,6 @@ export const heading = style({
     [baseLayer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
-      lineHeight: vars.font.lineHeight.tight,
       color: vars.color.text.primary,
     },
   },
@@ -19,6 +18,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h1,
+        lineHeight: vars.font.leading.h1,
         fontWeight: vars.font.weight.bold,
         letterSpacing: vars.font.letterSpacing.tight,
       },
@@ -28,6 +28,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h2,
+        lineHeight: vars.font.leading.h2,
         fontWeight: vars.font.weight.bold,
         letterSpacing: vars.font.letterSpacing.tight,
       },
@@ -37,6 +38,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h3,
+        lineHeight: vars.font.leading.h3,
         fontWeight: vars.font.weight.semibold,
         letterSpacing: vars.font.letterSpacing.tight,
       },
@@ -46,6 +48,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h4,
+        lineHeight: vars.font.leading.h4,
         fontWeight: vars.font.weight.semibold,
         letterSpacing: vars.font.letterSpacing.normal,
       },
@@ -55,6 +58,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h5,
+        lineHeight: vars.font.leading.h5,
         fontWeight: vars.font.weight.semibold,
         letterSpacing: vars.font.letterSpacing.normal,
       },
@@ -64,6 +68,7 @@ export const orders = {
     "@layer": {
       [baseLayer]: {
         fontSize: vars.font.size.h6,
+        lineHeight: vars.font.leading.h6,
         fontWeight: vars.font.weight.semibold,
         letterSpacing: vars.font.letterSpacing.normal,
       },

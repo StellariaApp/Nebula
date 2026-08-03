@@ -92,6 +92,7 @@ const colors = z.strictObject({
 const font = z.strictObject({
   family: z.record(z.enum(fontFamilyNames), z.string().min(1)),
   size: z.record(z.enum(textSizeNames), z.number().positive()),
+  leading: z.record(z.enum(textSizeNames), z.number().positive()),
   weight: z.record(z.enum(fontWeightNames), z.number().min(1).max(1000)),
   lineHeight: z.record(z.enum(lineHeightNames), z.number().positive()),
   letterSpacing: z.record(z.enum(letterSpacingNames), z.number()),

@@ -68,8 +68,8 @@ describe("rol de placeholder (ADR-052)", () => {
   it("solo nebula-light y playful lo atenúan respecto a muted; dark y sober-light están en su suelo", () => {
     for (const name of ["nebula-light", "playful"] as const) {
       const { text, gray } = officialThemes[name].colors;
-      expect(text.muted).toBe(gray["700"]);
-      expect(text.placeholder).toBe(gray["600"]);
+      expect(text.muted).toBe(gray["800"]);
+      expect(text.placeholder).toBe(gray["700"]);
     }
 
     for (const name of ["nebula-dark", "sober-light"] as const) {

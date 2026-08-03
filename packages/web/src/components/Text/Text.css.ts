@@ -10,7 +10,7 @@ export const text = style({
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
       fontWeight: vars.font.weight.regular,
-      lineHeight: vars.font.lineHeight.normal,
+      lineHeight: vars.font.leading.body1,
       letterSpacing: vars.font.letterSpacing.normal,
       color: vars.color.text.primary,
     },

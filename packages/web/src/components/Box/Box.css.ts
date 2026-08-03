@@ -57,6 +57,8 @@ const PALETTE_COLORS = {
   ...ScaleEntries("info", vars.color.semantic.info),
 };
 
+export const FONT_LEADING = vars.font.leading;
+
 const LAYOUT_SPACE = {
   none: vars.space.none,
   xxs: vars.space.xxs,
@@ -152,7 +154,7 @@ const UNRESPONSIVE = defineProperties({
     whiteSpace: ["normal", "nowrap", "pre", "pre-wrap", "pre-line"],
     fontFamily: vars.font.family,
     fontWeight: vars.font.weight,
-    lineHeight: vars.font.lineHeight,
+    lineHeight: { ...vars.font.lineHeight, ...vars.font.leading },
     letterSpacing: vars.font.letterSpacing,
     borderRadius: vars.radius,
     borderTopLeftRadius: vars.radius,
