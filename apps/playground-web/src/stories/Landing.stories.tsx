@@ -116,7 +116,9 @@ function Bar({ name }: { name: string }): ReactElement {
       </Nav.Links>
       <Nav.Actions>
         <Badge variant="light">en línea</Badge>
-        <Button size="sm">Probar gratis</Button>
+        <Button size="sm" variant="gradient">
+          Probar gratis
+        </Button>
       </Nav.Actions>
     </Nav>
   );
