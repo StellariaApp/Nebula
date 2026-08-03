@@ -137,12 +137,22 @@ function ThemingShowcase() {
           marginTop: vars.space.lg,
         }}
       >
-        <Swatch label="primary.600" color={vars.color.primary["600"]} />
-        <Swatch label="accent.600" color={vars.color.accent["600"]} />
-        <Swatch label="surface.raised" color={vars.color.surface.raised} />
-        <Swatch label="success.600" color={vars.color.semantic.success["600"]} />
-        <Swatch label="warning.600" color={vars.color.semantic.warning["600"]} />
-        <Swatch label="error.600" color={vars.color.semantic.error["600"]} />
+        <Swatch label="blue" color={palettes.blue["500"]} />
+        <Swatch label="indigo" color={palettes.indigo["500"]} />
+        <Swatch label="violet" color={palettes.violet["500"]} />
+        <Swatch label="green" color={palettes.green["500"]} />
+        <Swatch label="yellow" color={palettes.yellow["500"]} />
+        <Swatch label="red" color={palettes.red["500"]} />
+        <Swatch label="orange" color={palettes.orange["500"]} />
+        <Swatch label="teal" color={palettes.teal["500"]} />
+        <Swatch label="pink" color={palettes.pink["500"]} />
+        <Swatch label="cyan" color={palettes.cyan["500"]} />
+        <Swatch label="lime" color={palettes.lime["500"]} />
+        <Swatch label="grape" color={palettes.grape["500"]} />
+        <Swatch label="rose" color={palettes.rose["500"]} />
+        <Swatch label="gold" color={palettes.gold["500"]} />
+        <Swatch label="light" color={palettes.light["500"]} />
+        <Swatch label="dark" color={palettes.dark["500"]} />
       </div>
 
       <h2

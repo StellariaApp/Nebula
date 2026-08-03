@@ -541,6 +541,8 @@ export {
   usePermissionResolver,
 } from "@stellaria/nebula-hooks";
 export type { PermissionProviderProps, PermissionResolver } from "@stellaria/nebula-hooks";
+export { palettes } from "@stellaria/nebula-tokens";
+
 export type {
   NebulaPermissions,
   PermissionDeniedMode,
