@@ -62,7 +62,19 @@ se lee clara o profunda— y se revisa mirando la lámina, no calculándola.
 Las siete suben a **5.02–5.94:1**, más contraste que antes, porque un color claro con letra oscura
 contrasta mejor que con letra blanca.
 
-### 4. El hover se aleja de la tinta
+### 4. Una familia clara no vive a la misma altura que una honda
+
+Soltar el anclaje no bastaba: a `L=0.63` —el centro de la curva— cualquier amarillo es un mostaza. El
+tono era correcto (hue 98); lo que fallaba era la altura.
+
+`SeedSpec` gana `lift`, que sube la curva en el tramo medio de esa familia. El peso es máximo en el
+`500` y **cero del 700 hacia abajo**: esos son los peldaños que se usan como texto sobre el lienzo, y
+subirlos cuesta contraste —al levantarlos, `outline` y `ghost` de `warning` cayeron a 4.33:1—.
+
+`yellow` sube 0.17 y su `500` queda en `L=0.80`, que es donde Tailwind pone el suyo. Detrás van
+`gold` 0.13, `lime` 0.12, `orange` 0.06, `cyan` y `teal` 0.05 y `pink` 0.03.
+
+### 5. El hover se aleja de la tinta
 
 ADR-083 hizo que el hover ahondara en los temas oscuros. Con tinta oscura eso lo acerca a su propia
 letra: medido, `warning` en hover caía a 3.15:1. El paso pasa a depender de la tinta —hacia lo oscuro
@@ -70,7 +82,7 @@ si la tinta es clara, hacia lo claro si es oscura— combinado con la inversión
 
 ## Consecuencias
 
-- Medido en `Button/Colors` sobre `dark`: `warning` con tinta oscura a 5.67:1 y las otras cinco con
+- Medido en `Button/Colors` sobre `dark`: `warning` con tinta oscura a 10.58:1 y las otras cinco con
   blanca entre 4.50 y 4.56. **Todos los gates en verde**: contraste 5 temas, 1187 tests, a11y 85
   suites y 587 tests.
 - Siete vars más por tema en el contrato, que empujan cinco presupuestos: `NebulaProvider`

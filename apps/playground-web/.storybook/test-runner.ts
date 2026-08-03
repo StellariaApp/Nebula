@@ -23,8 +23,12 @@ import { checkA11y, injectAxe } from "axe-playwright";
  * El margen solo no bastaba: la sexta tarjeta de `Motion/Reveal › Stagger`, el globo de
  * `FieldError` y el botón de un estado vacío seguían entrando a los 400 ms y axe los medía
  * traslúcidos. Si aun así no asienta se sigue adelante en vez de fallar por la espera.
+ *
+ * El margen fijo cubre además lo que aparece por temporizador y no por animación: el globo de
+ * `FieldError` espera `VALIDATING_DELAY` (500 ms) antes de montarse, así que con un margen menor la
+ * espera de animaciones pasaba en vacío —el nodo aún no existía— y axe lo medía entrando.
  */
-const SETTLE_MS = 400;
+const SETTLE_MS = 700;
 const MOTION_SETTLE_MS = 2500;
 
 const config: TestRunnerConfig = {

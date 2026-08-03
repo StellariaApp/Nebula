@@ -30,8 +30,16 @@ function Luminance(hex: string): number {
   return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
 }
 
-function AgainstWhite(hex: string): string {
-  return (1.05 / (Luminance(hex) + 0.05)).toFixed(2);
+function Ratio(a: number, b: number): number {
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
+/** Contraste contra la tinta que ese relleno elegiria, no contra blanco siempre (ADR-085). */
+function AgainstInk(hex: string): string {
+  const fill = Luminance(hex);
+  const light = Ratio(fill, Luminance("#ffffff"));
+  const dark = Ratio(fill, Luminance("#0b0b0b"));
+  return light >= dark ? `${light.toFixed(2)} clara` : `${dark.toFixed(2)} oscura`;
 }
 
 /** Una rampa 50–950. El paso 500 lleva su contraste contra blanco, que es lo que ancla (ADR-084). */
@@ -70,7 +78,7 @@ function Ramp({ name, scale }: { name: string; scale: Scale11 }) {
                 textAlign: "center",
               }}
             >
-              {shade === FILL_SHADE ? `${shade} · ${AgainstWhite(scale[shade])}` : shade}
+              {shade === FILL_SHADE ? `${shade} · ${AgainstInk(scale[shade])}` : shade}
             </figcaption>
           </figure>
         ))}
@@ -213,9 +221,9 @@ function PaletteSheet() {
         Paletas
       </h1>
       <p style={{ color: vars.color.text.secondary, maxWidth: "70ch" }}>
-        Generadas por <code>pnpm gen:palette regen</code> en OKLCH. El <code>500</code> no lee su
-        lightness de la curva: el generador la baja hasta que blanco encima alcanza 4.5:1, con suelo
-        en <code>L(600) + 0.04</code>.
+        Generadas por <code>pnpm gen:palette regen</code> en OKLCH. Cada familia declara qué tinta
+        lleva su <code>500</code>: las hondas se anclan bajando hasta que blanco alcanza 4.5:1, y
+        las claras se quedan altas porque su tinta es oscura y les sobra contraste (ADR-085).
       </p>
       {PALETTE_NAMES.map((name) => (
         <Ramp key={name} name={name} scale={palettes[name]} />

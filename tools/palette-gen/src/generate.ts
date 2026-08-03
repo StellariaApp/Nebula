@@ -1,6 +1,13 @@
 import { clampChroma, converter, formatHex, parse } from "culori";
 
-import { CHROMA_MULT, LCurveFor, SHADES, type CurveProfile, type Shade } from "./curves.ts";
+import {
+  CHROMA_MULT,
+  LCurveFor,
+  LIFT_WEIGHT,
+  SHADES,
+  type CurveProfile,
+  type Shade,
+} from "./curves.ts";
 
 const TO_OKLCH = converter("oklch");
 
@@ -31,6 +38,7 @@ export function GenerateScale(
   seedHex: string,
   profile: CurveProfile = "chromatic",
   ink: "light" | "dark" = "light",
+  lift = 0,
 ): GeneratedScale {
   const parsed = parse(seedHex);
   if (parsed === undefined) {
@@ -52,7 +60,8 @@ export function GenerateScale(
 
   const scale = {} as GeneratedScale;
   SHADES.forEach((shade, i) => {
-    const l = l_curve[i];
+    const base_l = l_curve[i];
+    const l = base_l === undefined ? undefined : base_l + lift * (LIFT_WEIGHT[i] ?? 0);
     if (l === undefined) {
       throw new Error(`Curva L incompleta para el perfil "${profile}" (paso ${shade})`);
     }
@@ -82,11 +91,12 @@ export function GenerateNamedScales(
     seed: string;
     profile: CurveProfile;
     ink?: "light" | "dark";
+    lift?: number;
   }[],
 ): Record<string, GeneratedScale> {
   const out: Record<string, GeneratedScale> = {};
   for (const spec of specs) {
-    out[spec.name] = GenerateScale(spec.seed, spec.profile, spec.ink);
+    out[spec.name] = GenerateScale(spec.seed, spec.profile, spec.ink, spec.lift);
   }
   return out;
 }

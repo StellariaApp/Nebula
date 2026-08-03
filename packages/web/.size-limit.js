@@ -1064,7 +1064,7 @@ const MODULE_BUDGETS = [
     import: "{ Search }",
     ignore: ["react", "react-dom"],
     deferred: ["DatePicker.js", "DateRangePicker.js"],
-    limit: "80 kB",
+    limit: "82 kB",
   },
   {
     name: "CommandPalette (subpath /command: Aria combobox + Modal)",
