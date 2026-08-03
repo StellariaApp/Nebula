@@ -49,6 +49,68 @@ export const rosette = {
   },
 } satisfies NebulaTheme;
 
+const STELLARIA_PRIMARY = "#0099b3";
+const STELLARIA_BRIGHT = "#22b8cf";
+
+export const stellaria = {
+  ...nebulaDark,
+  meta: { name: "stellaria", scheme: "dark", version: "0.1.0" },
+  colors: {
+    ...nebulaDark.colors,
+    primary: FlipScale(palettes.blue),
+    accent: FlipScale(palettes.cyan),
+    border: { ...nebulaDark.colors.border, focus: palettes.blue["400"] },
+  },
+  effects: {
+    ...nebulaDark.effects,
+    gradients: {
+      ...nebulaDark.effects.gradients,
+      brand: {
+        type: "linear",
+        angle: 100,
+        stops: [
+          { color: STELLARIA_PRIMARY, position: 0 },
+          { color: STELLARIA_BRIGHT, position: 100 },
+        ],
+      },
+    },
+  },
+} satisfies NebulaTheme;
+
+const LAGRANGE_PRIMARY = "#ed4142";
+const LAGRANGE_BRIGHT = "#f08512";
+
+export const lagrange = {
+  ...nebulaDark,
+  meta: { name: "lagrange", scheme: "dark", version: "0.1.0" },
+  colors: {
+    ...nebulaDark.colors,
+    primary: FlipScale(palettes.red),
+    accent: FlipScale(palettes.orange),
+    border: { ...nebulaDark.colors.border, focus: palettes.red["400"] },
+  },
+  effects: {
+    ...nebulaDark.effects,
+    gradients: {
+      ...nebulaDark.effects.gradients,
+      brand: {
+        type: "linear",
+        angle: 100,
+        stops: [
+          { color: LAGRANGE_PRIMARY, position: 0 },
+          { color: LAGRANGE_BRIGHT, position: 100 },
+        ],
+      },
+    },
+  },
+} satisfies NebulaTheme;
+
+export const PRODUCTS = [
+  { theme: rosette, label: "Rosette" },
+  { theme: stellaria, label: "Stellaria" },
+  { theme: lagrange, label: "Lagrange" },
+];
+
 export function ThemePanel(props: {
   theme: OfficialThemeName | NebulaTheme;
   label: string;

@@ -13,6 +13,7 @@ import {
   GradientText,
   Main,
   Nav,
+  NebulaProvider,
   Reveal,
   Section,
   SimpleGrid,
@@ -21,7 +22,7 @@ import {
   StarField,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, PRODUCTS, rosette, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Patterns/Landing",
@@ -351,5 +352,36 @@ export const AllThemes: Story = {
         <Stat label="Días de cierre" value="4" diff="-62 %" trend="down" />
       </Box>
     </ThemeMatrix>
+  ),
+};
+
+/**
+ * B6: la misma composición, tres productos. Lo único que cambia entre ellas es el
+ * tema — ni una prop distinta. Si para pasar de una a otra hiciera falta cambiar
+ * algo que no es color, el sistema no estaría alineado.
+ */
+export const TresProductos: Story = {
+  parameters: {
+    a11y: {
+      rules: {
+        // La lámina apila tres páginas completas para compararlas, así que hay tres
+        // landmarks de cada tipo. Ninguna landing real los duplica.
+        "landmark-no-duplicate-banner": { enabled: false },
+        "landmark-no-duplicate-main": { enabled: false },
+        "landmark-no-duplicate-contentinfo": { enabled: false },
+        "landmark-unique": { enabled: false },
+      },
+    },
+  },
+  render: () => (
+    <Box display="flex" direction="column" gap="xxl">
+      {PRODUCTS.map((product) => (
+        <Box key={product.label} data-product={product.label}>
+          <NebulaProvider defaultTheme={product.theme} storage={null}>
+            <Page />
+          </NebulaProvider>
+        </Box>
+      ))}
+    </Box>
   ),
 };

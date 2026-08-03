@@ -143,7 +143,7 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 | **B3** | Elevación en dark (**D4**)                   | ✅ **cerrado 2026-08-02**. ADR-065 implementado: escalera ≥1.08 en los cinco temas y sombras bajadas. §5.6 para lo que arrastró                                                               | nada ✅           |
 | **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                                      | B1 ✅             |
 | **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba                    | nada              |
-| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                                     | B0-B5             |
+| **B6** | Reconstruir las tres landings sobre Nebula   | ✅ **primera vuelta 2026-08-02**. `TresProductos` rinde una sola `Page` con tres temas: 230 nodos, geometría idéntica, color distinto. §5.7 para lo que esto prueba y lo que no               | B0-B5 ✅          |
 
 ## 4. El backlog abierto, mapeado
 
@@ -329,6 +329,37 @@ la sombra no tiene que compensar.
 
 Medido sobre la lámina de elevación: cuatro niveles con ratios 1.098-1.202 en dark y 1.108-1.201 en
 light.
+
+## 5.7 B6, primera vuelta: qué prueba y qué no (2026-08-02)
+
+`Patterns/Landing › TresProductos` rinde **una sola composición** —el mismo componente `Page`— bajo
+tres temas de producto: `rosette` (rosa), `stellaria` (azul) y `lagrange` (rojo-naranja). Los dos
+nuevos se construyen con el patrón que ya usaba `rosette`: `nebulaDark` más escalas de color y
+gradiente de marca. **Nada más.**
+
+Medido sobre el render, comparando los tres árboles nodo a nodo:
+
+|                                |     |
+| ------------------------------ | --- |
+| Nodos por producto             | 230 |
+| Geometría idéntica en los tres | sí  |
+| Color distinto en los tres     | sí  |
+
+La huella de geometría compara ancho, alto, `font-size`, `padding` y `border-radius` de los 230
+nodos; la de color, `color`, `background-color` y `border-color`. **Entre productos solo cambia el
+color.**
+
+### Lo que esta medición no demuestra
+
+Que los tres árboles sean idénticos es **necesario y no suficiente**, y conviene no confundirlo: se
+rinde la misma composición tres veces, así que la geometría coincide por construcción. Lo que prueba
+es que **el sistema no introduce diferencias que no sean de color al cambiar de tema** — que era el
+riesgo real, y no era obvio: hasta B3, cambiar de tema movía superficies que arrastraban bordes y
+estados.
+
+Lo que **falta** para cerrar la fase es la otra mitad, y es humana: que esa composición única se
+**parezca a cada una de las tres landings reales**. Eso no lo dice un ratio; lo dice el ojo del
+propietario comparando contra los tres repos de §1.
 
 ## 6. Riesgo principal
 
