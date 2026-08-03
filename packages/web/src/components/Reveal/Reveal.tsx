@@ -35,10 +35,11 @@ export function Reveal(props: RevealProps): ReactElement {
   const reveal = useReveal({ preset, spring, duration, once, amount, rootMargin, index });
 
   const tag = component ?? "div";
-  const Root = useMemo(
+  const Animated = useMemo(
     () => (typeof tag === "string" ? (TAGS[tag] ?? m.div) : m.create(tag)),
     [tag],
   );
+  const Root: ElementType = reveal.armed ? Animated : tag;
 
   return (
     <Root
@@ -46,10 +47,9 @@ export function Reveal(props: RevealProps): ReactElement {
       className={cx(sprinkle_class, className)}
       {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
       data-reveal={reveal["data-reveal"]}
-      initial={false}
-      {...(reveal.animate === undefined
-        ? {}
-        : { animate: reveal.animate, transition: reveal.transition })}
+      {...(reveal.armed
+        ? { initial: reveal.initial, animate: reveal.animate, transition: reveal.transition }
+        : {})}
       {...rest}
     >
       {children}

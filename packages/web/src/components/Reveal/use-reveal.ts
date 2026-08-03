@@ -24,8 +24,9 @@ export const REVEAL_PRESETS: Record<RevealPreset, Phase> = {
   "slide-right": { from: { opacity: 0, x: -24 }, to: { opacity: 1, x: 0 } },
 };
 
+export const REVEAL_SPRING = "gentle";
 export const REVEAL_AMOUNT = 0.2;
-export const REVEAL_ROOT_MARGIN = "0px 0px -25% 0px";
+export const REVEAL_ROOT_MARGIN = "0px 0px -10% 0px";
 
 export interface UseRevealOptions {
   preset?: RevealPreset | undefined;
@@ -40,6 +41,7 @@ export interface UseRevealOptions {
 export interface UseRevealResult {
   ref: RefObject<HTMLElement | null>;
   armed: boolean;
+  initial: TargetAndTransition | undefined;
   animate: TargetAndTransition | undefined;
   transition: Transition | undefined;
   "data-reveal": "shown" | "hidden" | undefined;
@@ -94,19 +96,29 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
   }, [armed, once, amount, rootMargin]);
 
   if (!armed) {
-    return { ref, armed, animate: undefined, transition: undefined, "data-reveal": undefined };
+    return {
+      ref,
+      armed,
+      initial: undefined,
+      animate: undefined,
+      transition: undefined,
+      "data-reveal": undefined,
+    };
   }
 
   const phase = REVEAL_PRESETS[preset];
   const enter =
-    spring_name === undefined
-      ? Tween(duration ?? "slow", "decelerate", motion_context)
-      : Spring(spring_name, motion_context);
+    spring_name !== undefined
+      ? Spring(spring_name, motion_context)
+      : duration === undefined
+        ? Spring(REVEAL_SPRING, motion_context)
+        : Tween(duration, "decelerate", motion_context);
   const delay = index === undefined ? 0 : StaggerDelay(index, motion_context);
 
   return {
     ref,
     armed,
+    initial: phase.from,
     animate: shown ? phase.to : phase.from,
     transition: shown ? { ...enter, delay } : ExitTween(duration ?? "slow", motion_context),
     "data-reveal": shown ? "shown" : "hidden",

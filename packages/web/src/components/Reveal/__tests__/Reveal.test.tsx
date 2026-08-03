@@ -2,7 +2,7 @@ import { act } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { Reveal } from "../Reveal.js";
 import { Section } from "../../Section/Section.js";
@@ -255,5 +255,47 @@ describe("Section reveal", () => {
 
     expect(inline).toContain("none");
     expect(inline).not.toContain("1180px");
+  });
+});
+
+describe("el estado oculto se pinta, no solo se anuncia", () => {
+  it("Reveal armado deja el nodo en opacidad cero antes de entrar", () => {
+    const { container } = render(
+      <Reveal>
+        <p>contenido</p>
+      </Reveal>,
+    );
+    const node = container.querySelector<HTMLElement>("[data-reveal]");
+
+    expect(node?.getAttribute("data-reveal")).toBe("hidden");
+    expect(node?.style.opacity).toBe("0");
+  });
+
+  it("y sube hasta opacidad uno al entrar", async () => {
+    const { container } = render(
+      <Reveal>
+        <p>contenido</p>
+      </Reveal>,
+    );
+
+    act(() => {
+      observed[0]?.Enter();
+    });
+    await waitFor(() => {
+      expect(container.querySelector<HTMLElement>("[data-reveal]")?.style.opacity).toBe("1");
+    });
+  });
+
+  it("Section reveal pinta el mismo estado oculto sobre su propio section", () => {
+    render(
+      <Section id="capacidades" reveal title="Capacidades">
+        cuerpo
+      </Section>,
+    );
+    const node = document.getElementById("capacidades");
+
+    expect(node?.tagName).toBe("SECTION");
+    expect(node?.getAttribute("data-reveal")).toBe("hidden");
+    expect(node?.style.opacity).toBe("0");
   });
 });

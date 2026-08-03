@@ -47,6 +47,26 @@ nunca llega a pintar el estado visible intermedio.
 El caso 4 sigue siendo una limitación real, no un fallo: `Reveal` dentro de un `Scroll` con
 desplazamiento propio no se dispara. La salida es no usarlo ahí.
 
+### Armar cambia el tipo de elemento, y tiene que hacerlo
+
+Sin armar se rinde el tag liso (`section`, `div`); al armar se rinde el de motion. Ese cambio de tipo
+**remonta** el nodo a propósito, porque es la única forma de que motion reciba un `initial` —y un
+`initial` solo se lee al montar—.
+
+La versión anterior mantenía el componente de motion desde el primer render y le pasaba
+`initial={false}` con el `animate` en el estado oculto. No funcionaba, y el modo de fallo es
+engañoso: con `initial={false}` motion **adopta el primer `animate` que recibe sin pintarlo**, porque
+da por hecho que el DOM ya está en ese valor. El resultado era que el estado oculto no llegaba nunca
+al elemento —`data-reveal="hidden"` con `opacity: 1` y sin `transform`— y la «animación» iba de un
+cero interno invisible hasta uno. Medido sobre la landing: los `style` inline de las secciones
+ocultas no contenían ni `opacity` ni `transform`.
+
+Es la misma trampa que `styles/motion.md` documenta para `AnimatePresence initial={false}` en los
+overlays. Con el remontaje, la misma sección mide `opacity: 0` / `translateY(24px)` mientras espera y
+recorre `0 → 0.87 → 1` al entrar.
+
+El remontaje ocurre dentro del `useLayoutEffect`, antes del pintado, así que no se ve.
+
 ## Por qué `IntersectionObserver` y no `animation-timeline: view()`
 
 ADR-069 metió los _scroll timelines_ de CSS en el catálogo para las sombras de `Scroll`, así que la
@@ -99,9 +119,14 @@ contenido, y en una landing eso se multiplica por cada bloque. Por eso la lógic
 
 ```tsx
 const revealed = useReveal();
-const Root = reveal ? m.section : "section";
-<Root ref={revealed.ref} data-reveal={revealed["data-reveal"]} animate={revealed.animate} …/>
+const animating = reveal && revealed.armed;
+const Root = animating ? m.section : "section";
+<Root ref={revealed.ref} data-reveal={revealed["data-reveal"]}
+  {...(animating ? { initial: revealed.initial, animate: revealed.animate, transition: revealed.transition } : {})} …/>
 ```
+
+El `revealed.armed` del ternario no es decorativo: es lo que hace que el nodo de motion monte con su
+`initial` en el estado oculto, según lo anterior.
 
 `Section reveal` es exactamente eso: el `data-reveal` va en el `<section>`, no hay nodo intermedio, y
 las style props y el `id` siguen aterrizando donde siempre. `Reveal` es el mismo hook con la capa
@@ -115,10 +140,29 @@ Cuando un componente no anima por sí mismo, `Reveal component={X}` sigue siendo
 nota en una landing: una sección de 500 px alcanza su 20 % en cuanto asoma 100 px, así que la
 animación termina mucho antes de que el lector llegue a ella.
 
-Medido sobre la landing con el default anterior, las secciones se revelaban con su borde superior a
-**~800 px** de un viewport de 900 — es decir, casi fuera de pantalla.
+Por eso el `rootMargin` por defecto recorta el viewport por abajo: `0px 0px -5% 0px`. Medido sobre la
+landing con viewport de 900, las cinco secciones disparan con su borde superior entre **684 y 774 px**
+—del 76 % al 86 % del alto—, que es el margen estrecho que se busca: la sección empieza a animar justo
+al asomar. `amount` sigue disponible para ajustar por caso, y `rootMargin` se puede sobrescribir
+entero.
 
-Por eso el `rootMargin` por defecto es `0px 0px -25% 0px`: el cuarto inferior del viewport deja de
-contar como visible, y el disparo se retrasa hasta que la sección está de verdad entrando. Medido
-después, el borde superior queda entre **547 y 583 px**. `amount` sigue disponible para ajustar por
-caso, y `rootMargin` se puede sobrescribir entero.
+Al medir esto hay una trampa: la landing va dentro de un `Main` con momentum, así que después de un
+`scrollTo` la posición **sigue moviéndose** mientras el muelle asienta. Muestreando a 35 ms el mismo
+disparo se leía entre 40 y 724 px —un reparto que parecía un fallo del observer y solo era el muelle a
+medio camino—. Con 260 ms de asentamiento por paso, el reparto real es de 90 px.
+
+## La entrada es un muelle, no un tween
+
+El default es `spring: "gentle"` (`120/22/1`). El anterior era un tween de `slow`, **280 ms**, y se
+leía como un corte más que como una entrada.
+
+Ninguno de los tres muelles del contrato rebota de forma apreciable: simulando el paso de 0 a 1,
+`gentle` y `default` salen críticamente amortiguados (ζ ≈ 1.00, sobrepaso 0 %) y `snappy` se queda en
+ζ = 0.78 con **1.8 %** de sobrepaso, que sobre los 24 px de `slide-up` son 0.4 px — por debajo de lo
+que se ve. Un rebote de verdad pediría un cuarto muelle en `motion.spring`, y eso es contrato público.
+
+`gentle` asienta en **682 ms** frente a 582 de `default` y 466 de `snappy`. Se eligió el más lento de
+los tres porque en una landing la entrada acompaña al scroll en vez de competir con él.
+
+`duration` sigue funcionando y, cuando se pasa, vuelve a elegir el tween: es la vía para una entrada
+de duración exacta. `spring` gana a `duration` si se pasan los dos.

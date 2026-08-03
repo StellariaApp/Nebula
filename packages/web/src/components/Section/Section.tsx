@@ -52,7 +52,8 @@ export function Section(props: SectionProps): ReactElement {
 
   const rail_vars = assignInlineVars({ [contentMax]: LengthToCss(contentWidth) });
   const revealed = useReveal();
-  const Root: ElementType = reveal ? m.section : "section";
+  const animating = reveal && revealed.armed;
+  const Root: ElementType = animating ? m.section : "section";
 
   return (
     <Root
@@ -61,9 +62,12 @@ export function Section(props: SectionProps): ReactElement {
       style={{ ...rail_vars, ...sprinkle_style }}
       data-divided={divided ? "true" : undefined}
       data-reveal={reveal ? revealed["data-reveal"] : undefined}
-      {...(reveal ? { initial: false } : {})}
-      {...(reveal && revealed.animate !== undefined
-        ? { animate: revealed.animate, transition: revealed.transition }
+      {...(animating
+        ? {
+            initial: revealed.initial,
+            animate: revealed.animate,
+            transition: revealed.transition,
+          }
         : {})}
       {...labelling}
       {...rest}
