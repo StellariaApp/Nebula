@@ -25,6 +25,7 @@ export interface StarFieldProps extends Omit<StyleProps, "color" | "opacity" | "
   color?: ColorExtended | undefined;
   accentColor?: ColorExtended | undefined;
   accentEvery?: number | undefined;
+  aurora?: boolean | undefined;
   fixed?: boolean | undefined;
   zIndex?: number | undefined;
   className?: string | undefined;

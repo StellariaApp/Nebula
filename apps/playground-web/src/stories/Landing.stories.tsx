@@ -32,8 +32,6 @@ export default meta;
 
 type Story = StoryObj;
 
-const RAIL = 1180;
-
 const SECTIONS = [
   { href: "#solucion", label: "Solución" },
   { href: "#capacidades", label: "Capacidades" },
@@ -101,12 +99,12 @@ const PLANS = [
   { name: "A medida", price: "Hablemos", note: "según volumen", cta: "Contactar", featured: false },
 ] as const;
 
-function Bar(): ReactElement {
+function Bar({ name }: { name: string }): ReactElement {
   return (
-    <Nav component="header" aria-label="Cabecera del sitio" floating floatingWidth={RAIL}>
+    <Nav component="header" aria-label="Cabecera del sitio" floating>
       <Nav.Logo href="#inicio" aria-label="Inicio">
         {MARK}
-        <span>Rosette</span>
+        <span>{name}</span>
       </Nav.Logo>
       <Nav.Links aria-label="Principal">
         {SECTIONS.map((item) => (
@@ -129,7 +127,7 @@ function Portada(): ReactElement {
       id="inicio"
       size="xl"
       hiper="Cierre de marzo en 4 días"
-      mih="100vh"
+      mih="900px"
       title={
         <>
           Concilia sin <GradientText>hojas de cálculo</GradientText>
@@ -151,7 +149,6 @@ function Numbers(): ReactElement {
     <Section
       id="solucion"
       size="xl"
-      variant="glass"
       reveal
       title="Lo que cambia el primer mes"
       description="Medido sobre 40 equipos de finanzas que migraron desde una hoja compartida."
@@ -275,16 +272,16 @@ function Contacto(): ReactElement {
   );
 }
 
-function Foot(): ReactElement {
+function Foot({ name }: { name: string }): ReactElement {
   return (
-    <Footer contentWidth={RAIL} glass>
+    <Footer glass>
       <Footer.Brand
         href="#inicio"
         aria-label="Inicio"
         logo={
           <>
             {MARK}
-            <span>Rosette</span>
+            <span>{name}</span>
           </>
         }
         description="Conciliación continua para equipos de finanzas que cerraron su última hoja de cálculo."
@@ -311,14 +308,14 @@ function Foot(): ReactElement {
   );
 }
 
-function Page(): ReactElement {
+function Page({ name = "Nebula" }: { name?: string }): ReactElement {
   return (
     <Main
       momentum
       withSkipLink
-      header={<Bar />}
-      footer={<Foot />}
-      background={<StarField parallax />}
+      header={<Bar name={name} />}
+      footer={<Foot name={name} />}
+      background={<StarField parallax aurora />}
     >
       <Portada />
       <Numbers />
@@ -348,7 +345,7 @@ export const Rosette: Story = {
   render: () => (
     <NebulaProvider defaultTheme={rosette} storage={null}>
       <Box bg="surface.base" c="text.primary">
-        <Page />
+        <Page name="Rosette" />
       </Box>
     </NebulaProvider>
   ),
@@ -358,7 +355,7 @@ export const Stellaria: Story = {
   render: () => (
     <NebulaProvider defaultTheme={stellaria} storage={null}>
       <Box bg="surface.base" c="text.primary">
-        <Page />
+        <Page name="Stellaria" />
       </Box>
     </NebulaProvider>
   ),
@@ -368,7 +365,7 @@ export const Lagrange: Story = {
   render: () => (
     <NebulaProvider defaultTheme={lagrange} storage={null}>
       <Box bg="surface.base" c="text.primary">
-        <Page />
+        <Page name="Lagrange" />
       </Box>
     </NebulaProvider>
   ),

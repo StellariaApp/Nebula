@@ -6,6 +6,8 @@ import { baseLayer } from "../../theme/layers.css.js";
 
 import {
   accentColor,
+  auroraAccent,
+  auroraPrimary,
   accentGlow,
   gridCell,
   gridColor,
@@ -88,3 +90,62 @@ export const star = style({
     },
   },
 });
+
+const AURORA_BLUR = "120px";
+
+const AURORAS = [
+  { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.4, s: 18 },
+  { top: "30%", left: "-15%", h: "60vh", w: "60vw", shift: false, peak: 0.3, s: 22 },
+  { top: "55%", left: "auto", right: "-10%", h: "55vh", w: "55vw", shift: false, peak: 0.25, s: 26 },
+  { top: "15%", left: "60%", h: "30vh", w: "30vw", shift: false, peak: 0.2, s: 20 },
+] as const;
+
+function Drift(peak: number, dx: number, dy: number): string {
+  return keyframes({
+    "0%, 100%": { transform: "translate(0%, 0%) scale(1)", opacity: peak },
+    "33%": {
+      transform: `translate(${String(dx)}%, ${String(-dy)}%) scale(1.08)`,
+      opacity: peak * 1.22,
+    },
+    "66%": {
+      transform: `translate(${String(-dx * 0.6)}%, ${String(dy * 0.7)}%) scale(0.93)`,
+      opacity: peak * 0.85,
+    },
+  });
+}
+
+export const aurora = style({
+  "@layer": {
+    [baseLayer]: { position: "absolute", inset: 0, overflow: "hidden" },
+  },
+});
+
+export const auroraBlob = AURORAS.map((a, i) =>
+  style({
+    "@layer": {
+      [baseLayer]: {
+        position: "absolute",
+        top: a.top,
+        ...(a.left === "auto" ? { right: a.right } : { left: a.left }),
+        height: a.h,
+        width: a.w,
+        borderRadius: vars.radius.full,
+        backgroundImage: `radial-gradient(ellipse at center, ${auroraPrimary} 0%, ${auroraAccent} ${String(40 + i * 4)}%, transparent 70%)`,
+        filter: `blur(${AURORA_BLUR})`,
+        opacity: a.peak,
+        willChange: "transform, opacity",
+        ...(a.shift ? { translate: "-50% 0" } : {}),
+        animationName: Drift(a.peak, 8 - i * 1.5, 6 - i),
+        animationDuration: `${String(a.s)}s`,
+        animationTimingFunction: "ease-in-out",
+        animationIterationCount: "infinite",
+        selectors: {
+          "&[data-still='true']": { ...still, transform: "none" },
+        },
+        "@media": {
+          [reducedMedia]: { ...still, transform: "none" },
+        },
+      },
+    },
+  }),
+);

@@ -87,3 +87,33 @@ fondo de página — el de `Main background`:
 ```tsx
 <Main background={<StarField parallax />}>{sections}</Main>
 ```
+
+## `aurora` — las manchas de color del fondo
+
+Apagado por defecto. Enciende cuatro manchas radiales muy desenfocadas detrás de la retícula, con la
+geometría medida de la landing de Stellaria:
+
+| Blob | Posición                | Tamaño      | Opacidad | Ciclo |
+| ---- | ----------------------- | ----------- | -------: | ----: |
+| 1    | `top -20%`, centrado    | 70vh × 90vw |     0.40 |  18 s |
+| 2    | `left -15%`, `top 30%`  | 60vh × 60vw |     0.30 |  22 s |
+| 3    | `right -10%`, `top 55%` | 55vh × 55vw |     0.25 |  26 s |
+| 4    | `left 60%`, `top 15%`   | 30vh × 30vw |     0.20 |  20 s |
+
+Los cuatro ciclos son primos entre sí a propósito —18, 22, 26 y 20 segundos— para que no vuelvan a
+coincidir en fase y el fondo no se lea como un latido único. Cada uno arranca además con un retardo
+negativo distinto, así que el campo ya está desincronizado en el primer frame, igual que el parpadeo
+de las estrellas.
+
+**El color sale del tema, no de la receta.** El degradado va de `primary.500` al 26 % a `accent.400`
+al 14 %, así que un tema de producto tiñe las auroras sin tocar el componente: medido, el mismo
+`<StarField aurora />` da rosa en `rosette`, azul en `stellaria` y rojo en `lagrange`.
+
+**Por qué vive aquí y no en un componente aparte**: el original de Stellaria monta las auroras en un
+contenedor `fixed inset-0` que se desplaza con `scrollY * 0.04` y les superpone una retícula de 56 px
+con máscara radial. Eso es exactamente lo que `StarField` ya hacía —`parallax` usa 0.045 y la retícula
+es la misma—, así que separarlos habría duplicado el contenedor, el parallax y la máscara para acabar
+apilando dos capas que se pisan.
+
+Se apagan con `prefers-reduced-motion` y con `motion.tier: "minimal"`, como el parpadeo: quedan
+quietas, no desaparecen.

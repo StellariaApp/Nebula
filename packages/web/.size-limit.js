@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "72 kB",
+    limit: "72.5 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
@@ -1169,7 +1169,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/StarField/StarField.js",
     import: "{ StarField }",
     ignore: ["react", "react-dom"],
-    limit: "15 kB",
+    limit: "15.5 kB",
   },
   {
     name: "Lightbox (compuesto: Modal + zoom/pan propio, por módulo)",

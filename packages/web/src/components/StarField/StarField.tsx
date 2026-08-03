@@ -15,6 +15,8 @@ import type { StarFieldProps } from "./StarField.types.js";
 import {
   accentColor,
   accentGlow,
+  auroraAccent,
+  auroraPrimary,
   gridCell,
   gridColor,
   starColor,
@@ -38,6 +40,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     color = "text.primary",
     accentColor: accent = "accent.400",
     accentEvery = 5,
+    aurora = false,
     fixed = false,
     zIndex,
     className,
@@ -90,6 +93,8 @@ export function StarField(props: StarFieldProps): ReactElement {
     [starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,
     [accentColor]: tint,
     [accentGlow]: `0 0 12px ${WithAlpha(tint, 45)}`,
+    [auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 26),
+    [auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 14),
   });
 
   const twinkling = twinkle && animated;
@@ -107,6 +112,19 @@ export function StarField(props: StarFieldProps): ReactElement {
       aria-hidden="true"
       {...rest}
     >
+      {aurora ? (
+        <span className={styles.aurora} aria-hidden="true">
+          {styles.auroraBlob.map((blob, i) => (
+            <span
+              key={blob}
+              className={blob}
+              data-still={twinkling ? undefined : "true"}
+              style={{ animationDelay: `${String(i * -4)}s` }}
+            />
+          ))}
+        </span>
+      ) : null}
+
       {grid ? (
         <span ref={grid_ref} className={cx(styles.layer, styles.grid, fade && styles.faded)} />
       ) : null}
