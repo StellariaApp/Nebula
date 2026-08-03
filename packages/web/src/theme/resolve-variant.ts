@@ -46,6 +46,32 @@ const SEMANTIC_SCALES = [
   "info",
 ] as const;
 
+const ON_FILL = "text.onPrimary";
+const SCALE_REF = "scale.";
+const INK_DARK = "#0b0b0b";
+
+function ScaleHexFor(scale: ColorScale, theme: NebulaTheme): Record<string, string> {
+  if (scale === "primary") return theme.colors.primary;
+  if (scale === "accent") return theme.colors.accent;
+  if (scale === "gray") return theme.colors.gray;
+  return theme.colors.semantic[scale];
+}
+
+function FillHex(
+  ref: VariantBackground,
+  scale: ColorScale,
+  theme: NebulaTheme,
+): string | undefined {
+  if (ref.startsWith("gradient.")) {
+    const role = ref.slice("gradient.".length);
+    return theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]]?.stops[0]
+      ?.color;
+  }
+  const [group, key, alpha] = ref.split(".");
+  if (group !== "scale" || key === undefined || alpha !== undefined) return undefined;
+  return ScaleHexFor(scale, theme)[key];
+}
+
 const TRANSPARENT_HOVER = "scale.500.10" as VariantBackground;
 const TRANSPARENT_ACTIVE = "scale.500.16" as VariantBackground;
 
@@ -317,7 +343,10 @@ function ResolveScale(
   const glass_recipe = vars.glass[glassClass ?? recipe.glass ?? "default"];
   const is_transparent = recipe.background === "transparent";
 
-  const deepen = theme.meta.scheme === "dark" ? -1 : 1;
+  const fill_hex = FillHex(recipe.background, scale, theme);
+  const dark_ink = fill_hex !== undefined && OnColor(fill_hex) === INK_DARK;
+  const darker = theme.meta.scheme === "dark" ? -1 : 1;
+  const deepen = dark_ink ? -darker : darker;
   const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, deepen);
   const active_ref = is_transparent ? TRANSPARENT_ACTIVE : ShiftRef(recipe.background, deepen * 2);
 
@@ -335,7 +364,10 @@ function ResolveScale(
     background,
     backgroundHover: hover,
     backgroundActive: active,
-    foreground: ResolveColorRef(recipe.foreground, scale),
+    foreground:
+      recipe.foreground === ON_FILL && recipe.background.startsWith(SCALE_REF)
+        ? vars.color.ink[scale]
+        : ResolveColorRef(recipe.foreground, scale),
     borderColor: glass_on
       ? glass_recipe.borderColor
       : recipe.border === "none"

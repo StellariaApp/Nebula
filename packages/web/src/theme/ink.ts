@@ -1,5 +1,3 @@
-export const LUMINANCE_DARK_THRESHOLD = 0.7;
-
 const INK_LIGHT = "#ffffff";
 const INK_DARK = "#0b0b0b";
 const SRGB_CUT = 0.03928;
@@ -20,7 +18,14 @@ export function Luminance(hex: string): number {
   return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
 }
 
+function Ratio(a: number, b: number): number {
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
 export function OnColor(concrete: string | null): string {
   if (concrete === null) return INK_LIGHT;
-  return Luminance(concrete) < LUMINANCE_DARK_THRESHOLD ? INK_LIGHT : INK_DARK;
+  const fill = Luminance(concrete);
+  const light = Ratio(fill, Luminance(INK_LIGHT));
+  const dark = Ratio(fill, Luminance(INK_DARK));
+  return light >= dark ? INK_LIGHT : INK_DARK;
 }

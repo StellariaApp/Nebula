@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "73 kB",
+    limit: "73.5 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
@@ -592,7 +592,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Tabs/Tabs.js",
     import: "{ Tabs }",
     ignore: ["react", "react-dom"],
-    limit: "32.5 kB",
+    limit: "33 kB",
   },
   {
     name: "Segment (compound: motion + gesto, por módulo)",
@@ -746,7 +746,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Card/index.js",
     import: "{ Card }",
     ignore: ["react", "react-dom"],
-    limit: "23.5 kB",
+    limit: "24 kB",
   },
   {
     name: "EmptyState (motion de entrada, por módulo)",
@@ -886,7 +886,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/StatusBadge/StatusBadge.js",
     import: "{ StatusBadge }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "StatusMapProvider (contexto de presentación, por módulo)",
@@ -1302,7 +1302,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/TypographyStylesProvider/TypographyStylesProvider.js",
     import: "{ TypographyStylesProvider }",
     ignore: ["react", "react-dom"],
-    limit: "11 kB",
+    limit: "11.5 kB",
   },
   {
     name: "DirectionProvider (contexto + I18nProvider de Aria, por módulo)",

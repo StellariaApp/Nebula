@@ -1,4 +1,4 @@
-import type { NebulaTheme, Variant } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
 
 import { OnColor, ResolveBackground, ResolveRef, SEMANTIC_SCALES, ShiftRef } from "./resolve.ts";
 
@@ -28,8 +28,11 @@ const VARIANTS: readonly Variant[] = [
 
 const ON_FILL = "text.onPrimary";
 
-function FillHex(theme: NebulaTheme): string | undefined {
-  const background = theme.variantMap.filled.background;
+function FillHex(
+  theme: NebulaTheme,
+  background: string,
+  scale: SemanticScaleName,
+): string | undefined {
   if (background.startsWith("gradient.")) {
     const role = background.slice("gradient.".length);
     const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
@@ -37,13 +40,13 @@ function FillHex(theme: NebulaTheme): string | undefined {
   }
   const [group, key, alpha] = background.split(".");
   if (group !== "scale" || key === undefined || alpha !== undefined) return undefined;
-  return ResolveRef(theme, `scale.${key}`, "primary", theme.colors.surface.base) ?? undefined;
+  return ResolveRef(theme, `scale.${key}`, scale, theme.colors.surface.base) ?? undefined;
 }
 
 function VariantForeground(theme: NebulaTheme, variant: Variant, scale: string): string {
   const recipe = theme.variantMap[variant];
   if (recipe.foreground === ON_FILL) {
-    const fill = FillHex(theme);
+    const fill = FillHex(theme, recipe.background, scale as SemanticScaleName);
     if (fill !== undefined) return OnColor(fill);
   }
   return (
@@ -79,7 +82,9 @@ function BuildVariantPairs(): ContrastPair[] {
         fg: (t) => VariantForeground(t, variant, scale),
         bg: (t) => {
           const recipe = t.variantMap[variant];
-          const deepen = t.meta.scheme === "dark" ? -1 : 1;
+          const fill = FillHex(t, recipe.background, scale);
+          const darker = t.meta.scheme === "dark" ? -1 : 1;
+          const deepen = fill !== undefined && OnColor(fill) === "#0b0b0b" ? -darker : darker;
           const hovered = { ...recipe, background: ShiftRef(recipe.background, deepen) };
           return (
             ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))

@@ -30,6 +30,7 @@ export type GeneratedScale = Record<Shade, string>;
 export function GenerateScale(
   seedHex: string,
   profile: CurveProfile = "chromatic",
+  ink: "light" | "dark" = "light",
 ): GeneratedScale {
   const parsed = parse(seedHex);
   if (parsed === undefined) {
@@ -62,7 +63,7 @@ export function GenerateScale(
     const At = (lightness: number): string =>
       formatHex(clampChroma({ mode: "oklch", l: lightness, c, h: seed_hue }, "oklch"));
 
-    if (profile !== "chromatic" || shade !== FILL_SHADE) {
+    if (profile !== "chromatic" || shade !== FILL_SHADE || ink === "dark") {
       scale[shade] = At(l);
       return;
     }
@@ -76,11 +77,16 @@ export function GenerateScale(
 }
 
 export function GenerateNamedScales(
-  specs: readonly { name: string; seed: string; profile: CurveProfile }[],
+  specs: readonly {
+    name: string;
+    seed: string;
+    profile: CurveProfile;
+    ink?: "light" | "dark";
+  }[],
 ): Record<string, GeneratedScale> {
   const out: Record<string, GeneratedScale> = {};
   for (const spec of specs) {
-    out[spec.name] = GenerateScale(spec.seed, spec.profile);
+    out[spec.name] = GenerateScale(spec.seed, spec.profile, spec.ink);
   }
   return out;
 }

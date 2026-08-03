@@ -47,6 +47,15 @@ export const vars = createThemeContract({
       disabled: null,
     },
     border: { subtle: null, default: null, strong: null, focus: null, disabled: null },
+    ink: {
+      primary: null,
+      accent: null,
+      gray: null,
+      success: null,
+      warning: null,
+      error: null,
+      info: null,
+    },
   },
   font: {
     family: { sans: null, mono: null },

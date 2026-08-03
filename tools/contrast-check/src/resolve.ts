@@ -151,11 +151,9 @@ function Luminance(hex: string): number {
   return 0.2126 * channel(rgb.r) + 0.7152 * channel(rgb.g) + 0.0722 * channel(rgb.b);
 }
 
-/** Réplica de `OnColor` de `packages/web/src/theme/resolve-variant.ts`: el relleno elige su tinta. */
-export const LUMINANCE_DARK_THRESHOLD = 0.7;
-
+/** Réplica de `OnColor` de `packages/web/src/theme/ink.ts`: gana la tinta que más contrasta. */
 export function OnColor(fill: string): string {
-  return Luminance(fill) < LUMINANCE_DARK_THRESHOLD ? "#ffffff" : "#0b0b0b";
+  return Ratio(fill, "#ffffff") >= Ratio(fill, "#0b0b0b") ? "#ffffff" : "#0b0b0b";
 }
 
 export function Ratio(a: string, b: string): number {

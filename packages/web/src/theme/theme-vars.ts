@@ -21,8 +21,27 @@ const Num = (n: number): string => String(n);
 const SOLID = "solid ";
 const FILL_SCALE = "scale.";
 
-/** La tinta del relleno de marca la decide la luminancia del propio relleno, no el autor del tema. */
-function OnFill(theme: NebulaTheme): string {
+const INK_SCALES = [
+  "primary",
+  "accent",
+  "gray",
+  "success",
+  "warning",
+  "error",
+  "info",
+] as const;
+
+type InkScale = (typeof INK_SCALES)[number];
+
+function ScaleOf(theme: NebulaTheme, scale: InkScale): Record<string, string> {
+  if (scale === "primary") return theme.colors.primary;
+  if (scale === "accent") return theme.colors.accent;
+  if (scale === "gray") return theme.colors.gray;
+  return theme.colors.semantic[scale];
+}
+
+/** La tinta la decide el propio relleno de cada escala, no el autor del tema (ADR-085). */
+function OnFill(theme: NebulaTheme, scale: InkScale): string {
   const ref = theme.variantMap.filled.background;
   if (ref.startsWith("gradient.")) {
     const role = ref.slice("gradient.".length);
@@ -31,9 +50,14 @@ function OnFill(theme: NebulaTheme): string {
     return stop === undefined ? theme.colors.text.onPrimary : OnColor(stop);
   }
   if (!ref.startsWith(FILL_SCALE)) return theme.colors.text.onPrimary;
-  const shade = ref.slice(FILL_SCALE.length);
-  const fill = theme.colors.primary[shade as keyof NebulaTheme["colors"]["primary"]];
+  const fill = ScaleOf(theme, scale)[ref.slice(FILL_SCALE.length)];
   return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill);
+}
+
+function Inks(theme: NebulaTheme): Record<InkScale, string> {
+  const out = {} as Record<InkScale, string>;
+  for (const scale of INK_SCALES) out[scale] = OnFill(theme, scale);
+  return out;
 }
 
 function GlassRecipe(recipe: GlassSurfaceRecipe): GlassSurfaceRecipe & { borderColor: string } {
@@ -58,7 +82,8 @@ export function ThemeToVars(theme: NebulaTheme) {
         info: colors.semantic.info,
       },
       surface: colors.surface,
-      text: { ...colors.text, onPrimary: OnFill(theme) },
+      text: { ...colors.text, onPrimary: OnFill(theme, "primary") },
+      ink: Inks(theme),
       border: colors.border,
     },
     font: {
