@@ -11,7 +11,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "28 kB",
+    limit: "28.5 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
@@ -1141,7 +1141,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/GradientBorder/GradientBorder.js",
     import: "{ GradientBorder }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "GradientBackground (primitivo temable con variantes en runtime, por módulo)",

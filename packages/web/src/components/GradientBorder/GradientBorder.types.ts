@@ -7,6 +7,10 @@ import type { BoxOwnProps } from "../Box/Box.types.js";
 
 export type GradientBorderSurface = "none" | "base" | "raised" | "overlay" | "sunken";
 
+export type GradientBorderEdge = 1 | 2 | 3 | 4;
+
+export type GradientBorderSequence = "continuous" | "spaced";
+
 /**
  * Anillo de gradiente alrededor del contenido, sin teñir su interior.
  *
@@ -18,6 +22,9 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
   width?: number | undefined;
   radius?: RadiusName | number | undefined;
   surface?: GradientBorderSurface | undefined;
+  beam?: boolean | undefined;
+  edges?: readonly GradientBorderEdge[] | undefined;
+  sequence?: GradientBorderSequence | undefined;
 }
 
 export type GradientBorderProps<C extends ElementType = "div"> = GradientBorderOwnProps & {

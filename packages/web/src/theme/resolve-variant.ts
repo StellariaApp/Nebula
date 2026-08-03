@@ -226,6 +226,16 @@ export function ResolveGradientEdge(
   return first === undefined ? "transparent" : first.color;
 }
 
+export function ResolveGradientTip(
+  gradient: GradientRole | GradientProp,
+  theme: NebulaTheme,
+): string {
+  if (typeof gradient !== "string") return ResolveColorExtended(gradient.to).base;
+  const stops = theme.effects.gradients[gradient]?.stops;
+  const last = stops?.[stops.length - 1];
+  return last === undefined ? "transparent" : last.color;
+}
+
 export function ResolveGradientToken(
   gradient: GradientRole,
   theme: NebulaTheme,

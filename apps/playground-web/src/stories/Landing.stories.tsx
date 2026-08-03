@@ -10,6 +10,7 @@ import {
   Divider,
   Feature,
   Footer,
+  GradientBorder,
   GradientText,
   Main,
   Nav,
@@ -134,7 +135,11 @@ function Portada(): ReactElement {
           Concilia sin <br /> <GradientText>hojas de cálculo</GradientText>
         </>
       }
-      right={<Paper w={500} h={500} variant="glass" />}
+      right={
+        <GradientBorder beam radius="xl" width={4} w={500} h={500}>
+          <Paper variant="glass" w="100%" h="100%" r="xl" />
+        </GradientBorder>
+      }
       description="Rosette contrasta cada movimiento contra el extracto del banco en cuanto entra. Lo que antes era una semana de cierre son ahora cuatro días y un registro que el auditor acepta."
       actions={
         <>

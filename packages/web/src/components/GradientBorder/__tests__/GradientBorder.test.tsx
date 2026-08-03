@@ -93,3 +93,78 @@ describe("GradientBorder", () => {
     expect(style).toMatch(/linear-gradient\(/);
   });
 });
+
+describe("GradientBorder — el haz que orbita", () => {
+  it("sin beam no monta ninguna capa de animación", () => {
+    render(<GradientBorder data-testid="gb" />);
+    const node = screen.getByTestId("gb");
+
+    expect(node.getAttribute("data-beam")).toBeNull();
+    expect(node.querySelectorAll("span")).toHaveLength(0);
+  });
+
+  it("con beam enciende los cuatro lados por defecto", () => {
+    render(<GradientBorder beam data-testid="gb" />);
+    const node = screen.getByTestId("gb");
+
+    expect(node.getAttribute("data-beam")).toBe("continuous");
+    expect(node.querySelectorAll("span > span")).toHaveLength(4);
+  });
+
+  it("edges elige los lados y respeta el orden del marco, no el de la prop", () => {
+    render(<GradientBorder beam edges={[3, 1]} data-testid="gb" />);
+    expect(screen.getByTestId("gb").querySelectorAll("span > span")).toHaveLength(2);
+  });
+
+  it("continua reparte el ciclo entre los lados elegidos y no deja hueco", () => {
+    render(<GradientBorder beam edges={[1, 3]} data-testid="gb" />);
+    const arcs = [...screen.getByTestId("gb").querySelectorAll("span > span")];
+    const delays = arcs.map((arc) => arc.getAttribute("style") ?? "");
+
+    expect(delays[0]).toMatch(/\* 0\)/);
+    expect(delays[1]).toMatch(/\* 1\)/);
+  });
+
+  it("espaciada deja a cada lado su turno del marco completo", () => {
+    render(<GradientBorder beam edges={[1, 3]} sequence="spaced" data-testid="gb" />);
+    const arcs = [...screen.getByTestId("gb").querySelectorAll("span > span")];
+    const delays = arcs.map((arc) => arc.getAttribute("style") ?? "");
+
+    expect(screen.getByTestId("gb").getAttribute("data-beam")).toBe("spaced");
+    expect(delays[0]).toMatch(/\* 0\)/);
+    expect(delays[1]).toMatch(/\* 2\)/);
+  });
+
+  it("con haz el anillo estático deja de ser el gradiente y pasa al borde normal", () => {
+    render(<GradientBorder beam data-testid="gb" />);
+    const style = screen.getByTestId("gb").getAttribute("style") ?? "";
+
+    expect(style).toMatch(/--color-border-default/);
+    expect(style).not.toMatch(/--gradientImage[^;]*linear-gradient/);
+  });
+
+  it("el arco sí lleva el color de marca, en cónico", () => {
+    render(<GradientBorder beam data-testid="gb" />);
+    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/conic-gradient\(/);
+  });
+
+  it("un tier minimal no anima: el marco queda estático", () => {
+    RenderIn(<GradientBorder beam data-testid="gb" />, "sober-light");
+    const node = screen.getByTestId("gb");
+
+    expect(node.getAttribute("data-beam")).toBeNull();
+    expect(node.querySelectorAll("span")).toHaveLength(0);
+  });
+
+  it("edges vacío tampoco anima", () => {
+    render(<GradientBorder beam edges={[]} data-testid="gb" />);
+    expect(screen.getByTestId("gb").getAttribute("data-beam")).toBeNull();
+  });
+
+  it("las capas decorativas quedan fuera del árbol de accesibilidad", () => {
+    render(<GradientBorder beam data-testid="gb" />);
+    expect(screen.getByTestId("gb").querySelector("span")?.getAttribute("aria-hidden")).toBe(
+      "true",
+    );
+  });
+});

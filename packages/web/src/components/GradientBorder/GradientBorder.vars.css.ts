@@ -4,3 +4,11 @@ export const gradientImage = createVar();
 export const ringWidth = createVar();
 export const innerBg = createVar();
 export const fallbackBorder = createVar();
+
+export const beamArc = createVar();
+export const beamGlow = createVar();
+export const beamSlot = createVar();
+export const beamCycle = createVar();
+export const beamDelay = createVar();
+export const beamSweep = createVar();
+export const beamGate = createVar();

@@ -98,6 +98,41 @@ export const Anillos: Story = {
   ),
 };
 
+export const AnillosAnimados: Story = {
+  render: () => (
+    <Box display="flex" gap="md" wrap="wrap">
+      {(
+        [
+          { label: "los cuatro", edges: undefined, sequence: undefined },
+          { label: "solo el 1", edges: [1] as const, sequence: undefined },
+          { label: "1 y 3 continua", edges: [1, 3] as const, sequence: undefined },
+          { label: "1 y 3 espaciada", edges: [1, 3] as const, sequence: "spaced" as const },
+        ] as const
+      ).map((item) => (
+        <GradientBorder
+          key={item.label}
+          beam
+          {...(item.edges === undefined ? {} : { edges: item.edges })}
+          {...(item.sequence === undefined ? {} : { sequence: item.sequence })}
+          width={2}
+          surface="raised"
+          p="md"
+          w={190}
+          h={130}
+          radius="lg"
+        >
+          <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
+            {item.label}
+          </Text>
+          <Text component="p" fz="body2">
+            Marco de producto
+          </Text>
+        </GradientBorder>
+      ))}
+    </Box>
+  ),
+};
+
 export const Malla: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">

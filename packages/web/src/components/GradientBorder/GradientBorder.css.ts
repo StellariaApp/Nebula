@@ -1,12 +1,32 @@
+import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import { fallbackBorder, gradientImage, innerBg, ringWidth } from "./GradientBorder.vars.css.js";
+import {
+  beamArc,
+  beamCycle,
+  beamDelay,
+  beamGate,
+  beamGlow,
+  beamSlot,
+  beamSweep,
+  fallbackBorder,
+  gradientImage,
+  innerBg,
+  ringWidth,
+} from "./GradientBorder.vars.css.js";
 
 const SOLID_MASK = "linear-gradient(#000 0 0)";
 const NO_MASK_COMPOSITE = "not ((mask-composite: exclude) or (-webkit-mask-composite: xor))";
+const REDUCED = "(prefers-reduced-motion: reduce)";
+const RING_MASK = {
+  WebkitMask: `${SOLID_MASK} content-box, ${SOLID_MASK}`,
+  WebkitMaskComposite: "xor",
+  mask: `${SOLID_MASK} content-box, ${SOLID_MASK}`,
+  maskComposite: "exclude",
+} as const;
 
 export const gradientBorder = recipe({
   base: {
@@ -16,6 +36,7 @@ export const gradientBorder = recipe({
         isolation: "isolate",
         boxSizing: "border-box",
         background: innerBg,
+        overflow: "hidden",
         selectors: {
           "&::before": {
             content: "",
@@ -25,10 +46,7 @@ export const gradientBorder = recipe({
             borderRadius: "inherit",
             padding: ringWidth,
             background: gradientImage,
-            WebkitMask: `${SOLID_MASK} content-box, ${SOLID_MASK}`,
-            WebkitMaskComposite: "xor",
-            mask: `${SOLID_MASK} content-box, ${SOLID_MASK}`,
-            maskComposite: "exclude",
+            ...RING_MASK,
             pointerEvents: "none",
           },
         },
@@ -69,3 +87,80 @@ export const gradientBorder = recipe({
 });
 
 export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gradientBorder>>;
+
+const EDGES = [1, 2, 3, 4] as const;
+const SWEEP_ARC = 90;
+const SWEEP_HALF = SWEEP_ARC / 2;
+
+export const sweep = Object.fromEntries(
+  EDGES.map((edge) => {
+    const center = (edge - 1) * SWEEP_ARC;
+    return [
+      edge,
+      keyframes({
+        from: { transform: `rotate(${String(center - SWEEP_HALF)}deg)` },
+        to: { transform: `rotate(${String(center + SWEEP_HALF)}deg)` },
+      }),
+    ];
+  }),
+) as Record<(typeof EDGES)[number], string>;
+
+export const gate = Object.fromEntries(
+  EDGES.map((share) => {
+    const open = 100 / share;
+    return [
+      share,
+      keyframes(
+        share === 1
+          ? { "0%": { opacity: 1 }, "100%": { opacity: 1 } }
+          : {
+              "0%": { opacity: 1 },
+              [`${String(open)}%`]: { opacity: 1 },
+              [`${String(open + 0.01)}%`]: { opacity: 0 },
+              "100%": { opacity: 0 },
+            },
+      ),
+    ];
+  }),
+) as Record<(typeof EDGES)[number], string>;
+
+export const beam = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      inset: 0,
+      zIndex: 1,
+      borderRadius: "inherit",
+      padding: ringWidth,
+      ...RING_MASK,
+      pointerEvents: "none",
+      "@supports": {
+        [NO_MASK_COMPOSITE]: { display: "none" },
+      },
+      "@media": {
+        "(forced-colors: active)": { display: "none" },
+      },
+    },
+  },
+});
+
+export const arc = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      inset: "-100%",
+      opacity: 0,
+      background: beamArc,
+      filter: `drop-shadow(0 0 4px ${beamGlow})`,
+      willChange: "transform, opacity",
+      animationName: `${beamSweep}, ${beamGate}`,
+      animationDuration: `${beamSlot}, ${beamCycle}`,
+      animationDelay: `0s, ${beamDelay}`,
+      animationTimingFunction: "linear, linear",
+      animationIterationCount: "infinite, infinite",
+      "@media": {
+        [REDUCED]: { animationName: "none" },
+      },
+    },
+  },
+});
