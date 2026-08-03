@@ -9,8 +9,8 @@ import { officialThemes } from "@stellaria/nebula-themes";
 import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
-  { value: "light", title: "Nebula Light" },
-  { value: "dark", title: "Nebula Dark" },
+  { value: "light", title: "Light" },
+  { value: "dark", title: "Dark" },
   { value: "sober-light", title: "Sober" },
   { value: "playful", title: "Playful" },
 ];

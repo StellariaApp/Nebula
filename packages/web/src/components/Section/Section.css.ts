@@ -32,7 +32,7 @@ export const rail = style({
     [baseLayer]: {
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.md,
+      gap: vars.space.xl,
       minWidth: 0,
       boxSizing: "border-box",
       width: "100%",

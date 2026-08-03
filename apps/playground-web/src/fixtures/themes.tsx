@@ -55,8 +55,8 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
   lagrange: {
     primary: palettes.orange,
     accent: palettes.pink,
-    from: palettes.pink["400"],
-    to: palettes.orange["300"],
+    from: palettes.pink["500"],
+    to: palettes.orange["400"],
     tint: palettes.orange["200"],
     wash: 0.009,
     lift: 6,

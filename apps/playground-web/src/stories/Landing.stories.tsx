@@ -159,10 +159,11 @@ function Numbers(): ReactElement {
       id="solucion"
       size="xl"
       reveal
+      glass
       title="Lo que cambia el primer mes"
       description="Medido sobre 40 equipos de finanzas que migraron desde una hoja compartida."
     >
-      <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+      <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md" gap="lg">
         <Stat label="Días de cierre" value="4" diff="-62 %" trend="down" />
         <Stat label="Movimientos automáticos" value="94 %" diff="+31 pp" trend="up" />
         <Stat label="Excepciones por cierre" value="12" diff="-78 %" trend="down" />
@@ -177,7 +178,6 @@ function Capabilities(): ReactElement {
       id="capacidades"
       size="xl"
       reveal
-      glass
       title="Capacidades"
       description="Tres piezas, un solo flujo."
     >
@@ -198,6 +198,7 @@ function Pricing(): ReactElement {
       id="precios"
       size="xl"
       reveal
+      glass
       title="Precios"
       description="Sin permanencia. El primer mes no se cobra."
     >
@@ -239,7 +240,6 @@ function Security(): ReactElement {
       id="seguridad"
       size="xl"
       reveal
-      glass
       title="Seguridad"
       description="Los datos del banco no salen de tu región, y cada acceso queda registrado."
       footer={
@@ -270,6 +270,7 @@ function Contacto(): ReactElement {
       id="contacto"
       size="xl"
       reveal
+      glass
       title="Cierra marzo con nosotros"
       description="Te acompañamos en la primera conciliación. Sin permanencia y sin tarjeta."
     >
@@ -344,16 +345,6 @@ export const Nebula: Story = {
   render: () => <Page />,
 };
 
-/**
- * B6: las tres landings de Stellaria sobre la misma composición. `Rosette`,
- * `Stellaria` y `Lagrange` rinden el mismo componente `Page` y solo cambian de
- * tema — ni una prop distinta. Si para pasar de una a otra hiciera falta cambiar
- * algo que no es color, el sistema no estaría alineado.
- *
- * El `Box` no es decoración: el provider de la story queda anidado dentro del
- * global del toolbar, así que el tema de producto tiene que pintar su propio
- * lienzo o hereda el fondo del de fuera y el texto se pierde.
- */
 export const Rosette: Story = {
   render: (_args, context) => (
     <ProductStage name="rosette" global={context.globals["theme"] as string | undefined}>
