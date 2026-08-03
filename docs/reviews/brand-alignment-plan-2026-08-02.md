@@ -135,15 +135,15 @@ sirve de patrón: se midió una landing, se extrajo la regla, se metió en el si
 
 Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuente.
 
-| #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por     |
-| ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                              | nada              |
-| **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                | checkpoint ✅     |
-| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto. Método de cierre decidido en §5.5                                                 | B1 ✅ · método ✅ |
-| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado |
-| **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                   | B1 ✅             |
-| **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba | nada              |
-| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                  | B0-B5             |
+| #      | Tramo                                        | Contenido                                                                                                                                                                                     | Bloqueado por     |
+| ------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                                                 | nada              |
+| **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                                   | checkpoint ✅     |
+| **B2** | Cristal por clase de superficie (**D1, D2**) | ✅ **cerrado 2026-08-02** ([ADR-078](../adr/ADR-078-el-cristal-es-una-receta-por-clase-de-superficie.md)). Tres recetas; la clase la decide el componente. Falta la lámina de las tres juntas | B1 ✅ · método ✅ |
+| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                                              | nada — T2 cerrado |
+| **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                                      | B1 ✅             |
+| **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba                    | nada              |
+| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                                     | B0-B5             |
 
 ## 4. El backlog abierto, mapeado
 

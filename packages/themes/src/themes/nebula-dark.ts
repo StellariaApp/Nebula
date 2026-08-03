@@ -69,6 +69,11 @@ export const nebulaDark = {
     blur,
     glass: {
       surface: {
+        control: {
+          background: "rgba(255, 255, 255, 0.05)",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          backdropFilter: `blur(${blur.sm}) saturate(120%)`,
+        },
         subtle: {
           background: "rgba(15, 17, 25, 0.56)",
           border: "1px solid rgba(255, 255, 255, 0.09)",
@@ -124,7 +129,7 @@ export const nebulaDark = {
       background: "surface.overlay",
       foreground: "text.primary",
       border: "border.subtle",
-      glass: "subtle",
+      glass: "control",
     },
     ghost: { background: "transparent", foreground: "scale.700", border: "none" },
     glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },

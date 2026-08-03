@@ -94,7 +94,7 @@ export function Card(props: CardProps): ReactElement {
 
   const interactive = interactive_prop ?? (onPress !== undefined || href !== undefined);
 
-  const resolved = variant === undefined ? null : ResolveVariant(variant, color, theme);
+  const resolved = variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
 
   const class_name = cx(
     styles.card({

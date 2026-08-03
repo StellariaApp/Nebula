@@ -718,7 +718,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Badge/Badge.js",
     import: "{ Badge }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "Avatar (primitivo temable con variantes en runtime, por módulo)",

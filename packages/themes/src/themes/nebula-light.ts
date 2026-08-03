@@ -103,7 +103,7 @@ export const nebulaLight = {
       background: "surface.overlay",
       foreground: "text.primary",
       border: "border.subtle",
-      glass: "subtle",
+      glass: "control",
     },
     ghost: { background: "transparent", foreground: "scale.600", border: "none" },
     glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },

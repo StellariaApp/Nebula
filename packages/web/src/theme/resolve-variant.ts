@@ -1,6 +1,7 @@
 import {
   palettes,
   type ColorExtended,
+  type GlassLevel,
   type GradientRole,
   type GradientToken,
   type NebulaTheme,
@@ -319,10 +320,11 @@ function ResolveScale(
   theme: NebulaTheme,
   gradientOverride: string | undefined,
   gradientAnimated: boolean,
+  glassClass: GlassLevel | undefined,
 ): ResolvedVariant {
   const recipe: VariantRecipe = theme.variantMap[variant];
   const glass_on = theme.effects.glass.enabled && recipe.glass !== undefined;
-  const glass_recipe = vars.glass[recipe.glass ?? "default"];
+  const glass_recipe = vars.glass[glassClass ?? recipe.glass ?? "default"];
   const is_transparent = recipe.background === "transparent";
 
   const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, 1);
@@ -358,6 +360,7 @@ export function ResolveVariant(
   color: ColorExtended,
   theme: NebulaTheme,
   gradient?: GradientProp,
+  glassClass?: GlassLevel,
 ): ResolvedVariant {
   if (variant === "unstyled") return UNSTYLED;
 
@@ -366,7 +369,7 @@ export function ResolveVariant(
   const gradient_animated = gradient?.animate === true;
 
   return IsSemanticScale(color)
-    ? ResolveScale(variant, color, theme, gradient_override, gradient_animated)
+    ? ResolveScale(variant, color, theme, gradient_override, gradient_animated, glassClass)
     : ResolveFlat(
         variant,
         ResolveColorExtended(color),
