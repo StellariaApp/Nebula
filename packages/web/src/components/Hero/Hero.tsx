@@ -11,15 +11,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Hero.css.js";
 import type { HeroProps } from "./Hero.types.js";
-import {
-  backdropFilter,
-  bg,
-  borderColor,
-  borderWidth,
-  contentMax,
-  fg,
-  veil,
-} from "./Hero.vars.css.js";
+import * as variables from "./Hero.vars.css.js";
 
 const DEFAULT_WIDTH = 1400;
 
@@ -56,13 +48,13 @@ export function Hero(props: HeroProps): ReactElement {
   const Title = `h${String(order)}` as "h2";
 
   const css_vars = assignInlineVars({
-    [contentMax]: LengthToCss(contentWidth),
-    [bg]: resolved.background,
-    [fg]: color === "transparent" ? theme.colors.text.primary : resolved.foreground,
-    [borderColor]: resolved.borderColor,
-    [borderWidth]: resolved.borderWidth,
-    [backdropFilter]: resolved.backdropFilter,
-    [veil]: has_image
+    [variables.contentMax]: LengthToCss(contentWidth),
+    [variables.bg]: resolved.background,
+    [variables.fg]: color === "transparent" ? theme.colors.text.primary : resolved.foreground,
+    [variables.borderColor]: resolved.borderColor,
+    [variables.borderWidth]: resolved.borderWidth,
+    [variables.backdropFilter]: resolved.backdropFilter,
+    [variables.veil]: has_image
       ? `color-mix(in srgb, ${resolved.background} ${String(Math.round(overlayOpacity * 100))}%, transparent)`
       : "transparent",
   });
@@ -86,7 +78,11 @@ export function Hero(props: HeroProps): ReactElement {
       {left === undefined ? null : <div className={styles.slot}>{left}</div>}
 
       <div className={styles.body}>
-        {hiper === undefined ? null : <p className={styles.hiper}>{hiper}</p>}
+        {hiper === undefined ? null : typeof hiper === "string" ? (
+          <p className={styles.hiper}>{hiper}</p>
+        ) : (
+          hiper
+        )}
         <div className={styles.header}>
           {title === undefined ? null : (
             <Title className={cx(styles.title, styles.titleSize[size])} id={title_id}>

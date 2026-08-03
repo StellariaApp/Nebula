@@ -143,7 +143,7 @@ function Portada(): ReactElement {
       description="Rosette contrasta cada movimiento contra el extracto del banco en cuanto entra. Lo que antes era una semana de cierre son ahora cuatro días y un registro que el auditor acepta."
       actions={
         <>
-          <Button>Probar gratis</Button>
+          <Button variant="gradient">Probar gratis</Button>
           <Button variant="glass">Ver una Nebula</Button>
         </>
       }

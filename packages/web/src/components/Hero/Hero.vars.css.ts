@@ -7,3 +7,4 @@ export const borderWidth = createVar();
 export const backdropFilter = createVar();
 export const veil = createVar();
 export const contentMax = createVar();
+export const contentBodyMax = createVar();

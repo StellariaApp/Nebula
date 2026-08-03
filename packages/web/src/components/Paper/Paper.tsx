@@ -24,7 +24,7 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
   const {
     component,
     shadow = "none",
-    radius = "md",
+    radius = "lg",
     withBorder = false,
     variant,
     color = "primary",
@@ -35,7 +35,8 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
   } = props as PaperOwnProps & { style?: CSSProperties };
 
   const { theme } = useTheme();
-  const resolved = variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
+  const resolved =
+    variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
 
   const named_radius = typeof radius === "string" ? radius : "md";
   const inline_radius: CSSProperties =

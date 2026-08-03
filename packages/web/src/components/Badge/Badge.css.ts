@@ -36,22 +36,22 @@ export const badge = recipe({
       },
       sm: {
         height: vars.size.compact.sm,
-        paddingInline: vars.space.xs,
+        paddingInline: vars.space.sm,
         fontSize: vars.font.size.caption,
       },
       md: {
         height: vars.size.compact.md,
-        paddingInline: vars.space.sm,
+        paddingInline: vars.space.md,
         fontSize: vars.font.size.body3,
       },
       lg: {
         height: vars.size.compact.lg,
-        paddingInline: vars.space.sm,
+        paddingInline: vars.space.lg,
         fontSize: vars.font.size.body2,
       },
       xl: {
         height: vars.size.compact.xl,
-        paddingInline: vars.space.md,
+        paddingInline: vars.space.xl,
         fontSize: vars.font.size.body2,
       },
     },

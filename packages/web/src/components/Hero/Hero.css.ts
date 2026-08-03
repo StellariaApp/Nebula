@@ -4,15 +4,7 @@ import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
 
-import {
-  backdropFilter,
-  bg,
-  borderColor,
-  borderWidth,
-  contentMax,
-  fg,
-  veil,
-} from "./Hero.vars.css.js";
+import * as variables from "./Hero.vars.css.js";
 
 export const hero = style({
   "@layer": {
@@ -20,20 +12,18 @@ export const hero = style({
       position: "relative",
       display: "flex",
       alignItems: "center",
-      gap: vars.space.md,
+      justifyContent: "center",
+      gap: vars.space.xxxl,
       boxSizing: "border-box",
       width: "100%",
       overflow: "hidden",
       borderStyle: "solid",
-      borderWidth,
-      borderColor,
-      background: bg,
-      color: fg,
-      backdropFilter,
+      borderWidth: variables.borderWidth,
+      borderColor: variables.borderColor,
+      background: variables.bg,
+      color: variables.fg,
+      backdropFilter: variables.backdropFilter,
       fontFamily: vars.font.family.sans,
-      selectors: {
-        "&[data-align='center']": { justifyContent: "center", textAlign: "center" },
-      },
     },
   },
 });
@@ -57,7 +47,7 @@ export const scrim = style({
       position: "absolute",
       inset: 0,
       zIndex: 0,
-      background: veil,
+      background: variables.veil,
     },
   },
 });
@@ -73,8 +63,7 @@ export const body = style({
       minWidth: 0,
       flex: 1,
       boxSizing: "border-box",
-      maxWidth: fallbackVar(contentMax, "none"),
-      marginInline: "auto",
+      maxWidth: fallbackVar(variables.contentMax, "none"),
     },
   },
 });
@@ -93,6 +82,7 @@ export const hiper = style({
       fontWeight: vars.font.weight.semibold,
       textTransform: "uppercase",
       letterSpacing: vars.font.letterSpacing.wide,
+      color: vars.color.accent[600],
     },
   },
 });
