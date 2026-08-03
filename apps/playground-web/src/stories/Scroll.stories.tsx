@@ -21,7 +21,7 @@ function Columns({ count = 12 }: { count?: number }) {
   return (
     <Box display="flex" gap="sm" w={1200}>
       {Array.from({ length: count }, (_, i) => (
-        <Box key={i} p="sm" bg="primary.600" c="text.onPrimary" r="sm" miw={120} ta="center">
+        <Box key={i} p="sm" bg="primary.500" c="text.onPrimary" r="sm" miw={120} ta="center">
           col {i + 1}
         </Box>
       ))}

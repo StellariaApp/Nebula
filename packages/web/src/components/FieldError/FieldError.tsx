@@ -69,7 +69,7 @@ export function FieldError(props: FieldErrorProps): ReactElement {
   const visible = open && label !== undefined && label !== "";
 
   const css_vars = assignInlineVars({
-    [bubbleBg]: ScaleShade(color, "600"),
+    [bubbleBg]: ScaleShade(color, "500"),
     [bubbleFg]: vars.color.text.onPrimary,
     [gap]: `${String(offset)}px`,
   });

@@ -29,7 +29,7 @@ export const StyleProps: Story = {
       <Box p="md" bg="surface.sunken" bdc="border.default" r="lg">
         p=md · bg=surface.sunken · borde con rol
       </Box>
-      <Box p="lg" bg="accent.600" c="text.onPrimary" r="xl" shadow="md">
+      <Box p="lg" bg="accent.500" c="text.onPrimary" r="xl" shadow="md">
         p=lg · bg=accent.600 · shadow=md
       </Box>
     </Box>
@@ -74,13 +74,13 @@ export const Flex: Story = {
       bg="surface.sunken"
       r="md"
     >
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
         uno
       </Box>
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm" grow>
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm" grow>
         dos (grow)
       </Box>
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
         tres
       </Box>
     </Box>

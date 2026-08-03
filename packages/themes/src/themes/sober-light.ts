@@ -95,7 +95,7 @@ export const soberLight = {
     },
   },
   variantMap: {
-    filled: { background: "scale.600", foreground: "text.onPrimary", border: "none" },
+    filled: { background: "scale.500", foreground: "text.onPrimary", border: "none" },
     outline: { background: "transparent", foreground: "scale.800", border: "scale.700" },
     light: { background: "scale.500.10", foreground: "scale.800", border: "none" },
     glass: { background: "surface.raised", foreground: "text.primary", border: "border.default" },

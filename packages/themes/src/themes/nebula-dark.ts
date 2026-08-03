@@ -50,7 +50,7 @@ export const nebulaDark = {
     border: {
       subtle: gray["950"],
       default: gray["800"],
-      strong: gray["600"],
+      strong: gray["500"],
       focus: palettes.indigo["400"],
       disabled: gray["900"],
     },
@@ -104,16 +104,16 @@ export const nebulaDark = {
         type: "linear",
         angle: 135,
         stops: [
-          { color: palettes.indigo["400"], position: 0 },
-          { color: palettes.violet["400"], position: 100 },
+          { color: palettes.indigo["500"], position: 0 },
+          { color: palettes.violet["500"], position: 100 },
         ],
       },
       accent: {
         type: "linear",
         angle: 90,
         stops: [
-          { color: palettes.violet["400"], position: 0 },
-          { color: palettes.pink["400"], position: 100 },
+          { color: palettes.violet["500"], position: 0 },
+          { color: palettes.pink["500"], position: 100 },
         ],
       },
       surface: {
@@ -127,7 +127,7 @@ export const nebulaDark = {
     },
   },
   variantMap: {
-    filled: { background: "scale.600", foreground: "text.onPrimary", border: "none" },
+    filled: { background: "scale.500", foreground: "text.onPrimary", border: "none" },
     outline: { background: "transparent", foreground: "scale.700", border: "scale.600" },
     light: { background: "scale.500.12", foreground: "scale.800", border: "none" },
     glass: {
@@ -137,7 +137,7 @@ export const nebulaDark = {
       glass: "control",
     },
     ghost: { background: "transparent", foreground: "scale.700", border: "none" },
-    glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },
+    glow: { background: "scale.500", foreground: "text.onPrimary", border: "none", glow: "lg" },
     gradient: { background: "gradient.brand", foreground: "text.onPrimary", border: "none" },
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
   },

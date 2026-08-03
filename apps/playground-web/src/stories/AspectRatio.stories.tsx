@@ -22,7 +22,7 @@ export const Ratios: Story = {
         ] as const
       ).map(([label, ratio]) => (
         <AspectRatio key={label} ratio={ratio} maw={220}>
-          <Center bg="primary.600" r="md">
+          <Center bg="primary.500" r="md">
             <Text c="text.onPrimary">{label}</Text>
           </Center>
         </AspectRatio>

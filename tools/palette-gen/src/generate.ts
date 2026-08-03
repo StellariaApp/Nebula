@@ -4,6 +4,27 @@ import { CHROMA_MULT, LCurveFor, SHADES, type CurveProfile, type Shade } from ".
 
 const TO_OKLCH = converter("oklch");
 
+const FILL_SHADE: Shade = "500";
+const FILL_INK = "#ffffff";
+const FILL_CONTRAST = 4.5;
+const SOLVE_STEP = 0.0025;
+const FILL_GAP = 0.04;
+
+function Relative(hex: string): number {
+  const raw = hex.replace("#", "");
+  const channel = (start: number): number => {
+    const value = Number.parseInt(raw.slice(start, start + 2), 16) / 255;
+    return value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
+}
+
+function AgainstInk(hex: string): number {
+  const a = Relative(hex);
+  const b = Relative(FILL_INK);
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
 export type GeneratedScale = Record<Shade, string>;
 
 export function GenerateScale(
@@ -38,7 +59,18 @@ export function GenerateScale(
       profile === "chromatic"
         ? (seed.c * (CHROMA_MULT[i] ?? 0)) / (CHROMA_MULT[anchor_index] ?? 1)
         : seed.c;
-    scale[shade] = formatHex(clampChroma({ mode: "oklch", l, c, h: seed_hue }, "oklch"));
+    const At = (lightness: number): string =>
+      formatHex(clampChroma({ mode: "oklch", l: lightness, c, h: seed_hue }, "oklch"));
+
+    if (profile !== "chromatic" || shade !== FILL_SHADE) {
+      scale[shade] = At(l);
+      return;
+    }
+
+    const floor = (l_curve[i + 1] ?? 0) + FILL_GAP;
+    let solved = l;
+    while (solved > floor && AgainstInk(At(solved)) < FILL_CONTRAST) solved -= SOLVE_STEP;
+    scale[shade] = At(solved);
   });
   return scale;
 }

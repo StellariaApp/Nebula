@@ -72,7 +72,7 @@ function ThemingShowcase() {
         type="button"
         style={{
           marginTop: vars.space.xl,
-          background: vars.color.primary["600"],
+          background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,
           border: "none",
           borderRadius: vars.radius.md,

@@ -69,14 +69,14 @@ describe("MeshGradientBg", () => {
     expect(screen.getByTestId("mg").querySelectorAll("span[aria-hidden='true']")).toHaveLength(1);
   });
 
-  it("resuelve una malla distinta por tema", () => {
+  it("el eje de marca no cambia de esquema; sober y playful si lo cambian", () => {
     const seen = new Set<string>();
     for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<MeshGradientBg data-testid="mg" />, theme);
       seen.add(screen.getByTestId("mg").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBe(4);
+    expect(seen.size).toBe(3);
   });
 
   it("es determinista: el mismo tema produce la misma malla", () => {

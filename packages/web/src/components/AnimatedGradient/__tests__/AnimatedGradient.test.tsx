@@ -66,13 +66,13 @@ describe("AnimatedGradient", () => {
     expect(screen.getByTestId("ag").querySelectorAll("span[aria-hidden='true']")).toHaveLength(2);
   });
 
-  it("resuelve un gradiente distinto por tema", () => {
+  it("el eje de marca no cambia de esquema; sober y playful si lo cambian", () => {
     const seen = new Set<string>();
     for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<AnimatedGradient data-testid="ag" />, theme);
       seen.add(screen.getByTestId("ag").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBe(4);
+    expect(seen.size).toBe(3);
   });
 });

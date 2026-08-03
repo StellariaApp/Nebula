@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Grid>;
 
 function Cell({ children }: { children: string }) {
   return (
-    <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm" ta="center">
+    <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm" ta="center">
       {children}
     </Box>
   );

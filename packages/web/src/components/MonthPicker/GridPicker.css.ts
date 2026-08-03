@@ -38,7 +38,7 @@ export const cell = style({
         },
         "&:focus-visible": focus.ring,
         "&[data-selected='true']": {
-          background: fallbackVar(dayBg, vars.color.primary["600"]),
+          background: fallbackVar(dayBg, vars.color.primary["500"]),
           color: fallbackVar(dayFg, vars.color.text.onPrimary),
           borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,

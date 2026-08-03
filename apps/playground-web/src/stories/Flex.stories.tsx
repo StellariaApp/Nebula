@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Flex>;
 
 function Cell({ children }: { children: string }) {
   return (
-    <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+    <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
       {children}
     </Box>
   );

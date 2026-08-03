@@ -73,8 +73,8 @@ export const nebulaLight = {
         type: "linear",
         angle: 135,
         stops: [
-          { color: palettes.indigo["600"], position: 0 },
-          { color: palettes.violet["600"], position: 100 },
+          { color: palettes.indigo["500"], position: 0 },
+          { color: palettes.violet["500"], position: 100 },
         ],
       },
       accent: {
@@ -96,7 +96,7 @@ export const nebulaLight = {
     },
   },
   variantMap: {
-    filled: { background: "scale.600", foreground: "text.onPrimary", border: "none" },
+    filled: { background: "scale.500", foreground: "text.onPrimary", border: "none" },
     outline: { background: "transparent", foreground: "scale.700", border: "scale.700" },
     light: { background: "scale.500.12", foreground: "scale.800", border: "none" },
     glass: {
@@ -106,7 +106,7 @@ export const nebulaLight = {
       glass: "control",
     },
     ghost: { background: "transparent", foreground: "scale.700", border: "none" },
-    glow: { background: "scale.600", foreground: "text.onPrimary", border: "none", glow: "lg" },
+    glow: { background: "scale.500", foreground: "text.onPrimary", border: "none", glow: "lg" },
     gradient: { background: "gradient.brand", foreground: "text.onPrimary", border: "none" },
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
   },

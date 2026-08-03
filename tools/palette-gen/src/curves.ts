@@ -17,7 +17,7 @@ export type Shade = (typeof SHADES)[number];
 export type CurveProfile = "chromatic" | "surface-light" | "surface-dark";
 
 export const CHROMATIC_L: readonly number[] = [
-  0.975, 0.94, 0.89, 0.82, 0.72, 0.63, 0.55, 0.48, 0.41, 0.35, 0.27,
+  0.975, 0.94, 0.89, 0.82, 0.7, 0.63, 0.49, 0.43, 0.37, 0.31, 0.24,
 ];
 
 export const CHROMA_MULT: readonly number[] = [

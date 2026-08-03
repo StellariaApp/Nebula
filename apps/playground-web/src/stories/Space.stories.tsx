@@ -24,11 +24,11 @@ export const Vertical: Story = {
 export const Horizontal: Story = {
   render: () => (
     <Box display="flex" align="center">
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
         a
       </Box>
       <Space w="lg" />
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
         b
       </Box>
     </Box>

@@ -45,7 +45,7 @@ export const item = style({
       minHeight: vars.size.compact.lg,
       selectors: {
         "&[data-focused='true']": {
-          background: vars.color.primary["600"],
+          background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,
         },
         "&[data-disabled='true']": {
@@ -54,7 +54,7 @@ export const item = style({
         },
         "&[data-danger='true']": { color: vars.color.semantic.error["600"] },
         "&[data-danger='true'][data-focused='true']": {
-          background: vars.color.semantic.error["600"],
+          background: vars.color.semantic.error["500"],
           color: vars.color.text.onPrimary,
         },
       },

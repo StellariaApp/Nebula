@@ -150,7 +150,7 @@ export const cell = style({
         },
         "&[data-focus-visible='true']": focus.ring,
         "&[data-selected='true']:not([data-range-middle='true'])": {
-          background: fallbackVar(dayBg, vars.color.primary["600"]),
+          background: fallbackVar(dayBg, vars.color.primary["500"]),
           color: fallbackVar(dayFg, vars.color.text.onPrimary),
           borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,

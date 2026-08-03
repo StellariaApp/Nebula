@@ -77,14 +77,14 @@ describe("GradientBorder", () => {
     expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/3px/);
   });
 
-  it("resuelve un gradiente distinto por tema", () => {
+  it("el eje de marca no cambia de esquema; sober y playful si lo cambian", () => {
     const seen = new Set<string>();
     for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<GradientBorder data-testid="gb" />, theme);
       seen.add(screen.getByTestId("gb").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBe(4);
+    expect(seen.size).toBe(3);
   });
 
   it("sober lo pinta monocromo: los dos stops salen de la misma paleta", () => {

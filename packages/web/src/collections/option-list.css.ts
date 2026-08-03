@@ -35,7 +35,7 @@ export const option = style({
       minHeight: vars.size.compact.lg,
       selectors: {
         "&[data-focused='true']": {
-          background: vars.color.primary["600"],
+          background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,
         },
         "&[data-selected='true']": { fontWeight: vars.font.weight.semibold },

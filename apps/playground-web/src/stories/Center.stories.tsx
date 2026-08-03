@@ -14,7 +14,7 @@ type Story = StoryObj<typeof Center>;
 export const Default: Story = {
   render: () => (
     <Center h={160} bg="surface.sunken" r="md">
-      <Box p="sm" bg="primary.600" c="text.onPrimary" r="sm">
+      <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm">
         centrado en ambos ejes
       </Box>
     </Center>
@@ -26,7 +26,7 @@ export const Inline: Story = {
     <Text>
       texto con{" "}
       <Center inline px="xs">
-        <Box bg="accent.600" c="text.onPrimary" px="xs" r="xs">
+        <Box bg="accent.500" c="text.onPrimary" px="xs" r="xs">
           badge
         </Box>
       </Center>{" "}

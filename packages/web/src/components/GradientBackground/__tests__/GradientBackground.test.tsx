@@ -63,14 +63,14 @@ describe("GradientBackground", () => {
     expect(screen.getByTestId("gbg").querySelectorAll("span[aria-hidden='true']")).toHaveLength(1);
   });
 
-  it("resuelve un gradiente distinto por tema", () => {
+  it("el eje de marca no cambia de esquema; sober y playful si lo cambian", () => {
     const seen = new Set<string>();
     for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<GradientBackground data-testid="gbg" />, theme);
       seen.add(screen.getByTestId("gbg").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBe(4);
+    expect(seen.size).toBe(3);
   });
 
   it("acepta un gradiente propio y style props", () => {

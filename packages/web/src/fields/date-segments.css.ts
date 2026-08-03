@@ -34,7 +34,7 @@ export const segment = style({
         "&[data-focus-visible='true']": {
           ...focus.ring,
           outlineOffset: 0,
-          background: vars.color.primary["600"],
+          background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,
         },
         "&[data-disabled='true']": { color: vars.color.text.disabled },

@@ -15,7 +15,7 @@ function Cells({ n }: { n: number }) {
   return (
     <>
       {Array.from({ length: n }, (_, i) => (
-        <Box key={i} p="sm" bg="primary.600" c="text.onPrimary" r="sm" ta="center">
+        <Box key={i} p="sm" bg="primary.500" c="text.onPrimary" r="sm" ta="center">
           {i + 1}
         </Box>
       ))}
