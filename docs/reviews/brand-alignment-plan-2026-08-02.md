@@ -332,8 +332,8 @@ light.
 
 ## 5.7 B6, primera vuelta: qué prueba y qué no (2026-08-02)
 
-`Patterns/Landing › TresProductos` rinde **una sola composición** —el mismo componente `Page`— bajo
-tres temas de producto: `rosette` (rosa), `stellaria` (azul) y `lagrange` (rojo-naranja). Los dos
+`Patterns/Landing` tiene una story por producto —`Rosette`, `Stellaria`, `Lagrange`— y las tres
+rinden **la misma composición**, el componente `Page`, bajo sus tres temas: `rosette` (rosa), `stellaria` (azul) y `lagrange` (rojo-naranja). Los dos
 nuevos se construyen con el patrón que ya usaba `rosette`: `nebulaDark` más escalas de color y
 gradiente de marca. **Nada más.**
 
@@ -345,7 +345,7 @@ Medido sobre el render, comparando los tres árboles nodo a nodo:
 | Geometría idéntica en los tres | sí  |
 | Color distinto en los tres     | sí  |
 
-La huella de geometría compara ancho, alto, `font-size`, `padding` y `border-radius` de los 230
+La huella de geometría compara ancho, alto, `font-size`, `padding` y `border-radius` de los 347
 nodos; la de color, `color`, `background-color` y `border-color`. **Entre productos solo cambia el
 color.**
 

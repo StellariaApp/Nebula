@@ -22,7 +22,7 @@ import {
   StarField,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, PRODUCTS, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { lagrange, MATRIX_A11Y, rosette, stellaria, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Patterns/Landing",
@@ -317,9 +317,34 @@ export const Demo: Story = {
   render: () => <Page />,
 };
 
-export const Phone: Story = {
-  globals: { viewport: { value: "phone" } },
-  render: () => <Page />,
+/**
+ * B6: las tres landings de Stellaria sobre la misma composición. `Rosette`,
+ * `Stellaria` y `Lagrange` rinden el mismo componente `Page` y solo cambian de
+ * tema — ni una prop distinta. Si para pasar de una a otra hiciera falta cambiar
+ * algo que no es color, el sistema no estaría alineado.
+ */
+export const Rosette: Story = {
+  render: () => (
+    <NebulaProvider defaultTheme={rosette} storage={null}>
+      <Page />
+    </NebulaProvider>
+  ),
+};
+
+export const Stellaria: Story = {
+  render: () => (
+    <NebulaProvider defaultTheme={stellaria} storage={null}>
+      <Page />
+    </NebulaProvider>
+  ),
+};
+
+export const Lagrange: Story = {
+  render: () => (
+    <NebulaProvider defaultTheme={lagrange} storage={null}>
+      <Page />
+    </NebulaProvider>
+  ),
 };
 
 export const ReducedMotion: Story = {
@@ -352,36 +377,5 @@ export const AllThemes: Story = {
         <Stat label="Días de cierre" value="4" diff="-62 %" trend="down" />
       </Box>
     </ThemeMatrix>
-  ),
-};
-
-/**
- * B6: la misma composición, tres productos. Lo único que cambia entre ellas es el
- * tema — ni una prop distinta. Si para pasar de una a otra hiciera falta cambiar
- * algo que no es color, el sistema no estaría alineado.
- */
-export const TresProductos: Story = {
-  parameters: {
-    a11y: {
-      rules: {
-        // La lámina apila tres páginas completas para compararlas, así que hay tres
-        // landmarks de cada tipo. Ninguna landing real los duplica.
-        "landmark-no-duplicate-banner": { enabled: false },
-        "landmark-no-duplicate-main": { enabled: false },
-        "landmark-no-duplicate-contentinfo": { enabled: false },
-        "landmark-unique": { enabled: false },
-      },
-    },
-  },
-  render: () => (
-    <Box display="flex" direction="column" gap="xxl">
-      {PRODUCTS.map((product) => (
-        <Box key={product.label} data-product={product.label}>
-          <NebulaProvider defaultTheme={product.theme} storage={null}>
-            <Page />
-          </NebulaProvider>
-        </Box>
-      ))}
-    </Box>
   ),
 };

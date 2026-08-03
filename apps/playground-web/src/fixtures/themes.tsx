@@ -105,12 +105,6 @@ export const lagrange = {
   },
 } satisfies NebulaTheme;
 
-export const PRODUCTS = [
-  { theme: rosette, label: "Rosette" },
-  { theme: stellaria, label: "Stellaria" },
-  { theme: lagrange, label: "Lagrange" },
-];
-
 export function ThemePanel(props: {
   theme: OfficialThemeName | NebulaTheme;
   label: string;
