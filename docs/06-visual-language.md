@@ -217,11 +217,21 @@ diferencia está declarada en el contrato y un tema puede recalibrar las dos.
 
 Reglas:
 
-- **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065), medido como relación de
+- **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065), **implementado en B3**. La
+  asignación vigente, verificada sobre el render:
+
+  | Tema                       | `sunken`    | `base`      | `raised`    | `overlay`  |
+  | -------------------------- | ----------- | ----------- | ----------- | ---------- |
+  | `nebula-dark`              | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` |
+  | `nebula-light` · `playful` | `light.800` | `light.600` | `light.400` | `light.50` |
+  | `sober-light`              | `light.800` | `light.600` | `light.400` | `light.50` |
+
+  Medido como relación de
   luminancia entre sus roles de superficie, **en los dos esquemas** y en todo par adyacente —incluido
   `sunken`↔`base`—. La regla que lo justifica cabe en una frase: **un escalón de elevación nunca
   separa menos que un escalón de hover**, que §5.1 fija en ~1.08. Si subir un nivel entero se nota
   menos que pasar el ratón por encima, la escalera no es una jerarquía.
+
 - **Ningún par de niveles comparte color exacto.** En particular `surface.overlay` ≠ `surface.base`:
   un overlay que pinta el color del lienzo depende del borde y de la sombra para existir.
 - **Es el mismo número en los dos esquemas.** §5.2 avisa de que el espejo de paleta no sirve para el

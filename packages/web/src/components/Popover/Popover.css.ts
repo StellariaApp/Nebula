@@ -16,7 +16,7 @@ export const popover = recipe({
         borderStyle: "solid",
         borderWidth: 1,
         borderColor: vars.color.border.default,
-        boxShadow: vars.shadow.lg,
+        boxShadow: vars.shadow.md,
         zIndex: vars.zIndex.popover,
         maxWidth: "min(92vw, 28rem)",
         outline: "none",

@@ -11,7 +11,7 @@ export const card = style({
       borderRadius: vars.radius.md,
       background: vars.color.surface.overlay,
       border: `1px solid ${vars.color.border.default}`,
-      boxShadow: vars.shadow.lg,
+      boxShadow: vars.shadow.md,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       color: vars.color.text.primary,

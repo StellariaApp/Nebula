@@ -80,7 +80,7 @@ export const surface = recipe({
         minHeight: 0,
         background: vars.color.surface.overlay,
         color: vars.color.text.primary,
-        boxShadow: vars.shadow.xxl,
+        boxShadow: vars.shadow.lg,
         outline: "none",
       },
     },

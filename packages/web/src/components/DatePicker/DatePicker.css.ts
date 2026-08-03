@@ -79,7 +79,7 @@ export const dialog = style({
       borderWidth: 1,
       borderColor: vars.color.border.default,
       borderRadius: vars.radius.md,
-      boxShadow: vars.shadow.lg,
+      boxShadow: vars.shadow.md,
       zIndex: vars.zIndex.dropdown,
       padding: vars.space.md,
       outline: "none",

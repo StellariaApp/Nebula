@@ -16,7 +16,7 @@ export const menu = style({
       borderWidth: 1,
       borderColor: vars.color.border.default,
       borderRadius: vars.radius.md,
-      boxShadow: vars.shadow.lg,
+      boxShadow: vars.shadow.md,
       zIndex: vars.zIndex.dropdown,
       minWidth: "12rem",
       maxHeight: "min(60vh, 24rem)",

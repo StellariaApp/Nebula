@@ -140,7 +140,7 @@ Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuen
 | **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                                                 | nada              |
 | **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                                   | checkpoint ✅     |
 | **B2** | Cristal por clase de superficie (**D1, D2**) | ✅ **cerrado 2026-08-02** ([ADR-078](../adr/ADR-078-el-cristal-es-una-receta-por-clase-de-superficie.md)). Tres recetas; la clase la decide el componente. Falta la lámina de las tres juntas | B1 ✅ · método ✅ |
-| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                                              | nada — T2 cerrado |
+| **B3** | Elevación en dark (**D4**)                   | ✅ **cerrado 2026-08-02**. ADR-065 implementado: escalera ≥1.08 en los cinco temas y sombras bajadas. §5.6 para lo que arrastró                                                               | nada ✅           |
 | **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                                      | B1 ✅             |
 | **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba                    | nada              |
 | **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                                     | B0-B5             |
@@ -300,6 +300,35 @@ haya ADR.
 
 **Consecuencia para B6**: el veredicto final de la fase ya era humano por diseño —«una sola
 composición, tres temas»—, así que B2 no introduce un criterio nuevo, usa el que la fase ya tenía.
+
+## 5.6 B3, al segundo intento (2026-08-02)
+
+El primer intento (§5.4) se revirtió con 73 pares de contraste rotos. El segundo cierra en verde, y la
+diferencia no fue el cálculo —la escalera ya estaba bien— sino **tratar el arrastre como parte del
+tramo**. Los 73 fallos tenían estructura, no eran 73 casos:
+
+| Familia                                   | Corrección                                                    |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| Texto de acento en `ghost` y `outline`    | `scale.600` → `scale.700` (light) · `700` → `800` (sober)     |
+| Fondo compuesto de `light`                | `foreground` un peldaño más oscuro                            |
+| `border.strong` bajo el 3:1 de UI         | `gray.500` → `gray.600`                                       |
+| `border.focus` bajo el 3:1 sobre `sunken` | `indigo.500` → `indigo.600`                                   |
+| Texto atenuado sobre el `overlay` de dark | `gray.500` → `gray.400` — en dark, más claro es más contraste |
+
+Todo por **peldaños de paleta**, no por los hex sugeridos: el gate propone un color que cumple, pero
+un hex a mano rompe la escala. El peldaño siguiente cumple igual y sigue siendo del sistema.
+
+**`sober-light` pierde su lienzo gris propio.** Es la única concesión: con la escalera sobre `gray`
+—que sí existía y cumplía el 1.08— los semánticos 700 se quedaban entre 4.25 y 4.47 sobre el lienzo,
+y no hay peldaño que lo arregle sin oscurecer más el texto. Usa la escalera neutra y conserva su
+carácter donde siempre lo tuvo: los textos `gray` y el `tier: minimal`.
+
+**Y las sombras bajan después**, que es el orden que ADR-065 llama no negociable: los seis overlays
+del nivel 3 de `lg` a `md`, y `Modal`/`Drawer` de `xxl` a `lg`. Ahora la superficie separa, así que
+la sombra no tiene que compensar.
+
+Medido sobre la lámina de elevación: cuatro niveles con ratios 1.098-1.202 en dark y 1.108-1.201 en
+light.
 
 ## 6. Riesgo principal
 
