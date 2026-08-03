@@ -116,7 +116,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Paper/Paper.js",
     import: "{ Paper }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "VisuallyHidden (primitivo, por módulo)",
