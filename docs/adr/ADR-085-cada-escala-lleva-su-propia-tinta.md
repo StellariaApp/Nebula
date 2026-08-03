@@ -43,15 +43,18 @@ cuando la tinta era una sola.
 ### 3. La semilla declara la tinta de su `500`
 
 `SeedSpec` gana `ink?: "light" | "dark"`. Con `"dark"`, el `500` **no se ancla**: se queda en la
-lightness de la curva y su tinta oscura le da de sobra. Lo llevan las siete familias claras —`orange`,
-`gold`, `yellow`, `lime`, `cyan`, `teal`, `pink`—; el resto mantiene el anclaje de ADR-084.
+lightness de la curva y su tinta oscura le da de sobra. Lo llevan seis familias claras —`gold`, `yellow`,
+`lime`, `cyan`, `teal`, `pink`—; el resto mantiene el anclaje de ADR-084.
+
+`orange` se quedó fuera a petición del propietario: prefiere verlo con tinta blanca aunque eso lo
+devuelva a `#bd5b00`. Es exactamente el intercambio que la prop expone —claro con letra oscura, u
+hondo con letra blanca— y por eso vive en la semilla y no en un cálculo.
 
 No se deriva de la luminancia de la semilla a propósito: es una decisión de identidad —si esta familia
 se lee clara o profunda— y se revisa mirando la lámina, no calculándola.
 
 | paleta   | antes (blanco) | ahora (oscura) |
 | -------- | -------------- | -------------- |
-| `orange` | `#bd5b00`      | `#d36600`      |
 | `gold`   | `#9b6e00`      | `#b27f00`      |
 | `yellow` | `#897600`      | `#9f8900`      |
 | `lime`   | `#5a8200`      | `#6c9a00`      |
