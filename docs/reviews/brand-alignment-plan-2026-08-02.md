@@ -135,15 +135,15 @@ sirve de patrón: se midió una landing, se extrajo la regla, se metió en el si
 
 Cada tramo cierra con evidencia medida sobre el render, no sobre el código fuente.
 
-| #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por      |
-| ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                              | nada               |
-| **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                | checkpoint ✅      |
-| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto                                                                                    | B1 (radio de card) |
-| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado  |
-| **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                   | B1 ✅              |
-| **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba | nada               |
-| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                  | B0-B5              |
+| #      | Tramo                                        | Contenido                                                                                                                                                                  | Bloqueado por     |
+| ------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| **B0** | Cierre del backlog visual abierto            | ✅ **cerrado 2026-08-02**. `StarField parallax` estaba mal anclado, no era motion (§5.2 para el ritmo medido; lo que quedó abierto pasa a B1)                              | nada              |
+| **B1** | Escalas contra la marca (**D3**)             | ✅ **cerrado 2026-08-02** ([ADR-072](../adr/ADR-072-los-peldanos-de-la-marca-entran-al-contrato.md)). Checkpoint resuelto: las escalas se mueven a la marca                | checkpoint ✅     |
+| **B2** | Cristal por clase de superficie (**D1, D2**) | Tres recetas —control, superficie, chrome— y `Card` usando la de superficie por defecto. Método de cierre decidido en §5.5                                                 | B1 ✅ · método ✅ |
+| **B3** | Elevación en dark (**D4**)                   | **Implementar ADR-065**: escalón ≥1.08 y escalera de sombras. Es el T3 pendiente                                                                                           | nada — T2 cerrado |
+| **B4** | Registro display del hero (**D5**)           | ✅ **cerrado 2026-08-02** ([ADR-076](../adr/ADR-076-el-registro-display-del-titular.md)). Medido, el titular eran **40 px** fijos, no 48                                   | B1 ✅             |
+| **B5** | Opacidad en las referencias de color         | ✅ **cerrado 2026-08-02** ([ADR-071](../adr/ADR-071-opacidad-en-referencias-de-color.md)). Se adelantó al resto: la landing ya escribía la gramática y `main` no compilaba | nada              |
+| **B6** | Reconstruir las tres landings sobre Nebula   | La prueba real del plan: **una sola composición, tres temas**. Si hace falta una prop distinta —no un color distinto— entre ellas, el sistema aún no está                  | B0-B5             |
 
 ## 4. El backlog abierto, mapeado
 
@@ -278,6 +278,28 @@ ADR-065 ya avisaba de que «once componentes de tres familias cambian de aspecto
 esto lo añade la medición— es que la escalera arrastra **bordes, textos y estados**, y que
 `check:contrast` sí detecta el arrastre aunque no vea el escalón en sí. Hay que recalibrar los cuatro
 grupos a la vez o el gate se queda en rojo.
+
+## 5.5 El metodo de cierre de B2 (2026-08-02)
+
+B2 no podía abrirse porque el instrumento de la fase **no puede medir su efecto central**: el README
+de `tools/render-measure/` avisa de que en headless un `blur(16px)` computa a `blur(0px)`. El tramo
+que trata del cristal era el único sin criterio de cierre.
+
+Decisión del propietario: **propiedad computada como gate, ojo humano como veredicto.**
+
+- **Automático**: que cada clase de superficie emita el `backdrop-filter` y el fondo que le tocan.
+  `getComputedStyle` devuelve el valor declarado aunque el headless no lo componga, así que esto sí
+  se mide — y es exactamente lo que caza el defecto real de la fase, la propiedad que vanilla-extract
+  se comía al declarar el alias `-webkit-`. Probado el mismo día al bajar el glass del nav: la
+  medición devolvió `blur(8px) saturate(1.3)`.
+- **Humano**: si el resultado se lee como cristal. Eso no lo decide una cifra.
+
+Se descartan por ahora el navegador con GPU —estabilidad entre máquinas sin verificar— y la captura
+visual comparada, que sigue donde `docs/06` §8 la dejó: requisito anotado, sin dependencia hasta que
+haya ADR.
+
+**Consecuencia para B6**: el veredicto final de la fase ya era humano por diseño —«una sola
+composición, tres temas»—, así que B2 no introduce un criterio nuevo, usa el que la fase ya tenía.
 
 ## 6. Riesgo principal
 
