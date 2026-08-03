@@ -52,7 +52,7 @@ export const States: Story = {
   ),
 };
 
-export const Dark: Story = { ...Variants, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Variants, globals: { theme: "dark" } };
 
 export const Keyboard: Story = {
   play: async ({ canvasElement }) => {

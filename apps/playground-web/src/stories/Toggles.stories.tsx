@@ -59,7 +59,7 @@ export const Switches: Story = {
   ),
 };
 
-export const Dark: Story = { ...Switches, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Switches, globals: { theme: "dark" } };
 
 export const Keyboard: Story = {
   render: () => (

@@ -145,7 +145,7 @@ export const Native: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={420}>
       <Slider label="Volumen" defaultValue={40} marks={MARKS} />

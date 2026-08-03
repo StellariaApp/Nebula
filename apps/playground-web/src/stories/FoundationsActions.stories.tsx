@@ -145,7 +145,7 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...States, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...States, globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { ...States, globals: { reducedMotion: "reduce" } };
 

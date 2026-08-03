@@ -37,4 +37,4 @@ export const OmitGuard: Story = {
   ),
 };
 
-export const Dark: Story = { ...ValidGuard, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...ValidGuard, globals: { theme: "dark" } };

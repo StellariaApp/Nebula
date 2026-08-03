@@ -7,7 +7,7 @@ export interface ColorSchemeScriptProps {
 }
 
 export function ColorSchemeScript({
-  defaultTheme = "nebula-light",
+  defaultTheme = "light",
   storageKey = "nebula-theme",
   nonce,
 }: ColorSchemeScriptProps): ReactElement {

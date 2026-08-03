@@ -12,7 +12,7 @@
 
 ## Toolbar global (ya disponible)
 
-- **Tema**: `nebula-light` / `nebula-dark` / `sober-light` / `playful` (decorator envuelve cada story en `NebulaProvider`, remonta al cambiar).
+- **Tema**: `light` / `dark` / `sober-light` / `playful` (decorator envuelve cada story en `NebulaProvider`, remonta al cambiar).
 - **Motion**: `Motion on` / `Reduced motion` (simula `prefers-reduced-motion`).
 - **Viewport**: phone/tablet/laptop/desktop/wide (breakpoints del theme).
 
@@ -24,7 +24,7 @@
 | `Variants`      | todas las variantes del `variantMap` (filled/outline/light/glass/ghost/glow/gradient…). |
 | `Sizes`         | escala `xs–xl` (heights de `sizes.control`).                                            |
 | `States`        | hover/active/focus/disabled/loading según aplique.                                      |
-| `Dark`          | fijado en `nebula-dark` vía `globals` (además del toggle de toolbar).                   |
+| `Dark`          | fijado en `dark` vía `globals` (además del toggle de toolbar).                          |
 | `ReducedMotion` | fijado en reduced-motion; verifica el fallback de animación.                            |
 | `Composition`   | uso real con jerarquía, ritmo y componentes vecinos; obligatorio si es visual.          |
 | `AllThemes`     | misma composición en dark/light/sober/playful, sin cambiar props estructurales.         |
@@ -77,7 +77,7 @@ export const Variants: Story = {
   ),
 };
 
-export const Dark: Story = { globals: { theme: "nebula-dark" } };
+export const Dark: Story = { globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { globals: { reducedMotion: "reduce" } };
 

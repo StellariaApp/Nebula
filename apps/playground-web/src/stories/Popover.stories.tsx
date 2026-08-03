@@ -67,7 +67,7 @@ export const Composition: Story = {
   ),
 };
 
-export const Dark: Story = { ...Default, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Default, globals: { theme: "dark" } };
 
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,

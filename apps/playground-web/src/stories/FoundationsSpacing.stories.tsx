@@ -156,6 +156,6 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...RegionRhythm, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...RegionRhythm, globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { ...RegionRhythm, globals: { reducedMotion: "reduce" } };

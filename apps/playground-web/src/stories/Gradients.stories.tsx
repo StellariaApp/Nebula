@@ -134,7 +134,7 @@ export const Deriva: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <GradientBackground p="xl" maw={460} scrim={0.3}>
       <Title order={3}>Dark first</Title>

@@ -41,5 +41,5 @@ export const ReducedMotion: Story = {
 
 export const Dark: Story = {
   render: () => <Demo transition="pop" />,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
 };

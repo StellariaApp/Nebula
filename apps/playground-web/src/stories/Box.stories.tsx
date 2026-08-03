@@ -89,7 +89,7 @@ export const Flex: Story = {
 
 export const Light: Story = {
   ...StyleProps,
-  globals: { theme: "nebula-light" },
+  globals: { theme: "light" },
 };
 
 export const ReducedMotion: Story = {

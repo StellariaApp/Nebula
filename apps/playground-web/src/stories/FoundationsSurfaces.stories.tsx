@@ -199,6 +199,6 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...ElevationLadder, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...ElevationLadder, globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { ...ElevationLadder, globals: { reducedMotion: "reduce" } };

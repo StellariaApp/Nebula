@@ -16,7 +16,7 @@ import {
   type MotionContext,
 } from "../motion.js";
 
-const theme = officialThemes["nebula-dark"];
+const theme = officialThemes["dark"];
 const live: MotionContext = { theme, reduced: false };
 const off: MotionContext = { theme, reduced: true };
 

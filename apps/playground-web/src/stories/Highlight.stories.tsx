@@ -31,5 +31,5 @@ export const CaseInsensitive: Story = {
 
 export const Dark: Story = {
   ...MultipleTerms,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
 };

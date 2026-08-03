@@ -147,7 +147,7 @@ export const ReducedMotion: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Reveal>
       <Card p="lg" withBorder radius="md">

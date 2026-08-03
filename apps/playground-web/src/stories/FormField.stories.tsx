@@ -71,7 +71,7 @@ export const WithError: Story = {
   ),
 };
 
-export const Dark: Story = { ...WithError, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...WithError, globals: { theme: "dark" } };
 
 export const Composition: Story = {
   render: () => (

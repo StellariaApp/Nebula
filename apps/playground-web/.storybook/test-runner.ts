@@ -19,8 +19,18 @@ import { checkA11y, injectAxe } from "axe-playwright";
  * `color-contrast`. Es un margen fijo y no una espera a `getAnimations()`, porque las
  * animaciones decorativas infinitas (spinner, shimmer, rayas, glow) nunca resuelven su
  * promesa `finished` y colgarían el gate.
+ *
+ * Al margen fijo se le suma una espera acotada a que ningún `[data-reveal]` esté a media
+ * opacidad. El margen solo no basta desde que el reveal pinta de verdad su estado oculto:
+ * la sexta tarjeta de `Motion/Reveal › Stagger` sigue entrando a los 400 ms —retardo de
+ * stagger más los 682 ms del muelle— y axe la pillaba traslúcida. Se acota a un selector
+ * concreto, así que las animaciones decorativas infinitas siguen sin poder colgar el gate,
+ * y si aun así no asienta se sigue adelante en vez de fallar por la espera.
  */
 const SETTLE_MS = 400;
+const REVEAL_SETTLE_MS = 2500;
+const OPAQUE = 0.99;
+const CLEAR = 0.01;
 
 const config: TestRunnerConfig = {
   async preVisit(page) {
@@ -34,6 +44,17 @@ const config: TestRunnerConfig = {
     if (params.a11y?.disable === true) return;
 
     await page.waitForTimeout(SETTLE_MS);
+    await page
+      .waitForFunction(
+        (range) =>
+          [...document.querySelectorAll("[data-reveal]")].every((node) => {
+            const value = Number(getComputedStyle(node).opacity);
+            return value < range.clear || value > range.opaque;
+          }),
+        { clear: CLEAR, opaque: OPAQUE },
+        { timeout: REVEAL_SETTLE_MS },
+      )
+      .catch(() => undefined);
 
     await checkA11y(page, "body", {
       detailedReport: true,

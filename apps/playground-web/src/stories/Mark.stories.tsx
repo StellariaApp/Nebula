@@ -33,4 +33,4 @@ export const Colors: Story = {
   ),
 };
 
-export const Dark: Story = { ...Colors, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Colors, globals: { theme: "dark" } };

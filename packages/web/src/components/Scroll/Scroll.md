@@ -10,7 +10,7 @@ Si el contenido es desplazable, el consumidor debe hacer la región alcanzable p
 
 Apagado por defecto ([ADR-069](../../../../../docs/adr/ADR-069-indicadores-de-scroll-y-momentum.md)). Cuando se enciende, el contenedor pinta una banda en cada extremo del eje que desplaza, y **el grosor de cada banda lo gobierna la propia posición de scroll**: una animación con `animation-timeline: scroll(self …)` interpola la longitud registrada con `@property` que alimenta `background-size`. No hay JS, no hay listener y el componente sigue sin `"use client"`.
 
-La tinta es un **rol de borde del contrato mezclado con `color-mix`** —hoy `border.focus` al 40 %, en la constante `INK` de `Scroll.css.ts`— y el grosor sale de `vars.space.xl`. Los dos se cambian en un sitio y valen para los cuatro temas: medido sobre el render, el filo separa de la superficie 53 · 47 · 50 · 65 puntos de luminancia en `nebula-dark`, `nebula-light`, `sober-light` y `playful`.
+La tinta es un **rol de borde del contrato mezclado con `color-mix`** —hoy `border.focus` al 40 %, en la constante `INK` de `Scroll.css.ts`— y el grosor sale de `vars.space.xl`. Los dos se cambian en un sitio y valen para los cuatro temas: medido sobre el render, el filo separa de la superficie 53 · 47 · 50 · 65 puntos de luminancia en `dark`, `light`, `sober-light` y `playful`.
 
 El caso «el contenido no desborda» se resuelve solo: un _timeline_ de scroll sin recorrido está inactivo, la animación no se aplica y la longitud se queda en su `0px` inicial. No hay nada que medir.
 

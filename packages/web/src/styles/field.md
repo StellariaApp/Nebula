@@ -47,10 +47,10 @@ normalizó aquí en vez de esperar a G1.10 — se estaba tocando el archivo de t
 Reportado en el playground: el campo no se distingue del fondo de la página. Medido, el relleno en
 reposo contra el canvas (`surface.base`):
 
-| Tema         | `raised` (antes) | `sunken` (ahora) |
-| ------------ | ---------------: | ---------------: |
-| nebula-light |            1.017 |        **1.062** |
-| nebula-dark  |            1.012 |        **1.062** |
+| Tema  | `raised` (antes) | `sunken` (ahora) |
+| ----- | ---------------: | ---------------: |
+| light |            1.017 |        **1.062** |
+| dark  |            1.012 |        **1.062** |
 
 `raised` no está mal calibrado: ADR-028 fijó que en dark la escalera de elevación **no la lleva la
 luminosidad sino el rim** de `effects.shadows`, y en light la lleva la sombra. Una Card a 1.01 se
@@ -89,12 +89,12 @@ de `muted`.
 
 Con rol propio, el peldaño que light no podía dar pasa a estar disponible:
 
-| Tema         | antes (`muted`) | ahora (`placeholder`) | sobre el campo | separación vs. valor |
-| ------------ | --------------- | --------------------- | -------------: | -------------------: |
-| nebula-light | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
-| playful      | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
-| nebula-dark  | `gray.500`      | `gray.500`            |           5.38 |                 3.26 |
-| sober-light  | `gray.700`      | `gray.700`            |           5.43 |                 2.32 |
+| Tema        | antes (`muted`) | ahora (`placeholder`) | sobre el campo | separación vs. valor |
+| ----------- | --------------- | --------------------- | -------------: | -------------------: |
+| light       | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
+| playful     | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
+| dark        | `gray.500`      | `gray.500`            |           5.38 |                 3.26 |
+| sober-light | `gray.700`      | `gray.700`            |           5.43 |                 2.32 |
 
 **dark y sober-light ya estaban en su suelo** y no se mueven: el siguiente peldaño de la rampa gris cae
 a 3.90 y 4.04 sobre su fondo de campo, por debajo del mínimo de texto. En sober-light además es

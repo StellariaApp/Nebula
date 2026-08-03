@@ -221,7 +221,7 @@ export const Paneles: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={520}>
       <RadarChart data={RADAR} series={RADAR_SERIES} angleKey="eje" title="Dark first" />

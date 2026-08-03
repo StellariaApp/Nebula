@@ -124,7 +124,7 @@ export const FullWidth: Story = {
 
 export const Light: Story = {
   ...Variants,
-  globals: { theme: "nebula-light" },
+  globals: { theme: "light" },
 };
 
 /** El press con spring se desactiva; el spinner ralentiza su giro. */

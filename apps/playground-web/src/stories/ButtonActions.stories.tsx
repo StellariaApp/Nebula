@@ -86,4 +86,4 @@ export const File: Story = {
   ),
 };
 
-export const Dark: Story = { ...Group, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Group, globals: { theme: "dark" } };

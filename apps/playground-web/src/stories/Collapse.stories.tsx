@@ -39,4 +39,4 @@ export const ReducedMotion: Story = {
   render: () => <Demo />,
 };
 
-export const Dark: Story = { render: () => <Demo />, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { render: () => <Demo />, globals: { theme: "dark" } };

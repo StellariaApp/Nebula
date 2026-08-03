@@ -166,7 +166,7 @@ export const Grano: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Backdrop>
       <GlassSurface p="lg" maw={340}>

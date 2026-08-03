@@ -50,7 +50,7 @@ export const Radius: Story = {
   ),
 };
 
-export const Dark: Story = { ...Shadows, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Shadows, globals: { theme: "dark" } };
 export const Playful: Story = { ...WithBorder, globals: { theme: "playful" } };
 
 /** Una colección usa un solo nivel de elevación; el detalle sube un peldaño, no tres. */

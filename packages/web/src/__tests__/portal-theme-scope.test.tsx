@@ -15,7 +15,7 @@ import { cleanup, render, screen, waitFor } from "./render.js";
 
 afterEach(cleanup);
 
-const dark = themeClass["nebula-dark"];
+const dark = themeClass["dark"];
 
 const options = [
   { value: "mx", label: "México" },

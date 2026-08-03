@@ -12,7 +12,7 @@ describe("SSR (sin window)", () => {
         <span>hola</span>
       </NebulaProvider>,
     );
-    expect(html).toContain(themeClass["nebula-dark"]);
+    expect(html).toContain(themeClass["dark"]);
     expect(html).toContain('data-scheme="dark"');
     expect(html).toContain("hola");
   });

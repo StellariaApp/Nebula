@@ -189,7 +189,7 @@ export const Rtl: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={560}>
       <CodeHighlight code={SNIPPET} lang="tsx" filename="Save.tsx" withLineNumbers />

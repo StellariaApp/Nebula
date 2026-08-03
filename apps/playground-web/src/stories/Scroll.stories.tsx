@@ -192,8 +192,8 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...Shadows, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Shadows, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Shadows, globals: { theme: "dark" } };
+export const Light: Story = { ...Shadows, globals: { theme: "light" } };
 
 export const ReducedMotion: Story = {
   ...Momentum,

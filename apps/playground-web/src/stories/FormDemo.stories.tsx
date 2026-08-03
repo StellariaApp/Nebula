@@ -120,5 +120,5 @@ export const Signup: Story = {
 
 export const Dark: Story = {
   render: () => <SignupForm />,
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
 };

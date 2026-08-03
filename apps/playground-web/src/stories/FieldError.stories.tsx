@@ -103,7 +103,7 @@ export const Positions: Story = {
   ),
 };
 
-export const Dark: Story = { ...Tooltip, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Tooltip, globals: { theme: "dark" } };
 
 /** Con reduced-motion la burbuja aparece sin transición. */
 export const ReducedMotion: Story = {

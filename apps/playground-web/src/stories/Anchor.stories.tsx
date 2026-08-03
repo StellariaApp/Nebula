@@ -50,7 +50,7 @@ export const Colored: Story = {
   ),
 };
 
-export const Dark: Story = { ...Underlines, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Underlines, globals: { theme: "dark" } };
 
 export const Keyboard: Story = {
   play: async ({ canvasElement }) => {

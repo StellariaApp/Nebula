@@ -124,7 +124,7 @@ export const Reticula: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Sky h={240}>
       <StarField density="lg" />

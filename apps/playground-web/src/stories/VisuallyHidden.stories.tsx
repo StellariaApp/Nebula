@@ -25,4 +25,4 @@ export const Default: Story = {
   ),
 };
 
-export const Dark: Story = { ...Default, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Default, globals: { theme: "dark" } };

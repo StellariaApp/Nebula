@@ -27,4 +27,4 @@ export const WhenFalse: Story = {
   ),
 };
 
-export const Dark: Story = { ...WhenTrue, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...WhenTrue, globals: { theme: "dark" } };

@@ -41,7 +41,7 @@ export const WithIcon: Story = {
   ),
 };
 
-export const Dark: Story = { ...WithIcon, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...WithIcon, globals: { theme: "dark" } };
 
 export const Nested: Story = {
   render: () => (

@@ -31,5 +31,5 @@ export const Ratios: Story = {
   ),
 };
 
-export const Dark: Story = { ...Ratios, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Ratios, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Ratios, globals: { theme: "dark" } };
+export const Light: Story = { ...Ratios, globals: { theme: "light" } };

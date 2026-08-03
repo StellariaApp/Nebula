@@ -28,8 +28,8 @@ export const Orders: Story = {
   ),
 };
 
-export const Dark: Story = { ...Orders, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Orders, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Orders, globals: { theme: "dark" } };
+export const Light: Story = { ...Orders, globals: { theme: "light" } };
 
 /**
  * `order` es escala visual; el nivel semántico se conserva con `component` (docs/06 §2).

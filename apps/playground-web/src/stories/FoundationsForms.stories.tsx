@@ -138,6 +138,6 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...Groups, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Groups, globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { ...Groups, globals: { reducedMotion: "reduce" } };

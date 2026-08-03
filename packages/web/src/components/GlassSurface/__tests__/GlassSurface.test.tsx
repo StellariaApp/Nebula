@@ -7,7 +7,7 @@ import { GlassSurface } from "../GlassSurface.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(
@@ -80,7 +80,7 @@ describe("GlassSurface", () => {
 
   it("resuelve vars distintas por tema", () => {
     const seen = new Set<string>();
-    for (const theme of ["nebula-light", "nebula-dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<GlassSurface data-testid="gs" />, theme);
       seen.add(screen.getByTestId("gs").getAttribute("style") ?? "");
       view.unmount();

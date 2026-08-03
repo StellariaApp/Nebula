@@ -181,6 +181,6 @@ export const AllThemes: Story = {
   ),
 };
 
-export const Dark: Story = { ...Hierarchy, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Hierarchy, globals: { theme: "dark" } };
 
 export const ReducedMotion: Story = { ...Hierarchy, globals: { reducedMotion: "reduce" } };

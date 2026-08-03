@@ -35,4 +35,4 @@ export const Horizontal: Story = {
   ),
 };
 
-export const Dark: Story = { ...Vertical, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Vertical, globals: { theme: "dark" } };

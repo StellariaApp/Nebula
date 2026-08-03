@@ -16,7 +16,7 @@ import { FlipScale } from "./scales.js";
 import { darkShadows } from "./shadows.js";
 
 export const nebulaDark = {
-  meta: { name: "nebula-dark", scheme: "dark", version: "0.1.0" },
+  meta: { name: "dark", scheme: "dark", version: "0.1.0" },
   palettes,
   colors: {
     ...palettes,

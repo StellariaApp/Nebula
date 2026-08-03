@@ -77,7 +77,7 @@ function DefaultStorage(): ThemeStorage | null {
 
 export function NebulaProvider({
   children,
-  defaultTheme = "nebula-dark",
+  defaultTheme = "dark",
   storage,
   storageKey = "nebula-theme",
 }: NebulaProviderProps): ReactNode {

@@ -61,4 +61,4 @@ export const Labeled: Story = {
   render: () => <Icon name="trash" size={28} label="Eliminar" />,
 };
 
-export const Dark: Story = { ...Gallery, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Gallery, globals: { theme: "dark" } };

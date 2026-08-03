@@ -10,7 +10,7 @@ pnpm --filter playground-web build   # storybook-static
 pnpm --filter playground-web a11y    # gate axe sobre TODAS las stories (test-runner + Playwright)
 ```
 
-- **Toolbar**: tema (nebula-light/dark/sober/playful) · reduced-motion · viewport. Cada story se envuelve en `NebulaProvider` (decorator global).
+- **Toolbar**: tema (light/dark/sober/playful) · reduced-motion · viewport. Cada story se envuelve en `NebulaProvider` (decorator global).
 - **Consume** `@stellaria/nebula-web` compilado (dist con CSS precompilado, ADR-016) — sin plugin de VE en Storybook.
 - **Gate a11y** (`turbo a11y`): `@storybook/test-runner` + `axe-playwright`, 0 violaciones, exit ≠ 0 al fallar.
 - **Gate size** (`turbo size`, en `packages/web`): size-limit por entry (budgets docs/03 §3).

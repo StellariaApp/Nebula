@@ -90,18 +90,18 @@ Puntos clave:
 
 ## 3. Temas oficiales (`@stellaria/nebula-themes`)
 
-| Tema                                       | Propósito                                                                                                                                                                             |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `nebula-light` / `nebula-dark`             | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`nebula-dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
-| `sober-light` / `sober-dark`               | Demostración: radius mínimo, densidad compacta, motion minimal, sin glass — banca/enterprise                                                                                          |
-| `playful`                                  | Demostración: radius full, densidad comfortable, motion expressive, gradients agresivos                                                                                               |
-| (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                                     |
+| Tema                                       | Propósito                                                                                                                                                                      |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `light` / `dark`                           | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
+| `sober-light` / `sober-dark`               | Demostración: radius mínimo, densidad compacta, motion minimal, sin glass — banca/enterprise                                                                                   |
+| `playful`                                  | Demostración: radius full, densidad comfortable, motion expressive, gradients agresivos                                                                                        |
+| (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                              |
 
 Los tres presets demostrativos son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
 
 ## 4. Runtime
 
-- **Web** (implementado en W1.2, ADR-016): `<NebulaProvider defaultTheme="nebula-dark">` aplica la clase del tema oficial a un contenedor (`createTheme` → una clase por tema) y marca `data-nebula-theme`/`data-scheme`; `<ColorSchemeScript>` en el `<head>` evita el flash SSR fijando `color-scheme` en `<html>` pre-hidratación. Persistencia inyectable (`storage`/`storageKey`, `localStorage` por defecto). Temas custom/tenant: se pasa el `NebulaTheme` (ya validado por `loadTheme`) como `defaultTheme` y se inyecta con `assignInlineVars` sobre el contract. La proyección CSS del contract cubre solo las hojas materializables como var; la data no-CSS (variantMap, spring, tier, glass.enabled, gradients, palettes) se lee del objeto `theme` vía contexto.
+- **Web** (implementado en W1.2, ADR-016): `<NebulaProvider defaultTheme="dark">` aplica la clase del tema oficial a un contenedor (`createTheme` → una clase por tema) y marca `data-nebula-theme`/`data-scheme`; `<ColorSchemeScript>` en el `<head>` evita el flash SSR fijando `color-scheme` en `<html>` pre-hidratación. Persistencia inyectable (`storage`/`storageKey`, `localStorage` por defecto). Temas custom/tenant: se pasa el `NebulaTheme` (ya validado por `loadTheme`) como `defaultTheme` y se inyecta con `assignInlineVars` sobre el contract. La proyección CSS del contract cubre solo las hojas materializables como var; la data no-CSS (variantMap, spring, tier, glass.enabled, gradients, palettes) se lee del objeto `theme` vía contexto.
 - **Native**: `NebulaProvider` configura Unistyles (`themes` + `settings.initialTheme`/`adaptiveThemes`); persistencia del tema elegido vía storage inyectable (MMKV recomendado, no impuesto).
 - **Ambos**: `useTheme()` en `@stellaria/nebula-hooks` expone `{ theme, setTheme, scheme, systemScheme }` con la misma API.
 

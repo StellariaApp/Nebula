@@ -8,7 +8,7 @@ import { BuildStars } from "../useStarField.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(
@@ -95,7 +95,7 @@ describe("StarField", () => {
 
   it("deja el color al CSS: las vars apuntan a roles, no a valores del tema", () => {
     const style = () => screen.getByTestId("sf").getAttribute("style") ?? "";
-    const light = RenderIn(<StarField data-testid="sf" />, "nebula-light");
+    const light = RenderIn(<StarField data-testid="sf" />, "light");
     const from_light = style();
     light.unmount();
     RenderIn(<StarField data-testid="sf" />, "playful");

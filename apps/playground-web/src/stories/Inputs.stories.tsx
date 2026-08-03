@@ -78,4 +78,4 @@ export const Multiline: Story = {
   ),
 };
 
-export const Dark: Story = { ...Text, globals: { theme: "nebula-dark" } };
+export const Dark: Story = { ...Text, globals: { theme: "dark" } };

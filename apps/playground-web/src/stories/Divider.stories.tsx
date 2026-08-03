@@ -53,5 +53,5 @@ export const Vertical: Story = {
   ),
 };
 
-export const Dark: Story = { ...WithLabel, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...WithLabel, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...WithLabel, globals: { theme: "dark" } };
+export const Light: Story = { ...WithLabel, globals: { theme: "light" } };

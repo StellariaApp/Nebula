@@ -43,7 +43,7 @@ pnpm format                        # prettier
 
 ## Identidad visual (ADR-020)
 
-Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `nebula-dark` es el tema por defecto del provider y del playground. Cambiar las semillas cambia la identidad de los 4 temas.
+Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `dark` es el tema por defecto del provider y del playground. Cambiar las semillas cambia la identidad de los 4 temas.
 
 ## Particularidades técnicas (te ahorran sorpresas)
 

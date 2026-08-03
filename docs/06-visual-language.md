@@ -220,11 +220,11 @@ Reglas:
 - **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065), **implementado en B3**. La
   asignación vigente, verificada sobre el render:
 
-  | Tema                       | `sunken`    | `base`      | `raised`    | `overlay`  |
-  | -------------------------- | ----------- | ----------- | ----------- | ---------- |
-  | `nebula-dark`              | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` |
-  | `nebula-light` · `playful` | `light.800` | `light.600` | `light.400` | `light.50` |
-  | `sober-light`              | `light.800` | `light.600` | `light.400` | `light.50` |
+  | Tema                | `sunken`    | `base`      | `raised`    | `overlay`  |
+  | ------------------- | ----------- | ----------- | ----------- | ---------- |
+  | `dark`              | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` |
+  | `light` · `playful` | `light.800` | `light.600` | `light.400` | `light.50` |
+  | `sober-light`       | `light.800` | `light.600` | `light.400` | `light.50` |
 
   Medido como relación de
   luminancia entre sus roles de superficie, **en los dos esquemas** y en todo par adyacente —incluido
@@ -356,7 +356,7 @@ Además del testing contract, cada componente visual debe demostrar:
 
 1. **Specimen**: tamaños, variantes y estados alineados sobre una cuadrícula común.
 2. **Composition**: uso real con contenido creíble; no lorem de una palabra ni cajas aisladas.
-3. **Themes**: `nebula-dark`, `nebula-light`, `sober-light` y `playful` con la misma estructura.
+3. **Themes**: `dark`, `light`, `sober-light` y `playful` con la misma estructura.
 4. **Responsive**: phone y desktop cuando el componente o su composición dependen del ancho.
 5. **Density**: default y data-dense cuando aplique.
 6. **Motion**: estado normal y reduced motion.

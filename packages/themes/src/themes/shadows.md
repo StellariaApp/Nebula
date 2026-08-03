@@ -3,7 +3,7 @@
 `@stellaria/nebula-tokens` exporta un único set `shadows`, calibrado para superficies claras: negro con
 opacidades de 0,04 a 0,24. Sobre un canvas oscuro ese set es invisible — una sombra negra al 4 % sobre
 `#080a12` no separa nada — y hasta el cierre de W2 los cuatro temas lo consumían tal cual, dejando la
-escalera de elevación de `nebula-dark` prácticamente plana.
+escalera de elevación de `dark` prácticamente plana.
 
 `darkShadows` implementa lo que pide `docs/06-visual-language.md` §5 para esquemas oscuros: cada nivel
 combina **oclusión** (sombra proyectada, mucho más opaca que en light) y **rim** (`inset 0 1px 0` blanco

@@ -10,7 +10,7 @@ import { useTheme } from "../theme/use-theme.js";
 afterEach(cleanup);
 
 const fakeTheme = {
-  meta: { name: "nebula-light", scheme: "light", version: "0.0.0" },
+  meta: { name: "light", scheme: "light", version: "0.0.0" },
 } as unknown as NebulaTheme;
 
 function MakeWrapper(value: ThemeContextValue) {
@@ -23,14 +23,14 @@ describe("useTheme", () => {
   it("devuelve el valor del contexto de theming", () => {
     const value: ThemeContextValue = {
       theme: fakeTheme,
-      themeName: "nebula-light",
+      themeName: "light",
       setTheme: vi.fn(),
       scheme: "light",
       systemScheme: "light",
     };
     const { result } = renderHook(() => useTheme(), { wrapper: MakeWrapper(value) });
 
-    expect(result.current.themeName).toBe("nebula-light");
+    expect(result.current.themeName).toBe("light");
     expect(result.current.scheme).toBe("light");
     expect(result.current.theme).toBe(fakeTheme);
   });

@@ -292,7 +292,7 @@ export const FloatingStates: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Nav withBorder>
       <Brand />

@@ -7,8 +7,8 @@ import { playful } from "./playful.js";
 import { soberLight } from "./sober-light.js";
 
 export const officialThemes = {
-  "nebula-light": nebulaLight,
-  "nebula-dark": nebulaDark,
+  light: nebulaLight,
+  dark: nebulaDark,
   "sober-light": soberLight,
   playful,
 } satisfies Record<string, NebulaTheme>;
@@ -16,8 +16,8 @@ export const officialThemes = {
 export type OfficialThemeName = keyof typeof officialThemes;
 
 export const officialThemeNames = enumValues<OfficialThemeName>()([
-  "nebula-light",
-  "nebula-dark",
+  "light",
+  "dark",
   "sober-light",
   "playful",
 ]);

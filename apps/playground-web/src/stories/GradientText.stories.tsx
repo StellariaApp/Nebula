@@ -109,7 +109,7 @@ export const Fallback: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Title order={1}>
       <GradientText inherit>Dark first</GradientText>

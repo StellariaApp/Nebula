@@ -165,7 +165,7 @@ Seguir `apps/playground-web/STORIES-TEMPLATE.md`: `Default`, `Variants`, `Sizes`
 Las matrices aisladas no cierran la review visual. Todo componente visual añade:
 
 - `Composition`: contexto creíble con jerarquía, contenido y componentes vecinos reales;
-- `AllThemes`: misma composición en `nebula-dark`, `nebula-light`, `sober-light` y `playful`;
+- `AllThemes`: misma composición en `dark`, `light`, `sober-light` y `playful`;
 - phone + desktop cuando el ancho cambia su comportamiento;
 - densidad default + data-dense cuando aplique.
 

@@ -9,7 +9,7 @@ afterEach(cleanup);
 
 function Wrap(ui: ReactNode) {
   return render(
-    <NebulaProvider defaultTheme="nebula-dark" storage={null}>
+    <NebulaProvider defaultTheme="dark" storage={null}>
       {ui}
     </NebulaProvider>,
   );

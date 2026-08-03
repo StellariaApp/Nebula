@@ -40,5 +40,5 @@ export const Responsive: Story = {
   ),
 };
 
-export const Dark: Story = { ...Default, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Responsive, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Default, globals: { theme: "dark" } };
+export const Light: Story = { ...Responsive, globals: { theme: "light" } };

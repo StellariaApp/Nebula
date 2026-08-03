@@ -12,7 +12,7 @@ afterEach(cleanup);
 
 function RenderButton(
   ui: ReactNode,
-  theme: "nebula-light" | "nebula-dark" | "sober-light" | "playful" = "nebula-light",
+  theme: "light" | "dark" | "sober-light" | "playful" = "light",
 ) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
@@ -142,7 +142,7 @@ describe("Button — interacción y contrato a11y (docs/03 §1)", () => {
 describe("Button — theming (gate de W1)", () => {
   it("reconfigura el mismo componente en los 4 temas sin cambiar props", () => {
     const rendered = new Set<string>();
-    for (const theme of ["nebula-light", "nebula-dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const { unmount } = RenderButton(<Button variant="filled">Tema</Button>, theme);
       const style = screen.getByRole("button").getAttribute("style") ?? "";
       rendered.add(style);

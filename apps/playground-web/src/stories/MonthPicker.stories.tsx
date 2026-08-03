@@ -85,7 +85,7 @@ export const Locales: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={280}>
       <MonthPicker label="Mes" defaultValue="2026-07" />

@@ -103,7 +103,7 @@ export const Alignment: Story = {
 
 export const Light: Story = {
   ...Colors,
-  globals: { theme: "nebula-light" },
+  globals: { theme: "light" },
 };
 
 export const ReducedMotion: Story = {

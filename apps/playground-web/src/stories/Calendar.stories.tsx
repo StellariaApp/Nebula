@@ -112,7 +112,7 @@ export const Locales: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => <Calendar label="Fecha" defaultValue={REFERENCE} />,
 };
 

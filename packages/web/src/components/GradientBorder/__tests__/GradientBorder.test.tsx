@@ -7,7 +7,7 @@ import { GradientBorder } from "../GradientBorder.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(
@@ -79,7 +79,7 @@ describe("GradientBorder", () => {
 
   it("resuelve un gradiente distinto por tema", () => {
     const seen = new Set<string>();
-    for (const theme of ["nebula-light", "nebula-dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<GradientBorder data-testid="gb" />, theme);
       seen.add(screen.getByTestId("gb").getAttribute("style") ?? "");
       view.unmount();

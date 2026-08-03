@@ -9,8 +9,8 @@ import { officialThemes } from "@stellaria/nebula-themes";
 import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
-  { value: "nebula-light", title: "Nebula Light" },
-  { value: "nebula-dark", title: "Nebula Dark" },
+  { value: "light", title: "Nebula Light" },
+  { value: "dark", title: "Nebula Dark" },
   { value: "sober-light", title: "Sober" },
   { value: "playful", title: "Playful" },
 ];
@@ -19,7 +19,7 @@ const REDUCED_MOTION_CSS =
   "*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}";
 
 const withTheme: Decorator = (Story, context) => {
-  const { theme = "nebula-dark", reducedMotion = "no-preference" } = context.globals as {
+  const { theme = "dark", reducedMotion = "no-preference" } = context.globals as {
     theme?: OfficialThemeName;
     reducedMotion?: "reduce" | "no-preference";
   };
@@ -48,7 +48,7 @@ const withTheme: Decorator = (Story, context) => {
 const preview: Preview = {
   decorators: [withTheme],
   initialGlobals: {
-    theme: "nebula-dark",
+    theme: "dark",
     reducedMotion: "no-preference",
   },
   globalTypes: {

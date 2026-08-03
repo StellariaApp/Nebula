@@ -15,7 +15,7 @@ mismo nombre, y ningún gate las comparaba. La consecuencia real: `playful` rema
 **Cambio visual deliberado**: en `light` y `outline` el texto pasa de `text.primary` a la escala del
 color (`scale.800` / `scale.700`), así que el cuerpo del aviso queda tintado en vez de neutro. Es lo
 que hace temable la variante, y los cuatro pares resultantes pasan AA con holgura —8,36 en
-nebula-light y 12,63 en nebula-dark para `light/primary`—.
+light y 12,63 en dark para `light/primary`—.
 
 ## `accent` es local, y por qué no está en el contrato
 

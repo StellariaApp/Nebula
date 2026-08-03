@@ -17,7 +17,7 @@
 
 ### W1 — Theming web + playground web _(cerrada — ver `docs/w1-closure.md`)_
 
-**Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `nebula-light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
+**Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
 **Gate**: cambiar tema reconfigura los pilotos sin tocar código; axe y size-limit verdes; Button con testing contract al 100% (plantilla para todo lo demás).
 
 ### W2 — Web Tier 1 _(cerrada — ver `docs/w2-closure.md`)_

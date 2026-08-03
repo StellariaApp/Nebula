@@ -89,7 +89,7 @@ export const Variants: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={320}>
       <DatePicker label="Fecha" defaultValue={REFERENCE} />

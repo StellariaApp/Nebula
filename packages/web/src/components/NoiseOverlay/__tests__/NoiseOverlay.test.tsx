@@ -7,7 +7,7 @@ import { NoiseOverlay } from "../NoiseOverlay.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(

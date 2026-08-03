@@ -23,14 +23,14 @@ describe.each(officialThemeNames)("tema oficial %s", (name) => {
 
 describe("semántica de escalas por scheme (decisión W1.1)", () => {
   it("en dark las escalas de roles se invierten (600 = crudo 400)", () => {
-    const dark = officialThemes["nebula-dark"];
+    const dark = officialThemes["dark"];
     expect(dark.colors.primary["600"]).toBe(dark.palettes.indigo["400"]);
     expect(dark.colors.semantic.success["700"]).toBe(dark.palettes.green["300"]);
     expect(dark.colors.primary["500"]).toBe(dark.palettes.indigo["500"]);
   });
 
   it("en light las escalas de roles son las crudas", () => {
-    const light = officialThemes["nebula-light"];
+    const light = officialThemes["light"];
     expect(light.colors.primary).toEqual(light.palettes.indigo);
   });
 });
@@ -65,14 +65,14 @@ describe("rol de placeholder (ADR-052)", () => {
     }
   });
 
-  it("solo nebula-light y playful lo atenúan respecto a muted; dark y sober-light están en su suelo", () => {
-    for (const name of ["nebula-light", "playful"] as const) {
+  it("solo light y playful lo atenúan respecto a muted; dark y sober-light están en su suelo", () => {
+    for (const name of ["light", "playful"] as const) {
       const { text, gray } = officialThemes[name].colors;
       expect(text.muted).toBe(gray["800"]);
       expect(text.placeholder).toBe(gray["700"]);
     }
 
-    for (const name of ["nebula-dark", "sober-light"] as const) {
+    for (const name of ["dark", "sober-light"] as const) {
       const { text } = officialThemes[name].colors;
       expect(text.placeholder).toBe(text.muted);
     }

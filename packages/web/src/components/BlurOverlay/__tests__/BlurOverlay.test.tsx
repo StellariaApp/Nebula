@@ -7,7 +7,7 @@ import { BlurOverlay } from "../BlurOverlay.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(
@@ -58,7 +58,7 @@ describe("BlurOverlay", () => {
   });
 
   it("conserva el blur en los temas con glass activo", () => {
-    for (const theme of ["nebula-light", "nebula-dark", "playful"] as const) {
+    for (const theme of ["light", "dark", "playful"] as const) {
       const view = RenderIn(<BlurOverlay data-testid="bo" />, theme);
       expect(screen.getByTestId("bo").getAttribute("data-blur")).toBe("md");
       view.unmount();

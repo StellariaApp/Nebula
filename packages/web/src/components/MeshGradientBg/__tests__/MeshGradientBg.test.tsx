@@ -7,7 +7,7 @@ import { MeshGradientBg } from "../MeshGradientBg.js";
 
 afterEach(cleanup);
 
-type ThemeName = "nebula-light" | "nebula-dark" | "sober-light" | "playful";
+type ThemeName = "light" | "dark" | "sober-light" | "playful";
 
 function RenderIn(ui: ReactNode, theme: ThemeName) {
   return render(
@@ -71,7 +71,7 @@ describe("MeshGradientBg", () => {
 
   it("resuelve una malla distinta por tema", () => {
     const seen = new Set<string>();
-    for (const theme of ["nebula-light", "nebula-dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
       const view = RenderIn(<MeshGradientBg data-testid="mg" />, theme);
       seen.add(screen.getByTestId("mg").getAttribute("style") ?? "");
       view.unmount();

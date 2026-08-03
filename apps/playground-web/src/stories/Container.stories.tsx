@@ -35,5 +35,5 @@ export const Fluid: Story = {
   ),
 };
 
-export const Dark: Story = { ...Sizes, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Sizes, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Sizes, globals: { theme: "dark" } };
+export const Light: Story = { ...Sizes, globals: { theme: "light" } };

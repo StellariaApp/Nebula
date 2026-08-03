@@ -106,7 +106,7 @@ export const Json: Story = {
       <JsonInput
         label="Configuración"
         description="Se formatea al salir del campo"
-        defaultValue='{"theme":"nebula-dark","dense":false}'
+        defaultValue='{"theme":"dark","dense":false}'
         rows={6}
       />
     </Box>
@@ -114,7 +114,7 @@ export const Json: Story = {
 };
 
 export const Dark: Story = {
-  globals: { theme: "nebula-dark" },
+  globals: { theme: "dark" },
   render: () => (
     <Box maw={360} display="flex" direction="column" gap="md">
       <PinInput label="Código" length={4} defaultValue="12" />

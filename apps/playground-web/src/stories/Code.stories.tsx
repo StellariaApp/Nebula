@@ -29,5 +29,5 @@ export function App() {
   ),
 };
 
-export const Dark: Story = { ...Block, globals: { theme: "nebula-dark" } };
-export const Light: Story = { ...Block, globals: { theme: "nebula-light" } };
+export const Dark: Story = { ...Block, globals: { theme: "dark" } };
+export const Light: Story = { ...Block, globals: { theme: "light" } };

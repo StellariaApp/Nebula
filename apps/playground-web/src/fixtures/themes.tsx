@@ -15,8 +15,8 @@ export const MATRIX_A11Y = {
 };
 
 export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
-  { name: "nebula-dark", label: "nebula-dark" },
-  { name: "nebula-light", label: "nebula-light" },
+  { name: "dark", label: "dark" },
+  { name: "light", label: "light" },
   { name: "sober-light", label: "sober-light" },
   { name: "playful", label: "playful" },
 ];
@@ -85,9 +85,8 @@ export function ProductStage(props: {
   children: ReactNode;
 }): ReactNode {
   const { name, global, children } = props;
-  const official = officialThemes[(global ?? "nebula-dark") as OfficialThemeName] as
-    | NebulaTheme
-    | undefined;
+  const official = officialThemes[(global ?? "dark") as OfficialThemeName] as
+    NebulaTheme | undefined;
   const theme = PRODUCTS[name][official?.meta.scheme === "light" ? "light" : "dark"];
 
   return (

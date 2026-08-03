@@ -9,7 +9,7 @@ import { NebulaProvider } from "../provider/nebula-provider.js";
 
 function Wrapper({ children }: { children: ReactNode }): ReactElement {
   return (
-    <NebulaProvider defaultTheme="nebula-dark" storage={null}>
+    <NebulaProvider defaultTheme="dark" storage={null}>
       {children}
     </NebulaProvider>
   );
