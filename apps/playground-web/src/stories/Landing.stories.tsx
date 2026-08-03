@@ -13,16 +13,16 @@ import {
   GradientText,
   Main,
   Nav,
-  NebulaProvider,
   Reveal,
   Section,
   SimpleGrid,
   Stat,
   Text,
   StarField,
+  Paper,
 } from "@stellaria/nebula-web";
 
-import { lagrange, MATRIX_A11Y, rosette, stellaria, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ProductStage, rosette, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Patterns/Landing",
@@ -128,11 +128,13 @@ function Portada(): ReactElement {
       size="xl"
       hiper="Cierre de marzo en 4 días"
       mih="900px"
+      contentWidth={600}
       title={
         <>
-          Concilia sin <GradientText>hojas de cálculo</GradientText>
+          Concilia sin <br /> <GradientText>hojas de cálculo</GradientText>
         </>
       }
+      right={<Paper w={500} h={500} variant="glass" />}
       description="Rosette contrasta cada movimiento contra el extracto del banco en cuanto entra. Lo que antes era una semana de cierre son ahora cuatro días y un registro que el auditor acepta."
       actions={
         <>
@@ -342,32 +344,26 @@ export const Nebula: Story = {
  * lienzo o hereda el fondo del de fuera y el texto se pierde.
  */
 export const Rosette: Story = {
-  render: () => (
-    <NebulaProvider defaultTheme={rosette} storage={null}>
-      <Box bg="surface.base" c="text.primary">
-        <Page name="Rosette" />
-      </Box>
-    </NebulaProvider>
+  render: (_args, context) => (
+    <ProductStage name="rosette" global={context.globals["theme"] as string | undefined}>
+      <Page name="Rosette" />
+    </ProductStage>
   ),
 };
 
 export const Stellaria: Story = {
-  render: () => (
-    <NebulaProvider defaultTheme={stellaria} storage={null}>
-      <Box bg="surface.base" c="text.primary">
-        <Page name="Stellaria" />
-      </Box>
-    </NebulaProvider>
+  render: (_args, context) => (
+    <ProductStage name="stellaria" global={context.globals["theme"] as string | undefined}>
+      <Page name="Stellaria" />
+    </ProductStage>
   ),
 };
 
 export const Lagrange: Story = {
-  render: () => (
-    <NebulaProvider defaultTheme={lagrange} storage={null}>
-      <Box bg="surface.base" c="text.primary">
-        <Page name="Lagrange" />
-      </Box>
-    </NebulaProvider>
+  render: (_args, context) => (
+    <ProductStage name="lagrange" global={context.globals["theme"] as string | undefined}>
+      <Page name="Lagrange" />
+    </ProductStage>
   ),
 };
 

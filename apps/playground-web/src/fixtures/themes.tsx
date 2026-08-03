@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import { FlipScale, nebulaDark } from "@stellaria/nebula-themes";
-import { palettes, type NebulaTheme } from "@stellaria/nebula-tokens";
+import { FlipScale, nebulaDark, nebulaLight, officialThemes } from "@stellaria/nebula-themes";
+import { palettes, type NebulaTheme, type Scale11 } from "@stellaria/nebula-tokens";
 import {
   Box,
   NebulaProvider,
@@ -21,89 +21,83 @@ export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
   { name: "playful", label: "playful" },
 ];
 
-const ROSETTE_PRIMARY = "#f43f5e";
-const ROSETTE_BRIGHT = "#fb7185";
+export type ProductName = "rosette" | "stellaria" | "lagrange";
 
-export const rosette = {
-  ...nebulaDark,
-  meta: { name: "rosette", scheme: "dark", version: "0.1.0" },
-  colors: {
-    ...nebulaDark.colors,
-    primary: FlipScale(palettes.rose),
-    accent: FlipScale(palettes.pink),
-    border: { ...nebulaDark.colors.border, focus: palettes.rose["400"] },
-  },
-  effects: {
-    ...nebulaDark.effects,
-    gradients: {
-      ...nebulaDark.effects.gradients,
-      brand: {
-        type: "linear",
-        angle: 100,
-        stops: [
-          { color: ROSETTE_PRIMARY, position: 0 },
-          { color: ROSETTE_BRIGHT, position: 100 },
-        ],
+interface ProductSeed {
+  primary: Scale11;
+  accent: Scale11;
+  from: string;
+  to: string;
+}
+
+const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
+  rosette: { primary: palettes.rose, accent: palettes.pink, from: "#f43f5e", to: "#fb7185" },
+  stellaria: { primary: palettes.blue, accent: palettes.cyan, from: "#0099b3", to: "#22b8cf" },
+  lagrange: { primary: palettes.red, accent: palettes.orange, from: "#ed4142", to: "#f08512" },
+};
+
+const FOCUS_STEP = { dark: "400", light: "600" } as const;
+
+export function BuildProduct(name: ProductName, scheme: "dark" | "light"): NebulaTheme {
+  const seed = PRODUCT_SEEDS[name];
+  const base = scheme === "dark" ? nebulaDark : nebulaLight;
+  const dark = scheme === "dark";
+
+  return {
+    ...base,
+    meta: { name: dark ? name : `${name}-light`, scheme, version: "0.1.0" },
+    colors: {
+      ...base.colors,
+      primary: dark ? FlipScale(seed.primary) : seed.primary,
+      accent: dark ? FlipScale(seed.accent) : seed.accent,
+      border: { ...base.colors.border, focus: seed.primary[FOCUS_STEP[scheme]] },
+    },
+    effects: {
+      ...base.effects,
+      gradients: {
+        ...base.effects.gradients,
+        brand: {
+          type: "linear",
+          angle: 100,
+          stops: [
+            { color: seed.from, position: 0 },
+            { color: seed.to, position: 100 },
+          ],
+        },
       },
     },
-  },
-} satisfies NebulaTheme;
+  };
+}
 
-const STELLARIA_PRIMARY = "#0099b3";
-const STELLARIA_BRIGHT = "#22b8cf";
+export const PRODUCTS: Record<ProductName, Record<"dark" | "light", NebulaTheme>> = {
+  rosette: { dark: BuildProduct("rosette", "dark"), light: BuildProduct("rosette", "light") },
+  stellaria: { dark: BuildProduct("stellaria", "dark"), light: BuildProduct("stellaria", "light") },
+  lagrange: { dark: BuildProduct("lagrange", "dark"), light: BuildProduct("lagrange", "light") },
+};
 
-export const stellaria = {
-  ...nebulaDark,
-  meta: { name: "stellaria", scheme: "dark", version: "0.1.0" },
-  colors: {
-    ...nebulaDark.colors,
-    primary: FlipScale(palettes.blue),
-    accent: FlipScale(palettes.cyan),
-    border: { ...nebulaDark.colors.border, focus: palettes.blue["400"] },
-  },
-  effects: {
-    ...nebulaDark.effects,
-    gradients: {
-      ...nebulaDark.effects.gradients,
-      brand: {
-        type: "linear",
-        angle: 100,
-        stops: [
-          { color: STELLARIA_PRIMARY, position: 0 },
-          { color: STELLARIA_BRIGHT, position: 100 },
-        ],
-      },
-    },
-  },
-} satisfies NebulaTheme;
+export const rosette = PRODUCTS.rosette.dark;
+export const stellaria = PRODUCTS.stellaria.dark;
+export const lagrange = PRODUCTS.lagrange.dark;
 
-const LAGRANGE_PRIMARY = "#ed4142";
-const LAGRANGE_BRIGHT = "#f08512";
+export function ProductStage(props: {
+  name: ProductName;
+  global: string | undefined;
+  children: ReactNode;
+}): ReactNode {
+  const { name, global, children } = props;
+  const official = officialThemes[(global ?? "nebula-dark") as OfficialThemeName] as
+    | NebulaTheme
+    | undefined;
+  const theme = PRODUCTS[name][official?.meta.scheme === "light" ? "light" : "dark"];
 
-export const lagrange = {
-  ...nebulaDark,
-  meta: { name: "lagrange", scheme: "dark", version: "0.1.0" },
-  colors: {
-    ...nebulaDark.colors,
-    primary: FlipScale(palettes.red),
-    accent: FlipScale(palettes.orange),
-    border: { ...nebulaDark.colors.border, focus: palettes.red["400"] },
-  },
-  effects: {
-    ...nebulaDark.effects,
-    gradients: {
-      ...nebulaDark.effects.gradients,
-      brand: {
-        type: "linear",
-        angle: 100,
-        stops: [
-          { color: LAGRANGE_PRIMARY, position: 0 },
-          { color: LAGRANGE_BRIGHT, position: 100 },
-        ],
-      },
-    },
-  },
-} satisfies NebulaTheme;
+  return (
+    <NebulaProvider key={theme.meta.name} defaultTheme={theme} storage={null}>
+      <Box bg="surface.base" c="text.primary">
+        {children}
+      </Box>
+    </NebulaProvider>
+  );
+}
 
 export function ThemePanel(props: {
   theme: OfficialThemeName | NebulaTheme;
