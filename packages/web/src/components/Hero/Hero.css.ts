@@ -131,7 +131,7 @@ export const description = style({
     [baseLayer]: {
       margin: 0,
       maxWidth: "62ch",
-      fontSize: vars.font.size.body3,
+      fontSize: vars.font.size.body1,
       lineHeight: vars.font.lineHeight.relaxed,
     },
   },
