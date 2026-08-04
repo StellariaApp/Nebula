@@ -118,6 +118,7 @@ export const lineHeightNames = enumValues<LineHeightName>()(["tight", "normal", 
 export const letterSpacingNames = enumValues<LetterSpacingName>()(["tight", "normal", "wide"]);
 
 export const radiusNames = enumValues<RadiusName>()([
+  "none",
   "xxs",
   "xs",
   "sm",

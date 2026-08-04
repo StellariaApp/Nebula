@@ -78,6 +78,7 @@ export function Card(props: CardProps): ReactElement {
     shadow = "none",
     padding = "lg",
     withBorder = true,
+    glass = "subtle",
     interactive: interactive_prop,
     onPress,
     href,
@@ -94,7 +95,8 @@ export function Card(props: CardProps): ReactElement {
 
   const interactive = interactive_prop ?? (onPress !== undefined || href !== undefined);
 
-  const resolved = variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
+  const resolved =
+    variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, glass);
 
   const class_name = cx(
     styles.card({

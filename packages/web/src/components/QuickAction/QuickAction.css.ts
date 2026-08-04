@@ -88,6 +88,7 @@ export const tile = recipe({
       xl: { padding: vars.space.lg, gap: vars.space.sm, minHeight: vars.size.control.xl },
     },
     radius: {
+      none: { borderRadius: vars.radius.none },
       xxs: { borderRadius: vars.radius.xxs },
       xs: { borderRadius: vars.radius.xs },
       sm: { borderRadius: vars.radius.sm },

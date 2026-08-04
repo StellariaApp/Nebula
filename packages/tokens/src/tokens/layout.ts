@@ -23,6 +23,7 @@ export const spacing = {
 } as const satisfies ThemeSpacing;
 
 export const radius = {
+  none: 0,
   xxs: 0,
   xs: 4,
   sm: 9,

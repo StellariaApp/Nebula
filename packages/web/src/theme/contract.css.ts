@@ -100,7 +100,17 @@ export const vars = createThemeContract({
     letterSpacing: { tight: null, normal: null, wide: null },
     display: { size: null, lineHeight: null, letterSpacing: null },
   },
-  radius: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null, full: null },
+  radius: {
+    none: null,
+    xxs: null,
+    xs: null,
+    sm: null,
+    md: null,
+    lg: null,
+    xl: null,
+    xxl: null,
+    full: null,
+  },
   space: {
     none: null,
     xxs: null,

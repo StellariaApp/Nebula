@@ -36,6 +36,7 @@ export const paper = recipe({
       xxl: { boxShadow: vars.shadow.xxl },
     },
     radius: {
+      none: { borderRadius: vars.radius.none },
       xxs: { borderRadius: vars.radius.xxs },
       xs: { borderRadius: vars.radius.xs },
       sm: { borderRadius: vars.radius.sm },

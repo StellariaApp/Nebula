@@ -55,7 +55,7 @@ export type FontWeightValue = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 90
 export type LineHeightName = "tight" | "normal" | "relaxed";
 export type LetterSpacingName = "tight" | "normal" | "wide";
 
-export type RadiusName = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "full";
+export type RadiusName = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "full" | "none";
 
 export type SpacingName =
   | "none"

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type {
   RadiusName,
   ColorExtended,
+  GlassLevel,
   ShadowLevel,
   Unit,
   Variant,
@@ -23,6 +24,8 @@ export interface CardProps extends Omit<StyleProps, "shadow" | "color"> {
   shadow?: ShadowLevel | "none" | undefined;
   padding?: "none" | "md" | "lg" | "xl" | undefined;
   withBorder?: boolean | undefined;
+  /** Peldaño de cristal cuando `variant="glass"`. Por defecto `subtle` (ADR-078). */
+  glass?: GlassLevel | undefined;
   interactive?: boolean | undefined;
   onPress?: (() => void) | undefined;
   href?: string | undefined;

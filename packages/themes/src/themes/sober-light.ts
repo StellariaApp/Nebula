@@ -54,7 +54,7 @@ export const soberLight = {
     },
   },
   font,
-  radius: { xxs: 0, xs: 0, sm: 2, md: 2, lg: 4, xl: 6, xxl: 8, full: 9999 },
+  radius: { none: 0, xxs: 0, xs: 0, sm: 2, md: 2, lg: 4, xl: 6, xxl: 8, full: 9999 },
   spacing: { unit: 3, scale: spacing.scale },
   sizes,
   motion: {

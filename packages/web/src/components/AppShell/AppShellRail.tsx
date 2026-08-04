@@ -76,7 +76,7 @@ export function AppShellRail(props: AppShellRailProps): ReactElement {
 }
 
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
-  const { children, top, bottom, level = "subtle", className, ...rest } = props;
+  const { children, top, bottom, level = "strong", className, ...rest } = props;
   return (
     <GlassSurface
       component="aside"
@@ -112,7 +112,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
     order = 2,
     actions,
     children,
-    level = "default",
+    level = "strong",
     sticky = false,
     className,
   } = props;
@@ -143,7 +143,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
 }
 
 export function AppShellSubbar(props: AppShellSubbarProps): ReactElement {
-  const { children, level = "control", className } = props;
+  const { children, level = "subtle", className } = props;
   return (
     <GlassSurface level={level} radius={0} className={cx(styles.sectionSub, className)}>
       {children}

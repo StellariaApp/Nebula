@@ -54,7 +54,7 @@ export const playful = {
     },
   },
   font,
-  radius: { xxs: 4, xs: 6, sm: 10, md: 16, lg: 20, xl: 28, xxl: 36, full: 9999 },
+  radius: { none: 0, xxs: 4, xs: 6, sm: 10, md: 16, lg: 20, xl: 28, xxl: 36, full: 9999 },
   spacing: { unit: 5, scale: spacing.scale },
   sizes,
   motion: {

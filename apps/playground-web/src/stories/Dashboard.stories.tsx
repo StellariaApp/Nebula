@@ -185,7 +185,7 @@ function Cover({ company }: { company: Company }): ReactElement {
       <Box position="absolute" style={{ top: 12, left: 12 }}>
         <ActionIcon
           variant="unstyled"
-          size="sm"
+          size="xs"
           r="sm"
           style={ON_CANVAS}
           aria-label={`Ampliar ${company.name}`}
@@ -201,7 +201,7 @@ function Cover({ company }: { company: Company }): ReactElement {
           trigger={
             <ActionIcon
               variant="unstyled"
-              size="sm"
+              size="xs"
               r="sm"
               style={ON_CANVAS}
               aria-label={`Acciones de ${company.name}`}
@@ -227,7 +227,7 @@ function Cover({ company }: { company: Company }): ReactElement {
             trigger={
               <ActionIcon
                 variant="unstyled"
-                size="sm"
+                size="xs"
                 aria-label={SERVICE_LABEL[service]}
                 style={{ color: palettes.light["50"] }}
               >
@@ -249,13 +249,13 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder radius="lg" padding="none" variant="glass">
+    <Card withBorder radius="lg" padding="none" variant="glass" glass="default">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>
 
       <Box p="md" display="flex" direction="column" gap="none">
-        <Text component="h3" fz="body1" fw="semibold">
+        <Text component="h3" fz="body2" fw="semibold">
           {company.name}
         </Text>
         <Text fz="body3" c="text.secondary">
@@ -265,7 +265,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" direction="column" gap="xxs">
+      <Box p="md" display="flex" direction="column" gap="sm">
         <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Sectores
         </Text>
@@ -279,11 +279,11 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
       <Divider />
 
       <Box p="md" display="flex" align="center" justify="space-between" gap="sm">
-        <Box display="flex" align="center" gap="xs" c="text.muted">
+        <Box display="flex" align="center" gap="sm" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.created}</Text>
         </Box>
-        <Box display="flex" align="center" gap="xs" c="text.muted">
+        <Box display="flex" align="center" gap="sm" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.renews}</Text>
         </Box>
@@ -291,9 +291,9 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" align="center" gap="sm">
+      <Box p="md" display="flex" align="center" gap="md">
         <Avatar name={company.owner.name} size="sm" radius="full" variant="light" color="accent" />
-        <Box display="flex" direction="column" miw={0}>
+        <Box display="flex" direction="column" gap="none">
           <Text fz="caption" fw="semibold">
             {company.owner.name}
           </Text>
@@ -363,7 +363,7 @@ function SideNav(): ReactElement {
   return (
     <Box display="flex" direction="column">
       <Box px="md" pt="md">
-        <GlassSurface level="control" radius="md" withBorder p="md">
+        <GlassSurface level="subtle" radius="md" withBorder p="md">
           <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
             Super Administrador
           </Text>

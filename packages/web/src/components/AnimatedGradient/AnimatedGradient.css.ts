@@ -30,6 +30,7 @@ export const animatedGradient = recipe({
   },
   variants: {
     radius: {
+      none: { borderRadius: vars.radius.none },
       xxs: { borderRadius: vars.radius.xxs },
       xs: { borderRadius: vars.radius.xs },
       sm: { borderRadius: vars.radius.sm },
