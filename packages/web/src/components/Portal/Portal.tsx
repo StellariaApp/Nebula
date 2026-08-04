@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 
+import { useUNSAFE_PortalContext } from "react-aria";
 import { createPortal } from "react-dom";
 
 import type { PortalProps } from "./Portal.types.js";
@@ -15,6 +16,7 @@ function ResolveTarget(target: PortalProps["target"]): Element | null {
 export function Portal(props: PortalProps): ReactNode {
   const { children, target, disabled = false } = props;
   const [mounted, set_mounted] = useState(false);
+  const { getContainer } = useUNSAFE_PortalContext();
 
   useEffect(() => {
     set_mounted(true);
@@ -23,7 +25,7 @@ export function Portal(props: PortalProps): ReactNode {
   if (disabled) return <>{children}</>;
   if (!mounted) return null;
 
-  const node = ResolveTarget(target) ?? document.body;
+  const node = ResolveTarget(target) ?? getContainer?.() ?? document.body;
   return createPortal(children, node);
 }
 
