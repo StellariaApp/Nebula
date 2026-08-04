@@ -112,6 +112,7 @@ export interface GradientToken {
   type: "linear" | "radial";
   angle: number;
   stops: GradientStop[];
+  ink?: "light" | "dark";
 }
 
 export interface ThemeEffects {

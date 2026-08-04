@@ -1,6 +1,6 @@
 import type { GlassSurfaceRecipe, NebulaTheme } from "@stellaria/nebula-tokens";
 
-import { OnColor } from "./ink.js";
+import { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "./ink.js";
 
 function MapValues<K extends string, V, R>(
   record: Record<K, V>,
@@ -20,6 +20,7 @@ const Num = (n: number): string => String(n);
 
 const SOLID = "solid ";
 const FILL_SCALE = "scale.";
+const GRADIENT_REF = "gradient.";
 
 const INK_SCALES = [
   "primary",
@@ -40,15 +41,21 @@ function ScaleOf(theme: NebulaTheme, scale: InkScale): Record<string, string> {
   return theme.colors.semantic[scale];
 }
 
+/** Un degradado lo declara el autor, y si no lo declara manda su peor extremo (ADR-089). */
+function GradientInk(theme: NebulaTheme, ref: string): string | undefined {
+  if (!ref.startsWith(GRADIENT_REF)) return undefined;
+  const role = ref.slice(GRADIENT_REF.length);
+  const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
+  if (token === undefined) return undefined;
+  if (token.ink !== undefined) return token.ink === "dark" ? INK_DARK : INK_LIGHT;
+  return WorstInk(token.stops.map((stop) => stop.color));
+}
+
 /** La tinta la decide el propio relleno de cada escala, no el autor del tema (ADR-085). */
 function OnFill(theme: NebulaTheme, scale: InkScale): string {
   const ref = theme.variantMap.filled.background;
-  if (ref.startsWith("gradient.")) {
-    const role = ref.slice("gradient.".length);
-    const stop = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]]
-      ?.stops[0]?.color;
-    return stop === undefined ? theme.colors.text.onPrimary : OnColor(stop);
-  }
+  const gradient = GradientInk(theme, ref);
+  if (gradient !== undefined) return gradient;
   if (!ref.startsWith(FILL_SCALE)) return theme.colors.text.onPrimary;
   const fill = ScaleOf(theme, scale)[ref.slice(FILL_SCALE.length)];
   return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill);
@@ -82,7 +89,11 @@ export function ThemeToVars(theme: NebulaTheme) {
         info: colors.semantic.info,
       },
       surface: colors.surface,
-      text: { ...colors.text, onPrimary: OnFill(theme, "primary") },
+      text: {
+        ...colors.text,
+        onPrimary:
+          GradientInk(theme, theme.variantMap.gradient.background) ?? OnFill(theme, "primary"),
+      },
       ink: Inks(theme),
       border: colors.border,
     },

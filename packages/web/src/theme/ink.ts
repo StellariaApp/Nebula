@@ -1,5 +1,5 @@
-const INK_LIGHT = "#ffffff";
-const INK_DARK = "#0b0b0b";
+export const INK_LIGHT = "#ffffff";
+export const INK_DARK = "#0b0b0b";
 const SRGB_CUT = 0.03928;
 
 export function Luminance(hex: string): number {
@@ -20,6 +20,20 @@ export function Luminance(hex: string): number {
 
 function Ratio(a: number, b: number): number {
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+}
+
+export function Contrast(a: string, b: string): number {
+  return Ratio(Luminance(a), Luminance(b));
+}
+
+export function WorstInk(stops: readonly string[]): string {
+  let light = Number.POSITIVE_INFINITY;
+  let dark = Number.POSITIVE_INFINITY;
+  for (const stop of stops) {
+    light = Math.min(light, Contrast(stop, INK_LIGHT));
+    dark = Math.min(dark, Contrast(stop, INK_DARK));
+  }
+  return light >= dark ? INK_LIGHT : INK_DARK;
 }
 
 export function OnColor(concrete: string | null): string {
