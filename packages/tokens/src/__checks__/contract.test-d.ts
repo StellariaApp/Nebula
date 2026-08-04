@@ -101,6 +101,7 @@ export const smokeTheme = {
       sunken: "#f1f3f5",
       hover: "#f1f3f5",
       active: "#e9ecef",
+      hoverActive: "#dee2e6",
       disabled: "#eaeaea",
     },
     text: {

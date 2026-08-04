@@ -11,7 +11,7 @@ export interface ContrastPair {
   skip?: (theme: NebulaTheme) => boolean;
 }
 
-const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active"] as const;
+const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active", "hoverActive"] as const;
 const FIELD_SURFACES = ["sunken", "base", "raised", "overlay"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 

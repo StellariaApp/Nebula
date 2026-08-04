@@ -34,6 +34,7 @@ export const soberLight = {
       sunken: palettes.light["800"],
       hover: palettes.light["500"],
       active: palettes.light["600"],
+      hoverActive: palettes.light["700"],
       disabled: palettes.light["700"],
     },
     text: {

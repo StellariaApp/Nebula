@@ -34,6 +34,7 @@ export const playful = {
       sunken: palettes.light["800"],
       hover: palettes.light["300"],
       active: palettes.light["500"],
+      hoverActive: palettes.light["600"],
       disabled: palettes.light["600"],
     },
     text: {

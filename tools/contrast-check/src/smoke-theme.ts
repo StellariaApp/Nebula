@@ -36,6 +36,7 @@ export const smokeTheme = {
       sunken: light[300],
       hover: light[300],
       active: light[500],
+      hoverActive: light[600],
       disabled: light[600],
     },
     text: {

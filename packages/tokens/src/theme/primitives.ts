@@ -26,7 +26,14 @@ export type PaletteName =
 export type SemanticStatus = "success" | "warning" | "error" | "info";
 
 export type SurfaceRole =
-  "base" | "raised" | "overlay" | "sunken" | "hover" | "active" | "disabled";
+  | "base"
+  | "raised"
+  | "overlay"
+  | "sunken"
+  | "hover"
+  | "active"
+  | "hoverActive"
+  | "disabled";
 
 export type TextRole =
   "primary" | "secondary" | "muted" | "placeholder" | "inverted" | "onPrimary" | "disabled";

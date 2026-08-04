@@ -35,6 +35,7 @@ export const vars = createThemeContract({
       sunken: null,
       hover: null,
       active: null,
+      hoverActive: null,
       disabled: null,
     },
     text: {

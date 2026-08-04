@@ -64,6 +64,7 @@ export const surfaceRoles = enumValues<SurfaceRole>()([
   "sunken",
   "hover",
   "active",
+  "hoverActive",
   "disabled",
 ]);
 

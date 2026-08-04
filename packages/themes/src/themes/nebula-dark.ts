@@ -36,6 +36,7 @@ export const nebulaDark = {
       sunken: palettes.dark["50"],
       hover: palettes.dark["300"],
       active: palettes.dark["500"],
+      hoverActive: palettes.dark["600"],
       disabled: palettes.dark["600"],
     },
     text: {
@@ -81,17 +82,17 @@ export const nebulaDark = {
         },
         subtle: {
           background: "rgba(15, 17, 25, 0.46)",
-          border: "1px solid rgba(255, 255, 255, 0.09)",
+          border: "1px solid rgba(255, 255, 255, 0.06)",
           backdropFilter: `blur(${blur.sm}) saturate(130%)`,
         },
         default: {
           background: "rgba(15, 17, 25, 0.56)",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
+          border: "1px solid rgba(255, 255, 255, 0.07)",
           backdropFilter: `blur(${blur.lg}) saturate(140%)`,
         },
         strong: {
           background: "rgba(15, 17, 25, 0.66)",
-          border: "1px solid rgba(255, 255, 255, 0.14)",
+          border: "1px solid rgba(255, 255, 255, 0.09)",
           backdropFilter: `blur(${blur.xl}) saturate(140%)`,
         },
       },
