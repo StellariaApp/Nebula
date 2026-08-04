@@ -20,6 +20,9 @@ export type PaletteName =
   | "grape"
   | "rose"
   | "gold"
+  | "sand"
+  | "slate"
+  | "brown"
   | "light"
   | "dark";
 

@@ -25,6 +25,9 @@ export const PALETTE_SEEDS: readonly SeedSpec[] = [
   { name: "grape", seed: "#d066c9", profile: "chromatic" },
   { name: "rose", seed: "#e73070", profile: "chromatic" },
   { name: "gold", seed: "#e0a217", profile: "chromatic", ink: "dark", lift: 0.13 },
+  { name: "sand", seed: "#9e9080", profile: "chromatic" },
+  { name: "slate", seed: "#6a839d", profile: "chromatic" },
+  { name: "brown", seed: "#976346", profile: "chromatic" },
   { name: "light", seed: "#f0f0f0", profile: "surface-light" },
   { name: "dark", seed: "#161821", profile: "surface-dark" },
 ];

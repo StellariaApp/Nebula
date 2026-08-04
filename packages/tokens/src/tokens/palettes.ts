@@ -196,6 +196,48 @@ export const gold = {
   950: "#2b1c00",
 } as const satisfies Scale11;
 
+export const sand = {
+  50: "#f8f6f5",
+  100: "#eeeae7",
+  200: "#dfdad3",
+  300: "#cbc3b9",
+  400: "#a89c8f",
+  500: "#827465",
+  600: "#6c5e4e",
+  700: "#5a4d3f",
+  800: "#483e31",
+  900: "#372f24",
+  950: "#251e16",
+} as const satisfies Scale11;
+
+export const slate = {
+  50: "#f4f7fa",
+  100: "#e6ecf2",
+  200: "#d2dce7",
+  300: "#b6c6d7",
+  400: "#8ca1b7",
+  500: "#617993",
+  600: "#4a637d",
+  700: "#3b526a",
+  800: "#2e4256",
+  900: "#213243",
+  950: "#14202d",
+} as const satisfies Scale11;
+
+export const brown = {
+  50: "#fcf5f2",
+  100: "#f5e8e2",
+  200: "#ebd6ca",
+  300: "#ddbcab",
+  400: "#bf947c",
+  500: "#9d6b50",
+  600: "#855236",
+  700: "#714328",
+  800: "#5c341d",
+  900: "#472714",
+  950: "#31180a",
+} as const satisfies Scale11;
+
 export const light = {
   50: "#ffffff",
   100: "#fdfdfd",
@@ -253,6 +295,9 @@ export const palettes = {
   grape,
   rose,
   gold,
+  sand,
+  slate,
+  brown,
   light,
   dark,
 } as const satisfies Record<PaletteName, Scale11>;
@@ -272,6 +317,9 @@ export const paletteNames = [
   "grape",
   "rose",
   "gold",
+  "sand",
+  "slate",
+  "brown",
   "light",
   "dark",
 ] as const satisfies readonly PaletteName[];
