@@ -34,11 +34,12 @@ Si un efecto compite con el contenido, el efecto pierde.
 | `body2`   | 14 px | cuerpo secundario y UI compacta              |
 | `body3`   | 13 px | apoyo denso; no para párrafos largos         |
 | `button`  | 14 px | label de controles                           |
-| `caption` | 12 px | metadata, ayuda y estados secundarios        |
+| `caption` | 11 px | metadata, ayuda y estados secundarios        |
 
 Reglas:
 
-- Ningún texto informativo o interactivo baja de 12 px.
+- Ningún texto informativo o interactivo baja de 11 px ([ADR-091](adr/ADR-091-el-suelo-tipografico-baja-a-11-px.md)).
+  El código es la excepción y mantiene 12 px, por §2.3.
 - `Text` sin props usa `body1` + `lineHeight.normal`; no hereda el default del navegador.
 - **El interlineado lo trae el tamaño** (`font.leading`, ADR-077): decrece de 1.00 en `h1` a 1.25 en
   `h6`, y sube a 1.45-1.60 en el cuerpo. `tight`/`normal`/`relaxed` quedan para overrides
@@ -62,7 +63,7 @@ apartarse de §2.1:
 
 | Puede cambiar                          | No puede cambiar                                          |
 | -------------------------------------- | --------------------------------------------------------- |
-| `lineHeight` → `relaxed`               | El suelo de 12 px                                         |
+| `lineHeight` → `relaxed`               | El suelo de 11 px                                         |
 | La medida de línea (60–70 caracteres)  | Los pesos de heading (`h1`–`h2` bold, `h3`–`h6` semibold) |
 | El ritmo vertical entre bloques        | El tracking (`tight` en `h1`–`h3`)                        |
 | El dimensionado del código, según §2.3 | El tamaño del cuerpo de lectura                           |
@@ -81,9 +82,13 @@ Un solo criterio para todo el catálogo:
 | Código en **bloque**   | `body3` absoluto     | 13 px                        |
 | `code` dentro de `pre` | hereda (`1em`)       | 13 px, no vuelve a reducirse |
 
-El `max()` no es defensivo, es el mecanismo: convierte el suelo de §2.1 en algo que garantiza el CSS
-en vez de algo que hay que recordar. A `0.875em` puro, un `code` dentro de `body3` cae a 11.4 px y
-dentro de `caption` a 10.5 px.
+El `max()` no es defensivo, es el mecanismo: convierte el suelo en algo que garantiza el CSS en vez de
+algo que hay que recordar. A `0.875em` puro, un `code` dentro de `body3` cae a 11.4 px y dentro de
+`caption` a 9.6 px.
+
+Los 12 px del código **no** bajaron con el suelo general de ADR-091: el código es más denso —glifos
+estrechos y símbolos que se distinguen por detalles finos— y a 11 px un `l` y un `1` empiezan a
+confundirse. Por eso un `code` dentro de un `caption` mide un pelo más que su contenedor.
 
 Un bloque ya fijó su tamaño; volver a aplicarle el factor inline es contarlo dos veces. `0.9em` no
 existe en el sistema.
