@@ -21,6 +21,7 @@ import {
   Text,
   StarField,
   Paper,
+  vars,
 } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ProductStage, rosette, ThemeMatrix } from "../fixtures/themes.js";
@@ -40,11 +41,11 @@ const SECTIONS = [
   { href: "#seguridad", label: "Seguridad" },
 ] as const;
 
-const MARK = (
+const MARK = (color: string) => (
   <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-    <circle cx="12" cy="6" r="4" fill="currentColor" />
-    <circle cx="6" cy="16" r="4" fill="currentColor" opacity="0.75" />
-    <circle cx="18" cy="16" r="4" fill="currentColor" opacity="0.5" />
+    <circle cx="12" cy="6" r="4" fill={color} />
+    <circle cx="6" cy="16" r="4" fill={color} opacity="0.75" />
+    <circle cx="18" cy="16" r="4" fill={color} opacity="0.5" />
   </svg>
 );
 
@@ -104,7 +105,7 @@ function Bar({ name }: { name: string }): ReactElement {
   return (
     <Nav component="header" aria-label="Cabecera del sitio" floating>
       <Nav.Logo href="#inicio" aria-label="Inicio">
-        {MARK}
+        {MARK(vars.color.primary[500])}
         <span>{name}</span>
       </Nav.Logo>
       <Nav.Links aria-label="Principal">
@@ -353,6 +354,14 @@ export const Rosette: Story = {
   ),
 };
 
+export const Polaris: Story = {
+  render: (_args, context) => (
+    <ProductStage name="polaris" global={context.globals["theme"] as string | undefined}>
+      <Page name="Polaris" />
+    </ProductStage>
+  ),
+};
+
 export const Stellaria: Story = {
   render: (_args, context) => (
     <ProductStage name="stellaria" global={context.globals["theme"] as string | undefined}>
@@ -365,6 +374,38 @@ export const Lagrange: Story = {
   render: (_args, context) => (
     <ProductStage name="lagrange" global={context.globals["theme"] as string | undefined}>
       <Page name="Lagrange" />
+    </ProductStage>
+  ),
+};
+
+export const Aurora: Story = {
+  render: (_args, context) => (
+    <ProductStage name="aurora" global={context.globals["theme"] as string | undefined}>
+      <Page name="Aurora" />
+    </ProductStage>
+  ),
+};
+
+export const Nova: Story = {
+  render: (_args, context) => (
+    <ProductStage name="nova" global={context.globals["theme"] as string | undefined}>
+      <Page name="Nova" />
+    </ProductStage>
+  ),
+};
+
+export const Eclipse: Story = {
+  render: (_args, context) => (
+    <ProductStage name="eclipse" global={context.globals["theme"] as string | undefined}>
+      <Page name="Eclipse" />
+    </ProductStage>
+  ),
+};
+
+export const Cosmos: Story = {
+  render: (_args, context) => (
+    <ProductStage name="cosmos" global={context.globals["theme"] as string | undefined}>
+      <Page name="Cosmos" />
     </ProductStage>
   ),
 };

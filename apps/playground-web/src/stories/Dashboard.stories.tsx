@@ -249,12 +249,12 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder radius="lg" padding="none" variant="glass" glass="default">
+    <Card withBorder radius="lg" padding="none" variant="glass" glass="strong">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>
 
-      <Box p="md" display="flex" direction="column" gap="none">
+      <Box px="md" py="sm" display="flex" direction="column" gap="none">
         <Text component="h3" fz="body2" fw="semibold">
           {company.name}
         </Text>
@@ -265,12 +265,12 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" direction="column" gap="sm">
+      <Box px="md" py="sm" display="flex" direction="column" gap="xxs">
         <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Sectores
         </Text>
         <Box>
-          <Badge size="sm" variant="light" color="gray">
+          <Badge size="xs" variant="light" color="gray">
             {company.sector}
           </Badge>
         </Box>
@@ -278,12 +278,12 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" align="center" justify="space-between" gap="sm">
-        <Box display="flex" align="center" gap="sm" c="text.muted">
+      <Box px="md" py="sm" display="flex" align="center" justify="space-between" gap="sm">
+        <Box display="flex" align="center" gap="xs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.created}</Text>
         </Box>
-        <Box display="flex" align="center" gap="sm" c="text.muted">
+        <Box display="flex" align="center" gap="xs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.renews}</Text>
         </Box>
@@ -291,13 +291,13 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box p="md" display="flex" align="center" gap="md">
+      <Box px="md" py="sm" display="flex" align="center" gap="sm">
         <Avatar name={company.owner.name} size="sm" radius="full" variant="light" color="accent" />
         <Box display="flex" direction="column" gap="none">
-          <Text fz="caption" fw="semibold">
+          <Text fz="caption" fw="semibold" lh="tight" tt="capitalize">
             {company.owner.name}
           </Text>
-          <Text fz="caption" c="text.muted">
+          <Text fz="caption" c="text.muted" lh="tight" tt="lowercase">
             {company.owner.email}
           </Text>
         </Box>
@@ -433,6 +433,7 @@ function CompanyBoard(): ReactElement {
   return (
     <AppShell
       mainRef={scroller}
+      scrollShadowOffset={116}
       backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" top={<Brand />} bottom={<UserRow />}>
@@ -455,8 +456,8 @@ function CompanyBoard(): ReactElement {
             </Button>
           }
         />
-        <AppShell.Subbar>
-          <Breadcrumbs items={TRAIL} size="sm" />
+        <AppShell.Subbar sticky>
+          <Breadcrumbs items={TRAIL} />
         </AppShell.Subbar>
         <AppShell.Content>
           <CompanyGrid companies={OWNED} />
