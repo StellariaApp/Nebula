@@ -428,7 +428,7 @@ const TRAIL: BreadcrumbItem[] = [
 
 function CompanyBoard(): ReactElement {
   return (
-    <AppShell.Rail
+    <AppShell
       backdrop={<StarField fixed aurora density="sm" />}
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" top={<Brand />} bottom={<UserRow />}>
@@ -442,6 +442,7 @@ function CompanyBoard(): ReactElement {
 
       <AppShell.Section aria-label="Mis Empresas">
         <AppShell.Header
+          sticky
           title="Mis Empresas"
           subtitle="Ve todas las empresas que has creado y administras"
           actions={
@@ -460,6 +461,7 @@ function CompanyBoard(): ReactElement {
 
       <AppShell.Section aria-label="Empresas invitadas">
         <AppShell.Header
+          sticky
           title="Empresas invitadas"
           subtitle="Estas son las empresas que te han invitado a unirte a su equipo"
         />
@@ -467,7 +469,7 @@ function CompanyBoard(): ReactElement {
           <CompanyGrid companies={INVITED} />
         </AppShell.Content>
       </AppShell.Section>
-    </AppShell.Rail>
+    </AppShell>
   );
 }
 

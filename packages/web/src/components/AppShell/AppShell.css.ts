@@ -25,60 +25,6 @@ export const shell = style({
   },
 });
 
-export const header = style({
-  "@layer": {
-    [baseLayer]: {
-      gridArea: "header",
-      position: "sticky",
-      insetBlockStart: 0,
-      zIndex: vars.zIndex.sticky,
-      display: "flex",
-      alignItems: "center",
-      gap: vars.space.sm,
-      background: vars.color.surface.raised,
-      paddingInline: vars.space.md,
-      paddingBlock: vars.space.sm,
-      borderBlock: `1px solid ${vars.color.border.subtle}`,
-      minWidth: 0,
-    },
-  },
-});
-
-export const navbar = style({
-  "@layer": {
-    [baseLayer]: {
-      gridArea: "nav",
-      position: "sticky",
-      insetBlockStart: headHeight,
-      alignSelf: "start",
-      blockSize: `calc(100dvh - ${headHeight})`,
-      overflowY: "auto",
-      overflowX: "hidden",
-      borderInlineEnd: `1px solid ${vars.color.border.subtle}`,
-      background: vars.color.surface.raised,
-      ...motion.layout,
-      "@media": {
-        "(prefers-reduced-motion: reduce)": motion.still,
-      },
-    },
-  },
-});
-
-export const aside = style({
-  "@layer": {
-    [baseLayer]: {
-      gridArea: "aside",
-      position: "sticky",
-      insetBlockStart: headHeight,
-      alignSelf: "start",
-      blockSize: `calc(100dvh - ${headHeight})`,
-      overflowY: "auto",
-      borderInlineStart: `1px solid ${vars.color.border.subtle}`,
-      background: vars.color.surface.raised,
-    },
-  },
-});
-
 export const main = style({
   "@layer": {
     [baseLayer]: {
@@ -88,19 +34,6 @@ export const main = style({
       selectors: {
         "&[data-padded='true']": { padding: vars.space.lg },
       },
-    },
-  },
-});
-
-export const footer = style({
-  "@layer": {
-    [baseLayer]: {
-      gridArea: "footer",
-      paddingInline: vars.space.md,
-      paddingBlock: vars.space.sm,
-      borderBlockStart: `1px solid ${vars.color.border.subtle}`,
-      background: vars.color.surface.raised,
-      minWidth: 0,
     },
   },
 });
@@ -229,7 +162,8 @@ export const sectionHeader = style({
       blockSize: chromeHeight,
       paddingInline: vars.space.lg,
       minWidth: 0,
-      borderBlockEnd: `1px solid ${vars.glass.default.borderColor}`,
+      borderBlock: `1px solid ${vars.glass.default.borderColor}`,
+      borderInline: "none",
     },
   },
 });
@@ -238,7 +172,7 @@ export const sectionSub = style({
   "@layer": {
     [baseLayer]: {
       paddingInline: vars.space.lg,
-      paddingBlock: vars.space.xs,
+      paddingBlock: vars.space.sm,
       borderBlockEnd: `1px solid ${vars.glass.control.borderColor}`,
       minWidth: 0,
     },
@@ -248,5 +182,67 @@ export const sectionSub = style({
 export const content = style({
   "@layer": {
     [baseLayer]: { padding: vars.space.lg, minWidth: 0 },
+  },
+});
+
+/** Las regiones heredadas son partes: traen su semántica y su área de la rejilla. */
+export const navbar = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "nav",
+      position: "sticky",
+      insetBlockStart: headHeight,
+      alignSelf: "start",
+      blockSize: `calc(100dvh - ${headHeight})`,
+      overflowY: "auto",
+      overflowX: "hidden",
+      minWidth: 0,
+      borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
+      ...motion.layout,
+      "@media": { "(prefers-reduced-motion: reduce)": motion.still },
+    },
+  },
+});
+
+export const asideRegion = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "aside",
+      position: "sticky",
+      insetBlockStart: headHeight,
+      alignSelf: "start",
+      blockSize: `calc(100dvh - ${headHeight})`,
+      overflowY: "auto",
+      minWidth: 0,
+      borderInlineStart: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+export const footer = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "footer",
+      boxSizing: "border-box",
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.sm,
+      paddingInline: vars.space.lg,
+      paddingBlock: vars.space.sm,
+      minWidth: 0,
+      borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+/** La cabecera vale en los dos montajes: como región de la rejilla o dentro de una sección. */
+export const headerSticky = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "header",
+      position: "sticky",
+      insetBlockStart: 0,
+      zIndex: vars.zIndex.sticky,
+    },
   },
 });

@@ -93,18 +93,22 @@ function InShell(): ReactElement {
     <AppShell
       headerHeight={72}
       header={
-        <Header
-          title="Conciliación"
-          subtitle="Cierre de marzo"
-          rightSection={<Button size="sm">Exportar</Button>}
-        />
+        <AppShell.Header sticky>
+          <Header
+            title="Conciliación"
+            subtitle="Cierre de marzo"
+            rightSection={<Button size="sm">Exportar</Button>}
+          />
+        </AppShell.Header>
       }
       navbar={
-        <Box p="sm" display="flex" direction="column" gap="xxs">
-          <NavLink label="Inicio" href="#" active />
-          <NavLink label="Movimientos" href="#" />
-          <NavLink label="Reportes" href="#" />
-        </Box>
+        <AppShell.Nav aria-label="Navegación principal">
+          <Box p="sm" display="flex" direction="column" gap="xxs">
+            <NavLink label="Inicio" href="#" active />
+            <NavLink label="Movimientos" href="#" />
+            <NavLink label="Reportes" href="#" />
+          </Box>
+        </AppShell.Nav>
       }
     >
       <SimpleGrid cols={{ base: 1, tablet: 2 }} spacing="md">

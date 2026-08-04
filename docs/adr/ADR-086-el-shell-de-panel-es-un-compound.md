@@ -22,27 +22,38 @@ el patrón**. Una story que reimplementa un componente es un hallazgo, no una so
 `AppShell` gana un **modo carril** y las partes que lo componen:
 
 ```tsx
-<AppShell.Rail sidebar={<AppShell.Sidebar top={…} bottom={…}>{nav}</AppShell.Sidebar>}>
+<AppShell sidebar={<AppShell.Sidebar top={…} bottom={…}>{nav}</AppShell.Sidebar>}>
   <AppShell.Section>
     <AppShell.Header title=… subtitle=… actions=… />
     <AppShell.Subbar>{breadcrumbs}</AppShell.Subbar>
     <AppShell.Content>{cards}</AppShell.Content>
   </AppShell.Section>
-</AppShell.Rail>
+</AppShell>
 ```
 
 | Parte     | Qué es                                                                      |
 | --------- | --------------------------------------------------------------------------- |
-| `Rail`    | Rejilla `"rail main"` a `100dvh`, con `backdrop` para la capa decorativa    |
 | `Sidebar` | `<aside>` a altura completa, con ranuras `top` y `bottom` a altura de cromo |
+| `Nav`     | `<nav>` de región; lee el colapsado del contexto para su `inert`            |
+| `Aside`   | `<aside>` de región                                                         |
+| `Footer`  | `<footer>` de región                                                        |
 | `Section` | `<section>` **sin padding**                                                 |
 | `Header`  | `<header>` a altura de cromo, cristal `default`, cierra por abajo           |
 | `Subbar`  | Franja bajo la cabecera, cristal `control` — el más suave                   |
 | `Content` | El único que pone padding                                                   |
 
-**El modo anterior no se toca.** `AppShell` con `header`/`navbar` sigue siendo el mismo componente y
-la misma rejilla; el carril entra como `AppShell.Rail`. Dos rejillas en un componente serían una
-trampa, pero son dos anatomías distintas de shell y cada una tiene su punto de entrada.
+**Hay un solo root.** `AppShell` elige rejilla según reciba `sidebar` o no, y **deja de envolver sus
+ranuras**: antes metía `{header}` dentro de un `<header>` suyo, lo que obligaba a que toda la
+personalización pasara por props del root y dejaba fuera cualquier montaje no previsto —el del carril,
+sin ir más lejos—. Ahora el root solo coloca, y la semántica y el estilo los pone la parte, así que
+una misma parte vale en los dos montajes.
+
+El precio es explícito: pasar un `<span>` crudo a `navbar` ya no produce un `<nav>`. Las dos stories
+que lo hacían y los tests de landmarks se migran a las partes.
+
+`inert` no es CSS, así que el estado colapsado viaja por contexto: el root publica
+`{ collapsed, navigationLabel, complementaryLabel }` y `Nav` y `Aside` lo leen. Sin eso, la parte no
+podría ser autónoma sin que el consumidor reenviara el estado a mano.
 
 ### Tres decisiones que el render obligó
 
@@ -61,5 +72,5 @@ trampa, pero son dos anatomías distintas de shell y cada una tiene su punto de 
 - La story del panel pasa de construir el shell a consumirlo. Lo que queda en ella es composición de
   producto —qué va en cada ranura—, que es lo que una story debe demostrar.
 - El sidebar por defecto mide **336 px** y el cromo **72 px**, ambos configurables.
-- `AppShell.Rail` fija `100dvh` y desplaza en `main`, que es lo que un panel necesita y lo contrario
-  de lo que hace el modo con `header`, pensado para páginas que crecen.
+- El montaje de carril fija `100dvh` y desplaza en `main`, que es lo que un panel necesita y lo
+  contrario de lo que hace el de regiones, pensado para páginas que crecen.

@@ -49,33 +49,41 @@ function Shell(): ReactElement {
       navbarOpened={opened}
       onNavbarChange={set_opened}
       header={
-        <>
-          <Burger opened={opened} onChange={set_opened} size="sm" />
-          <Text fz="body1" fw="semibold">
-            Conciliación
-          </Text>
-        </>
+        <AppShell.Header sticky>
+          <Box display="flex" align="center" gap="sm">
+            <Burger opened={opened} onChange={set_opened} size="sm" />
+            <Text fz="body1" fw="semibold">
+              Conciliación
+            </Text>
+          </Box>
+        </AppShell.Header>
       }
       navbar={
-        <Box p="sm" display="flex" direction="column" gap="xxs">
-          <NavLink label="Inicio" href="#" active />
-          <NavLink label="Movimientos" href="#" />
-          <NavLink label="Reportes" href="#" />
-          <NavLink label="Ajustes" href="#" />
-        </Box>
+        <AppShell.Nav aria-label="Navegación principal">
+          <Box p="sm" display="flex" direction="column" gap="xxs">
+            <NavLink label="Inicio" href="#" active />
+            <NavLink label="Movimientos" href="#" />
+            <NavLink label="Reportes" href="#" />
+            <NavLink label="Ajustes" href="#" />
+          </Box>
+        </AppShell.Nav>
       }
       aside={
-        <Box p="md" display="flex" direction="column" gap="sm">
-          <Title order={3}>Resumen</Title>
-          <Text fz="body3" c="text.secondary">
-            4 movimientos pendientes de conciliar.
-          </Text>
-        </Box>
+        <AppShell.Aside aria-label="Resumen">
+          <Box p="md" display="flex" direction="column" gap="sm">
+            <Title order={3}>Resumen</Title>
+            <Text fz="body3" c="text.secondary">
+              4 movimientos pendientes de conciliar.
+            </Text>
+          </Box>
+        </AppShell.Aside>
       }
       footer={
-        <Text fz="caption" c="text.muted">
-          Nebula · panel de conciliación
-        </Text>
+        <AppShell.Footer>
+          <Text fz="caption" c="text.muted">
+            Nebula · panel de conciliación
+          </Text>
+        </AppShell.Footer>
       }
     >
       <Section

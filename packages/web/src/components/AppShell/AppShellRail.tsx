@@ -9,6 +9,7 @@ import { Text } from "../Text/Text.js";
 import { Title } from "../Title/Title.js";
 import { GlassSurface } from "../GlassSurface/GlassSurface.js";
 
+import { useAppShell } from "./AppShellContext.js";
 import * as styles from "./AppShell.css.js";
 import { chromeHeight, railWidth } from "./AppShell.css.js";
 import type {
@@ -16,6 +17,8 @@ import type {
   AppShellHeaderProps,
   AppShellRailProps,
   AppShellSectionProps,
+  AppShellFooterProps,
+  AppShellNavProps,
   AppShellSidebarProps,
   AppShellSubbarProps,
 } from "./AppShell.types.js";
@@ -26,8 +29,8 @@ const DEFAULT_LABELS = {
   complementary: "Complementario",
 };
 
-const SIDEBAR_WIDTH = 336;
-const CHROME_HEIGHT = 72;
+export const SIDEBAR_WIDTH = 336;
+export const CHROME_HEIGHT = 80;
 
 export function AppShellRail(props: AppShellRailProps): ReactElement {
   const {
@@ -103,23 +106,32 @@ export function AppShellSection(props: AppShellSectionProps): ReactElement {
 }
 
 export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
-  const { title, subtitle, order = 2, actions, children, level = "default", className } = props;
+  const {
+    title,
+    subtitle,
+    order = 2,
+    actions,
+    children,
+    level = "default",
+    sticky = false,
+    className,
+  } = props;
   return (
     <GlassSurface
       component="header"
       level={level}
       radius={0}
-      className={cx(styles.sectionHeader, className)}
+      className={cx(styles.sectionHeader, sticky && styles.headerSticky, className)}
     >
       {children ?? (
         <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
           {title === undefined ? null : (
-            <Title order={order} fz="h5">
+            <Title order={order} fz="h6">
               {title}
             </Title>
           )}
           {subtitle === undefined ? null : (
-            <Text fz="body3" c="text.secondary">
+            <Text fz="body2" c="text.secondary">
               {subtitle}
             </Text>
           )}
@@ -146,5 +158,54 @@ export function AppShellContent(props: AppShellContentProps): ReactElement {
     <div className={cx(styles.content, sprinkle_class, className)} style={style} {...rest}>
       {children}
     </div>
+  );
+}
+
+export function AppShellNav(props: AppShellNavProps): ReactElement {
+  const { children, level = "subtle", className, ...rest } = props;
+  const shell = useAppShell();
+  return (
+    <GlassSurface
+      component="nav"
+      level={level}
+      radius={0}
+      className={cx(styles.navbar, className)}
+      aria-label={shell.navigationLabel}
+      {...(shell.collapsed ? { inert: true } : {})}
+      {...rest}
+    >
+      {children}
+    </GlassSurface>
+  );
+}
+
+export function AppShellAside(props: AppShellNavProps): ReactElement {
+  const { children, level = "subtle", className, ...rest } = props;
+  const shell = useAppShell();
+  return (
+    <GlassSurface
+      component="aside"
+      aria-label={shell.complementaryLabel}
+      level={level}
+      radius={0}
+      className={cx(styles.asideRegion, className)}
+      {...rest}
+    >
+      {children}
+    </GlassSurface>
+  );
+}
+
+export function AppShellFooter(props: AppShellFooterProps): ReactElement {
+  const { children, level = "default", className } = props;
+  return (
+    <GlassSurface
+      component="footer"
+      level={level}
+      radius={0}
+      className={cx(styles.footer, className)}
+    >
+      {children}
+    </GlassSurface>
   );
 }

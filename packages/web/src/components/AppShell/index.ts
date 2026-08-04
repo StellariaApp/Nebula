@@ -1,26 +1,32 @@
 import { AppShell as AppShellRoot } from "./AppShell.js";
 import {
+  AppShellAside,
   AppShellContent,
+  AppShellFooter,
   AppShellHeader,
-  AppShellRail,
+  AppShellNav,
   AppShellSection,
   AppShellSidebar,
   AppShellSubbar,
 } from "./AppShellRail.js";
 
 export const AppShell = Object.assign(AppShellRoot, {
-  Rail: AppShellRail,
   Sidebar: AppShellSidebar,
+  Nav: AppShellNav,
+  Aside: AppShellAside,
   Section: AppShellSection,
   Header: AppShellHeader,
   Subbar: AppShellSubbar,
   Content: AppShellContent,
+  Footer: AppShellFooter,
 });
 
 export {
+  AppShellAside,
   AppShellContent,
+  AppShellFooter,
   AppShellHeader,
-  AppShellRail,
+  AppShellNav,
   AppShellSection,
   AppShellSidebar,
   AppShellSubbar,
@@ -30,7 +36,8 @@ export type {
   AppShellHeaderProps,
   AppShellLabels,
   AppShellProps,
-  AppShellRailProps,
+  AppShellFooterProps,
+  AppShellNavProps,
   AppShellSectionProps,
   AppShellSidebarProps,
   AppShellSubbarProps,

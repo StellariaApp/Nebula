@@ -3,18 +3,18 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { Panel } from "../../Panel/Panel.js";
-import { AppShell } from "../AppShell.js";
+import { AppShell } from "../index.js";
 
 afterEach(cleanup);
 
 describe("AppShell", () => {
-  it("expone los cinco landmarks cuando se le dan las cinco regiones", () => {
+  it("expone los cinco landmarks cuando se le dan las cinco partes", () => {
     render(
       <AppShell
-        header={<span>cabecera</span>}
-        navbar={<span>navegación</span>}
-        aside={<span>lateral</span>}
-        footer={<span>pie</span>}
+        header={<AppShell.Header>cabecera</AppShell.Header>}
+        navbar={<AppShell.Nav>navegación</AppShell.Nav>}
+        aside={<AppShell.Aside>lateral</AppShell.Aside>}
+        footer={<AppShell.Footer>pie</AppShell.Footer>}
       >
         contenido
       </AppShell>,
@@ -51,7 +51,14 @@ describe("AppShell", () => {
 
   it("la navbar colapsada queda inerte, no solo estrecha", () => {
     render(
-      <AppShell navbar={<a href="/x">Inicio</a>} navbarOpened={false}>
+      <AppShell
+        navbar={
+          <AppShell.Nav>
+            <a href="/x">Inicio</a>
+          </AppShell.Nav>
+        }
+        navbarOpened={false}
+      >
         contenido
       </AppShell>,
     );
@@ -61,7 +68,14 @@ describe("AppShell", () => {
 
   it("abierta no está inerte", () => {
     render(
-      <AppShell navbar={<a href="/x">Inicio</a>} navbarOpened>
+      <AppShell
+        navbar={
+          <AppShell.Nav>
+            <a href="/x">Inicio</a>
+          </AppShell.Nav>
+        }
+        navbarOpened
+      >
         contenido
       </AppShell>,
     );

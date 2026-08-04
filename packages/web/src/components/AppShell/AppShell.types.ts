@@ -28,6 +28,12 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   labels?: Partial<AppShellLabels> | undefined;
   contentId?: string | undefined;
   className?: string | undefined;
+  /** Barra a altura completa. Su presencia cambia el shell al montaje de carril. */
+  sidebar?: ReactNode | undefined;
+  /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
+  backdrop?: ReactNode | undefined;
+  sidebarWidth?: number | undefined;
+  chromeHeight?: number | undefined;
 }
 
 export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" | "background"> {
@@ -64,6 +70,21 @@ export interface AppShellHeaderProps {
   subtitle?: ReactNode | undefined;
   order?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
   actions?: ReactNode | undefined;
+  children?: ReactNode | undefined;
+  level?: GlassLevel | undefined;
+  /** En el montaje con rejilla, la cabecera se pega arriba y toma su área. */
+  sticky?: boolean | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellNavProps {
+  children?: ReactNode | undefined;
+  level?: GlassLevel | undefined;
+  className?: string | undefined;
+  "aria-label"?: string | undefined;
+}
+
+export interface AppShellFooterProps {
   children?: ReactNode | undefined;
   level?: GlassLevel | undefined;
   className?: string | undefined;
