@@ -121,7 +121,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
       component="header"
       level={level}
       radius={0}
-      className={cx(styles.sectionHeader, sticky && styles.headerSticky, className)}
+      className={cx(styles.sectionHeader, sticky && styles.stickyChrome, className)}
     >
       {children ?? (
         <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
@@ -143,9 +143,13 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
 }
 
 export function AppShellSubbar(props: AppShellSubbarProps): ReactElement {
-  const { children, level = "subtle", className } = props;
+  const { children, level = "default", sticky = false, className } = props;
   return (
-    <GlassSurface level={level} radius={0} className={cx(styles.sectionSub, className)}>
+    <GlassSurface
+      level={level}
+      radius={0}
+      className={cx(styles.sectionSub, sticky && styles.stickySub, className)}
+    >
       {children}
     </GlassSurface>
   );

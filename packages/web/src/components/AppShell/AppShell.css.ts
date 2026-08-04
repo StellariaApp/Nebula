@@ -18,7 +18,7 @@ export const shell = style({
       gridTemplateRows: `${headHeight} 1fr auto`,
       minHeight: "100dvh",
       minWidth: 0,
-      background: vars.color.surface.base,
+      background: vars.color.surface.overlay,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
     },
@@ -60,6 +60,7 @@ export const skip = style({
 });
 
 export const chromeHeight = createVar();
+export const shadowOffset = createVar();
 export const railWidth = createVar();
 
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
@@ -67,11 +68,12 @@ export const rail = style({
   "@layer": {
     [baseLayer]: {
       display: "grid",
-      gridTemplateAreas: `"rail main"`,
+      gridTemplateAreas: `"rail chrome" "rail main"`,
       gridTemplateColumns: `${railWidth} 1fr`,
+      gridTemplateRows: "auto 1fr",
       blockSize: "100dvh",
       minWidth: 0,
-      background: vars.color.surface.base,
+      background: vars.color.surface.overlay,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
       isolation: "isolate",
@@ -132,6 +134,16 @@ export const sidebarBottom = style({
     [baseLayer]: {
       marginBlockStart: "auto",
       borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
+    },
+  },
+});
+
+export const railChrome = style({
+  "@layer": {
+    [baseLayer]: {
+      gridArea: "chrome",
+      minWidth: 0,
+      zIndex: 2,
     },
   },
 });
@@ -246,10 +258,55 @@ export const footer = style({
 export const headerSticky = style({
   "@layer": {
     [baseLayer]: {
+      top: 0,
       gridArea: "header",
       position: "sticky",
       insetBlockStart: 0,
       zIndex: vars.zIndex.sticky,
+    },
+  },
+});
+
+export const stickyChrome = style({
+  "@layer": {
+    [baseLayer]: {
+      top: 0,
+      position: "sticky",
+      zIndex: vars.zIndex.sticky,
+    },
+  },
+});
+
+/** La subbarra se apila justo debajo de la cabecera, no encima de ella. */
+export const stickySub = style({
+  "@layer": {
+    [baseLayer]: {
+      top: 0,
+      position: "sticky",
+      insetBlockStart: chromeHeight,
+      zIndex: `calc(${vars.zIndex.sticky} - 1)`,
+    },
+  },
+});
+
+export const scrollShadow = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "sticky",
+      insetBlockStart: shadowOffset,
+      zIndex: `calc(${vars.zIndex.sticky} - 2)`,
+      blockSize: 0,
+      overflow: "visible",
+      pointerEvents: "none",
+      selectors: {
+        "&::after": {
+          content: "",
+          display: "block",
+          blockSize: "24px",
+          background: `linear-gradient(to bottom, ${vars.glass.strong.background}, transparent)`,
+          opacity: 0.6,
+        },
+      },
     },
   },
 });

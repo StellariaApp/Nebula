@@ -117,7 +117,7 @@ export const thumb = style({
       border: `1px solid ${vars.color.border.subtle}`,
       borderRadius: vars.radius.xs,
       overflow: "hidden",
-      background: vars.color.surface.raised,
+      background: vars.color.surface.sunken,
       cursor: "pointer",
       selectors: {
         "&[aria-current='true']": { borderColor: vars.color.border.focus, borderWidth: 2 },

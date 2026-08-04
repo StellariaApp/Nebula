@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { asideWidth as aside_var, headHeight, navWidth } from "./AppShell.css.js";
 import * as styles from "./AppShell.css.js";
 import { AppShellContext } from "./AppShellContext.js";
-import { chromeHeight, railWidth } from "./AppShell.css.js";
+import { chromeHeight, railWidth, shadowOffset } from "./AppShell.css.js";
 import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./AppShellRail.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
@@ -32,6 +32,8 @@ export function AppShell(props: AppShellProps): ReactElement {
     sidebarWidth = SIDEBAR_WIDTH,
     chromeHeight: chrome = CHROME_HEIGHT,
     mainRef,
+    scrollShadow = true,
+    scrollShadowOffset = 0,
     navbarOpened,
     defaultNavbarOpened = true,
     onNavbarChange,
@@ -71,6 +73,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     [headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
     [railWidth]: `${String(sidebarWidth)}px`,
     [chromeHeight]: `${String(chrome)}px`,
+    [shadowOffset]: `${String(scrollShadowOffset)}px`,
   });
 
   if (railed) {
@@ -85,7 +88,9 @@ export function AppShell(props: AppShellProps): ReactElement {
           </a>
           {backdrop}
           {sidebar}
+          {header === undefined ? null : <div className={styles.railChrome}>{header}</div>}
           <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.railMain}>
+            {scrollShadow ? <div className={styles.scrollShadow} aria-hidden="true" /> : null}
             {children}
           </main>
         </div>

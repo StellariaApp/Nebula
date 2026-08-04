@@ -115,7 +115,7 @@ export const card = style({
       padding: vars.space.sm,
       boxSizing: "border-box",
       borderRadius: vars.radius.md,
-      background: vars.color.surface.raised,
+      background: vars.color.surface.sunken,
       border: `1px solid ${vars.color.border.subtle}`,
       boxShadow: vars.shadow.xxs,
     },

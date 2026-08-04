@@ -48,7 +48,7 @@ function TrackVars(
   color: NonNullable<ProgressProps["color"]>,
   theme: NebulaTheme,
 ): Track {
-  if (variant === undefined) return { vars: {}, stroke: vars.color.surface.sunken };
+  if (variant === undefined) return { vars: {}, stroke: vars.color.surface.raised };
   const resolved = ResolveVariant(variant, color, theme);
   return {
     vars: assignInlineVars({

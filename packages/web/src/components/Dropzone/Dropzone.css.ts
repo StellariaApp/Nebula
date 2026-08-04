@@ -32,7 +32,7 @@ export const zone = style({
       padding: vars.space.lg,
       textAlign: "center",
       fontFamily: vars.font.family.sans,
-      background: vars.color.surface.raised,
+      background: vars.color.surface.sunken,
       color: vars.color.text.secondary,
       borderWidth: 1,
       borderStyle: "dashed",

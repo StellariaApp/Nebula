@@ -10,7 +10,6 @@ export const gradientBackground = recipe({
   base: {
     "@layer": {
       [baseLayer]: {
-        position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
         backgroundImage: gradientImage,

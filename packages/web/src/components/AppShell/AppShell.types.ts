@@ -36,6 +36,10 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   chromeHeight?: number | undefined;
   /** El `main` es quien desplaza en el carril; se expone para engancharle un fondo con parallax. */
   mainRef?: RefObject<HTMLElement | null> | undefined;
+  /** Vela de sombra al inicio del área que desplaza; aparece bajo el cromado, no sobre él. */
+  scrollShadow?: boolean | undefined;
+  /** Desde qué altura se pega la vela: sirve para dejarla bajo un cromado pegajoso. */
+  scrollShadowOffset?: number | undefined;
 }
 
 export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" | "background"> {
@@ -95,6 +99,8 @@ export interface AppShellFooterProps {
 export interface AppShellSubbarProps {
   children: ReactNode;
   level?: GlassLevel | undefined;
+  /** Se queda pegada justo debajo de la cabecera al desplazar. */
+  sticky?: boolean | undefined;
   className?: string | undefined;
 }
 

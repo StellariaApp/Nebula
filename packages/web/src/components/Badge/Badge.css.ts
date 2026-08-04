@@ -17,7 +17,7 @@ export const badge = recipe({
         boxSizing: "border-box",
         fontFamily: vars.font.family.sans,
         fontWeight: vars.font.weight.semibold,
-        lineHeight: vars.font.lineHeight.tight,
+        lineHeight: "100%",
         whiteSpace: "nowrap",
         background: bg,
         color: fg,
@@ -31,7 +31,7 @@ export const badge = recipe({
     size: {
       xs: {
         height: vars.size.compact.xs,
-        paddingInline: vars.space.xs,
+        paddingInline: vars.space.sm,
         fontSize: vars.font.size.caption,
       },
       sm: {

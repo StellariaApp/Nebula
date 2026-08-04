@@ -70,8 +70,7 @@ export const th = style({
       position: "relative",
       textAlign: "start",
       whiteSpace: "nowrap",
-      paddingInline: vars.space.sm,
-      paddingBlock: vars.space.xs,
+      padding: vars.space.sm,
       fontWeight: vars.font.weight.semibold,
       color: vars.color.text.primary,
       borderBlockEnd: `1px solid ${vars.color.border.default}`,
@@ -117,6 +116,7 @@ export const td = style({
 export const row = style({
   "@layer": {
     [baseLayer]: {
+      background: vars.color.surface.raised,
       selectors: {
         "&[data-selected='true']": { background: vars.color.surface.active },
         "&[data-clickable='true']": { cursor: "pointer" },
@@ -174,7 +174,7 @@ export const toolbar = style({
       gap: vars.space.sm,
       padding: vars.space.sm,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
-      background: vars.color.surface.base,
+      background: vars.color.surface.sunken,
     },
   },
 });
@@ -239,7 +239,7 @@ export const panel = style({
     [baseLayer]: {
       padding: vars.space.sm,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
-      background: vars.color.surface.sunken,
+      background: vars.color.surface.raised,
     },
   },
 });

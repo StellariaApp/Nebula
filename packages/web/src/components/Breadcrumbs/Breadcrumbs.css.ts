@@ -47,6 +47,7 @@ export const link = style({
       textDecoration: "none",
       cursor: "pointer",
       font: "inherit",
+      fontWeight: vars.font.weight.semibold,
       ...interaction,
       selectors: {
         "&:hover": { color: vars.color.text.primary, textDecoration: "underline" },
@@ -64,8 +65,8 @@ export const current = style({
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
-      color: vars.color.text.primary,
-      fontWeight: vars.font.weight.medium,
+      color: vars.color.primary[500],
+      fontWeight: vars.font.weight.semibold,
     },
   },
 });
@@ -73,6 +74,7 @@ export const current = style({
 export const separator = style({
   "@layer": {
     [baseLayer]: {
+      fontWeight: vars.font.weight.medium,
       color: vars.color.text.muted,
       userSelect: "none",
     },

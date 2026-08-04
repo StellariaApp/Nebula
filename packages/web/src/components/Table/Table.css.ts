@@ -67,7 +67,7 @@ export const row = style({
     [baseLayer]: {
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
-      borderBottomColor: vars.color.border.subtle,
+      borderBottomColor: vars.color.border.default,
       ...motion.interaction,
       ...motion.reducedMotion,
       selectors: {

@@ -20,9 +20,9 @@ export const inputRow = style({
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
-      paddingInline: vars.space.md,
-      paddingBlock: vars.space.sm,
-      borderBlockEnd: `1px solid ${vars.color.border.subtle}`,
+      padding: vars.space.md,
+      backgroundColor: vars.color.surface.base,
+      borderBlockEnd: `1px solid ${vars.color.border.default}`,
     },
   },
 });
@@ -78,8 +78,7 @@ export const group = style({
 export const groupLabel = style({
   "@layer": {
     [baseLayer]: {
-      paddingInline: vars.space.sm,
-      paddingBlock: vars.space.xs,
+      padding: vars.space.sm,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
@@ -98,6 +97,7 @@ export const option = style({
       gap: vars.space.sm,
       paddingInline: vars.space.sm,
       paddingBlock: vars.space.xs,
+      minHeight: 42,
       borderRadius: vars.radius.sm,
       cursor: "pointer",
       color: vars.color.text.primary,

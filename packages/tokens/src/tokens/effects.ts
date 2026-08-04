@@ -26,17 +26,17 @@ export const glass = {
     },
     subtle: {
       background: "rgba(255, 255, 255, 0.38)",
-      border: "1px solid rgba(255, 255, 255, 0.24)",
+      border: "1px solid rgba(15, 17, 25, 0.05)",
       backdropFilter: `blur(${blur.sm}) saturate(130%)`,
     },
     default: {
       background: "rgba(255, 255, 255, 0.48)",
-      border: "1px solid rgba(255, 255, 255, 0.28)",
+      border: "1px solid rgba(15, 17, 25, 0.06)",
       backdropFilter: `blur(${blur.lg}) saturate(140%)`,
     },
     strong: {
       background: "rgba(255, 255, 255, 0.58)",
-      border: "1px solid rgba(255, 255, 255, 0.34)",
+      border: "1px solid rgba(15, 17, 25, 0.08)",
       backdropFilter: `blur(${blur.xl}) saturate(140%)`,
     },
   } satisfies Record<GlassLevel, GlassSurfaceRecipe>,

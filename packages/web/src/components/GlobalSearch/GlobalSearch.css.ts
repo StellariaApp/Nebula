@@ -21,7 +21,7 @@ export const trigger = style({
       cursor: "pointer",
       ...interaction,
       selectors: {
-        "&:hover": { borderColor: vars.color.border.strong, color: vars.color.text.secondary },
+        "&:hover": { borderColor: vars.color.border.default, color: vars.color.text.secondary },
         "&:focus-visible": { ...focus.ring },
       },
       "@media": { [reducedMedia]: still },
@@ -50,8 +50,9 @@ export const searchRow = style({
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
-      padding: vars.space.sm,
-      borderBottom: `1px solid ${vars.color.border.subtle}`,
+      padding: vars.space.md,
+      backgroundColor: vars.color.surface.base,
+      borderBottom: `1px solid ${vars.color.border.default}`,
     },
   },
 });
@@ -79,6 +80,7 @@ export const list = style({
     [baseLayer]: {
       margin: 0,
       padding: vars.space.xxs,
+      background: vars.color.surface.sunken,
       listStyle: "none",
       maxHeight: "min(60vh, 24rem)",
       overflowY: "auto",
@@ -109,6 +111,7 @@ export const option = style({
       borderRadius: vars.radius.sm,
       color: vars.color.text.primary,
       cursor: "pointer",
+      background: vars.color.surface.sunken,
       ...interaction,
       selectors: {
         "&[data-active='true']": { background: vars.color.surface.hover },

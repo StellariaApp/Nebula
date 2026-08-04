@@ -12,7 +12,6 @@ export const glassSurface = recipe({
   base: {
     "@layer": {
       [baseLayer]: {
-        position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
         background: bg,

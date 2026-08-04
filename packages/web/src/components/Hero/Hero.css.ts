@@ -3,7 +3,6 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
-
 import * as variables from "./Hero.vars.css.js";
 
 export const hero = style({
