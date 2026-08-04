@@ -40,7 +40,12 @@ export const root = style({
           background: activeBg,
           color: accent,
         },
-        "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
+        "&[data-disabled='true']": {
+          cursor: "not-allowed",
+          color: vars.color.text.disabled,
+          background: vars.glass.control.background,
+          backdropFilter: vars.glass.control.backdropFilter,
+        },
         "&:focus-visible": {
           ...focus.ring,
         },

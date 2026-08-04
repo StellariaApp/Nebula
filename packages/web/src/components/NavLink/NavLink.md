@@ -62,3 +62,20 @@ correcto; diferenciarlo es una decisión de diseño pendiente.
 Era el mismo defecto de la causa (a) de `docs/reviews/visual-calibration-2026-07-28.md`, que en dark
 deja el hover a 1.01 contra el canvas —invisible—. El censo de aquella sesión encontró Accordion y
 Pagination y **se saltó NavLink**. Ahora usa `surface.hover` (ADR-044) como los otros dos.
+
+## El deshabilitado tiene superficie propia
+
+Antes solo cambiaba el cursor y el color, así que en una barra lateral quedaba como un hueco: se leía
+igual que el espacio entre enlaces y no como un elemento que existe pero no se puede usar.
+
+Ahora toma la receta de cristal `control` —la más suave que sigue leyéndose como material— que en
+dark es un velo blanco al 3 % y en claro un tinte oscuro al 2 %. En los dos casos el resultado es el
+mismo gesto: **hundido**, no apagado.
+
+El color pasa de `text.muted` a `text.disabled`, que es el rol que le corresponde. Medido en la barra
+del panel: `rgb(58, 64, 71)` en dark y `rgb(153, 159, 166)` en claro, contra los `192,197,202` y
+`44,49,54` de un enlace normal. La diferencia se ve sin competir con el activo, que sigue siendo el
+único con tinte de marca.
+
+WCAG 1.4.3 exime a los controles deshabilitados del mínimo de contraste, así que el gate no lo mide;
+la decisión es de legibilidad, no de cumplimiento.
