@@ -59,6 +59,26 @@ mismos 54 px mientras el contenido recorre 1200, que es el 4.5 % que los factore
 La consecuencia a tener presente es de composición: **un `StarField` con `parallax` es un fondo de
 página**, no un fondo de región. Para teñir solo una banda, el campo va sin `parallax`.
 
+### `scroller`: en un panel no desplaza la página
+
+`parallax` escucha el scroll de `window`, que es lo correcto en una landing y **inútil en un panel**:
+ahí quien desplaza es un elemento. Medido sobre `Patterns/Dashboard`, al mover el contenido
+`main.scrollTop` llega a 343 mientras `window.scrollY` se queda en 0 y el documento ni siquiera es
+desplazable — el listener no se disparaba nunca.
+
+`scroller` toma la ref del contenedor que sí desplaza y el campo lee su `scrollTop`:
+
+```tsx
+const scroller = useRef<HTMLElement | null>(null);
+<AppShell mainRef={scroller} backdrop={<StarField fixed parallax scroller={scroller} />} … />
+```
+
+Medido con eso puesto: a 100, 200, 300 y 400 de scroll las capas van a 1.8/4.5, 3.6/9, 5.4/13.5 y
+7.2/18 px, que son los factores 0.018 y 0.045 exactos.
+
+No se detecta el contenedor solo: el campo es hermano del que desplaza, no su descendiente, así que
+no hay ancestro que recorrer. La ref es explícita a propósito.
+
 ## Colores
 
 `color` tiñe retícula y estrellas (6 % la retícula, 70 % las estrellas) y `accentColor` marca una de

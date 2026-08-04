@@ -31,6 +31,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     backdrop,
     sidebarWidth = SIDEBAR_WIDTH,
     chromeHeight: chrome = CHROME_HEIGHT,
+    mainRef,
     navbarOpened,
     defaultNavbarOpened = true,
     onNavbarChange,
@@ -84,7 +85,7 @@ export function AppShell(props: AppShellProps): ReactElement {
           </a>
           {backdrop}
           {sidebar}
-          <main id={content_id} tabIndex={-1} className={styles.railMain}>
+          <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.railMain}>
             {children}
           </main>
         </div>

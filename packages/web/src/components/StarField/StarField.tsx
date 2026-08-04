@@ -37,6 +37,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     fade = true,
     twinkle = true,
     parallax = false,
+    scroller,
     color = "text.primary",
     accentColor: accent = "accent.400",
     accentEvery = 5,
@@ -60,11 +61,14 @@ export function StarField(props: StarFieldProps): ReactElement {
     if (typeof window === "undefined") return;
     if (window.matchMedia(REDUCED).matches) return;
 
+    const node = scroller?.current ?? null;
+    const target: Window | HTMLElement = node ?? window;
+
     let frame = 0;
     const OnScroll = (): void => {
       if (frame !== 0) return;
       frame = window.requestAnimationFrame(() => {
-        const offset = window.scrollY;
+        const offset = node === null ? window.scrollY : node.scrollTop;
         if (grid_ref.current !== null) {
           grid_ref.current.style.transform = `translate3d(0, ${String(offset * GRID_DRIFT)}px, 0)`;
         }
@@ -76,12 +80,12 @@ export function StarField(props: StarFieldProps): ReactElement {
     };
 
     OnScroll();
-    window.addEventListener("scroll", OnScroll, { passive: true });
+    target.addEventListener("scroll", OnScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", OnScroll);
+      target.removeEventListener("scroll", OnScroll);
       if (frame !== 0) window.cancelAnimationFrame(frame);
     };
-  }, [parallax, animated]);
+  }, [parallax, animated, scroller]);
 
   const base = ResolveAccent(color, "400");
   const tint = ResolveAccent(accent, "400");

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
 
 import type { GlassLevel } from "@stellaria/nebula-tokens";
 
@@ -34,6 +34,8 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   backdrop?: ReactNode | undefined;
   sidebarWidth?: number | undefined;
   chromeHeight?: number | undefined;
+  /** El `main` es quien desplaza en el carril; se expone para engancharle un fondo con parallax. */
+  mainRef?: RefObject<HTMLElement | null> | undefined;
 }
 
 export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" | "background"> {

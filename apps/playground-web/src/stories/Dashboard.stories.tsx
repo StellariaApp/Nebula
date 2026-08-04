@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ReactElement, ReactNode } from "react";
+import { useRef, type ReactElement, type ReactNode } from "react";
 
 import { CreateIcons, type IconComponentProps } from "@stellaria/nebula-icons";
 import { CommonPack } from "@stellaria/nebula-icons/packs";
@@ -27,6 +27,7 @@ import {
   VisuallyHidden,
   type BreadcrumbItem,
   type MenuItemData,
+  Flex,
 } from "@stellaria/nebula-web";
 
 const Stroke = (path: ReactNode) => {
@@ -159,9 +160,9 @@ const INVITED: Company[] = [
  * -- en claro saldria gris sobre negro -- asi que va en blanco fijo, como en las dos referencias.
  */
 const ON_CANVAS = {
-  background: "rgba(255, 255, 255, 0.14)",
-  backdropFilter: "blur(6px) saturate(120%)",
-  border: "1px solid rgba(255, 255, 255, 0.18)",
+  background: "rgba(255, 255, 255, 0.07)",
+  backdropFilter: "blur(10px) saturate(130%)",
+  border: "1px solid rgba(255, 255, 255, 0.10)",
   color: palettes.light["50"],
 } as const;
 
@@ -169,7 +170,7 @@ function Cover({ company }: { company: Company }): ReactElement {
   return (
     <Box
       position="relative"
-      h={180}
+      h={200}
       display="flex"
       align="center"
       justify="center"
@@ -226,7 +227,7 @@ function Cover({ company }: { company: Company }): ReactElement {
             trigger={
               <ActionIcon
                 variant="unstyled"
-                size="xs"
+                size="sm"
                 aria-label={SERVICE_LABEL[service]}
                 style={{ color: palettes.light["50"] }}
               >
@@ -253,7 +254,7 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
         <Cover company={company} />
       </Card.Section>
 
-      <Box p="md" display="flex" direction="column" gap="xxs">
+      <Box p="md" display="flex" direction="column" gap="none">
         <Text component="h3" fz="body1" fw="semibold">
           {company.name}
         </Text>
@@ -264,12 +265,12 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="md" py="sm" display="flex" direction="column" gap="xxs">
+      <Box p="md" display="flex" direction="column" gap="xxs">
         <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Sectores
         </Text>
         <Box>
-          <Badge variant="light" color="gray">
+          <Badge size="sm" variant="light" color="gray">
             {company.sector}
           </Badge>
         </Box>
@@ -277,12 +278,12 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="md" py="sm" display="flex" align="center" justify="space-between" gap="sm">
-        <Box display="flex" align="center" gap="xxs" c="text.muted">
+      <Box p="md" display="flex" align="center" justify="space-between" gap="sm">
+        <Box display="flex" align="center" gap="xs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.created}</Text>
         </Box>
-        <Box display="flex" align="center" gap="xxs" c="text.muted">
+        <Box display="flex" align="center" gap="xs" c="text.muted">
           <Icon name="calendar" />
           <Text fz="caption">{company.renews}</Text>
         </Box>
@@ -290,8 +291,8 @@ function CompanyCard({ company }: { company: Company }): ReactElement {
 
       <Divider />
 
-      <Box px="md" py="sm" display="flex" align="center" gap="sm">
-        <Avatar name={company.owner.name} size="md" radius="full" variant="light" color="accent" />
+      <Box p="md" display="flex" align="center" gap="sm">
+        <Avatar name={company.owner.name} size="sm" radius="full" variant="light" color="accent" />
         <Box display="flex" direction="column" miw={0}>
           <Text fz="caption" fw="semibold">
             {company.owner.name}
@@ -326,14 +327,14 @@ function NavIcon({ name, muted = false }: { name: IconName; muted?: boolean }): 
 
 function Brand(): ReactElement {
   return (
-    <>
+    <Flex w="100%" display="flex" align="center" justify="center" gap="md">
       <Box c="primary.600" display="flex">
-        <Icon name="film" size={24} />
+        <Icon name="building" size={28} />
       </Box>
-      <Text fz="body1" fw="bold" ls="wide">
-        <GradientText>THE FILM VAULT</GradientText>
+      <Text fz="h6" fw="bold" lh="tight">
+        <GradientText>Company</GradientText>
       </Text>
-    </>
+    </Flex>
   );
 }
 
@@ -361,7 +362,7 @@ function UserRow(): ReactElement {
 function SideNav(): ReactElement {
   return (
     <Box display="flex" direction="column">
-      <Box px="md" py="sm">
+      <Box px="md" pt="md">
         <GlassSurface level="control" radius="md" withBorder p="md">
           <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
             Super Administrador
@@ -375,7 +376,7 @@ function SideNav(): ReactElement {
         </GlassSurface>
       </Box>
 
-      <Box px="lg" pt="md" pb="xs" display="flex" align="center" justify="space-between">
+      <Box px="md" pt="md" pb="xs" display="flex" align="center" justify="space-between">
         <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
           Administrador
         </Text>
@@ -427,9 +428,12 @@ const TRAIL: BreadcrumbItem[] = [
 ];
 
 function CompanyBoard(): ReactElement {
+  const scroller = useRef<HTMLElement | null>(null);
+
   return (
     <AppShell
-      backdrop={<StarField fixed aurora density="sm" />}
+      mainRef={scroller}
+      backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" top={<Brand />} bottom={<UserRow />}>
           <SideNav />

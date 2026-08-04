@@ -91,6 +91,8 @@ export const sidebar = style({
       overflowX: "hidden",
       zIndex: 1,
       borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
+      borderInlineStart: "none !important",
+      borderBlock: "none !important",
     },
   },
 });
@@ -101,6 +103,7 @@ export const sidebarSlot = style({
       boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
+      width: "100%",
       gap: vars.space.sm,
       blockSize: chromeHeight,
       paddingInline: vars.space.lg,
@@ -112,7 +115,9 @@ export const sidebarSlot = style({
 
 export const sidebarTop = style({
   "@layer": {
-    [baseLayer]: { borderBlockEnd: `1px solid ${vars.glass.default.borderColor}` },
+    [baseLayer]: {
+      borderBlock: `1px solid ${vars.glass.default.borderColor}`,
+    },
   },
 });
 
@@ -163,7 +168,7 @@ export const sectionHeader = style({
       paddingInline: vars.space.lg,
       minWidth: 0,
       borderBlock: `1px solid ${vars.glass.default.borderColor}`,
-      borderInline: "none",
+      borderInline: "none !important",
     },
   },
 });
@@ -174,6 +179,8 @@ export const sectionSub = style({
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
       borderBlockEnd: `1px solid ${vars.glass.control.borderColor}`,
+      borderBlockStart: "none !important",
+      borderInline: "none !important",
       minWidth: 0,
     },
   },
