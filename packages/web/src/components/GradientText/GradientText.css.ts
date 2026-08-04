@@ -10,6 +10,8 @@ const SOLID = {
   WebkitTextFillColor: fallbackFg,
 } as const;
 
+const INK_BLEED = "0.06em";
+
 export const gradientText = style({
   "@layer": {
     [baseLayer]: {
@@ -19,6 +21,8 @@ export const gradientText = style({
       color: "transparent",
       WebkitTextFillColor: "transparent",
       textDecorationColor: fallbackFg,
+      paddingInlineEnd: INK_BLEED,
+      marginInlineEnd: `calc(-1 * ${INK_BLEED})`,
       "@supports": {
         "not ((background-clip: text) or (-webkit-background-clip: text))": SOLID,
       },

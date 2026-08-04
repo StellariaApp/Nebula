@@ -26,6 +26,21 @@ currentColor` y se pinta `CanvasText`.
 3. **Subrayado** — `text-decoration-color` se fija a `fallbackColor` porque la línea también se
    recortaría y quedaría invisible.
 
+## El sangrado del final
+
+`background-clip: text` recorta a la **caja del elemento**, no a la tinta de la glifa. El
+`letter-spacing` de CSS se añade *también después* del último carácter, así que con tracking negativo
+—`display` lleva `-0.055em`— la caja termina antes que la tinta y la última letra sale cortada. A
+68 px son casi 4 px, perfectamente visibles en un titular.
+
+`INK_BLEED` lo compensa: `padding-inline-end` alarga la caja de pintado y un `margin-inline-end`
+negativo del mismo tamaño devuelve el hueco, así que la maquetación y los saltos de línea no se
+mueven. Va en `em` para que escale con el tamaño, y a `0.06` porque cubre el tracking más apretado de
+la escala.
+
+Solo al final: el `letter-spacing` no afecta al inicio de la caja, y limitar el sangrado a un lado
+evita que un `GradientText` montado como bloque se desborde de su contenedor.
+
 ## Lo que no lleva
 
 **No hay prop `animated`.** ADR-043 punto 2 deja `AnimatedGradient` en W4 como componente propio; y
