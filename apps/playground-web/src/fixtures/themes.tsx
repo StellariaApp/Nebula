@@ -21,7 +21,8 @@ export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
   { name: "playful", label: "playful" },
 ];
 
-export type ProductName = "rosette" | "stellaria" | "lagrange";
+export type ProductName =
+  "rosette" | "stellaria" | "lagrange" | "polaris" | "aurora" | "nova" | "eclipse" | "cosmos";
 
 interface ProductSeed {
   primary: Scale11;
@@ -52,6 +53,15 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
     wash: 0.05,
     lift: -6,
   },
+  polaris: {
+    primary: palettes.cyan,
+    accent: palettes.indigo,
+    from: palettes.cyan["500"],
+    to: palettes.indigo["400"],
+    tint: palettes.cyan["800"],
+    wash: 0.05,
+    lift: -6,
+  },
   lagrange: {
     primary: palettes.orange,
     accent: palettes.rose,
@@ -60,6 +70,43 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
     tint: palettes.orange["200"],
     wash: 0.009,
     lift: 6,
+  },
+  //experimental products
+  aurora: {
+    primary: palettes.grape,
+    accent: palettes.pink,
+    from: palettes.grape["500"],
+    to: palettes.pink["400"],
+    tint: palettes.grape["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  nova: {
+    primary: palettes.cyan,
+    accent: palettes.violet,
+    from: palettes.cyan["500"],
+    to: palettes.violet["400"],
+    tint: palettes.cyan["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  eclipse: {
+    primary: palettes.blue,
+    accent: palettes.slate,
+    from: palettes.blue["500"],
+    to: palettes.slate["400"],
+    tint: palettes.blue["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  cosmos: {
+    primary: palettes.indigo,
+    accent: palettes.grape,
+    from: palettes.indigo["500"],
+    to: palettes.grape["400"],
+    tint: palettes.indigo["800"],
+    wash: 0.05,
+    lift: -6,
   },
 };
 
@@ -113,6 +160,7 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
         brand: {
           type: "linear",
           angle: 100,
+          ink: "light",
           stops: [
             { color: seed.from, position: 0 },
             { color: seed.to, position: 100 },
@@ -126,7 +174,12 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
 export const PRODUCTS: Record<ProductName, Record<"dark" | "light", NebulaTheme>> = {
   rosette: { dark: BuildProduct("rosette", "dark"), light: BuildProduct("rosette", "light") },
   stellaria: { dark: BuildProduct("stellaria", "dark"), light: BuildProduct("stellaria", "light") },
+  polaris: { dark: BuildProduct("polaris", "dark"), light: BuildProduct("polaris", "light") },
   lagrange: { dark: BuildProduct("lagrange", "dark"), light: BuildProduct("lagrange", "light") },
+  aurora: { dark: BuildProduct("aurora", "dark"), light: BuildProduct("aurora", "light") },
+  nova: { dark: BuildProduct("nova", "dark"), light: BuildProduct("nova", "light") },
+  eclipse: { dark: BuildProduct("eclipse", "dark"), light: BuildProduct("eclipse", "light") },
+  cosmos: { dark: BuildProduct("cosmos", "dark"), light: BuildProduct("cosmos", "light") },
 };
 
 export const rosette = PRODUCTS.rosette.dark;
