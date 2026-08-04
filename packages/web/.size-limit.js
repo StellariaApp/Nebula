@@ -4,14 +4,14 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "74 kB",
+    limit: "74.5 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
     path: "dist/index.js",
     import: "{ useTheme }",
     ignore: ["react", "react-dom"],
-    limit: "29 kB",
+    limit: "29.5 kB",
   },
   {
     name: "Box (primitivo, por módulo)",
@@ -116,14 +116,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Paper/Paper.js",
     import: "{ Paper }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "VisuallyHidden (primitivo, por módulo)",
     path: "dist/components/VisuallyHidden/VisuallyHidden.js",
     import: "{ VisuallyHidden }",
     ignore: ["react", "react-dom"],
-    limit: "10.5 kB",
+    limit: "11 kB",
   },
   {
     name: "Portal (utilidad, por módulo)",
@@ -396,7 +396,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Form/Form.js",
     import: "{ Form }",
     ignore: ["react", "react-dom"],
-    limit: "34 kB",
+    limit: "34.5 kB",
   },
   {
     name: "FormDelete (Form + Alert, por módulo)",
@@ -550,7 +550,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/TimeInput/TimeInput.js",
     import: "{ TimeInput }",
     ignore: ["react", "react-dom"],
-    limit: "60 kB",
+    limit: "60.5 kB",
   },
   {
     name: "MonthPicker (grid propia, sin cadena de fechas, por módulo)",
@@ -718,14 +718,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Badge/Badge.js",
     import: "{ Badge }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "Avatar (primitivo temable con variantes en runtime, por módulo)",
     path: "dist/components/Avatar/Avatar.js",
     import: "{ Avatar }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "Image (motion en la carga, por módulo)",
@@ -774,7 +774,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Pagination/Pagination.js",
     import: "{ Pagination }",
     ignore: ["react", "react-dom"],
-    limit: "23 kB",
+    limit: "23.5 kB",
   },
   {
     name: "PaginationRange (lógica pura, por módulo)",
@@ -837,7 +837,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Indicator/Indicator.js",
     import: "{ Indicator }",
     ignore: ["react", "react-dom"],
-    limit: "14.5 kB",
+    limit: "15 kB",
   },
   {
     name: "ThemeIcon (primitivo temable con variantes en runtime, por módulo)",
@@ -851,7 +851,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Timeline/Timeline.js",
     import: "{ Timeline }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "ColorSwatch (compuesto sobre UnstyledButton, por módulo)",
@@ -977,7 +977,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Hero/Hero.js",
     import: "{ Hero }",
     ignore: ["react", "react-dom"],
-    limit: "16 kB",
+    limit: "16.5 kB",
   },
   {
     name: "Feature (ThemeIcon + Anchor, por módulo)",

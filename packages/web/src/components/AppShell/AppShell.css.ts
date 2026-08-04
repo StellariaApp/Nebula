@@ -4,6 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+import { SmallerThan } from "../../theme/media.js";
 
 export const navWidth = createVar();
 export const asideWidth = createVar();
@@ -77,6 +78,12 @@ export const rail = style({
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
       isolation: "isolate",
+      "@media": {
+        [SmallerThan("tablet")]: {
+          gridTemplateAreas: `"chrome" "main"`,
+          gridTemplateColumns: "1fr",
+        },
+      },
     },
   },
 });
@@ -95,6 +102,46 @@ export const sidebar = style({
       borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
       borderInlineStart: "none !important",
       borderBlock: "none !important",
+      "@media": {
+        [SmallerThan("tablet")]: {
+          position: "fixed",
+          insetBlockStart: 0,
+          insetInlineStart: 0,
+          inlineSize: railWidth,
+          maxInlineSize: "100vw",
+          zIndex: vars.zIndex.modal,
+          transform: "translateX(-100%)",
+          transitionProperty: "transform",
+          transitionDuration: vars.motion.duration.base,
+          transitionTimingFunction: vars.motion.easing.decelerate,
+        },
+        [SmallerThan("phone")]: { inlineSize: "100vw" },
+        "(prefers-reduced-motion: reduce)": motion.still,
+      },
+    },
+  },
+});
+
+export const sidebarOpened = style({
+  "@layer": {
+    [baseLayer]: {
+      "@media": { [SmallerThan("tablet")]: { transform: "translateX(0)" } },
+    },
+  },
+});
+
+export const sidebarScrim = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "none",
+      position: "fixed",
+      inset: 0,
+      zIndex: vars.zIndex.overlay,
+      border: 0,
+      padding: 0,
+      background: vars.glass.strong.background,
+      backdropFilter: vars.glass.subtle.backdropFilter,
+      "@media": { [SmallerThan("tablet")]: { display: "block" } },
     },
   },
 });

@@ -3,6 +3,7 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+import { SmallerThan } from "../../theme/media.js";
 import * as variables from "./Hero.vars.css.js";
 
 export const hero = style({
@@ -23,6 +24,13 @@ export const hero = style({
       color: variables.fg,
       backdropFilter: variables.backdropFilter,
       fontFamily: vars.font.family.sans,
+      "@media": {
+        [SmallerThan("laptop")]: {
+          flexDirection: "column",
+          alignItems: "stretch",
+          gap: vars.space.xl,
+        },
+      },
     },
   },
 });
@@ -69,7 +77,13 @@ export const body = style({
 
 export const slot = style({
   "@layer": {
-    [baseLayer]: { position: "relative", zIndex: 1, flexShrink: 0 },
+    [baseLayer]: {
+      position: "relative",
+      zIndex: 1,
+      flexShrink: 0,
+      maxWidth: "100%",
+      "@media": { [SmallerThan("laptop")]: { flexShrink: 1, minWidth: 0 } },
+    },
   },
 });
 
@@ -192,6 +206,10 @@ export const titleSize = styleVariants({
         fontSize: vars.font.display.size,
         lineHeight: vars.font.display.lineHeight,
         letterSpacing: vars.font.display.letterSpacing,
+        "@media": {
+          [SmallerThan("tablet")]: { fontSize: vars.font.size.h2 },
+          [SmallerThan("phone")]: { fontSize: vars.font.size.h3 },
+        },
       },
     },
   },

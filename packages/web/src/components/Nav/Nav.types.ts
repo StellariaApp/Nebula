@@ -11,6 +11,7 @@ export type NavActiveMode = "auto" | "hash" | "pathname" | "manual";
 export type NavResolvedMode = Exclude<NavActiveMode, "auto">;
 
 export type NavLinksAlign = "start" | "center" | "end";
+export type NavLinksCollapse = "none" | "phone" | "tablet" | "laptop";
 
 export interface NavLabels {
   links: string;
@@ -46,6 +47,7 @@ export interface NavLinksProps extends Omit<StyleProps, "color" | "align"> {
   active?: string | undefined;
   activeMode?: NavActiveMode | undefined;
   align?: NavLinksAlign | undefined;
+  collapse?: NavLinksCollapse | undefined;
   spyOffset?: number | undefined;
   variant?: Variant | undefined;
   color?: ColorExtended | undefined;

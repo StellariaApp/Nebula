@@ -76,23 +76,43 @@ export function AppShellRail(props: AppShellRailProps): ReactElement {
 }
 
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
-  const { children, top, bottom, level = "strong", className, ...rest } = props;
+  const {
+    children,
+    top,
+    bottom,
+    level = "strong",
+    opened = false,
+    onClose,
+    scrimLabel = "Cerrar el menú",
+    className,
+    ...rest
+  } = props;
   return (
-    <GlassSurface
-      component="aside"
-      level={level}
-      radius={0}
-      className={cx(styles.sidebar, className)}
-      {...rest}
-    >
-      {top === undefined ? null : (
-        <div className={cx(styles.sidebarSlot, styles.sidebarTop)}>{top}</div>
-      )}
-      <div className={styles.sidebarBody}>{children}</div>
-      {bottom === undefined ? null : (
-        <div className={cx(styles.sidebarSlot, styles.sidebarBottom)}>{bottom}</div>
-      )}
-    </GlassSurface>
+    <>
+      {opened && onClose !== undefined ? (
+        <button
+          type="button"
+          aria-label={scrimLabel}
+          className={styles.sidebarScrim}
+          onClick={onClose}
+        />
+      ) : null}
+      <GlassSurface
+        component="aside"
+        level={level}
+        radius={0}
+        className={cx(styles.sidebar, opened ? styles.sidebarOpened : undefined, className)}
+        {...rest}
+      >
+        {top === undefined ? null : (
+          <div className={cx(styles.sidebarSlot, styles.sidebarTop)}>{top}</div>
+        )}
+        <div className={styles.sidebarBody}>{children}</div>
+        {bottom === undefined ? null : (
+          <div className={cx(styles.sidebarSlot, styles.sidebarBottom)}>{bottom}</div>
+        )}
+      </GlassSurface>
+    </>
   );
 }
 

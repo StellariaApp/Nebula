@@ -5,6 +5,7 @@ import * as focus from "../../styles/focus.css.js";
 import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+import { SmallerThan } from "../../theme/media.js";
 
 import {
   contentMax,
@@ -195,6 +196,8 @@ globalStyle(`${logo} :is(img, svg)`, {
   height: fallbackVar(logoHeight, vars.size.compact.md),
 });
 
+const HIDDEN = { display: "none" } as const;
+
 export const links = recipe({
   base: {
     "@layer": {
@@ -215,8 +218,14 @@ export const links = recipe({
       center: { "@layer": { [baseLayer]: { marginInline: "auto" } } },
       end: { "@layer": { [baseLayer]: { marginInlineStart: "auto" } } },
     },
+    collapse: {
+      none: {},
+      phone: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
+      laptop: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+    },
   },
-  defaultVariants: { align: "center" },
+  defaultVariants: { align: "center", collapse: "tablet" },
 });
 
 export type NavLinksVariants = NonNullable<RecipeVariants<typeof links>>;

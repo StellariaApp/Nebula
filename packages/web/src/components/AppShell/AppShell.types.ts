@@ -60,6 +60,9 @@ export interface AppShellSidebarProps {
   top?: ReactNode | undefined;
   bottom?: ReactNode | undefined;
   level?: GlassLevel | undefined;
+  opened?: boolean | undefined;
+  onClose?: (() => void) | undefined;
+  scrimLabel?: string | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
 }
