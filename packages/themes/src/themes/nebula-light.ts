@@ -45,6 +45,7 @@ export const nebulaLight = {
       placeholder: gray["700"],
       inverted: gray["50"],
       onPrimary: palettes.light["50"],
+      onGradient: palettes.light["50"],
       disabled: gray["400"],
     },
     border: {

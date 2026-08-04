@@ -75,6 +75,7 @@ export const textRoles = enumValues<TextRole>()([
   "placeholder",
   "inverted",
   "onPrimary",
+  "onGradient",
   "disabled",
 ]);
 

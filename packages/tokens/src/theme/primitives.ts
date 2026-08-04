@@ -39,7 +39,14 @@ export type SurfaceRole =
   | "disabled";
 
 export type TextRole =
-  "primary" | "secondary" | "muted" | "placeholder" | "inverted" | "onPrimary" | "disabled";
+  | "primary"
+  | "secondary"
+  | "muted"
+  | "placeholder"
+  | "inverted"
+  | "onPrimary"
+  | "onGradient"
+  | "disabled";
 
 export type BorderRole = "subtle" | "default" | "strong" | "focus" | "disabled";
 

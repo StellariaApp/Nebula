@@ -46,6 +46,7 @@ export const nebulaDark = {
       placeholder: gray["400"],
       inverted: gray["900"],
       onPrimary: palettes.dark["100"],
+      onGradient: palettes.dark["100"],
       disabled: gray["800"],
     },
     border: {

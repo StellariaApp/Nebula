@@ -45,6 +45,7 @@ export const vars = createThemeContract({
       placeholder: null,
       inverted: null,
       onPrimary: null,
+      onGradient: null,
       disabled: null,
     },
     border: { subtle: null, default: null, strong: null, focus: null, disabled: null },

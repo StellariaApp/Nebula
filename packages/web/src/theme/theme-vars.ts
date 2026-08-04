@@ -91,7 +91,8 @@ export function ThemeToVars(theme: NebulaTheme) {
       surface: colors.surface,
       text: {
         ...colors.text,
-        onPrimary:
+        onPrimary: OnFill(theme, "primary"),
+        onGradient:
           GradientInk(theme, theme.variantMap.gradient.background) ?? OnFill(theme, "primary"),
       },
       ink: Inks(theme),

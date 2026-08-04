@@ -33,7 +33,7 @@ export const label = style({
 
 export const required = style({
   "@layer": {
-    [baseLayer]: { color: vars.color.semantic.error["500"], marginInlineStart: "0.15em" },
+    [baseLayer]: { color: vars.color.semantic.error["600"], marginInlineStart: "0.15em" },
   },
 });
 

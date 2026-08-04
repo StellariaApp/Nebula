@@ -46,6 +46,7 @@ export const smokeTheme = {
       placeholder: gray[600],
       inverted: gray[50],
       onPrimary: light[50],
+      onGradient: light[50],
       disabled: gray[400],
     },
     border: {

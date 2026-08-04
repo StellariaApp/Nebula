@@ -111,6 +111,7 @@ export const smokeTheme = {
       placeholder: "#868e96",
       inverted: "#ffffff",
       onPrimary: "#ffffff",
+      onGradient: "#ffffff",
       disabled: "#9fa5ac",
     },
     border: {

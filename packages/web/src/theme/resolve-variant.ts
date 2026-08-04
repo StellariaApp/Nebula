@@ -48,6 +48,7 @@ const SEMANTIC_SCALES = [
 
 const ON_FILL = "text.onPrimary";
 const SCALE_REF = "scale.";
+const GRADIENT_REF = "gradient.";
 const INK_DARK = "#0b0b0b";
 
 function ScaleHexFor(scale: ColorScale, theme: NebulaTheme): Record<string, string> {
@@ -367,7 +368,9 @@ function ResolveScale(
     foreground:
       recipe.foreground === ON_FILL && recipe.background.startsWith(SCALE_REF)
         ? vars.color.ink[scale]
-        : ResolveColorRef(recipe.foreground, scale),
+        : recipe.foreground === ON_FILL && recipe.background.startsWith(GRADIENT_REF)
+          ? vars.color.text.onGradient
+          : ResolveColorRef(recipe.foreground, scale),
     borderColor: glass_on
       ? glass_recipe.borderColor
       : recipe.border === "none"

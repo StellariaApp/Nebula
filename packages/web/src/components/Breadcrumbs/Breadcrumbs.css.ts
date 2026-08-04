@@ -65,7 +65,7 @@ export const current = style({
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
-      color: vars.color.primary[500],
+      color: vars.color.primary[600],
       fontWeight: vars.font.weight.semibold,
     },
   },
