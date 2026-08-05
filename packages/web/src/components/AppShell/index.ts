@@ -7,6 +7,7 @@ import {
   AppShellNav,
   AppShellSection,
   AppShellRailLabel,
+  AppShellRailNav,
   AppShellSidebar,
   AppShellSubbar,
 } from "./AppShellRail.js";
@@ -14,6 +15,7 @@ import {
 export const AppShell = Object.assign(AppShellRoot, {
   Sidebar: AppShellSidebar,
   RailLabel: AppShellRailLabel,
+  RailNav: AppShellRailNav,
   Nav: AppShellNav,
   Aside: AppShellAside,
   Section: AppShellSection,

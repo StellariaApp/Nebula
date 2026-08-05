@@ -393,15 +393,15 @@ function SideNav(): ReactElement {
         </Box>
       </AppShell.RailLabel>
 
-      <Box px="md" display="flex" direction="column" gap="xxs">
+      <AppShell.RailNav>
         <NavLink
-          label="Actividad"
+          label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>}
           href="#actividad"
           py="xxs"
           leftSection={<NavIcon name="activity" />}
         />
         <NavLink
-          label="Soporte"
+          label={<AppShell.RailLabel>Soporte</AppShell.RailLabel>}
           href="#soporte"
           disabled
           py="xxs"
@@ -409,13 +409,13 @@ function SideNav(): ReactElement {
           leftSection={<NavIcon name="lifebuoy" muted />}
         />
         <NavLink
-          label="Ir a Mis Empresas"
+          label={<AppShell.RailLabel>Ir a Mis Empresas</AppShell.RailLabel>}
           href="#empresas"
           active
           py="xxs"
           leftSection={<NavIcon name="building" />}
         />
-      </Box>
+      </AppShell.RailNav>
     </Box>
   );
 }

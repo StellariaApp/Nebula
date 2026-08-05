@@ -260,6 +260,32 @@ export const sidebarBottom = style({
   },
 });
 
+/** La lista de enlaces del carril: columna, y fila de iconos en la barra móvil. */
+export const railNav = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.xxs,
+      minWidth: 0,
+      paddingInline: vars.space.md,
+      selectors: {
+        "[data-rail-collapsed='true'] &": { paddingInline: vars.space.xxs },
+      },
+      "@media": {
+        [SmallerThan("laptop")]: { paddingInline: vars.space.xxs },
+        [SmallerThan("tablet")]: {
+          flexDirection: "row",
+          alignItems: "center",
+          gap: vars.space.xxs,
+          paddingInline: 0,
+          inlineSize: "max-content",
+        },
+      },
+    },
+  },
+});
+
 export const railChrome = style({
   "@layer": {
     [baseLayer]: {

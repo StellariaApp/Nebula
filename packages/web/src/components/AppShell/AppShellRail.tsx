@@ -151,6 +151,14 @@ export function AppShellRailLabel(props: { children: ReactNode; className?: stri
   return <span className={cx(styles.railLabel, className)}>{children}</span>;
 }
 
+export function AppShellRailNav(props: {
+  children: ReactNode;
+  className?: string | undefined;
+}): ReactElement {
+  const { children, className } = props;
+  return <div className={cx(styles.railNav, className)}>{children}</div>;
+}
+
 export function AppShellSection(props: AppShellSectionProps): ReactElement {
   const { children, className, ...rest } = props;
   return (
