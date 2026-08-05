@@ -20,6 +20,7 @@ export type {
   NavLabels,
   NavLinkItemProps,
   NavLinksAlign,
+  NavLinksCollapse,
   NavLinksProps,
   NavLogoProps,
   NavProps,

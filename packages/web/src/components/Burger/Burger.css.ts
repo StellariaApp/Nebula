@@ -4,6 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+import { SmallerThan } from "../../theme/media.js";
 
 export const bar = createVar();
 export const barWidth = createVar();
@@ -58,4 +59,15 @@ export const size = styleVariants({
   md: { vars: { [barWidth]: "20px", [barGap]: "4px" } },
   lg: { vars: { [barWidth]: "26px", [barGap]: "5px" } },
   xl: { vars: { [barWidth]: "32px", [barGap]: "6px" } },
+});
+
+const SHOWN = { display: "inline-flex" } as const;
+const GONE = { display: "none" } as const;
+
+/** El botón solo existe donde la navegación se pliega: su visibilidad es asunto suyo. */
+export const showBelow = styleVariants({
+  always: {},
+  phone: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("phone")]: SHOWN } } } },
+  tablet: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("tablet")]: SHOWN } } } },
+  laptop: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("laptop")]: SHOWN } } } },
 });

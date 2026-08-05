@@ -33,6 +33,9 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
   backdrop?: ReactNode | undefined;
   sidebarWidth?: number | undefined;
+  /** Tercer estado del carril: la barra encoge a `sidebarMiniWidth` y sus rótulos se ocultan. */
+  sidebarCollapsed?: boolean | undefined;
+  sidebarMiniWidth?: number | undefined;
   chromeHeight?: number | undefined;
   /** El `main` es quien desplaza en el carril; se expone para engancharle un fondo con parallax. */
   mainRef?: RefObject<HTMLElement | null> | undefined;

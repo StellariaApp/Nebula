@@ -9,3 +9,4 @@ export const sgColsDesktop = createVar();
 export const sgColsWide = createVar();
 export const sgSpacingX = createVar();
 export const sgSpacingY = createVar();
+export const sgJustify = createVar();

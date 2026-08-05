@@ -12,6 +12,7 @@ import {
   sgColsPhone,
   sgColsTablet,
   sgColsWide,
+  sgJustify,
   sgSpacingX,
   sgSpacingY,
 } from "./SimpleGrid.vars.css.js";
@@ -23,6 +24,7 @@ export const simpleGrid = style({
       boxSizing: "border-box",
       gridTemplateColumns: `repeat(${sgCols}, minmax(0, 1fr))`,
       gap: `${sgSpacingY} ${sgSpacingX}`,
+      justifyItems: fallbackVar(sgJustify, "stretch"),
     },
   },
   vars: {

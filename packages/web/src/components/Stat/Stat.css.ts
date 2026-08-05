@@ -8,7 +8,7 @@ export const root = style({
     [baseLayer]: {
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.xxs,
+      gap: vars.space.xs,
       minWidth: 0,
       fontFamily: vars.font.family.sans,
     },

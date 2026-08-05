@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
+import { useId, type ReactElement, type ReactNode } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
@@ -114,6 +114,11 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
       </GlassSurface>
     </>
   );
+}
+
+export function AppShellRailLabel(props: { children: ReactNode; className?: string }): ReactElement {
+  const { children, className } = props;
+  return <span className={cx(styles.railLabel, className)}>{children}</span>;
 }
 
 export function AppShellSection(props: AppShellSectionProps): ReactElement {

@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { asideWidth as aside_var, headHeight, navWidth } from "./AppShell.css.js";
 import * as styles from "./AppShell.css.js";
 import { AppShellContext } from "./AppShellContext.js";
-import { chromeHeight, railWidth, shadowOffset } from "./AppShell.css.js";
+import { chromeHeight, railMiniWidth, railWidth, shadowOffset } from "./AppShell.css.js";
 import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./AppShellRail.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
@@ -41,6 +41,8 @@ export function AppShell(props: AppShellProps): ReactElement {
     asideWidth = 300,
     headerHeight = 56,
     collapsedWidth = 0,
+    sidebarCollapsed = false,
+    sidebarMiniWidth = 76,
     collapsible = true,
     padded = true,
     labels,
@@ -72,6 +74,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     [aside_var]: has_aside ? `${String(asideWidth)}px` : "0px",
     [headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
     [railWidth]: `${String(sidebarWidth)}px`,
+    [railMiniWidth]: `${String(sidebarMiniWidth)}px`,
     [chromeHeight]: `${String(chrome)}px`,
     [shadowOffset]: `${String(scrollShadowOffset)}px`,
   });
@@ -82,6 +85,7 @@ export function AppShell(props: AppShellProps): ReactElement {
         <div
           className={cx(styles.rail, sprinkle_class, className)}
           style={{ ...css_vars, ...sprinkle_style }}
+          data-rail-collapsed={sidebarCollapsed ? "true" : undefined}
         >
           <a href={`#${content_id}`} className={styles.skip}>
             {text.skipToContent}

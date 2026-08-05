@@ -11,6 +11,7 @@ export interface SimpleGridOwnProps extends Omit<BoxOwnProps, "component"> {
   cols?: SimpleGridCols | undefined;
   spacing?: SpacingValue | undefined;
   verticalSpacing?: SpacingValue | undefined;
+  justifyItems?: "start" | "center" | "end" | "stretch" | undefined;
 }
 
 export type SimpleGridProps<C extends ElementType = "div"> = SimpleGridOwnProps & {

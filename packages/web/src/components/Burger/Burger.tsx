@@ -12,7 +12,9 @@ import { PressProps } from "../../utils/press-props.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { bar, burger, line, size as size_variants } from "./Burger.css.js";
+import { bar, burger, line, size as size_variants,
+  showBelow as showBelowVariants,
+} from "./Burger.css.js";
 import type { BurgerProps } from "./Burger.types.js";
 
 const SHIFT: Record<string, number> = { xs: 5, sm: 6, md: 7, lg: 9, xl: 11 };
@@ -20,6 +22,7 @@ const SHIFT: Record<string, number> = { xs: 5, sm: 6, md: 7, lg: 9, xl: 11 };
 export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
   function Burger(props, forwardedRef) {
     const {
+      showBelow = "always",
       opened,
       defaultOpened = false,
       onChange,
@@ -96,7 +99,7 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
       <button
         {...dom_props}
         ref={ref}
-        className={cx(burger, size_variants[size], sprinkle_class, className)}
+        className={cx(burger, size_variants[size], showBelowVariants[showBelow], sprinkle_class, className)}
         style={{
           ...assignInlineVars({ [bar]: ResolveAccent(color, "600") }),
           ...sprinkle_style,

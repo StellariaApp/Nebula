@@ -6,12 +6,14 @@ import {
   AppShellHeader,
   AppShellNav,
   AppShellSection,
+  AppShellRailLabel,
   AppShellSidebar,
   AppShellSubbar,
 } from "./AppShellRail.js";
 
 export const AppShell = Object.assign(AppShellRoot, {
   Sidebar: AppShellSidebar,
+  RailLabel: AppShellRailLabel,
   Nav: AppShellNav,
   Aside: AppShellAside,
   Section: AppShellSection,

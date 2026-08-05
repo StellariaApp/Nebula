@@ -22,6 +22,7 @@ import {
   sgColsPhone,
   sgColsTablet,
   sgColsWide,
+  sgJustify,
   sgSpacingX,
   sgSpacingY,
 } from "./SimpleGrid.vars.css.js";
@@ -52,6 +53,7 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
       cols = 1,
       spacing = "md",
       verticalSpacing,
+      justifyItems,
       className,
       style,
       children,
@@ -62,6 +64,7 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
       ...ColsVars(cols),
       [sgSpacingX]: SpaceToCss(spacing),
       [sgSpacingY]: SpaceToCss(verticalSpacing ?? spacing),
+      ...(justifyItems === undefined ? {} : { [sgJustify]: justifyItems }),
     });
 
     return (

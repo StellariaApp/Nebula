@@ -63,6 +63,7 @@ export const skip = style({
 export const chromeHeight = createVar();
 export const shadowOffset = createVar();
 export const railWidth = createVar();
+export const railMiniWidth = createVar();
 
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
@@ -72,6 +73,9 @@ export const rail = style({
       gridTemplateAreas: `"rail chrome" "rail main"`,
       gridTemplateColumns: `${railWidth} 1fr`,
       gridTemplateRows: "auto 1fr",
+      selectors: {
+        "&[data-rail-collapsed='true']": { gridTemplateColumns: `${railMiniWidth} 1fr` },
+      },
       blockSize: "100dvh",
       minWidth: 0,
       background: vars.color.surface.overlay,
@@ -109,6 +113,7 @@ export const sidebar = style({
           insetInlineStart: 0,
           inlineSize: railWidth,
           maxInlineSize: "100vw",
+          insetBlockEnd: 0,
           zIndex: vars.zIndex.modal,
           transform: "translateX(-100%)",
           transitionProperty: "transform",
@@ -146,6 +151,23 @@ export const sidebarScrim = style({
   },
 });
 
+/** Lo que desaparece al encoger el carril: rótulos, secciones y todo lo que necesite ancho. */
+export const railLabel = style({
+  "@layer": {
+    [baseLayer]: {
+      minWidth: 0,
+      selectors: {
+        "[data-rail-collapsed='true'] &": { display: "none" },
+      },
+      "@media": {
+        [SmallerThan("tablet")]: {
+          selectors: { "[data-rail-collapsed='true'] &": { display: "revert" } },
+        },
+      },
+    },
+  },
+});
+
 export const sidebarSlot = style({
   "@layer": {
     [baseLayer]: {
@@ -158,6 +180,12 @@ export const sidebarSlot = style({
       paddingInline: vars.space.lg,
       flexShrink: 0,
       minWidth: 0,
+      selectors: {
+        "[data-rail-collapsed='true'] &": {
+          justifyContent: "center",
+          paddingInline: vars.space.xs,
+        },
+      },
     },
   },
 });

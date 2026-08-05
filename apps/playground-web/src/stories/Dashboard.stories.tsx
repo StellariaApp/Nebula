@@ -1,16 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useRef, type ReactElement, type ReactNode } from "react";
+import { useRef, useState, type ReactElement, type ReactNode } from "react";
 
 import { CreateIcons, type IconComponentProps } from "@stellaria/nebula-icons";
 import { CommonPack } from "@stellaria/nebula-icons/packs";
 import { palettes } from "@stellaria/nebula-tokens";
 import {
   ActionIcon,
+  Group,
   Avatar,
   Badge,
   AppShell,
   Box,
   Breadcrumbs,
+  Burger,
   Button,
   Card,
   Divider,
@@ -429,14 +431,25 @@ const TRAIL: BreadcrumbItem[] = [
 
 function CompanyBoard(): ReactElement {
   const scroller = useRef<HTMLElement | null>(null);
+  const [drawer, set_drawer] = useState(false);
+  const [mini, set_mini] = useState(false);
 
   return (
     <AppShell
       mainRef={scroller}
       scrollShadowOffset={116}
+      sidebarCollapsed={mini}
       backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
-        <AppShell.Sidebar aria-label="Navegación principal" top={<Brand />} bottom={<UserRow />}>
+        <AppShell.Sidebar
+          aria-label="Navegación principal"
+          opened={drawer}
+          onClose={() => {
+            set_drawer(false);
+          }}
+          top={<Brand />}
+          bottom={<UserRow />}
+        >
           <SideNav />
         </AppShell.Sidebar>
       }
@@ -451,9 +464,32 @@ function CompanyBoard(): ReactElement {
           title="Mis Empresas"
           subtitle="Ve todas las empresas que has creado y administras"
           actions={
-            <Button size="sm" rightSection={<Icon name="plus" />}>
-              Crear Empresa
-            </Button>
+            <Group gap="sm">
+              <Burger
+                opened={drawer}
+                size="sm"
+                showBelow="tablet"
+                onChange={set_drawer}
+                openLabel="Abrir la navegación"
+                closeLabel="Cerrar la navegación"
+              />
+              <ActionIcon
+                variant="glass"
+                size="sm"
+                aria-label={mini ? "Expandir la barra" : "Colapsar la barra"}
+                onPress={() => {
+                  set_mini((v) => !v);
+                }}
+              >
+                <Icon
+                  name="chevron-right"
+                  style={{ transform: mini ? undefined : "rotate(180deg)" }}
+                />
+              </ActionIcon>
+              <Button size="sm" rightSection={<Icon name="plus" />}>
+                Crear Empresa
+              </Button>
+            </Group>
           }
         />
         <AppShell.Subbar sticky>

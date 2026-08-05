@@ -27,7 +27,8 @@ export const hero = style({
       "@media": {
         [SmallerThan("laptop")]: {
           flexDirection: "column",
-          alignItems: "stretch",
+          alignItems: "center",
+          textAlign: "center",
           gap: vars.space.xl,
         },
       },
@@ -71,6 +72,7 @@ export const body = style({
       flex: 1,
       boxSizing: "border-box",
       maxWidth: fallbackVar(variables.contentMax, "none"),
+      "@media": { [SmallerThan("laptop")]: { alignItems: "center", width: "100%" } },
     },
   },
 });
@@ -147,6 +149,7 @@ export const actions = style({
       gap: vars.space.md,
       flexWrap: "wrap",
       marginBlockStart: vars.space.xs,
+      "@media": { [SmallerThan("laptop")]: { justifyContent: "center" } },
     },
   },
 });
