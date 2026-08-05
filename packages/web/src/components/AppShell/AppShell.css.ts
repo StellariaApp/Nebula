@@ -267,7 +267,7 @@ export const railNav = style({
     [baseLayer]: {
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.xxs,
+      gap: vars.space.xs,
       minWidth: 0,
       paddingInline: vars.space.md,
       selectors: {

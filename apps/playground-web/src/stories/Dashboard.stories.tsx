@@ -369,34 +369,26 @@ function UserRow(): ReactElement {
 
 function SideNav(): ReactElement {
   return (
-    <Box display="flex" direction="column">
-      <AppShell.RailLabel>
-        <Box p="sm" bg="surface.base">
-          <GradientBorder beam width={2} surface="overlay" radius="md" p="md">
-            <Box p="md" display="flex" align="center" justify="space-between">
-              <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-                Super Administrador
-              </Text>
-              <ActionIcon variant="ghost" size="xs" aria-label="Super Administrador">
-                <Icon name="code" />
-              </ActionIcon>
-            </Box>
-          </GradientBorder>
-        </Box>
-      </AppShell.RailLabel>
+    <AppShell.Aside>
+      <GradientBorder beam width={2} surface="overlay" radius="md" m="md">
+        <AppShell.RailNav bg="surface.base" title="Super Administrador">
+          <NavLink
+            label={<AppShell.RailLabel>Super Administrador</AppShell.RailLabel>}
+            href="#super-admin"
+            py="xxs"
+            leftSection={<NavIcon name="lifebuoy" />}
+          />
+        </AppShell.RailNav>
+      </GradientBorder>
 
-      <AppShell.RailLabel>
-        <Box px="md" pt="md" pb="xs" display="flex" align="center" justify="space-between">
-          <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-            Administrador
-          </Text>
+      <AppShell.RailNav
+        title="Administrador"
+        action={
           <ActionIcon variant="ghost" size="xs" aria-label="Recargar permisos">
             <Icon name="history" />
           </ActionIcon>
-        </Box>
-      </AppShell.RailLabel>
-
-      <AppShell.RailNav>
+        }
+      >
         <NavLink
           label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>}
           href="#actividad"
@@ -419,7 +411,29 @@ function SideNav(): ReactElement {
           leftSection={<NavIcon name="building" />}
         />
       </AppShell.RailNav>
-    </Box>
+      <AppShell.RailNav title="Operador">
+        <NavLink
+          label={<AppShell.RailLabel>Producciones</AppShell.RailLabel>}
+          href="#producciones"
+          py="xxs"
+          leftSection={<NavIcon name="film" />}
+        />
+        <NavLink
+          label={<AppShell.RailLabel>Distribución</AppShell.RailLabel>}
+          href="#distribucion"
+          py="xxs"
+          leftSection={<NavIcon name="globe" />}
+        />
+      </AppShell.RailNav>
+      <AppShell.RailNav title="Invitado">
+        <NavLink
+          label={<AppShell.RailLabel>Calendario</AppShell.RailLabel>}
+          href="#calendario"
+          py="xxs"
+          leftSection={<NavIcon name="calendar" />}
+        />
+      </AppShell.RailNav>
+    </AppShell.Aside>
   );
 }
 

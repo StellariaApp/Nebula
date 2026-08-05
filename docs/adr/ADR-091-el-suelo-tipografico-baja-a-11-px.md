@@ -1,7 +1,11 @@
 # ADR-091 — El suelo tipográfico baja a 11 px
 
-- **Estado**: **aceptada** · 2026-08-04 — a petición del propietario, tras montar el banco de pruebas
-  de panel
+- **Estado**: **revertida** · 2026-08-04 — el propietario la deshizo el mismo día, tras verla en el
+  banco de pruebas. `caption` vuelve a 12 px y el suelo de §2.1 con él.
+- **Se conserva** por lo que documenta: el 11 px se probó y se descartó **mirando la lámina**, que es
+  como §2.1 dice que se revisan estas decisiones. Quien vuelva a proponerlo tiene aquí el intento y
+  el motivo por el que se planteó —`caption` a 12 compite con `body3` a 13—, que sigue siendo cierto
+  aunque la respuesta no fuera bajar el suelo.
 - **Enmienda**: `docs/06-visual-language.md` §2.1, que fijaba el suelo en 12 px y lo listaba como
   invariante que «no puede cambiar».
 

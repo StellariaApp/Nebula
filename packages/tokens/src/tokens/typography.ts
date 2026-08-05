@@ -17,7 +17,7 @@ export const size = {
   body2: 14,
   body3: 13,
   button: 14,
-  caption: 11,
+  caption: 12,
 } as const;
 
 export const leading = {
