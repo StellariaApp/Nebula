@@ -39,7 +39,7 @@ export default tseslint.config(
         {
           selector: "variable",
           modifiers: ["const", "global"],
-          format: ["UPPER_CASE", "PascalCase", "camelCase"],
+          format: ["UPPER_CASE", "snake_case", "PascalCase", "camelCase"],
         },
         {
           selector: "variable",

@@ -19,7 +19,6 @@ export const shell = style({
       gridTemplateRows: `${headHeight} 1fr auto`,
       minHeight: "100dvh",
       minWidth: 0,
-      background: vars.color.surface.overlay,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
     },
@@ -32,6 +31,8 @@ export const main = style({
       gridArea: "main",
       minWidth: 0,
       minHeight: 0,
+      zIndex: 0,
+      overflowY: "auto",
       selectors: {
         "&[data-padded='true']": { padding: vars.space.lg },
       },
@@ -86,6 +87,7 @@ export const rail = style({
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
       isolation: "isolate",
+      overflow: "hidden",
       "@media": {
         [SmallerThan("laptop")]: { gridTemplateColumns: `${railMiniWidth} 1fr` },
         [SmallerThan("tablet")]: {
@@ -107,9 +109,23 @@ export const sidebar = style({
       flexDirection: "column",
       blockSize: "100dvh",
       minWidth: 0,
+      zIndex: 1,
       overflow: "visible",
       position: "relative",
-      zIndex: 1,
+    },
+  },
+});
+
+export const sidebar_container = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      blockSize: "100%",
+      overflowY: "auto",
+      overflowX: "visible",
+      position: "relative",
+      zIndex: 0,
       borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
       borderInlineStart: "none !important",
       borderBlock: "none !important",
@@ -142,7 +158,6 @@ export const sidebar = style({
 export const railLabel = style({
   "@layer": {
     [baseLayer]: {
-      flex: 1,
       minWidth: 0,
       selectors: {
         "[data-rail-collapsed='true'] &": { display: "none" },
@@ -154,33 +169,37 @@ export const railLabel = style({
   },
 });
 
-/** El botón de encoger: solo existe donde encoger es una elección. */
-export const railToggle = style({
+export const toggle = style({
   "@layer": {
     [baseLayer]: {
       position: "absolute",
-      insetBlockStart: `calc(${chromeHeight} / 2)`,
-      insetInlineEnd: 0,
-      transform: "translate(50%, -50%)",
-      zIndex: 3,
-      flexShrink: 0,
-      borderRadius: vars.radius.full,
-      background: vars.color.surface.raised,
-      border: `1px solid ${vars.glass.strong.borderColor}`,
+      top: chromeHeight,
+      right: 0,
+      transform: "translate(50%, -50%) rotate(180deg)",
+      zIndex: vars.zIndex.tooltip,
+      transition: `transform ${vars.motion.duration.expressive} ${vars.motion.easing.standard}`,
+      selectors: {
+        "[data-rail-collapsed='true'] &": {
+          transform: "translate(50%, -50%) rotate(0deg)",
+        },
+      },
       "@media": { [SmallerThan("laptop")]: { display: "none" } },
     },
   },
 });
 
-export const sidebarSlot = style({
+export const sidebar_slot = style({
   "@layer": {
     [baseLayer]: {
+      zIndex: vars.zIndex.sticky,
+      position: "sticky",
       boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
+      justifyContent: "center",
       width: "100%",
       gap: vars.space.sm,
-      blockSize: chromeHeight,
+      minHeight: chromeHeight,
       paddingInline: vars.space.lg,
       flexShrink: 0,
       minWidth: 0,
@@ -219,21 +238,31 @@ export const sidebarSlot = style({
   },
 });
 
-export const sidebarTop = style({
+export const sidebar_header = style({
   "@layer": {
     [baseLayer]: {
-      borderBlock: `1px solid ${vars.glass.default.borderColor}`,
+      top: 0,
+      borderBlock: `1px solid ${vars.glass.default.borderColor} !important`,
     },
   },
 });
 
-export const sidebarBody = style({
+export const sidebar_footer = style({
+  "@layer": {
+    [baseLayer]: {
+      bottom: 0,
+      borderBlockStart: `1px solid ${vars.glass.default.borderColor} !important`,
+    },
+  },
+});
+
+export const sidebar_body = style({
   "@layer": {
     [baseLayer]: {
       flex: 1,
-      minHeight: 0,
-      overflowY: "auto",
-      overflowX: "hidden",
+      minHeight: "max-content",
+      overflow: "hidden",
+      backgroundColor: vars.color.surface.overlay,
       selectors: {
         "[data-rail-collapsed='true'] &": { paddingInline: vars.space.xxs },
       },
@@ -326,20 +355,6 @@ export const railChrome = style({
       gridArea: "chrome",
       minWidth: 0,
       zIndex: 2,
-    },
-  },
-});
-
-export const railMain = style({
-  "@layer": {
-    [baseLayer]: {
-      gridArea: "main",
-      minWidth: 0,
-      minHeight: 0,
-      overflowY: "auto",
-      display: "flex",
-      flexDirection: "column",
-      zIndex: 1,
     },
   },
 });

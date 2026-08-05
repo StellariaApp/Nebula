@@ -27,6 +27,7 @@ import type {
   AppShellSlotProps,
   AppShellSubbarProps,
 } from "./AppShell.types.js";
+import { Box } from "../../index.js";
 
 const DEFAULT_LABELS = {
   skipToContent: "Saltar al contenido",
@@ -73,7 +74,7 @@ export function AppShellRail(props: AppShellRailProps): ReactElement {
       {backdrop}
       {sidebar}
 
-      <div className={styles.railMain} id={content_id}>
+      <div className={styles.main} id={content_id}>
         {children}
       </div>
     </div>
@@ -83,7 +84,6 @@ export function AppShellRail(props: AppShellRailProps): ReactElement {
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   const {
     children,
-    level = "strong",
     collapsed = false,
     onCollapse,
     collapseLabels = { collapse: "Colapsar la barra", expand: "Expandir la barra" },
@@ -92,45 +92,73 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   } = props;
 
   return (
-    <GlassSurface
-      component="aside"
-      level={level}
-      radius={0}
-      className={cx(styles.sidebar, className)}
-      {...rest}
-    >
+    <aside className={cx(styles.sidebar, className)} {...rest}>
       {onCollapse === undefined ? null : (
-        <ActionIcon
-          variant="ghost"
-          size="sm"
-          className={styles.railToggle}
-          aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}
-          aria-expanded={!collapsed}
-          onPress={() => {
-            onCollapse(!collapsed);
-          }}
-        >
-          <ChevronIcon collapsed={collapsed} />
-        </ActionIcon>
+        <Box className={styles.toggle}>
+          <ActionIcon
+            variant="glass"
+            size="sm"
+            r="full"
+            aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}
+            aria-expanded={!collapsed}
+            onPress={() => {
+              onCollapse(!collapsed);
+            }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="1em"
+              height="1em"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </ActionIcon>
+        </Box>
       )}
-      {children}
-    </GlassSurface>
+      <div className={styles.sidebar_container}>{children}</div>
+    </aside>
   );
 }
 
 export function AppShellSidebarHeader(props: AppShellSlotProps): ReactElement {
   const { children, className } = props;
-  return <div className={cx(styles.sidebarSlot, styles.sidebarTop, className)}>{children}</div>;
-}
-
-export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
-  const { children, className } = props;
-  return <div className={cx(styles.sidebarBody, className)}>{children}</div>;
+  return (
+    <GlassSurface
+      component="header"
+      level="default"
+      radius={0}
+      withBorder={false}
+      className={cx(styles.sidebar_slot, styles.sidebar_header, className)}
+    >
+      {children}
+    </GlassSurface>
+  );
 }
 
 export function AppShellSidebarFooter(props: AppShellSlotProps): ReactElement {
   const { children, className } = props;
-  return <div className={cx(styles.sidebarSlot, styles.sidebarBottom, className)}>{children}</div>;
+  return (
+    <GlassSurface
+      component="footer"
+      level="default"
+      radius={0}
+      withBorder={false}
+      className={cx(styles.sidebar_slot, styles.sidebar_footer, className)}
+    >
+      {children}
+    </GlassSurface>
+  );
+}
+
+export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
+  const { children, className } = props;
+  return <div className={cx(styles.sidebar_body, className)}>{children}</div>;
 }
 
 export function AppShellLinks(props: AppShellLinksProps): ReactElement {
@@ -158,25 +186,6 @@ export function AppShellLinks(props: AppShellLinksProps): ReactElement {
 export function AppShellLink(props: NavLinkProps): ReactElement {
   const { py = "xxs", ...rest } = props;
   return <NavLink py={py} {...rest} />;
-}
-
-function ChevronIcon({ collapsed }: { collapsed: boolean }): ReactElement {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="1em"
-      height="1em"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      style={{ transform: collapsed ? undefined : "rotate(180deg)" }}
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
 }
 
 export function AppShellRailLabel(props: {

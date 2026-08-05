@@ -91,9 +91,9 @@ export function AppShell(props: AppShellProps): ReactElement {
             {text.skipToContent}
           </a>
           {backdrop}
-          {sidebar}
           {header === undefined ? null : <div className={styles.railChrome}>{header}</div>}
-          <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.railMain}>
+          {sidebar}
+          <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.main}>
             {scrollShadow ? <div className={styles.scrollShadow} aria-hidden="true" /> : null}
             {children}
           </main>

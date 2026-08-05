@@ -335,7 +335,7 @@ function SideBarHeader(): ReactElement {
         <Icon name="building" size={28} />
       </Box>
       <AppShell.RailLabel>
-        <Text fz="h6" fw="bold" lh="tight" style={{ whiteSpace: "nowrap" }}>
+        <Text fz="h6" fw="bold" lh="tight" whiteSpace="nowrap">
           <GradientText>Company</GradientText>
         </Text>
       </AppShell.RailLabel>
@@ -366,7 +366,7 @@ function SideBarFooter(): ReactElement {
   );
 }
 
-function SideBarLinks(): ReactElement {
+function SideBarBody(): ReactElement {
   return (
     <AppShell.Sidebar.Body>
       <Box p="sm" display="flex" align="center" justify="center" bg="surface.base">
@@ -466,7 +466,7 @@ function CompanyBoard(): ReactElement {
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
           <SideBarHeader />
-          <SideBarLinks />
+          <SideBarBody />
           <SideBarFooter />
         </AppShell.Sidebar>
       }
@@ -677,71 +677,71 @@ function CompanyDetail(): ReactElement {
       value: "resumen",
       label: "Resumen",
       content: (
-        <Box display="flex" direction="column" gap="lg" pt="md">
-          <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
-            <Metric label="Servicios activos" value="3" hint="de 5 contratados" />
-            <Metric label="Personas" value="4" hint="1 propietario, 3 con acceso" />
-            <Metric label="Renueva" value={company.renews} hint="plan anual" />
-          </SimpleGrid>
-          <Box>
-            <Title order={2} fz="h6" mb="sm">
-              Servicios
-            </Title>
-            <SimpleGrid cols={{ base: 1, tablet: 2, laptop: 3 }} spacing="md">
-              <ServiceCard
-                icon="film"
-                name="Warehouse"
-                note="Almacén de material y copias"
-                used={412}
-                quota={500}
-              />
-              <ServiceCard
-                icon="building"
-                name="Producción"
-                note="Rodajes y equipos"
-                used={38}
-                quota={120}
-              />
-              <ServiceCard
-                icon="globe"
-                name="Distribución"
-                note="Ventanas y territorios"
-                used={91}
-                quota={100}
-              />
+        <GlassSurface level="subtle" radius="md" p="md">
+          <Box display="flex" direction="column" gap="lg" pt="md">
+            <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+              <Metric label="Servicios activos" value="3" hint="de 5 contratados" />
+              <Metric label="Personas" value="4" hint="1 propietario, 3 con acceso" />
+              <Metric label="Renueva" value={company.renews} hint="plan anual" />
             </SimpleGrid>
+            <Box>
+              <Title order={2} fz="h6" mb="sm">
+                Servicios
+              </Title>
+              <SimpleGrid cols={{ base: 1, tablet: 2, laptop: 3 }} spacing="md">
+                <ServiceCard
+                  icon="film"
+                  name="Warehouse"
+                  note="Almacén de material y copias"
+                  used={412}
+                  quota={500}
+                />
+                <ServiceCard
+                  icon="building"
+                  name="Producción"
+                  note="Rodajes y equipos"
+                  used={38}
+                  quota={120}
+                />
+                <ServiceCard
+                  icon="globe"
+                  name="Distribución"
+                  note="Ventanas y territorios"
+                  used={91}
+                  quota={100}
+                />
+              </SimpleGrid>
+            </Box>
           </Box>
-        </Box>
+        </GlassSurface>
       ),
     },
     {
       value: "equipo",
       label: "Equipo",
       content: (
-        <Box pt="md">
+        <GlassSurface level="subtle" radius="md" p="md">
           <TeamTable />
-        </Box>
+        </GlassSurface>
       ),
     },
     {
       value: "ajustes",
       label: "Ajustes",
       content: (
-        <Box pt="md">
-          <GlassSurface level="subtle" radius="md" withBorder p="lg">
-            <Title order={2} fz="h6">
-              Datos de la empresa
-            </Title>
-            <Text fz="body3" c="text.secondary" mt="xxs">
-              {company.sector}
-            </Text>
-            <Divider my="md" />
-            <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-              Creada
-            </Text>
-            <Text fz="body3">{company.created}</Text>
-          </GlassSurface>
-        </Box>
+        <GlassSurface level="subtle" radius="md" p="md">
+          <Title order={2} fz="h6">
+            Datos de la empresa
+          </Title>
+          <Text fz="body3" c="text.secondary" mt="xxs">
+            {company.sector}
+          </Text>
+          <Divider my="md" />
+          <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
+            Creada
+          </Text>
+          <Text fz="body3">{company.created}</Text>
+        </GlassSurface>
       ),
     },
   ];
@@ -755,7 +755,7 @@ function CompanyDetail(): ReactElement {
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
           <SideBarHeader />
-          <SideBarLinks />
+          <SideBarBody />
           <SideBarFooter />
         </AppShell.Sidebar>
       }
