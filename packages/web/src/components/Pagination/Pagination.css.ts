@@ -6,7 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { accent, activeFg } from "./Pagination.vars.css.js";
+import { accent, accentHover, activeFg } from "./Pagination.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -90,6 +90,9 @@ export const pill = style({
       borderRadius: vars.radius.sm,
       background: accent,
       zIndex: 0,
+      selectors: {
+        "[data-active='true']:hover:not(:disabled) &": { background: accentHover },
+      },
     },
   },
 });

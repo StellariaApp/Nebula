@@ -121,6 +121,9 @@ export const row = style({
         "&[data-selected='true']": { background: vars.color.surface.active },
         "&[data-clickable='true']": { cursor: "pointer" },
         "&[data-clickable='true']:hover": { background: vars.color.surface.hover },
+        "&[data-selected='true'][data-clickable='true']:hover": {
+          background: vars.color.surface.hoverActive,
+        },
         "&:focus-visible": { ...focus.ring },
       },
     },

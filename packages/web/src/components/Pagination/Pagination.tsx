@@ -12,7 +12,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Pagination.css.js";
 import type { PaginationProps } from "./Pagination.types.js";
-import { accent, activeFg } from "./Pagination.vars.css.js";
+import { accent, accentHover, activeFg } from "./Pagination.vars.css.js";
 import { PaginationRange } from "./pagination-range.js";
 
 const ARROW = (
@@ -90,6 +90,7 @@ export function Pagination(props: PaginationProps): ReactElement {
 
   const css_vars = assignInlineVars({
     [accent]: resolved.background,
+    [accentHover]: resolved.backgroundHover,
     [activeFg]: resolved.foreground,
   });
 

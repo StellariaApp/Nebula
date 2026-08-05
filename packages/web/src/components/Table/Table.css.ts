@@ -75,6 +75,9 @@ export const row = style({
         "[data-striped='true'] tbody &:nth-child(even)": { background: vars.color.surface.sunken },
         "&[data-selected='true']": { background: vars.color.surface.active },
         "[data-hoverable='true'] tbody &:hover": { background: vars.color.surface.hover },
+        "[data-hoverable='true'] tbody &[data-selected='true']:hover": {
+          background: vars.color.surface.hoverActive,
+        },
       },
     },
   },

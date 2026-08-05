@@ -56,8 +56,40 @@ ampliar la brecha.
 **A decidir en N1**: si la convención es namespace, son 119 sitios a cambiar, no 20. Si es import
 nombrado, basta con migrar 2 y documentarlo.
 
+### H5 · `hover` y `active` valen lo mismo en los dos temas nebula
+
+**Dónde**: `packages/themes/src/themes/nebula-dark.ts` y `nebula-light.ts`
+**Medido** durante N4:
+
+| tema           | `hover`       | `active`      | `hoverActive` |
+| -------------- | ------------- | ------------- | ------------- |
+| `nebula-dark`  | `dark.700`    | **`dark.700`** | `dark.800`   |
+| `nebula-light` | `light.300`   | **`light.300`** | `light.400` |
+| `sober-light`  | `light.500`   | `light.600`   | `light.700`   |
+| `playful`      | `light.300`   | `light.500`   | `light.600`   |
+
+**Qué provoca**: en los dos temas por defecto, una fila con el ratón encima y una fila seleccionada
+se pintan idénticas. El usuario no puede distinguir "esto responde al puntero" de "esto está
+elegido". Los dos temas de terceros sí las separan, así que el patrón correcto ya existe.
+**Por qué importa ahora**: ADR-095 acaba de repartir `hoverActive` como *el peldaño siguiente* a
+`active`. Ese peldaño se apoya en una escalera con dos escalones al mismo nivel, así que la mejora se
+nota a medias en los temas que más se usan.
+**Recomendación**: separar `active` un peldaño de `hover` en los dos temas nebula, como ya hacen
+`sober-light` y `playful`. Es tocar tokens → ADR + `pnpm check:contrast` en el mismo PR.
+
+### H6 · La tabla de ADR-088 no coincide con los temas
+
+**Dónde**: `docs/adr/ADR-088-el-activo-tambien-recibe-hover.md:46-51`
+**Causa**: la tabla dice `dark.500 → dark.600` y `light.300 → light.400`; los temas de hoy tienen
+`dark.700 → dark.800` y `light.300 → light.400`. La fila oscura quedó desfasada tras el ajuste de
+superficies de `nebula-dark`. La **dirección** que documenta sigue siendo correcta y está verificada:
+en oscuro `hoverActive` es más claro que `active` (luma 40 contra 34), en los tres claros más oscuro.
+**Recomendación**: corregir la tabla con una nota fechada al tocar H5, que es cuando esos valores
+vuelven a moverse.
+
 ---
 
 ## Cerrados
 
-_(ninguno todavía)_
+- **N4 · reparto de `surface.hoverActive`** — ADR-095. Ocho componentes; el barrido midió 10 hojas
+  con selección + puntero, de las que 2 no eran caso.

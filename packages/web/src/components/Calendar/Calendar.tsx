@@ -14,7 +14,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { CalendarView } from "./CalendarView.js";
 import type { CalendarProps } from "./Calendar.types.js";
-import { dayBg, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
+import { dayBg, dayBgHover, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
 
 export function Calendar(props: CalendarProps): ReactElement {
   const {
@@ -75,6 +75,7 @@ export function Calendar(props: CalendarProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
   const day_vars = assignInlineVars({
     [dayBg]: resolved.background,
+    [dayBgHover]: resolved.backgroundHover,
     [dayFg]: resolved.foreground,
     [dayBorder]: resolved.borderColor,
     [rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`,

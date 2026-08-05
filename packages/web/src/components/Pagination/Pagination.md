@@ -32,3 +32,8 @@ El subconjunto es el más amplio de la navegación porque la píldora activa es 
 admite las cuatro lecturas: sólida, contorneada, tintada o sin fondo. Quedan fuera `glass`, `glow` y
 `gradient`: una paginación es una colección de items y `docs/06` §6 excluye el glow de las listas
 completas.
+
+**El hover de la página actual va sobre la píldora, no sobre el botón.** El fondo activo lo pinta un
+`m.span` absoluto con `layoutId`, así que el botón activo no tiene fondo propio que oscurecer. La
+regla vive en `pill` con el padre en el selector — `"[data-active='true']:hover:not(:disabled) &"` —
+y consume `accentHover` ← `resolved.backgroundHover` (ADR-095).

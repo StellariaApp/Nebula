@@ -8,7 +8,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
-import { dayBg, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
+import { dayBg, dayBgHover, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
 import { CalendarHeader } from "../Calendar/CalendarHeader.js";
 
 import * as styles from "./GridPicker.css.js";
@@ -75,6 +75,7 @@ export function YearPicker(props: YearPickerProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
   const day_vars = assignInlineVars({
     [dayBg]: resolved.background,
+    [dayBgHover]: resolved.backgroundHover,
     [dayFg]: resolved.foreground,
     [dayBorder]: resolved.borderColor,
   });

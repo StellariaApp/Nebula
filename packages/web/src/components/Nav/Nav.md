@@ -277,3 +277,8 @@ transiciones salen de las utilidades de motion y no del componente.
 **El hook conserva la última geometría** para el desvanecido. Sin eso, al perder el activo el rect
 pasa a cero y la píldora se aplasta a 0 px de alto y salta a la izquierda mientras se desvanece;
 medido, ahora mantiene sus 40 px y su `x` durante toda la salida.
+
+**El enlace activo pone su fondo a `transparent` al recibir el ratón, y es a propósito.** Su
+afordancia de estado es el indicador móvil que dibuja `use-nav-indicator`, no un fondo; darle
+además el fondo de hover duplicaría la señal y la haría saltar al pasar el puntero. Por eso Nav
+queda fuera del reparto de `hoverActive` de ADR-095, pese a cumplir el patrón de selección + puntero.

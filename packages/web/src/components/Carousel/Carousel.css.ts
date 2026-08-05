@@ -98,6 +98,7 @@ export const indicator = style({
       selectors: {
         "&[aria-current='true']": { background: vars.color.primary["600"], width: 20 },
         "&:hover": { background: vars.color.border.strong },
+        "&[aria-current='true']:hover": { background: vars.color.primary["700"] },
         "&:focus-visible": { ...focus.ring },
       },
       "@media": { [reduced_media]: still },

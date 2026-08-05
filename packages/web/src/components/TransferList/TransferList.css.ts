@@ -111,6 +111,9 @@ export const item = style({
       selectors: {
         "&:hover:not(:disabled)": { background: vars.color.surface.hover },
         "&[aria-selected='true']": { background: vars.color.surface.active },
+        "&[aria-selected='true']:hover:not(:disabled)": {
+          background: vars.color.surface.hoverActive,
+        },
         "&:disabled": { cursor: "not-allowed", color: vars.color.text.disabled },
         "&:focus-visible": { ...focus.ring },
       },

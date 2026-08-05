@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dayBg, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
+import { dayBg, dayBgHover, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -155,6 +155,10 @@ export const cell = style({
           borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,
         },
+        "&[data-selected='true']:not([data-range-middle='true'])[data-hovered='true']:not([data-disabled='true'])":
+          {
+            background: fallbackVar(dayBgHover, vars.color.primary["600"]),
+          },
         "&[data-range-middle='true']": {
           background: "transparent",
           borderRadius: 0,

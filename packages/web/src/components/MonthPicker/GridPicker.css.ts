@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dayBg, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
+import { dayBg, dayBgHover, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
 
 export const grid = style({
   "@layer": {
@@ -42,6 +42,9 @@ export const cell = style({
           color: fallbackVar(dayFg, vars.color.text.onPrimary),
           borderColor: fallbackVar(dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,
+        },
+        "&[data-selected='true']:hover:not([data-disabled='true'])": {
+          background: fallbackVar(dayBgHover, vars.color.primary["600"]),
         },
         "&[data-disabled='true']": { color: vars.color.text.disabled, cursor: "not-allowed" },
       },

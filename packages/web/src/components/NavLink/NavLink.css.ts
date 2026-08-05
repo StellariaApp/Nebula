@@ -6,7 +6,7 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-import { accent, activeBg } from "./NavLink.vars.css.js";
+import { accent, activeBg, activeBgHover } from "./NavLink.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -38,7 +38,7 @@ export const root = style({
         },
         "&[data-active='true']": { background: activeBg, color: accent },
         "&[data-active='true']:hover:not([data-disabled='true'])": {
-          background: activeBg,
+          background: activeBgHover,
           color: accent,
         },
         "&[data-disabled='true']": {
