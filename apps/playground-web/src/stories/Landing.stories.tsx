@@ -111,7 +111,7 @@ function Bar({ name }: { name: string }): ReactElement {
         {MARK(vars.color.primary[500])}
         <span>{name}</span>
       </Nav.Logo>
-      <Nav.Links aria-label="Principal" overflowMenu>
+      <Nav.Links aria-label="Principal" overflowMenu justify="center">
         {SECTIONS.map((item) => (
           <Nav.Links.Link key={item.href} href={item.href}>
             {item.label}

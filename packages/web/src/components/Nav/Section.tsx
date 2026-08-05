@@ -6,11 +6,15 @@ import * as styles from "./Nav.css.js";
 import type { NavDividerProps, NavSlotProps } from "./Nav.types.js";
 
 export function NavActions(props: NavSlotProps): ReactElement {
-  const { children, className, ...style_rest } = props;
+  const { children, collapse = "tablet", className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   return (
-    <div className={cx(styles.section, sprinkle_class, className)} style={sprinkle_style} {...rest}>
+    <div
+      className={cx(styles.actions({ collapse }), sprinkle_class, className)}
+      style={sprinkle_style}
+      {...rest}
+    >
       {children}
     </div>
   );

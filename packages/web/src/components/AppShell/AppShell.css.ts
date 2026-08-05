@@ -125,6 +125,7 @@ export const sidebar = style({
           borderInlineEnd: "none !important",
           overflowX: "auto",
           overflowY: "hidden",
+          gap: vars.space.sm,
           zIndex: vars.zIndex.sticky,
         },
         "(prefers-reduced-motion: reduce)": motion.still,
@@ -172,15 +173,29 @@ export const sidebarSlot = style({
       minWidth: 0,
       selectors: {
         "[data-rail-collapsed='true'] &": {
+          flexDirection: "column",
           justifyContent: "center",
-          paddingInline: vars.space.xs,
+          blockSize: "max-content",
+          paddingInline: vars.space.xxs,
+          paddingBlock: vars.space.sm,
+          gap: vars.space.xs,
         },
       },
       "@media": {
-        [SmallerThan("laptop")]: { justifyContent: "center", paddingInline: vars.space.xs },
+        [SmallerThan("laptop")]: {
+          flexDirection: "column",
+          justifyContent: "center",
+          blockSize: "max-content",
+          paddingInline: vars.space.xxs,
+          paddingBlock: vars.space.sm,
+          gap: vars.space.xs,
+        },
         [SmallerThan("tablet")]: {
-          inlineSize: "auto",
+          flexDirection: "row",
+          inlineSize: "max-content",
           blockSize: "100%",
+          paddingInline: vars.space.sm,
+          paddingBlock: 0,
           borderBlock: "none !important",
         },
       },
@@ -207,7 +222,9 @@ export const sidebarBody = style({
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          gap: vars.space.xs,
           inlineSize: "max-content",
+          paddingInline: vars.space.xs,
           overflowY: "hidden",
         },
       },
@@ -244,6 +261,11 @@ export const railMain = style({
       display: "flex",
       flexDirection: "column",
       zIndex: 1,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          paddingBlockEnd: `calc(${RAIL_BAR_HEIGHT} + (2 * ${vars.space.xs}))`,
+        },
+      },
     },
   },
 });

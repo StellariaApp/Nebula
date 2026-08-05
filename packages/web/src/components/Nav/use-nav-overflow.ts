@@ -28,7 +28,13 @@ export function UseNavOverflow(total: number, reserve: number, enabled: boolean)
       const gap = Number.parseFloat(style.columnGap) || 0;
       widths.current = Array.from(items, (item, i) => item.offsetWidth + (i === 0 ? 0 : gap));
     }
-    const available = node.clientWidth - reserve;
+    const room = node.clientWidth;
+    const full = widths.current.reduce((sum, width) => sum + width, 0);
+    if (full <= room) {
+      set_visible(total);
+      return;
+    }
+    const available = room - reserve;
     let used = 0;
     let fits = 0;
     for (const width of widths.current) {
@@ -36,7 +42,7 @@ export function UseNavOverflow(total: number, reserve: number, enabled: boolean)
       if (used > available) break;
       fits += 1;
     }
-    set_visible(fits === total ? total : Math.max(0, fits));
+    set_visible(Math.max(0, fits));
   }, [total, reserve]);
 
   const Track = useCallback(

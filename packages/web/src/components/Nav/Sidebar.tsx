@@ -66,7 +66,7 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
               initial={is_off ? false : { x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={Spring("gentle", motion_context)}
+              transition={Spring("snappy", motion_context)}
             >
               <div className={styles.sidebarHead}>
                 <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />

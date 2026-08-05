@@ -170,7 +170,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     <nav
       ref={SetRoot}
       aria-label={aria_label ?? text.links}
-      className={cx(styles.links({ align, collapse }), sprinkle_class, className)}
+      className={cx(styles.links({ align, collapse, overflowMenu }), sprinkle_class, className)}
       style={{ ...css_vars, ...sprinkle_style }}
       data-mode={resolved_active.mode}
       {...rest}

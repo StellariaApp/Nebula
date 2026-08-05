@@ -198,6 +198,28 @@ globalStyle(`${logo} :is(img, svg)`, {
 
 const HIDDEN = { display: "none" } as const;
 
+export const actions = recipe({
+  base: {
+    "@layer": {
+      [baseLayer]: {
+        display: "flex",
+        alignItems: "center",
+        gap: vars.space.sm,
+        flexShrink: 0,
+      },
+    },
+  },
+  variants: {
+    collapse: {
+      none: {},
+      phone: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
+      laptop: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+    },
+  },
+  defaultVariants: { collapse: "tablet" },
+});
+
 export const links = recipe({
   base: {
     "@layer": {
@@ -218,6 +240,14 @@ export const links = recipe({
       center: { "@layer": { [baseLayer]: { marginInline: "auto" } } },
       end: { "@layer": { [baseLayer]: { marginInlineStart: "auto" } } },
     },
+    overflowMenu: {
+      true: {
+        "@layer": {
+          [baseLayer]: { flex: "1 1 auto", minWidth: 0, overflow: "hidden", flexWrap: "nowrap" },
+        },
+      },
+      false: {},
+    },
     collapse: {
       none: {},
       phone: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
@@ -225,7 +255,7 @@ export const links = recipe({
       laptop: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
     },
   },
-  defaultVariants: { align: "center", collapse: "tablet" },
+  defaultVariants: { align: "center", collapse: "tablet", overflowMenu: false },
 });
 
 export type NavLinksVariants = NonNullable<RecipeVariants<typeof links>>;

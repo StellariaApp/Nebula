@@ -89,6 +89,8 @@ export interface NavLinkItemProps extends StyleProps {
 export interface NavSlotProps extends StyleProps {
   children?: ReactNode | undefined;
   className?: string | undefined;
+  /** Bajo este punto las acciones desaparecen: viven en el pie del cajón. */
+  collapse?: NavLinksCollapse | undefined;
 }
 
 export interface NavDividerProps extends StyleProps {
