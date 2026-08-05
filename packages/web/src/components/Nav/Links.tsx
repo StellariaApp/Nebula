@@ -23,7 +23,7 @@ import * as styles from "./Nav.css.js";
 import { NAV_ITEM_ATTR, UseNavOverflow } from "./use-nav-overflow.js";
 import { NAV_LABELS } from "./labels.js";
 import type { NavLinkItemProps, NavLinksProps } from "./Nav.types.js";
-import { indicatorBg, indicatorBorder, indicatorFg } from "./Nav.vars.css.js";
+import * as variables from "./Nav.vars.css.js";
 import { useNavActive, type NavItem } from "./use-nav-active.js";
 import { useNavIndicator } from "./use-nav-indicator.js";
 import { useStickyChrome } from "./use-sticky-chrome.js";
@@ -147,9 +147,9 @@ export function NavLinks(props: NavLinksProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [indicatorBg]: resolved.background,
-    [indicatorBorder]: resolved.borderColor,
-    [indicatorFg]: resolved.foreground,
+    [variables.indicatorBg]: resolved.background,
+    [variables.indicatorBorder]: resolved.borderColor,
+    [variables.indicatorFg]: resolved.foreground,
   });
 
   const text = useMemo(

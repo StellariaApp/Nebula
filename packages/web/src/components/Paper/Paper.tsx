@@ -18,7 +18,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./Paper.css.js";
 import type { PaperOwnProps, PaperProps } from "./Paper.types.js";
-import { backdropFilter, bg, borderColor, fg, glow } from "./Paper.vars.css.js";
+import * as variables from "./Paper.vars.css.js";
 
 const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(props, ref) {
   const {
@@ -46,11 +46,11 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
     resolved === null
       ? {}
       : assignInlineVars({
-          [bg]: resolved.background,
-          [fg]: resolved.foreground,
-          [borderColor]: resolved.borderColor,
-          [backdropFilter]: resolved.backdropFilter,
-          [glow]: resolved.glow,
+          [variables.bg]: resolved.background,
+          [variables.fg]: resolved.foreground,
+          [variables.borderColor]: resolved.borderColor,
+          [variables.backdropFilter]: resolved.backdropFilter,
+          [variables.glow]: resolved.glow,
         });
 
   return (

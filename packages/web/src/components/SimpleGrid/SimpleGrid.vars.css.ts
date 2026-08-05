@@ -1,12 +1,12 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const sgCols = createVar();
-export const sgColsBase = createVar();
-export const sgColsPhone = createVar();
-export const sgColsTablet = createVar();
-export const sgColsLaptop = createVar();
-export const sgColsDesktop = createVar();
-export const sgColsWide = createVar();
-export const sgSpacingX = createVar();
-export const sgSpacingY = createVar();
-export const sgJustify = createVar();
+export const cols = createVar();
+export const colsBase = createVar();
+export const colsPhone = createVar();
+export const colsTablet = createVar();
+export const colsLaptop = createVar();
+export const colsDesktop = createVar();
+export const colsWide = createVar();
+export const spacingX = createVar();
+export const spacingY = createVar();
+export const justify = createVar();

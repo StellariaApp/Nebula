@@ -5,7 +5,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { slideGap, slideSize } from "./Carousel.vars.css.js";
+import * as variables from "./Carousel.vars.css.js";
 
 export const carousel = style({
   "@layer": {
@@ -29,7 +29,7 @@ export const container = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
-      gap: slideGap,
+      gap: variables.slideGap,
       backfaceVisibility: "hidden",
       touchAction: "pan-y pinch-zoom",
       selectors: {
@@ -42,7 +42,7 @@ export const container = style({
 export const slide = style({
   "@layer": {
     [base_layer]: {
-      flex: `0 0 ${slideSize}`,
+      flex: `0 0 ${variables.slideSize}`,
       minWidth: 0,
       boxSizing: "border-box",
     },
@@ -50,11 +50,11 @@ export const slide = style({
 });
 
 export const gap = styleVariants({
-  none: { vars: { [slideGap]: "0px" } },
-  xs: { vars: { [slideGap]: vars.space.xxs } },
-  sm: { vars: { [slideGap]: vars.space.xs } },
-  md: { vars: { [slideGap]: vars.space.sm } },
-  lg: { vars: { [slideGap]: vars.space.md } },
+  none: { vars: { [variables.slideGap]: "0px" } },
+  xs: { vars: { [variables.slideGap]: vars.space.xxs } },
+  sm: { vars: { [variables.slideGap]: vars.space.xs } },
+  md: { vars: { [variables.slideGap]: vars.space.sm } },
+  lg: { vars: { [variables.slideGap]: vars.space.md } },
 });
 
 export const controls = style({

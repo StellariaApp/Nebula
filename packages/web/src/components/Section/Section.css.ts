@@ -6,7 +6,7 @@ import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { contentMax } from "./Section.vars.css.js";
+import * as variables from "./Section.vars.css.js";
 
 export const section = style({
   "@layer": {
@@ -36,7 +36,7 @@ export const rail = style({
       minWidth: 0,
       boxSizing: "border-box",
       width: "100%",
-      maxWidth: fallbackVar(contentMax, "none"),
+      maxWidth: fallbackVar(variables.contentMax, "none"),
       marginInline: "auto",
       selectors: {
         "&[data-divided='true']": {

@@ -5,13 +5,13 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { columns, ratio, tileRadius } from "./ImageGallery.vars.css.js";
+import * as variables from "./ImageGallery.vars.css.js";
 
 export const gallery = style({
   "@layer": {
     [base_layer]: {
       display: "grid",
-      gridTemplateColumns: columns,
+      gridTemplateColumns: variables.columns,
       margin: 0,
       padding: 0,
       listStyle: "none",
@@ -33,10 +33,10 @@ export const tile = style({
       width: "100%",
       padding: 0,
       border: `1px solid ${vars.color.border.subtle}`,
-      borderRadius: tileRadius,
+      borderRadius: variables.tileRadius,
       overflow: "hidden",
       background: vars.color.surface.sunken,
-      aspectRatio: ratio,
+      aspectRatio: variables.ratio,
       cursor: "pointer",
       ...interaction,
       selectors: {

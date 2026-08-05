@@ -9,7 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Indicator.css.js";
-import { dotColor, dotOffset } from "./Indicator.vars.css.js";
+import * as variables from "./Indicator.vars.css.js";
 import type { IndicatorProps } from "./Indicator.types.js";
 
 export function Indicator(props: IndicatorProps): ReactElement {
@@ -37,8 +37,8 @@ export function Indicator(props: IndicatorProps): ReactElement {
   const visible = !disabled && (content !== null || count === undefined);
 
   const css_vars = assignInlineVars({
-    [dotColor]: ResolveAccent(color, "600"),
-    [dotOffset]: `${String(offset)}px`,
+    [variables.dotColor]: ResolveAccent(color, "600"),
+    [variables.dotOffset]: `${String(offset)}px`,
   });
 
   return (

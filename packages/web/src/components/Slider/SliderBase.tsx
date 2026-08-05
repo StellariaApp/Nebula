@@ -21,7 +21,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Slider.css.js";
-import { sliderColor, trackBg, trackBorder, trackBorderWidth } from "./Slider.vars.css.js";
+import * as variables from "./Slider.vars.css.js";
 import type { SliderMark, SliderVariant } from "./Slider.types.js";
 
 interface ThumbProps {
@@ -88,9 +88,9 @@ function TrackVars(
   if (variant === undefined) return {};
   const resolved = ResolveVariant(variant, color, theme);
   return {
-    [trackBg]: resolved.background,
-    [trackBorder]: resolved.borderColor,
-    [trackBorderWidth]: resolved.borderWidth,
+    [variables.trackBg]: resolved.background,
+    [variables.trackBorder]: resolved.borderColor,
+    [variables.trackBorderWidth]: resolved.borderWidth,
   };
 }
 
@@ -177,7 +177,7 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
     <div {...groupProps} className={cx(styles.row, className)}>
       <div
         className={cx(styles.root, with_marks ? styles.root_with_marks : undefined)}
-        style={assignInlineVars({ [sliderColor]: ResolveAccent(color, "600") })}
+        style={assignInlineVars({ [variables.color]: ResolveAccent(color, "600") })}
         data-disabled={disabled ? "true" : undefined}
       >
         <div

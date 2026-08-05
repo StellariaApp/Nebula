@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { backdrop, bg, borderRule, solidBg } from "./GlassSurface.vars.css.js";
+import * as variables from "./GlassSurface.vars.css.js";
 
 const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))";
 
@@ -14,12 +14,12 @@ export const glass_surface = recipe({
       [base_layer]: {
         isolation: "isolate",
         boxSizing: "border-box",
-        background: bg,
+        background: variables.bg,
         color: vars.color.text.primary,
-        backdropFilter: backdrop,
-        WebkitBackdropFilter: backdrop,
+        backdropFilter: variables.backdrop,
+        WebkitBackdropFilter: variables.backdrop,
         "@supports": {
-          [NO_BACKDROP]: { background: solidBg },
+          [NO_BACKDROP]: { background: variables.solidBg },
         },
         "@media": {
           "(forced-colors: active)": {
@@ -54,7 +54,7 @@ export const glass_surface = recipe({
       full: { borderRadius: vars.radius.full },
     },
     withBorder: {
-      true: { "@layer": { [base_layer]: { border: borderRule } } },
+      true: { "@layer": { [base_layer]: { border: variables.borderRule } } },
       false: { "@layer": { [base_layer]: { border: "none" } } },
     },
   },

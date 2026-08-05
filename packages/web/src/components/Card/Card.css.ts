@@ -6,7 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { backdropFilter, bg, borderColor, fg, glow, pad } from "./Card.vars.css.js";
+import * as variables from "./Card.vars.css.js";
 
 export const card = recipe({
   base: {
@@ -16,13 +16,13 @@ export const card = recipe({
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        background: fallbackVar(bg, vars.color.surface.raised),
-        color: fallbackVar(fg, vars.color.text.primary),
+        background: fallbackVar(variables.bg, vars.color.surface.raised),
+        color: fallbackVar(variables.fg, vars.color.text.primary),
         fontFamily: vars.font.family.sans,
         borderStyle: "solid",
         borderWidth: 0,
-        borderColor: fallbackVar(borderColor, vars.color.border.default),
-        backdropFilter: fallbackVar(backdropFilter, "none"),
+        borderColor: fallbackVar(variables.borderColor, vars.color.border.default),
+        backdropFilter: fallbackVar(variables.backdropFilter, "none"),
         overflow: "hidden",
         textAlign: "start",
         textDecoration: "none",
@@ -31,7 +31,7 @@ export const card = recipe({
   },
   variants: {
     glowing: {
-      true: { "@layer": { [base_layer]: { boxShadow: glow } } },
+      true: { "@layer": { [base_layer]: { boxShadow: variables.glow } } },
       false: {},
     },
     radius: {
@@ -56,10 +56,10 @@ export const card = recipe({
       xxl: { boxShadow: vars.shadow.xxl },
     },
     padding: {
-      none: { vars: { [pad]: "0px" }, padding: pad, gap: 0 },
-      md: { vars: { [pad]: vars.space.md }, padding: pad, gap: vars.space.sm },
-      lg: { vars: { [pad]: vars.space.lg }, padding: pad, gap: vars.space.md },
-      xl: { vars: { [pad]: vars.space.xl }, padding: pad, gap: vars.space.lg },
+      none: { vars: { [variables.pad]: "0px" }, padding: variables.pad, gap: 0 },
+      md: { vars: { [variables.pad]: vars.space.md }, padding: variables.pad, gap: vars.space.sm },
+      lg: { vars: { [variables.pad]: vars.space.lg }, padding: variables.pad, gap: vars.space.md },
+      xl: { vars: { [variables.pad]: vars.space.xl }, padding: variables.pad, gap: vars.space.lg },
     },
     withBorder: {
       true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
@@ -97,10 +97,10 @@ export const card = recipe({
 });
 
 export const section_inset = style({
-  marginInline: `calc(${pad} * -1)`,
+  marginInline: `calc(${variables.pad} * -1)`,
   selectors: {
-    "&:first-child": { marginBlockStart: `calc(${pad} * -1)` },
-    "&:last-child": { marginBlockEnd: `calc(${pad} * -1)` },
+    "&:first-child": { marginBlockStart: `calc(${variables.pad} * -1)` },
+    "&:last-child": { marginBlockEnd: `calc(${variables.pad} * -1)` },
   },
 });
 

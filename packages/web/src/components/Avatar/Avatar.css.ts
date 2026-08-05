@@ -4,14 +4,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  avatarBg,
-  avatarBorder,
-  avatarBorderWidth,
-  avatarFg,
-  avatarOverlap,
-  avatarSize,
-} from "./Avatar.vars.css.js";
+import * as variables from "./Avatar.vars.css.js";
 
 export const avatar = recipe({
   base: {
@@ -23,17 +16,17 @@ export const avatar = recipe({
         justifyContent: "center",
         boxSizing: "border-box",
         flexShrink: 0,
-        width: avatarSize,
-        height: avatarSize,
+        width: variables.size,
+        height: variables.size,
         overflow: "hidden",
-        background: avatarBg,
-        color: avatarFg,
+        background: variables.bg,
+        color: variables.fg,
         borderStyle: "solid",
-        borderWidth: fallbackVar(avatarBorderWidth, "0"),
-        borderColor: fallbackVar(avatarBorder, "transparent"),
+        borderWidth: fallbackVar(variables.borderWidth, "0"),
+        borderColor: fallbackVar(variables.border, "transparent"),
         fontFamily: vars.font.family.sans,
         fontWeight: vars.font.weight.semibold,
-        fontSize: `calc(${avatarSize} / 2.6)`,
+        fontSize: `calc(${variables.size} / 2.6)`,
         lineHeight: 1,
         userSelect: "none",
       },
@@ -67,7 +60,7 @@ export const group = style({
 });
 
 globalStyle(`${group} > *`, {
-  marginInlineStart: `calc(${avatarOverlap} * -1)`,
+  marginInlineStart: `calc(${variables.overlap} * -1)`,
   borderStyle: "solid",
   borderWidth: 2,
   borderColor: vars.color.surface.base,

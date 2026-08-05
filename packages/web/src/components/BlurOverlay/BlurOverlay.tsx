@@ -10,7 +10,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./BlurOverlay.css.js";
-import { alpha, backdrop, tint } from "./BlurOverlay.vars.css.js";
+import * as variables from "./BlurOverlay.vars.css.js";
 import type { BlurOverlayProps } from "./BlurOverlay.types.js";
 
 const SOLID_ALPHA = 0.94;
@@ -34,9 +34,9 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
   const enabled = theme.effects.glass.enabled && blur !== "none";
 
   const css_vars = assignInlineVars({
-    [tint]: ResolveAccent(color, "600"),
-    [alpha]: String(enabled ? opacity : Math.max(opacity, SOLID_ALPHA)),
-    [backdrop]: enabled ? `blur(${vars.blur[blur]})` : "none",
+    [variables.tint]: ResolveAccent(color, "600"),
+    [variables.alpha]: String(enabled ? opacity : Math.max(opacity, SOLID_ALPHA)),
+    [variables.backdrop]: enabled ? `blur(${vars.blur[blur]})` : "none",
   });
 
   const has_content = children !== undefined && children !== null;

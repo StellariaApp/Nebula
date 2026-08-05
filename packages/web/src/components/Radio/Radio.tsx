@@ -9,7 +9,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 
 import { useRadioGroupContext } from "./Radio.context.js";
 import * as styles from "./Radio.css.js";
-import { radioColor } from "./Radio.vars.css.js";
+import * as variables from "./Radio.vars.css.js";
 import type { RadioProps } from "./Radio.types.js";
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
@@ -36,7 +36,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(pro
 
   const is_checked = group === null ? undefined : group.value === value;
 
-  const css_vars = assignInlineVars({ [radioColor]: ResolveAccent(color, "600") });
+  const css_vars = assignInlineVars({ [variables.color]: ResolveAccent(color, "600") });
 
   return (
     <label

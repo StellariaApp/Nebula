@@ -4,56 +4,45 @@ import { breakpoints } from "@stellaria/nebula-tokens";
 
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  sgCols,
-  sgColsBase,
-  sgColsDesktop,
-  sgColsLaptop,
-  sgColsPhone,
-  sgColsTablet,
-  sgColsWide,
-  sgJustify,
-  sgSpacingX,
-  sgSpacingY,
-} from "./SimpleGrid.vars.css.js";
+import * as variables from "./SimpleGrid.vars.css.js";
 
 export const simple_grid = style({
   "@layer": {
     [base_layer]: {
       display: "grid",
       boxSizing: "border-box",
-      gridTemplateColumns: `repeat(${sgCols}, minmax(0, 1fr))`,
-      gap: `${sgSpacingY} ${sgSpacingX}`,
-      justifyItems: fallbackVar(sgJustify, "stretch"),
+      gridTemplateColumns: `repeat(${variables.cols}, minmax(0, 1fr))`,
+      gap: `${variables.spacingY} ${variables.spacingX}`,
+      justifyItems: fallbackVar(variables.justify, "stretch"),
     },
   },
   vars: {
-    [sgCols]: sgColsBase,
+    [variables.cols]: variables.colsBase,
   },
   "@media": {
     [`screen and (min-width: ${String(breakpoints.phone)}px)`]: {
-      vars: { [sgCols]: fallbackVar(sgColsPhone, sgColsBase) },
+      vars: { [variables.cols]: fallbackVar(variables.colsPhone, variables.colsBase) },
     },
     [`screen and (min-width: ${String(breakpoints.tablet)}px)`]: {
-      vars: { [sgCols]: fallbackVar(sgColsTablet, sgColsPhone, sgColsBase) },
+      vars: { [variables.cols]: fallbackVar(variables.colsTablet, variables.colsPhone, variables.colsBase) },
     },
     [`screen and (min-width: ${String(breakpoints.laptop)}px)`]: {
-      vars: { [sgCols]: fallbackVar(sgColsLaptop, sgColsTablet, sgColsPhone, sgColsBase) },
+      vars: { [variables.cols]: fallbackVar(variables.colsLaptop, variables.colsTablet, variables.colsPhone, variables.colsBase) },
     },
     [`screen and (min-width: ${String(breakpoints.desktop)}px)`]: {
       vars: {
-        [sgCols]: fallbackVar(sgColsDesktop, sgColsLaptop, sgColsTablet, sgColsPhone, sgColsBase),
+        [variables.cols]: fallbackVar(variables.colsDesktop, variables.colsLaptop, variables.colsTablet, variables.colsPhone, variables.colsBase),
       },
     },
     [`screen and (min-width: ${String(breakpoints.wide)}px)`]: {
       vars: {
-        [sgCols]: fallbackVar(
-          sgColsWide,
-          sgColsDesktop,
-          sgColsLaptop,
-          sgColsTablet,
-          sgColsPhone,
-          sgColsBase,
+        [variables.cols]: fallbackVar(
+          variables.colsWide,
+          variables.colsDesktop,
+          variables.colsLaptop,
+          variables.colsTablet,
+          variables.colsPhone,
+          variables.colsBase,
         ),
       },
     },

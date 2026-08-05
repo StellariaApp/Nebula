@@ -17,7 +17,7 @@ import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./GradientText.css.js";
-import { fallbackFg, gradientImage } from "./GradientText.vars.css.js";
+import * as variables from "./GradientText.vars.css.js";
 import type { GradientTextOwnProps, GradientTextProps } from "./GradientText.types.js";
 
 const GradientTextComponent = forwardRef<HTMLElement, GradientTextOwnProps>(
@@ -36,8 +36,8 @@ const GradientTextComponent = forwardRef<HTMLElement, GradientTextOwnProps>(
     const fallback = ResolveAccent(fallbackColor, "600");
 
     const css_vars = assignInlineVars({
-      [gradientImage]: ResolveGradient(gradient, theme),
-      [fallbackFg]: fallback,
+      [variables.image]: ResolveGradient(gradient, theme),
+      [variables.fallbackFg]: fallback,
     });
 
     return (

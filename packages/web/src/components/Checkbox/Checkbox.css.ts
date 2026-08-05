@@ -5,7 +5,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { checkboxColor, checkboxSize } from "./Checkbox.vars.css.js";
+import * as variables from "./Checkbox.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -44,7 +44,7 @@ export const size = styleVariants(
     lg: vars.size.control.lg,
     xl: vars.size.control.xl,
   },
-  (control) => ({ vars: { [checkboxSize]: `calc(${control} / 2)` } }),
+  (control) => ({ vars: { [variables.size]: `calc(${control} / 2)` } }),
 );
 
 export const box = style({
@@ -55,8 +55,8 @@ export const box = style({
       justifyContent: "center",
       flexShrink: 0,
       boxSizing: "border-box",
-      width: checkboxSize,
-      height: checkboxSize,
+      width: variables.size,
+      height: variables.size,
       borderWidth: "2px",
       borderStyle: "solid",
       borderColor: vars.color.border.strong,
@@ -91,8 +91,8 @@ export const list_row = style({
 });
 
 globalStyle(`${input}:checked + ${box}, ${input}:indeterminate + ${box}`, {
-  background: checkboxColor,
-  borderColor: checkboxColor,
+  background: variables.color,
+  borderColor: variables.color,
 });
 
 globalStyle(`${input}:checked + ${box} > ${mark}, ${input}:indeterminate + ${box} > ${mark}`, {

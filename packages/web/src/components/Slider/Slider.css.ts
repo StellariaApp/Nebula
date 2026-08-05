@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { sliderColor, trackBg, trackBorder, trackBorderWidth } from "./Slider.vars.css.js";
+import * as variables from "./Slider.vars.css.js";
 
 const TOUCH_TARGET = 24;
 
@@ -31,10 +31,10 @@ export const track = style({
       width: "100%",
       boxSizing: "border-box",
       borderRadius: vars.radius.full,
-      background: fallbackVar(trackBg, vars.color.surface.sunken),
+      background: fallbackVar(variables.trackBg, vars.color.surface.sunken),
       borderStyle: "solid",
-      borderWidth: fallbackVar(trackBorderWidth, "0"),
-      borderColor: fallbackVar(trackBorder, "transparent"),
+      borderWidth: fallbackVar(variables.trackBorderWidth, "0"),
+      borderColor: fallbackVar(variables.trackBorder, "transparent"),
       selectors: {
         "&[data-disabled='true']": {
           background: vars.color.surface.disabled,
@@ -51,7 +51,7 @@ export const fill = style({
       position: "absolute",
       insetBlock: 0,
       borderRadius: vars.radius.full,
-      background: sliderColor,
+      background: variables.color,
       selectors: {
         "&[data-disabled='true']": { background: vars.color.border.disabled },
       },
@@ -69,7 +69,7 @@ export const thumb = style({
       background: vars.color.surface.raised,
       borderWidth: 3,
       borderStyle: "solid",
-      borderColor: sliderColor,
+      borderColor: variables.color,
       boxShadow: vars.shadow.xs,
       outline: "none",
       cursor: "grab",

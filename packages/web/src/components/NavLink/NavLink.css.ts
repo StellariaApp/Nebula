@@ -6,7 +6,7 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-import { accent, activeBg, activeBgHover } from "./NavLink.vars.css.js";
+import * as variables from "./NavLink.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -36,10 +36,10 @@ export const root = style({
           background: vars.color.surface.hover,
           color: vars.color.text.primary,
         },
-        "&[data-active='true']": { background: activeBg, color: accent },
+        "&[data-active='true']": { background: variables.activeBg, color: variables.accent },
         "&[data-active='true']:hover:not([data-disabled='true'])": {
-          background: activeBgHover,
-          color: accent,
+          background: variables.activeBgHover,
+          color: variables.accent,
         },
         "&[data-disabled='true']": {
           cursor: "not-allowed",
@@ -64,7 +64,7 @@ export const indicator = style({
       insetBlock: "20%",
       width: "3px",
       borderRadius: vars.radius.full,
-      background: accent,
+      background: variables.accent,
       "@media": {
         [SmallerThan("tablet")]: {
           insetInline: "20%",

@@ -5,13 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  bulletBg,
-  bulletBorder,
-  bulletBorderWidth,
-  bulletFg,
-  trackDone,
-} from "./Stepper.vars.css.js";
+import * as variables from "./Stepper.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -92,7 +86,7 @@ export const bullet = style({
       boxSizing: "border-box",
       borderRadius: vars.radius.full,
       borderStyle: "solid",
-      borderWidth: bulletBorderWidth,
+      borderWidth: variables.bulletBorderWidth,
       borderColor: vars.color.border.default,
       background: "transparent",
       color: vars.color.text.muted,
@@ -102,9 +96,9 @@ export const bullet = style({
       ...motion.reduced_motion,
       selectors: {
         "&[data-state='completed'], &[data-state='current']": {
-          background: bulletBg,
-          borderColor: bulletBorder,
-          color: bulletFg,
+          background: variables.bulletBg,
+          borderColor: variables.bulletBorder,
+          color: variables.bulletFg,
         },
         "&[data-state='error']": {
           background: "transparent",
@@ -165,7 +159,7 @@ export const track = style({
       ...motion.interaction,
       ...motion.reduced_motion,
       selectors: {
-        "&[data-state='completed']": { background: trackDone },
+        "&[data-state='completed']": { background: variables.trackDone },
         "[data-orientation='vertical'] &": {
           position: "absolute",
           insetInlineStart: 15,

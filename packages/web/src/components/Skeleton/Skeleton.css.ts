@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { skeletonHeight, skeletonRadius, skeletonWidth } from "./Skeleton.vars.css.js";
+import * as variables from "./Skeleton.vars.css.js";
 
 const SHIMMER = keyframes({
   from: { backgroundPosition: "200% 0" },
@@ -23,9 +23,9 @@ export const skeleton = recipe({
       [base_layer]: {
         display: "block",
         boxSizing: "border-box",
-        width: skeletonWidth,
-        height: skeletonHeight,
-        borderRadius: skeletonRadius,
+        width: variables.width,
+        height: variables.height,
+        borderRadius: variables.radius,
         background: vars.color.surface.sunken,
         "@media": {
           "(prefers-reduced-motion: reduce)": { ...motion.still, backgroundImage: "none" },

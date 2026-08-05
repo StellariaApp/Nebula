@@ -14,7 +14,7 @@ import { Box } from "../Box/Box.js";
 
 import { Momentum } from "./components/Momentum.js";
 import * as styles from "./Scroll.css.js";
-import { scrollbarSize as scrollbarSizeVar } from "./Scroll.vars.css.js";
+import * as variables from "./Scroll.vars.css.js";
 import type { ScrollOwnProps, ScrollProps } from "./Scroll.types.js";
 
 const WHEEL_GAIN = 1.5;
@@ -40,7 +40,7 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
   const css_vars =
     scrollbarSize === undefined
       ? undefined
-      : assignInlineVars({ [scrollbarSizeVar]: LengthToCss(scrollbarSize) });
+      : assignInlineVars({ [variables.scrollbarSize]: LengthToCss(scrollbarSize) });
 
   const shadow_class = !shadows
     ? undefined

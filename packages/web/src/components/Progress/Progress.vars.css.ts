@@ -6,4 +6,3 @@ export const trackBorder = createVar();
 export const trackBorderWidth = createVar();
 export const trackRadius = createVar();
 export const ringSize = createVar();
-export const ringThickness = createVar();

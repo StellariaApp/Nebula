@@ -1,4 +1,4 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const groupGap = createVar();
-export const groupCount = createVar();
+export const gap = createVar();
+export const count = createVar();

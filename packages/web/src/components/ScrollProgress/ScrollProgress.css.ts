@@ -4,13 +4,13 @@ import { reduced_media, still, value as valueMotion } from "../../styles/motion.
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { barColor, barHeight, progress } from "./ScrollProgress.vars.css.js";
+import * as variables from "./ScrollProgress.vars.css.js";
 
 export const root = style({
   "@layer": {
     [base_layer]: {
       width: "100%",
-      height: barHeight,
+      height: variables.barHeight,
       overflow: "hidden",
       selectors: {
         "&[data-position='top']": {
@@ -35,8 +35,8 @@ export const bar = style({
   "@layer": {
     [base_layer]: {
       height: "100%",
-      width: progress,
-      background: barColor,
+      width: variables.progress,
+      background: variables.barColor,
       ...valueMotion,
       "@media": { [reduced_media]: still },
     },

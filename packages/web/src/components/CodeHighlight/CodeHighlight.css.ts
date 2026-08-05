@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { scrollHeight } from "./CodeHighlight.vars.css.js";
+import * as variables from "./CodeHighlight.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -49,7 +49,7 @@ export const floating_copy = style({
 export const scroll = style({
   "@layer": {
     [base_layer]: {
-      maxHeight: scrollHeight,
+      maxHeight: variables.scrollHeight,
       overflow: "auto",
     },
   },

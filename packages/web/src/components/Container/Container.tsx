@@ -15,7 +15,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./Container.css.js";
 import type { ContainerOwnProps, ContainerProps } from "./Container.types.js";
-import { containerSize } from "./Container.vars.css.js";
+import * as variables from "./Container.vars.css.js";
 
 const SIZE_WIDTH: Record<Size, number> = {
   xs: 540,
@@ -46,7 +46,7 @@ const ContainerComponent = forwardRef<HTMLElement, ContainerOwnProps>(
     } = props as ContainerOwnProps & { style?: CSSProperties };
 
     const css_vars = assignInlineVars({
-      [containerSize]: ResolveMaxWidth(size, fluid),
+      [variables.size]: ResolveMaxWidth(size, fluid),
     });
 
     return (

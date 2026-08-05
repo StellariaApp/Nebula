@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { chipBg, chipBorder, chipFg } from "./Chip.vars.css.js";
+import * as variables from "./Chip.vars.css.js";
 
 export const group_root = style({
   "@layer": {
@@ -55,9 +55,9 @@ export const root = style({
       userSelect: "none",
       borderWidth: 1,
       borderStyle: "solid",
-      background: chipBg,
-      color: chipFg,
-      borderColor: chipBorder,
+      background: variables.bg,
+      color: variables.fg,
+      borderColor: variables.border,
       ...motion.interaction,
       ...motion.reduced_motion,
       selectors: {

@@ -4,7 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { contentGap, contentMax } from "./Main.vars.css.js";
+import * as variables from "./Main.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -51,13 +51,13 @@ export const content = style({
         "&[data-railed='true']": {
           boxSizing: "border-box",
           width: "100%",
-          maxWidth: contentMax,
+          maxWidth: variables.contentMax,
           marginInline: "auto",
         },
         "&[data-spacing='true']": {
           display: "flex",
           flexDirection: "column",
-          gap: contentGap,
+          gap: variables.contentGap,
         },
       },
     },

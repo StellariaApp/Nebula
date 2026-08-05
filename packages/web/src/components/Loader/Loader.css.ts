@@ -4,7 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { loaderColor, loaderSize } from "./Loader.vars.css.js";
+import * as variables from "./Loader.vars.css.js";
 
 const SPIN = keyframes({ to: { transform: "rotate(360deg)" } });
 const PULSE = keyframes({
@@ -22,8 +22,8 @@ export const root = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: `calc(${loaderSize} / 5)`,
-      color: loaderColor,
+      gap: `calc(${variables.size} / 5)`,
+      color: variables.color,
       verticalAlign: "middle",
     },
   },
@@ -32,11 +32,11 @@ export const root = style({
 export const spinner = style({
   "@layer": {
     [base_layer]: {
-      width: loaderSize,
-      height: loaderSize,
+      width: variables.size,
+      height: variables.size,
       borderRadius: vars.radius.full,
       borderStyle: "solid",
-      borderWidth: `calc(${loaderSize} / 8)`,
+      borderWidth: `calc(${variables.size} / 8)`,
       borderColor: "currentColor",
       borderTopColor: "transparent",
       animationName: SPIN,
@@ -57,8 +57,8 @@ export const spinner = style({
 const dot_base = style({
   "@layer": {
     [base_layer]: {
-      width: `calc(${loaderSize} / 3.2)`,
-      height: `calc(${loaderSize} / 3.2)`,
+      width: `calc(${variables.size} / 3.2)`,
+      height: `calc(${variables.size} / 3.2)`,
       borderRadius: vars.radius.full,
       background: "currentColor",
       animationName: PULSE,
@@ -75,8 +75,8 @@ const dot_base = style({
 const bar_base = style({
   "@layer": {
     [base_layer]: {
-      width: `calc(${loaderSize} / 5)`,
-      height: loaderSize,
+      width: `calc(${variables.size} / 5)`,
+      height: variables.size,
       borderRadius: vars.radius.xs,
       background: "currentColor",
       animationName: STRETCH,

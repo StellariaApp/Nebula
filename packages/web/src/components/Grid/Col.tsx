@@ -13,7 +13,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./Grid.css.js";
 import type { GridColOwnProps, GridColProps } from "./Grid.types.js";
-import { colOffset, colSpan } from "./Grid.vars.css.js";
+import * as variables from "./Grid.vars.css.js";
 
 const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props, ref) {
   const {
@@ -35,8 +35,8 @@ const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(p
       : styles.col_auto;
 
   const css_vars = assignInlineVars({
-    [colOffset]: String(offset),
-    [colSpan]: is_numeric ? String(span) : "1",
+    [variables.colOffset]: String(offset),
+    [variables.colSpan]: is_numeric ? String(span) : "1",
   });
 
   return (

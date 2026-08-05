@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bg, borderColor, borderWidth, fg } from "./ThemeIcon.vars.css.js";
+import * as variables from "./ThemeIcon.vars.css.js";
 
 export const icon = style({
   "@layer": {
@@ -14,11 +14,11 @@ export const icon = style({
       flexShrink: 0,
       boxSizing: "border-box",
       lineHeight: 0,
-      background: bg,
-      color: fg,
+      background: variables.bg,
+      color: variables.fg,
       borderStyle: "solid",
-      borderWidth: borderWidth,
-      borderColor: borderColor,
+      borderWidth: variables.borderWidth,
+      borderColor: variables.borderColor,
     },
   },
 });

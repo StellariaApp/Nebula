@@ -15,7 +15,7 @@ import { Box } from "../Box/Box.js";
 import { GridCol } from "./Col.js";
 import * as styles from "./Grid.css.js";
 import type { GridOwnProps, GridProps } from "./Grid.types.js";
-import { gridColumns, gridGrow, gridGutter } from "./Grid.vars.css.js";
+import * as variables from "./Grid.vars.css.js";
 
 const GridComponent = forwardRef<HTMLElement, GridOwnProps>(function Grid(props, ref) {
   const {
@@ -33,9 +33,9 @@ const GridComponent = forwardRef<HTMLElement, GridOwnProps>(function Grid(props,
   } = props as GridOwnProps & { style?: CSSProperties };
 
   const css_vars = assignInlineVars({
-    [gridColumns]: String(columns),
-    [gridGutter]: SpaceToCss(gutter),
-    [gridGrow]: grow ? "1" : "0",
+    [variables.columns]: String(columns),
+    [variables.gutter]: SpaceToCss(gutter),
+    [variables.grow]: grow ? "1" : "0",
   });
 
   return (

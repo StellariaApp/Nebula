@@ -11,7 +11,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Badge.css.js";
 import type { BadgeProps } from "./Badge.types.js";
-import { bg, borderColor, fg } from "./Badge.vars.css.js";
+import * as variables from "./Badge.vars.css.js";
 
 export function Badge(props: BadgeProps): ReactElement {
   const {
@@ -33,9 +33,9 @@ export function Badge(props: BadgeProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bg]: resolved.background,
-    [fg]: resolved.foreground,
-    [borderColor]: resolved.borderColor,
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.borderColor]: resolved.borderColor,
   });
 
   return (

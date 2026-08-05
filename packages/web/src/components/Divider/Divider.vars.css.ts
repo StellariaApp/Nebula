@@ -1,5 +1,5 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const dividerColor = createVar();
-export const dividerThickness = createVar();
-export const dividerStyle = createVar();
+export const color = createVar();
+export const thickness = createVar();
+export const style = createVar();

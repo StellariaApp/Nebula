@@ -5,7 +5,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { switchColor, switchH, switchW } from "./Switch.vars.css.js";
+import * as variables from "./Switch.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -40,8 +40,8 @@ export const track = style({
       position: "relative",
       flexShrink: 0,
       boxSizing: "border-box",
-      width: switchW,
-      height: switchH,
+      width: variables.width,
+      height: variables.height,
       borderRadius: vars.radius.full,
       background: vars.color.border.strong,
       ...motion.interaction,
@@ -53,8 +53,8 @@ export const thumb = style({
   position: "absolute",
   top: "2px",
   insetInlineStart: "2px",
-  width: `calc(${switchH} - 4px)`,
-  height: `calc(${switchH} - 4px)`,
+  width: `calc(${variables.height} - 4px)`,
+  height: `calc(${variables.height} - 4px)`,
   borderRadius: vars.radius.full,
   background: vars.color.surface.base,
   boxShadow: vars.shadow.xs,
@@ -74,7 +74,7 @@ export const list_row = style({
   gap: vars.space.md,
 });
 
-globalStyle(`${input}:checked + ${track}`, { background: switchColor });
+globalStyle(`${input}:checked + ${track}`, { background: variables.color });
 globalStyle(`${input}:focus-visible + ${track}`, focus.ring);
 
 globalStyle(`${track}`, {

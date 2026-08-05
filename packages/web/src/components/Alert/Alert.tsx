@@ -13,7 +13,7 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Alert.css.js";
 import type { AlertProps } from "./Alert.types.js";
-import { accent, bg, borderColor, fg } from "./Alert.vars.css.js";
+import * as variables from "./Alert.vars.css.js";
 
 const DEFAULT_LIVE: Record<string, "status" | "alert"> = {
   error: "alert",
@@ -43,10 +43,10 @@ export function Alert(props: AlertProps): ReactElement {
   const role = live ?? DEFAULT_LIVE[color] ?? "status";
 
   const css_vars = assignInlineVars({
-    [bg]: resolved.background,
-    [fg]: resolved.foreground,
-    [accent]: variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
-    [borderColor]: resolved.borderColor,
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.accent]: variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
+    [variables.borderColor]: resolved.borderColor,
   });
 
   return (

@@ -1,5 +1,5 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const switchColor = createVar();
-export const switchW = createVar();
-export const switchH = createVar();
+export const color = createVar();
+export const width = createVar();
+export const height = createVar();

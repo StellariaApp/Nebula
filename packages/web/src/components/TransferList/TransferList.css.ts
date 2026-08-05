@@ -5,7 +5,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { paneHeight } from "./TransferList.vars.css.js";
+import * as variables from "./TransferList.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -86,7 +86,7 @@ export const list = style({
       flexDirection: "column",
       gap: 2,
       padding: vars.space.xxs,
-      height: paneHeight,
+      height: variables.paneHeight,
       overflowY: "auto",
     },
   },

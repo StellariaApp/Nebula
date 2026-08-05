@@ -14,7 +14,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Divider.css.js";
-import { dividerColor, dividerStyle, dividerThickness } from "./Divider.vars.css.js";
+import * as variables from "./Divider.vars.css.js";
 import type { DividerOwnProps, DividerProps, DividerSize } from "./Divider.types.js";
 
 const THICKNESS: Record<DividerSize, number> = { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 };
@@ -41,9 +41,9 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
   const has_label = label !== undefined && label !== null && orientation === "horizontal";
 
   const css_vars = assignInlineVars({
-    [dividerColor]: vars.color.border[color],
-    [dividerThickness]: ResolveThickness(size),
-    [dividerStyle]: lineStyle,
+    [variables.color]: vars.color.border[color],
+    [variables.thickness]: ResolveThickness(size),
+    [variables.style]: lineStyle,
   });
 
   const left_class = labelPosition === "left" ? styles.fixed : styles.grow;

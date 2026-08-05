@@ -14,7 +14,7 @@ import { GlassSurface } from "../GlassSurface/GlassSurface.js";
 
 import { useAppShell } from "./AppShellContext.js";
 import * as styles from "./AppShell.css.js";
-import { chromeHeight, railWidth } from "./AppShell.vars.css.js";
+import * as variables from "./AppShell.vars.css.js";
 import type {
   AppShellContentProps,
   AppShellHeaderProps,
@@ -61,8 +61,8 @@ export function AppShellRail(props: AppShellRailProps): ReactElement {
       className={cx(styles.rail, sprinkle_class, className)}
       style={{
         ...assignInlineVars({
-          [railWidth]: `${String(sidebarWidth)}px`,
-          [chromeHeight]: `${String(chrome)}px`,
+          [variables.railWidth]: `${String(sidebarWidth)}px`,
+          [variables.chromeHeight]: `${String(chrome)}px`,
         }),
         ...sprinkle_style,
       }}

@@ -9,7 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Skeleton.css.js";
 import type { SkeletonProps } from "./Skeleton.types.js";
-import { skeletonHeight, skeletonRadius, skeletonWidth } from "./Skeleton.vars.css.js";
+import * as variables from "./Skeleton.vars.css.js";
 
 const LAST_LINE_WIDTH = "62%";
 
@@ -41,9 +41,9 @@ export function Skeleton(props: SkeletonProps): ReactElement {
   if (!loading) return <>{children}</>;
 
   const css_vars = assignInlineVars({
-    [skeletonWidth]: LengthToCss(width),
-    [skeletonHeight]: LengthToCss(height),
-    [skeletonRadius]: ResolveRadius(radius, circle),
+    [variables.width]: LengthToCss(width),
+    [variables.height]: LengthToCss(height),
+    [variables.radius]: ResolveRadius(radius, circle),
   });
 
   const block = styles.skeleton({ animation, circle });

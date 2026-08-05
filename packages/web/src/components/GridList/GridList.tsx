@@ -9,7 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Segment } from "../Segment/index.js";
 
 import * as styles from "./GridList.css.js";
-import { cols as cols_var, minCol } from "./GridList.vars.css.js";
+import * as variables from "./GridList.vars.css.js";
 import type { GridListMode, GridListProps } from "./GridList.types.js";
 
 const DEFAULT_MODE_LABELS: Record<GridListMode, string> = {
@@ -45,8 +45,8 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
   const text = { ...DEFAULT_MODE_LABELS, ...modeLabels };
 
   const css_vars = assignInlineVars({
-    [minCol]: `${String(minColWidth)}px`,
-    [cols_var]: cols === undefined ? "auto-fill" : String(cols),
+    [variables.minCol]: `${String(minColWidth)}px`,
+    [variables.cols]: cols === undefined ? "auto-fill" : String(cols),
   });
 
   return (

@@ -18,7 +18,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./AnimatedGradient.css.js";
 import type { AnimatedGradientOwnProps, AnimatedGradientProps } from "./AnimatedGradient.types.js";
-import { gradientImage, scrimAlpha } from "./AnimatedGradient.vars.css.js";
+import * as variables from "./AnimatedGradient.vars.css.js";
 
 const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnProps>(
   function AnimatedGradient(props, ref) {
@@ -38,8 +38,8 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
     const animated = theme.motion.tier !== "minimal";
 
     const css_vars = assignInlineVars({
-      [gradientImage]: ResolveGradient(gradient, theme),
-      [scrimAlpha]: String(scrim),
+      [variables.gradientImage]: ResolveGradient(gradient, theme),
+      [variables.scrimAlpha]: String(scrim),
     });
 
     const named_radius = typeof radius === "string" ? radius : "lg";

@@ -5,9 +5,9 @@ import { reduced_media } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bounceOffset, scrollbarSize } from "./Scroll.vars.css.js";
+import * as variables from "./Scroll.vars.css.js";
 
-const size = fallbackVar(scrollbarSize, "8px");
+const size = fallbackVar(variables.scrollbarSize, "8px");
 
 const INK = `color-mix(in srgb, ${vars.color.border.default} 40%, transparent)`;
 const BAND = vars.space.xl;
@@ -195,7 +195,7 @@ export const bouncing = style({});
 globalStyle(`${bouncing} > *`, {
   "@layer": {
     [base_layer]: {
-      transform: `translate3d(0, ${fallbackVar(bounceOffset, "0px")}, 0)`,
+      transform: `translate3d(0, ${fallbackVar(variables.bounceOffset, "0px")}, 0)`,
       willChange: "transform",
       "@media": {
         [reduced_media]: { transform: "none" },

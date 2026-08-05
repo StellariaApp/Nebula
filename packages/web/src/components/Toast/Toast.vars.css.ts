@@ -1,7 +1,7 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const toastAccent = createVar();
-export const toastBg = createVar();
-export const toastFg = createVar();
-export const toastBorder = createVar();
-export const toastBackdrop = createVar();
+export const accent = createVar();
+export const bg = createVar();
+export const fg = createVar();
+export const border = createVar();
+export const backdrop = createVar();

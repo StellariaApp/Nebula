@@ -4,7 +4,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bg, borderColor, fg } from "./Badge.vars.css.js";
+import * as variables from "./Badge.vars.css.js";
 
 export const badge = recipe({
   base: {
@@ -19,11 +19,11 @@ export const badge = recipe({
         fontWeight: vars.font.weight.semibold,
         lineHeight: "100%",
         whiteSpace: "nowrap",
-        background: bg,
-        color: fg,
+        background: variables.bg,
+        color: variables.fg,
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: borderColor,
+        borderColor: variables.borderColor,
       },
     },
   },

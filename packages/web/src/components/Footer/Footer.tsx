@@ -19,7 +19,7 @@ import type {
   FooterLinkProps,
   FooterProps,
 } from "./Footer.types.js";
-import { contentGap, contentMax } from "./Footer.vars.css.js";
+import * as variables from "./Footer.vars.css.js";
 
 const DEFAULT_WIDTH = 1180;
 
@@ -129,8 +129,8 @@ export function Footer(props: FooterProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const css_vars = assignInlineVars({
-    [contentMax]: LengthToCss(contentWidth),
-    ...(spacing === undefined ? {} : { [contentGap]: SpaceToCss(spacing) }),
+    [variables.contentMax]: LengthToCss(contentWidth),
+    ...(spacing === undefined ? {} : { [variables.contentGap]: SpaceToCss(spacing) }),
   });
 
   const legal: ReactNode[] = [];

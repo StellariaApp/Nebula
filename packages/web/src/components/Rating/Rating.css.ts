@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { ratingColor } from "./Rating.vars.css.js";
+import * as variables from "./Rating.vars.css.js";
 
 const TOUCH_TARGET = 24;
 
@@ -53,7 +53,7 @@ export const item = style({
       },
       selectors: {
         "&[data-readonly='true']::after": { content: "none" },
-        "&[data-active='true']": { color: ratingColor },
+        "&[data-active='true']": { color: variables.color },
         "&[data-focus-visible='true']": focus.ring,
         "&[data-readonly='true']": { cursor: "default" },
         "&[data-disabled='true']": { cursor: "not-allowed" },
@@ -71,7 +71,7 @@ export const partial = style({
       alignItems: "center",
       justifyContent: "center",
       overflow: "hidden",
-      color: ratingColor,
+      color: variables.color,
       pointerEvents: "none",
     },
   },

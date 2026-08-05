@@ -5,7 +5,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { contentGap, contentMax, logoHeight } from "./Footer.vars.css.js";
+import * as variables from "./Footer.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -44,11 +44,11 @@ export const inner = style({
     [base_layer]: {
       display: "flex",
       flexDirection: "column",
-      gap: fallbackVar(contentGap, vars.space.xl),
+      gap: fallbackVar(variables.contentGap, vars.space.xl),
       minWidth: 0,
       boxSizing: "border-box",
       width: "100%",
-      maxWidth: fallbackVar(contentMax, "none"),
+      maxWidth: fallbackVar(variables.contentMax, "none"),
       marginInline: "auto",
     },
   },
@@ -100,7 +100,7 @@ export const brand_link = style({
 globalStyle(`${brand_link} :is(img, svg)`, {
   display: "block",
   width: "auto",
-  height: fallbackVar(logoHeight, vars.size.compact.md),
+  height: fallbackVar(variables.logoHeight, vars.size.compact.md),
 });
 
 export const brand_description = style({

@@ -10,7 +10,7 @@ import { ScaleShade } from "../../utils/scale.js";
 import { Transition } from "../Transition/Transition.js";
 
 import * as styles from "./FieldError.css.js";
-import { bubbleBg, bubbleFg, gap } from "./FieldError.vars.css.js";
+import * as variables from "./FieldError.vars.css.js";
 import type { FieldErrorPosition, FieldErrorProps } from "./FieldError.types.js";
 
 const VALIDATING_DELAY = 500;
@@ -69,9 +69,9 @@ export function FieldError(props: FieldErrorProps): ReactElement {
   const visible = open && label !== undefined && label !== "";
 
   const css_vars = assignInlineVars({
-    [bubbleBg]: ScaleShade(color, "500"),
-    [bubbleFg]: vars.color.text.onPrimary,
-    [gap]: `${String(offset)}px`,
+    [variables.bubbleBg]: ScaleShade(color, "500"),
+    [variables.bubbleFg]: vars.color.text.onPrimary,
+    [variables.gap]: `${String(offset)}px`,
   });
 
   return (

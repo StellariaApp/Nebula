@@ -15,30 +15,20 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./SimpleGrid.css.js";
 import type { SimpleGridCols, SimpleGridOwnProps, SimpleGridProps } from "./SimpleGrid.types.js";
-import {
-  sgColsBase,
-  sgColsDesktop,
-  sgColsLaptop,
-  sgColsPhone,
-  sgColsTablet,
-  sgColsWide,
-  sgJustify,
-  sgSpacingX,
-  sgSpacingY,
-} from "./SimpleGrid.vars.css.js";
+import * as variables from "./SimpleGrid.vars.css.js";
 
 const BREAKPOINT_VARS: Record<BreakpointName, string> = {
-  phone: sgColsPhone,
-  tablet: sgColsTablet,
-  laptop: sgColsLaptop,
-  desktop: sgColsDesktop,
-  wide: sgColsWide,
+  phone: variables.colsPhone,
+  tablet: variables.colsTablet,
+  laptop: variables.colsLaptop,
+  desktop: variables.colsDesktop,
+  wide: variables.colsWide,
 };
 
 function ColsVars(cols: SimpleGridCols): Record<string, string> {
-  if (typeof cols === "number") return { [sgColsBase]: String(cols) };
+  if (typeof cols === "number") return { [variables.colsBase]: String(cols) };
 
-  const out: Record<string, string> = { [sgColsBase]: String(cols.base ?? 1) };
+  const out: Record<string, string> = { [variables.colsBase]: String(cols.base ?? 1) };
   for (const name of Object.keys(BREAKPOINT_VARS) as BreakpointName[]) {
     const value = cols[name];
     if (value !== undefined) out[BREAKPOINT_VARS[name]] = String(value);
@@ -62,9 +52,9 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
 
     const css_vars = assignInlineVars({
       ...ColsVars(cols),
-      [sgSpacingX]: SpaceToCss(spacing),
-      [sgSpacingY]: SpaceToCss(verticalSpacing ?? spacing),
-      ...(justifyItems === undefined ? {} : { [sgJustify]: justifyItems }),
+      [variables.spacingX]: SpaceToCss(spacing),
+      [variables.spacingY]: SpaceToCss(verticalSpacing ?? spacing),
+      ...(justifyItems === undefined ? {} : { [variables.justify]: justifyItems }),
     });
 
     return (

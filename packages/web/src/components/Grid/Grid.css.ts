@@ -3,11 +3,11 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { base_layer } from "../../theme/layers.css.js";
 
-import { colOffset, colSpan, gridColumns, gridGrow, gridGutter } from "./Grid.vars.css.js";
+import * as variables from "./Grid.vars.css.js";
 
-const unit = `((100% - (${gridColumns} - 1) * ${gridGutter}) / ${gridColumns})`;
-const span_width = `calc(${colSpan} * ${unit} + (${colSpan} - 1) * ${gridGutter})`;
-const offset_margin = `calc(${colOffset} * ${unit} + ${colOffset} * ${gridGutter})`;
+const unit = `((100% - (${variables.columns} - 1) * ${variables.gutter}) / ${variables.columns})`;
+const span_width = `calc(${variables.colSpan} * ${unit} + (${variables.colSpan} - 1) * ${variables.gutter})`;
+const offset_margin = `calc(${variables.colOffset} * ${unit} + ${variables.colOffset} * ${variables.gutter})`;
 
 export const grid = recipe({
   base: {
@@ -15,7 +15,7 @@ export const grid = recipe({
       [base_layer]: {
         display: "flex",
         boxSizing: "border-box",
-        gap: gridGutter,
+        gap: variables.gutter,
       },
     },
   },
@@ -45,7 +45,7 @@ export const col_base = style({
 export const col_numeric = style({
   "@layer": {
     [base_layer]: {
-      flexGrow: fallbackVar(gridGrow, "0"),
+      flexGrow: fallbackVar(variables.grow, "0"),
       flexShrink: 0,
       flexBasis: span_width,
       maxWidth: span_width,

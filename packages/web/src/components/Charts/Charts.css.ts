@@ -4,7 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { panelCols, swatchColor } from "./Charts.vars.css.js";
+import * as variables from "./Charts.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -175,7 +175,7 @@ export const swatch = style({
       width: 10,
       height: 10,
       borderRadius: vars.radius.xxs,
-      background: swatchColor,
+      background: variables.swatchColor,
       flex: "0 0 auto",
     },
   },
@@ -232,7 +232,7 @@ export const panel_grid = style({
   "@layer": {
     [base_layer]: {
       display: "grid",
-      gridTemplateColumns: `repeat(${panelCols}, minmax(0, 1fr))`,
+      gridTemplateColumns: `repeat(${variables.panelCols}, minmax(0, 1fr))`,
       "@media": {
         "(max-width: 720px)": { gridTemplateColumns: "1fr" },
       },

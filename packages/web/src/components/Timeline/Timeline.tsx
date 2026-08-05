@@ -10,13 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Timeline.css.js";
-import {
-  bulletBg,
-  bulletBorder,
-  bulletFg,
-  bulletSize as bullet_size_var,
-  lineWidth as line_width_var,
-} from "./Timeline.vars.css.js";
+import * as variables from "./Timeline.vars.css.js";
 import type { TimelineProps } from "./Timeline.types.js";
 
 export function Timeline(props: TimelineProps): ReactElement {
@@ -38,11 +32,11 @@ export function Timeline(props: TimelineProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bulletBg]: resolved.background,
-    [bulletFg]: resolved.foreground,
-    [bulletBorder]: resolved.borderColor,
-    [bullet_size_var]: `${String(bulletSize)}px`,
-    [line_width_var]: `${String(lineWidth)}px`,
+    [variables.bulletBg]: resolved.background,
+    [variables.bulletFg]: resolved.foreground,
+    [variables.bulletBorder]: resolved.borderColor,
+    [variables.bulletSize]: `${String(bulletSize)}px`,
+    [variables.lineWidth]: `${String(lineWidth)}px`,
   });
 
   return (

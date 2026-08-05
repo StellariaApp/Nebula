@@ -5,7 +5,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { radioColor, radioSize } from "./Radio.vars.css.js";
+import * as variables from "./Radio.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -42,7 +42,7 @@ export const size = styleVariants(
     lg: vars.size.control.lg,
     xl: vars.size.control.xl,
   },
-  (control) => ({ vars: { [radioSize]: `calc(${control} / 2)` } }),
+  (control) => ({ vars: { [variables.size]: `calc(${control} / 2)` } }),
 );
 
 export const dot = style({
@@ -53,8 +53,8 @@ export const dot = style({
       justifyContent: "center",
       flexShrink: 0,
       boxSizing: "border-box",
-      width: radioSize,
-      height: radioSize,
+      width: variables.size,
+      height: variables.size,
       borderWidth: "2px",
       borderStyle: "solid",
       borderColor: vars.color.border.strong,
@@ -70,7 +70,7 @@ export const inner = style({
   width: "56%",
   height: "56%",
   borderRadius: vars.radius.full,
-  background: radioColor,
+  background: variables.color,
   opacity: 0,
   transform: "scale(0.4)",
   ...motion.confirm,
@@ -89,6 +89,6 @@ export const list_row = style({
   gap: vars.space.md,
 });
 
-globalStyle(`${input}:checked + ${dot}`, { borderColor: radioColor });
+globalStyle(`${input}:checked + ${dot}`, { borderColor: variables.color });
 globalStyle(`${input}:checked + ${dot} > ${inner}`, { opacity: 1, transform: "scale(1)" });
 globalStyle(`${input}:focus-visible + ${dot}`, focus.ring);

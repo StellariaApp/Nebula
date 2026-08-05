@@ -9,7 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Loader.css.js";
 import type { LoaderProps } from "./Loader.types.js";
-import { loaderColor, loaderSize } from "./Loader.vars.css.js";
+import * as variables from "./Loader.vars.css.js";
 
 const SIZE: Record<Size, number> = { xs: 14, sm: 18, md: 24, lg: 32, xl: 44 };
 
@@ -31,8 +31,8 @@ export function Loader(props: LoaderProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const css_vars = assignInlineVars({
-    [loaderSize]: ResolveSize(size),
-    [loaderColor]: ResolveAccent(color, "600"),
+    [variables.size]: ResolveSize(size),
+    [variables.color]: ResolveAccent(color, "600"),
   });
 
   return (

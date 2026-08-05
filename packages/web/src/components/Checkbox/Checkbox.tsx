@@ -11,7 +11,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 
 import { useCheckboxGroupContext } from "./Checkbox.context.js";
 import * as styles from "./Checkbox.css.js";
-import { checkboxColor } from "./Checkbox.vars.css.js";
+import * as variables from "./Checkbox.vars.css.js";
 import type { CheckboxProps } from "./Checkbox.types.js";
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
@@ -52,7 +52,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     if (merged_ref.current !== null) merged_ref.current.indeterminate = indeterminate;
   }, [indeterminate, merged_ref, is_checked]);
 
-  const css_vars = assignInlineVars({ [checkboxColor]: ResolveAccent(color, "600") });
+  const css_vars = assignInlineVars({ [variables.color]: ResolveAccent(color, "600") });
 
   const HandleChange = (): void => {
     if (in_group) group.toggle(value);

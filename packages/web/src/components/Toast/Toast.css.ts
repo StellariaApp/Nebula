@@ -3,7 +3,7 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { toastAccent, toastBackdrop, toastBg, toastBorder, toastFg } from "./Toast.vars.css.js";
+import * as variables from "./Toast.vars.css.js";
 
 const EDGE = vars.space.md;
 
@@ -49,12 +49,12 @@ export const toast = style({
       borderRadius: vars.radius.md,
       borderStyle: "solid",
       borderWidth: 1,
-      borderColor: fallbackVar(toastBorder, vars.color.border.default),
+      borderColor: fallbackVar(variables.border, vars.color.border.default),
       borderInlineStartWidth: "3px",
-      borderInlineStartColor: toastAccent,
-      background: fallbackVar(toastBg, vars.color.surface.overlay),
-      color: fallbackVar(toastFg, vars.color.text.primary),
-      backdropFilter: fallbackVar(toastBackdrop, "none"),
+      borderInlineStartColor: variables.accent,
+      background: fallbackVar(variables.bg, vars.color.surface.overlay),
+      color: fallbackVar(variables.fg, vars.color.text.primary),
+      backdropFilter: fallbackVar(variables.backdrop, "none"),
       boxShadow: vars.shadow.lg,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
@@ -67,7 +67,7 @@ export const icon = style({
     [base_layer]: {
       display: "inline-flex",
       flexShrink: 0,
-      color: toastAccent,
+      color: variables.accent,
       marginBlockStart: "1px",
     },
   },

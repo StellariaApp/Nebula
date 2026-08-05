@@ -3,9 +3,9 @@ import { fallbackVar, style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bubbleBg, bubbleFg, gap } from "./FieldError.vars.css.js";
+import * as variables from "./FieldError.vars.css.js";
 
-const GAP = fallbackVar(gap, "12px");
+const GAP = fallbackVar(variables.gap, "12px");
 
 export const wrapper = style({
   position: "relative",
@@ -27,8 +27,8 @@ export const bubble = style({
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
       lineHeight: vars.font.lineHeight.normal,
-      color: bubbleFg,
-      background: bubbleBg,
+      color: variables.bubbleFg,
+      background: variables.bubbleBg,
       boxShadow: vars.shadow.md,
       zIndex: vars.zIndex.tooltip,
       pointerEvents: "none",
@@ -48,12 +48,12 @@ export const bubble = style({
 
 export const top = style({
   bottom: `calc(100% + ${GAP})`,
-  selectors: { "&::after": { top: "100%", borderTopColor: bubbleBg } },
+  selectors: { "&::after": { top: "100%", borderTopColor: variables.bubbleBg } },
 });
 
 export const bottom = style({
   top: `calc(100% + ${GAP})`,
-  selectors: { "&::after": { bottom: "100%", borderBottomColor: bubbleBg } },
+  selectors: { "&::after": { bottom: "100%", borderBottomColor: variables.bubbleBg } },
 });
 
 export const start = style({

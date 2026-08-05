@@ -4,16 +4,7 @@ import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  accentColor,
-  auroraAccent,
-  auroraPrimary,
-  accentGlow,
-  gridCell,
-  gridColor,
-  starColor,
-  starGlow,
-} from "./StarField.vars.css.js";
+import * as variables from "./StarField.vars.css.js";
 
 const FADE_MASK =
   "radial-gradient(ellipse at 50% 30%, #000 28%, rgba(0, 0, 0, 0.82) 66%, transparent 96%)";
@@ -53,8 +44,8 @@ export const layer = style({
 export const grid = style({
   "@layer": {
     [base_layer]: {
-      backgroundImage: `linear-gradient(${gridColor} 1px, transparent 1px), linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`,
-      backgroundSize: `${gridCell} ${gridCell}`,
+      backgroundImage: `linear-gradient(${variables.gridColor} 1px, transparent 1px), linear-gradient(90deg, ${variables.gridColor} 1px, transparent 1px)`,
+      backgroundSize: `${variables.gridCell} ${variables.gridCell}`,
     },
   },
 });
@@ -73,15 +64,15 @@ export const star = style({
     [base_layer]: {
       position: "absolute",
       borderRadius: vars.radius.full,
-      background: starColor,
-      boxShadow: starGlow,
+      background: variables.starColor,
+      boxShadow: variables.starGlow,
       opacity: 0.6,
       animationName: TWINKLE,
       animationDuration: `calc(${vars.motion.duration.expressive} * 6)`,
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       selectors: {
-        "&[data-accent='true']": { background: accentColor, boxShadow: accentGlow },
+        "&[data-accent='true']": { background: variables.accentColor, boxShadow: variables.accentGlow },
         "&[data-twinkle='false']": { ...still, opacity: 0.6, transform: "scale(1)" },
       },
       "@media": {
@@ -139,7 +130,7 @@ export const aurora_blob = AURORAS.map((a, i) =>
         height: a.h,
         width: a.w,
         borderRadius: vars.radius.full,
-        backgroundImage: `radial-gradient(ellipse at center, ${auroraPrimary} 0%, ${auroraAccent} ${String(40 + i * 4)}%, transparent 70%)`,
+        backgroundImage: `radial-gradient(ellipse at center, ${variables.auroraPrimary} 0%, ${variables.auroraAccent} ${String(40 + i * 4)}%, transparent 70%)`,
         filter: `blur(${AURORA_BLUR})`,
         opacity: a.peak,
         willChange: "transform, opacity",

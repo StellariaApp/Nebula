@@ -7,7 +7,7 @@ import { useMediaQuery, useMomentumScroll, useTheme } from "@stellaria/nebula-ho
 
 import { MotionOff, ScrollSpring } from "../../../utils/motion.js";
 import { Box } from "../../Box/Box.js";
-import { bounceOffset } from "../Scroll.vars.css.js";
+import * as scroll_vars from "../Scroll.vars.css.js";
 import type { MomentumProps } from "../Scroll.types.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -23,7 +23,7 @@ export function Momentum(props: MomentumProps): ReactElement {
   const OnBounce = useCallback((offset: number): void => {
     const element = node.current;
     if (element === null) return;
-    element.style.setProperty(bounceOffset, `${String(-offset)}px`);
+    element.style.setProperty(scroll_vars.bounceOffset, `${String(-offset)}px`);
   }, []);
 
   useMomentumScroll(node, {

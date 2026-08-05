@@ -21,16 +21,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./QuickAction.css.js";
 import type { QuickActionProps } from "./QuickAction.types.js";
-import {
-  backdropFilter,
-  bg,
-  bgActive,
-  bgHover,
-  borderColor,
-  borderWidth,
-  fg,
-  glow,
-} from "./QuickAction.vars.css.js";
+import * as variables from "./QuickAction.vars.css.js";
 
 const PRESS_SCALE = 0.98;
 
@@ -132,14 +123,14 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     const css_vars = useMemo<CSSProperties>(
       () =>
         assignInlineVars({
-          [bg]: resolved.background,
-          [bgHover]: resolved.backgroundHover,
-          [bgActive]: resolved.backgroundActive,
-          [fg]: resolved.foreground,
-          [borderColor]: resolved.borderColor,
-          [borderWidth]: resolved.borderWidth,
-          [backdropFilter]: resolved.backdropFilter,
-          [glow]: resolved.glow,
+          [variables.bg]: resolved.background,
+          [variables.bgHover]: resolved.backgroundHover,
+          [variables.bgActive]: resolved.backgroundActive,
+          [variables.fg]: resolved.foreground,
+          [variables.borderColor]: resolved.borderColor,
+          [variables.borderWidth]: resolved.borderWidth,
+          [variables.backdropFilter]: resolved.backdropFilter,
+          [variables.glow]: resolved.glow,
         }),
       [resolved],
     );

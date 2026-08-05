@@ -7,26 +7,13 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-import {
-  contentMax,
-  floatingGap,
-  floatingMax,
-  indicatorBg,
-  indicatorBorder,
-  indicatorFg,
-  linkFont,
-  linkHeight,
-  logoHeight,
-  surfaceBackdrop,
-  surfaceBg,
-  surfaceBorder,
-} from "./Nav.vars.css.js";
+import * as variables from "./Nav.vars.css.js";
 
 export const root = recipe({
   base: {
     vars: {
-      [linkHeight]: vars.size.control.sm,
-      [linkFont]: vars.font.size.body3,
+      [variables.linkHeight]: vars.size.control.sm,
+      [variables.linkFont]: vars.font.size.body3,
     },
     "@layer": {
       [base_layer]: {
@@ -43,15 +30,15 @@ export const root = recipe({
   variants: {
     size: {
       sm: {
-        vars: { [linkHeight]: vars.size.control.xs, [linkFont]: vars.font.size.body3 },
+        vars: { [variables.linkHeight]: vars.size.control.xs, [variables.linkFont]: vars.font.size.body3 },
         "@layer": { [base_layer]: { minHeight: vars.size.control.md } },
       },
       md: {
-        vars: { [linkHeight]: vars.size.control.sm, [linkFont]: vars.font.size.body2 },
+        vars: { [variables.linkHeight]: vars.size.control.sm, [variables.linkFont]: vars.font.size.body2 },
         "@layer": { [base_layer]: { minHeight: vars.size.control.lg } },
       },
       lg: {
-        vars: { [linkHeight]: vars.size.control.md, [linkFont]: vars.font.size.body2 },
+        vars: { [variables.linkHeight]: vars.size.control.md, [variables.linkFont]: vars.font.size.body2 },
         "@layer": { [base_layer]: { minHeight: vars.size.control.xl } },
       },
     },
@@ -79,7 +66,7 @@ export const inner = style({
       flex: 1,
       minWidth: 0,
       boxSizing: "border-box",
-      maxWidth: fallbackVar(contentMax, "none"),
+      maxWidth: fallbackVar(variables.contentMax, "none"),
       marginInline: "auto",
     },
   },
@@ -98,9 +85,9 @@ export const sticky = style({
 
       selectors: {
         "&[data-scrolled='true']": {
-          backgroundColor: surfaceBg,
-          borderBlockEnd: surfaceBorder,
-          backdropFilter: surfaceBackdrop,
+          backgroundColor: variables.surfaceBg,
+          borderBlockEnd: variables.surfaceBorder,
+          backdropFilter: variables.surfaceBackdrop,
         },
         "&[data-animated='false']": still,
       },
@@ -123,14 +110,14 @@ export const sticky = style({
 export const PROGRESS = "--nebula-nav-progress";
 
 const P = `var(${PROGRESS}, 0)`;
-const EDGE = `max(${floatingGap}, (100% - ${floatingMax}) / 2)`;
+const EDGE = `max(${variables.floatingGap}, (100% - ${variables.floatingMax}) / 2)`;
 const MATERIAL_TRANSITION = "border-color, background-color, box-shadow, backdrop-filter";
 
 export const floating = style({
   "@layer": {
     [base_layer]: {
       position: "fixed",
-      insetBlockStart: `calc(${P} * ${floatingGap})`,
+      insetBlockStart: `calc(${P} * ${variables.floatingGap})`,
       insetInlineStart: `calc(${P} * ${EDGE})`,
       insetInlineEnd: `calc(${P} * ${EDGE})`,
       borderRadius: `calc(${P} * ${vars.radius.lg})`,
@@ -148,9 +135,9 @@ export const floating = style({
       selectors: {
         "&[data-scrolled='true']": {
           boxShadow: vars.shadow.lg,
-          backgroundColor: surfaceBg,
-          border: surfaceBorder,
-          backdropFilter: surfaceBackdrop,
+          backgroundColor: variables.surfaceBg,
+          border: variables.surfaceBorder,
+          backdropFilter: variables.surfaceBackdrop,
         },
         "&[data-animated='false']": still,
       },
@@ -193,7 +180,7 @@ export const logo = style({
 globalStyle(`${logo} :is(img, svg)`, {
   display: "block",
   width: "auto",
-  height: fallbackVar(logoHeight, vars.size.compact.md),
+  height: fallbackVar(variables.logoHeight, vars.size.compact.md),
 });
 
 const HIDDEN = { display: "none" } as const;
@@ -268,10 +255,10 @@ export const indicator = style({
       insetInlineStart: 0,
       boxSizing: "border-box",
       borderRadius: vars.radius.full,
-      background: indicatorBg,
+      background: variables.indicatorBg,
       borderStyle: "solid",
       borderWidth: "1px",
-      borderColor: fallbackVar(indicatorBorder, "transparent"),
+      borderColor: fallbackVar(variables.indicatorBorder, "transparent"),
       pointerEvents: "none",
       zIndex: 0,
     },
@@ -289,13 +276,13 @@ export const link = style({
       gap: vars.space.xxs,
       flexShrink: 0,
       boxSizing: "border-box",
-      minHeight: fallbackVar(linkHeight, vars.size.control.sm),
+      minHeight: fallbackVar(variables.linkHeight, vars.size.control.sm),
       paddingInline: vars.space.md,
       border: "none",
       background: "transparent",
       borderRadius: vars.radius.full,
       fontFamily: "inherit",
-      fontSize: fallbackVar(linkFont, vars.font.size.body3),
+      fontSize: fallbackVar(variables.linkFont, vars.font.size.body3),
       fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.normal,
       letterSpacing: vars.font.letterSpacing.normal,
@@ -312,7 +299,7 @@ export const link = style({
           background: vars.color.surface.hover,
         },
         "&[data-active='true']": {
-          color: fallbackVar(indicatorFg, vars.color.text.primary),
+          color: fallbackVar(variables.indicatorFg, vars.color.text.primary),
           fontWeight: vars.font.weight.semibold,
         },
         "&[data-active='true']:hover": { background: "transparent" },

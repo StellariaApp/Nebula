@@ -2,14 +2,14 @@ import { globalStyle, style } from "@vanilla-extract/css";
 
 import { base_layer } from "../../theme/layers.css.js";
 
-import { ratio } from "./AspectRatio.vars.css.js";
+import * as variables from "./AspectRatio.vars.css.js";
 
 export const aspect_ratio = style({
   "@layer": {
     [base_layer]: {
       position: "relative",
       width: "100%",
-      aspectRatio: ratio,
+      aspectRatio: variables.ratio,
     },
   },
 });

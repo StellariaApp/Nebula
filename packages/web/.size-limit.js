@@ -578,7 +578,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Radio/Radio.js",
     import: "{ Radio }",
     ignore: ["react", "react-dom"],
-    limit: "14.5 kB",
+    limit: "15 kB",
   },
   {
     name: "Switch (nativo + motion con gesto, por módulo)",

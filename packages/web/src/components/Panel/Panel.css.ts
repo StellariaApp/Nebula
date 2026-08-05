@@ -4,7 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { masterSize } from "./Panel.vars.css.js";
+import * as variables from "./Panel.vars.css.js";
 
 export const panel = style({
   "@layer": {
@@ -15,10 +15,10 @@ export const panel = style({
       width: "100%",
       selectors: {
         "&[data-orientation='horizontal']": {
-          gridTemplateColumns: `${masterSize} auto 1fr`,
+          gridTemplateColumns: `${variables.masterSize} auto 1fr`,
         },
         "&[data-orientation='vertical']": {
-          gridTemplateRows: `${masterSize} auto 1fr`,
+          gridTemplateRows: `${variables.masterSize} auto 1fr`,
         },
       },
     },

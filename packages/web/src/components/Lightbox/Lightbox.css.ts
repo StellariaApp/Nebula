@@ -5,7 +5,7 @@ import { layout, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { imageTransform } from "./Lightbox.vars.css.js";
+import * as variables from "./Lightbox.vars.css.js";
 
 export const stage = style({
   "@layer": {
@@ -35,7 +35,7 @@ export const image = style({
       maxWidth: "100%",
       maxHeight: "100%",
       objectFit: "contain",
-      transform: imageTransform,
+      transform: variables.imageTransform,
       transformOrigin: "center center",
       userSelect: "none",
       WebkitUserSelect: "none",

@@ -21,7 +21,7 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Modal.css.js";
 import type { ModalProps, ModalSide, ModalSize } from "./Modal.types.js";
-import { backdropBlur, modalWidth } from "./Modal.vars.css.js";
+import * as variables from "./Modal.vars.css.js";
 
 const SIZE_WIDTH: Record<ModalSize, number> = {
   xs: 320,
@@ -129,8 +129,8 @@ export function Modal(props: ModalProps): ReactElement {
   const has_header = title !== undefined || subtitle !== undefined || withCloseButton;
 
   const css_vars = assignInlineVars({
-    [modalWidth]: ResolveWidth(size),
-    [backdropBlur]: blurred ? `blur(${vars.blur.sm})` : "none",
+    [variables.width]: ResolveWidth(size),
+    [variables.backdropBlur]: blurred ? `blur(${vars.blur.sm})` : "none",
   });
 
   return (

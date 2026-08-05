@@ -2,12 +2,12 @@ import { style } from "@vanilla-extract/css";
 
 import { base_layer } from "../../theme/layers.css.js";
 
-import { fallbackFg, gradientImage } from "./GradientText.vars.css.js";
+import * as variables from "./GradientText.vars.css.js";
 
 const SOLID = {
   backgroundImage: "none",
-  color: fallbackFg,
-  WebkitTextFillColor: fallbackFg,
+  color: variables.fallbackFg,
+  WebkitTextFillColor: variables.fallbackFg,
 } as const;
 
 const INK_BLEED = "0.06em";
@@ -15,12 +15,12 @@ const INK_BLEED = "0.06em";
 export const gradient_text = style({
   "@layer": {
     [base_layer]: {
-      backgroundImage: gradientImage,
+      backgroundImage: variables.image,
       backgroundClip: "text",
       WebkitBackgroundClip: "text",
       color: "transparent",
       WebkitTextFillColor: "transparent",
-      textDecorationColor: fallbackFg,
+      textDecorationColor: variables.fallbackFg,
       paddingInlineEnd: INK_BLEED,
       marginInlineEnd: `calc(-1 * ${INK_BLEED})`,
       "@supports": {

@@ -4,14 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  ringSize,
-  trackBg,
-  trackBorder,
-  trackBorderWidth,
-  trackHeight,
-  trackRadius,
-} from "./Progress.vars.css.js";
+import * as variables from "./Progress.vars.css.js";
 
 const SLIDE = keyframes({
   from: { transform: "translateX(-100%)" },
@@ -33,12 +26,12 @@ export const track = style({
       overflow: "hidden",
       boxSizing: "border-box",
       width: "100%",
-      height: trackHeight,
-      borderRadius: trackRadius,
-      background: fallbackVar(trackBg, vars.color.surface.sunken),
+      height: variables.trackHeight,
+      borderRadius: variables.trackRadius,
+      background: fallbackVar(variables.trackBg, vars.color.surface.sunken),
       borderStyle: "solid",
-      borderWidth: fallbackVar(trackBorderWidth, "0"),
-      borderColor: fallbackVar(trackBorder, "transparent"),
+      borderWidth: fallbackVar(variables.trackBorderWidth, "0"),
+      borderColor: fallbackVar(variables.trackBorder, "transparent"),
     },
   },
 });
@@ -90,8 +83,8 @@ export const ring = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      width: ringSize,
-      height: ringSize,
+      width: variables.ringSize,
+      height: variables.ringSize,
       flexShrink: 0,
     },
   },

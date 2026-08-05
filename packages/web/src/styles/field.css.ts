@@ -7,7 +7,7 @@ import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
 import { base_layer } from "../theme/layers.css.js";
 
-import { bd, bdDisabled, bdHover, bg, bgDisabled, bgHover } from "./field.vars.css.js";
+import * as variables from "./field.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -65,17 +65,17 @@ export const field = recipe({
         width: "100%",
         fontFamily: vars.font.family.sans,
         color: vars.color.text.primary,
-        background: bg,
+        background: variables.bg,
         borderWidth: "1px",
         borderStyle: "solid",
-        borderColor: bd,
+        borderColor: variables.bd,
         borderRadius: vars.radius.md,
         ...motion.interaction,
         ...motion.reduced_motion,
         selectors: {
           "&:hover:not([data-disabled='true']):not([data-invalid='true'])": {
-            background: bgHover,
-            borderColor: bdHover,
+            background: variables.bgHover,
+            borderColor: variables.bdHover,
           },
           "&:focus-within": focus.ring,
           "&[data-invalid='true']": { borderColor: vars.color.semantic.error["500"] },
@@ -84,8 +84,8 @@ export const field = recipe({
           },
           "&[data-disabled='true']": {
             cursor: "not-allowed",
-            background: bgDisabled,
-            borderColor: bdDisabled,
+            background: variables.bgDisabled,
+            borderColor: variables.bdDisabled,
             color: vars.color.text.disabled,
           },
         },
@@ -132,22 +132,22 @@ export const field = recipe({
     surface: {
       outline: {
         vars: {
-          [bg]: vars.color.surface.sunken,
-          [bd]: vars.color.border.default,
-          [bgHover]: vars.color.surface.sunken,
-          [bdHover]: vars.color.border.strong,
-          [bgDisabled]: vars.color.surface.disabled,
-          [bdDisabled]: vars.color.border.disabled,
+          [variables.bg]: vars.color.surface.sunken,
+          [variables.bd]: vars.color.border.default,
+          [variables.bgHover]: vars.color.surface.sunken,
+          [variables.bdHover]: vars.color.border.strong,
+          [variables.bgDisabled]: vars.color.surface.disabled,
+          [variables.bdDisabled]: vars.color.border.disabled,
         },
       },
       filled: {
         vars: {
-          [bg]: vars.color.surface.sunken,
-          [bd]: "transparent",
-          [bgHover]: vars.color.surface.sunken,
-          [bdHover]: vars.color.border.default,
-          [bgDisabled]: vars.color.surface.disabled,
-          [bdDisabled]: "transparent",
+          [variables.bg]: vars.color.surface.sunken,
+          [variables.bd]: "transparent",
+          [variables.bgHover]: vars.color.surface.sunken,
+          [variables.bdHover]: vars.color.border.default,
+          [variables.bgDisabled]: vars.color.surface.disabled,
+          [variables.bdDisabled]: "transparent",
         },
       },
       underline: {
@@ -155,12 +155,12 @@ export const field = recipe({
         borderRadius: 0,
         paddingInline: 0,
         vars: {
-          [bg]: "transparent",
-          [bd]: vars.color.border.default,
-          [bgHover]: "transparent",
-          [bdHover]: vars.color.border.strong,
-          [bgDisabled]: "transparent",
-          [bdDisabled]: vars.color.border.disabled,
+          [variables.bg]: "transparent",
+          [variables.bd]: vars.color.border.default,
+          [variables.bgHover]: "transparent",
+          [variables.bdHover]: vars.color.border.strong,
+          [variables.bgDisabled]: "transparent",
+          [variables.bdDisabled]: vars.color.border.disabled,
         },
       },
       unstyled: {
@@ -168,12 +168,12 @@ export const field = recipe({
         borderRadius: 0,
         paddingInline: 0,
         vars: {
-          [bg]: "transparent",
-          [bd]: "transparent",
-          [bgHover]: "transparent",
-          [bdHover]: "transparent",
-          [bgDisabled]: "transparent",
-          [bdDisabled]: "transparent",
+          [variables.bg]: "transparent",
+          [variables.bd]: "transparent",
+          [variables.bgHover]: "transparent",
+          [variables.bdHover]: "transparent",
+          [variables.bgDisabled]: "transparent",
+          [variables.bdDisabled]: "transparent",
         },
       },
     },

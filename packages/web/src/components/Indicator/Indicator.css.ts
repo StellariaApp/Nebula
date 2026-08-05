@@ -4,7 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dotColor, dotOffset } from "./Indicator.vars.css.js";
+import * as variables from "./Indicator.vars.css.js";
 
 const pulse = keyframes({
   "0%": { transform: "scale(1)", opacity: 1 },
@@ -26,7 +26,7 @@ export const dot = style({
       alignItems: "center",
       justifyContent: "center",
       boxSizing: "border-box",
-      background: dotColor,
+      background: variables.dotColor,
       color: vars.color.text.onPrimary,
       borderRadius: vars.radius.full,
       fontFamily: vars.font.family.sans,
@@ -66,7 +66,7 @@ export const processing = style({
           position: "absolute",
           inset: -2,
           borderRadius: vars.radius.full,
-          background: dotColor,
+          background: variables.dotColor,
           animationName: pulse,
           animationDuration: "1.6s",
           animationIterationCount: "infinite",
@@ -109,12 +109,12 @@ export const size = styleVariants({
 });
 
 export const placement = styleVariants({
-  "top-start": { top: dotOffset, insetInlineStart: dotOffset, transform: "translate(-40%, -40%)" },
-  "top-end": { top: dotOffset, insetInlineEnd: dotOffset, transform: "translate(40%, -40%)" },
+  "top-start": { top: variables.dotOffset, insetInlineStart: variables.dotOffset, transform: "translate(-40%, -40%)" },
+  "top-end": { top: variables.dotOffset, insetInlineEnd: variables.dotOffset, transform: "translate(40%, -40%)" },
   "bottom-start": {
-    bottom: dotOffset,
-    insetInlineStart: dotOffset,
+    bottom: variables.dotOffset,
+    insetInlineStart: variables.dotOffset,
     transform: "translate(-40%, 40%)",
   },
-  "bottom-end": { bottom: dotOffset, insetInlineEnd: dotOffset, transform: "translate(40%, 40%)" },
+  "bottom-end": { bottom: variables.dotOffset, insetInlineEnd: variables.dotOffset, transform: "translate(40%, 40%)" },
 });

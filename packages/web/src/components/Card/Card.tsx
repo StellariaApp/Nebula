@@ -14,7 +14,7 @@ import { Image } from "../Image/Image.js";
 
 import * as styles from "./Card.css.js";
 import type { CardImageProps, CardProps, CardSectionProps, CardSlotProps } from "./Card.types.js";
-import { backdropFilter, bg, borderColor, fg, glow } from "./Card.vars.css.js";
+import * as variables from "./Card.vars.css.js";
 
 const HOVER_LIFT = -2;
 
@@ -115,11 +115,11 @@ export function Card(props: CardProps): ReactElement {
     resolved === null
       ? {}
       : assignInlineVars({
-          [bg]: resolved.background,
-          [fg]: resolved.foreground,
-          [borderColor]: resolved.borderColor,
-          [backdropFilter]: resolved.backdropFilter,
-          [glow]: resolved.glow,
+          [variables.bg]: resolved.background,
+          [variables.fg]: resolved.foreground,
+          [variables.borderColor]: resolved.borderColor,
+          [variables.backdropFilter]: resolved.backdropFilter,
+          [variables.glow]: resolved.glow,
         });
 
   const root_style = { ...variant_vars, ...sprinkle_style } as MotionStyle;

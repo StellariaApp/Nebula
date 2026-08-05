@@ -4,11 +4,11 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dividerColor, dividerStyle, dividerThickness } from "./Divider.vars.css.js";
+import * as variables from "./Divider.vars.css.js";
 
 const line_border = {
-  borderColor: dividerColor,
-  borderStyle: dividerStyle,
+  borderColor: variables.color,
+  borderStyle: variables.style,
 };
 
 export const root = recipe({
@@ -30,7 +30,7 @@ export const root = recipe({
         height: "100%",
         alignSelf: "stretch",
         minHeight: "1em",
-        borderInlineStartWidth: dividerThickness,
+        borderInlineStartWidth: variables.thickness,
         ...line_border,
       },
     },
@@ -47,7 +47,7 @@ export const root = recipe({
     {
       variants: { orientation: "horizontal", withLabel: false },
       style: {
-        borderTopWidth: dividerThickness,
+        borderTopWidth: variables.thickness,
         ...line_border,
       },
     },
@@ -61,9 +61,9 @@ export const root = recipe({
 export type DividerRecipeVariants = NonNullable<RecipeVariants<typeof root>>;
 
 export const line = style({
-  borderTopWidth: dividerThickness,
-  borderColor: dividerColor,
-  borderStyle: dividerStyle,
+  borderTopWidth: variables.thickness,
+  borderColor: variables.color,
+  borderStyle: variables.style,
 });
 
 export const grow = style({ flexGrow: 1 });

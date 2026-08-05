@@ -13,7 +13,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 
 import { useSwitchGroupContext } from "./Switch.context.js";
 import * as styles from "./Switch.css.js";
-import { switchColor, switchH, switchW } from "./Switch.vars.css.js";
+import * as variables from "./Switch.vars.css.js";
 import type { SwitchProps } from "./Switch.types.js";
 
 const TRACK_RATIO = 1.75;
@@ -71,9 +71,9 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   }, [is_checked, travel, target]);
 
   const css_vars = assignInlineVars({
-    [switchW]: `${String(track_w)}px`,
-    [switchH]: `${String(track_h)}px`,
-    [switchColor]: ResolveAccent(color, "600"),
+    [variables.width]: `${String(track_w)}px`,
+    [variables.height]: `${String(track_h)}px`,
+    [variables.color]: ResolveAccent(color, "600"),
   });
 
   const SetChecked = (next: boolean): void => {

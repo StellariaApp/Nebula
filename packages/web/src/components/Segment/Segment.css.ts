@@ -6,7 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { indicatorColor, indicatorFg } from "./Segment.vars.css.js";
+import * as variables from "./Segment.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -62,7 +62,7 @@ export const indicator = style({
       top: vars.space.xs,
       bottom: vars.space.xs,
       insetInlineStart: 0,
-      background: indicatorColor,
+      background: variables.indicatorColor,
       borderRadius: vars.radius.full,
       boxShadow: vars.shadow.xxs,
       touchAction: "none",
@@ -94,7 +94,7 @@ export const tab = style({
       ...motion.interaction,
       outline: "none",
       selectors: {
-        "&[data-active='true']": { color: fallbackVar(indicatorFg, vars.color.text.primary) },
+        "&[data-active='true']": { color: fallbackVar(variables.indicatorFg, vars.color.text.primary) },
         "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
         "&:focus-visible": {
           ...focus.ring,

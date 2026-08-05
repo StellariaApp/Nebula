@@ -11,7 +11,7 @@ import { LengthToCss, SpaceToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Main.css.js";
 import type { MainProps } from "./Main.types.js";
-import { contentGap, contentMax } from "./Main.vars.css.js";
+import * as variables from "./Main.vars.css.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const BOUNCE_DISTANCE = 120;
@@ -111,8 +111,8 @@ export function Main(props: MainProps): ReactElement {
   const content_id = id ?? auto_id;
 
   const content_vars = assignInlineVars({
-    ...(contentWidth === undefined ? {} : { [contentMax]: LengthToCss(contentWidth) }),
-    ...(spacing === undefined ? {} : { [contentGap]: SpaceToCss(spacing) }),
+    ...(contentWidth === undefined ? {} : { [variables.contentMax]: LengthToCss(contentWidth) }),
+    ...(spacing === undefined ? {} : { [variables.contentGap]: SpaceToCss(spacing) }),
   });
 
   return (

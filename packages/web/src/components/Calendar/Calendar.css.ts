@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dayBg, dayBgHover, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
+import * as variables from "./Calendar.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -114,7 +114,7 @@ export const cell_wrapper = style({
       textAlign: "center",
       selectors: {
         "&[data-range-selected='true']": {
-          background: fallbackVar(rangeBg, vars.color.primary["100"]),
+          background: fallbackVar(variables.rangeBg, vars.color.primary["100"]),
         },
         "&[data-range-start='true']": {
           borderStartStartRadius: vars.radius.full,
@@ -150,14 +150,14 @@ export const cell = style({
         },
         "&[data-focus-visible='true']": focus.ring,
         "&[data-selected='true']:not([data-range-middle='true'])": {
-          background: fallbackVar(dayBg, vars.color.primary["500"]),
-          color: fallbackVar(dayFg, vars.color.text.onPrimary),
-          borderColor: fallbackVar(dayBorder, "transparent"),
+          background: fallbackVar(variables.dayBg, vars.color.primary["500"]),
+          color: fallbackVar(variables.dayFg, vars.color.text.onPrimary),
+          borderColor: fallbackVar(variables.dayBorder, "transparent"),
           fontWeight: vars.font.weight.semibold,
         },
         "&[data-selected='true']:not([data-range-middle='true'])[data-hovered='true']:not([data-disabled='true'])":
           {
-            background: fallbackVar(dayBgHover, vars.color.primary["600"]),
+            background: fallbackVar(variables.dayBgHover, vars.color.primary["600"]),
           },
         "&[data-range-middle='true']": {
           background: "transparent",

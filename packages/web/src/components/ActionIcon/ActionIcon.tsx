@@ -20,16 +20,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./ActionIcon.css.js";
 import type { ActionIconProps } from "./ActionIcon.types.js";
-import {
-  backdropFilter,
-  bg,
-  bgActive,
-  bgHover,
-  borderColor,
-  borderWidth,
-  fg,
-  glow,
-} from "./ActionIcon.vars.css.js";
+import * as variables from "./ActionIcon.vars.css.js";
 
 const PRESS_SCALE = 0.94;
 
@@ -108,14 +99,14 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const css_vars = useMemo<CSSProperties>(
       () =>
         assignInlineVars({
-          [bg]: resolved.background,
-          [bgHover]: resolved.backgroundHover,
-          [bgActive]: resolved.backgroundActive,
-          [fg]: resolved.foreground,
-          [borderColor]: resolved.borderColor,
-          [borderWidth]: resolved.borderWidth,
-          [backdropFilter]: resolved.backdropFilter,
-          [glow]: resolved.glow,
+          [variables.bg]: resolved.background,
+          [variables.bgHover]: resolved.backgroundHover,
+          [variables.bgActive]: resolved.backgroundActive,
+          [variables.fg]: resolved.foreground,
+          [variables.borderColor]: resolved.borderColor,
+          [variables.borderWidth]: resolved.borderWidth,
+          [variables.backdropFilter]: resolved.backdropFilter,
+          [variables.glow]: resolved.glow,
         }),
       [resolved],
     );

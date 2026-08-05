@@ -17,7 +17,7 @@ import { Box } from "../Box/Box.js";
 
 import { ListItem } from "./Item.js";
 import * as styles from "./List.css.js";
-import { listSpacing } from "./List.vars.css.js";
+import * as variables from "./List.vars.css.js";
 import type { ListItemOwnProps, ListOwnProps, ListProps } from "./List.types.js";
 
 const ListComponent = forwardRef<HTMLElement, ListOwnProps>(function List(props, ref) {
@@ -33,7 +33,7 @@ const ListComponent = forwardRef<HTMLElement, ListOwnProps>(function List(props,
     ...rest
   } = props as ListOwnProps & { style?: CSSProperties };
 
-  const css_vars = assignInlineVars({ [listSpacing]: SpaceToCss(spacing) });
+  const css_vars = assignInlineVars({ [variables.spacing]: SpaceToCss(spacing) });
 
   const items =
     icon === undefined

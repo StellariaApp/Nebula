@@ -39,6 +39,7 @@ pnpm format                        # prettier
 - **Sin comentarios en el código.** Lo que necesite explicación va en un `<Nombre>.md` junto al módulo (`packages/web/src/components/Button/Button.md`).
 - **Naming**: hooks `camelCase` · funciones `PascalCase` incluido el API público (`LoadTheme`, `ResolveVariant`) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case` · palabras cortas y abreviaturas de dominio (`bg`, `fg`, `svg`, `md`, `top`) `lowercase`. Props del API y retornos de librerías conservan su nombre.
 - **En las hojas manda el archivo** (ADR-094): `<Nombre>.css.ts` → `snake_case` (`sidebar_container`, son asas de clase) · `<Nombre>.vars.css.ts` → `camelCase` (`borderColor`, nombran la propiedad CSS). Tablas de constantes en `UPPER_CASE` en ambos.
+- **Las vars locales se importan como espacio de nombres** (ADR-096): `import * as variables from "./X.vars.css.js"` para las propias, `<origen>_vars` para las ajenas. Por eso la var se llama `bg` y no `xBg` — el archivo ya da el contexto.
 - **Componentes planos**: `packages/web/src/components/<Nombre>/`, sin carpeta de categoría.
 - Simple y reutilizable; el código debe ser autoexplicativo.
 

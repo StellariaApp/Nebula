@@ -13,7 +13,7 @@ import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Blockquote.css.js";
-import { accent } from "./Blockquote.vars.css.js";
+import * as variables from "./Blockquote.vars.css.js";
 import type { BlockquoteOwnProps, BlockquoteProps } from "./Blockquote.types.js";
 
 const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
@@ -29,7 +29,7 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
       ...rest
     } = props as BlockquoteOwnProps & { style?: CSSProperties };
 
-    const css_vars = assignInlineVars({ [accent]: ResolveAccent(color, "500") });
+    const css_vars = assignInlineVars({ [variables.accent]: ResolveAccent(color, "500") });
 
     const content = (
       <div>

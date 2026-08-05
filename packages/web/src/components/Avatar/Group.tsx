@@ -10,7 +10,7 @@ import { cx } from "../../utils/style-props.js";
 import { Avatar, ResolveAvatarSize } from "./Avatar.js";
 import * as styles from "./Avatar.css.js";
 import type { AvatarGroupProps } from "./Avatar.types.js";
-import { avatarOverlap, avatarSize } from "./Avatar.vars.css.js";
+import * as variables from "./Avatar.vars.css.js";
 
 const DEFAULT_OVERLAP = 0.3;
 
@@ -25,8 +25,8 @@ export function AvatarGroup(props: AvatarGroupProps): ReactElement {
   const resolved_size = ResolveAvatarSize(size);
 
   const css_vars = assignInlineVars({
-    [avatarSize]: resolved_size,
-    [avatarOverlap]:
+    [variables.size]: resolved_size,
+    [variables.overlap]:
       spacing === undefined
         ? `calc(${resolved_size} * ${String(DEFAULT_OVERLAP)})`
         : LengthToCss(spacing),

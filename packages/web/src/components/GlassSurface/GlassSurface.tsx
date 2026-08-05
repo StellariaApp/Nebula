@@ -19,7 +19,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./GlassSurface.css.js";
 import type { GlassSurfaceOwnProps, GlassSurfaceProps } from "./GlassSurface.types.js";
-import { backdrop, bg, borderRule, solidBg } from "./GlassSurface.vars.css.js";
+import * as variables from "./GlassSurface.vars.css.js";
 
 const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
   function GlassSurface(props, ref) {
@@ -42,10 +42,10 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
     const solid = vars.color.surface[fallbackSurface];
 
     const css_vars = assignInlineVars({
-      [bg]: enabled ? vars.glass[level].background : solid,
-      [solidBg]: solid,
-      [borderRule]: enabled ? vars.glass[level].border : `1px solid ${vars.color.border.subtle}`,
-      [backdrop]: enabled ? vars.glass[level].backdropFilter : "none",
+      [variables.bg]: enabled ? vars.glass[level].background : solid,
+      [variables.solidBg]: solid,
+      [variables.borderRule]: enabled ? vars.glass[level].border : `1px solid ${vars.color.border.subtle}`,
+      [variables.backdrop]: enabled ? vars.glass[level].backdropFilter : "none",
     });
 
     const named_radius = typeof radius === "string" ? radius : "lg";

@@ -4,7 +4,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { columnWidth } from "./Kanban.vars.css.js";
+import * as variables from "./Kanban.vars.css.js";
 
 export const board = style({
   "@layer": {
@@ -26,7 +26,7 @@ export const column = style({
       display: "flex",
       flexDirection: "column",
       flex: "0 0 auto",
-      width: columnWidth,
+      width: variables.columnWidth,
       minHeight: 120,
       boxSizing: "border-box",
       borderRadius: vars.radius.lg,

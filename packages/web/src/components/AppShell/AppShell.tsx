@@ -7,10 +7,10 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { asideWidth as aside_var, headHeight, navWidth } from "./AppShell.vars.css.js";
+import * as variables from "./AppShell.vars.css.js";
 import * as styles from "./AppShell.css.js";
 import { AppShellContext } from "./AppShellContext.js";
-import { chromeHeight, railMiniWidth, railWidth, shadowOffset } from "./AppShell.vars.css.js";
+
 import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./AppShellRail.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
@@ -70,13 +70,13 @@ export function AppShell(props: AppShellProps): ReactElement {
   };
 
   const css_vars = assignInlineVars({
-    [navWidth]: has_navbar ? `${String(collapsed ? collapsedWidth : navbarWidth)}px` : "0px",
-    [aside_var]: has_aside ? `${String(asideWidth)}px` : "0px",
-    [headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
-    [railWidth]: `${String(sidebarWidth)}px`,
-    [railMiniWidth]: `${String(sidebarMiniWidth)}px`,
-    [chromeHeight]: `${String(chrome)}px`,
-    [shadowOffset]: `${String(scrollShadowOffset)}px`,
+    [variables.navWidth]: has_navbar ? `${String(collapsed ? collapsedWidth : navbarWidth)}px` : "0px",
+    [variables.asideWidth]: has_aside ? `${String(asideWidth)}px` : "0px",
+    [variables.headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
+    [variables.railWidth]: `${String(sidebarWidth)}px`,
+    [variables.railMiniWidth]: `${String(sidebarMiniWidth)}px`,
+    [variables.chromeHeight]: `${String(chrome)}px`,
+    [variables.shadowOffset]: `${String(scrollShadowOffset)}px`,
   });
 
   if (railed) {

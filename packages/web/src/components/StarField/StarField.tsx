@@ -12,16 +12,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./StarField.css.js";
 import type { StarFieldProps } from "./StarField.types.js";
-import {
-  accentColor,
-  accentGlow,
-  auroraAccent,
-  auroraPrimary,
-  gridCell,
-  gridColor,
-  starColor,
-  starGlow,
-} from "./StarField.vars.css.js";
+import * as variables from "./StarField.vars.css.js";
 import { useStarField } from "./useStarField.js";
 
 const GRID_DRIFT = 0.018;
@@ -91,14 +82,14 @@ export function StarField(props: StarFieldProps): ReactElement {
   const tint = ResolveAccent(accent, "400");
 
   const css_vars = assignInlineVars({
-    [gridColor]: WithAlpha(base, 4),
-    [gridCell]: `${String(gridSize)}px`,
-    [starColor]: WithAlpha(base, 70),
-    [starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,
-    [accentColor]: tint,
-    [accentGlow]: `0 0 12px ${WithAlpha(tint, 45)}`,
-    [auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 24),
-    [auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 12),
+    [variables.gridColor]: WithAlpha(base, 4),
+    [variables.gridCell]: `${String(gridSize)}px`,
+    [variables.starColor]: WithAlpha(base, 70),
+    [variables.starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,
+    [variables.accentColor]: tint,
+    [variables.accentGlow]: `0 0 12px ${WithAlpha(tint, 45)}`,
+    [variables.auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 24),
+    [variables.auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 12),
   });
 
   const twinkling = twinkle && animated;

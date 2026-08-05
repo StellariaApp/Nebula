@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { backdropBlur, modalWidth } from "./Modal.vars.css.js";
+import * as variables from "./Modal.vars.css.js";
 
 const FADE_IN = keyframes({ from: { opacity: 0 }, to: { opacity: 1 } });
 
@@ -32,7 +32,7 @@ export const dialog = recipe({
         selectors: {
           "&::backdrop": {
             background: `color-mix(in srgb, ${vars.color.gray["950"]} 62%, transparent)`,
-            backdropFilter: backdropBlur,
+            backdropFilter: variables.backdropBlur,
             animationName: FADE_IN,
             animationDuration: vars.motion.duration.base,
             animationTimingFunction: vars.motion.easing.standard,
@@ -88,20 +88,20 @@ export const surface = recipe({
   variants: {
     layout: {
       centered: {
-        width: modalWidth,
+        width: variables.width,
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: vars.radius.lg,
       },
       top: {
-        width: modalWidth,
+        width: variables.width,
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: vars.radius.lg,
       },
       fullScreen: { width: "100%", height: "100%", borderRadius: 0 },
-      "drawer-start": { width: modalWidth, maxWidth: "100%", height: "100%", borderRadius: 0 },
-      "drawer-end": { width: modalWidth, maxWidth: "100%", height: "100%", borderRadius: 0 },
+      "drawer-start": { width: variables.width, maxWidth: "100%", height: "100%", borderRadius: 0 },
+      "drawer-end": { width: variables.width, maxWidth: "100%", height: "100%", borderRadius: 0 },
       "drawer-top": { width: "100%", maxHeight: "100%", borderRadius: 0 },
       "drawer-bottom": { width: "100%", maxHeight: "100%", borderRadius: 0 },
     },

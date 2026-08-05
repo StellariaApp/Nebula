@@ -3,7 +3,7 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { listSpacing } from "./List.vars.css.js";
+import * as variables from "./List.vars.css.js";
 
 export const list = style({
   "@layer": {
@@ -49,5 +49,5 @@ export const item_icon = style({
   alignItems: "center",
 });
 
-globalStyle(`${list} > li`, { marginBlockEnd: listSpacing });
+globalStyle(`${list} > li`, { marginBlockEnd: variables.spacing });
 globalStyle(`${list} > li:last-child`, { marginBlockEnd: 0 });

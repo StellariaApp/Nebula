@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { imageHeight, imageRadius, imageWidth, overlayAlpha } from "./Image.vars.css.js";
+import * as variables from "./Image.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -11,9 +11,9 @@ export const root = style({
       position: "relative",
       display: "block",
       boxSizing: "border-box",
-      width: imageWidth,
-      height: imageHeight,
-      borderRadius: imageRadius,
+      width: variables.width,
+      height: variables.height,
+      borderRadius: variables.radius,
       overflow: "hidden",
       background: vars.color.surface.sunken,
     },
@@ -49,7 +49,7 @@ export const background = style({
       position: "relative",
       display: "block",
       boxSizing: "border-box",
-      borderRadius: imageRadius,
+      borderRadius: variables.radius,
       overflow: "hidden",
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -63,7 +63,7 @@ export const overlay = style({
     [base_layer]: {
       position: "absolute",
       inset: 0,
-      background: `color-mix(in srgb, ${vars.color.gray["950"]} ${overlayAlpha}, transparent)`,
+      background: `color-mix(in srgb, ${vars.color.gray["950"]} ${variables.overlayAlpha}, transparent)`,
       pointerEvents: "none",
     },
   },

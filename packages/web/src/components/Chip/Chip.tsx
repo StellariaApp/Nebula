@@ -11,7 +11,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useChipGroupContext } from "./Chip.context.js";
 import * as styles from "./Chip.css.js";
-import { chipBg, chipBorder, chipFg } from "./Chip.vars.css.js";
+import * as variables from "./Chip.vars.css.js";
 import type { ChipProps } from "./Chip.types.js";
 
 const CHECK = (
@@ -68,9 +68,9 @@ export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props,
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [chipBg]: is_checked ? resolved.background : "transparent",
-    [chipFg]: is_checked ? resolved.foreground : ResolveAccent("text.primary"),
-    [chipBorder]: is_checked ? resolved.borderColor : ResolveAccent("border.default"),
+    [variables.bg]: is_checked ? resolved.background : "transparent",
+    [variables.fg]: is_checked ? resolved.foreground : ResolveAccent("text.primary"),
+    [variables.border]: is_checked ? resolved.borderColor : ResolveAccent("border.default"),
   });
 
   const Toggle = (): void => {

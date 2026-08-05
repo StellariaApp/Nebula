@@ -28,19 +28,7 @@ import type {
   GradientBorderOwnProps,
   GradientBorderProps,
 } from "./GradientBorder.types.js";
-import {
-  beamArc,
-  beamCycle,
-  beamDelay,
-  beamGate,
-  beamGlow,
-  beamSlot,
-  beamSweep,
-  fallbackBorder,
-  gradientImage,
-  innerBg,
-  ringWidth,
-} from "./GradientBorder.vars.css.js";
+import * as variables from "./GradientBorder.vars.css.js";
 
 const ALL_EDGES: readonly GradientBorderEdge[] = [1, 2, 3, 4];
 const SLOT_BEATS = 3.25;
@@ -86,14 +74,14 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
     const ring = animated ? vars.color.border.default : ResolveGradient(gradient, theme);
 
     const css_vars = assignInlineVars({
-      [gradientImage]: ring,
-      [ringWidth]: LengthToCss(width),
-      [innerBg]: surface === "none" ? "transparent" : vars.color.surface[surface],
-      [fallbackBorder]: animated ? vars.color.border.default : edge_color,
-      [beamArc]: BeamArc(edge_color, tip_color),
-      [beamGlow]: WithAlpha(tip_color, 20),
-      [beamSlot]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS)})`,
-      [beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS * share)})`,
+      [variables.image]: ring,
+      [variables.ringWidth]: LengthToCss(width),
+      [variables.innerBg]: surface === "none" ? "transparent" : vars.color.surface[surface],
+      [variables.fallbackBorder]: animated ? vars.color.border.default : edge_color,
+      [variables.beamArc]: BeamArc(edge_color, tip_color),
+      [variables.beamGlow]: WithAlpha(tip_color, 20),
+      [variables.beamSlot]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS)})`,
+      [variables.beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS * share)})`,
     });
 
     const named_radius = typeof radius === "string" ? radius : "lg";
@@ -117,9 +105,9 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
                 key={edge}
                 className={styles.arc}
                 style={assignInlineVars({
-                  [beamSweep]: styles.sweep[edge],
-                  [beamGate]: styles.gate[share],
-                  [beamDelay]: `calc(${beamSlot} * ${String(sequence === "spaced" ? edge - 1 : index)})`,
+                  [variables.beamSweep]: styles.sweep[edge],
+                  [variables.beamGate]: styles.gate[share],
+                  [variables.beamDelay]: `calc(${variables.beamSlot} * ${String(sequence === "spaced" ? edge - 1 : index)})`,
                 })}
               />
             ))}

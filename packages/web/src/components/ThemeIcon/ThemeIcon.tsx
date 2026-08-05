@@ -9,7 +9,7 @@ import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./ThemeIcon.css.js";
-import { bg, borderColor, borderWidth, fg } from "./ThemeIcon.vars.css.js";
+import * as variables from "./ThemeIcon.vars.css.js";
 import type { ThemeIconProps } from "./ThemeIcon.types.js";
 
 export function ThemeIcon(props: ThemeIconProps): ReactElement {
@@ -29,10 +29,10 @@ export function ThemeIcon(props: ThemeIconProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bg]: resolved.background,
-    [fg]: resolved.foreground,
-    [borderColor]: resolved.borderColor,
-    [borderWidth]: resolved.borderWidth,
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.borderColor]: resolved.borderColor,
+    [variables.borderWidth]: resolved.borderWidth,
   });
 
   return (

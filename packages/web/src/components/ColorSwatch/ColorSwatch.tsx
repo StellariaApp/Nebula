@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import * as styles from "./ColorSwatch.css.js";
-import { swatch, swatchSize } from "./ColorSwatch.vars.css.js";
+import * as variables from "./ColorSwatch.vars.css.js";
 import type { ColorSwatchProps } from "./ColorSwatch.types.js";
 
 function Paint(color: ColorSwatchProps["color"]): string {
@@ -33,8 +33,8 @@ export function ColorSwatch(props: ColorSwatchProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const css_vars = assignInlineVars({
-    [swatch]: Paint(color),
-    [swatchSize]: `${String(size)}px`,
+    [variables.swatch]: Paint(color),
+    [variables.swatchSize]: `${String(size)}px`,
   });
 
   const shared = {

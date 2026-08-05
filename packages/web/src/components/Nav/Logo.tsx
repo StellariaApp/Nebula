@@ -9,7 +9,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Nav.css.js";
 import type { NavLogoProps } from "./Nav.types.js";
-import { logoHeight } from "./Nav.vars.css.js";
+import * as variables from "./Nav.vars.css.js";
 
 export function NavLogo(props: NavLogoProps): ReactElement {
   const {
@@ -25,7 +25,7 @@ export function NavLogo(props: NavLogoProps): ReactElement {
 
   const Element = component ?? (href === undefined ? "span" : "a");
   const css_vars =
-    height === undefined ? {} : assignInlineVars({ [logoHeight]: LengthToCss(height) });
+    height === undefined ? {} : assignInlineVars({ [variables.logoHeight]: LengthToCss(height) });
   const has_role = href !== undefined || component !== undefined;
 
   return (

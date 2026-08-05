@@ -16,7 +16,7 @@ Sin `variant`, el toast conserva `surface.overlay` y nada cambia: el recipe usa 
 
 ## La franja de acento no depende de la variante
 
-`toastAccent` —el borde izquierdo de 3 px— sigue saliendo de `ScaleShade(color, "600")` en todas las
+`variables.accent` —el borde izquierdo de 3 px— sigue saliendo de `ScaleShade(color, "600")` en todas las
 variantes, incluida `filled`. Es el cue que identifica la severidad y debe permanecer legible aunque la
 superficie cambie; ligarlo a la receta lo habría fundido con el fondo en `filled`.
 

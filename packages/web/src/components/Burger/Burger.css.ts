@@ -6,7 +6,7 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-import { bar, barGap, barWidth } from "./Burger.vars.css.js";
+import * as variables from "./Burger.vars.css.js";
 
 export const burger = style({
   "@layer": {
@@ -15,14 +15,14 @@ export const burger = style({
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      gap: barGap,
+      gap: variables.barGap,
       margin: 0,
       padding: vars.space.xxs,
       background: "none",
       border: 0,
       borderRadius: vars.radius.sm,
       cursor: "pointer",
-      color: bar,
+      color: variables.bar,
       selectors: {
         "&[data-focus-visible='true']": { ...focus.ring },
         "&[data-disabled='true']": { cursor: "not-allowed", opacity: 0.55 },
@@ -38,7 +38,7 @@ export const line = style({
   "@layer": {
     [base_layer]: {
       display: "block",
-      width: barWidth,
+      width: variables.barWidth,
       height: 2,
       borderRadius: vars.radius.full,
       background: "currentColor",
@@ -52,11 +52,11 @@ export const line = style({
 });
 
 export const size = styleVariants({
-  xs: { vars: { [barWidth]: "12px", [barGap]: "3px" } },
-  sm: { vars: { [barWidth]: "16px", [barGap]: "3px" } },
-  md: { vars: { [barWidth]: "20px", [barGap]: "4px" } },
-  lg: { vars: { [barWidth]: "26px", [barGap]: "5px" } },
-  xl: { vars: { [barWidth]: "32px", [barGap]: "6px" } },
+  xs: { vars: { [variables.barWidth]: "12px", [variables.barGap]: "3px" } },
+  sm: { vars: { [variables.barWidth]: "16px", [variables.barGap]: "3px" } },
+  md: { vars: { [variables.barWidth]: "20px", [variables.barGap]: "4px" } },
+  lg: { vars: { [variables.barWidth]: "26px", [variables.barGap]: "5px" } },
+  xl: { vars: { [variables.barWidth]: "32px", [variables.barGap]: "6px" } },
 });
 
 const SHOWN = { display: "inline-flex" } as const;

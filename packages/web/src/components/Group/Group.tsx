@@ -15,7 +15,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./Group.css.js";
 import type { GroupOwnProps, GroupProps } from "./Group.types.js";
-import { groupCount, groupGap } from "./Group.vars.css.js";
+import * as variables from "./Group.vars.css.js";
 
 const GroupComponent = forwardRef<HTMLElement, GroupOwnProps>(function Group(props, ref) {
   const {
@@ -34,8 +34,8 @@ const GroupComponent = forwardRef<HTMLElement, GroupOwnProps>(function Group(pro
 
   const count = Children.count(children);
   const css_vars = assignInlineVars({
-    [groupGap]: SpaceToCss(gap),
-    [groupCount]: String(count === 0 ? 1 : count),
+    [variables.gap]: SpaceToCss(gap),
+    [variables.count]: String(count === 0 ? 1 : count),
   });
 
   return (

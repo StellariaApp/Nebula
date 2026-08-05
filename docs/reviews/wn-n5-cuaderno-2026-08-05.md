@@ -45,16 +45,15 @@ contenido de los dos comentarios es exactamente eso: un porqué no deducible.
 **Recomendación**: moverlos a `AppShell.md`, que ya existe. Barrer el resto del catálogo buscando el
 mismo patrón antes de decidir si es un caso aislado.
 
-### H4 · Dos idiomas para importar las vars de un componente
+### H7 · `SimpleGrid` declara diez vars para lo que son dos props
 
-**Dónde**: todo el catálogo.
-**Medido**: 99 sitios usan import nombrado (`import { bg, fg } from "./X.vars.css.js"`) y 2 usan
-espacio de nombres (`import * as variables from …`).
-**Causa**: el prompt de WN fija el namespace como convención de N1, pero la realidad del catálogo es
-la contraria por 99 a 2. N0 creó 20 `.vars.css.ts` nuevos siguiendo el idioma mayoritario para no
-ampliar la brecha.
-**A decidir en N1**: si la convención es namespace, son 119 sitios a cambiar, no 20. Si es import
-nombrado, basta con migrar 2 y documentarlo.
+**Dónde**: `packages/web/src/components/SimpleGrid/SimpleGrid.vars.css.ts`
+**Causa**: `cols`, `colsBase`, `colsPhone`, `colsTablet`, `colsLaptop`, `colsDesktop`, `colsWide`,
+`spacingX`, `spacingY`, `justify`. Cinco de ellas —las de brecha— nadie las asigna y se leen con
+`fallbackVar`, así que son puntos de extensión válidos; pero el conjunto reproduce a mano el patrón
+responsive que otros componentes resuelven con una prop de objeto.
+**Recomendación**: mirarlo al llegar a N3, cuando se decida la forma de las props responsive. No es
+un defecto hoy; es la señal de "contrato implícito" que el prompt de N1 mandaba anotar.
 
 ### H5 · `hover` y `active` valen lo mismo en los dos temas nebula
 
@@ -93,3 +92,7 @@ vuelven a moverse.
 
 - **N4 · reparto de `surface.hoverActive`** — ADR-095. Ocho componentes; el barrido midió 10 hojas
   con selección + puntero, de las que 2 no eran caso.
+- **H4 · dos idiomas para importar las vars** — ADR-096, en N1. Ganó el espacio de nombres, que era
+  lo que el prompt fijaba: 154 imports migrados, 660 referencias. La medición dio la razón al prompt
+  por un motivo que no estaba escrito — el import nombrado obligaba a 57 alias para esquivar
+  colisiones entre la var y la prop homónima.

@@ -10,13 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Stepper.css.js";
-import {
-  bulletBg,
-  bulletBorder,
-  bulletBorderWidth,
-  bulletFg,
-  trackDone,
-} from "./Stepper.vars.css.js";
+import * as variables from "./Stepper.vars.css.js";
 import type { StepperLabels, StepperProps, StepperState } from "./Stepper.types.js";
 
 const DEFAULT_LABELS: StepperLabels = {
@@ -72,11 +66,11 @@ export function Stepper(props: StepperProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bulletBg]: resolved.background,
-    [bulletFg]: resolved.foreground,
-    [bulletBorder]: resolved.borderColor,
-    [bulletBorderWidth]: resolved.borderWidth === "0" ? "1px" : resolved.borderWidth,
-    [trackDone]: resolved.foreground,
+    [variables.bulletBg]: resolved.background,
+    [variables.bulletFg]: resolved.foreground,
+    [variables.bulletBorder]: resolved.borderColor,
+    [variables.bulletBorderWidth]: resolved.borderWidth === "0" ? "1px" : resolved.borderWidth,
+    [variables.trackDone]: resolved.foreground,
   });
 
   const Bullet = (index: number, state: StepperState, icon: ReactNode): ReactNode => {

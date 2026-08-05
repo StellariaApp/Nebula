@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { FormField } from "../FormField/FormField.js";
 
-import { dropColor } from "./Dropzone.vars.css.js";
+import * as variables from "./Dropzone.vars.css.js";
 import * as styles from "./Dropzone.css.js";
 import type { DropzoneKind, DropzoneLabels, DropzoneProps } from "./Dropzone.types.js";
 
@@ -172,7 +172,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
       {(control) => (
         <div
           className={styles.root}
-          style={assignInlineVars({ [dropColor]: ResolveAccent(color, "600") })}
+          style={assignInlineVars({ [variables.dropColor]: ResolveAccent(color, "600") })}
         >
           <button
             {...control}

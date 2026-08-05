@@ -31,7 +31,7 @@ Ahora el reparto es:
 
 Así la transformada actúa sobre lo que el usuario percibe como el modal. Es también lo que permite que `edge-start`/`edge-end` desplacen el panel un 100 % de su propio ancho: el `overflow: hidden` del diálogo lo recorta mientras entra.
 
-`modalWidth` se sigue publicando como var en el `<dialog>` y la consume `surface` por herencia, así que el cálculo del ancho no cambió de sitio.
+`variables.width` se sigue publicando como var en el `<dialog>` y la consume `surface` por herencia, así que el cálculo del ancho no cambió de sitio.
 
 **Limitación conocida**: `edge-start` y `edge-end` traducen en el eje físico (`x`), no en el lógico. En RTL el drawer entraría por el lado contrario al que indica su colocación, que sí es lógica (`justifyContent`). Se corrige cuando el catálogo aborde RTL como contrato, no antes.
 

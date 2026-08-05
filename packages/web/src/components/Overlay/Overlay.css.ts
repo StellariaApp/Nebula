@@ -3,15 +3,15 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { alpha, tint } from "./Overlay.vars.css.js";
+import * as variables from "./Overlay.vars.css.js";
 
 export const overlay = style({
   "@layer": {
     [base_layer]: {
       position: "absolute",
       inset: 0,
-      background: tint,
-      opacity: alpha,
+      background: variables.tint,
+      opacity: variables.alpha,
       selectors: {
         "&[data-fixed='true']": { position: "fixed" },
         "&[data-center='true']": {
@@ -49,8 +49,8 @@ export const veil = style({
     [base_layer]: {
       position: "absolute",
       inset: 0,
-      background: tint,
-      opacity: alpha,
+      background: variables.tint,
+      opacity: variables.alpha,
       borderRadius: "inherit",
     },
   },

@@ -13,7 +13,7 @@ import { useReveal } from "../Reveal/use-reveal.js";
 
 import * as styles from "./Section.css.js";
 import type { SectionProps } from "./Section.types.js";
-import { contentMax } from "./Section.vars.css.js";
+import * as variables from "./Section.vars.css.js";
 
 const DEFAULT_WIDTH = 1180;
 
@@ -51,7 +51,7 @@ export function Section(props: SectionProps): ReactElement {
       ? {}
       : { "aria-label": aria_label };
 
-  const rail_vars = assignInlineVars({ [contentMax]: LengthToCss(contentWidth) });
+  const rail_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
   const revealed = useReveal();
   const animating = reveal && revealed.armed;
   const Root: ElementType = animating ? m.section : "section";

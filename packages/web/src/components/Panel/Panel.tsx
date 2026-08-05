@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { masterSize } from "./Panel.vars.css.js";
+import * as variables from "./Panel.vars.css.js";
 import * as styles from "./Panel.css.js";
 import type { PanelLabels, PanelProps } from "./Panel.types.js";
 
@@ -99,7 +99,7 @@ export function Panel(props: PanelProps): ReactElement {
       ref={root_ref}
       className={cx(styles.panel, sprinkle_class, className)}
       style={{
-        ...assignInlineVars({ [masterSize]: `${String(current)}px` }),
+        ...assignInlineVars({ [variables.masterSize]: `${String(current)}px` }),
         ...sprinkle_style,
       }}
       data-orientation={orientation}

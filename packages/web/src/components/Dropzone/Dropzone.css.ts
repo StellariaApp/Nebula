@@ -5,7 +5,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { dropColor } from "./Dropzone.vars.css.js";
+import * as variables from "./Dropzone.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -41,10 +41,10 @@ export const zone = style({
       ...motion.interaction,
       ...motion.reduced_motion,
       selectors: {
-        "&:hover:not(:disabled)": { borderColor: dropColor },
+        "&:hover:not(:disabled)": { borderColor: variables.dropColor },
         "&:focus-visible": focus.ring,
         "&[data-drag='accept']": {
-          borderColor: dropColor,
+          borderColor: variables.dropColor,
           color: vars.color.text.primary,
         },
         "&[data-drag='reject']": {
@@ -65,7 +65,7 @@ export const zone = style({
 
 export const icon = style({
   "@layer": {
-    [base_layer]: { display: "inline-flex", lineHeight: 0, color: dropColor },
+    [base_layer]: { display: "inline-flex", lineHeight: 0, color: variables.dropColor },
   },
 });
 

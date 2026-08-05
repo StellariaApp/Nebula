@@ -2,7 +2,7 @@
 
 ## La caja deriva de `sizes.control`, no de una escala propia
 
-`styles.size` es un `styleVariants` que fija `checkboxSize` en `calc(vars.size.control.<size> / 2)`.
+`styles.size` es un `styleVariants` que fija `variables.size` en `calc(vars.size.control.<size> / 2)`.
 No hay tabla de píxeles en el `.tsx`.
 
 Es la misma regla que ya aplica ActionIcon (`ActionIcon.css.ts`) y que fija `docs/06-visual-language.md`
@@ -22,7 +22,7 @@ La regla ya estaba en el sistema y solo dos componentes se le habían escapado. 
 
 ## Por qué el tamaño va por CSS y no por `assignInlineVars`
 
-`checkboxColor` sí se inyecta en runtime porque depende de la prop `color`. El tamaño no: depende solo
+`variables.color` sí se inyecta en runtime porque depende de la prop `color`. El tamaño no: depende solo
 de `size`, que es un conjunto cerrado, de modo que `styleVariants` lo resuelve en build y el componente
 no necesita suscribirse al tema con `useTheme()`. Switch sí lo hace, pero porque necesita el valor
 **numérico** para calcular el recorrido del gesto de arrastre; ver `Switch.md`.

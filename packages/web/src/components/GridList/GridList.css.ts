@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { cols, minCol } from "./GridList.vars.css.js";
+import * as variables from "./GridList.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -48,12 +48,12 @@ export const mode = styleVariants({
   list: { display: "flex", flexDirection: "column" },
   grid: {
     display: "grid",
-    gridTemplateColumns: `repeat(${cols}, minmax(${minCol}, 1fr))`,
+    gridTemplateColumns: `repeat(${variables.cols}, minmax(${variables.minCol}, 1fr))`,
   },
   carousel: {
     display: "grid",
     gridAutoFlow: "column",
-    gridAutoColumns: minCol,
+    gridAutoColumns: variables.minCol,
     overflowX: "auto",
     scrollSnapType: "x mandatory",
     scrollPaddingInline: vars.space.md,

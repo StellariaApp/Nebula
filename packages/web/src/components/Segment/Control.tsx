@@ -20,7 +20,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { useSegment } from "./Segment.context.js";
 import * as styles from "./Segment.css.js";
-import { indicatorColor, indicatorFg } from "./Segment.vars.css.js";
+import * as variables from "./Segment.vars.css.js";
 import type {
   SegmentControlItemProps,
   SegmentControlProps,
@@ -108,12 +108,12 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     segment.variant === undefined ? null : ResolveVariant(segment.variant, segment.color, theme);
 
   const css_vars = assignInlineVars({
-    [indicatorColor]:
+    [variables.indicatorColor]:
       resolved?.background ??
       (segment.color === "primary"
         ? vars.color.surface.overlay
         : ResolveAccent(segment.color, "200")),
-    ...(resolved === null ? {} : { [indicatorFg]: resolved.foreground }),
+    ...(resolved === null ? {} : { [variables.indicatorFg]: resolved.foreground }),
   });
 
   return (

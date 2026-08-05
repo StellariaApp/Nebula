@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { alpha, backdrop, tint } from "./BlurOverlay.vars.css.js";
+import * as variables from "./BlurOverlay.vars.css.js";
 
 const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))";
 
@@ -12,8 +12,8 @@ export const blur_overlay = style({
     [base_layer]: {
       position: "absolute",
       inset: 0,
-      backdropFilter: backdrop,
-      WebkitBackdropFilter: backdrop,
+      backdropFilter: variables.backdrop,
+      WebkitBackdropFilter: variables.backdrop,
       selectors: {
         "&[data-fixed='true']": { position: "fixed" },
         "&[data-center='true']": {
@@ -37,8 +37,8 @@ export const veil = style({
     [base_layer]: {
       position: "absolute",
       inset: 0,
-      background: tint,
-      opacity: alpha,
+      background: variables.tint,
+      opacity: variables.alpha,
       borderRadius: "inherit",
       "@supports": {
         [NO_BACKDROP]: { opacity: 1 },

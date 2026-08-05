@@ -2,14 +2,14 @@ import { globalStyle, style } from "@vanilla-extract/css";
 
 import { base_layer } from "../../theme/layers.css.js";
 
-import { groupCount, groupGap } from "./Group.vars.css.js";
+import * as variables from "./Group.vars.css.js";
 
 export const group = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
       flexDirection: "row",
-      gap: groupGap,
+      gap: variables.gap,
     },
   },
 });
@@ -34,7 +34,7 @@ globalStyle(`${group}[data-grow="true"] > *`, {
 globalStyle(`${group}[data-grow="true"][data-prevent-overflow="true"] > *`, {
   "@layer": {
     [base_layer]: {
-      maxWidth: `calc((100% - (${groupCount} - 1) * ${groupGap}) / ${groupCount})`,
+      maxWidth: `calc((100% - (${variables.count} - 1) * ${variables.gap}) / ${variables.count})`,
     },
   },
 });

@@ -6,15 +6,15 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-import { asideWidth, chromeHeight, headHeight, navWidth, railMiniWidth, railWidth, shadowOffset } from "./AppShell.vars.css.js";
+import * as variables from "./AppShell.vars.css.js";
 
 export const shell = style({
   "@layer": {
     [base_layer]: {
       display: "grid",
       gridTemplateAreas: `"header header header" "nav main aside" "footer footer footer"`,
-      gridTemplateColumns: `${navWidth} 1fr ${asideWidth}`,
-      gridTemplateRows: `${headHeight} 1fr auto`,
+      gridTemplateColumns: `${variables.navWidth} 1fr ${variables.asideWidth}`,
+      gridTemplateRows: `${variables.headHeight} 1fr auto`,
       minHeight: "100dvh",
       minWidth: 0,
       color: vars.color.text.primary,
@@ -69,10 +69,10 @@ export const rail = style({
     [base_layer]: {
       display: "grid",
       gridTemplateAreas: `"rail chrome" "rail main"`,
-      gridTemplateColumns: `${railWidth} 1fr`,
+      gridTemplateColumns: `${variables.railWidth} 1fr`,
       gridTemplateRows: "auto 1fr",
       selectors: {
-        "&[data-rail-collapsed='true']": { gridTemplateColumns: `${railMiniWidth} 1fr` },
+        "&[data-rail-collapsed='true']": { gridTemplateColumns: `${variables.railMiniWidth} 1fr` },
       },
       blockSize: "100dvh",
       minWidth: 0,
@@ -82,7 +82,7 @@ export const rail = style({
       isolation: "isolate",
       overflow: "hidden",
       "@media": {
-        [SmallerThan("laptop")]: { gridTemplateColumns: `${railMiniWidth} 1fr` },
+        [SmallerThan("laptop")]: { gridTemplateColumns: `${variables.railMiniWidth} 1fr` },
         [SmallerThan("tablet")]: {
           gridTemplateAreas: `"chrome" "main"`,
           gridTemplateColumns: "1fr",
@@ -166,7 +166,7 @@ export const toggle = style({
   "@layer": {
     [base_layer]: {
       position: "absolute",
-      top: chromeHeight,
+      top: variables.chromeHeight,
       right: 0,
       transform: "translate(50%, -50%) rotate(180deg)",
       zIndex: vars.zIndex.tooltip,
@@ -192,7 +192,7 @@ export const sidebar_slot = style({
       justifyContent: "center",
       width: "100%",
       gap: vars.space.sm,
-      minHeight: chromeHeight,
+      minHeight: variables.chromeHeight,
       paddingInline: vars.space.lg,
       flexShrink: 0,
       minWidth: 0,
@@ -201,7 +201,7 @@ export const sidebar_slot = style({
           flexDirection: "column",
           justifyContent: "center",
           blockSize: "auto",
-          minBlockSize: chromeHeight,
+          minBlockSize: variables.chromeHeight,
           paddingInline: vars.space.xxs,
           paddingBlock: vars.space.xs,
           gap: vars.space.xxs,
@@ -212,7 +212,7 @@ export const sidebar_slot = style({
           flexDirection: "column",
           justifyContent: "center",
           blockSize: "auto",
-          minBlockSize: chromeHeight,
+          minBlockSize: variables.chromeHeight,
           paddingInline: vars.space.xxs,
           paddingBlock: vars.space.xs,
           gap: vars.space.xxs,
@@ -366,7 +366,7 @@ export const section_header = style({
       alignItems: "center",
       justifyContent: "space-between",
       gap: vars.space.md,
-      blockSize: chromeHeight,
+      blockSize: variables.chromeHeight,
       paddingInline: vars.space.lg,
       minWidth: 0,
       borderBlock: `1px solid ${vars.glass.default.borderColor}`,
@@ -400,9 +400,9 @@ export const navbar = style({
     [base_layer]: {
       gridArea: "nav",
       position: "sticky",
-      insetBlockStart: headHeight,
+      insetBlockStart: variables.headHeight,
       alignSelf: "start",
-      blockSize: `calc(100dvh - ${headHeight})`,
+      blockSize: `calc(100dvh - ${variables.headHeight})`,
       overflowY: "auto",
       overflowX: "hidden",
       minWidth: 0,
@@ -418,9 +418,9 @@ export const aside_region = style({
     [base_layer]: {
       gridArea: "aside",
       position: "sticky",
-      insetBlockStart: headHeight,
+      insetBlockStart: variables.headHeight,
       alignSelf: "start",
-      blockSize: `calc(100dvh - ${headHeight})`,
+      blockSize: `calc(100dvh - ${variables.headHeight})`,
       overflowY: "auto",
       minWidth: 0,
       borderInlineStart: `1px solid ${vars.glass.default.borderColor}`,
@@ -473,7 +473,7 @@ export const sticky_sub = style({
     [base_layer]: {
       top: 0,
       position: "sticky",
-      insetBlockStart: chromeHeight,
+      insetBlockStart: variables.chromeHeight,
       zIndex: `calc(${vars.zIndex.sticky} - 1)`,
     },
   },
@@ -483,7 +483,7 @@ export const scroll_shadow = style({
   "@layer": {
     [base_layer]: {
       position: "sticky",
-      insetBlockStart: shadowOffset,
+      insetBlockStart: variables.shadowOffset,
       zIndex: `calc(${vars.zIndex.sticky} - 2)`,
       blockSize: 0,
       overflow: "visible",

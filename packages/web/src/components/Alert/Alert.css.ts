@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { accent, bg, borderColor, fg } from "./Alert.vars.css.js";
+import * as variables from "./Alert.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -17,9 +17,9 @@ export const root = style({
       borderRadius: vars.radius.md,
       borderStyle: "solid",
       borderWidth: 1,
-      borderColor: borderColor,
-      background: bg,
-      color: fg,
+      borderColor: variables.borderColor,
+      background: variables.bg,
+      color: variables.fg,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
       lineHeight: vars.font.lineHeight.normal,
@@ -32,7 +32,7 @@ export const icon = style({
     [base_layer]: {
       display: "inline-flex",
       flexShrink: 0,
-      color: accent,
+      color: variables.accent,
       marginBlockStart: "1px",
     },
   },

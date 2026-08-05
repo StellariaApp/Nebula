@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { accent } from "./Blockquote.vars.css.js";
+import * as variables from "./Blockquote.vars.css.js";
 
 export const blockquote = style({
   "@layer": {
@@ -13,7 +13,7 @@ export const blockquote = style({
       paddingBlock: vars.space.sm,
       borderInlineStartWidth: "3px",
       borderInlineStartStyle: "solid",
-      borderInlineStartColor: accent,
+      borderInlineStartColor: variables.accent,
       borderStartEndRadius: vars.radius.sm,
       borderEndEndRadius: vars.radius.sm,
       background: vars.color.surface.raised,
@@ -37,7 +37,7 @@ export const with_icon = style({
 
 export const icon_wrap = style({
   flexShrink: 0,
-  color: accent,
+  color: variables.accent,
   display: "inline-flex",
 });
 

@@ -4,7 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { swatch, swatchSize } from "./ColorSwatch.vars.css.js";
+import * as variables from "./ColorSwatch.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -14,10 +14,10 @@ export const root = style({
       justifyContent: "center",
       flexShrink: 0,
       boxSizing: "border-box",
-      width: swatchSize,
-      height: swatchSize,
+      width: variables.swatchSize,
+      height: variables.swatchSize,
       padding: 0,
-      background: swatch,
+      background: variables.swatch,
       color: vars.color.text.inverted,
       borderWidth: 1,
       borderStyle: "solid",

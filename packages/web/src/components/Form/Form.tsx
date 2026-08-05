@@ -11,7 +11,7 @@ import { Text } from "../Text/Text.js";
 import { Title } from "../Title/Title.js";
 
 import { FormContext, useFormContext } from "./Form.context.js";
-import { banderoleColor } from "./Form.vars.css.js";
+import * as variables from "./Form.vars.css.js";
 import * as styles from "./Form.css.js";
 import type {
   FormBanderoleProps,
@@ -103,7 +103,7 @@ function Banderole(props: FormBanderoleProps): ReactElement {
     <div
       className={cx(styles.banderole, styles.banderole_side[side], sprinkle_class, className)}
       style={{
-        ...assignInlineVars({ [banderoleColor]: ResolveAccent(color ?? form.color, "600") }),
+        ...assignInlineVars({ [variables.banderoleColor]: ResolveAccent(color ?? form.color, "600") }),
         ...sprinkle_style,
       }}
     >

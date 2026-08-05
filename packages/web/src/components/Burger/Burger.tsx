@@ -13,7 +13,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { burger, line, size as size_variants, show_below as showBelowVariants } from "./Burger.css.js";
-import { bar } from "./Burger.vars.css.js";
+import * as variables from "./Burger.vars.css.js";
 import type { BurgerProps } from "./Burger.types.js";
 
 const SHIFT: Record<string, number> = { xs: 5, sm: 6, md: 7, lg: 9, xl: 11 };
@@ -100,7 +100,7 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
         ref={ref}
         className={cx(burger, size_variants[size], showBelowVariants[showBelow], sprinkle_class, className)}
         style={{
-          ...assignInlineVars({ [bar]: ResolveAccent(color, "600") }),
+          ...assignInlineVars({ [variables.bar]: ResolveAccent(color, "600") }),
           ...sprinkle_style,
           ...style,
         }}

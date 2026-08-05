@@ -73,20 +73,33 @@ Reglas aprendidas:
 El `variantMap` del tema es **data no-CSS** (ADR-016): vive en el objeto JS, mientras el `recipe()` se resuelve en build. La conciliación:
 
 ```ts
-// X.vars.css.ts — contrato de color del componente
+// X.vars.css.ts — contrato de color del componente. La var se llama como la
+// propiedad que gobierna, no como el componente: `bg`, nunca `xBg` (ADR-096).
 export const bg = createVar();
 export const fg = createVar();
 
 // X.css.ts — el recipe consume las vars; NUNCA hornea un color
+import * as variables from "./X.vars.css.js";
+
 export const x_root = recipe({
-  base: { background: bg, color: fg, height: vars.size.md /* estructura */ },
+  base: { background: variables.bg, color: variables.fg, height: vars.size.md /* estructura */ },
   variants: { size: { xs: {…}, …} },
 });
 
 // X.tsx — el tema decide el color en runtime
+import * as variables from "./X.vars.css.js";
+
 const resolved = ResolveVariant(variant, color, theme);
-const css_vars = assignInlineVars({ [bg]: resolved.background, [fg]: resolved.foreground });
+const css_vars = assignInlineVars({
+  [variables.bg]: resolved.background,
+  [variables.fg]: resolved.foreground,
+});
 ```
+
+Las vars locales **siempre** se importan como espacio de nombres (ADR-096): `variables` para las
+propias, `<origen>_vars` para las de otro módulo (`calendar_vars`, `focus_vars`). Es lo que permite
+que la var se llame `bg` y no `xBg` — con import nombrado, el nombre corto choca con la prop que la
+alimenta.
 
 `ResolveVariant` (`src/theme/resolve-variant.ts`) traduce las referencias serializables (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`) a **`var(...)` del contrato**, nunca a hex — así el cambio de tema oficial sigue repintando por CSS. Aplica además los guardrails del tema: `effects.glass.enabled` off degrada la variante glass, `motion.tier: "minimal"` desactiva la animación.
 

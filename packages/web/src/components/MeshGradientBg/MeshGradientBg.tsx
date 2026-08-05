@@ -12,7 +12,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../styles/noise.css.js";
-import { noiseOpacity } from "../../styles/noise.vars.css.js";
+import * as noise_vars from "../../styles/noise.vars.css.js";
 import { ResolveGradientToken } from "../../theme/resolve-variant.js";
 import { MeshBase, MeshCss } from "../../utils/effects.js";
 import { cx } from "../../utils/style-props.js";
@@ -21,7 +21,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./MeshGradientBg.css.js";
 import type { MeshGradientBgOwnProps, MeshGradientBgProps } from "./MeshGradientBg.types.js";
-import { meshBase, meshImage, scrimAlpha } from "./MeshGradientBg.vars.css.js";
+import * as variables from "./MeshGradientBg.vars.css.js";
 
 const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
   function MeshGradientBg(props, ref) {
@@ -42,10 +42,10 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
     const grain_opacity = theme.effects.glass.enabled ? theme.effects.glass.noiseOpacity : 0;
 
     const css_vars = assignInlineVars({
-      [meshImage]: token === undefined ? "none" : MeshCss(token),
-      [meshBase]: token === undefined ? "transparent" : MeshBase(token),
-      [scrimAlpha]: String(scrim),
-      [noiseOpacity]: String(grain_opacity),
+      [variables.image]: token === undefined ? "none" : MeshCss(token),
+      [variables.base]: token === undefined ? "transparent" : MeshBase(token),
+      [variables.scrimAlpha]: String(scrim),
+      [noise_vars.opacity]: String(grain_opacity),
     });
 
     const named_radius = typeof radius === "string" ? radius : "lg";

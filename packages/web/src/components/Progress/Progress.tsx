@@ -14,14 +14,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Progress.css.js";
 import type { ProgressProps, ProgressSegment } from "./Progress.types.js";
-import {
-  ringSize,
-  trackBg,
-  trackBorder,
-  trackBorderWidth,
-  trackHeight,
-  trackRadius,
-} from "./Progress.vars.css.js";
+import * as variables from "./Progress.vars.css.js";
 
 const BAR_HEIGHT: Record<Size, number> = { xs: 4, sm: 6, md: 8, lg: 12, xl: 16 };
 const RING_SIZE: Record<Size, number> = { xs: 32, sm: 44, md: 60, lg: 84, xl: 112 };
@@ -52,9 +45,9 @@ function TrackVars(
   const resolved = ResolveVariant(variant, color, theme);
   return {
     vars: assignInlineVars({
-      [trackBg]: resolved.background,
-      [trackBorder]: resolved.borderColor,
-      [trackBorderWidth]: resolved.borderWidth,
+      [variables.trackBg]: resolved.background,
+      [variables.trackBorder]: resolved.borderColor,
+      [variables.trackBorderWidth]: resolved.borderWidth,
     }),
     stroke: resolved.background === "transparent" ? "none" : resolved.background,
   };
@@ -79,8 +72,8 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
   const percent = Math.min(100, Math.max(0, (total / max) * 100));
 
   const css_vars = assignInlineVars({
-    [trackHeight]: Resolve(size, BAR_HEIGHT),
-    [trackRadius]: radius === undefined ? vars.radius.full : LengthToCss(radius),
+    [variables.trackHeight]: Resolve(size, BAR_HEIGHT),
+    [variables.trackRadius]: radius === undefined ? vars.radius.full : LengthToCss(radius),
   });
 
   if (indeterminate) {
@@ -145,7 +138,7 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
   const total = list.reduce((sum, segment) => sum + segment.value, 0);
   const percent = Math.min(100, Math.max(0, (total / max) * 100));
 
-  const css_vars = assignInlineVars({ [ringSize]: `${String(box)}px` });
+  const css_vars = assignInlineVars({ [variables.ringSize]: `${String(box)}px` });
 
   let offset = 0;
 

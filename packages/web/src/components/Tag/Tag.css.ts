@@ -4,7 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bg, borderColor, fg } from "./Tag.vars.css.js";
+import * as variables from "./Tag.vars.css.js";
 
 export const tag = style({
   "@layer": {
@@ -17,11 +17,11 @@ export const tag = style({
       fontFamily: vars.font.family.sans,
       fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.tight,
-      background: bg,
-      color: fg,
+      background: variables.bg,
+      color: variables.fg,
       borderWidth: 1,
       borderStyle: "solid",
-      borderColor: borderColor,
+      borderColor: variables.borderColor,
       ...motion.interaction,
       ...motion.reduced_motion,
       selectors: {

@@ -6,16 +6,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  backdropFilter,
-  bg,
-  bgActive,
-  bgHover,
-  borderColor,
-  borderWidth,
-  fg,
-  glow,
-} from "./QuickAction.vars.css.js";
+import * as variables from "./QuickAction.vars.css.js";
 
 const GLOW_PULSE = keyframes({
   "0%": { opacity: 0.45 },
@@ -36,11 +27,11 @@ export const tile = recipe({
     appearance: "none",
     fontFamily: vars.font.family.sans,
     borderStyle: "solid",
-    borderWidth,
-    borderColor,
-    background: bg,
-    color: fg,
-    backdropFilter,
+    borderWidth: variables.borderWidth,
+    borderColor: variables.borderColor,
+    background: variables.bg,
+    color: variables.fg,
+    backdropFilter: variables.backdropFilter,
     ...motion.interaction,
     "::after": {
       content: '""',
@@ -48,14 +39,14 @@ export const tile = recipe({
       inset: 0,
       zIndex: -1,
       borderRadius: "inherit",
-      boxShadow: glow,
+      boxShadow: variables.glow,
       opacity: 0,
       pointerEvents: "none",
       ...motion.interaction,
     },
     selectors: {
-      "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
-      "&[data-pressed='true']:not([data-disabled='true'])": { background: bgActive },
+      "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
+      "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
       "&[data-focus-visible='true']": { ...focus.ring },
       "&[data-disabled='true']": { cursor: "not-allowed", opacity: 0.55 },
       "&[data-loading='true']": { cursor: "progress" },

@@ -12,7 +12,7 @@ import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./AspectRatio.css.js";
-import { ratio as ratioVar } from "./AspectRatio.vars.css.js";
+import * as variables from "./AspectRatio.vars.css.js";
 import type { AspectRatioOwnProps, AspectRatioProps } from "./AspectRatio.types.js";
 
 const AspectRatioComponent = forwardRef<HTMLElement, AspectRatioOwnProps>(
@@ -26,7 +26,7 @@ const AspectRatioComponent = forwardRef<HTMLElement, AspectRatioOwnProps>(
       ...rest
     } = props as AspectRatioOwnProps & { style?: CSSProperties };
 
-    const css_vars = assignInlineVars({ [ratioVar]: String(ratio) });
+    const css_vars = assignInlineVars({ [variables.ratio]: String(ratio) });
 
     return (
       <Box

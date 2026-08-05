@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../styles/noise.css.js";
-import { noiseOpacity } from "../../styles/noise.vars.css.js";
+import * as noise_vars from "../../styles/noise.vars.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./NoiseOverlay.css.js";
@@ -20,7 +20,7 @@ export function NoiseOverlay(props: NoiseOverlayProps): ReactElement {
   const enabled = theme.effects.glass.enabled;
   const resolved = enabled ? (opacity ?? theme.effects.glass.noiseOpacity) : 0;
 
-  const css_vars = assignInlineVars({ [noiseOpacity]: String(resolved) });
+  const css_vars = assignInlineVars({ [noise_vars.opacity]: String(resolved) });
 
   return (
     <span

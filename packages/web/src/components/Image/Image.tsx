@@ -14,7 +14,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Image.css.js";
 import type { ImageProps } from "./Image.types.js";
-import { imageHeight, imageRadius, imageWidth } from "./Image.vars.css.js";
+import * as variables from "./Image.vars.css.js";
 
 export function ResolveRadius(radius: ImageProps["radius"]): string {
   if (radius === undefined) return vars.radius.md;
@@ -49,9 +49,9 @@ export function Image(props: ImageProps): ReactElement {
   const broken = missing || status === "failed";
 
   const css_vars = assignInlineVars({
-    [imageWidth]: LengthToCss(width),
-    [imageHeight]: LengthToCss(height),
-    [imageRadius]: ResolveRadius(radius),
+    [variables.width]: LengthToCss(width),
+    [variables.height]: LengthToCss(height),
+    [variables.radius]: ResolveRadius(radius),
   });
 
   return (

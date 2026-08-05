@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { meshBase, meshImage, scrimAlpha } from "./MeshGradientBg.vars.css.js";
+import * as variables from "./MeshGradientBg.vars.css.js";
 
 export const mesh_gradient_bg = recipe({
   base: {
@@ -13,8 +13,8 @@ export const mesh_gradient_bg = recipe({
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
-        backgroundColor: meshBase,
-        backgroundImage: meshImage,
+        backgroundColor: variables.base,
+        backgroundImage: variables.image,
         color: vars.color.text.primary,
         "@media": {
           "(forced-colors: active)": {
@@ -51,7 +51,7 @@ export const scrim = style({
       zIndex: -1,
       pointerEvents: "none",
       background: vars.color.surface.base,
-      opacity: scrimAlpha,
+      opacity: variables.scrimAlpha,
       "@media": {
         "(forced-colors: active)": { display: "none" },
       },

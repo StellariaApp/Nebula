@@ -5,7 +5,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { frameRatio } from "./EditorImage.vars.css.js";
+import * as variables from "./EditorImage.vars.css.js";
 
 export const trigger = style({
   "@layer": {
@@ -16,7 +16,7 @@ export const trigger = style({
       padding: 0,
       border: `1px solid ${vars.color.border.subtle}`,
       background: vars.color.surface.sunken,
-      aspectRatio: frameRatio,
+      aspectRatio: variables.frameRatio,
       overflow: "hidden",
       cursor: "pointer",
       ...interaction,

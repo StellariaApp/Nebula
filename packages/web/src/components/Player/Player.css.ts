@@ -3,14 +3,14 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { frameRatio } from "./Player.vars.css.js";
+import * as variables from "./Player.vars.css.js";
 
 export const frame = style({
   "@layer": {
     [base_layer]: {
       position: "relative",
       width: "100%",
-      aspectRatio: frameRatio,
+      aspectRatio: variables.frameRatio,
       overflow: "hidden",
       borderRadius: vars.radius.md,
       background: "#000000",

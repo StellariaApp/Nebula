@@ -7,7 +7,7 @@ import { cx } from "../../utils/style-props.js";
 import { ResolveRadius } from "./Image.js";
 import * as styles from "./Image.css.js";
 import type { BackgroundImageProps } from "./Image.types.js";
-import { imageRadius, overlayAlpha } from "./Image.vars.css.js";
+import * as variables from "./Image.vars.css.js";
 
 const DEFAULT_OVERLAP = 45;
 
@@ -17,8 +17,8 @@ export function BackgroundImage(props: BackgroundImageProps): ReactElement {
   const percent = overlay === false ? 0 : overlay === true ? DEFAULT_OVERLAP : overlay;
 
   const css_vars = assignInlineVars({
-    [imageRadius]: ResolveRadius(radius),
-    [overlayAlpha]: `${String(percent)}%`,
+    [variables.radius]: ResolveRadius(radius),
+    [variables.overlayAlpha]: `${String(percent)}%`,
   });
 
   return (

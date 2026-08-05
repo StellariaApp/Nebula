@@ -14,7 +14,7 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./Mark.css.js";
 import type { MarkOwnProps, MarkProps } from "./Mark.types.js";
-import { markBg, markFg } from "./Mark.vars.css.js";
+import * as variables from "./Mark.vars.css.js";
 
 const MarkComponent = forwardRef<HTMLElement, MarkOwnProps>(function Mark(props, ref) {
   const {
@@ -28,8 +28,8 @@ const MarkComponent = forwardRef<HTMLElement, MarkOwnProps>(function Mark(props,
   };
 
   const css_vars = assignInlineVars({
-    [markBg]: ResolveAccent(color, "200"),
-    [markFg]: ResolveAccent(color, "900"),
+    [variables.bg]: ResolveAccent(color, "200"),
+    [variables.fg]: ResolveAccent(color, "900"),
   });
 
   return (

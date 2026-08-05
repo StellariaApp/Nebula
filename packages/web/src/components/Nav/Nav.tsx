@@ -13,14 +13,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Nav.css.js";
 import type { NavProps } from "./Nav.types.js";
-import {
-  contentMax as content_var,
-  floatingGap as gap_var,
-  floatingMax as max_var,
-  surfaceBackdrop,
-  surfaceBg,
-  surfaceBorder,
-} from "./Nav.vars.css.js";
+import * as variables from "./Nav.vars.css.js";
 
 const DEFAULT_THRESHOLD = 24;
 const DEFAULT_WIDTH = 1180;
@@ -58,7 +51,7 @@ export function Nav(props: NavProps): ReactElement {
   });
   const is_condensed = tracks_scroll && (scrolled ?? auto_scrolled);
 
-  const content_vars = assignInlineVars({ [content_var]: LengthToCss(contentWidth) });
+  const content_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
 
   const progress = useSpring(is_condensed ? 1 : 0, SpringOptions("snappy", theme));
 
@@ -74,13 +67,13 @@ export function Nav(props: NavProps): ReactElement {
   const surface_vars = tracks_scroll
     ? assignInlineVars({
         ...(floating
-          ? { [max_var]: LengthToCss(floatingWidth), [gap_var]: LengthToCss(floatingGap) }
+          ? { [variables.floatingMax]: LengthToCss(floatingWidth), [variables.floatingGap]: LengthToCss(floatingGap) }
           : {}),
-        [surfaceBg]: glass_on ? vars.glass.default.background : vars.color.surface.raised,
-        [surfaceBorder]: glass_on
+        [variables.surfaceBg]: glass_on ? vars.glass.default.background : vars.color.surface.raised,
+        [variables.surfaceBorder]: glass_on
           ? vars.glass.default.border
           : `1px solid ${vars.color.border.subtle}`,
-        [surfaceBackdrop]: glass_on ? vars.glass.default.backdropFilter : "none",
+        [variables.surfaceBackdrop]: glass_on ? vars.glass.default.backdropFilter : "none",
       })
     : {};
 

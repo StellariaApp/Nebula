@@ -6,7 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { accent, accentHover, activeFg } from "./Pagination.vars.css.js";
+import * as variables from "./Pagination.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -45,7 +45,7 @@ export const control = recipe({
             background: vars.color.surface.hover,
             color: vars.color.text.primary,
           },
-          "&[data-active='true']": { color: activeFg },
+          "&[data-active='true']": { color: variables.activeFg },
           "&:disabled": { cursor: "not-allowed", color: vars.color.text.muted },
           "&:focus-visible": {
             ...focus.ring,
@@ -88,10 +88,10 @@ export const pill = style({
       position: "absolute",
       inset: 0,
       borderRadius: vars.radius.sm,
-      background: accent,
+      background: variables.accent,
       zIndex: 0,
       selectors: {
-        "[data-active='true']:hover:not(:disabled) &": { background: accentHover },
+        "[data-active='true']:hover:not(:disabled) &": { background: variables.accentHover },
       },
     },
   },

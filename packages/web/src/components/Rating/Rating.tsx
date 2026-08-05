@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./Rating.css.js";
-import { ratingColor } from "./Rating.vars.css.js";
+import * as variables from "./Rating.vars.css.js";
 import type { RatingProps } from "./Rating.types.js";
 
 const STAR = (
@@ -80,7 +80,7 @@ export function Rating(props: RatingProps): ReactElement {
   const displayed = hovered ?? fp.value;
   const form_error = fp.errorMessage ?? (fp.isInvalid ? true : undefined);
   const interactive = !fp.isDisabled && !readOnly;
-  const css_vars = assignInlineVars({ [ratingColor]: ResolveAccent(color, "500") });
+  const css_vars = assignInlineVars({ [variables.color]: ResolveAccent(color, "500") });
 
   const Hover = (next: number | null): void => {
     if (!interactive) return;

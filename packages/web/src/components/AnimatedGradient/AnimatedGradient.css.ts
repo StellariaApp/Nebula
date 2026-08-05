@@ -5,7 +5,7 @@ import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { gradientImage, scrimAlpha } from "./AnimatedGradient.vars.css.js";
+import * as variables from "./AnimatedGradient.vars.css.js";
 
 const REST = "translate3d(-8%, -6%, 0) rotate(0deg) scale(1.4)";
 
@@ -53,7 +53,7 @@ export const drift = style({
       inset: "-40%",
       zIndex: -1,
       pointerEvents: "none",
-      backgroundImage: gradientImage,
+      backgroundImage: variables.gradientImage,
       transform: REST,
       transformOrigin: "50% 50%",
       willChange: "transform",
@@ -85,7 +85,7 @@ export const scrim = style({
       zIndex: -1,
       pointerEvents: "none",
       background: vars.color.surface.base,
-      opacity: scrimAlpha,
+      opacity: variables.scrimAlpha,
       "@media": {
         "(forced-colors: active)": { display: "none" },
       },

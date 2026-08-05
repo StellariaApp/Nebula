@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { banderoleColor } from "./Form.vars.css.js";
+import * as variables from "./Form.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -76,7 +76,7 @@ export const banderole = style({
       fontSize: vars.font.size.body3,
       borderInlineStartWidth: 3,
       borderInlineStartStyle: "solid",
-      borderInlineStartColor: banderoleColor,
+      borderInlineStartColor: variables.banderoleColor,
     },
   },
 });

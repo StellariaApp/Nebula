@@ -5,7 +5,7 @@ import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { transform, transition } from "./DragDrop.vars.css.js";
+import * as variables from "./DragDrop.vars.css.js";
 
 export const draggable = style({
   "@layer": {
@@ -13,8 +13,8 @@ export const draggable = style({
       position: "relative",
       boxSizing: "border-box",
       touchAction: "none",
-      transform: transform,
-      transition: transition,
+      transform: variables.transform,
+      transition: variables.transition,
       selectors: {
         "&[data-dragging='true']": { zIndex: 1, opacity: 0.4 },
         "&[data-disabled='true']": { touchAction: "auto", cursor: "default" },

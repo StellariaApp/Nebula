@@ -15,7 +15,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { RangeCalendarView } from "./CalendarView.js";
 import type { RangeCalendarProps } from "./Calendar.types.js";
-import { dayBg, dayBgHover, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
+import * as variables from "./Calendar.vars.css.js";
 
 export function RangeCalendar(props: RangeCalendarProps): ReactElement {
   const {
@@ -83,11 +83,11 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
   const day_vars = assignInlineVars({
-    [dayBg]: resolved.background,
-    [dayBgHover]: resolved.backgroundHover,
-    [dayFg]: resolved.foreground,
-    [dayBorder]: resolved.borderColor,
-    [rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`,
+    [variables.dayBg]: resolved.background,
+    [variables.dayBgHover]: resolved.backgroundHover,
+    [variables.dayFg]: resolved.foreground,
+    [variables.dayBorder]: resolved.borderColor,
+    [variables.rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`,
   });
 
   return (

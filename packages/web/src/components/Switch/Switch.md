@@ -3,7 +3,7 @@
 ## La pista deriva de `sizes.control`, pero por JS y no por CSS
 
 `track_h` es `theme.sizes.control[size] / 2` y `track_w` es `track_h * TRACK_RATIO`. Ambos se inyectan
-con `assignInlineVars` en `switchH` y `switchW`.
+con `assignInlineVars` en `variables.height` y `variables.width`.
 
 Checkbox y Radio resuelven su tamaño con `styleVariants` en el `.css.ts`, sin tocar el tema en runtime.
 Switch **no puede**: el recorrido del pulgar (`travel = track_w - track_h`) es un número que alimenta
@@ -28,7 +28,7 @@ punto 6: el tamaño sigue saliendo del contrato y el ratio solo describe la form
 
 ## Deuda conocida, fuera del alcance de esta corrección
 
-`thumb` calcula su lado como `calc(${switchH} - 4px)` y se posiciona con `top: 2px` /
+`thumb` calcula su lado como `calc(${variables.height} - 4px)` y se posiciona con `top: 2px` /
 `insetInlineStart: 2px`. Ese `4px` es el doble del inset y sigue siendo un literal. No es una altura
 —es el aire entre pulgar y pista—, de modo que ADR-033 no lo alcanza, pero merece salir a un token de
 espaciado cuando se toque el componente. Anotado y no corregido aquí para no mezclarlo con la causa (c).

@@ -12,13 +12,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Avatar.css.js";
 import type { AvatarProps } from "./Avatar.types.js";
-import {
-  avatarBg,
-  avatarBorder,
-  avatarBorderWidth,
-  avatarFg,
-  avatarSize,
-} from "./Avatar.vars.css.js";
+import * as variables from "./Avatar.vars.css.js";
 
 const SIZE: Record<Size, number> = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
 
@@ -58,11 +52,11 @@ export function Avatar(props: AvatarProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [avatarSize]: ResolveAvatarSize(size),
-    [avatarBg]: resolved.background,
-    [avatarFg]: resolved.foreground,
-    [avatarBorder]: resolved.borderColor,
-    [avatarBorderWidth]: resolved.borderWidth,
+    [variables.size]: ResolveAvatarSize(size),
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.border]: resolved.borderColor,
+    [variables.borderWidth]: resolved.borderWidth,
   });
 
   const initials = name === undefined ? "" : Initials(name);

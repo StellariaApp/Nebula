@@ -1,3 +1,3 @@
 import { createVar } from "@vanilla-extract/css";
 
-export const noiseOpacity = createVar();
+export const opacity = createVar();

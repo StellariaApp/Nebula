@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bg, blur, borderColor, fg } from "./Banderole.vars.css.js";
+import * as variables from "./Banderole.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -17,12 +17,12 @@ export const root = style({
       paddingInline: vars.space.md,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
-      background: bg,
-      color: fg,
+      background: variables.bg,
+      color: variables.fg,
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
-      borderBottomColor: borderColor,
-      backdropFilter: blur,
+      borderBottomColor: variables.borderColor,
+      backdropFilter: variables.blur,
     },
   },
 });

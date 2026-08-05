@@ -6,16 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  backdropFilter,
-  bg,
-  bgActive,
-  bgHover,
-  borderColor,
-  borderWidth,
-  fg,
-  glow,
-} from "./Button.vars.css.js";
+import * as variables from "./Button.vars.css.js";
 
 const GRADIENT_SHIFT = keyframes({
   "0%": { backgroundPosition: "0% 50%" },
@@ -48,11 +39,11 @@ export const button = recipe({
     appearance: "none",
     borderRadius: vars.radius.md,
     borderStyle: "solid",
-    borderWidth,
-    borderColor,
-    background: bg,
-    color: fg,
-    backdropFilter,
+    borderWidth: variables.borderWidth,
+    borderColor: variables.borderColor,
+    background: variables.bg,
+    color: variables.fg,
+    backdropFilter: variables.backdropFilter,
     ...motion.interaction,
     "::after": {
       content: '""',
@@ -60,14 +51,14 @@ export const button = recipe({
       inset: 0,
       zIndex: -1,
       borderRadius: "inherit",
-      boxShadow: glow,
+      boxShadow: variables.glow,
       opacity: 0,
       pointerEvents: "none",
       ...motion.interaction,
     },
     selectors: {
-      "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
-      "&[data-pressed='true']:not([data-disabled='true'])": { background: bgActive },
+      "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
+      "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
       "&[data-focus-visible='true']": {
         ...focus.ring,
       },

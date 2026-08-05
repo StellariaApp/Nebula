@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Banderole.css.js";
-import { bg, blur, borderColor, fg } from "./Banderole.vars.css.js";
+import * as variables from "./Banderole.vars.css.js";
 import type { BanderoleProps } from "./Banderole.types.js";
 
 export function Banderole(props: BanderoleProps): ReactElement {
@@ -33,10 +33,10 @@ export function Banderole(props: BanderoleProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bg]: resolved.background,
-    [fg]: resolved.foreground,
-    [borderColor]: resolved.borderColor,
-    [blur]: resolved.backdropFilter,
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.borderColor]: resolved.borderColor,
+    [variables.blur]: resolved.backdropFilter,
   });
 
   return (

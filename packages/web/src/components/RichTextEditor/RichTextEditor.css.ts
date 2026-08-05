@@ -4,7 +4,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { maxHeight, minHeight } from "./RichTextEditor.vars.css.js";
+import * as variables from "./RichTextEditor.vars.css.js";
 
 export const shell = style({
   "@layer": {
@@ -76,8 +76,8 @@ export const content = style({
   "@layer": {
     [base_layer]: {
       position: "relative",
-      minHeight: minHeight,
-      maxHeight: maxHeight,
+      minHeight: variables.minHeight,
+      maxHeight: variables.maxHeight,
       overflowY: "auto",
       padding: vars.space.sm,
       color: vars.color.text.primary,

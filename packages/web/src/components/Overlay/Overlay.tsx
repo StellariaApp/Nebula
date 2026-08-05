@@ -8,7 +8,7 @@ import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { blur as blur_variants, content, overlay, radius as radius_variants, veil } from "./Overlay.css.js";
-import { alpha, tint } from "./Overlay.vars.css.js";
+import * as variables from "./Overlay.vars.css.js";
 import type { OverlayProps } from "./Overlay.types.js";
 
 export function Overlay(props: OverlayProps): ReactElement {
@@ -27,8 +27,8 @@ export function Overlay(props: OverlayProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const css_vars = assignInlineVars({
-    [tint]: ResolveAccent(color, "600"),
-    [alpha]: String(opacity),
+    [variables.tint]: ResolveAccent(color, "600"),
+    [variables.alpha]: String(opacity),
   });
 
   const has_content = children !== undefined && children !== null;

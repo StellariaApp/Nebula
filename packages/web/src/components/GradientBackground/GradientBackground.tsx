@@ -12,7 +12,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../styles/noise.css.js";
-import { noiseOpacity } from "../../styles/noise.vars.css.js";
+import * as noise_vars from "../../styles/noise.vars.css.js";
 import { ResolveGradient } from "../../theme/resolve-variant.js";
 import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
@@ -23,7 +23,7 @@ import type {
   GradientBackgroundOwnProps,
   GradientBackgroundProps,
 } from "./GradientBackground.types.js";
-import { gradientImage, scrimAlpha } from "./GradientBackground.vars.css.js";
+import * as variables from "./GradientBackground.vars.css.js";
 
 const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOwnProps>(
   function GradientBackground(props, ref) {
@@ -43,9 +43,9 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
     const grain_opacity = theme.effects.glass.enabled ? theme.effects.glass.noiseOpacity : 0;
 
     const css_vars = assignInlineVars({
-      [gradientImage]: ResolveGradient(gradient, theme),
-      [scrimAlpha]: String(scrim),
-      [noiseOpacity]: String(grain_opacity),
+      [variables.image]: ResolveGradient(gradient, theme),
+      [variables.scrimAlpha]: String(scrim),
+      [noise_vars.opacity]: String(grain_opacity),
     });
 
     const named_radius = typeof radius === "string" ? radius : "lg";

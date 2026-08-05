@@ -15,7 +15,7 @@ import { Portal } from "../Portal/Portal.js";
 
 import * as styles from "./Toast.css.js";
 import type { ToastProviderProps, ToastRecord } from "./Toast.types.js";
-import { toastAccent, toastBackdrop, toastBg, toastBorder, toastFg } from "./Toast.vars.css.js";
+import * as variables from "./Toast.vars.css.js";
 import { nebulaToast, useToastQueue } from "./toast-store.js";
 
 const LIVE: Record<string, "assertive" | "polite"> = { error: "assertive", warning: "assertive" };
@@ -46,14 +46,14 @@ function ToastItem(props: ItemProps): ReactElement {
     toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
 
   const css_vars = assignInlineVars({
-    [toastAccent]: ResolveAccent(toast.color, "600"),
+    [variables.accent]: ResolveAccent(toast.color, "600"),
     ...(resolved === null
       ? {}
       : {
-          [toastBg]: resolved.background,
-          [toastFg]: resolved.foreground,
-          [toastBorder]: resolved.borderColor,
-          [toastBackdrop]: resolved.backdropFilter,
+          [variables.bg]: resolved.background,
+          [variables.fg]: resolved.foreground,
+          [variables.border]: resolved.borderColor,
+          [variables.backdrop]: resolved.backdropFilter,
         }),
   });
 

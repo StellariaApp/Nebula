@@ -13,7 +13,7 @@ import { Collapse } from "../Collapse/Collapse.js";
 
 import * as styles from "./NavLink.css.js";
 import type { NavLinkProps } from "./NavLink.types.js";
-import { accent, activeBg, activeBgHover } from "./NavLink.vars.css.js";
+import * as variables from "./NavLink.vars.css.js";
 
 const CHEVRON = (
   <svg
@@ -70,9 +70,9 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [accent]: resolved.foreground,
-    [activeBg]: resolved.background,
-    [activeBgHover]: resolved.backgroundHover,
+    [variables.accent]: resolved.foreground,
+    [variables.activeBg]: resolved.background,
+    [variables.activeBgHover]: resolved.backgroundHover,
   });
 
   const inner = (

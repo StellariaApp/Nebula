@@ -4,19 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  beamArc,
-  beamCycle,
-  beamDelay,
-  beamGate,
-  beamGlow,
-  beamSlot,
-  beamSweep,
-  fallbackBorder,
-  gradientImage,
-  innerBg,
-  ringWidth,
-} from "./GradientBorder.vars.css.js";
+import * as variables from "./GradientBorder.vars.css.js";
 
 const SOLID_MASK = "linear-gradient(#000 0 0)";
 const NO_MASK_COMPOSITE = "not ((mask-composite: exclude) or (-webkit-mask-composite: xor))";
@@ -35,7 +23,7 @@ export const gradient_border = recipe({
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
-        background: innerBg,
+        background: variables.innerBg,
         overflow: "hidden",
         selectors: {
           "&::before": {
@@ -44,15 +32,15 @@ export const gradient_border = recipe({
             inset: 0,
             zIndex: -1,
             borderRadius: "inherit",
-            padding: ringWidth,
-            background: gradientImage,
+            padding: variables.ringWidth,
+            background: variables.image,
             ...RING_MASK,
             pointerEvents: "none",
           },
         },
         "@supports": {
           [NO_MASK_COMPOSITE]: {
-            border: `1px solid ${fallbackBorder}`,
+            border: `1px solid ${variables.fallbackBorder}`,
             selectors: {
               "&::before": { display: "none" },
             },
@@ -132,7 +120,7 @@ export const beam = style({
       inset: 0,
       zIndex: 1,
       borderRadius: "inherit",
-      padding: ringWidth,
+      padding: variables.ringWidth,
       ...RING_MASK,
       pointerEvents: "none",
       "@supports": {
@@ -151,12 +139,12 @@ export const arc = style({
       position: "absolute",
       inset: "-100%",
       opacity: 0,
-      background: beamArc,
-      filter: `drop-shadow(0 0 4px ${beamGlow})`,
+      background: variables.beamArc,
+      filter: `drop-shadow(0 0 4px ${variables.beamGlow})`,
       willChange: "transform, opacity",
-      animationName: `${beamSweep}, ${beamGate}`,
-      animationDuration: `${beamSlot}, ${beamCycle}`,
-      animationDelay: `0s, ${beamDelay}`,
+      animationName: `${variables.beamSweep}, ${variables.beamGate}`,
+      animationDuration: `${variables.beamSlot}, ${variables.beamCycle}`,
+      animationDelay: `0s, ${variables.beamDelay}`,
       animationTimingFunction: "linear, linear",
       animationIterationCount: "infinite, infinite",
       "@media": {

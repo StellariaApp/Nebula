@@ -10,7 +10,7 @@ import { Portal } from "../Portal/Portal.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import { bar, track } from "./NProgress.css.js";
-import { accent, thickness } from "./NProgress.vars.css.js";
+import * as variables from "./NProgress.vars.css.js";
 import type { NProgressProps } from "./NProgress.types.js";
 
 const TICK = 400;
@@ -57,8 +57,8 @@ export function NProgress(props: NProgressProps): ReactElement | null {
       className={cx(track, sprinkle_class, className)}
       style={{
         ...assignInlineVars({
-          [accent]: ResolveAccent(color, "500"),
-          [thickness]: `${String(height)}px`,
+          [variables.accent]: ResolveAccent(color, "500"),
+          [variables.thickness]: `${String(height)}px`,
         }),
         zIndex,
         ...sprinkle_style,

@@ -6,16 +6,7 @@ import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import {
-  backdropFilter,
-  bg,
-  bgActive,
-  bgHover,
-  borderColor,
-  borderWidth,
-  fg,
-  glow,
-} from "./ActionIcon.vars.css.js";
+import * as variables from "./ActionIcon.vars.css.js";
 
 export const action_icon = recipe({
   base: {
@@ -34,16 +25,16 @@ export const action_icon = recipe({
         userSelect: "none",
         borderRadius: vars.radius.md,
         borderStyle: "solid",
-        borderWidth,
-        borderColor,
-        background: bg,
-        color: fg,
-        backdropFilter,
-        boxShadow: glow,
+        borderWidth: variables.borderWidth,
+        borderColor: variables.borderColor,
+        background: variables.bg,
+        color: variables.fg,
+        backdropFilter: variables.backdropFilter,
+        boxShadow: variables.glow,
         ...motion.interaction,
         selectors: {
-          "&[data-hovered='true']:not([data-disabled='true'])": { background: bgHover },
-          "&[data-pressed='true']:not([data-disabled='true'])": { background: bgActive },
+          "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
+          "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
           "&[data-focus-visible='true']": {
             ...focus.ring,
           },

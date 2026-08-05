@@ -4,7 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-import { bulletBg, bulletBorder, bulletFg, bulletSize, lineWidth } from "./Timeline.vars.css.js";
+import * as variables from "./Timeline.vars.css.js";
 
 export const root = style({
   "@layer": {
@@ -29,7 +29,7 @@ export const item = style({
     [base_layer]: {
       position: "relative",
       display: "grid",
-      gridTemplateColumns: `${bulletSize} 1fr`,
+      gridTemplateColumns: `${variables.bulletSize} 1fr`,
       columnGap: vars.space.sm,
       paddingBlockEnd: vars.space.lg,
       selectors: {
@@ -46,8 +46,8 @@ export const bullet = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      width: bulletSize,
-      height: bulletSize,
+      width: variables.bulletSize,
+      height: variables.bulletSize,
       boxSizing: "border-box",
       borderRadius: vars.radius.full,
       borderWidth: 2,
@@ -62,9 +62,9 @@ export const bullet = style({
       ...motion.reduced_motion,
       selectors: {
         "&[data-reached='true']": {
-          background: bulletBg,
-          borderColor: bulletBorder,
-          color: bulletFg,
+          background: variables.bulletBg,
+          borderColor: variables.bulletBorder,
+          color: variables.bulletFg,
         },
       },
     },
@@ -75,13 +75,13 @@ export const line = style({
   "@layer": {
     [base_layer]: {
       position: "absolute",
-      insetInlineStart: `calc((${bulletSize} - ${lineWidth}) / 2)`,
-      top: bulletSize,
+      insetInlineStart: `calc((${variables.bulletSize} - ${variables.lineWidth}) / 2)`,
+      top: variables.bulletSize,
       bottom: 0,
-      width: lineWidth,
+      width: variables.lineWidth,
       background: vars.color.border.subtle,
       selectors: {
-        "&[data-reached='true']": { background: bulletBg },
+        "&[data-reached='true']": { background: variables.bulletBg },
         "li:last-child &": { display: "none" },
       },
     },

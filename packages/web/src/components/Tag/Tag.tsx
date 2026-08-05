@@ -10,7 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Tag.css.js";
-import { bg, borderColor, fg } from "./Tag.vars.css.js";
+import * as variables from "./Tag.vars.css.js";
 import type { TagProps } from "./Tag.types.js";
 
 export function Tag(props: TagProps): ReactElement {
@@ -33,9 +33,9 @@ export function Tag(props: TagProps): ReactElement {
   const resolved = ResolveVariant(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [bg]: resolved.background,
-    [fg]: resolved.foreground,
-    [borderColor]: resolved.borderColor,
+    [variables.bg]: resolved.background,
+    [variables.fg]: resolved.foreground,
+    [variables.borderColor]: resolved.borderColor,
   });
 
   return (
