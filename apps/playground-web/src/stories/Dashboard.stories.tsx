@@ -333,9 +333,11 @@ function Brand(): ReactElement {
       <Box c="primary.600" display="flex">
         <Icon name="building" size={28} />
       </Box>
-      <Text fz="h6" fw="bold" lh="tight">
-        <GradientText>Company</GradientText>
-      </Text>
+      <AppShell.RailLabel>
+        <Text fz="h6" fw="bold" lh="tight" style={{ whiteSpace: "nowrap" }}>
+          <GradientText>Company</GradientText>
+        </Text>
+      </AppShell.RailLabel>
     </Flex>
   );
 }
@@ -344,14 +346,16 @@ function UserRow(): ReactElement {
   return (
     <>
       <Avatar name="William Jesus Covarrubias" size="sm" radius="full" />
-      <Box display="flex" direction="column" miw={0} style={{ flex: 1 }}>
-        <Text fz="caption" fw="semibold">
-          William Jesus Covarrubias
-        </Text>
-        <Text fz="caption" c="text.muted">
-          skr13@outlook.com
-        </Text>
-      </Box>
+      <AppShell.RailLabel>
+        <Box display="flex" direction="column" miw={0} style={{ flex: 1 }}>
+          <Text fz="caption" fw="semibold" truncate>
+            William Jesus Covarrubias
+          </Text>
+          <Text fz="caption" c="text.muted" truncate>
+            skr13@outlook.com
+          </Text>
+        </Box>
+      </AppShell.RailLabel>
       <Indicator color="error" size="xs">
         <ActionIcon variant="ghost" size="sm" aria-label="Notificaciones">
           <Icon name="bell" />

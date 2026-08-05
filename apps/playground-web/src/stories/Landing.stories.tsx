@@ -166,10 +166,11 @@ function Numbers(): ReactElement {
       title="Lo que cambia el primer mes"
       description="Medido sobre 40 equipos de finanzas que migraron desde una hoja compartida."
     >
-      <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md" gap="lg" justify="space-between">
+      <SimpleGrid cols={{ base: 2, tablet: 4 }} spacing="md" gap="lg">
         <Stat label="Días de cierre" value="4" diff="-62 %" trend="down" />
         <Stat label="Movimientos automáticos" value="94 %" diff="+31 pp" trend="up" />
         <Stat label="Excepciones por cierre" value="12" diff="-78 %" trend="down" />
+        <Stat label="Horas de conciliación" value="6" diff="-71 %" trend="down" />
       </SimpleGrid>
     </Section>
   );

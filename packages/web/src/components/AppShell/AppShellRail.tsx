@@ -116,7 +116,7 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   );
 }
 
-export function AppShellRailLabel(props: { children: ReactNode; className?: string }): ReactElement {
+export function AppShellRailLabel(props: { children: ReactNode; className?: string | undefined }): ReactElement {
   const { children, className } = props;
   return <span className={cx(styles.railLabel, className)}>{children}</span>;
 }
