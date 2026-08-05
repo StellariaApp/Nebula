@@ -243,7 +243,7 @@ export const links = recipe({
     overflowMenu: {
       true: {
         "@layer": {
-          [baseLayer]: { flex: "1 1 auto", minWidth: 0, overflow: "hidden", flexWrap: "nowrap" },
+          [baseLayer]: { flex: "1 1 auto", minWidth: 0, flexWrap: "nowrap" },
         },
       },
       false: {},
@@ -447,18 +447,34 @@ export const overflowTrigger = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      blockSize: linkHeight,
-      inlineSize: linkHeight,
+      boxSizing: "border-box",
+      blockSize: vars.size.control.sm,
+      inlineSize: vars.size.control.sm,
+      fontSize: vars.font.size.h6,
       borderRadius: vars.radius.full,
+      borderStyle: "solid",
+      borderWidth: 1,
+      borderColor: "transparent",
       color: vars.color.text.secondary,
       cursor: "pointer",
       listStyle: "none",
       outline: "none",
+      ...interaction,
       selectors: {
         "&::-webkit-details-marker": { display: "none" },
-        "&:hover": { color: vars.color.text.primary },
+        "&:hover": {
+          color: vars.color.text.primary,
+          background: vars.color.surface.hover,
+          borderColor: vars.color.border.subtle,
+        },
+        "[open] > &": {
+          color: vars.color.text.primary,
+          background: vars.color.surface.active,
+          borderColor: vars.color.border.subtle,
+        },
         "&:focus-visible": { ...focus.ring },
       },
+      "@media": { [reducedMedia]: still },
     },
   },
 });

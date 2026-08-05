@@ -31,6 +31,7 @@ import {
   type BreadcrumbItem,
   type MenuItemData,
   Flex,
+  GradientBorder,
 } from "@stellaria/nebula-web";
 
 const Stroke = (path: ReactNode) => {
@@ -370,18 +371,17 @@ function SideNav(): ReactElement {
   return (
     <Box display="flex" direction="column">
       <AppShell.RailLabel>
-        <Box px="md" pt="md">
-          <GlassSurface level="subtle" radius="md" withBorder p="md">
-          <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-            Super Administrador
-          </Text>
-          <Box display="flex" align="center" gap="xs" mt="xxs" c="accent.600">
-            <Icon name="code" />
-            <Text fz="body3" fw="semibold" c="text.primary">
-              Super Administrador
-            </Text>
-          </Box>
-          </GlassSurface>
+        <Box p="sm" bg="surface.base">
+          <GradientBorder beam width={2} surface="overlay" radius="md" p="md">
+            <Box p="md" display="flex" align="center" justify="space-between">
+              <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
+                Super Administrador
+              </Text>
+              <ActionIcon variant="ghost" size="xs" aria-label="Super Administrador">
+                <Icon name="code" />
+              </ActionIcon>
+            </Box>
+          </GradientBorder>
         </Box>
       </AppShell.RailLabel>
 
