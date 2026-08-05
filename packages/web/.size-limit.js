@@ -942,7 +942,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/AppShell/AppShell.js",
     import: "{ AppShell }",
     ignore: ["react", "react-dom"],
-    limit: "13 kB",
+    limit: "13.5 kB",
   },
   {
     name: "Panel (master-detail con separador operable, por módulo)",

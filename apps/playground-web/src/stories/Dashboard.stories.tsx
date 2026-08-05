@@ -366,8 +366,9 @@ function UserRow(): ReactElement {
 function SideNav(): ReactElement {
   return (
     <Box display="flex" direction="column">
-      <Box px="md" pt="md">
-        <GlassSurface level="subtle" radius="md" withBorder p="md">
+      <AppShell.RailLabel>
+        <Box px="md" pt="md">
+          <GlassSurface level="subtle" radius="md" withBorder p="md">
           <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
             Super Administrador
           </Text>
@@ -377,17 +378,20 @@ function SideNav(): ReactElement {
               Super Administrador
             </Text>
           </Box>
-        </GlassSurface>
-      </Box>
+          </GlassSurface>
+        </Box>
+      </AppShell.RailLabel>
 
-      <Box px="md" pt="md" pb="xs" display="flex" align="center" justify="space-between">
-        <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-          Administrador
-        </Text>
-        <ActionIcon variant="ghost" size="xs" aria-label="Recargar permisos">
-          <Icon name="history" />
-        </ActionIcon>
-      </Box>
+      <AppShell.RailLabel>
+        <Box px="md" pt="md" pb="xs" display="flex" align="center" justify="space-between">
+          <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
+            Administrador
+          </Text>
+          <ActionIcon variant="ghost" size="xs" aria-label="Recargar permisos">
+            <Icon name="history" />
+          </ActionIcon>
+        </Box>
+      </AppShell.RailLabel>
 
       <Box px="md" display="flex" direction="column" gap="xxs">
         <NavLink

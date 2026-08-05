@@ -66,6 +66,8 @@ export const railWidth = createVar();
 export const railMiniWidth = createVar();
 
 const RAIL_BAR_HEIGHT = "70px";
+const RAIL_BAR_GAP = "12px";
+const RAIL_BAR_SPACE = `calc(${RAIL_BAR_HEIGHT} + (2 * ${RAIL_BAR_GAP}))`;
 
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
@@ -89,6 +91,8 @@ export const rail = style({
         [SmallerThan("tablet")]: {
           gridTemplateAreas: `"chrome" "main"`,
           gridTemplateColumns: "1fr",
+          blockSize: `calc(100dvh - ${RAIL_BAR_SPACE})`,
+          marginBlockEnd: RAIL_BAR_SPACE,
         },
       },
     },
@@ -103,8 +107,8 @@ export const sidebar = style({
       flexDirection: "column",
       blockSize: "100dvh",
       minWidth: 0,
-      overflowY: "auto",
-      overflowX: "hidden",
+      overflow: "visible",
+      position: "relative",
       zIndex: 1,
       borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
       borderInlineStart: "none !important",
@@ -113,19 +117,19 @@ export const sidebar = style({
         [SmallerThan("tablet")]: {
           position: "fixed",
           insetBlockStart: "auto",
-          insetBlockEnd: vars.space.xs,
-          insetInline: vars.space.xs,
+          insetBlockEnd: RAIL_BAR_GAP,
+          insetInline: RAIL_BAR_GAP,
           inlineSize: "auto",
           blockSize: RAIL_BAR_HEIGHT,
           maxBlockSize: RAIL_BAR_HEIGHT,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
-          borderRadius: vars.radius.md,
-          borderInlineEnd: "none !important",
+          borderRadius: `${vars.radius.md} !important`,
+          border: `1px solid ${vars.glass.strong.borderColor} !important`,
           overflowX: "auto",
           overflowY: "hidden",
-          gap: vars.space.sm,
+          gap: vars.space.xs,
           zIndex: vars.zIndex.sticky,
         },
         "(prefers-reduced-motion: reduce)": motion.still,
@@ -138,6 +142,7 @@ export const sidebar = style({
 export const railLabel = style({
   "@layer": {
     [baseLayer]: {
+      flex: 1,
       minWidth: 0,
       selectors: {
         "[data-rail-collapsed='true'] &": { display: "none" },
@@ -153,7 +158,15 @@ export const railLabel = style({
 export const railToggle = style({
   "@layer": {
     [baseLayer]: {
+      position: "absolute",
+      insetBlockStart: `calc(${chromeHeight} / 2)`,
+      insetInlineEnd: 0,
+      transform: "translate(50%, -50%)",
+      zIndex: 3,
       flexShrink: 0,
+      borderRadius: vars.radius.full,
+      background: vars.color.surface.raised,
+      border: `1px solid ${vars.glass.strong.borderColor}`,
       "@media": { [SmallerThan("laptop")]: { display: "none" } },
     },
   },
@@ -175,20 +188,22 @@ export const sidebarSlot = style({
         "[data-rail-collapsed='true'] &": {
           flexDirection: "column",
           justifyContent: "center",
-          blockSize: "max-content",
+          blockSize: "auto",
+          minBlockSize: chromeHeight,
           paddingInline: vars.space.xxs,
-          paddingBlock: vars.space.sm,
-          gap: vars.space.xs,
+          paddingBlock: vars.space.xs,
+          gap: vars.space.xxs,
         },
       },
       "@media": {
         [SmallerThan("laptop")]: {
           flexDirection: "column",
           justifyContent: "center",
-          blockSize: "max-content",
+          blockSize: "auto",
+          minBlockSize: chromeHeight,
           paddingInline: vars.space.xxs,
-          paddingBlock: vars.space.sm,
-          gap: vars.space.xs,
+          paddingBlock: vars.space.xs,
+          gap: vars.space.xxs,
         },
         [SmallerThan("tablet")]: {
           flexDirection: "row",
@@ -217,6 +232,10 @@ export const sidebarBody = style({
       flex: 1,
       minHeight: 0,
       overflowY: "auto",
+      overflowX: "hidden",
+      selectors: {
+        "[data-rail-collapsed='true'] &": { paddingInline: vars.space.xxs },
+      },
       "@media": {
         [SmallerThan("tablet")]: {
           display: "flex",
@@ -261,11 +280,6 @@ export const railMain = style({
       display: "flex",
       flexDirection: "column",
       zIndex: 1,
-      "@media": {
-        [SmallerThan("tablet")]: {
-          paddingBlockEnd: `calc(${RAIL_BAR_HEIGHT} + (2 * ${vars.space.xs}))`,
-        },
-      },
     },
   },
 });
