@@ -40,6 +40,14 @@ export function Header(props: HeaderProps): ReactElement {
     labels,
     className,
     "aria-label": aria_label,
+    rowProps,
+    leadProps,
+    headingProps,
+    trailProps,
+    bodyProps,
+    titleProps,
+    subtitleProps,
+    backProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -73,11 +81,17 @@ export function Header(props: HeaderProps): ReactElement {
       {...labelling}
       {...rest}
     >
-      <div className={styles.row}>
+      <div {...rowProps} className={cx(styles.row, rowProps?.className)}>
         {has_lead ? (
-          <div className={styles.lead}>
+          <div {...leadProps} className={cx(styles.lead, leadProps?.className)}>
             {withBack ? (
-              <ActionIcon variant="ghost" color="gray" aria-label={text.back} onPress={onBack}>
+              <ActionIcon
+                variant="ghost"
+                color="gray"
+                aria-label={text.back}
+                onPress={onBack}
+                {...backProps}
+              >
                 {backIcon ?? BACK_ICON}
               </ActionIcon>
             ) : null}
@@ -86,20 +100,36 @@ export function Header(props: HeaderProps): ReactElement {
         ) : null}
 
         {has_heading ? (
-          <div className={styles.heading}>
+          <div {...headingProps} className={cx(styles.heading, headingProps?.className)}>
             {has_title ? (
-              <Heading className={styles.title} id={title_id}>
+              <Heading
+                id={title_id}
+                {...titleProps}
+                className={cx(styles.title, titleProps?.className)}
+              >
                 {title}
               </Heading>
             ) : null}
-            {subtitle === undefined ? null : <p className={styles.subtitle}>{subtitle}</p>}
+            {subtitle === undefined ? null : (
+              <p {...subtitleProps} className={cx(styles.subtitle, subtitleProps?.className)}>
+                {subtitle}
+              </p>
+            )}
           </div>
         ) : null}
 
-        {rightSection === undefined ? null : <div className={styles.trail}>{rightSection}</div>}
+        {rightSection === undefined ? null : (
+          <div {...trailProps} className={cx(styles.trail, trailProps?.className)}>
+            {rightSection}
+          </div>
+        )}
       </div>
 
-      {children === undefined ? null : <div className={styles.body}>{children}</div>}
+      {children === undefined ? null : (
+        <div {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+          {children}
+        </div>
+      )}
     </Root>
   );
 }

@@ -20,6 +20,12 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
     size = "md",
     surface = "dashed",
     className,
+    titleProps,
+    descriptionProps,
+    iconProps,
+    illustrationProps,
+    actionsProps,
+    footerProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -33,7 +39,11 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
       data-surface={surface}
     >
       {illustration === undefined || illustration === null ? null : (
-        <div className={cx(styles.media, styles.illustration[size])} aria-hidden="true">
+        <div
+          aria-hidden="true"
+          {...illustrationProps}
+          className={cx(styles.media, styles.illustration[size], illustrationProps?.className)}
+        >
           {illustration}
         </div>
       )}
@@ -42,10 +52,16 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
         size={size}
         {...(description === undefined ? {} : { description })}
         {...(icon === undefined ? {} : { icon })}
+        {...(titleProps === undefined ? {} : { titleProps })}
+        {...(descriptionProps === undefined ? {} : { descriptionProps })}
+        {...(iconProps === undefined ? {} : { iconProps })}
         {...(has_actions
           ? {
               actions: (
-                <span className={styles.actions}>
+                <span
+                  {...actionsProps}
+                  className={cx(styles.actions, actionsProps?.className)}
+                >
                   {action}
                   {secondaryAction}
                 </span>
@@ -54,7 +70,9 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
           : {})}
       />
       {footer === undefined || footer === null ? null : (
-        <div className={styles.footer}>{footer}</div>
+        <div {...footerProps} className={cx(styles.footer, footerProps?.className)}>
+          {footer}
+        </div>
       )}
     </section>
   );

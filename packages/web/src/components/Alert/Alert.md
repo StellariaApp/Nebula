@@ -30,3 +30,9 @@ más cara del sistema (auditoría WV §3.1).
 `docs/06` §6 fija que los gradientes «nunca sostienen texto largo» y que el glow se reserva a acción
 primaria o selección. Un Alert sostiene párrafo, así que ninguno de los dos le corresponde. `glass` sí,
 porque el aviso es raíz de su región y el efecto no se anida.
+
+## Props de ranura
+
+`titleProps`, `iconProps`, `bodyProps`, `messageProps` y `actionsProps` alcanzan los nodos que Alert
+envuelve (ADR-098). `titleProps` puede sustituir el `id` que Alert genera para `aria-labelledby`: si
+lo haces, el `aria-labelledby` del contenedor deja de apuntar al título y hay que ajustarlo también.

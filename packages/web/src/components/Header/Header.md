@@ -59,3 +59,13 @@ describe ADR-062 decisión 2: contenido del slot `header`, sin posición propia.
 
 El scroll-spy que marca la sección activa. No es de este componente: se entregó como `useScrollSpy`
 en `@stellaria/nebula-hooks` y lo consume `Nav.Links`.
+
+## Props de ranura
+
+`titleProps`, `subtitleProps`, `headingProps`, `leadProps`, `trailProps`, `rowProps`, `bodyProps` y
+`backProps` alcanzan cada nodo que Header envuelve (ADR-098). Se esparcen después de lo que calcula
+el componente, así que el consumidor gana en todo —incluido el `id` del título— salvo en `className`,
+que se compone con `cx` para que añadir una clase no borre el estilo base.
+
+`backProps` es del tipo `ActionIconProps` porque el botón de vuelta lo pinta un `ActionIcon`; el resto
+son nodos DOM y llevan `ComponentPropsWithoutRef` de su etiqueta.

@@ -20,6 +20,10 @@ export function Feature(props: FeatureProps): ReactElement {
     align = "start",
     children,
     className,
+    titleProps,
+    descriptionProps,
+    iconProps,
+    linkProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -31,14 +35,24 @@ export function Feature(props: FeatureProps): ReactElement {
       data-align={align}
     >
       {icon === undefined || icon === null ? null : (
-        <ThemeIcon mb="sm" size="xl" variant="light" color={color}>
+        <ThemeIcon mb="sm" size="xl" variant="light" color={color} {...iconProps}>
           {icon}
         </ThemeIcon>
       )}
-      <p className={styles.title}>{title}</p>
-      {description === undefined ? null : <p className={styles.description}>{description}</p>}
+      <p {...titleProps} className={cx(styles.title, titleProps?.className)}>
+        {title}
+      </p>
+      {description === undefined ? null : (
+        <p {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
+          {description}
+        </p>
+      )}
       {children}
-      {href === undefined ? null : <Anchor href={href}>{linkText}</Anchor>}
+      {href === undefined ? null : (
+        <Anchor href={href} {...linkProps}>
+          {linkText}
+        </Anchor>
+      )}
     </div>
   );
 }

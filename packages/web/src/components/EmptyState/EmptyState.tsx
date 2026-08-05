@@ -12,7 +12,19 @@ import * as styles from "./EmptyState.css.js";
 import type { EmptyStateProps } from "./EmptyState.types.js";
 
 export function EmptyState(props: EmptyStateProps): ReactElement {
-  const { title, description, icon, actions, size = "md", className, ...style_rest } = props;
+  const {
+    title,
+    description,
+    icon,
+    actions,
+    size = "md",
+    className,
+    titleProps,
+    descriptionProps,
+    iconProps,
+    actionsProps,
+    ...style_rest
+  } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { theme } = useTheme();
@@ -29,16 +41,22 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
       transition={Spring("gentle", motion_context)}
     >
       {icon === undefined || icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
           {icon}
         </span>
       )}
-      <p className={styles.title}>{title}</p>
+      <p {...titleProps} className={cx(styles.title, titleProps?.className)}>
+        {title}
+      </p>
       {description === undefined || description === null ? null : (
-        <p className={styles.description}>{description}</p>
+        <p {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
+          {description}
+        </p>
       )}
       {actions === undefined || actions === null ? null : (
-        <div className={styles.actions}>{actions}</div>
+        <div {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+          {actions}
+        </div>
       )}
     </m.div>
   );

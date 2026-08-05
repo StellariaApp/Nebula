@@ -33,6 +33,11 @@ export function Alert(props: AlertProps): ReactElement {
     live,
     actions,
     className,
+    titleProps,
+    iconProps,
+    bodyProps,
+    messageProps,
+    actionsProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -58,21 +63,25 @@ export function Alert(props: AlertProps): ReactElement {
       {...(title === undefined ? {} : { "aria-labelledby": title_id })}
     >
       {icon === undefined || icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
           {icon}
         </span>
       )}
-      <div className={styles.body}>
+      <div {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
         {title === undefined ? null : (
-          <p id={title_id} className={styles.title}>
+          <p id={title_id} {...titleProps} className={cx(styles.title, titleProps?.className)}>
             {title}
           </p>
         )}
         {children === undefined || children === null ? null : (
-          <div className={styles.message}>{children}</div>
+          <div {...messageProps} className={cx(styles.message, messageProps?.className)}>
+            {children}
+          </div>
         )}
         {actions === undefined || actions === null ? null : (
-          <div className={styles.actions}>{actions}</div>
+          <div {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+            {actions}
+          </div>
         )}
       </div>
       {withCloseButton ? (

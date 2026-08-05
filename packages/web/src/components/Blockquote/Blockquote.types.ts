@@ -9,6 +9,9 @@ export interface BlockquoteOwnProps extends Omit<BoxOwnProps, "component" | "col
   color?: ColorExtended | undefined;
   cite?: ReactNode | undefined;
   icon?: ReactNode | undefined;
+  citeProps?: ComponentPropsWithoutRef<"cite"> | undefined;
+  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
+  contentProps?: ComponentPropsWithoutRef<"div"> | undefined;
 }
 
 export type BlockquoteProps<C extends ElementType = "blockquote"> = BlockquoteOwnProps & {

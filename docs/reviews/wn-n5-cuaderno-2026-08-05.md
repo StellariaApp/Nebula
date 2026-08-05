@@ -45,6 +45,19 @@ contenido de los dos comentarios es exactamente eso: un porqué no deducible.
 **Recomendación**: moverlos a `AppShell.md`, que ya existe. Barrer el resto del catálogo buscando el
 mismo patrón antes de decidir si es un caso aislado.
 
+### H8 · Cinco de los siete componentes de la primera tanda de N3 no tienen `.md`
+
+**Dónde**: `Stat`, `EmptyState`, `Feature`, `EmptyModule`, `Blockquote`.
+**Causa**: ADR-019 §2 manda que lo que necesite explicación viva en un `<Nombre>.md` junto al módulo,
+porque el código no lleva comentarios. Estos cinco no tienen ninguno, así que la regla de cuándo
+aplica cada prop de ranura —y la trampa del `id` en los que generan uno— no está escrita en ningún
+sitio salvo el ADR.
+**Medido en el catálogo entero**: **73 de 158 componentes no tienen `.md`**. No es un descuido de esta
+tanda, es una deuda de casi la mitad del catálogo.
+**Recomendación**: decidir si el `.md` es obligatorio —y entonces es un gate, contable como el de
+tamaño— o si solo se escribe cuando hay algo no deducible que contar, que es lo que ADR-019 dice
+literalmente. Hoy la regla se lee como lo segundo pero se comprueba como nada.
+
 ### H7 · `SimpleGrid` declara diez vars para lo que son dos props
 
 **Dónde**: `packages/web/src/components/SimpleGrid/SimpleGrid.vars.css.ts`

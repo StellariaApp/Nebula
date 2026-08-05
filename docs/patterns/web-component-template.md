@@ -10,6 +10,13 @@
 - **Sin comentarios en el código.** Si algo necesita explicación, va en un `<Nombre>.md` junto al módulo.
 - **Naming**: hooks `camelCase` · funciones `PascalCase` (incluido el API público) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case`. Las props y los retornos de librerías conservan su nombre. Lo verifica `@typescript-eslint/naming-convention` en el gate `lint`.
 - **Dentro de las hojas manda el archivo** (ADR-094): en `<Nombre>.css.ts` los símbolos van en `snake_case` porque son asas de clase (`sidebar_container`); en `<Nombre>.vars.css.ts` van en `camelCase` porque nombran la propiedad CSS que gobiernan (`borderColor`). Las tablas de constantes siguen en `UPPER_CASE` en ambos.
+- **Props de ranura** (ADR-098): por cada nodo que el componente envuelve y el consumidor podría querer ajustar, un `<nodo>Props` con el tipo de lo que lo pinta — `ComponentPropsWithoutRef<"h1">` para un nodo DOM, `ActionIconProps` para un componente. Se esparcen **después** de las props calculadas para que gane el consumidor, y `className` va después del esparcido compuesto con `cx`:
+
+  ```tsx
+  <Heading id={title_id} {...titleProps} className={cx(styles.title, titleProps?.className)}>
+  ```
+
+  No lleva `<nodo>Props` una ranura que se pinta cruda: ahí el consumidor ya controla el nodo entero.
 - **Componentes planos**, sin carpeta de categoría.
 
 ## 1. Estructura de archivos

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
@@ -18,4 +18,9 @@ export interface AlertProps extends Omit<StyleProps, "color"> {
   live?: "status" | "alert" | "off" | undefined;
   actions?: ReactNode | undefined;
   className?: string | undefined;
+  titleProps?: ComponentPropsWithoutRef<"p"> | undefined;
+  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
+  bodyProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  messageProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  actionsProps?: ComponentPropsWithoutRef<"div"> | undefined;
 }

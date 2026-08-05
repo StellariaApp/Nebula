@@ -26,15 +26,22 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
       className,
       style,
       children,
+      citeProps,
+      iconProps,
+      contentProps,
       ...rest
     } = props as BlockquoteOwnProps & { style?: CSSProperties };
 
     const css_vars = assignInlineVars({ [variables.accent]: ResolveAccent(color, "500") });
 
     const content = (
-      <div>
+      <div {...contentProps}>
         {children}
-        {cite === undefined || cite === null ? null : <cite className={styles.cite}>{cite}</cite>}
+        {cite === undefined || cite === null ? null : (
+          <cite {...citeProps} className={cx(styles.cite, citeProps?.className)}>
+            {cite}
+          </cite>
+        )}
       </div>
     );
 
@@ -54,7 +61,11 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
           content
         ) : (
           <>
-            <span className={styles.icon_wrap} aria-hidden="true">
+            <span
+              aria-hidden="true"
+              {...iconProps}
+              className={cx(styles.icon_wrap, iconProps?.className)}
+            >
               {icon}
             </span>
             {content}

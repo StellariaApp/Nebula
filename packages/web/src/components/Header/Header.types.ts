@@ -1,6 +1,7 @@
-import type { ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
+import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
 
 export interface HeaderLabels {
   back: string;
@@ -22,4 +23,12 @@ export interface HeaderProps extends Omit<StyleProps, "color"> {
   labels?: Partial<HeaderLabels> | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
+  rowProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  leadProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  headingProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  trailProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  bodyProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  titleProps?: ComponentPropsWithoutRef<"h1"> | undefined;
+  subtitleProps?: ComponentPropsWithoutRef<"p"> | undefined;
+  backProps?: ActionIconProps | undefined;
 }

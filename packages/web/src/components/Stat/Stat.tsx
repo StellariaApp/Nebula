@@ -27,6 +27,13 @@ export function Stat(props: StatProps): ReactElement {
     size = "md",
     align = "start",
     className,
+    labelProps,
+    valueProps,
+    descriptionProps,
+    iconProps,
+    diffProps,
+    headProps,
+    footProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -36,19 +43,30 @@ export function Stat(props: StatProps): ReactElement {
       className={cx(styles.root, styles.align[align], sprinkle_class, className)}
       style={sprinkle_style}
     >
-      <div className={styles.head}>
-        <span className={styles.label}>{label}</span>
+      <div {...headProps} className={cx(styles.head, headProps?.className)}>
+        <span {...labelProps} className={cx(styles.label, labelProps?.className)}>
+          {label}
+        </span>
         {icon === undefined || icon === null ? null : (
-          <span className={styles.icon} aria-hidden="true">
+          <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
             {icon}
           </span>
         )}
       </div>
-      <span className={cx(styles.value, styles.size[size])}>{value}</span>
+      <span
+        {...valueProps}
+        className={cx(styles.value, styles.size[size], valueProps?.className)}
+      >
+        {value}
+      </span>
       {diff === undefined && description === undefined ? null : (
-        <div className={styles.foot}>
+        <div {...footProps} className={cx(styles.foot, footProps?.className)}>
           {diff === undefined ? null : (
-            <span className={styles.diff} data-trend={trend ?? "flat"}>
+            <span
+              data-trend={trend ?? "flat"}
+              {...diffProps}
+              className={cx(styles.diff, diffProps?.className)}
+            >
               <span className={styles.arrow} aria-hidden="true">
                 {ARROW[trend ?? "flat"]}
               </span>
@@ -57,7 +75,12 @@ export function Stat(props: StatProps): ReactElement {
             </span>
           )}
           {description === undefined ? null : (
-            <span className={styles.description}>{description}</span>
+            <span
+              {...descriptionProps}
+              className={cx(styles.description, descriptionProps?.className)}
+            >
+              {description}
+            </span>
           )}
         </div>
       )}
