@@ -15,8 +15,8 @@ describe.each(officialThemeNames)("tema oficial %s", (name) => {
     expect(theme.meta.name).toBe(name);
   });
 
-  it("incluye las 16 paletas de identidad sin invertir", () => {
-    expect(Object.keys(theme.palettes)).toHaveLength(16);
+  it("incluye las 19 paletas de identidad sin invertir", () => {
+    expect(Object.keys(theme.palettes)).toHaveLength(19);
     expect(theme.palettes.indigo["50"]).toBe("#f4f6ff");
   });
 });

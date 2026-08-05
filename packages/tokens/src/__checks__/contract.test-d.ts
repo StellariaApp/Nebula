@@ -76,6 +76,9 @@ const smokePalettes = {
   grape: smokeScale,
   rose: smokeScale,
   gold: smokeScale,
+  sand: smokeScale,
+  slate: smokeScale,
+  brown: smokeScale,
   light: smokeScale,
   dark: smokeScale,
 } satisfies Record<PaletteName, Scale11>;

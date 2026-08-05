@@ -49,3 +49,8 @@ en el sistema sin excepción y sin `ink` declarada.
   `gray` y las cuatro semánticas. Una familia son 11 hex en el bundle JS, unos 150 B, y cero vars.
 - Gate de contraste en verde, 116 pares, 5 temas.
 - `palettes.ts` es generado: cualquier cambio pasa por `pnpm gen:palette regen`, nunca a mano.
+- **Nota de 2026-08-05**: la lista de arriba no incluía los dos sitios que **cuentan** paletas a mano,
+  y los dos se quedaron en 16 hasta que WN los encontró en rojo — `smokePalettes` en
+  `packages/tokens/src/__checks__/contract.test-d.ts`, que dejaba el `typecheck` del monorepo caído,
+  y la aserción de `packages/themes/src/__tests__/official-themes.test.ts`, que fallaba en los cuatro
+  temas oficiales. Ampliar `PaletteName` obliga a tocar los dos.
