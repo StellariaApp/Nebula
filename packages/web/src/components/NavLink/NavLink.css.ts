@@ -4,6 +4,7 @@ import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { baseLayer } from "../../theme/layers.css.js";
+import { SmallerThan } from "../../theme/media.js";
 
 import { accent, activeBg } from "./NavLink.vars.css.js";
 
@@ -64,6 +65,15 @@ export const indicator = style({
       width: "3px",
       borderRadius: vars.radius.full,
       background: accent,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          insetInline: "20%",
+          insetBlock: "auto",
+          insetBlockEnd: 0,
+          width: "auto",
+          height: "3px",
+        },
+      },
     },
   },
 });

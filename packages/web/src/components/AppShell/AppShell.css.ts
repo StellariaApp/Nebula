@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, globalStyle, style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
@@ -209,6 +209,7 @@ export const sidebarSlot = style({
           flexDirection: "row",
           inlineSize: "max-content",
           blockSize: "100%",
+          minBlockSize: 0,
           paddingInline: vars.space.sm,
           paddingBlock: 0,
           borderBlock: "none !important",
@@ -277,7 +278,7 @@ export const railNav = style({
         [SmallerThan("tablet")]: {
           flexDirection: "row",
           alignItems: "center",
-          gap: vars.space.xxs,
+          gap: vars.space.md,
           paddingInline: 0,
           inlineSize: "max-content",
         },
@@ -456,5 +457,11 @@ export const scrollShadow = style({
         },
       },
     },
+  },
+});
+
+globalStyle(`${railNav} > *`, {
+  "@media": {
+    [SmallerThan("tablet")]: { inlineSize: "max-content", flex: "0 0 auto" },
   },
 });
