@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -19,7 +19,7 @@ export const group = style({
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -34,7 +34,7 @@ export const trigger = style({
       padding: vars.space.xxs,
       lineHeight: 0,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&:hover:not(:disabled)": { color: vars.color.text.primary },
         "&[data-focus-visible='true']": focus.ring,
@@ -44,9 +44,9 @@ export const trigger = style({
   },
 });
 
-export const textTrigger = style({
+export const text_trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       appearance: "none",
       flex: 1,
       minWidth: 0,
@@ -71,7 +71,7 @@ export const textTrigger = style({
 
 export const dialog = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       background: vars.color.surface.overlay,
       color: vars.color.text.primary,
@@ -87,8 +87,8 @@ export const dialog = style({
   },
 });
 
-export const rangeSeparator = style({
+export const range_separator = style({
   "@layer": {
-    [baseLayer]: { color: vars.color.text.muted, flexShrink: 0 },
+    [base_layer]: { color: vars.color.text.muted, flexShrink: 0 },
   },
 });

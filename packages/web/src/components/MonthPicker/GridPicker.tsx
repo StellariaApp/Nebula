@@ -93,7 +93,7 @@ export function GridPicker(props: GridPickerProps): ReactElement {
             aria-selected={is_selected}
             aria-disabled={is_disabled ? true : undefined}
             tabIndex={index === active ? 0 : -1}
-            className={cx(styles.cell, styles.cellSize[size])}
+            className={cx(styles.cell, styles.cell_size[size])}
             data-selected={is_selected ? "true" : undefined}
             data-disabled={is_disabled ? "true" : undefined}
             onClick={() => {

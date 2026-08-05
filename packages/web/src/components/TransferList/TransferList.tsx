@@ -12,6 +12,7 @@ import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { SearchInput } from "../SearchInput/SearchInput.js";
 
 import * as styles from "./TransferList.css.js";
+import * as transfer_list_vars from "./TransferList.vars.css.js";
 import { TRANSFER_LIST_LABELS } from "./labels.js";
 import type { TransferListPane, TransferListProps } from "./TransferList.types.js";
 
@@ -72,11 +73,11 @@ function Pane(props: PaneProps): ReactElement {
   return (
     <div className={styles.pane}>
       {pane?.title === undefined ? null : (
-        <div className={styles.paneHead}>
-          <p className={styles.paneTitle} id={id}>
+        <div className={styles.pane_head}>
+          <p className={styles.pane_title} id={id}>
             {pane.title}
           </p>
-          <span className={styles.paneCount}>{countLabel}</span>
+          <span className={styles.pane_count}>{countLabel}</span>
         </div>
       )}
       {searchable ? (
@@ -114,7 +115,7 @@ function Pane(props: PaneProps): ReactElement {
         ))}
       </div>
       {options.length === 0 ? <p className={styles.empty}>{pane?.empty ?? emptyLabel}</p> : null}
-      {pane?.title === undefined ? <span className={styles.paneCount}>{countLabel}</span> : null}
+      {pane?.title === undefined ? <span className={styles.pane_count}>{countLabel}</span> : null}
     </div>
   );
 }
@@ -178,7 +179,7 @@ export function TransferList(props: TransferListProps): ReactElement {
     set_marked_target([]);
   };
 
-  const css_vars = assignInlineVars({ [styles.paneHeight]: LengthToCss(height) });
+  const css_vars = assignInlineVars({ [transfer_list_vars.paneHeight]: LengthToCss(height) });
   const enabled = data.filter((option) => option.disabled !== true).map((option) => option.value);
 
   return (

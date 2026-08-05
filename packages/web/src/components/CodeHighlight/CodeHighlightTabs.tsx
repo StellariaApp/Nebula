@@ -36,7 +36,7 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
 
   return (
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style} {...rest}>
-      <div className={styles.tabList}>
+      <div className={styles.tab_list}>
         <Segment value={active} onChange={set_active} size="sm">
           <Segment.Control data={data} {...(label === undefined ? {} : { "aria-label": label })} />
         </Segment>

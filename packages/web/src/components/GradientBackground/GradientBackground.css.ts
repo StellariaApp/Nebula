@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { gradientImage, scrimAlpha } from "./GradientBackground.vars.css.js";
 
-export const gradientBackground = recipe({
+export const gradient_background = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         isolation: "isolate",
         boxSizing: "border-box",
         backgroundImage: gradientImage,
@@ -43,7 +43,7 @@ export const gradientBackground = recipe({
 
 export const scrim = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: -1,
@@ -58,12 +58,12 @@ export const scrim = style({
   },
 });
 
-export const grainLayer = style({
+export const grain_layer = style({
   "@layer": {
-    [baseLayer]: { zIndex: -1 },
+    [base_layer]: { zIndex: -1 },
   },
 });
 
 export type GradientBackgroundRecipeVariants = NonNullable<
-  RecipeVariants<typeof gradientBackground>
+  RecipeVariants<typeof gradient_background>
 >;

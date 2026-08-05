@@ -160,13 +160,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
         {leftSection === undefined ? null : (
-          <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+          <span className={cx(styles.section, loading && styles.label_loading)} aria-hidden="true">
             {leftSection}
           </span>
         )}
-        <span className={cx(loading && styles.labelLoading)}>{children}</span>
+        <span className={cx(loading && styles.label_loading)}>{children}</span>
         {rightSection === undefined ? null : (
-          <span className={cx(styles.section, loading && styles.labelLoading)} aria-hidden="true">
+          <span className={cx(styles.section, loading && styles.label_loading)} aria-hidden="true">
             {rightSection}
           </span>
         )}

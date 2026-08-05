@@ -1,9 +1,9 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { reducedMedia, still } from "../../styles/motion.css.js";
+import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { gradientImage, scrimAlpha } from "./AnimatedGradient.vars.css.js";
 
@@ -15,10 +15,10 @@ const DRIFT = keyframes({
   "100%": { transform: "translate3d(-8%, -6%, 0) rotate(360deg) scale(1.4)" },
 });
 
-export const animatedGradient = recipe({
+export const animated_gradient = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         isolation: "isolate",
         overflow: "hidden",
@@ -48,7 +48,7 @@ export const animatedGradient = recipe({
 
 export const drift = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: "-40%",
       zIndex: -1,
@@ -64,7 +64,7 @@ export const drift = style({
         "&[data-animated='false']": { ...still, transform: REST },
       },
       "@media": {
-        [reducedMedia]: { ...still, transform: REST },
+        [reduced_media]: { ...still, transform: REST },
         "(forced-colors: active)": { display: "none" },
       },
     },
@@ -79,7 +79,7 @@ export const speed = styleVariants({
 
 export const scrim = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: -1,
@@ -93,4 +93,4 @@ export const scrim = style({
   },
 });
 
-export type AnimatedGradientRecipeVariants = NonNullable<RecipeVariants<typeof animatedGradient>>;
+export type AnimatedGradientRecipeVariants = NonNullable<RecipeVariants<typeof animated_gradient>>;

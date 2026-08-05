@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -23,7 +23,7 @@ export const align = styleVariants({
 
 export const head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -34,7 +34,7 @@ export const head = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.medium,
       textTransform: "uppercase",
@@ -46,13 +46,13 @@ export const label = style({
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: { display: "inline-flex", lineHeight: 0, color: vars.color.text.muted },
+    [base_layer]: { display: "inline-flex", lineHeight: 0, color: vars.color.text.muted },
   },
 });
 
 export const value = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontWeight: vars.font.weight.bold,
       fontVariantNumeric: "tabular-nums",
       lineHeight: vars.font.lineHeight.tight,
@@ -63,7 +63,7 @@ export const value = style({
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -75,7 +75,7 @@ export const foot = style({
 
 export const diff = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: 2,
@@ -88,7 +88,7 @@ export const diff = style({
 
 export const arrow = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       selectors: {
         "[data-trend='up'] &": { color: vars.color.semantic.success["600"] },
         "[data-trend='down'] &": { color: vars.color.semantic.error["600"] },
@@ -100,7 +100,7 @@ export const arrow = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: { color: vars.color.text.muted },
+    [base_layer]: { color: vars.color.text.muted },
   },
 });
 

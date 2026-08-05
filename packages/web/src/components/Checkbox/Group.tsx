@@ -62,7 +62,7 @@ export function CheckboxGroup(props: CheckboxGroupProps): ReactElement {
   };
 
   const items_node = (
-    <div className={cx(orientation === "horizontal" ? styles.listRow : styles.list)}>
+    <div className={cx(orientation === "horizontal" ? styles.list_row : styles.list)}>
       <CheckboxGroupContext.Provider value={context}>{children}</CheckboxGroupContext.Provider>
     </div>
   );

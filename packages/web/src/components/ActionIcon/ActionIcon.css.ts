@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   backdropFilter,
@@ -17,10 +17,10 @@ import {
   glow,
 } from "./ActionIcon.vars.css.js";
 
-export const actionIcon = recipe({
+export const action_icon = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
@@ -60,7 +60,7 @@ export const actionIcon = recipe({
     size: {
       xs: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             width: vars.size.control.xs,
             height: vars.size.control.xs,
             fontSize: `calc(${vars.size.control.xs} / 2)`,
@@ -69,7 +69,7 @@ export const actionIcon = recipe({
       },
       sm: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             width: vars.size.control.sm,
             height: vars.size.control.sm,
             fontSize: `calc(${vars.size.control.sm} / 2)`,
@@ -78,7 +78,7 @@ export const actionIcon = recipe({
       },
       md: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             width: vars.size.control.md,
             height: vars.size.control.md,
             fontSize: `calc(${vars.size.control.md} / 2)`,
@@ -87,7 +87,7 @@ export const actionIcon = recipe({
       },
       lg: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             width: vars.size.control.lg,
             height: vars.size.control.lg,
             fontSize: `calc(${vars.size.control.lg} / 2)`,
@@ -96,7 +96,7 @@ export const actionIcon = recipe({
       },
       xl: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             width: vars.size.control.xl,
             height: vars.size.control.xl,
             fontSize: `calc(${vars.size.control.xl} / 2)`,
@@ -110,11 +110,11 @@ export const actionIcon = recipe({
   },
 });
 
-export type ActionIconRecipeVariants = NonNullable<RecipeVariants<typeof actionIcon>>;
+export type ActionIconRecipeVariants = NonNullable<RecipeVariants<typeof action_icon>>;
 
-export const iconWrap = style({
+export const icon_wrap = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -123,7 +123,7 @@ export const iconWrap = style({
   },
 });
 
-export const iconLoading = style({ opacity: 0 });
+export const icon_loading = style({ opacity: 0 });
 
 const SPIN = keyframes({ to: { transform: "rotate(360deg)" } });
 

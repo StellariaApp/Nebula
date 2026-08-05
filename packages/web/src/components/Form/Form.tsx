@@ -76,7 +76,7 @@ function Header(props: FormHeaderProps): ReactElement {
 
   return (
     <div className={cx(styles.header, sprinkle_class, className)} style={sprinkle_style}>
-      <div className={styles.headerText}>
+      <div className={styles.header_text}>
         {title === undefined ? null : (
           <Title order={3} className={styles.title}>
             {title}
@@ -89,7 +89,7 @@ function Header(props: FormHeaderProps): ReactElement {
         )}
         {children}
       </div>
-      {actions === undefined ? null : <div className={styles.headerActions}>{actions}</div>}
+      {actions === undefined ? null : <div className={styles.header_actions}>{actions}</div>}
     </div>
   );
 }
@@ -101,7 +101,7 @@ function Banderole(props: FormBanderoleProps): ReactElement {
 
   return (
     <div
-      className={cx(styles.banderole, styles.banderoleSide[side], sprinkle_class, className)}
+      className={cx(styles.banderole, styles.banderole_side[side], sprinkle_class, className)}
       style={{
         ...assignInlineVars({ [banderoleColor]: ResolveAccent(color ?? form.color, "600") }),
         ...sprinkle_style,

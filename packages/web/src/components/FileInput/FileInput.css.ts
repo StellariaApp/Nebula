@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       appearance: "none",
       flex: 1,
       minWidth: 0,
@@ -30,7 +30,7 @@ export const trigger = style({
 
 export const hidden = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       width: 1,
       height: 1,

@@ -1,14 +1,14 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const columnWidth = createVar();
+import { columnWidth } from "./Kanban.vars.css.js";
 
 export const board = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       gap: vars.space.md,
@@ -22,7 +22,7 @@ export const board = style({
 
 export const column = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       flex: "0 0 auto",
@@ -39,14 +39,14 @@ export const column = style({
           borderColor: vars.color.border.strong,
         },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
-export const columnHeader = style({
+export const column_header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -57,9 +57,9 @@ export const columnHeader = style({
   },
 });
 
-export const columnTitle = style({
+export const column_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
@@ -68,9 +68,9 @@ export const columnTitle = style({
   },
 });
 
-export const columnCount = style({
+export const column_count = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
@@ -81,9 +81,9 @@ export const columnCount = style({
   },
 });
 
-export const columnBody = style({
+export const column_body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -95,9 +95,9 @@ export const columnBody = style({
   },
 });
 
-export const columnEmpty = style({
+export const column_empty = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.md,
       textAlign: "center",
       fontSize: vars.font.size.body3,
@@ -108,7 +108,7 @@ export const columnEmpty = style({
 
 export const card = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -122,9 +122,9 @@ export const card = style({
   },
 });
 
-export const cardHead = style({
+export const card_head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -133,9 +133,9 @@ export const cardHead = style({
   },
 });
 
-export const cardTitle = style({
+export const card_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
@@ -144,9 +144,9 @@ export const cardTitle = style({
   },
 });
 
-export const cardDescription = style({
+export const card_description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       lineHeight: vars.font.lineHeight.relaxed,
@@ -155,9 +155,9 @@ export const cardDescription = style({
   },
 });
 
-export const cardMeta = style({
+export const card_meta = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,

@@ -1,27 +1,23 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import * as focus from "./focus.css.js";
+import * as focus_vars from "./focus.vars.css.js";
 import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
-import { baseLayer } from "../theme/layers.css.js";
+import { base_layer } from "../theme/layers.css.js";
 
-export const bg = createVar();
-export const bd = createVar();
-export const bgHover = createVar();
-export const bdHover = createVar();
-export const bgDisabled = createVar();
-export const bdDisabled = createVar();
+import { bd, bdDisabled, bdHover, bg, bgDisabled, bgHover } from "./field.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: { display: "flex", flexDirection: "column", gap: vars.space.sm },
+    [base_layer]: { display: "flex", flexDirection: "column", gap: vars.space.sm },
   },
 });
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
@@ -33,13 +29,13 @@ export const label = style({
 
 export const required = style({
   "@layer": {
-    [baseLayer]: { color: vars.color.semantic.error["600"], marginInlineStart: "0.15em" },
+    [base_layer]: { color: vars.color.semantic.error["600"], marginInlineStart: "0.15em" },
   },
 });
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       lineHeight: vars.font.lineHeight.normal,
@@ -50,7 +46,7 @@ export const description = style({
 
 export const error = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       lineHeight: vars.font.lineHeight.normal,
@@ -62,7 +58,7 @@ export const error = style({
 export const field = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "flex",
         alignItems: "center",
         boxSizing: "border-box",
@@ -75,7 +71,7 @@ export const field = recipe({
         borderColor: bd,
         borderRadius: vars.radius.md,
         ...motion.interaction,
-        ...motion.reducedMotion,
+        ...motion.reduced_motion,
         selectors: {
           "&:hover:not([data-disabled='true']):not([data-invalid='true'])": {
             background: bgHover,
@@ -84,7 +80,7 @@ export const field = recipe({
           "&:focus-within": focus.ring,
           "&[data-invalid='true']": { borderColor: vars.color.semantic.error["500"] },
           "&[data-invalid='true']:focus-within": {
-            vars: { [focus.halo]: vars.color.semantic.error["500"] },
+            vars: { [focus_vars.halo]: vars.color.semantic.error["500"] },
           },
           "&[data-disabled='true']": {
             cursor: "not-allowed",
@@ -189,7 +185,7 @@ export type FieldRecipeVariants = NonNullable<RecipeVariants<typeof field>>;
 
 export const input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: 1,
       minWidth: 0,
       margin: 0,
@@ -212,7 +208,7 @@ export const input = style({
 
 export const textarea = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       resize: "vertical",
       minHeight: "4.5em",
     },

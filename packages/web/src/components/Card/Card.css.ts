@@ -4,14 +4,14 @@ import { recipe } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { backdropFilter, bg, borderColor, fg, glow, pad } from "./Card.vars.css.js";
 
 export const card = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -31,7 +31,7 @@ export const card = recipe({
   },
   variants: {
     glowing: {
-      true: { "@layer": { [baseLayer]: { boxShadow: glow } } },
+      true: { "@layer": { [base_layer]: { boxShadow: glow } } },
       false: {},
     },
     radius: {
@@ -62,13 +62,13 @@ export const card = recipe({
       xl: { vars: { [pad]: vars.space.xl }, padding: pad, gap: vars.space.lg },
     },
     withBorder: {
-      true: { "@layer": { [baseLayer]: { borderWidth: 1 } } },
+      true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
       false: {},
     },
     interactive: {
       true: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             cursor: "pointer",
             ...motion.interaction,
             selectors: {
@@ -96,7 +96,7 @@ export const card = recipe({
   },
 });
 
-export const sectionInset = style({
+export const section_inset = style({
   marginInline: `calc(${pad} * -1)`,
   selectors: {
     "&:first-child": { marginBlockStart: `calc(${pad} * -1)` },
@@ -104,9 +104,9 @@ export const sectionInset = style({
   },
 });
 
-export const sectionBorder = style({
+export const section_border = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderBottomStyle: "solid",
       borderBottomWidth: 1,
       borderBottomColor: vars.color.border.subtle,
@@ -117,7 +117,7 @@ export const sectionBorder = style({
 
 export const meta = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -144,4 +144,4 @@ export const actions = style({
   paddingBlockStart: vars.space.xs,
 });
 
-globalStyle(`${sectionInset} > img`, { display: "block", width: "100%" });
+globalStyle(`${section_inset} > img`, { display: "block", width: "100%" });

@@ -1,13 +1,13 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -21,7 +21,7 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -32,7 +32,7 @@ export const item = style({
 
 export const link = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -53,14 +53,14 @@ export const link = style({
         "&:hover": { color: vars.color.text.primary, textDecoration: "underline" },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const current = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       maxWidth: "28ch",
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -73,7 +73,7 @@ export const current = style({
 
 export const separator = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontWeight: vars.font.weight.medium,
       color: vars.color.text.muted,
       userSelect: "none",
@@ -83,7 +83,7 @@ export const separator = style({
 
 export const expand = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: `0 ${vars.space.xxs}`,
       border: "none",
       borderRadius: vars.radius.xs,
@@ -96,7 +96,7 @@ export const expand = style({
         "&:hover": { background: vars.color.surface.hover, color: vars.color.text.secondary },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });

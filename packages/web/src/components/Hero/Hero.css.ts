@@ -2,13 +2,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 import * as variables from "./Hero.vars.css.js";
 
 export const hero = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -38,7 +38,7 @@ export const hero = style({
 
 export const media = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 0,
@@ -51,7 +51,7 @@ export const media = style({
 
 export const scrim = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 0,
@@ -62,7 +62,7 @@ export const scrim = style({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       zIndex: 1,
       display: "flex",
@@ -79,7 +79,7 @@ export const body = style({
 
 export const slot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       zIndex: 1,
       flexShrink: 0,
@@ -91,7 +91,7 @@ export const slot = style({
 
 export const hiper = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
@@ -104,7 +104,7 @@ export const hiper = style({
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -114,7 +114,7 @@ export const header = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontWeight: vars.font.weight.bold,
       lineHeight: vars.font.lineHeight.tight,
@@ -124,7 +124,7 @@ export const title = style({
 
 export const subtitle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body1,
     },
@@ -133,7 +133,7 @@ export const subtitle = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       maxWidth: "62ch",
       fontSize: vars.font.size.body1,
@@ -144,7 +144,7 @@ export const description = style({
 
 export const actions = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       gap: vars.space.md,
       flexWrap: "wrap",
@@ -156,14 +156,14 @@ export const actions = style({
 
 export const bottom = style({
   "@layer": {
-    [baseLayer]: { position: "relative", zIndex: 1, width: "100%" },
+    [base_layer]: { position: "relative", zIndex: 1, width: "100%" },
   },
 });
 
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         paddingInline: vars.space.xl,
         paddingBlock: BAND_PADDING.xl,
         minHeight: BAND_MIN_HEIGHT.xl,
@@ -172,7 +172,7 @@ export const size = styleVariants({
   },
   lg: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         paddingInline: vars.space.xl,
         paddingBlock: BAND_PADDING.lg,
         minHeight: BAND_MIN_HEIGHT.lg,
@@ -181,7 +181,7 @@ export const size = styleVariants({
   },
   md: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         paddingInline: vars.space.lg,
         paddingBlock: BAND_PADDING.md,
         minHeight: BAND_MIN_HEIGHT.md,
@@ -190,7 +190,7 @@ export const size = styleVariants({
   },
   sm: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         paddingInline: vars.space.md,
         paddingBlock: BAND_PADDING.sm,
         minHeight: BAND_MIN_HEIGHT.sm,
@@ -199,13 +199,13 @@ export const size = styleVariants({
   },
 });
 
-export const titleSize = styleVariants({
-  sm: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h5 } } },
-  md: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h4 } } },
-  lg: { "@layer": { [baseLayer]: { fontSize: vars.font.size.h3 } } },
+export const title_size = styleVariants({
+  sm: { "@layer": { [base_layer]: { fontSize: vars.font.size.h5 } } },
+  md: { "@layer": { [base_layer]: { fontSize: vars.font.size.h4 } } },
+  lg: { "@layer": { [base_layer]: { fontSize: vars.font.size.h3 } } },
   xl: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         fontSize: vars.font.display.size,
         lineHeight: vars.font.display.lineHeight,
         letterSpacing: vars.font.display.letterSpacing,

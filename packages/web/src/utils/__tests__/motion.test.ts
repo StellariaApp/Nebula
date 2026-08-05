@@ -41,7 +41,7 @@ describe("composiciones CSS", () => {
 
   it("el idioma de reduced-motion es único y no usa el truco de 0.01ms", () => {
     expect(css.still).toEqual({ transitionProperty: "none", animationName: "none" });
-    expect(css.reducedMotion["@media"][css.reducedMedia]).toEqual(css.still);
+    expect(css.reduced_motion["@media"][css.reduced_media]).toEqual(css.still);
   });
 });
 

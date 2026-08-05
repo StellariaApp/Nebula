@@ -34,7 +34,7 @@ function BadgeRow(props: {
 }): ReactElement {
   return (
     <div
-      className={styles.badgeRow}
+      className={styles.badge_row}
       data-grow={props.grow ? "true" : undefined}
       data-wrap={props.wrap ? "true" : undefined}
     >
@@ -54,7 +54,7 @@ function BadgeRow(props: {
 
 function ActionRow(props: { items: readonly CardAction[]; className?: string }): ReactElement {
   return (
-    <div className={props.className ?? styles.slotRow}>
+    <div className={props.className ?? styles.slot_row}>
       {props.items.map((action) => (
         <ActionIcon
           key={action.key}
@@ -136,7 +136,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
       {...(sprinkle_style === undefined ? {} : { style: sprinkle_style })}
     >
       {show_media ? (
-        <div className={styles.mediaWrap} data-selected={selected ? "true" : undefined}>
+        <div className={styles.media_wrap} data-selected={selected ? "true" : undefined}>
           {media.component ?? (
             <CardImage
               {...(media.image === undefined ? {} : { src: media.image })}
@@ -145,7 +145,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
             />
           )}
           {media_actions.length === 0 ? null : (
-            <ActionRow items={media_actions} className={styles.mediaActions} />
+            <ActionRow items={media_actions} className={styles.media_actions} />
           )}
         </div>
       ) : null}
@@ -190,7 +190,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
 
         {meta === undefined ? null : (
           <CardMetaSlot>
-            <div className={styles.metaRow}>
+            <div className={styles.meta_row}>
               {meta.createdAt === undefined ? null : (
                 <span>
                   {meta.createdAtLabel ?? "Creado"}{" "}

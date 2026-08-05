@@ -104,7 +104,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
               ref={ref}
               type="number"
               inputMode="decimal"
-              className={cx(field.input, styles.numberInput, className)}
+              className={cx(field.input, styles.number_input, className)}
               value={display}
               onChange={(event: ChangeEvent<HTMLInputElement>) => HandleInput(event.target.value)}
               disabled={fp.isDisabled}
@@ -116,7 +116,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             {hideControls ? null : (
               <div className={styles.stepper}>
                 <UnstyledButton
-                  className={styles.stepperButton}
+                  className={styles.stepper_button}
                   aria-label={incrementLabel}
                   tabIndex={-1}
                   disabled={fp.isDisabled || at_max}
@@ -125,7 +125,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
                   ▲
                 </UnstyledButton>
                 <UnstyledButton
-                  className={styles.stepperButton}
+                  className={styles.stepper_button}
                   aria-label={decrementLabel}
                   tabIndex={-1}
                   disabled={fp.isDisabled || at_min}

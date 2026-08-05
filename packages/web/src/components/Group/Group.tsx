@@ -42,7 +42,7 @@ const GroupComponent = forwardRef<HTMLElement, GroupOwnProps>(function Group(pro
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={cx(styles.group, wrap ? styles.wrapOn : styles.wrapOff, className)}
+      className={cx(styles.group, wrap ? styles.wrap_on : styles.wrap_off, className)}
       align={align}
       justify={justify}
       data-grow={grow ? "true" : undefined}

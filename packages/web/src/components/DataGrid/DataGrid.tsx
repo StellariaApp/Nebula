@@ -328,7 +328,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     <th
                       key={header.id}
                       scope="col"
-                      className={cx(styles.th, styles.cellFocus)}
+                      className={cx(styles.th, styles.cell_focus)}
                       style={resizable ? { width: header.getSize() } : undefined}
                       {...(direction === false
                         ? {}
@@ -414,7 +414,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     {row.getVisibleCells().map((cell, index) => (
                       <td
                         key={cell.id}
-                        className={cx(styles.td, styles.cellFocus)}
+                        className={cx(styles.td, styles.cell_focus)}
                         style={{ height: rowHeight }}
                         {...keyboard.CellProps(position + 1, index)}
                       >
@@ -444,7 +444,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
           <p className={styles.status} aria-live="polite">
             {text.page(table.getState().pagination.pageIndex + 1, table.getPageCount())}
           </p>
-          <div className={styles.toolbarGap}>
+          <div className={styles.toolbar_gap}>
             <Button
               size="sm"
               variant="outline"

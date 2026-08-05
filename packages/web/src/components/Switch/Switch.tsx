@@ -137,7 +137,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         />
       </span>
       {label === undefined || label === null ? null : (
-        <span className={styles.labelText}>{label}</span>
+        <span className={styles.label_text}>{label}</span>
       )}
     </label>
   );

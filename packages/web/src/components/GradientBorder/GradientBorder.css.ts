@@ -2,7 +2,7 @@ import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   beamArc,
@@ -28,10 +28,10 @@ const RING_MASK = {
   maskComposite: "exclude",
 } as const;
 
-export const gradientBorder = recipe({
+export const gradient_border = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
@@ -87,7 +87,7 @@ export const gradientBorder = recipe({
   },
 });
 
-export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gradientBorder>>;
+export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gradient_border>>;
 
 const EDGES = [1, 2, 3, 4] as const;
 const SWEEP_ARC = 90;
@@ -127,7 +127,7 @@ export const gate = Object.fromEntries(
 
 export const beam = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 1,
@@ -147,7 +147,7 @@ export const beam = style({
 
 export const arc = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: "-100%",
       opacity: 0,

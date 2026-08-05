@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { accent } from "./Blockquote.vars.css.js";
 
 export const blockquote = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       paddingInline: vars.space.md,
       paddingBlock: vars.space.sm,
@@ -25,9 +25,9 @@ export const blockquote = style({
   },
 });
 
-export const withIcon = style({
+export const with_icon = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       gap: vars.space.sm,
       alignItems: "flex-start",
@@ -35,7 +35,7 @@ export const withIcon = style({
   },
 });
 
-export const iconWrap = style({
+export const icon_wrap = style({
   flexShrink: 0,
   color: accent,
   display: "inline-flex",
@@ -43,7 +43,7 @@ export const iconWrap = style({
 
 export const cite = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "block",
       marginBlockStart: vars.space.xs,
       fontSize: vars.font.size.caption,

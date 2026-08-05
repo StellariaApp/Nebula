@@ -144,7 +144,7 @@ export function PinInput(props: PinInputProps): ReactElement {
           {[...new Array(length).keys()].map((index) => (
             <div
               key={index}
-              className={cx(field.field({ size, surface }), styles.cellWidth[size])}
+              className={cx(field.field({ size, surface }), styles.cell_width[size])}
               data-invalid={fp.isInvalid ? "true" : undefined}
               data-disabled={fp.isDisabled ? "true" : undefined}
             >

@@ -2,7 +2,7 @@ import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { loaderColor, loaderSize } from "./Loader.vars.css.js";
 
@@ -18,7 +18,7 @@ const STRETCH = keyframes({
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -31,7 +31,7 @@ export const root = style({
 
 export const spinner = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: loaderSize,
       height: loaderSize,
       borderRadius: vars.radius.full,
@@ -54,9 +54,9 @@ export const spinner = style({
   },
 });
 
-const dotBase = style({
+const dot_base = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: `calc(${loaderSize} / 3.2)`,
       height: `calc(${loaderSize} / 3.2)`,
       borderRadius: vars.radius.full,
@@ -72,9 +72,9 @@ const dotBase = style({
   },
 });
 
-const barBase = style({
+const bar_base = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: `calc(${loaderSize} / 5)`,
       height: loaderSize,
       borderRadius: vars.radius.xs,
@@ -91,14 +91,14 @@ const barBase = style({
 });
 
 export const dot = styleVariants({
-  0: [dotBase, { animationDelay: "0ms" }],
-  1: [dotBase, { animationDelay: "140ms" }],
-  2: [dotBase, { animationDelay: "280ms" }],
+  0: [dot_base, { animationDelay: "0ms" }],
+  1: [dot_base, { animationDelay: "140ms" }],
+  2: [dot_base, { animationDelay: "280ms" }],
 });
 
 export const bar = styleVariants({
-  0: [barBase, { animationDelay: "0ms" }],
-  1: [barBase, { animationDelay: "110ms" }],
-  2: [barBase, { animationDelay: "220ms" }],
-  3: [barBase, { animationDelay: "330ms" }],
+  0: [bar_base, { animationDelay: "0ms" }],
+  1: [bar_base, { animationDelay: "110ms" }],
+  2: [bar_base, { animationDelay: "220ms" }],
+  3: [bar_base, { animationDelay: "330ms" }],
 });

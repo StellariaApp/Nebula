@@ -44,7 +44,7 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
         component={component ?? "blockquote"}
         className={cx(
           styles.blockquote,
-          icon === undefined ? undefined : styles.withIcon,
+          icon === undefined ? undefined : styles.with_icon,
           className,
         )}
         style={{ ...css_vars, ...style }}
@@ -54,7 +54,7 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
           content
         ) : (
           <>
-            <span className={styles.iconWrap} aria-hidden="true">
+            <span className={styles.icon_wrap} aria-hidden="true">
               {icon}
             </span>
             {content}

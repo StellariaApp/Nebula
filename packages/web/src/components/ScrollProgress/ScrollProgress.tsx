@@ -9,6 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./ScrollProgress.css.js";
+import * as scroll_progress_vars from "./ScrollProgress.vars.css.js";
 import type { ScrollProgressProps } from "./ScrollProgress.types.js";
 
 const DEFAULT_HEIGHT = 3;
@@ -71,9 +72,9 @@ export function ScrollProgress(props: ScrollProgressProps): ReactElement {
   const percent = Math.round(value * PERCENT);
 
   const css_vars = assignInlineVars({
-    [styles.barColor]: ResolveAccent(color, "600"),
-    [styles.barHeight]: LengthToCss(height),
-    [styles.progress]: `${String(percent)}%`,
+    [scroll_progress_vars.barColor]: ResolveAccent(color, "600"),
+    [scroll_progress_vars.barHeight]: LengthToCss(height),
+    [scroll_progress_vars.progress]: `${String(percent)}%`,
   });
 
   return (

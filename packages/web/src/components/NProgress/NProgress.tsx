@@ -9,7 +9,8 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Portal } from "../Portal/Portal.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
-import { accent, bar, thickness, track } from "./NProgress.css.js";
+import { bar, track } from "./NProgress.css.js";
+import { accent, thickness } from "./NProgress.vars.css.js";
 import type { NProgressProps } from "./NProgress.types.js";
 
 const TICK = 400;

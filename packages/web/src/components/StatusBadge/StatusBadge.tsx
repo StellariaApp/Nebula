@@ -3,7 +3,7 @@
 import { useContext, type ReactElement } from "react";
 
 import { Badge } from "../Badge/Badge.js";
-import { visuallyHidden } from "../VisuallyHidden/VisuallyHidden.css.js";
+import { visually_hidden } from "../VisuallyHidden/VisuallyHidden.css.js";
 
 import { StatusMapContext } from "./status-map-context.js";
 import type { StatusBadgeProps, StatusDescriptor, StatusMap } from "./StatusBadge.types.js";
@@ -28,7 +28,7 @@ export function StatusBadge<S extends string = string>(props: StatusBadgeProps<S
     >
       {resolved.label}
       {resolved.description === undefined ? null : (
-        <span className={visuallyHidden}>{resolved.description}</span>
+        <span className={visually_hidden}>{resolved.description}</span>
       )}
     </Badge>
   );

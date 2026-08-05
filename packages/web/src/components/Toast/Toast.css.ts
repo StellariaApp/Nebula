@@ -1,7 +1,7 @@
 import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { toastAccent, toastBackdrop, toastBg, toastBorder, toastFg } from "./Toast.vars.css.js";
 
@@ -9,7 +9,7 @@ const EDGE = vars.space.md;
 
 export const region = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       display: "flex",
       flexDirection: "column",
@@ -38,7 +38,7 @@ export const placement = styleVariants({
 
 export const toast = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       pointerEvents: "auto",
       display: "flex",
       alignItems: "flex-start",
@@ -64,7 +64,7 @@ export const toast = style({
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       flexShrink: 0,
       color: toastAccent,
@@ -83,7 +83,7 @@ export const body = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
@@ -93,7 +93,7 @@ export const title = style({
 });
 
 export const message = style({
-  "@layer": { [baseLayer]: { color: vars.color.text.secondary } },
+  "@layer": { [base_layer]: { color: vars.color.text.secondary } },
 });
 
 export const action = style({ marginBlockStart: vars.space.xxs });

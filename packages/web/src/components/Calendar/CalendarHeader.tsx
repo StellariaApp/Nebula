@@ -63,7 +63,7 @@ function NavButton(props: NavButtonProps): ReactElement {
       ref={ref}
       type="button"
       aria-label={label}
-      className={cx(styles.nav, styles.navSize[size])}
+      className={cx(styles.nav, styles.nav_size[size])}
       data-focus-visible={isFocusVisible ? "true" : undefined}
     >
       {children}

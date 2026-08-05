@@ -8,6 +8,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Modal } from "../Modal/Modal.js";
 
 import * as styles from "./EditorImage.css.js";
+import * as editor_image_vars from "./EditorImage.vars.css.js";
 import type { EditorImageLabels, EditorImageProps } from "./EditorImage.types.js";
 
 const DEFAULT_RATIO = 4 / 3;
@@ -52,7 +53,7 @@ export function EditorImage(props: EditorImageProps): ReactElement {
     onOpenChange?.(next);
   };
 
-  const css_vars = assignInlineVars({ [styles.frameRatio]: String(ratio) });
+  const css_vars = assignInlineVars({ [editor_image_vars.frameRatio]: String(ratio) });
   const has_editor = PinturaEditor !== undefined;
 
   return (

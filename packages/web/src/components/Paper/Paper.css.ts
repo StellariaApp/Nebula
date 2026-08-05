@@ -2,14 +2,14 @@ import { fallbackVar } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { backdropFilter, bg, borderColor, fg, glow } from "./Paper.vars.css.js";
 
 export const paper = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         background: fallbackVar(bg, vars.color.surface.raised),
         color: fallbackVar(fg, vars.color.text.primary),
@@ -22,7 +22,7 @@ export const paper = recipe({
   },
   variants: {
     glowing: {
-      true: { "@layer": { [baseLayer]: { boxShadow: glow } } },
+      true: { "@layer": { [base_layer]: { boxShadow: glow } } },
       false: {},
     },
     shadow: {
@@ -47,7 +47,7 @@ export const paper = recipe({
       full: { borderRadius: vars.radius.full },
     },
     withBorder: {
-      true: { "@layer": { [baseLayer]: { borderWidth: 1 } } },
+      true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
       false: {},
     },
   },

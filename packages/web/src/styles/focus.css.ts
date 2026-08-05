@@ -1,8 +1,8 @@
-import { createVar, fallbackVar } from "@vanilla-extract/css";
+import { fallbackVar } from "@vanilla-extract/css";
 
 import { vars } from "../theme/contract.css.js";
 
-export const halo = createVar();
+import { halo } from "./focus.vars.css.js";
 
 const HALO = fallbackVar(halo, vars.color.border.focus);
 

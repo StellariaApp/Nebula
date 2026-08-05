@@ -1,18 +1,16 @@
-import { createVar, globalStyle, style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-export const navWidth = createVar();
-export const asideWidth = createVar();
-export const headHeight = createVar();
+import { asideWidth, chromeHeight, headHeight, navWidth, railMiniWidth, railWidth, shadowOffset } from "./AppShell.vars.css.js";
 
 export const shell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gridTemplateAreas: `"header header header" "nav main aside" "footer footer footer"`,
       gridTemplateColumns: `${navWidth} 1fr ${asideWidth}`,
@@ -27,7 +25,7 @@ export const shell = style({
 
 export const main = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "main",
       minWidth: 0,
       minHeight: 0,
@@ -42,7 +40,7 @@ export const main = style({
 
 export const skip = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       insetBlockStart: vars.space.xs,
       insetInlineStart: vars.space.xs,
@@ -61,11 +59,6 @@ export const skip = style({
   },
 });
 
-export const chromeHeight = createVar();
-export const shadowOffset = createVar();
-export const railWidth = createVar();
-export const railMiniWidth = createVar();
-
 const RAIL_BAR_HEIGHT = "70px";
 const RAIL_BAR_GAP = "12px";
 const RAIL_BAR_SPACE = `calc(${RAIL_BAR_HEIGHT} + (2 * ${RAIL_BAR_GAP}))`;
@@ -73,7 +66,7 @@ const RAIL_BAR_SPACE = `calc(${RAIL_BAR_HEIGHT} + (2 * ${RAIL_BAR_GAP}))`;
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gridTemplateAreas: `"rail chrome" "rail main"`,
       gridTemplateColumns: `${railWidth} 1fr`,
@@ -103,7 +96,7 @@ export const rail = style({
 
 export const sidebar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "rail",
       display: "flex",
       flexDirection: "column",
@@ -118,7 +111,7 @@ export const sidebar = style({
 
 export const sidebar_container = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       blockSize: "100%",
@@ -155,9 +148,9 @@ export const sidebar_container = style({
 });
 
 /** Lo que desaparece al encoger el carril: rótulos, secciones y todo lo que necesite ancho. */
-export const railLabel = style({
+export const rail_label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       minWidth: 0,
       selectors: {
         "[data-rail-collapsed='true'] &": { display: "none" },
@@ -171,7 +164,7 @@ export const railLabel = style({
 
 export const toggle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       top: chromeHeight,
       right: 0,
@@ -190,7 +183,7 @@ export const toggle = style({
 
 export const sidebar_slot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       zIndex: vars.zIndex.sticky,
       position: "sticky",
       boxSizing: "border-box",
@@ -240,7 +233,7 @@ export const sidebar_slot = style({
 
 export const sidebar_header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       top: 0,
       borderBlock: `1px solid ${vars.glass.default.borderColor} !important`,
     },
@@ -249,7 +242,7 @@ export const sidebar_header = style({
 
 export const sidebar_footer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       bottom: 0,
       borderBlockStart: `1px solid ${vars.glass.default.borderColor} !important`,
     },
@@ -258,7 +251,7 @@ export const sidebar_footer = style({
 
 export const sidebar_body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: 1,
       minHeight: "max-content",
       overflow: "hidden",
@@ -281,9 +274,9 @@ export const sidebar_body = style({
   },
 });
 
-export const sidebarBottom = style({
+export const sidebar_bottom = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       marginBlockStart: "auto",
       borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
     },
@@ -291,9 +284,9 @@ export const sidebarBottom = style({
 });
 
 /** Cada grupo de enlaces: su rótulo, su acción y su lista. */
-export const linkGroup = style({
+export const link_group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -304,9 +297,9 @@ export const linkGroup = style({
   },
 });
 
-export const linkGroupHead = style({
+export const link_group_head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -324,9 +317,9 @@ export const linkGroupHead = style({
 });
 
 /** La lista de enlaces del carril: columna, y fila de iconos en la barra móvil. */
-export const railNav = style({
+export const rail_nav = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -349,9 +342,9 @@ export const railNav = style({
   },
 });
 
-export const railChrome = style({
+export const rail_chrome = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "chrome",
       minWidth: 0,
       zIndex: 2,
@@ -361,13 +354,13 @@ export const railChrome = style({
 
 export const section = style({
   "@layer": {
-    [baseLayer]: { display: "flex", flexDirection: "column", minWidth: 0 },
+    [base_layer]: { display: "flex", flexDirection: "column", minWidth: 0 },
   },
 });
 
-export const sectionHeader = style({
+export const section_header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
@@ -382,9 +375,9 @@ export const sectionHeader = style({
   },
 });
 
-export const sectionSub = style({
+export const section_sub = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
       borderBlockEnd: `1px solid ${vars.glass.control.borderColor}`,
@@ -397,14 +390,14 @@ export const sectionSub = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: { padding: vars.space.lg, minWidth: 0 },
+    [base_layer]: { padding: vars.space.lg, minWidth: 0 },
   },
 });
 
 /** Las regiones heredadas son partes: traen su semántica y su área de la rejilla. */
 export const navbar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "nav",
       position: "sticky",
       insetBlockStart: headHeight,
@@ -420,9 +413,9 @@ export const navbar = style({
   },
 });
 
-export const asideRegion = style({
+export const aside_region = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "aside",
       position: "sticky",
       insetBlockStart: headHeight,
@@ -437,7 +430,7 @@ export const asideRegion = style({
 
 export const footer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridArea: "footer",
       boxSizing: "border-box",
       display: "flex",
@@ -452,9 +445,9 @@ export const footer = style({
 });
 
 /** La cabecera vale en los dos montajes: como región de la rejilla o dentro de una sección. */
-export const headerSticky = style({
+export const header_sticky = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       top: 0,
       gridArea: "header",
       position: "sticky",
@@ -464,9 +457,9 @@ export const headerSticky = style({
   },
 });
 
-export const stickyChrome = style({
+export const sticky_chrome = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       top: 0,
       position: "sticky",
       zIndex: vars.zIndex.sticky,
@@ -475,9 +468,9 @@ export const stickyChrome = style({
 });
 
 /** La subbarra se apila justo debajo de la cabecera, no encima de ella. */
-export const stickySub = style({
+export const sticky_sub = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       top: 0,
       position: "sticky",
       insetBlockStart: chromeHeight,
@@ -486,9 +479,9 @@ export const stickySub = style({
   },
 });
 
-export const scrollShadow = style({
+export const scroll_shadow = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "sticky",
       insetBlockStart: shadowOffset,
       zIndex: `calc(${vars.zIndex.sticky} - 2)`,
@@ -508,7 +501,7 @@ export const scrollShadow = style({
   },
 });
 
-globalStyle(`${railNav} > *`, {
+globalStyle(`${rail_nav} > *`, {
   "@media": {
     [SmallerThan("tablet")]: { inlineSize: "max-content", flex: "0 0 auto" },
   },

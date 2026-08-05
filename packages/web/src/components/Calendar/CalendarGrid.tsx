@@ -55,7 +55,7 @@ function Cell(props: CellProps): ReactElement {
   const { hoverProps, isHovered } = useHover({ isDisabled });
 
   const outside = isOutsideVisibleRange || date.month !== currentMonth.month;
-  if (outside) return <td className={styles.cellWrapper} />;
+  if (outside) return <td className={styles.cell_wrapper} />;
 
   const range = HighlightedRange(state);
   const in_range = range !== null && date.compare(range.start) >= 0 && date.compare(range.end) <= 0;
@@ -64,7 +64,7 @@ function Cell(props: CellProps): ReactElement {
   return (
     <td
       {...cellProps}
-      className={styles.cellWrapper}
+      className={styles.cell_wrapper}
       data-range-selected={in_range ? "true" : undefined}
       data-range-start={range !== null && isSameDay(date, range.start) ? "true" : undefined}
       data-range-end={range !== null && isSameDay(date, range.end) ? "true" : undefined}
@@ -72,7 +72,7 @@ function Cell(props: CellProps): ReactElement {
       <div
         {...mergeProps(buttonProps, focusProps, hoverProps)}
         ref={ref}
-        className={cx(styles.cell, styles.cellSize[size])}
+        className={cx(styles.cell, styles.cell_size[size])}
         data-selected={isSelected ? "true" : undefined}
         data-range-middle={in_range && !is_edge ? "true" : undefined}
         data-hovered={isHovered ? "true" : undefined}

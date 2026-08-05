@@ -160,7 +160,7 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
       {...(label === undefined ? {} : { "aria-label": label })}
     >
       <svg
-        className={cx(styles.ringSvg, indeterminate && styles.ringSpin)}
+        className={cx(styles.ring_svg, indeterminate && styles.ring_spin)}
         viewBox={`0 0 ${String(box)} ${String(box)}`}
         aria-hidden="true"
       >
@@ -180,7 +180,7 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
           return (
             <circle
               key={`${String(index)}-${segment.color ?? color}`}
-              className={styles.ringArc}
+              className={styles.ring_arc}
               cx={box / 2}
               cy={box / 2}
               r={radius}
@@ -195,7 +195,7 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
         })}
       </svg>
       {children === undefined || children === null ? null : (
-        <span className={styles.ringLabel}>{children}</span>
+        <span className={styles.ring_label}>{children}</span>
       )}
     </div>
   );

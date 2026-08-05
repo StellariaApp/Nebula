@@ -60,7 +60,7 @@ describe("Scroll", () => {
     const both = screen.getByTestId("xy").className;
     expect(both).not.toBe(block);
     expect(both).not.toBe(inline);
-    expect(both.includes("bothShadows")).toBe(true);
+    expect(both.includes("both_shadows")).toBe(true);
   });
 
   it("smooth cambia la clase del recipe", () => {

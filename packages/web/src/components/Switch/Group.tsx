@@ -61,7 +61,7 @@ export function SwitchGroup(props: SwitchGroupProps): ReactElement {
   };
 
   const items_node = (
-    <div className={cx(orientation === "horizontal" ? styles.listRow : styles.list)}>
+    <div className={cx(orientation === "horizontal" ? styles.list_row : styles.list)}>
       <SwitchGroupContext.Provider value={context}>{children}</SwitchGroupContext.Provider>
     </div>
   );

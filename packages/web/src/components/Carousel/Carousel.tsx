@@ -11,6 +11,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 
 import * as styles from "./Carousel.css.js";
+import * as carousel_vars from "./Carousel.vars.css.js";
 import { CAROUSEL_LABELS } from "./labels.js";
 import type { CarouselProps } from "./Carousel.types.js";
 
@@ -120,7 +121,7 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     embla.scrollTo(index, reduced);
   }, [embla, index, reduced]);
 
-  const css_vars = assignInlineVars({ [styles.slideSize]: LengthToCss(slideSize) });
+  const css_vars = assignInlineVars({ [carousel_vars.slideSize]: LengthToCss(slideSize) });
   const total = items.length;
 
   return (
@@ -133,7 +134,7 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     >
       <div className={styles.viewport} ref={viewport_ref}>
         <div className={styles.container} data-axis={axis}>
-          {total === 0 && empty !== undefined ? <p className={styles.emptySlot}>{empty}</p> : null}
+          {total === 0 && empty !== undefined ? <p className={styles.empty_slot}>{empty}</p> : null}
           {items.map((item, position) => (
             <div
               key={getKey(item, position)}

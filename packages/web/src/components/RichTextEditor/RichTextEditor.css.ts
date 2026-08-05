@@ -1,15 +1,14 @@
-import { createVar, globalStyle, style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const minHeight = createVar();
-export const maxHeight = createVar();
+import { maxHeight, minHeight } from "./RichTextEditor.vars.css.js";
 
 export const shell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       boxSizing: "border-box",
@@ -31,7 +30,7 @@ export const shell = style({
 
 export const toolbar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -45,7 +44,7 @@ export const toolbar = style({
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: 2,
@@ -61,7 +60,7 @@ export const group = style({
 
 export const placeholder = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetInlineStart: vars.space.sm,
       insetBlockStart: vars.space.sm,
@@ -75,7 +74,7 @@ export const placeholder = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       minHeight: minHeight,
       maxHeight: maxHeight,
@@ -95,42 +94,42 @@ const HEADING = {
 } as const;
 
 globalStyle(`${content} .ProseMirror`, {
-  "@layer": { [baseLayer]: { outline: "none", minHeight: "inherit" } },
+  "@layer": { [base_layer]: { outline: "none", minHeight: "inherit" } },
 });
 
 globalStyle(`${content} .ProseMirror:focus-visible`, {
-  "@layer": { [baseLayer]: { ...focus.ring } },
+  "@layer": { [base_layer]: { ...focus.ring } },
 });
 
 globalStyle(`${content} .ProseMirror p`, {
-  "@layer": { [baseLayer]: { margin: 0 } },
+  "@layer": { [base_layer]: { margin: 0 } },
 });
 
 globalStyle(`${content} .ProseMirror p + p`, {
-  "@layer": { [baseLayer]: { marginBlockStart: vars.space.sm } },
+  "@layer": { [base_layer]: { marginBlockStart: vars.space.sm } },
 });
 
 globalStyle(`${content} .ProseMirror h1`, {
   "@layer": {
-    [baseLayer]: { ...HEADING, marginBlockStart: vars.space.md, fontSize: vars.font.size.h3 },
+    [base_layer]: { ...HEADING, marginBlockStart: vars.space.md, fontSize: vars.font.size.h3 },
   },
 });
 
 globalStyle(`${content} .ProseMirror h2`, {
   "@layer": {
-    [baseLayer]: { ...HEADING, marginBlockStart: vars.space.md, fontSize: vars.font.size.h4 },
+    [base_layer]: { ...HEADING, marginBlockStart: vars.space.md, fontSize: vars.font.size.h4 },
   },
 });
 
 globalStyle(`${content} .ProseMirror h3`, {
   "@layer": {
-    [baseLayer]: { ...HEADING, marginBlockStart: vars.space.sm, fontSize: vars.font.size.h5 },
+    [base_layer]: { ...HEADING, marginBlockStart: vars.space.sm, fontSize: vars.font.size.h5 },
   },
 });
 
 globalStyle(`${content} .ProseMirror ul, ${content} .ProseMirror ol`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginBlockStart: vars.space.sm,
       paddingInlineStart: vars.space.lg,
@@ -140,7 +139,7 @@ globalStyle(`${content} .ProseMirror ul, ${content} .ProseMirror ol`, {
 
 globalStyle(`${content} .ProseMirror blockquote`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginBlockStart: vars.space.sm,
       paddingInlineStart: vars.space.sm,
@@ -152,7 +151,7 @@ globalStyle(`${content} .ProseMirror blockquote`, {
 
 globalStyle(`${content} .ProseMirror pre`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginBlockStart: vars.space.sm,
       padding: vars.space.sm,
@@ -168,12 +167,12 @@ globalStyle(`${content} .ProseMirror pre`, {
 });
 
 globalStyle(`${content} .ProseMirror code`, {
-  "@layer": { [baseLayer]: { fontFamily: vars.font.family.mono, fontSize: "0.9em" } },
+  "@layer": { [base_layer]: { fontFamily: vars.font.family.mono, fontSize: "0.9em" } },
 });
 
 globalStyle(`${content} .ProseMirror hr`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginBlock: vars.space.md,
       border: "none",
@@ -184,6 +183,6 @@ globalStyle(`${content} .ProseMirror hr`, {
 
 globalStyle(`${content} .ProseMirror a`, {
   "@layer": {
-    [baseLayer]: { color: vars.color.primary["600"], textDecoration: "underline" },
+    [base_layer]: { color: vars.color.primary["600"], textDecoration: "underline" },
   },
 });

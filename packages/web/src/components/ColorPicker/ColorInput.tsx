@@ -110,7 +110,7 @@ export function ColorInput(props: ColorInputProps): ReactElement {
           data-disabled={fp.isDisabled ? "true" : undefined}
         >
           <span
-            className={cx(styles.preview, styles.previewSize[size], styles.checker)}
+            className={cx(styles.preview, styles.preview_size[size], styles.checker)}
             style={{ background: parsed === null ? undefined : fp.value }}
             aria-hidden="true"
           />
@@ -149,7 +149,7 @@ export function ColorInput(props: ColorInputProps): ReactElement {
               data-focus-visible={isFocusVisible ? "true" : undefined}
             >
               <span
-                className={cx(styles.preview, styles.previewSize[size], styles.checker)}
+                className={cx(styles.preview, styles.preview_size[size], styles.checker)}
                 style={{ background: parsed === null ? undefined : fp.value }}
               />
             </button>

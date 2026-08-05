@@ -63,7 +63,7 @@ function Thumb(props: ThumbProps): ReactElement {
   return (
     <div
       {...thumbProps}
-      className={cx(styles.thumb, styles.thumbSize[size])}
+      className={cx(styles.thumb, styles.thumb_size[size])}
       data-dragging={isDragging ? "true" : undefined}
       data-focus-visible={isFocusVisible ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
@@ -176,14 +176,14 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
   return (
     <div {...groupProps} className={cx(styles.row, className)}>
       <div
-        className={cx(styles.root, with_marks ? styles.rootWithMarks : undefined)}
+        className={cx(styles.root, with_marks ? styles.root_with_marks : undefined)}
         style={assignInlineVars({ [sliderColor]: ResolveAccent(color, "600") })}
         data-disabled={disabled ? "true" : undefined}
       >
         <div
           {...trackProps}
           ref={track_ref}
-          className={cx(styles.track, styles.trackSize[size])}
+          className={cx(styles.track, styles.track_size[size])}
           style={assignInlineVars(TrackVars(variant, color, theme))}
           data-disabled={disabled ? "true" : undefined}
         >

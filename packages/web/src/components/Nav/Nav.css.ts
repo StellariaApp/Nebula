@@ -2,9 +2,9 @@ import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import {
@@ -29,7 +29,7 @@ export const root = recipe({
       [linkFont]: vars.font.size.body3,
     },
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "flex",
         alignItems: "center",
         width: "100%",
@@ -44,21 +44,21 @@ export const root = recipe({
     size: {
       sm: {
         vars: { [linkHeight]: vars.size.control.xs, [linkFont]: vars.font.size.body3 },
-        "@layer": { [baseLayer]: { minHeight: vars.size.control.md } },
+        "@layer": { [base_layer]: { minHeight: vars.size.control.md } },
       },
       md: {
         vars: { [linkHeight]: vars.size.control.sm, [linkFont]: vars.font.size.body2 },
-        "@layer": { [baseLayer]: { minHeight: vars.size.control.lg } },
+        "@layer": { [base_layer]: { minHeight: vars.size.control.lg } },
       },
       lg: {
         vars: { [linkHeight]: vars.size.control.md, [linkFont]: vars.font.size.body2 },
-        "@layer": { [baseLayer]: { minHeight: vars.size.control.xl } },
+        "@layer": { [base_layer]: { minHeight: vars.size.control.xl } },
       },
     },
     withBorder: {
       true: {
         "@layer": {
-          [baseLayer]: { borderBlockEnd: `1px solid ${vars.color.border.subtle}` },
+          [base_layer]: { borderBlockEnd: `1px solid ${vars.color.border.subtle}` },
         },
       },
       false: {},
@@ -71,7 +71,7 @@ export type NavRootVariants = NonNullable<RecipeVariants<typeof root>>;
 
 export const inner = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -87,7 +87,7 @@ export const inner = style({
 
 export const sticky = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "sticky",
       insetBlockStart: 0,
       flexShrink: 0,
@@ -106,7 +106,7 @@ export const sticky = style({
       },
 
       "@media": {
-        [reducedMedia]: still,
+        [reduced_media]: still,
         "(forced-colors: active)": {
           selectors: {
             "&[data-scrolled='true']": {
@@ -128,7 +128,7 @@ const MATERIAL_TRANSITION = "border-color, background-color, box-shadow, backdro
 
 export const floating = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       insetBlockStart: `calc(${P} * ${floatingGap})`,
       insetInlineStart: `calc(${P} * ${EDGE})`,
@@ -156,7 +156,7 @@ export const floating = style({
       },
 
       "@media": {
-        [reducedMedia]: still,
+        [reduced_media]: still,
         "(forced-colors: active)": {
           selectors: {
             "&[data-scrolled='true']": {
@@ -172,7 +172,7 @@ export const floating = style({
 
 export const logo = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -201,7 +201,7 @@ const HIDDEN = { display: "none" } as const;
 export const actions = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "flex",
         alignItems: "center",
         gap: vars.space.sm,
@@ -212,9 +212,9 @@ export const actions = recipe({
   variants: {
     collapse: {
       none: {},
-      phone: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
-      tablet: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
-      laptop: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+      phone: { "@layer": { [base_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: { "@layer": { [base_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
+      laptop: { "@layer": { [base_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
     },
   },
   defaultVariants: { collapse: "tablet" },
@@ -223,7 +223,7 @@ export const actions = recipe({
 export const links = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -236,23 +236,23 @@ export const links = recipe({
   },
   variants: {
     align: {
-      start: { "@layer": { [baseLayer]: { marginInlineEnd: "auto" } } },
-      center: { "@layer": { [baseLayer]: { marginInline: "auto" } } },
-      end: { "@layer": { [baseLayer]: { marginInlineStart: "auto" } } },
+      start: { "@layer": { [base_layer]: { marginInlineEnd: "auto" } } },
+      center: { "@layer": { [base_layer]: { marginInline: "auto" } } },
+      end: { "@layer": { [base_layer]: { marginInlineStart: "auto" } } },
     },
     overflowMenu: {
       true: {
         "@layer": {
-          [baseLayer]: { flex: "1 1 auto", minWidth: 0, flexWrap: "nowrap" },
+          [base_layer]: { flex: "1 1 auto", minWidth: 0, flexWrap: "nowrap" },
         },
       },
       false: {},
     },
     collapse: {
       none: {},
-      phone: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
-      tablet: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
-      laptop: { "@layer": { [baseLayer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+      phone: { "@layer": { [base_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: { "@layer": { [base_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
+      laptop: { "@layer": { [base_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
     },
   },
   defaultVariants: { align: "center", collapse: "tablet", overflowMenu: false },
@@ -262,7 +262,7 @@ export type NavLinksVariants = NonNullable<RecipeVariants<typeof links>>;
 
 export const indicator = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: 0,
       insetInlineStart: 0,
@@ -280,7 +280,7 @@ export const indicator = style({
 
 export const link = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       zIndex: 1,
       display: "inline-flex",
@@ -324,7 +324,7 @@ export const link = style({
       },
 
       "@media": {
-        [reducedMedia]: still,
+        [reduced_media]: still,
         "(forced-colors: active)": {
           selectors: {
             "&[data-active='true']": { forcedColorAdjust: "none", textDecoration: "underline" },
@@ -337,7 +337,7 @@ export const link = style({
 
 export const section = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.md,
@@ -349,7 +349,7 @@ export const section = style({
 
 export const divider = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexShrink: 0,
       alignSelf: "center",
       inlineSize: "1px",
@@ -361,9 +361,9 @@ export const divider = style({
 });
 
 /** El cajón de la landing: cristal, borde de inicio y pie en columna. */
-export const sidebarScrim = style({
+export const sidebar_scrim = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       inset: 0,
       border: 0,
@@ -377,7 +377,7 @@ export const sidebarScrim = style({
 
 export const sidebar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       insetBlock: 0,
       insetInlineEnd: 0,
@@ -395,9 +395,9 @@ export const sidebar = style({
   },
 });
 
-export const sidebarHead = style({
+export const sidebar_head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       justifyContent: "flex-end",
       padding: vars.space.sm,
@@ -406,9 +406,9 @@ export const sidebarHead = style({
   },
 });
 
-export const sidebarBody = style({
+export const sidebar_body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -420,9 +420,9 @@ export const sidebarBody = style({
   },
 });
 
-export const sidebarFooter = style({
+export const sidebar_footer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "stretch",
@@ -437,13 +437,13 @@ export const sidebarFooter = style({
 
 export const overflow = style({
   "@layer": {
-    [baseLayer]: { position: "relative", flexShrink: 0 },
+    [base_layer]: { position: "relative", flexShrink: 0 },
   },
 });
 
-export const overflowTrigger = style({
+export const overflow_trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -474,14 +474,14 @@ export const overflowTrigger = style({
         },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
-export const overflowPanel = style({
+export const overflow_panel = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: "calc(100% + 4px)",
       insetInlineEnd: 0,

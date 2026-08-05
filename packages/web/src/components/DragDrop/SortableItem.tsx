@@ -9,6 +9,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./DragDrop.css.js";
+import * as drag_drop_vars from "./DragDrop.vars.css.js";
 import { useDragDropLabels } from "./DragDropContext.js";
 import { DragHandle } from "./DragHandle.js";
 
@@ -35,8 +36,8 @@ export function SortableItem(props: SortableItemProps): ReactElement {
   } = useSortable({ id, disabled });
 
   const css_vars = assignInlineVars({
-    [styles.transform]: CSS.Transform.toString(transform) ?? "none",
-    [styles.transition]: transition ?? "none",
+    [drag_drop_vars.transform]: CSS.Transform.toString(transform) ?? "none",
+    [drag_drop_vars.transition]: transition ?? "none",
   });
 
   const Element = component;

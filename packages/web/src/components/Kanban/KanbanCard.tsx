@@ -16,14 +16,14 @@ export function KanbanCard(props: KanbanCardProps): ReactElement {
   return (
     <div className={cx(styles.card, sprinkle_class, className)} style={sprinkle_style} {...rest}>
       {has_head ? (
-        <div className={styles.cardHead}>
-          {title === undefined ? null : <p className={styles.cardTitle}>{title}</p>}
+        <div className={styles.card_head}>
+          {title === undefined ? null : <p className={styles.card_title}>{title}</p>}
           {badge}
         </div>
       ) : null}
-      {description === undefined ? null : <p className={styles.cardDescription}>{description}</p>}
+      {description === undefined ? null : <p className={styles.card_description}>{description}</p>}
       {children}
-      {meta === undefined ? null : <div className={styles.cardMeta}>{meta}</div>}
+      {meta === undefined ? null : <div className={styles.card_meta}>{meta}</div>}
     </div>
   );
 }

@@ -9,6 +9,7 @@
 
 - **Sin comentarios en el código.** Si algo necesita explicación, va en un `<Nombre>.md` junto al módulo.
 - **Naming**: hooks `camelCase` · funciones `PascalCase` (incluido el API público) · constantes globales `UPPERCASE` · constantes locales que declaras tú `snake_case`. Las props y los retornos de librerías conservan su nombre. Lo verifica `@typescript-eslint/naming-convention` en el gate `lint`.
+- **Dentro de las hojas manda el archivo** (ADR-094): en `<Nombre>.css.ts` los símbolos van en `snake_case` porque son asas de clase (`sidebar_container`); en `<Nombre>.vars.css.ts` van en `camelCase` porque nombran la propiedad CSS que gobiernan (`borderColor`). Las tablas de constantes siguen en `UPPER_CASE` en ambos.
 - **Componentes planos**, sin carpeta de categoría.
 
 ## 1. Estructura de archivos
@@ -77,7 +78,7 @@ export const bg = createVar();
 export const fg = createVar();
 
 // X.css.ts — el recipe consume las vars; NUNCA hornea un color
-export const x = recipe({
+export const x_root = recipe({
   base: { background: bg, color: fg, height: vars.size.md /* estructura */ },
   variants: { size: { xs: {…}, …} },
 });

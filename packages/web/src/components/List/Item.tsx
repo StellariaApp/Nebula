@@ -21,10 +21,10 @@ const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListIte
     <Box
       ref={ref}
       component={component ?? "li"}
-      className={cx(styles.itemWithIcon, className)}
+      className={cx(styles.item_with_icon, className)}
       {...rest}
     >
-      <span className={styles.itemIcon} aria-hidden="true">
+      <span className={styles.item_icon} aria-hidden="true">
         {icon}
       </span>
       <span>{children}</span>

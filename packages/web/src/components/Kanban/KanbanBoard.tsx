@@ -103,9 +103,9 @@ export function KanbanBoard<T>(props: KanbanBoardProps<T>): ReactElement {
               {...(columnWidth === undefined ? {} : { width: columnWidth })}
             >
               <SortableContext items={keys} strategy={verticalListSortingStrategy}>
-                <ul className={styles.columnBody}>
+                <ul className={styles.column_body}>
                   {keys.length === 0 && column.empty !== undefined ? (
-                    <li className={dragStyles.emptySlot}>{column.empty}</li>
+                    <li className={dragStyles.empty_slot}>{column.empty}</li>
                   ) : null}
                   {keys.map((key) => {
                     const item = by_key.get(key);

@@ -1,14 +1,13 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const accent = createVar();
-export const thickness = createVar();
+import { accent, thickness } from "./NProgress.vars.css.js";
 
 export const track = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "fixed",
       insetBlockStart: 0,
       insetInline: 0,
@@ -20,7 +19,7 @@ export const track = style({
 
 export const bar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       height: "100%",
       background: accent,
       transformOrigin: "left center",

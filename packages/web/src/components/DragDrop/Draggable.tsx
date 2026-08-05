@@ -9,6 +9,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./DragDrop.css.js";
+import * as drag_drop_vars from "./DragDrop.vars.css.js";
 import { useDragDropLabels } from "./DragDropContext.js";
 import { DragHandle } from "./DragHandle.js";
 import type { DraggableProps } from "./DragDrop.types.js";
@@ -30,8 +31,8 @@ export function Draggable(props: DraggableProps): ReactElement {
     useDraggable({ id, disabled });
 
   const css_vars = assignInlineVars({
-    [styles.transform]: CSS.Translate.toString(transform) ?? "none",
-    [styles.transition]: "none",
+    [drag_drop_vars.transform]: CSS.Translate.toString(transform) ?? "none",
+    [drag_drop_vars.transition]: "none",
   });
 
   const dragging = isDragging ? "true" : "false";

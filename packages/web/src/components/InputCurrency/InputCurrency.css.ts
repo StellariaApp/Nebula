@@ -1,10 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const amount = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontVariantNumeric: "tabular-nums",
       textAlign: "end",
     },

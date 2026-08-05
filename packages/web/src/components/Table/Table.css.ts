@@ -3,11 +3,11 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const table = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       borderCollapse: "collapse",
       fontFamily: vars.font.family.sans,
@@ -19,7 +19,7 @@ export const table = style({
 
 export const bordered = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderWidth: 1,
       borderStyle: "solid",
       borderColor: vars.color.border.subtle,
@@ -31,7 +31,7 @@ export const bordered = style({
 
 export const caption = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       captionSide: "top",
       textAlign: "start",
       paddingBlockEnd: vars.space.sm,
@@ -43,7 +43,7 @@ export const caption = style({
 
 export const head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: vars.color.border.default,
@@ -53,7 +53,7 @@ export const head = style({
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderTopWidth: 1,
       borderTopStyle: "solid",
       borderTopColor: vars.color.border.default,
@@ -64,12 +64,12 @@ export const foot = style({
 
 export const row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: vars.color.border.default,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "tbody &:last-child": { borderBottomWidth: 0 },
         "[data-striped='true'] tbody &:nth-child(even)": { background: vars.color.surface.sunken },
@@ -82,7 +82,7 @@ export const row = style({
 
 export const pressable = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       cursor: "pointer",
       selectors: { "&:focus-visible": focus.ring },
     },
@@ -91,7 +91,7 @@ export const pressable = style({
 
 export const cell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       textAlign: "start",
       verticalAlign: "middle",
       selectors: {
@@ -105,7 +105,7 @@ export const cell = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontWeight: vars.font.weight.semibold,
       color: vars.color.text.secondary,
       whiteSpace: "nowrap",
@@ -123,7 +123,7 @@ export const title = style({
 
 export const numeric = style({
   "@layer": {
-    [baseLayer]: { fontVariantNumeric: "tabular-nums" },
+    [base_layer]: { fontVariantNumeric: "tabular-nums" },
   },
 });
 
@@ -135,7 +135,7 @@ export const align = styleVariants({
 
 export const scroll = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       overflowX: "auto",
       selectors: { "&:focus-visible": focus.ring },
@@ -143,8 +143,8 @@ export const scroll = style({
   },
 });
 
-export const scrollInner = style({
+export const scroll_inner = style({
   "@layer": {
-    [baseLayer]: { minWidth: "100%" },
+    [base_layer]: { minWidth: "100%" },
   },
 });

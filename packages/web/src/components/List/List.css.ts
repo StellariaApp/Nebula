@@ -1,13 +1,13 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { listSpacing } from "./List.vars.css.js";
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       paddingInlineStart: 0,
       color: vars.color.text.primary,
@@ -17,9 +17,9 @@ export const list = style({
   },
 });
 
-export const withPadding = style({
+export const with_padding = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInlineStart: vars.space.lg,
       listStylePosition: "outside",
     },
@@ -27,14 +27,14 @@ export const withPadding = style({
 });
 
 export const unstyled = style({
-  "@layer": { [baseLayer]: { listStyleType: "none", paddingInlineStart: 0 } },
+  "@layer": { [base_layer]: { listStyleType: "none", paddingInlineStart: 0 } },
 });
 
 export const item = style({});
 
-export const itemWithIcon = style({
+export const item_with_icon = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       gap: vars.space.xs,
@@ -43,7 +43,7 @@ export const itemWithIcon = style({
   },
 });
 
-export const itemIcon = style({
+export const item_icon = style({
   flexShrink: 0,
   display: "inline-flex",
   alignItems: "center",

@@ -56,14 +56,14 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.glassSurface({ shadow, radius: named_radius, withBorder }), className)}
+        className={cx(styles.glass_surface({ shadow, radius: named_radius, withBorder }), className)}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-glass={enabled ? "on" : "off"}
         data-level={level}
         {...rest}
       >
         {noise && enabled ? (
-          <span className={cx(grain, styles.grainLayer)} aria-hidden="true" />
+          <span className={cx(grain, styles.grain_layer)} aria-hidden="true" />
         ) : null}
         {children}
       </Box>

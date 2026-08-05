@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -24,14 +24,14 @@ export const trigger = style({
         "&:hover": { borderColor: vars.color.border.default, color: vars.color.text.secondary },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const shortcut = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       marginInlineStart: "auto",
       paddingInline: vars.space.xxs,
       borderRadius: vars.radius.xs,
@@ -44,9 +44,9 @@ export const shortcut = style({
   },
 });
 
-export const searchRow = style({
+export const search_row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -59,7 +59,7 @@ export const searchRow = style({
 
 export const input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: 1,
       minWidth: 0,
       border: "none",
@@ -77,7 +77,7 @@ export const input = style({
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       padding: vars.space.xxs,
       background: vars.color.surface.sunken,
@@ -88,9 +88,9 @@ export const list = style({
   },
 });
 
-export const groupLabel = style({
+export const group_label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: `${vars.space.xs} ${vars.space.sm} ${vars.space.xxs}`,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
@@ -103,7 +103,7 @@ export const groupLabel = style({
 
 export const option = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -116,14 +116,14 @@ export const option = style({
       selectors: {
         "&[data-active='true']": { background: vars.color.surface.hover },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
-export const optionIcon = style({
+export const option_icon = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       color: vars.color.text.muted,
       flex: "0 0 auto",
@@ -131,15 +131,15 @@ export const optionIcon = style({
   },
 });
 
-export const optionBody = style({
+export const option_body = style({
   "@layer": {
-    [baseLayer]: { display: "flex", flexDirection: "column", minWidth: 0, gap: 2 },
+    [base_layer]: { display: "flex", flexDirection: "column", minWidth: 0, gap: 2 },
   },
 });
 
-export const optionTitle = style({
+export const option_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body2,
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -148,9 +148,9 @@ export const optionTitle = style({
   },
 });
 
-export const optionDescription = style({
+export const option_description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,
       overflow: "hidden",
@@ -162,7 +162,7 @@ export const optionDescription = style({
 
 export const status = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.lg,
       textAlign: "center",
       fontSize: vars.font.size.body2,

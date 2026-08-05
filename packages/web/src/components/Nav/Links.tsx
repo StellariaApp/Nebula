@@ -194,14 +194,14 @@ export function NavLinks(props: NavLinksProps): ReactElement {
         {overflowMenu ? nodes.slice(0, shown) : children}
         {overflowMenu && hidden.length > 0 ? (
           <details className={styles.overflow}>
-            <summary className={styles.overflowTrigger} aria-label={text.more}>
+            <summary className={styles.overflow_trigger} aria-label={text.more}>
               <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                 <circle cx="5" cy="12" r="1.6" />
                 <circle cx="12" cy="12" r="1.6" />
                 <circle cx="19" cy="12" r="1.6" />
               </svg>
             </summary>
-            <div className={styles.overflowPanel}>{hidden}</div>
+            <div className={styles.overflow_panel}>{hidden}</div>
           </details>
         ) : null}
       </NavLinksContext.Provider>

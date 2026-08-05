@@ -105,7 +105,7 @@ export function StarField(props: StarFieldProps): ReactElement {
 
   return (
     <span
-      className={cx(styles.starField, sprinkle_class, className)}
+      className={cx(styles.star_field, sprinkle_class, className)}
       style={{
         ...css_vars,
         ...(zIndex === undefined ? {} : { zIndex }),
@@ -118,7 +118,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     >
       {aurora ? (
         <span className={styles.aurora} aria-hidden="true">
-          {styles.auroraBlob.map((blob, i) => (
+          {styles.aurora_blob.map((blob, i) => (
             <span
               key={blob}
               className={blob}

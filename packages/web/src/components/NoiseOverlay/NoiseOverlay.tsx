@@ -5,7 +5,8 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { grain, noiseOpacity } from "../../styles/noise.css.js";
+import { grain } from "../../styles/noise.css.js";
+import { noiseOpacity } from "../../styles/noise.vars.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./NoiseOverlay.css.js";

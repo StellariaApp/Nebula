@@ -2,7 +2,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 const CHECKER = `linear-gradient(45deg, ${vars.color.border.subtle} 25%, transparent 25%),
 linear-gradient(-45deg, ${vars.color.border.subtle} 25%, transparent 25%),
@@ -11,7 +11,7 @@ linear-gradient(-45deg, transparent 75%, ${vars.color.border.subtle} 75%)`;
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.u3,
@@ -23,7 +23,7 @@ export const root = style({
 
 export const area = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       width: "100%",
       height: 140,
@@ -40,7 +40,7 @@ export const area = style({
 
 export const track = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       width: "100%",
       height: 14,
@@ -57,7 +57,7 @@ export const track = style({
 
 export const checker = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       backgroundImage: CHECKER,
       backgroundSize: "8px 8px",
       backgroundPosition: "0 0, 0 4px, 4px -4px, -4px 0",
@@ -67,7 +67,7 @@ export const checker = style({
 
 export const thumb = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       width: 16,
       height: 16,
@@ -86,7 +86,7 @@ export const thumb = style({
 
 export const swatches = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       gap: vars.space.xs,
@@ -96,7 +96,7 @@ export const swatches = style({
 
 export const swatch = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       appearance: "none",
       width: vars.size.compact.md,
       height: vars.size.compact.md,
@@ -120,7 +120,7 @@ export const swatch = style({
 
 export const preview = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       flexShrink: 0,
       width: "1.25em",
@@ -135,7 +135,7 @@ export const preview = style({
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -156,7 +156,7 @@ export const trigger = style({
 
 export const dropdown = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       width: 232,
       background: vars.color.surface.overlay,
@@ -173,7 +173,7 @@ export const dropdown = style({
   },
 });
 
-export const previewSize = styleVariants({
+export const preview_size = styleVariants({
   xs: { width: "1em", height: "1em" },
   sm: { width: "1.1em", height: "1.1em" },
   md: { width: "1.25em", height: "1.25em" },

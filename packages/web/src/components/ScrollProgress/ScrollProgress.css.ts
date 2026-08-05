@@ -1,16 +1,14 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
-import { reducedMedia, still, value as valueMotion } from "../../styles/motion.css.js";
+import { reduced_media, still, value as valueMotion } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const barColor = createVar();
-export const barHeight = createVar();
-export const progress = createVar();
+import { barColor, barHeight, progress } from "./ScrollProgress.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       height: barHeight,
       overflow: "hidden",
@@ -35,12 +33,12 @@ export const root = style({
 
 export const bar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       height: "100%",
       width: progress,
       background: barColor,
       ...valueMotion,
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });

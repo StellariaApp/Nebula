@@ -1,18 +1,16 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
-export const bar = createVar();
-export const barWidth = createVar();
-export const barGap = createVar();
+import { bar, barGap, barWidth } from "./Burger.vars.css.js";
 
 export const burger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       flexDirection: "column",
       alignItems: "center",
@@ -38,7 +36,7 @@ export const burger = style({
 
 export const line = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "block",
       width: barWidth,
       height: 2,
@@ -65,9 +63,9 @@ const SHOWN = { display: "inline-flex" } as const;
 const GONE = { display: "none" } as const;
 
 /** El botón solo existe donde la navegación se pliega: su visibilidad es asunto suyo. */
-export const showBelow = styleVariants({
+export const show_below = styleVariants({
   always: {},
-  phone: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("phone")]: SHOWN } } } },
-  tablet: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("tablet")]: SHOWN } } } },
-  laptop: { "@layer": { [baseLayer]: { ...GONE, "@media": { [SmallerThan("laptop")]: SHOWN } } } },
+  phone: { "@layer": { [base_layer]: { ...GONE, "@media": { [SmallerThan("phone")]: SHOWN } } } },
+  tablet: { "@layer": { [base_layer]: { ...GONE, "@media": { [SmallerThan("tablet")]: SHOWN } } } },
+  laptop: { "@layer": { [base_layer]: { ...GONE, "@media": { [SmallerThan("laptop")]: SHOWN } } } },
 });

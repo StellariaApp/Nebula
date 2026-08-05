@@ -1,17 +1,17 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: { position: "absolute", inset: 0 },
+    [base_layer]: { position: "absolute", inset: 0 },
   },
 });
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -25,6 +25,6 @@ export const body = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: { textAlign: "center" },
+    [base_layer]: { textAlign: "center" },
   },
 });

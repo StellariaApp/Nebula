@@ -37,8 +37,8 @@ export const still = {
   animationName: "none",
 } as const;
 
-export const reducedMotion = {
+export const reduced_motion = {
   "@media": { [REDUCED]: still },
 } as const;
 
-export const reducedMedia = REDUCED;
+export const reduced_media = REDUCED;

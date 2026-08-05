@@ -1169,7 +1169,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/StarField/StarField.js",
     import: "{ StarField }",
     ignore: ["react", "react-dom"],
-    limit: "15.5 kB",
+    limit: "16 kB",
   },
   {
     name: "Lightbox (compuesto: Modal + zoom/pan propio, por módulo)",

@@ -3,13 +3,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { dayBg, dayBorder, dayFg } from "../Calendar/Calendar.vars.css.js";
 
 export const grid = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gap: vars.space.xs,
       fontFamily: vars.font.family.sans,
@@ -20,7 +20,7 @@ export const grid = style({
 
 export const cell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       display: "inline-flex",
       alignItems: "center",
@@ -31,7 +31,7 @@ export const cell = style({
       userSelect: "none",
       textTransform: "capitalize",
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&:hover:not([data-disabled='true']):not([data-selected='true'])": {
           background: vars.color.surface.hover,
@@ -49,7 +49,7 @@ export const cell = style({
   },
 });
 
-export const cellSize = styleVariants({
+export const cell_size = styleVariants({
   xs: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
   sm: { height: vars.size.control.sm, fontSize: vars.font.size.body3 },
   md: { height: vars.size.control.md, fontSize: vars.font.size.body2 },
@@ -59,7 +59,7 @@ export const cellSize = styleVariants({
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -71,7 +71,7 @@ export const header = style({
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       fontFamily: vars.font.family.sans,

@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { skeletonHeight, skeletonRadius, skeletonWidth } from "./Skeleton.vars.css.js";
 
@@ -20,7 +20,7 @@ const PULSE = keyframes({
 export const skeleton = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "block",
         boxSizing: "border-box",
         width: skeletonWidth,

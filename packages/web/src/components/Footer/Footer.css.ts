@@ -1,15 +1,15 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { contentGap, contentMax, logoHeight } from "./Footer.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       minWidth: 0,
       flexShrink: 0,
@@ -41,7 +41,7 @@ export const root = style({
 
 export const inner = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: fallbackVar(contentGap, vars.space.xl),
@@ -56,7 +56,7 @@ export const inner = style({
 
 export const columns = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "flex-start",
@@ -68,7 +68,7 @@ export const columns = style({
 
 export const brand = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -79,9 +79,9 @@ export const brand = style({
   },
 });
 
-export const brandLink = style({
+export const brand_link = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -97,15 +97,15 @@ export const brandLink = style({
   },
 });
 
-globalStyle(`${brandLink} :is(img, svg)`, {
+globalStyle(`${brand_link} :is(img, svg)`, {
   display: "block",
   width: "auto",
   height: fallbackVar(logoHeight, vars.size.compact.md),
 });
 
-export const brandDescription = style({
+export const brand_description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       lineHeight: vars.font.lineHeight.relaxed,
@@ -116,7 +116,7 @@ export const brandDescription = style({
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -125,9 +125,9 @@ export const group = style({
   },
 });
 
-export const groupTitle = style({
+export const group_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
@@ -138,9 +138,9 @@ export const groupTitle = style({
   },
 });
 
-export const groupList = style({
+export const group_list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -153,7 +153,7 @@ export const groupList = style({
 
 export const link = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       minHeight: vars.size.compact.sm,
@@ -174,14 +174,14 @@ export const link = style({
         "&:focus-visible": { ...focus.ring },
       },
 
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const legal = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",

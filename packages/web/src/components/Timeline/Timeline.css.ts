@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { bulletBg, bulletBorder, bulletFg, bulletSize, lineWidth } from "./Timeline.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       listStyle: "none",
@@ -26,7 +26,7 @@ export const align = styleVariants({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "grid",
       gridTemplateColumns: `${bulletSize} 1fr`,
@@ -41,7 +41,7 @@ export const item = style({
 
 export const bullet = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridColumn: 1,
       display: "inline-flex",
       alignItems: "center",
@@ -59,7 +59,7 @@ export const bullet = style({
       lineHeight: 0,
       zIndex: 1,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-reached='true']": {
           background: bulletBg,
@@ -73,7 +73,7 @@ export const bullet = style({
 
 export const line = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetInlineStart: `calc((${bulletSize} - ${lineWidth}) / 2)`,
       top: bulletSize,
@@ -90,7 +90,7 @@ export const line = style({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       gridColumn: 2,
       display: "flex",
       flexDirection: "column",
@@ -102,7 +102,7 @@ export const body = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
       color: vars.color.text.primary,
@@ -112,12 +112,12 @@ export const title = style({
 
 export const meta = style({
   "@layer": {
-    [baseLayer]: { fontSize: vars.font.size.caption, color: vars.color.text.muted },
+    [base_layer]: { fontSize: vars.font.size.caption, color: vars.color.text.muted },
   },
 });
 
 export const description = style({
   "@layer": {
-    [baseLayer]: { fontSize: vars.font.size.body3, color: vars.color.text.secondary },
+    [base_layer]: { fontSize: vars.font.size.body3, color: vars.color.text.secondary },
   },
 });

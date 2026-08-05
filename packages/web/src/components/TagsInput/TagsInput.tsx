@@ -124,7 +124,7 @@ export function TagsInput(props: TagsInputProps): ReactElement {
                   className={styles.tag}
                   data-disabled={fp.isDisabled ? "true" : undefined}
                 >
-                  <span className={styles.tagLabel}>{entry}</span>
+                  <span className={styles.tag_label}>{entry}</span>
                   {editable ? (
                     <ButtonClose
                       size="xs"

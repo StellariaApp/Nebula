@@ -1,15 +1,15 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const paneHeight = createVar();
+import { paneHeight } from "./TransferList.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gridTemplateColumns: "1fr auto 1fr",
       alignItems: "stretch",
@@ -23,7 +23,7 @@ export const root = style({
 
 export const pane = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -35,9 +35,9 @@ export const pane = style({
   },
 });
 
-export const paneHead = style({
+export const pane_head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -49,9 +49,9 @@ export const paneHead = style({
   },
 });
 
-export const paneTitle = style({
+export const pane_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.semibold,
@@ -60,9 +60,9 @@ export const paneTitle = style({
   },
 });
 
-export const paneCount = style({
+export const pane_count = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
@@ -72,7 +72,7 @@ export const paneCount = style({
 
 export const search = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.xs,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
     },
@@ -81,7 +81,7 @@ export const search = style({
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: 2,
@@ -94,7 +94,7 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -114,14 +114,14 @@ export const item = style({
         "&:disabled": { cursor: "not-allowed", color: vars.color.text.disabled },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const empty = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.md,
       textAlign: "center",
       fontSize: vars.font.size.body3,
@@ -132,7 +132,7 @@ export const empty = style({
 
 export const controls = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",

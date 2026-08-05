@@ -12,9 +12,8 @@ import { PressProps } from "../../utils/press-props.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { bar, burger, line, size as size_variants,
-  showBelow as showBelowVariants,
-} from "./Burger.css.js";
+import { burger, line, size as size_variants, show_below as showBelowVariants } from "./Burger.css.js";
+import { bar } from "./Burger.vars.css.js";
 import type { BurgerProps } from "./Burger.types.js";
 
 const SHIFT: Record<string, number> = { xs: 5, sm: 6, md: 7, lg: 9, xl: 11 };

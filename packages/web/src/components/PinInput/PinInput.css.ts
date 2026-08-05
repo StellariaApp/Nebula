@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -15,7 +15,7 @@ export const group = style({
 
 export const cell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       textAlign: "center",
       fontVariantNumeric: "tabular-nums",
       fontFeatureSettings: '"tnum"',
@@ -24,7 +24,7 @@ export const cell = style({
   },
 });
 
-export const cellWidth = styleVariants({
+export const cell_width = styleVariants({
   xs: { width: vars.size.control.xs },
   sm: { width: vars.size.control.sm },
   md: { width: vars.size.control.md },

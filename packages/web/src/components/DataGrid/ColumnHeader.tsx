@@ -71,11 +71,11 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
   }, [sortable, canHide, direction, labels]);
 
   return (
-    <div className={styles.headCell}>
+    <div className={styles.head_cell}>
       {sortable && onToggleSort !== undefined ? (
-        <button type="button" className={styles.sortButton} onClick={onToggleSort}>
+        <button type="button" className={styles.sort_button} onClick={onToggleSort}>
           {label}
-          <span className={styles.sortIcon} aria-hidden="true">
+          <span className={styles.sort_icon} aria-hidden="true">
             {direction === false ? SORT_ICON.none : SORT_ICON[direction]}
           </span>
         </button>

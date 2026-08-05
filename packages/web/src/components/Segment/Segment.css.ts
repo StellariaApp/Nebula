@@ -4,13 +4,13 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { indicatorColor, indicatorFg } from "./Segment.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -23,7 +23,7 @@ export const root = style({
 export const control = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         display: "inline-flex",
         boxSizing: "border-box",
@@ -57,7 +57,7 @@ export type SegmentControlVariants = NonNullable<RecipeVariants<typeof control>>
 
 export const indicator = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       top: vars.space.xs,
       bottom: vars.space.xs,
@@ -73,7 +73,7 @@ export const indicator = style({
 
 export const tab = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       zIndex: 1,
       flex: 1,
@@ -109,7 +109,7 @@ export const tab = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       overflow: "hidden",
       width: "100%",
@@ -141,7 +141,7 @@ export const panel = recipe({
 
 export const section = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,

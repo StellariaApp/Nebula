@@ -53,7 +53,7 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
             <m.button
               type="button"
               aria-label={closeLabel}
-              className={styles.sidebarScrim}
+              className={styles.sidebar_scrim}
               onClick={onClose}
               initial={is_off ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -68,12 +68,12 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
               exit={{ x: "100%" }}
               transition={Spring("snappy", motion_context)}
             >
-              <div className={styles.sidebarHead}>
+              <div className={styles.sidebar_head}>
                 <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />
               </div>
-              <div className={styles.sidebarBody}>{children}</div>
+              <div className={styles.sidebar_body}>{children}</div>
               {footer === undefined ? null : (
-                <div className={styles.sidebarFooter}>{footer}</div>
+                <div className={styles.sidebar_footer}>{footer}</div>
               )}
             </m.aside>
           </>

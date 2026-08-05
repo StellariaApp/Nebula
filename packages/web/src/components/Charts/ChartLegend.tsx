@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Charts.css.js";
+import * as charts_vars from "./Charts.vars.css.js";
 import type { ChartLegendProps } from "./Charts.types.js";
 
 export function ChartLegend(props: ChartLegendProps): ReactElement {
@@ -28,7 +29,7 @@ export function ChartLegend(props: ChartLegendProps): ReactElement {
           <li key={entry.key}>
             <button
               type="button"
-              className={styles.legendItem}
+              className={styles.legend_item}
               data-interactive={interactive ? "true" : "false"}
               disabled={!interactive}
               {...(interactive ? { "aria-pressed": off } : {})}
@@ -38,7 +39,7 @@ export function ChartLegend(props: ChartLegendProps): ReactElement {
             >
               <span
                 className={styles.swatch}
-                style={assignInlineVars({ [styles.swatchColor]: entry.color })}
+                style={assignInlineVars({ [charts_vars.swatchColor]: entry.color })}
                 aria-hidden="true"
               />
               {entry.label}

@@ -177,8 +177,8 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
         withCloseButton={false}
         aria-label={text.input}
       >
-        <div className={styles.searchRow}>
-          <span className={styles.optionIcon}>{MAGNIFIER}</span>
+        <div className={styles.search_row}>
+          <span className={styles.option_icon}>{MAGNIFIER}</span>
           <input
             className={styles.input}
             type="search"
@@ -206,7 +206,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
               {...(group.name === undefined ? {} : { "aria-label": group.name })}
             >
               {group.name === undefined ? null : (
-                <p className={styles.groupLabel} aria-hidden="true">
+                <p className={styles.group_label} aria-hidden="true">
                   {group.name}
                 </p>
               )}
@@ -229,12 +229,12 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                     }}
                   >
                     {result.icon === undefined ? null : (
-                      <span className={styles.optionIcon}>{result.icon}</span>
+                      <span className={styles.option_icon}>{result.icon}</span>
                     )}
-                    <span className={styles.optionBody}>
-                      <span className={styles.optionTitle}>{result.title}</span>
+                    <span className={styles.option_body}>
+                      <span className={styles.option_title}>{result.title}</span>
                       {result.description === undefined ? null : (
-                        <span className={styles.optionDescription}>{result.description}</span>
+                        <span className={styles.option_description}>{result.description}</span>
                       )}
                     </span>
                   </div>

@@ -40,7 +40,7 @@ describe("CardComplex", () => {
     );
     expect(screen.getByRole("button", { name: "Editar" })).toBeDefined();
     expect(screen.getByRole("button", { name: "Ver detalle" })).toBeDefined();
-    const media = container.querySelector("[class*='mediaActions']");
+    const media = container.querySelector("[class*='media_actions']");
     expect(media?.textContent).toBeDefined();
     expect(media?.querySelectorAll("button")).toHaveLength(1);
   });

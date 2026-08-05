@@ -3,13 +3,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { dayBg, dayBorder, dayFg, rangeBg } from "./Calendar.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       display: "flex",
       flexDirection: "column",
@@ -22,7 +22,7 @@ export const root = style({
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -33,7 +33,7 @@ export const header = style({
 
 export const heading = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: 1,
       textAlign: "center",
       fontSize: vars.font.size.body2,
@@ -46,7 +46,7 @@ export const heading = style({
 
 export const nav = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -60,7 +60,7 @@ export const nav = style({
       outline: "none",
       padding: 0,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&:hover:not(:disabled)": {
           background: vars.color.surface.hover,
@@ -75,7 +75,7 @@ export const nav = style({
 
 export const months = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       gap: vars.space.lg,
       alignItems: "flex-start",
@@ -85,7 +85,7 @@ export const months = style({
 
 export const grid = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderCollapse: "collapse",
       borderSpacing: 0,
       width: "100%",
@@ -95,7 +95,7 @@ export const grid = style({
 
 export const weekday = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.tight,
@@ -107,9 +107,9 @@ export const weekday = style({
   },
 });
 
-export const cellWrapper = style({
+export const cell_wrapper = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: 0,
       textAlign: "center",
       selectors: {
@@ -131,7 +131,7 @@ export const cellWrapper = style({
 
 export const cell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       display: "inline-flex",
       alignItems: "center",
@@ -143,7 +143,7 @@ export const cell = style({
       userSelect: "none",
       color: vars.color.text.primary,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-hovered='true']:not([data-disabled='true'])": {
           background: vars.color.surface.hover,
@@ -181,7 +181,7 @@ export const cell = style({
   },
 });
 
-export const cellSize = styleVariants({
+export const cell_size = styleVariants({
   xs: {
     height: vars.size.control.xs,
     minWidth: vars.size.control.xs,
@@ -209,7 +209,7 @@ export const cellSize = styleVariants({
   },
 });
 
-export const navSize = styleVariants({
+export const nav_size = styleVariants({
   xs: { width: vars.size.control.xs, height: vars.size.control.xs },
   sm: { width: vars.size.control.sm, height: vars.size.control.sm },
   md: { width: vars.size.control.md, height: vars.size.control.md },

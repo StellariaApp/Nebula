@@ -3,13 +3,13 @@ import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { checkboxColor, checkboxSize } from "./Checkbox.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -49,7 +49,7 @@ export const size = styleVariants(
 
 export const box = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -64,7 +64,7 @@ export const box = style({
       background: vars.color.surface.raised,
       color: vars.color.text.onPrimary,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
     },
   },
 });
@@ -74,16 +74,16 @@ export const mark = style({
   height: "68%",
   opacity: 0,
   ...motion.confirm,
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });
 
-export const labelText = style({
-  "@layer": { [baseLayer]: { lineHeight: vars.font.lineHeight.tight } },
+export const label_text = style({
+  "@layer": { [base_layer]: { lineHeight: vars.font.lineHeight.tight } },
 });
 
 export const list = style({ display: "flex", flexDirection: "column", gap: vars.space.xs });
 
-export const listRow = style({
+export const list_row = style({
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",

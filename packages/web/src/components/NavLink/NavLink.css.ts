@@ -3,14 +3,14 @@ import { style } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import { accent, activeBg } from "./NavLink.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -51,14 +51,14 @@ export const root = style({
           ...focus.ring,
         },
       },
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
     },
   },
 });
 
 export const indicator = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetInlineStart: 0,
       insetBlock: "20%",
@@ -94,7 +94,7 @@ export const body = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.normal,
       overflow: "hidden",
@@ -106,7 +106,7 @@ export const label = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
       overflow: "hidden",
@@ -117,12 +117,12 @@ export const description = style({
 });
 
 export const chevron = style({
-  "@layer": { [baseLayer]: { display: "inline-flex", flexShrink: 0, color: "inherit" } },
+  "@layer": { [base_layer]: { display: "inline-flex", flexShrink: 0, color: "inherit" } },
 });
 
 export const children = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInlineStart: vars.space.md,
       borderInlineStartStyle: "solid",
       borderInlineStartWidth: 1,

@@ -12,6 +12,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./RichTextEditor.css.js";
+import * as rich_text_editor_vars from "./RichTextEditor.vars.css.js";
 import { DEFAULT_TOOLBAR, RICH_TEXT_LABELS } from "./labels.js";
 import { Toolbar } from "./Toolbar.js";
 import type { RichTextEditorProps } from "./RichTextEditor.types.js";
@@ -106,8 +107,8 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
   }, [editor, resolved.value]);
 
   const css_vars = assignInlineVars({
-    [styles.minHeight]: LengthToCss(minRows * ROW_HEIGHT),
-    [styles.maxHeight]: maxHeight === undefined ? "none" : LengthToCss(maxHeight),
+    [rich_text_editor_vars.minHeight]: LengthToCss(minRows * ROW_HEIGHT),
+    [rich_text_editor_vars.maxHeight]: maxHeight === undefined ? "none" : LengthToCss(maxHeight),
   });
 
   const empty = editor === null || editor.isEmpty;

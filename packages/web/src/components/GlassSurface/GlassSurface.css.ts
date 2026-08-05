@@ -2,16 +2,16 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { backdrop, bg, borderRule, solidBg } from "./GlassSurface.vars.css.js";
 
 const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))";
 
-export const glassSurface = recipe({
+export const glass_surface = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         isolation: "isolate",
         boxSizing: "border-box",
         background: bg,
@@ -54,8 +54,8 @@ export const glassSurface = recipe({
       full: { borderRadius: vars.radius.full },
     },
     withBorder: {
-      true: { "@layer": { [baseLayer]: { border: borderRule } } },
-      false: { "@layer": { [baseLayer]: { border: "none" } } },
+      true: { "@layer": { [base_layer]: { border: borderRule } } },
+      false: { "@layer": { [base_layer]: { border: "none" } } },
     },
   },
   defaultVariants: {
@@ -65,10 +65,10 @@ export const glassSurface = recipe({
   },
 });
 
-export const grainLayer = style({
+export const grain_layer = style({
   "@layer": {
-    [baseLayer]: { zIndex: -1 },
+    [base_layer]: { zIndex: -1 },
   },
 });
 
-export type GlassSurfaceRecipeVariants = NonNullable<RecipeVariants<typeof glassSurface>>;
+export type GlassSurfaceRecipeVariants = NonNullable<RecipeVariants<typeof glass_surface>>;

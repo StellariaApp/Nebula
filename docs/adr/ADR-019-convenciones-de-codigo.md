@@ -1,6 +1,6 @@
 # ADR-019 — Convenciones de código de Nebula
 
-- **Estado**: aceptada · 2026-07-20 (decisión del propietario) · **Supersede** las convenciones implícitas de `.claude/skills/*` y de `docs/patterns/web-component-template.md` escritas en W1.4
+- **Estado**: aceptada · 2026-07-20 (decisión del propietario) · **Supersede** las convenciones implícitas de `.claude/skills/*` y de `docs/patterns/web-component-template.md` escritas en W1.4 · **Enmendada por ADR-094** (2026-08-05): dentro de un `.css.ts` los símbolos van en `snake_case` y dentro de un `.vars.css.ts` en `camelCase` — §1 no lo decidía
 - **Contexto**: al cerrar W1 existen 3 componentes y ~86 archivos fuente; quedan ~210 componentes por escribir. Las convenciones heredadas eran las habituales del ecosistema JS (camelCase para funciones, carpetas por categoría, JSDoc abundante). El propietario define un estilo propio, más uniforme y con el código como única fuente de lectura. Cambiarlo más adelante obligaría a refactorizar toda la librería.
 
 ## Decisión

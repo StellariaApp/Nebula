@@ -24,7 +24,7 @@ const TextComponent = forwardRef<HTMLElement, TextOwnProps>(function Text(props,
       component={component ?? "p"}
       className={cx(
         styles.text,
-        inherit === true && styles.inheritStyles,
+        inherit === true && styles.inherit_styles,
         is_clamped ? styles.clamp : truncate === true && styles.truncate,
         className,
       )}

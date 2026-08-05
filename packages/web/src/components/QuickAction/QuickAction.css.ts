@@ -4,7 +4,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   backdropFilter,
@@ -109,7 +109,7 @@ export const tile = recipe({
 export const icon = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
@@ -154,7 +154,7 @@ export const icon = recipe({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -166,7 +166,7 @@ export const body = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontWeight: vars.font.weight.semibold,
       fontSize: vars.font.size.body2,
       lineHeight: vars.font.lineHeight.tight,
@@ -176,7 +176,7 @@ export const label = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body3,
       lineHeight: vars.font.lineHeight.normal,
       opacity: 0.75,
@@ -186,7 +186,7 @@ export const description = style({
 
 export const badge = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xs,
       insetInlineEnd: vars.space.xs,

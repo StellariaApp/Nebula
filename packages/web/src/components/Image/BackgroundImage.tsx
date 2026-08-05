@@ -27,7 +27,7 @@ export function BackgroundImage(props: BackgroundImageProps): ReactElement {
       style={{ ...css_vars, backgroundImage: `url(${src})` }}
     >
       {percent > 0 ? <span className={styles.overlay} aria-hidden="true" /> : null}
-      <div className={styles.backgroundContent}>{children}</div>
+      <div className={styles.background_content}>{children}</div>
     </div>
   );
 }

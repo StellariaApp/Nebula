@@ -134,7 +134,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       <m.button
         {...dom_props}
         ref={ref}
-        className={cx(styles.actionIcon({ size }), sprinkle_class, className)}
+        className={cx(styles.action_icon({ size }), sprinkle_class, className)}
         style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
         data-hovered={isHovered ? "true" : undefined}
         data-pressed={isPressed ? "true" : undefined}
@@ -147,7 +147,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         transition={press_transition}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
-        <span className={cx(styles.iconWrap, loading && styles.iconLoading)} aria-hidden="true">
+        <span className={cx(styles.icon_wrap, loading && styles.icon_loading)} aria-hidden="true">
           {children}
         </span>
       </m.button>

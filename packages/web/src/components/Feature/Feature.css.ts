@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const feature = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -20,7 +20,7 @@ export const feature = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body1,
       fontWeight: vars.font.weight.semibold,
@@ -32,7 +32,7 @@ export const title = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       maxWidth: "52ch",
       fontSize: vars.font.size.body2,

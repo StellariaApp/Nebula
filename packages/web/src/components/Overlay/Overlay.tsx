@@ -7,15 +7,8 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import {
-  alpha,
-  blur as blur_variants,
-  content,
-  overlay,
-  radius as radius_variants,
-  tint,
-  veil,
-} from "./Overlay.css.js";
+import { blur as blur_variants, content, overlay, radius as radius_variants, veil } from "./Overlay.css.js";
+import { alpha, tint } from "./Overlay.vars.css.js";
 import type { OverlayProps } from "./Overlay.types.js";
 
 export function Overlay(props: OverlayProps): ReactElement {

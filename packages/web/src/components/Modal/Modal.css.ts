@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { backdropBlur, modalWidth } from "./Modal.vars.css.js";
 
@@ -14,7 +14,7 @@ const TOP_INSET = "10vh";
 export const dialog = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         position: "fixed",
         inset: 0,
@@ -73,7 +73,7 @@ export const dialog = recipe({
 export const surface = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -117,7 +117,7 @@ export const surface = recipe({
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       gap: vars.space.md,
@@ -140,7 +140,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.h5,
@@ -153,7 +153,7 @@ export const title = style({
 
 export const subtitle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,
@@ -163,7 +163,7 @@ export const subtitle = style({
 
 export const footer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",

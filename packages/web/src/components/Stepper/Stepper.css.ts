@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   bulletBg,
@@ -15,7 +15,7 @@ import {
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.lg,
@@ -27,7 +27,7 @@ export const root = style({
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       listStyle: "none",
       margin: 0,
@@ -44,7 +44,7 @@ export const orientation = styleVariants({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -60,7 +60,7 @@ export const item = style({
 
 export const step = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -84,7 +84,7 @@ export const step = style({
 
 export const bullet = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -99,7 +99,7 @@ export const bullet = style({
       fontWeight: vars.font.weight.semibold,
       fontVariantNumeric: "tabular-nums",
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-state='completed'], &[data-state='current']": {
           background: bulletBg,
@@ -118,7 +118,7 @@ export const bullet = style({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -128,7 +128,7 @@ export const body = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
       color: vars.color.text.primary,
@@ -144,7 +144,7 @@ export const label = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
       overflow: "hidden",
@@ -156,14 +156,14 @@ export const description = style({
 
 export const track = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: "1 1 auto",
       minWidth: vars.space.md,
       height: 2,
       borderRadius: vars.radius.full,
       background: vars.color.border.subtle,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-state='completed']": { background: trackDone },
         "[data-orientation='vertical'] &": {
@@ -182,11 +182,11 @@ export const track = style({
 
 export const panel = style({
   "@layer": {
-    [baseLayer]: { minWidth: 0 },
+    [base_layer]: { minWidth: 0 },
   },
 });
 
-export const bulletSize = styleVariants({
+export const bullet_size = styleVariants({
   xs: { width: 24, height: 24, fontSize: vars.font.size.caption },
   sm: { width: 28, height: 28, fontSize: vars.font.size.caption },
   md: { width: 32, height: 32, fontSize: vars.font.size.body3 },

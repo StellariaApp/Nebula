@@ -1,12 +1,12 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { ratio } from "./AspectRatio.vars.css.js";
 
-export const aspectRatio = style({
+export const aspect_ratio = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       width: "100%",
       aspectRatio: ratio,
@@ -14,17 +14,17 @@ export const aspectRatio = style({
   },
 });
 
-globalStyle(`${aspectRatio} > *`, {
+globalStyle(`${aspect_ratio} > *`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       height: "100%",
     },
   },
 });
 
-globalStyle(`${aspectRatio} > img, ${aspectRatio} > video`, {
+globalStyle(`${aspect_ratio} > img, ${aspect_ratio} > video`, {
   "@layer": {
-    [baseLayer]: { objectFit: "cover" },
+    [base_layer]: { objectFit: "cover" },
   },
 });

@@ -1,9 +1,9 @@
 import { createVar, fallbackVar, globalStyle, keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { reducedMedia } from "../../styles/motion.css.js";
+import { reduced_media } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { bounceOffset, scrollbarSize } from "./Scroll.vars.css.js";
 
@@ -15,10 +15,10 @@ const RANGE = vars.space.xl;
 const SUPPORTS = "(animation-timeline: scroll())";
 const LENGTH = { syntax: "<length>", inherits: false, initialValue: "0px" } as const;
 
-const blockStart = createVar(LENGTH);
-const blockEnd = createVar(LENGTH);
-const inlineStart = createVar(LENGTH);
-const inlineEnd = createVar(LENGTH);
+const block_start = createVar(LENGTH);
+const block_end = createVar(LENGTH);
+const inline_start = createVar(LENGTH);
+const inline_end = createVar(LENGTH);
 
 interface Band {
   image: string;
@@ -47,16 +47,16 @@ const BLOCK: Band[] = [
   {
     image: Gradient("bottom"),
     position: "top center",
-    size: `100% ${blockStart}`,
-    name: Grow(blockStart),
+    size: `100% ${block_start}`,
+    name: Grow(block_start),
     timeline: "scroll(self block)",
     range: `0px ${RANGE}`,
   },
   {
     image: Gradient("top"),
     position: "bottom center",
-    size: `100% ${blockEnd}`,
-    name: Shrink(blockEnd),
+    size: `100% ${block_end}`,
+    name: Shrink(block_end),
     timeline: "scroll(self block)",
     range: `calc(100% - ${RANGE}) 100%`,
   },
@@ -66,8 +66,8 @@ const INLINE: Band[] = [
   {
     image: Gradient("right"),
     position: "left center",
-    size: `${inlineStart} 100%`,
-    name: Grow(inlineStart),
+    size: `${inline_start} 100%`,
+    name: Grow(inline_start),
     timeline: "scroll(self inline)",
     range: `0px ${RANGE}`,
     imageRtl: Gradient("left"),
@@ -76,8 +76,8 @@ const INLINE: Band[] = [
   {
     image: Gradient("left"),
     position: "right center",
-    size: `${inlineEnd} 100%`,
-    name: Shrink(inlineEnd),
+    size: `${inline_end} 100%`,
+    name: Shrink(inline_end),
     timeline: "scroll(self inline)",
     range: `calc(100% - ${RANGE}) 100%`,
     imageRtl: Gradient("right"),
@@ -114,7 +114,7 @@ function BandsRtl(bands: Band[]): Record<string, string> {
 export const scroll = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         scrollbarWidth: "thin",
         scrollbarColor: `${vars.color.border.strong} transparent`,
@@ -134,20 +134,20 @@ export const scroll = recipe({
   },
   variants: {
     axis: {
-      x: { "@layer": { [baseLayer]: { overflowX: "auto", overflowY: "hidden" } } },
-      y: { "@layer": { [baseLayer]: { overflowX: "hidden", overflowY: "auto" } } },
-      xy: { "@layer": { [baseLayer]: { overflow: "auto" } } },
+      x: { "@layer": { [base_layer]: { overflowX: "auto", overflowY: "hidden" } } },
+      y: { "@layer": { [base_layer]: { overflowX: "hidden", overflowY: "auto" } } },
+      xy: { "@layer": { [base_layer]: { overflow: "auto" } } },
     },
     gutter: {
-      true: { "@layer": { [baseLayer]: { scrollbarGutter: "stable" } } },
+      true: { "@layer": { [base_layer]: { scrollbarGutter: "stable" } } },
       false: {},
     },
     smooth: {
       true: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             scrollBehavior: "smooth",
-            "@media": { [reducedMedia]: { scrollBehavior: "auto" } },
+            "@media": { [reduced_media]: { scrollBehavior: "auto" } },
           },
         },
       },
@@ -163,13 +163,13 @@ export const scroll = recipe({
 
 export type ScrollRecipeVariants = NonNullable<RecipeVariants<typeof scroll>>;
 
-export const blockShadows = style({
-  "@layer": { [baseLayer]: { "@supports": { [SUPPORTS]: Bands(BLOCK) } } },
+export const block_shadows = style({
+  "@layer": { [base_layer]: { "@supports": { [SUPPORTS]: Bands(BLOCK) } } },
 });
 
-export const inlineShadows = style({
+export const inline_shadows = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       "@supports": {
         [SUPPORTS]: { ...Bands(INLINE), selectors: { "&:dir(rtl)": BandsRtl(INLINE) } },
       },
@@ -177,9 +177,9 @@ export const inlineShadows = style({
   },
 });
 
-export const bothShadows = style({
+export const both_shadows = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       "@supports": {
         [SUPPORTS]: {
           ...Bands([...BLOCK, ...INLINE]),
@@ -194,11 +194,11 @@ export const bouncing = style({});
 
 globalStyle(`${bouncing} > *`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       transform: `translate3d(0, ${fallbackVar(bounceOffset, "0px")}, 0)`,
       willChange: "transform",
       "@media": {
-        [reducedMedia]: { transform: "none" },
+        [reduced_media]: { transform: "none" },
       },
     },
   },

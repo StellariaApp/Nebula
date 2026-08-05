@@ -104,7 +104,7 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.gradientBorder({ radius: named_radius }), className)}
+        className={cx(styles.gradient_border({ radius: named_radius }), className)}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-surface={surface}
         data-beam={animated ? sequence : undefined}

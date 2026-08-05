@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const text = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
@@ -19,7 +19,7 @@ export const text = style({
 
 export const truncate = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -29,7 +29,7 @@ export const truncate = style({
 
 export const clamp = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "-webkit-box",
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
@@ -37,9 +37,9 @@ export const clamp = style({
   },
 });
 
-export const inheritStyles = style({
+export const inherit_styles = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: "inherit",
       fontSize: "inherit",
       fontWeight: "inherit",

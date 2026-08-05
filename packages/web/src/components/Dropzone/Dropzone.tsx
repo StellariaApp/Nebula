@@ -199,7 +199,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
           <input
             ref={input_ref}
             type="file"
-            className={styles.nativeInput}
+            className={styles.native_input}
             tabIndex={-1}
             aria-hidden="true"
             multiple={multiple}
@@ -216,7 +216,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
               {fp.value.map((file, index) => (
                 <li key={`${file.name}-${String(index)}`} className={styles.item}>
                   {previews ? <Preview file={file} /> : null}
-                  <span className={styles.fileName}>{file.name}</span>
+                  <span className={styles.file_name}>{file.name}</span>
                   <ButtonClose
                     size="sm"
                     aria-label={`${text.remove}: ${file.name}`}

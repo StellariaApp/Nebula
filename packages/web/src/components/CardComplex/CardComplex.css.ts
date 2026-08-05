@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -17,7 +17,7 @@ export const header = style({
 
 export const heading = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -29,7 +29,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
@@ -42,7 +42,7 @@ export const title = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
@@ -53,15 +53,15 @@ export const description = style({
   },
 });
 
-export const mediaWrap = style({
+export const media_wrap = style({
   "@layer": {
-    [baseLayer]: { position: "relative" },
+    [base_layer]: { position: "relative" },
   },
 });
 
-export const mediaActions = style({
+export const media_actions = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xs,
       insetInlineEnd: vars.space.xs,
@@ -71,9 +71,9 @@ export const mediaActions = style({
   },
 });
 
-export const slotRow = style({
+export const slot_row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -82,9 +82,9 @@ export const slotRow = style({
   },
 });
 
-export const badgeRow = style({
+export const badge_row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -96,15 +96,15 @@ export const badgeRow = style({
   },
 });
 
-globalStyle(`${badgeRow}[data-grow='true'] > *`, {
+globalStyle(`${badge_row}[data-grow='true'] > *`, {
   "@layer": {
-    [baseLayer]: { flex: 1 },
+    [base_layer]: { flex: 1 },
   },
 });
 
 export const body = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -115,7 +115,7 @@ export const body = style({
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -126,9 +126,9 @@ export const foot = style({
   },
 });
 
-export const metaRow = style({
+export const meta_row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -142,7 +142,7 @@ export const metaRow = style({
 
 export const person = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,

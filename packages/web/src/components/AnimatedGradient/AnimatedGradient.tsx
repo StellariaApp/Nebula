@@ -50,7 +50,7 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.animatedGradient({ radius: named_radius }), className)}
+        className={cx(styles.animated_gradient({ radius: named_radius }), className)}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-animated={animated ? "true" : "false"}
         {...rest}

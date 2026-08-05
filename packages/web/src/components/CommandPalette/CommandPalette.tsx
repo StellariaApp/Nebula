@@ -180,7 +180,7 @@ export function CommandPalette(props: CommandPaletteProps): ReactElement {
       className={className}
     >
       <div className={styles.root} ref={popover_ref}>
-        <div className={styles.inputRow}>
+        <div className={styles.input_row}>
           <span className={styles.icon}>{ICON_SEARCH}</span>
           <input {...inputProps} ref={input_ref} className={styles.input} />
         </div>

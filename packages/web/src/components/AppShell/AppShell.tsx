@@ -7,10 +7,10 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { asideWidth as aside_var, headHeight, navWidth } from "./AppShell.css.js";
+import { asideWidth as aside_var, headHeight, navWidth } from "./AppShell.vars.css.js";
 import * as styles from "./AppShell.css.js";
 import { AppShellContext } from "./AppShellContext.js";
-import { chromeHeight, railMiniWidth, railWidth, shadowOffset } from "./AppShell.css.js";
+import { chromeHeight, railMiniWidth, railWidth, shadowOffset } from "./AppShell.vars.css.js";
 import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./AppShellRail.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
@@ -91,10 +91,10 @@ export function AppShell(props: AppShellProps): ReactElement {
             {text.skipToContent}
           </a>
           {backdrop}
-          {header === undefined ? null : <div className={styles.railChrome}>{header}</div>}
+          {header === undefined ? null : <div className={styles.rail_chrome}>{header}</div>}
           {sidebar}
           <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.main}>
-            {scrollShadow ? <div className={styles.scrollShadow} aria-hidden="true" /> : null}
+            {scrollShadow ? <div className={styles.scroll_shadow} aria-hidden="true" /> : null}
             {children}
           </main>
         </div>

@@ -22,7 +22,7 @@ export function CardSection(props: CardSectionProps): ReactElement {
   const { children, inset = true, withBorder = false, className } = props;
   return (
     <div
-      className={cx(inset && styles.sectionInset, withBorder && styles.sectionBorder, className)}
+      className={cx(inset && styles.section_inset, withBorder && styles.section_border, className)}
     >
       {children}
     </div>

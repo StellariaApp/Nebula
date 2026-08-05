@@ -7,9 +7,9 @@ import * as styles from "./Anchor.css.js";
 import type { AnchorOwnProps, AnchorProps, AnchorUnderline } from "./Anchor.types.js";
 
 const UNDERLINE_CLASS: Record<AnchorUnderline, string> = {
-  always: styles.underlineAlways,
-  hover: styles.underlineHover,
-  never: styles.underlineNever,
+  always: styles.underline_always,
+  hover: styles.underline_hover,
+  never: styles.underline_never,
 };
 
 const AnchorComponent = forwardRef<HTMLElement, AnchorOwnProps>(function Anchor(props, ref) {

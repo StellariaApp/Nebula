@@ -47,7 +47,7 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
   return (
     <div className={styles.toolbar}>
       {onSearchChange === undefined ? null : (
-        <div className={styles.toolbarSearch}>
+        <div className={styles.toolbar_search}>
           <SearchInput
             value={search ?? ""}
             onChange={onSearchChange}
@@ -58,7 +58,7 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
         </div>
       )}
 
-      <div className={styles.toolbarGap}>
+      <div className={styles.toolbar_gap}>
         {section}
         {hiddenCount > 0 && onResetColumns !== undefined ? (
           <Button size="sm" variant="ghost" onPress={onResetColumns}>
@@ -96,11 +96,11 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
 
       {has_selection ? (
         <div
-          className={styles.bulkBar}
+          className={styles.bulk_bar}
           role="group"
           aria-label={labels.selectedCount(selectedKeys.length)}
         >
-          <p className={styles.bulkCount} aria-live="polite">
+          <p className={styles.bulk_count} aria-live="polite">
             {labels.selectedCount(selectedKeys.length)}
           </p>
           {bulkActions.map((action) => (

@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Charts.css.js";
+import * as charts_vars from "./Charts.vars.css.js";
 import type { ChartTooltipProps } from "./Charts.types.js";
 
 export function ChartTooltip(props: ChartTooltipProps): ReactElement {
@@ -20,16 +21,16 @@ export function ChartTooltip(props: ChartTooltipProps): ReactElement {
       role="tooltip"
       {...rest}
     >
-      {title === undefined ? null : <p className={styles.tooltipTitle}>{title}</p>}
+      {title === undefined ? null : <p className={styles.tooltip_title}>{title}</p>}
       {items.map((item) => (
-        <div key={item.key} className={styles.tooltipRow}>
+        <div key={item.key} className={styles.tooltip_row}>
           <span
             className={styles.swatch}
-            style={assignInlineVars({ [styles.swatchColor]: item.color })}
+            style={assignInlineVars({ [charts_vars.swatchColor]: item.color })}
             aria-hidden="true"
           />
           <span>{item.label}</span>
-          <span className={styles.tooltipValue}>
+          <span className={styles.tooltip_value}>
             {format === undefined ? String(item.value) : format(item.value, item.key)}
           </span>
         </div>

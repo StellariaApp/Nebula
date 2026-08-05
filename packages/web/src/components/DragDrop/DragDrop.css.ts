@@ -1,16 +1,15 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const transform = createVar();
-export const transition = createVar();
+import { transform, transition } from "./DragDrop.vars.css.js";
 
 export const draggable = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       boxSizing: "border-box",
       touchAction: "none",
@@ -27,7 +26,7 @@ export const draggable = style({
 
 export const grabbable = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       cursor: "grab",
       selectors: {
         "&[data-dragging='true']": { cursor: "grabbing" },
@@ -39,7 +38,7 @@ export const grabbable = style({
 
 export const handle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -59,14 +58,14 @@ export const handle = style({
         "&:disabled": { cursor: "default", color: vars.color.text.disabled },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const droppable = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       boxSizing: "border-box",
       borderRadius: vars.radius.md,
@@ -78,14 +77,14 @@ export const droppable = style({
           outlineOffset: -1,
         },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       listStyle: "none",
       margin: 0,
@@ -108,7 +107,7 @@ export const gap = styleVariants({
 
 export const row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -118,7 +117,7 @@ export const row = style({
 
 export const overlay = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       cursor: "grabbing",
       boxShadow: vars.shadow.lg,
       borderRadius: vars.radius.md,
@@ -126,9 +125,9 @@ export const overlay = style({
   },
 });
 
-export const emptySlot = style({
+export const empty_slot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.md,
       color: vars.color.text.muted,
       fontSize: vars.font.size.body2,

@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const numberInput = style({
+export const number_input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       MozAppearance: "textfield",
       selectors: {
         "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
@@ -29,7 +29,7 @@ export const stepper = style({
   marginInlineEnd: `calc(-1 * ${vars.space.xs})`,
 });
 
-export const stepperButton = style({
+export const stepper_button = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",

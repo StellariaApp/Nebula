@@ -214,9 +214,9 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
           <div className={styles.control}>
             {chips.map((option) => (
               <span key={option.value} className={styles.chip}>
-                <span className={styles.chipLabel}>{option.label}</span>
+                <span className={styles.chip_label}>{option.label}</span>
                 <UnstyledButton
-                  className={styles.chipRemove}
+                  className={styles.chip_remove}
                   aria-label={removeLabel(option)}
                   disabled={fp.isDisabled}
                   tabIndex={state.isOpen ? -1 : undefined}

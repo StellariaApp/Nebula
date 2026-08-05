@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 const ARROW_SIZE = "8px";
 
 export const tooltip = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         paddingInline: vars.space.sm,
         paddingBlock: vars.space.xs,
@@ -29,7 +29,7 @@ export const tooltip = recipe({
     color: {
       neutral: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             background: vars.color.surface.overlay,
             color: vars.color.text.primary,
             borderStyle: "solid",
@@ -40,7 +40,7 @@ export const tooltip = recipe({
       },
       inverted: {
         "@layer": {
-          [baseLayer]: {
+          [base_layer]: {
             background: vars.color.gray["900"],
             color: vars.color.text.inverted,
           },
@@ -53,7 +53,7 @@ export const tooltip = recipe({
 
 export const arrow = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       width: ARROW_SIZE,
       height: ARROW_SIZE,

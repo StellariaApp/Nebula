@@ -29,10 +29,10 @@ const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(p
 
   const is_numeric = typeof span === "number";
   const variant_class = is_numeric
-    ? styles.colNumeric
+    ? styles.col_numeric
     : span === "content"
-      ? styles.colContent
-      : styles.colAuto;
+      ? styles.col_content
+      : styles.col_auto;
 
   const css_vars = assignInlineVars({
     [colOffset]: String(offset),
@@ -43,7 +43,7 @@ const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(p
     <Box
       ref={ref}
       component={component ?? "div"}
-      className={cx(styles.colBase, variant_class, className)}
+      className={cx(styles.col_base, variant_class, className)}
       style={{ ...css_vars, ...style }}
       {...rest}
     />

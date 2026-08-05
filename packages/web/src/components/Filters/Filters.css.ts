@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const panel = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -16,7 +16,7 @@ export const panel = style({
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -27,13 +27,13 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: { minWidth: 0 },
+    [base_layer]: { minWidth: 0 },
   },
 });
 
 export const range = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
       gap: vars.space.xs,
@@ -44,7 +44,7 @@ export const range = style({
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
@@ -57,7 +57,7 @@ export const foot = style({
 
 export const empty = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,

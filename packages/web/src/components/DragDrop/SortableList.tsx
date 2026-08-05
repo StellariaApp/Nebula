@@ -66,7 +66,7 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
           {...rest}
         >
           {items.length === 0 && empty !== undefined ? (
-            <li className={styles.emptySlot}>{empty}</li>
+            <li className={styles.empty_slot}>{empty}</li>
           ) : null}
           {items.map((item, index) => {
             const key = keys[index] as string;

@@ -131,7 +131,7 @@ export function Rating(props: RatingProps): ReactElement {
               return (
                 <span
                   key={position}
-                  className={cx(styles.item, styles.itemSize[size])}
+                  className={cx(styles.item, styles.item_size[size])}
                   data-active={filled ? "true" : undefined}
                   data-readonly="true"
                   aria-hidden="true"
@@ -153,7 +153,7 @@ export function Rating(props: RatingProps): ReactElement {
                 role="radio"
                 aria-checked={Round(fp.value, fractions) === position}
                 aria-label={Label(position)}
-                className={cx(styles.item, styles.itemSize[size])}
+                className={cx(styles.item, styles.item_size[size])}
                 disabled={fp.isDisabled}
                 data-active={filled ? "true" : undefined}
                 data-disabled={fp.isDisabled ? "true" : undefined}

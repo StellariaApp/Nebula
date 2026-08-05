@@ -85,7 +85,7 @@ export function Hero(props: HeroProps): ReactElement {
         )}
         <div className={styles.header}>
           {title === undefined ? null : (
-            <Title className={cx(styles.title, styles.titleSize[size])} id={title_id}>
+            <Title className={cx(styles.title, styles.title_size[size])} id={title_id}>
               {title}
             </Title>
           )}

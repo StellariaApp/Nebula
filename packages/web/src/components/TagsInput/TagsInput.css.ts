@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const wrapper = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -21,7 +21,7 @@ export const wrapper = style({
 
 export const tag = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -43,9 +43,9 @@ export const tag = style({
   },
 });
 
-export const tagLabel = style({
+export const tag_label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -55,7 +55,7 @@ export const tagLabel = style({
 
 export const remove = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -72,7 +72,7 @@ export const remove = style({
       outline: "none",
       lineHeight: 0,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&:hover:not(:disabled)": { background: vars.color.primary["200"] },
         "&[data-focus-visible='true']": focus.ring,
@@ -84,7 +84,7 @@ export const remove = style({
 
 export const input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: "1 1 6ch",
       minWidth: "6ch",
     },

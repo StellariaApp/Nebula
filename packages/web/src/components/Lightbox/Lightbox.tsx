@@ -20,6 +20,7 @@ import { Modal } from "../Modal/Modal.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Lightbox.css.js";
+import * as lightbox_vars from "./Lightbox.vars.css.js";
 import { LIGHTBOX_LABELS } from "./labels.js";
 import type { LightboxProps } from "./Lightbox.types.js";
 import { ZOOM_CONSTANTS, useZoomPan } from "./useZoomPan.js";
@@ -158,7 +159,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
   };
 
   const css_vars = assignInlineVars({
-    [styles.imageTransform]: `translate3d(${String(zoom.state.x)}px, ${String(zoom.state.y)}px, 0) scale(${String(zoom.state.scale)})`,
+    [lightbox_vars.imageTransform]: `translate3d(${String(zoom.state.x)}px, ${String(zoom.state.y)}px, 0) scale(${String(zoom.state.scale)})`,
   });
 
   const percent = Math.round(zoom.state.scale * PERCENT);
@@ -290,7 +291,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
                     }}
                   >
                     <img
-                      className={styles.thumbImage}
+                      className={styles.thumb_image}
                       src={item.thumbnail ?? item.src}
                       alt=""
                       draggable={false}

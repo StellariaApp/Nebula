@@ -80,10 +80,10 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
 
       {withDataTable ? (
         <details className={styles.details}>
-          <summary className={styles.detailsSummary}>
+          <summary className={styles.details_summary}>
             {dataTableLabel ?? "Ver datos en tabla"}
           </summary>
-          <div className={styles.tableWrap}>
+          <div className={styles.table_wrap}>
             <table className={styles.table}>
               <thead>
                 <tr>

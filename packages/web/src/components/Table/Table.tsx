@@ -181,7 +181,7 @@ function ScrollContainer(props: TableScrollProps): ReactElement {
       role="region"
       aria-label={label}
     >
-      <div className={styles.scrollInner} style={{ minWidth }}>
+      <div className={styles.scroll_inner} style={{ minWidth }}>
         {children}
       </div>
     </div>

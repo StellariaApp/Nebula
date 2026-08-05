@@ -2,7 +2,7 @@ import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { breakpoints } from "@stellaria/nebula-tokens";
 
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   sgCols,
@@ -17,9 +17,9 @@ import {
   sgSpacingY,
 } from "./SimpleGrid.vars.css.js";
 
-export const simpleGrid = style({
+export const simple_grid = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       boxSizing: "border-box",
       gridTemplateColumns: `repeat(${sgCols}, minmax(0, 1fr))`,

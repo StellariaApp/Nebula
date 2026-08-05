@@ -9,6 +9,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { ButtonCopy } from "../ButtonCopy/ButtonCopy.js";
 
 import * as styles from "./CodeHighlight.css.js";
+import * as code_highlight_vars from "./CodeHighlight.vars.css.js";
 import { CODE_HIGHLIGHT_LABELS } from "./labels.js";
 import type { CodeHighlightProps } from "./CodeHighlight.types.js";
 
@@ -42,7 +43,7 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
 
   const plain = code ?? "";
   const css_vars = assignInlineVars({
-    [styles.scrollHeight]: maxHeight === undefined ? "none" : LengthToCss(maxHeight),
+    [code_highlight_vars.scrollHeight]: maxHeight === undefined ? "none" : LengthToCss(maxHeight),
   });
 
   const has_header = filename !== undefined || lang !== undefined;
@@ -69,7 +70,7 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
           ) : null}
         </div>
       ) : withCopy ? (
-        <div className={styles.floatingCopy}>
+        <div className={styles.floating_copy}>
           <ButtonCopy
             value={copy_value}
             size="xs"

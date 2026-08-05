@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       boxSizing: "border-box",
@@ -24,7 +24,7 @@ export const root = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       borderBottomStyle: "solid",
       borderBottomWidth: 1,
       borderBottomColor: vars.color.border.subtle,
@@ -35,7 +35,7 @@ export const item = style({
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -60,7 +60,7 @@ export const trigger = style({
         },
         "&:disabled": { cursor: "not-allowed", color: vars.color.text.muted },
       },
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
     },
   },
 });
@@ -71,7 +71,7 @@ export const icon = style({ display: "inline-flex", flexShrink: 0 });
 
 export const chevron = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       flexShrink: 0,
       color: vars.color.text.secondary,
@@ -81,7 +81,7 @@ export const chevron = style({
 
 export const panel = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInline: vars.space.md,
       paddingBlock: vars.space.sm,
       fontSize: vars.font.size.body2,

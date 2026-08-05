@@ -1,23 +1,23 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: { display: "flex", flexDirection: "column", gap: vars.space.xs, minWidth: 0 },
+    [base_layer]: { display: "flex", flexDirection: "column", gap: vars.space.xs, minWidth: 0 },
   },
 });
 
 export const content = style({
   "@layer": {
-    [baseLayer]: { minWidth: 0 },
+    [base_layer]: { minWidth: 0 },
   },
 });
 
 export const clipped = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       overflow: "hidden",
       maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
       WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
@@ -27,7 +27,7 @@ export const clipped = style({
 
 export const toggle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       alignSelf: "flex-start",
       background: "none",
       border: "none",

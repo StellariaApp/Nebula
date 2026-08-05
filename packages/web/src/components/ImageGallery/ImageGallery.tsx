@@ -11,6 +11,7 @@ import { LIGHTBOX_LABELS } from "../Lightbox/labels.js";
 import { Lightbox } from "../Lightbox/Lightbox.js";
 
 import * as styles from "./ImageGallery.css.js";
+import * as image_gallery_vars from "./ImageGallery.vars.css.js";
 import type { ImageGalleryProps } from "./ImageGallery.types.js";
 
 const DEFAULT_MIN_COL = 160;
@@ -45,12 +46,12 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
   );
 
   const css_vars = assignInlineVars({
-    [styles.columns]:
+    [image_gallery_vars.columns]:
       cols === undefined
         ? `repeat(auto-fill, minmax(${String(minColWidth)}px, 1fr))`
         : `repeat(${String(cols)}, minmax(0, 1fr))`,
-    [styles.ratio]: String(ratio),
-    [styles.tileRadius]: vars.radius[radius],
+    [image_gallery_vars.ratio]: String(ratio),
+    [image_gallery_vars.tileRadius]: vars.radius[radius],
   });
 
   const Open = (position: number): void => {
@@ -83,7 +84,7 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
                 }}
               >
                 <img
-                  className={styles.tileImage}
+                  className={styles.tile_image}
                   src={image.thumbnail ?? image.src}
                   alt=""
                   loading="lazy"
@@ -91,9 +92,9 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
                 />
               </button>
             ) : (
-              <div className={cx(styles.tile, styles.tileStatic)}>
+              <div className={cx(styles.tile, styles.tile_static)}>
                 <img
-                  className={styles.tileImage}
+                  className={styles.tile_image}
                   src={image.thumbnail ?? image.src}
                   alt={image.alt ?? ""}
                   loading="lazy"

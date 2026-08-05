@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 const ARROW_SIZE = "8px";
 
 export const popover = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         background: vars.color.surface.overlay,
         color: vars.color.text.primary,
@@ -41,7 +41,7 @@ export const popover = recipe({
 
 export const arrow = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       width: ARROW_SIZE,
       height: ARROW_SIZE,

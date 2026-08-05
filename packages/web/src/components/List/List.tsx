@@ -51,7 +51,7 @@ const ListComponent = forwardRef<HTMLElement, ListOwnProps>(function List(props,
       component={component ?? (type === "ordered" ? "ol" : "ul")}
       className={cx(
         styles.list,
-        withPadding ? styles.withPadding : undefined,
+        withPadding ? styles.with_padding : undefined,
         icon === undefined ? undefined : styles.unstyled,
         className,
       )}

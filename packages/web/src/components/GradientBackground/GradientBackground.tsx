@@ -11,7 +11,8 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { grain, noiseOpacity } from "../../styles/noise.css.js";
+import { grain } from "../../styles/noise.css.js";
+import { noiseOpacity } from "../../styles/noise.vars.css.js";
 import { ResolveGradient } from "../../theme/resolve-variant.js";
 import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
@@ -55,14 +56,14 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.gradientBackground({ radius: named_radius }), className)}
+        className={cx(styles.gradient_background({ radius: named_radius }), className)}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-scrim={scrim > 0 ? String(scrim) : undefined}
         {...rest}
       >
         {scrim > 0 ? <span className={styles.scrim} aria-hidden="true" /> : null}
         {with_grain && grain_opacity > 0 ? (
-          <span className={cx(grain, styles.grainLayer)} aria-hidden="true" />
+          <span className={cx(grain, styles.grain_layer)} aria-hidden="true" />
         ) : null}
         {children}
       </Box>

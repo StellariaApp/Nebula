@@ -102,7 +102,7 @@ export function Stepper(props: StepperProps): ReactElement {
 
           const body = (
             <>
-              <span className={cx(styles.bullet, styles.bulletSize[size])} data-state={state}>
+              <span className={cx(styles.bullet, styles.bullet_size[size])} data-state={state}>
                 {Bullet(index, state, step.icon)}
               </span>
               <span className={styles.body}>

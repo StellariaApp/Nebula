@@ -1,13 +1,13 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const scrollHeight = createVar();
+import { scrollHeight } from "./CodeHighlight.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       boxSizing: "border-box",
       borderRadius: vars.radius.md,
@@ -20,7 +20,7 @@ export const root = style({
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -35,9 +35,9 @@ export const header = style({
   },
 });
 
-export const floatingCopy = style({
+export const floating_copy = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xxs,
       insetInlineEnd: vars.space.xxs,
@@ -48,7 +48,7 @@ export const floatingCopy = style({
 
 export const scroll = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       maxHeight: scrollHeight,
       overflow: "auto",
     },
@@ -57,7 +57,7 @@ export const scroll = style({
 
 export const pre = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       margin: 0,
       padding: 0,
@@ -73,7 +73,7 @@ export const pre = style({
 
 export const gutter = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: "0 0 auto",
       padding: `${vars.space.sm} ${vars.space.xs}`,
       borderInlineEnd: `1px solid ${vars.color.border.subtle}`,
@@ -88,7 +88,7 @@ export const gutter = style({
 
 export const source = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: 1,
       minWidth: 0,
       padding: vars.space.sm,
@@ -100,9 +100,9 @@ export const source = style({
   },
 });
 
-export const tabList = style({
+export const tab_list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -116,6 +116,6 @@ export const tabList = style({
 
 export const bare = style({
   "@layer": {
-    [baseLayer]: { border: "none", borderRadius: 0, background: "transparent" },
+    [base_layer]: { border: "none", borderRadius: 0, background: "transparent" },
   },
 });

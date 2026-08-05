@@ -4,13 +4,13 @@ import { fallbackVar } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { contentMax } from "./Section.vars.css.js";
 
 export const section = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       boxSizing: "border-box",
       width: "100%",
@@ -29,7 +29,7 @@ export const section = style({
 
 export const rail = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xl,
@@ -50,7 +50,7 @@ export const rail = style({
 
 export const head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -63,7 +63,7 @@ export const head = style({
 
 export const heading = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -74,7 +74,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.h5,
       fontWeight: vars.font.weight.semibold,
@@ -86,7 +86,7 @@ export const title = style({
 
 export const description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       maxWidth: "62ch",
       fontSize: vars.font.size.body1,
@@ -98,7 +98,7 @@ export const description = style({
 
 export const actions = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -109,42 +109,42 @@ export const actions = style({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: { position: "relative", minWidth: 0 },
+    [base_layer]: { position: "relative", minWidth: 0 },
   },
 });
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: { minWidth: 0 },
+    [base_layer]: { minWidth: 0 },
   },
 });
 
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [baseLayer]: { paddingBlock: BAND_PADDING.xl, minHeight: BAND_MIN_HEIGHT.xl },
+      [base_layer]: { paddingBlock: BAND_PADDING.xl, minHeight: BAND_MIN_HEIGHT.xl },
     },
   },
   lg: {
     "@layer": {
-      [baseLayer]: { paddingBlock: BAND_PADDING.lg, minHeight: BAND_MIN_HEIGHT.lg },
+      [base_layer]: { paddingBlock: BAND_PADDING.lg, minHeight: BAND_MIN_HEIGHT.lg },
     },
   },
   md: {
     "@layer": {
-      [baseLayer]: { paddingBlock: BAND_PADDING.md, minHeight: BAND_MIN_HEIGHT.md },
+      [base_layer]: { paddingBlock: BAND_PADDING.md, minHeight: BAND_MIN_HEIGHT.md },
     },
   },
   sm: {
     "@layer": {
-      [baseLayer]: { paddingBlock: BAND_PADDING.sm, minHeight: BAND_MIN_HEIGHT.sm },
+      [base_layer]: { paddingBlock: BAND_PADDING.sm, minHeight: BAND_MIN_HEIGHT.sm },
     },
   },
 });
 
-export const railSize = styleVariants({
-  xl: { "@layer": { [baseLayer]: { paddingInline: vars.space.xl } } },
-  lg: { "@layer": { [baseLayer]: { paddingInline: vars.space.xl } } },
-  md: { "@layer": { [baseLayer]: { paddingInline: vars.space.lg } } },
-  sm: { "@layer": { [baseLayer]: { paddingInline: vars.space.md } } },
+export const rail_size = styleVariants({
+  xl: { "@layer": { [base_layer]: { paddingInline: vars.space.xl } } },
+  lg: { "@layer": { [base_layer]: { paddingInline: vars.space.xl } } },
+  md: { "@layer": { [base_layer]: { paddingInline: vars.space.lg } } },
+  sm: { "@layer": { [base_layer]: { paddingInline: vars.space.md } } },
 });

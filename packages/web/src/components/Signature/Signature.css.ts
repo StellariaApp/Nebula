@@ -2,11 +2,11 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -17,7 +17,7 @@ export const root = style({
 
 export const canvas = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "block",
       width: "100%",
       boxSizing: "border-box",
@@ -44,7 +44,7 @@ export const canvas = style({
 
 export const actions = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       justifyContent: "flex-end",
       gap: vars.space.xs,

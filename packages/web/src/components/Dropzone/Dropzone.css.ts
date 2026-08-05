@@ -3,13 +3,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { dropColor } from "./Dropzone.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -20,7 +20,7 @@ export const root = style({
 
 export const zone = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -39,7 +39,7 @@ export const zone = style({
       borderColor: vars.color.border.default,
       cursor: "pointer",
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&:hover:not(:disabled)": { borderColor: dropColor },
         "&:focus-visible": focus.ring,
@@ -65,13 +65,13 @@ export const zone = style({
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: { display: "inline-flex", lineHeight: 0, color: dropColor },
+    [base_layer]: { display: "inline-flex", lineHeight: 0, color: dropColor },
   },
 });
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
     },
@@ -80,16 +80,16 @@ export const title = style({
 
 export const hint = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
     },
   },
 });
 
-export const nativeInput = style({
+export const native_input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       width: 1,
       height: 1,
@@ -105,7 +105,7 @@ export const nativeInput = style({
 
 export const list = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -118,7 +118,7 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -132,9 +132,9 @@ export const item = style({
   },
 });
 
-export const fileName = style({
+export const file_name = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: "1 1 auto",
       minWidth: 0,
       overflow: "hidden",
@@ -146,7 +146,7 @@ export const fileName = style({
 
 export const preview = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexShrink: 0,
       width: 36,
       height: 36,

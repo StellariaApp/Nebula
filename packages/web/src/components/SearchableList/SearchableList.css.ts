@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -16,7 +16,7 @@ export const root = style({
 
 export const toolbar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -27,13 +27,13 @@ export const toolbar = style({
 
 export const search = style({
   "@layer": {
-    [baseLayer]: { flex: 1, minWidth: 0 },
+    [base_layer]: { flex: 1, minWidth: 0 },
   },
 });
 
 export const count = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       color: vars.color.text.muted,

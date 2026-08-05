@@ -43,14 +43,14 @@ export function FooterBrand(props: FooterBrandProps): ReactElement {
     <div className={cx(styles.brand, sprinkle_class, className)} style={sprinkle_style} {...rest}>
       {logo === undefined ? null : (
         <Mark
-          className={styles.brandLink}
+          className={styles.brand_link}
           {...(href === undefined ? {} : { href })}
           {...(has_role && aria_label !== undefined ? { "aria-label": aria_label } : {})}
         >
           {logo}
         </Mark>
       )}
-      {description === undefined ? null : <p className={styles.brandDescription}>{description}</p>}
+      {description === undefined ? null : <p className={styles.brand_description}>{description}</p>}
       {children}
     </div>
   );
@@ -92,8 +92,8 @@ export function FooterGroup(props: FooterGroupProps): ReactElement {
 
   return (
     <div className={cx(styles.group, sprinkle_class, className)} style={sprinkle_style} {...rest}>
-      {title === undefined ? null : <p className={styles.groupTitle}>{title}</p>}
-      {has_links ? <ul className={styles.groupList}>{children}</ul> : children}
+      {title === undefined ? null : <p className={styles.group_title}>{title}</p>}
+      {has_links ? <ul className={styles.group_list}>{children}</ul> : children}
     </div>
   );
 }

@@ -3,13 +3,13 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { switchColor, switchH, switchW } from "./Switch.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -36,7 +36,7 @@ export const input = style({
 
 export const track = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       flexShrink: 0,
       boxSizing: "border-box",
@@ -61,13 +61,13 @@ export const thumb = style({
   touchAction: "none",
 });
 
-export const labelText = style({
+export const label_text = style({
   userSelect: "none",
-  "@layer": { [baseLayer]: { lineHeight: vars.font.lineHeight.tight } },
+  "@layer": { [base_layer]: { lineHeight: vars.font.lineHeight.tight } },
 });
 
 export const list = style({ display: "flex", flexDirection: "column", gap: vars.space.xs });
-export const listRow = style({
+export const list_row = style({
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",
@@ -78,5 +78,5 @@ globalStyle(`${input}:checked + ${track}`, { background: switchColor });
 globalStyle(`${input}:focus-visible + ${track}`, focus.ring);
 
 globalStyle(`${track}`, {
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });

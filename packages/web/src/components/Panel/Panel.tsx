@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { masterSize } from "./Panel.css.js";
+import { masterSize } from "./Panel.vars.css.js";
 import * as styles from "./Panel.css.js";
 import type { PanelLabels, PanelProps } from "./Panel.types.js";
 

@@ -14,7 +14,7 @@ import { GlassSurface } from "../GlassSurface/GlassSurface.js";
 
 import { useAppShell } from "./AppShellContext.js";
 import * as styles from "./AppShell.css.js";
-import { chromeHeight, railWidth } from "./AppShell.css.js";
+import { chromeHeight, railWidth } from "./AppShell.vars.css.js";
 import type {
   AppShellContentProps,
   AppShellHeaderProps,
@@ -165,9 +165,9 @@ export function AppShellLinks(props: AppShellLinksProps): ReactElement {
   const { children, title, action, className, ...style_rest } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
-    <div className={cx(styles.linkGroup, sprinkle_class, className)} style={style} {...rest}>
+    <div className={cx(styles.link_group, sprinkle_class, className)} style={style} {...rest}>
       {title === undefined && action === undefined ? null : (
-        <div className={styles.linkGroupHead}>
+        <div className={styles.link_group_head}>
           {title === undefined ? (
             <span />
           ) : (
@@ -178,7 +178,7 @@ export function AppShellLinks(props: AppShellLinksProps): ReactElement {
           {action}
         </div>
       )}
-      <div className={styles.railNav}>{children}</div>
+      <div className={styles.rail_nav}>{children}</div>
     </div>
   );
 }
@@ -193,7 +193,7 @@ export function AppShellRailLabel(props: {
   className?: string | undefined;
 }): ReactElement {
   const { children, className } = props;
-  return <span className={cx(styles.railLabel, className)}>{children}</span>;
+  return <span className={cx(styles.rail_label, className)}>{children}</span>;
 }
 
 export function AppShellSection(props: AppShellSectionProps): ReactElement {
@@ -221,7 +221,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
       component="header"
       level={level}
       radius={0}
-      className={cx(styles.sectionHeader, sticky && styles.stickyChrome, className)}
+      className={cx(styles.section_header, sticky && styles.sticky_chrome, className)}
     >
       {children ?? (
         <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
@@ -248,7 +248,7 @@ export function AppShellSubbar(props: AppShellSubbarProps): ReactElement {
     <GlassSurface
       level={level}
       radius={0}
-      className={cx(styles.sectionSub, sticky && styles.stickySub, className)}
+      className={cx(styles.section_sub, sticky && styles.sticky_sub, className)}
     >
       {children}
     </GlassSurface>
@@ -292,7 +292,7 @@ export function AppShellAside(props: AppShellNavProps): ReactElement {
       aria-label={shell.complementaryLabel}
       level={level}
       radius={0}
-      className={cx(styles.asideRegion, className)}
+      className={cx(styles.aside_region, className)}
       {...rest}
     >
       {children}

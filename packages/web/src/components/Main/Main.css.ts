@@ -2,13 +2,13 @@ import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { contentGap, contentMax } from "./Main.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       flexDirection: "column",
@@ -22,7 +22,7 @@ export const root = style({
 
 export const backdrop = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: vars.zIndex.base,
@@ -34,7 +34,7 @@ export const backdrop = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       zIndex: 1,
       flex: 1,
@@ -66,7 +66,7 @@ export const content = style({
 
 export const skip = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xs,
       insetInlineStart: vars.space.xs,

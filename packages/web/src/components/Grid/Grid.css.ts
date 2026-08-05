@@ -1,18 +1,18 @@
 import { fallbackVar, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { colOffset, colSpan, gridColumns, gridGrow, gridGutter } from "./Grid.vars.css.js";
 
 const unit = `((100% - (${gridColumns} - 1) * ${gridGutter}) / ${gridColumns})`;
-const spanWidth = `calc(${colSpan} * ${unit} + (${colSpan} - 1) * ${gridGutter})`;
-const offsetMargin = `calc(${colOffset} * ${unit} + ${colOffset} * ${gridGutter})`;
+const span_width = `calc(${colSpan} * ${unit} + (${colSpan} - 1) * ${gridGutter})`;
+const offset_margin = `calc(${colOffset} * ${unit} + ${colOffset} * ${gridGutter})`;
 
 export const grid = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         display: "flex",
         boxSizing: "border-box",
         gap: gridGutter,
@@ -21,8 +21,8 @@ export const grid = recipe({
   },
   variants: {
     wrap: {
-      true: { "@layer": { [baseLayer]: { flexWrap: "wrap" } } },
-      false: { "@layer": { [baseLayer]: { flexWrap: "nowrap" } } },
+      true: { "@layer": { [base_layer]: { flexWrap: "wrap" } } },
+      false: { "@layer": { [base_layer]: { flexWrap: "nowrap" } } },
     },
   },
   defaultVariants: {
@@ -32,30 +32,30 @@ export const grid = recipe({
 
 export type GridRecipeVariants = NonNullable<RecipeVariants<typeof grid>>;
 
-export const colBase = style({
+export const col_base = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       boxSizing: "border-box",
       minWidth: 0,
-      marginInlineStart: offsetMargin,
+      marginInlineStart: offset_margin,
     },
   },
 });
 
-export const colNumeric = style({
+export const col_numeric = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexGrow: fallbackVar(gridGrow, "0"),
       flexShrink: 0,
-      flexBasis: spanWidth,
-      maxWidth: spanWidth,
+      flexBasis: span_width,
+      maxWidth: span_width,
     },
   },
 });
 
-export const colAuto = style({
+export const col_auto = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexGrow: 1,
       flexShrink: 1,
       flexBasis: 0,
@@ -64,9 +64,9 @@ export const colAuto = style({
   },
 });
 
-export const colContent = style({
+export const col_content = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexGrow: 0,
       flexShrink: 0,
       flexBasis: "auto",

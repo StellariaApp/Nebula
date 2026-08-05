@@ -1,15 +1,15 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { layout, reducedMedia, still } from "../../styles/motion.css.js";
+import { layout, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const imageTransform = createVar();
+import { imageTransform } from "./Lightbox.vars.css.js";
 
 export const stage = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -31,7 +31,7 @@ export const stage = style({
 
 export const image = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       maxWidth: "100%",
       maxHeight: "100%",
       objectFit: "contain",
@@ -44,14 +44,14 @@ export const image = style({
       selectors: {
         "&[data-panning='true']": { transitionProperty: "none" },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const bar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -63,7 +63,7 @@ export const bar = style({
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -73,7 +73,7 @@ export const group = style({
 
 export const counter = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.caption,
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
@@ -83,7 +83,7 @@ export const counter = style({
 
 export const caption = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginTop: vars.space.xs,
       fontSize: vars.font.size.body3,
@@ -95,7 +95,7 @@ export const caption = style({
 
 export const filmstrip = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       gap: vars.space.xxs,
       margin: 0,
@@ -109,7 +109,7 @@ export const filmstrip = style({
 
 export const thumb = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "block",
       width: 64,
       height: 48,
@@ -127,9 +127,9 @@ export const thumb = style({
   },
 });
 
-export const thumbImage = style({
+export const thumb_image = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       height: "100%",
       objectFit: "cover",
@@ -140,7 +140,7 @@ export const thumbImage = style({
 
 export const empty = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.xl,
       textAlign: "center",
       color: vars.color.text.muted,

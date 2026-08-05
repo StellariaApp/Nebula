@@ -2,11 +2,11 @@ import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -19,7 +19,7 @@ export const root = style({
 
 export const scroller = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       overflow: "auto",
       minWidth: 0,
@@ -31,7 +31,7 @@ export const scroller = style({
 
 export const table = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       borderCollapse: "separate",
       borderSpacing: 0,
@@ -43,7 +43,7 @@ export const table = style({
 
 export const caption = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       captionSide: "top",
       textAlign: "start",
       paddingBlockEnd: vars.space.xs,
@@ -55,7 +55,7 @@ export const caption = style({
 
 export const head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "sticky",
       insetBlockStart: 0,
       zIndex: 1,
@@ -66,7 +66,7 @@ export const head = style({
 
 export const th = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       textAlign: "start",
       whiteSpace: "nowrap",
@@ -78,9 +78,9 @@ export const th = style({
   },
 });
 
-export const sortButton = style({
+export const sort_button = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -96,15 +96,15 @@ export const sortButton = style({
   },
 });
 
-export const sortIcon = style({
+export const sort_icon = style({
   "@layer": {
-    [baseLayer]: { fontSize: "0.75em", color: vars.color.text.muted, lineHeight: 0 },
+    [base_layer]: { fontSize: "0.75em", color: vars.color.text.muted, lineHeight: 0 },
   },
 });
 
 export const td = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInline: vars.space.sm,
       paddingBlock: vars.space.xs,
       borderBlockEnd: `1px solid ${vars.color.border.subtle}`,
@@ -115,7 +115,7 @@ export const td = style({
 
 export const row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       background: vars.color.surface.raised,
       selectors: {
         "&[data-selected='true']": { background: vars.color.surface.active },
@@ -129,7 +129,7 @@ export const row = style({
 
 export const foot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -141,7 +141,7 @@ export const foot = style({
 
 export const status = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       color: vars.color.text.muted,
@@ -151,7 +151,7 @@ export const status = style({
 
 export const empty = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.xxl,
       textAlign: "center",
       color: vars.color.text.muted,
@@ -161,13 +161,13 @@ export const empty = style({
 
 export const spacer = style({
   "@layer": {
-    [baseLayer]: { padding: 0, border: 0 },
+    [base_layer]: { padding: 0, border: 0 },
   },
 });
 
 export const toolbar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -179,15 +179,15 @@ export const toolbar = style({
   },
 });
 
-export const toolbarSearch = style({
+export const toolbar_search = style({
   "@layer": {
-    [baseLayer]: { flex: "1 1 220px", minWidth: 180 },
+    [base_layer]: { flex: "1 1 220px", minWidth: 180 },
   },
 });
 
-export const toolbarGap = style({
+export const toolbar_gap = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       marginInlineStart: "auto",
       display: "flex",
       alignItems: "center",
@@ -198,7 +198,7 @@ export const toolbarGap = style({
 
 export const chips = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -208,9 +208,9 @@ export const chips = style({
   },
 });
 
-export const bulkBar = style({
+export const bulk_bar = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -223,9 +223,9 @@ export const bulkBar = style({
   },
 });
 
-export const bulkCount = style({
+export const bulk_count = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
@@ -236,7 +236,7 @@ export const bulkCount = style({
 
 export const panel = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.sm,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
       background: vars.color.surface.raised,
@@ -244,9 +244,9 @@ export const panel = style({
   },
 });
 
-export const headCell = style({
+export const head_cell = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -257,7 +257,7 @@ export const headCell = style({
 
 export const resizer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlock: 0,
       insetInlineEnd: 0,
@@ -286,9 +286,9 @@ export const resizer = style({
   },
 });
 
-export const cellFocus = style({
+export const cell_focus = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       selectors: {
         "&:focus-visible": { ...focus.ring, outlineOffset: "-2px" },
       },

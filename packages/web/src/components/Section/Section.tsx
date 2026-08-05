@@ -74,7 +74,7 @@ export function Section(props: SectionProps): ReactElement {
       {...rest}
     >
       <div
-        className={cx(styles.rail, styles.railSize[size])}
+        className={cx(styles.rail, styles.rail_size[size])}
         data-divided={divided ? "true" : undefined}
       >
         {has_title || description !== undefined || actions !== undefined ? (

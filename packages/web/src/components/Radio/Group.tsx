@@ -60,7 +60,7 @@ export function RadioGroup(props: RadioGroupProps): ReactElement {
   };
 
   const items_node = (
-    <div className={cx(orientation === "horizontal" ? styles.listRow : styles.list)}>
+    <div className={cx(orientation === "horizontal" ? styles.list_row : styles.list)}>
       <RadioGroupContext.Provider value={context}>{children}</RadioGroupContext.Provider>
     </div>
   );

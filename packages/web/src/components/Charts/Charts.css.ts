@@ -1,15 +1,14 @@
-import { createVar, globalStyle, style, styleVariants } from "@vanilla-extract/css";
+import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const swatchColor = createVar();
-export const panelCols = createVar();
+import { panelCols, swatchColor } from "./Charts.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -23,7 +22,7 @@ export const root = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
       color: vars.color.text.primary,
@@ -33,13 +32,13 @@ export const title = style({
 
 export const canvas = style({
   "@layer": {
-    [baseLayer]: { width: "100%", minWidth: 0 },
+    [base_layer]: { width: "100%", minWidth: 0 },
   },
 });
 
 export const summary = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,
@@ -49,13 +48,13 @@ export const summary = style({
 
 export const details = style({
   "@layer": {
-    [baseLayer]: { fontSize: vars.font.size.body3 },
+    [base_layer]: { fontSize: vars.font.size.body3 },
   },
 });
 
-export const detailsSummary = style({
+export const details_summary = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       cursor: "pointer",
       color: vars.color.text.secondary,
       paddingBlock: vars.space.xxs,
@@ -63,15 +62,15 @@ export const detailsSummary = style({
   },
 });
 
-export const tableWrap = style({
+export const table_wrap = style({
   "@layer": {
-    [baseLayer]: { overflowX: "auto", maxHeight: 280, overflowY: "auto" },
+    [base_layer]: { overflowX: "auto", maxHeight: 280, overflowY: "auto" },
   },
 });
 
 export const table = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       borderCollapse: "collapse",
       fontSize: vars.font.size.caption,
@@ -82,7 +81,7 @@ export const table = style({
 
 globalStyle(`${table} th, ${table} td`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       textAlign: "start",
       padding: vars.space.xxs,
       borderBlockEnd: `1px solid ${vars.color.border.subtle}`,
@@ -93,7 +92,7 @@ globalStyle(`${table} th, ${table} td`, {
 
 globalStyle(`${table} th`, {
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       color: vars.color.text.primary,
       fontWeight: vars.font.weight.semibold,
     },
@@ -102,13 +101,13 @@ globalStyle(`${table} th`, {
 
 export const spark = style({
   "@layer": {
-    [baseLayer]: { display: "inline-block", verticalAlign: "middle", lineHeight: 0 },
+    [base_layer]: { display: "inline-block", verticalAlign: "middle", lineHeight: 0 },
   },
 });
 
 export const trend = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -123,7 +122,7 @@ export const trend = style({
 
 export const arrow = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       lineHeight: 0,
       fontSize: "0.85em",
       selectors: {
@@ -137,7 +136,7 @@ export const arrow = style({
 
 export const legend = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -149,9 +148,9 @@ export const legend = style({
   },
 });
 
-export const legendItem = style({
+export const legend_item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -172,7 +171,7 @@ export const legendItem = style({
 
 export const swatch = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: 10,
       height: 10,
       borderRadius: vars.radius.xxs,
@@ -184,7 +183,7 @@ export const swatch = style({
 
 export const tooltip = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       minWidth: 140,
       padding: vars.space.xs,
       borderRadius: vars.radius.md,
@@ -197,9 +196,9 @@ export const tooltip = style({
   },
 });
 
-export const tooltipTitle = style({
+export const tooltip_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       marginBlockEnd: vars.space.xxs,
       fontWeight: vars.font.weight.semibold,
@@ -208,9 +207,9 @@ export const tooltipTitle = style({
   },
 });
 
-export const tooltipRow = style({
+export const tooltip_row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -219,9 +218,9 @@ export const tooltipRow = style({
   },
 });
 
-export const tooltipValue = style({
+export const tooltip_value = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       marginInlineStart: "auto",
       fontVariantNumeric: "tabular-nums",
       fontWeight: vars.font.weight.medium,
@@ -229,9 +228,9 @@ export const tooltipValue = style({
   },
 });
 
-export const panelGrid = style({
+export const panel_grid = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "grid",
       gridTemplateColumns: `repeat(${panelCols}, minmax(0, 1fr))`,
       "@media": {
@@ -241,21 +240,21 @@ export const panelGrid = style({
   },
 });
 
-export const panelGap = styleVariants({
+export const panel_gap = styleVariants({
   sm: { gap: vars.space.sm },
   md: { gap: vars.space.md },
   lg: { gap: vars.space.lg },
 });
 
-export const panelSpan = styleVariants({
+export const panel_span = styleVariants({
   1: { gridColumn: "span 1" },
   2: { gridColumn: "span 2" },
   3: { gridColumn: "span 3" },
 });
 
-export const panelCard = style({
+export const panel_card = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -268,9 +267,9 @@ export const panelCard = style({
   },
 });
 
-export const panelHead = style({
+export const panel_head = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -279,9 +278,9 @@ export const panelHead = style({
   },
 });
 
-export const panelTitle = style({
+export const panel_title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
@@ -290,9 +289,9 @@ export const panelTitle = style({
   },
 });
 
-export const panelDescription = style({
+export const panel_description = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,

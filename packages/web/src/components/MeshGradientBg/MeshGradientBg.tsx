@@ -11,7 +11,8 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { grain, noiseOpacity } from "../../styles/noise.css.js";
+import { grain } from "../../styles/noise.css.js";
+import { noiseOpacity } from "../../styles/noise.vars.css.js";
 import { ResolveGradientToken } from "../../theme/resolve-variant.js";
 import { MeshBase, MeshCss } from "../../utils/effects.js";
 import { cx } from "../../utils/style-props.js";
@@ -55,7 +56,7 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.meshGradientBg({ radius: named_radius }), className)}
+        className={cx(styles.mesh_gradient_bg({ radius: named_radius }), className)}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-gradient={gradient}
         data-grain={with_grain && grain_opacity > 0 ? "on" : "off"}
@@ -63,7 +64,7 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
       >
         {scrim > 0 ? <span className={styles.scrim} aria-hidden="true" /> : null}
         {with_grain && grain_opacity > 0 ? (
-          <span className={cx(grain, styles.grainLayer)} aria-hidden="true" />
+          <span className={cx(grain, styles.grain_layer)} aria-hidden="true" />
         ) : null}
         {children}
       </Box>

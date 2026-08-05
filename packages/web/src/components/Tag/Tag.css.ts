@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { bg, borderColor, fg } from "./Tag.vars.css.js";
 
 export const tag = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -23,7 +23,7 @@ export const tag = style({
       borderStyle: "solid",
       borderColor: borderColor,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-disabled='true']": {
           background: vars.color.surface.sunken,
@@ -37,7 +37,7 @@ export const tag = style({
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       minWidth: 0,
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -48,13 +48,13 @@ export const label = style({
 
 export const section = style({
   "@layer": {
-    [baseLayer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
+    [base_layer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
   },
 });
 
 export const remove = style({
   "@layer": {
-    [baseLayer]: { flexShrink: 0, marginInlineEnd: `calc(-1 * ${vars.space.xxs})` },
+    [base_layer]: { flexShrink: 0, marginInlineEnd: `calc(-1 * ${vars.space.xxs})` },
   },
 });
 

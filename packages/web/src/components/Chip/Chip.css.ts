@@ -3,13 +3,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { chipBg, chipBorder, chipFg } from "./Chip.vars.css.js";
 
-export const groupRoot = style({
+export const group_root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       border: "none",
       margin: 0,
       padding: 0,
@@ -20,7 +20,7 @@ export const groupRoot = style({
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexWrap: "wrap",
       gap: vars.space.sm,
@@ -28,9 +28,9 @@ export const group = style({
   },
 });
 
-export const groupLabel = style({
+export const group_label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: 0,
       marginBlockEnd: vars.space.sm,
       fontFamily: vars.font.family.sans,
@@ -43,7 +43,7 @@ export const groupLabel = style({
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
@@ -59,7 +59,7 @@ export const root = style({
       color: chipFg,
       borderColor: chipBorder,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       selectors: {
         "&[data-disabled='true']": {
           cursor: "not-allowed",
@@ -75,7 +75,7 @@ export const root = style({
 
 export const input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       width: 1,
       height: 1,
@@ -91,7 +91,7 @@ export const input = style({
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
+    [base_layer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
   },
 });
 

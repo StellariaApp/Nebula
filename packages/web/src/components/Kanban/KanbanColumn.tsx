@@ -9,6 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./Kanban.css.js";
+import * as kanban_vars from "./Kanban.vars.css.js";
 import type { KanbanColumnProps } from "./Kanban.types.js";
 
 const DEFAULT_WIDTH = 280;
@@ -31,7 +32,7 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
   const heading_id = useId();
   const { setNodeRef, isOver } = useDroppable({ id });
 
-  const css_vars = assignInlineVars({ [styles.columnWidth]: LengthToCss(width) });
+  const css_vars = assignInlineVars({ [kanban_vars.columnWidth]: LengthToCss(width) });
   const over_limit = limit !== undefined && count !== undefined && count > limit;
 
   return (
@@ -43,18 +44,18 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
       aria-labelledby={heading_id}
       {...rest}
     >
-      <header className={styles.columnHeader}>
-        <h3 className={styles.columnTitle} id={heading_id}>
+      <header className={styles.column_header}>
+        <h3 className={styles.column_title} id={heading_id}>
           {title}
         </h3>
         {badge ??
           (count === undefined ? null : (
-            <span className={styles.columnCount} data-over-limit={over_limit ? "true" : "false"}>
+            <span className={styles.column_count} data-over-limit={over_limit ? "true" : "false"}>
               {limit === undefined ? count : `${String(count)}/${String(limit)}`}
             </span>
           ))}
       </header>
-      {children === undefined ? <p className={styles.columnEmpty}>{empty}</p> : children}
+      {children === undefined ? <p className={styles.column_empty}>{empty}</p> : children}
     </section>
   );
 }

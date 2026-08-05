@@ -1,13 +1,13 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { bg, borderColor, borderWidth, fg } from "./ThemeIcon.vars.css.js";
 
 export const icon = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",

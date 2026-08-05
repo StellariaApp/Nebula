@@ -2,11 +2,11 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { dividerColor, dividerStyle, dividerThickness } from "./Divider.vars.css.js";
 
-const lineBorder = {
+const line_border = {
   borderColor: dividerColor,
   borderStyle: dividerStyle,
 };
@@ -14,7 +14,7 @@ const lineBorder = {
 export const root = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         boxSizing: "border-box",
         border: 0,
         margin: 0,
@@ -31,7 +31,7 @@ export const root = recipe({
         alignSelf: "stretch",
         minHeight: "1em",
         borderInlineStartWidth: dividerThickness,
-        ...lineBorder,
+        ...line_border,
       },
     },
     withLabel: {
@@ -48,7 +48,7 @@ export const root = recipe({
       variants: { orientation: "horizontal", withLabel: false },
       style: {
         borderTopWidth: dividerThickness,
-        ...lineBorder,
+        ...line_border,
       },
     },
   ],
@@ -72,7 +72,7 @@ export const fixed = style({ flexGrow: 0, flexBasis: vars.space.lg });
 
 export const label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexShrink: 0,
       color: vars.color.text.secondary,
       fontFamily: vars.font.family.sans,

@@ -44,7 +44,7 @@ const GradientTextComponent = forwardRef<HTMLElement, GradientTextOwnProps>(
       <Box
         ref={ref}
         component={component ?? "span"}
-        className={cx(styles.gradientText, inherit === true && styles.inheritStyles, className)}
+        className={cx(styles.gradient_text, inherit === true && styles.inherit_styles, className)}
         style={{ ...css_vars, ...style }}
         {...rest}
       />

@@ -1,15 +1,15 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { alpha, backdrop, tint } from "./BlurOverlay.vars.css.js";
 
 const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))";
 
-export const blurOverlay = style({
+export const blur_overlay = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       backdropFilter: backdrop,
@@ -34,7 +34,7 @@ export const blurOverlay = style({
 
 export const veil = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       background: tint,
@@ -52,7 +52,7 @@ export const veil = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: { position: "relative" },
+    [base_layer]: { position: "relative" },
   },
 });
 

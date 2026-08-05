@@ -2,7 +2,7 @@ import { fallbackVar, keyframes, style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   ringSize,
@@ -27,7 +27,7 @@ const SPIN = keyframes({ to: { transform: "rotate(360deg)" } });
 
 export const track = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "flex",
       overflow: "hidden",
@@ -45,11 +45,11 @@ export const track = style({
 
 export const fill = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       height: "100%",
       borderRadius: "inherit",
       ...motion.value,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
     },
   },
 });
@@ -63,12 +63,12 @@ export const striped = style({
   animationDuration: "0.8s",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });
 
 export const indeterminate = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetBlock: 0,
       insetInlineStart: 0,
@@ -85,7 +85,7 @@ export const indeterminate = style({
 
 export const ring = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
@@ -97,29 +97,29 @@ export const ring = style({
   },
 });
 
-export const ringSvg = style({
+export const ring_svg = style({
   width: "100%",
   height: "100%",
   transform: "rotate(-90deg)",
 });
 
-export const ringSpin = style({
+export const ring_spin = style({
   animationName: SPIN,
   animationDuration: "1.1s",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   transformOrigin: "center",
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });
 
-export const ringArc = style({
+export const ring_arc = style({
   ...motion.value,
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });
 
-export const ringLabel = style({
+export const ring_label = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       display: "inline-flex",
       alignItems: "center",

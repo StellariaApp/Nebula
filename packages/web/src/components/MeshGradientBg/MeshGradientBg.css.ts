@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { meshBase, meshImage, scrimAlpha } from "./MeshGradientBg.vars.css.js";
 
-export const meshGradientBg = recipe({
+export const mesh_gradient_bg = recipe({
   base: {
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
@@ -45,7 +45,7 @@ export const meshGradientBg = recipe({
 
 export const scrim = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: -1,
@@ -59,10 +59,10 @@ export const scrim = style({
   },
 });
 
-export const grainLayer = style({
+export const grain_layer = style({
   "@layer": {
-    [baseLayer]: { zIndex: -1 },
+    [base_layer]: { zIndex: -1 },
   },
 });
 
-export type MeshGradientBgRecipeVariants = NonNullable<RecipeVariants<typeof meshGradientBg>>;
+export type MeshGradientBgRecipeVariants = NonNullable<RecipeVariants<typeof mesh_gradient_bg>>;

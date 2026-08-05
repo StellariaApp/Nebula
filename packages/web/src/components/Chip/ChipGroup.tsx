@@ -54,9 +54,9 @@ export function ChipGroup(props: ChipGroupProps): ReactElement {
 
   return (
     <ChipGroupContext.Provider value={context}>
-      <fieldset className={cx(styles.groupRoot, sprinkle_class, className)} style={sprinkle_style}>
+      <fieldset className={cx(styles.group_root, sprinkle_class, className)} style={sprinkle_style}>
         {label === undefined || label === null ? null : (
-          <legend className={styles.groupLabel}>{label}</legend>
+          <legend className={styles.group_label}>{label}</legend>
         )}
         <div className={styles.group}>{children}</div>
       </fieldset>

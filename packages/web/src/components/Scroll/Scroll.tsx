@@ -45,10 +45,10 @@ const ScrollComponent = forwardRef<HTMLElement, ScrollOwnProps>(function Scroll(
   const shadow_class = !shadows
     ? undefined
     : axis === "x"
-      ? styles.inlineShadows
+      ? styles.inline_shadows
       : axis === "xy"
-        ? styles.bothShadows
-        : styles.blockShadows;
+        ? styles.both_shadows
+        : styles.block_shadows;
 
   const shared = {
     component: component ?? "div",

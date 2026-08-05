@@ -43,7 +43,7 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
 
   return (
     <div
-      className={cx(styles.blurOverlay, styles.radius[radius], sprinkle_class, className)}
+      className={cx(styles.blur_overlay, styles.radius[radius], sprinkle_class, className)}
       style={{
         ...css_vars,
         ...(zIndex === undefined ? {} : { zIndex }),

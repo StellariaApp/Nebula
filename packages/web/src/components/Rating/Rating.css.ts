@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { ratingColor } from "./Rating.vars.css.js";
 
@@ -11,7 +11,7 @@ const TOUCH_TARGET = 24;
 
 export const group = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -25,7 +25,7 @@ export const group = style({
 
 export const item = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
@@ -39,7 +39,7 @@ export const item = style({
       color: "inherit",
       lineHeight: 0,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
       "::after": {
         content: "",
         position: "absolute",
@@ -64,7 +64,7 @@ export const item = style({
 
 export const partial = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       display: "inline-flex",
@@ -77,7 +77,7 @@ export const partial = style({
   },
 });
 
-export const itemSize = styleVariants({
+export const item_size = styleVariants({
   xs: { width: vars.size.compact.xs, height: vars.size.compact.xs },
   sm: { width: vars.size.compact.sm, height: vars.size.compact.sm },
   md: { width: vars.size.compact.md, height: vars.size.compact.md },

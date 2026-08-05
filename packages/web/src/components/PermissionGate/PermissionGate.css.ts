@@ -1,10 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const denied = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "contents",
     },
   },
@@ -12,7 +12,7 @@ export const denied = style({
 
 export const disabled = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       opacity: 0.45,
       filter: "grayscale(1)",
       userSelect: "none",

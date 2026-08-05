@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const header = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -18,7 +18,7 @@ export const header = style({
 
 export const row = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -30,7 +30,7 @@ export const row = style({
 
 export const lead = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -41,7 +41,7 @@ export const lead = style({
 
 export const heading = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -53,7 +53,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       fontSize: vars.font.size.h4,
       fontWeight: vars.font.weight.semibold,
@@ -68,7 +68,7 @@ export const title = style({
 
 export const subtitle = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       margin: 0,
       maxWidth: "62ch",
       fontSize: vars.font.size.body3,
@@ -80,7 +80,7 @@ export const subtitle = style({
 
 export const trail = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -92,6 +92,6 @@ export const trail = style({
 
 export const body = style({
   "@layer": {
-    [baseLayer]: { minWidth: 0 },
+    [base_layer]: { minWidth: 0 },
   },
 });

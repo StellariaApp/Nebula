@@ -1,15 +1,15 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const frameRatio = createVar();
+import { frameRatio } from "./EditorImage.vars.css.js";
 
 export const trigger = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       display: "block",
       width: "100%",
@@ -25,14 +25,14 @@ export const trigger = style({
         "&:disabled": { cursor: "not-allowed", opacity: 0.55 },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
 export const image = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "100%",
       height: "100%",
       objectFit: "cover",
@@ -43,7 +43,7 @@ export const image = style({
 
 export const hint = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       insetInline: 0,
       insetBlockEnd: 0,
@@ -58,7 +58,7 @@ export const hint = style({
 
 export const missing = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.md,
       borderRadius: vars.radius.md,
       border: `1px dashed ${vars.color.semantic.warning["600"]}`,

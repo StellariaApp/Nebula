@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../theme/contract.css.js";
-import { baseLayer } from "../theme/layers.css.js";
+import { base_layer } from "../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -17,7 +17,7 @@ export const root = style({
 
 export const compact = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: "0 0 auto",
       paddingInlineEnd: vars.space.xs,
       marginInlineEnd: vars.space.xs,
@@ -30,16 +30,16 @@ export const compact = style({
 
 export const input = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       minWidth: 0,
       fontVariantNumeric: "tabular-nums",
     },
   },
 });
 
-export const inputCompact = style({
+export const input_compact = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: "5ch",
       flex: "0 0 auto",
     },
@@ -48,7 +48,7 @@ export const inputCompact = style({
 
 export const flag = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flexShrink: 0,
       lineHeight: 1,
       fontSize: "1.15em",
@@ -58,7 +58,7 @@ export const flag = style({
 
 export const dropdown = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       minWidth: 260,
     },
   },

@@ -1,8 +1,8 @@
 import { keyframes, style } from "@vanilla-extract/css";
 
-import { reducedMedia, still } from "../../styles/motion.css.js";
+import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   accentColor,
@@ -23,9 +23,9 @@ const TWINKLE = keyframes({
   "50%": { opacity: 1, transform: "scale(1)" },
 });
 
-export const starField = style({
+export const star_field = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       overflow: "hidden",
@@ -42,7 +42,7 @@ export const starField = style({
 
 export const layer = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: "-8%",
       willChange: "transform",
@@ -52,7 +52,7 @@ export const layer = style({
 
 export const grid = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       backgroundImage: `linear-gradient(${gridColor} 1px, transparent 1px), linear-gradient(90deg, ${gridColor} 1px, transparent 1px)`,
       backgroundSize: `${gridCell} ${gridCell}`,
     },
@@ -61,7 +61,7 @@ export const grid = style({
 
 export const faded = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       WebkitMaskImage: FADE_MASK,
       maskImage: FADE_MASK,
     },
@@ -70,7 +70,7 @@ export const faded = style({
 
 export const star = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       borderRadius: vars.radius.full,
       background: starColor,
@@ -85,7 +85,7 @@ export const star = style({
         "&[data-twinkle='false']": { ...still, opacity: 0.6, transform: "scale(1)" },
       },
       "@media": {
-        [reducedMedia]: { ...still, opacity: 0.6, transform: "scale(1)" },
+        [reduced_media]: { ...still, opacity: 0.6, transform: "scale(1)" },
       },
     },
   },
@@ -125,14 +125,14 @@ function Drift(peak: number, dx: number, dy: number): string {
 
 export const aurora = style({
   "@layer": {
-    [baseLayer]: { position: "absolute", inset: 0, overflow: "hidden" },
+    [base_layer]: { position: "absolute", inset: 0, overflow: "hidden" },
   },
 });
 
-export const auroraBlob = AURORAS.map((a, i) =>
+export const aurora_blob = AURORAS.map((a, i) =>
   style({
     "@layer": {
-      [baseLayer]: {
+      [base_layer]: {
         position: "absolute",
         top: a.top,
         ...(a.left === "auto" ? { right: a.right } : { left: a.left }),
@@ -152,7 +152,7 @@ export const auroraBlob = AURORAS.map((a, i) =>
           "&[data-still='true']": { ...still, transform: "none" },
         },
         "@media": {
-          [reducedMedia]: { ...still, transform: "none" },
+          [reduced_media]: { ...still, transform: "none" },
         },
       },
     },

@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 export const base = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       fontFamily: vars.font.family.mono,
       background: vars.color.surface.sunken,
       color: vars.color.text.primary,
@@ -16,7 +16,7 @@ export const base = style({
 
 export const inline = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       paddingInline: "0.35em",
       paddingBlock: "0.12em",
       fontSize: "0.875em",
@@ -27,7 +27,7 @@ export const inline = style({
 
 export const block = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "block",
       margin: 0,
       padding: vars.space.md,

@@ -1,16 +1,15 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { interaction, reducedMedia, still } from "../../styles/motion.css.js";
+import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const slideSize = createVar();
-export const slideGap = createVar();
+import { slideGap, slideSize } from "./Carousel.vars.css.js";
 
 export const carousel = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "relative",
       boxSizing: "border-box",
     },
@@ -19,7 +18,7 @@ export const carousel = style({
 
 export const viewport = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       overflow: "hidden",
       borderRadius: "inherit",
     },
@@ -28,7 +27,7 @@ export const viewport = style({
 
 export const container = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       gap: slideGap,
       backfaceVisibility: "hidden",
@@ -42,7 +41,7 @@ export const container = style({
 
 export const slide = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       flex: `0 0 ${slideSize}`,
       minWidth: 0,
       boxSizing: "border-box",
@@ -60,7 +59,7 @@ export const gap = styleVariants({
 
 export const controls = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -72,7 +71,7 @@ export const controls = style({
 
 export const indicators = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -87,7 +86,7 @@ export const indicators = style({
 
 export const indicator = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       width: 8,
       height: 8,
       padding: 0,
@@ -101,14 +100,14 @@ export const indicator = style({
         "&:hover": { background: vars.color.border.strong },
         "&:focus-visible": { ...focus.ring },
       },
-      "@media": { [reducedMedia]: still },
+      "@media": { [reduced_media]: still },
     },
   },
 });
 
-export const emptySlot = style({
+export const empty_slot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       padding: vars.space.lg,
       textAlign: "center",
       color: vars.color.text.muted,

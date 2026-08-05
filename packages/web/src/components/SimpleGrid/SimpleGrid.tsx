@@ -71,7 +71,7 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.simpleGrid, className)}
+        className={cx(styles.simple_grid, className)}
         style={{ ...css_vars, ...style }}
         {...rest}
       >

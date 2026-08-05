@@ -1,14 +1,13 @@
-import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
-export const tint = createVar();
-export const alpha = createVar();
+import { alpha, tint } from "./Overlay.vars.css.js";
 
 export const overlay = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       background: tint,
@@ -47,7 +46,7 @@ export const radius = styleVariants({
 
 export const veil = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       position: "absolute",
       inset: 0,
       background: tint,
@@ -59,6 +58,6 @@ export const veil = style({
 
 export const content = style({
   "@layer": {
-    [baseLayer]: { position: "relative" },
+    [base_layer]: { position: "relative" },
   },
 });

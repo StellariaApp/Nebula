@@ -3,13 +3,13 @@ import { globalStyle, style, styleVariants } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import { radioColor, radioSize } from "./Radio.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -47,7 +47,7 @@ export const size = styleVariants(
 
 export const dot = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -61,7 +61,7 @@ export const dot = style({
       borderRadius: vars.radius.full,
       background: vars.color.surface.raised,
       ...motion.interaction,
-      ...motion.reducedMotion,
+      ...motion.reduced_motion,
     },
   },
 });
@@ -74,15 +74,15 @@ export const inner = style({
   opacity: 0,
   transform: "scale(0.4)",
   ...motion.confirm,
-  ...motion.reducedMotion,
+  ...motion.reduced_motion,
 });
 
-export const labelText = style({
-  "@layer": { [baseLayer]: { lineHeight: vars.font.lineHeight.tight } },
+export const label_text = style({
+  "@layer": { [base_layer]: { lineHeight: vars.font.lineHeight.tight } },
 });
 
 export const list = style({ display: "flex", flexDirection: "column", gap: vars.space.xs });
-export const listRow = style({
+export const list_row = style({
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",

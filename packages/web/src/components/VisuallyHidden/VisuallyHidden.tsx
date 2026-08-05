@@ -13,7 +13,7 @@ const VisuallyHiddenComponent = forwardRef<HTMLElement, VisuallyHiddenOwnProps>(
       <Box
         ref={ref}
         component={component ?? "span"}
-        className={cx(styles.visuallyHidden, className)}
+        className={cx(styles.visually_hidden, className)}
         {...rest}
       />
     );

@@ -147,7 +147,7 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
             {...control}
             ref={trigger_ref}
             type="button"
-            className={cx(styles.textTrigger, className)}
+            className={cx(styles.text_trigger, className)}
             disabled={fp.isDisabled}
             data-placeholder={parsed === null ? "true" : undefined}
             data-focus-visible={isFocusVisible ? "true" : undefined}

@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { baseLayer } from "../../theme/layers.css.js";
+import { base_layer } from "../../theme/layers.css.js";
 
 import {
   backdropFilter,
@@ -144,7 +144,7 @@ export type ButtonRecipeVariants = NonNullable<RecipeVariants<typeof button>>;
 
 export const section = style({
   "@layer": {
-    [baseLayer]: {
+    [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -153,7 +153,7 @@ export const section = style({
   },
 });
 
-export const labelLoading = style({
+export const label_loading = style({
   opacity: 0,
 });
 

@@ -9,6 +9,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Modal } from "../Modal/Modal.js";
 
 import * as styles from "./Player.css.js";
+import * as player_vars from "./Player.vars.css.js";
 import type { PlayerProps } from "./Player.types.js";
 
 const DEFAULT_RATIO = 16 / 9;
@@ -45,7 +46,7 @@ export function Player(props: PlayerProps): ReactElement {
     [labels],
   );
 
-  const css_vars = assignInlineVars({ [styles.frameRatio]: String(ratio) });
+  const css_vars = assignInlineVars({ [player_vars.frameRatio]: String(ratio) });
 
   const frame = (
     <div

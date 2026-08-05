@@ -164,7 +164,7 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
               fieldRef={start_ref}
               className={cx(className)}
             />
-            <span className={styles.rangeSeparator} aria-hidden="true">
+            <span className={styles.range_separator} aria-hidden="true">
               –
             </span>
             <DateSegments state={end_state} fieldProps={end_group} fieldRef={end_ref} />

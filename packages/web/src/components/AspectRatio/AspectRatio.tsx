@@ -32,7 +32,7 @@ const AspectRatioComponent = forwardRef<HTMLElement, AspectRatioOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.aspectRatio, className)}
+        className={cx(styles.aspect_ratio, className)}
         style={{ ...css_vars, ...style }}
         {...rest}
       >
