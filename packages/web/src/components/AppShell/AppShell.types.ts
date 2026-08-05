@@ -63,9 +63,10 @@ export interface AppShellSidebarProps {
   top?: ReactNode | undefined;
   bottom?: ReactNode | undefined;
   level?: GlassLevel | undefined;
-  opened?: boolean | undefined;
-  onClose?: (() => void) | undefined;
-  scrimLabel?: string | undefined;
+  /** Con callback, la barra pinta su propio botón de encoger. Desaparece bajo `laptop`. */
+  collapsed?: boolean | undefined;
+  onCollapse?: ((collapsed: boolean) => void) | undefined;
+  collapseLabels?: { collapse: string; expand: string } | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
 }

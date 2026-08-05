@@ -31,7 +31,7 @@ export function Feature(props: FeatureProps): ReactElement {
       data-align={align}
     >
       {icon === undefined || icon === null ? null : (
-        <ThemeIcon size="lg" variant="light" color={color}>
+        <ThemeIcon mb="sm" size="xl" variant="light" color={color}>
           {icon}
         </ThemeIcon>
       )}

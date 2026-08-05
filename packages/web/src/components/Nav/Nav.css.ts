@@ -329,3 +329,127 @@ export const divider = style({
     },
   },
 });
+
+/** El cajón de la landing: cristal, borde de inicio y pie en columna. */
+export const sidebarScrim = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "fixed",
+      inset: 0,
+      border: 0,
+      padding: 0,
+      zIndex: vars.zIndex.overlay,
+      background: vars.glass.strong.background,
+      backdropFilter: vars.glass.subtle.backdropFilter,
+    },
+  },
+});
+
+export const sidebar = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "fixed",
+      insetBlock: 0,
+      insetInlineEnd: 0,
+      zIndex: vars.zIndex.modal,
+      boxSizing: "border-box",
+      display: "flex",
+      flexDirection: "column",
+      inlineSize: "min(320px, 100vw)",
+      background: vars.glass.strong.background,
+      backdropFilter: vars.glass.strong.backdropFilter,
+      borderInlineStart: `1px solid ${vars.glass.strong.borderColor}`,
+      color: vars.color.text.primary,
+      fontFamily: vars.font.family.sans,
+    },
+  },
+});
+
+export const sidebarHead = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: vars.space.sm,
+      flexShrink: 0,
+    },
+  },
+});
+
+export const sidebarBody = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.xxs,
+      padding: vars.space.md,
+      flex: 1,
+      minHeight: 0,
+      overflowY: "auto",
+    },
+  },
+});
+
+export const sidebarFooter = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "stretch",
+      gap: vars.space.sm,
+      padding: vars.space.md,
+      marginBlockStart: "auto",
+      flexShrink: 0,
+      borderBlockStart: `1px solid ${vars.glass.control.borderColor}`,
+    },
+  },
+});
+
+export const overflow = style({
+  "@layer": {
+    [baseLayer]: { position: "relative", flexShrink: 0 },
+  },
+});
+
+export const overflowTrigger = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      blockSize: linkHeight,
+      inlineSize: linkHeight,
+      borderRadius: vars.radius.full,
+      color: vars.color.text.secondary,
+      cursor: "pointer",
+      listStyle: "none",
+      outline: "none",
+      selectors: {
+        "&::-webkit-details-marker": { display: "none" },
+        "&:hover": { color: vars.color.text.primary },
+        "&:focus-visible": { ...focus.ring },
+      },
+    },
+  },
+});
+
+export const overflowPanel = style({
+  "@layer": {
+    [baseLayer]: {
+      position: "absolute",
+      insetBlockStart: "calc(100% + 4px)",
+      insetInlineEnd: 0,
+      zIndex: vars.zIndex.dropdown,
+      display: "flex",
+      flexDirection: "column",
+      gap: vars.space.xxs,
+      minInlineSize: "180px",
+      padding: vars.space.xs,
+      borderRadius: vars.radius.md,
+      background: vars.glass.strong.background,
+      backdropFilter: vars.glass.strong.backdropFilter,
+      border: `1px solid ${vars.glass.strong.borderColor}`,
+      boxShadow: vars.shadow.lg,
+    },
+  },
+});

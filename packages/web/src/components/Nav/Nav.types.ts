@@ -14,6 +14,7 @@ export type NavLinksAlign = "start" | "center" | "end";
 export type NavLinksCollapse = "none" | "phone" | "tablet" | "laptop";
 
 export interface NavLabels {
+  more: string;
   links: string;
 }
 
@@ -42,12 +43,27 @@ export interface NavLogoProps extends StyleProps {
   "aria-label"?: string | undefined;
 }
 
+export interface NavSidebarProps {
+  opened: boolean;
+  onClose: () => void;
+  children?: ReactNode | undefined;
+  /** Va al pie, en columna: es donde caben el badge de estado y el CTA. */
+  footer?: ReactNode | undefined;
+  /** Por encima de este punto el cajón se cierra solo. */
+  collapse?: NavLinksCollapse | undefined;
+  closeLabel?: string | undefined;
+  label?: string | undefined;
+  className?: string | undefined;
+}
+
 export interface NavLinksProps extends Omit<StyleProps, "color" | "align"> {
   children?: ReactNode | undefined;
   active?: string | undefined;
   activeMode?: NavActiveMode | undefined;
   align?: NavLinksAlign | undefined;
   collapse?: NavLinksCollapse | undefined;
+  /** Priority+: mide el ancho real y manda al menú los enlaces que no caben. */
+  overflowMenu?: boolean | undefined;
   spyOffset?: number | undefined;
   variant?: Variant | undefined;
   color?: ColorExtended | undefined;

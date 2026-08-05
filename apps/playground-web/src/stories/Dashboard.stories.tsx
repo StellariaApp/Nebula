@@ -6,13 +6,11 @@ import { CommonPack } from "@stellaria/nebula-icons/packs";
 import { palettes } from "@stellaria/nebula-tokens";
 import {
   ActionIcon,
-  Group,
   Avatar,
   Badge,
   AppShell,
   Box,
   Breadcrumbs,
-  Burger,
   Button,
   Card,
   Divider,
@@ -435,7 +433,6 @@ const TRAIL: BreadcrumbItem[] = [
 
 function CompanyBoard(): ReactElement {
   const scroller = useRef<HTMLElement | null>(null);
-  const [drawer, set_drawer] = useState(false);
   const [mini, set_mini] = useState(false);
 
   return (
@@ -447,10 +444,8 @@ function CompanyBoard(): ReactElement {
       sidebar={
         <AppShell.Sidebar
           aria-label="Navegación principal"
-          opened={drawer}
-          onClose={() => {
-            set_drawer(false);
-          }}
+          collapsed={mini}
+          onCollapse={set_mini}
           top={<Brand />}
           bottom={<UserRow />}
         >
@@ -468,32 +463,9 @@ function CompanyBoard(): ReactElement {
           title="Mis Empresas"
           subtitle="Ve todas las empresas que has creado y administras"
           actions={
-            <Group gap="sm">
-              <Burger
-                opened={drawer}
-                size="sm"
-                showBelow="tablet"
-                onChange={set_drawer}
-                openLabel="Abrir la navegación"
-                closeLabel="Cerrar la navegación"
-              />
-              <ActionIcon
-                variant="glass"
-                size="sm"
-                aria-label={mini ? "Expandir la barra" : "Colapsar la barra"}
-                onPress={() => {
-                  set_mini((v) => !v);
-                }}
-              >
-                <Icon
-                  name="chevron-right"
-                  style={{ transform: mini ? undefined : "rotate(180deg)" }}
-                />
-              </ActionIcon>
-              <Button size="sm" rightSection={<Icon name="plus" />}>
-                Crear Empresa
-              </Button>
-            </Group>
+            <Button size="sm" rightSection={<Icon name="plus" />}>
+              Crear Empresa
+            </Button>
           }
         />
         <AppShell.Subbar sticky>

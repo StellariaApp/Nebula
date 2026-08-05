@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 
 import {
   Badge,
@@ -103,13 +103,15 @@ const PLANS = [
 ] as const;
 
 function Bar({ name }: { name: string }): ReactElement {
+  const [menu, set_menu] = useState(false);
+
   return (
     <Nav component="header" aria-label="Cabecera del sitio" floating>
       <Nav.Logo href="#inicio" aria-label="Inicio">
         {MARK(vars.color.primary[500])}
         <span>{name}</span>
       </Nav.Logo>
-      <Nav.Links aria-label="Principal">
+      <Nav.Links aria-label="Principal" overflowMenu>
         {SECTIONS.map((item) => (
           <Nav.Links.Link key={item.href} href={item.href}>
             {item.label}
@@ -121,8 +123,26 @@ function Bar({ name }: { name: string }): ReactElement {
         <Button size="sm" variant="gradient">
           Probar gratis
         </Button>
-        <Burger size="sm" showBelow="tablet" />
       </Nav.Actions>
+      <Burger size="sm" showBelow="tablet" opened={menu} onChange={set_menu} />
+      <Nav.Sidebar
+        opened={menu}
+        onClose={() => {
+          set_menu(false);
+        }}
+        footer={
+          <>
+            <Badge variant="light">en línea</Badge>
+            <Button variant="gradient">Probar gratis</Button>
+          </>
+        }
+      >
+        {SECTIONS.map((item) => (
+          <Nav.Links.Link key={item.href} href={item.href}>
+            {item.label}
+          </Nav.Links.Link>
+        ))}
+      </Nav.Sidebar>
     </Nav>
   );
 }
@@ -185,7 +205,7 @@ function Capabilities(): ReactElement {
       title="Capacidades"
       description="Tres piezas, un solo flujo."
     >
-      <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+      <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="lg">
         {CAPABILITIES.map((item, index) => (
           <Reveal key={item.title} component="article" index={index}>
             <Feature icon={item.icon} title={item.title} description={item.description} />
@@ -209,27 +229,35 @@ function Pricing(): ReactElement {
       <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
         {PLANS.map((plan, index) => (
           <Reveal key={plan.name} component="article" index={index}>
-            <Card p="lg" withBorder radius="md">
-              <Box display="flex" direction="column" gap="sm">
-                <Box display="flex" align="center" justify="space-between" gap="xs">
-                  <Text component="h3" fz="body2" fw="semibold">
-                    {plan.name}
-                  </Text>
-                  {plan.featured ? <Badge variant="light">Más elegido</Badge> : null}
-                </Box>
-                <Box display="flex" align="baseline" gap="xxs">
-                  <Text fz="h2" fw="bold">
-                    {plan.price}
-                  </Text>
-                  <Text fz="caption" c="text.muted">
-                    {plan.note}
-                  </Text>
-                </Box>
-                <Divider />
-                <Button variant={plan.featured ? "filled" : "outline"} fullWidth>
-                  {plan.cta}
-                </Button>
+            <Card
+              w="100%"
+              h="100%"
+              p="lg"
+              withBorder
+              radius="md"
+              display="flex"
+              direction="column"
+              gap="sm"
+            >
+              <Box display="flex" align="center" justify="space-between" gap="xs">
+                <Text component="h3" fz="body2" fw="semibold">
+                  {plan.name}
+                </Text>
+                {plan.featured ? <Badge variant="light">Más elegido</Badge> : null}
               </Box>
+              <Box display="flex" align="baseline" gap="xxs" wrap="wrap">
+                <Text fz="h2" fw="bold">
+                  {plan.price}
+                </Text>
+                <Text fz="caption" c="text.muted">
+                  {plan.note}
+                </Text>
+              </Box>
+              {/* <Space my="auto" /> */}
+              <Divider />
+              <Button variant={plan.featured ? "filled" : "outline"} fullWidth>
+                {plan.cta}
+              </Button>
             </Card>
           </Reveal>
         ))}

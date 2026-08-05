@@ -65,6 +65,8 @@ export const shadowOffset = createVar();
 export const railWidth = createVar();
 export const railMiniWidth = createVar();
 
+const RAIL_BAR_HEIGHT = "70px";
+
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
   "@layer": {
@@ -83,6 +85,7 @@ export const rail = style({
       fontFamily: vars.font.family.sans,
       isolation: "isolate",
       "@media": {
+        [SmallerThan("laptop")]: { gridTemplateColumns: `${railMiniWidth} 1fr` },
         [SmallerThan("tablet")]: {
           gridTemplateAreas: `"chrome" "main"`,
           gridTemplateColumns: "1fr",
@@ -109,44 +112,23 @@ export const sidebar = style({
       "@media": {
         [SmallerThan("tablet")]: {
           position: "fixed",
-          insetBlockStart: 0,
-          insetInlineStart: 0,
-          inlineSize: railWidth,
-          maxInlineSize: "100vw",
-          insetBlockEnd: 0,
-          zIndex: vars.zIndex.modal,
-          transform: "translateX(-100%)",
-          transitionProperty: "transform",
-          transitionDuration: vars.motion.duration.base,
-          transitionTimingFunction: vars.motion.easing.decelerate,
+          insetBlockStart: "auto",
+          insetBlockEnd: vars.space.xs,
+          insetInline: vars.space.xs,
+          inlineSize: "auto",
+          blockSize: RAIL_BAR_HEIGHT,
+          maxBlockSize: RAIL_BAR_HEIGHT,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          borderRadius: vars.radius.md,
+          borderInlineEnd: "none !important",
+          overflowX: "auto",
+          overflowY: "hidden",
+          zIndex: vars.zIndex.sticky,
         },
-        [SmallerThan("phone")]: { inlineSize: "100vw" },
         "(prefers-reduced-motion: reduce)": motion.still,
       },
-    },
-  },
-});
-
-export const sidebarOpened = style({
-  "@layer": {
-    [baseLayer]: {
-      "@media": { [SmallerThan("tablet")]: { transform: "translateX(0)" } },
-    },
-  },
-});
-
-export const sidebarScrim = style({
-  "@layer": {
-    [baseLayer]: {
-      display: "none",
-      position: "fixed",
-      inset: 0,
-      zIndex: vars.zIndex.overlay,
-      border: 0,
-      padding: 0,
-      background: vars.glass.strong.background,
-      backdropFilter: vars.glass.subtle.backdropFilter,
-      "@media": { [SmallerThan("tablet")]: { display: "block" } },
     },
   },
 });
@@ -160,10 +142,18 @@ export const railLabel = style({
         "[data-rail-collapsed='true'] &": { display: "none" },
       },
       "@media": {
-        [SmallerThan("tablet")]: {
-          selectors: { "[data-rail-collapsed='true'] &": { display: "revert" } },
-        },
+        [SmallerThan("laptop")]: { display: "none" },
       },
+    },
+  },
+});
+
+/** El botón de encoger: solo existe donde encoger es una elección. */
+export const railToggle = style({
+  "@layer": {
+    [baseLayer]: {
+      flexShrink: 0,
+      "@media": { [SmallerThan("laptop")]: { display: "none" } },
     },
   },
 });
@@ -186,6 +176,14 @@ export const sidebarSlot = style({
           paddingInline: vars.space.xs,
         },
       },
+      "@media": {
+        [SmallerThan("laptop")]: { justifyContent: "center", paddingInline: vars.space.xs },
+        [SmallerThan("tablet")]: {
+          inlineSize: "auto",
+          blockSize: "100%",
+          borderBlock: "none !important",
+        },
+      },
     },
   },
 });
@@ -200,7 +198,20 @@ export const sidebarTop = style({
 
 export const sidebarBody = style({
   "@layer": {
-    [baseLayer]: { flex: 1, minHeight: 0, overflowY: "auto" },
+    [baseLayer]: {
+      flex: 1,
+      minHeight: 0,
+      overflowY: "auto",
+      "@media": {
+        [SmallerThan("tablet")]: {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          inlineSize: "max-content",
+          overflowY: "hidden",
+        },
+      },
+    },
   },
 });
 

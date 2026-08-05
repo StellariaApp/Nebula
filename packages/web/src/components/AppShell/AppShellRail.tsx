@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Text } from "../Text/Text.js";
 import { Title } from "../Title/Title.js";
+import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { GlassSurface } from "../GlassSurface/GlassSurface.js";
 
 import { useAppShell } from "./AppShellContext.js";
@@ -81,38 +82,67 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
     top,
     bottom,
     level = "strong",
-    opened = false,
-    onClose,
-    scrimLabel = "Cerrar el menú",
+    collapsed = false,
+    onCollapse,
+    collapseLabels = { collapse: "Colapsar la barra", expand: "Expandir la barra" },
     className,
     ...rest
   } = props;
-  return (
-    <>
-      {opened && onClose !== undefined ? (
-        <button
-          type="button"
-          aria-label={scrimLabel}
-          className={styles.sidebarScrim}
-          onClick={onClose}
-        />
-      ) : null}
-      <GlassSurface
-        component="aside"
-        level={level}
-        radius={0}
-        className={cx(styles.sidebar, opened ? styles.sidebarOpened : undefined, className)}
-        {...rest}
+
+  const toggle =
+    onCollapse === undefined ? null : (
+      <ActionIcon
+        variant="ghost"
+        size="sm"
+        className={styles.railToggle}
+        aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}
+        aria-expanded={!collapsed}
+        onPress={() => {
+          onCollapse(!collapsed);
+        }}
       >
-        {top === undefined ? null : (
-          <div className={cx(styles.sidebarSlot, styles.sidebarTop)}>{top}</div>
-        )}
-        <div className={styles.sidebarBody}>{children}</div>
-        {bottom === undefined ? null : (
-          <div className={cx(styles.sidebarSlot, styles.sidebarBottom)}>{bottom}</div>
-        )}
-      </GlassSurface>
-    </>
+        <ChevronIcon collapsed={collapsed} />
+      </ActionIcon>
+    );
+
+  return (
+    <GlassSurface
+      component="aside"
+      level={level}
+      radius={0}
+      className={cx(styles.sidebar, className)}
+      {...rest}
+    >
+      {top === undefined && toggle === null ? null : (
+        <div className={cx(styles.sidebarSlot, styles.sidebarTop)}>
+          {top}
+          {toggle}
+        </div>
+      )}
+      <div className={styles.sidebarBody}>{children}</div>
+      {bottom === undefined ? null : (
+        <div className={cx(styles.sidebarSlot, styles.sidebarBottom)}>{bottom}</div>
+      )}
+    </GlassSurface>
+  );
+}
+
+function ChevronIcon({ collapsed }: { collapsed: boolean }): ReactElement {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{ transform: collapsed ? undefined : "rotate(180deg)" }}
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
   );
 }
 

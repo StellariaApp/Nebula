@@ -20,12 +20,15 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { NavLinksContext, useNavLinks } from "./Nav.context.js";
 import * as styles from "./Nav.css.js";
+import { NAV_ITEM_ATTR, UseNavOverflow } from "./use-nav-overflow.js";
 import { NAV_LABELS } from "./labels.js";
 import type { NavLinkItemProps, NavLinksProps } from "./Nav.types.js";
 import { indicatorBg, indicatorBorder, indicatorFg } from "./Nav.vars.css.js";
 import { useNavActive, type NavItem } from "./use-nav-active.js";
 import { useNavIndicator } from "./use-nav-indicator.js";
 import { useStickyChrome } from "./use-sticky-chrome.js";
+
+const OVERFLOW_RESERVE = 44;
 
 export function NavLinksLink(props: NavLinkItemProps): ReactElement {
   const {
@@ -54,6 +57,7 @@ export function NavLinksLink(props: NavLinkItemProps): ReactElement {
       ref={item_ref}
       className={cx(styles.link, sprinkle_class, className)}
       style={sprinkle_style}
+      {...{ [NAV_ITEM_ATTR]: "" }}
       data-active={is_active ? "true" : undefined}
       data-disabled={disabled ? "true" : undefined}
       {...(Element === "button" ? { type: "button" } : {})}
@@ -94,6 +98,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     active,
     activeMode = "auto",
     align = "center",
+    overflowMenu = false,
     collapse = "tablet",
     spyOffset,
     variant = "light",
@@ -124,12 +129,18 @@ export function NavLinks(props: NavLinksProps): ReactElement {
 
   const indicator = useNavIndicator(withIndicator ? resolved_active.href : undefined);
 
+  const nodes = Children.toArray(children);
+  const overflow = UseNavOverflow(nodes.length, OVERFLOW_RESERVE, overflowMenu);
+  const shown = overflow.visible;
+  const hidden = nodes.slice(shown);
+
   const SetRoot = useCallback(
     (node: HTMLElement | null): void => {
       list_ref.current = node;
       indicator.containerRef(node);
+      overflow.Track(node);
     },
-    [indicator],
+    [indicator, overflow],
   );
 
   const { theme } = useTheme();
@@ -179,7 +190,21 @@ export function NavLinks(props: NavLinksProps): ReactElement {
           transition={indicator.ready ? indicator.fadeIn : indicator.fadeOut}
         />
       ) : null}
-      <NavLinksContext.Provider value={context}>{children}</NavLinksContext.Provider>
+      <NavLinksContext.Provider value={context}>
+        {overflowMenu ? nodes.slice(0, shown) : children}
+        {overflowMenu && hidden.length > 0 ? (
+          <details className={styles.overflow}>
+            <summary className={styles.overflowTrigger} aria-label={text.more}>
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                <circle cx="5" cy="12" r="1.6" />
+                <circle cx="12" cy="12" r="1.6" />
+                <circle cx="19" cy="12" r="1.6" />
+              </svg>
+            </summary>
+            <div className={styles.overflowPanel}>{hidden}</div>
+          </details>
+        ) : null}
+      </NavLinksContext.Provider>
     </nav>
   );
 }
