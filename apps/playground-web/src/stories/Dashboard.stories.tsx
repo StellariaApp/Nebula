@@ -20,6 +20,9 @@ import {
   Menu,
   NavLink,
   SimpleGrid,
+  Table,
+  Tabs,
+  Progress,
   StarField,
   Text,
   Title,
@@ -510,4 +513,276 @@ type Story = StoryObj;
  */
 export const Empresas: Story = {
   render: () => <CompanyBoard />,
+};
+
+const TEAM = [
+  { name: "Administrador The Film Vault", email: "admin@thefilmvault.app", role: "Propietario" },
+  { name: "Marta Ibáñez", email: "marta@thefilmvault.app", role: "Administrador" },
+  { name: "Diego Serrano", email: "diego@thefilmvault.app", role: "Operador" },
+  { name: "Lucía Prats", email: "lucia@thefilmvault.app", role: "Invitado" },
+] as const;
+
+const ROLE_TONE = {
+  Propietario: "primary",
+  Administrador: "accent",
+  Operador: "info",
+  Invitado: "gray",
+} as const;
+
+const COMPANY_TRAIL: BreadcrumbItem[] = [
+  { key: "home", label: "Inicio", href: "#inicio" },
+  { key: "companies", label: "Mis Empresas", href: "#empresas" },
+  { key: "current", label: "The Film Vault" },
+];
+
+function Metric({
+  label,
+  value,
+  hint,
+}: {
+  label: string;
+  value: string;
+  hint: string;
+}): ReactElement {
+  return (
+    <GlassSurface level="subtle" radius="md" withBorder p="md">
+      <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
+        {label}
+      </Text>
+      <Text fz="h4" fw="bold" lh="tight" mt="xxs">
+        {value}
+      </Text>
+      <Text fz="caption" c="text.muted">
+        {hint}
+      </Text>
+    </GlassSurface>
+  );
+}
+
+function ServiceCard({
+  icon,
+  name,
+  note,
+  used,
+  quota,
+}: {
+  icon: IconName;
+  name: string;
+  note: string;
+  used: number;
+  quota: number;
+}): ReactElement {
+  const pct = Math.round((used / quota) * 100);
+  return (
+    <Card withBorder radius="lg" p="md">
+      <Flex align="center" gap="sm">
+        <Box c="primary.600" display="flex">
+          <Icon name={icon} size={22} />
+        </Box>
+        <Box miw={0} style={{ flex: 1 }}>
+          <Text fz="body2" fw="semibold" truncate>
+            {name}
+          </Text>
+          <Text fz="caption" c="text.muted" truncate>
+            {note}
+          </Text>
+        </Box>
+        <Badge variant="light" color={pct > 85 ? "warning" : "success"}>
+          {pct} %
+        </Badge>
+      </Flex>
+      <Progress
+        value={pct}
+        size="xs"
+        mt="sm"
+        color={pct > 85 ? "warning" : "primary"}
+        label={`Consumo de ${name}`}
+      />
+      <Text fz="caption" c="text.muted" mt="xxs">
+        {used} de {quota} unidades
+      </Text>
+    </Card>
+  );
+}
+
+function TeamTable(): ReactElement {
+  return (
+    <Table.ScrollContainer>
+      <Table highlightOnHover density="comfortable" caption="Equipo de The Film Vault">
+        <Table.Head>
+          <Table.Row>
+            <Table.Title>Persona</Table.Title>
+            <Table.Title>Rol</Table.Title>
+            <Table.Title align="end">Acciones</Table.Title>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {TEAM.map((person) => (
+            <Table.Row key={person.email}>
+              <Table.Cell>
+                <Flex align="center" gap="sm">
+                  <Avatar name={person.name} size="sm" radius="full" />
+                  <Box miw={0}>
+                    <Text fz="body3" fw="semibold" truncate>
+                      {person.name}
+                    </Text>
+                    <Text fz="caption" c="text.muted" truncate>
+                      {person.email}
+                    </Text>
+                  </Box>
+                </Flex>
+              </Table.Cell>
+              <Table.Cell>
+                <Badge variant="light" color={ROLE_TONE[person.role]}>
+                  {person.role}
+                </Badge>
+              </Table.Cell>
+              <Table.Cell align="end">
+                <Menu
+                  items={CARD_ACTIONS}
+                  aria-label={`Acciones de ${person.name}`}
+                  trigger={
+                    <ActionIcon variant="ghost" size="sm" aria-label={`Acciones de ${person.name}`}>
+                      <Icon name="more" />
+                    </ActionIcon>
+                  }
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </Table.ScrollContainer>
+  );
+}
+
+function CompanyDetail(): ReactElement {
+  const scroller = useRef<HTMLElement | null>(null);
+  const [mini, set_mini] = useState(false);
+  const company = OWNED[0] as Company;
+
+  const tabs = [
+    {
+      value: "resumen",
+      label: "Resumen",
+      content: (
+        <Box display="flex" direction="column" gap="lg" pt="md">
+          <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+            <Metric label="Servicios activos" value="3" hint="de 5 contratados" />
+            <Metric label="Personas" value="4" hint="1 propietario, 3 con acceso" />
+            <Metric label="Renueva" value={company.renews} hint="plan anual" />
+          </SimpleGrid>
+          <Box>
+            <Title order={2} fz="h6" mb="sm">
+              Servicios
+            </Title>
+            <SimpleGrid cols={{ base: 1, tablet: 2, laptop: 3 }} spacing="md">
+              <ServiceCard
+                icon="film"
+                name="Warehouse"
+                note="Almacén de material y copias"
+                used={412}
+                quota={500}
+              />
+              <ServiceCard
+                icon="building"
+                name="Producción"
+                note="Rodajes y equipos"
+                used={38}
+                quota={120}
+              />
+              <ServiceCard
+                icon="globe"
+                name="Distribución"
+                note="Ventanas y territorios"
+                used={91}
+                quota={100}
+              />
+            </SimpleGrid>
+          </Box>
+        </Box>
+      ),
+    },
+    {
+      value: "equipo",
+      label: "Equipo",
+      content: (
+        <Box pt="md">
+          <TeamTable />
+        </Box>
+      ),
+    },
+    {
+      value: "ajustes",
+      label: "Ajustes",
+      content: (
+        <Box pt="md">
+          <GlassSurface level="subtle" radius="md" withBorder p="lg">
+            <Title order={2} fz="h6">
+              Datos de la empresa
+            </Title>
+            <Text fz="body3" c="text.secondary" mt="xxs">
+              {company.sector}
+            </Text>
+            <Divider my="md" />
+            <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
+              Creada
+            </Text>
+            <Text fz="body3">{company.created}</Text>
+          </GlassSurface>
+        </Box>
+      ),
+    },
+  ];
+
+  return (
+    <AppShell
+      mainRef={scroller}
+      scrollShadowOffset={116}
+      sidebarCollapsed={mini}
+      backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
+      sidebar={
+        <AppShell.Sidebar
+          aria-label="Navegación principal"
+          collapsed={mini}
+          onCollapse={set_mini}
+          top={<Brand />}
+          bottom={<UserRow />}
+        >
+          <SideNav />
+        </AppShell.Sidebar>
+      }
+    >
+      <VisuallyHidden>
+        <Title order={1}>{company.name}</Title>
+      </VisuallyHidden>
+
+      <AppShell.Section aria-label={company.name}>
+        <AppShell.Header
+          sticky
+          title={company.name}
+          subtitle={company.tagline}
+          actions={
+            <Button size="sm" variant="glass" rightSection={<Icon name="edit" />}>
+              Editar
+            </Button>
+          }
+        />
+        <AppShell.Subbar sticky>
+          <Breadcrumbs items={COMPANY_TRAIL} />
+        </AppShell.Subbar>
+        <AppShell.Content>
+          <Tabs data={tabs} defaultValue="resumen" />
+        </AppShell.Content>
+      </AppShell.Section>
+    </AppShell>
+  );
+}
+
+/**
+ * Detalle de empresa: la pantalla a la que lleva una tarjeta del listado. Compone `Tabs`,
+ * `Table` con desplazamiento, `Progress` y `Metric` sobre el mismo carril que `Empresas`.
+ */
+export const CompanyPage: Story = {
+  render: () => <CompanyDetail />,
 };

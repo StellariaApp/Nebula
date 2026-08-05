@@ -136,6 +136,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
               id={`${segment.baseId}-panel-${child.props.value}`}
               aria-labelledby={`${segment.baseId}-tab-${child.props.value}`}
               aria-hidden={active ? undefined : true}
+              {...(active ? {} : { inert: true })}
               tabIndex={active ? 0 : -1}
               className={cx(styles.panel({ fill }), child.props.className)}
             >
