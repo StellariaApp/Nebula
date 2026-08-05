@@ -8,7 +8,7 @@ import { CreatableSelect } from "../../Combobox/CreatableSelect.js";
 import { SearchableSelect } from "../../Combobox/SearchableSelect.js";
 import { Stepper } from "../../Stepper/Stepper.js";
 import { TextInput } from "../../TextInput/TextInput.js";
-import { Form } from "../Form.js";
+import { Form } from "../index.js";
 import { FormDelete } from "../FormDelete.js";
 import { ModalDelete } from "../ModalDelete.js";
 

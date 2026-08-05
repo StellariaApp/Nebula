@@ -41,6 +41,7 @@ pnpm format                        # prettier
 - **En las hojas manda el archivo** (ADR-094): `<Nombre>.css.ts` → `snake_case` (`sidebar_container`, son asas de clase) · `<Nombre>.vars.css.ts` → `camelCase` (`borderColor`, nombran la propiedad CSS). Tablas de constantes en `UPPER_CASE` en ambos.
 - **Las vars locales se importan como espacio de nombres** (ADR-096): `import * as variables from "./X.vars.css.js"` para las propias, `<origen>_vars` para las ajenas. Por eso la var se llama `bg` y no `xBg` — el archivo ya da el contexto.
 - **Componentes planos**: `packages/web/src/components/<Nombre>/`, sin carpeta de categoría.
+- **Las partes de un compound viven en `<Padre>/components/`** (ADR-097), con nombre pelado (`Col.tsx`) y símbolo con prefijo (`GridCol`). Un compound se compone con `Object.assign` en su `index.ts`, nunca atando propiedades al componente.
 - Simple y reutilizable; el código debe ser autoexplicativo.
 
 ## Identidad visual (ADR-020)

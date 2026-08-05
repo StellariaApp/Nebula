@@ -12,7 +12,6 @@ import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
-import { GridCol } from "./Col.js";
 import * as styles from "./Grid.css.js";
 import type { GridOwnProps, GridProps } from "./Grid.types.js";
 import * as variables from "./Grid.vars.css.js";
@@ -53,12 +52,10 @@ const GridComponent = forwardRef<HTMLElement, GridOwnProps>(function Grid(props,
   );
 });
 
-interface GridComponent {
+export interface GridRoot {
   <C extends ElementType = "div">(props: GridProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
-  Col: typeof GridCol;
 }
 
-export const Grid = GridComponent as unknown as GridComponent;
+export const Grid = GridComponent as unknown as GridRoot;
 Grid.displayName = "Grid";
-Grid.Col = GridCol;

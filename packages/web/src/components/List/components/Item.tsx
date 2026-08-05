@@ -1,10 +1,10 @@
 import { forwardRef, type ElementType, type ReactElement, type Ref } from "react";
 
-import { cx } from "../../utils/style-props.js";
-import { Box } from "../Box/Box.js";
+import { cx } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
 
-import * as styles from "./List.css.js";
-import type { ListItemOwnProps, ListItemProps } from "./List.types.js";
+import * as styles from "../List.css.js";
+import type { ListItemOwnProps, ListItemProps } from "../List.types.js";
 
 const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(props, ref) {
   const { component, icon, className, children, ...rest } = props;
@@ -32,7 +32,7 @@ const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListIte
   );
 });
 
-interface ListItemComponent {
+export interface ListItemComponent {
   <C extends ElementType = "li">(props: ListItemProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
 }

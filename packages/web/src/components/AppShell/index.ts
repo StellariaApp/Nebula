@@ -1,20 +1,18 @@
 import { AppShell as AppShellRoot } from "./AppShell.js";
+import { AppShellAside } from "./components/Aside.js";
+import { AppShellContent } from "./components/Content.js";
+import { AppShellFooter } from "./components/Footer.js";
+import { AppShellHeader } from "./components/Header.js";
+import { AppShellLink, AppShellLinks, AppShellRailLabel } from "./components/Links.js";
+import { AppShellNav } from "./components/Nav.js";
+import { AppShellSection } from "./components/Section.js";
 import {
-  AppShellAside,
-  AppShellContent,
-  AppShellFooter,
-  AppShellHeader,
-  AppShellNav,
-  AppShellSection,
-  AppShellLink,
-  AppShellLinks,
-  AppShellRailLabel,
   AppShellSidebar,
   AppShellSidebarBody,
   AppShellSidebarFooter,
   AppShellSidebarHeader,
-  AppShellSubbar,
-} from "./AppShellRail.js";
+} from "./components/Sidebar.js";
+import { AppShellSubbar } from "./components/Subbar.js";
 
 const Sidebar = /* @__PURE__ */ Object.assign(AppShellSidebar, {
   Header: AppShellSidebarHeader,
@@ -22,7 +20,7 @@ const Sidebar = /* @__PURE__ */ Object.assign(AppShellSidebar, {
   Footer: AppShellSidebarFooter,
 });
 
-export const AppShell = Object.assign(AppShellRoot, {
+export const AppShell = /* @__PURE__ */ Object.assign(AppShellRoot, {
   Sidebar,
   RailLabel: AppShellRailLabel,
   Links: AppShellLinks,

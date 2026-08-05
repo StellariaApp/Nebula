@@ -15,7 +15,6 @@ import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
-import { ListItem } from "./Item.js";
 import * as styles from "./List.css.js";
 import * as variables from "./List.vars.css.js";
 import type { ListItemOwnProps, ListOwnProps, ListProps } from "./List.types.js";
@@ -63,12 +62,10 @@ const ListComponent = forwardRef<HTMLElement, ListOwnProps>(function List(props,
   );
 });
 
-interface ListComponent {
+export interface ListRoot {
   <C extends ElementType = "ul">(props: ListProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
-  Item: typeof ListItem;
 }
 
-export const List = ListComponent as unknown as ListComponent;
+export const List = ListComponent as unknown as ListRoot;
 List.displayName = "List";
-List.Item = ListItem;

@@ -1,8 +1,8 @@
-import { NavLinks as NavLinksBase, NavLinksLink } from "./Links.js";
-import { NavLogo } from "./Logo.js";
-import { NavSidebar } from "./Sidebar.js";
+import { NavLinks as NavLinksBase, NavLinksLink } from "./components/Links.js";
+import { NavLogo } from "./components/Logo.js";
+import { NavSidebar } from "./components/Sidebar.js";
 import { Nav as NavRoot } from "./Nav.js";
-import { NavActions, NavDivider } from "./Section.js";
+import { NavActions, NavDivider } from "./components/Section.js";
 
 const NavLinks = /* @__PURE__ */ Object.assign(NavLinksBase, { Link: NavLinksLink });
 

@@ -1,5 +1,9 @@
-export { Grid } from "./Grid.js";
-export { GridCol } from "./Col.js";
+import { GridCol } from "./components/Col.js";
+import { Grid as GridRoot } from "./Grid.js";
+
+export const Grid = /* @__PURE__ */ Object.assign(GridRoot, { Col: GridCol });
+
+export { GridCol };
 export type {
   ColSpan,
   GridColOwnProps,

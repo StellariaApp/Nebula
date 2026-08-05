@@ -14,7 +14,7 @@ import type {
   TableSectionProps,
 } from "./Table.types.js";
 
-function TableRoot(props: TableProps): ReactElement {
+export function TableRoot(props: TableProps): ReactElement {
   const {
     children,
     caption,
@@ -55,7 +55,7 @@ function TableRoot(props: TableProps): ReactElement {
   );
 }
 
-function Head(props: TableSectionProps): ReactElement {
+export function TableHead(props: TableSectionProps): ReactElement {
   const { children, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   return (
@@ -65,7 +65,7 @@ function Head(props: TableSectionProps): ReactElement {
   );
 }
 
-function Body(props: TableSectionProps): ReactElement {
+export function TableBody(props: TableSectionProps): ReactElement {
   const { children, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   return (
@@ -75,7 +75,7 @@ function Body(props: TableSectionProps): ReactElement {
   );
 }
 
-function Foot(props: TableSectionProps): ReactElement {
+export function TableFoot(props: TableSectionProps): ReactElement {
   const { children, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   return (
@@ -85,7 +85,7 @@ function Foot(props: TableSectionProps): ReactElement {
   );
 }
 
-function Row(props: TableRowProps): ReactElement {
+export function TableRow(props: TableRowProps): ReactElement {
   const { children, selected = false, onPress, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
@@ -118,7 +118,7 @@ function Row(props: TableRowProps): ReactElement {
   );
 }
 
-function Title(props: TableCellProps): ReactElement {
+export function TableTitle(props: TableCellProps): ReactElement {
   const {
     children,
     numeric = false,
@@ -148,7 +148,7 @@ function Title(props: TableCellProps): ReactElement {
   );
 }
 
-function Cell(props: TableCellProps): ReactElement {
+export function TableCell(props: TableCellProps): ReactElement {
   const { children, numeric = false, align, colSpan, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
@@ -169,7 +169,7 @@ function Cell(props: TableCellProps): ReactElement {
   );
 }
 
-function ScrollContainer(props: TableScrollProps): ReactElement {
+export function TableScrollContainer(props: TableScrollProps): ReactElement {
   const { children, minWidth = 640, label = "Tabla desplazable", className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
@@ -189,20 +189,11 @@ function ScrollContainer(props: TableScrollProps): ReactElement {
 }
 
 TableRoot.displayName = "Table";
-Head.displayName = "Table.Head";
-Body.displayName = "Table.Body";
-Foot.displayName = "Table.Foot";
-Row.displayName = "Table.Row";
-Title.displayName = "Table.Title";
-Cell.displayName = "Table.Cell";
-ScrollContainer.displayName = "Table.ScrollContainer";
+TableHead.displayName = "Table.Head";
+TableBody.displayName = "Table.Body";
+TableFoot.displayName = "Table.Foot";
+TableRow.displayName = "Table.Row";
+TableTitle.displayName = "Table.Title";
+TableCell.displayName = "Table.Cell";
+TableScrollContainer.displayName = "Table.ScrollContainer";
 
-export const Table = Object.assign(TableRoot, {
-  Head,
-  Body,
-  Foot,
-  Row,
-  Title,
-  Cell,
-  ScrollContainer,
-});

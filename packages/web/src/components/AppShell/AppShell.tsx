@@ -11,7 +11,7 @@ import * as variables from "./AppShell.vars.css.js";
 import * as styles from "./AppShell.css.js";
 import { AppShellContext } from "./AppShellContext.js";
 
-import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./AppShellRail.js";
+import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./constants.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
 const DEFAULT_LABELS: AppShellLabels = {

@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { List } from "../List.js";
+import { List } from "../index.js";
 
 afterEach(cleanup);
 

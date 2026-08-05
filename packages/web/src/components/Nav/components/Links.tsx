@@ -15,18 +15,18 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
-import { NavLinksContext, useNavLinks } from "./Nav.context.js";
-import * as styles from "./Nav.css.js";
-import { NAV_ITEM_ATTR, UseNavOverflow } from "./use-nav-overflow.js";
-import { NAV_LABELS } from "./labels.js";
-import type { NavLinkItemProps, NavLinksProps } from "./Nav.types.js";
-import * as variables from "./Nav.vars.css.js";
-import { useNavActive, type NavItem } from "./use-nav-active.js";
-import { useNavIndicator } from "./use-nav-indicator.js";
-import { useStickyChrome } from "./use-sticky-chrome.js";
+import { NavLinksContext, useNavLinks } from "../Nav.context.js";
+import * as styles from "../Nav.css.js";
+import { NAV_ITEM_ATTR, UseNavOverflow } from "../use-nav-overflow.js";
+import { NAV_LABELS } from "../labels.js";
+import type { NavLinkItemProps, NavLinksProps } from "../Nav.types.js";
+import * as variables from "../Nav.vars.css.js";
+import { useNavActive, type NavItem } from "../use-nav-active.js";
+import { useNavIndicator } from "../use-nav-indicator.js";
+import { useStickyChrome } from "../use-sticky-chrome.js";
 
 const OVERFLOW_RESERVE = 44;
 

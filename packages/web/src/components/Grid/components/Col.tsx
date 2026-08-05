@@ -8,12 +8,12 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { cx } from "../../utils/style-props.js";
-import { Box } from "../Box/Box.js";
+import { cx } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
 
-import * as styles from "./Grid.css.js";
-import type { GridColOwnProps, GridColProps } from "./Grid.types.js";
-import * as variables from "./Grid.vars.css.js";
+import * as styles from "../Grid.css.js";
+import type { GridColOwnProps, GridColProps } from "../Grid.types.js";
+import * as variables from "../Grid.vars.css.js";
 
 const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(props, ref) {
   const {
@@ -50,7 +50,7 @@ const ColComponent = forwardRef<HTMLElement, GridColOwnProps>(function GridCol(p
   );
 });
 
-interface GridColComponent {
+export interface GridColComponent {
   <C extends ElementType = "div">(props: GridColProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
 }

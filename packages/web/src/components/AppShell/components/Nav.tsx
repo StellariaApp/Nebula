@@ -1,0 +1,28 @@
+"use client";
+
+import type { ReactElement } from "react";
+
+import { cx } from "../../../utils/style-props.js";
+import { GlassSurface } from "../../GlassSurface/GlassSurface.js";
+
+import * as styles from "../AppShell.css.js";
+import type { AppShellNavProps } from "../AppShell.types.js";
+import { useAppShell } from "../AppShellContext.js";
+
+export function AppShellNav(props: AppShellNavProps): ReactElement {
+  const { children, level = "subtle", className, ...rest } = props;
+  const shell = useAppShell();
+  return (
+    <GlassSurface
+      component="nav"
+      level={level}
+      radius={0}
+      className={cx(styles.navbar, className)}
+      aria-label={shell.navigationLabel}
+      {...(shell.collapsed ? { inert: true } : {})}
+      {...rest}
+    >
+      {children}
+    </GlassSurface>
+  );
+}

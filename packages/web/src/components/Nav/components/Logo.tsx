@@ -4,12 +4,12 @@ import type { ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { cx, ExtractStyleProps } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import { LengthToCss } from "../../../utils/token-css.js";
 
-import * as styles from "./Nav.css.js";
-import type { NavLogoProps } from "./Nav.types.js";
-import * as variables from "./Nav.vars.css.js";
+import * as styles from "../Nav.css.js";
+import type { NavLogoProps } from "../Nav.types.js";
+import * as variables from "../Nav.vars.css.js";
 
 export function NavLogo(props: NavLogoProps): ReactElement {
   const {

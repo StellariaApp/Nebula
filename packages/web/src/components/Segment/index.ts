@@ -1,6 +1,6 @@
-import { SegmentContent as SegmentContentBase, SegmentContentItem } from "./Content.js";
-import { SegmentControl as SegmentControlBase, SegmentControlItem } from "./Control.js";
-import { SegmentFooter, SegmentHeader } from "./Section.js";
+import { SegmentContent as SegmentContentBase, SegmentContentItem } from "./components/Content.js";
+import { SegmentControl as SegmentControlBase, SegmentControlItem } from "./components/Control.js";
+import { SegmentFooter, SegmentHeader } from "./components/Section.js";
 import { Segment as SegmentRoot } from "./Segment.js";
 
 const SegmentControl = Object.assign(SegmentControlBase, { Item: SegmentControlItem });

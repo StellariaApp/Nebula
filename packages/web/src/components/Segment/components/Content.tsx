@@ -14,13 +14,13 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { m, useMotionValue, useReducedMotion, useSpring, type PanInfo } from "motion/react";
 
-import { MotionOff } from "../../utils/motion.js";
-import { Rubber } from "../../utils/rubber.js";
-import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { MotionOff } from "../../../utils/motion.js";
+import { Rubber } from "../../../utils/rubber.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
-import { useSegment } from "./Segment.context.js";
-import * as styles from "./Segment.css.js";
-import type { SegmentContentItemProps, SegmentContentProps } from "./Segment.types.js";
+import { useSegment } from "../Segment.context.js";
+import * as styles from "../Segment.css.js";
+import type { SegmentContentItemProps, SegmentContentProps } from "../Segment.types.js";
 
 const FLICK_VELOCITY = 380;
 

@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
-import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
-import * as styles from "./Nav.css.js";
-import type { NavDividerProps, NavSlotProps } from "./Nav.types.js";
+import * as styles from "../Nav.css.js";
+import type { NavDividerProps, NavSlotProps } from "../Nav.types.js";
 
 export function NavActions(props: NavSlotProps): ReactElement {
   const { children, collapse = "tablet", className, ...style_rest } = props;

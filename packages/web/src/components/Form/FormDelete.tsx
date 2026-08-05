@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import { Alert } from "../Alert/Alert.js";
 import { Button } from "../Button/Button.js";
 
-import { Form } from "./Form.js";
+import { FormContent, FormFooter, FormRoot } from "./Form.js";
 import type { FormDeleteProps } from "./FormDelete.types.js";
 
 export function FormDelete(props: FormDeleteProps): ReactElement {
@@ -24,7 +24,7 @@ export function FormDelete(props: FormDeleteProps): ReactElement {
   } = props;
 
   return (
-    <Form
+    <FormRoot
       color="error"
       isPending={isPending}
       disabled={disabled}
@@ -37,8 +37,8 @@ export function FormDelete(props: FormDeleteProps): ReactElement {
           {alert.description}
         </Alert>
       )}
-      {children === undefined ? null : <Form.Content>{children}</Form.Content>}
-      <Form.Footer error={error}>
+      {children === undefined ? null : <FormContent>{children}</FormContent>}
+      <FormFooter error={error}>
         {onCancel === undefined ? null : (
           <Button variant="ghost" color="gray" onPress={onCancel} disabled={isPending}>
             {cancelText}
@@ -53,8 +53,8 @@ export function FormDelete(props: FormDeleteProps): ReactElement {
         >
           {submitText}
         </Button>
-      </Form.Footer>
-    </Form>
+      </FormFooter>
+    </FormRoot>
   );
 }
 

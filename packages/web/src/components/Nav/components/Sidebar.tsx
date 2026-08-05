@@ -5,13 +5,13 @@ import { useEffect, type ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
-import { ExitTween, MotionOff, Spring } from "../../utils/motion.js";
-import { cx } from "../../utils/style-props.js";
-import { ButtonClose } from "../ButtonClose/ButtonClose.js";
-import { Portal } from "../Portal/Portal.js";
+import { ExitTween, MotionOff, Spring } from "../../../utils/motion.js";
+import { cx } from "../../../utils/style-props.js";
+import { ButtonClose } from "../../ButtonClose/ButtonClose.js";
+import { Portal } from "../../Portal/Portal.js";
 
-import * as styles from "./Nav.css.js";
-import type { NavSidebarProps } from "./Nav.types.js";
+import * as styles from "../Nav.css.js";
+import type { NavSidebarProps } from "../Nav.types.js";
 
 const QUERY = { phone: 575, tablet: 767, laptop: 1023 } as const;
 

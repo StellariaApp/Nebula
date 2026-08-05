@@ -22,7 +22,7 @@ import type {
   FormProps,
 } from "./Form.types.js";
 
-function FormRoot(props: FormProps): ReactElement {
+export function FormRoot(props: FormProps): ReactElement {
   const {
     children,
     onSubmit,
@@ -70,7 +70,7 @@ function FormRoot(props: FormProps): ReactElement {
   );
 }
 
-function Header(props: FormHeaderProps): ReactElement {
+export function FormHeader(props: FormHeaderProps): ReactElement {
   const { title, description, children, actions, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
@@ -94,7 +94,7 @@ function Header(props: FormHeaderProps): ReactElement {
   );
 }
 
-function Banderole(props: FormBanderoleProps): ReactElement {
+export function FormBanderole(props: FormBanderoleProps): ReactElement {
   const { children, side = "start", color, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   const form = useFormContext();
@@ -112,7 +112,7 @@ function Banderole(props: FormBanderoleProps): ReactElement {
   );
 }
 
-function Content(props: FormContentProps): ReactElement {
+export function FormContent(props: FormContentProps): ReactElement {
   const { children, columns = 1, className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
@@ -126,7 +126,7 @@ function Content(props: FormContentProps): ReactElement {
   );
 }
 
-function Footer(props: FormFooterProps): ReactElement {
+export function FormFooter(props: FormFooterProps): ReactElement {
   const {
     children,
     error,
@@ -175,14 +175,8 @@ function Footer(props: FormFooterProps): ReactElement {
 }
 
 FormRoot.displayName = "Form";
-Header.displayName = "Form.Header";
-Banderole.displayName = "Form.Banderole";
-Content.displayName = "Form.Content";
-Footer.displayName = "Form.Footer";
+FormHeader.displayName = "Form.Header";
+FormBanderole.displayName = "Form.Banderole";
+FormContent.displayName = "Form.Content";
+FormFooter.displayName = "Form.Footer";
 
-export const Form = Object.assign(FormRoot, {
-  Header,
-  Banderole,
-  Content,
-  Footer,
-});

@@ -13,20 +13,20 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { vars } from "../../theme/contract.css.js";
-import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ResolveAccent } from "../../utils/scale.js";
-import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { vars } from "../../../theme/contract.css.js";
+import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { ResolveAccent } from "../../../utils/scale.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
-import { useSegment } from "./Segment.context.js";
-import * as styles from "./Segment.css.js";
-import * as variables from "./Segment.vars.css.js";
+import { useSegment } from "../Segment.context.js";
+import * as styles from "../Segment.css.js";
+import * as variables from "../Segment.vars.css.js";
 import type {
   SegmentControlItemProps,
   SegmentControlProps,
   SegmentItemData,
-} from "./Segment.types.js";
-import { useSegmentIndicator } from "./use-segment-indicator.js";
+} from "../Segment.types.js";
+import { useSegmentIndicator } from "../use-segment-indicator.js";
 
 export function SegmentControlItem(_props: SegmentControlItemProps): null {
   return null;
