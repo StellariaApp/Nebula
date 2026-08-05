@@ -18,7 +18,6 @@ import {
   GradientText,
   Indicator,
   Menu,
-  NavLink,
   SimpleGrid,
   Table,
   Tabs,
@@ -329,9 +328,9 @@ function NavIcon({ name, muted = false }: { name: IconName; muted?: boolean }): 
   );
 }
 
-function Brand(): ReactElement {
+function SideBarHeader(): ReactElement {
   return (
-    <Flex w="100%" display="flex" align="center" justify="center" gap="md">
+    <AppShell.Sidebar.Header>
       <Box c="primary.600" display="flex">
         <Icon name="building" size={28} />
       </Box>
@@ -340,13 +339,13 @@ function Brand(): ReactElement {
           <GradientText>Company</GradientText>
         </Text>
       </AppShell.RailLabel>
-    </Flex>
+    </AppShell.Sidebar.Header>
   );
 }
 
-function UserRow(): ReactElement {
+function SideBarFooter(): ReactElement {
   return (
-    <>
+    <AppShell.Sidebar.Footer>
       <Avatar name="William Jesus Covarrubias" size="sm" radius="full" />
       <AppShell.RailLabel>
         <Box display="flex" direction="column" miw={0} style={{ flex: 1 }}>
@@ -363,25 +362,27 @@ function UserRow(): ReactElement {
           <Icon name="bell" />
         </ActionIcon>
       </Indicator>
-    </>
+    </AppShell.Sidebar.Footer>
   );
 }
 
-function SideNav(): ReactElement {
+function SideBarLinks(): ReactElement {
   return (
-    <AppShell.Aside>
-      <GradientBorder beam width={2} surface="overlay" radius="md" m="md">
-        <AppShell.RailNav bg="surface.base" title="Super Administrador">
-          <NavLink
-            label={<AppShell.RailLabel>Super Administrador</AppShell.RailLabel>}
-            href="#super-admin"
-            py="xxs"
-            leftSection={<NavIcon name="lifebuoy" />}
-          />
-        </AppShell.RailNav>
-      </GradientBorder>
+    <AppShell.Sidebar.Body>
+      <Box p="sm" display="flex" align="center" justify="center" bg="surface.base">
+        <GradientBorder beam width={2} surface="overlay" radius="md" p="xs" w="100%">
+          <AppShell.Links p="sm" bg="surface.base" title="Super Administrador">
+            <AppShell.Link
+              label={<AppShell.RailLabel>Super Administrador</AppShell.RailLabel>}
+              href="#super-admin"
+              py="xxs"
+              leftSection={<NavIcon name="lifebuoy" />}
+            />
+          </AppShell.Links>
+        </GradientBorder>
+      </Box>
 
-      <AppShell.RailNav
+      <AppShell.Links
         title="Administrador"
         action={
           <ActionIcon variant="ghost" size="xs" aria-label="Recargar permisos">
@@ -389,13 +390,13 @@ function SideNav(): ReactElement {
           </ActionIcon>
         }
       >
-        <NavLink
+        <AppShell.Link
           label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>}
           href="#actividad"
           py="xxs"
           leftSection={<NavIcon name="activity" />}
         />
-        <NavLink
+        <AppShell.Link
           label={<AppShell.RailLabel>Soporte</AppShell.RailLabel>}
           href="#soporte"
           disabled
@@ -403,37 +404,37 @@ function SideNav(): ReactElement {
           c="text.disabled"
           leftSection={<NavIcon name="lifebuoy" muted />}
         />
-        <NavLink
+        <AppShell.Link
           label={<AppShell.RailLabel>Ir a Mis Empresas</AppShell.RailLabel>}
           href="#empresas"
           active
           py="xxs"
           leftSection={<NavIcon name="building" />}
         />
-      </AppShell.RailNav>
-      <AppShell.RailNav title="Operador">
-        <NavLink
+      </AppShell.Links>
+      <AppShell.Links title="Operador">
+        <AppShell.Link
           label={<AppShell.RailLabel>Producciones</AppShell.RailLabel>}
           href="#producciones"
           py="xxs"
           leftSection={<NavIcon name="film" />}
         />
-        <NavLink
+        <AppShell.Link
           label={<AppShell.RailLabel>Distribución</AppShell.RailLabel>}
           href="#distribucion"
           py="xxs"
           leftSection={<NavIcon name="globe" />}
         />
-      </AppShell.RailNav>
-      <AppShell.RailNav title="Invitado">
-        <NavLink
+      </AppShell.Links>
+      <AppShell.Links title="Invitado">
+        <AppShell.Link
           label={<AppShell.RailLabel>Calendario</AppShell.RailLabel>}
           href="#calendario"
           py="xxs"
           leftSection={<NavIcon name="calendar" />}
         />
-      </AppShell.RailNav>
-    </AppShell.Aside>
+      </AppShell.Links>
+    </AppShell.Sidebar.Body>
   );
 }
 
@@ -463,14 +464,10 @@ function CompanyBoard(): ReactElement {
       sidebarCollapsed={mini}
       backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
-        <AppShell.Sidebar
-          aria-label="Navegación principal"
-          collapsed={mini}
-          onCollapse={set_mini}
-          top={<Brand />}
-          bottom={<UserRow />}
-        >
-          <SideNav />
+        <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
+          <SideBarHeader />
+          <SideBarLinks />
+          <SideBarFooter />
         </AppShell.Sidebar>
       }
     >
@@ -756,14 +753,10 @@ function CompanyDetail(): ReactElement {
       sidebarCollapsed={mini}
       backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
-        <AppShell.Sidebar
-          aria-label="Navegación principal"
-          collapsed={mini}
-          onCollapse={set_mini}
-          top={<Brand />}
-          bottom={<UserRow />}
-        >
-          <SideNav />
+        <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
+          <SideBarHeader />
+          <SideBarLinks />
+          <SideBarFooter />
         </AppShell.Sidebar>
       }
     >

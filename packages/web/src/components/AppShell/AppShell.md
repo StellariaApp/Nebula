@@ -22,7 +22,17 @@ su cristal.
 // carril: la barra ocupa la altura completa y cada sección lleva su cabecera
 <AppShell
   backdrop={<StarField fixed aurora />}
-  sidebar={<AppShell.Sidebar top={<Marca />} bottom={<Usuario />}>{nav}</AppShell.Sidebar>}
+  sidebar={
+    <AppShell.Sidebar collapsed={mini} onCollapse={setMini}>
+      <AppShell.Sidebar.Header>{marca}</AppShell.Sidebar.Header>
+      <AppShell.Sidebar.Body>
+        <AppShell.Links title="Administrador" action={<ActionIcon …/>}>
+          <AppShell.Link label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>} href="#a" />
+        </AppShell.Links>
+      </AppShell.Sidebar.Body>
+      <AppShell.Sidebar.Footer>{usuario}</AppShell.Sidebar.Footer>
+    </AppShell.Sidebar>
+  }
 >
   <AppShell.Section>
     <AppShell.Header title="Mis Empresas" subtitle="…" actions={<Button />} />
@@ -44,6 +54,10 @@ es lo que un panel necesita. Son dos anatomías distintas y por eso no se mezcla
 | `Aside`   | `<aside>`   | región                                          |
 | `Footer`  | `<footer>`  | región                                          |
 | `Sidebar` | `<aside>`   | carril, altura completa                         |
+| `Sidebar.Header` / `.Body` / `.Footer` | — | las tres franjas de la barra |
+| `Links`   | —           | grupo de enlaces con rótulo y acción            |
+| `Link`    | —           | un enlace del carril                            |
+| `RailLabel` | `<span>`  | lo que desaparece al encoger                    |
 | `Section` | `<section>` | dentro del carril, **sin padding**              |
 | `Subbar`  | —           | bajo una cabecera                               |
 | `Content` | —           | el único que pone padding                       |
@@ -78,3 +92,19 @@ bloque de usuario y la cabecera quedan a la misma altura sin que nadie repita un
 Las partes usan cristal por capas —`subtle` en la barra, `default` en la cabecera, `control` en la
 subbarra— y un cristal sobre un plano opaco no se lee. `backdrop` es la capa decorativa detrás de
 todo, que es donde vive un `StarField`.
+
+## Por qué la barra compone y no rellena ranuras
+
+`Sidebar` tenía `top` y `bottom` como props. Funcionaba mientras la barra fuera marca arriba y
+usuario abajo, y se rompía en cuanto el contenido dejó de caber en ese molde: un grupo de enlaces con
+rótulo y acción, un bloque de rol enmarcado, secciones por permiso. Todo eso pasaba por `children`
+mientras las dos franjas de cromo seguían siendo props, así que la mitad de la barra se componía y la
+otra mitad se rellenaba.
+
+Ahora las tres franjas son partes. El precio es que `Sidebar` ya no garantiza el orden —nada impide
+poner el pie primero— y a cambio la barra admite montajes que no estaban previstos, que es
+exactamente lo que ADR-086 buscaba al convertir el shell en compound.
+
+`Links` existe por lo mismo: el rótulo de grupo se repetía en cada story con el mismo `Text` en
+`caption`, `uppercase` y `wide`, y con la misma regla de desaparecer al encoger. Un patrón que se
+copia tres veces es un componente que falta.

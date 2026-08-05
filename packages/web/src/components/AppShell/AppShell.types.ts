@@ -58,10 +58,21 @@ export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" |
   className?: string | undefined;
 }
 
+export interface AppShellSlotProps {
+  children?: ReactNode | undefined;
+  className?: string | undefined;
+}
+
+export interface AppShellLinksProps extends StyleProps {
+  children?: ReactNode | undefined;
+  /** Rótulo del grupo. Se va al encoger, como el resto de rótulos del carril. */
+  title?: ReactNode | undefined;
+  action?: ReactNode | undefined;
+  className?: string | undefined;
+}
+
 export interface AppShellSidebarProps {
   children?: ReactNode | undefined;
-  top?: ReactNode | undefined;
-  bottom?: ReactNode | undefined;
   level?: GlassLevel | undefined;
   /** Con callback, la barra pinta su propio botón de encoger. Desaparece bajo `laptop`. */
   collapsed?: boolean | undefined;

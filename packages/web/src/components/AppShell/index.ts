@@ -6,16 +6,27 @@ import {
   AppShellHeader,
   AppShellNav,
   AppShellSection,
+  AppShellLink,
+  AppShellLinks,
   AppShellRailLabel,
-  AppShellRailNav,
   AppShellSidebar,
+  AppShellSidebarBody,
+  AppShellSidebarFooter,
+  AppShellSidebarHeader,
   AppShellSubbar,
 } from "./AppShellRail.js";
 
+const Sidebar = /* @__PURE__ */ Object.assign(AppShellSidebar, {
+  Header: AppShellSidebarHeader,
+  Body: AppShellSidebarBody,
+  Footer: AppShellSidebarFooter,
+});
+
 export const AppShell = Object.assign(AppShellRoot, {
-  Sidebar: AppShellSidebar,
+  Sidebar,
   RailLabel: AppShellRailLabel,
-  RailNav: AppShellRailNav,
+  Links: AppShellLinks,
+  Link: AppShellLink,
   Nav: AppShellNav,
   Aside: AppShellAside,
   Section: AppShellSection,
@@ -33,6 +44,12 @@ export {
   AppShellNav,
   AppShellSection,
   AppShellSidebar,
+  AppShellSidebarBody,
+  AppShellSidebarFooter,
+  AppShellSidebarHeader,
+  AppShellLink,
+  AppShellLinks,
+  AppShellRailLabel,
   AppShellSubbar,
 };
 export type {
@@ -44,5 +61,7 @@ export type {
   AppShellNavProps,
   AppShellSectionProps,
   AppShellSidebarProps,
+  AppShellSlotProps,
+  AppShellLinksProps,
   AppShellSubbarProps,
 } from "./AppShell.types.js";

@@ -261,6 +261,39 @@ export const sidebarBottom = style({
   },
 });
 
+/** Cada grupo de enlaces: su rótulo, su acción y su lista. */
+export const linkGroup = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      flexDirection: "column",
+      minWidth: 0,
+      "@media": {
+        [SmallerThan("tablet")]: { flexDirection: "row", alignItems: "center", inlineSize: "auto" },
+      },
+    },
+  },
+});
+
+export const linkGroupHead = style({
+  "@layer": {
+    [baseLayer]: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: vars.space.xs,
+      minWidth: 0,
+      paddingInline: vars.space.md,
+      paddingBlockStart: vars.space.md,
+      paddingBlockEnd: vars.space.xs,
+      selectors: {
+        "[data-rail-collapsed='true'] &": { display: "none" },
+      },
+      "@media": { [SmallerThan("laptop")]: { display: "none" } },
+    },
+  },
+});
+
 /** La lista de enlaces del carril: columna, y fila de iconos en la barra móvil. */
 export const railNav = style({
   "@layer": {
