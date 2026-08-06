@@ -75,29 +75,58 @@ maqueta.
 Seis entradas de carril. Y como bajo `tablet` el `AppShell.Sidebar` **se convierte** en la barra
 inferior, seis entradas de carril son seis destinos de móvil.
 
-### Lo que propongo
+### El carril · **decidido por el titular, 06/08/2026**
 
 ```
-FUERA DEL ARMAZÓN
-  /alta                        alta del estudio · POST /studios
-  /avatares/:id/revision       modo de revisión · pantalla completa, se entra y se sale
-  /feed                        fuera de alcance
+CABECERA DEL CARRIL   conmutador de estudio
+                      └ ajustes del estudio · techo, banco de acciones y auditoría
 
-DENTRO DEL ARMAZÓN — cuatro entradas de carril
-  /avatares                    lista · es la portada
-    /avatares/nuevo            alta del avatar · stepper
-    /avatares/:id              el taller
-        ├ taller               componer, cola y lo que viaja
-        ├ galeria              lo producido · imagen, vídeo y voz · qué es público
-        ├ chat                 turnos y las tres capas de memoria
-        ├ identidad            canon versionado, anclas de imagen y ancla de voz
-        └ assets               los cinco tipos, del avatar
-  /acciones                    el banco del estudio · curaduría y cobertura
-  /saldo                       saldo, plan, recarga, tope y ledger
-  /estudio                     equipo, techo del estudio, autorizaciones y auditoría
+Rosette                                    ← se consume
+  /                   Home                 lo que te espera y lo que hay nuevo
+  /explorar           Explorar
+  /feed               Feed
+
+Studio                                     ← produce
+  /avatares           Avatares
+    /avatares/nuevo                        alta del avatar · stepper
+    /avatares/:id                          el taller
+        ├ taller · galeria · chat · identidad · assets
+    /avatares/:id/revision                 modo de revisión · pantalla completa
+  /saldo              Saldo y gasto
+  /usuarios           Usuarios             papeles y **el tercer techo**
+
+PIE DEL CARRIL        saldo + perfil
+
+FUERA DEL ARMAZÓN     /alta · alta del estudio · POST /studios
 ```
 
-### Los cuatro cambios, y por qué
+**Los dos grupos dicen de qué va el producto: Rosette se consume, el estudio produce.** Home es la
+bisagra —lo accionable arriba, lo que hay nuevo abajo— y por eso absorbe el contador de revisión que
+antes justificaba una entrada propia.
+
+**`Usuarios` resuelve un agujero que el modelo tenía y la interfaz no podía cumplir:** §5.1 regla 4
+exige comprobar el escalón contra **el permiso del miembro**, y ese tercer techo no vivía en ninguna
+pantalla.
+
+### Lo que no es entrada de carril, y dónde queda
+
+| Qué | Dónde | Por qué |
+| --- | --- | --- |
+| **El banco de acciones** | se **cura** en la revisión · se **administra** desde los ajustes del estudio | `POST /observe` pide que una persona mire la imagen y anote qué escalón salió. Eso ocurre **mirando la imagen**, que es la revisión. Una pantalla aparte obligaría a mirarla dos veces |
+| **Techo del estudio, auditoría** | ajustes del estudio, tras el conmutador | Es donde ya vive «qué es este estudio», y es la única esquina que no se mueve entre las tres anchuras |
+| **Assets** | pestaña del avatar | §4.5: `sceneAsset.avatar` es una ref |
+| **Revisión** | modo, colgado del avatar | ver abajo |
+| **Avatar activo** | **retirado del carril** | era mi parche para un carril sin portada. Con Home existiendo, el ancla de contexto es la cabecera del propio avatar, y en el móvil devuelve un hueco |
+
+### Medido en la barra inferior
+
+A **360 px** entran cuatro entradas y caen fuera **Saldo y gasto** y **Usuarios** —`x=358` y
+`x=418` sobre una ventana de 360—. La barra desplaza en horizontal, así que se alcanzan con un
+gesto, y **la cifra del saldo sobrevive igual** porque el pie del carril va anclado a la derecha.
+Las dos que caen son las administrativas; las de trabajo diario —Home y Avatares— quedan a la
+vista. Si algún día molesta, la palanca es invertir el orden de los grupos, no quitar entradas.
+
+### Los cambios, y por qué
 
 **A · La revisión deja de ser una sección y pasa a ser un modo, colgado del avatar.** No es
 estética: la estación compara cada candidata contra **las anclas de ese avatar**, y el número del
@@ -109,15 +138,16 @@ posible el número. El carril pierde una entrada y gana un contador sobre `Avata
 pestaña suya; el banco es del estudio (§4.6) y se queda solo en `/acciones`. Hoy la maqueta los
 junta y eso obliga a inventar un dueño que el modelo no tiene.
 
-**C · Aparece `/estudio`.** El techo del estudio, el equipo, las autorizaciones y la auditoría
-existen en el modelo y no tienen sitio. Sin esta ruta, `enterprise-settings.ceiling` no se puede
-cambiar desde ninguna pantalla, y es el más restrictivo de los tres techos.
+**C · Aparece `Usuarios`, y con él el tercer techo.** El permiso de escalón del miembro existe en
+§5.1 y no tenía pantalla: el modelo tenía una regla que la interfaz no podía cumplir.
 
-**D · `/explorar` y `/feed` salen del carril del MVP.** No existen en `plan-demo`. Siguen montadas
-como stories rotuladas, pero no ocupan un destino del móvil.
+**D · `Explorar` y `Feed` se quedan en el carril.** No existen en `plan-demo`, pero el carril
+describe el producto y no solo el MVP: son la mitad que se consume, y Home es la bisagra entre las
+dos. Siguen rotuladas como fuera de alcance dentro de la pantalla.
 
-**Resultado: de seis entradas de carril a cuatro.** En la barra inferior queda: estudio · avatar
-activo · Avatares · Acciones · Saldo · Estudio · saldo. Cabe sin desplazar en un teléfono de 360 px.
+**E · El avatar activo se retira del carril.** Era un parche para un carril sin portada. Con Home
+existiendo, el ancla de contexto es la cabecera del propio avatar — y en el móvil devuelve un hueco
+que hacía falta.
 
 ---
 

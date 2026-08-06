@@ -649,7 +649,7 @@ function Estacion(): ReactElement {
 
 function Playground(): ReactElement {
   return (
-    <Shell active="revision" title="Revisión — Rosette">
+    <Shell active="avatares" title="Revisión — Rosette">
       <AppShell.Section aria-label="Playground de revisión">
         <AppShell.Header
           sticky

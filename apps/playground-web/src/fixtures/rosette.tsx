@@ -7,7 +7,6 @@ import {
   ActionIcon,
   AppShell,
   AspectRatio,
-  Avatar,
   Badge,
   Box,
   Divider,
@@ -437,18 +436,23 @@ export function Rotulo(props: { children: ReactNode; mt?: "md" | "lg" | undefine
  * carrusel horizontal de en medio. Por eso el conmutador de estudio vive en la
  * cabecera —lo que nunca cambia de sitio— y el saldo en el pie.                */
 
-export type SeccionCarril =
-  | "avatares"
-  | "taller"
-  | "revision"
-  | "biblioteca"
-  | "saldo"
-  | "explorar"
-  | "feed";
+/* El carril, decidido por el titular el 06/08/2026. Dos grupos y seis entradas,
+ * y los dos grupos dicen de qué va el producto: **Rosette se consume, el estudio
+ * produce**.
+ *
+ *   Rosette   Home · Explorar · Feed
+ *   Studio    Avatares · Saldo y gasto · Usuarios
+ *
+ * Lo que no es entrada de carril cuelga de la sección a la que pertenece, y por
+ * eso `activa` admite una sección aunque la pantalla sea una subruta: el alta,
+ * el taller y la revisión iluminan `Avatares`. */
+
+export type SeccionCarril = "home" | "explorar" | "feed" | "avatares" | "saldo" | "usuarios";
 
 const ESTUDIO_ACCIONES: MenuItemData[] = [
   { key: "casa-rosette", label: "Casa Rosette", description: "Propietario · plan Pro" },
   { key: "lumen", label: "Estudio Lumen", description: "Operador · plan Starter" },
+  { key: "ajustes", label: "Ajustes del estudio", description: "techo, banco de acciones y auditoría" },
   { key: "polaris", label: "Ir a Polaris", description: "El tablero de todos los productos" },
 ];
 
@@ -498,19 +502,19 @@ interface Enlace {
 
 const GRUPOS: { title: string; links: Enlace[] }[] = [
   {
-    title: "Producir",
+    title: "Rosette",
     links: [
-      { key: "avatares", label: "Avatares", icon: "users" },
-      { key: "revision", label: "Revisión", icon: "check-square" },
-      { key: "biblioteca", label: "Biblioteca", icon: "wardrobe" },
+      { key: "home", label: "Home", icon: "home" },
+      { key: "explorar", label: "Explorar", icon: "compass" },
+      { key: "feed", label: "Feed", icon: "feed" },
     ],
   },
   {
-    title: "Estudio",
+    title: "Studio",
     links: [
+      { key: "avatares", label: "Avatares", icon: "users" },
       { key: "saldo", label: "Saldo y gasto", icon: "roset" },
-      { key: "explorar", label: "Explorar", icon: "compass" },
-      { key: "feed", label: "Feed", icon: "feed" },
+      { key: "usuarios", label: "Usuarios", icon: "user" },
     ],
   },
 ];
@@ -533,42 +537,16 @@ export function Nombre(texto: string, compacto: boolean): ReactNode {
   return compacto ? <VisuallyHidden>{texto}</VisuallyHidden> : undefined;
 }
 
-function AvatarActivo(props: { active: boolean; compacto: boolean }): ReactElement {
-  const { active, compacto } = props;
-  return (
-    <AppShell.Links title="Avatar activo">
-      <AppShell.Link
-        href="#avatar"
-        active={active}
-        label={
-          <AppShell.Label>
-            <Text fz="body3" fw="semibold" truncate>
-              {AVATAR_ACTIVO.nombre}
-            </Text>
-          </AppShell.Label>
-        }
-        description={
-          <AppShell.Label>
-            <Text fz="caption" c="text.muted" truncate>
-              canon v{AVATAR_ACTIVO.canon} · techo {AVATAR_ACTIVO.techo}
-            </Text>
-          </AppShell.Label>
-        }
-        rightSection={Nombre(AVATAR_ACTIVO.nombre, compacto)}
-        leftSection={<Avatar name={AVATAR_ACTIVO.nombre} size="sm" radius="full" />}
-      />
-    </AppShell.Links>
-  );
-}
-
-export function Carril(props: { active: SeccionCarril; collapsed?: boolean | undefined }): ReactElement {
+export function Carril(props: {
+  active: SeccionCarril | "ninguna";
+  collapsed?: boolean | undefined;
+}): ReactElement {
   const { active, collapsed = false } = props;
   const estrecho = useBreakpointDown("laptop");
   const compacto = collapsed || estrecho;
 
   return (
     <AppShell.Sidebar.Body>
-      <AvatarActivo active={active === "taller"} compacto={compacto} />
       {GRUPOS.map((grupo) => (
         <AppShell.Links key={grupo.title} title={grupo.title}>
           {grupo.links.map((link) => (
@@ -613,7 +591,7 @@ export function PieDeCarril(): ReactElement {
 /* ── El armazón ─────────────────────────────────────────────────────────────── */
 
 export function Shell(props: {
-  active: SeccionCarril;
+  active: SeccionCarril | "ninguna";
   title: string;
   children: ReactNode;
 }): ReactElement {

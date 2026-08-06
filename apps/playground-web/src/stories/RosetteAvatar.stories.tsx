@@ -952,7 +952,7 @@ function VistaDeAvatar({
   const [ajustes, set_ajustes] = useState(ajustesAbiertos);
 
   return (
-    <Shell active="taller" title={`${AVATAR_ACTIVO.nombre} — Rosette`}>
+    <Shell active="avatares" title={`${AVATAR_ACTIVO.nombre} — Rosette`}>
       <AppShell.Section aria-label={AVATAR_ACTIVO.nombre}>
         <AppShell.Header
           sticky

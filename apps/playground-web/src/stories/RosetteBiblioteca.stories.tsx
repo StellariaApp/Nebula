@@ -331,7 +331,7 @@ function Biblioteca(): ReactElement {
   const [panel, set_panel] = useState("assets");
 
   return (
-    <Shell active="biblioteca" title="Biblioteca — Rosette">
+    <Shell active="ninguna" title="Biblioteca — Rosette">
       <AppShell.Section aria-label="Biblioteca">
         <AppShell.Header
           sticky
@@ -413,7 +413,7 @@ function TallerConSelector(): ReactElement {
   const [abierto, set_abierto] = useState(true);
 
   return (
-    <Shell active="taller" title="Elegir un asset sin salir del taller — Rosette">
+    <Shell active="avatares" title="Elegir un asset sin salir del taller — Rosette">
       <AppShell.Section aria-label="Taller">
         <AppShell.Header
           sticky
