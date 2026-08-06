@@ -283,29 +283,56 @@ export const AVATAR_ACTIVO = AVATARES[0] as AvatarFicha;
 
 export function Placeholder(props: {
   ratio?: number | undefined;
+  alto?: number | undefined;
   label?: ReactNode | undefined;
   icon?: IconName | undefined;
   tone?: "base" | "muted" | undefined;
   children?: ReactNode | undefined;
 }): ReactElement {
-  const { ratio = 3 / 4, label, icon = "image", tone = "base", children } = props;
-  return (
-    <AspectRatio ratio={ratio}>
-      <Box bg={tone === "muted" ? "surface.base" : "surface.sunken"} overflow="hidden">
-        <Flex direction="column" align="center" justify="center" gap="xs" h="100%">
-          <Box c="text.disabled" display="flex">
-            <Icon name={icon} size={22} />
-          </Box>
-          {label === undefined ? null : (
-            <Text fz="caption" c="text.muted" ta="center" px="sm">
-              {label}
-            </Text>
-          )}
-          {children}
-        </Flex>
-      </Box>
-    </AspectRatio>
+  const { ratio = 3 / 4, alto, label, icon = "image", tone = "base", children } = props;
+
+  const cuerpo = (
+    <Box bg={tone === "muted" ? "surface.base" : "surface.sunken"} overflow="hidden" h="100%">
+      <Flex direction="column" align="center" justify="center" gap="xs" h="100%">
+        <Box c="text.disabled" display="flex">
+          <Icon name={icon} size={22} />
+        </Box>
+        {label === undefined ? null : (
+          <Text fz="caption" c="text.muted" ta="center" px="sm">
+            {label}
+          </Text>
+        )}
+        {children}
+      </Flex>
+    </Box>
   );
+
+  if (alto !== undefined) return <Box h={alto}>{cuerpo}</Box>;
+  return <AspectRatio ratio={ratio}>{cuerpo}</AspectRatio>;
+}
+
+/* ── Columnas ─────────────────────────────────────────────────────────────────
+ * HALLAZGO DE CATÁLOGO. `SimpleGrid` publica una var por punto de ruptura y las
+ * vars CSS **se heredan**, así que una rejilla anidada que no declare `laptop`
+ * toma el `laptop` de su abuela. `fallbackVar` no protege: solo cae cuando la
+ * var está SIN DEFINIR, y por herencia está definida.
+ *
+ * Hasta que se corrija en la librería, aquí ninguna rejilla declara un punto de
+ * ruptura a medias: `Cols` rellena los cinco a partir de los que se den.       */
+
+export function Cols(spec: {
+  base: number;
+  phone?: number | undefined;
+  tablet?: number | undefined;
+  laptop?: number | undefined;
+  desktop?: number | undefined;
+  wide?: number | undefined;
+}): { base: number; phone: number; tablet: number; laptop: number; desktop: number; wide: number } {
+  const phone = spec.phone ?? spec.base;
+  const tablet = spec.tablet ?? phone;
+  const laptop = spec.laptop ?? tablet;
+  const desktop = spec.desktop ?? laptop;
+  return { base: spec.base, phone, tablet, laptop, desktop, wide: spec.wide ?? desktop };
 }
 
 /* ── Rótulo de sección ────────────────────────────────────────────────────── */
