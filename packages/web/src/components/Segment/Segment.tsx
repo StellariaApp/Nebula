@@ -23,6 +23,7 @@ export function Segment(props: SegmentProps): ReactElement {
     fullWidth = false,
     draggable = true,
     className,
+    padded = false,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -75,6 +76,7 @@ export function Segment(props: SegmentProps): ReactElement {
         className={cx(styles.root, sprinkle_class, className)}
         style={sprinkle_style}
         data-disabled={disabled ? "true" : undefined}
+        data-padded={padded ? "true" : undefined}
       >
         {children}
       </div>

@@ -13,9 +13,8 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { vars } from "../../../theme/contract.css.js";
+
 import { ResolveVariant } from "../../../theme/resolve-variant.js";
-import { ResolveAccent } from "../../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
 import { useSegment } from "../Segment.context.js";
@@ -104,16 +103,11 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
   };
 
   const { theme } = useTheme();
-  const resolved =
-    segment.variant === undefined ? null : ResolveVariant(segment.variant, segment.color, theme);
+  const resolved = ResolveVariant(segment.variant ?? "light", segment.color, theme);
 
   const css_vars = assignInlineVars({
-    [variables.indicatorColor]:
-      resolved?.backgroundActive ??
-      (segment.color === "primary"
-        ? vars.color.surface.overlay
-        : ResolveAccent(segment.color, "200")),
-    ...(resolved === null ? {} : { [variables.indicatorFg]: resolved.foreground }),
+    [variables.indicatorColor]: resolved.background,
+    [variables.indicatorFg]: resolved.foreground,
   });
 
   return (

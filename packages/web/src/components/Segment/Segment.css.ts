@@ -8,6 +8,8 @@ import { base_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Segment.vars.css.js";
 
+const PADDING = vars.space.u2_5;
+
 export const root = style({
   "@layer": {
     [base_layer]: {
@@ -16,6 +18,9 @@ export const root = style({
       gap: vars.space.md,
       fontFamily: vars.font.family.sans,
       minWidth: 0,
+      selectors: {
+        "&[data-padded='true']": { gap: 0 },
+      },
     },
   },
 });
@@ -27,13 +32,17 @@ export const control = recipe({
         position: "relative",
         display: "inline-flex",
         boxSizing: "border-box",
-        padding: vars.space.xs,
-        background: vars.color.surface.base,
+        padding: PADDING,
+        gap: vars.space.xxs,
+        minHeight: vars.size.control.lg,
+        background: vars.color.surface.overlay,
+        border: `1px solid ${vars.color.border.default}`,
         borderRadius: vars.radius.full,
         fontFamily: vars.font.family.sans,
         alignSelf: "flex-start",
         selectors: {
           "&[data-disabled='true']": { cursor: "not-allowed" },
+          "[data-padded='true'] &": { margin: vars.space.md },
         },
       },
     },
@@ -59,8 +68,9 @@ export const indicator = style({
   "@layer": {
     [base_layer]: {
       position: "absolute",
-      top: vars.space.xs,
+      top: `calc(${PADDING} - 1px)`,
       bottom: vars.space.xs,
+      height: `calc(${vars.size.control.lg} - ${PADDING} * 2)`,
       insetInlineStart: 0,
       background: variables.indicatorColor,
       borderRadius: vars.radius.full,
@@ -80,7 +90,7 @@ export const tab = style({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      paddingInline: vars.space.u3,
+      paddingInline: vars.space.md,
       border: "none",
       background: "transparent",
       font: "inherit",
@@ -129,8 +139,14 @@ export const viewport = style({
 export const panel = recipe({
   base: {
     flexShrink: 0,
+    boxSizing: "border-box",
     width: "100%",
     minWidth: 0,
+    display: "flex",
+    flexDirection: "column",
+    selectors: {
+      "[data-padded='true'] &": { padding: vars.space.md, gap: vars.space.md },
+    },
   },
   variants: {
     fill: {

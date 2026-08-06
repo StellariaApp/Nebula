@@ -17,6 +17,7 @@ export type SegmentVariant = Extract<Variant, "filled" | "light">;
 export interface SegmentProps extends Omit<StyleProps, "color"> {
   children: ReactNode;
   value?: string | undefined;
+  padded?: boolean | undefined;
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
   size?: SegmentSize | undefined;
