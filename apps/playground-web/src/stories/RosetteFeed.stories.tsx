@@ -14,6 +14,7 @@ import {
   Flex,
   GlassSurface,
   Group,
+  Progress,
   Text,
   Tooltip,
   VisuallyHidden,
@@ -80,13 +81,42 @@ function Acciones({ onGenerar }: { onGenerar: () => void }): ReactElement {
   );
 }
 
-function Pieza({ pieza, onGenerar }: { pieza: Pieza; onGenerar: () => void }): ReactElement {
+/* ── La base del reproductor en línea ─────────────────────────────────────────
+ * ENTRA AL CATÁLOGO — decisión del titular, 06/08/2026. Aquí va maquetada la
+ * base para poder discutirla contra algo, no una implementación: el vídeo son
+ * marcadores de posición.
+ *
+ * El contrato que propone esta maqueta, y en qué se diferencia de `Player`:
+ *
+ *   src        el medio
+ *   active     si esta pieza es la que se está viendo. Es LA prop que Player no
+ *              tiene y la que hace falta: el feed monta varias y solo una suena
+ *   muted      arranca en silencio, porque un feed que suena solo no se tolera
+ *   loop       la pieza se repite hasta que el usuario pasa
+ *   poster     el fotograma mientras no está activa, para no descargar N vídeos
+ *   onProgress para pintar la barra fina de arriba
+ *
+ * `Player` seguirá siendo el overlay para reproducir UN medio concreto —tiene
+ * `opened`/`onClose` y cromado de diálogo—, y esto es lo otro: un elemento de
+ * contenido que vive dentro de una lista. Son dos componentes, no dos variantes.
+ *
+ * Lo que queda por decidir al construirlo: si `active` lo pone el consumidor —lo
+ * que hace aquí el índice del Carousel— o si el componente lo deduce con un
+ * IntersectionObserver. Lo segundo es más cómodo y lo primero es más honesto con
+ * un carrusel que ya sabe cuál es su slide.                                     */
+
+interface ReproductorProps {
+  active: boolean;
+  duracion: string;
+  progreso: number;
+}
+
+function ReproductorEnLinea({ active, duracion, progreso }: ReproductorProps): ReactElement {
   return (
-    <Box h="100dvh" position="relative" display="flex" align="center" justify="center">
+    <Box w="100%" h="100%" position="relative" bg="surface.sunken">
       <Box
         w="100%"
         h="100%"
-        bg="surface.sunken"
         display="flex"
         align="center"
         justify="center"
@@ -94,12 +124,52 @@ function Pieza({ pieza, onGenerar }: { pieza: Pieza; onGenerar: () => void }): R
         gap="xs"
       >
         <Box c="text.disabled" display="flex">
-          <Icon name="video" size={32} />
+          <Icon name={active ? "video" : "play"} size={32} />
         </Box>
         <Text fz="caption" c="text.muted">
-          Marcador de posición · {pieza.duracion}
+          Marcador de posición · {duracion}
+        </Text>
+        <Text fz="caption" c="text.muted">
+          {active ? "activa · en silencio y en bucle" : "en cartel, sin descargar"}
         </Text>
       </Box>
+
+      <Box position="absolute" style={{ top: 0, left: 0, right: 0 }}>
+        <Progress
+          value={active ? progreso : 0}
+          size="xs"
+          radius={0}
+          label="Progreso de la pieza"
+        />
+      </Box>
+
+      <Box position="absolute" style={{ left: 16, top: 16 }}>
+        <ActionIcon
+          variant="glass"
+          glass="strong"
+          size="sm"
+          r="full"
+          aria-label="Activar el sonido"
+        >
+          <Icon name="volume" />
+        </ActionIcon>
+      </Box>
+    </Box>
+  );
+}
+
+function Pieza({
+  pieza,
+  activa,
+  onGenerar,
+}: {
+  pieza: Pieza;
+  activa: boolean;
+  onGenerar: () => void;
+}): ReactElement {
+  return (
+    <Box h="100dvh" position="relative" display="flex" align="center" justify="center">
+      <ReproductorEnLinea active={activa} duracion={pieza.duracion} progreso={38} />
 
       <Box position="absolute" style={{ right: 16, bottom: 120 }}>
         <Acciones onGenerar={onGenerar} />
@@ -132,6 +202,7 @@ function Pieza({ pieza, onGenerar }: { pieza: Pieza; onGenerar: () => void }): R
 
 function Feed(): ReactElement {
   const [generar, set_generar] = useState(false);
+  const [indice, set_indice] = useState(0);
 
   return (
     <Box h="100dvh" bg="surface.base" position="relative" overflow="hidden">
@@ -149,9 +220,12 @@ function Feed(): ReactElement {
         withIndicators={false}
         label="Feed de vídeo"
         h="100dvh"
-        renderItem={(pieza) => (
+        index={indice}
+        onIndexChange={set_indice}
+        renderItem={(pieza, i) => (
           <Pieza
             pieza={pieza}
+            activa={i === indice}
             onGenerar={() => {
               set_generar(true);
             }}
@@ -245,11 +319,18 @@ type Story = StoryObj;
  * propiedad del avatar. Que las piezas se puedan publicar sigue siendo pregunta abierta: ver
  * `Explorar`.
  *
- * *Hallazgo de catálogo.* `Player` es un **overlay** con `opened`/`onClose` para reproducir un
- * medio concreto; un feed necesita un reproductor **en línea**, que se monta y se desmonta al pasar
- * de slide, con silencio por defecto y bucle. Aquí va con marcadores de posición dentro de un
- * `Carousel` con `axis="y"`, que es lo correcto para la maqueta, pero el componente de vídeo en
- * línea **falta en el catálogo** y hay que decidirlo antes de construir esto de verdad.
+ * *El reproductor en línea entra al catálogo* — decisión del titular, 06/08/2026. Aquí va
+ * maquetada **la base**, para poder discutirla contra algo en vez de en abstracto: el vídeo son
+ * marcadores de posición y lo que se propone es el contrato.
+ *
+ * La prop que lo separa de `Player` es **`active`**. Un feed monta varias piezas y solo una suena:
+ * la activa reproduce en silencio y en bucle, y el resto se quedan en cartel sin descargar.
+ * `Player` no la tiene porque no la necesita —es el overlay para reproducir **un** medio concreto,
+ * con `opened`/`onClose` y cromado de diálogo—. Son dos componentes, no dos variantes del mismo.
+ *
+ * Lo que queda por decidir al construirlo: si `active` lo pone el consumidor —lo que hace aquí el
+ * índice del `Carousel`— o si el componente lo deduce con un `IntersectionObserver`. Lo segundo es
+ * más cómodo; lo primero es más honesto con un carrusel que ya sabe cuál es su slide.
  */
 export const FeedVertical: Story = {
   name: "Vertical, fuera del AppShell",
