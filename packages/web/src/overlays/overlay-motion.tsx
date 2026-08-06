@@ -28,6 +28,8 @@ export type OverlayMotionPreset =
   | "fade"
   | "slide-up"
   | "slide-down"
+  | "slide-start"
+  | "slide-end"
   | "edge-start"
   | "edge-end"
   | "edge-top"
@@ -39,6 +41,8 @@ const PRESETS: Record<OverlayMotionPreset, { from: TargetAndTransition; to: Targ
     fade: { from: { opacity: 0 }, to: { opacity: 1 } },
     "slide-up": { from: { opacity: 0, y: 12 }, to: { opacity: 1, y: 0 } },
     "slide-down": { from: { opacity: 0, y: -12 }, to: { opacity: 1, y: 0 } },
+    "slide-start": { from: { opacity: 0, x: -12 }, to: { opacity: 1, x: 0 } },
+    "slide-end": { from: { opacity: 0, x: 12 }, to: { opacity: 1, x: 0 } },
     "edge-start": { from: { x: "-100%" }, to: { x: 0 } },
     "edge-end": { from: { x: "100%" }, to: { x: 0 } },
     "edge-top": { from: { y: "-100%" }, to: { y: 0 } },

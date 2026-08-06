@@ -6,6 +6,7 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Modal.vars.css.js";
+import { palettes } from "@stellaria/nebula-tokens";
 
 const FADE_IN = keyframes({ from: { opacity: 0 }, to: { opacity: 1 } });
 
@@ -27,11 +28,11 @@ export const dialog = recipe({
         border: "none",
         background: "transparent",
         color: vars.color.text.primary,
-        overflow: "hidden",
+        overflow: "clip",
         display: "flex",
         selectors: {
           "&::backdrop": {
-            background: `color-mix(in srgb, ${vars.color.surface.overlay} 62%, transparent)`,
+            background: `color-mix(in srgb, ${palettes.dark[200]} 62%, transparent)`,
             backdropFilter: variables.backdropBlur,
             animationName: FADE_IN,
             animationDuration: vars.motion.duration.base,
