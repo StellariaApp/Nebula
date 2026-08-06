@@ -880,7 +880,7 @@ function WarehouseService(): ReactElement {
       value: "inventario",
       label: "Inventario",
       content: (
-        <Box display="flex" direction="column" gap="lg" pt="md">
+        <Box display="flex" direction="column" gap="lg">
           <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
             <Metric label="Ocupación" value="82 %" hint="412 de 500 unidades" />
             <Metric label="Entradas del mes" value="24" hint="+6 frente a julio" />
@@ -899,16 +899,14 @@ function WarehouseService(): ReactElement {
       value: "movimientos",
       label: "Movimientos",
       content: (
-        <Box pt="md">
-          <GlassSurface level="subtle" radius="md" withBorder p="lg">
-            <Title order={2} fz="h6">
-              Sin movimientos esta semana
-            </Title>
-            <Text fz="body3" c="text.secondary" mt="xxs">
-              El último fue el préstamo de TFV-0422 el 28 de julio.
-            </Text>
-          </GlassSurface>
-        </Box>
+        <GlassSurface level="subtle" radius="md" withBorder p="lg">
+          <Title order={2} fz="h6">
+            Sin movimientos esta semana
+          </Title>
+          <Text fz="body3" c="text.secondary" mt="xxs">
+            El último fue el préstamo de TFV-0422 el 28 de julio.
+          </Text>
+        </GlassSurface>
       ),
     },
   ];
