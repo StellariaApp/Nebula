@@ -26,6 +26,7 @@ import {
 
 import {
   Cols,
+  CuentaDeAlta,
   Escena,
   Icon,
   Placeholder,
@@ -382,8 +383,18 @@ function CampoFila({
   );
 }
 
-function PasoRevision({ techo }: { techo: string }): ReactElement {
-  const [marcados, set_marcados] = useState<string[]>([]);
+function PasoRevision({
+  techo,
+  marcados,
+  onMarcados,
+}: {
+  techo: string;
+  marcados: string[];
+  onMarcados: (valor: string[]) => void;
+}): ReactElement {
+  const set_marcados = (actualiza: (previos: string[]) => string[]): void => {
+    onMarcados(actualiza(marcados));
+  };
   const estrecho = techo === "A" || techo === "B";
   const campos = useMemo(
     () => ESQUEMA.filter((campo) => !(estrecho && campo.intimo === true)),
@@ -610,30 +621,16 @@ function PasoAnclas({ techo }: { techo: string }): ReactElement {
 
 /* ── El alta ───────────────────────────────────────────────────────────────── */
 
-interface Linea {
-  concepto: string;
-  rosets: number;
-  opcional?: boolean | undefined;
-}
-
-function Cuenta({ techo, origen }: { techo: string; origen: string }): ReactElement {
-  const estrecho = techo === "A" || techo === "B";
-  const lineas: Linea[] = [
-    { concepto: "Subida de fotos", rosets: 0 },
-    ...(origen === "fotos" ? [{ concepto: "Extracción", rosets: TARIFA.extraccion }] : []),
-    { concepto: "Revisión", rosets: 0 },
-    { concepto: "Autogenerar huecos", rosets: TARIFA.autogeneracion, opcional: true },
-    { concepto: "Construcción del canon", rosets: TARIFA.canon },
-    { concepto: "Base de 2 vistas", rosets: 0 },
-    {
-      concepto: `Juego de ${estrecho ? "6" : "9"} anclas`,
-      rosets: estrecho ? TARIFA.anclasBase : TARIFA.anclasDetalle,
-    },
-    { concepto: "Prueba de identidad", rosets: TARIFA.pruebaIdentidad },
-  ];
-  const total = lineas
-    .filter((linea) => linea.opcional !== true)
-    .reduce((suma, linea) => suma + linea.rosets, 0);
+function Cuenta({
+  techo,
+  origen,
+  autogenera,
+}: {
+  techo: string;
+  origen: string;
+  autogenera: boolean;
+}): ReactElement {
+  const { lineas, total } = CuentaDeAlta({ techo, origen, autogenera });
 
   return (
     <GlassSurface level="subtle" radius="lg" withBorder p="md">
@@ -667,8 +664,8 @@ function Cuenta({ techo, origen }: { techo: string; origen: string }): ReactElem
         </Badge>
       </Flex>
       <Text fz="caption" c="text.muted" mt="xs">
-        Cada línea se cobra cuando ocurre. No se maquilla para que la cifra de cabecera salga
-        redonda.
+        Cada línea se cobra cuando ocurre. <strong>La construcción del canon solo se cobra cuando
+        la hace el sistema</strong>: escribirlo a mano es gratis, siempre y entero.
       </Text>
     </GlassSurface>
   );
@@ -678,11 +675,14 @@ function Alta(): ReactElement {
   const [paso, set_paso] = useState(3);
   const [origen, set_origen] = useState("fotos");
   const [techo, set_techo] = useState("A");
+  const [marcados, set_marcados] = useState<string[]>([]);
 
   const pasos: StepperStep[] = [
     { label: "Origen", description: "gratis" },
     { label: "Techo", description: "gratis" },
-    { label: "Extracción", description: Rosets(TARIFA.extraccion) },
+    ...(origen === "fotos"
+      ? [{ label: "Extracción", description: Rosets(TARIFA.extraccion) }]
+      : []),
     { label: "Revisión", description: "gratis" },
     { label: "Base", description: "gratis" },
     { label: "Anclas", description: Rosets(techo === "A" || techo === "B" ? 110 : 160) },
@@ -691,8 +691,13 @@ function Alta(): ReactElement {
   const paneles: ReactNode[] = [
     <PasoOrigen key="origen" origen={origen} onOrigen={set_origen} />,
     <PasoTecho key="techo" techo={techo} onTecho={set_techo} />,
-    <PasoExtraccion key="extraccion" />,
-    <PasoRevision key="revision" techo={techo} />,
+    ...(origen === "fotos" ? [<PasoExtraccion key="extraccion" />] : []),
+    <PasoRevision
+      key="revision"
+      techo={techo}
+      marcados={marcados}
+      onMarcados={set_marcados}
+    />,
     <PasoBase key="base" />,
     <PasoAnclas key="anclas" techo={techo} />,
   ];
@@ -737,7 +742,7 @@ function Alta(): ReactElement {
                 </Button>
               </Flex>
             </Box>
-            <Cuenta techo={techo} origen={origen} />
+            <Cuenta techo={techo} origen={origen} autogenera={marcados.length > 0} />
           </SimpleGrid>
         </AppShell.Content>
       </AppShell.Section>

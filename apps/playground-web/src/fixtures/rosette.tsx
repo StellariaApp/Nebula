@@ -195,6 +195,57 @@ export const ESTADO_AVATAR: StatusMap<EstadoAvatar> = {
   archivado: { label: "Archivado", color: "gray", variant: "outline", dot: true },
 };
 
+export const VISIBILIDAD: StatusMap<"publico" | "privado"> = {
+  publico: { label: "Público", color: "accent", variant: "light", dot: true },
+  privado: { label: "Privado", color: "gray", variant: "outline", dot: true },
+};
+
+/* ── La cuenta del alta ───────────────────────────────────────────────────────
+ * Decisión del titular, 06/08/2026: **la construcción del canon solo se cobra
+ * cuando la hace el sistema.** Escribirlo a mano es gratis, siempre y entero.
+ *
+ * Eso cuadra por fin las dos cifras de §10.1 que nunca sumaban: desde texto a
+ * mano son 150 + 10 = **160**, y desde fotos 150 + 10 + 5 + 1 = **166**, que es
+ * exactamente lo que dice el documento. Antes había que aceptar un 161 que no
+ * aparece en ningún sitio.                                                      */
+
+export interface LineaDeAlta {
+  concepto: string;
+  rosets: number;
+  opcional?: boolean | undefined;
+}
+
+export function CuentaDeAlta(opciones: {
+  techo: string;
+  origen: string;
+  autogenera: boolean;
+}): { lineas: LineaDeAlta[]; total: number } {
+  const { techo, origen, autogenera } = opciones;
+  const estrecho = techo === "A" || techo === "B";
+  const desde_fotos = origen === "fotos";
+  const lo_construye_el_sistema = desde_fotos || autogenera;
+
+  const lineas: LineaDeAlta[] = [
+    { concepto: desde_fotos ? "Subida de fotos" : "Alta desde texto", rosets: 0 },
+    ...(desde_fotos ? [{ concepto: "Extracción", rosets: TARIFA.extraccion }] : []),
+    { concepto: "Revisión y edición a mano", rosets: 0 },
+    { concepto: "Autogenerar huecos", rosets: TARIFA.autogeneracion, opcional: !autogenera },
+    { concepto: "Construcción del canon", rosets: lo_construye_el_sistema ? TARIFA.canon : 0 },
+    { concepto: "Base de 2 vistas", rosets: 0 },
+    {
+      concepto: `Juego de ${estrecho ? "6" : "9"} anclas`,
+      rosets: estrecho ? TARIFA.anclasBase : TARIFA.anclasDetalle,
+    },
+    { concepto: "Prueba de identidad", rosets: TARIFA.pruebaIdentidad },
+  ];
+
+  const total = lineas
+    .filter((linea) => linea.opcional !== true)
+    .reduce((suma, linea) => suma + linea.rosets, 0);
+
+  return { lineas, total };
+}
+
 export interface AvatarFicha {
   id: string;
   nombre: string;
@@ -205,6 +256,12 @@ export interface AvatarFicha {
   activos: number;
   cola: number;
   origen: "fotos" | "texto" | "mixto";
+  /** Decisión del titular, 06/08/2026: el avatar es público o privado. */
+  publico: boolean;
+  /** Y si es público, el estudio decide aparte si además se puede clonar. */
+  clonable: boolean;
+  /** De sus activos, cuántos ha marcado el estudio como públicos. */
+  activosPublicos: number;
 }
 
 export const AVATARES: AvatarFicha[] = [
@@ -218,6 +275,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 155,
     cola: 3,
     origen: "mixto",
+    publico: true,
+    clonable: true,
+    activosPublicos: 24,
   },
   {
     id: "vera",
@@ -229,6 +289,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 41,
     cola: 0,
     origen: "fotos",
+    publico: true,
+    clonable: false,
+    activosPublicos: 9,
   },
   {
     id: "nadia",
@@ -240,6 +303,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 0,
     cola: 1,
     origen: "fotos",
+    publico: false,
+    clonable: false,
+    activosPublicos: 0,
   },
   {
     id: "ada",
@@ -251,6 +317,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 0,
     cola: 0,
     origen: "texto",
+    publico: false,
+    clonable: false,
+    activosPublicos: 0,
   },
   {
     id: "cleo",
@@ -262,6 +331,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 0,
     cola: 0,
     origen: "texto",
+    publico: false,
+    clonable: false,
+    activosPublicos: 0,
   },
   {
     id: "iris",
@@ -273,6 +345,9 @@ export const AVATARES: AvatarFicha[] = [
     activos: 88,
     cola: 0,
     origen: "fotos",
+    publico: false,
+    clonable: false,
+    activosPublicos: 0,
   },
 ];
 
