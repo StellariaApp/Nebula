@@ -744,7 +744,9 @@ function CompanyDetail(): ReactElement {
       mainRef={scroller}
       scrollShadowOffset={116}
       sidebarCollapsed={mini}
-      backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
+      backdrop={
+        <StarField fixed parallax aurora density="sm" scroller={scroller} translucency={2} />
+      }
       sidebar={
         <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
           <SideBarHeader />
@@ -771,8 +773,8 @@ function CompanyDetail(): ReactElement {
         <AppShell.Subbar sticky>
           <Breadcrumbs items={COMPANY_TRAIL} />
         </AppShell.Subbar>
-        <AppShell.Content>
-          <Tabs data={tabs} defaultValue="resumen" />
+        <AppShell.Content p="none">
+          <Tabs data={tabs} defaultValue="resumen" padded />
         </AppShell.Content>
       </AppShell.Section>
     </AppShell>
@@ -785,4 +787,176 @@ function CompanyDetail(): ReactElement {
  */
 export const CompanyPage: Story = {
   render: () => <CompanyDetail />,
+};
+
+const WAREHOUSE_TRAIL: BreadcrumbItem[] = [
+  { key: "home", label: "Inicio", href: "#inicio" },
+  { key: "companies", label: "Mis Empresas", href: "#empresas" },
+  { key: "company", label: "The Film Vault", href: "#the-film-vault" },
+  { key: "current", label: "Warehouse" },
+];
+
+const STOCK = [
+  { ref: "TFV-0421", title: "Máster 4K — La Última Toma", kind: "Máster", state: "En almacén" },
+  { ref: "TFV-0422", title: "Copia DCP — La Última Toma", kind: "Copia", state: "Prestado" },
+  {
+    ref: "TFV-0388",
+    title: "Negativo 35 mm — Serie Aurora",
+    kind: "Negativo",
+    state: "En almacén",
+  },
+  { ref: "TFV-0390", title: "Audio 5.1 — Serie Aurora", kind: "Audio", state: "En tránsito" },
+  { ref: "TFV-0201", title: "Máster HD — Cortos 2019", kind: "Máster", state: "Retirado" },
+] as const;
+
+const STATE_TONE = {
+  "En almacén": "success",
+  Prestado: "info",
+  "En tránsito": "warning",
+  Retirado: "gray",
+} as const;
+
+function StockTable(): ReactElement {
+  return (
+    <Table.ScrollContainer>
+      <Table highlightOnHover density="comfortable" caption="Inventario de Warehouse">
+        <Table.Head>
+          <Table.Row>
+            <Table.Title>Referencia</Table.Title>
+            <Table.Title>Material</Table.Title>
+            <Table.Title>Tipo</Table.Title>
+            <Table.Title>Estado</Table.Title>
+            <Table.Title align="end">Acciones</Table.Title>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {STOCK.map((item) => (
+            <Table.Row key={item.ref}>
+              <Table.Cell>
+                <Text fz="body3" ff="mono">
+                  {item.ref}
+                </Text>
+              </Table.Cell>
+              <Table.Cell>
+                <Text fz="body3" fw="semibold" truncate>
+                  {item.title}
+                </Text>
+              </Table.Cell>
+              <Table.Cell>
+                <Text fz="body3" c="text.muted">
+                  {item.kind}
+                </Text>
+              </Table.Cell>
+              <Table.Cell>
+                <Badge variant="light" color={STATE_TONE[item.state]}>
+                  {item.state}
+                </Badge>
+              </Table.Cell>
+              <Table.Cell align="end">
+                <Menu
+                  items={CARD_ACTIONS}
+                  aria-label={`Acciones de ${item.ref}`}
+                  trigger={
+                    <ActionIcon variant="ghost" size="sm" aria-label={`Acciones de ${item.ref}`}>
+                      <Icon name="more" />
+                    </ActionIcon>
+                  }
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </Table.ScrollContainer>
+  );
+}
+
+function WarehouseService(): ReactElement {
+  const scroller = useRef<HTMLElement | null>(null);
+  const [mini, set_mini] = useState(false);
+
+  const tabs = [
+    {
+      value: "inventario",
+      label: "Inventario",
+      content: (
+        <Box display="flex" direction="column" gap="lg" pt="md">
+          <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+            <Metric label="Ocupación" value="82 %" hint="412 de 500 unidades" />
+            <Metric label="Entradas del mes" value="24" hint="+6 frente a julio" />
+            <Metric label="Referencias" value="5" hint="1 retirada" />
+          </SimpleGrid>
+          <GlassSurface level="subtle" radius="md" withBorder p="lg">
+            <Title order={2} fz="h6" mb="sm">
+              Material
+            </Title>
+            <StockTable />
+          </GlassSurface>
+        </Box>
+      ),
+    },
+    {
+      value: "movimientos",
+      label: "Movimientos",
+      content: (
+        <Box pt="md">
+          <GlassSurface level="subtle" radius="md" withBorder p="lg">
+            <Title order={2} fz="h6">
+              Sin movimientos esta semana
+            </Title>
+            <Text fz="body3" c="text.secondary" mt="xxs">
+              El último fue el préstamo de TFV-0422 el 28 de julio.
+            </Text>
+          </GlassSurface>
+        </Box>
+      ),
+    },
+  ];
+
+  return (
+    <AppShell
+      mainRef={scroller}
+      scrollShadowOffset={116}
+      sidebarCollapsed={mini}
+      backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
+      sidebar={
+        <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
+          <SideBarHeader />
+          <SideBarBody />
+          <SideBarFooter />
+        </AppShell.Sidebar>
+      }
+    >
+      <VisuallyHidden>
+        <Title order={1}>Warehouse — The Film Vault</Title>
+      </VisuallyHidden>
+
+      <AppShell.Section aria-label="Warehouse">
+        <AppShell.Header
+          sticky
+          title="Warehouse"
+          subtitle="Almacén de material y copias de The Film Vault"
+          actions={
+            <Button size="sm" rightSection={<Icon name="plus" />}>
+              Registrar material
+            </Button>
+          }
+        />
+        <AppShell.Subbar sticky>
+          <Breadcrumbs items={WAREHOUSE_TRAIL} />
+        </AppShell.Subbar>
+        <AppShell.Content p="none">
+          <Tabs data={tabs} defaultValue="inventario" padded />
+        </AppShell.Content>
+      </AppShell.Section>
+    </AppShell>
+  );
+}
+
+/**
+ * El servicio dentro de una empresa: la tercera pantalla del banco. Reutiliza el carril y el
+ * cromado de `CompanyPage` y cambia solo el contenido, que es lo que el patrón debe permitir.
+ */
+export const Warehouse: Story = {
+  render: () => <WarehouseService />,
 };
