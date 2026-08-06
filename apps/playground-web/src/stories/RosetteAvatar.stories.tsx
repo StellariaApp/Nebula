@@ -12,6 +12,7 @@ import {
   Button,
   Card,
   Divider,
+  Drawer,
   Flex,
   GlassSurface,
   Group,
@@ -20,6 +21,7 @@ import {
   Segment,
   SimpleGrid,
   StatusBadge,
+  Switch,
   Tabs,
   Text,
   Textarea,
@@ -45,6 +47,7 @@ import {
   SALDO,
   Shell,
   TARIFA,
+  VISIBILIDAD,
 } from "../fixtures/rosette.js";
 
 /* ── El taller · componer ─────────────────────────────────────────────────────
@@ -412,14 +415,49 @@ const SIDECAR = [
   { campo: "Veredicto", valor: "7 conservados · 0 contradichos · listón 6" },
 ];
 
+const MEDIOS = [
+  { id: 0, tipo: "imagen" as const, publico: true },
+  { id: 1, tipo: "imagen" as const, publico: true },
+  { id: 2, tipo: "imagen" as const, publico: false },
+  { id: 3, tipo: "video" as const, publico: true },
+  { id: 4, tipo: "imagen" as const, publico: false },
+  { id: 5, tipo: "voz" as const, publico: false },
+  { id: 6, tipo: "imagen" as const, publico: true },
+  { id: 7, tipo: "video" as const, publico: false },
+];
+
+const TIPO_MEDIO = { imagen: "image", video: "video", voz: "mic" } as const;
+
+/* Decisión del titular, 06/08/2026: si el avatar es público, el estudio elige
+ * **qué imágenes, vídeos y audios** lo son. La selección es por pieza, no por
+ * avatar, así que vive aquí y no en los ajustes.                                */
+
 function Galeria(): ReactElement {
+  const [publicos, set_publicos] = useState(
+    () => new Set(MEDIOS.filter((medio) => medio.publico).map((medio) => medio.id)),
+  );
+
+  const Alternar = (id: number): void => {
+    set_publicos((previos) => {
+      const copia = new Set(previos);
+      if (copia.has(id)) copia.delete(id);
+      else copia.add(id);
+      return copia;
+    });
+  };
+
   return (
     <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
       <Box style={{ gridColumn: "span 2" }} miw={0}>
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap" mb="md">
-          <Text fz="body3" c="text.muted">
-            {AVATAR_ACTIVO.activos} activos aprobados
-          </Text>
+          <Flex align="center" gap="sm" wrap="wrap">
+            <Text fz="body3" c="text.muted">
+              {AVATAR_ACTIVO.activos} activos aprobados
+            </Text>
+            <Badge size="xs" variant="light" color="accent">
+              {AVATAR_ACTIVO.activosPublicos} públicos
+            </Badge>
+          </Flex>
           <Group gap="xs">
             <Button size="sm" variant="ghost" rightSection={<Icon name="download" />}>
               Descargar
@@ -429,12 +467,36 @@ function Galeria(): ReactElement {
             </Button>
           </Group>
         </Flex>
+
+        <Alert variant="light" color="info" icon={<Icon name="eye" />} mb="md">
+          <strong>Rose Aldana es un avatar público</strong>, así que puedes elegir pieza a pieza
+          qué se ve fuera del estudio. Lo que no marques no sale de aquí, aunque el avatar lo esté.
+        </Alert>
+
         <SimpleGrid cols={Cols({ base: 2, tablet: 3, desktop: 4 })} spacing="md">
-          {Array.from({ length: 8 }, (_, index) => (
-            <Card key={index} withBorder radius="md" padding="none" overflow="hidden">
-              <Placeholder ratio={3 / 4} label={index === 0 ? "Seleccionado" : undefined} />
-            </Card>
-          ))}
+          {MEDIOS.map((medio) => {
+            const es_publico = publicos.has(medio.id);
+            return (
+              <Card key={medio.id} withBorder radius="md" padding="none" overflow="hidden">
+                <Placeholder
+                  ratio={3 / 4}
+                  icon={TIPO_MEDIO[medio.tipo]}
+                  label={medio.id === 0 ? "Seleccionado" : undefined}
+                />
+                <Box p="xs">
+                  <Switch
+                    size="sm"
+                    checked={es_publico}
+                    onChange={() => {
+                      Alternar(medio.id);
+                    }}
+                    label={es_publico ? "Público" : "Privado"}
+                    aria-label={`Publicar el activo ${String(medio.id + 1)}`}
+                  />
+                </Box>
+              </Card>
+            );
+          })}
         </SimpleGrid>
       </Box>
 
@@ -449,6 +511,12 @@ function Galeria(): ReactElement {
               <Text fz="body3">{linea.valor}</Text>
             </Box>
           ))}
+          <Box>
+            <Text fz="caption" c="text.muted">
+              Visibilidad
+            </Text>
+            <Text fz="body3">{publicos.has(0) ? "Público" : "Privado"}</Text>
+          </Box>
         </Box>
         <Text fz="caption" c="text.muted" mt="md">
           El proveedor no expone semilla. Esta ficha es lo único que explica por qué la imagen salió
@@ -785,9 +853,12 @@ const TRAIL: BreadcrumbItem[] = [
 ];
 
 const ACCIONES: MenuItemData[] = [
-  { key: "ajustes", label: "Ajustes del avatar", description: "techo, nombre, visibilidad" },
   { key: "exportar", label: "Exportar el canon", description: "gratis" },
-  { key: "duplicar", label: "Duplicar", description: "pendiente de decisión: si hereda o rehace las anclas" },
+  {
+    key: "duplicar",
+    label: "Duplicar",
+    description: "hereda el juego de anclas, así que no genera nada",
+  },
   { key: "archivar", label: "Archivar", danger: true },
 ];
 
@@ -799,7 +870,87 @@ const PESTANAS: TabItem[] = [
   { value: "assets", label: "Assets", content: <Assets /> },
 ];
 
-function VistaDeAvatar(): ReactElement {
+/* ── Ajustes ──────────────────────────────────────────────────────────────────
+ * Decisiones del titular, 06/08/2026. Son dos interruptores y no uno, y el orden
+ * importa: **clonable cuelga de público**. Un avatar privado no puede ser
+ * clonable, así que el segundo se apaga y se explica en vez de desaparecer.    */
+
+function Ajustes({ abierto, onClose }: { abierto: boolean; onClose: () => void }): ReactElement {
+  const [publico, set_publico] = useState(AVATAR_ACTIVO.publico);
+  const [clonable, set_clonable] = useState(AVATAR_ACTIVO.clonable);
+
+  return (
+    <Drawer opened={abierto} onClose={onClose} side="end" size={420} title="Ajustes del avatar">
+      <Rotulo>Visibilidad</Rotulo>
+      <Switch
+        checked={publico}
+        onChange={(valor) => {
+          set_publico(valor);
+          if (!valor) set_clonable(false);
+        }}
+        label="Avatar público"
+      />
+      <Text fz="caption" c="text.muted" mt="xxs">
+        {publico
+          ? "Aparece en Explorar. Qué imágenes, vídeos y audios suyos se ven se elige pieza a pieza en la Galería, y lo que no marques no sale."
+          : "Solo lo ve quien entre a Casa Rosette. Ni el avatar ni ninguna de sus piezas aparecen fuera."}
+      </Text>
+
+      <Divider my="md" />
+
+      <Rotulo>Clonar</Rotulo>
+      <Switch
+        checked={clonable}
+        disabled={!publico}
+        onChange={set_clonable}
+        label="Otros estudios pueden clonarlo"
+      />
+      <Text fz="caption" c="text.muted" mt="xxs">
+        {publico
+          ? "El clon parte de este canon y de este juego de anclas. Lo decide el estudio, avatar por avatar: ser público no lo implica."
+          : "Un avatar privado no se puede clonar. Enciende «público» primero."}
+      </Text>
+
+      {clonable ? (
+        <Alert
+          variant="light"
+          color="warning"
+          mt="sm"
+          icon={<Icon name="warning" />}
+          title="Lo que estás autorizando"
+        >
+          Un clon hereda la identidad en píxel, así que a partir de ahí habrá dos avatares que se
+          parecen. Y el consentimiento sobre las fotos que construyeron a {AVATAR_ACTIVO.nombre} se
+          aceptó <strong>aquí</strong>: el clon vivirá en otro estudio.
+        </Alert>
+      ) : null}
+
+      <Divider my="md" />
+
+      <Rotulo>Techo declarado</Rotulo>
+      <Flex align="center" justify="space-between" gap="sm">
+        <Text fz="body3">Escalón máximo de este avatar</Text>
+        <Badge variant="light" size="lg">
+          {AVATAR_ACTIVO.techo}
+        </Badge>
+      </Flex>
+      <Text fz="caption" c="text.muted" mt="xxs">
+        Gana el más restrictivo de los tres: el del estudio, el del avatar y el de tu permiso.
+        Bajarlo no retira lo ya generado.
+      </Text>
+    </Drawer>
+  );
+}
+
+function VistaDeAvatar({
+  pestana = "taller",
+  ajustesAbiertos = false,
+}: {
+  pestana?: string | undefined;
+  ajustesAbiertos?: boolean | undefined;
+}): ReactElement {
+  const [ajustes, set_ajustes] = useState(ajustesAbiertos);
+
   return (
     <Shell active="taller" title={`${AVATAR_ACTIVO.nombre} — Rosette`}>
       <AppShell.Section aria-label={AVATAR_ACTIVO.nombre}>
@@ -809,7 +960,22 @@ function VistaDeAvatar(): ReactElement {
           subtitle={`Canon v${String(AVATAR_ACTIVO.canon)} · techo ${AVATAR_ACTIVO.techo} · ${String(AVATAR_ACTIVO.activos)} activos`}
           actions={
             <Group gap="sm">
+              <StatusBadge
+                status={AVATAR_ACTIVO.publico ? "publico" : "privado"}
+                map={VISIBILIDAD}
+                size="sm"
+              />
               <StatusBadge status={AVATAR_ACTIVO.estado} map={ESTADO_AVATAR} size="sm" />
+              <Button
+                size="sm"
+                variant="glass"
+                onPress={() => {
+                  set_ajustes(true);
+                }}
+                rightSection={<Icon name="settings" />}
+              >
+                Ajustes
+              </Button>
               <Menu
                 items={ACCIONES}
                 aria-label="Acciones del avatar"
@@ -826,9 +992,16 @@ function VistaDeAvatar(): ReactElement {
           <Breadcrumbs items={TRAIL} />
         </AppShell.Subbar>
         <AppShell.Content p="none">
-          <Tabs data={PESTANAS} defaultValue="taller" padded aria-label="Secciones del avatar" />
+          <Tabs data={PESTANAS} defaultValue={pestana} padded aria-label="Secciones del avatar" />
         </AppShell.Content>
       </AppShell.Section>
+
+      <Ajustes
+        abierto={ajustes}
+        onClose={() => {
+          set_ajustes(false);
+        }}
+      />
     </Shell>
   );
 }
@@ -875,6 +1048,45 @@ export const ElTaller: Story = {
   render: () => (
     <Escena>
       <VistaDeAvatar />
+    </Escena>
+  ),
+};
+
+/**
+ * **La galería es donde se elige qué sale del estudio.** Decisión del titular, 06/08/2026: el
+ * avatar es público o privado, y si es público el estudio selecciona **qué imágenes, vídeos y
+ * audios** lo son.
+ *
+ * La selección va **por pieza**, así que vive aquí y no en los ajustes: marcar el avatar como
+ * público no publica nada por sí solo, y lo que no se marca no sale aunque el avatar lo esté. Es
+ * la dirección segura —hay que decir que sí, pieza a pieza— y es la que deja el sidecar de cada
+ * activo diciendo también su visibilidad.
+ */
+export const PiezasPublicas: Story = {
+  name: "Qué piezas son públicas",
+  render: () => (
+    <Escena>
+      <VistaDeAvatar pestana="galeria" />
+    </Escena>
+  ),
+};
+
+/**
+ * **Dos interruptores, y el segundo cuelga del primero.** Público decide si el avatar aparece
+ * fuera de Casa Rosette; **clonable** decide, aparte, si otro estudio puede partir de su canon y
+ * de su juego de anclas. Ser público no implica ser clonable, y un avatar privado no puede serlo:
+ * el interruptor se apaga y dice por qué en vez de desaparecer.
+ *
+ * Al encender «clonable» la pantalla dice lo que se está autorizando, que es lo que ninguna
+ * casilla de términos explica: el clon **hereda la identidad en píxel** —a partir de ahí hay dos
+ * avatares que se parecen— y el consentimiento sobre las fotos que construyeron a este se aceptó
+ * en **este** estudio, mientras que el clon vivirá en otro.
+ */
+export const AjustesDelAvatar: Story = {
+  name: "Público, privado y clonable",
+  render: () => (
+    <Escena>
+      <VistaDeAvatar ajustesAbiertos />
     </Escena>
   ),
 };
