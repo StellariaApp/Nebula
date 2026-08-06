@@ -48,8 +48,8 @@ export const playful = {
       disabled: gray["400"],
     },
     border: {
-      subtle: gray["50"],
-      default: gray["100"],
+      subtle: palettes.light["700"],
+      default: palettes.light["700"],
       strong: gray["600"],
       focus: palettes.grape["600"],
       disabled: gray["300"],

@@ -74,7 +74,7 @@ export function Nav(props: NavProps): ReactElement {
           : {}),
         [variables.surfaceBg]: glass_on ? vars.glass.default.background : vars.color.surface.raised,
         [variables.surfaceBorder]: glass_on
-          ? vars.glass.default.border
+          ? `1px solid ${vars.color.border.default}`
           : `1px solid ${vars.color.border.subtle}`,
         [variables.surfaceBackdrop]: glass_on ? vars.glass.default.backdropFilter : "none",
       })

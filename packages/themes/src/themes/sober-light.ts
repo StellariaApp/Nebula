@@ -48,8 +48,8 @@ export const soberLight = {
       disabled: gray["400"],
     },
     border: {
-      subtle: gray["200"],
-      default: gray["300"],
+      subtle: palettes.light["700"],
+      default: palettes.light["700"],
       strong: gray["700"],
       focus: palettes.blue["600"],
       disabled: gray["300"],

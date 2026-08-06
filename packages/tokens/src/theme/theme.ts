@@ -83,7 +83,6 @@ export interface ThemeMotion {
 
 export interface GlassSurfaceRecipe {
   background: string;
-  border: string;
   backdropFilter: string;
 }
 

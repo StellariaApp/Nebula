@@ -130,7 +130,7 @@ export const sidebar_container = style({
       overflowX: "visible",
       position: "relative",
       zIndex: 0,
-      borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
+      borderInlineEnd: `1px solid ${vars.color.border.default}`,
       borderInlineStart: "none !important",
       borderBlock: "none !important",
       "@media": {
@@ -146,7 +146,7 @@ export const sidebar_container = style({
           alignItems: "center",
           justifyContent: "flex-start",
           borderRadius: `${vars.radius.md} !important`,
-          border: `1px solid ${vars.glass.strong.borderColor} !important`,
+          border: `1px solid ${vars.color.border.default} !important`,
           overflowX: "auto",
           overflowY: "hidden",
           zIndex: vars.zIndex.sticky,
@@ -253,12 +253,12 @@ export const sidebar_header = style({
     [base_layer]: {
       top: 0,
       padding: 0,
-      borderBlock: `1px solid ${vars.glass.default.borderColor} !important`,
+      borderBlock: `1px solid ${vars.color.border.default} !important`,
       "@media": {
         [SmallerThan("tablet")]: {
           left: 0,
           borderBlock: "none !important",
-          borderInlineEnd: `1px solid ${vars.glass.default.borderColor} !important`,
+          borderInlineEnd: `1px solid ${vars.color.border.default} !important`,
         },
       },
     },
@@ -269,13 +269,13 @@ export const sidebar_footer = style({
   "@layer": {
     [base_layer]: {
       bottom: 0,
-      borderBlockStart: `1px solid ${vars.glass.default.borderColor} !important`,
+      borderBlockStart: `1px solid ${vars.color.border.default} !important`,
       justifyContent: "space-between",
       "@media": {
         [SmallerThan("tablet")]: {
           right: 0,
           borderBlockStart: "none !important",
-          borderInlineStart: `1px solid ${vars.glass.default.borderColor} !important`,
+          borderInlineStart: `1px solid ${vars.color.border.default} !important`,
         },
       },
     },
@@ -289,13 +289,8 @@ export const sidebar_body = style({
       minHeight: "max-content",
       overflow: "hidden",
       backgroundColor: vars.color.surface.overlay,
-      selectors: {
-        "[data-sidebar-collapsed='true'] &": {
-          paddingInline: vars.space.xxs,
-        },
-      },
+      padding: 0,
       "@media": {
-        [SmallerThan("laptop")]: { paddingInline: vars.space.xxs },
         [SmallerThan("tablet")]: {
           display: "flex",
           flexDirection: "row",
@@ -318,7 +313,7 @@ export const sidebar_bottom = style({
   "@layer": {
     [base_layer]: {
       marginBlockStart: "auto",
-      borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
+      borderBlockStart: `1px solid ${vars.color.border.default}`,
     },
   },
 });
@@ -353,16 +348,13 @@ export const links = style({
 const links_first = `${sidebar_body} > ${links}:not(${links} ~ *)`;
 const links_last = `${sidebar_body} > ${links}:not(:has(~ ${links}))`;
 
-const EDGE_BLOCK_START = { paddingBlockStart: vars.space.sm };
-const EDGE_BLOCK_END = { paddingBlockEnd: vars.space.sm };
 const EDGE_NONE = { paddingBlockStart: 0, paddingBlockEnd: 0 };
 
 globalStyle(links_first, {
   "@layer": {
     [base_layer]: {
       "@media": {
-        [SmallerThan("laptop")]: EDGE_BLOCK_START,
-        [SmallerThan("tablet")]: EDGE_NONE,
+        [SmallerThan("laptop")]: EDGE_NONE,
       },
     },
   },
@@ -372,8 +364,7 @@ globalStyle(links_last, {
   "@layer": {
     [base_layer]: {
       "@media": {
-        [SmallerThan("laptop")]: EDGE_BLOCK_END,
-        [SmallerThan("tablet")]: EDGE_NONE,
+        [SmallerThan("laptop")]: EDGE_NONE,
       },
     },
   },
@@ -413,7 +404,7 @@ export const links_content = style({
       minWidth: 0,
       paddingInline: vars.space.md,
       paddingBlockEnd: vars.space.md,
-      borderBlockEnd: `1px solid ${vars.glass.default.borderColor}`,
+      borderBlockEnd: `1px solid ${vars.color.border.default}`,
       selectors: {
         "[data-sidebar-collapsed='true'] &": {
           width: "stretch",
@@ -428,7 +419,7 @@ export const links_content = style({
           width: "stretch",
           alignItems: "center",
           paddingBlock: vars.space.md,
-          paddingInline: vars.space.xs,
+          paddingInline: vars.space.sm,
           gap: vars.space.xxs,
         },
         [SmallerThan("tablet")]: {
@@ -440,7 +431,7 @@ export const links_content = style({
           height: "100%",
           inlineSize: "max-content",
           borderBlock: "none !important",
-          borderInlineEnd: `1px solid ${vars.glass.default.borderColor} !important`,
+          borderInlineEnd: `1px solid ${vars.color.border.default} !important`,
         },
       },
     },
@@ -529,11 +520,18 @@ export const section_header = style({
       alignItems: "center",
       justifyContent: "space-between",
       gap: vars.space.md,
-      blockSize: variables.chromeHeight,
+      minHeight: variables.chromeHeight,
       paddingInline: vars.space.lg,
+      paddingBlock: vars.space.md,
       minWidth: 0,
-      borderBlock: `1px solid ${vars.glass.default.borderColor}`,
       borderInline: "none !important",
+      borderBlockEnd: `1px solid ${vars.color.border.default}`,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          paddingInline: vars.space.md,
+          paddingBlock: vars.space.sm,
+        },
+      },
     },
   },
 });
@@ -543,7 +541,7 @@ export const section_sub = style({
     [base_layer]: {
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
-      borderBlockEnd: `1px solid ${vars.glass.control.borderColor}`,
+      borderBlockEnd: `1px solid ${vars.color.border.default}`,
       borderBlockStart: "none !important",
       borderInline: "none !important",
       minWidth: 0,
@@ -569,7 +567,7 @@ export const navbar = style({
       overflowY: "auto",
       overflowX: "hidden",
       minWidth: 0,
-      borderInlineEnd: `1px solid ${vars.glass.default.borderColor}`,
+      borderInlineEnd: `1px solid ${vars.color.border.default}`,
       ...motion.layout,
       "@media": { "(prefers-reduced-motion: reduce)": motion.still },
     },
@@ -586,7 +584,7 @@ export const aside_region = style({
       blockSize: `calc(100dvh - ${variables.headHeight})`,
       overflowY: "auto",
       minWidth: 0,
-      borderInlineStart: `1px solid ${vars.glass.default.borderColor}`,
+      borderInlineStart: `1px solid ${vars.color.border.default}`,
     },
   },
 });
@@ -602,7 +600,7 @@ export const footer = style({
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
       minWidth: 0,
-      borderBlockStart: `1px solid ${vars.glass.default.borderColor}`,
+      borderBlockStart: `1px solid ${vars.color.border.default}`,
     },
   },
 });

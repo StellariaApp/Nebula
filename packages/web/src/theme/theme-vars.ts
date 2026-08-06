@@ -1,4 +1,4 @@
-import type { GlassSurfaceRecipe, NebulaTheme } from "@stellaria/nebula-tokens";
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "./ink.js";
 
@@ -18,7 +18,6 @@ const Em = (n: number): string => `${String(n)}em`;
 const Ms = (n: number): string => `${String(n)}ms`;
 const Num = (n: number): string => String(n);
 
-const SOLID = "solid ";
 const FILL_SCALE = "scale.";
 const GRADIENT_REF = "gradient.";
 
@@ -57,14 +56,6 @@ function Inks(theme: NebulaTheme): Record<InkScale, string> {
   const out = {} as Record<InkScale, string>;
   for (const scale of INK_SCALES) out[scale] = OnFill(theme, scale);
   return out;
-}
-
-function GlassRecipe(recipe: GlassSurfaceRecipe): GlassSurfaceRecipe & { borderColor: string } {
-  const cut = recipe.border.indexOf(SOLID);
-  return {
-    ...recipe,
-    borderColor: cut === -1 ? recipe.border : recipe.border.slice(cut + SOLID.length).trim(),
-  };
 }
 
 export function ThemeToVars(theme: NebulaTheme) {
@@ -116,11 +107,11 @@ export function ThemeToVars(theme: NebulaTheme) {
     blur: effects.blur,
     shadow: MapValues(effects.shadows, (s) => s.web),
     glass: {
-      band: GlassRecipe(effects.glass.surface.band),
-      control: GlassRecipe(effects.glass.surface.control),
-      subtle: GlassRecipe(effects.glass.surface.subtle),
-      default: GlassRecipe(effects.glass.surface.default),
-      strong: GlassRecipe(effects.glass.surface.strong),
+      band: effects.glass.surface.band,
+      control: effects.glass.surface.control,
+      subtle: effects.glass.surface.subtle,
+      default: effects.glass.surface.default,
+      strong: effects.glass.surface.strong,
       noiseOpacity: Num(effects.glass.noiseOpacity),
     },
     zIndex: MapValues(zIndex, Num),

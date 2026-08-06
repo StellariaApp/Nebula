@@ -372,13 +372,13 @@ function ResolveScale(
           ? vars.color.text.onGradient
           : ResolveColorRef(recipe.foreground, scale),
     borderColor: glass_on
-      ? glass_recipe.borderColor
+      ? vars.color.border.subtle
       : recipe.border === "none"
         ? "transparent"
         : ResolveColorRef(recipe.border, scale),
     borderWidth: glass_on || recipe.border !== "none" ? "1px" : "0",
     backdropFilter: glass_on ? glass_recipe.backdropFilter : "none",
-    glassBorder: glass_on ? glass_recipe.border : "none",
+    glassBorder: glass_on ? `1px solid ${vars.color.border.subtle}` : "none",
     glow: recipe.glow === undefined ? "none" : TintedGlow(background),
     animated: theme.motion.tier !== "minimal",
     gradientAnimated: gradientOverride !== undefined && gradientAnimated,

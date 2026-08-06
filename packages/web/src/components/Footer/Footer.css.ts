@@ -25,7 +25,7 @@ export const root = style({
         },
         "&[data-glass='true']": {
           background: vars.glass.subtle.background,
-          borderBlockStart: `1px solid ${vars.glass.subtle.borderColor}`,
+          borderBlockStart: `1px solid ${vars.color.border.subtle}`,
           backdropFilter: vars.glass.subtle.backdropFilter,
         },
         "&[data-sticky='true']": {

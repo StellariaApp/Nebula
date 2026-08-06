@@ -50,8 +50,8 @@ export const nebulaDark = {
       disabled: gray["800"],
     },
     border: {
-      subtle: gray["950"],
-      default: gray["800"],
+      subtle: palettes.dark["700"],
+      default: palettes.dark["700"],
       strong: gray["500"],
       focus: palettes.indigo["400"],
       disabled: gray["900"],
@@ -73,27 +73,22 @@ export const nebulaDark = {
       surface: {
         band: {
           background: "rgba(255, 255, 255, 0.02)",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
           backdropFilter: `blur(${blur.xxs}) saturate(110%)`,
         },
         control: {
           background: "rgba(255, 255, 255, 0.03)",
-          border: "1px solid rgba(255, 255, 255, 0.10)",
           backdropFilter: `blur(${blur.xs}) saturate(120%)`,
         },
         subtle: {
           background: "rgba(15, 17, 25, 0.46)",
-          border: "1px solid rgba(255, 255, 255, 0.06)",
           backdropFilter: `blur(${blur.sm}) saturate(130%)`,
         },
         default: {
           background: "rgba(15, 17, 25, 0.56)",
-          border: "1px solid rgba(255, 255, 255, 0.07)",
           backdropFilter: `blur(${blur.lg}) saturate(140%)`,
         },
         strong: {
           background: "rgba(15, 17, 25, 0.66)",
-          border: "1px solid rgba(255, 255, 255, 0.09)",
           backdropFilter: `blur(${blur.xl}) saturate(140%)`,
         },
       },

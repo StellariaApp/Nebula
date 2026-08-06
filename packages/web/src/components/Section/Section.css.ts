@@ -20,7 +20,7 @@ export const section = style({
         "&[data-glass='true']": {
           background: vars.glass.band.background,
           backdropFilter: vars.glass.band.backdropFilter,
-          borderBlock: `1px solid ${vars.glass.band.borderColor}`,
+          borderBlock: `1px solid ${vars.color.border.subtle}`,
         },
       },
     },
