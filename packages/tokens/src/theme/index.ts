@@ -21,6 +21,7 @@ export type {
   Scale11,
   SemanticStatus,
   ShadowLevel,
+  SizeName,
   SpacingName,
   SpringConfig,
   SpringName,

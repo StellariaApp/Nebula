@@ -26,7 +26,7 @@ export const avatar = recipe({
         borderColor: fallbackVar(variables.border, "transparent"),
         fontFamily: vars.font.family.sans,
         fontWeight: vars.font.weight.semibold,
-        fontSize: `calc(${variables.size} / 2.6)`,
+        fontSize: `calc(${variables.size} / 3)`,
         lineHeight: 1,
         userSelect: "none",
       },

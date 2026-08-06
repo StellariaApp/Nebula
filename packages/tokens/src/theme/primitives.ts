@@ -29,14 +29,7 @@ export type PaletteName =
 export type SemanticStatus = "success" | "warning" | "error" | "info";
 
 export type SurfaceRole =
-  | "base"
-  | "raised"
-  | "overlay"
-  | "sunken"
-  | "hover"
-  | "active"
-  | "hoverActive"
-  | "disabled";
+  "base" | "raised" | "overlay" | "sunken" | "hover" | "active" | "hoverActive" | "disabled";
 
 export type TextRole =
   | "primary"
@@ -73,6 +66,8 @@ export type LineHeightName = "tight" | "normal" | "relaxed";
 export type LetterSpacingName = "tight" | "normal" | "wide";
 
 export type RadiusName = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "full" | "none";
+
+export type SizeName = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 export type SpacingName =
   | "none"

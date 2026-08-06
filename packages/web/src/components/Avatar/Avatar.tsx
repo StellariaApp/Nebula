@@ -6,6 +6,7 @@ import type { Size } from "@stellaria/nebula-tokens";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -14,11 +15,17 @@ import * as styles from "./Avatar.css.js";
 import type { AvatarProps } from "./Avatar.types.js";
 import * as variables from "./Avatar.vars.css.js";
 
-const SIZE: Record<Size, number> = { xs: 24, sm: 32, md: 40, lg: 56, xl: 72 };
+const SIZE: Record<Size, string> = {
+  xs: vars.size.control.xs,
+  sm: vars.size.control.sm,
+  md: vars.size.control.md,
+  lg: vars.size.control.lg,
+  xl: vars.size.control.xl,
+};
 
 export function ResolveAvatarSize(size: AvatarProps["size"]): string {
-  if (size === undefined) return `${String(SIZE.md)}px`;
-  if (typeof size === "string" && size in SIZE) return `${String(SIZE[size as Size])}px`;
+  if (size === undefined) return SIZE.md;
+  if (typeof size === "string" && size in SIZE) return SIZE[size as Size];
   return LengthToCss(size);
 }
 

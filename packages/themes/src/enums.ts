@@ -17,7 +17,7 @@ import type {
   RadiusName,
   SemanticStatus,
   ShadowLevel,
-  Size,
+  SizeName,
   SpacingName,
   SpringName,
   SurfaceRole,
@@ -148,7 +148,7 @@ export const spacingNames = enumValues<SpacingName>()([
   "xxxl",
 ]);
 
-export const sizeNames = enumValues<Size>()(["xs", "sm", "md", "lg", "xl"]);
+export const sizeNames = enumValues<SizeName>()(["xxs", "xs", "sm", "md", "lg", "xl", "xxl"]);
 
 export const motionTiers = enumValues<MotionTier>()(["minimal", "standard", "expressive"]);
 

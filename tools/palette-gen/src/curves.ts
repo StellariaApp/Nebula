@@ -25,9 +25,7 @@ export const CHROMATIC_L: readonly number[] = [
  * apaga rapido hacia el lado oscuro: del 700 en adelante son los pasos que se usan como TEXTO, y
  * ahi subir la luminosidad cuesta contraste sobre el lienzo.
  */
-export const LIFT_WEIGHT: readonly number[] = [
-  0, 0.15, 0.35, 0.6, 0.85, 1, 0.35, 0, 0, 0, 0,
-];
+export const LIFT_WEIGHT: readonly number[] = [0, 0.15, 0.35, 0.6, 0.85, 1, 0.35, 0, 0, 0, 0];
 
 export const CHROMA_MULT: readonly number[] = [
   0.1, 0.2, 0.36, 0.56, 0.78, 0.95, 1.0, 0.94, 0.84, 0.72, 0.58,

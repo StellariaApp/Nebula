@@ -1,4 +1,4 @@
-import type { Size, Variant, VariantRecipe } from "../types/variants.js";
+import type { Variant, VariantRecipe } from "../types/variants.js";
 import type {
   BlurLevel,
   BorderRole,
@@ -18,6 +18,7 @@ import type {
   Scale11,
   SemanticStatus,
   ShadowLevel,
+  SizeName,
   SpacingName,
   SpringConfig,
   SpringName,
@@ -69,8 +70,8 @@ export interface ThemeSpacing {
 }
 
 export interface ThemeSizes {
-  control: Record<Size, number>;
-  compact: Record<Size, number>;
+  control: Record<SizeName, number>;
+  compact: Record<SizeName, number>;
 }
 
 export interface ThemeMotion {

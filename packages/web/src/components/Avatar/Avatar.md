@@ -15,6 +15,16 @@ justo para eso— y `docs/06` §6 excluye `glow` de las listas completas. `gradi
 corresponden: el avatar no es raíz de su región y su superficie compite con la imagen o las iniciales
 que contiene.
 
+## El tamaño sale de `sizes.control`, no de un mapa propio (ADR-099)
+
+`ResolveAvatarSize` tenía una tabla cableada en el `.tsx` —24/32/40/56/72— que no salía de tokens.
+Divergía de la escala real, y sobre todo **incumplía el contrato de theming**: un tema que recalibrara
+`sizes` no movía un solo avatar, porque nadie leía esa parte del tema.
+
+Ahora los cinco peldaños devuelven `vars.size.control[…]`, así que un `Avatar sm` y un `ActionIcon sm`
+miden lo mismo por construcción y no por coincidencia. La longitud libre sigue ahí —`size={96}`— y es
+por donde salen los avatares de perfil, que son los que ya no caben en `xl`.
+
 ## El borde llega por var, no por recipe
 
 `outline` necesita dibujar un borde que las otras dos variantes no tienen. En vez de una variante de
