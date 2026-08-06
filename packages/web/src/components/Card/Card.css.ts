@@ -16,7 +16,7 @@ export const card = recipe({
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
-        background: fallbackVar(variables.bg, vars.color.surface.raised),
+        background: fallbackVar(variables.bg, vars.color.surface.overlay),
         color: fallbackVar(variables.fg, vars.color.text.primary),
         fontFamily: vars.font.family.sans,
         borderStyle: "solid",

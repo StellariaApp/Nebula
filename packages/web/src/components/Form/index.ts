@@ -1,10 +1,4 @@
-import {
-  FormBanderole,
-  FormContent,
-  FormFooter,
-  FormHeader,
-  FormRoot,
-} from "./Form.js";
+import { FormBanderole, FormContent, FormFooter, FormHeader, FormRoot } from "./Form.js";
 
 export const Form = /* @__PURE__ */ Object.assign(FormRoot, {
   Header: FormHeader,

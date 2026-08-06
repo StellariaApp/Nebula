@@ -24,14 +24,33 @@ export const simple_grid = style({
       vars: { [variables.cols]: fallbackVar(variables.colsPhone, variables.colsBase) },
     },
     [`screen and (min-width: ${String(breakpoints.tablet)}px)`]: {
-      vars: { [variables.cols]: fallbackVar(variables.colsTablet, variables.colsPhone, variables.colsBase) },
+      vars: {
+        [variables.cols]: fallbackVar(
+          variables.colsTablet,
+          variables.colsPhone,
+          variables.colsBase,
+        ),
+      },
     },
     [`screen and (min-width: ${String(breakpoints.laptop)}px)`]: {
-      vars: { [variables.cols]: fallbackVar(variables.colsLaptop, variables.colsTablet, variables.colsPhone, variables.colsBase) },
+      vars: {
+        [variables.cols]: fallbackVar(
+          variables.colsLaptop,
+          variables.colsTablet,
+          variables.colsPhone,
+          variables.colsBase,
+        ),
+      },
     },
     [`screen and (min-width: ${String(breakpoints.desktop)}px)`]: {
       vars: {
-        [variables.cols]: fallbackVar(variables.colsDesktop, variables.colsLaptop, variables.colsTablet, variables.colsPhone, variables.colsBase),
+        [variables.cols]: fallbackVar(
+          variables.colsDesktop,
+          variables.colsLaptop,
+          variables.colsTablet,
+          variables.colsPhone,
+          variables.colsBase,
+        ),
       },
     },
     [`screen and (min-width: ${String(breakpoints.wide)}px)`]: {

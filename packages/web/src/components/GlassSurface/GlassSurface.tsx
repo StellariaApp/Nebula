@@ -44,7 +44,9 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
     const css_vars = assignInlineVars({
       [variables.bg]: enabled ? vars.glass[level].background : solid,
       [variables.solidBg]: solid,
-      [variables.borderRule]: enabled ? vars.glass[level].border : `1px solid ${vars.color.border.subtle}`,
+      [variables.borderRule]: enabled
+        ? vars.glass[level].border
+        : `1px solid ${vars.color.border.subtle}`,
       [variables.backdrop]: enabled ? vars.glass[level].backdropFilter : "none",
     });
 
@@ -56,7 +58,10 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.glass_surface({ shadow, radius: named_radius, withBorder }), className)}
+        className={cx(
+          styles.glass_surface({ shadow, radius: named_radius, withBorder }),
+          className,
+        )}
         style={{ ...css_vars, ...inline_radius, ...style }}
         data-glass={enabled ? "on" : "off"}
         data-level={level}

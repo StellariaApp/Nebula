@@ -103,7 +103,9 @@ export function FormBanderole(props: FormBanderoleProps): ReactElement {
     <div
       className={cx(styles.banderole, styles.banderole_side[side], sprinkle_class, className)}
       style={{
-        ...assignInlineVars({ [variables.banderoleColor]: ResolveAccent(color ?? form.color, "600") }),
+        ...assignInlineVars({
+          [variables.banderoleColor]: ResolveAccent(color ?? form.color, "600"),
+        }),
         ...sprinkle_style,
       }}
     >
@@ -179,4 +181,3 @@ FormHeader.displayName = "Form.Header";
 FormBanderole.displayName = "Form.Banderole";
 FormContent.displayName = "Form.Content";
 FormFooter.displayName = "Form.Footer";
-

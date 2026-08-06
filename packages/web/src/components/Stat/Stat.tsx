@@ -53,10 +53,7 @@ export function Stat(props: StatProps): ReactElement {
           </span>
         )}
       </div>
-      <span
-        {...valueProps}
-        className={cx(styles.value, styles.size[size], valueProps?.className)}
-      >
+      <span {...valueProps} className={cx(styles.value, styles.size[size], valueProps?.className)}>
         {value}
       </span>
       {diff === undefined && description === undefined ? null : (

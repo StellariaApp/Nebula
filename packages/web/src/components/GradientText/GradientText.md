@@ -29,7 +29,7 @@ currentColor` y se pinta `CanvasText`.
 ## El sangrado del final
 
 `background-clip: text` recorta a la **caja del elemento**, no a la tinta de la glifa. El
-`letter-spacing` de CSS se añade *también después* del último carácter, así que con tracking negativo
+`letter-spacing` de CSS se añade _también después_ del último carácter, así que con tracking negativo
 —`display` lleva `-0.055em`— la caja termina antes que la tinta y la última letra sale cortada. A
 68 px son casi 4 px, perfectamente visibles en un titular.
 

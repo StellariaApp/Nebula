@@ -10,9 +10,9 @@ export const trigger = style({
     [base_layer]: {
       display: "inline-flex",
       alignItems: "center",
-      gap: vars.space.xs,
-      height: vars.size.control.md,
-      paddingInline: vars.space.sm,
+      gap: vars.space.sm,
+      height: vars.size.control.lg,
+      paddingInline: vars.space.md,
       borderRadius: vars.radius.md,
       border: `1px solid ${vars.color.border.default}`,
       background: vars.color.surface.base,
@@ -33,7 +33,8 @@ export const shortcut = style({
   "@layer": {
     [base_layer]: {
       marginInlineStart: "auto",
-      paddingInline: vars.space.xxs,
+      paddingInline: vars.space.xs,
+      paddingTop: 1,
       borderRadius: vars.radius.xs,
       border: `1px solid ${vars.color.border.subtle}`,
       background: vars.color.surface.sunken,

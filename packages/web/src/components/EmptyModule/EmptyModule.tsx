@@ -58,10 +58,7 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
         {...(has_actions
           ? {
               actions: (
-                <span
-                  {...actionsProps}
-                  className={cx(styles.actions, actionsProps?.className)}
-                >
+                <span {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
                   {action}
                   {secondaryAction}
                 </span>

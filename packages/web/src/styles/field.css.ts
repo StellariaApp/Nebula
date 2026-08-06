@@ -64,6 +64,7 @@ export const field = recipe({
         boxSizing: "border-box",
         width: "100%",
         fontFamily: vars.font.family.sans,
+        fontSize: vars.font.size.body2,
         color: vars.color.text.primary,
         background: variables.bg,
         borderWidth: "1px",

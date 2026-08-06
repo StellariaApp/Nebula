@@ -109,12 +109,24 @@ export const size = styleVariants({
 });
 
 export const placement = styleVariants({
-  "top-start": { top: variables.dotOffset, insetInlineStart: variables.dotOffset, transform: "translate(-40%, -40%)" },
-  "top-end": { top: variables.dotOffset, insetInlineEnd: variables.dotOffset, transform: "translate(40%, -40%)" },
+  "top-start": {
+    top: variables.dotOffset,
+    insetInlineStart: variables.dotOffset,
+    transform: "translate(-40%, -40%)",
+  },
+  "top-end": {
+    top: variables.dotOffset,
+    insetInlineEnd: variables.dotOffset,
+    transform: "translate(40%, -40%)",
+  },
   "bottom-start": {
     bottom: variables.dotOffset,
     insetInlineStart: variables.dotOffset,
     transform: "translate(-40%, 40%)",
   },
-  "bottom-end": { bottom: variables.dotOffset, insetInlineEnd: variables.dotOffset, transform: "translate(40%, 40%)" },
+  "bottom-end": {
+    bottom: variables.dotOffset,
+    insetInlineEnd: variables.dotOffset,
+    transform: "translate(40%, 40%)",
+  },
 });

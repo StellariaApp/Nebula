@@ -117,7 +117,7 @@ export const size = styleVariants({
     fontSize: vars.font.size.body2,
   },
   xl: {
-    minHeight: vars.size.control.md,
+    minHeight: vars.size.compact.xxl,
     paddingInline: vars.space.lg,
     fontSize: vars.font.size.body1,
   },

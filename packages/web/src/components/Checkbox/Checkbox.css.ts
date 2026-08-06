@@ -60,7 +60,7 @@ export const box = style({
       borderWidth: "2px",
       borderStyle: "solid",
       borderColor: vars.color.border.strong,
-      borderRadius: vars.radius.sm,
+      borderRadius: vars.radius.xs,
       background: vars.color.surface.raised,
       color: vars.color.text.onPrimary,
       ...motion.interaction,
@@ -70,8 +70,8 @@ export const box = style({
 });
 
 export const mark = style({
-  width: "68%",
-  height: "68%",
+  width: "86%",
+  height: "86%",
   opacity: 0,
   ...motion.confirm,
   ...motion.reduced_motion,

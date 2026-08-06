@@ -50,7 +50,8 @@ export function Alert(props: AlertProps): ReactElement {
   const css_vars = assignInlineVars({
     [variables.bg]: resolved.background,
     [variables.fg]: resolved.foreground,
-    [variables.accent]: variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
+    [variables.accent]:
+      variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
     [variables.borderColor]: resolved.borderColor,
   });
 

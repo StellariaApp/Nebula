@@ -2,7 +2,6 @@
 
 import { useCallback, useRef, type ReactElement } from "react";
 
-
 import { useMediaQuery, useMomentumScroll, useTheme } from "@stellaria/nebula-hooks";
 
 import { MotionOff, ScrollSpring } from "../../../utils/motion.js";

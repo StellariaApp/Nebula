@@ -22,15 +22,7 @@ const SOLID = "solid ";
 const FILL_SCALE = "scale.";
 const GRADIENT_REF = "gradient.";
 
-const INK_SCALES = [
-  "primary",
-  "accent",
-  "gray",
-  "success",
-  "warning",
-  "error",
-  "info",
-] as const;
+const INK_SCALES = ["primary", "accent", "gray", "success", "warning", "error", "info"] as const;
 
 type InkScale = (typeof INK_SCALES)[number];
 

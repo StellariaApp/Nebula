@@ -114,7 +114,8 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     if (SPRINKLE_KEYS.has(key as never)) {
       sprinkle_props[key] = value;
       has_sprinkles = true;
-      if (key === "fz" && typeof value === "string" && LEADING.has(value)) sprinkle_props.lh ??= value;
+      if (key === "fz" && typeof value === "string" && LEADING.has(value))
+        sprinkle_props.lh ??= value;
       continue;
     }
 

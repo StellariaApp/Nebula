@@ -19,15 +19,7 @@ export const Table = /* @__PURE__ */ Object.assign(TableRoot, {
   ScrollContainer: TableScrollContainer,
 });
 
-export {
-  TableBody,
-  TableCell,
-  TableFoot,
-  TableHead,
-  TableRow,
-  TableScrollContainer,
-  TableTitle,
-};
+export { TableBody, TableCell, TableFoot, TableHead, TableRow, TableScrollContainer, TableTitle };
 export type {
   TableAlign,
   TableCellProps,

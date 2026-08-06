@@ -130,8 +130,8 @@ export const vars = createThemeContract({
     xxxl: null,
   },
   size: {
-    control: { xs: null, sm: null, md: null, lg: null, xl: null },
-    compact: { xs: null, sm: null, md: null, lg: null, xl: null },
+    control: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
+    compact: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
   },
   motion: {
     duration: { instant: null, fast: null, base: null, slow: null, expressive: null },

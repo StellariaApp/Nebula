@@ -72,7 +72,10 @@ export const star = style({
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       selectors: {
-        "&[data-accent='true']": { background: variables.accentColor, boxShadow: variables.accentGlow },
+        "&[data-accent='true']": {
+          background: variables.accentColor,
+          boxShadow: variables.accentGlow,
+        },
         "&[data-twinkle='false']": { ...still, opacity: 0.6, transform: "scale(1)" },
       },
       "@media": {
