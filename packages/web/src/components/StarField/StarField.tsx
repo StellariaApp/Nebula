@@ -34,6 +34,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     accentEvery = 5,
     aurora = false,
     fixed = false,
+    translucency = 4,
     zIndex,
     className,
     ...style_rest
@@ -82,7 +83,7 @@ export function StarField(props: StarFieldProps): ReactElement {
   const tint = ResolveAccent(accent, "400");
 
   const css_vars = assignInlineVars({
-    [variables.gridColor]: WithAlpha(base, 4),
+    [variables.gridColor]: WithAlpha(base, translucency),
     [variables.gridCell]: `${String(gridSize)}px`,
     [variables.starColor]: WithAlpha(base, 70),
     [variables.starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,

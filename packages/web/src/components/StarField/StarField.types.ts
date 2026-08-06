@@ -24,10 +24,7 @@ export interface StarFieldProps extends Omit<StyleProps, "color" | "opacity" | "
   fade?: boolean | undefined;
   twinkle?: boolean | undefined;
   parallax?: boolean | undefined;
-  /**
-   * Contenedor cuyo scroll mueve el campo. Sin él escucha la página, que es lo correcto para una
-   * landing y lo inútil en un panel, donde quien desplaza es un elemento.
-   */
+  translucency?: number | undefined;
   scroller?: RefObject<HTMLElement | null> | undefined;
   color?: ColorExtended | undefined;
   accentColor?: ColorExtended | undefined;

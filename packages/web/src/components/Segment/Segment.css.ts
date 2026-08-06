@@ -145,7 +145,7 @@ export const panel = recipe({
     display: "flex",
     flexDirection: "column",
     selectors: {
-      "[data-padded='true'] &": { padding: vars.space.md, gap: vars.space.md },
+      "[data-padded='true'] &": { paddingInline: vars.space.md, gap: vars.space.md },
     },
   },
   variants: {

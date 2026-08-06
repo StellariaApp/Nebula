@@ -78,7 +78,7 @@ export function Card(props: CardProps): ReactElement {
     shadow = "none",
     padding = "lg",
     withBorder = true,
-    glass = "subtle",
+    glass,
     interactive: interactive_prop,
     onPress,
     href,

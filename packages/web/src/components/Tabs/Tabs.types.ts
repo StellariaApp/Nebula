@@ -27,4 +27,5 @@ export interface TabsProps extends Omit<StyleProps, "color"> {
   fill?: boolean | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
+  padded?: boolean | undefined;
 }
