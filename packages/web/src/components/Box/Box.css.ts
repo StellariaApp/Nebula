@@ -190,3 +190,19 @@ const UNRESPONSIVE = defineProperties({
 
 export const sprinkles = createSprinkles(RESPONSIVE, UNRESPONSIVE);
 export type Sprinkles = Parameters<typeof sprinkles>[0];
+
+export const TOKEN_VALUES = {
+  space: LAYOUT_SPACE,
+  radius: vars.radius,
+  color: PALETTE_COLORS,
+  role: ROLE_COLORS,
+  fontSize: vars.font.size,
+  fontFamily: vars.font.family,
+  fontWeight: vars.font.weight,
+  lineHeight: { ...vars.font.lineHeight, ...vars.font.leading },
+  letterSpacing: vars.font.letterSpacing,
+  shadow: vars.shadow,
+  zIndex: vars.zIndex,
+} as const satisfies Record<string, Record<string, string>>;
+
+export const RESPONSIVE_PROPS: string[] = Object.keys(RESPONSIVE.styles);

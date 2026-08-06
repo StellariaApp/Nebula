@@ -5,9 +5,9 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import type { BoxOwnProps, BoxProps } from "./Box.types.js";
 
 const BoxComponent = forwardRef<HTMLElement, BoxOwnProps>(function Box(props, ref) {
-  const { component, className, ...style_and_rest } = props;
+  const { component, className, ...rest_props } = props;
   const Component = component ?? "div";
-  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_and_rest);
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(rest_props);
 
   return (
     <Component
