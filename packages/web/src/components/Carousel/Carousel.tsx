@@ -14,32 +14,11 @@ import * as styles from "./Carousel.css.js";
 import * as carousel_vars from "./Carousel.vars.css.js";
 import { CAROUSEL_LABELS } from "./labels.js";
 import type { CarouselProps } from "./Carousel.types.js";
+import { ChevronLeft, ChevronRight } from "../../glyphs/index.js";
 
-const CHEVRON_LEFT = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path d="M15 18l-6-6 6-6" />
-  </svg>
-);
+const CHEVRON_LEFT = <ChevronLeft />;
 
-const CHEVRON_RIGHT = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path d="M9 18l6-6-6-6" />
-  </svg>
-);
+const CHEVRON_RIGHT = <ChevronRight />;
 
 export function Carousel<T>(props: CarouselProps<T>): ReactElement {
   const {

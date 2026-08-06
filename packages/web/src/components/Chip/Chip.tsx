@@ -13,22 +13,9 @@ import { useChipGroupContext } from "./Chip.context.js";
 import * as styles from "./Chip.css.js";
 import * as variables from "./Chip.vars.css.js";
 import type { ChipProps } from "./Chip.types.js";
+import { Check } from "../../glyphs/index.js";
 
-const CHECK = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={3}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-);
+const CHECK = <Check strokeWidth={3} />;
 
 export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props, ref) {
   const {

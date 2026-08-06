@@ -11,38 +11,11 @@ import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Calendar.css.js";
 import type { CalendarLabels } from "./Calendar.types.js";
+import { ChevronLeft, ChevronRight } from "../../glyphs/index.js";
 
-const CHEVRON_LEFT = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.2em"
-    height="1.2em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m15 18-6-6 6-6" />
-  </svg>
-);
+const CHEVRON_LEFT = <ChevronLeft />;
 
-const CHEVRON_RIGHT = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.2em"
-    height="1.2em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m9 18 6-6-6-6" />
-  </svg>
-);
+const CHEVRON_RIGHT = <ChevronRight />;
 
 interface NavButtonProps {
   buttonProps: AriaButtonProps<"button">;

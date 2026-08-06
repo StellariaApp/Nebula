@@ -12,24 +12,11 @@ import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 import * as styles from "./GlobalSearch.css.js";
 import { GLOBAL_SEARCH_LABELS } from "./labels.js";
 import type { GlobalSearchProps, GlobalSearchResult } from "./GlobalSearch.types.js";
+import { Search } from "../../glyphs/index.js";
 
 const DEFAULT_DEBOUNCE = 250;
 
-const MAGNIFIER = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.1em"
-    height="1.1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    aria-hidden="true"
-  >
-    <circle cx="11" cy="11" r="7" />
-    <path d="M20 20l-3.5-3.5" />
-  </svg>
-);
+const MAGNIFIER = <Search />;
 
 interface Group {
   name: string | undefined;

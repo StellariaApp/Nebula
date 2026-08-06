@@ -13,6 +13,7 @@ import { useCheckboxGroupContext } from "./Checkbox.context.js";
 import * as styles from "./Checkbox.css.js";
 import * as variables from "./Checkbox.vars.css.js";
 import type { CheckboxProps } from "./Checkbox.types.js";
+import { Check, Minus } from "../../glyphs/index.js";
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
   const {
@@ -78,17 +79,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         {...(group?.name === undefined ? {} : { name: group.name })}
       />
       <span className={styles.box} aria-hidden="true">
-        <svg
-          className={styles.mark}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={3}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          {indeterminate ? <path d="M6 12h12" /> : <path d="M5 12l5 5L20 6" />}
-        </svg>
+        {indeterminate ? (
+          <Minus className={styles.mark} strokeWidth={3} />
+        ) : (
+          <Check className={styles.mark} strokeWidth={3} />
+        )}
       </span>
       {label === undefined || label === null ? null : (
         <span className={styles.label_text}>{label}</span>

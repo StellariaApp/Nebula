@@ -12,6 +12,7 @@ import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 import * as styles from "./Stepper.css.js";
 import * as variables from "./Stepper.vars.css.js";
 import type { StepperLabels, StepperProps, StepperState } from "./Stepper.types.js";
+import { Check } from "../../glyphs/index.js";
 
 const DEFAULT_LABELS: StepperLabels = {
   completed: "completado",
@@ -20,21 +21,7 @@ const DEFAULT_LABELS: StepperLabels = {
   error: "con errores",
 };
 
-const CHECK = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={3}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M20 6 9 17l-5-5" />
-  </svg>
-);
+const CHECK = <Check strokeWidth={3} />;
 
 function StateOf(index: number, active: number, error: boolean): StepperState {
   if (error) return "error";

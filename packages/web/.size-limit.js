@@ -347,7 +347,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/NativeSelect/NativeSelect.js",
     import: "{ NativeSelect }",
     ignore: ["react", "react-dom"],
-    limit: "32.75 kB",
+    limit: "33 kB",
   },
   {
     name: "dial-codes (dataset de 227 prefijos, por módulo)",
@@ -424,7 +424,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Combobox/Autocomplete.js",
     import: "{ Autocomplete }",
     ignore: ["react", "react-dom"],
-    limit: "75.75 kB",
+    limit: "76.25 kB",
   },
   {
     name: "SearchableSelect (Combobox cerrado, por módulo)",
@@ -445,7 +445,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Combobox/AsyncSelect.js",
     import: "{ AsyncSelect }",
     ignore: ["react", "react-dom"],
-    limit: "76 kB",
+    limit: "76.25 kB",
   },
   {
     name: "Fieldset (presentacional, server-safe, por módulo)",
@@ -480,7 +480,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/FileInput/FileInput.js",
     import: "{ FileInput }",
     ignore: ["react", "react-dom"],
-    limit: "45.25 kB",
+    limit: "45.75 kB",
   },
   {
     name: "JsonInput (textarea monospace + validación viva, por módulo)",

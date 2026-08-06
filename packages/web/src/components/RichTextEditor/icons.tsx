@@ -1,28 +1,19 @@
 import type { ReactElement } from "react";
 
 import type { RichTextAction } from "./RichTextEditor.types.js";
+import { Glyph } from "../../glyphs/index.js";
 
 function Stroke(path: string): ReactElement {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="1em"
-      height="1em"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
+    <Glyph>
       <path d={path} />
-    </svg>
+    </Glyph>
   );
 }
 
-function Glyph(text: string): ReactElement {
+function Letter(text: string): ReactElement {
   return (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true">
+    <Glyph stroke="none">
       <text
         x="12"
         y="16"
@@ -34,7 +25,7 @@ function Glyph(text: string): ReactElement {
       >
         {text}
       </text>
-    </svg>
+    </Glyph>
   );
 }
 
@@ -44,9 +35,9 @@ export const ACTION_ICONS: Record<RichTextAction, ReactElement> = {
   underline: Stroke("M7 4v6a5 5 0 0010 0V4M5 20h14"),
   strike: Stroke("M5 12h14M8 7a4 3 0 014-2c2 0 3.5 1 4 2M16 15a4 3 0 01-4 3c-2 0-3.5-1-4-2"),
   code: Stroke("M9 18l-6-6 6-6M15 6l6 6-6 6"),
-  h1: Glyph("H1"),
-  h2: Glyph("H2"),
-  h3: Glyph("H3"),
+  h1: Letter("H1"),
+  h2: Letter("H2"),
+  h3: Letter("H3"),
   bulletList: Stroke("M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"),
   orderedList: Stroke("M10 6h10M10 12h10M10 18h10M4 6h1v4M4 14h2v1H4v3h2"),
   blockquote: Stroke("M5 5v14M9 8h10M9 12h10M9 16h6"),

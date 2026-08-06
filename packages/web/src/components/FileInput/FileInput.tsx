@@ -11,22 +11,9 @@ import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./FileInput.css.js";
 import type { FileInputProps } from "./FileInput.types.js";
+import { Paperclip } from "../../glyphs/index.js";
 
-const CLIP = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.1em"
-    height="1.1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M21.44 11.05l-8.49 8.49a6 6 0 0 1-8.49-8.49l8.49-8.49a4 4 0 0 1 5.66 5.66l-8.5 8.49a2 2 0 0 1-2.83-2.83l7.79-7.78" />
-  </svg>
-);
+const CLIP = <Paperclip />;
 
 export function FileInput(props: FileInputProps): ReactElement {
   const {

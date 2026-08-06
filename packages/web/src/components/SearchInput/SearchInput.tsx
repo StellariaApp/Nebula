@@ -10,38 +10,11 @@ import { FormField } from "../FormField/FormField.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import type { SearchInputProps } from "./SearchInput.types.js";
+import { Close, Search } from "../../glyphs/index.js";
 
-const SEARCH_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.05em"
-    height="1.05em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <circle cx="11" cy="11" r="7" />
-    <path d="M21 21l-4.3-4.3" />
-  </svg>
-);
+const SEARCH_ICON = <Search />;
 
-const CLEAR_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    aria-hidden="true"
-  >
-    <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-);
+const CLEAR_ICON = <Close />;
 
 export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   function SearchInput(props, ref) {

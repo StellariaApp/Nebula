@@ -14,38 +14,11 @@ import * as styles from "./Pagination.css.js";
 import type { PaginationProps } from "./Pagination.types.js";
 import * as variables from "./Pagination.vars.css.js";
 import { PaginationRange } from "./pagination-range.js";
+import { ChevronLeft, ChevronsLeft } from "../../glyphs/index.js";
 
-const ARROW = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m15 18-6-6 6-6" />
-  </svg>
-);
+const ARROW = <ChevronLeft />;
 
-const DOUBLE_ARROW = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m17 18-6-6 6-6M11 18l-6-6 6-6" />
-  </svg>
-);
+const DOUBLE_ARROW = <ChevronsLeft />;
 
 export function Pagination(props: PaginationProps): ReactElement {
   const {

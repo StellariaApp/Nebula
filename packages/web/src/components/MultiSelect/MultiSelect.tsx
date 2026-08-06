@@ -17,37 +17,11 @@ import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import * as styles from "./MultiSelect.css.js";
 import type { MultiSelectProps } from "./MultiSelect.types.js";
+import { ChevronDown, Close } from "../../glyphs/index.js";
 
-const CHEVRON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.1em"
-    height="1.1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-);
+const CHEVRON = <ChevronDown />;
 
-const CROSS = (
-  <svg
-    viewBox="0 0 24 24"
-    width="0.75em"
-    height="0.75em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={3}
-    strokeLinecap="round"
-    aria-hidden="true"
-  >
-    <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-);
+const CROSS = <Close strokeWidth={3} />;
 
 const EMPTY: readonly string[] = [];
 

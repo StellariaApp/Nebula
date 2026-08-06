@@ -15,23 +15,14 @@ import * as styles from "./TransferList.css.js";
 import * as transfer_list_vars from "./TransferList.vars.css.js";
 import { TRANSFER_LIST_LABELS } from "./labels.js";
 import type { TransferListPane, TransferListProps } from "./TransferList.types.js";
+import { Glyph } from "../../glyphs/index.js";
 
 const DEFAULT_HEIGHT = 240;
 
 const Chevron = (path: string): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
+  <Glyph>
     <path d={path} />
-  </svg>
+  </Glyph>
 );
 
 const TO_TARGET = Chevron("M9 6l6 6-6 6");

@@ -13,6 +13,7 @@ import { FormField } from "../FormField/FormField.js";
 import * as variables from "./Dropzone.vars.css.js";
 import * as styles from "./Dropzone.css.js";
 import type { DropzoneKind, DropzoneLabels, DropzoneProps } from "./Dropzone.types.js";
+import { UploadCloud } from "../../glyphs/index.js";
 
 const ACCEPT: Record<DropzoneKind, string> = {
   image: "image/*",
@@ -29,23 +30,7 @@ const DEFAULT_LABELS: DropzoneLabels = {
   remove: "Quitar archivo",
 };
 
-const CLOUD = (
-  <svg
-    viewBox="0 0 24 24"
-    width="2em"
-    height="2em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={1.5}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M12 13v8" />
-    <path d="m8 17 4-4 4 4" />
-    <path d="M20.9 18.4A5 5 0 0 0 18 9h-1.3A8 8 0 1 0 3 16.3" />
-  </svg>
-);
+const CLOUD = <UploadCloud strokeWidth={1.5} />;
 
 function Matches(file: File, accept: string): boolean {
   if (accept === "") return true;

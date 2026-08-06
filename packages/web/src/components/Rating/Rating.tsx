@@ -12,27 +12,11 @@ import { FormField } from "../FormField/FormField.js";
 import * as styles from "./Rating.css.js";
 import * as variables from "./Rating.vars.css.js";
 import type { RatingProps } from "./Rating.types.js";
+import { Star } from "../../glyphs/index.js";
 
-const STAR = (
-  <svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor" aria-hidden="true">
-    <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z" />
-  </svg>
-);
+const STAR = <Star fill="currentColor" stroke="none" />;
 
-const EMPTY_STAR = (
-  <svg
-    viewBox="0 0 24 24"
-    width="100%"
-    height="100%"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={1.6}
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01z" />
-  </svg>
-);
+const EMPTY_STAR = <Star strokeWidth={1.6} />;
 
 function Round(value: number, fractions: number): number {
   return Math.round(value * fractions) / fractions;

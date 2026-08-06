@@ -10,22 +10,9 @@ import { Text } from "../Text/Text.js";
 import * as styles from "./Header.css.js";
 import { HEADER_LABELS } from "./labels.js";
 import type { HeaderProps } from "./Header.types.js";
+import { ArrowLeft } from "../../glyphs/index.js";
 
-const BACK_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M15 5l-7 7 7 7" />
-  </svg>
-);
+const BACK_ICON = <ArrowLeft />;
 
 export function Header(props: HeaderProps): ReactElement {
   const {

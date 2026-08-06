@@ -15,21 +15,11 @@ import { ActiveCount, StateAccessors } from "./filter-state.js";
 import { DEFAULT_FILTER_LABELS } from "./filter-labels.js";
 import * as styles from "./Filters.css.js";
 import type { FiltersProps, FilterState } from "./Filters.types.js";
+import { Filter as FilterGlyph } from "../../glyphs/index.js";
 
 const EMPTY_STATE: FilterState = {};
 
-const ICON_FILTER = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path d="M3 5h18l-7 8v6l-4-2v-4z" />
-  </svg>
-);
+const ICON_FILTER = <FilterGlyph />;
 
 export function Filters(props: FiltersProps): ReactElement {
   const {

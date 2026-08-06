@@ -24,26 +24,20 @@ import * as lightbox_vars from "./Lightbox.vars.css.js";
 import { LIGHTBOX_LABELS } from "./labels.js";
 import type { LightboxProps } from "./Lightbox.types.js";
 import { ZOOM_CONSTANTS, useZoomPan } from "./useZoomPan.js";
+import { ChevronLeft, ChevronRight, Glyph } from "../../glyphs/index.js";
 
 const DEFAULT_INTERVAL = 4000;
 const DEFAULT_MAX_ZOOM = 4;
 const PERCENT = 100;
 
 const Icon = (path: string): ReactElement => (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
+  <Glyph>
     <path d={path} />
-  </svg>
+  </Glyph>
 );
 
-const PREV = Icon("M15 18l-6-6 6-6");
-const NEXT = Icon("M9 18l6-6-6-6");
+const PREV = <ChevronLeft />;
+const NEXT = <ChevronRight />;
 const ZOOM_IN = Icon("M11 3a8 8 0 108 8 8 8 0 00-8-8zm0 5v6m-3-3h6m6 10l-4.35-4.35");
 const ZOOM_OUT = Icon("M11 3a8 8 0 108 8 8 8 0 00-8-8zm-3 8h6m6 10l-4.35-4.35");
 const PLAY = Icon("M6 4l14 8-14 8V4z");

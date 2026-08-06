@@ -5,39 +5,11 @@ import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 
 import type { ButtonCopyProps } from "./ButtonCopy.types.js";
+import { Check, Clipboard } from "../../glyphs/index.js";
 
-const COPY_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <rect x="9" y="9" width="11" height="11" rx="2" />
-    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
-  </svg>
-);
+const COPY_ICON = <Clipboard />;
 
-const CHECK_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M5 12l5 5L20 7" />
-  </svg>
-);
+const CHECK_ICON = <Check />;
 
 export const ButtonCopy = forwardRef<HTMLButtonElement, ButtonCopyProps>(
   function ButtonCopy(props, ref) {

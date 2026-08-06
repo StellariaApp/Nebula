@@ -5,21 +5,9 @@ import { forwardRef } from "react";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 
 import type { ButtonCloseProps } from "./ButtonClose.types.js";
+import { Close } from "../../glyphs/index.js";
 
-const CLOSE_ICON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1em"
-    height="1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    aria-hidden="true"
-  >
-    <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-);
+const CLOSE_ICON = <Close />;
 
 export const ButtonClose = forwardRef<HTMLButtonElement, ButtonCloseProps>(
   function ButtonClose(props, ref) {

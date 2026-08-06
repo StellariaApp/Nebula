@@ -11,22 +11,9 @@ import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./NativeSelect.css.js";
 import type { NativeSelectProps } from "./NativeSelect.types.js";
+import { ChevronDown } from "../../glyphs/index.js";
 
-const CHEVRON = (
-  <svg
-    viewBox="0 0 24 24"
-    width="1.1em"
-    height="1.1em"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-);
+const CHEVRON = <ChevronDown />;
 
 function Option(option: SelectOption): ReactElement {
   return (

@@ -27,6 +27,7 @@ import * as variables from "../Nav.vars.css.js";
 import { useNavActive, type NavItem } from "../use-nav-active.js";
 import { useNavIndicator } from "../use-nav-indicator.js";
 import { useStickyChrome } from "../use-sticky-chrome.js";
+import { DotsHorizontal } from "../../../glyphs/index.js";
 
 const OVERFLOW_RESERVE = 44;
 
@@ -195,17 +196,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
         {overflowMenu && hidden.length > 0 ? (
           <details className={styles.overflow}>
             <summary className={styles.overflow_trigger} aria-label={text.more}>
-              <svg
-                viewBox="0 0 24 24"
-                width="1em"
-                height="1em"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <circle cx="5" cy="12" r="1.6" />
-                <circle cx="12" cy="12" r="1.6" />
-                <circle cx="19" cy="12" r="1.6" />
-              </svg>
+              <DotsHorizontal />
             </summary>
             <div className={styles.overflow_panel}>{hidden}</div>
           </details>
