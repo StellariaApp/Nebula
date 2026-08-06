@@ -47,8 +47,18 @@ un `rgba(255,255,255,0.09)` sobre `#1b1e27` se reporta como **16.65** cuando el 
 **1.10**. Con bordes translúcidos el gate daría verde a cualquier cosa, y es la red que esta misma
 semana pilló dos fallos reales.
 
-Queda anotado como deuda: **enseñar a `tools/contrast-check` a componer el alfa** antes de medir. El
-mismo punto ciego afectaba ya a los `glass.*.border` de hoy, que nadie validó nunca.
+**Resuelto el 2026-08-05**: `CheckTheme` aplana ahora cualquier color con alfa contra su fondo antes
+de medir, reutilizando el `Composite` que ya vivía en `resolve.ts`. Medido, lo que el gate reportaba
+frente a lo que reporta:
+
+| color                    | fondo     | antes | ahora |
+| ------------------------ | --------- | ----- | ----- |
+| `rgba(255,255,255,0.09)` | `#1b1e27` | 16.65 | 1.30  |
+| `rgba(15,17,25,0.08)`    | `#fbfbfb` | 18.21 | 1.18  |
+| `rgba(255,255,255,0.35)` | `#1b1e27` | 16.65 | 3.22  |
+
+El fondo también se aplana antes de servir de referencia, porque un `scale.500.12` del `variantMap`
+es tan translúcido como un filo. Con esto, volver a bordes con alfa vuelve a ser una opción medible.
 
 ## Consecuencias
 
