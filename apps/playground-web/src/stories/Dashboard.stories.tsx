@@ -252,7 +252,7 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder radius="lg" padding="none" variant="glass" glass="strong">
+    <Card withBorder radius="lg" padding="none">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>
@@ -317,8 +317,8 @@ function NavIcon({ name, muted = false }: { name: IconName; muted?: boolean }): 
       display="flex"
       align="center"
       justify="center"
-      w={24}
-      h={24}
+      w={26}
+      h={26}
       r="sm"
       bg={muted ? "surface.hover" : "primary.100"}
       c={muted ? "text.disabled" : "primary.700"}
@@ -334,11 +334,11 @@ function SideBarHeader(): ReactElement {
       <Box c="primary.600" display="flex">
         <Icon name="building" size={28} />
       </Box>
-      <AppShell.RailLabel>
+      <AppShell.Label>
         <Text fz="h6" fw="bold" lh="tight" whiteSpace="nowrap">
           <GradientText>Company</GradientText>
         </Text>
-      </AppShell.RailLabel>
+      </AppShell.Label>
     </AppShell.Sidebar.Header>
   );
 }
@@ -346,9 +346,9 @@ function SideBarHeader(): ReactElement {
 function SideBarFooter(): ReactElement {
   return (
     <AppShell.Sidebar.Footer>
-      <Avatar name="William Jesus Covarrubias" size="sm" radius="full" />
-      <AppShell.RailLabel>
-        <Box display="flex" direction="column" miw={0} style={{ flex: 1 }}>
+      <Avatar name="William Jesus Covarrubias" radius="full" size="sm" />
+      <AppShell.Label flex>
+        <Box display="flex" direction="column" miw={0}>
           <Text fz="caption" fw="semibold" truncate>
             William Jesus Covarrubias
           </Text>
@@ -356,9 +356,9 @@ function SideBarFooter(): ReactElement {
             skr13@outlook.com
           </Text>
         </Box>
-      </AppShell.RailLabel>
-      <Indicator color="error" size="xs">
-        <ActionIcon variant="ghost" size="sm" aria-label="Notificaciones">
+      </AppShell.Label>
+      <Indicator color="error" size="sm" offset={6}>
+        <ActionIcon variant="ghost" aria-label="Notificaciones" size="sm">
           <Icon name="bell" />
         </ActionIcon>
       </Indicator>
@@ -371,11 +371,10 @@ function SideBarBody(): ReactElement {
     <AppShell.Sidebar.Body>
       <Box p="sm" display="flex" align="center" justify="center" bg="surface.base">
         <GradientBorder beam width={2} surface="overlay" radius="md" p="xs" w="100%">
-          <AppShell.Links p="sm" bg="surface.base" title="Super Administrador">
+          <AppShell.Links title="Super Administrador" deep>
             <AppShell.Link
-              label={<AppShell.RailLabel>Super Administrador</AppShell.RailLabel>}
+              label={<AppShell.Label>Super Administrador</AppShell.Label>}
               href="#super-admin"
-              py="xxs"
               leftSection={<NavIcon name="lifebuoy" />}
             />
           </AppShell.Links>
@@ -391,46 +390,40 @@ function SideBarBody(): ReactElement {
         }
       >
         <AppShell.Link
-          label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>}
+          label={<AppShell.Label>Actividad</AppShell.Label>}
           href="#actividad"
-          py="xxs"
           leftSection={<NavIcon name="activity" />}
         />
         <AppShell.Link
-          label={<AppShell.RailLabel>Soporte</AppShell.RailLabel>}
+          label={<AppShell.Label>Soporte</AppShell.Label>}
           href="#soporte"
           disabled
-          py="xxs"
           c="text.disabled"
           leftSection={<NavIcon name="lifebuoy" muted />}
         />
         <AppShell.Link
-          label={<AppShell.RailLabel>Ir a Mis Empresas</AppShell.RailLabel>}
+          label={<AppShell.Label>Ir a Mis Empresas</AppShell.Label>}
           href="#empresas"
           active
-          py="xxs"
           leftSection={<NavIcon name="building" />}
         />
       </AppShell.Links>
       <AppShell.Links title="Operador">
         <AppShell.Link
-          label={<AppShell.RailLabel>Producciones</AppShell.RailLabel>}
+          label={<AppShell.Label>Producciones</AppShell.Label>}
           href="#producciones"
-          py="xxs"
           leftSection={<NavIcon name="film" />}
         />
         <AppShell.Link
-          label={<AppShell.RailLabel>Distribución</AppShell.RailLabel>}
+          label={<AppShell.Label>Distribución</AppShell.Label>}
           href="#distribucion"
-          py="xxs"
           leftSection={<NavIcon name="globe" />}
         />
       </AppShell.Links>
       <AppShell.Links title="Invitado">
         <AppShell.Link
-          label={<AppShell.RailLabel>Calendario</AppShell.RailLabel>}
+          label={<AppShell.Label>Calendario</AppShell.Label>}
           href="#calendario"
-          py="xxs"
           leftSection={<NavIcon name="calendar" />}
         />
       </AppShell.Links>
