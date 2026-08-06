@@ -33,6 +33,7 @@ import {
 import {
   AVATAR_ACTIVO,
   AvisoDeGasto,
+  Cols,
   Escena,
   ESTADO_AVATAR,
   Icon,
@@ -314,7 +315,7 @@ function Cola(): ReactElement {
         </Button>
       </Flex>
 
-      <SimpleGrid cols={{ base: 2, wide: 3 }} spacing="md">
+      <SimpleGrid cols={Cols({ base: 2, wide: 3 })} spacing="md">
         {COLA.map((item) => (
           <CandidataTile
             key={item.key}
@@ -389,7 +390,7 @@ function Contexto(): ReactElement {
 
 function Taller(): ReactElement {
   return (
-    <SimpleGrid cols={{ base: 1, laptop: 2, desktop: 3 }} spacing="md">
+    <SimpleGrid cols={Cols({ base: 1, laptop: 2, desktop: 3 })} spacing="md">
       <Componer />
       <Cola />
       <Contexto />
@@ -413,7 +414,7 @@ const SIDECAR = [
 
 function Galeria(): ReactElement {
   return (
-    <SimpleGrid cols={{ base: 1, laptop: 3 }} spacing="md">
+    <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
       <Box style={{ gridColumn: "span 2" }} miw={0}>
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap" mb="md">
           <Text fz="body3" c="text.muted">
@@ -428,7 +429,7 @@ function Galeria(): ReactElement {
             </Button>
           </Group>
         </Flex>
-        <SimpleGrid cols={{ base: 2, tablet: 3, desktop: 4 }} spacing="md">
+        <SimpleGrid cols={Cols({ base: 2, tablet: 3, desktop: 4 })} spacing="md">
           {Array.from({ length: 8 }, (_, index) => (
             <Card key={index} withBorder radius="md" padding="none" overflow="hidden">
               <Placeholder ratio={3 / 4} label={index === 0 ? "Seleccionado" : undefined} />
@@ -496,7 +497,7 @@ function Capa({
 
 function Chat(): ReactElement {
   return (
-    <SimpleGrid cols={{ base: 1, laptop: 3 }} spacing="md">
+    <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
       <Box style={{ gridColumn: "span 2" }} miw={0}>
         <GlassSurface level="subtle" radius="lg" withBorder p="md">
           <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
@@ -657,7 +658,7 @@ const ANCLAS = [
 
 function Identidad(): ReactElement {
   return (
-    <SimpleGrid cols={{ base: 1, laptop: 2 }} spacing="md">
+    <SimpleGrid cols={Cols({ base: 1, laptop: 2 })} spacing="md">
       <GlassSurface level="subtle" radius="lg" withBorder p="md">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Rotulo>Canon</Rotulo>
@@ -707,7 +708,7 @@ function Identidad(): ReactElement {
             {AVATAR_ACTIVO.anclas[0]} de {AVATAR_ACTIVO.anclas[1]}
           </Badge>
         </Flex>
-        <SimpleGrid cols={{ base: 3, tablet: 3, laptop: 3 }} spacing="sm">
+        <SimpleGrid cols={Cols({ base: 3, tablet: 3, laptop: 3 })} spacing="sm">
           {ANCLAS.map((ancla) => (
             <Card key={ancla.n} withBorder radius="md" padding="none" overflow="hidden">
               <Placeholder ratio={1} icon="anchor" />
@@ -753,7 +754,7 @@ function Assets(): ReactElement {
           Nuevo asset
         </Button>
       </Flex>
-      <SimpleGrid cols={{ base: 1, tablet: 2, laptop: 3 }} spacing="md">
+      <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 3 })} spacing="md">
         {UBICACIONES.map((ubicacion) => (
           <Card key={ubicacion.nombre} withBorder radius="lg" padding="none" overflow="hidden">
             <Placeholder
