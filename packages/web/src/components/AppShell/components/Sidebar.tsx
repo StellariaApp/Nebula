@@ -1,7 +1,10 @@
 "use client";
 
-import type { ReactElement } from "react";
+import { useEffect, useRef, type ReactElement } from "react";
 
+import { useMediaQuery, useTheme } from "@stellaria/nebula-hooks";
+
+import { MotionOff } from "../../../utils/motion.js";
 import { cx } from "../../../utils/style-props.js";
 import { ActionIcon } from "../../ActionIcon/ActionIcon.js";
 import { Box } from "../../Box/Box.js";
@@ -9,6 +12,9 @@ import { GlassSurface } from "../../GlassSurface/GlassSurface.js";
 
 import * as styles from "../AppShell.css.js";
 import type { AppShellSidebarProps, AppShellSlotProps } from "../AppShell.types.js";
+
+const ACTIVE = "[data-active='true']";
+const REDUCED = "(prefers-reduced-motion: reduce)";
 
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   const {
@@ -87,5 +93,43 @@ export function AppShellSidebarFooter(props: AppShellSlotProps): ReactElement {
 
 export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
   const { children, className } = props;
-  return <div className={cx(styles.sidebar_body, className)}>{children}</div>;
+  const ref = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const reduced = useMediaQuery(REDUCED);
+  const animate = !MotionOff({ theme, reduced });
+
+  useEffect(() => {
+    const root = ref.current;
+    if (root === null) return;
+
+    let settled = false;
+    const Reveal = (): void => {
+      const target = root.querySelector(ACTIVE);
+      if (target === null) return;
+      target.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+        behavior: animate && settled ? "smooth" : "auto",
+      });
+      settled = true;
+    };
+
+    Reveal();
+    const observer = new MutationObserver(Reveal);
+    observer.observe(root, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["data-active"],
+    });
+    return () => {
+      observer.disconnect();
+    };
+  }, [animate]);
+
+  return (
+    <div ref={ref} className={cx(styles.sidebar_body, className)}>
+      {children}
+    </div>
+  );
 }

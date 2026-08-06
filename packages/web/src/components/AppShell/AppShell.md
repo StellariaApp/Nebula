@@ -27,7 +27,7 @@ su cristal.
       <AppShell.Sidebar.Header>{marca}</AppShell.Sidebar.Header>
       <AppShell.Sidebar.Body>
         <AppShell.Links title="Administrador" action={<ActionIcon …/>}>
-          <AppShell.Link label={<AppShell.RailLabel>Actividad</AppShell.RailLabel>} href="#a" />
+          <AppShell.Link label={<AppShell.Label>Actividad</AppShell.Label>} href="#a" />
         </AppShell.Links>
       </AppShell.Sidebar.Body>
       <AppShell.Sidebar.Footer>{usuario}</AppShell.Sidebar.Footer>
@@ -47,20 +47,20 @@ es lo que un panel necesita. Son dos anatomías distintas y por eso no se mezcla
 
 ## Las partes
 
-| Parte     | Elemento    | Dónde vive                                      |
-| --------- | ----------- | ----------------------------------------------- |
-| `Header`  | `<header>`  | región (con `sticky`) o dentro de una `Section` |
-| `Nav`     | `<nav>`     | región                                          |
-| `Aside`   | `<aside>`   | región                                          |
-| `Footer`  | `<footer>`  | región                                          |
-| `Sidebar` | `<aside>`   | carril, altura completa                         |
-| `Sidebar.Header` / `.Body` / `.Footer` | — | las tres franjas de la barra |
-| `Links`   | —           | grupo de enlaces con rótulo y acción            |
-| `Link`    | —           | un enlace del carril                            |
-| `RailLabel` | `<span>`  | lo que desaparece al encoger                    |
-| `Section` | `<section>` | dentro del carril, **sin padding**              |
-| `Subbar`  | —           | bajo una cabecera                               |
-| `Content` | —           | el único que pone padding                       |
+| Parte                                  | Elemento    | Dónde vive                                      |
+| -------------------------------------- | ----------- | ----------------------------------------------- |
+| `Header`                               | `<header>`  | región (con `sticky`) o dentro de una `Section` |
+| `Nav`                                  | `<nav>`     | región                                          |
+| `Aside`                                | `<aside>`   | región                                          |
+| `Footer`                               | `<footer>`  | región                                          |
+| `Sidebar`                              | `<aside>`   | carril, altura completa                         |
+| `Sidebar.Header` / `.Body` / `.Footer` | —           | las tres franjas de la barra                    |
+| `Links`                                | —           | grupo de enlaces con rótulo y acción            |
+| `Link`                                 | —           | un enlace del carril                            |
+| `Label`                                | `<span>`    | lo que desaparece al encoger                    |
+| `Section`                              | `<section>` | dentro del carril, **sin padding**              |
+| `Subbar`                               | —           | bajo una cabecera                               |
+| `Content`                              | —           | el único que pone padding                       |
 
 ## Por qué el root no envuelve
 
@@ -86,6 +86,22 @@ que permite que la parte sea autónoma sin que el consumidor tenga que reenviar 
 La cabecera y las dos ranuras del `Sidebar` —`top` y `bottom`— leen la **misma** var. El logotipo, el
 bloque de usuario y la cabecera quedan a la misma altura sin que nadie repita un número: cambiar
 `chromeHeight` los mueve a los tres.
+
+## `Sidebar.Body` revela el enlace activo
+
+Una barra con secciones por permiso desplaza, y tras una recarga el enlace de la ruta actual puede
+quedar fuera de vista. `Sidebar.Body` observa `data-active` en su subárbol y llama a `scrollIntoView`
+con `block`/`inline: "nearest"`: solo desplaza si el enlace no se ve, y sirve igual para el carril
+vertical que para la barra horizontal de `tablet`, donde el recorrido es en el eje inline.
+
+El primer pase es seco. Animar el salto inicial es un tirón sin causa aparente para quien acaba de
+entrar; el desplazamiento suave solo tiene sentido cuando el activo **cambia** —una navegación— y por
+eso se reserva a partir del segundo. `MotionOff` lo apaga entero con `prefers-reduced-motion` o con
+un tema de `tier: "minimal"`.
+
+Es un `MutationObserver` y no un efecto con dependencias porque la parte no conoce la ruta: el activo
+lo marca el `NavLink` que el consumidor pinta, y lo mismo llega por un cambio de atributo que por un
+grupo entero que aparece cuando cargan los permisos.
 
 ## `backdrop` existe porque el cristal necesita fondo
 

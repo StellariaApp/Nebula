@@ -11,12 +11,12 @@ import * as styles from "../AppShell.css.js";
 import type { AppShellLinksProps } from "../AppShell.types.js";
 
 export function AppShellLinks(props: AppShellLinksProps): ReactElement {
-  const { children, title, action, className, ...style_rest } = props;
+  const { children, title, action, className, deep, ...style_rest } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
-    <div className={cx(styles.link_group, sprinkle_class, className)} style={style} {...rest}>
+    <div className={cx(styles.links, sprinkle_class, className)} style={style} {...rest}>
       {title === undefined && action === undefined ? null : (
-        <div className={styles.link_group_head}>
+        <div className={styles.links_header}>
           {title === undefined ? (
             <span />
           ) : (
@@ -27,20 +27,20 @@ export function AppShellLinks(props: AppShellLinksProps): ReactElement {
           {action}
         </div>
       )}
-      <div className={styles.rail_nav}>{children}</div>
+      <div className={cx(styles.links_content, deep && styles.links_deep)}>{children}</div>
     </div>
   );
 }
 
 export function AppShellLink(props: NavLinkProps): ReactElement {
-  const { py = "xxs", ...rest } = props;
-  return <NavLink py={py} {...rest} />;
+  return <NavLink className={cx(styles.link, props.className)} {...props} />;
 }
 
-export function AppShellRailLabel(props: {
+export function AppShellLabel(props: {
   children: ReactNode;
   className?: string | undefined;
+  flex?: boolean | undefined;
 }): ReactElement {
-  const { children, className } = props;
-  return <span className={cx(styles.rail_label, className)}>{children}</span>;
+  const { children, className, flex } = props;
+  return <span className={cx(styles.label, className, flex && styles.label_flex)}>{children}</span>;
 }

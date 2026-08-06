@@ -3,7 +3,7 @@ import { AppShellAside } from "./components/Aside.js";
 import { AppShellContent } from "./components/Content.js";
 import { AppShellFooter } from "./components/Footer.js";
 import { AppShellHeader } from "./components/Header.js";
-import { AppShellLink, AppShellLinks, AppShellRailLabel } from "./components/Links.js";
+import { AppShellLink, AppShellLinks, AppShellLabel } from "./components/Links.js";
 import { AppShellNav } from "./components/Nav.js";
 import { AppShellSection } from "./components/Section.js";
 import {
@@ -22,7 +22,7 @@ const Sidebar = /* @__PURE__ */ Object.assign(AppShellSidebar, {
 
 export const AppShell = /* @__PURE__ */ Object.assign(AppShellRoot, {
   Sidebar,
-  RailLabel: AppShellRailLabel,
+  Label: AppShellLabel,
   Links: AppShellLinks,
   Link: AppShellLink,
   Nav: AppShellNav,
@@ -47,7 +47,7 @@ export {
   AppShellSidebarHeader,
   AppShellLink,
   AppShellLinks,
-  AppShellRailLabel,
+  AppShellLabel,
   AppShellSubbar,
 };
 export type {

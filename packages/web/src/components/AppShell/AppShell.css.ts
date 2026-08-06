@@ -7,6 +7,7 @@ import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import * as variables from "./AppShell.vars.css.js";
+import * as NavLinkStyles from "../NavLink/NavLink.css.js";
 
 export const shell = style({
   "@layer": {
@@ -72,7 +73,9 @@ export const rail = style({
       gridTemplateColumns: `${variables.railWidth} 1fr`,
       gridTemplateRows: "auto 1fr",
       selectors: {
-        "&[data-rail-collapsed='true']": { gridTemplateColumns: `${variables.railMiniWidth} 1fr` },
+        "&[data-sidebar-collapsed='true']": {
+          gridTemplateColumns: `${variables.railMiniWidth} 1fr`,
+        },
       },
       blockSize: "100dvh",
       minWidth: 0,
@@ -105,6 +108,14 @@ export const sidebar = style({
       zIndex: 1,
       overflow: "visible",
       position: "relative",
+      "@media": {
+        [SmallerThan("tablet")]: {
+          gridArea: "auto",
+          position: "static",
+          blockSize: 0,
+          minBlockSize: 0,
+        },
+      },
     },
   },
 });
@@ -138,7 +149,6 @@ export const sidebar_container = style({
           border: `1px solid ${vars.glass.strong.borderColor} !important`,
           overflowX: "auto",
           overflowY: "hidden",
-          gap: vars.space.xs,
           zIndex: vars.zIndex.sticky,
         },
         "(prefers-reduced-motion: reduce)": motion.still,
@@ -147,17 +157,24 @@ export const sidebar_container = style({
   },
 });
 
-/** Lo que desaparece al encoger el carril: rótulos, secciones y todo lo que necesite ancho. */
-export const rail_label = style({
+export const label = style({
   "@layer": {
     [base_layer]: {
       minWidth: 0,
       selectors: {
-        "[data-rail-collapsed='true'] &": { display: "none" },
+        "[data-sidebar-collapsed='true'] &": { display: "none" },
       },
       "@media": {
         [SmallerThan("laptop")]: { display: "none" },
       },
+    },
+  },
+});
+
+export const label_flex = style({
+  "@layer": {
+    [base_layer]: {
+      flex: 1,
     },
   },
 });
@@ -172,7 +189,7 @@ export const toggle = style({
       zIndex: vars.zIndex.tooltip,
       transition: `transform ${vars.motion.duration.expressive} ${vars.motion.easing.standard}`,
       selectors: {
-        "[data-rail-collapsed='true'] &": {
+        "[data-sidebar-collapsed='true'] &": {
           transform: "translate(50%, -50%) rotate(0deg)",
         },
       },
@@ -194,17 +211,17 @@ export const sidebar_slot = style({
       gap: vars.space.sm,
       minHeight: variables.chromeHeight,
       paddingInline: vars.space.lg,
+      paddingBlock: vars.space.sm,
       flexShrink: 0,
       minWidth: 0,
       selectors: {
-        "[data-rail-collapsed='true'] &": {
+        "[data-sidebar-collapsed='true'] &": {
           flexDirection: "column",
           justifyContent: "center",
           blockSize: "auto",
           minBlockSize: variables.chromeHeight,
           paddingInline: vars.space.xxs,
-          paddingBlock: vars.space.xs,
-          gap: vars.space.xxs,
+          paddingBlock: vars.space.md,
         },
       },
       "@media": {
@@ -214,15 +231,15 @@ export const sidebar_slot = style({
           blockSize: "auto",
           minBlockSize: variables.chromeHeight,
           paddingInline: vars.space.xxs,
-          paddingBlock: vars.space.xs,
-          gap: vars.space.xxs,
+          paddingBlock: vars.space.md,
         },
         [SmallerThan("tablet")]: {
+          minWidth: 64,
           flexDirection: "row",
           inlineSize: "max-content",
           blockSize: "100%",
           minBlockSize: 0,
-          paddingInline: vars.space.sm,
+          paddingInline: vars.space.md,
           paddingBlock: 0,
           borderBlock: "none !important",
         },
@@ -235,7 +252,15 @@ export const sidebar_header = style({
   "@layer": {
     [base_layer]: {
       top: 0,
+      padding: 0,
       borderBlock: `1px solid ${vars.glass.default.borderColor} !important`,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          left: 0,
+          borderBlock: "none !important",
+          borderInlineEnd: `1px solid ${vars.glass.default.borderColor} !important`,
+        },
+      },
     },
   },
 });
@@ -245,6 +270,14 @@ export const sidebar_footer = style({
     [base_layer]: {
       bottom: 0,
       borderBlockStart: `1px solid ${vars.glass.default.borderColor} !important`,
+      justifyContent: "space-between",
+      "@media": {
+        [SmallerThan("tablet")]: {
+          right: 0,
+          borderBlockStart: "none !important",
+          borderInlineStart: `1px solid ${vars.glass.default.borderColor} !important`,
+        },
+      },
     },
   },
 });
@@ -257,17 +290,24 @@ export const sidebar_body = style({
       overflow: "hidden",
       backgroundColor: vars.color.surface.overlay,
       selectors: {
-        "[data-rail-collapsed='true'] &": { paddingInline: vars.space.xxs },
+        "[data-sidebar-collapsed='true'] &": {
+          paddingInline: vars.space.xxs,
+        },
       },
       "@media": {
+        [SmallerThan("laptop")]: { paddingInline: vars.space.xxs },
         [SmallerThan("tablet")]: {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
           gap: vars.space.xs,
           inlineSize: "max-content",
-          paddingInline: vars.space.xs,
+          blockSize: "100%",
+          minBlockSize: 0,
+          paddingInline: 0,
+          paddingBlock: 0,
           overflowY: "hidden",
+          overflowX: "auto",
         },
       },
     },
@@ -283,21 +323,71 @@ export const sidebar_bottom = style({
   },
 });
 
-/** Cada grupo de enlaces: su rótulo, su acción y su lista. */
-export const link_group = style({
+export const links = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
+      gap: vars.space.xxs,
+      paddingBlockStart: vars.space.md,
+      selectors: {
+        "[data-sidebar-collapsed='true'] &": {
+          alignItems: "center",
+          paddingBlockStart: 0,
+        },
+      },
       "@media": {
-        [SmallerThan("tablet")]: { flexDirection: "row", alignItems: "center", inlineSize: "auto" },
+        [SmallerThan("laptop")]: { alignItems: "center", paddingBlock: 0 },
+        [SmallerThan("tablet")]: {
+          flexDirection: "row",
+          alignItems: "center",
+          height: "100%",
+          minWidth: "max-content",
+        },
       },
     },
   },
 });
 
-export const link_group_head = style({
+const links_first = `${sidebar_body} > ${links}:not(${links} ~ *)`;
+const links_last = `${sidebar_body} > ${links}:not(:has(~ ${links}))`;
+
+const EDGE_BLOCK_START = { paddingBlockStart: vars.space.sm };
+const EDGE_BLOCK_END = { paddingBlockEnd: vars.space.sm };
+const EDGE_NONE = { paddingBlockStart: 0, paddingBlockEnd: 0 };
+
+globalStyle(links_first, {
+  "@layer": {
+    [base_layer]: {
+      "@media": {
+        [SmallerThan("laptop")]: EDGE_BLOCK_START,
+        [SmallerThan("tablet")]: EDGE_NONE,
+      },
+    },
+  },
+});
+
+globalStyle(links_last, {
+  "@layer": {
+    [base_layer]: {
+      "@media": {
+        [SmallerThan("laptop")]: EDGE_BLOCK_END,
+        [SmallerThan("tablet")]: EDGE_NONE,
+      },
+    },
+  },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${links_first}`, {
+  "@layer": { [base_layer]: EDGE_NONE },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${links_last}`, {
+  "@layer": { [base_layer]: EDGE_NONE },
+});
+
+export const links_header = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
@@ -306,18 +396,15 @@ export const link_group_head = style({
       gap: vars.space.xs,
       minWidth: 0,
       paddingInline: vars.space.md,
-      paddingBlockStart: vars.space.md,
-      paddingBlockEnd: vars.space.xs,
       selectors: {
-        "[data-rail-collapsed='true'] &": { display: "none" },
+        "[data-sidebar-collapsed='true'] &": { display: "none" },
       },
       "@media": { [SmallerThan("laptop")]: { display: "none" } },
     },
   },
 });
 
-/** La lista de enlaces del carril: columna, y fila de iconos en la barra móvil. */
-export const rail_nav = style({
+export const links_content = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
@@ -325,24 +412,100 @@ export const rail_nav = style({
       gap: vars.space.xs,
       minWidth: 0,
       paddingInline: vars.space.md,
+      paddingBlockEnd: vars.space.md,
+      borderBlockEnd: `1px solid ${vars.glass.default.borderColor}`,
       selectors: {
-        "[data-rail-collapsed='true'] &": { paddingInline: vars.space.xxs },
+        "[data-sidebar-collapsed='true'] &": {
+          width: "stretch",
+          alignItems: "center",
+          paddingBlock: vars.space.md,
+          paddingInline: vars.space.xs,
+          gap: vars.space.xxs,
+        },
       },
       "@media": {
-        [SmallerThan("laptop")]: { paddingInline: vars.space.xxs },
+        [SmallerThan("laptop")]: {
+          width: "stretch",
+          alignItems: "center",
+          paddingBlock: vars.space.md,
+          paddingInline: vars.space.xs,
+          gap: vars.space.xxs,
+        },
         [SmallerThan("tablet")]: {
           flexDirection: "row",
           alignItems: "center",
-          gap: vars.space.md,
-          paddingInline: 0,
+          paddingBlock: 0,
+          paddingInline: vars.space.md,
+          gap: vars.space.sm,
+          height: "100%",
           inlineSize: "max-content",
+          borderBlock: "none !important",
+          borderInlineEnd: `1px solid ${vars.glass.default.borderColor} !important`,
         },
       },
     },
   },
 });
 
-export const rail_chrome = style({
+export const links_deep = style({
+  "@layer": {
+    [base_layer]: {
+      borderBlockEnd: "none !important",
+      selectors: {
+        "[data-sidebar-collapsed='true'] &": {
+          paddingBlock: "0 !important",
+        },
+      },
+      "@media": {
+        [SmallerThan("laptop")]: { paddingBlock: "0 !important" },
+        [SmallerThan("tablet")]: {
+          paddingInline: "0 !important",
+          paddingBlock: "0 !important",
+          borderBlock: "none !important",
+          borderInlineEnd: "none !important",
+        },
+      },
+    },
+  },
+});
+
+export const link = style({
+  "@layer": {
+    [base_layer]: {
+      paddingBlock: 0,
+      minHeight: 44,
+      selectors: {
+        "[data-sidebar-collapsed='true'] &": {
+          justifyContent: "center",
+          width: "100%",
+        },
+      },
+      "@media": {
+        [SmallerThan("laptop")]: {
+          justifyContent: "center",
+          width: "100%",
+        },
+        [SmallerThan("tablet")]: {
+          justifyContent: "center",
+          width: "100%",
+          paddingBlock: vars.space.xs,
+        },
+      },
+    },
+  },
+});
+
+globalStyle(`${link} > ${NavLinkStyles.body}`, {
+  "@media": {
+    [SmallerThan("laptop")]: { display: "none" },
+  },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.body}`, {
+  display: "none",
+});
+
+export const chrome = style({
   "@layer": {
     [base_layer]: {
       gridArea: "chrome",
@@ -501,7 +664,7 @@ export const scroll_shadow = style({
   },
 });
 
-globalStyle(`${rail_nav} > *`, {
+globalStyle(`${links_content} > *`, {
   "@media": {
     [SmallerThan("tablet")]: { inlineSize: "max-content", flex: "0 0 auto" },
   },

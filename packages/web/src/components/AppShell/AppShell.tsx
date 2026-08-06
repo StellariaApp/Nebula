@@ -70,7 +70,9 @@ export function AppShell(props: AppShellProps): ReactElement {
   };
 
   const css_vars = assignInlineVars({
-    [variables.navWidth]: has_navbar ? `${String(collapsed ? collapsedWidth : navbarWidth)}px` : "0px",
+    [variables.navWidth]: has_navbar
+      ? `${String(collapsed ? collapsedWidth : navbarWidth)}px`
+      : "0px",
     [variables.asideWidth]: has_aside ? `${String(asideWidth)}px` : "0px",
     [variables.headHeight]: header === undefined ? "0px" : `${String(headerHeight)}px`,
     [variables.railWidth]: `${String(sidebarWidth)}px`,
@@ -85,13 +87,13 @@ export function AppShell(props: AppShellProps): ReactElement {
         <div
           className={cx(styles.rail, sprinkle_class, className)}
           style={{ ...css_vars, ...sprinkle_style }}
-          data-rail-collapsed={sidebarCollapsed ? "true" : undefined}
+          data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
         >
           <a href={`#${content_id}`} className={styles.skip}>
             {text.skipToContent}
           </a>
           {backdrop}
-          {header === undefined ? null : <div className={styles.rail_chrome}>{header}</div>}
+          {header === undefined ? null : <div className={styles.chrome}>{header}</div>}
           {sidebar}
           <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.main}>
             {scrollShadow ? <div className={styles.scroll_shadow} aria-hidden="true" /> : null}

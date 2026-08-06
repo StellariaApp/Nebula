@@ -69,6 +69,7 @@ export interface AppShellLinksProps extends StyleProps {
   title?: ReactNode | undefined;
   action?: ReactNode | undefined;
   className?: string | undefined;
+  deep?: boolean | undefined;
 }
 
 export interface AppShellSidebarProps {
