@@ -3,6 +3,7 @@ import { useState, type ReactElement } from "react";
 
 import {
   ActionIcon,
+  Alert,
   AppShell,
   Avatar,
   Badge,
@@ -10,6 +11,7 @@ import {
   Button,
   Card,
   Divider,
+  Drawer,
   EmptyState,
   Filters,
   Flex,
@@ -18,6 +20,7 @@ import {
   Menu,
   Progress,
   StatusBadge,
+  Switch,
   Text,
   Tooltip,
   type FilterDescriptor,
@@ -33,9 +36,11 @@ import {
   PLAN,
   Placeholder,
   Rosets,
+  Rotulo,
   SALDO,
   Shell,
   TARIFA,
+  VISIBILIDAD,
   type AvatarFicha,
 } from "../fixtures/rosette.js";
 
@@ -48,9 +53,99 @@ import {
 const ACCIONES: MenuItemData[] = [
   { key: "abrir", label: "Abrir el taller" },
   { key: "canon", label: "Ver el canon" },
-  { key: "duplicar", label: "Duplicar", description: "pendiente: ¿hereda las anclas o las rehace?" },
+  { key: "duplicar", label: "Duplicar", description: "hereda el juego de anclas" },
   { key: "archivar", label: "Archivar", danger: true },
 ];
+
+/* ── Duplicar ─────────────────────────────────────────────────────────────────
+ * Decisión del titular, 06/08/2026: **el duplicado hereda el juego de anclas**,
+ * que es la opción barata. Y como §10.4 dice que solo se descuenta lo que el
+ * sistema genera, heredar no genera nada: el duplicado no cuesta rosets. Lo que
+ * se pague vendrá de lo que se genere después.                                 */
+
+function Duplicar({
+  avatar,
+  abierto,
+  onClose,
+}: {
+  avatar: AvatarFicha;
+  abierto: boolean;
+  onClose: () => void;
+}): ReactElement {
+  const [rehacer, set_rehacer] = useState(false);
+  const juego = avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
+
+  return (
+    <Drawer opened={abierto} onClose={onClose} side="end" size={420} title={`Duplicar ${avatar.nombre}`}>
+      <Text fz="body3" c="text.secondary">
+        El duplicado parte del canon v{avatar.canon} y <strong>hereda el juego de{" "}
+        {avatar.anclas[1]} anclas y su validación</strong>. Nace en{" "}
+        <strong>producible</strong>, listo para generar.
+      </Text>
+
+      <Rotulo mt="md">Lo que cuesta</Rotulo>
+      <Box display="flex" direction="column" gap="xxs">
+        {[
+          { concepto: "Copia del canon", rosets: 0 },
+          { concepto: `Juego de ${String(avatar.anclas[1])} anclas`, rosets: rehacer ? juego : 0 },
+          { concepto: "Prueba de identidad", rosets: rehacer ? TARIFA.pruebaIdentidad : 0 },
+        ].map((linea) => (
+          <Flex key={linea.concepto} align="center" justify="space-between" gap="sm">
+            <Text fz="caption" c="text.secondary" truncate>
+              {linea.concepto}
+            </Text>
+            {linea.rosets === 0 ? (
+              <Badge size="xs" variant="light" color="success">
+                heredado
+              </Badge>
+            ) : (
+              <Text fz="caption" fw="semibold" ws="nowrap">
+                {Rosets(linea.rosets)}
+              </Text>
+            )}
+          </Flex>
+        ))}
+      </Box>
+      <Divider my="sm" />
+      <Flex align="center" justify="space-between" gap="sm">
+        <Text fz="body3" fw="semibold">
+          Total
+        </Text>
+        <Badge variant="light" size="lg">
+          {rehacer ? Rosets(juego + TARIFA.pruebaIdentidad) : "gratis"}
+        </Badge>
+      </Flex>
+      <Text fz="caption" c="text.muted" mt="xxs">
+        Heredar no genera nada, y solo se descuenta lo que el sistema genera. Lo que pagues vendrá
+        de lo que produzcas con él.
+      </Text>
+
+      <Divider my="md" />
+
+      <Switch
+        checked={rehacer}
+        onChange={set_rehacer}
+        label="Rehacer el juego de anclas"
+      />
+      <Text fz="caption" c="text.muted" mt="xxs">
+        Solo si quieres una identidad distinta. Es la opción cara y ya no es un duplicado: es un
+        avatar nuevo con el canon copiado.
+      </Text>
+
+      {rehacer ? null : (
+        <Alert variant="light" color="info" mt="md" icon={<Icon name="info" />}>
+          Al heredar, los dos avatares comparten identidad en píxel. Es lo que hace barato el
+          duplicado y lo que lo vuelve una <strong>variante</strong> —otro nombre, otro lore, otros
+          assets— y no otra persona.
+        </Alert>
+      )}
+
+      <Button fullWidth mt="md" rightSection={<Icon name="copy" />}>
+        Duplicar
+      </Button>
+    </Drawer>
+  );
+}
 
 function Dato({ label, valor }: { label: string; valor: string }): ReactElement {
   return (
@@ -74,7 +169,14 @@ function FichaGrande({ avatar }: { avatar: AvatarFicha }): ReactElement {
       <Box position="relative">
         <Placeholder ratio={4 / 3} label={avatar.estado === "borrador" ? "Sin base" : undefined} />
         <Box position="absolute" style={{ top: 10, left: 10 }}>
-          <StatusBadge status={avatar.estado} map={ESTADO_AVATAR} size="xs" />
+          <Group gap="xxs">
+            <StatusBadge status={avatar.estado} map={ESTADO_AVATAR} size="xs" />
+            <StatusBadge
+              status={avatar.publico ? "publico" : "privado"}
+              map={VISIBILIDAD}
+              size="xs"
+            />
+          </Group>
         </Box>
         <Box position="absolute" style={{ top: 10, right: 10 }}>
           <Menu
@@ -133,7 +235,18 @@ function FichaGrande({ avatar }: { avatar: AvatarFicha }): ReactElement {
           </Badge>
           <Badge size="xs" variant="outline" color="gray">
             {avatar.activos} activos
+            {avatar.publico ? ` · ${String(avatar.activosPublicos)} públicos` : ""}
           </Badge>
+          {avatar.clonable ? (
+            <Tooltip
+              label="El estudio permite que otros lo clonen"
+              trigger={
+                <Badge size="xs" variant="outline" color="accent">
+                  clonable
+                </Badge>
+              }
+            />
+          ) : null}
           {avatar.cola > 0 ? (
             <Badge size="xs" variant="light" color="info">
               {avatar.cola} en cola
@@ -231,9 +344,10 @@ function Saldo(): ReactElement {
   );
 }
 
-function Avatares(): ReactElement {
+function Avatares({ duplicando = false }: { duplicando?: boolean | undefined }): ReactElement {
   const [modo, set_modo] = useState<GridListMode>("grid");
   const [archivados, set_archivados] = useState(false);
+  const [duplicar, set_duplicar] = useState(duplicando);
 
   const items = AVATARES.filter((avatar) =>
     archivados ? avatar.estado === "archivado" : avatar.estado !== "archivado",
@@ -248,8 +362,15 @@ function Avatares(): ReactElement {
           subtitle="Cuelgan de Casa Rosette, no de ti: quien entre al estudio los ve"
           actions={
             <Group gap="sm">
-              <Button size="sm" variant="ghost" rightSection={<Icon name="upload" />}>
-                Desde fotos
+              <Button
+                size="sm"
+                variant="ghost"
+                onPress={() => {
+                  set_duplicar(true);
+                }}
+                rightSection={<Icon name="copy" />}
+              >
+                Duplicar
               </Button>
               <Button size="sm" rightSection={<Icon name="plus" />}>
                 Crear avatar
@@ -301,6 +422,14 @@ function Avatares(): ReactElement {
           />
         </AppShell.Content>
       </AppShell.Section>
+
+      <Duplicar
+        avatar={AVATARES[0] as AvatarFicha}
+        abierto={duplicar}
+        onClose={() => {
+          set_duplicar(false);
+        }}
+      />
     </Shell>
   );
 }
@@ -333,16 +462,41 @@ type Story = StoryObj;
  * *Archivar sí, y no toca ningún tope.* Un estudio con doce avatares acumula borradores; archivar
  * es organización. Un avatar archivado sigue existiendo, sigue contando y se devuelve.
  *
- * *Duplicar queda propuesto y sin cerrar.* Está en el menú marcado como pendiente porque su precio
- * depende de algo que el corpus no dice: si el duplicado **hereda el juego de anclas** —y entonces
- * es gratis, y dos avatares comparten identidad en píxel— o **lo regenera** —y entonces cuesta 100
- * o 150 rosets—. Es pregunta para el propietario, no decisión de esta pantalla.
+ * *Duplicar hereda* — decisión del titular, 06/08/2026. Ver la historia de al lado.
+ *
+ * *Y la visibilidad se ve sin abrir.* Público o privado por avatar, cuántas de sus piezas están
+ * publicadas, y si el estudio permite clonarlo. Son tres cosas distintas y aquí se leen de un
+ * vistazo, que es lo que evita publicar algo creyendo que era privado.
  */
 export const ListaDeAvatares: Story = {
   name: "Rejilla o lista, sin medidor de plan",
   render: () => (
     <Escena>
       <Avatares />
+    </Escena>
+  ),
+};
+
+/**
+ * **Duplicar hereda el juego de anclas**, que es la opción barata — decisión del titular,
+ * 06/08/2026.
+ *
+ * *Y heredar sale gratis, que no es una concesión sino aritmética.* §10.4 dice que solo se
+ * descuenta lo que el sistema **genera**; un duplicado que hereda no genera nada, así que no hay
+ * nada que cobrar. Lo que se pague vendrá de lo que se produzca con él después. El interruptor de
+ * «rehacer el juego» está al lado para que se vea el otro lado de la cuenta: 100 o 150 más la
+ * prueba de identidad.
+ *
+ * *Lo que la pantalla dice y una casilla de términos no diría:* al heredar, los dos avatares
+ * comparten **identidad en píxel**. Eso es exactamente lo que hace barato al duplicado, y lo que
+ * lo convierte en una **variante** —otro nombre, otro lore, otros assets— y no en otra persona.
+ * Quien quiera otra identidad tiene que rehacer las anclas, y entonces ya no está duplicando.
+ */
+export const DuplicarAvatar: Story = {
+  name: "Duplicar hereda las anclas",
+  render: () => (
+    <Escena>
+      <Avatares duplicando />
     </Escena>
   ),
 };
