@@ -851,7 +851,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Timeline/Timeline.js",
     import: "{ Timeline }",
     ignore: ["react", "react-dom"],
-    limit: "24.25 kB",
+    limit: "24.75 kB",
   },
   {
     name: "ColorSwatch (compuesto sobre UnstyledButton, por módulo)",

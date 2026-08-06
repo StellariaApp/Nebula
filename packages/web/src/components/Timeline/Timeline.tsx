@@ -12,6 +12,8 @@ import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 import * as styles from "./Timeline.css.js";
 import * as variables from "./Timeline.vars.css.js";
 import type { TimelineProps } from "./Timeline.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export function Timeline(props: TimelineProps): ReactElement {
   const {
@@ -24,6 +26,13 @@ export function Timeline(props: TimelineProps): ReactElement {
     lineWidth = 2,
     reachedLabel = "completado",
     className,
+    itemProps,
+    bulletProps,
+    lineProps,
+    bodyProps,
+    titleProps,
+    metaProps,
+    descriptionProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -47,24 +56,57 @@ export function Timeline(props: TimelineProps): ReactElement {
       {items.map((item, index) => {
         const reached = index <= active;
         return (
-          <li key={index} className={styles.item} data-reached={reached ? "true" : undefined}>
-            <span className={styles.bullet} data-reached={reached ? "true" : undefined}>
+          <Box
+            component="li"
+            key={index}
+            data-reached={reached ? "true" : undefined}
+            {...itemProps}
+            className={cx(styles.item, itemProps?.className)}
+          >
+            <Box
+              component="span"
+              data-reached={reached ? "true" : undefined}
+              {...bulletProps}
+              className={cx(styles.bullet, bulletProps?.className)}
+            >
               {item.bullet}
-            </span>
-            <span
-              className={styles.line}
+            </Box>
+            <Box
+              component="span"
               data-reached={index < active ? "true" : undefined}
               aria-hidden="true"
+              {...lineProps}
+              className={cx(styles.line, lineProps?.className)}
             />
-            <div className={styles.body}>
-              <span className={styles.title}>{item.title}</span>
-              {item.meta === undefined ? null : <span className={styles.meta}>{item.meta}</span>}
+            <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+              <Text
+                component="span"
+                {...titleProps}
+                className={cx(styles.title, titleProps?.className)}
+              >
+                {item.title}
+              </Text>
+              {item.meta === undefined ? null : (
+                <Text
+                  component="span"
+                  {...metaProps}
+                  className={cx(styles.meta, metaProps?.className)}
+                >
+                  {item.meta}
+                </Text>
+              )}
               {item.description === undefined ? null : (
-                <span className={styles.description}>{item.description}</span>
+                <Text
+                  component="span"
+                  {...descriptionProps}
+                  className={cx(styles.description, descriptionProps?.className)}
+                >
+                  {item.description}
+                </Text>
               )}
               {reached ? <VisuallyHidden>{reachedLabel}</VisuallyHidden> : null}
-            </div>
-          </li>
+            </Box>
+          </Box>
         );
       })}
     </ol>

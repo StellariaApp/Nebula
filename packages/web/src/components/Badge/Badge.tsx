@@ -12,6 +12,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Badge.css.js";
 import type { BadgeProps } from "./Badge.types.js";
 import * as variables from "./Badge.vars.css.js";
+import { Box } from "../Box/Box.js";
 
 export function Badge(props: BadgeProps): ReactElement {
   const {
@@ -25,6 +26,9 @@ export function Badge(props: BadgeProps): ReactElement {
     rightSection,
     fullWidth = false,
     className,
+    dotProps,
+    leftSectionProps,
+    rightSectionProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -46,20 +50,33 @@ export function Badge(props: BadgeProps): ReactElement {
       data-dot={dot ? "true" : undefined}
     >
       {dot ? (
-        <span
-          className={styles.dot}
-          style={{ color: ResolveAccent(color, "600") }}
+        <Box
+          component="span"
           aria-hidden="true"
+          {...dotProps}
+          className={cx(styles.dot, dotProps?.className)}
+          style={{ color: ResolveAccent(color, "600"), ...dotProps?.style }}
         />
       ) : null}
       {leftSection === undefined || leftSection === null ? null : (
-        <span className={styles.section} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...leftSectionProps}
+          className={cx(styles.section, leftSectionProps?.className)}
+        >
           {leftSection}
-        </span>
+        </Box>
       )}
       {children}
       {rightSection === undefined || rightSection === null ? null : (
-        <span className={styles.section}>{rightSection}</span>
+        <Box
+          component="span"
+          {...rightSectionProps}
+          className={cx(styles.section, rightSectionProps?.className)}
+        >
+          {rightSection}
+        </Box>
       )}
     </span>
   );
