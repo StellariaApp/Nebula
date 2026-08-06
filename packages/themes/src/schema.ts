@@ -124,7 +124,6 @@ const motion = z.strictObject({
 
 const glassSurfaceRecipe = z.strictObject({
   background: colorValue,
-  border: z.string().min(1),
   backdropFilter: z.string().min(1),
 });
 
