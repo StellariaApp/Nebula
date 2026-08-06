@@ -14,6 +14,8 @@ import * as styles from "./Checkbox.css.js";
 import * as variables from "./Checkbox.vars.css.js";
 import type { CheckboxProps } from "./Checkbox.types.js";
 import { Check, Minus } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
   const {
@@ -29,6 +31,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     error = false,
     className,
     rootClassName,
+    labelProps,
+    indicatorProps,
+    markProps,
     ...input_rest_and_style
   } = props;
   const {
@@ -78,15 +83,26 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         {...(value === undefined ? {} : { value })}
         {...(group?.name === undefined ? {} : { name: group.name })}
       />
-      <span className={styles.box} aria-hidden="true">
+      <Box
+        component="span"
+        aria-hidden="true"
+        {...indicatorProps}
+        className={cx(styles.box, indicatorProps?.className)}
+      >
         {indeterminate ? (
-          <Minus className={styles.mark} strokeWidth={3} />
+          <Minus strokeWidth={3} {...markProps} className={cx(styles.mark, markProps?.className)} />
         ) : (
-          <Check className={styles.mark} strokeWidth={3} />
+          <Check strokeWidth={3} {...markProps} className={cx(styles.mark, markProps?.className)} />
         )}
-      </span>
+      </Box>
       {label === undefined || label === null ? null : (
-        <span className={styles.label_text}>{label}</span>
+        <Text
+          component="span"
+          {...labelProps}
+          className={cx(styles.label_text, labelProps?.className)}
+        >
+          {label}
+        </Text>
       )}
     </label>
   );

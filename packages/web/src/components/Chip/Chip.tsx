@@ -14,6 +14,7 @@ import * as styles from "./Chip.css.js";
 import * as variables from "./Chip.vars.css.js";
 import type { ChipProps } from "./Chip.types.js";
 import { Check } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
 
 const CHECK = <Check strokeWidth={3} />;
 
@@ -32,6 +33,7 @@ export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props,
     icon,
     className,
     rootClassName,
+    iconProps,
     ...input_rest_and_style
   } = props;
   const {
@@ -97,14 +99,24 @@ export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props,
         }}
       />
       {is_checked && icon === undefined ? (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon, iconProps?.className)}
+        >
           {CHECK}
-        </span>
+        </Box>
       ) : null}
       {icon === undefined || icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon, iconProps?.className)}
+        >
           {icon}
-        </span>
+        </Box>
       )}
       {children}
     </label>

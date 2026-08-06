@@ -11,6 +11,8 @@ import { useRadioGroupContext } from "./Radio.context.js";
 import * as styles from "./Radio.css.js";
 import * as variables from "./Radio.vars.css.js";
 import type { RadioProps } from "./Radio.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
   const {
@@ -21,6 +23,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(pro
     disabled: disabled_prop,
     className,
     rootClassName,
+    labelProps,
+    indicatorProps,
+    markProps,
     ...input_rest_and_style
   } = props;
   const {
@@ -55,11 +60,22 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(pro
         onChange={() => group?.onChange(value)}
         {...(group?.name === undefined ? {} : { name: group.name })}
       />
-      <span className={styles.dot} aria-hidden="true">
-        <span className={styles.inner} />
-      </span>
+      <Box
+        component="span"
+        aria-hidden="true"
+        {...indicatorProps}
+        className={cx(styles.dot, indicatorProps?.className)}
+      >
+        <Box component="span" {...markProps} className={cx(styles.inner, markProps?.className)} />
+      </Box>
       {label === undefined || label === null ? null : (
-        <span className={styles.label_text}>{label}</span>
+        <Text
+          component="span"
+          {...labelProps}
+          className={cx(styles.label_text, labelProps?.className)}
+        >
+          {label}
+        </Text>
       )}
     </label>
   );

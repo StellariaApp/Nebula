@@ -15,6 +15,8 @@ import { useSwitchGroupContext } from "./Switch.context.js";
 import * as styles from "./Switch.css.js";
 import * as variables from "./Switch.vars.css.js";
 import type { SwitchProps } from "./Switch.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const TRACK_RATIO = 1.75;
 
@@ -33,6 +35,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     draggable = true,
     className,
     rootClassName,
+    labelProps,
+    indicatorProps,
     ...input_rest_and_style
   } = props;
   const {
@@ -127,7 +131,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         {...(value === undefined ? {} : { value })}
         {...(group?.name === undefined ? {} : { name: group.name })}
       />
-      <span className={styles.track} aria-hidden="true" draggable={false}>
+      <Box
+        component="span"
+        aria-hidden="true"
+        draggable={false}
+        {...indicatorProps}
+        className={cx(styles.track, indicatorProps?.className)}
+      >
         <m.span
           className={styles.thumb}
           style={{ x: is_animated ? x : target }}
@@ -135,9 +145,15 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
             ? { onPanStart: HandlePanStart, onPan: HandlePan, onPanEnd: HandlePanEnd }
             : {})}
         />
-      </span>
+      </Box>
       {label === undefined || label === null ? null : (
-        <span className={styles.label_text}>{label}</span>
+        <Text
+          component="span"
+          {...labelProps}
+          className={cx(styles.label_text, labelProps?.className)}
+        >
+          {label}
+        </Text>
       )}
     </label>
   );

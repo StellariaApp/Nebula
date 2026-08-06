@@ -5,6 +5,9 @@ import type { Orientation, ColorExtended, Size } from "@stellaria/nebula-tokens"
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export interface RadioProps
   extends
     Omit<
@@ -18,6 +21,9 @@ export interface RadioProps
   color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   rootClassName?: string | undefined;
+  labelProps?: TextSlotProps | undefined;
+  indicatorProps?: BoxSlotProps | undefined;
+  markProps?: BoxSlotProps | undefined;
 }
 
 export interface RadioGroupProps {

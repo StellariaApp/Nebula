@@ -5,6 +5,9 @@ import type { Orientation, ColorExtended, Size } from "@stellaria/nebula-tokens"
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export interface SwitchProps
   extends
     Omit<
@@ -22,6 +25,8 @@ export interface SwitchProps
   disabled?: boolean | undefined;
   draggable?: boolean | undefined;
   rootClassName?: string | undefined;
+  labelProps?: TextSlotProps | undefined;
+  indicatorProps?: BoxSlotProps | undefined;
 }
 
 export interface SwitchGroupProps {

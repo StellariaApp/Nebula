@@ -4,6 +4,8 @@ import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export type ChipVariant = Extract<Variant, "filled" | "outline" | "light">;
 
 export interface ChipProps
@@ -26,6 +28,7 @@ export interface ChipProps
   icon?: ReactNode | undefined;
   className?: string | undefined;
   rootClassName?: string | undefined;
+  iconProps?: BoxSlotProps | undefined;
 }
 
 export interface ChipGroupProps extends StyleProps {

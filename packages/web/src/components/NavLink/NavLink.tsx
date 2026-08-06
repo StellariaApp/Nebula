@@ -15,6 +15,8 @@ import * as styles from "./NavLink.css.js";
 import type { NavLinkProps } from "./NavLink.types.js";
 import * as variables from "./NavLink.vars.css.js";
 import { ChevronDown } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const CHEVRON = <ChevronDown />;
 
@@ -37,6 +39,12 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
     defaultOpened = false,
     onOpenChange,
     className,
+    leftSectionProps,
+    rightSectionProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
+    childrenProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -74,18 +82,37 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
         />
       ) : null}
       {leftSection === undefined || leftSection === null ? null : (
-        <span className={styles.section} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...leftSectionProps}
+          className={cx(styles.section, leftSectionProps?.className)}
+        >
           {leftSection}
-        </span>
+        </Box>
       )}
-      <span className={styles.body}>
-        <span className={styles.label}>{label}</span>
+      <Box component="span" {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+        <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
+          {label}
+        </Text>
         {description === undefined || description === null ? null : (
-          <span className={styles.description}>{description}</span>
+          <Text
+            component="span"
+            {...descriptionProps}
+            className={cx(styles.description, descriptionProps?.className)}
+          >
+            {description}
+          </Text>
         )}
-      </span>
+      </Box>
       {rightSection === undefined || rightSection === null ? null : (
-        <span className={styles.section}>{rightSection}</span>
+        <Box
+          component="span"
+          {...rightSectionProps}
+          className={cx(styles.section, rightSectionProps?.className)}
+        >
+          {rightSection}
+        </Box>
       )}
       {has_children ? (
         <m.span
@@ -125,9 +152,13 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
         {inner}
       </button>
       <Collapse in={is_open}>
-        <div id={panel_id} className={styles.children}>
+        <Box
+          id={panel_id}
+          {...childrenProps}
+          className={cx(styles.children, childrenProps?.className)}
+        >
           {children}
-        </div>
+        </Box>
       </Collapse>
     </>
   ) : href !== undefined ? (

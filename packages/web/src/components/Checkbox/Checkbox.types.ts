@@ -5,6 +5,10 @@ import type { Orientation, ColorExtended, Size } from "@stellaria/nebula-tokens"
 
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+import type { GlyphProps } from "../../glyphs/index.js";
+
 export interface CheckboxProps
   extends
     Omit<
@@ -23,6 +27,9 @@ export interface CheckboxProps
   disabled?: boolean | undefined;
   error?: boolean | undefined;
   rootClassName?: string | undefined;
+  labelProps?: TextSlotProps | undefined;
+  indicatorProps?: BoxSlotProps | undefined;
+  markProps?: GlyphProps | undefined;
 }
 
 export interface CheckboxGroupProps {

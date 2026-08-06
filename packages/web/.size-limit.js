@@ -571,7 +571,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Checkbox/Checkbox.js",
     import: "{ Checkbox }",
     ignore: ["react", "react-dom"],
-    limit: "23 kB",
+    limit: "23.5 kB",
   },
   {
     name: "Radio (nativo + visual con color extendido, por módulo)",
@@ -585,7 +585,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Switch/Switch.js",
     import: "{ Switch }",
     ignore: ["react", "react-dom"],
-    limit: "36.5 kB",
+    limit: "37 kB",
   },
   {
     name: "Tabs (atajo sobre Segment, por módulo)",
@@ -760,7 +760,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/NavLink/NavLink.js",
     import: "{ NavLink }",
     ignore: ["react", "react-dom"],
-    limit: "31.25 kB",
+    limit: "32 kB",
   },
   {
     name: "Nav (compound: indicador con spring + scroll-spy, por módulo)",
@@ -1064,7 +1064,7 @@ const MODULE_BUDGETS = [
     import: "{ Search }",
     ignore: ["react", "react-dom"],
     deferred: ["DatePicker.js", "DateRangePicker.js"],
-    limit: "88.5 kB",
+    limit: "89 kB",
   },
   {
     name: "CommandPalette (subpath /command: Aria combobox + Modal)",

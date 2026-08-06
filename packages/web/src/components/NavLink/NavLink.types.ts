@@ -4,6 +4,9 @@ import type { ColorExtended, PermissionProps, Variant } from "@stellaria/nebula-
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type NavLinkVariant = Extract<Variant, "filled" | "light" | "ghost">;
 
 export interface NavLinkProps extends StyleProps, PermissionProps {
@@ -22,4 +25,10 @@ export interface NavLinkProps extends StyleProps, PermissionProps {
   defaultOpened?: boolean | undefined;
   onOpenChange?: ((opened: boolean) => void) | undefined;
   className?: string | undefined;
+  leftSectionProps?: BoxSlotProps | undefined;
+  rightSectionProps?: BoxSlotProps | undefined;
+  bodyProps?: BoxSlotProps | undefined;
+  labelProps?: TextSlotProps | undefined;
+  descriptionProps?: TextSlotProps | undefined;
+  childrenProps?: BoxSlotProps | undefined;
 }
