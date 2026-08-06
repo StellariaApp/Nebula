@@ -10,7 +10,7 @@ export interface AppShellLabels {
   complementary: string;
 }
 
-export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
+export interface AppShellProps extends Omit<StyleProps, "color"> {
   children?: ReactNode | undefined;
   header?: ReactNode | undefined;
   navbar?: ReactNode | undefined;
@@ -45,7 +45,7 @@ export interface AppShellProps extends Omit<StyleProps, "color" | "header"> {
   scrollShadowOffset?: number | undefined;
 }
 
-export interface AppShellRailProps extends Omit<StyleProps, "color" | "header" | "background"> {
+export interface AppShellRailProps extends Omit<StyleProps, "color" | "background"> {
   children?: ReactNode | undefined;
   /** Barra a altura completa. Su presencia cambia el shell al modo carril. */
   sidebar?: ReactNode | undefined;

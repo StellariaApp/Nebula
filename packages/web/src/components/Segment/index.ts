@@ -3,10 +3,10 @@ import { SegmentControl as SegmentControlBase, SegmentControlItem } from "./comp
 import { SegmentFooter, SegmentHeader } from "./components/Section.js";
 import { Segment as SegmentRoot } from "./Segment.js";
 
-const SegmentControl = Object.assign(SegmentControlBase, { Item: SegmentControlItem });
-const SegmentContent = Object.assign(SegmentContentBase, { Item: SegmentContentItem });
+const SegmentControl = /* @__PURE__ */ Object.assign(SegmentControlBase, { Item: SegmentControlItem });
+const SegmentContent = /* @__PURE__ */ Object.assign(SegmentContentBase, { Item: SegmentContentItem });
 
-export const Segment = Object.assign(SegmentRoot, {
+export const Segment = /* @__PURE__ */ Object.assign(SegmentRoot, {
   Control: SegmentControl,
   Content: SegmentContent,
   Header: SegmentHeader,

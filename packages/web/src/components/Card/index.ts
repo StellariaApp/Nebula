@@ -7,7 +7,7 @@ import {
   CardSection,
 } from "./Card.js";
 
-export const Card = Object.assign(CardRoot, {
+export const Card = /* @__PURE__ */ Object.assign(CardRoot, {
   Section: CardSection,
   Image: CardImage,
   Badges: CardBadges,
