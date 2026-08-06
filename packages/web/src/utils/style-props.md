@@ -64,3 +64,27 @@ nada que el prefijo de longitud no dé.
 **Es una caché de proceso, así que en SSR se comparte entre peticiones.** Es seguro porque la clave
 son nombres de prop y de token, nunca datos de usuario, y el valor es una cadena de clases. Tiene
 tope de 4096 entradas: pasado ese punto se sigue resolviendo, solo que sin guardar.
+
+## El tipo público sale del registro, no de sprinkles (ADR-103)
+
+`StyleProps` se deriva de `style-registry.ts` con un tipo mapeado. Por eso **hay un solo nombre por
+prop**: los 40 alias largos que exponía la derivación anterior —`paddingInlineStart` junto a `ps`,
+`background` junto a `bg`— no se borraron, simplemente dejaron de derivarse.
+
+El runtime sigue aceptándolos: `PROP_KIND` los conoce, así que un consumidor en JavaScript que
+escriba `paddingInline` no se rompe. Lo que cambia es que el tipo ya no los ofrece.
+
+Dos nombres que conviene explicar porque se leen raro:
+
+- **`rtl` `rtr` `rbl` `rbr`** son las cuatro esquinas sueltas del radio. `rtl` parece
+  _right-to-left_ y no lo es; hacían falta porque `rt`/`rb`/`rl`/`rr` van **por pares** y sin ellas
+  no se podía redondear una sola esquina.
+- **El borde lógico usa el nombre CSS completo** (`borderInlineStart`, `borderBlockStartStyle`)
+  mientras el físico se queda con los atajos. No es incoherencia: `bds` no puede ser a la vez
+  `border-style` y `border-inline-start`, ni `bdbs` ser `border-bottom-style` y
+  `border-block-start-style`. Paga la verbosidad el que menos se usa.
+
+Los checks de `src/__checks__/style-props.test-d.ts` fijan lo que no se ve al leer: que el registro
+conserva los literales —si los widenea a `string`, el tipo entero deja de servir— y que los alias
+largos siguen fuera. Llevan control negativo, porque una aserción de tipo que no puede fallar no
+comprueba nada.

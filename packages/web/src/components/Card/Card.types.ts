@@ -16,7 +16,7 @@ export type CardVariant = Extract<
   "filled" | "outline" | "light" | "glass" | "glow" | "gradient"
 >;
 
-export interface CardProps extends Omit<StyleProps, "shadow" | "color"> {
+export interface CardProps extends Omit<StyleProps, "shadow"> {
   children: ReactNode;
   variant?: CardVariant | undefined;
   color?: ColorExtended | undefined;

@@ -20,7 +20,7 @@ export interface ChartAxis {
   tickFormatter?: ((value: string | number, index: number) => string) | undefined;
 }
 
-export interface ChartBaseProps extends Omit<StyleProps, "color"> {
+export interface ChartBaseProps extends StyleProps {
   data: readonly ChartDatum[];
   series: readonly ChartSeries[];
   xAxis?: ChartAxis | undefined;
@@ -59,7 +59,7 @@ export interface PieChartProps extends Omit<ChartBaseProps, "series" | "xAxis" |
   thickness?: number | undefined;
 }
 
-export interface SparkLineProps extends Omit<StyleProps, "color"> {
+export interface SparkLineProps extends StyleProps {
   data: readonly number[];
   color?: ColorExtended | undefined;
   width?: number | undefined;
@@ -72,7 +72,7 @@ export interface SparkLineProps extends Omit<StyleProps, "color"> {
 
 export type TrendDirection = "up" | "down" | "flat";
 
-export interface TrendIndicatorProps extends Omit<StyleProps, "color" | "direction"> {
+export interface TrendIndicatorProps extends Omit<StyleProps, "direction"> {
   value: number;
   direction?: TrendDirection | undefined;
   format?: ((value: number) => string) | undefined;
@@ -95,7 +95,7 @@ export interface ChartLegendEntry {
   color: string;
 }
 
-export interface ChartLegendProps extends Omit<StyleProps, "color"> {
+export interface ChartLegendProps extends StyleProps {
   entries: readonly ChartLegendEntry[];
   hidden?: readonly string[] | undefined;
   onToggle?: ((key: string) => void) | undefined;
@@ -110,7 +110,7 @@ export interface ChartTooltipDatum {
   color: string;
 }
 
-export interface ChartTooltipProps extends Omit<StyleProps, "color"> {
+export interface ChartTooltipProps extends StyleProps {
   title?: ReactNode | undefined;
   items: readonly ChartTooltipDatum[];
   format?: ((value: string | number, key: string) => string) | undefined;
@@ -126,7 +126,7 @@ export interface ChartPanelItem {
   content: ReactNode;
 }
 
-export interface ChartPanelProps extends Omit<StyleProps, "color"> {
+export interface ChartPanelProps extends StyleProps {
   panels: readonly ChartPanelItem[];
   cols?: 1 | 2 | 3 | undefined;
   gap?: "sm" | "md" | "lg" | undefined;

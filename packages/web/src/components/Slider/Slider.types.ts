@@ -12,7 +12,7 @@ export interface SliderMark {
   label?: ReactNode | undefined;
 }
 
-interface SliderBaseProps extends Omit<StyleProps, "color"> {
+interface SliderBaseProps extends StyleProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

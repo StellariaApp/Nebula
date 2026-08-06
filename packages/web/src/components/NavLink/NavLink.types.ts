@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type NavLinkVariant = Extract<Variant, "filled" | "light" | "ghost">;
 
-export interface NavLinkProps extends Omit<StyleProps, "color">, PermissionProps {
+export interface NavLinkProps extends StyleProps, PermissionProps {
   label: ReactNode;
   description?: ReactNode | undefined;
   href?: string | undefined;

@@ -15,7 +15,7 @@ export interface CodeHighlightLabels {
  * `code` se pinta como texto plano y `html` espera markup ya resaltado, que se inyecta con
  * `dangerouslySetInnerHTML`. Sanear ese HTML es responsabilidad de quien lo produce.
  */
-export interface CodeHighlightProps extends Omit<StyleProps, "color"> {
+export interface CodeHighlightProps extends StyleProps {
   code?: string | undefined;
   html?: string | undefined;
   lang?: string | undefined;
@@ -33,7 +33,7 @@ export interface CodeHighlightTab extends Omit<CodeHighlightProps, "className"> 
   label: ReactNode;
 }
 
-export interface CodeHighlightTabsProps extends Omit<StyleProps, "color"> {
+export interface CodeHighlightTabsProps extends StyleProps {
   tabs: readonly CodeHighlightTab[];
   value?: string | undefined;
   defaultValue?: string | undefined;

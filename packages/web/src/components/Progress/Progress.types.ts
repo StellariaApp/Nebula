@@ -11,7 +11,7 @@ export interface ProgressSegment {
   label?: string | undefined;
 }
 
-export interface ProgressProps extends Omit<StyleProps, "color"> {
+export interface ProgressProps extends StyleProps {
   value?: number | undefined;
   segments?: readonly ProgressSegment[] | undefined;
   max?: number | undefined;

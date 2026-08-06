@@ -63,7 +63,7 @@ export interface CardMetaData {
   locale?: string | undefined;
 }
 
-export interface CardComplexProps extends Omit<StyleProps, "color"> {
+export interface CardComplexProps extends StyleProps {
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
   media?: CardMedia | undefined;

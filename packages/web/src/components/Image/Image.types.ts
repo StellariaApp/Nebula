@@ -5,7 +5,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type ImageFit = "cover" | "contain" | "fill" | "none" | "scale-down";
 
-export interface ImageProps extends Omit<StyleProps, "color"> {
+export interface ImageProps extends StyleProps {
   src?: string | undefined;
   alt: string;
   width?: Unit | undefined;

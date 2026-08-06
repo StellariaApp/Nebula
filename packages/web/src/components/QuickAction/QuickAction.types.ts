@@ -30,7 +30,7 @@ export type QuickActionOrientation = "vertical" | "horizontal";
 export interface QuickActionProps
   extends
     Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
-    Omit<StyleProps, "color">,
+    StyleProps,
     PressLifecycleProps,
     PermissionProps {
   label: ReactNode;

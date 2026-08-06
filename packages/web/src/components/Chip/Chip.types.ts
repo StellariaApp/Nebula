@@ -12,7 +12,7 @@ export interface ChipProps
       ComponentPropsWithoutRef<"input">,
       "size" | "color" | "type" | "checked" | "defaultChecked" | "onChange" | "children"
     >,
-    Omit<StyleProps, "color"> {
+    StyleProps {
   children?: ReactNode | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;
@@ -28,7 +28,7 @@ export interface ChipProps
   rootClassName?: string | undefined;
 }
 
-export interface ChipGroupProps extends Omit<StyleProps, "color"> {
+export interface ChipGroupProps extends StyleProps {
   children?: ReactNode | undefined;
   label?: ReactNode | undefined;
   multiple?: boolean | undefined;

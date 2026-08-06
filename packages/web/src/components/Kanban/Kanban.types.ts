@@ -19,7 +19,7 @@ export interface KanbanMove {
   columns: Record<string, string[]>;
 }
 
-export interface KanbanBoardProps<T> extends Omit<StyleProps, "color"> {
+export interface KanbanBoardProps<T> extends StyleProps {
   columns: readonly KanbanColumnDef[];
   items: readonly T[];
   getKey: (item: T, index: number) => string;
@@ -34,7 +34,7 @@ export interface KanbanBoardProps<T> extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface KanbanColumnProps extends Omit<StyleProps, "color"> {
+export interface KanbanColumnProps extends StyleProps {
   id: string;
   title: ReactNode;
   children?: ReactNode | undefined;
@@ -46,7 +46,7 @@ export interface KanbanColumnProps extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface KanbanCardProps extends Omit<StyleProps, "color"> {
+export interface KanbanCardProps extends StyleProps {
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
   meta?: ReactNode | undefined;

@@ -7,7 +7,7 @@ export interface PlayerLabels {
   close: string;
 }
 
-export interface PlayerProps extends Omit<StyleProps, "color"> {
+export interface PlayerProps extends StyleProps {
   src: string;
   opened?: boolean | undefined;
   onClose?: (() => void) | undefined;

@@ -15,7 +15,7 @@ export interface PaginationLabels {
 
 export type PaginationVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost">;
 
-export interface PaginationProps extends Omit<StyleProps, "color"> {
+export interface PaginationProps extends StyleProps {
   total: number;
   page?: number | undefined;
   defaultPage?: number | undefined;

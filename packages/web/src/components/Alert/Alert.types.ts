@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type AlertVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
 
-export interface AlertProps extends Omit<StyleProps, "color"> {
+export interface AlertProps extends StyleProps {
   children?: ReactNode | undefined;
   title?: ReactNode | undefined;
   color?: ColorExtended | undefined;

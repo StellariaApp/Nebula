@@ -5,7 +5,7 @@ import type { RadiusName } from "@stellaria/nebula-tokens";
 import type { LightboxImage, LightboxLabels } from "../Lightbox/Lightbox.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface ImageGalleryProps extends Omit<StyleProps, "color"> {
+export interface ImageGalleryProps extends StyleProps {
   images: readonly LightboxImage[];
   cols?: number | undefined;
   minColWidth?: number | undefined;

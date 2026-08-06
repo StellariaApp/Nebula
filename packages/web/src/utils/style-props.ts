@@ -6,13 +6,19 @@ import {
   ROLE_COLORS,
   sprinkles,
   TOKEN_VALUES,
-  type Sprinkles,
 } from "../components/Box/Box.css.js";
 import {
   BREAKPOINT_ORDER,
   OPEN_CLASS,
+  type BreakpointName,
 } from "../components/Box/Box.open.css.js";
-import { OpenVarName, STYLE_PROPS, type PropSpec } from "./style-registry.js";
+import {
+  OpenVarName,
+  STYLE_PROPS,
+  type PropSpec,
+  type StylePropName,
+  type TokenScale,
+} from "./style-registry.js";
 
 const COLOR_PROPS = {
   color: "color",
@@ -72,28 +78,25 @@ export type DimensionProp = keyof typeof DIMENSION_PROPS;
 export type UnitlessProp = keyof typeof UNITLESS_PROPS;
 export type ColorProp = keyof typeof COLOR_PROPS;
 
-type ColorLiteral = "transparent" | "currentColor" | "inherit";
+type LooseString = string & Record<never, never>;
 
-type RoleOpacity = `${Exclude<NonNullable<Sprinkles["borderColor"]>, ColorLiteral>}.${number}`;
+type TokenKey<S extends TokenScale> = keyof (typeof TOKEN_VALUES)[S] & string;
 
-type PaletteValue = NonNullable<Sprinkles["color"]> | RoleOpacity;
-type RoleValue = NonNullable<Sprinkles["borderColor"]> | RoleOpacity;
+type Primitive<Spec> = Spec extends { keywords: readonly (infer K)[] }
+  ? K
+  :
+      | (Spec extends { token: infer T extends TokenScale } ? TokenKey<T> : never)
+      | (Spec extends { open: true }
+          ? Spec extends { length: true }
+            ? number | LooseString
+            : LooseString | number
+          : never)
+      | (Spec extends { bool: true } ? boolean : never);
 
-export type StyleProps = Omit<Sprinkles, ColorProp> & {
-  color?: PaletteValue | undefined;
-  c?: PaletteValue | undefined;
-  background?: PaletteValue | undefined;
-  bg?: PaletteValue | undefined;
-  borderColor?: RoleValue | undefined;
-  bdc?: RoleValue | undefined;
-} & {
-  [K in DimensionProp]?: number | string | undefined;
-} & {
-  grow?: number | boolean | undefined;
-  shrink?: number | boolean | undefined;
-  basis?: number | string | undefined;
-  flex?: number | string | undefined;
-  opacity?: number | undefined;
+type Responsive<V> = V | Partial<Record<BreakpointName, V>>;
+
+export type StyleProps = {
+  [K in StylePropName]?: Responsive<Primitive<(typeof STYLE_PROPS)[K]>> | undefined;
 };
 
 export interface ExtractedStyleProps {

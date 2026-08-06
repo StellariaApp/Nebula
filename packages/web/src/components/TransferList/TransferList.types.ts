@@ -18,7 +18,7 @@ export interface TransferListPane {
   empty?: ReactNode | undefined;
 }
 
-export interface TransferListProps extends Omit<StyleProps, "color"> {
+export interface TransferListProps extends StyleProps {
   data: readonly SelectOption[];
   value?: readonly string[] | undefined;
   defaultValue?: readonly string[] | undefined;

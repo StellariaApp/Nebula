@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type BanderoleVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
 
-export interface BanderoleProps extends Omit<StyleProps, "color"> {
+export interface BanderoleProps extends StyleProps {
   children: ReactNode;
   variant?: BanderoleVariant | undefined;
   color?: ColorExtended | undefined;

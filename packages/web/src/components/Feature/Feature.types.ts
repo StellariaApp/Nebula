@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { AnchorProps } from "../Anchor/Anchor.types.js";
 import type { ThemeIconProps } from "../ThemeIcon/ThemeIcon.types.js";
 
-export interface FeatureProps extends Omit<StyleProps, "color" | "align"> {
+export interface FeatureProps extends Omit<StyleProps, "align"> {
   title: ReactNode;
   description?: ReactNode | undefined;
   icon?: ReactNode | undefined;

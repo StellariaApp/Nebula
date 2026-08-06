@@ -9,7 +9,7 @@ export interface HeaderLabels {
 
 export type HeaderOrder = 1 | 2 | 3 | 4 | 5 | 6;
 
-export interface HeaderProps extends Omit<StyleProps, "color"> {
+export interface HeaderProps extends StyleProps {
   children?: ReactNode | undefined;
   component?: ElementType | undefined;
   title?: ReactNode | undefined;

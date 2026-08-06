@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type SectionSize = "sm" | "md" | "lg" | "xl";
 
-export interface SectionProps extends Omit<StyleProps, "color"> {
+export interface SectionProps extends StyleProps {
   children?: ReactNode | undefined;
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;

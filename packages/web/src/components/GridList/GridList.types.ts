@@ -4,7 +4,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type GridListMode = "list" | "grid" | "carousel";
 
-export interface GridListProps<T> extends Omit<StyleProps, "color"> {
+export interface GridListProps<T> extends StyleProps {
   items: readonly T[];
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, mode: GridListMode, index: number) => ReactNode;

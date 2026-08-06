@@ -15,7 +15,7 @@ export interface SignatureLabels {
   clear: string;
 }
 
-export interface SignatureProps extends Omit<StyleProps, "color"> {
+export interface SignatureProps extends StyleProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

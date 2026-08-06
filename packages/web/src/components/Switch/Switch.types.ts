@@ -11,7 +11,7 @@ export interface SwitchProps
       ComponentPropsWithoutRef<"input">,
       "size" | "onChange" | "checked" | "defaultChecked" | "type" | "color" | "disabled"
     >,
-    Omit<StyleProps, "color"> {
+    StyleProps {
   label?: ReactNode | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;

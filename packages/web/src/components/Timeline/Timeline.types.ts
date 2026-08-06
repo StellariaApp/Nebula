@@ -14,7 +14,7 @@ export interface TimelineItem {
   color?: ColorExtended | undefined;
 }
 
-export interface TimelineProps extends Omit<StyleProps, "color" | "align"> {
+export interface TimelineProps extends Omit<StyleProps, "align"> {
   items: readonly TimelineItem[];
   active?: number | undefined;
   variant?: TimelineVariant | undefined;

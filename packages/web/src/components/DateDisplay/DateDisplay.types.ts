@@ -6,7 +6,7 @@ export type DateDisplayMode = "absolute" | "relative" | "auto";
 
 export type DateDisplayPreset = "date" | "datetime" | "time" | "long" | "short";
 
-export interface DateDisplayProps extends Omit<StyleProps, "color"> {
+export interface DateDisplayProps extends StyleProps {
   value?: string | number | Date | null | undefined;
   mode?: DateDisplayMode | undefined;
   preset?: DateDisplayPreset | undefined;

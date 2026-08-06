@@ -16,7 +16,7 @@ export type StarDensity = "xs" | "sm" | "md" | "lg" | "xl";
  * GUARDRAIL (docs/06 §6): un solo efecto dominante por región. Va en hero, landing, login, empty
  * state o pantalla de entrada — no detrás de una tabla ni de un formulario.
  */
-export interface StarFieldProps extends Omit<StyleProps, "color" | "opacity" | "zIndex"> {
+export interface StarFieldProps extends Omit<StyleProps, "opacity"> {
   density?: StarDensity | undefined;
   seed?: number | undefined;
   grid?: boolean | undefined;

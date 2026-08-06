@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type TagVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost">;
 
-export interface TagProps extends Omit<StyleProps, "color"> {
+export interface TagProps extends StyleProps {
   children?: ReactNode | undefined;
   variant?: TagVariant | undefined;
   color?: ColorExtended | undefined;

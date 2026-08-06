@@ -8,7 +8,7 @@ export interface PanelLabels {
   separator: string;
 }
 
-export interface PanelProps extends Omit<StyleProps, "color"> {
+export interface PanelProps extends StyleProps {
   master: ReactNode;
   detail: ReactNode;
   size?: number | undefined;

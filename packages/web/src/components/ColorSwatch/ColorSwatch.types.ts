@@ -4,7 +4,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface ColorSwatchProps extends Omit<StyleProps, "color"> {
+export interface ColorSwatchProps extends StyleProps {
   color: ColorExtended | (string & {});
   size?: number | undefined;
   radius?: "sm" | "md" | "full" | undefined;

@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type OverlayBlur = "none" | "sm" | "md" | "lg";
 
-export interface OverlayProps extends Omit<StyleProps, "color" | "opacity" | "zIndex"> {
+export interface OverlayProps extends Omit<StyleProps, "opacity"> {
   color?: ColorExtended | undefined;
   opacity?: number | undefined;
   blur?: OverlayBlur | undefined;

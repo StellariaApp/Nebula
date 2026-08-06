@@ -8,7 +8,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 export interface BurgerProps
   extends
     Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | "onChange">,
-    Omit<StyleProps, "color">,
+    StyleProps,
     PressLifecycleProps {
   /** Punto por debajo del cual el botón aparece; por defecto siempre. */
   showBelow?: "always" | "phone" | "tablet" | "laptop" | undefined;

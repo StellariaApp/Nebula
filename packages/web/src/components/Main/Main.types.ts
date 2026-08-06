@@ -4,7 +4,7 @@ import type { SpacingValue, SpringName, Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface MainProps extends Omit<StyleProps, "color" | "background"> {
+export interface MainProps extends StyleProps {
   children?: ReactNode | undefined;
   header?: ReactNode | undefined;
   footer?: ReactNode | undefined;

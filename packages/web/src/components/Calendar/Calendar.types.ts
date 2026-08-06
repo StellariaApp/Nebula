@@ -17,7 +17,7 @@ export interface CalendarLabels {
   nextMonth?: string | undefined;
 }
 
-interface CalendarBaseProps extends Omit<StyleProps, "color"> {
+interface CalendarBaseProps extends StyleProps {
   label?: ReactNode | undefined;
   size?: Size | undefined;
   variant?: CalendarVariant | undefined;

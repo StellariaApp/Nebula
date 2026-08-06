@@ -11,7 +11,7 @@ export interface RadioProps
       ComponentPropsWithoutRef<"input">,
       "size" | "onChange" | "checked" | "defaultChecked" | "type" | "color" | "disabled"
     >,
-    Omit<StyleProps, "color"> {
+    StyleProps {
   value: string;
   label?: ReactNode | undefined;
   size?: Size | undefined;

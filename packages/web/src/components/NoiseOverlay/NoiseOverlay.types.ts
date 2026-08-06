@@ -10,7 +10,7 @@ import type { StyleProps } from "../../utils/style-props.js";
  * GUARDRAIL: es decorativo y va siempre sobre una superficie ya resuelta. Nunca sobre texto de
  * lectura larga ni sobre celdas de datos.
  */
-export interface NoiseOverlayProps extends Omit<StyleProps, "opacity" | "zIndex"> {
+export interface NoiseOverlayProps extends Omit<StyleProps, "opacity"> {
   opacity?: number | undefined;
   radius?: RadiusName | "none" | undefined;
   fixed?: boolean | undefined;

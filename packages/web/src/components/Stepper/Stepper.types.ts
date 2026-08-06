@@ -25,7 +25,7 @@ export interface StepperLabels {
   error: string;
 }
 
-export interface StepperProps extends Omit<StyleProps, "color"> {
+export interface StepperProps extends StyleProps {
   steps: readonly StepperStep[];
   active: number;
   onStepClick?: ((step: number) => void) | undefined;

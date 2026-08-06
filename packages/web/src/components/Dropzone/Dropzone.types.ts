@@ -15,7 +15,7 @@ export interface DropzoneLabels {
   remove: string;
 }
 
-export interface DropzoneProps extends Omit<StyleProps, "color"> {
+export interface DropzoneProps extends StyleProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

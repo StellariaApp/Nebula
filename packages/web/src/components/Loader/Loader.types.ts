@@ -3,7 +3,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type LoaderType = "spinner" | "dots" | "bars";
 
-export interface LoaderProps extends Omit<StyleProps, "color"> {
+export interface LoaderProps extends StyleProps {
   type?: LoaderType | undefined;
   size?: Size | Unit | undefined;
   color?: ColorExtended | undefined;

@@ -5,7 +5,7 @@ import type { EmptyStateProps } from "../EmptyState/EmptyState.types.js";
 
 export type EmptyModuleSurface = "none" | "paper" | "outline" | "dashed";
 
-export interface EmptyModuleProps extends Omit<StyleProps, "color"> {
+export interface EmptyModuleProps extends StyleProps {
   title: ReactNode;
   description?: ReactNode | undefined;
   illustration?: ReactNode | undefined;

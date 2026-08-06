@@ -28,7 +28,7 @@ export interface EditorImageLabels {
   missingPeer: string;
 }
 
-export interface EditorImageProps extends Omit<StyleProps, "color"> {
+export interface EditorImageProps extends StyleProps {
   src: string;
   editor?: PinturaEditorComponent | undefined;
   editorProps?: Record<string, unknown> | undefined;

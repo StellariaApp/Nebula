@@ -12,7 +12,7 @@ export interface CarouselLabels {
   goTo: (index: number) => string;
 }
 
-export interface CarouselProps<T> extends Omit<StyleProps, "color" | "align"> {
+export interface CarouselProps<T> extends Omit<StyleProps, "align"> {
   items: readonly T[];
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, index: number) => ReactNode;

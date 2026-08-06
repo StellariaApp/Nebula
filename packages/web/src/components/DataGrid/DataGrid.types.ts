@@ -49,7 +49,7 @@ export interface DataGridExport {
   selectionOnly?: boolean | undefined;
 }
 
-export interface DataGridProps<T> extends Omit<StyleProps, "color"> {
+export interface DataGridProps<T> extends StyleProps {
   data: readonly T[];
   columns: readonly ColumnDef<T>[];
   getRowId?: ((row: T, index: number) => string) | undefined;

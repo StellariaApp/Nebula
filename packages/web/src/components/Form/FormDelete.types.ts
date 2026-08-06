@@ -9,7 +9,7 @@ export interface DeleteAlert {
   description?: ReactNode | undefined;
 }
 
-export interface FormDeleteProps extends Omit<StyleProps, "color"> {
+export interface FormDeleteProps extends StyleProps {
   children?: ReactNode | undefined;
   alert?: DeleteAlert | undefined;
   onSubmit?: ((event: FormEvent<HTMLFormElement>) => Promise<void> | void) | undefined;

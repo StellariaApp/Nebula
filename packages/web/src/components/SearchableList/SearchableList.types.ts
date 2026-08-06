@@ -13,7 +13,7 @@ export interface SearchableListLabels {
   results: (count: number) => string;
 }
 
-export interface SearchableListProps<T, TPage = readonly T[]> extends Omit<StyleProps, "color"> {
+export interface SearchableListProps<T, TPage = readonly T[]> extends StyleProps {
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, index: number) => ReactNode;
   items?: readonly T[] | undefined;

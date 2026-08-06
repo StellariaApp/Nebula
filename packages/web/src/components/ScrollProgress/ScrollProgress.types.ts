@@ -4,7 +4,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface ScrollProgressProps extends Omit<StyleProps, "color" | "position"> {
+export interface ScrollProgressProps extends Omit<StyleProps, "position"> {
   /** Elemento cuyo scroll se sigue. Sin él, el documento. */
   target?: RefObject<HTMLElement | null> | undefined;
   position?: "top" | "bottom" | "static" | undefined;

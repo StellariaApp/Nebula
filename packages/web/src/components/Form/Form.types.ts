@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type BanderoleSide = "start" | "end";
 
-export interface FormProps extends Omit<StyleProps, "color"> {
+export interface FormProps extends StyleProps {
   children: ReactNode;
   onSubmit?: ((event: FormEvent<HTMLFormElement>) => Promise<void> | void) | undefined;
   isPending?: boolean | undefined;
@@ -18,7 +18,7 @@ export interface FormProps extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface FormHeaderProps extends Omit<StyleProps, "color"> {
+export interface FormHeaderProps extends StyleProps {
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
   children?: ReactNode | undefined;
@@ -26,20 +26,20 @@ export interface FormHeaderProps extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface FormBanderoleProps extends Omit<StyleProps, "color"> {
+export interface FormBanderoleProps extends StyleProps {
   children: ReactNode;
   side?: BanderoleSide | undefined;
   color?: ColorExtended | undefined;
   className?: string | undefined;
 }
 
-export interface FormContentProps extends Omit<StyleProps, "color"> {
+export interface FormContentProps extends StyleProps {
   children: ReactNode;
   columns?: 1 | 2 | undefined;
   className?: string | undefined;
 }
 
-export interface FormFooterProps extends Omit<StyleProps, "color" | "align"> {
+export interface FormFooterProps extends Omit<StyleProps, "align"> {
   children?: ReactNode | undefined;
   error?: ReactNode | undefined;
   submitText?: ReactNode | undefined;

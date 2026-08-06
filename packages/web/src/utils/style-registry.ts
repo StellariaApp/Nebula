@@ -18,6 +18,7 @@ export interface PropSpec {
   token?: TokenScale | undefined;
   keywords?: readonly string[] | undefined;
   open?: boolean | undefined;
+  bool?: boolean | undefined;
   length?: boolean | undefined;
 }
 
@@ -207,8 +208,8 @@ export const STYLE_PROPS = {
   placeItems: keywords("placeItems", ITEMS),
 
   flex: raw("flex"),
-  grow: raw("flexGrow"),
-  shrink: raw("flexShrink"),
+  grow: { css: ["flexGrow"], open: true, bool: true },
+  shrink: { css: ["flexShrink"], open: true, bool: true },
   basis: length("flexBasis"),
   order: raw("order"),
 

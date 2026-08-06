@@ -19,7 +19,7 @@ export interface CountdownLabels {
   remaining: (parts: CountdownParts) => string;
 }
 
-export interface CountdownProps extends Omit<StyleProps, "color"> {
+export interface CountdownProps extends StyleProps {
   /** Instante objetivo en ISO (ADR-050: el valor que cruza la API pública es string, no Date). */
   to: string;
   onComplete?: (() => void) | undefined;

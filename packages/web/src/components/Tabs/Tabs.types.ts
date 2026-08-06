@@ -12,7 +12,7 @@ export interface TabItem extends PermissionProps {
   disabled?: boolean | undefined;
 }
 
-export interface TabsProps extends Omit<StyleProps, "color"> {
+export interface TabsProps extends StyleProps {
   data: readonly TabItem[];
   value?: string | undefined;
   defaultValue?: string | undefined;

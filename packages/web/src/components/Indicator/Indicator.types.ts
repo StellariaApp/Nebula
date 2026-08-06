@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type IndicatorPlacement = "top-start" | "top-end" | "bottom-start" | "bottom-end";
 
-export interface IndicatorProps extends Omit<StyleProps, "color"> {
+export interface IndicatorProps extends StyleProps {
   children: ReactNode;
   label?: ReactNode | undefined;
   count?: number | undefined;

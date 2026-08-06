@@ -13,7 +13,7 @@ export interface PeriodPickerLabels {
   nextRange?: string | undefined;
 }
 
-interface PeriodPickerBaseProps extends Omit<StyleProps, "color"> {
+interface PeriodPickerBaseProps extends StyleProps {
   label?: ReactNode | undefined;
   size?: Size | undefined;
   variant?: CalendarVariant | undefined;

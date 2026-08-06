@@ -57,7 +57,7 @@ export interface FilterProps {
   className?: string | undefined;
 }
 
-export interface FiltersProps extends Omit<StyleProps, "color"> {
+export interface FiltersProps extends StyleProps {
   filters: readonly FilterDescriptor[];
   state?: FilterState | undefined;
   defaultState?: FilterState | undefined;

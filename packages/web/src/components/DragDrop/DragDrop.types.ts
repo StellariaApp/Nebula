@@ -31,7 +31,7 @@ export interface DragDropContextProps {
   labels?: Partial<DragDropLabels> | undefined;
 }
 
-export interface DraggableProps extends Omit<StyleProps, "color"> {
+export interface DraggableProps extends StyleProps {
   id: string;
   children: ReactNode;
   disabled?: boolean | undefined;
@@ -40,7 +40,7 @@ export interface DraggableProps extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface DroppableProps extends Omit<StyleProps, "color"> {
+export interface DroppableProps extends StyleProps {
   id: string;
   children: ReactNode;
   disabled?: boolean | undefined;
@@ -48,7 +48,7 @@ export interface DroppableProps extends Omit<StyleProps, "color"> {
   className?: string | undefined;
 }
 
-export interface SortableListProps<T> extends Omit<StyleProps, "color"> {
+export interface SortableListProps<T> extends StyleProps {
   items: readonly T[];
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, index: number) => ReactNode;

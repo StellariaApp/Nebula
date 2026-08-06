@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type BadgeVariant = Extract<Variant, "filled" | "outline" | "light" | "ghost" | "gradient">;
 
-export interface BadgeProps extends Omit<StyleProps, "color"> {
+export interface BadgeProps extends StyleProps {
   children?: ReactNode | undefined;
   variant?: BadgeVariant | undefined;
   dot?: boolean | undefined;

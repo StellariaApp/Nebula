@@ -23,7 +23,7 @@ export interface LightboxLabels {
   zoomLevel: (percent: number) => string;
 }
 
-export interface LightboxProps extends Omit<StyleProps, "color"> {
+export interface LightboxProps extends StyleProps {
   images: readonly LightboxImage[];
   opened: boolean;
   onClose: () => void;

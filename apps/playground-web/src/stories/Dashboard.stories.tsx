@@ -335,7 +335,7 @@ function SideBarHeader(): ReactElement {
         <Icon name="building" size={28} />
       </Box>
       <AppShell.Label>
-        <Text fz="h6" fw="bold" lh="tight" whiteSpace="nowrap">
+        <Text fz="h6" fw="bold" lh="tight" ws="nowrap">
           <GradientText>Company</GradientText>
         </Text>
       </AppShell.Label>

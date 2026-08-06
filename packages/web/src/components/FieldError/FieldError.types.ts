@@ -10,7 +10,7 @@ export type FieldErrorPosition =
 
 export type FieldErrorSource = Pick<NebulaField<unknown>, "status" | "error" | "touched">;
 
-export interface FieldErrorProps extends Omit<StyleProps, "color" | "position"> {
+export interface FieldErrorProps extends Omit<StyleProps, "position"> {
   children: ReactNode;
   field?: FieldErrorSource | undefined;
   error?: string | boolean | undefined;

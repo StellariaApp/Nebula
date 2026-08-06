@@ -18,7 +18,7 @@ export interface StatusDescriptor {
 
 export type StatusMap<S extends string = string> = Readonly<Record<S, StatusDescriptor>>;
 
-export interface StatusBadgeProps<S extends string = string> extends Omit<StyleProps, "color"> {
+export interface StatusBadgeProps<S extends string = string> extends StyleProps {
   status: S;
   map?: StatusMap<S> | undefined;
   variant?: StatusBadgeVariant | undefined;

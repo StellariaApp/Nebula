@@ -9,7 +9,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type ColorFormat = "hex" | "hexa" | "rgb" | "rgba" | "hsl" | "hsla";
 
-export interface ColorPickerProps extends Omit<StyleProps, "color"> {
+export interface ColorPickerProps extends StyleProps {
   label?: ReactNode | undefined;
   size?: Size | undefined;
   format?: ColorFormat | undefined;
@@ -32,7 +32,7 @@ export interface ColorPickerLabels {
   swatch?: ((value: string) => string) | undefined;
 }
 
-export interface ColorInputProps extends Omit<StyleProps, "color"> {
+export interface ColorInputProps extends StyleProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

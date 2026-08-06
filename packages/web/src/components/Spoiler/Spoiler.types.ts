@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface SpoilerProps extends Omit<StyleProps, "color"> {
+export interface SpoilerProps extends StyleProps {
   children: ReactNode;
   maxHeight?: number | undefined;
   showLabel?: ReactNode | undefined;

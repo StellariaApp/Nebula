@@ -32,7 +32,7 @@ export interface RichTextLabels extends Record<RichTextAction, string> {
   linkPrompt: string;
 }
 
-export interface RichTextEditorProps extends Omit<StyleProps, "color"> {
+export interface RichTextEditorProps extends StyleProps {
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((html: string) => void) | undefined;

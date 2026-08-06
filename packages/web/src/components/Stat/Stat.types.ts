@@ -6,7 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type StatTrend = "up" | "down" | "flat";
 
-export interface StatProps extends Omit<StyleProps, "color" | "align"> {
+export interface StatProps extends Omit<StyleProps, "align"> {
   label: ReactNode;
   labelProps?: ComponentPropsWithoutRef<"span"> | undefined;
   value: ReactNode;

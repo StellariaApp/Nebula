@@ -56,7 +56,7 @@ export interface NavSidebarProps {
   className?: string | undefined;
 }
 
-export interface NavLinksProps extends Omit<StyleProps, "color" | "align"> {
+export interface NavLinksProps extends Omit<StyleProps, "align"> {
   children?: ReactNode | undefined;
   active?: string | undefined;
   activeMode?: NavActiveMode | undefined;

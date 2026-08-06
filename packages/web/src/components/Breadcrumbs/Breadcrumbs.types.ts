@@ -17,7 +17,7 @@ export interface BreadcrumbsLabels {
   collapsed: string;
 }
 
-export interface BreadcrumbsProps extends Omit<StyleProps, "color"> {
+export interface BreadcrumbsProps extends StyleProps {
   items: readonly BreadcrumbItem[];
   separator?: ReactNode | undefined;
   /** A partir de cuántos items se colapsan los intermedios. `0` desactiva el colapso. */

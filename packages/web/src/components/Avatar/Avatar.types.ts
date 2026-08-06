@@ -5,7 +5,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 
 export type AvatarVariant = Extract<Variant, "filled" | "outline" | "light">;
 
-export interface AvatarProps extends Omit<StyleProps, "color"> {
+export interface AvatarProps extends StyleProps {
   src?: string | undefined;
   alt?: string | undefined;
   name?: string | undefined;

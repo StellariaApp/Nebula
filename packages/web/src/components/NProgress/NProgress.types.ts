@@ -2,7 +2,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface NProgressProps extends Omit<StyleProps, "color" | "zIndex"> {
+export interface NProgressProps extends StyleProps {
   loading?: boolean | undefined;
   value?: number | undefined;
   color?: ColorExtended | undefined;

@@ -11,7 +11,7 @@ export interface SearchLabels {
   refresh: string;
 }
 
-export interface SearchProps extends Omit<StyleProps, "color" | "top" | "bottom"> {
+export interface SearchProps extends Omit<StyleProps, "top" | "bottom"> {
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;

@@ -9,7 +9,7 @@ export type ThemeIconVariant = Extract<
   "filled" | "outline" | "light" | "ghost" | "gradient"
 >;
 
-export interface ThemeIconProps extends Omit<StyleProps, "color"> {
+export interface ThemeIconProps extends StyleProps {
   children?: ReactNode | undefined;
   variant?: ThemeIconVariant | undefined;
   color?: ColorExtended | undefined;

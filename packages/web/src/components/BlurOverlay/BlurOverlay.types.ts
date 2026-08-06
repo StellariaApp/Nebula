@@ -12,7 +12,7 @@ import type { StyleProps } from "../../utils/style-props.js";
  * overlays puntuales a pantalla completa. No apilar dos BlurOverlay ni montarlo sobre un
  * `GlassSurface`: el `backdrop-filter` encadenado se paga por frame.
  */
-export interface BlurOverlayProps extends Omit<StyleProps, "color" | "opacity" | "zIndex"> {
+export interface BlurOverlayProps extends Omit<StyleProps, "opacity"> {
   blur?: BlurLevel | undefined;
   color?: ColorExtended | undefined;
   opacity?: number | undefined;

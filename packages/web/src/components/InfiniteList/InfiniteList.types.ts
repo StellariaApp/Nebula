@@ -19,7 +19,7 @@ export interface InfiniteListLabels {
   end: string;
 }
 
-export interface InfiniteListProps<T, TPage = readonly T[]> extends Omit<StyleProps, "color"> {
+export interface InfiniteListProps<T, TPage = readonly T[]> extends StyleProps {
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, index: number) => ReactNode;
   query?: InfiniteQueryLike<TPage> | undefined;

@@ -23,7 +23,7 @@ export interface GlobalSearchLabels {
   shortcut: string;
 }
 
-export interface GlobalSearchProps extends Omit<StyleProps, "color"> {
+export interface GlobalSearchProps extends StyleProps {
   results: readonly GlobalSearchResult[];
   onQueryChange: (query: string) => void;
   onSelect?: ((result: GlobalSearchResult) => void) | undefined;

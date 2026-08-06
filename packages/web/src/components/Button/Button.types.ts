@@ -27,7 +27,7 @@ type MotionConflictingProps =
 export interface ButtonProps
   extends
     Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | MotionConflictingProps>,
-    Omit<StyleProps, "color">,
+    StyleProps,
     PressLifecycleProps,
     PermissionProps {
   variant?: Variant | undefined;
