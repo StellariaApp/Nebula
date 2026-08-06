@@ -15,7 +15,7 @@ adoptó a medias porque nacieron después de la mayoría de los componentes.
 | `<Nombre>.vars.css.ts`     | 58 componentes                         | **18** declaran `createVar()` en el `.css.ts`                  |
 | Compound                   | 9 de 158, en **tres** idiomas          | criterio de cuál lo necesita, idioma único y carpeta de partes |
 | Props de ranura (`*Props`) | **ninguno** con la forma canónica      | el patrón entero                                               |
-| `surface.hoverActive`      | el contrato (ADR-088) y los 4 temas    | **el reparto**: cero consumidores en `packages/web`            |
+| `surface.hoverActive`      | contrato, 4 temas y 3 consumidores      | **cerrado** (2026-08-05) — ver N4                              |
 
 Ninguna es cosmética. Todas deciden si un consumidor puede ajustar un componente sin forkearlo,
 que es el principio que ordena el proyecto.
@@ -228,46 +228,31 @@ formulario, los de datos y los de cabecera. Mide el coste en bytes de cada tanda
 engorda el bundle y hay 192 entradas de presupuesto en packages/web/.size-limit.js.
 
 --------------------------------------------------------------------------------
-N4 · REPARTIR surface.hoverActive
+N4 · REPARTIR surface.hoverActive — CERRADO el 2026-08-05
 --------------------------------------------------------------------------------
-El contrato ganó surface.hoverActive: el fondo de algo que YA está activo y además
-recibe el ratón. Está declarado en theme/contract.css.ts y resuelto en los CUATRO temas
-(nebula-dark, nebula-light, sober-light, playful) — y no lo lee ni un componente. El token
-está pagado y sin usar.
+Hecho, y la regla resulto ser MAS ESTRECHA que la que decia este tramo. Se deja escrito
+porque la lista de candidatos original mandaba a meter el token donde no toca.
 
-Hasta ahora ese estado no existía, así que cada componente lo resolvía de una de dos
-maneras, las dos malas:
+Consumidores reales, y son los correctos: DataGrid, Table y TransferList. Los tres son
+filas o elementos de lista con seleccion sobre superficie NEUTRA.
 
-  (a) el hover no se aplica cuando el elemento está activo → el ratón no da respuesta
-      justo sobre lo que el usuario está a punto de pulsar;
-  (b) el hover pisa al activo → el elemento seleccionado se disfraza de no seleccionado
-      mientras lo señalas, que es peor.
+LA REGLA, corregida:
+  surface.hoverActive es para seleccion sobre superficie neutra.
+  Si el estado seleccionado lleva RELLENO DE MARCA, el cruce lo resuelve la escala de esa
+  marca, no el sistema de superficies.
 
-La regla: si un componente tiene a la vez estado activo/seleccionado y respuesta a hover,
-necesita hoverActive. Se aplica en el selector combinado, nunca sustituyendo a active:
+Por que. Un NavLink activo esta tenido de accent; al pasar el raton tiene que ahondar ESE
+tinte, no saltar a un gris del sistema. Meterle surface.hoverActive le rompe la escala de
+color. Lo mismo Calendar, GridPicker y Pagination, que ya lo resuelven con su propia var:
 
-    selectors: {
-      "&[data-selected]": { background: vars.color.surface.active },
-      "&[data-selected]:hover": { background: vars.color.surface.hoverActive },
-    }
+  Calendar      variables.dayBgHover
+  NavLink       variables.activeBgHover
+  Pagination    variables.accentHover
+  Nav           transparent   — el indicador ya marca el activo
+  GlobalSearch  usa hover COMO color de activo; no hay cruce que resolver
 
-Barre el catálogo buscando el patrón. Los que casi seguro lo piden —verifícalos, la lista
-sale de leer los tipos, no de medir el render—:
-
-  navegación   NavLink, Nav, AppShell.Sidebar, Tabs, Segment, Stepper, Breadcrumbs
-  selección    Menu, Select, Combobox, Autocomplete, MultiSelect, CommandPalette,
-               GlobalSearch, ListBox, TransferList
-  datos        Table, DataGrid, Kanban, Calendar, DatePicker, TimePicker
-  control      Chip, Tag, ToggleButton, SegmentedControl, Rating, ColorSwatch
-
-Dos cosas que NO son hoverActive:
-  - el hover de un botón normal, que no tiene estado activo persistente — ese es hover;
-  - el :active de CSS (botón pulsado). El token nombra "seleccionado", no "pulsado".
-    Si un componente usa surface.active para el pulsado, está mal y es hallazgo de N5.
-
-Cuando lo apliques, comprueba los dos esquemas: en oscuro hoverActive es un peldaño MÁS
-CLARO que active, y en claro uno más OSCURO. Un componente que lo dé por sentado en una
-dirección se rompe al cambiar de tema.
+Si aparece un componente nuevo con seleccion, la pregunta es una sola: cuando esta
+seleccionado, ¿su fondo sale de surface o de una escala? Si es surface, usa hoverActive.
 
 --------------------------------------------------------------------------------
 N5 · MEJORAS DE CÓDIGO, DISEÑO Y ARQUITECTURA

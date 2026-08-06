@@ -6,7 +6,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 
 **Estado**: F0, W1, W2, W3 y **W4 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`). **El catálogo web está completo**: 158 componentes (`Header` en ADR-062, `Nav` en ADR-068, `Reveal` y `Footer` en ADR-070; `Banner` renombrado a `Hero`), siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`).
 
-**Ahora mismo estamos en WR** (`prompts/2.1-web-refine/`), a medias. **Lee `docs/wr-estado-2026-08-01.md` antes de tocar nada**: trae qué está hecho, por dónde se sigue (T3), las decisiones abiertas y —lo más importante— la frontera de confianza de la auditoría. Después de WR viene **W5** (publicación web v1).
+**Ahora mismo estamos en WN** (`prompts/2.3-web-normalize/`), la normalización del catálogo antes de congelarlo. WR y WB están cerradas. **Lee el prompt de WN antes de tocar nada**: trae los tramos con sus números medidos sobre el repo y cuáles ya están cerrados. En paralelo está abierta **RP** (`prompts/2.4-rosette-product/`), la maqueta de Rosette. Después de WN viene **W5** (publicación web v1).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
@@ -19,7 +19,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 | `docs/04-migration-map.md`                | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps                     |
 | `docs/05-roadmap.md`                      | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes                        |
 | `docs/patterns/web-component-template.md` | **Plantilla canónica del componente web** — obligatoria al escribir cualquier componente |
-| `docs/adr/ADR-001…061`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
+| `docs/adr/ADR-001…102`                    | Decisiones de arquitectura; **toda dep nueva o cambio de API pública requiere ADR**      |
 | `docs/api/*.md`                           | Estado real de los repos fuente (anexos A/B/C)                                           |
 | `prompts/`                                | Prompts de ejecución por fase                                                            |
 
