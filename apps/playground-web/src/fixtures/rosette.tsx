@@ -1,0 +1,563 @@
+import { useRef, useState, type ReactElement, type ReactNode } from "react";
+
+import { CreateIcons, type IconComponentProps } from "@stellaria/nebula-icons";
+import { AllIconsPack } from "@stellaria/nebula-icons/packs";
+import {
+  ActionIcon,
+  AppShell,
+  AspectRatio,
+  Avatar,
+  Badge,
+  Box,
+  Divider,
+  Flex,
+  GradientText,
+  Menu,
+  StarField,
+  Text,
+  UnstyledButton,
+  VisuallyHidden,
+  type MenuItemData,
+  type StatusMap,
+} from "@stellaria/nebula-web";
+
+import { ProductStage } from "./themes.js";
+
+/* ── Iconografía ──────────────────────────────────────────────────────────────
+ * El pack común no trae los glifos del dominio —ancla, canon, roset, escalón—,
+ * así que se dibujan aquí. Todo lo demás sale de `AllIconsPack`.                */
+
+const Stroke = (path: ReactNode) => {
+  function Glyph({ size = 16, ...rest }: IconComponentProps): ReactElement {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        width={size}
+        height={size}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        {...rest}
+      >
+        {path}
+      </svg>
+    );
+  }
+  return Glyph;
+};
+
+export const { Icon } = CreateIcons({
+  ...AllIconsPack,
+  spark: Stroke(<path d="M12 3v6m0 6v6m-9-9h6m6 0h6M6 6l3 3m6 6 3 3m0-12-3 3m-6 6-3 3" />),
+  anchor: Stroke(
+    <>
+      <circle cx="12" cy="5" r="2.5" />
+      <path d="M12 7.5V21M5 13a7 7 0 0 0 14 0M8 10H4m16 0h-4" />
+    </>,
+  ),
+  canon: Stroke(
+    <>
+      <path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z" />
+      <path d="M8 7h6M8 11h6" />
+    </>,
+  ),
+  roset: Stroke(
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 1 0-9Z" />
+    </>,
+  ),
+  wardrobe: Stroke(<path d="M12 3v4m0 0-6 8h12l-6-8Zm-6 8v6h12v-6" />),
+  pin: Stroke(
+    <>
+      <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </>,
+  ),
+  scissors: Stroke(
+    <>
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="6" cy="18" r="2.5" />
+      <path d="M8 7.5 20 18M8 16.5 20 6" />
+    </>,
+  ),
+  grid: Stroke(<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />),
+  compass: Stroke(
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15 9-2 5-5 2 2-5z" />
+    </>,
+  ),
+  feed: Stroke(
+    <>
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="14" width="18" height="6" rx="2" />
+    </>,
+  ),
+  keyboard: Stroke(
+    <>
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8" />
+    </>,
+  ),
+  studio: Stroke(
+    <>
+      <path d="M3 20V9l9-5 9 5v11" />
+      <path d="M9 20v-6h6v6" />
+    </>,
+  ),
+});
+
+export type IconName = Parameters<typeof Icon>[0]["name"];
+
+/* ── Formato ─────────────────────────────────────────────────────────────────
+ * El corpus escribe los miles con punto —11.900, 45.000, 1.099— y aquí se
+ * respeta sin depender del locale del navegador que ejecute el gate.          */
+
+export function Miles(value: number): string {
+  return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+export function Rosets(value: number): string {
+  return `${Miles(value)} rosets`;
+}
+
+/* ── El estudio y su plan ─────────────────────────────────────────────────────
+ * Decisión 24: tres planes. Decisión 23: la concurrencia va por plan.
+ * Glosario: el estudio es el inquilino y los avatares cuelgan de él.           */
+
+export interface Plan {
+  nombre: string;
+  precio: string;
+  rosetsMes: number;
+  avatares: number;
+  trabajos: number;
+}
+
+export const PLANES: Plan[] = [
+  { nombre: "Starter", precio: "$25", rosetsMes: 950, avatares: 1, trabajos: 1 },
+  { nombre: "Pro", precio: "$299", rosetsMes: 11900, avatares: 6, trabajos: 6 },
+  { nombre: "Studio", precio: "$1.099", rosetsMes: 45000, avatares: 12, trabajos: 12 },
+];
+
+export const PLAN = PLANES[1] as Plan;
+
+export const SALDO = {
+  rosets: 4210,
+  gastadoCiclo: 7690,
+  limiteCiclo: 14000,
+  retenido: 60,
+  umbralRecarga: 500,
+  importeRecarga: "$50",
+  trabajosEnCurso: 3,
+};
+
+export const ESTUDIOS = [
+  { id: "casa-rosette", nombre: "Casa Rosette", papel: "Propietario" },
+  { id: "lumen", nombre: "Estudio Lumen", papel: "Operador" },
+];
+
+/* ── Tarifa ───────────────────────────────────────────────────────────────────
+ * §10.1, con la enmienda v4 del 02/08. Se declara una vez y todas las pantallas
+ * calculan de aquí: un precio escrito dos veces acaba siendo dos precios.      */
+
+export const TARIFA = {
+  imagen: 10,
+  video: 35,
+  voz: 1,
+  chat: 1,
+  extraccion: 5,
+  autogeneracion: 5,
+  canon: 1,
+  pruebaIdentidad: 10,
+  anclasBase: 100,
+  anclasDetalle: 150,
+  iconoAsset: 10,
+  rehacerBase: 20,
+  promptCustom: 2,
+};
+
+/* ── Avatares ─────────────────────────────────────────────────────────────────
+ * Lo que el modelo ya sabe de cada uno y que la ficha puede enseñar sin abrirlo:
+ * versión de canon vigente, anclas, techo declarado, activos y cola.           */
+
+export type EstadoAvatar = "borrador" | "completado" | "anclado" | "producible" | "archivado";
+
+export const ESTADO_AVATAR: StatusMap<EstadoAvatar> = {
+  borrador: { label: "Borrador", color: "gray", variant: "light", dot: true },
+  completado: { label: "Completado", color: "info", variant: "light", dot: true },
+  anclado: { label: "Anclado", color: "accent", variant: "light", dot: true },
+  producible: { label: "Producible", color: "success", variant: "light", dot: true },
+  archivado: { label: "Archivado", color: "gray", variant: "outline", dot: true },
+};
+
+export interface AvatarFicha {
+  id: string;
+  nombre: string;
+  estado: EstadoAvatar;
+  canon: number;
+  anclas: [number, number];
+  techo: "A" | "B" | "C" | "D";
+  activos: number;
+  cola: number;
+  origen: "fotos" | "texto" | "mixto";
+}
+
+export const AVATARES: AvatarFicha[] = [
+  {
+    id: "rose",
+    nombre: "Rose Aldana",
+    estado: "producible",
+    canon: 7,
+    anclas: [9, 9],
+    techo: "D",
+    activos: 155,
+    cola: 3,
+    origen: "mixto",
+  },
+  {
+    id: "vera",
+    nombre: "Vera Solís",
+    estado: "producible",
+    canon: 3,
+    anclas: [6, 6],
+    techo: "A",
+    activos: 41,
+    cola: 0,
+    origen: "fotos",
+  },
+  {
+    id: "nadia",
+    nombre: "Nadia Ortiz",
+    estado: "anclado",
+    canon: 2,
+    anclas: [8, 9],
+    techo: "C",
+    activos: 0,
+    cola: 1,
+    origen: "fotos",
+  },
+  {
+    id: "ada",
+    nombre: "Ada Winter",
+    estado: "completado",
+    canon: 1,
+    anclas: [0, 6],
+    techo: "B",
+    activos: 0,
+    cola: 0,
+    origen: "texto",
+  },
+  {
+    id: "cleo",
+    nombre: "Cleo Marchand",
+    estado: "borrador",
+    canon: 1,
+    anclas: [0, 6],
+    techo: "A",
+    activos: 0,
+    cola: 0,
+    origen: "texto",
+  },
+  {
+    id: "iris",
+    nombre: "Iris Bardem",
+    estado: "archivado",
+    canon: 4,
+    anclas: [6, 6],
+    techo: "A",
+    activos: 88,
+    cola: 0,
+    origen: "fotos",
+  },
+];
+
+export const AVATAR_ACTIVO = AVATARES[0] as AvatarFicha;
+
+/* ── Marcador de posición ─────────────────────────────────────────────────────
+ * La maqueta nunca reproduce contenido de la referencia: cada imagen es esta
+ * caja, que además dice qué iría dentro.                                       */
+
+export function Placeholder(props: {
+  ratio?: number | undefined;
+  label?: ReactNode | undefined;
+  icon?: IconName | undefined;
+  tone?: "base" | "muted" | undefined;
+  children?: ReactNode | undefined;
+}): ReactElement {
+  const { ratio = 3 / 4, label, icon = "image", tone = "base", children } = props;
+  return (
+    <AspectRatio ratio={ratio}>
+      <Box bg={tone === "muted" ? "surface.base" : "surface.sunken"} overflow="hidden">
+        <Flex direction="column" align="center" justify="center" gap="xs" h="100%">
+          <Box c="text.disabled" display="flex">
+            <Icon name={icon} size={22} />
+          </Box>
+          {label === undefined ? null : (
+            <Text fz="caption" c="text.muted" ta="center" px="sm">
+              {label}
+            </Text>
+          )}
+          {children}
+        </Flex>
+      </Box>
+    </AspectRatio>
+  );
+}
+
+/* ── Rótulo de sección ────────────────────────────────────────────────────── */
+
+export function Rotulo(props: { children: ReactNode; mt?: "md" | "lg" | undefined }): ReactElement {
+  const { children, mt } = props;
+  return (
+    <Text
+      component="h3"
+      fz="caption"
+      fw="semibold"
+      tt="uppercase"
+      ls="wide"
+      c="text.muted"
+      mt={mt}
+      mb="xs"
+    >
+      {children}
+    </Text>
+  );
+}
+
+/* ── El carril ────────────────────────────────────────────────────────────────
+ * Bajo tablet el propio Sidebar SE CONVIERTE en la barra inferior fija: la
+ * cabecera queda anclada a la izquierda, el pie a la derecha, y el cuerpo es el
+ * carrusel horizontal de en medio. Por eso el conmutador de estudio vive en la
+ * cabecera —lo que nunca cambia de sitio— y el saldo en el pie.                */
+
+export type SeccionCarril =
+  | "avatares"
+  | "taller"
+  | "revision"
+  | "biblioteca"
+  | "saldo"
+  | "explorar"
+  | "feed";
+
+const ESTUDIO_ACCIONES: MenuItemData[] = [
+  { key: "casa-rosette", label: "Casa Rosette", description: "Propietario · plan Pro" },
+  { key: "lumen", label: "Estudio Lumen", description: "Operador · plan Starter" },
+  { key: "polaris", label: "Ir a Polaris", description: "El tablero de todos los productos" },
+];
+
+function ConmutadorDeEstudio(): ReactElement {
+  return (
+    <Menu
+      items={ESTUDIO_ACCIONES}
+      aria-label="Cambiar de estudio"
+      trigger={
+        <UnstyledButton
+          w="100%"
+          miw={0}
+          aria-label={`Estudio activo: ${ESTUDIOS[0]?.nombre ?? ""}. Cambiar de estudio`}
+        >
+          <Flex align="center" gap="sm" miw={0} w="100%">
+            <Box c="primary.600" display="flex">
+              <Icon name="studio" size={24} />
+            </Box>
+            <AppShell.Label flex>
+              <Flex direction="column" miw={0} align="flex-start">
+                <Text fz="body3" fw="bold" lh="tight" truncate>
+                  <GradientText>{ESTUDIOS[0]?.nombre}</GradientText>
+                </Text>
+                <Text fz="caption" c="text.muted" lh="tight" truncate>
+                  Estudio · plan {PLAN.nombre}
+                </Text>
+              </Flex>
+            </AppShell.Label>
+            <AppShell.Label>
+              <Box c="text.muted" display="flex">
+                <Icon name="chevron-down" size={14} />
+              </Box>
+            </AppShell.Label>
+          </Flex>
+        </UnstyledButton>
+      }
+    />
+  );
+}
+
+interface Enlace {
+  key: SeccionCarril;
+  label: string;
+  icon: IconName;
+  description?: string | undefined;
+}
+
+const GRUPOS: { title: string; links: Enlace[] }[] = [
+  {
+    title: "Producir",
+    links: [
+      { key: "avatares", label: "Avatares", icon: "users" },
+      { key: "revision", label: "Revisión", icon: "check-square" },
+      { key: "biblioteca", label: "Biblioteca", icon: "wardrobe" },
+    ],
+  },
+  {
+    title: "Estudio",
+    links: [
+      { key: "saldo", label: "Saldo y gasto", icon: "roset" },
+      { key: "explorar", label: "Explorar", icon: "compass" },
+      { key: "feed", label: "Feed", icon: "feed" },
+    ],
+  },
+];
+
+function AvatarActivo(props: { active: boolean }): ReactElement {
+  const { active } = props;
+  return (
+    <AppShell.Links title="Avatar activo">
+      <AppShell.Link
+        href="#avatar"
+        active={active}
+        label={
+          <AppShell.Label>
+            <Text fz="body3" fw="semibold" truncate>
+              {AVATAR_ACTIVO.nombre}
+            </Text>
+          </AppShell.Label>
+        }
+        description={
+          <AppShell.Label>
+            <Text fz="caption" c="text.muted" truncate>
+              canon v{AVATAR_ACTIVO.canon} · techo {AVATAR_ACTIVO.techo}
+            </Text>
+          </AppShell.Label>
+        }
+        leftSection={<Avatar name={AVATAR_ACTIVO.nombre} size="sm" radius="full" />}
+      />
+    </AppShell.Links>
+  );
+}
+
+export function Carril(props: { active: SeccionCarril }): ReactElement {
+  const { active } = props;
+  return (
+    <AppShell.Sidebar.Body>
+      <AvatarActivo active={active === "taller"} />
+      {GRUPOS.map((grupo) => (
+        <AppShell.Links key={grupo.title} title={grupo.title}>
+          {grupo.links.map((link) => (
+            <AppShell.Link
+              key={link.key}
+              href={`#${link.key}`}
+              active={active === link.key}
+              label={<AppShell.Label>{link.label}</AppShell.Label>}
+              leftSection={<Icon name={link.icon} />}
+            />
+          ))}
+        </AppShell.Links>
+      ))}
+    </AppShell.Sidebar.Body>
+  );
+}
+
+export function PieDeCarril(): ReactElement {
+  return (
+    <AppShell.Sidebar.Footer>
+      <Box c="primary.600" display="flex">
+        <Icon name="roset" size={20} />
+      </Box>
+      <AppShell.Label flex>
+        <Flex direction="column" miw={0}>
+          <Text fz="caption" fw="semibold" truncate>
+            {Rosets(SALDO.rosets)}
+          </Text>
+          <Text fz="caption" c="text.muted" truncate>
+            {SALDO.trabajosEnCurso} de {PLAN.trabajos} trabajos
+          </Text>
+        </Flex>
+      </AppShell.Label>
+      <ActionIcon variant="ghost" size="sm" aria-label="Perfil y sesión">
+        <Icon name="user" />
+      </ActionIcon>
+    </AppShell.Sidebar.Footer>
+  );
+}
+
+/* ── El armazón ─────────────────────────────────────────────────────────────── */
+
+export function Shell(props: {
+  active: SeccionCarril;
+  title: string;
+  children: ReactNode;
+}): ReactElement {
+  const { active, title, children } = props;
+  const scroller = useRef<HTMLElement | null>(null);
+  const [mini, set_mini] = useState(false);
+
+  return (
+    <AppShell
+      mainRef={scroller}
+      scrollShadowOffset={116}
+      sidebarCollapsed={mini}
+      backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
+      sidebar={
+        <AppShell.Sidebar aria-label="Navegación principal" collapsed={mini} onCollapse={set_mini}>
+          <AppShell.Sidebar.Header>
+            <ConmutadorDeEstudio />
+          </AppShell.Sidebar.Header>
+          <Carril active={active} />
+          <PieDeCarril />
+        </AppShell.Sidebar>
+      }
+    >
+      <VisuallyHidden>
+        <h1>{title}</h1>
+      </VisuallyHidden>
+      {children}
+    </AppShell>
+  );
+}
+
+/* ── Escenario ────────────────────────────────────────────────────────────── */
+
+export function Escena(props: { children: ReactNode }): ReactElement {
+  return (
+    <ProductStage name="rosette" global="dark">
+      {props.children}
+    </ProductStage>
+  );
+}
+
+/* ── Aviso de gasto ───────────────────────────────────────────────────────────
+ * Decisión 10: el usuario ve lo que va a gastar ANTES de confirmar. No es una
+ * preferencia de diseño, es la decisión, así que vive en un solo sitio.        */
+
+export function AvisoDeGasto(props: {
+  coste: number;
+  detalle: ReactNode;
+  saldo?: number | undefined;
+}): ReactElement {
+  const { coste, detalle, saldo = SALDO.rosets } = props;
+  return (
+    <Box>
+      <Divider my="sm" />
+      <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
+        <Flex direction="column" miw={0}>
+          <Text fz="caption" c="text.muted">
+            Coste de este trabajo
+          </Text>
+          <Text fz="caption" c="text.muted">
+            {detalle}
+          </Text>
+        </Flex>
+        <Badge variant="light" size="lg">
+          {Rosets(coste)}
+        </Badge>
+      </Flex>
+      <Text fz="caption" c="text.muted" mt="xxs">
+        Te quedan {Rosets(saldo)}. Después de este trabajo: {Rosets(saldo - coste)}.
+      </Text>
+    </Box>
+  );
+}
