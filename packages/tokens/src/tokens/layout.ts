@@ -1,6 +1,11 @@
-import type { BreakpointName, RadiusName, SpacingName, ZIndexName } from "../theme/primitives.js";
+import type {
+  BreakpointName,
+  RadiusName,
+  SizeName,
+  SpacingName,
+  ZIndexName,
+} from "../theme/primitives.js";
 import type { ThemeSizes, ThemeSpacing } from "../theme/theme.js";
-import type { Size } from "../types/variants.js";
 
 export const spacing = {
   unit: 4,
@@ -36,19 +41,23 @@ export const radius = {
 
 export const sizes = {
   control: {
-    xs: 32,
-    sm: 40,
-    md: 48,
-    lg: 56,
-    xl: 64,
-  } satisfies Record<Size, number>,
+    xxs: 20,
+    xs: 28,
+    sm: 36,
+    md: 44,
+    lg: 52,
+    xl: 60,
+    xxl: 68,
+  } satisfies Record<SizeName, number>,
   compact: {
+    xxs: 16,
     xs: 20,
     sm: 24,
     md: 28,
     lg: 32,
     xl: 36,
-  } satisfies Record<Size, number>,
+    xxl: 40,
+  } satisfies Record<SizeName, number>,
 } as const satisfies ThemeSizes;
 
 export const breakpoints = {

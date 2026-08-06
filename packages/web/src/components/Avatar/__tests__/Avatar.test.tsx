@@ -2,6 +2,7 @@ import { fireEvent } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { vars } from "../../../theme/contract.css.js";
 import { Avatar, Initials, ResolveAvatarSize } from "../Avatar.js";
 import { AvatarGroup } from "../Group.js";
 
@@ -24,10 +25,15 @@ describe("Initials", () => {
 });
 
 describe("ResolveAvatarSize", () => {
-  it("traduce los tamaños del contrato", () => {
-    expect(ResolveAvatarSize(undefined)).toBe("40px");
-    expect(ResolveAvatarSize("xs")).toBe("24px");
-    expect(ResolveAvatarSize("xl")).toBe("72px");
+  it("los tamaños del contrato salen por var, no horneados", () => {
+    expect(ResolveAvatarSize(undefined)).toBe(vars.size.control.md);
+    expect(ResolveAvatarSize("xs")).toBe(vars.size.control.xs);
+    expect(ResolveAvatarSize("xl")).toBe(vars.size.control.xl);
+  });
+
+  it("comparte la escala con el resto de controles", () => {
+    expect(ResolveAvatarSize("sm")).toBe(vars.size.control.sm);
+    expect(ResolveAvatarSize("md")).toBe(vars.size.control.md);
   });
 
   it("acepta una longitud libre", () => {
@@ -67,7 +73,7 @@ describe("Avatar", () => {
   it("resuelve el tamaño por var, no por estilo horneado", () => {
     const { container } = render(<Avatar name="Ana Rivera" size="lg" />);
     const root = container.querySelector("span");
-    expect(root?.getAttribute("style")).toContain("56px");
+    expect(root?.getAttribute("style")).toContain(vars.size.control.lg);
   });
 });
 
