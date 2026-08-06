@@ -32,6 +32,7 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
         <Box className={styles.toggle}>
           <ActionIcon
             variant="glass"
+            glass="strong"
             size="sm"
             r="full"
             aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}

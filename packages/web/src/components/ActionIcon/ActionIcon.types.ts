@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type {
   ColorExtended,
+  GlassLevel,
   PermissionProps,
   Size,
   Variant,
@@ -37,4 +38,5 @@ export interface ActionIconProps
   disabled?: boolean | undefined;
   loading?: boolean | undefined;
   children?: ReactNode | undefined;
+  glass?: GlassLevel | undefined;
 }

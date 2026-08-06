@@ -38,6 +38,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       children,
       className,
       style,
+      glass,
       ...rest
     } = props;
 
@@ -92,8 +93,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const { focusProps, isFocusVisible } = useFocusRing();
 
     const resolved = useMemo(
-      () => ResolveVariant(variant, color, theme, gradient),
-      [variant, color, theme, gradient],
+      () => ResolveVariant(variant, color, theme, gradient, glass),
+      [variant, color, theme, gradient, glass],
     );
 
     const css_vars = useMemo<CSSProperties>(
