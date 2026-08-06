@@ -8,9 +8,15 @@ description: Gates de calidad de Nebula por cambio y por fase — typecheck TS7,
 ## Gates mínimos por cambio (SIEMPRE, desde F0)
 
 ```bash
+set -o pipefail                   # OBLIGATORIO si vas a canalizar la salida (ver abajo)
 pnpm turbo build typecheck lint   # TS 7 estricto por paquete; lint tipado (TS 5.9.3 raíz, ADR-012)
 pnpm check:contrast               # si tocaste tokens, themes o el contrato NebulaTheme
 ```
+
+**`pnpm turbo … | tail -N` devuelve el código de salida de `tail`, no el de turbo.** Tres gates
+—el esquema de temas, las rutas de `.size-limit.js` y el typecheck del playground— pasaron semanas
+en rojo sin que nadie lo viera por esto (2026-08-06). O `set -o pipefail`, o miras el código de
+salida explícitamente.
 
 - Typecheck estricto: `strict` total + `noUncheckedIndexedAccess`; presupuesto de `any` = solo fronteras de framework documentadas.
 - Los checks de contrato de tokens (`src/__checks__/contract.test-d.ts`) forman parte del typecheck.

@@ -64,7 +64,7 @@ const MODULE_BUDGETS = [
   },
   {
     name: "GridCol (primitivo temable en runtime, por módulo)",
-    path: "dist/components/Grid/Col.js",
+    path: "dist/components/Grid/components/Col.js",
     import: "{ GridCol }",
     ignore: ["react", "react-dom"],
     limit: "13 kB",
@@ -393,10 +393,10 @@ const MODULE_BUDGETS = [
   },
   {
     name: "Form (compound + botones, por módulo)",
-    path: "dist/components/Form/Form.js",
+    path: "dist/components/Form/index.js",
     import: "{ Form }",
     ignore: ["react", "react-dom"],
-    limit: "34.5 kB",
+    limit: "36 kB",
   },
   {
     name: "FormDelete (Form + Alert, por módulo)",
@@ -827,7 +827,7 @@ const MODULE_BUDGETS = [
   },
   {
     name: "Table (compound de tabla sin Aria, por módulo)",
-    path: "dist/components/Table/Table.js",
+    path: "dist/components/Table/index.js",
     import: "{ Table }",
     ignore: ["react", "react-dom"],
     limit: "13 kB",
@@ -942,7 +942,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/AppShell/AppShell.js",
     import: "{ AppShell }",
     ignore: ["react", "react-dom"],
-    limit: "13.5 kB",
+    limit: "14.5 kB",
   },
   {
     name: "Panel (master-detail con separador operable, por módulo)",

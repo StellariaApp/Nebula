@@ -62,7 +62,7 @@ Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `dark` 
 - **Nunca asumir en silencio**: si algo contradice `docs/` o admite más de una interpretación, preguntar ANTES con opciones + recomendación. Agrupar preguntas en checkpoints por lotes, no gotear.
 - Los docs cerrados prevalecen sobre cualquier preferencia; cambiarlos exige ADR + actualización del doc en el mismo PR.
 - Todo cambio de API pública o de dependencias requiere ADR previo (skill `architecture-decisions`).
-- Gates antes de commitear: `pnpm turbo build typecheck lint` (+ `check:contrast` si tocaste tokens/themes). Commits convencionales con scopes de Nebula (skill `git-pr-conventions`).
+- Gates antes de commitear: `pnpm turbo build typecheck lint` (+ `check:contrast` si tocaste tokens/themes). Si canalizas la salida, `set -o pipefail`: `| tail` devuelve el código de salida de `tail` y te oculta el fallo. Commits convencionales con scopes de Nebula (skill `git-pr-conventions`).
 - Una fase del roadmap no se abre sin la anterior en verde (docs/05).
 
 ## Skills
