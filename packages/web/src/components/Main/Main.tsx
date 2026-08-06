@@ -12,6 +12,7 @@ import { LengthToCss, SpaceToCss } from "../../utils/token-css.js";
 import * as styles from "./Main.css.js";
 import type { MainProps } from "./Main.types.js";
 import * as variables from "./Main.vars.css.js";
+import { Box } from "../Box/Box.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const BOUNCE_DISTANCE = 120;
@@ -36,6 +37,9 @@ export function Main(props: MainProps): ReactElement {
     withSkipLink = false,
     id,
     className,
+    skipProps,
+    backdropProps,
+    contentProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -122,15 +126,24 @@ export function Main(props: MainProps): ReactElement {
       style={sprinkle_style}
     >
       {withSkipLink ? (
-        <a href={`#${content_id}`} className={styles.skip}>
+        <Box
+          component="a"
+          href={`#${content_id}`}
+          {...skipProps}
+          className={cx(styles.skip, skipProps?.className)}
+        >
           {skipLabel}
-        </a>
+        </Box>
       ) : null}
 
       {background === undefined ? null : (
-        <div className={styles.backdrop} aria-hidden="true">
+        <Box
+          aria-hidden="true"
+          {...backdropProps}
+          className={cx(styles.backdrop, backdropProps?.className)}
+        >
           {background}
-        </div>
+        </Box>
       )}
 
       {header}
@@ -139,8 +152,9 @@ export function Main(props: MainProps): ReactElement {
         ref={content_ref}
         id={content_id}
         tabIndex={-1}
-        className={styles.content}
-        style={content_vars}
+        {...contentProps}
+        className={cx(styles.content, contentProps?.className)}
+        style={{ ...content_vars, ...contentProps?.style }}
         data-padded={padded ? "true" : undefined}
         data-centered={centered ? "true" : undefined}
         data-railed={contentWidth === undefined ? undefined : "true"}

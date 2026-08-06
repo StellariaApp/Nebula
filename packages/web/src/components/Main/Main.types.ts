@@ -4,6 +4,8 @@ import type { SpacingValue, SpringName, Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export interface MainProps extends StyleProps {
   children?: ReactNode | undefined;
   header?: ReactNode | undefined;
@@ -22,4 +24,7 @@ export interface MainProps extends StyleProps {
   withSkipLink?: boolean | undefined;
   id?: string | undefined;
   className?: string | undefined;
+  skipProps?: BoxSlotProps | undefined;
+  backdropProps?: BoxSlotProps | undefined;
+  contentProps?: BoxSlotProps | undefined;
 }
