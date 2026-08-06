@@ -17,6 +17,7 @@ import {
   Flex,
   GridList,
   Group,
+  SimpleGrid,
   Menu,
   Progress,
   StatusBadge,
@@ -30,6 +31,7 @@ import {
 
 import {
   AVATARES,
+  Cols,
   Escena,
   ESTADO_AVATAR,
   Icon,
@@ -39,6 +41,7 @@ import {
   Rotulo,
   SALDO,
   Shell,
+  SIN_REVISAR,
   TARIFA,
   VISIBILIDAD,
   type AvatarFicha,
@@ -144,6 +147,46 @@ function Duplicar({
         Duplicar
       </Button>
     </Drawer>
+  );
+}
+
+/* ── Lo que te espera ─────────────────────────────────────────────────────────
+ * Vivía en Home. Al retirarse Home —la raíz pasa a ser Explorar— se muda aquí,
+ * que es donde se actúa sobre ello: la cuenta de sin revisar la lleva además el
+ * propio carril, para que se vea desde el lado público del producto.           */
+
+function Pendiente({
+  icono,
+  titulo,
+  detalle,
+  accion,
+  tono,
+}: {
+  icono: "check-square" | "loader" | "warning";
+  titulo: string;
+  detalle: string;
+  accion: string;
+  tono: "accent" | "info" | "warning";
+}): ReactElement {
+  return (
+    <Card withBorder radius="lg" padding="none">
+      <Box p="md">
+        <Flex align="center" gap="sm" mb="xs">
+          <Box c={`${tono}.600`} display="flex">
+            <Icon name={icono} size={18} />
+          </Box>
+          <Text fz="body3" fw="semibold">
+            {titulo}
+          </Text>
+        </Flex>
+        <Text fz="caption" c="text.muted">
+          {detalle}
+        </Text>
+        <Button size="xs" variant="ghost" mt="sm" rightSection={<Icon name="chevron-right" />}>
+          {accion}
+        </Button>
+      </Box>
+    </Card>
   );
 }
 
@@ -393,9 +436,30 @@ function Avatares({ duplicando = false }: { duplicando?: boolean | undefined }):
           </Flex>
         </AppShell.Subbar>
         <AppShell.Content>
-          <Box mb="md" maw={520}>
+          <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 4 })} spacing="md" mb="md">
+            <Pendiente
+              icono="check-square"
+              tono="accent"
+              titulo={`${String(SIN_REVISAR)} sin revisar`}
+              detalle="En Rose Aldana y en Nadia Ortiz. Sin ratón: 40 caben en 15 minutos."
+              accion="Revisar"
+            />
+            <Pendiente
+              icono="loader"
+              tono="info"
+              titulo={`${String(SALDO.trabajosEnCurso)} trabajos en curso`}
+              detalle={`De los ${String(PLAN.trabajos)} que permite el plan ${PLAN.nombre}.`}
+              accion="Ver la cola"
+            />
+            <Pendiente
+              icono="warning"
+              tono="warning"
+              titulo="1 avatar a medias"
+              detalle="Nadia Ortiz tiene 8 de 9 anclas: la dorsal salió contradicha."
+              accion="Terminar Nadia Ortiz"
+            />
             <Saldo />
-          </Box>
+          </SimpleGrid>
 
           <GridList
             items={items}

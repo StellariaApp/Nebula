@@ -13,6 +13,7 @@ import {
   Drawer,
   Flex,
   GlassSurface,
+  Group,
   SearchInput,
   Segment,
   SimpleGrid,
@@ -285,11 +286,16 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
         <AppShell.Header
           sticky
           title="Explorar"
-          subtitle="Avatares que su estudio ha hecho públicos, y el banco de acciones curado"
+          subtitle="Todos los avatares públicos, y el banco de acciones curado"
           actions={
-            <Badge variant="light" size="sm" color="warning">
-              exploración · fuera del alcance del MVP
-            </Badge>
+            <Group gap="sm">
+              <Badge variant="light" size="sm" color="warning">
+                fuera del alcance del MVP
+              </Badge>
+              <Button size="sm" rightSection={<Icon name="plus" />}>
+                Crear avatar
+              </Button>
+            </Group>
           }
         />
         <AppShell.Subbar sticky>
@@ -308,12 +314,14 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
             variant="light"
             color="warning"
             icon={<Icon name="warning" />}
-            title="Esta pantalla no existe en plan-demo"
+            title="Esta pantalla es la raíz, y no existe en plan-demo"
             mb="md"
           >
-            Es territorio de <strong>plan-produccion</strong> y queda fuera del alcance del MVP. Lo
-            que sí está decidido —06/08/2026— es el modelo que la sostiene: el avatar es público o
-            privado, sus piezas se publican una a una, y clonar se autoriza aparte.
+            Decisión del titular, 06/08/2026: <strong>la puerta de Rosette es el catálogo
+            público</strong>, no un panel del estudio. Pero Explorar es territorio de{" "}
+            <strong>plan-produccion</strong>, así que <strong>mientras no exista, la raíz cae a
+            Avatares</strong> —donde ahora vive «lo que te espera»— y esta pantalla llega con el
+            producto público.
           </Alert>
 
           <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
@@ -426,8 +434,19 @@ export default meta;
 type Story = StoryObj;
 
 /**
- * ⚠️ **Exploración fuera del alcance del MVP.** La pantalla no existe en `plan-demo`; lo que sí
- * está decidido —06/08/2026— es el modelo que la sostiene.
+ * **La raíz de Rosette** — decisión del titular, 06/08/2026. Se retiró Home: en un producto que
+ * también se consume, la puerta es el catálogo público y no un panel del estudio. Los dos grupos
+ * del carril ya lo decían —*Rosette se consume, el estudio produce*— y ahora la primera pantalla
+ * lo dice también.
+ *
+ * *Lo que Home cargaba no se pierde.* «Lo que te espera» —sin revisar, trabajos en curso, el
+ * avatar a medias— se muda a `Avatares`, que es donde se actúa sobre ello, y **la cuenta de sin
+ * revisar viaja en el propio carril**: se ve desde aquí, desde el lado público, sin volver al
+ * estudio.
+ *
+ * ⚠️ **Y esta pantalla no existe en `plan-demo`.** Es territorio de `plan-produccion`, así que
+ * mientras no exista **la raíz cae a `Avatares`**. La decisión de producto se mantiene; lo que se
+ * mueve es cuándo entra.
  *
  * *Son tres permisos y la pantalla no los mezcla.* **Público** decide si el avatar aparece aquí.
  * **Las piezas publicadas** se marcan una a una en su galería, así que lo que no se marca no sale

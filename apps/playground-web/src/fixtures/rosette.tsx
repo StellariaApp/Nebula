@@ -12,6 +12,7 @@ import {
   Divider,
   Flex,
   GradientText,
+  Indicator,
   Menu,
   StarField,
   Text,
@@ -436,18 +437,28 @@ export function Rotulo(props: { children: ReactNode; mt?: "md" | "lg" | undefine
  * carrusel horizontal de en medio. Por eso el conmutador de estudio vive en la
  * cabecera —lo que nunca cambia de sitio— y el saldo en el pie.                */
 
-/* El carril, decidido por el titular el 06/08/2026. Dos grupos y seis entradas,
- * y los dos grupos dicen de qué va el producto: **Rosette se consume, el estudio
- * produce**.
+/* El carril, decidido por el titular el 06/08/2026 y afinado el mismo día.
+ * Dos grupos y cinco entradas, y los grupos dicen de qué va el producto:
+ * **Rosette se consume, el estudio produce**.
  *
- *   Rosette   Home · Explorar · Feed
+ *   Rosette   Explorar (/) · Feed
  *   Studio    Avatares · Saldo y gasto · Usuarios
+ *
+ * **La raíz es Explorar, no un panel del estudio.** Se retiró Home: en un
+ * producto que también se consume, la puerta es el catálogo. Lo que Home
+ * cargaba —«lo que te espera»— se muda al sitio donde se actúa sobre ello, que
+ * es `Avatares`, con su cuenta en el propio carril para que se vea también
+ * desde el lado público.
  *
  * Lo que no es entrada de carril cuelga de la sección a la que pertenece, y por
  * eso `activa` admite una sección aunque la pantalla sea una subruta: el alta,
  * el taller y la revisión iluminan `Avatares`. */
 
-export type SeccionCarril = "home" | "explorar" | "feed" | "avatares" | "saldo" | "usuarios";
+export type SeccionCarril = "explorar" | "feed" | "avatares" | "saldo" | "usuarios";
+
+/** Candidatas sin revisar en todo el estudio. Es lo único de Home que no podía
+ *  perderse, así que viaja en el carril y se ve desde cualquier pantalla. */
+export const SIN_REVISAR = 14;
 
 const ESTUDIO_ACCIONES: MenuItemData[] = [
   { key: "casa-rosette", label: "Casa Rosette", description: "Propietario · plan Pro" },
@@ -497,14 +508,13 @@ interface Enlace {
   key: SeccionCarril;
   label: string;
   icon: IconName;
-  description?: string | undefined;
+  cuenta?: number | undefined;
 }
 
 const GRUPOS: { title: string; links: Enlace[] }[] = [
   {
     title: "Rosette",
     links: [
-      { key: "home", label: "Home", icon: "home" },
       { key: "explorar", label: "Explorar", icon: "compass" },
       { key: "feed", label: "Feed", icon: "feed" },
     ],
@@ -512,7 +522,7 @@ const GRUPOS: { title: string; links: Enlace[] }[] = [
   {
     title: "Studio",
     links: [
-      { key: "avatares", label: "Avatares", icon: "users" },
+      { key: "avatares", label: "Avatares", icon: "users", cuenta: SIN_REVISAR },
       { key: "saldo", label: "Saldo y gasto", icon: "roset" },
       { key: "usuarios", label: "Usuarios", icon: "user" },
     ],
@@ -537,6 +547,46 @@ export function Nombre(texto: string, compacto: boolean): ReactNode {
   return compacto ? <VisuallyHidden>{texto}</VisuallyHidden> : undefined;
 }
 
+/* La cuenta de pendientes va en el `leftSection` como `Indicator`, que es
+ * decorativo —`NavLink` lo marca `aria-hidden`—, y **también dentro del nombre
+ * accesible**: un punto rojo que un lector de pantalla no puede leer no es una
+ * notificación, es un adorno. Por eso el nombre dice «Avatares, 14 sin
+ * revisar» en las dos anchuras. */
+
+function EnlaceDeCarril(props: { link: Enlace; active: boolean; compacto: boolean }): ReactElement {
+  const { link, active, compacto } = props;
+  const nombre =
+    link.cuenta === undefined
+      ? link.label
+      : `${link.label}, ${String(link.cuenta)} sin revisar`;
+
+  return (
+    <AppShell.Link
+      href={`#${link.key}`}
+      active={active}
+      label={<AppShell.Label>{link.label}</AppShell.Label>}
+      rightSection={
+        compacto ? (
+          <VisuallyHidden>{nombre}</VisuallyHidden>
+        ) : link.cuenta === undefined ? undefined : (
+          <Badge size="xs" variant="light" color="accent">
+            {link.cuenta}
+          </Badge>
+        )
+      }
+      leftSection={
+        link.cuenta === undefined ? (
+          <Icon name={link.icon} />
+        ) : (
+          <Indicator count={link.cuenta} size="sm" color="accent" offset={4}>
+            <Icon name={link.icon} />
+          </Indicator>
+        )
+      }
+    />
+  );
+}
+
 export function Carril(props: {
   active: SeccionCarril | "ninguna";
   collapsed?: boolean | undefined;
@@ -550,13 +600,11 @@ export function Carril(props: {
       {GRUPOS.map((grupo) => (
         <AppShell.Links key={grupo.title} title={grupo.title}>
           {grupo.links.map((link) => (
-            <AppShell.Link
+            <EnlaceDeCarril
               key={link.key}
-              href={`#${link.key}`}
+              link={link}
               active={active === link.key}
-              label={<AppShell.Label>{link.label}</AppShell.Label>}
-              rightSection={Nombre(link.label, compacto)}
-              leftSection={<Icon name={link.icon} />}
+              compacto={compacto}
             />
           ))}
         </AppShell.Links>

@@ -82,8 +82,7 @@ CABECERA DEL CARRIL   conmutador de estudio
                       └ ajustes del estudio · techo, banco de acciones y auditoría
 
 Rosette                                    ← se consume
-  /                   Home                 lo que te espera y lo que hay nuevo
-  /explorar           Explorar
+  /                   Explorar             todos los avatares públicos · ES LA RAÍZ
   /feed               Feed
 
 Studio                                     ← produce
@@ -100,9 +99,17 @@ PIE DEL CARRIL        saldo + perfil
 FUERA DEL ARMAZÓN     /alta · alta del estudio · POST /studios
 ```
 
-**Los dos grupos dicen de qué va el producto: Rosette se consume, el estudio produce.** Home es la
-bisagra —lo accionable arriba, lo que hay nuevo abajo— y por eso absorbe el contador de revisión que
-antes justificaba una entrada propia.
+**Los dos grupos dicen de qué va el producto: Rosette se consume, el estudio produce.** Y la raíz
+lo dice también: **la puerta es el catálogo público, no un panel del estudio.** Hubo un `Home` con
+«lo que te espera» y se retiró el mismo día — en un producto que también se consume, una portada de
+estudio delante del catálogo es una puerta de más.
+
+**Lo que Home cargaba no se perdió**: «lo que te espera» se mudó a `Avatares`, que es donde se
+actúa sobre ello, y **la cuenta de candidatas sin revisar viaja en el propio carril**, así que se ve
+también desde el lado público sin volver al estudio.
+
+⚠️ **Explorar no existe en `plan-demo`.** Mientras no exista, **la raíz cae a `Avatares`**. La
+decisión de producto se mantiene; lo que se mueve es cuándo entra.
 
 **`Usuarios` resuelve un agujero que el modelo tenía y la interfaz no podía cumplir:** §5.1 regla 4
 exige comprobar el escalón contra **el permiso del miembro**, y ese tercer techo no vivía en ninguna
@@ -116,15 +123,20 @@ pantalla.
 | **Techo del estudio, auditoría** | ajustes del estudio, tras el conmutador | Es donde ya vive «qué es este estudio», y es la única esquina que no se mueve entre las tres anchuras |
 | **Assets** | pestaña del avatar | §4.5: `sceneAsset.avatar` es una ref |
 | **Revisión** | modo, colgado del avatar | ver abajo |
-| **Avatar activo** | **retirado del carril** | era mi parche para un carril sin portada. Con Home existiendo, el ancla de contexto es la cabecera del propio avatar, y en el móvil devuelve un hueco |
+| **Avatar activo** | **retirado del carril** | era un parche para un carril sin raíz. El ancla de contexto es la cabecera del propio avatar, y en el móvil devuelve un hueco |
+| **«Lo que te espera»** | arriba de `Avatares`, y la cuenta en el carril | vivía en Home. Se muda a donde se actúa sobre ello, y la cuenta viaja en el carril para verse desde el lado público |
 
 ### Medido en la barra inferior
 
-A **360 px** entran cuatro entradas y caen fuera **Saldo y gasto** y **Usuarios** —`x=358` y
-`x=418` sobre una ventana de 360—. La barra desplaza en horizontal, así que se alcanzan con un
-gesto, y **la cifra del saldo sobrevive igual** porque el pie del carril va anclado a la derecha.
-Las dos que caen son las administrativas; las de trabajo diario —Home y Avatares— quedan a la
-vista. Si algún día molesta, la palanca es invertir el orden de los grupos, no quitar entradas.
+Con seis entradas, a **360 px** caían fuera **Saldo y gasto** y **Usuarios** —`x=358` y `x=418`
+sobre una ventana de 360—, alcanzables solo desplazando.
+
+**Retirar Home compró exactamente el hueco que faltaba.** Con cinco, las cinco entran: `x` de 35 a
+300, borde derecho dentro de la ventana, y `scrollWidth === innerWidth`. Medido a 360 y a 390.
+
+Es la segunda vez en esta fase que una decisión de producto se valida con una medida de la barra
+inferior, y la razón es la misma: bajo `tablet` el carril **es** la barra, así que cada entrada de
+carril es un destino de móvil y se paga en píxeles.
 
 ### Los cambios, y por qué
 
@@ -145,9 +157,12 @@ junta y eso obliga a inventar un dueño que el modelo no tiene.
 describe el producto y no solo el MVP: son la mitad que se consume, y Home es la bisagra entre las
 dos. Siguen rotuladas como fuera de alcance dentro de la pantalla.
 
-**E · El avatar activo se retira del carril.** Era un parche para un carril sin portada. Con Home
-existiendo, el ancla de contexto es la cabecera del propio avatar — y en el móvil devuelve un hueco
-que hacía falta.
+**E · El avatar activo se retira del carril.** Era un parche para un carril sin raíz. El ancla de
+contexto es la cabecera del propio avatar — y en el móvil devuelve un hueco que hacía falta.
+
+**F · Home se retira y la raíz pasa a ser Explorar.** En un producto que también se consume, una
+portada de estudio delante del catálogo es una puerta de más. Y en la barra inferior compró el
+hueco que faltaba: con cinco entradas, las cinco caben a 360 px.
 
 ---
 
