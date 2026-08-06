@@ -30,8 +30,22 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       rootClassName,
       errorDisplay = "tooltip",
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
       ...textarea_rest_and_style
     } = props;
+    const field_slots = {
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
+    };
     const {
       className: sprinkle_class,
       style: sprinkle_style,
@@ -63,6 +77,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <FormField
+        {...field_slots}
         label={label}
         description={description}
         error={form_error}

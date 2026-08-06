@@ -5,6 +5,7 @@ import { forwardRef, useId, type ElementType, type ReactElement, type Ref } from
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 import { FieldError } from "../FieldError/FieldError.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./FormField.css.js";
 import type {
@@ -21,13 +22,17 @@ const FormFieldComponent = forwardRef<HTMLElement, FormFieldOwnProps>(
       description,
       error,
       errorDisplay = "tooltip",
-      errorPosition,
-      errorOffset,
       status,
       required = false,
       id,
       className,
       children,
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
       ...rest
     } = props;
 
@@ -67,45 +72,61 @@ const FormFieldComponent = forwardRef<HTMLElement, FormFieldOwnProps>(
         {...rest}
       >
         {has_header ? (
-          <div className={styles.header}>
+          <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
             {label === undefined || label === null ? null : (
-              <label id={`${input_id}-label`} htmlFor={input_id} className={styles.label}>
+              <Text
+                component="label"
+                id={`${input_id}-label`}
+                htmlFor={input_id}
+                {...labelProps}
+                className={cx(styles.label, labelProps?.className)}
+              >
                 {label}
                 {required ? (
-                  <span className={styles.required} aria-hidden="true">
+                  <Box
+                    component="span"
+                    aria-hidden="true"
+                    {...requiredProps}
+                    className={cx(styles.required, requiredProps?.className)}
+                  >
                     *
-                  </span>
+                  </Box>
                 ) : null}
-              </label>
+              </Text>
             )}
             {description === undefined || description === null ? null : (
-              <span id={description_id} className={styles.description}>
+              <Text
+                component="span"
+                id={description_id}
+                {...descriptionProps}
+                className={cx(styles.description, descriptionProps?.className)}
+              >
                 {description}
-              </span>
+              </Text>
             )}
-          </div>
+          </Box>
         ) : null}
-        <div className={styles.body}>
+        <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
           {use_tooltip ? (
-            <FieldError
-              message={error_message}
-              status={status}
-              position={errorPosition}
-              {...(errorOffset === undefined ? {} : { offset: errorOffset })}
-            >
+            <FieldError message={error_message} status={status} {...errorProps}>
               {typeof children === "function" ? children(control) : children}
             </FieldError>
           ) : (
             <>
               {typeof children === "function" ? children(control) : children}
               {error_message === undefined ? null : (
-                <span id={error_id} role="alert" className={styles.error}>
+                <Text
+                  component="span"
+                  id={error_id}
+                  role="alert"
+                  className={cx(styles.error, errorProps?.className)}
+                >
                   {error_message}
-                </span>
+                </Text>
               )}
             </>
           )}
-        </div>
+        </Box>
       </Box>
     );
   },

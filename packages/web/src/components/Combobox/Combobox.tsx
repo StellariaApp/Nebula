@@ -64,8 +64,22 @@ export function Combobox(props: ComboboxProps): ReactElement {
     className,
     rootClassName,
     name,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const fp = useFieldProps<string>({
@@ -170,6 +184,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       id={input_id}
       label={label}
       description={description}

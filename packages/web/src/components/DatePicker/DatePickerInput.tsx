@@ -53,8 +53,22 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
     name,
     className,
     rootClassName,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const { locale: ambient } = useLocale();
@@ -126,6 +140,7 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       label={label}
       description={description}
       error={form_error}

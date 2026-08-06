@@ -6,6 +6,8 @@ import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export interface NumberInputProps
   extends
     Omit<
@@ -22,7 +24,8 @@ export interface NumberInputProps
       | "max"
       | "step"
     >,
-    StyleProps {
+    StyleProps,
+    FormFieldSlotProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

@@ -4,6 +4,8 @@ import type { NebulaField } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type RichTextAction =
   | "bold"
   | "italic"
@@ -32,7 +34,7 @@ export interface RichTextLabels extends Record<RichTextAction, string> {
   linkPrompt: string;
 }
 
-export interface RichTextEditorProps extends StyleProps {
+export interface RichTextEditorProps extends StyleProps, FormFieldSlotProps {
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((html: string) => void) | undefined;

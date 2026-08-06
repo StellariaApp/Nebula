@@ -8,9 +8,11 @@ import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type ComboboxMenuTrigger = "input" | "focus" | "manual";
 
-export interface ComboboxProps extends StyleProps {
+export interface ComboboxProps extends StyleProps, FormFieldSlotProps {
   data: readonly SelectOption[];
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

@@ -39,8 +39,22 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
     withToolbar = true,
     labels,
     className,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const text = useMemo(
@@ -115,6 +129,7 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       id={field_id}
       {...(label === undefined ? {} : { label })}
       {...(description === undefined ? {} : { description })}

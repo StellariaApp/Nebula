@@ -56,8 +56,22 @@ export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       onChange,
       className,
       rootClassName,
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
       ...select_rest_and_style
     } = props;
+    const field_slots = {
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
+    };
     const {
       className: sprinkle_class,
       style: sprinkle_style,
@@ -78,6 +92,7 @@ export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <FormField
+        {...field_slots}
         label={label}
         description={description}
         error={form_error}

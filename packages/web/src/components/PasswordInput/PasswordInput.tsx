@@ -65,8 +65,22 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       errorDisplay = "tooltip",
       showLabel = "Mostrar contraseña",
       hideLabel = "Ocultar contraseña",
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
       ...input_rest_and_style
     } = props;
+    const field_slots = {
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
+    };
     const {
       className: sprinkle_class,
       style: sprinkle_style,
@@ -87,6 +101,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
     return (
       <FormField
+        {...field_slots}
         label={label}
         description={description}
         error={form_error}

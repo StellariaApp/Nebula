@@ -7,6 +7,8 @@ import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type ColorFormat = "hex" | "hexa" | "rgb" | "rgba" | "hsl" | "hsla";
 
 export interface ColorPickerProps extends StyleProps {
@@ -32,7 +34,7 @@ export interface ColorPickerLabels {
   swatch?: ((value: string) => string) | undefined;
 }
 
-export interface ColorInputProps extends StyleProps {
+export interface ColorInputProps extends StyleProps, FormFieldSlotProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

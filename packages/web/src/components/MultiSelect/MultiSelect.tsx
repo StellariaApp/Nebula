@@ -77,8 +77,22 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
     removeLabel = (option) => `Quitar ${option.label}`,
     className,
     rootClassName,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const controlled = useMemo(() => (value === undefined ? undefined : [...value]), [value]);
@@ -195,6 +209,7 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       id={input_id}
       label={label}
       description={description}

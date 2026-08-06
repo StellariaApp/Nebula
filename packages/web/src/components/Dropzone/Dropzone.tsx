@@ -85,8 +85,22 @@ export function Dropzone(props: DropzoneProps): ReactElement {
     name,
     className,
     rootClassName,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const text = { ...DEFAULT_LABELS, ...labels };
@@ -160,6 +174,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       label={label}
       description={description}
       error={form_error}

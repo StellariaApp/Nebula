@@ -2,8 +2,9 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type { FieldStatus } from "@stellaria/nebula-tokens";
 
-import type { BoxOwnProps } from "../Box/Box.types.js";
-import type { ErrorDisplay, FieldErrorPosition } from "../FieldError/FieldError.types.js";
+import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
+import type { ErrorDisplay, FieldErrorProps } from "../FieldError/FieldError.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface FormFieldControlProps {
   id: string;
@@ -12,14 +13,22 @@ export interface FormFieldControlProps {
   "aria-required"?: true | undefined;
 }
 
-export interface FormFieldOwnProps extends Omit<BoxOwnProps, "component" | "children"> {
+export interface FormFieldSlotProps {
+  labelProps?: TextSlotProps | undefined;
+  descriptionProps?: TextSlotProps | undefined;
+  requiredProps?: BoxSlotProps | undefined;
+  headerProps?: BoxSlotProps | undefined;
+  bodyProps?: BoxSlotProps | undefined;
+  errorProps?: Omit<FieldErrorProps, "children"> | undefined;
+}
+
+export interface FormFieldOwnProps
+  extends Omit<BoxOwnProps, "component" | "children">, FormFieldSlotProps {
   component?: ElementType | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
   errorDisplay?: ErrorDisplay | undefined;
-  errorPosition?: FieldErrorPosition | undefined;
-  errorOffset?: number | undefined;
   status?: FieldStatus | undefined;
   required?: boolean | undefined;
   id?: string | undefined;

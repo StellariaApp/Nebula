@@ -40,8 +40,22 @@ export function InputPhone(props: InputPhoneProps): ReactElement {
     dialName,
     className,
     rootClassName,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const fp = useFieldProps<string>({
@@ -70,6 +84,7 @@ export function InputPhone(props: InputPhoneProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       label={label}
       description={description}
       error={form_error}

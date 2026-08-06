@@ -6,13 +6,16 @@ import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export interface PasswordInputProps
   extends
     Omit<
       ComponentPropsWithoutRef<"input">,
       "value" | "defaultValue" | "onChange" | "size" | "color" | "disabled" | "required" | "type"
     >,
-    StyleProps {
+    StyleProps,
+    FormFieldSlotProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

@@ -5,6 +5,8 @@ import type { ColorExtended, NebulaField, Size } from "@stellaria/nebula-tokens"
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type DropzoneKind = "image" | "file" | "pdf" | "video";
 
 export interface DropzoneLabels {
@@ -15,7 +17,7 @@ export interface DropzoneLabels {
   remove: string;
 }
 
-export interface DropzoneProps extends StyleProps {
+export interface DropzoneProps extends StyleProps, FormFieldSlotProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

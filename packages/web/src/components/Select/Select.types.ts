@@ -8,7 +8,9 @@ import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
-export interface SelectProps extends StyleProps {
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
+export interface SelectProps extends StyleProps, FormFieldSlotProps {
   data: readonly SelectOption[];
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

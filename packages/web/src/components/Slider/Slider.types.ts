@@ -5,6 +5,8 @@ import type { ColorExtended, NebulaField, Size, Variant } from "@stellaria/nebul
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type SliderVariant = Extract<Variant, "light" | "outline" | "ghost">;
 
 export interface SliderMark {
@@ -33,7 +35,7 @@ interface SliderBaseProps extends StyleProps {
   rootClassName?: string | undefined;
 }
 
-export interface SliderProps extends SliderBaseProps {
+export interface SliderProps extends SliderBaseProps, FormFieldSlotProps {
   field?: NebulaField<number> | undefined;
   value?: number | undefined;
   defaultValue?: number | undefined;
@@ -46,7 +48,7 @@ export interface RangeSliderValue {
   end: number;
 }
 
-export interface RangeSliderProps extends SliderBaseProps {
+export interface RangeSliderProps extends SliderBaseProps, FormFieldSlotProps {
   field?: NebulaField<RangeSliderValue> | undefined;
   value?: RangeSliderValue | undefined;
   defaultValue?: RangeSliderValue | undefined;

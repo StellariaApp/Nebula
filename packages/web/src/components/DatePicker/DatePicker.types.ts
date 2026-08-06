@@ -8,6 +8,8 @@ import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type DateGranularity = "day" | "hour" | "minute" | "second";
 
 export interface DatePickerBaseProps extends StyleProps {
@@ -32,7 +34,7 @@ export interface DatePickerBaseProps extends StyleProps {
   rootClassName?: string | undefined;
 }
 
-export interface DatePickerProps extends DatePickerBaseProps {
+export interface DatePickerProps extends DatePickerBaseProps, FormFieldSlotProps {
   field?: NebulaField<string> | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;
@@ -41,7 +43,7 @@ export interface DatePickerProps extends DatePickerBaseProps {
   isDateUnavailable?: ((value: string) => boolean) | undefined;
 }
 
-export interface DatePickerInputProps extends DatePickerBaseProps {
+export interface DatePickerInputProps extends DatePickerBaseProps, FormFieldSlotProps {
   field?: NebulaField<string> | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;
@@ -51,7 +53,7 @@ export interface DatePickerInputProps extends DatePickerBaseProps {
   isDateUnavailable?: ((value: string) => boolean) | undefined;
 }
 
-export interface DateRangePickerProps extends DatePickerBaseProps {
+export interface DateRangePickerProps extends DatePickerBaseProps, FormFieldSlotProps {
   field?: NebulaField<DateRange> | undefined;
   value?: DateRange | undefined;
   defaultValue?: DateRange | undefined;

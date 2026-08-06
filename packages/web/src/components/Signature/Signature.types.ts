@@ -5,6 +5,8 @@ import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
 export type SignatureFormat = "png" | "jpeg";
 
 export interface SignatureLabels {
@@ -15,7 +17,7 @@ export interface SignatureLabels {
   clear: string;
 }
 
-export interface SignatureProps extends StyleProps {
+export interface SignatureProps extends StyleProps, FormFieldSlotProps {
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

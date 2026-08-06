@@ -13,5 +13,4 @@ export type TextProps<C extends ElementType = "p"> = TextOwnProps & {
   component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof TextOwnProps | "component">;
 
-export type TextSlotProps = TextOwnProps &
-  Omit<ComponentPropsWithoutRef<"p">, keyof TextOwnProps>;
+export type TextSlotProps = TextOwnProps & Omit<ComponentPropsWithoutRef<"p">, keyof TextOwnProps>;

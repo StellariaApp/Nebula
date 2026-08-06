@@ -30,8 +30,22 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       rootClassName,
       errorDisplay = "tooltip",
       type = "text",
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
       ...input_rest_and_style
     } = props;
+    const field_slots = {
+      labelProps,
+      descriptionProps,
+      requiredProps,
+      headerProps,
+      bodyProps,
+      errorProps,
+    };
     const {
       className: sprinkle_class,
       style: sprinkle_style,
@@ -52,6 +66,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 
     return (
       <FormField
+        {...field_slots}
         label={label}
         description={description}
         error={form_error}

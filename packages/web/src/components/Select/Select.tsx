@@ -56,8 +56,22 @@ export function Select(props: SelectProps): ReactElement {
     className,
     rootClassName,
     name,
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
     ...style_rest
   } = props;
+  const field_slots = {
+    labelProps,
+    descriptionProps,
+    requiredProps,
+    headerProps,
+    bodyProps,
+    errorProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const fp = useFieldProps<string>({
@@ -117,6 +131,7 @@ export function Select(props: SelectProps): ReactElement {
 
   return (
     <FormField
+      {...field_slots}
       label={label}
       description={description}
       error={form_error}
