@@ -7,11 +7,11 @@
 
 El formato lo decide **el archivo**, no el símbolo:
 
-| Archivo          | Formato                    | Ejemplos                                            |
-| ---------------- | -------------------------- | --------------------------------------------------- |
-| `*.vars.css.ts`  | `camelCase`                | `bg` · `bgHover` · `borderColor` · `backdropFilter` |
-| `*.css.ts`       | `snake_case`               | `root` · `list_row` · `sidebar_container`           |
-| ambos            | `UPPER_CASE` para tablas   | `ROLE_COLORS` · `FONT_LEADING` · `PROGRESS`         |
+| Archivo         | Formato                  | Ejemplos                                            |
+| --------------- | ------------------------ | --------------------------------------------------- |
+| `*.vars.css.ts` | `camelCase`              | `bg` · `bgHover` · `borderColor` · `backdropFilter` |
+| `*.css.ts`      | `snake_case`             | `root` · `list_row` · `sidebar_container`           |
+| ambos           | `UPPER_CASE` para tablas | `ROLE_COLORS` · `FONT_LEADING` · `PROGRESS`         |
 
 El corte no es estético, y solo se sostiene porque N0 y N1 separan los dos archivos:
 

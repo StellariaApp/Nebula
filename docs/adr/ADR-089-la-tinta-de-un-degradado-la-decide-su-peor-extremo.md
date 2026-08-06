@@ -13,7 +13,7 @@ distintos, con la misma raíz.
 
 **1. La tinta no miraba el fondo que tenía debajo.** `ResolveScale` usa `vars.color.ink[escala]` solo
 cuando el fondo empieza por `scale.`; un degradado no, así que cae en `text.onPrimary`. Y
-`text.onPrimary` se derivaba de `OnColor(primary[500])` — el relleno *plano* de la marca. Si el `500`
+`text.onPrimary` se derivaba de `OnColor(primary[500])` — el relleno _plano_ de la marca. Si el `500`
 de esa paleta es claro, la tinta sale oscura y se pinta sobre un degradado que puede no tener nada
 que ver con él. En la práctica `text.onPrimary` **solo** la consume la variante `gradient`, así que
 estaba derivándose del sitio equivocado.

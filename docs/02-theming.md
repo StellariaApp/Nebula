@@ -54,8 +54,9 @@ type NebulaTheme = {
            // tallas para layout: none xxs xs sm md lg xl xxl xxxl
            // múltiplos para densidad de control: u1_5 u2_5 u3 u3_5 u5 (ADR-045)
            // los u* NO se exponen como style props — ver ADR-045 §5
-  sizes:   { control: { xs:30, sm:36, md:42, lg:50, xl:60 },   // heights compartidas W/N
-             compact: { xs:20, sm:24, md:28, lg:32, xl:36 } }  // metadata y navegación compacta
+  sizes:   { control: { xxs:16, xs:24, sm:32, md:40, lg:48, xl:56, xxl:64 },  // heights W/N
+             compact: { xxs:16, xs:20, sm:24, md:28, lg:32, xl:36, xxl:40 } } // metadata compacta
+           // llaveadas por SizeName (xxs…xxl), NO por Size (xs…xl) — ancla en md (ADR-099)
 
   // 4. MOTION — tokens que los componentes consumen SIEMPRE vía theme
   motion: {

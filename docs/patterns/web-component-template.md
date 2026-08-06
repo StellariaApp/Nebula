@@ -17,6 +17,7 @@
   ```
 
   No lleva `<nodo>Props` una ranura que se pinta cruda: ahí el consumidor ya controla el nodo entero.
+
 - **Componentes planos**, sin carpeta de categoría.
 
 ## 1. Estructura de archivos

@@ -8,11 +8,11 @@
 El catálogo tenía nueve compounds en **tres** idiomas distintos y ninguna regla escrita sobre cuándo
 un componente debe serlo ni sobre dónde viven sus partes:
 
-| idioma                        | componentes                                  |
-| ----------------------------- | -------------------------------------------- |
-| `Object.assign` en `index.ts` | AppShell · Card · Footer · Nav · Segment      |
-| `Object.assign` en el `.tsx`  | Form · Table                                  |
-| atadura directa (`X.Y = Z`)   | Grid · List                                   |
+| idioma                        | componentes                              |
+| ----------------------------- | ---------------------------------------- |
+| `Object.assign` en `index.ts` | AppShell · Card · Footer · Nav · Segment |
+| `Object.assign` en el `.tsx`  | Form · Table                             |
+| atadura directa (`X.Y = Z`)   | Grid · List                              |
 
 Y **tres** ubicaciones para las partes: un archivo con catorce partes dentro
 (`AppShell/AppShellRail.tsx`), hermanos planos con nombre pelado (`Nav/Links.tsx`,

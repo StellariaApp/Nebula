@@ -19,9 +19,9 @@ ahí sustituye la marca por un gris neutro — que es peor que el problema que A
 El token que se usa lo decide **de dónde sale el fondo del estado seleccionado**, no el tipo de
 componente:
 
-| El seleccionado se pinta con… | El hover sobre seleccionado usa…                 | Componentes                          |
-| ----------------------------- | ------------------------------------------------ | ------------------------------------ |
-| `vars.color.surface.active`   | `vars.color.surface.hoverActive`                 | DataGrid · Table · TransferList      |
+| El seleccionado se pinta con… | El hover sobre seleccionado usa…                   | Componentes                                   |
+| ----------------------------- | -------------------------------------------------- | --------------------------------------------- |
+| `vars.color.surface.active`   | `vars.color.surface.hoverActive`                   | DataGrid · Table · TransferList               |
 | `ResolveVariant(...)`         | `resolved.backgroundHover`, por var del componente | Calendar · MonthPicker · NavLink · Pagination |
 
 La segunda familia no necesita token nuevo: `ResolvedVariant` ya expone `backgroundHover`, que es

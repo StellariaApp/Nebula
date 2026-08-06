@@ -86,15 +86,15 @@ llegan como datos.
 
 ## Resumen
 
-| componente  | ranuras | `children` | orden      | veredicto                    |
-| ----------- | ------: | ---------- | ---------- | ---------------------------- |
-| Hero        |       9 | sí, en medio | editorial | **compound**                 |
-| Section     |       8 | sí         | editorial  | **compound**                 |
-| Kanban      |      12 | sí         | datos      | ya resuelto (render prop)    |
-| CardComplex |       7 | sí         | editorial  | ya resuelto (usar `Card`)    |
-| Header      |       6 | sí         | semántico  | N3 — props de ranura         |
-| EmptyModule |       7 | **no**     | —          | N3 — props de ranura         |
-| Charts      |       6 | **no**     | —          | N3 — props de ranura         |
+| componente  | ranuras | `children`   | orden     | veredicto                 |
+| ----------- | ------: | ------------ | --------- | ------------------------- |
+| Hero        |       9 | sí, en medio | editorial | **compound**              |
+| Section     |       8 | sí           | editorial | **compound**              |
+| Kanban      |      12 | sí           | datos     | ya resuelto (render prop) |
+| CardComplex |       7 | sí           | editorial | ya resuelto (usar `Card`) |
+| Header      |       6 | sí           | semántico | N3 — props de ranura      |
+| EmptyModule |       7 | **no**       | —         | N3 — props de ranura      |
+| Charts      |       6 | **no**       | —         | N3 — props de ranura      |
 
 Convertir Hero y Section es **API pública nueva**, y WN declara que no añade catálogo. Queda a
 decisión del propietario abrirlo dentro de WN o después de W5.

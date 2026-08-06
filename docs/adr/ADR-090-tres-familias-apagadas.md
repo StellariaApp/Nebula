@@ -27,11 +27,11 @@ una apagada, así que cualquier identidad sobria o terrosa era imposible de expr
 
 Tres familias en el tramo de croma que faltaba:
 
-| familia | semilla   | `500`     | tono | croma | para qué                                        |
-| ------- | --------- | --------- | ---- | ----- | ----------------------------------------------- |
-| `sand`  | `#9e9080` | `#827465` | 69°  | 0.028 | el neutro **cálido**, gemelo de `gray`          |
-| `slate` | `#6a839d` | `#617993` | 251° | 0.049 | gris azulado con carácter, usable como marca    |
-| `brown` | `#976346` | `#9d6b50` | 49°  | 0.075 | naranja apagado, identidades terrosas           |
+| familia | semilla   | `500`     | tono | croma | para qué                                     |
+| ------- | --------- | --------- | ---- | ----- | -------------------------------------------- |
+| `sand`  | `#9e9080` | `#827465` | 69°  | 0.028 | el neutro **cálido**, gemelo de `gray`       |
+| `slate` | `#6a839d` | `#617993` | 251° | 0.049 | gris azulado con carácter, usable como marca |
+| `brown` | `#976346` | `#9d6b50` | 49°  | 0.075 | naranja apagado, identidades terrosas        |
 
 `sand` existe porque `gray` tira a azul —tono 248°— y un producto de identidad cálida no tenía un
 neutro que le pegara. `slate` triplica el croma de `gray` manteniendo su tono: es lo que buscaba el

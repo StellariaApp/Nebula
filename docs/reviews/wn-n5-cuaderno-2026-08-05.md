@@ -73,17 +73,17 @@ un defecto hoy; es la señal de "contrato implícito" que el prompt de N1 mandab
 **Dónde**: `packages/themes/src/themes/nebula-dark.ts` y `nebula-light.ts`
 **Medido** durante N4:
 
-| tema           | `hover`       | `active`      | `hoverActive` |
-| -------------- | ------------- | ------------- | ------------- |
-| `nebula-dark`  | `dark.700`    | **`dark.700`** | `dark.800`   |
-| `nebula-light` | `light.300`   | **`light.300`** | `light.400` |
-| `sober-light`  | `light.500`   | `light.600`   | `light.700`   |
-| `playful`      | `light.300`   | `light.500`   | `light.600`   |
+| tema           | `hover`     | `active`        | `hoverActive` |
+| -------------- | ----------- | --------------- | ------------- |
+| `nebula-dark`  | `dark.700`  | **`dark.700`**  | `dark.800`    |
+| `nebula-light` | `light.300` | **`light.300`** | `light.400`   |
+| `sober-light`  | `light.500` | `light.600`     | `light.700`   |
+| `playful`      | `light.300` | `light.500`     | `light.600`   |
 
 **Qué provoca**: en los dos temas por defecto, una fila con el ratón encima y una fila seleccionada
 se pintan idénticas. El usuario no puede distinguir "esto responde al puntero" de "esto está
 elegido". Los dos temas de terceros sí las separan, así que el patrón correcto ya existe.
-**Por qué importa ahora**: ADR-095 acaba de repartir `hoverActive` como *el peldaño siguiente* a
+**Por qué importa ahora**: ADR-095 acaba de repartir `hoverActive` como _el peldaño siguiente_ a
 `active`. Ese peldaño se apoya en una escalera con dos escalones al mismo nivel, así que la mejora se
 nota a medias en los temas que más se usan.
 **Recomendación**: separar `active` un peldaño de `hover` en los dos temas nebula, como ya hacen

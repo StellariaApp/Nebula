@@ -5,11 +5,11 @@ se diga.
 
 ## 1. Bloqueantes — el árbol no está limpio
 
-| Qué | Dónde | Detalle |
-| --- | --- | --- |
+| Qué                                            | Dónde                                             | Detalle                                                                                                                                           |
+| ---------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PRODUCTS` no monta los cinco productos nuevos | `apps/playground-web/src/fixtures/themes.tsx:173` | `ProductName` declara `polaris`, `aurora`, `nova`, `eclipse` y `cosmos`, pero el `Record` solo tiene tres entradas. El playground no typechequea. |
-| `palettes.gray` es `undefined` | mismo archivo, semilla `eclipse` | `gray` no vive en `palettes`: es campo propio del contrato. Hay que importarlo suelto. Y como `primary` no sirve —croma 0.016—: usar `slate`. |
-| `palettes.purple` no existe | mismo archivo, semilla `cosmos` | La familia se llama `violet` o `grape`. |
+| `palettes.gray` es `undefined`                 | mismo archivo, semilla `eclipse`                  | `gray` no vive en `palettes`: es campo propio del contrato. Hay que importarlo suelto. Y como `primary` no sirve —croma 0.016—: usar `slate`.     |
+| `palettes.purple` no existe                    | mismo archivo, semilla `cosmos`                   | La familia se llama `violet` o `grape`.                                                                                                           |
 
 ### Dos semillas con marca y acento indistinguibles
 
@@ -18,11 +18,11 @@ se diga.
 
 ## 2. Tres presupuestos de tamaño en rojo
 
-| Componente | Exceso | Presupuesto |
-| ---------- | ------ | ----------- |
-| `Hero`     | +189 B | 16 kB       |
-| `Form`     | +39 B  | 34 kB       |
-| `Pagination` | +21 B | 23 kB      |
+| Componente   | Exceso | Presupuesto |
+| ------------ | ------ | ----------- |
+| `Hero`       | +189 B | 16 kB       |
+| `Form`       | +39 B  | 34 kB       |
+| `Pagination` | +21 B  | 23 kB       |
 
 **Verificado que no los causa nada de esta sesión**: medidos con `hoverActive` fuera del contrato y
 con los tres archivos de tokens en stash, dan los mismos bytes exactos. Vienen de la calibración de

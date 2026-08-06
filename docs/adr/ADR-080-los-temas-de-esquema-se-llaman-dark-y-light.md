@@ -22,12 +22,12 @@ ortogonal a la marca, que es lo que de verdad es.
 
 Las claves del registro y el tipo pasan a ser:
 
-| Antes           | Ahora          |
-| --------------- | -------------- |
-| `nebula-light`  | `light`        |
-| `nebula-dark`   | `dark`         |
-| `sober-light`   | `sober-light`  |
-| `playful`       | `playful`      |
+| Antes          | Ahora         |
+| -------------- | ------------- |
+| `nebula-light` | `light`       |
+| `nebula-dark`  | `dark`        |
+| `sober-light`  | `sober-light` |
+| `playful`      | `playful`     |
 
 `OfficialThemeName` queda en `"light" | "dark" | "sober-light" | "playful"`, y `meta.name` de cada
 tema acompaña a su clave.
