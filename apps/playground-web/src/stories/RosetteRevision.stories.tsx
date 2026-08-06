@@ -507,22 +507,26 @@ function Estacion(): ReactElement {
                     aria-pressed={comparando && ancla_activa === i + 1}
                     p="none"
                     r="sm"
-                    style={{
-                      border: "none",
-                      background: "none",
-                      cursor: "pointer",
-                      opacity: cubre ? 1 : 0.35,
-                    }}
+                    style={{ border: "none", background: "none", cursor: "pointer" }}
                     onClick={() => {
                       set_ancla_activa(i + 1);
                       set_comparando(true);
                     }}
                   >
-                    <Card withBorder radius="sm" padding="none" overflow="hidden">
-                      <Placeholder ratio={1} icon="anchor" />
+                    <Card
+                      withBorder
+                      radius="sm"
+                      padding="none"
+                      overflow="hidden"
+                      variant={cubre ? "light" : "outline"}
+                    >
+                      <Placeholder ratio={1} icon="anchor" tone={cubre ? "base" : "muted"} />
                       <Box p="xxs">
-                        <Text fz="caption" truncate>
+                        <Text fz="caption" c={cubre ? "text.primary" : "text.muted"} truncate>
                           {i + 1} · {papel}
+                        </Text>
+                        <Text fz="caption" c="text.muted" truncate>
+                          {cubre ? "en el listón" : "no cubre"}
                         </Text>
                       </Box>
                     </Card>
@@ -531,8 +535,9 @@ function Estacion(): ReactElement {
               })}
             </SimpleGrid>
             <Text fz="caption" c="text.muted" mt="xs">
-              Las atenuadas no cubren ninguna región visible aquí, así que no entran en el listón.
-              Las tres de detalle solo viajan en trabajos de escalón C o D.
+              Las marcadas <strong>«no cubre»</strong> no enseñan ninguna región visible en este
+              encuadre, así que no entran en el listón. Las tres de detalle solo viajan en trabajos
+              de escalón C o D.
             </Text>
           </GlassSurface>
 

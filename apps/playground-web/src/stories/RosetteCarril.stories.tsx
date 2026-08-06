@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useRef, useState, type ReactElement } from "react";
 
+import { useBreakpointDown } from "@stellaria/nebula-hooks";
+
 import {
   ActionIcon,
   Alert,
@@ -26,6 +28,7 @@ import {
   Escena,
   ESTADO_AVATAR,
   Icon,
+  Nombre,
   PieDeCarril,
   Placeholder,
   Rotulo,
@@ -70,22 +73,63 @@ function Explicacion({
   );
 }
 
-function BarraInferior({ items }: { items: { label: string; icon: "user" | "grid" }[] }): ReactElement {
+function BarraInferior({
+  items,
+  etiqueta,
+}: {
+  items: { label: string; icon: "user" | "grid" }[];
+  etiqueta: string;
+}): ReactElement {
   return (
     <Card withBorder radius="md" padding="none">
-      <Flex align="center" gap="none" p="xxs" style={{ overflowX: "auto" }}>
-        <Box p="sm" bdc="border.default" style={{ borderInlineEnd: "1px solid" }}>
+      <Flex
+        component="nav"
+        aria-label={etiqueta}
+        tabIndex={0}
+        align="center"
+        gap="none"
+        p="xxs"
+        style={{ overflowX: "auto" }}
+      >
+        <Box
+          component="button"
+          type="button"
+          aria-label="Cambiar de estudio"
+          p="sm"
+          bdc="border.default"
+          style={{ border: "none", borderInlineEnd: "1px solid", background: "none", cursor: "pointer" }}
+        >
           <Icon name="studio" size={18} />
         </Box>
         {items.map((item) => (
-          <Flex key={item.label} direction="column" align="center" gap="xxs" px="sm" py="xs" miw={64}>
+          <Box
+            key={item.label}
+            component="button"
+            type="button"
+            display="flex"
+            direction="column"
+            align="center"
+            gap="xxs"
+            px="sm"
+            py="xs"
+            miw={64}
+            c="text.primary"
+            style={{ border: "none", background: "none", cursor: "pointer" }}
+          >
             <Icon name={item.icon} size={16} />
             <Text fz="caption" c="text.muted" ws="nowrap">
               {item.label}
             </Text>
-          </Flex>
+          </Box>
         ))}
-        <Box p="sm" bdc="border.default" style={{ borderInlineStart: "1px solid" }}>
+        <Box
+          component="button"
+          type="button"
+          aria-label="Saldo"
+          p="sm"
+          bdc="border.default"
+          style={{ border: "none", borderInlineStart: "1px solid", background: "none", cursor: "pointer" }}
+        >
           <Icon name="roset" size={18} />
         </Box>
       </Flex>
@@ -162,6 +206,7 @@ function Contenido(): ReactElement {
             A · destinos
           </Text>
           <BarraInferior
+            etiqueta="Barra inferior de la opción A"
             items={[
               { label: "Rose", icon: "user" },
               { label: "Avatares", icon: "grid" },
@@ -176,6 +221,7 @@ function Contenido(): ReactElement {
             B · caras
           </Text>
           <BarraInferior
+            etiqueta="Barra inferior de la opción B"
             items={AVATARES.slice(0, 5).map((avatar) => ({
               label: avatar.nombre.split(" ")[0] ?? "",
               icon: "user" as const,
@@ -281,6 +327,7 @@ function CarrilRecomendado(): ReactElement {
 function CarrilPorAvatares(): ReactElement {
   const scroller = useRef<HTMLElement | null>(null);
   const [mini, set_mini] = useState(false);
+  const estrecho = useBreakpointDown("laptop");
 
   return (
     <AppShell
@@ -309,6 +356,7 @@ function CarrilPorAvatares(): ReactElement {
                   href={`#${avatar.id}`}
                   active={index === 0}
                   label={<AppShell.Label>{avatar.nombre}</AppShell.Label>}
+                  rightSection={Nombre(avatar.nombre, estrecho || mini)}
                   leftSection={<Avatar name={avatar.nombre} size="sm" radius="full" />}
                 />
               ))}
@@ -322,6 +370,7 @@ function CarrilPorAvatares(): ReactElement {
                   key={enlace.key}
                   href={`#${enlace.key}`}
                   label={<AppShell.Label>{enlace.label}</AppShell.Label>}
+                  rightSection={Nombre(enlace.label, estrecho || mini)}
                   leftSection={<Icon name="grid" />}
                 />
               ))}
@@ -396,7 +445,7 @@ function CarrilEncogido(): ReactElement {
               <Icon name="studio" size={20} />
             </ActionIcon>
           </AppShell.Sidebar.Header>
-          <Carril active="avatares" />
+          <Carril active="avatares" collapsed />
           <PieDeCarril />
         </AppShell.Sidebar>
       }

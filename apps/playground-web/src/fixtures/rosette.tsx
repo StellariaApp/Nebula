@@ -1,5 +1,6 @@
 import { useRef, useState, type ReactElement, type ReactNode } from "react";
 
+import { useBreakpointDown } from "@stellaria/nebula-hooks";
 import { CreateIcons, type IconComponentProps } from "@stellaria/nebula-icons";
 import { AllIconsPack } from "@stellaria/nebula-icons/packs";
 import {
@@ -439,8 +440,26 @@ const GRUPOS: { title: string; links: Enlace[] }[] = [
   },
 ];
 
-function AvatarActivo(props: { active: boolean }): ReactElement {
-  const { active } = props;
+/* HALLAZGO DE CATÁLOGO, y este es de a11y.
+ *
+ * Con el carril encogido **y por debajo de `laptop`** —que es donde vive la
+ * barra inferior del móvil— `AppShell` pone `display: none` al **cuerpo entero**
+ * del `NavLink`, no solo al rótulo. Como `leftSection` va `aria-hidden`, el
+ * `<a>` se queda **sin nombre accesible**: `link-name`, serio, en cada enlace
+ * del carril. Y no se arregla desde fuera: `NavLink` descarta las props que no
+ * conoce, así que un `aria-label` no llega.
+ *
+ * El único hueco que sobrevive es `rightSection`, que no está pensado para esto.
+ * Se usa para colgar un `VisuallyHidden` **solo cuando toca encoger**, así que
+ * no se duplica el nombre al expandir. La corrección de verdad va en la
+ * librería y necesita ADR: aquí solo queda anotada. */
+
+export function Nombre(texto: string, compacto: boolean): ReactNode {
+  return compacto ? <VisuallyHidden>{texto}</VisuallyHidden> : undefined;
+}
+
+function AvatarActivo(props: { active: boolean; compacto: boolean }): ReactElement {
+  const { active, compacto } = props;
   return (
     <AppShell.Links title="Avatar activo">
       <AppShell.Link
@@ -460,17 +479,21 @@ function AvatarActivo(props: { active: boolean }): ReactElement {
             </Text>
           </AppShell.Label>
         }
+        rightSection={Nombre(AVATAR_ACTIVO.nombre, compacto)}
         leftSection={<Avatar name={AVATAR_ACTIVO.nombre} size="sm" radius="full" />}
       />
     </AppShell.Links>
   );
 }
 
-export function Carril(props: { active: SeccionCarril }): ReactElement {
-  const { active } = props;
+export function Carril(props: { active: SeccionCarril; collapsed?: boolean | undefined }): ReactElement {
+  const { active, collapsed = false } = props;
+  const estrecho = useBreakpointDown("laptop");
+  const compacto = collapsed || estrecho;
+
   return (
     <AppShell.Sidebar.Body>
-      <AvatarActivo active={active === "taller"} />
+      <AvatarActivo active={active === "taller"} compacto={compacto} />
       {GRUPOS.map((grupo) => (
         <AppShell.Links key={grupo.title} title={grupo.title}>
           {grupo.links.map((link) => (
@@ -479,6 +502,7 @@ export function Carril(props: { active: SeccionCarril }): ReactElement {
               href={`#${link.key}`}
               active={active === link.key}
               label={<AppShell.Label>{link.label}</AppShell.Label>}
+              rightSection={Nombre(link.label, compacto)}
               leftSection={<Icon name={link.icon} />}
             />
           ))}
@@ -533,7 +557,7 @@ export function Shell(props: {
           <AppShell.Sidebar.Header>
             <ConmutadorDeEstudio />
           </AppShell.Sidebar.Header>
-          <Carril active={active} />
+          <Carril active={active} collapsed={mini} />
           <PieDeCarril />
         </AppShell.Sidebar>
       }

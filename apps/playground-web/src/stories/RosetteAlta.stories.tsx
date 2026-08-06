@@ -340,7 +340,7 @@ function CampoFila({
           <Text fz="caption" ff="mono" c="text.muted" truncate>
             {campo.path}
           </Text>
-          <Text fz="body3" fw="semibold" c={vacio ? "text.disabled" : "text.primary"}>
+          <Text fz="body3" fw="semibold" c={vacio ? "text.muted" : "text.primary"}>
             {campo.valor ?? "vacío"}
           </Text>
         </Flex>
@@ -641,13 +641,19 @@ function Cuenta({ techo, origen }: { techo: string; origen: string }): ReactElem
       <Box display="flex" direction="column" gap="xxs">
         {lineas.map((linea) => (
           <Flex key={linea.concepto} align="center" justify="space-between" gap="sm">
-            <Text fz="caption" c={linea.rosets === 0 ? "success.500" : "text.secondary"} truncate>
+            <Text fz="caption" c="text.secondary" truncate>
               {linea.concepto}
               {linea.opcional === true ? " (opcional)" : ""}
             </Text>
-            <Text fz="caption" fw="semibold">
-              {linea.rosets === 0 ? "gratis" : Rosets(linea.rosets)}
-            </Text>
+            {linea.rosets === 0 ? (
+              <Badge size="xs" variant="light" color="success">
+                gratis
+              </Badge>
+            ) : (
+              <Text fz="caption" fw="semibold" ws="nowrap">
+                {Rosets(linea.rosets)}
+              </Text>
+            )}
           </Flex>
         ))}
       </Box>
