@@ -4,11 +4,13 @@ import { useState, type ReactElement } from "react";
 import {
   Alert,
   AppShell,
+  Avatar,
   Badge,
   Box,
   Button,
   Card,
   Divider,
+  Drawer,
   Flex,
   GlassSurface,
   SearchInput,
@@ -31,10 +33,35 @@ import {
 } from "../fixtures/rosette.js";
 
 /* ── Qué se explora ───────────────────────────────────────────────────────────
- * El banco de acciones con scope global: lo curamos nosotros, no lleva las fotos
- * de nadie, y «generar algo así» se traduce sin inventar modelo — es usar esa
- * acción con TU avatar. Explorar avatares ajenos no está propuesto: choca con el
- * riesgo 1 y con que el avatar cuelga del estudio.                              */
+ * Decisiones del titular, 06/08/2026: el avatar puede ser público o privado; si
+ * es público, el estudio elige qué piezas suyas se ven; y aparte, decide si se
+ * puede clonar. Así que aquí ya hay entidad pública que enseñar, y son tres
+ * permisos distintos que la pantalla no puede mezclar:
+ *
+ *   público  → aparece en esta pantalla
+ *   piezas   → cuáles de sus imágenes, vídeos y audios se ven
+ *   clonable → si otro estudio puede partir de su canon y sus anclas
+ *
+ * Un avatar público y no clonable es el caso normal, así que el botón de clonar
+ * no puede ser el principal: el principal es usar su acción con TU avatar, que
+ * no toca a nadie.                                                             */
+
+interface AvatarPublico {
+  id: string;
+  nombre: string;
+  estudio: string;
+  techo: string;
+  piezas: number;
+  clonable: boolean;
+  seguidores: string;
+}
+
+const PUBLICOS: AvatarPublico[] = [
+  { id: "rose", nombre: "Rose Aldana", estudio: "Casa Rosette", techo: "D", piezas: 24, clonable: true, seguidores: "1.284" },
+  { id: "mara", nombre: "Mara Iriarte", estudio: "Estudio Lumen", techo: "A", piezas: 41, clonable: false, seguidores: "973" },
+  { id: "june", nombre: "June Petrova", estudio: "Taller Nueve", techo: "B", piezas: 12, clonable: true, seguidores: "2.110" },
+  { id: "vera", nombre: "Vera Solís", estudio: "Casa Rosette", techo: "A", piezas: 9, clonable: false, seguidores: "640" },
+];
 
 interface AccionPublica {
   id: string;
@@ -52,9 +79,69 @@ const CATALOGO: AccionPublica[] = [
   { id: "c4", label: "Retrato de tres cuartos con luz lateral", escalon: "A", group: "plano de cara", usos: 2110, suggestive: false },
   { id: "c5", label: "Caminando descalza por el pasillo", escalon: "A", group: "cuerpo entero frontal", usos: 415, suggestive: false },
   { id: "c6", label: "Apoyada en el marco de la puerta", escalon: "A", group: "cuerpo entero perfil", usos: 802, suggestive: true },
-  { id: "c7", label: "Manos sobre la encimera, plano cerrado", escalon: "A", group: "plano de manos", usos: 233, suggestive: false },
-  { id: "c8", label: "De espaldas mirando por la ventana", escalon: "A", group: "cuerpo entero dorsal", usos: 561, suggestive: false },
 ];
+
+function TarjetaAvatar({
+  avatar,
+  onClonar,
+}: {
+  avatar: AvatarPublico;
+  onClonar: (avatar: AvatarPublico) => void;
+}): ReactElement {
+  return (
+    <Card withBorder radius="lg" padding="none" overflow="hidden">
+      <Placeholder ratio={4 / 3} />
+      <Box p="sm">
+        <Flex align="center" gap="sm" miw={0}>
+          <Avatar name={avatar.nombre} size="sm" radius="full" />
+          <Box miw={0} style={{ flex: 1 }}>
+            <Text fz="body3" fw="semibold" truncate>
+              {avatar.nombre}
+            </Text>
+            <Text fz="caption" c="text.muted" truncate>
+              {avatar.estudio}
+            </Text>
+          </Box>
+        </Flex>
+
+        <Flex align="center" gap="xxs" wrap="wrap" mt="xs">
+          <Badge size="xs" variant="outline" color="gray">
+            {avatar.piezas} piezas públicas
+          </Badge>
+          <Badge size="xs" variant="outline" color="gray">
+            techo {avatar.techo}
+          </Badge>
+        </Flex>
+
+        {avatar.clonable ? (
+          <Button
+            size="xs"
+            variant="glass"
+            fullWidth
+            mt="sm"
+            onPress={() => {
+              onClonar(avatar);
+            }}
+            rightSection={<Icon name="copy" />}
+          >
+            Clonar como punto de partida
+          </Button>
+        ) : (
+          <Tooltip
+            label="Su estudio no ha autorizado que se clone"
+            trigger={
+              <Box mt="sm">
+                <Button size="xs" variant="ghost" fullWidth disabled>
+                  No clonable
+                </Button>
+              </Box>
+            }
+          />
+        )}
+      </Box>
+    </Card>
+  );
+}
 
 function TarjetaAccion({ accion }: { accion: AccionPublica }): ReactElement {
   const coste = 3 * TARIFA.imagen;
@@ -94,26 +181,103 @@ function TarjetaAccion({ accion }: { accion: AccionPublica }): ReactElement {
   );
 }
 
-const PREGUNTAS = [
-  {
-    titulo: "¿Se pueden publicar activos generados?",
-    texto:
-      "Un activo lleva dentro la identidad de un avatar, y ese avatar puede haberse construido con fotos de una persona real. Publicarlo saca esas fotos del estudio que aceptó los términos. El corpus registra la aceptación y la ata a cada avatar y a cada activo precisamente para poder responder a esto, pero no dice que se pueda publicar.",
-  },
-  {
-    titulo: "¿Se puede clonar un avatar público como punto de partida?",
-    texto:
-      "Choca por dos lados. Con el riesgo 1, porque el consentimiento se aceptó en un estudio y el clon vive en otro. Y con el modelo, porque el avatar cuelga del estudio y no del usuario: un clon no es una copia de una ficha, es un juego de anclas nuevo y un canon nuevo, con su precio.",
-  },
-  {
-    titulo: "¿Qué se ve de un estudio ajeno y qué no?",
-    texto:
-      "Hoy la respuesta honesta es «nada»: no hay ninguna entidad pública en el modelo. Antes de diseñar la pantalla hay que decidir si existe, y esa decisión trae verificación de edad y política de proveedor detrás.",
-  },
-];
+/* ── Clonar ───────────────────────────────────────────────────────────────────
+ * Es la acción cara y la que toca a un tercero, así que no se hace de un clic:
+ * dice qué se lleva, qué no, y qué cuesta.                                     */
 
-function Explorar(): ReactElement {
-  const [orden, set_orden] = useState("usadas");
+function Clonar({
+  avatar,
+  onClose,
+}: {
+  avatar: AvatarPublico | null;
+  onClose: () => void;
+}): ReactElement | null {
+  if (avatar === null) return null;
+  const juego = avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
+
+  return (
+    <Drawer opened onClose={onClose} side="end" size={440} title={`Clonar ${avatar.nombre}`}>
+      <Text fz="body3" c="text.secondary">
+        {avatar.estudio} ha autorizado que este avatar se clone. El clon nacerá en{" "}
+        <strong>Casa Rosette</strong> y será tuyo desde ese momento.
+      </Text>
+
+      <Rotulo mt="md">Qué se lleva</Rotulo>
+      <Box display="flex" direction="column" gap="xxs">
+        {[
+          { que: "El canon", detalle: "identidad, físico, voz y personalidad" },
+          { que: "El techo declarado", detalle: `${avatar.techo}, y podrás bajarlo` },
+        ].map((linea) => (
+          <Flex key={linea.que} align="center" gap="sm">
+            <Box c="success.500" display="flex">
+              <Icon name="check" size={14} />
+            </Box>
+            <Text fz="body3">{linea.que}</Text>
+            <Text fz="caption" c="text.muted" truncate>
+              {linea.detalle}
+            </Text>
+          </Flex>
+        ))}
+      </Box>
+
+      <Rotulo mt="md">Qué no</Rotulo>
+      <Box display="flex" direction="column" gap="xxs">
+        {[
+          { que: "Sus activos", detalle: "las piezas publicadas siguen siendo suyas" },
+          { que: "Su juego de anclas", detalle: "el tuyo se genera de nuevo" },
+          { que: "Sus chats y su memoria", detalle: "son de cada miembro de su estudio" },
+        ].map((linea) => (
+          <Flex key={linea.que} align="center" gap="sm">
+            <Box c="text.disabled" display="flex">
+              <Icon name="close" size={14} />
+            </Box>
+            <Text fz="body3">{linea.que}</Text>
+            <Text fz="caption" c="text.muted" truncate>
+              {linea.detalle}
+            </Text>
+          </Flex>
+        ))}
+      </Box>
+
+      <Divider my="md" />
+
+      <Flex align="center" justify="space-between" gap="sm">
+        <Box miw={0}>
+          <Text fz="body3" fw="semibold">
+            Coste del clon
+          </Text>
+          <Text fz="caption" c="text.muted">
+            juego de anclas + prueba de identidad
+          </Text>
+        </Box>
+        <Badge variant="light" size="lg">
+          {Rosets(juego + TARIFA.pruebaIdentidad)}
+        </Badge>
+      </Flex>
+
+      <Alert
+        variant="light"
+        color="warning"
+        mt="md"
+        icon={<Icon name="warning" />}
+        title="Por qué el clon no hereda las anclas"
+      >
+        Un duplicado <em>dentro</em> del estudio sí las hereda, y por eso sale gratis. Aquí no:
+        heredarlas pondría la identidad en píxel de {avatar.nombre} —construida con fotos que se
+        consintieron en {avatar.estudio}— dentro de otro estudio. El clon parte de su canon y
+        <strong> genera su propia identidad</strong>.
+      </Alert>
+
+      <Button fullWidth mt="md" rightSection={<Icon name="copy" />}>
+        Clonar · {Rosets(juego + TARIFA.pruebaIdentidad)}
+      </Button>
+    </Drawer>
+  );
+}
+
+function Explorar({ panel = "avatares" }: { panel?: string | undefined }): ReactElement {
+  const [que, set_que] = useState(panel);
+  const [clonando, set_clonando] = useState<AvatarPublico | null>(null);
 
   return (
     <Shell active="explorar" title="Explorar — Rosette">
@@ -121,7 +285,7 @@ function Explorar(): ReactElement {
         <AppShell.Header
           sticky
           title="Explorar"
-          subtitle="El banco de acciones curado, no los avatares de otros estudios"
+          subtitle="Avatares que su estudio ha hecho públicos, y el banco de acciones curado"
           actions={
             <Badge variant="light" size="sm" color="warning">
               exploración · fuera del alcance del MVP
@@ -130,18 +294,13 @@ function Explorar(): ReactElement {
         />
         <AppShell.Subbar sticky>
           <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
-            <Segment value={orden} onChange={set_orden} size="sm">
-              <Segment.Control aria-label="Cómo se ordena el catálogo">
-                <Segment.Control.Item value="usadas">Más usadas</Segment.Control.Item>
-                <Segment.Control.Item value="nuevas">Nuevas</Segment.Control.Item>
-                <Segment.Control.Item value="encuadre">Por encuadre</Segment.Control.Item>
+            <Segment value={que} onChange={set_que} size="sm">
+              <Segment.Control aria-label="Qué se explora">
+                <Segment.Control.Item value="avatares">Avatares</Segment.Control.Item>
+                <Segment.Control.Item value="acciones">Acciones</Segment.Control.Item>
               </Segment.Control>
             </Segment>
-            <SearchInput
-              placeholder="Buscar una acción"
-              aria-label="Buscar en el catálogo"
-              size="sm"
-            />
+            <SearchInput placeholder="Buscar" aria-label="Buscar en Explorar" size="sm" />
           </Flex>
         </AppShell.Subbar>
         <AppShell.Content>
@@ -152,61 +311,107 @@ function Explorar(): ReactElement {
             title="Esta pantalla no existe en plan-demo"
             mb="md"
           >
-            Es territorio de <strong>plan-produccion</strong> y queda fuera del alcance del MVP. Va
-            montada como exploración, con una propuesta concreta y con las preguntas que hay debajo
-            sin responder: <strong>no se inventa modelo aquí</strong>.
+            Es territorio de <strong>plan-produccion</strong> y queda fuera del alcance del MVP. Lo
+            que sí está decidido —06/08/2026— es el modelo que la sostiene: el avatar es público o
+            privado, sus piezas se publican una a una, y clonar se autoriza aparte.
           </Alert>
 
           <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
             <Box style={{ gridColumn: "span 2" }} miw={0}>
-              <Rotulo>Acciones del banco global</Rotulo>
-              <SimpleGrid cols={Cols({ base: 2, tablet: 3, wide: 4 })} spacing="md">
-                {CATALOGO.map((accion) => (
-                  <TarjetaAccion key={accion.id} accion={accion} />
-                ))}
-              </SimpleGrid>
+              {que === "avatares" ? (
+                <>
+                  <Rotulo>Avatares públicos</Rotulo>
+                  <SimpleGrid cols={Cols({ base: 1, tablet: 2, wide: 3 })} spacing="md">
+                    {PUBLICOS.map((avatar) => (
+                      <TarjetaAvatar key={avatar.id} avatar={avatar} onClonar={set_clonando} />
+                    ))}
+                  </SimpleGrid>
+                </>
+              ) : (
+                <>
+                  <Rotulo>Acciones del banco global</Rotulo>
+                  <SimpleGrid cols={Cols({ base: 2, tablet: 3, wide: 4 })} spacing="md">
+                    {CATALOGO.map((accion) => (
+                      <TarjetaAccion key={accion.id} accion={accion} />
+                    ))}
+                  </SimpleGrid>
+                </>
+              )}
             </Box>
 
             <Box display="flex" direction="column" gap="md" miw={0}>
               <GlassSurface level="subtle" radius="lg" withBorder p="md">
-                <Rotulo>Por qué se explora esto y no avatares</Rotulo>
-                <Text fz="body3" c="text.secondary">
-                  Las acciones de scope <strong>global</strong> las curamos nosotros: no llevan las
-                  fotos de nadie, ya declaran su escalón y ya declaran qué regiones enseñan. Son lo
-                  único del modelo que se puede enseñar en público sin tocar el consentimiento.
-                </Text>
-                <Divider my="sm" />
-                <Text fz="body3" c="text.secondary">
-                  Y el enlace entre consumir y crear sale gratis: «generar algo así» no es clonar
-                  nada, es <strong>usar esa acción con tu avatar</strong>, con su coste delante y su
-                  escalón comprobado contra tus tres techos.
-                </Text>
-              </GlassSurface>
-
-              <GlassSurface level="subtle" radius="lg" withBorder p="md">
-                <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
-                  <Rotulo>Preguntas para el propietario</Rotulo>
-                  <Badge variant="light" size="sm" color="error">
-                    sin responder
-                  </Badge>
-                </Flex>
-                <Box display="flex" direction="column" gap="md">
-                  {PREGUNTAS.map((pregunta) => (
-                    <Box key={pregunta.titulo}>
+                <Rotulo>Tres permisos, no uno</Rotulo>
+                <Box display="flex" direction="column" gap="sm">
+                  {[
+                    {
+                      que: "Público",
+                      texto: "Decide si el avatar aparece aquí. Nada más.",
+                    },
+                    {
+                      que: "Piezas publicadas",
+                      texto:
+                        "Cuáles de sus imágenes, vídeos y audios se ven. Se marcan una a una en su galería, así que lo que no se marca no sale aunque el avatar sea público.",
+                    },
+                    {
+                      que: "Clonable",
+                      texto:
+                        "Si otro estudio puede partir de su canon. Se autoriza aparte: ser público no lo implica, y el caso normal es público y no clonable.",
+                    },
+                  ].map((linea) => (
+                    <Box key={linea.que}>
                       <Text fz="body3" fw="semibold">
-                        {pregunta.titulo}
+                        {linea.que}
                       </Text>
                       <Text fz="caption" c="text.muted">
-                        {pregunta.texto}
+                        {linea.texto}
                       </Text>
                     </Box>
                   ))}
                 </Box>
               </GlassSurface>
+
+              <GlassSurface level="subtle" radius="lg" withBorder p="md">
+                <Rotulo>La acción principal no es clonar</Rotulo>
+                <Text fz="body3" c="text.secondary">
+                  Clonar cuesta 110 o 160 rosets y se lleva el canon de otro. Usar una{" "}
+                  <strong>acción</strong> del banco con tu propio avatar cuesta{" "}
+                  {Rosets(3 * TARIFA.imagen)}, no toca a nadie y resuelve lo mismo casi siempre:
+                  «quiero algo así».
+                </Text>
+                <Divider my="sm" />
+                <Text fz="caption" c="text.muted">
+                  Por eso las acciones tienen su propia pestaña y su botón es el primario. Clonar
+                  aparece solo donde el estudio lo autorizó, y con una pantalla que dice qué se
+                  lleva y qué no.
+                </Text>
+              </GlassSurface>
+
+              <GlassSurface level="subtle" radius="lg" withBorder p="md">
+                <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
+                  <Rotulo>Lo que sigue abierto</Rotulo>
+                  <Badge variant="light" size="sm" color="error">
+                    bloqueo externo
+                  </Badge>
+                </Flex>
+                <Text fz="caption" c="text.muted">
+                  Publicar hacia fuera arrastra la verificación de edad y la política escrita del
+                  proveedor, que son plazo externo y no código. Y el consentimiento del riesgo 1 se
+                  aceptó por estudio: la cadena que ata cada activo a su aceptación tiene que poder
+                  reconstruirse también para las piezas publicadas.
+                </Text>
+              </GlassSurface>
             </Box>
           </SimpleGrid>
         </AppShell.Content>
       </AppShell.Section>
+
+      <Clonar
+        avatar={clonando}
+        onClose={() => {
+          set_clonando(null);
+        }}
+      />
     </Shell>
   );
 }
@@ -221,27 +426,40 @@ export default meta;
 type Story = StoryObj;
 
 /**
- * ⚠️ **Exploración fuera del alcance del MVP.** Esta pantalla no existe en `plan-demo`: es
- * territorio de `plan-produccion`. Va montada porque el enlace entre consumir y crear es la
- * oportunidad más grande del producto, no porque el modelo la pida.
+ * ⚠️ **Exploración fuera del alcance del MVP.** La pantalla no existe en `plan-demo`; lo que sí
+ * está decidido —06/08/2026— es el modelo que la sostiene.
  *
- * *Lo que se propone, sin inventar modelo.* Explorar el **banco de acciones de scope global** —el
- * que curamos nosotros—, no los avatares de otros estudios. Esas acciones no llevan las fotos de
- * nadie, ya declaran su escalón y ya declaran qué regiones enseñan: son lo único del modelo que se
- * puede enseñar en público sin tocar el consentimiento. Y el enlace sale gratis: «generar algo
- * así» no es clonar nada, es **usar esa acción con tu avatar**, con el coste delante.
+ * *Son tres permisos y la pantalla no los mezcla.* **Público** decide si el avatar aparece aquí.
+ * **Las piezas publicadas** se marcan una a una en su galería, así que lo que no se marca no sale
+ * aunque el avatar sea público. Y **clonable** se autoriza aparte: ser público no lo implica, y el
+ * caso normal —público y no clonable— tiene su botón deshabilitado con el motivo, no escondido.
  *
- * *Lo que NO se propone, y por qué.* «Clonar un avatar público» choca por dos lados. Con el
- * **riesgo 1**, porque el consentimiento sobre las fotos se aceptó en un estudio y el clon viviría
- * en otro. Y con el modelo, porque el avatar **cuelga del estudio**, así que un clon no es copiar
- * una ficha: es un canon nuevo y un juego de anclas nuevo, con su precio. Queda escrito en la
- * pantalla como pregunta al propietario, no como funcionalidad.
+ * *La acción principal no es clonar, y eso es una decisión de jerarquía.* Clonar cuesta 110 o 160
+ * rosets y se lleva el canon de otro estudio. Usar una **acción** del banco con tu propio avatar
+ * cuesta 30, no toca a nadie, y resuelve lo mismo casi siempre: «quiero algo así». Por eso las
+ * acciones tienen pestaña propia y su botón es el primario.
  */
-export const CatalogoPublico: Story = {
-  name: "El banco global, no los avatares ajenos",
+export const AvataresPublicos: Story = {
+  name: "Avatares públicos y acciones",
   render: () => (
     <Escena>
       <Explorar />
+    </Escena>
+  ),
+};
+
+/**
+ * El catálogo curado, que es la vía barata para «generar algo así». Las acciones de scope
+ * **global** no llevan las fotos de nadie, ya declaran su escalón y ya declaran qué regiones
+ * enseñan, así que se pueden mostrar en público sin tocar el consentimiento — y el enlace entre
+ * consumir y crear sale gratis: usar la acción con **tu** avatar, con el coste delante y el
+ * escalón comprobado contra tus tres techos.
+ */
+export const CatalogoPublico: Story = {
+  name: "El banco de acciones",
+  render: () => (
+    <Escena>
+      <Explorar panel="acciones" />
     </Escena>
   ),
 };
