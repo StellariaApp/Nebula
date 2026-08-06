@@ -76,7 +76,7 @@ de `control.xs` no hay peldaño al que desplazarse. Un `radiogroup` o un `tablis
 táctiles, así que la otra escala —`sizes.compact`— está vedada aquí: la propia sección dice que lo que
 la consuma no puede ser interactivo, aunque sus valores (20–36) aterricen casi exactos sobre el diseño.
 
-De ahí que `md` sea `control.sm` (36) y no `control.md` (42), y que `SegmentSize` no ofrezca `xs`. Es la
+De ahí que `md` sea `control.sm` (32) y no `control.md` (40), y que `SegmentSize` no ofrezca `xs`. Es la
 misma decisión que ya tomó `Pagination`, y por el mismo motivo: **un `Segment md` alinea con un input
 `sm`**. `Tabs` lo hereda porque es un atajo sobre este compound.
 

@@ -67,7 +67,10 @@ export function Nav(props: NavProps): ReactElement {
   const surface_vars = tracks_scroll
     ? assignInlineVars({
         ...(floating
-          ? { [variables.floatingMax]: LengthToCss(floatingWidth), [variables.floatingGap]: LengthToCss(floatingGap) }
+          ? {
+              [variables.floatingMax]: LengthToCss(floatingWidth),
+              [variables.floatingGap]: LengthToCss(floatingGap),
+            }
           : {}),
         [variables.surfaceBg]: glass_on ? vars.glass.default.background : vars.color.surface.raised,
         [variables.surfaceBorder]: glass_on

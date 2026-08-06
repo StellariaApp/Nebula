@@ -109,7 +109,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
 
   const css_vars = assignInlineVars({
     [variables.indicatorColor]:
-      resolved?.background ??
+      resolved?.backgroundActive ??
       (segment.color === "primary"
         ? vars.color.surface.overlay
         : ResolveAccent(segment.color, "200")),

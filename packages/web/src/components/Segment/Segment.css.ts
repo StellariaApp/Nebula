@@ -28,7 +28,7 @@ export const control = recipe({
         display: "inline-flex",
         boxSizing: "border-box",
         padding: vars.space.xs,
-        background: vars.color.surface.sunken,
+        background: vars.color.surface.base,
         borderRadius: vars.radius.full,
         fontFamily: vars.font.family.sans,
         alignSelf: "flex-start",
@@ -40,10 +40,10 @@ export const control = recipe({
   },
   variants: {
     size: {
-      sm: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
-      md: { height: vars.size.control.sm, fontSize: vars.font.size.body2 },
-      lg: { height: vars.size.control.md, fontSize: vars.font.size.button },
-      xl: { height: vars.size.control.lg, fontSize: vars.font.size.body1 },
+      sm: { height: vars.size.control.sm, fontSize: vars.font.size.body3 },
+      md: { height: vars.size.control.md, fontSize: vars.font.size.body2 },
+      lg: { height: vars.size.control.lg, fontSize: vars.font.size.button },
+      xl: { height: vars.size.control.xl, fontSize: vars.font.size.body1 },
     },
     fullWidth: {
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
@@ -94,7 +94,9 @@ export const tab = style({
       ...motion.interaction,
       outline: "none",
       selectors: {
-        "&[data-active='true']": { color: fallbackVar(variables.indicatorFg, vars.color.text.primary) },
+        "&[data-active='true']": {
+          color: fallbackVar(variables.indicatorFg, vars.color.text.primary),
+        },
         "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
         "&:focus-visible": {
           ...focus.ring,

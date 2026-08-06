@@ -72,9 +72,7 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
                 <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />
               </div>
               <div className={styles.sidebar_body}>{children}</div>
-              {footer === undefined ? null : (
-                <div className={styles.sidebar_footer}>{footer}</div>
-              )}
+              {footer === undefined ? null : <div className={styles.sidebar_footer}>{footer}</div>}
             </m.aside>
           </>
         ) : null}

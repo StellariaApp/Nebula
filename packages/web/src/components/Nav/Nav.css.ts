@@ -30,15 +30,24 @@ export const root = recipe({
   variants: {
     size: {
       sm: {
-        vars: { [variables.linkHeight]: vars.size.control.xs, [variables.linkFont]: vars.font.size.body3 },
+        vars: {
+          [variables.linkHeight]: vars.size.control.xs,
+          [variables.linkFont]: vars.font.size.body3,
+        },
         "@layer": { [base_layer]: { minHeight: vars.size.control.md } },
       },
       md: {
-        vars: { [variables.linkHeight]: vars.size.control.sm, [variables.linkFont]: vars.font.size.body2 },
+        vars: {
+          [variables.linkHeight]: vars.size.control.sm,
+          [variables.linkFont]: vars.font.size.body2,
+        },
         "@layer": { [base_layer]: { minHeight: vars.size.control.lg } },
       },
       lg: {
-        vars: { [variables.linkHeight]: vars.size.control.md, [variables.linkFont]: vars.font.size.body2 },
+        vars: {
+          [variables.linkHeight]: vars.size.control.md,
+          [variables.linkFont]: vars.font.size.body2,
+        },
         "@layer": { [base_layer]: { minHeight: vars.size.control.xl } },
       },
     },

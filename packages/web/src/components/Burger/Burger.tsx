@@ -12,7 +12,12 @@ import { PressProps } from "../../utils/press-props.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
-import { burger, line, size as size_variants, show_below as showBelowVariants } from "./Burger.css.js";
+import {
+  burger,
+  line,
+  size as size_variants,
+  show_below as showBelowVariants,
+} from "./Burger.css.js";
 import * as variables from "./Burger.vars.css.js";
 import type { BurgerProps } from "./Burger.types.js";
 
@@ -98,7 +103,13 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
       <button
         {...dom_props}
         ref={ref}
-        className={cx(burger, size_variants[size], showBelowVariants[showBelow], sprinkle_class, className)}
+        className={cx(
+          burger,
+          size_variants[size],
+          showBelowVariants[showBelow],
+          sprinkle_class,
+          className,
+        )}
         style={{
           ...assignInlineVars({ [variables.bar]: ResolveAccent(color, "600") }),
           ...sprinkle_style,
