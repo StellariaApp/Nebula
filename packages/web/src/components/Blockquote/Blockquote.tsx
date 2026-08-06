@@ -11,6 +11,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./Blockquote.css.js";
 import * as variables from "./Blockquote.vars.css.js";
@@ -35,14 +36,14 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
     const css_vars = assignInlineVars({ [variables.accent]: ResolveAccent(color, "500") });
 
     const content = (
-      <div {...contentProps}>
+      <Box {...contentProps}>
         {children}
         {cite === undefined || cite === null ? null : (
-          <cite {...citeProps} className={cx(styles.cite, citeProps?.className)}>
+          <Text component="cite" {...citeProps} className={cx(styles.cite, citeProps?.className)}>
             {cite}
-          </cite>
+          </Text>
         )}
-      </div>
+      </Box>
     );
 
     return (
@@ -61,13 +62,14 @@ const BlockquoteComponent = forwardRef<HTMLElement, BlockquoteOwnProps>(
           content
         ) : (
           <>
-            <span
+            <Box
+              component="span"
               aria-hidden="true"
               {...iconProps}
               className={cx(styles.icon_wrap, iconProps?.className)}
             >
               {icon}
-            </span>
+            </Box>
             {content}
           </>
         )}

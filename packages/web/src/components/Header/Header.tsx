@@ -4,6 +4,8 @@ import { useId, useMemo, type ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./Header.css.js";
 import { HEADER_LABELS } from "./labels.js";
@@ -81,9 +83,9 @@ export function Header(props: HeaderProps): ReactElement {
       {...labelling}
       {...rest}
     >
-      <div {...rowProps} className={cx(styles.row, rowProps?.className)}>
+      <Box {...rowProps} className={cx(styles.row, rowProps?.className)}>
         {has_lead ? (
-          <div {...leadProps} className={cx(styles.lead, leadProps?.className)}>
+          <Box {...leadProps} className={cx(styles.lead, leadProps?.className)}>
             {withBack ? (
               <ActionIcon
                 variant="ghost"
@@ -96,39 +98,40 @@ export function Header(props: HeaderProps): ReactElement {
               </ActionIcon>
             ) : null}
             {leftSection}
-          </div>
+          </Box>
         ) : null}
 
         {has_heading ? (
-          <div {...headingProps} className={cx(styles.heading, headingProps?.className)}>
+          <Box {...headingProps} className={cx(styles.heading, headingProps?.className)}>
             {has_title ? (
-              <Heading
+              <Text
+                component={Heading}
                 id={title_id}
                 {...titleProps}
                 className={cx(styles.title, titleProps?.className)}
               >
                 {title}
-              </Heading>
+              </Text>
             ) : null}
             {subtitle === undefined ? null : (
-              <p {...subtitleProps} className={cx(styles.subtitle, subtitleProps?.className)}>
+              <Text {...subtitleProps} className={cx(styles.subtitle, subtitleProps?.className)}>
                 {subtitle}
-              </p>
+              </Text>
             )}
-          </div>
+          </Box>
         ) : null}
 
         {rightSection === undefined ? null : (
-          <div {...trailProps} className={cx(styles.trail, trailProps?.className)}>
+          <Box {...trailProps} className={cx(styles.trail, trailProps?.className)}>
             {rightSection}
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
 
       {children === undefined ? null : (
-        <div {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+        <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
           {children}
-        </div>
+        </Box>
       )}
     </Root>
   );

@@ -1,21 +1,23 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type StatTrend = "up" | "down" | "flat";
 
 export interface StatProps extends Omit<StyleProps, "align"> {
   label: ReactNode;
-  labelProps?: ComponentPropsWithoutRef<"span"> | undefined;
+  labelProps?: TextSlotProps | undefined;
   value: ReactNode;
-  valueProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  descriptionProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  diffProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  headProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  footProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  valueProps?: TextSlotProps | undefined;
+  descriptionProps?: TextSlotProps | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  diffProps?: TextSlotProps | undefined;
+  headProps?: BoxSlotProps | undefined;
+  footProps?: BoxSlotProps | undefined;
   description?: ReactNode | undefined;
   icon?: ReactNode | undefined;
   trend?: StatTrend | undefined;

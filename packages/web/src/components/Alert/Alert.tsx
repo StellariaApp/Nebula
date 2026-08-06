@@ -9,7 +9,9 @@ import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./Alert.css.js";
 import type { AlertProps } from "./Alert.types.js";
@@ -64,27 +66,32 @@ export function Alert(props: AlertProps): ReactElement {
       {...(title === undefined ? {} : { "aria-labelledby": title_id })}
     >
       {icon === undefined || icon === null ? null : (
-        <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon, iconProps?.className)}
+        >
           {icon}
-        </span>
+        </Box>
       )}
-      <div {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+      <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
         {title === undefined ? null : (
-          <p id={title_id} {...titleProps} className={cx(styles.title, titleProps?.className)}>
+          <Text id={title_id} {...titleProps} className={cx(styles.title, titleProps?.className)}>
             {title}
-          </p>
+          </Text>
         )}
         {children === undefined || children === null ? null : (
-          <div {...messageProps} className={cx(styles.message, messageProps?.className)}>
+          <Box {...messageProps} className={cx(styles.message, messageProps?.className)}>
             {children}
-          </div>
+          </Box>
         )}
         {actions === undefined || actions === null ? null : (
-          <div {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+          <Box {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
             {actions}
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
       {withCloseButton ? (
         <ButtonClose aria-label={closeLabel} size="sm" variant="ghost" onPress={onClose} />
       ) : null}

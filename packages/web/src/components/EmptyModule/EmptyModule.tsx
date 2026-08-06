@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { EmptyState } from "../EmptyState/EmptyState.js";
 
 import * as styles from "./EmptyModule.css.js";
@@ -39,13 +40,13 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
       data-surface={surface}
     >
       {illustration === undefined || illustration === null ? null : (
-        <div
+        <Box
           aria-hidden="true"
           {...illustrationProps}
           className={cx(styles.media, styles.illustration[size], illustrationProps?.className)}
         >
           {illustration}
-        </div>
+        </Box>
       )}
       <EmptyState
         title={title}
@@ -58,18 +59,22 @@ export function EmptyModule(props: EmptyModuleProps): ReactElement {
         {...(has_actions
           ? {
               actions: (
-                <span {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+                <Box
+                  component="span"
+                  {...actionsProps}
+                  className={cx(styles.actions, actionsProps?.className)}
+                >
                   {action}
                   {secondaryAction}
-                </span>
+                </Box>
               ),
             }
           : {})}
       />
       {footer === undefined || footer === null ? null : (
-        <div {...footerProps} className={cx(styles.footer, footerProps?.className)}>
+        <Box {...footerProps} className={cx(styles.footer, footerProps?.className)}>
           {footer}
-        </div>
+        </Box>
       )}
     </section>
   );

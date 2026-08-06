@@ -1,5 +1,7 @@
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
 
@@ -23,12 +25,12 @@ export interface HeaderProps extends StyleProps {
   labels?: Partial<HeaderLabels> | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
-  rowProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  leadProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  headingProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  trailProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  bodyProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  titleProps?: ComponentPropsWithoutRef<"h1"> | undefined;
-  subtitleProps?: ComponentPropsWithoutRef<"p"> | undefined;
+  rowProps?: BoxSlotProps | undefined;
+  leadProps?: BoxSlotProps | undefined;
+  headingProps?: BoxSlotProps | undefined;
+  trailProps?: BoxSlotProps | undefined;
+  bodyProps?: BoxSlotProps | undefined;
+  titleProps?: TextSlotProps | undefined;
+  subtitleProps?: TextSlotProps | undefined;
   backProps?: ActionIconProps | undefined;
 }

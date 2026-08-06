@@ -1,4 +1,7 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ReactNode } from "react";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export interface EmptyStateProps extends StyleProps {
@@ -8,8 +11,8 @@ export interface EmptyStateProps extends StyleProps {
   actions?: ReactNode | undefined;
   size?: "sm" | "md" | "lg" | undefined;
   className?: string | undefined;
-  titleProps?: ComponentPropsWithoutRef<"p"> | undefined;
-  descriptionProps?: ComponentPropsWithoutRef<"p"> | undefined;
-  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  actionsProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  titleProps?: TextSlotProps | undefined;
+  descriptionProps?: TextSlotProps | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  actionsProps?: BoxSlotProps | undefined;
 }

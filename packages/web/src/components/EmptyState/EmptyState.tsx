@@ -7,6 +7,8 @@ import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
 import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./EmptyState.css.js";
 import type { EmptyStateProps } from "./EmptyState.types.js";
@@ -41,22 +43,27 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
       transition={Spring("gentle", motion_context)}
     >
       {icon === undefined || icon === null ? null : (
-        <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon, iconProps?.className)}
+        >
           {icon}
-        </span>
+        </Box>
       )}
-      <p {...titleProps} className={cx(styles.title, titleProps?.className)}>
+      <Text {...titleProps} className={cx(styles.title, titleProps?.className)}>
         {title}
-      </p>
+      </Text>
       {description === undefined || description === null ? null : (
-        <p {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
+        <Text {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
           {description}
-        </p>
+        </Text>
       )}
       {actions === undefined || actions === null ? null : (
-        <div {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+        <Box {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
           {actions}
-        </div>
+        </Box>
       )}
     </m.div>
   );

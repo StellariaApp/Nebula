@@ -1,5 +1,6 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 import type { EmptyStateProps } from "../EmptyState/EmptyState.types.js";
 
@@ -19,7 +20,7 @@ export interface EmptyModuleProps extends StyleProps {
   titleProps?: EmptyStateProps["titleProps"] | undefined;
   descriptionProps?: EmptyStateProps["descriptionProps"] | undefined;
   iconProps?: EmptyStateProps["iconProps"] | undefined;
-  illustrationProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  actionsProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  footerProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  illustrationProps?: BoxSlotProps | undefined;
+  actionsProps?: BoxSlotProps | undefined;
+  footerProps?: BoxSlotProps | undefined;
 }

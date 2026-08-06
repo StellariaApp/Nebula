@@ -214,7 +214,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Blockquote/Blockquote.js",
     import: "{ Blockquote }",
     ignore: ["react", "react-dom"],
-    limit: "22 kB",
+    limit: "22.5 kB",
   },
   {
     name: "List (primitivo temable en runtime, por módulo)",
@@ -676,7 +676,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Alert/Alert.js",
     import: "{ Alert }",
     ignore: ["react", "react-dom"],
-    limit: "40.75 kB",
+    limit: "41 kB",
   },
   {
     name: "Loader (primitivo con color extendido, por módulo)",
@@ -753,7 +753,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/EmptyState/EmptyState.js",
     import: "{ EmptyState }",
     ignore: ["react", "react-dom"],
-    limit: "26.25 kB",
+    limit: "26.5 kB",
   },
   {
     name: "NavLink (motion + Collapse, por módulo)",
@@ -970,7 +970,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Header/Header.js",
     import: "{ Header }",
     ignore: ["react", "react-dom"],
-    limit: "40.5 kB",
+    limit: "41 kB",
   },
   {
     name: "Hero (banda de portada temable con variantes, por módulo)",

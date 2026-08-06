@@ -4,6 +4,7 @@ import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Anchor } from "../Anchor/Anchor.js";
+import { Text } from "../Text/Text.js";
 import { ThemeIcon } from "../ThemeIcon/ThemeIcon.js";
 
 import * as styles from "./Feature.css.js";
@@ -39,13 +40,13 @@ export function Feature(props: FeatureProps): ReactElement {
           {icon}
         </ThemeIcon>
       )}
-      <p {...titleProps} className={cx(styles.title, titleProps?.className)}>
+      <Text {...titleProps} className={cx(styles.title, titleProps?.className)}>
         {title}
-      </p>
+      </Text>
       {description === undefined ? null : (
-        <p {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
+        <Text {...descriptionProps} className={cx(styles.description, descriptionProps?.className)}>
           {description}
-        </p>
+        </Text>
       )}
       {children}
       {href === undefined ? null : (

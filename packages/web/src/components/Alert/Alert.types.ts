@@ -1,7 +1,9 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type AlertVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
@@ -18,9 +20,9 @@ export interface AlertProps extends StyleProps {
   live?: "status" | "alert" | "off" | undefined;
   actions?: ReactNode | undefined;
   className?: string | undefined;
-  titleProps?: ComponentPropsWithoutRef<"p"> | undefined;
-  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  bodyProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  messageProps?: ComponentPropsWithoutRef<"div"> | undefined;
-  actionsProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  titleProps?: TextSlotProps | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  bodyProps?: BoxSlotProps | undefined;
+  messageProps?: BoxSlotProps | undefined;
+  actionsProps?: BoxSlotProps | undefined;
 }

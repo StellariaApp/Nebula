@@ -9,5 +9,8 @@ export interface BoxOwnProps extends StyleProps {
 }
 
 export type BoxProps<C extends ElementType = "div"> = BoxOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof BoxOwnProps | "component">;
+
+export type BoxSlotProps = BoxOwnProps &
+  Omit<ComponentPropsWithoutRef<"div">, keyof BoxOwnProps>;

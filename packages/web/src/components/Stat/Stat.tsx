@@ -3,6 +3,8 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Stat.css.js";
@@ -43,23 +45,33 @@ export function Stat(props: StatProps): ReactElement {
       className={cx(styles.root, styles.align[align], sprinkle_class, className)}
       style={sprinkle_style}
     >
-      <div {...headProps} className={cx(styles.head, headProps?.className)}>
-        <span {...labelProps} className={cx(styles.label, labelProps?.className)}>
+      <Box {...headProps} className={cx(styles.head, headProps?.className)}>
+        <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
           {label}
-        </span>
+        </Text>
         {icon === undefined || icon === null ? null : (
-          <span aria-hidden="true" {...iconProps} className={cx(styles.icon, iconProps?.className)}>
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...iconProps}
+            className={cx(styles.icon, iconProps?.className)}
+          >
             {icon}
-          </span>
+          </Box>
         )}
-      </div>
-      <span {...valueProps} className={cx(styles.value, styles.size[size], valueProps?.className)}>
+      </Box>
+      <Text
+        component="span"
+        {...valueProps}
+        className={cx(styles.value, styles.size[size], valueProps?.className)}
+      >
         {value}
-      </span>
+      </Text>
       {diff === undefined && description === undefined ? null : (
-        <div {...footProps} className={cx(styles.foot, footProps?.className)}>
+        <Box {...footProps} className={cx(styles.foot, footProps?.className)}>
           {diff === undefined ? null : (
-            <span
+            <Text
+              component="span"
               data-trend={trend ?? "flat"}
               {...diffProps}
               className={cx(styles.diff, diffProps?.className)}
@@ -69,17 +81,18 @@ export function Stat(props: StatProps): ReactElement {
               </span>
               {diff}
               <VisuallyHidden>{diffLabel ?? TREND_LABEL[trend ?? "flat"]}</VisuallyHidden>
-            </span>
+            </Text>
           )}
           {description === undefined ? null : (
-            <span
+            <Text
+              component="span"
               {...descriptionProps}
               className={cx(styles.description, descriptionProps?.className)}
             >
               {description}
-            </span>
+            </Text>
           )}
-        </div>
+        </Box>
       )}
     </div>
   );

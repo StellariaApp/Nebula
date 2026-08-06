@@ -4,14 +4,17 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export interface BlockquoteOwnProps extends Omit<BoxOwnProps, "component" | "color"> {
   component?: ElementType | undefined;
   color?: ColorExtended | undefined;
   cite?: ReactNode | undefined;
   icon?: ReactNode | undefined;
-  citeProps?: ComponentPropsWithoutRef<"cite"> | undefined;
-  iconProps?: ComponentPropsWithoutRef<"span"> | undefined;
-  contentProps?: ComponentPropsWithoutRef<"div"> | undefined;
+  citeProps?: TextSlotProps | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  contentProps?: BoxSlotProps | undefined;
 }
 
 export type BlockquoteProps<C extends ElementType = "blockquote"> = BlockquoteOwnProps & {
