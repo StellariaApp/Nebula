@@ -12,6 +12,8 @@ import { Collapse } from "../Collapse/Collapse.js";
 import * as styles from "./Accordion.css.js";
 import type { AccordionProps, AccordionValue } from "./Accordion.types.js";
 import { ChevronDown } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const CHEVRON = <ChevronDown />;
 
@@ -32,6 +34,11 @@ export function Accordion<Multiple extends boolean = false>(
     disabled = false,
     chevronPosition = "end",
     className,
+    itemProps,
+    triggerProps,
+    iconProps,
+    labelProps,
+    panelProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -106,7 +113,7 @@ export function Accordion<Multiple extends boolean = false>(
         const panel_id = `${base_id}-panel-${item.value}`;
 
         return (
-          <div key={item.value} className={styles.item}>
+          <Box key={item.value} {...itemProps} className={cx(styles.item, itemProps?.className)}>
             <h3>
               <button
                 ref={(node) => {
@@ -114,7 +121,7 @@ export function Accordion<Multiple extends boolean = false>(
                 }}
                 type="button"
                 id={trigger_id}
-                className={styles.trigger}
+                className={cx(styles.trigger, triggerProps?.className)}
                 aria-expanded={is_open}
                 aria-controls={panel_id}
                 disabled={item_disabled}
@@ -123,6 +130,7 @@ export function Accordion<Multiple extends boolean = false>(
                   Toggle(item.value);
                 }}
                 onKeyDown={HandleKeyDown(index)}
+                {...triggerProps}
               >
                 {chevronPosition === "start" ? (
                   <m.span
@@ -134,11 +142,22 @@ export function Accordion<Multiple extends boolean = false>(
                   </m.span>
                 ) : null}
                 {item.icon === undefined || item.icon === null ? null : (
-                  <span className={styles.icon} aria-hidden="true">
+                  <Box
+                    component="span"
+                    aria-hidden="true"
+                    {...iconProps}
+                    className={cx(styles.icon, iconProps?.className)}
+                  >
                     {item.icon}
-                  </span>
+                  </Box>
                 )}
-                <span className={styles.label}>{item.label}</span>
+                <Text
+                  component="span"
+                  {...labelProps}
+                  className={cx(styles.label, labelProps?.className)}
+                >
+                  {item.label}
+                </Text>
                 {chevronPosition === "end" ? (
                   <m.span
                     className={styles.chevron}
@@ -151,11 +170,16 @@ export function Accordion<Multiple extends boolean = false>(
               </button>
             </h3>
             <Collapse in={is_open}>
-              <div id={panel_id} aria-labelledby={trigger_id} className={styles.panel}>
+              <Box
+                id={panel_id}
+                aria-labelledby={trigger_id}
+                {...panelProps}
+                className={cx(styles.panel, panelProps?.className)}
+              >
                 {item.content}
-              </div>
+              </Box>
             </Collapse>
-          </div>
+          </Box>
         );
       })}
     </div>

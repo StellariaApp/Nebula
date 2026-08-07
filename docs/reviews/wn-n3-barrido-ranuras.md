@@ -68,7 +68,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | pendiente |
 | `Timeline/Timeline.tsx` | 7 | item bullet line body title meta description | hecho |
 | `Toast/ToastProvider.tsx` | 7 | toast icon body title message action region | pendiente |
-| `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | pendiente |
+| `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | hecho |
 | `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | pendiente |
 | `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | pendiente |
 | `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | pendiente |
@@ -97,7 +97,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | pendiente |
 | `AnimatedGradient/AnimatedGradient.tsx` | 3 | animatedGradient drift scrim | pendiente |
 | `Badge/Badge.tsx` | 3 | badge dot section | hecho |
-| `Banderole/Banderole.tsx` | 3 | icon body actions | pendiente |
+| `Banderole/Banderole.tsx` | 3 | icon body actions | hecho |
 | `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | pendiente |
 | `Button/Button.tsx` | 3 | button spinner section | pendiente |
 | `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
@@ -128,7 +128,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Charts/TrendIndicator.tsx` | 2 | trend arrow | pendiente |
 | `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
 | `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | pendiente |
-| `Divider/Divider.tsx` | 2 | line label | pendiente |
+| `Divider/Divider.tsx` | 2 | line label | hecho |
 | `DragDrop/Draggable.tsx` | 2 | draggable row | pendiente |
 | `DragDrop/SortableItem.tsx` | 2 | draggable row | pendiente |
 | `DragDrop/SortableList.tsx` | 2 | list emptySlot | pendiente |

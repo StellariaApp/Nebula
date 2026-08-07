@@ -12,6 +12,7 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import * as styles from "./Banderole.css.js";
 import * as variables from "./Banderole.vars.css.js";
 import type { BanderoleProps } from "./Banderole.types.js";
+import { Box } from "../Box/Box.js";
 
 export function Banderole(props: BanderoleProps): ReactElement {
   const {
@@ -25,6 +26,9 @@ export function Banderole(props: BanderoleProps): ReactElement {
     label,
     sticky = false,
     className,
+    iconProps,
+    bodyProps,
+    actionsProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -47,12 +51,23 @@ export function Banderole(props: BanderoleProps): ReactElement {
       data-variant={variant}
     >
       {icon === undefined || icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon, iconProps?.className)}
+        >
           {icon}
-        </span>
+        </Box>
       )}
-      <div className={styles.body}>{children}</div>
-      {actions === undefined ? null : <div className={styles.actions}>{actions}</div>}
+      <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+        {children}
+      </Box>
+      {actions === undefined ? null : (
+        <Box {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
+          {actions}
+        </Box>
+      )}
       {onClose === undefined ? null : (
         <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />
       )}

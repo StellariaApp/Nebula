@@ -16,6 +16,7 @@ import { Box } from "../Box/Box.js";
 import * as styles from "./Divider.css.js";
 import * as variables from "./Divider.vars.css.js";
 import type { DividerOwnProps, DividerProps, DividerSize } from "./Divider.types.js";
+import { Text } from "../Text/Text.js";
 
 const THICKNESS: Record<DividerSize, number> = { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 };
 
@@ -34,6 +35,8 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
     label,
     labelPosition = "center",
     className,
+    lineProps,
+    labelProps,
     style,
     ...rest
   } = props as DividerOwnProps & { style?: CSSProperties };
@@ -61,9 +64,25 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
     >
       {has_label ? (
         <>
-          <span aria-hidden="true" className={cx(styles.line, left_class)} />
-          <span className={styles.label}>{label}</span>
-          <span aria-hidden="true" className={cx(styles.line, right_class)} />
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...lineProps}
+            className={cx(styles.line, left_class, lineProps?.className)}
+          />
+          <Text
+            component="span"
+            {...labelProps}
+            className={cx(styles.label, labelProps?.className)}
+          >
+            {label}
+          </Text>
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...lineProps}
+            className={cx(styles.line, right_class, lineProps?.className)}
+          />
         </>
       ) : null}
     </Box>

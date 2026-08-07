@@ -1,5 +1,8 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { StyleProps } from "../../utils/style-props.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface AccordionItemData {
   value: string;
@@ -22,4 +25,9 @@ export interface AccordionProps<Multiple extends boolean = false> extends StyleP
   disabled?: boolean | undefined;
   chevronPosition?: "start" | "end" | undefined;
   className?: string | undefined;
+  itemProps?: BoxSlotProps | undefined;
+  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  labelProps?: TextSlotProps | undefined;
+  panelProps?: BoxSlotProps | undefined;
 }

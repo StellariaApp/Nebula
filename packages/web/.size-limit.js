@@ -95,7 +95,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Divider/Divider.js",
     import: "{ Divider }",
     ignore: ["react", "react-dom"],
-    limit: "21.5 kB",
+    limit: "21.75 kB",
   },
   {
     name: "Space (primitivo temable en runtime, por módulo)",
@@ -739,7 +739,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Accordion/Accordion.js",
     import: "{ Accordion }",
     ignore: ["react", "react-dom"],
-    limit: "27 kB",
+    limit: "27.5 kB",
   },
   {
     name: "Card (compound + motion, por módulo)",

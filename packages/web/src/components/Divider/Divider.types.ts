@@ -4,6 +4,9 @@ import type { BorderRole, Orientation } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type DividerSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type DividerStyle = "solid" | "dashed" | "dotted";
 export type DividerLabelPosition = "left" | "center" | "right";
@@ -15,6 +18,8 @@ export interface DividerOwnProps extends Omit<BoxOwnProps, "component" | "color"
   lineStyle?: DividerStyle | undefined;
   color?: BorderRole | undefined;
   label?: ReactNode | undefined;
+  lineProps?: BoxSlotProps | undefined;
+  labelProps?: TextSlotProps | undefined;
   labelPosition?: DividerLabelPosition | undefined;
 }
 

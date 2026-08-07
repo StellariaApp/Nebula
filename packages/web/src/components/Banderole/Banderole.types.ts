@@ -4,6 +4,8 @@ import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export type BanderoleVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
 
 export interface BanderoleProps extends StyleProps {
@@ -17,4 +19,7 @@ export interface BanderoleProps extends StyleProps {
   closeLabel?: string | undefined;
   sticky?: boolean | undefined;
   className?: string | undefined;
+  iconProps?: BoxSlotProps | undefined;
+  bodyProps?: BoxSlotProps | undefined;
+  actionsProps?: BoxSlotProps | undefined;
 }
