@@ -12,7 +12,11 @@ Lo que sí se toma de React Aria: `useDialog` (rol, `aria-labelledby` ligado al 
 
 `<dialog>` cierra por `Esc` **directamente en el DOM**, sin pasar por React: eso desincronizaría `opened`. Por eso `onCancel` hace `preventDefault()` y delega en `onClose`, dejando que el estado del consumidor siga siendo la única fuente de verdad. `closeOnEscape={false}` simplemente no propaga el cierre.
 
-El click fuera se detecta comparando `event.target` con el propio `<dialog>`: el backdrop pertenece al elemento, así que los clicks en el contenido tienen otro target.
+El click fuera se detecta en el **`pointerdown`**, no en el `click`, y se apoya en tres comprobaciones: el target es el propio `<dialog>` (el backdrop pertenece al elemento, así que los clicks en el contenido tienen otro target), el punto cae fuera del rectángulo del panel, y el panel no está `inert`.
+
+Comparar solo `event.target` en el `click` no basta, y el fallo era real: `ariaHideOutside` de React Aria marca con **`inert`** todo lo que queda fuera de un popover abierto —incluido el panel—, y Chrome **excluye los subárboles `inert` del hit-testing**. Al pulsar el trigger de un `Select` dentro del panel, el `pointerdown` caía en el trigger, el popover se abría, el panel pasaba a `inert` y el `pointerup` ya aterrizaba en el `<dialog>`; el navegador resuelve entonces el `click` en el **ancestro común**, que es el `<dialog>`, y el modal se cerraba solo al abrir un desplegable.
+
+Anclar la decisión al `pointerdown` la toma cuando el DOM todavía describe lo que el usuario pulsó. De paso da el comportamiento correcto por capas: con un popover abierto el panel está `inert`, así que el primer click fuera cierra **solo el popover** y hace falta un segundo para cerrar el modal. La prueba de `inert` es lo único acoplado a un detalle de React Aria; si algún día deja de usarlo, la prueba del rectángulo sigue evitando el cierre indebido y solo se pierde ese escalonado.
 
 **Al escribir tests**: el navegador solo emite `cancel` ante teclado real, así que `userEvent.keyboard("{Escape}")` **no cierra** el diálogo — dispara un keydown sintético y nada más. Para cubrir esa ruta hay que despachar el evento directamente (`dialog.dispatchEvent(new Event("cancel", { cancelable: true }))`), que es lo que hace el test unitario; las play functions del playground cierran por el botón de cierre.
 
@@ -40,6 +44,20 @@ La salida obliga a **retrasar el `close()` nativo**: el elemento debe seguir en 
 El backdrop no puede animarse con motion (es un pseudo-elemento), así que entra con `@keyframes` y se desvanece por transición de `opacity` colgada de `&:not([data-open='true'])::backdrop`. `prefers-reduced-motion` reduce ambas a 0,01 ms.
 
 **Al escribir tests o play functions**: tras cerrar, el diálogo permanece en el DOM mientras dura la salida. Las aserciones de desmontaje van dentro de `waitFor`.
+
+## Los overlays de los hijos se portalean dentro del diálogo
+
+El top layer que aporta `showModal()` tiene una contrapartida: **nada que quede fuera del `<dialog>` puede pintarse encima**, por muchísimo `z-index` que lleve, y el navegador además vuelve inerte el resto del documento. Los overlays del catálogo (`Select`, `Combobox`, `MultiSelect`, `Menu`, `Popover`, `Tooltip`, `HoverCard`, `DatePicker`, `ColorInput`) montan su capa flotante con el `Overlay` de React Aria, que portalea a `document.body`. Dentro de un `Modal` o un `Drawer` eso los dejaba invisibles e inertes: el trigger abría, el chevron giraba y no aparecía nada.
+
+El arreglo es un `UNSAFE_PortalProvider` que envuelve todo el contenido y apunta a un nodo vacío (`styles.portal`, `display: contents`) que el propio `<dialog>` renderiza después del panel. `Overlay` consulta ese contexto antes de caer en `document.body`, así que cualquier capa flotante de cualquier descendiente aterriza dentro del top layer y por detrás del panel en orden de DOM —sin `z-index` de por medio—. No hace falta tocar ningún componente hijo.
+
+El nodo destino se guarda en estado (`ref` de callback), no en un `useRef`: si un overlay ya nace abierto, en el primer render el ref todavía valdría `null`, `Overlay` devolvería `null` y nada volvería a re-renderizar. El `set` del estado sí programa ese segundo render.
+
+`display: contents` mantiene el nodo fuera del flexbox de colocación del diálogo, y lo que se portalea (`position: fixed` en popover y underlay) queda fuera de flujo de todos modos. El destino cuelga del `<dialog>` y no del panel a propósito: `OverlayMotion` transforma el panel, y una transformada crea bloque contenedor para los `position: fixed` de dentro, que quedarían mal colocados.
+
+Es también una corrección de a11y: con el popover colgando de `document.body`, el `ariaHideOutside` de `usePopover` marcaba `aria-hidden="true"` sobre el `<dialog>` entero mientras el desplegable estuviera abierto.
+
+Mover los overlays al top layer cambia también quién recibe los clicks; eso está tratado arriba, en «Estado y `Esc`».
 
 ## Nombre accesible del diálogo
 

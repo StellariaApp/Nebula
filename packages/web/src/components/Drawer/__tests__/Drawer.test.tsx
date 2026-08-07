@@ -2,9 +2,16 @@ import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import type { SelectOption } from "../../../collections/options.js";
+import { Select } from "../../Select/Select.js";
 import { Drawer } from "../Drawer.js";
 
 afterEach(cleanup);
+
+const ROLES: SelectOption[] = [
+  { value: "admin", label: "Administrador" },
+  { value: "op", label: "Operador" },
+];
 
 describe("Drawer", () => {
   it("expone un diálogo con su título", () => {
@@ -35,5 +42,19 @@ describe("Drawer", () => {
     );
     await user.click(screen.getByRole("button", { name: "Cerrar" }));
     expect(OnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("el desplegable de un Select interior queda dentro del diálogo", async () => {
+    const user = userEvent.setup();
+    render(
+      <Drawer opened onClose={() => undefined} title="Invitar al estudio">
+        <Select label="Papel" data={ROLES} />
+      </Drawer>,
+    );
+
+    await user.click(screen.getByRole("button", { name: /Papel/ }));
+    const listbox = await screen.findByRole("listbox");
+
+    expect(screen.getByRole("dialog").contains(listbox)).toBe(true);
   });
 });

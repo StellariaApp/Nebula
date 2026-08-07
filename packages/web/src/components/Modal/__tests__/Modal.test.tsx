@@ -1,14 +1,22 @@
 import { useState } from "react";
 
+import { fireEvent } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
+import type { SelectOption } from "../../../collections/options.js";
+import { Select } from "../../Select/Select.js";
 import { Modal } from "../Modal.js";
 
 afterEach(cleanup);
 
 const EXIT_TIMEOUT = 5000;
+
+const ROLES: SelectOption[] = [
+  { value: "admin", label: "Administrador" },
+  { value: "op", label: "Operador" },
+];
 
 function Controlled(props: { closeOnEscape?: boolean }): React.ReactElement {
   const [opened, set_opened] = useState(true);
@@ -126,6 +134,67 @@ describe("Modal", () => {
       },
       { timeout: EXIT_TIMEOUT },
     );
+  });
+
+  it("el overlay de un hijo se portalea dentro del diálogo, no a document.body", async () => {
+    const user = userEvent.setup();
+    render(
+      <Modal opened onClose={() => undefined} title="Invitar">
+        <Select label="Papel" data={ROLES} />
+      </Modal>,
+    );
+
+    await user.click(screen.getByRole("button", { name: /Papel/ }));
+    const listbox = await screen.findByRole("listbox");
+
+    expect(screen.getByRole("dialog").contains(listbox)).toBe(true);
+  });
+
+  it("cierra cuando el click empieza fuera del panel", () => {
+    const OnClose = vi.fn();
+    render(
+      <Modal opened onClose={OnClose} title="X">
+        <span>contenido</span>
+      </Modal>,
+    );
+    const dialog = screen.getByRole("dialog");
+    fireEvent.pointerDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.click(dialog, { clientX: 5, clientY: 5 });
+    expect(OnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("un click que empieza dentro del panel no cierra aunque el target acabe en el diálogo", () => {
+    const OnClose = vi.fn();
+    render(
+      <Modal opened onClose={OnClose} title="X">
+        <button type="button">Aceptar</button>
+      </Modal>,
+    );
+    const dialog = screen.getByRole("dialog");
+    fireEvent.pointerDown(screen.getByRole("button", { name: "Aceptar" }));
+    fireEvent.click(dialog);
+    expect(OnClose).not.toHaveBeenCalled();
+  });
+
+  it("con un overlay encima (panel inert) el click fuera no cierra el diálogo", () => {
+    const OnClose = vi.fn();
+    const { container } = render(
+      <Modal opened onClose={OnClose} title="X">
+        <span>contenido</span>
+      </Modal>,
+    );
+    const dialog = screen.getByRole("dialog");
+    const panel = container.ownerDocument.querySelector("dialog > div");
+    panel?.setAttribute("inert", "");
+
+    fireEvent.pointerDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.click(dialog, { clientX: 5, clientY: 5 });
+    expect(OnClose).not.toHaveBeenCalled();
+
+    panel?.removeAttribute("inert");
+    fireEvent.pointerDown(dialog, { clientX: 5, clientY: 5 });
+    fireEvent.click(dialog, { clientX: 5, clientY: 5 });
+    expect(OnClose).toHaveBeenCalledTimes(1);
   });
 
   it("no expone diálogo cuando opened=false", () => {

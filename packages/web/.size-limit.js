@@ -1176,7 +1176,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Lightbox/Lightbox.js",
     import: "{ Lightbox }",
     ignore: ["react", "react-dom"],
-    limit: "48.5 kB",
+    limit: "48.75 kB",
   },
   {
     name: "ImageGallery (compuesto: retícula + Lightbox, por módulo)",
@@ -1288,7 +1288,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/GlobalSearch/GlobalSearch.js",
     import: "{ GlobalSearch }",
     ignore: ["react", "react-dom"],
-    limit: "48.75 kB",
+    limit: "49 kB",
   },
   {
     name: "VirtualizedSelect (Combobox + ventana propia, por módulo)",

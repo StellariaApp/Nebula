@@ -71,6 +71,14 @@ export const dialog = recipe({
   defaultVariants: { layout: "centered" },
 });
 
+export const portal = style({
+  "@layer": {
+    [base_layer]: {
+      display: "contents",
+    },
+  },
+});
+
 export const surface = recipe({
   base: {
     "@layer": {
