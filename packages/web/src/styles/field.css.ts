@@ -133,7 +133,7 @@ export const field = recipe({
     surface: {
       outline: {
         vars: {
-          [variables.bg]: vars.color.surface.sunken,
+          [variables.bg]: vars.color.surface.base,
           [variables.bd]: vars.color.border.default,
           [variables.bgHover]: vars.color.surface.sunken,
           [variables.bdHover]: vars.color.border.strong,
@@ -143,7 +143,7 @@ export const field = recipe({
       },
       filled: {
         vars: {
-          [variables.bg]: vars.color.surface.sunken,
+          [variables.bg]: vars.color.surface.base,
           [variables.bd]: "transparent",
           [variables.bgHover]: vars.color.surface.sunken,
           [variables.bdHover]: vars.color.border.default,

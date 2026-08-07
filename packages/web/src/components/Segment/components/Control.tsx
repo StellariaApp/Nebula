@@ -126,7 +126,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     >
       <m.span
         aria-hidden="true"
-        className={styles.indicator}
+        className={styles.indicator({ size: segment.size })}
         style={{ x: indicator.x, width: indicator.width, opacity: indicator.ready ? 1 : 0 }}
         {...indicator.panHandlers}
       />

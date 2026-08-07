@@ -8,8 +8,6 @@ import { base_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Segment.vars.css.js";
 
-const PADDING = vars.space.u2_5;
-
 export const root = style({
   "@layer": {
     [base_layer]: {
@@ -32,9 +30,8 @@ export const control = recipe({
         position: "relative",
         display: "inline-flex",
         boxSizing: "border-box",
-        padding: PADDING,
+        padding: vars.space.u2_5,
         gap: vars.space.xxs,
-        minHeight: vars.size.control.lg,
         background: vars.color.surface.overlay,
         border: `1px solid ${vars.color.border.default}`,
         borderRadius: vars.radius.full,
@@ -49,10 +46,10 @@ export const control = recipe({
   },
   variants: {
     size: {
-      sm: { height: vars.size.control.sm, fontSize: vars.font.size.body3 },
-      md: { height: vars.size.control.md, fontSize: vars.font.size.body2 },
-      lg: { height: vars.size.control.lg, fontSize: vars.font.size.button },
-      xl: { height: vars.size.control.xl, fontSize: vars.font.size.body1 },
+      sm: { minHeight: vars.size.control.md, fontSize: vars.font.size.body3 },
+      md: { minHeight: vars.size.control.lg, fontSize: vars.font.size.body2 },
+      lg: { minHeight: vars.size.control.xl, fontSize: vars.font.size.button },
+      xl: { minHeight: vars.size.control.xxl, fontSize: vars.font.size.body1 },
     },
     fullWidth: {
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
@@ -64,19 +61,29 @@ export const control = recipe({
 
 export type SegmentControlVariants = NonNullable<RecipeVariants<typeof control>>;
 
-export const indicator = style({
-  "@layer": {
-    [base_layer]: {
-      position: "absolute",
-      top: `calc(${PADDING} - 1px)`,
-      bottom: vars.space.xs,
-      height: `calc(${vars.size.control.lg} - ${PADDING} * 2)`,
-      insetInlineStart: 0,
-      background: variables.indicatorColor,
-      borderRadius: vars.radius.full,
-      boxShadow: vars.shadow.xxs,
-      touchAction: "none",
-      zIndex: 0,
+export const indicator = recipe({
+  base: {
+    "@layer": {
+      [base_layer]: {
+        position: "absolute",
+        top: `calc(${vars.space.u2_5} - 1px)`,
+        bottom: vars.space.xs,
+        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)`,
+        insetInlineStart: 0,
+        background: variables.indicatorColor,
+        borderRadius: vars.radius.full,
+        boxShadow: vars.shadow.xxs,
+        touchAction: "none",
+        zIndex: 0,
+      },
+    },
+  },
+  variants: {
+    size: {
+      sm: { height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 2)` },
+      md: { height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)` },
+      lg: { height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2)` },
+      xl: { height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2)` },
     },
   },
 });
@@ -95,7 +102,8 @@ export const tab = style({
       background: "transparent",
       font: "inherit",
       fontWeight: vars.font.weight.semibold,
-      lineHeight: vars.font.lineHeight.normal,
+      lineHeight: 1,
+      fontSize: "inherit",
       cursor: "pointer",
       color: vars.color.text.secondary,
       whiteSpace: "nowrap",

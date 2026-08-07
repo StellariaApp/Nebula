@@ -64,7 +64,7 @@ export const dropdown = style({
   "@layer": {
     [base_layer]: {
       boxSizing: "border-box",
-      background: vars.color.surface.overlay,
+      background: vars.color.surface.base,
       color: vars.color.text.primary,
       borderStyle: "solid",
       borderWidth: 1,

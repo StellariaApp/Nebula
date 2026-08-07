@@ -20,6 +20,8 @@ import type {
   FooterProps,
 } from "./Footer.types.js";
 import * as variables from "./Footer.vars.css.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_WIDTH = 1180;
 
@@ -31,6 +33,8 @@ export function FooterBrand(props: FooterBrandProps): ReactElement {
     href,
     component,
     className,
+    linkProps,
+    descriptionProps,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -43,14 +47,22 @@ export function FooterBrand(props: FooterBrandProps): ReactElement {
     <div className={cx(styles.brand, sprinkle_class, className)} style={sprinkle_style} {...rest}>
       {logo === undefined ? null : (
         <Mark
-          className={styles.brand_link}
+          {...linkProps}
+          className={cx(styles.brand_link, linkProps?.className)}
           {...(href === undefined ? {} : { href })}
           {...(has_role && aria_label !== undefined ? { "aria-label": aria_label } : {})}
         >
           {logo}
         </Mark>
       )}
-      {description === undefined ? null : <p className={styles.brand_description}>{description}</p>}
+      {description === undefined ? null : (
+        <Text
+          {...descriptionProps}
+          className={cx(styles.brand_description, descriptionProps?.className)}
+        >
+          {description}
+        </Text>
+      )}
       {children}
     </div>
   );
@@ -83,7 +95,7 @@ export function FooterLink(props: FooterLinkProps): ReactElement {
 FooterLink.displayName = "FooterLink";
 
 export function FooterGroup(props: FooterGroupProps): ReactElement {
-  const { children, title, className, ...style_rest } = props;
+  const { children, title, className, titleProps, listProps, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const has_links = Children.toArray(children).some(
@@ -92,8 +104,18 @@ export function FooterGroup(props: FooterGroupProps): ReactElement {
 
   return (
     <div className={cx(styles.group, sprinkle_class, className)} style={sprinkle_style} {...rest}>
-      {title === undefined ? null : <p className={styles.group_title}>{title}</p>}
-      {has_links ? <ul className={styles.group_list}>{children}</ul> : children}
+      {title === undefined ? null : (
+        <Text {...titleProps} className={cx(styles.group_title, titleProps?.className)}>
+          {title}
+        </Text>
+      )}
+      {has_links ? (
+        <Box component="ul" {...listProps} className={cx(styles.group_list, listProps?.className)}>
+          {children}
+        </Box>
+      ) : (
+        children
+      )}
     </div>
   );
 }
@@ -123,6 +145,7 @@ export function Footer(props: FooterProps): ReactElement {
     glass = false,
     withBorder = true,
     className,
+    columnsProps,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -153,7 +176,11 @@ export function Footer(props: FooterProps): ReactElement {
       {...rest}
     >
       <div className={styles.inner}>
-        {columns.length === 0 ? null : <div className={styles.columns}>{columns}</div>}
+        {columns.length === 0 ? null : (
+          <Box {...columnsProps} className={cx(styles.columns, columnsProps?.className)}>
+            {columns}
+          </Box>
+        )}
         {legal}
       </div>
     </Root>

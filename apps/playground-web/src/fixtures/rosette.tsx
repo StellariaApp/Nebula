@@ -215,11 +215,10 @@ export interface LineaDeAlta {
   opcional?: boolean | undefined;
 }
 
-export function CuentaDeAlta(opciones: {
-  techo: string;
-  origen: string;
-  autogenera: boolean;
-}): { lineas: LineaDeAlta[]; total: number } {
+export function CuentaDeAlta(opciones: { techo: string; origen: string; autogenera: boolean }): {
+  lineas: LineaDeAlta[];
+  total: number;
+} {
   const { techo, origen, autogenera } = opciones;
   const estrecho = techo === "A" || techo === "B";
   const desde_fotos = origen === "fotos";
@@ -256,11 +255,8 @@ export interface AvatarFicha {
   activos: number;
   cola: number;
   origen: "fotos" | "texto" | "mixto";
-  /** Decisión del titular, 06/08/2026: el avatar es público o privado. */
   publico: boolean;
-  /** Y si es público, el estudio decide aparte si además se puede clonar. */
   clonable: boolean;
-  /** De sus activos, cuántos ha marcado el estudio como públicos. */
   activosPublicos: number;
 }
 
@@ -454,7 +450,8 @@ export function Rotulo(props: { children: ReactNode; mt?: "md" | "lg" | undefine
  * eso `activa` admite una sección aunque la pantalla sea una subruta: el alta,
  * el taller y la revisión iluminan `Avatares`. */
 
-export type SeccionCarril = "explorar" | "feed" | "avatares" | "saldo" | "usuarios";
+export type SeccionCarril =
+  "explorar" | "chats" | "generar" | "feed" | "avatares" | "saldo" | "usuarios";
 
 /** Candidatas sin revisar en todo el estudio. Es lo único de Home que no podía
  *  perderse, así que viaja en el carril y se ve desde cualquier pantalla. */
@@ -463,7 +460,11 @@ export const SIN_REVISAR = 14;
 const ESTUDIO_ACCIONES: MenuItemData[] = [
   { key: "casa-rosette", label: "Casa Rosette", description: "Propietario · plan Pro" },
   { key: "lumen", label: "Estudio Lumen", description: "Operador · plan Starter" },
-  { key: "ajustes", label: "Ajustes del estudio", description: "techo, banco de acciones y auditoría" },
+  {
+    key: "ajustes",
+    label: "Ajustes del estudio",
+    description: "techo, banco de acciones y auditoría",
+  },
   { key: "polaris", label: "Ir a Polaris", description: "El tablero de todos los productos" },
 ];
 
@@ -516,13 +517,15 @@ const GRUPOS: { title: string; links: Enlace[] }[] = [
     title: "Rosette",
     links: [
       { key: "explorar", label: "Explorar", icon: "compass" },
+      { key: "chats", label: "Chats", icon: "message" },
+      { key: "generar", label: "Generar", icon: "spark" },
       { key: "feed", label: "Feed", icon: "feed" },
     ],
   },
   {
     title: "Studio",
     links: [
-      { key: "avatares", label: "Avatares", icon: "users", cuenta: SIN_REVISAR },
+      { key: "avatares", label: "Mis Avatares", icon: "users", cuenta: SIN_REVISAR },
       { key: "saldo", label: "Saldo y gasto", icon: "roset" },
       { key: "usuarios", label: "Usuarios", icon: "user" },
     ],
@@ -556,9 +559,7 @@ export function Nombre(texto: string, compacto: boolean): ReactNode {
 function EnlaceDeCarril(props: { link: Enlace; active: boolean; compacto: boolean }): ReactElement {
   const { link, active, compacto } = props;
   const nombre =
-    link.cuenta === undefined
-      ? link.label
-      : `${link.label}, ${String(link.cuenta)} sin revisar`;
+    link.cuenta === undefined ? link.label : `${link.label}, ${String(link.cuenta)} sin revisar`;
 
   return (
     <AppShell.Link
