@@ -634,14 +634,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Menu/Menu.js",
     import: "{ Menu }",
     ignore: ["react", "react-dom"],
-    limit: "58 kB",
+    limit: "61.75 kB",
   },
   {
     name: "ContextMenu (Aria menu + overlay, por módulo)",
     path: "dist/components/Menu/ContextMenu.js",
     import: "{ ContextMenu }",
     ignore: ["react", "react-dom"],
-    limit: "51.5 kB",
+    limit: "55.5 kB",
   },
   {
     name: "Select (Aria select + colección stately, por módulo)",
@@ -1099,7 +1099,7 @@ const MODULE_BUDGETS = [
     path: "dist/datagrid/index.js",
     import: "{ DataGrid }",
     ignore: ["react", "react-dom"],
-    limit: "97 kB",
+    limit: "97.5 kB",
   },
   {
     name: "CommandScore (scoring puro, sin UI)",

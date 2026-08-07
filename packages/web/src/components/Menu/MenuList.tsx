@@ -12,7 +12,9 @@ import { ApplyPermissions } from "../../utils/permission.js";
 import { cx } from "../../utils/style-props.js";
 
 import * as styles from "./Menu.css.js";
-import type { MenuItemData, MenuListOwnProps } from "./Menu.types.js";
+import type { MenuItemData, MenuListOwnProps, MenuSlotProps } from "./Menu.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 interface RowProps {
   node: Node<MenuItemData>;
@@ -20,19 +22,20 @@ interface RowProps {
   onAction: ((key: string) => void) | undefined;
   index: number;
   motionContext: MotionContext;
+  slots: MenuSlotProps;
 }
 
 function MenuRow(props: RowProps): ReactElement {
-  const { node, state, onAction, index, motionContext } = props;
+  const { node, state, onAction, index, motionContext, slots } = props;
   const ref = useRef<HTMLLIElement>(null);
   const data = node.value;
   const is_off = MotionOff(motionContext);
 
   const {
     menuItemProps,
-    labelProps,
-    descriptionProps,
-    keyboardShortcutProps,
+    labelProps: aria_label_props,
+    descriptionProps: aria_description_props,
+    keyboardShortcutProps: aria_shortcut_props,
     isFocused,
     isDisabled,
   } = useMenuItem(
@@ -60,22 +63,43 @@ function MenuRow(props: RowProps): ReactElement {
       }}
     >
       {data?.icon === undefined || data.icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...slots.iconProps}
+          className={cx(styles.icon, slots.iconProps?.className)}
+        >
           {data.icon}
-        </span>
+        </Box>
       )}
-      <span className={styles.labels}>
-        <span {...labelProps}>{node.rendered}</span>
+      <Box
+        component="span"
+        {...slots.bodyProps}
+        className={cx(styles.labels, slots.bodyProps?.className)}
+      >
+        <Text component="span" {...aria_label_props} {...slots.labelProps}>
+          {node.rendered}
+        </Text>
         {data?.description === undefined || data.description === null ? null : (
-          <span {...descriptionProps} className={styles.description}>
+          <Text
+            component="span"
+            {...aria_description_props}
+            {...slots.descriptionProps}
+            className={cx(styles.description, slots.descriptionProps?.className)}
+          >
             {data.description}
-          </span>
+          </Text>
         )}
-      </span>
+      </Box>
       {data?.shortcut === undefined ? null : (
-        <kbd {...keyboardShortcutProps} className={styles.shortcut}>
+        <Box
+          component="kbd"
+          {...aria_shortcut_props}
+          {...slots.shortcutProps}
+          className={cx(styles.shortcut, slots.shortcutProps?.className)}
+        >
           {data.shortcut}
-        </kbd>
+        </Box>
       )}
     </m.li>
   );
@@ -93,6 +117,12 @@ export function MenuList(props: MenuListProps): ReactElement {
     "aria-label": aria_label,
     className,
     menuProps: outer_menu_props,
+    listProps,
+    iconProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
+    shortcutProps,
   } = props;
 
   const ref = useRef<HTMLUListElement>(null);
@@ -128,8 +158,22 @@ export function MenuList(props: MenuListProps): ReactElement {
   const prefers_reduced = useReducedMotion();
   const motion_context = { theme, reduced: prefers_reduced === true };
 
+  const slots: MenuSlotProps = {
+    iconProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
+    shortcutProps,
+  };
+
   return (
-    <ul {...menuProps} ref={ref} className={cx(styles.menu, className)}>
+    <Box
+      component="ul"
+      {...menuProps}
+      ref={ref}
+      {...listProps}
+      className={cx(styles.menu, className, listProps?.className)}
+    >
       {[...state.collection].map((node, index) => (
         <MenuRow
           key={node.key}
@@ -138,9 +182,10 @@ export function MenuList(props: MenuListProps): ReactElement {
           onAction={onAction}
           index={index}
           motionContext={motion_context}
+          slots={slots}
         />
       ))}
-    </ul>
+    </Box>
   );
 }
 

@@ -16,6 +16,8 @@ import { DEFAULT_FILTER_LABELS } from "./filter-labels.js";
 import * as styles from "./Filters.css.js";
 import type { FiltersProps, FilterState } from "./Filters.types.js";
 import { Filter as FilterGlyph } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const EMPTY_STATE: FilterState = {};
 
@@ -33,6 +35,10 @@ export function Filters(props: FiltersProps): ReactElement {
     placement = "bottom start",
     labels,
     className,
+    panelProps,
+    emptyProps,
+    listProps,
+    footProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -77,13 +83,15 @@ export function Filters(props: FiltersProps): ReactElement {
       className={cx(sprinkle_class, className)}
       {...(sprinkle_style === undefined ? {} : { style: sprinkle_style })}
     >
-      <div className={styles.panel}>
+      <Box {...panelProps} className={cx(styles.panel, panelProps?.className)}>
         {loading ? (
           <Loader size="sm" label={text.trigger} />
         ) : filters.length === 0 ? (
-          <p className={styles.empty}>{text.empty}</p>
+          <Text {...emptyProps} className={cx(styles.empty, emptyProps?.className)}>
+            {text.empty}
+          </Text>
         ) : (
-          <div className={styles.list}>
+          <Box {...listProps} className={cx(styles.list, listProps?.className)}>
             {filters.map((entry) => (
               <Filter
                 key={entry.key}
@@ -93,10 +101,10 @@ export function Filters(props: FiltersProps): ReactElement {
                 labels={labels}
               />
             ))}
-          </div>
+          </Box>
         )}
         {active > 0 ? (
-          <div className={styles.foot}>
+          <Box {...footProps} className={cx(styles.foot, footProps?.className)}>
             <Button
               variant="ghost"
               size={size}
@@ -106,9 +114,9 @@ export function Filters(props: FiltersProps): ReactElement {
             >
               {text.clearAll}
             </Button>
-          </div>
+          </Box>
         ) : null}
-      </div>
+      </Box>
     </Popover>
   );
 }

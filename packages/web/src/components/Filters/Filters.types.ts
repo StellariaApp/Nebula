@@ -5,6 +5,9 @@ import type { Size } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type FilterKind =
   "select" | "multiselect" | "radio" | "range" | "date" | "daterange" | "text";
 
@@ -58,6 +61,14 @@ export interface FilterProps {
 }
 
 export interface FiltersProps extends StyleProps {
+  /** El panel del popover. */
+  panelProps?: BoxSlotProps | undefined;
+  /** El aviso de que no hay filtros. Solo se pinta si la lista viene vacia. */
+  emptyProps?: TextSlotProps | undefined;
+  /** La lista de filtros. No se pinta mientras `loading`. */
+  listProps?: BoxSlotProps | undefined;
+  /** El pie con el boton de limpiar. Solo aparece si hay filtros activos. */
+  footProps?: BoxSlotProps | undefined;
   filters: readonly FilterDescriptor[];
   state?: FilterState | undefined;
   defaultState?: FilterState | undefined;

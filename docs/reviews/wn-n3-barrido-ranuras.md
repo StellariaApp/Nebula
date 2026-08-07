@@ -93,9 +93,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | hecho |
 | `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | pendiente |
 | `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | pendiente |
-| `Filters/Filters.tsx` | 4 | panel empty list foot | pendiente |
+| `Filters/Filters.tsx` | 4 | panel empty list foot | hecho |
 | `ImageGallery/ImageGallery.tsx` | 4 | empty gallery tile tileImage | pendiente |
-| `Menu/MenuList.tsx` | 4 | item icon labels shortcut | pendiente |
+| `Menu/MenuList.tsx` | 4 | item icon labels shortcut | hecho |
 | `Pagination/Pagination.tsx` | 4 | control value pill dots | hecho |
 | `Slider/SliderBase.tsx` | 4 | row fill marks mark | pendiente |
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
