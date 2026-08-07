@@ -2,9 +2,16 @@ import type { ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type TableAlign = "start" | "center" | "end";
 
 export interface TableProps extends StyleProps {
+  /**
+   * El `caption` de la tabla. Con `captionVisible={false}` el texto queda dentro de un
+   * `VisuallyHidden`, asi que lo que se pase aqui no se ve; sigue valiendo para `id` o `lang`.
+   */
+  captionProps?: TextSlotProps | undefined;
   children: ReactNode;
   caption?: ReactNode | undefined;
   captionVisible?: boolean | undefined;

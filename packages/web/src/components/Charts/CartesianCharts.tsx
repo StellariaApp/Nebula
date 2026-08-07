@@ -69,7 +69,12 @@ export function BarChart(props: BarChartProps): ReactElement {
     layout = "horizontal",
     radius = 4,
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     withDataTable = false,
     dataTableLabel,
     empty,
@@ -80,7 +85,12 @@ export function BarChart(props: BarChartProps): ReactElement {
   return (
     <ChartFrame
       title={title}
+      titleProps={titleProps}
       summary={summary}
+      summaryProps={summaryProps}
+      detailsProps={detailsProps}
+      detailsSummaryProps={detailsSummaryProps}
+      tableProps={tableProps}
       height={height}
       data={data}
       columns={Columns(xAxis, series)}
@@ -128,7 +138,12 @@ export function LineChart(props: LineChartProps): ReactElement {
     curve = "monotone",
     withDots = false,
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     withDataTable = false,
     dataTableLabel,
     empty,
@@ -139,7 +154,12 @@ export function LineChart(props: LineChartProps): ReactElement {
   return (
     <ChartFrame
       title={title}
+      titleProps={titleProps}
       summary={summary}
+      summaryProps={summaryProps}
+      detailsProps={detailsProps}
+      detailsSummaryProps={detailsSummaryProps}
+      tableProps={tableProps}
       height={height}
       data={data}
       columns={Columns(xAxis, series)}
@@ -188,7 +208,12 @@ export function AreaChart(props: AreaChartProps): ReactElement {
     curve = "monotone",
     fillOpacity = 0.2,
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     withDataTable = false,
     dataTableLabel,
     empty,
@@ -199,7 +224,12 @@ export function AreaChart(props: AreaChartProps): ReactElement {
   return (
     <ChartFrame
       title={title}
+      titleProps={titleProps}
       summary={summary}
+      summaryProps={summaryProps}
+      detailsProps={detailsProps}
+      detailsSummaryProps={detailsSummaryProps}
+      tableProps={tableProps}
       height={height}
       data={data}
       columns={Columns(xAxis, series)}

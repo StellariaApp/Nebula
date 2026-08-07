@@ -5,11 +5,17 @@ import { useId, type ReactElement, type ReactNode } from "react";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Charts.css.js";
-import type { ChartDatum } from "./Charts.types.js";
+import type { ChartBaseProps, ChartDatum } from "./Charts.types.js";
+import { Text } from "../Text/Text.js";
 
 export interface ChartFrameProps {
   title: string | undefined;
+  titleProps: ChartBaseProps["titleProps"];
   summary: string | undefined;
+  summaryProps: ChartBaseProps["summaryProps"];
+  detailsProps: ChartBaseProps["detailsProps"];
+  detailsSummaryProps: ChartBaseProps["detailsSummaryProps"];
+  tableProps: ChartBaseProps["tableProps"];
   height: number;
   data: readonly ChartDatum[];
   columns: readonly { key: string; label: string }[];
@@ -24,7 +30,12 @@ export interface ChartFrameProps {
 export function ChartFrame(props: ChartFrameProps): ReactElement {
   const {
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     height,
     data,
     columns,
@@ -53,9 +64,14 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
   return (
     <figure className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style}>
       {has_title ? (
-        <figcaption className={styles.title} id={title_id}>
+        <Text
+          component="figcaption"
+          id={title_id}
+          {...titleProps}
+          className={cx(styles.title, titleProps?.className)}
+        >
           {title}
-        </figcaption>
+        </Text>
       ) : null}
 
       <div
@@ -73,18 +89,25 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
       </div>
 
       {has_summary ? (
-        <p className={styles.summary} id={summary_id}>
+        <Text
+          id={summary_id}
+          {...summaryProps}
+          className={cx(styles.summary, summaryProps?.className)}
+        >
           {summary}
-        </p>
+        </Text>
       ) : null}
 
       {withDataTable ? (
-        <details className={styles.details}>
-          <summary className={styles.details_summary}>
+        <details {...detailsProps} className={cx(styles.details, detailsProps?.className)}>
+          <summary
+            {...detailsSummaryProps}
+            className={cx(styles.details_summary, detailsSummaryProps?.className)}
+          >
             {dataTableLabel ?? "Ver datos en tabla"}
           </summary>
           <div className={styles.table_wrap}>
-            <table className={styles.table}>
+            <table {...tableProps} className={cx(styles.table, tableProps?.className)}>
               <thead>
                 <tr>
                   {columns.map((column) => (

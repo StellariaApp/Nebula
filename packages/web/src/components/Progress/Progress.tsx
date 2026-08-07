@@ -15,6 +15,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Progress.css.js";
 import type { ProgressProps, ProgressSegment } from "./Progress.types.js";
 import * as variables from "./Progress.vars.css.js";
+import { Text } from "../Text/Text.js";
 
 const BAR_HEIGHT: Record<Size, number> = { xs: 4, sm: 6, md: 8, lg: 12, xl: 16 };
 const RING_SIZE: Record<Size, number> = { xs: 32, sm: 44, md: 60, lg: 84, xl: 112 };
@@ -128,7 +129,10 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
     children,
     className,
     color = "primary",
+    ringLabelProps,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const list = Normalize(props);
   const box = Number.parseFloat(Resolve(size, RING_SIZE));
@@ -144,8 +148,8 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
 
   return (
     <div
-      className={cx(styles.ring, className)}
-      style={css_vars}
+      className={cx(styles.ring, sprinkle_class, className)}
+      style={{ ...css_vars, ...sprinkle_style }}
       role="progressbar"
       {...(indeterminate
         ? {}
@@ -188,7 +192,13 @@ function Ring(props: ProgressProps, track: Track): ReactElement {
         })}
       </svg>
       {children === undefined || children === null ? null : (
-        <span className={styles.ring_label}>{children}</span>
+        <Text
+          component="span"
+          {...ringLabelProps}
+          className={cx(styles.ring_label, ringLabelProps?.className)}
+        >
+          {children}
+        </Text>
       )}
     </div>
   );

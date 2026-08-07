@@ -42,7 +42,12 @@ export function RadarChart(props: RadarChartProps): ReactElement {
     fillOpacity = DEFAULT_FILL_OPACITY,
     maxValue,
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     withDataTable = false,
     dataTableLabel,
     empty,
@@ -58,7 +63,12 @@ export function RadarChart(props: RadarChartProps): ReactElement {
   return (
     <ChartFrame
       title={title}
+      titleProps={titleProps}
       summary={summary}
+      summaryProps={summaryProps}
+      detailsProps={detailsProps}
+      detailsSummaryProps={detailsSummaryProps}
+      tableProps={tableProps}
       height={height}
       data={data}
       columns={columns}

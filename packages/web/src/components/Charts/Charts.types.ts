@@ -24,6 +24,16 @@ export interface ChartAxis {
 }
 
 export interface ChartBaseProps extends StyleProps {
+  /** El `figcaption` del titulo, que es a quien apunta el `aria-labelledby` del lienzo. Sin `title` no se pinta. */
+  titleProps?: TextSlotProps | undefined;
+  /** El parrafo del resumen, que es la descripcion accesible del grafico. Sin `summary` no se pinta. */
+  summaryProps?: TextSlotProps | undefined;
+  /** El `details` que despliega la tabla de datos. Solo existe con `withDataTable`. */
+  detailsProps?: ComponentPropsWithoutRef<"details"> | undefined;
+  /** El `summary` que abre ese desplegable, donde cae `dataTableLabel`. Solo existe con `withDataTable`. */
+  detailsSummaryProps?: ComponentPropsWithoutRef<"summary"> | undefined;
+  /** La tabla de datos de dentro del desplegable. Solo existe con `withDataTable`. */
+  tableProps?: ComponentPropsWithoutRef<"table"> | undefined;
   data: readonly ChartDatum[];
   series: readonly ChartSeries[];
   xAxis?: ChartAxis | undefined;

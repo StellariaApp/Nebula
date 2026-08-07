@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Text } from "../Text/Text.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Table.css.js";
@@ -18,6 +19,7 @@ export function TableRoot(props: TableProps): ReactElement {
   const {
     children,
     caption,
+    captionProps,
     captionVisible = false,
     striped = false,
     withBorder = false,
@@ -43,12 +45,14 @@ export function TableRoot(props: TableProps): ReactElement {
       data-hoverable={highlightOnHover ? "true" : undefined}
       data-sticky={stickyHeader ? "true" : undefined}
     >
-      {caption === undefined ? null : captionVisible ? (
-        <caption className={styles.caption}>{caption}</caption>
-      ) : (
-        <caption>
-          <VisuallyHidden>{caption}</VisuallyHidden>
-        </caption>
+      {caption === undefined ? null : (
+        <Text
+          component="caption"
+          {...captionProps}
+          className={cx(captionVisible ? styles.caption : undefined, captionProps?.className)}
+        >
+          {captionVisible ? caption : <VisuallyHidden>{caption}</VisuallyHidden>}
+        </Text>
       )}
       {children}
     </table>

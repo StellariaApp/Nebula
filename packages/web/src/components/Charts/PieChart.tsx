@@ -22,7 +22,12 @@ export function PieChart(props: PieChartProps): ReactElement {
     withTooltip = true,
     withLegend = true,
     title,
+    titleProps,
     summary,
+    summaryProps,
+    detailsProps,
+    detailsSummaryProps,
+    tableProps,
     withDataTable = false,
     dataTableLabel,
     empty,
@@ -36,7 +41,12 @@ export function PieChart(props: PieChartProps): ReactElement {
   return (
     <ChartFrame
       title={title}
+      titleProps={titleProps}
       summary={summary}
+      summaryProps={summaryProps}
+      detailsProps={detailsProps}
+      detailsSummaryProps={detailsSummaryProps}
+      tableProps={tableProps}
       height={height}
       data={data}
       columns={[

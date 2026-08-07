@@ -67,11 +67,11 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
 | `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | hecho |
 | `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | hecho |
-| `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | pendiente |
+| `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | hecho (1 de 8; table, head, foot, row, cell y scroll son raices de sus partes; scrollInner es estructural y lleva el minWidth calculado) |
 | `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | hecho |
-| `Charts/ChartFrame.tsx` | 7 | title canvas summary details detailsSummary tableWrap table | pendiente |
+| `Charts/ChartFrame.tsx` | 7 | title canvas summary details detailsSummary tableWrap table | hecho (5 de 7; canvas lleva el alto calculado y el aria-labelledby que nombra al grafico; tableWrap es el envoltorio de desplazamiento de la tabla) |
 | `CommandPalette/CommandPalette.tsx` | 7 | icon body label description inputRow empty list | pendiente |
-| `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | pendiente |
+| `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | hecho (1 de 7; track y ring son la raiz de cada tipo; indeterminate, fill, ringSvg y ringArc son el mecanismo de la animacion, con su estilo calculado) |
 | `Timeline/Timeline.tsx` | 7 | item bullet line body title meta description | hecho |
 | `Toast/ToastProvider.tsx` | 7 | toast icon body title message action region | hecho |
 | `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | hecho |
@@ -144,7 +144,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | pendiente |
 | `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
 | `Image/Image.tsx` | 2 | state img | pendiente |
-| `Kanban/KanbanBoard.tsx` | 2 | board columnBody | pendiente |
+| `Kanban/KanbanBoard.tsx` | 2 | board columnBody | descartado: board es su raiz y columnBody es la lista que ordena dnd-kit, con sus manejadores de arrastre |
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | pendiente |
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | pendiente |

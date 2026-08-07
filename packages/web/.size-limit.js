@@ -697,7 +697,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Progress/Progress.js",
     import: "{ Progress }",
     ignore: ["react", "react-dom"],
-    limit: "24.75 kB",
+    limit: "25.25 kB",
   },
   {
     name: "ToastProvider (Jotai + Transition, por módulo)",
@@ -830,7 +830,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Table/index.js",
     import: "{ Table }",
     ignore: ["react", "react-dom"],
-    limit: "20.5 kB",
+    limit: "21 kB",
   },
   {
     name: "Indicator (primitivo con color extendido, por módulo)",
