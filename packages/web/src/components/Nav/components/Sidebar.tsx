@@ -7,6 +7,7 @@ import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
 import { ExitTween, MotionOff, Spring } from "../../../utils/motion.js";
 import { cx } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
 import { ButtonClose } from "../../ButtonClose/ButtonClose.js";
 import { Portal } from "../../Portal/Portal.js";
 
@@ -25,6 +26,10 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
     closeLabel = "Cerrar la navegación",
     label = "Navegación",
     className,
+    headProps,
+    closeProps,
+    bodyProps,
+    footerProps,
   } = props;
 
   const { theme } = useTheme();
@@ -68,11 +73,17 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
               exit={{ x: "100%" }}
               transition={Spring("snappy", motion_context)}
             >
-              <div className={styles.sidebar_head}>
-                <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />
-              </div>
-              <div className={styles.sidebar_body}>{children}</div>
-              {footer === undefined ? null : <div className={styles.sidebar_footer}>{footer}</div>}
+              <Box {...headProps} className={cx(styles.sidebar_head, headProps?.className)}>
+                <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} {...closeProps} />
+              </Box>
+              <Box {...bodyProps} className={cx(styles.sidebar_body, bodyProps?.className)}>
+                {children}
+              </Box>
+              {footer === undefined ? null : (
+                <Box {...footerProps} className={cx(styles.sidebar_footer, footerProps?.className)}>
+                  {footer}
+                </Box>
+              )}
             </m.aside>
           </>
         ) : null}

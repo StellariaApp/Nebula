@@ -1,8 +1,11 @@
-import type { ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type { ColorExtended, Unit, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { ButtonCloseProps } from "../ButtonClose/ButtonClose.types.js";
 
 export type NavSize = "sm" | "md" | "lg";
 
@@ -44,6 +47,14 @@ export interface NavLogoProps extends StyleProps {
 }
 
 export interface NavSidebarProps {
+  /** La cabecera del cajon, que solo lleva el boton de cerrar. */
+  headProps?: BoxSlotProps | undefined;
+  /** Ese boton de cerrar. El velo tambien cierra y no es una ranura: es el propio velo. */
+  closeProps?: ButtonCloseProps | undefined;
+  /** El cuerpo con desplazamiento, donde caen los hijos. */
+  bodyProps?: BoxSlotProps | undefined;
+  /** El pie del cajon. No se pinta sin `footer`. */
+  footerProps?: BoxSlotProps | undefined;
   opened: boolean;
   onClose: () => void;
   children?: ReactNode | undefined;
@@ -57,6 +68,12 @@ export interface NavSidebarProps {
 }
 
 export interface NavLinksProps extends Omit<StyleProps, "align"> {
+  /** El desplegable de los enlaces que no caben. Solo con `overflowMenu`, y solo si sobra alguno. */
+  overflowProps?: ComponentPropsWithoutRef<"details"> | undefined;
+  /** Su disparador, el de los tres puntos. */
+  overflowTriggerProps?: ComponentPropsWithoutRef<"summary"> | undefined;
+  /** El panel del desplegable, donde caen los enlaces ocultos. */
+  overflowPanelProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   active?: string | undefined;
   activeMode?: NavActiveMode | undefined;

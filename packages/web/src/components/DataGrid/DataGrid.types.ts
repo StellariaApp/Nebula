@@ -5,6 +5,7 @@ import type { ColumnDef, SortingState } from "@tanstack/react-table";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface DataGridLabels {
   empty: string;
@@ -51,7 +52,7 @@ export interface DataGridExport {
   selectionOnly?: boolean | undefined;
 }
 
-export interface DataGridProps<T> extends StyleProps {
+export interface DataGridProps<T> extends StyleProps, DataGridToolbarSlotProps {
   data: readonly T[];
   columns: readonly ColumnDef<T>[];
   getRowId?: ((row: T, index: number) => string) | undefined;
@@ -113,4 +114,27 @@ export interface DataGridProps<T> extends StyleProps {
   tdProps?: ComponentPropsWithoutRef<"td"> | undefined;
   /** El pie con la paginacion. */
   footProps?: BoxSlotProps | undefined;
+}
+
+/**
+ * Las ranuras de la barra de herramientas. La barra entera solo existe si algo la justifica
+ * —`withToolbar`, busqueda, filtros activos, acciones en lote, exportacion o `toolbarSection`—; sin
+ * eso no hay nodo que ajustar.
+ */
+export interface DataGridToolbarSlotProps {
+  /** La barra entera. */
+  toolbarProps?: BoxSlotProps | undefined;
+  /** El hueco del buscador. Solo con `onSearchChange`. */
+  toolbarSearchProps?: BoxSlotProps | undefined;
+  /**
+   * La fila donde caen `toolbarSection` y los botones de exportar y reponer columnas. Comparte clase
+   * con la fila de paginacion del pie, pero la ranura solo cae en la de la barra.
+   */
+  toolbarActionsProps?: BoxSlotProps | undefined;
+  /** La fila de filtros activos. Solo si hay alguno. */
+  chipsProps?: BoxSlotProps | undefined;
+  /** La barra de acciones en lote. Solo con seleccion y con `bulkActions`. */
+  bulkBarProps?: BoxSlotProps | undefined;
+  /** El recuento de seleccionadas de esa barra. Lleva `aria-live`, asi que se anuncia al cambiar. */
+  bulkCountProps?: TextSlotProps | undefined;
 }

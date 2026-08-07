@@ -77,10 +77,10 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | hecho |
 | `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | hecho (7; carousel es su raiz, y el detector no conto los dos ActionIcon de las flechas) |
 | `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | hecho (5; scroll es el envoltorio de desplazamiento y su alto ya sale de maxHeight; gutter y source comparten metrica de linea y separarlas descuadra los numeros. El detector no conto el rotulo de la cabecera ni el ButtonCopy) |
-| `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | pendiente |
+| `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | hecho (6 de 6; la barra es interna, asi que suben a DataGridProps. toolbarGap se publica como toolbarActionsProps) |
 | `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | hecho |
 | `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | hecho |
-| `Nav/components/Links.tsx` | 6 | link links indicator overflow overflowTrigger overflowPanel | pendiente |
+| `Nav/components/Links.tsx` | 6 | link links indicator overflow overflowTrigger overflowPanel | hecho (3 de 6; link y links son la raiz de sus partes; indicator lo anima motion con un style calculado) |
 | `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | pendiente |
 | `AppShell/components/Links.tsx` | 5 | links linksHeader linksContent link label | pendiente |
 | `AppShell/components/Sidebar.tsx` | 5 | sidebar toggle sidebarContainer sidebarSlot sidebarBody | pendiente |
@@ -89,7 +89,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Kanban/KanbanCard.tsx` | 5 | card cardHead cardTitle cardDescription cardMeta | hecho |
 | `Kanban/KanbanColumn.tsx` | 5 | column columnHeader columnTitle columnCount columnEmpty | hecho |
 | `MultiSelect/MultiSelect.tsx` | 5 | control chip chipLabel chipRemove search | pendiente |
-| `Nav/components/Sidebar.tsx` | 5 | sidebarScrim sidebar sidebarHead sidebarBody sidebarFooter | pendiente |
+| `Nav/components/Sidebar.tsx` | 5 | sidebarScrim sidebar sidebarHead sidebarBody sidebarFooter | hecho (4; sidebarScrim y sidebar los anima motion y sidebar es ademas la raiz; el detector no conto el ButtonClose) |
 | `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | hecho |
 | `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | pendiente |
 | `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | pendiente |
@@ -148,7 +148,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | pendiente |
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | pendiente |
-| `Nav/components/Section.tsx` | 2 | actions divider | pendiente |
+| `Nav/components/Section.tsx` | 2 | actions divider | descartado: son la raiz de NavActions y NavDivider, que ya llevan style props |
 | `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | pendiente |
 | `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | pendiente |
 | `RichTextEditor/Toolbar.tsx` | 2 | toolbar group | pendiente |
@@ -192,7 +192,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `List/List.tsx` | 1 | list | pendiente |
 | `Mark/Mark.tsx` | 1 | mark | pendiente |
 | `NativeSelect/NativeSelect.tsx` | 1 | chevron | pendiente |
-| `Nav/components/Logo.tsx` | 1 | logo | pendiente |
+| `Nav/components/Logo.tsx` | 1 | logo | descartado: es la raiz de NavLogo, que ya lleva style props |
 | `Paper/Paper.tsx` | 1 | paper | pendiente |
 | `PermissionGate/PermissionGate.tsx` | 1 | disabled | pendiente |
 | `PinInput/PinInput.tsx` | 1 | group | pendiente |

@@ -2,14 +2,22 @@
 
 import type { ReactElement, ReactNode } from "react";
 
+import { cx } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Button } from "../Button/Button.js";
 import { Tag } from "../Tag/Tag.js";
+import { Text } from "../Text/Text.js";
 import { SearchInput } from "../SearchInput/SearchInput.js";
 
 import * as styles from "./DataGrid.css.js";
-import type { DataGridBulkAction, DataGridFilterChip, DataGridLabels } from "./DataGrid.types.js";
+import type {
+  DataGridBulkAction,
+  DataGridFilterChip,
+  DataGridLabels,
+  DataGridToolbarSlotProps,
+} from "./DataGrid.types.js";
 
-export interface DataGridToolbarProps {
+export interface DataGridToolbarProps extends DataGridToolbarSlotProps {
   labels: DataGridLabels;
   search: string | undefined;
   onSearchChange: ((query: string) => void) | undefined;
@@ -40,14 +48,23 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
     section,
     hiddenCount,
     onResetColumns,
+    toolbarProps,
+    toolbarSearchProps,
+    toolbarActionsProps,
+    chipsProps,
+    bulkBarProps,
+    bulkCountProps,
   } = props;
 
   const has_selection = selectedKeys.length > 0 && bulkActions.length > 0;
 
   return (
-    <div className={styles.toolbar}>
+    <Box {...toolbarProps} className={cx(styles.toolbar, toolbarProps?.className)}>
       {onSearchChange === undefined ? null : (
-        <div className={styles.toolbar_search}>
+        <Box
+          {...toolbarSearchProps}
+          className={cx(styles.toolbar_search, toolbarSearchProps?.className)}
+        >
           <SearchInput
             value={search ?? ""}
             onChange={onSearchChange}
@@ -55,10 +72,13 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
             size="sm"
             {...(searchPlaceholder === undefined ? {} : { placeholder: searchPlaceholder })}
           />
-        </div>
+        </Box>
       )}
 
-      <div className={styles.toolbar_gap}>
+      <Box
+        {...toolbarActionsProps}
+        className={cx(styles.toolbar_gap, toolbarActionsProps?.className)}
+      >
         {section}
         {hiddenCount > 0 && onResetColumns !== undefined ? (
           <Button size="sm" variant="ghost" onPress={onResetColumns}>
@@ -70,10 +90,15 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
             {labels.exportCsv}
           </Button>
         )}
-      </div>
+      </Box>
 
       {activeFilters.length > 0 ? (
-        <div className={styles.chips} role="group" aria-label={labels.filters}>
+        <Box
+          role="group"
+          aria-label={labels.filters}
+          {...chipsProps}
+          className={cx(styles.chips, chipsProps?.className)}
+        >
           {activeFilters.map((filter) => (
             <Tag
               key={filter.id}
@@ -91,18 +116,23 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
               {labels.clearFilters}
             </Button>
           )}
-        </div>
+        </Box>
       ) : null}
 
       {has_selection ? (
-        <div
-          className={styles.bulk_bar}
+        <Box
           role="group"
           aria-label={labels.selectedCount(selectedKeys.length)}
+          {...bulkBarProps}
+          className={cx(styles.bulk_bar, bulkBarProps?.className)}
         >
-          <p className={styles.bulk_count} aria-live="polite">
+          <Text
+            aria-live="polite"
+            {...bulkCountProps}
+            className={cx(styles.bulk_count, bulkCountProps?.className)}
+          >
             {labels.selectedCount(selectedKeys.length)}
-          </p>
+          </Text>
           {bulkActions.map((action) => (
             <Button
               key={action.id}
@@ -120,9 +150,9 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
           <Button size="sm" variant="ghost" onPress={onClearSelection}>
             {labels.clearSelection}
           </Button>
-        </div>
+        </Box>
       ) : null}
-    </div>
+    </Box>
   );
 }
 

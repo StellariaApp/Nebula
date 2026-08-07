@@ -106,6 +106,12 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     rowProps,
     tdProps,
     footProps,
+    toolbarProps,
+    toolbarSearchProps,
+    toolbarActionsProps,
+    chipsProps,
+    bulkBarProps,
+    bulkCountProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -281,6 +287,12 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     >
       {show_toolbar ? (
         <DataGridToolbar
+          toolbarProps={toolbarProps}
+          toolbarSearchProps={toolbarSearchProps}
+          toolbarActionsProps={toolbarActionsProps}
+          chipsProps={chipsProps}
+          bulkBarProps={bulkBarProps}
+          bulkCountProps={bulkCountProps}
           labels={text}
           search={search}
           onSearchChange={onSearchChange}

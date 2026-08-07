@@ -17,6 +17,7 @@ import { m } from "motion/react";
 
 import { ResolveVariant } from "../../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
 
 import { NavLinksContext, useNavLinks } from "../Nav.context.js";
 import * as styles from "../Nav.css.js";
@@ -107,6 +108,9 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     withIndicator = true,
     labels,
     className,
+    overflowProps,
+    overflowTriggerProps,
+    overflowPanelProps,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -194,11 +198,20 @@ export function NavLinks(props: NavLinksProps): ReactElement {
       <NavLinksContext.Provider value={context}>
         {overflowMenu ? nodes.slice(0, shown) : children}
         {overflowMenu && hidden.length > 0 ? (
-          <details className={styles.overflow}>
-            <summary className={styles.overflow_trigger} aria-label={text.more}>
+          <details {...overflowProps} className={cx(styles.overflow, overflowProps?.className)}>
+            <summary
+              aria-label={text.more}
+              {...overflowTriggerProps}
+              className={cx(styles.overflow_trigger, overflowTriggerProps?.className)}
+            >
               <DotsHorizontal />
             </summary>
-            <div className={styles.overflow_panel}>{hidden}</div>
+            <Box
+              {...overflowPanelProps}
+              className={cx(styles.overflow_panel, overflowPanelProps?.className)}
+            >
+              {hidden}
+            </Box>
           </details>
         ) : null}
       </NavLinksContext.Provider>
