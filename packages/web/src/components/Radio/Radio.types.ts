@@ -21,8 +21,11 @@ export interface RadioProps
   color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   rootClassName?: string | undefined;
+  /** Rotulo junto al radio. */
   labelProps?: TextSlotProps | undefined;
+  /** El circulo visual. El input nativo va aparte. */
   indicatorProps?: BoxSlotProps | undefined;
+  /** El punto interior, que aparece al marcar. */
   markProps?: BoxSlotProps | undefined;
 }
 

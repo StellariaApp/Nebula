@@ -27,8 +27,11 @@ export interface CheckboxProps
   disabled?: boolean | undefined;
   error?: boolean | undefined;
   rootClassName?: string | undefined;
+  /** Rotulo junto a la casilla. */
   labelProps?: TextSlotProps | undefined;
+  /** La casilla visual. El input nativo va aparte y sigue recibiendo className. */
   indicatorProps?: BoxSlotProps | undefined;
+  /** La marca de dentro: paloma, o guion si indeterminate. */
   markProps?: GlyphProps | undefined;
 }
 

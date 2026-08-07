@@ -19,7 +19,10 @@ export interface BadgeProps extends StyleProps {
   rightSection?: ReactNode | undefined;
   fullWidth?: boolean | undefined;
   className?: string | undefined;
+  /** El punto de color. Solo se pinta con dot; su color sale de la escala, no de la hoja. */
   dotProps?: BoxSlotProps | undefined;
+  /** Envoltorio de leftSection. */
   leftSectionProps?: BoxSlotProps | undefined;
+  /** Envoltorio de rightSection. */
   rightSectionProps?: BoxSlotProps | undefined;
 }

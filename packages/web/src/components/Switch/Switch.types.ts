@@ -25,7 +25,9 @@ export interface SwitchProps
   disabled?: boolean | undefined;
   draggable?: boolean | undefined;
   rootClassName?: string | undefined;
+  /** Rotulo junto al interruptor. */
   labelProps?: TextSlotProps | undefined;
+  /** La pista. El thumb NO se expone: lo mueve motion con un style calculado. */
   indicatorProps?: BoxSlotProps | undefined;
 }
 

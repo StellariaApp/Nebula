@@ -27,11 +27,18 @@ export interface TimelineProps extends Omit<StyleProps, "align"> {
   lineWidth?: number | undefined;
   reachedLabel?: string | undefined;
   className?: string | undefined;
+  /** Cada entrada de la linea. Se esparce sobre todas. */
   itemProps?: BoxSlotProps | undefined;
+  /** La viñeta. Lleva data-reached, que es lo que la tiñe al pasar el activo. */
   bulletProps?: BoxSlotProps | undefined;
+  /** El tramo vertical entre viñetas. */
   lineProps?: BoxSlotProps | undefined;
+  /** Columna de titulo, meta y descripcion. */
   bodyProps?: BoxSlotProps | undefined;
+  /** Titulo de la entrada. */
   titleProps?: TextSlotProps | undefined;
+  /** Linea de meta, si la entrada la trae. */
   metaProps?: TextSlotProps | undefined;
+  /** Descripcion de la entrada, si la trae. */
   descriptionProps?: TextSlotProps | undefined;
 }

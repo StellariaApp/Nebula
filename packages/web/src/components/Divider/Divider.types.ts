@@ -18,7 +18,9 @@ export interface DividerOwnProps extends Omit<BoxOwnProps, "component" | "color"
   lineStyle?: DividerStyle | undefined;
   color?: BorderRole | undefined;
   label?: ReactNode | undefined;
+  /** Las DOS lineas, la de antes y la de despues del rotulo: es el mismo elemento repetido. */
   lineProps?: BoxSlotProps | undefined;
+  /** El rotulo. Solo se pinta si hay label; sin el, el divisor es una sola linea. */
   labelProps?: TextSlotProps | undefined;
   labelPosition?: DividerLabelPosition | undefined;
 }

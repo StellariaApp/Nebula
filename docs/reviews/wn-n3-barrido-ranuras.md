@@ -26,6 +26,12 @@ misma anatomía y por eso llevan los mismos nombres.
 **El tipo** sale de ADR-104: nodo de texto → `TextSlotProps`, envoltorio → `BoxSlotProps`, componente
 de Nebula → su propio `Props`, glifo → `GlyphProps`.
 
+
+**Cada ranura se documenta al añadirla** (ADR-105). El JSDoc sobre un miembro de un tipo público no
+es un comentario: viaja al `.d.ts` y es lo que el consumidor lee al teclear. Se escribe lo que el
+tipo no puede decir —sobre qué nodo cae, cuándo no aplica, si se comparte entre varios nodos—, no
+una paráfrasis del nombre.
+
 ## Cómo se trabaja
 
 Por tandas, con los gates en verde entre tanda y tanda y un commit por tanda. Cada tanda mide su

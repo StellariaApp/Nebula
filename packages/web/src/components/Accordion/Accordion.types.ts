@@ -25,9 +25,14 @@ export interface AccordionProps<Multiple extends boolean = false> extends StyleP
   disabled?: boolean | undefined;
   chevronPosition?: "start" | "end" | undefined;
   className?: string | undefined;
+  /** Cada item de la lista. Se esparce sobre TODOS, no sobre uno. */
   itemProps?: BoxSlotProps | undefined;
+  /** El boton que abre y cierra. Lleva ya el aria-expanded y el aria-controls. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /** Icono del item, si lo trae. El chevron NO se expone: lo anima motion. */
   iconProps?: BoxSlotProps | undefined;
+  /** Rotulo del item, dentro del boton. */
   labelProps?: TextSlotProps | undefined;
+  /** Panel desplegable. Vive dentro de un Collapse, asi que su altura la gobierna el. */
   panelProps?: BoxSlotProps | undefined;
 }

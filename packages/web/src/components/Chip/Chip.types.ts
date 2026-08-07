@@ -28,6 +28,7 @@ export interface ChipProps
   icon?: ReactNode | undefined;
   className?: string | undefined;
   rootClassName?: string | undefined;
+  /** Envoltorio del icono. Cae tanto sobre el icono propio como sobre la paloma de marcado. */
   iconProps?: BoxSlotProps | undefined;
 }
 
