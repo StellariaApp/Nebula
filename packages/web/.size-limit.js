@@ -704,7 +704,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Toast/ToastProvider.js",
     import: "{ ToastProvider }",
     ignore: ["react", "react-dom"],
-    limit: "46.5 kB",
+    limit: "47.25 kB",
   },
   {
     name: "nebulaToast (API imperativa, por módulo)",
@@ -1056,7 +1056,7 @@ const MODULE_BUDGETS = [
     import: "{ Filters }",
     ignore: ["react", "react-dom"],
     deferred: ["DatePicker.js", "DateRangePicker.js"],
-    limit: "87.25 kB",
+    limit: "87.5 kB",
   },
   {
     name: "Search (barra con slots + Filters; fechas diferidas, por módulo)",

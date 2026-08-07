@@ -14,9 +14,11 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { Portal } from "../Portal/Portal.js";
 
 import * as styles from "./Toast.css.js";
-import type { ToastProviderProps, ToastRecord } from "./Toast.types.js";
+import type { ToastProviderProps, ToastRecord, ToastSlotProps } from "./Toast.types.js";
 import * as variables from "./Toast.vars.css.js";
 import { nebulaToast, useToastQueue } from "./toast-store.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const LIVE: Record<string, "assertive" | "polite"> = { error: "assertive", warning: "assertive" };
 
@@ -24,10 +26,11 @@ interface ItemProps {
   toast: ToastRecord;
   closeLabel: string;
   fallbackDuration: number;
+  slots: ToastSlotProps;
 }
 
 function ToastItem(props: ItemProps): ReactElement {
-  const { toast, closeLabel, fallbackDuration } = props;
+  const { toast, closeLabel, fallbackDuration, slots } = props;
   const paused = useRef(false);
 
   useEffect(() => {
@@ -58,9 +61,10 @@ function ToastItem(props: ItemProps): ReactElement {
   });
 
   return (
-    <div
-      className={styles.toast}
-      style={css_vars}
+    <Box
+      {...slots.toastProps}
+      className={cx(styles.toast, slots.toastProps?.className)}
+      style={{ ...css_vars, ...slots.toastProps?.style }}
       role={LIVE[toast.color] === "assertive" ? "alert" : "status"}
       data-color={toast.color}
       onMouseEnter={() => {
@@ -71,21 +75,35 @@ function ToastItem(props: ItemProps): ReactElement {
       }}
     >
       {toast.icon === undefined || toast.icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...slots.iconProps}
+          className={cx(styles.icon, slots.iconProps?.className)}
+        >
           {toast.icon}
-        </span>
+        </Box>
       )}
-      <div className={styles.body}>
+      <Box {...slots.bodyProps} className={cx(styles.body, slots.bodyProps?.className)}>
         {toast.title === undefined || toast.title === null ? null : (
-          <p className={styles.title}>{toast.title}</p>
+          <Text {...slots.titleProps} className={cx(styles.title, slots.titleProps?.className)}>
+            {toast.title}
+          </Text>
         )}
         {toast.message === undefined || toast.message === null ? null : (
-          <div className={styles.message}>{toast.message}</div>
+          <Box
+            {...slots.messageProps}
+            className={cx(styles.message, slots.messageProps?.className)}
+          >
+            {toast.message}
+          </Box>
         )}
         {toast.action === undefined || toast.action === null ? null : (
-          <div className={styles.action}>{toast.action}</div>
+          <Box {...slots.actionProps} className={cx(styles.action, slots.actionProps?.className)}>
+            {toast.action}
+          </Box>
         )}
-      </div>
+      </Box>
       {toast.dismissible ? (
         <ButtonClose
           aria-label={closeLabel}
@@ -96,7 +114,7 @@ function ToastItem(props: ItemProps): ReactElement {
           }}
         />
       ) : null}
-    </div>
+    </Box>
   );
 }
 
@@ -108,9 +126,25 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
     duration = 4500,
     closeLabel = "Cerrar notificación",
     regionLabel = "Notificaciones",
+    regionProps,
+    toastProps,
+    iconProps,
+    bodyProps,
+    titleProps,
+    messageProps,
+    actionProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+
+  const slots: ToastSlotProps = {
+    toastProps,
+    iconProps,
+    bodyProps,
+    titleProps,
+    messageProps,
+    actionProps,
+  };
 
   const queue = useToastQueue();
   const visible = queue.slice(-max);
@@ -126,7 +160,13 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
       {children}
       <Portal>
         <div
-          className={cx(styles.region, styles.placement[position], sprinkle_class)}
+          {...regionProps}
+          className={cx(
+            styles.region,
+            styles.placement[position],
+            sprinkle_class,
+            regionProps?.className,
+          )}
           style={sprinkle_style}
           role="region"
           aria-label={regionLabel}
@@ -145,7 +185,12 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
                 }}
                 transition={SurfaceTransition("toast", "enter", motion_context)}
               >
-                <ToastItem toast={toast} closeLabel={closeLabel} fallbackDuration={duration} />
+                <ToastItem
+                  toast={toast}
+                  closeLabel={closeLabel}
+                  fallbackDuration={duration}
+                  slots={slots}
+                />
               </m.div>
             ))}
           </AnimatePresence>

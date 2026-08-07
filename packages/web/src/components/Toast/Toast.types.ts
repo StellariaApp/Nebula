@@ -4,6 +4,9 @@ import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type ToastVariant = Extract<Variant, "filled" | "light" | "glass">;
 
 export type ToastPosition =
@@ -28,7 +31,29 @@ export interface ToastRecord extends ToastOptions {
   dismissible: boolean;
 }
 
-export interface ToastProviderProps extends Omit<StyleProps, "position"> {
+/**
+ * Las ranuras de cada notificacion. Se esparcen sobre TODAS las que muestre el proveedor: el
+ * contenido de una notificacion llega por `nebulaToast`, no por composicion, asi que no hay forma
+ * de ajustar una sola desde aqui.
+ */
+export interface ToastSlotProps {
+  /** Cada notificacion. Lleva el `role` que decide su color: alert si es error o aviso. */
+  toastProps?: BoxSlotProps | undefined;
+  /** Envoltorio del icono, si la notificacion lo trae. */
+  iconProps?: BoxSlotProps | undefined;
+  /** Columna de titulo, mensaje y accion. */
+  bodyProps?: BoxSlotProps | undefined;
+  /** El titulo, si lo hay. */
+  titleProps?: TextSlotProps | undefined;
+  /** El mensaje, si lo hay. */
+  messageProps?: BoxSlotProps | undefined;
+  /** La accion, si la hay. */
+  actionProps?: BoxSlotProps | undefined;
+}
+
+export interface ToastProviderProps extends Omit<StyleProps, "position">, ToastSlotProps {
+  /** La region que agrupa las notificaciones. Es un landmark, asi que lleva rotulo. */
+  regionProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   position?: ToastPosition | undefined;
   max?: number | undefined;

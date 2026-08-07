@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
@@ -9,6 +9,8 @@ import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export interface SelectProps extends StyleProps, FormFieldSlotProps {
   data: readonly SelectOption[];
@@ -30,6 +32,14 @@ export interface SelectProps extends StyleProps, FormFieldSlotProps {
   maxDropdownHeight?: number | undefined;
   emptyLabel?: string | undefined;
   className?: string | undefined;
+  /** El boton que abre la lista. */
+  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /** El valor mostrado en el boton. Lleva el estilo de marcador cuando no hay seleccion. */
+  valueProps?: BoxSlotProps | undefined;
+  /** El chevron. Lleva `data-open`, que es de donde sale su giro. */
+  chevronProps?: BoxSlotProps | undefined;
+  /** El desplegable. Su ancho se calcula del disparador; la ranura se compone, no lo pisa. */
+  dropdownProps?: BoxSlotProps | undefined;
   rootClassName?: string | undefined;
   name?: string | undefined;
 }

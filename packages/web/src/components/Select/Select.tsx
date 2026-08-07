@@ -16,6 +16,7 @@ import { FormField } from "../FormField/FormField.js";
 import * as styles from "./Select.css.js";
 import type { SelectProps } from "./Select.types.js";
 import { ChevronDown } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
 
 const CHEVRON = <ChevronDown />;
 
@@ -41,6 +42,10 @@ export function Select(props: SelectProps): ReactElement {
     maxDropdownHeight,
     emptyLabel,
     className,
+    triggerProps,
+    valueProps,
+    chevronProps,
+    dropdownProps,
     rootClassName,
     name,
     labelProps,
@@ -90,7 +95,11 @@ export function Select(props: SelectProps): ReactElement {
   const popover_ref = useRef<HTMLDivElement>(null);
   const listbox_ref = useRef<HTMLUListElement>(null);
 
-  const { triggerProps, valueProps, menuProps } = useSelect(
+  const {
+    triggerProps: aria_trigger,
+    valueProps: aria_value,
+    menuProps,
+  } = useSelect(
     {
       isDisabled: fp.isDisabled,
       isRequired: required,
@@ -100,7 +109,7 @@ export function Select(props: SelectProps): ReactElement {
     trigger_ref,
   );
 
-  const { buttonProps } = useButton(triggerProps, trigger_ref);
+  const { buttonProps } = useButton(aria_trigger, trigger_ref);
 
   const { popoverProps, underlayProps } = usePopover(
     { triggerRef: trigger_ref, popoverRef: popover_ref, placement, offset: 6 },
@@ -145,23 +154,36 @@ export function Select(props: SelectProps): ReactElement {
             {...control}
             ref={trigger_ref}
             type="button"
-            className={cx(styles.trigger, className)}
+            {...aria_trigger}
+            {...triggerProps}
+            className={cx(styles.trigger, className, triggerProps?.className)}
             disabled={fp.isDisabled}
             aria-labelledby={
               label === undefined
                 ? undefined
-                : `${control.id}-label ${String(valueProps.id ?? "")}`.trim()
+                : `${control.id}-label ${String(aria_value.id ?? "")}`.trim()
             }
           >
-            <span
+            <Box
+              component="span"
+              {...aria_value}
               {...valueProps}
-              className={cx(styles.value, selected === undefined ? styles.placeholder : undefined)}
+              className={cx(
+                styles.value,
+                selected === undefined ? styles.placeholder : undefined,
+                valueProps?.className,
+              )}
             >
               {selected === undefined ? placeholder : selected.label}
-            </span>
-            <span className={styles.chevron} data-open={state.isOpen ? "true" : undefined}>
+            </Box>
+            <Box
+              component="span"
+              data-open={state.isOpen ? "true" : undefined}
+              {...chevronProps}
+              className={cx(styles.chevron, chevronProps?.className)}
+            >
               {CHEVRON}
-            </span>
+            </Box>
           </button>
           {presence.render ? (
             <Overlay>
@@ -172,7 +194,8 @@ export function Select(props: SelectProps): ReactElement {
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}
-                className={styles.dropdown}
+                {...dropdownProps}
+                className={cx(styles.dropdown, dropdownProps?.className)}
                 style={{
                   ...popoverProps.style,
                   width: trigger_ref.current?.parentElement?.offsetWidth,

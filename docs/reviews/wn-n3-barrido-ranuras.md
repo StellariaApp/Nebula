@@ -73,7 +73,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `CommandPalette/CommandPalette.tsx` | 7 | icon body label description inputRow empty list | pendiente |
 | `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | pendiente |
 | `Timeline/Timeline.tsx` | 7 | item bullet line body title meta description | hecho |
-| `Toast/ToastProvider.tsx` | 7 | toast icon body title message action region | pendiente |
+| `Toast/ToastProvider.tsx` | 7 | toast icon body title message action region | hecho |
 | `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | hecho |
 | `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | pendiente |
 | `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | pendiente |
@@ -125,7 +125,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Rating/Rating.tsx` | 3 | group item partial | pendiente |
 | `SearchableList/SearchableList.tsx` | 3 | toolbar search count | pendiente |
 | `Segment/components/Control.tsx` | 3 | control indicator tab | pendiente |
-| `Select/Select.tsx` | 3 | trigger chevron dropdown | pendiente |
+| `Select/Select.tsx` | 3 | trigger chevron dropdown | hecho |
 | `StarField/StarField.tsx` | 3 | starField aurora star | pendiente |
 | `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | pendiente |
 | `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
