@@ -14,8 +14,14 @@ import { SearchInput } from "../SearchInput/SearchInput.js";
 import * as styles from "./TransferList.css.js";
 import * as transfer_list_vars from "./TransferList.vars.css.js";
 import { TRANSFER_LIST_LABELS } from "./labels.js";
-import type { TransferListPane, TransferListProps } from "./TransferList.types.js";
+import type {
+  TransferListPane,
+  TransferListProps,
+  TransferPaneSlotProps,
+} from "./TransferList.types.js";
 import { Glyph } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_HEIGHT = 240;
 
@@ -43,6 +49,7 @@ interface PaneProps {
   disabled: boolean;
   query: string;
   onQuery: (value: string) => void;
+  slots: TransferPaneSlotProps;
 }
 
 function Pane(props: PaneProps): ReactElement {
@@ -59,20 +66,34 @@ function Pane(props: PaneProps): ReactElement {
     disabled,
     query,
     onQuery,
+    slots,
   } = props;
 
   return (
-    <div className={styles.pane}>
+    <Box {...slots.paneProps} className={cx(styles.pane, slots.paneProps?.className)}>
       {pane?.title === undefined ? null : (
-        <div className={styles.pane_head}>
-          <p className={styles.pane_title} id={id}>
+        <Box
+          {...slots.paneHeadProps}
+          className={cx(styles.pane_head, slots.paneHeadProps?.className)}
+        >
+          <Text
+            id={id}
+            {...slots.paneTitleProps}
+            className={cx(styles.pane_title, slots.paneTitleProps?.className)}
+          >
             {pane.title}
-          </p>
-          <span className={styles.pane_count}>{countLabel}</span>
-        </div>
+          </Text>
+          <Text
+            component="span"
+            {...slots.paneCountProps}
+            className={cx(styles.pane_count, slots.paneCountProps?.className)}
+          >
+            {countLabel}
+          </Text>
+        </Box>
       )}
       {searchable ? (
-        <div className={styles.search}>
+        <Box {...slots.searchProps} className={cx(styles.search, slots.searchProps?.className)}>
           <SearchInput
             value={query}
             onChange={onQuery}
@@ -80,10 +101,11 @@ function Pane(props: PaneProps): ReactElement {
             size="sm"
             disabled={disabled}
           />
-        </div>
+        </Box>
       ) : null}
-      <div
-        className={styles.list}
+      <Box
+        {...slots.listProps}
+        className={cx(styles.list, slots.listProps?.className)}
         role="listbox"
         aria-multiselectable="true"
         {...(pane?.title === undefined ? {} : { "aria-labelledby": id })}
@@ -92,7 +114,8 @@ function Pane(props: PaneProps): ReactElement {
           <button
             key={option.value}
             type="button"
-            className={styles.item}
+            {...slots.itemProps}
+            className={cx(styles.item, slots.itemProps?.className)}
             role="option"
             aria-selected={marked.includes(option.value)}
             disabled={disabled || option.disabled === true}
@@ -104,10 +127,22 @@ function Pane(props: PaneProps): ReactElement {
             {option.label}
           </button>
         ))}
-      </div>
-      {options.length === 0 ? <p className={styles.empty}>{pane?.empty ?? emptyLabel}</p> : null}
-      {pane?.title === undefined ? <span className={styles.pane_count}>{countLabel}</span> : null}
-    </div>
+      </Box>
+      {options.length === 0 ? (
+        <Text {...slots.emptyProps} className={cx(styles.empty, slots.emptyProps?.className)}>
+          {pane?.empty ?? emptyLabel}
+        </Text>
+      ) : null}
+      {pane?.title === undefined ? (
+        <Text
+          component="span"
+          {...slots.paneCountProps}
+          className={cx(styles.pane_count, slots.paneCountProps?.className)}
+        >
+          {countLabel}
+        </Text>
+      ) : null}
+    </Box>
   );
 }
 
@@ -124,9 +159,29 @@ export function TransferList(props: TransferListProps): ReactElement {
     disabled = false,
     labels,
     className,
+    controlsProps,
+    paneProps,
+    paneHeadProps,
+    paneTitleProps,
+    paneCountProps,
+    searchProps,
+    listProps,
+    itemProps,
+    emptyProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
+
+  const pane_slots: TransferPaneSlotProps = {
+    paneProps,
+    paneHeadProps,
+    paneTitleProps,
+    paneCountProps,
+    searchProps,
+    listProps,
+    itemProps,
+    emptyProps,
+  };
 
   const text = useMemo(
     () => (labels === undefined ? TRANSFER_LIST_LABELS : { ...TRANSFER_LIST_LABELS, ...labels }),
@@ -194,9 +249,10 @@ export function TransferList(props: TransferListProps): ReactElement {
         disabled={disabled}
         query={query_source}
         onQuery={set_query_source}
+        slots={pane_slots}
       />
 
-      <div className={styles.controls}>
+      <Box {...controlsProps} className={cx(styles.controls, controlsProps?.className)}>
         <ActionIcon
           variant="outline"
           size="sm"
@@ -244,7 +300,7 @@ export function TransferList(props: TransferListProps): ReactElement {
         >
           {ALL_TO_SOURCE}
         </ActionIcon>
-      </div>
+      </Box>
 
       <Pane
         id={`${auto_id}-target`}
@@ -261,6 +317,7 @@ export function TransferList(props: TransferListProps): ReactElement {
         disabled={disabled}
         query={query_target}
         onQuery={set_query_target}
+        slots={pane_slots}
       />
     </div>
   );

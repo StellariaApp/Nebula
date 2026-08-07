@@ -66,7 +66,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | pendiente |
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
 | `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | hecho |
-| `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | pendiente |
+| `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | hecho |
 | `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | pendiente |
 | `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | hecho |
 | `Charts/ChartFrame.tsx` | 7 | title canvas summary details detailsSummary tableWrap table | pendiente |
