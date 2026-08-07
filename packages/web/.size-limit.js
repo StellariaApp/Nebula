@@ -151,7 +151,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Footer/index.js",
     import: "{ Footer }",
     ignore: ["react", "react-dom"],
-    limit: "22 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Reveal (motion + IntersectionObserver, por módulo)",

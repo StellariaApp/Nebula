@@ -63,7 +63,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | pendiente |
 | `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | hecho |
 | `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
-| `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | pendiente |
+| `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | hecho (5 de 9; brand, link, group y legal son raices de sus partes) |
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
 | `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | hecho |
 | `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | hecho |
