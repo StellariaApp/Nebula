@@ -16,7 +16,9 @@ import {
   CardMeta as CardMetaSlot,
   CardActions,
 } from "../Card/Card.js";
+import { Box } from "../Box/Box.js";
 import { DateDisplay } from "../DateDisplay/DateDisplay.js";
+import { Text } from "../Text/Text.js";
 import { Skeleton } from "../Skeleton/Skeleton.js";
 
 import * as styles from "./CardComplex.css.js";
@@ -52,7 +54,10 @@ function BadgeRow(props: {
   );
 }
 
-function ActionRow(props: { items: readonly CardAction[]; className?: string }): ReactElement {
+function ActionRow(props: {
+  items: readonly CardAction[];
+  className?: string | undefined;
+}): ReactElement {
   return (
     <div className={props.className ?? styles.slot_row}>
       {props.items.map((action) => (
@@ -91,6 +96,16 @@ export function CardComplex(props: CardComplexProps): ReactElement {
     footer,
     children,
     className,
+    mediaProps,
+    mediaActionsProps,
+    bodyProps,
+    headerProps,
+    headingProps,
+    titleProps,
+    descriptionProps,
+    metaProps,
+    personProps,
+    footProps,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -136,7 +151,11 @@ export function CardComplex(props: CardComplexProps): ReactElement {
       {...(sprinkle_style === undefined ? {} : { style: sprinkle_style })}
     >
       {show_media ? (
-        <div className={styles.media_wrap} data-selected={selected ? "true" : undefined}>
+        <Box
+          data-selected={selected ? "true" : undefined}
+          {...mediaProps}
+          className={cx(styles.media_wrap, mediaProps?.className)}
+        >
           {media.component ?? (
             <CardImage
               {...(media.image === undefined ? {} : { src: media.image })}
@@ -145,27 +164,35 @@ export function CardComplex(props: CardComplexProps): ReactElement {
             />
           )}
           {media_actions.length === 0 ? null : (
-            <ActionRow items={media_actions} className={styles.media_actions} />
+            <ActionRow
+              items={media_actions}
+              className={cx(styles.media_actions, mediaActionsProps?.className)}
+            />
           )}
-        </div>
+        </Box>
       ) : null}
 
-      <div className={styles.body}>
+      <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
         {title === undefined && header_actions.length === 0 ? null : (
-          <div className={styles.header}>
-            <div className={styles.heading}>
+          <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
+            <Box {...headingProps} className={cx(styles.heading, headingProps?.className)}>
               {badges?.title === undefined ? null : (
                 <BadgeRow items={badges.title} grow={grow} wrap={wrap} />
               )}
-              {title === undefined ? null : <p className={styles.title}>{title}</p>}
-            </div>
+              {title === undefined ? null : (
+                <Text {...titleProps} className={cx(styles.title, titleProps?.className)}>
+                  {title}
+                </Text>
+              )}
+            </Box>
             {header_actions.length === 0 ? null : <ActionRow items={header_actions} />}
-          </div>
+          </Box>
         )}
 
         {description === undefined ? null : (
           <p
-            className={styles.description}
+            {...descriptionProps}
+            className={cx(styles.description, descriptionProps?.className)}
             {...(lines === undefined
               ? {}
               : {
@@ -190,7 +217,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
 
         {meta === undefined ? null : (
           <CardMetaSlot>
-            <div className={styles.meta_row}>
+            <Box {...metaProps} className={cx(styles.meta_row, metaProps?.className)}>
               {meta.createdAt === undefined ? null : (
                 <span>
                   {meta.createdAtLabel ?? "Creado"}{" "}
@@ -212,7 +239,11 @@ export function CardComplex(props: CardComplexProps): ReactElement {
                 </span>
               )}
               {meta.responsible === undefined ? null : (
-                <span className={styles.person}>
+                <Box
+                  component="span"
+                  {...personProps}
+                  className={cx(styles.person, personProps?.className)}
+                >
                   <Avatar
                     size="xs"
                     name={meta.responsible.name}
@@ -222,16 +253,16 @@ export function CardComplex(props: CardComplexProps): ReactElement {
                   />
                   {meta.responsibleLabel === undefined ? null : `${meta.responsibleLabel} `}
                   {meta.responsible.name}
-                </span>
+                </Box>
               )}
-            </div>
+            </Box>
           </CardMetaSlot>
         )}
 
         {footer === undefined &&
         footer_actions.length === 0 &&
         badges?.footer === undefined ? null : (
-          <div className={styles.foot}>
+          <Box {...footProps} className={cx(styles.foot, footProps?.className)}>
             {badges?.footer === undefined ? (
               <span />
             ) : (
@@ -243,9 +274,9 @@ export function CardComplex(props: CardComplexProps): ReactElement {
                 <ActionRow items={footer_actions} />
               </CardActions>
             )}
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
     </Card>
   );
 }

@@ -10,6 +10,9 @@ import type {
 import type { StyleProps } from "../../utils/style-props.js";
 import type { CardVariant } from "../Card/Card.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type CardActionSlot = "header" | "media" | "footer";
 
 export interface CardAction {
@@ -81,5 +84,25 @@ export interface CardComplexProps extends StyleProps {
   footer?: ReactNode | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
+  /** El marco de la media. Lleva `data-selected`, que es de donde sale su realce. */
+  mediaProps?: BoxSlotProps | undefined;
+  /** La fila de acciones sobre la media. */
+  mediaActionsProps?: BoxSlotProps | undefined;
+  /** El cuerpo de la tarjeta, bajo la media. */
+  bodyProps?: BoxSlotProps | undefined;
+  /** La cabecera. No se pinta si no hay titulo ni acciones. */
+  headerProps?: BoxSlotProps | undefined;
+  /** Columna de chapas y titulo, dentro de la cabecera. */
+  headingProps?: BoxSlotProps | undefined;
+  /** El titulo. */
+  titleProps?: TextSlotProps | undefined;
+  /** La descripcion. Su recorte por lineas lo fija `lines`; la ranura se compone con el. */
+  descriptionProps?: BoxSlotProps | undefined;
+  /** La fila de metadatos. */
+  metaProps?: BoxSlotProps | undefined;
+  /** El bloque de responsable, con su avatar. */
+  personProps?: BoxSlotProps | undefined;
+  /** El pie. No se pinta si no hay footer, acciones ni chapas. */
+  footProps?: BoxSlotProps | undefined;
   "aria-label"?: string | undefined;
 }

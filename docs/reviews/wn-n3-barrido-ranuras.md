@@ -59,7 +59,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DataGrid/DataGrid.tsx` | 13 | panel scroller table caption head th spacer empty row td foot status toolbarGap | hecho |
 | `GlobalSearch/GlobalSearch.tsx` | 12 | trigger shortcut searchRow optionIcon input list groupLabel option optionBody optionTitle optionDescription status | hecho |
 | `Hero/Hero.tsx` | 12 | hero media scrim slot body hiper header title subtitle description actions bottom | espera a N2 |
-| `CardComplex/CardComplex.tsx` | 11 | badgeRow mediaWrap mediaActions body header heading title description metaRow person foot | pendiente |
+| `CardComplex/CardComplex.tsx` | 11 | badgeRow mediaWrap mediaActions body header heading title description metaRow person foot | hecho |
 | `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | pendiente |
 | `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | pendiente |
 | `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
