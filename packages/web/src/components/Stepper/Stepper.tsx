@@ -13,6 +13,8 @@ import * as styles from "./Stepper.css.js";
 import * as variables from "./Stepper.vars.css.js";
 import type { StepperLabels, StepperProps, StepperState } from "./Stepper.types.js";
 import { Check } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_LABELS: StepperLabels = {
   completed: "completado",
@@ -43,6 +45,13 @@ export function Stepper(props: StepperProps): ReactElement {
     allowNextStepsSelect = false,
     labels,
     className,
+    listProps,
+    itemProps,
+    stepProps,
+    bulletProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
     rootClassName,
     ...style_rest
   } = props;
@@ -71,8 +80,15 @@ export function Stepper(props: StepperProps): ReactElement {
       className={cx(styles.root, sprinkle_class, rootClassName)}
       style={{ ...css_vars, ...sprinkle_style }}
     >
-      <ol
-        className={cx(styles.list, styles.orientation[orientation], className)}
+      <Box
+        component="ol"
+        {...listProps}
+        className={cx(
+          styles.list,
+          styles.orientation[orientation],
+          className,
+          listProps?.className,
+        )}
         data-orientation={orientation}
       >
         {steps.map((step, index) => {
@@ -83,48 +99,78 @@ export function Stepper(props: StepperProps): ReactElement {
 
           const body = (
             <>
-              <span className={cx(styles.bullet, styles.bullet_size[size])} data-state={state}>
+              <Box
+                component="span"
+                data-state={state}
+                {...bulletProps}
+                className={cx(styles.bullet, styles.bullet_size[size], bulletProps?.className)}
+              >
                 {Bullet(index, state, step.icon)}
-              </span>
-              <span className={styles.body}>
-                <span className={styles.label}>{step.label}</span>
+              </Box>
+              <Box
+                component="span"
+                {...bodyProps}
+                className={cx(styles.body, bodyProps?.className)}
+              >
+                <Text
+                  component="span"
+                  {...labelProps}
+                  className={cx(styles.label, labelProps?.className)}
+                >
+                  {step.label}
+                </Text>
                 {step.description === undefined ? null : (
-                  <span className={styles.description}>{step.description}</span>
+                  <Text
+                    component="span"
+                    {...descriptionProps}
+                    className={cx(styles.description, descriptionProps?.className)}
+                  >
+                    {step.description}
+                  </Text>
                 )}
-              </span>
+              </Box>
               <VisuallyHidden>{text[state]}</VisuallyHidden>
             </>
           );
 
           return (
-            <li
+            <Box
+              component="li"
               key={index}
-              className={styles.item}
+              {...itemProps}
+              className={cx(styles.item, itemProps?.className)}
               data-state={state}
               {...(state === "current" ? { "aria-current": "step" } : {})}
             >
               {clickable ? (
-                <button
+                <Box
+                  component="button"
                   type="button"
-                  className={styles.step}
+                  {...stepProps}
+                  className={cx(styles.step, stepProps?.className)}
                   onClick={() => {
                     onStepClick(index);
                   }}
                 >
                   {body}
-                </button>
+                </Box>
               ) : (
-                <span className={styles.step} data-static="true">
+                <Box
+                  component="span"
+                  data-static="true"
+                  {...stepProps}
+                  className={cx(styles.step, stepProps?.className)}
+                >
                   {body}
-                </span>
+                </Box>
               )}
               {index === steps.length - 1 ? null : (
                 <span className={styles.track} data-state={state} aria-hidden="true" />
               )}
-            </li>
+            </Box>
           );
         })}
-      </ol>
+      </Box>
       {children === undefined ? null : <div className={styles.panel}>{children}</div>}
     </div>
   );

@@ -65,7 +65,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
 | `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | pendiente |
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
-| `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | pendiente |
+| `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | hecho |
 | `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | pendiente |
 | `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | pendiente |
 | `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | hecho |
@@ -96,7 +96,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Filters/Filters.tsx` | 4 | panel empty list foot | pendiente |
 | `ImageGallery/ImageGallery.tsx` | 4 | empty gallery tile tileImage | pendiente |
 | `Menu/MenuList.tsx` | 4 | item icon labels shortcut | pendiente |
-| `Pagination/Pagination.tsx` | 4 | control value pill dots | pendiente |
+| `Pagination/Pagination.tsx` | 4 | control value pill dots | hecho |
 | `Slider/SliderBase.tsx` | 4 | row fill marks mark | pendiente |
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
 | `Tag/Tag.tsx` | 4 | tag section label remove | hecho |

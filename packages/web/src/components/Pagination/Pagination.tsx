@@ -15,6 +15,7 @@ import type { PaginationProps } from "./Pagination.types.js";
 import * as variables from "./Pagination.vars.css.js";
 import { PaginationRange } from "./pagination-range.js";
 import { ChevronLeft, ChevronsLeft } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
 
 const ARROW = <ChevronLeft />;
 
@@ -36,6 +37,9 @@ export function Pagination(props: PaginationProps): ReactElement {
     color = "primary",
     labels,
     className,
+    listProps,
+    controlProps,
+    valueProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -77,26 +81,37 @@ export function Pagination(props: PaginationProps): ReactElement {
     <li key={key}>
       <button
         type="button"
-        className={styles.control({ size })}
+        {...controlProps}
+        className={cx(styles.control({ size }), controlProps?.className)}
         aria-label={label}
         disabled={disabled || off}
         onClick={() => {
           Go(to);
         }}
       >
-        <span
-          className={styles.value}
-          style={key === "next" || key === "last" ? { transform: "rotate(180deg)" } : undefined}
+        <Box
+          component="span"
+          {...valueProps}
+          className={cx(styles.value, valueProps?.className)}
+          style={{
+            ...(key === "next" || key === "last" ? { transform: "rotate(180deg)" } : {}),
+            ...valueProps?.style,
+          }}
         >
           {icon}
-        </span>
+        </Box>
       </button>
     </li>
   );
 
   return (
     <nav aria-label={text.root} className={cx(sprinkle_class, className)} style={sprinkle_style}>
-      <ul className={styles.root} style={css_vars}>
+      <Box
+        component="ul"
+        {...listProps}
+        className={cx(styles.root, listProps?.className)}
+        style={{ ...css_vars, ...listProps?.style }}
+      >
         {withEdges ? Control("first", text.first, DOUBLE_ARROW, 1, active === 1) : null}
         {withControls ? Control("prev", text.previous, ARROW, active - 1, active === 1) : null}
 
@@ -105,7 +120,8 @@ export function Pagination(props: PaginationProps): ReactElement {
             <li key={item}>
               <button
                 type="button"
-                className={styles.control({ size })}
+                {...controlProps}
+                className={cx(styles.control({ size }), controlProps?.className)}
                 data-active={item === active ? "true" : undefined}
                 aria-label={text.page(item)}
                 {...(item === active ? { "aria-current": "page" as const } : {})}
@@ -122,7 +138,13 @@ export function Pagination(props: PaginationProps): ReactElement {
                     aria-hidden="true"
                   />
                 ) : null}
-                <span className={styles.value}>{item}</span>
+                <Box
+                  component="span"
+                  {...valueProps}
+                  className={cx(styles.value, valueProps?.className)}
+                >
+                  {item}
+                </Box>
               </button>
             </li>
           ) : (
@@ -134,7 +156,7 @@ export function Pagination(props: PaginationProps): ReactElement {
 
         {withControls ? Control("next", text.next, ARROW, active + 1, active === total) : null}
         {withEdges ? Control("last", text.last, DOUBLE_ARROW, total, active === total) : null}
-      </ul>
+      </Box>
     </nav>
   );
 }

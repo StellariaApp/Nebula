@@ -4,6 +4,9 @@ import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type StepperVariant = Extract<Variant, "filled" | "light" | "outline">;
 
 export type StepperOrientation = "horizontal" | "vertical";
@@ -37,5 +40,19 @@ export interface StepperProps extends StyleProps {
   allowNextStepsSelect?: boolean | undefined;
   labels?: Partial<StepperLabels> | undefined;
   className?: string | undefined;
+  /** La lista de pasos. */
+  listProps?: BoxSlotProps | undefined;
+  /** Cada paso. Lleva `data-state`, que es de donde sale su tinte.  */
+  itemProps?: BoxSlotProps | undefined;
+  /** El area pulsable del paso. Es un boton si hay `onStepClick`, y un span si no. */
+  stepProps?: BoxSlotProps | undefined;
+  /** La viñeta del paso. Su tamaño lo fija `size`; la ranura se compone con el. */
+  bulletProps?: BoxSlotProps | undefined;
+  /** Columna de rotulo y descripcion. */
+  bodyProps?: BoxSlotProps | undefined;
+  /** El rotulo del paso. */
+  labelProps?: TextSlotProps | undefined;
+  /** La descripcion, si el paso la trae. */
+  descriptionProps?: TextSlotProps | undefined;
   rootClassName?: string | undefined;
 }
