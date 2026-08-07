@@ -88,12 +88,12 @@ export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
               >
                 <button
                   type="button"
-                  className={cx(styles.expand, expandProps?.className)}
                   aria-label={text.collapsed}
                   onClick={() => {
                     set_expanded(true);
                   }}
                   {...expandProps}
+                  className={cx(styles.expand, expandProps?.className)}
                 >
                   {ELLIPSIS}
                 </button>

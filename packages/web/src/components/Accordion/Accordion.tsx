@@ -121,7 +121,6 @@ export function Accordion<Multiple extends boolean = false>(
                 }}
                 type="button"
                 id={trigger_id}
-                className={cx(styles.trigger, triggerProps?.className)}
                 aria-expanded={is_open}
                 aria-controls={panel_id}
                 disabled={item_disabled}
@@ -131,6 +130,7 @@ export function Accordion<Multiple extends boolean = false>(
                 }}
                 onKeyDown={HandleKeyDown(index)}
                 {...triggerProps}
+                className={cx(styles.trigger, triggerProps?.className)}
               >
                 {chevronPosition === "start" ? (
                   <m.span
