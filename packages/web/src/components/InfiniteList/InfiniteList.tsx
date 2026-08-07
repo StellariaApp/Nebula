@@ -10,6 +10,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./InfiniteList.css.js";
 import type { InfiniteListLabels, InfiniteListProps } from "./InfiniteList.types.js";
 import { ResolveInfiniteSource } from "./use-infinite-source.js";
+import { Box } from "../Box/Box.js";
 
 const DEFAULT_LABELS: InfiniteListLabels = {
   loadMore: "Cargar más",
@@ -40,6 +41,9 @@ export function InfiniteList<T, TPage = readonly T[]>(
     label,
     gap = "sm",
     className,
+    listProps,
+    itemProps,
+    liveProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -93,17 +97,24 @@ export function InfiniteList<T, TPage = readonly T[]>(
       {is_empty && !source.loading && !source.failed ? (
         (empty ?? null)
       ) : (
-        <ul
-          className={cx(styles.list, styles.gap[gap])}
+        <Box
+          component="ul"
+          {...listProps}
+          className={cx(styles.list, styles.gap[gap], listProps?.className)}
           aria-busy={source.loadingMore ? "true" : undefined}
           {...(label === undefined ? {} : { "aria-label": label })}
         >
           {source.items.map((entry, index) => (
-            <li key={getKey(entry, index)} className={styles.item}>
+            <Box
+              component="li"
+              key={getKey(entry, index)}
+              {...itemProps}
+              className={cx(styles.item, itemProps?.className)}
+            >
               {renderItem(entry, index)}
-            </li>
+            </Box>
           ))}
-        </ul>
+        </Box>
       )}
 
       {source.failed && error !== undefined ? (
@@ -112,9 +123,14 @@ export function InfiniteList<T, TPage = readonly T[]>(
         </div>
       ) : null}
 
-      <div className={styles.live} aria-live="polite" role="status">
+      <Box
+        aria-live="polite"
+        role="status"
+        {...liveProps}
+        className={cx(styles.live, liveProps?.className)}
+      >
         {source.loadingMore ? text.loading : ""}
-      </div>
+      </Box>
 
       {show_foot ? (
         <div className={styles.foot}>

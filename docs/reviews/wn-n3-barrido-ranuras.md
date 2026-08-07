@@ -62,7 +62,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `CardComplex/CardComplex.tsx` | 11 | badgeRow mediaWrap mediaActions body header heading title description metaRow person foot | hecho |
 | `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | hecho (6 de 10; root, header, banderole, content y footer son raices de sus partes) |
 | `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | hecho |
-| `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
+| `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | hecho |
 | `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | hecho (5 de 9; brand, link, group y legal son raices de sus partes) |
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
 | `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | hecho |
@@ -78,7 +78,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | pendiente |
 | `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | pendiente |
 | `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | pendiente |
-| `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | pendiente |
+| `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | hecho |
 | `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | hecho |
 | `Nav/components/Links.tsx` | 6 | link links indicator overflow overflowTrigger overflowPanel | pendiente |
 | `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | pendiente |

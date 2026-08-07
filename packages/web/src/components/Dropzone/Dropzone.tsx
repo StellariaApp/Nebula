@@ -14,6 +14,8 @@ import * as variables from "./Dropzone.vars.css.js";
 import * as styles from "./Dropzone.css.js";
 import type { DropzoneKind, DropzoneLabels, DropzoneProps } from "./Dropzone.types.js";
 import { UploadCloud } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const ACCEPT: Record<DropzoneKind, string> = {
   image: "image/*",
@@ -69,6 +71,11 @@ export function Dropzone(props: DropzoneProps): ReactElement {
     labels,
     name,
     className,
+    zoneProps,
+    iconProps,
+    titleProps,
+    hintProps,
+    listProps,
     rootClassName,
     labelProps,
     descriptionProps,
@@ -177,7 +184,8 @@ export function Dropzone(props: DropzoneProps): ReactElement {
           <button
             {...control}
             type="button"
-            className={cx(styles.zone, styles.size[size], className)}
+            {...zoneProps}
+            className={cx(styles.zone, styles.size[size], className, zoneProps?.className)}
             style={height === undefined ? undefined : { minHeight: height }}
             disabled={fp.isDisabled}
             data-drag={drag === "idle" ? undefined : drag}
@@ -188,13 +196,24 @@ export function Dropzone(props: DropzoneProps): ReactElement {
             onDragOver={Over}
             onDrop={Drop}
           >
-            <span className={styles.icon} aria-hidden="true">
+            <Box
+              component="span"
+              aria-hidden="true"
+              {...iconProps}
+              className={cx(styles.icon, iconProps?.className)}
+            >
               {icon ?? CLOUD}
-            </span>
-            <span className={styles.title}>
+            </Box>
+            <Text
+              component="span"
+              {...titleProps}
+              className={cx(styles.title, titleProps?.className)}
+            >
               {drag === "accept" ? text.accept : drag === "reject" ? text.reject : text.idle}
-            </span>
-            <span className={styles.hint}>{text.hint}</span>
+            </Text>
+            <Text component="span" {...hintProps} className={cx(styles.hint, hintProps?.className)}>
+              {text.hint}
+            </Text>
           </button>
           <input
             ref={input_ref}
@@ -212,7 +231,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
             }}
           />
           {fp.value.length === 0 ? null : (
-            <ul className={styles.list}>
+            <Box component="ul" {...listProps} className={cx(styles.list, listProps?.className)}>
               {fp.value.map((file, index) => (
                 <li key={`${file.name}-${String(index)}`} className={styles.item}>
                   {previews ? <Preview file={file} /> : null}
@@ -227,7 +246,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
                   />
                 </li>
               ))}
-            </ul>
+            </Box>
           )}
         </div>
       )}

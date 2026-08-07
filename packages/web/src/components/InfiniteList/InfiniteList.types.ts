@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export interface InfiniteQueryLike<TPage> {
   data?: { pages: readonly TPage[] } | undefined;
   fetchNextPage?: (() => unknown) | undefined;
@@ -39,4 +41,10 @@ export interface InfiniteListProps<T, TPage = readonly T[]> extends StyleProps {
   label?: string | undefined;
   gap?: "none" | "xs" | "sm" | "md" | "lg" | undefined;
   className?: string | undefined;
+  /** La lista. Su hueco lo fija `gap`; la ranura se compone con el. */
+  listProps?: BoxSlotProps | undefined;
+  /** Cada entrada. Se esparce sobre todas; su contenido lo pinta `renderItem`. */
+  itemProps?: BoxSlotProps | undefined;
+  /** La region que anuncia la carga. Lleva `role="status"`, asi que se lee sola. */
+  liveProps?: BoxSlotProps | undefined;
 }
