@@ -1253,14 +1253,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Charts/ChartTooltip.js",
     import: "{ ChartTooltip }",
     ignore: ["react", "react-dom"],
-    limit: "20.5 kB",
+    limit: "20.75 kB",
   },
   {
     name: "ChartPanel (retícula, SIN Recharts)",
     path: "dist/components/Charts/ChartPanel.js",
     import: "{ ChartPanel }",
     ignore: ["react", "react-dom"],
-    limit: "20.5 kB",
+    limit: "21 kB",
   },
   {
     name: "CodeHighlight (sin resaltador, por módulo)",

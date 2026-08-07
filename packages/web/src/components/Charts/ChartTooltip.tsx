@@ -9,9 +9,12 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Charts.css.js";
 import * as charts_vars from "./Charts.vars.css.js";
 import type { ChartTooltipProps } from "./Charts.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export function ChartTooltip(props: ChartTooltipProps): ReactElement {
-  const { title, items, format, className, ...style_rest } = props;
+  const { title, items, format, className, titleProps, rowProps, valueProps, ...style_rest } =
+    props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   return (
@@ -21,19 +24,27 @@ export function ChartTooltip(props: ChartTooltipProps): ReactElement {
       role="tooltip"
       {...rest}
     >
-      {title === undefined ? null : <p className={styles.tooltip_title}>{title}</p>}
+      {title === undefined ? null : (
+        <Text {...titleProps} className={cx(styles.tooltip_title, titleProps?.className)}>
+          {title}
+        </Text>
+      )}
       {items.map((item) => (
-        <div key={item.key} className={styles.tooltip_row}>
+        <Box key={item.key} {...rowProps} className={cx(styles.tooltip_row, rowProps?.className)}>
           <span
             className={styles.swatch}
             style={assignInlineVars({ [charts_vars.swatchColor]: item.color })}
             aria-hidden="true"
           />
           <span>{item.label}</span>
-          <span className={styles.tooltip_value}>
+          <Text
+            component="span"
+            {...valueProps}
+            className={cx(styles.tooltip_value, valueProps?.className)}
+          >
             {format === undefined ? String(item.value) : format(item.value, item.key)}
-          </span>
-        </div>
+          </Text>
+        </Box>
       ))}
     </div>
   );

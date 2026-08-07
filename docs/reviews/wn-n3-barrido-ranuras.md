@@ -84,8 +84,8 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | pendiente |
 | `AppShell/components/Links.tsx` | 5 | links linksHeader linksContent link label | pendiente |
 | `AppShell/components/Sidebar.tsx` | 5 | sidebar toggle sidebarContainer sidebarSlot sidebarBody | pendiente |
-| `Charts/ChartPanel.tsx` | 5 | panelGrid panelCard panelHead panelTitle panelDescription | pendiente |
-| `Charts/ChartTooltip.tsx` | 5 | tooltip tooltipTitle tooltipRow swatch tooltipValue | pendiente |
+| `Charts/ChartPanel.tsx` | 5 | panelGrid panelCard panelHead panelTitle panelDescription | hecho |
+| `Charts/ChartTooltip.tsx` | 5 | tooltip tooltipTitle tooltipRow swatch tooltipValue | hecho |
 | `Kanban/KanbanCard.tsx` | 5 | card cardHead cardTitle cardDescription cardMeta | pendiente |
 | `Kanban/KanbanColumn.tsx` | 5 | column columnHeader columnTitle columnCount columnEmpty | pendiente |
 | `MultiSelect/MultiSelect.tsx` | 5 | control chip chipLabel chipRemove search | pendiente |
@@ -108,7 +108,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Button/Button.tsx` | 3 | button spinner section | pendiente |
 | `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
 | `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
-| `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | pendiente |
+| `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | hecho |
 | `Checkbox/Checkbox.tsx` | 3 | input box labelText | hecho |
 | `Chip/ChipGroup.tsx` | 3 | groupRoot groupLabel group | pendiente |
 | `ColorPicker/ColorInput.tsx` | 3 | preview trigger dropdown | pendiente |

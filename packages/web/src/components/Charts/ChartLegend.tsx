@@ -11,7 +11,7 @@ import * as charts_vars from "./Charts.vars.css.js";
 import type { ChartLegendProps } from "./Charts.types.js";
 
 export function ChartLegend(props: ChartLegendProps): ReactElement {
-  const { entries, hidden = [], onToggle, label, className, ...style_rest } = props;
+  const { entries, hidden = [], onToggle, label, className, itemProps, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const interactive = onToggle !== undefined;
@@ -29,7 +29,8 @@ export function ChartLegend(props: ChartLegendProps): ReactElement {
           <li key={entry.key}>
             <button
               type="button"
-              className={styles.legend_item}
+              {...itemProps}
+              className={cx(styles.legend_item, itemProps?.className)}
               data-interactive={interactive ? "true" : "false"}
               disabled={!interactive}
               {...(interactive ? { "aria-pressed": off } : {})}

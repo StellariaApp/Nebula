@@ -1,8 +1,11 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export type ChartDatum = Readonly<Record<string, string | number | null | undefined>>;
 
@@ -96,6 +99,8 @@ export interface ChartLegendEntry {
 }
 
 export interface ChartLegendProps extends StyleProps {
+  /** Cada entrada de la leyenda. Lleva `data-interactive`, que depende de si hay `onToggle`. */
+  itemProps?: ComponentPropsWithoutRef<"button"> | undefined;
   entries: readonly ChartLegendEntry[];
   hidden?: readonly string[] | undefined;
   onToggle?: ((key: string) => void) | undefined;
@@ -111,6 +116,12 @@ export interface ChartTooltipDatum {
 }
 
 export interface ChartTooltipProps extends StyleProps {
+  /** El titulo del globo, si lo hay. */
+  titleProps?: TextSlotProps | undefined;
+  /** Cada fila de serie. Se esparce sobre todas. */
+  rowProps?: BoxSlotProps | undefined;
+  /** El valor de cada fila, ya pasado por `format` si lo hay. */
+  valueProps?: TextSlotProps | undefined;
   title?: ReactNode | undefined;
   items: readonly ChartTooltipDatum[];
   format?: ((value: string | number, key: string) => string) | undefined;
@@ -127,6 +138,14 @@ export interface ChartPanelItem {
 }
 
 export interface ChartPanelProps extends StyleProps {
+  /** Cada tarjeta de panel. Se esparce sobre TODAS; su ancho lo fija el `span` de cada panel. */
+  cardProps?: ComponentPropsWithoutRef<"section"> | undefined;
+  /** La cabecera de cada panel. No se pinta si el panel no trae titulo ni accion. */
+  headProps?: BoxSlotProps | undefined;
+  /** El titulo de cada panel, que es el `h3` al que apunta su `aria-labelledby`. */
+  titleProps?: TextSlotProps | undefined;
+  /** La descripcion de cada panel, si la trae. */
+  descriptionProps?: TextSlotProps | undefined;
   panels: readonly ChartPanelItem[];
   cols?: 1 | 2 | 3 | undefined;
   gap?: "sm" | "md" | "lg" | undefined;
