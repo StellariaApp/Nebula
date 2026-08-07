@@ -4,9 +4,14 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TitleProps } from "../Title/Title.types.js";
+
 export type BanderoleSide = "start" | "end";
 
 export interface FormProps extends StyleProps {
+  /** El `fieldset` que agrupa los campos. Es quien los deshabilita mientras `isPending`. */
+  fieldsetProps?: BoxSlotProps | undefined;
   children: ReactNode;
   onSubmit?: ((event: FormEvent<HTMLFormElement>) => Promise<void> | void) | undefined;
   isPending?: boolean | undefined;
@@ -19,6 +24,12 @@ export interface FormProps extends StyleProps {
 }
 
 export interface FormHeaderProps extends StyleProps {
+  /** Columna de titulo, descripcion y contenido de la cabecera. */
+  headerTextProps?: BoxSlotProps | undefined;
+  /** El titulo, que es un `Title` de orden 3. */
+  titleProps?: TitleProps | undefined;
+  /** Las acciones de la cabecera, si las hay. */
+  actionsProps?: BoxSlotProps | undefined;
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
   children?: ReactNode | undefined;
@@ -40,6 +51,10 @@ export interface FormContentProps extends StyleProps {
 }
 
 export interface FormFooterProps extends Omit<StyleProps, "align"> {
+  /** El aviso de error del formulario. Lleva `role="alert"` y el id al que apunta el campo. */
+  errorProps?: BoxSlotProps | undefined;
+  /** La fila de botones. Su alineacion la fija `align`; la ranura se compone con ella. */
+  actionsProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   error?: ReactNode | undefined;
   submitText?: ReactNode | undefined;

@@ -13,6 +13,7 @@ import { Title } from "../Title/Title.js";
 import { FormContext, useFormContext } from "./Form.context.js";
 import * as variables from "./Form.vars.css.js";
 import * as styles from "./Form.css.js";
+import { Box } from "../Box/Box.js";
 import type {
   FormBanderoleProps,
   FormContentProps,
@@ -33,6 +34,7 @@ export function FormRoot(props: FormProps): ReactElement {
     id,
     name,
     className,
+    fieldsetProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -62,23 +64,38 @@ export function FormRoot(props: FormProps): ReactElement {
         {...(id === undefined ? {} : { id })}
         {...(name === undefined ? {} : { name })}
       >
-        <fieldset className={styles.fieldset} disabled={disabled || isPending}>
+        <Box
+          component="fieldset"
+          disabled={disabled || isPending}
+          {...fieldsetProps}
+          className={cx(styles.fieldset, fieldsetProps?.className)}
+        >
           {children}
-        </fieldset>
+        </Box>
       </form>
     </FormContext.Provider>
   );
 }
 
 export function FormHeader(props: FormHeaderProps): ReactElement {
-  const { title, description, children, actions, className, ...style_rest } = props;
+  const {
+    title,
+    description,
+    children,
+    actions,
+    className,
+    headerTextProps,
+    titleProps,
+    actionsProps,
+    ...style_rest
+  } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   return (
     <div className={cx(styles.header, sprinkle_class, className)} style={sprinkle_style}>
-      <div className={styles.header_text}>
+      <Box {...headerTextProps} className={cx(styles.header_text, headerTextProps?.className)}>
         {title === undefined ? null : (
-          <Title order={3} className={styles.title}>
+          <Title order={3} {...titleProps} className={cx(styles.title, titleProps?.className)}>
             {title}
           </Title>
         )}
@@ -88,8 +105,12 @@ export function FormHeader(props: FormHeaderProps): ReactElement {
           </Text>
         )}
         {children}
-      </div>
-      {actions === undefined ? null : <div className={styles.header_actions}>{actions}</div>}
+      </Box>
+      {actions === undefined ? null : (
+        <Box {...actionsProps} className={cx(styles.header_actions, actionsProps?.className)}>
+          {actions}
+        </Box>
+      )}
     </div>
   );
 }
@@ -138,6 +159,8 @@ export function FormFooter(props: FormFooterProps): ReactElement {
     hideSubmit = false,
     align = "end",
     className,
+    errorProps,
+    actionsProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -146,11 +169,19 @@ export function FormFooter(props: FormFooterProps): ReactElement {
   return (
     <div className={cx(styles.footer, sprinkle_class, className)} style={sprinkle_style}>
       {error === undefined || error === false ? null : (
-        <div className={styles.error} id={form.errorId} role="alert">
+        <Box
+          id={form.errorId}
+          role="alert"
+          {...errorProps}
+          className={cx(styles.error, errorProps?.className)}
+        >
           {error}
-        </div>
+        </Box>
       )}
-      <div className={cx(styles.actions, styles.align[align])}>
+      <Box
+        {...actionsProps}
+        className={cx(styles.actions, styles.align[align], actionsProps?.className)}
+      >
         {children ?? (
           <>
             {onCancel === undefined ? null : (
@@ -171,7 +202,7 @@ export function FormFooter(props: FormFooterProps): ReactElement {
             )}
           </>
         )}
-      </div>
+      </Box>
     </div>
   );
 }

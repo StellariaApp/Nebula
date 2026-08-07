@@ -60,7 +60,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `GlobalSearch/GlobalSearch.tsx` | 12 | trigger shortcut searchRow optionIcon input list groupLabel option optionBody optionTitle optionDescription status | hecho |
 | `Hero/Hero.tsx` | 12 | hero media scrim slot body hiper header title subtitle description actions bottom | espera a N2 |
 | `CardComplex/CardComplex.tsx` | 11 | badgeRow mediaWrap mediaActions body header heading title description metaRow person foot | hecho |
-| `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | pendiente |
+| `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | hecho (6 de 10; root, header, banderole, content y footer son raices de sus partes) |
 | `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | hecho |
 | `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
 | `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | hecho (5 de 9; brand, link, group y legal son raices de sus partes) |
