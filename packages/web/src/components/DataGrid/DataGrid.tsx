@@ -31,6 +31,7 @@ import { DataGridToolbar } from "./Toolbar.js";
 
 import { useGridKeyboard } from "./useGridKeyboard.js";
 import type { DataGridExport, DataGridProps } from "./DataGrid.types.js";
+import { Box } from "../Box/Box.js";
 
 const SELECT_COLUMN = "__select";
 const PAGE_STEP = 10;
@@ -95,6 +96,16 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
 
     labels,
     className,
+    panelProps,
+    scrollerProps,
+    tableProps,
+    captionProps,
+    headProps,
+    thProps,
+    emptyProps,
+    rowProps,
+    tdProps,
+    footProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -295,29 +306,46 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
       ) : null}
 
       {filterPanel === undefined ? null : (
-        <div className={styles.panel} role="group" aria-label={text.filters}>
+        <Box
+          role="group"
+          aria-label={text.filters}
+          {...panelProps}
+          className={cx(styles.panel, panelProps?.className)}
+        >
           {filterPanel}
-        </div>
+        </Box>
       )}
 
       <div
         ref={scroller_ref}
-        className={styles.scroller}
-        style={{ maxHeight }}
+        {...scrollerProps}
+        className={cx(styles.scroller, scrollerProps?.className)}
+        style={{ maxHeight, ...scrollerProps?.style }}
         data-testid="datagrid-scroller"
       >
         <table
           ref={keyboard.gridRef}
-          className={styles.table}
+          {...tableProps}
+          className={cx(styles.table, tableProps?.className)}
           aria-busy={loading ? "true" : undefined}
           onKeyDown={keyboard.OnKeyDown}
         >
           {caption === undefined ? null : (
             <caption className={captionVisible ? styles.caption : undefined}>
-              {captionVisible ? caption : <span className={styles.caption}>{caption}</span>}
+              {captionVisible ? (
+                caption
+              ) : (
+                <Box
+                  component="span"
+                  {...captionProps}
+                  className={cx(styles.caption, captionProps?.className)}
+                >
+                  {caption}
+                </Box>
+              )}
             </caption>
           )}
-          <thead className={styles.head}>
+          <Box component="thead" {...headProps} className={cx(styles.head, headProps?.className)}>
             {table.getHeaderGroups().map((group) => (
               <tr key={group.id}>
                 {group.headers.map((header, index) => {
@@ -328,7 +356,8 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     <th
                       key={header.id}
                       scope="col"
-                      className={cx(styles.th, styles.cell_focus)}
+                      {...thProps}
+                      className={cx(styles.th, styles.cell_focus, thProps?.className)}
                       style={resizable ? { width: header.getSize() } : undefined}
                       {...(direction === false
                         ? {}
@@ -376,7 +405,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                 })}
               </tr>
             ))}
-          </thead>
+          </Box>
           <tbody>
             {pad_top > 0 ? (
               <tr aria-hidden="true">
@@ -386,16 +415,22 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
 
             {rows.length === 0 ? (
               <tr>
-                <td className={styles.empty} colSpan={column_count}>
+                <Box
+                  component="td"
+                  colSpan={column_count}
+                  {...emptyProps}
+                  className={cx(styles.empty, emptyProps?.className)}
+                >
                   {loading ? <Loader size="sm" label={text.loading} /> : (empty ?? text.empty)}
-                </td>
+                </Box>
               </tr>
             ) : (
               visible.map((row, position) =>
                 row === undefined ? null : (
                   <tr
                     key={row.id}
-                    className={styles.row}
+                    {...rowProps}
+                    className={cx(styles.row, rowProps?.className)}
                     data-selected={row.getIsSelected() ? "true" : undefined}
                     data-clickable={onRowClick === undefined ? undefined : "true"}
                     {...(onRowClick === undefined
@@ -414,7 +449,8 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     {row.getVisibleCells().map((cell, index) => (
                       <td
                         key={cell.id}
-                        className={cx(styles.td, styles.cell_focus)}
+                        {...tdProps}
+                        className={cx(styles.td, styles.cell_focus, tdProps?.className)}
                         style={{ height: rowHeight }}
                         {...keyboard.CellProps(position + 1, index)}
                       >
@@ -440,7 +476,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
       </div>
 
       {withPagination && table.getPageCount() > 1 ? (
-        <div className={styles.foot}>
+        <Box {...footProps} className={cx(styles.foot, footProps?.className)}>
           <p className={styles.status} aria-live="polite">
             {text.page(table.getState().pagination.pageIndex + 1, table.getPageCount())}
           </p>
@@ -466,7 +502,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
               {text.next}
             </Button>
           </div>
-        </div>
+        </Box>
       ) : null}
     </div>
   );
