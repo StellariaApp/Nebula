@@ -1048,7 +1048,7 @@ const MODULE_BUDGETS = [
     import: "{ Filter }",
     ignore: ["react", "react-dom"],
     deferred: ["DatePicker.js", "DateRangePicker.js"],
-    limit: "82 kB",
+    limit: "82.5 kB",
   },
   {
     name: "Filters (popover + colección; fechas diferidas, por módulo)",
@@ -1183,7 +1183,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/ImageGallery/ImageGallery.js",
     import: "{ ImageGallery }",
     ignore: ["react", "react-dom"],
-    limit: "49.25 kB",
+    limit: "49.75 kB",
   },
   {
     name: "DragDropContext (subpath /dnd, por módulo)",

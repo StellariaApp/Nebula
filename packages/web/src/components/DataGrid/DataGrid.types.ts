@@ -4,6 +4,7 @@ import type { ColumnDef, SortingState } from "@tanstack/react-table";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 
@@ -52,7 +53,8 @@ export interface DataGridExport {
   selectionOnly?: boolean | undefined;
 }
 
-export interface DataGridProps<T> extends StyleProps, DataGridToolbarSlotProps {
+export interface DataGridProps<T>
+  extends StyleProps, DataGridToolbarSlotProps, DataGridColumnSlotProps {
   data: readonly T[];
   columns: readonly ColumnDef<T>[];
   getRowId?: ((row: T, index: number) => string) | undefined;
@@ -137,4 +139,18 @@ export interface DataGridToolbarSlotProps {
   bulkBarProps?: BoxSlotProps | undefined;
   /** El recuento de seleccionadas de esa barra. Lleva `aria-live`, asi que se anuncia al cambiar. */
   bulkCountProps?: TextSlotProps | undefined;
+}
+
+/** Las ranuras de cada celda de cabecera. Se esparcen sobre TODAS las columnas. */
+export interface DataGridColumnSlotProps {
+  /** La fila de dentro del `th`, con el rotulo, el menu y el asa de ancho. */
+  headCellProps?: BoxSlotProps | undefined;
+  /** El boton que ordena. Solo en columnas ordenables. */
+  sortButtonProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /** La flecha de orden de ese boton, que dice ascendente, descendente o sin ordenar. */
+  sortIconProps?: BoxSlotProps | undefined;
+  /** El disparador del menu de columna. Solo con `withColumnMenu` y si el menu tiene entradas. */
+  columnMenuProps?: ActionIconProps | undefined;
+  /** El asa que cambia el ancho. Solo en columnas redimensionables; lleva `data-resizing`. */
+  resizerProps?: ComponentPropsWithoutRef<"button"> | undefined;
 }

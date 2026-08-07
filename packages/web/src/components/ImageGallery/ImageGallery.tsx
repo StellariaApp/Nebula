@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { vars } from "../../theme/contract.css.js";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { LIGHTBOX_LABELS } from "../Lightbox/labels.js";
 import { Lightbox } from "../Lightbox/Lightbox.js";
 
@@ -33,6 +34,8 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
     empty,
     labels,
     className,
+    tileProps,
+    tileImageProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -75,32 +78,39 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
         {images.map((image, position) => (
           <li key={image.src}>
             {withLightbox || onSelect !== undefined ? (
-              <button
+              <Box
+                component="button"
                 type="button"
-                className={styles.tile}
                 aria-label={image.alt ?? text.counter(position + 1, images.length)}
                 onClick={() => {
                   Open(position);
                 }}
+                {...tileProps}
+                className={cx(styles.tile, tileProps?.className)}
               >
                 <img
-                  className={styles.tile_image}
                   src={image.thumbnail ?? image.src}
                   alt=""
                   loading="lazy"
                   draggable={false}
+                  {...tileImageProps}
+                  className={cx(styles.tile_image, tileImageProps?.className)}
                 />
-              </button>
+              </Box>
             ) : (
-              <div className={cx(styles.tile, styles.tile_static)}>
+              <Box
+                {...tileProps}
+                className={cx(styles.tile, styles.tile_static, tileProps?.className)}
+              >
                 <img
-                  className={styles.tile_image}
                   src={image.thumbnail ?? image.src}
                   alt={image.alt ?? ""}
                   loading="lazy"
                   draggable={false}
+                  {...tileImageProps}
+                  className={cx(styles.tile_image, tileImageProps?.className)}
                 />
-              </div>
+              </Box>
             )}
           </li>
         ))}

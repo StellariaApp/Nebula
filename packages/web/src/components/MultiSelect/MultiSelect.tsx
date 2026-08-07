@@ -11,8 +11,10 @@ import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion
 import { DisabledKeys, type SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { FormField } from "../FormField/FormField.js";
 import * as select_styles from "../Select/Select.css.js";
+import { Text } from "../Text/Text.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import * as styles from "./MultiSelect.css.js";
@@ -57,6 +59,14 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
     headerProps,
     bodyProps,
     errorProps,
+    controlProps,
+    chipProps,
+    chipLabelProps,
+    chipRemoveProps,
+    searchProps,
+    triggerProps,
+    chevronProps,
+    dropdownProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -200,20 +210,32 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
           data-invalid={fp.isInvalid ? "true" : undefined}
           data-disabled={fp.isDisabled ? "true" : undefined}
         >
-          <div className={styles.control}>
+          <Box {...controlProps} className={cx(styles.control, controlProps?.className)}>
             {chips.map((option) => (
-              <span key={option.value} className={styles.chip}>
-                <span className={styles.chip_label}>{option.label}</span>
+              <Box
+                key={option.value}
+                component="span"
+                {...chipProps}
+                className={cx(styles.chip, chipProps?.className)}
+              >
+                <Text
+                  component="span"
+                  {...chipLabelProps}
+                  className={cx(styles.chip_label, chipLabelProps?.className)}
+                >
+                  {option.label}
+                </Text>
                 <UnstyledButton
-                  className={styles.chip_remove}
                   aria-label={removeLabel(option)}
                   disabled={fp.isDisabled}
                   tabIndex={state.isOpen ? -1 : undefined}
                   onPress={() => Remove(option)}
+                  {...chipRemoveProps}
+                  className={cx(styles.chip_remove, chipRemoveProps?.className)}
                 >
                   {CROSS}
                 </UnstyledButton>
-              </span>
+              </Box>
             ))}
             <input
               {...inputProps}
@@ -222,26 +244,30 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
               aria-invalid={control["aria-invalid"]}
               ref={input_ref}
               onKeyDown={HandleKeyDown}
-              className={cx(styles.search, className)}
               readOnly={!searchable}
               placeholder={chips.length === 0 ? placeholder : undefined}
+              {...searchProps}
+              className={cx(styles.search, className, searchProps?.className)}
             />
-          </div>
+          </Box>
           <UnstyledButton
             {...buttonProps}
             ref={trigger_ref}
-            className={field.section}
             disabled={fp.isDisabled}
             tabIndex={state.isOpen ? -1 : undefined}
             {...(label === undefined ? { "aria-label": placeholder } : {})}
+            {...triggerProps}
+            className={cx(field.section, triggerProps?.className)}
           >
-            <span
-              className={select_styles.chevron}
+            <Box
+              component="span"
               data-open={state.isOpen ? "true" : undefined}
               aria-hidden="true"
+              {...chevronProps}
+              className={cx(select_styles.chevron, chevronProps?.className)}
             >
               {CHEVRON}
-            </span>
+            </Box>
           </UnstyledButton>
           {presence.render ? (
             <Overlay>
@@ -252,7 +278,8 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}
-                className={select_styles.dropdown}
+                {...dropdownProps}
+                className={cx(select_styles.dropdown, dropdownProps?.className)}
                 style={{
                   ...popoverProps.style,
                   width: input_ref.current?.closest("div")?.parentElement?.offsetWidth,

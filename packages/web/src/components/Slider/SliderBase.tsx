@@ -20,9 +20,12 @@ import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
+
 import * as styles from "./Slider.css.js";
 import * as variables from "./Slider.vars.css.js";
-import type { SliderMark, SliderVariant } from "./Slider.types.js";
+import type { SliderMark, SliderProps, SliderVariant } from "./Slider.types.js";
 
 interface ThumbProps {
   index: number;
@@ -95,6 +98,8 @@ function TrackVars(
 }
 
 export interface SliderBaseProps {
+  marksProps: SliderProps["marksProps"];
+  outputProps: SliderProps["outputProps"];
   values: number[];
   onChange: (values: number[]) => void;
   onChangeEnd?: ((values: number[]) => void) | undefined;
@@ -135,6 +140,8 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
     ariaLabelledBy,
     name,
     className,
+    marksProps,
+    outputProps,
   } = props;
 
   const track_ref = useRef<HTMLDivElement>(null);
@@ -152,7 +159,11 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
     numberFormatter: formatter,
   });
 
-  const { groupProps, trackProps, outputProps } = useSlider(
+  const {
+    groupProps,
+    trackProps,
+    outputProps: aria_output,
+  } = useSlider(
     {
       isDisabled: disabled,
       ...(ariaLabel === undefined ? {} : { "aria-label": ariaLabel }),
@@ -212,7 +223,11 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
             />
           ))}
           {!with_marks || marks === undefined ? null : (
-            <div className={styles.marks} aria-hidden="true">
+            <Box
+              aria-hidden="true"
+              {...marksProps}
+              className={cx(styles.marks, marksProps?.className)}
+            >
               {marks.map((entry) => (
                 <span
                   key={entry.value}
@@ -222,14 +237,19 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
                   {entry.label ?? entry.value}
                 </span>
               ))}
-            </div>
+            </Box>
           )}
         </div>
       </div>
       {withValue ? (
-        <output {...outputProps} className={styles.output}>
+        <Text
+          component="output"
+          {...aria_output}
+          {...outputProps}
+          className={cx(styles.output, outputProps?.className)}
+        >
           {Display()}
-        </output>
+        </Text>
       ) : null}
     </div>
   );

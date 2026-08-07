@@ -112,6 +112,11 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
     chipsProps,
     bulkBarProps,
     bulkCountProps,
+    headCellProps,
+    sortButtonProps,
+    sortIconProps,
+    columnMenuProps,
+    resizerProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -378,6 +383,11 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                     >
                       {header.isPlaceholder ? null : (
                         <ColumnHeader
+                          headCellProps={headCellProps}
+                          sortButtonProps={sortButtonProps}
+                          sortIconProps={sortIconProps}
+                          columnMenuProps={columnMenuProps}
+                          resizerProps={resizerProps}
                           label={flexRender(column.columnDef.header, header.getContext())}
                           textLabel={label_text}
                           sortable={column.getCanSort()}

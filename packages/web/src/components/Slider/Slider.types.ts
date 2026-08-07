@@ -5,7 +5,9 @@ import type { ColorExtended, NebulaField, Size, Variant } from "@stellaria/nebul
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export type SliderVariant = Extract<Variant, "light" | "outline" | "ghost">;
 
@@ -15,6 +17,13 @@ export interface SliderMark {
 }
 
 interface SliderBaseProps extends StyleProps {
+  /**
+   * La fila de marcas. Solo se pinta con `marks`. La marca suelta no lleva ranura —lleva calculada
+   * su posicion en el eje—, pero el color y la tipografia se heredan desde aqui.
+   */
+  marksProps?: BoxSlotProps | undefined;
+  /** El valor que se muestra al lado. Solo con `withValue`; se anuncia solo, porque es un `output`. */
+  outputProps?: TextSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

@@ -41,6 +41,8 @@ export function Slider(props: SliderProps): ReactElement {
     headerProps,
     bodyProps,
     errorProps,
+    marksProps,
+    outputProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -79,6 +81,8 @@ export function Slider(props: SliderProps): ReactElement {
     >
       {({ id }) => (
         <SliderBase
+          marksProps={marksProps}
+          outputProps={outputProps}
           values={[fp.value]}
           onChange={(next) => {
             fp.onChange(next[0] ?? min);

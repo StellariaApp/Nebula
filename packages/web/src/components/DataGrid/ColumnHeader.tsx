@@ -2,20 +2,22 @@
 
 import { useMemo, type PointerEvent, type ReactElement, type ReactNode } from "react";
 
+import { cx } from "../../utils/style-props.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
+import { Box } from "../Box/Box.js";
 import { Menu } from "../Menu/index.js";
 
 import type { MenuItemData } from "../Menu/Menu.types.js";
 
 import * as styles from "./DataGrid.css.js";
-import type { DataGridLabels } from "./DataGrid.types.js";
+import type { DataGridColumnSlotProps, DataGridLabels } from "./DataGrid.types.js";
 import { DotsVertical } from "../../glyphs/index.js";
 
 const SORT_ICON = { asc: "▲", desc: "▼", none: "↕" } as const;
 
 const DOTS = <DotsVertical />;
 
-export interface ColumnHeaderProps {
+export interface ColumnHeaderProps extends DataGridColumnSlotProps {
   label: ReactNode;
   textLabel: string;
   sortable: boolean;
@@ -50,6 +52,11 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
     onResizeStart,
     onResizeKey,
     labels,
+    headCellProps,
+    sortButtonProps,
+    sortIconProps,
+    columnMenuProps,
+    resizerProps,
   } = props;
 
   const items = useMemo<MenuItemData[]>(() => {
@@ -66,13 +73,23 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
   }, [sortable, canHide, direction, labels]);
 
   return (
-    <div className={styles.head_cell}>
+    <Box {...headCellProps} className={cx(styles.head_cell, headCellProps?.className)}>
       {sortable && onToggleSort !== undefined ? (
-        <button type="button" className={styles.sort_button} onClick={onToggleSort}>
+        <button
+          type="button"
+          onClick={onToggleSort}
+          {...sortButtonProps}
+          className={cx(styles.sort_button, sortButtonProps?.className)}
+        >
           {label}
-          <span className={styles.sort_icon} aria-hidden="true">
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...sortIconProps}
+            className={cx(styles.sort_icon, sortIconProps?.className)}
+          >
             {direction === false ? SORT_ICON.none : SORT_ICON[direction]}
-          </span>
+          </Box>
         </button>
       ) : (
         label
@@ -91,7 +108,12 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
             onSort(key === "none" ? false : (key as "asc" | "desc"));
           }}
           trigger={
-            <ActionIcon variant="ghost" size="xs" aria-label={labels.columnMenu(textLabel)}>
+            <ActionIcon
+              variant="ghost"
+              size="xs"
+              aria-label={labels.columnMenu(textLabel)}
+              {...columnMenuProps}
+            >
               {DOTS}
             </ActionIcon>
           }
@@ -101,7 +123,6 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
       {resizable ? (
         <button
           type="button"
-          className={styles.resizer}
           aria-label={labels.resize(textLabel)}
           data-resizing={resizing ? "true" : undefined}
           {...(onResizeStart === undefined ? {} : { onPointerDown: onResizeStart })}
@@ -117,9 +138,11 @@ export function ColumnHeader(props: ColumnHeaderProps): ReactElement {
               onResizeKey(-RESIZE_STEP);
             }
           }}
+          {...resizerProps}
+          className={cx(styles.resizer, resizerProps?.className)}
         />
       ) : null}
-    </div>
+    </Box>
   );
 }
 

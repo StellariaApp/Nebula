@@ -88,16 +88,16 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Charts/ChartTooltip.tsx` | 5 | tooltip tooltipTitle tooltipRow swatch tooltipValue | hecho |
 | `Kanban/KanbanCard.tsx` | 5 | card cardHead cardTitle cardDescription cardMeta | hecho |
 | `Kanban/KanbanColumn.tsx` | 5 | column columnHeader columnTitle columnCount columnEmpty | hecho |
-| `MultiSelect/MultiSelect.tsx` | 5 | control chip chipLabel chipRemove search | pendiente |
+| `MultiSelect/MultiSelect.tsx` | 5 | control chip chipLabel chipRemove search | hecho (8; el detector no conto el disparador, el chevron ni el desplegable, que viven en la hoja de Select. Nombres y tipos de ranura igualados a los de Select) |
 | `Nav/components/Sidebar.tsx` | 5 | sidebarScrim sidebar sidebarHead sidebarBody sidebarFooter | hecho (4; sidebarScrim y sidebar los anima motion y sidebar es ademas la raiz; el detector no conto el ButtonClose) |
 | `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | hecho |
-| `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | pendiente |
+| `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | hecho (5; la celda es interna, asi que suben a DataGridProps. El detector no conto el disparador del menu de columna) |
 | `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | pendiente |
 | `Filters/Filters.tsx` | 4 | panel empty list foot | hecho |
-| `ImageGallery/ImageGallery.tsx` | 4 | empty gallery tile tileImage | pendiente |
+| `ImageGallery/ImageGallery.tsx` | 4 | empty gallery tile tileImage | hecho (2 de 4; gallery es la raiz y empty es la raiz de su rama) |
 | `Menu/MenuList.tsx` | 4 | item icon labels shortcut | hecho |
 | `Pagination/Pagination.tsx` | 4 | control value pill dots | hecho |
-| `Slider/SliderBase.tsx` | 4 | row fill marks mark | pendiente |
+| `Slider/SliderBase.tsx` | 4 | row fill marks mark | hecho (2 de 4; row es la raiz, fill y mark llevan calculada su posicion en el eje. El detector no conto el output del valor. Suben a Slider y RangeSlider) |
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
 | `Tag/Tag.tsx` | 4 | tag section label remove | hecho |
 | `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | pendiente |

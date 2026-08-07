@@ -44,6 +44,8 @@ export function RangeSlider(props: RangeSliderProps): ReactElement {
     headerProps,
     bodyProps,
     errorProps,
+    marksProps,
+    outputProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -87,6 +89,8 @@ export function RangeSlider(props: RangeSliderProps): ReactElement {
     >
       {({ id }) => (
         <SliderBase
+          marksProps={marksProps}
+          outputProps={outputProps}
           values={[fp.value.start, fp.value.end]}
           onChange={(next) => {
             fp.onChange(ToRange(next));
