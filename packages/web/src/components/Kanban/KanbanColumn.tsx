@@ -11,6 +11,8 @@ import { LengthToCss } from "../../utils/token-css.js";
 import * as styles from "./Kanban.css.js";
 import * as kanban_vars from "./Kanban.vars.css.js";
 import type { KanbanColumnProps } from "./Kanban.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_WIDTH = 280;
 
@@ -25,6 +27,10 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
     empty,
     width = DEFAULT_WIDTH,
     className,
+    headerProps,
+    titleProps,
+    countProps,
+    emptyProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -44,18 +50,38 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
       aria-labelledby={heading_id}
       {...rest}
     >
-      <header className={styles.column_header}>
-        <h3 className={styles.column_title} id={heading_id}>
+      <Box
+        component="header"
+        {...headerProps}
+        className={cx(styles.column_header, headerProps?.className)}
+      >
+        <Text
+          component="h3"
+          id={heading_id}
+          {...titleProps}
+          className={cx(styles.column_title, titleProps?.className)}
+        >
           {title}
-        </h3>
+        </Text>
         {badge ??
           (count === undefined ? null : (
-            <span className={styles.column_count} data-over-limit={over_limit ? "true" : "false"}>
+            <Text
+              component="span"
+              data-over-limit={over_limit ? "true" : "false"}
+              {...countProps}
+              className={cx(styles.column_count, countProps?.className)}
+            >
               {limit === undefined ? count : `${String(count)}/${String(limit)}`}
-            </span>
+            </Text>
           ))}
-      </header>
-      {children === undefined ? <p className={styles.column_empty}>{empty}</p> : children}
+      </Box>
+      {children === undefined ? (
+        <Text {...emptyProps} className={cx(styles.column_empty, emptyProps?.className)}>
+          {empty}
+        </Text>
+      ) : (
+        children
+      )}
     </section>
   );
 }
