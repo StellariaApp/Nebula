@@ -6,7 +6,9 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
+import { Box } from "../Box/Box.js";
 import { ButtonCopy } from "../ButtonCopy/ButtonCopy.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./CodeHighlight.css.js";
 import * as code_highlight_vars from "./CodeHighlight.vars.css.js";
@@ -32,6 +34,11 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
     maxHeight,
     labels,
     className,
+    headerProps,
+    filenameProps,
+    floatingCopyProps,
+    copyProps,
+    preProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -57,8 +64,10 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
       {...rest}
     >
       {has_header ? (
-        <div className={styles.header}>
-          <span>{filename ?? lang}</span>
+        <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
+          <Text component="span" {...filenameProps}>
+            {filename ?? lang}
+          </Text>
           {withCopy ? (
             <ButtonCopy
               value={copy_value}
@@ -66,23 +75,33 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
               variant="ghost"
               copyLabel={text.copy}
               copiedLabel={text.copied}
+              {...copyProps}
             />
           ) : null}
-        </div>
+        </Box>
       ) : withCopy ? (
-        <div className={styles.floating_copy}>
+        <Box
+          {...floatingCopyProps}
+          className={cx(styles.floating_copy, floatingCopyProps?.className)}
+        >
           <ButtonCopy
             value={copy_value}
             size="xs"
             variant="ghost"
             copyLabel={text.copy}
             copiedLabel={text.copied}
+            {...copyProps}
           />
-        </div>
+        </Box>
       ) : null}
 
       <div className={styles.scroll}>
-        <pre className={styles.pre} tabIndex={0} aria-label={text.region(lang)}>
+        <pre
+          tabIndex={0}
+          aria-label={text.region(lang)}
+          {...preProps}
+          className={cx(styles.pre, preProps?.className)}
+        >
           {withLineNumbers ? (
             <span className={styles.gutter} aria-hidden="true">
               {LineNumbers(html === undefined ? plain : StripTags(html), firstLine)}

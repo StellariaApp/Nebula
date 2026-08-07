@@ -9,6 +9,8 @@ import { useReducedMotion } from "motion/react";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./Carousel.css.js";
 import * as carousel_vars from "./Carousel.vars.css.js";
@@ -41,6 +43,13 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     label,
     labels,
     className,
+    slideProps,
+    emptyProps,
+    controlsProps,
+    indicatorsProps,
+    indicatorProps,
+    previousProps,
+    nextProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -113,23 +122,28 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     >
       <div className={styles.viewport} ref={viewport_ref}>
         <div className={styles.container} data-axis={axis}>
-          {total === 0 && empty !== undefined ? <p className={styles.empty_slot}>{empty}</p> : null}
+          {total === 0 && empty !== undefined ? (
+            <Text {...emptyProps} className={cx(styles.empty_slot, emptyProps?.className)}>
+              {empty}
+            </Text>
+          ) : null}
           {items.map((item, position) => (
-            <div
+            <Box
               key={getKey(item, position)}
-              className={styles.slide}
               role="group"
               aria-roledescription="slide"
               aria-label={text.slide(position + 1, total)}
+              {...slideProps}
+              className={cx(styles.slide, slideProps?.className)}
             >
               {renderItem(item, position)}
-            </div>
+            </Box>
           ))}
         </div>
       </div>
 
       {withControls || withIndicators ? (
-        <div className={styles.controls}>
+        <Box {...controlsProps} className={cx(styles.controls, controlsProps?.className)}>
           {withControls ? (
             <ActionIcon
               variant="ghost"
@@ -137,21 +151,23 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
               aria-label={text.previous}
               disabled={!can_prev}
               onPress={() => embla?.scrollPrev()}
+              {...previousProps}
             >
               {CHEVRON_LEFT}
             </ActionIcon>
           ) : null}
 
           {withIndicators ? (
-            <ul className={styles.indicators}>
+            <ul {...indicatorsProps} className={cx(styles.indicators, indicatorsProps?.className)}>
               {items.map((item, position) => (
                 <li key={getKey(item, position)}>
                   <button
                     type="button"
-                    className={styles.indicator}
                     aria-label={text.goTo(position + 1)}
                     aria-current={position === selected ? "true" : undefined}
                     onClick={() => embla?.scrollTo(position, reduced)}
+                    {...indicatorProps}
+                    className={cx(styles.indicator, indicatorProps?.className)}
                   />
                 </li>
               ))}
@@ -165,11 +181,12 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
               aria-label={text.next}
               disabled={!can_next}
               onPress={() => embla?.scrollNext()}
+              {...nextProps}
             >
               {CHEVRON_RIGHT}
             </ActionIcon>
           ) : null}
-        </div>
+        </Box>
       ) : null}
     </section>
   );

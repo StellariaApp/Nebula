@@ -1,6 +1,10 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { ButtonCopyProps } from "../ButtonCopy/ButtonCopy.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface CodeHighlightLabels {
   copy: string;
@@ -16,6 +20,19 @@ export interface CodeHighlightLabels {
  * `dangerouslySetInnerHTML`. Sanear ese HTML es responsabilidad de quien lo produce.
  */
 export interface CodeHighlightProps extends StyleProps {
+  /** La cabecera. Solo se pinta si hay `filename` o `lang`. */
+  headerProps?: BoxSlotProps | undefined;
+  /** El rotulo de la cabecera, que pinta `filename` y cae en `lang` si no lo hay. */
+  filenameProps?: TextSlotProps | undefined;
+  /** El anclaje flotante de la copia. Solo existe SIN cabecera: con ella, el boton va dentro. */
+  floatingCopyProps?: BoxSlotProps | undefined;
+  /** El boton de copiar, en la cabecera o flotante. Su `value` lo calcula el componente. */
+  copyProps?: Omit<ButtonCopyProps, "value"> | undefined;
+  /**
+   * El bloque de codigo, que es la region enfocable con nombre accesible. La numeracion y el codigo
+   * no tienen ranura: comparten metrica de linea y separarlas descuadra los numeros.
+   */
+  preProps?: ComponentPropsWithoutRef<"pre"> | undefined;
   code?: string | undefined;
   html?: string | undefined;
   lang?: string | undefined;

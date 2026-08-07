@@ -1211,7 +1211,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Carousel/Carousel.js",
     import: "{ Carousel }",
     ignore: ["react", "react-dom"],
-    limit: "48 kB",
+    limit: "49 kB",
   },
   {
     name: "Breadcrumbs (navegación declarativa, por módulo)",
@@ -1267,14 +1267,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/CodeHighlight/CodeHighlight.js",
     import: "{ CodeHighlight }",
     ignore: ["react", "react-dom"],
-    limit: "41.25 kB",
+    limit: "41.75 kB",
   },
   {
     name: "CodeHighlightTabs (CodeHighlight + Segment, por módulo)",
     path: "dist/components/CodeHighlight/CodeHighlightTabs.js",
     import: "{ CodeHighlightTabs }",
     ignore: ["react", "react-dom"],
-    limit: "52 kB",
+    limit: "52.75 kB",
   },
   {
     name: "TransferList (dos listbox + SearchInput, por módulo)",

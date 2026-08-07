@@ -16,9 +16,12 @@ import type {
   CommandItem,
   CommandPaletteLabels,
   CommandPaletteProps,
+  CommandPaletteSlotProps,
 } from "./CommandPalette.types.js";
 import { useHotkey } from "./use-hotkey.js";
+import { Box } from "../Box/Box.js";
 import { Modal } from "../Modal/Modal.js";
+import { Text } from "../Text/Text.js";
 import { Search } from "../../glyphs/index.js";
 
 const DEFAULT_LABELS: CommandPaletteLabels = {
@@ -33,34 +36,65 @@ const ICON_SEARCH = <Search />;
 interface RowProps {
   node: Node<CommandItem>;
   state: ListState<CommandItem>;
+  slots: CommandPaletteSlotProps;
 }
 
 function CommandRow(props: RowProps): ReactElement {
-  const { node, state } = props;
+  const { node, state, slots } = props;
   const ref = useRef<HTMLLIElement>(null);
   const data = node.value;
-  const { optionProps, isFocused, isDisabled } = useOption({ key: node.key }, state, ref);
+  const {
+    optionProps: aria_option,
+    isFocused,
+    isDisabled,
+  } = useOption({ key: node.key }, state, ref);
 
   return (
     <li
-      {...optionProps}
+      {...aria_option}
       ref={ref}
-      className={styles.option}
       data-focused={isFocused ? "true" : undefined}
       data-disabled={isDisabled ? "true" : undefined}
+      {...slots.optionProps}
+      className={cx(styles.option, slots.optionProps?.className)}
     >
       {data?.icon === undefined || data.icon === null ? null : (
-        <span className={styles.icon} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...slots.iconProps}
+          className={cx(styles.icon, slots.iconProps?.className)}
+        >
           {data.icon}
-        </span>
+        </Box>
       )}
-      <span className={styles.body}>
-        <span className={styles.label}>{data?.label}</span>
+      <Box
+        component="span"
+        {...slots.bodyProps}
+        className={cx(styles.body, slots.bodyProps?.className)}
+      >
+        <Text
+          component="span"
+          {...slots.labelProps}
+          className={cx(styles.label, slots.labelProps?.className)}
+        >
+          {data?.label}
+        </Text>
         {data?.description === undefined || data.description === null ? null : (
-          <span className={styles.description}>{data.description}</span>
+          <Text
+            component="span"
+            {...slots.descriptionProps}
+            className={cx(styles.description, slots.descriptionProps?.className)}
+          >
+            {data.description}
+          </Text>
         )}
-      </span>
-      {data?.shortcut === undefined ? null : <Kbd size="sm">{data.shortcut}</Kbd>}
+      </Box>
+      {data?.shortcut === undefined ? null : (
+        <Kbd size="sm" {...slots.shortcutProps}>
+          {data.shortcut}
+        </Kbd>
+      )}
     </li>
   );
 }
@@ -76,7 +110,27 @@ export function CommandPalette(props: CommandPaletteProps): ReactElement {
     maxResults = 50,
     labels,
     className,
+    inputRowProps,
+    searchIconProps,
+    inputProps,
+    emptyProps,
+    listProps,
+    optionProps,
+    iconProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
+    shortcutProps,
   } = props;
+
+  const slots: CommandPaletteSlotProps = {
+    optionProps,
+    iconProps,
+    bodyProps,
+    labelProps,
+    descriptionProps,
+    shortcutProps,
+  };
 
   const text = { ...DEFAULT_LABELS, ...labels };
   const [is_open, set_open] = useUncontrolled(opened, defaultOpened, onOpenChange);
@@ -134,7 +188,7 @@ export function CommandPalette(props: CommandPaletteProps): ReactElement {
   const list_ref = useRef<HTMLUListElement>(null);
   const popover_ref = useRef<HTMLDivElement>(null);
 
-  const { inputProps, listBoxProps } = useComboBox(
+  const { inputProps: aria_input, listBoxProps } = useComboBox(
     {
       inputRef: input_ref,
       listBoxRef: list_ref,
@@ -168,16 +222,34 @@ export function CommandPalette(props: CommandPaletteProps): ReactElement {
       className={className}
     >
       <div className={styles.root} ref={popover_ref}>
-        <div className={styles.input_row}>
-          <span className={styles.icon}>{ICON_SEARCH}</span>
-          <input {...inputProps} ref={input_ref} className={styles.input} />
-        </div>
+        <Box {...inputRowProps} className={cx(styles.input_row, inputRowProps?.className)}>
+          <Box
+            component="span"
+            {...searchIconProps}
+            className={cx(styles.icon, searchIconProps?.className)}
+          >
+            {ICON_SEARCH}
+          </Box>
+          <input
+            {...aria_input}
+            ref={input_ref}
+            {...inputProps}
+            className={cx(styles.input, inputProps?.className)}
+          />
+        </Box>
         {matches.length === 0 ? (
-          <p className={styles.empty}>{text.empty}</p>
+          <Text {...emptyProps} className={cx(styles.empty, emptyProps?.className)}>
+            {text.empty}
+          </Text>
         ) : (
-          <ul {...aria_list} ref={list_ref} className={cx(styles.list)}>
+          <ul
+            {...aria_list}
+            ref={list_ref}
+            {...listProps}
+            className={cx(styles.list, listProps?.className)}
+          >
             {[...state.collection].map((node) => (
-              <CommandRow key={node.key} node={node} state={state} />
+              <CommandRow key={node.key} node={node} state={state} slots={slots} />
             ))}
           </ul>
         )}

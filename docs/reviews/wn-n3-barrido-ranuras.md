@@ -70,13 +70,13 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | hecho (1 de 8; table, head, foot, row, cell y scroll son raices de sus partes; scrollInner es estructural y lleva el minWidth calculado) |
 | `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | hecho |
 | `Charts/ChartFrame.tsx` | 7 | title canvas summary details detailsSummary tableWrap table | hecho (5 de 7; canvas lleva el alto calculado y el aria-labelledby que nombra al grafico; tableWrap es el envoltorio de desplazamiento de la tabla) |
-| `CommandPalette/CommandPalette.tsx` | 7 | icon body label description inputRow empty list | pendiente |
+| `CommandPalette/CommandPalette.tsx` | 7 | icon body label description inputRow empty list | hecho (11; el detector no conto option, input ni el glifo de la lupa. Las cinco de la fila toman los nombres de `Menu`, que tiene la misma anatomia) |
 | `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | hecho (1 de 7; track y ring son la raiz de cada tipo; indeterminate, fill, ringSvg y ringArc son el mecanismo de la animacion, con su estilo calculado) |
 | `Timeline/Timeline.tsx` | 7 | item bullet line body title meta description | hecho |
 | `Toast/ToastProvider.tsx` | 7 | toast icon body title message action region | hecho |
 | `Accordion/Accordion.tsx` | 6 | item trigger chevron icon label panel | hecho |
-| `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | pendiente |
-| `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | pendiente |
+| `Carousel/Carousel.tsx` | 6 | carousel emptySlot slide controls indicators indicator | hecho (7; carousel es su raiz, y el detector no conto los dos ActionIcon de las flechas) |
+| `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | hecho (5; scroll es el envoltorio de desplazamiento y su alto ya sale de maxHeight; gutter y source comparten metrica de linea y separarlas descuadra los numeros. El detector no conto el rotulo de la cabecera ni el ButtonCopy) |
 | `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | pendiente |
 | `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | hecho |
 | `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | hecho |
