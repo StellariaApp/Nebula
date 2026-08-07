@@ -26,5 +26,5 @@ export interface GlassSurfaceOwnProps extends Omit<BoxOwnProps, "component" | "s
 }
 
 export type GlassSurfaceProps<C extends ElementType = "div"> = GlassSurfaceOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GlassSurfaceOwnProps | "component">;

@@ -13,7 +13,7 @@ export interface GridOwnProps extends Omit<BoxOwnProps, "component" | "gap" | "w
 }
 
 export type GridProps<C extends ElementType = "div"> = GridOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GridOwnProps | "component">;
 
 export type ColSpan = number | "auto" | "content";
@@ -25,5 +25,5 @@ export interface GridColOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type GridColProps<C extends ElementType = "div"> = GridColOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GridColOwnProps | "component">;

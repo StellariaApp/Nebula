@@ -15,5 +15,5 @@ export interface SimpleGridOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type SimpleGridProps<C extends ElementType = "div"> = SimpleGridOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof SimpleGridOwnProps | "component">;

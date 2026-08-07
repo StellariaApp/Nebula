@@ -18,5 +18,5 @@ export interface BlockquoteOwnProps extends Omit<BoxOwnProps, "component" | "col
 }
 
 export type BlockquoteProps<C extends ElementType = "blockquote"> = BlockquoteOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof BlockquoteOwnProps | "component">;

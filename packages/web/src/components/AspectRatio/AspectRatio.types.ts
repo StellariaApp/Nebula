@@ -8,5 +8,5 @@ export interface AspectRatioOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type AspectRatioProps<C extends ElementType = "div"> = AspectRatioOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof AspectRatioOwnProps | "component">;

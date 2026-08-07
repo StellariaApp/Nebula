@@ -133,11 +133,11 @@ export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
                 </Box>
               ) : (
                 <Element
-                  className={cx(styles.link, linkProps?.className)}
                   {...(item.href === undefined ? {} : { href: item.href })}
                   {...(Element === "button" ? { type: "button" } : {})}
                   {...(item.onSelect === undefined ? {} : { onClick: item.onSelect })}
                   {...linkProps}
+                  className={cx(styles.link, linkProps?.className)}
                 >
                   {item.icon}
                   {item.label}

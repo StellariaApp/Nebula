@@ -10,5 +10,5 @@ export interface ButtonGroupOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type ButtonGroupProps<C extends ElementType = "div"> = ButtonGroupOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof ButtonGroupOwnProps | "component">;

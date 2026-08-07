@@ -13,5 +13,5 @@ export interface GroupOwnProps extends Omit<BoxOwnProps, "component" | "gap" | "
 }
 
 export type GroupProps<C extends ElementType = "div"> = GroupOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GroupOwnProps | "component">;

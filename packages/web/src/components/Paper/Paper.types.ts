@@ -19,5 +19,5 @@ export interface PaperOwnProps extends Omit<BoxOwnProps, "component" | "shadow" 
 }
 
 export type PaperProps<C extends ElementType = "div"> = PaperOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof PaperOwnProps | "component">;

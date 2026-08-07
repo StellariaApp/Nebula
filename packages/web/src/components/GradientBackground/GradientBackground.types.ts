@@ -21,5 +21,5 @@ export interface GradientBackgroundOwnProps extends Omit<BoxOwnProps, "component
 }
 
 export type GradientBackgroundProps<C extends ElementType = "div"> = GradientBackgroundOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GradientBackgroundOwnProps | "component">;

@@ -11,5 +11,5 @@ export interface AnchorOwnProps extends Omit<TextOwnProps, "component"> {
 }
 
 export type AnchorProps<C extends ElementType = "a"> = AnchorOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof AnchorOwnProps | "component">;

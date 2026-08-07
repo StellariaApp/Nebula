@@ -8,5 +8,5 @@ export interface CodeOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type CodeProps<C extends ElementType = "code"> = CodeOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof CodeOwnProps | "component">;

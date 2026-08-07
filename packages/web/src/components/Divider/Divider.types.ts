@@ -26,5 +26,5 @@ export interface DividerOwnProps extends Omit<BoxOwnProps, "component" | "color"
 }
 
 export type DividerProps<C extends ElementType = "div"> = DividerOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof DividerOwnProps | "component">;

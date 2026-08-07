@@ -7,5 +7,5 @@ export interface VisuallyHiddenOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type VisuallyHiddenProps<C extends ElementType = "span"> = VisuallyHiddenOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof VisuallyHiddenOwnProps | "component">;

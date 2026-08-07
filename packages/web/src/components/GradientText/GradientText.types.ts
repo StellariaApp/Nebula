@@ -13,5 +13,5 @@ export interface GradientTextOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type GradientTextProps<C extends ElementType = "span"> = GradientTextOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GradientTextOwnProps | "component">;

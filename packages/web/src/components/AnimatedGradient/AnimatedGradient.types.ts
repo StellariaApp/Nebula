@@ -23,5 +23,5 @@ export interface AnimatedGradientOwnProps extends Omit<BoxOwnProps, "component">
 }
 
 export type AnimatedGradientProps<C extends ElementType = "div"> = AnimatedGradientOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof AnimatedGradientOwnProps | "component">;

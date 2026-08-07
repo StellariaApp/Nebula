@@ -8,5 +8,5 @@ export interface CenterOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type CenterProps<C extends ElementType = "div"> = CenterOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof CenterOwnProps | "component">;

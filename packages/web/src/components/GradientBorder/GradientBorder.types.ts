@@ -28,5 +28,5 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type GradientBorderProps<C extends ElementType = "div"> = GradientBorderOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof GradientBorderOwnProps | "component">;

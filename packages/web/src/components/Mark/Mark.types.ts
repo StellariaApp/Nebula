@@ -10,5 +10,5 @@ export interface MarkOwnProps extends Omit<BoxOwnProps, "component" | "color"> {
 }
 
 export type MarkProps<C extends ElementType = "mark"> = MarkOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof MarkOwnProps | "component">;

@@ -12,5 +12,5 @@ export interface TypographyStylesProviderOwnProps extends Omit<BoxOwnProps, "com
 
 export type TypographyStylesProviderProps<C extends ElementType = "div"> =
   TypographyStylesProviderOwnProps & {
-    component?: C;
+    component?: C | undefined;
   } & Omit<ComponentPropsWithoutRef<C>, keyof TypographyStylesProviderOwnProps | "component">;

@@ -12,5 +12,5 @@ export interface HighlightOwnProps extends Omit<TextOwnProps, "component" | "chi
 }
 
 export type HighlightProps<C extends ElementType = "p"> = HighlightOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof HighlightOwnProps | "component">;

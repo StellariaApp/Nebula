@@ -21,5 +21,5 @@ export interface MeshGradientBgOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type MeshGradientBgProps<C extends ElementType = "div"> = MeshGradientBgOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof MeshGradientBgOwnProps | "component">;

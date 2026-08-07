@@ -49,5 +49,5 @@ export interface FormFieldOwnProps
 }
 
 export type FormFieldProps<C extends ElementType = "div"> = FormFieldOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof FormFieldOwnProps | "component">;

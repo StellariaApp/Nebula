@@ -11,5 +11,5 @@ export interface ContainerOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type ContainerProps<C extends ElementType = "div"> = ContainerOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof ContainerOwnProps | "component">;

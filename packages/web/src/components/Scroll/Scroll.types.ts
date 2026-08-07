@@ -19,7 +19,7 @@ export interface ScrollOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type ScrollProps<C extends ElementType = "div"> = ScrollOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof ScrollOwnProps | "component">;
 
 export interface MomentumProps extends BoxOwnProps {

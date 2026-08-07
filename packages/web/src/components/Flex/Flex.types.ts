@@ -8,5 +8,5 @@ export interface FlexOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type FlexProps<C extends ElementType = "div"> = FlexOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof FlexOwnProps | "component">;

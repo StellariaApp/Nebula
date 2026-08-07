@@ -15,7 +15,7 @@ export interface ListOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type ListProps<C extends ElementType = "ul"> = ListOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof ListOwnProps | "component">;
 
 export interface ListItemOwnProps extends Omit<BoxOwnProps, "component"> {
@@ -24,5 +24,5 @@ export interface ListItemOwnProps extends Omit<BoxOwnProps, "component"> {
 }
 
 export type ListItemProps<C extends ElementType = "li"> = ListItemOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof ListItemOwnProps | "component">;

@@ -11,5 +11,5 @@ export interface SpaceOwnProps extends Omit<BoxOwnProps, "component" | "w" | "h"
 }
 
 export type SpaceProps<C extends ElementType = "div"> = SpaceOwnProps & {
-  component?: C;
+  component?: C | undefined;
 } & Omit<ComponentPropsWithoutRef<C>, keyof SpaceOwnProps | "component">;
