@@ -68,7 +68,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Stepper/Stepper.tsx` | 9 | list bullet body label description item step track panel | pendiente |
 | `TransferList/TransferList.tsx` | 9 | pane paneHead paneTitle paneCount search list item empty controls | pendiente |
 | `Table/Table.tsx` | 8 | table caption head foot row cell scroll scrollInner | pendiente |
-| `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | pendiente |
+| `Breadcrumbs/Breadcrumbs.tsx` | 7 | size list item expand separator current link | hecho |
 | `Charts/ChartFrame.tsx` | 7 | title canvas summary details detailsSummary tableWrap table | pendiente |
 | `CommandPalette/CommandPalette.tsx` | 7 | icon body label description inputRow empty list | pendiente |
 | `Progress/Progress.tsx` | 7 | track indeterminate fill ring ringSvg ringArc ringLabel | pendiente |
@@ -99,7 +99,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Pagination/Pagination.tsx` | 4 | control value pill dots | pendiente |
 | `Slider/SliderBase.tsx` | 4 | row fill marks mark | pendiente |
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
-| `Tag/Tag.tsx` | 4 | tag section label remove | pendiente |
+| `Tag/Tag.tsx` | 4 | tag section label remove | hecho |
 | `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | pendiente |
 | `AnimatedGradient/AnimatedGradient.tsx` | 3 | animatedGradient drift scrim | pendiente |
 | `Badge/Badge.tsx` | 3 | badge dot section | hecho |
@@ -107,7 +107,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | pendiente |
 | `Button/Button.tsx` | 3 | button spinner section | pendiente |
 | `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
-| `Card/Card.tsx` | 3 | badges meta actions | pendiente |
+| `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
 | `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | pendiente |
 | `Checkbox/Checkbox.tsx` | 3 | input box labelText | hecho |
 | `Chip/ChipGroup.tsx` | 3 | groupRoot groupLabel group | pendiente |
@@ -118,7 +118,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | pendiente |
 | `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | pendiente |
 | `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
-| `Loader/Loader.tsx` | 3 | spinner dot bar | pendiente |
+| `Loader/Loader.tsx` | 3 | spinner dot bar | descartado: son el mecanismo de la animacion; size y color ya lo cubren |
 | `NavLink/NavLink.tsx` | 3 | indicator section chevron | hecho |
 | `Panel/Panel.tsx` | 3 | panel pane separator | pendiente |
 | `Radio/Radio.tsx` | 3 | input dot labelText | hecho |
@@ -128,7 +128,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Select/Select.tsx` | 3 | trigger chevron dropdown | pendiente |
 | `StarField/StarField.tsx` | 3 | starField aurora star | pendiente |
 | `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | pendiente |
-| `Avatar/Avatar.tsx` | 2 | avatar image | pendiente |
+| `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
 | `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | pendiente |
 | `Charts/TrendIndicator.tsx` | 2 | trend arrow | pendiente |

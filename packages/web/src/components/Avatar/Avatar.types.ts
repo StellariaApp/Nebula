@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { ColorExtended, Size, Unit, Variant } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
@@ -15,6 +15,8 @@ export interface AvatarProps extends StyleProps {
   variant?: AvatarVariant | undefined;
   color?: ColorExtended | undefined;
   className?: string | undefined;
+  /** La imagen. Solo se pinta si hay `src` y no ha fallado la carga; si falla, caen las iniciales. */
+  imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
 }
 
 export interface AvatarGroupProps {

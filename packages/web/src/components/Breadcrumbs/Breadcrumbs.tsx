@@ -7,6 +7,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Breadcrumbs.css.js";
 import { BREADCRUMBS_LABELS } from "./labels.js";
 import type { BreadcrumbItem, BreadcrumbsProps } from "./Breadcrumbs.types.js";
+import { Box } from "../Box/Box.js";
 
 const DEFAULT_COLLAPSE_FROM = 5;
 const EDGE = 1;
@@ -43,6 +44,12 @@ export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
     size = "md",
     labels,
     className,
+    listProps,
+    itemProps,
+    expandProps,
+    separatorProps,
+    currentProps,
+    linkProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -67,27 +74,38 @@ export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
       aria-label={text.nav}
       {...rest}
     >
-      <ol className={styles.list}>
+      <Box component="ol" {...listProps} className={cx(styles.list, listProps?.className)}>
         {slots.map((slot, index) => {
           const is_last = index === slots.length - 1;
 
           if (slot.kind === "collapsed") {
             return (
-              <li key="__collapsed" className={styles.item}>
+              <Box
+                component="li"
+                key="__collapsed"
+                {...itemProps}
+                className={cx(styles.item, itemProps?.className)}
+              >
                 <button
                   type="button"
-                  className={styles.expand}
+                  className={cx(styles.expand, expandProps?.className)}
                   aria-label={text.collapsed}
                   onClick={() => {
                     set_expanded(true);
                   }}
+                  {...expandProps}
                 >
                   {ELLIPSIS}
                 </button>
-                <span className={styles.separator} aria-hidden="true">
+                <Box
+                  component="span"
+                  aria-hidden="true"
+                  {...separatorProps}
+                  className={cx(styles.separator, separatorProps?.className)}
+                >
                   {separator}
-                </span>
-              </li>
+                </Box>
+              </Box>
             );
           }
 
@@ -97,32 +115,48 @@ export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
           const Element = item.component ?? (item.href === undefined ? "button" : "a");
 
           return (
-            <li key={item.key} className={styles.item}>
+            <Box
+              component="li"
+              key={item.key}
+              {...itemProps}
+              className={cx(styles.item, itemProps?.className)}
+            >
               {is_current ? (
-                <span className={styles.current} aria-current="page">
+                <Box
+                  component="span"
+                  aria-current="page"
+                  {...currentProps}
+                  className={cx(styles.current, currentProps?.className)}
+                >
                   {item.icon}
                   {item.label}
-                </span>
+                </Box>
               ) : (
                 <Element
-                  className={styles.link}
+                  className={cx(styles.link, linkProps?.className)}
                   {...(item.href === undefined ? {} : { href: item.href })}
                   {...(Element === "button" ? { type: "button" } : {})}
                   {...(item.onSelect === undefined ? {} : { onClick: item.onSelect })}
+                  {...linkProps}
                 >
                   {item.icon}
                   {item.label}
                 </Element>
               )}
               {is_last ? null : (
-                <span className={styles.separator} aria-hidden="true">
+                <Box
+                  component="span"
+                  aria-hidden="true"
+                  {...separatorProps}
+                  className={cx(styles.separator, separatorProps?.className)}
+                >
                   {separator}
-                </span>
+                </Box>
               )}
-            </li>
+            </Box>
           );
         })}
-      </ol>
+      </Box>
     </nav>
   );
 }

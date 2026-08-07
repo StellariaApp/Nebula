@@ -872,7 +872,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Tag/Tag.js",
     import: "{ Tag }",
     ignore: ["react", "react-dom"],
-    limit: "40.5 kB",
+    limit: "41 kB",
   },
   {
     name: "GridList (colección + conmutador Segment, por módulo)",

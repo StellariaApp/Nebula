@@ -12,6 +12,8 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import * as styles from "./Tag.css.js";
 import * as variables from "./Tag.vars.css.js";
 import type { TagProps } from "./Tag.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export function Tag(props: TagProps): ReactElement {
   const {
@@ -25,6 +27,9 @@ export function Tag(props: TagProps): ReactElement {
     removeLabel = "Quitar",
     disabled = false,
     className,
+    sectionProps,
+    labelProps,
+    removeProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -53,11 +58,18 @@ export function Tag(props: TagProps): ReactElement {
       {...(disabled ? { "aria-disabled": true } : {})}
     >
       {leftSection === undefined || leftSection === null ? null : (
-        <span className={styles.section} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...sectionProps}
+          className={cx(styles.section, sectionProps?.className)}
+        >
           {leftSection}
-        </span>
+        </Box>
       )}
-      <span className={styles.label}>{children}</span>
+      <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
+        {children}
+      </Text>
       {onRemove === undefined ? null : (
         <ButtonClose
           size={size === "xs" || size === "sm" ? "xs" : "sm"}
@@ -67,8 +79,9 @@ export function Tag(props: TagProps): ReactElement {
               : removeLabel
           }
           disabled={disabled}
-          className={styles.remove}
           onPress={onRemove}
+          {...removeProps}
+          className={cx(styles.remove, removeProps?.className)}
         />
       )}
     </span>

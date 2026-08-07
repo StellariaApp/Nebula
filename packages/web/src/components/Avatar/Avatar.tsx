@@ -48,6 +48,7 @@ export function Avatar(props: AvatarProps): ReactElement {
     variant = "light",
     color = "primary",
     className,
+    imageProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -77,12 +78,13 @@ export function Avatar(props: AvatarProps): ReactElement {
     >
       {shows_image ? (
         <img
-          className={styles.image}
           src={src}
           alt={label ?? ""}
           onError={() => {
             set_failed(true);
           }}
+          {...imageProps}
+          className={cx(styles.image, imageProps?.className)}
         />
       ) : (
         (children ?? (initials === "" ? null : <span aria-hidden="true">{initials}</span>))
