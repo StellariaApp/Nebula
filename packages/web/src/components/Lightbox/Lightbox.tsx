@@ -25,6 +25,8 @@ import { LIGHTBOX_LABELS } from "./labels.js";
 import type { LightboxProps } from "./Lightbox.types.js";
 import { ZOOM_CONSTANTS, useZoomPan } from "./useZoomPan.js";
 import { ChevronLeft, ChevronRight, Glyph } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_INTERVAL = 4000;
 const DEFAULT_MAX_ZOOM = 4;
@@ -58,6 +60,16 @@ export function Lightbox(props: LightboxProps): ReactElement {
     maxZoom = DEFAULT_MAX_ZOOM,
     labels,
     className,
+    emptyProps,
+    stageProps,
+    imageProps,
+    captionProps,
+    barProps,
+    groupProps,
+    counterProps,
+    filmstripProps,
+    thumbProps,
+    thumbImageProps,
   } = props;
 
   const text = useMemo(
@@ -170,12 +182,15 @@ export function Lightbox(props: LightboxProps): ReactElement {
       {...(className === undefined ? {} : { className })}
     >
       {image === undefined ? (
-        <p className={styles.empty}>{text.counter(0, 0)}</p>
+        <Text {...emptyProps} className={cx(styles.empty, emptyProps?.className)}>
+          {text.counter(0, 0)}
+        </Text>
       ) : (
         <>
           <div
-            className={styles.stage}
-            style={css_vars}
+            {...stageProps}
+            className={cx(styles.stage, stageProps?.className)}
+            style={{ ...css_vars, ...stageProps?.style }}
             tabIndex={0}
             role="group"
             aria-label={text.region}
@@ -190,7 +205,8 @@ export function Lightbox(props: LightboxProps): ReactElement {
             onDoubleClick={withZoom ? zoom.Toggle : undefined}
           >
             <img
-              className={styles.image}
+              {...imageProps}
+              className={cx(styles.image, imageProps?.className)}
               src={image.src}
               alt={image.alt ?? ""}
               data-panning={zoom.panning ? "true" : "false"}
@@ -198,10 +214,14 @@ export function Lightbox(props: LightboxProps): ReactElement {
             />
           </div>
 
-          {image.caption === undefined ? null : <p className={styles.caption}>{image.caption}</p>}
+          {image.caption === undefined ? null : (
+            <Text {...captionProps} className={cx(styles.caption, captionProps?.className)}>
+              {image.caption}
+            </Text>
+          )}
 
-          <div className={styles.bar}>
-            <div className={styles.group}>
+          <Box {...barProps} className={cx(styles.bar, barProps?.className)}>
+            <Box {...groupProps} className={cx(styles.group, groupProps?.className)}>
               <ActionIcon
                 variant="ghost"
                 size="sm"
@@ -213,7 +233,13 @@ export function Lightbox(props: LightboxProps): ReactElement {
               >
                 {PREV}
               </ActionIcon>
-              <span className={styles.counter}>{text.counter(safe + 1, total)}</span>
+              <Text
+                component="span"
+                {...counterProps}
+                className={cx(styles.counter, counterProps?.className)}
+              >
+                {text.counter(safe + 1, total)}
+              </Text>
               <ActionIcon
                 variant="ghost"
                 size="sm"
@@ -225,9 +251,9 @@ export function Lightbox(props: LightboxProps): ReactElement {
               >
                 {NEXT}
               </ActionIcon>
-            </div>
+            </Box>
 
-            <div className={styles.group}>
+            <Box {...groupProps} className={cx(styles.group, groupProps?.className)}>
               {withSlideshow ? (
                 <ActionIcon
                   variant="ghost"
@@ -268,16 +294,21 @@ export function Lightbox(props: LightboxProps): ReactElement {
                   <VisuallyHidden aria-live="polite">{text.zoomLevel(percent)}</VisuallyHidden>
                 </>
               ) : null}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           {withThumbnails && total > 1 ? (
-            <ul className={styles.filmstrip}>
+            <Box
+              component="ul"
+              {...filmstripProps}
+              className={cx(styles.filmstrip, filmstripProps?.className)}
+            >
               {images.map((item, position) => (
                 <li key={item.src}>
                   <button
                     type="button"
-                    className={cx(styles.thumb)}
+                    {...thumbProps}
+                    className={cx(styles.thumb, thumbProps?.className)}
                     aria-label={text.counter(position + 1, total)}
                     aria-current={position === safe ? "true" : undefined}
                     onClick={() => {
@@ -285,7 +316,8 @@ export function Lightbox(props: LightboxProps): ReactElement {
                     }}
                   >
                     <img
-                      className={styles.thumb_image}
+                      {...thumbImageProps}
+                      className={cx(styles.thumb_image, thumbImageProps?.className)}
                       src={item.thumbnail ?? item.src}
                       alt=""
                       draggable={false}
@@ -293,7 +325,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
                   </button>
                 </li>
               ))}
-            </ul>
+            </Box>
           ) : null}
         </>
       )}

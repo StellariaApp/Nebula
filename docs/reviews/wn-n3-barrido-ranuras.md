@@ -61,7 +61,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Hero/Hero.tsx` | 12 | hero media scrim slot body hiper header title subtitle description actions bottom | espera a N2 |
 | `CardComplex/CardComplex.tsx` | 11 | badgeRow mediaWrap mediaActions body header heading title description metaRow person foot | hecho |
 | `Form/Form.tsx` | 10 | fieldset header headerText title headerActions banderole content footer error actions | pendiente |
-| `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | pendiente |
+| `Lightbox/Lightbox.tsx` | 10 | empty stage image caption bar group counter filmstrip thumb thumbImage | hecho |
 | `Dropzone/Dropzone.tsx` | 9 | zone icon title hint nativeInput list item fileName preview | pendiente |
 | `Footer/Footer.tsx` | 9 | brand brandLink brandDescription link group groupTitle groupList legal columns | pendiente |
 | `Section/Section.tsx` | 9 | section rail head heading title description actions body foot | espera a N2 |
