@@ -123,8 +123,8 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Panel/Panel.tsx` | 3 | panel pane separator | pendiente |
 | `Radio/Radio.tsx` | 3 | input dot labelText | hecho |
 | `Rating/Rating.tsx` | 3 | group item partial | pendiente |
-| `SearchableList/SearchableList.tsx` | 3 | toolbar search count | pendiente |
-| `Segment/components/Control.tsx` | 3 | control indicator tab | pendiente |
+| `SearchableList/SearchableList.tsx` | 3 | toolbar search count | hecho |
+| `Segment/components/Control.tsx` | 3 | control indicator tab | hecho |
 | `Select/Select.tsx` | 3 | trigger chevron dropdown | hecho |
 | `StarField/StarField.tsx` | 3 | starField aurora star | pendiente |
 | `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | pendiente |
@@ -138,14 +138,14 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DragDrop/Draggable.tsx` | 2 | draggable row | pendiente |
 | `DragDrop/SortableItem.tsx` | 2 | draggable row | pendiente |
 | `DragDrop/SortableList.tsx` | 2 | list emptySlot | pendiente |
-| `Fieldset/Fieldset.tsx` | 2 | legend description | pendiente |
+| `Fieldset/Fieldset.tsx` | 2 | legend description | hecho |
 | `FileInput/FileInput.tsx` | 2 | hidden trigger | pendiente |
 | `Filters/Filter.tsx` | 2 | range item | pendiente |
 | `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | pendiente |
 | `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
 | `Image/Image.tsx` | 2 | state img | pendiente |
 | `Kanban/KanbanBoard.tsx` | 2 | board columnBody | pendiente |
-| `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | pendiente |
+| `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | pendiente |
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | pendiente |
 | `Nav/components/Section.tsx` | 2 | actions divider | pendiente |

@@ -4,6 +4,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Fieldset.css.js";
 import type { FieldsetProps } from "./Fieldset.types.js";
+import { Text } from "../Text/Text.js";
 
 export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
   function Fieldset(props, ref) {
@@ -14,6 +15,8 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
       disabled = false,
       children,
       className,
+      legendProps,
+      descriptionProps,
       ...rest_and_style
     } = props;
     const {
@@ -37,12 +40,22 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
         }
       >
         {legend === undefined || legend === null ? null : (
-          <legend className={styles.legend}>{legend}</legend>
+          <Text
+            component="legend"
+            {...legendProps}
+            className={cx(styles.legend, legendProps?.className)}
+          >
+            {legend}
+          </Text>
         )}
         {description === undefined || description === null ? null : (
-          <p id={description_id} className={styles.description}>
+          <Text
+            id={description_id}
+            {...descriptionProps}
+            className={cx(styles.description, descriptionProps?.className)}
+          >
             {description}
-          </p>
+          </Text>
         )}
         {children}
       </fieldset>

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
@@ -32,6 +32,8 @@ export interface SegmentProps extends StyleProps {
 export type SegmentControlData = ReadonlyArray<string | SegmentItemData>;
 
 export interface SegmentControlProps extends StyleProps {
+  /** Cada pestaña. Se esparce sobre TODAS. El indicador NO se expone: lo mueve motion. */
+  tabProps?: ComponentPropsWithoutRef<"button"> | undefined;
   data?: SegmentControlData | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;

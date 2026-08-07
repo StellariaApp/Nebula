@@ -10,6 +10,8 @@ import { SearchInput } from "../SearchInput/SearchInput.js";
 
 import * as styles from "./SearchableList.css.js";
 import type { SearchableListLabels, SearchableListProps } from "./SearchableList.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_LABELS: SearchableListLabels = {
   placeholder: "Buscar",
@@ -47,6 +49,8 @@ export function SearchableList<T, TPage = readonly T[]>(
     infinite,
     label,
     className,
+    toolbarProps,
+    countProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -70,7 +74,7 @@ export function SearchableList<T, TPage = readonly T[]>(
 
   return (
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style}>
-      <div className={styles.toolbar}>
+      <Box {...toolbarProps} className={cx(styles.toolbar, toolbarProps?.className)}>
         <SearchInput
           className={styles.search}
           rootClassName={styles.search}
@@ -83,12 +87,16 @@ export function SearchableList<T, TPage = readonly T[]>(
           {...(onSearchChange === undefined ? {} : { onSearch: onSearchChange })}
         />
         {toolbar}
-      </div>
+      </Box>
 
       {withCount && source !== undefined ? (
-        <p className={styles.count} aria-live="polite">
+        <Text
+          {...countProps}
+          aria-live="polite"
+          className={cx(styles.count, countProps?.className)}
+        >
           {text.results(source.length)}
-        </p>
+        </Text>
       ) : null}
 
       <InfiniteList<T, TPage>

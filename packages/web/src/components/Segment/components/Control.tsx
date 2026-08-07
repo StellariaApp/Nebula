@@ -43,7 +43,7 @@ function FromChildren(children: ReactNode): SegmentItemData[] {
 }
 
 export function SegmentControl(props: SegmentControlProps): ReactElement {
-  const { data, children, className, "aria-label": aria_label, ...style_rest } = props;
+  const { data, children, className, tabProps, "aria-label": aria_label, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   const segment = useSegment();
 
@@ -148,7 +148,8 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
             id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
             tabIndex={active ? 0 : -1}
             disabled={item_disabled}
-            className={styles.tab}
+            {...tabProps}
+            className={cx(styles.tab, tabProps?.className)}
             data-active={active ? "true" : undefined}
             data-disabled={item_disabled ? "true" : undefined}
             onClick={() => {

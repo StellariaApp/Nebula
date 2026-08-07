@@ -452,7 +452,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Fieldset/Fieldset.js",
     import: "{ Fieldset }",
     ignore: ["react", "react-dom"],
-    limit: "19.75 kB",
+    limit: "20.25 kB",
   },
   {
     name: "Rating (color extendido + forms, por módulo)",

@@ -12,6 +12,8 @@ import { Overlay } from "../Overlay/Overlay.js";
 
 import * as styles from "./LoadingOverlay.css.js";
 import type { LoadingOverlayProps } from "./LoadingOverlay.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
   const {
@@ -24,6 +26,9 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
     radius = "none",
     zIndex = 100,
     className,
+    bodyProps,
+    loaderProps,
+    labelProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -54,10 +59,23 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
             zIndex={zIndex}
             center
           >
-            <div role="status" aria-live="polite" className={styles.body}>
-              <span aria-hidden="true">{loader ?? <Loader size="md" />}</span>
-              <span className={styles.label}>{label}</span>
-            </div>
+            <Box
+              role="status"
+              aria-live="polite"
+              {...bodyProps}
+              className={cx(styles.body, bodyProps?.className)}
+            >
+              <Box component="span" aria-hidden="true" {...loaderProps}>
+                {loader ?? <Loader size="md" />}
+              </Box>
+              <Text
+                component="span"
+                {...labelProps}
+                className={cx(styles.label, labelProps?.className)}
+              >
+                {label}
+              </Text>
+            </Box>
           </Overlay>
         </m.div>
       ) : null}

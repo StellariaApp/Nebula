@@ -5,6 +5,9 @@ import type { Size } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
 import type { InfiniteListProps, InfiniteQueryLike } from "../InfiniteList/InfiniteList.types.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type SearchableListMode = "client" | "server";
 
 export interface SearchableListLabels {
@@ -41,4 +44,8 @@ export interface SearchableListProps<T, TPage = readonly T[]> extends StyleProps
     | undefined;
   label?: string | undefined;
   className?: string | undefined;
+  /** La barra con el buscador y lo que traiga `toolbar`. */
+  toolbarProps?: BoxSlotProps | undefined;
+  /** El recuento de resultados. Solo se pinta con `withCount` y datos cargados. */
+  countProps?: TextSlotProps | undefined;
 }
