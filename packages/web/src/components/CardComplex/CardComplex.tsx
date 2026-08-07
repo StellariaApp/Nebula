@@ -28,6 +28,7 @@ import type {
   CardBadge,
   CardComplexProps,
 } from "./CardComplex.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 function BadgeRow(props: {
   items: readonly CardBadge[];
@@ -57,9 +58,11 @@ function BadgeRow(props: {
 function ActionRow(props: {
   items: readonly CardAction[];
   className?: string | undefined;
+  slotProps?: BoxSlotProps | undefined;
 }): ReactElement {
+  const { className, slotProps } = props;
   return (
-    <div className={props.className ?? styles.slot_row}>
+    <Box {...slotProps} className={cx(className ?? styles.slot_row, slotProps?.className)}>
       {props.items.map((action) => (
         <ActionIcon
           key={action.key}
@@ -73,7 +76,7 @@ function ActionRow(props: {
           {action.icon}
         </ActionIcon>
       ))}
-    </div>
+    </Box>
   );
 }
 
@@ -166,7 +169,8 @@ export function CardComplex(props: CardComplexProps): ReactElement {
           {media_actions.length === 0 ? null : (
             <ActionRow
               items={media_actions}
-              className={cx(styles.media_actions, mediaActionsProps?.className)}
+              className={styles.media_actions}
+              slotProps={mediaActionsProps}
             />
           )}
         </Box>
