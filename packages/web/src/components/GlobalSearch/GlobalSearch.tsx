@@ -13,6 +13,8 @@ import * as styles from "./GlobalSearch.css.js";
 import { GLOBAL_SEARCH_LABELS } from "./labels.js";
 import type { GlobalSearchProps, GlobalSearchResult } from "./GlobalSearch.types.js";
 import { Search } from "../../glyphs/index.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const DEFAULT_DEBOUNCE = 250;
 
@@ -49,6 +51,18 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
     empty,
     labels,
     className,
+    triggerProps,
+    shortcutProps,
+    searchRowProps,
+    iconProps,
+    inputProps,
+    listProps,
+    groupLabelProps,
+    optionProps,
+    optionBodyProps,
+    optionTitleProps,
+    optionDescriptionProps,
+    statusProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -141,7 +155,8 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
       {withTrigger ? (
         <button
           type="button"
-          className={cx(styles.trigger, sprinkle_class, className)}
+          {...triggerProps}
+          className={cx(styles.trigger, sprinkle_class, className, triggerProps?.className)}
           style={sprinkle_style}
           onClick={() => {
             SetOpen(true);
@@ -150,7 +165,15 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
         >
           {MAGNIFIER}
           {text.trigger}
-          {withShortcut ? <kbd className={styles.shortcut}>{text.shortcut}</kbd> : null}
+          {withShortcut ? (
+            <Box
+              component="kbd"
+              {...shortcutProps}
+              className={cx(styles.shortcut, shortcutProps?.className)}
+            >
+              {text.shortcut}
+            </Box>
+          ) : null}
         </button>
       ) : null}
 
@@ -164,10 +187,17 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
         withCloseButton={false}
         aria-label={text.input}
       >
-        <div className={styles.search_row}>
-          <span className={styles.option_icon}>{MAGNIFIER}</span>
+        <Box {...searchRowProps} className={cx(styles.search_row, searchRowProps?.className)}>
+          <Box
+            component="span"
+            {...iconProps}
+            className={cx(styles.option_icon, iconProps?.className)}
+          >
+            {MAGNIFIER}
+          </Box>
           <input
-            className={styles.input}
+            {...inputProps}
+            className={cx(styles.input, inputProps?.className)}
             type="search"
             role="combobox"
             autoComplete="off"
@@ -183,9 +213,15 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
             {...(active_id === undefined ? {} : { "aria-activedescendant": active_id })}
           />
           {loading ? <Loader size="sm" aria-label={text.loading} /> : null}
-        </div>
+        </Box>
 
-        <div className={styles.list} id={`${auto_id}-list`} role="listbox" aria-label={text.input}>
+        <Box
+          id={`${auto_id}-list`}
+          role="listbox"
+          aria-label={text.input}
+          {...listProps}
+          className={cx(styles.list, listProps?.className)}
+        >
           {groups.map((group) => (
             <div
               key={group.name ?? "__root"}
@@ -193,9 +229,13 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
               {...(group.name === undefined ? {} : { "aria-label": group.name })}
             >
               {group.name === undefined ? null : (
-                <p className={styles.group_label} aria-hidden="true">
+                <Text
+                  aria-hidden="true"
+                  {...groupLabelProps}
+                  className={cx(styles.group_label, groupLabelProps?.className)}
+                >
                   {group.name}
-                </p>
+                </Text>
               )}
               {group.items.map((result) => {
                 cursor += 1;
@@ -204,7 +244,8 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                   <div
                     key={result.id}
                     id={`${auto_id}-${String(index)}`}
-                    className={styles.option}
+                    {...optionProps}
+                    className={cx(styles.option, optionProps?.className)}
                     role="option"
                     aria-selected={index === active}
                     data-active={index === active ? "true" : "false"}
@@ -216,25 +257,54 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                     }}
                   >
                     {result.icon === undefined ? null : (
-                      <span className={styles.option_icon}>{result.icon}</span>
+                      <Box
+                        component="span"
+                        {...iconProps}
+                        className={cx(styles.option_icon, iconProps?.className)}
+                      >
+                        {result.icon}
+                      </Box>
                     )}
-                    <span className={styles.option_body}>
-                      <span className={styles.option_title}>{result.title}</span>
+                    <Box
+                      component="span"
+                      {...optionBodyProps}
+                      className={cx(styles.option_body, optionBodyProps?.className)}
+                    >
+                      <Text
+                        component="span"
+                        {...optionTitleProps}
+                        className={cx(styles.option_title, optionTitleProps?.className)}
+                      >
+                        {result.title}
+                      </Text>
                       {result.description === undefined ? null : (
-                        <span className={styles.option_description}>{result.description}</span>
+                        <Text
+                          component="span"
+                          {...optionDescriptionProps}
+                          className={cx(
+                            styles.option_description,
+                            optionDescriptionProps?.className,
+                          )}
+                        >
+                          {result.description}
+                        </Text>
                       )}
-                    </span>
+                    </Box>
                   </div>
                 );
               })}
             </div>
           ))}
-        </div>
+        </Box>
 
         {flat.length === 0 && !loading ? (
-          <p className={styles.status} role="status">
+          <Text
+            role="status"
+            {...statusProps}
+            className={cx(styles.status, statusProps?.className)}
+          >
             {empty ?? text.empty}
-          </p>
+          </Text>
         ) : (
           <VisuallyHidden aria-live="polite">
             {loading ? text.loading : text.results(flat.length)}
