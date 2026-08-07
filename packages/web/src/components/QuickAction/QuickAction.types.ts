@@ -25,6 +25,9 @@ type MotionConflictingProps =
   | "onDragOver"
   | "onDrop";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type QuickActionOrientation = "vertical" | "horizontal";
 
 export interface QuickActionProps
@@ -34,6 +37,16 @@ export interface QuickActionProps
     PressLifecycleProps,
     PermissionProps {
   label: ReactNode;
+  /** La chapa de aviso, si hay `badge`. */
+  badgeProps?: BoxSlotProps | undefined;
+  /** Envoltorio del icono. Su tamaño lo fija `size`; la ranura se compone con el. */
+  iconProps?: BoxSlotProps | undefined;
+  /** Columna de rotulo y descripcion. */
+  bodyProps?: BoxSlotProps | undefined;
+  /** El rotulo. */
+  labelProps?: TextSlotProps | undefined;
+  /** La descripcion, si la hay. */
+  descriptionProps?: TextSlotProps | undefined;
   icon?: ReactNode | undefined;
   description?: ReactNode | undefined;
   variant?: Variant | undefined;

@@ -2,6 +2,9 @@ import type { ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
+
 export type DialogCorner = "bottom-end" | "bottom-start" | "top-end" | "top-start";
 
 export interface DialogProps extends Omit<
@@ -21,5 +24,9 @@ export interface DialogProps extends Omit<
   withinPortal?: boolean | undefined;
   live?: "polite" | "assertive" | undefined;
   className?: string | undefined;
+  /** Fila de cabecera. Solo se pinta si hay `title` o boton de cierre. */
+  headProps?: BoxSlotProps | undefined;
+  /** El titulo. Sin `title` la cabecera deja un hueco vacio para no descolocar el cierre. */
+  titleProps?: TextSlotProps | undefined;
   "aria-label"?: string | undefined;
 }

@@ -9,6 +9,8 @@ import * as styles from "./Countdown.css.js";
 import { COUNTDOWN_LABELS } from "./labels.js";
 import { useCountdown } from "./useCountdown.js";
 import type { CountdownProps } from "./Countdown.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const PAD = 2;
 
@@ -26,6 +28,9 @@ export function Countdown(props: CountdownProps): ReactElement {
     size = "md",
     labels,
     className,
+    unitProps,
+    valueProps,
+    captionProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -58,10 +63,28 @@ export function Countdown(props: CountdownProps): ReactElement {
       ) : (
         <>
           {units.map((item) => (
-            <span key={item.key} className={styles.unit} aria-hidden="true">
-              <span className={styles.value}>{Pad(item.value)}</span>
-              <span className={styles.caption}>{item.label}</span>
-            </span>
+            <Box
+              component="span"
+              key={item.key}
+              aria-hidden="true"
+              {...unitProps}
+              className={cx(styles.unit, unitProps?.className)}
+            >
+              <Text
+                component="span"
+                {...valueProps}
+                className={cx(styles.value, valueProps?.className)}
+              >
+                {Pad(item.value)}
+              </Text>
+              <Text
+                component="span"
+                {...captionProps}
+                className={cx(styles.caption, captionProps?.className)}
+              >
+                {item.label}
+              </Text>
+            </Box>
           ))}
           <VisuallyHidden>{text.remaining(parts)}</VisuallyHidden>
         </>

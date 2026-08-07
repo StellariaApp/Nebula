@@ -620,14 +620,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Modal/Modal.js",
     import: "{ Modal }",
     ignore: ["react", "react-dom"],
-    limit: "45.5 kB",
+    limit: "46.25 kB",
   },
   {
     name: "Drawer (sobre Modal, por módulo)",
     path: "dist/components/Drawer/Drawer.js",
     import: "{ Drawer }",
     ignore: ["react", "react-dom"],
-    limit: "45.75 kB",
+    limit: "46.25 kB",
   },
   {
     name: "Menu (Aria menu + colección stately, por módulo)",
@@ -1176,14 +1176,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Lightbox/Lightbox.js",
     import: "{ Lightbox }",
     ignore: ["react", "react-dom"],
-    limit: "48 kB",
+    limit: "48.5 kB",
   },
   {
     name: "ImageGallery (compuesto: retícula + Lightbox, por módulo)",
     path: "dist/components/ImageGallery/ImageGallery.js",
     import: "{ ImageGallery }",
     ignore: ["react", "react-dom"],
-    limit: "48.75 kB",
+    limit: "49.25 kB",
   },
   {
     name: "DragDropContext (subpath /dnd, por módulo)",
@@ -1225,7 +1225,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Countdown/Countdown.js",
     import: "{ Countdown }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "20.5 kB",
   },
   {
     name: "ScrollProgress (primitivo con color extendido, por módulo)",
@@ -1288,7 +1288,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/GlobalSearch/GlobalSearch.js",
     import: "{ GlobalSearch }",
     ignore: ["react", "react-dom"],
-    limit: "48.5 kB",
+    limit: "48.75 kB",
   },
   {
     name: "VirtualizedSelect (Combobox + ventana propia, por módulo)",

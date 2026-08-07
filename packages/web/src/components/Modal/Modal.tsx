@@ -22,6 +22,8 @@ import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import * as styles from "./Modal.css.js";
 import type { ModalProps, ModalSide, ModalSize } from "./Modal.types.js";
 import * as variables from "./Modal.vars.css.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const SIZE_WIDTH: Record<ModalSize, number> = {
   xs: 320,
@@ -80,6 +82,12 @@ export function Modal(props: ModalProps): ReactElement {
     padding = "lg",
     radius,
     className,
+    headerProps,
+    headingProps,
+    titleProps,
+    subtitleProps,
+    bodyProps,
+    footerProps,
     bodyClassName,
     "aria-label": aria_label,
     ...style_rest
@@ -91,7 +99,7 @@ export function Modal(props: ModalProps): ReactElement {
   const auto_id = useId();
   const title_id = `${auto_id}-title`;
 
-  const { dialogProps, titleProps } = useDialog(
+  const { dialogProps, titleProps: aria_title } = useDialog(
     aria_label === undefined ? {} : { "aria-label": aria_label },
     dialog_ref,
   );
@@ -154,22 +162,45 @@ export function Modal(props: ModalProps): ReactElement {
         className={styles.surface({ layout, ...(radius === undefined ? {} : { radius }) })}
       >
         {has_header ? (
-          <div className={styles.header}>
-            <div className={styles.heading}>
+          <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
+            <Box {...headingProps} className={cx(styles.heading, headingProps?.className)}>
               {title === undefined ? null : (
-                <h2 {...titleProps} id={title_id} className={styles.title}>
+                <Text
+                  component="h2"
+                  {...aria_title}
+                  id={title_id}
+                  {...titleProps}
+                  className={cx(styles.title, titleProps?.className)}
+                >
                   {title}
-                </h2>
+                </Text>
               )}
-              {subtitle === undefined ? null : <span className={styles.subtitle}>{subtitle}</span>}
-            </div>
+              {subtitle === undefined ? null : (
+                <Text
+                  component="span"
+                  {...subtitleProps}
+                  className={cx(styles.subtitle, subtitleProps?.className)}
+                >
+                  {subtitle}
+                </Text>
+              )}
+            </Box>
             {withCloseButton ? (
               <ButtonClose aria-label={closeLabel} size="sm" onPress={onClose} />
             ) : null}
-          </div>
+          </Box>
         ) : null}
-        <div className={cx(styles.body({ padding }), bodyClassName)}>{children}</div>
-        {footer === undefined ? null : <div className={styles.footer}>{footer}</div>}
+        <Box
+          {...bodyProps}
+          className={cx(styles.body({ padding }), bodyClassName, bodyProps?.className)}
+        >
+          {children}
+        </Box>
+        {footer === undefined ? null : (
+          <Box {...footerProps} className={cx(styles.footer, footerProps?.className)}>
+            {footer}
+          </Box>
+        )}
       </OverlayMotion>
     </dialog>
   );

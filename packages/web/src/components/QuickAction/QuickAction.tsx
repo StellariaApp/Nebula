@@ -22,6 +22,8 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./QuickAction.css.js";
 import type { QuickActionProps } from "./QuickAction.types.js";
 import * as variables from "./QuickAction.vars.css.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 const PRESS_SCALE = 0.98;
 
@@ -47,6 +49,11 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       permission,
       permissionMode = "hide",
       className,
+      badgeProps,
+      iconProps,
+      bodyProps,
+      labelProps,
+      descriptionProps,
       style,
       ...rest
     } = props;
@@ -171,19 +178,38 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     const content = (
       <>
         {badge === undefined || badge === null ? null : (
-          <span className={styles.badge}>{badge}</span>
+          <Box component="span" {...badgeProps} className={cx(styles.badge, badgeProps?.className)}>
+            {badge}
+          </Box>
         )}
         {icon === undefined || icon === null ? null : (
-          <span className={styles.icon({ size })} aria-hidden="true">
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...iconProps}
+            className={cx(styles.icon({ size }), iconProps?.className)}
+          >
             {icon}
-          </span>
+          </Box>
         )}
-        <span className={styles.body}>
-          <span className={styles.label}>{label}</span>
+        <Box component="span" {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
+          <Text
+            component="span"
+            {...labelProps}
+            className={cx(styles.label, labelProps?.className)}
+          >
+            {label}
+          </Text>
           {description === undefined || description === null ? null : (
-            <span className={styles.description}>{description}</span>
+            <Text
+              component="span"
+              {...descriptionProps}
+              className={cx(styles.description, descriptionProps?.className)}
+            >
+              {description}
+            </Text>
           )}
-        </span>
+        </Box>
       </>
     );
 

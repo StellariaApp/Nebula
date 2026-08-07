@@ -12,6 +12,8 @@ import { Portal } from "../Portal/Portal.js";
 
 import * as styles from "./Dialog.css.js";
 import type { DialogCorner, DialogProps } from "./Dialog.types.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 function Placement(corner: DialogCorner, offset: number): CSSProperties {
   const gap = `${String(offset)}px`;
@@ -35,6 +37,8 @@ export function Dialog(props: DialogProps): ReactElement {
     withinPortal = true,
     live = "polite",
     className,
+    headProps,
+    titleProps,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -68,12 +72,18 @@ export function Dialog(props: DialogProps): ReactElement {
           transition={opened ? Spring("gentle", motion_context) : ExitTween("fast", motion_context)}
         >
           {title === undefined && !withCloseButton ? null : (
-            <div className={styles.head}>
-              {title === undefined ? <span /> : <p className={styles.title}>{title}</p>}
+            <Box {...headProps} className={cx(styles.head, headProps?.className)}>
+              {title === undefined ? (
+                <span />
+              ) : (
+                <Text {...titleProps} className={cx(styles.title, titleProps?.className)}>
+                  {title}
+                </Text>
+              )}
               {withCloseButton && onClose !== undefined ? (
                 <ButtonClose size="sm" aria-label={closeLabel} onPress={onClose} />
               ) : null}
-            </div>
+            </Box>
           )}
           {children}
         </m.div>

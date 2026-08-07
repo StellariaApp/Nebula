@@ -79,7 +79,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `CodeHighlight/CodeHighlight.tsx` | 6 | header floatingCopy scroll pre gutter source | pendiente |
 | `DataGrid/Toolbar.tsx` | 6 | toolbar toolbarSearch toolbarGap chips bulkBar bulkCount | pendiente |
 | `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | pendiente |
-| `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | pendiente |
+| `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | hecho |
 | `Nav/components/Links.tsx` | 6 | link links indicator overflow overflowTrigger overflowPanel | pendiente |
 | `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | pendiente |
 | `AppShell/components/Links.tsx` | 5 | links linksHeader linksContent link label | pendiente |
@@ -90,7 +90,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Kanban/KanbanColumn.tsx` | 5 | column columnHeader columnTitle columnCount columnEmpty | pendiente |
 | `MultiSelect/MultiSelect.tsx` | 5 | control chip chipLabel chipRemove search | pendiente |
 | `Nav/components/Sidebar.tsx` | 5 | sidebarScrim sidebar sidebarHead sidebarBody sidebarFooter | pendiente |
-| `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | pendiente |
+| `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | hecho |
 | `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | pendiente |
 | `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | pendiente |
 | `Filters/Filters.tsx` | 4 | panel empty list foot | pendiente |
@@ -113,8 +113,8 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Chip/ChipGroup.tsx` | 3 | groupRoot groupLabel group | pendiente |
 | `ColorPicker/ColorInput.tsx` | 3 | preview trigger dropdown | pendiente |
 | `ColorPicker/ColorPicker.tsx` | 3 | area swatches swatch | pendiente |
-| `Countdown/Countdown.tsx` | 3 | unit value caption | pendiente |
-| `Dialog/Dialog.tsx` | 3 | dialog head title | pendiente |
+| `Countdown/Countdown.tsx` | 3 | unit value caption | hecho |
+| `Dialog/Dialog.tsx` | 3 | dialog head title | hecho |
 | `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | pendiente |
 | `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | pendiente |
 | `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
