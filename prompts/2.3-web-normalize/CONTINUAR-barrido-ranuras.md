@@ -30,6 +30,7 @@ CÓMO VA UNA TANDA
   - Gates entre tanda y tanda, SIN excepción:
       set -o pipefail
       pnpm turbo build typecheck lint test --filter=@stellaria/nebula-web --filter=playground-web
+      pnpm check:slots
       cd packages/web && pnpm run size
   - Si `size` rebasa, sube el tope al valor medido + margen. Es el criterio del
     propietario y no es un checkpoint.
@@ -39,8 +40,9 @@ REGLAS QUE YA COSTARON UN ERROR — no las reaprendas
   - `git add` SIEMPRE con rutas explícitas. Nunca `git add -A <carpeta>`: el
     propietario trabaja en paralelo y ya se le colaron cambios en un commit mío.
   - El orden es `{...slotProps}` PRIMERO y `className={cx(...)}` DESPUÉS. Al
-    revés el esparcido pisa la clase del componente. Hay un chequeo en
-    scratchpad/check-slot-order.mjs; si lo pierdes, reescríbelo (30 líneas).
+    revés el esparcido pisa la clase del componente. Ya no hay que recordarlo:
+    `pnpm check:slots` es gate (ADR-106) y lo caza, junto con las ranuras que se
+    declaran en el `.types.ts` y nunca llegan a su nodo.
   - Antes de tocar un componente con React Aria, MIRA si el hook ya devuelve un
     nombre que quieres usar. `useDialog`, `useSelect` y `useMenuItem` devuelven
     titleProps / valueProps / labelProps / descriptionProps / keyboardShortcutProps.

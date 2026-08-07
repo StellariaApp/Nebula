@@ -123,3 +123,4 @@ Reglas transversales:
 4. **Reduced motion tests**: stories parametrizadas con `prefers-reduced-motion: reduce` (web) y mocks de `ReduceMotion` (native) verifican fallbacks.
 5. **Bundle budget**: size-limit por entry point, tabla publicada en el PR.
 6. **Typecheck estricto**: TS 7, `strict` total, presupuesto de `any` = solo fronteras de framework documentadas (herencia del patrón Stellaria: hoy 8 `any` justificados).
+7. **Props de ranura** (`tools/check-slots.mjs`, [ADR-106](adr/ADR-106-gate-de-props-de-ranura.md)): verifica el orden del esparcido frente a `className` (ADR-098) y que ninguna `<nodo>Props` declarada en un `.types.ts` se quede sin llegar a su nodo. Lee fuente, no `dist`; `pnpm check:slots`.

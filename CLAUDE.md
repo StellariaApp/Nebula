@@ -29,6 +29,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 pnpm install                       # pnpm 11 (self-managed via packageManager)
 pnpm build | typecheck | lint      # turbo, todos los workspaces
 pnpm check:contrast                # gate WCAG AA sobre el tema de humo (o -- --theme x.json)
+pnpm check:slots                   # gate de props de ranura: orden del esparcido y ranuras muertas
 pnpm gen:palette regen             # regenera las 16 paletas 50-950 (escribe en tokens)
 pnpm gen:palette from "#hex" --name x
 pnpm format                        # prettier

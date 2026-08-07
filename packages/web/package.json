@@ -51,7 +51,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "size": "size-limit"
+    "size": "size-limit",
+    "check:slots": "node ../../tools/check-slots.mjs src"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

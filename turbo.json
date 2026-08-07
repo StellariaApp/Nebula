@@ -23,6 +23,9 @@
     "check:contrast": {
       "dependsOn": ["^build"]
     },
+    "check:slots": {
+      "inputs": ["src/**/*.tsx", "src/**/*.types.ts", "../../tools/check-slots.mjs"]
+    },
     "gen:palette": {
       "cache": false
     }

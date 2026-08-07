@@ -38,3 +38,23 @@ pnpm check:contrast -- --theme tema.json  # valida cualquier NebulaTheme seriali
 - Pares validados: texto normal/superficies (4.5:1), texto invertido, `onPrimary` sobre filled **y su hover**, texto semántico (paso 700), bordes fuertes y **focus ≥3:1** contra las 4 superficies, filled como componente UI (3:1). `disabled` está exento (WCAG 2.2 · 1.4.3).
 - Salida: tabla de pares con ratio y, por cada FAIL, **sugerencia de corrección** (ajuste de L en OKLCH conservando hue/chroma). Exit code 1 si algo falla — apto para CI.
 - Es el mismo motor que usará el Theme Creator en vivo (02 §5.3).
+
+## check-slots — gate de props de ranura (docs/03 §4.7, ADR-106)
+
+```bash
+pnpm check:slots                            # todo packages/web/src
+node tools/check-slots.mjs <raíz>           # cualquier otra raíz de fuentes
+```
+
+Dos comprobaciones que ni `tsc` ni lint ven, porque en las dos el **tipo es correcto** y lo que está
+mal es dónde acaba el valor:
+
+- **Orden del esparcido** (ADR-098): dentro de una apertura de elemento JSX, `className=` no puede ir
+  antes de un `{...<algo>Props}`. Al revés, el esparcido pisa la clase compuesta y el consumidor que
+  solo quería añadir una clase se queda sin componente pintado.
+- **Ranura muerta**: cada miembro `<nodo>Props` de un `.types.ts` tiene que aparecer esparcido en
+  algún `.tsx` del componente. Reconoce el esparcido directo, el que va por un objeto de ranuras
+  (`{...slots.iconProps}`), la forma abreviada (`{...(x === undefined ? {} : { iconProps })}`) y el
+  reenvío como prop a una parte interna.
+
+Lee fuente, no `dist`: no depende de `build` y tarda ~1,5 s. Exit code 1 si encuentra algo.
