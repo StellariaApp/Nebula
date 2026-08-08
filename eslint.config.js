@@ -60,6 +60,7 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-redundant-type-constituents": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
