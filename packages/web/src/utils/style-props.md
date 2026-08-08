@@ -49,8 +49,19 @@ Dos consecuencias del atajo, que conviene tener presentes:
 hasta tres copias de objeto antes de devolver la cadena de clases. Como la función es pura
 —mismas props, misma clase—, el resultado se guarda en un `Map` de módulo.
 
-La clave se construye en la **misma pasada** que clasifica las props, y el objeto que come
-`sprinkles()` solo se arma cuando la caché falla. Armarlo siempre costaba casi el doble.
+La clave **y el objeto que come `sprinkles()`** se construyen en la misma pasada que clasifica las
+props. `sprinkles()` sigue detrás de la caché; lo que ya no se difiere es armar el objeto.
+
+Antes se difería: la clave salía de la pasada y el objeto se rearmaba en el fallo de caché
+recorriendo las props otra vez. Eso era un **defecto**, no una optimización. El segundo recorrido se
+guiaba solo por `PROP_KIND` y no veía la decisión de carril, así que un valor abierto sobre una prop
+que además es sprinkle —`mx="auto"`, `p="12px"`, `bg="#ff0000"`, `fz="13px"`— acababa en
+`sprinkles()`, que lanza `SprinklesError` porque el valor no está en su tabla. Bastaba con que otra
+prop de sprinkles acompañara en el mismo nodo.
+
+Recuperar la pereza exigiría anotar **qué claves** ganaron el carril de sprinkles, y esa lista es una
+asignación por nodo igual que el objeto. No se gana nada, así que el objeto se arma una vez, en el
+sitio donde ya se sabe la respuesta.
 
 El formato de cada token es `` `${key}:${text.length}:${text};` ``. El prefijo de longitud no es
 adorno: hace la codificación **inyectiva**. Sin él, dos juegos de props distintos podrían concatenar

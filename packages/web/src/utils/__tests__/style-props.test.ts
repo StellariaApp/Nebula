@@ -197,6 +197,37 @@ describe("ExtractStyleProps - via abierta: valores crudos", () => {
   });
 });
 
+describe("ExtractStyleProps - un valor abierto no llega a sprinkles", () => {
+  const open_cases = [
+    { name: "mx auto", props: { mx: "auto" }, key: "mx", value: "auto" },
+    { name: "p en px", props: { p: "12px" }, key: "p", value: "12px" },
+    { name: "bg en hex", props: { bg: "#ff0000" }, key: "bg", value: "#ff0000" },
+    { name: "fz en px", props: { fz: "13px" }, key: "fz", value: "13px" },
+  ] as const;
+
+  it.each(open_cases)(
+    "$name junto a una prop de sprinkles no lanza y sale por el carril abierto",
+    ({ props, key, value }) => {
+      const result = ExtractStyleProps({ ...props, display: "flex" });
+
+      expect(result.className).toBeDefined();
+      expect(result.style).toHaveProperty(`--nb-${key}`, value);
+    },
+  );
+
+  it.each(open_cases)("$name a solas tampoco lanza", ({ props, value }) => {
+    const result = ExtractStyleProps({ ...props });
+    expect(Object.values(result.style ?? {})).toContain(value);
+  });
+
+  it("la prop de sprinkles que lo acompaña sigue produciendo su clase atomica", () => {
+    const open = ExtractStyleProps({ mx: "auto", display: "flex" });
+    const plain = ExtractStyleProps({ display: "flex" });
+
+    expect(open.className).toContain(plain.className ?? "");
+  });
+});
+
 describe("ExtractStyleProps - via abierta: responsive", () => {
   it("una prop de dimension acepta objeto responsive", () => {
     const result = ExtractStyleProps({ w: { base: 100, tablet: 200 } });

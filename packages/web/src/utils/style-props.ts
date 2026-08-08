@@ -58,10 +58,7 @@ const KIND_DIMENSION = 3;
 const KIND_UNITLESS = 4;
 
 type PropKind =
-  | typeof KIND_SPRINKLE
-  | typeof KIND_COLOR
-  | typeof KIND_DIMENSION
-  | typeof KIND_UNITLESS;
+  typeof KIND_SPRINKLE | typeof KIND_COLOR | typeof KIND_DIMENSION | typeof KIND_UNITLESS;
 
 const PROP_KIND = new Map<string, PropKind>();
 for (const key of sprinkles.properties) PROP_KIND.set(key, KIND_SPRINKLE);
@@ -84,14 +81,13 @@ type TokenKey<S extends TokenScale> = keyof (typeof TOKEN_VALUES)[S] & string;
 
 type Primitive<Spec> = Spec extends { keywords: readonly (infer K)[] }
   ? K
-  :
-      | (Spec extends { token: infer T extends TokenScale } ? TokenKey<T> : never)
-      | (Spec extends { open: true }
-          ? Spec extends { length: true }
-            ? number | LooseString
-            : LooseString | number
-          : never)
-      | (Spec extends { bool: true } ? boolean : never);
+  : | (Spec extends { token: infer T extends TokenScale } ? TokenKey<T> : never)
+    | (Spec extends { open: true }
+        ? Spec extends { length: true }
+          ? number | LooseString
+          : LooseString | number
+        : never)
+    | (Spec extends { bool: true } ? boolean : never);
 
 type Responsive<V> = V | Partial<Record<BreakpointName, V>>;
 
@@ -135,78 +131,56 @@ function CacheToken(key: string, value: unknown): string {
   return `${key}:${String(text.length)}:${text};`;
 }
 
-function CollectSprinkles(props: Record<string, unknown>): Record<string, unknown> {
-  const collected: Record<string, unknown> = {};
-
-  for (const key in props) {
-    const value = props[key];
-    if (value === undefined) continue;
-
-    const kind = PROP_KIND.get(key);
-    if (kind === KIND_SPRINKLE) {
-      collected[key] = value;
-      continue;
-    }
-    if (kind === KIND_COLOR && ResolveOpacity(value) === undefined) collected[key] = value;
-  }
-
-  const fz = collected.fz;
-  if (typeof fz === "string" && LEADING.has(fz)) collected.lh ??= fz;
-
-  return collected;
-}
-
-function CachedClass(props: Record<string, unknown>, cache_key: string): string {
+function CachedClass(collected: Record<string, unknown>, cache_key: string): string {
   const hit = CLASS_CACHE.get(cache_key);
   if (hit !== undefined) return hit;
 
-  const value = sprinkles(CollectSprinkles(props));
+  const value = sprinkles(collected);
   if (CLASS_CACHE.size < CACHE_LIMIT) CLASS_CACHE.set(cache_key, value);
   return value;
 }
 
-
 const BREAKPOINTS = new Set<string>(BREAKPOINT_ORDER);
-const RESPONSIVE_KEYS = new Set<string>(RESPONSIVE_PROPS);
-
-function IsResponsive(value: unknown): value is Record<string, unknown> {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
-  for (const key in value) if (!BREAKPOINTS.has(key)) return false;
-  return true;
-}
-
-function TokenValue(spec: PropSpec, value: unknown): string | undefined {
-  if (spec.token === undefined || typeof value !== "string") return undefined;
-  const table: Record<string, string> = TOKEN_VALUES[spec.token];
-  return table[value];
-}
-
-function IsKnown(spec: PropSpec, value: unknown): boolean {
-  if (spec.keywords !== undefined) return spec.keywords.includes(value as string);
-  return TokenValue(spec, value) !== undefined;
-}
-
-function OpenValue(spec: PropSpec, value: unknown): string | undefined {
-  const token = TokenValue(spec, value);
-  if (token !== undefined) return token;
-  const mixed = ResolveOpacity(value);
-  if (mixed !== undefined) return mixed;
-  if (typeof value === "number") return spec.length === true ? `${String(value)}px` : String(value);
-  if (typeof value === "string") return value;
-  return undefined;
-}
-
-function NeedsOpenLane(name: string, spec: PropSpec, value: unknown): boolean {
-  if (IsResponsive(value)) {
-    if (!RESPONSIVE_KEYS.has(name)) return true;
-    for (const level in value) if (!IsKnown(spec, value[level])) return true;
-    return false;
-  }
-  if (!PROP_KIND.has(name)) return true;
-  if (spec.keywords !== undefined) return false;
-  if (spec.token === undefined) return false;
-  return !IsKnown(spec, value) && ResolveOpacity(value) === undefined;
-}
+const RESPONSIVE_KEYS = new Set<string>(RESPONSIVE_PROPS);
+
+function IsResponsive(value: unknown): value is Record<string, unknown> {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  for (const key in value) if (!BREAKPOINTS.has(key)) return false;
+  return true;
+}
+
+function TokenValue(spec: PropSpec, value: unknown): string | undefined {
+  if (spec.token === undefined || typeof value !== "string") return undefined;
+  const table: Record<string, string> = TOKEN_VALUES[spec.token];
+  return table[value];
+}
+
+function IsKnown(spec: PropSpec, value: unknown): boolean {
+  if (spec.keywords !== undefined) return spec.keywords.includes(value as string);
+  return TokenValue(spec, value) !== undefined;
+}
+
+function OpenValue(spec: PropSpec, value: unknown): string | undefined {
+  const token = TokenValue(spec, value);
+  if (token !== undefined) return token;
+  const mixed = ResolveOpacity(value);
+  if (mixed !== undefined) return mixed;
+  if (typeof value === "number") return spec.length === true ? `${String(value)}px` : String(value);
+  if (typeof value === "string") return value;
+  return undefined;
+}
+
+function NeedsOpenLane(name: string, spec: PropSpec, value: unknown): boolean {
+  if (IsResponsive(value)) {
+    if (!RESPONSIVE_KEYS.has(name)) return true;
+    for (const level in value) if (!IsKnown(spec, value[level])) return true;
+    return false;
+  }
+  if (!PROP_KIND.has(name)) return true;
+  if (spec.keywords !== undefined) return false;
+  if (spec.token === undefined) return false;
+  return !IsKnown(spec, value) && ResolveOpacity(value) === undefined;
+}
 
 function CollectRest(props: Record<string, unknown>): Record<string, unknown> {
   const rest: Record<string, unknown> = {};
@@ -226,7 +200,7 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
   const own_style = props.style as CSSProperties | undefined;
   let style: CSSProperties | undefined;
   let cache_key = "";
-  let has_sprinkles = false;
+  let collected: Record<string, unknown> | undefined;
   let has_style_prop = false;
   let open_classes: string | undefined;
 
@@ -252,7 +226,8 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
         Object.assign(style, { [OpenVarName(key, level)]: resolved });
         wrote = true;
       }
-      if (wrote) open_classes = open_classes === undefined ? open_class : `${open_classes} ${open_class}`;
+      if (wrote)
+        open_classes = open_classes === undefined ? open_class : `${open_classes} ${open_class}`;
       continue;
     }
 
@@ -268,7 +243,8 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     }
 
     if (kind === KIND_SPRINKLE || kind === KIND_COLOR) {
-      has_sprinkles = true;
+      collected ??= {};
+      collected[key] = value;
       cache_key += CacheToken(key, value);
       continue;
     }
@@ -290,7 +266,12 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     return { className: undefined, style: undefined, rest: props };
   }
 
-  const sprinkle_class = has_sprinkles ? CachedClass(props, cache_key) : undefined;
+  if (collected !== undefined && props.lh === undefined) {
+    const fz = collected.fz;
+    if (typeof fz === "string" && LEADING.has(fz)) collected.lh = fz;
+  }
+
+  const sprinkle_class = collected !== undefined ? CachedClass(collected, cache_key) : undefined;
 
   return {
     className: cx(sprinkle_class, open_classes),
