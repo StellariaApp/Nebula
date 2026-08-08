@@ -219,8 +219,8 @@ function Asientos({ gratis }: { gratis: boolean }): ReactElement {
         ))}
       </Box>
       <Text fz="caption" c="text.muted" mt="xs">
-        Gana el más restrictivo, y se comprueba en cada generación. Bajar uno no retira lo que ya
-        se produjo.
+        Gana el más restrictivo, y se comprueba en cada generación. Bajar uno no retira lo que ya se
+        produjo.
       </Text>
     </GlassSurface>
   );
@@ -340,7 +340,6 @@ function Usuarios({ gratis = false }: { gratis?: boolean | undefined }): ReactEl
           actions={
             <Group gap="sm">
               <Button
-                size="sm"
                 onPress={() => {
                   set_invitar(true);
                 }}
