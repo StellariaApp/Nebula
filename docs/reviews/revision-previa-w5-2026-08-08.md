@@ -8,7 +8,7 @@ No reabre ningún criterio de WN: busca lo que el barrido dejó mal, a medias o 
 
 | Gate                                     | Antes de esta revisión     | Después                           |
 | ---------------------------------------- | -------------------------- | --------------------------------- |
-| `build typecheck lint test`              | verde, 1.235 tests         | verde, **1.240** (5 tests nuevos) |
+| `build typecheck lint test`              | verde, 1.235 tests         | verde, **1.241** (6 tests nuevos) |
 | `check:slots`                            | verde                      | verde                             |
 | `check:contrast`                         | verde                      | verde                             |
 | `size`                                   | verde                      | verde                             |
@@ -100,9 +100,15 @@ Corregido: el JSDoc describía el ADR y no el código, y ahora los dos dicen lo 
 
 ### Y una que es un defecto de comportamiento
 
-`DataGrid.selectionOnly` exporta solo lo seleccionado **de la página en curso**, porque filtra sobre
-el modelo paginado; la selección de otras páginas se pierde en silencio. El JSDoc queda corregido
-para decir la verdad; **el comportamiento sigue pendiente de decisión** (`DataGrid.tsx:261`).
+`DataGrid.selectionOnly` exportaba solo lo seleccionado **de la página en curso**, porque filtraba
+sobre el modelo paginado: seleccionar tres filas repartidas en tres páginas descargaba un fichero con
+una, sin aviso.
+
+No era una asimetría de diseño. El propio `DataGrid.md` §«Export: qué filas salen» **razona por qué la
+paginación no debe recortar la exportación** —«quien pulsa exportar en una tabla paginada espera el
+conjunto, no la página»— y aplicaba ese razonamiento solo a la rama por defecto. Una palabra:
+`getRowModel()` → `getCoreRowModel()`. Con test que selecciona a través de páginas y cuenta las líneas
+del CSV, verificado en los dos sentidos: sin el arreglo devuelve 2 líneas en vez de 3.
 
 ## 6 · Tipos de ranura deshonestos
 
