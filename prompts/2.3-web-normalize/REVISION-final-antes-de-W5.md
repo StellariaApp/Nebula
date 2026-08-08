@@ -88,6 +88,51 @@ Empieza por aquí, en este orden de riesgo.
       tree-shakeables de verdad (mira el dist, no el fuente); y que el `id` del título por
       contexto no se pierda en ningún montaje.
 
+  9 · LA DOCUMENTACIÓN, QUE ES LO QUE EL CONSUMIDOR VE ANTES QUE EL CÓDIGO
+      El sitio público (fase DS) genera sus fichas de API desde el `.d.ts` PUBLICADO con
+      `tools/docs-gen`, así que el JSDoc del catálogo no es un comentario: es la página. Y el
+      generador ya declara sus huecos en `apps/docs/generated/api.json`, campo `gaps`. Medidos
+      hoy, sobre 158 componentes:
+
+        noJsdoc         64   componentes sin una sola línea de JSDoc en su contrato
+        defaultUnknown  32   props cuyo valor por defecto el generador no pudo determinar
+        noContract       6   Charts, DateRangePicker, DateTimePicker, DragDrop, Kanban, Toast
+        con `.md`        88 de 158
+
+      Eso significa que 64 fichas del sitio saldrán con la tabla de props y **cero prosa**. Un
+      nombre y un tipo no explican cuándo usar `variant="glow"` ni qué pasa si no pasas `label`.
+
+      QUÉ HACER, y en este orden:
+
+      a) Los 6 sin contrato son el bug, no la falta de documentación: un componente público sin
+         `.types.ts` propio no puede documentarse ni tipar sus ranuras. Mira por qué —Kanban y
+         Charts tienen sus tipos en un archivo compartido, y eso puede ser correcto— y arregla
+         solo lo que sea un descuido de verdad.
+
+      b) `@default`. No existe ni UNA anotación en todo el catálogo, y por eso hay 32 props con
+         el defecto indeterminable: el generador lo extrae de la desestructuración (`size = "md"`)
+         y falla donde el valor se calcula o viene de una constante. ADR-105 ya permite el JSDoc
+         en props públicas, así que `@default` entra sin ADR nuevo. Mide cuántos archivos cuesta
+         y propón; no lo inventes donde no se pueda determinar sin ambigüedad.
+
+      c) Los 64 sin JSDoc. NO los rellenes en masa con paráfrasis del nombre: ADR-105 prohíbe
+         explícitamente el JSDoc que repite el nombre, y 64 líneas de relleno son peores que 64
+         huecos porque parecen documentación. Escribe lo que el tipo no puede decir: cuándo NO
+         aplica la prop, con qué otra se combina, qué pasa si se omite, y el guardrail si lo hay
+         —`GlassSurface` y `BlurOverlay` tienen guardrails escritos en su tipo y son el modelo—.
+         Prioriza por lo que un consumidor toca de verdad: primero los compuestos y los campos de
+         formulario, al final las utilidades de lógica pura.
+
+      d) Los `.md`. ADR-105 fijó que el `.md` es obligatorio **solo** cuando hay una decisión no
+         deducible del código, y que 73 de 158 no lo necesitan. Hoy hay 88. No persigas el 158:
+         busca al revés — componentes con una decisión rara en el código y sin `.md` que la
+         explique. El `.md` de `Progress` (por qué `variant` pinta el track y no el relleno, con
+         los ratios de contraste medidos) es el estándar a igualar.
+
+      e) Y comprueba que `pnpm gen:docs` es idempotente y que `pnpm check:docs` falla si el JSON
+         comprometido difiere del generado. Si el gate no muerde, la documentación se desincroniza
+         del código en la primera semana.
+
 LO QUE NADIE HA MIRADO EN ABSOLUTO
 
   · EL PÍXEL. El barrido añadió 169 ranuras y convirtió 95 nodos sin que nadie abriera el
@@ -101,6 +146,10 @@ LO QUE NADIE HA MIRADO EN ABSOLUTO
     repetición extraíble: el patrón `{...slotProps} className={cx(base, slotProps?.className)}`
     aparece cientos de veces, y `CalendarDayVars` ya demostró que sacar lo duplicado a un módulo
     es posible y barato.
+  · CÓMO SE LEEN LAS 169 RANURAS DESDE FUERA. Nadie ha abierto el autocompletado de un editor
+    con el paquete importado para ver qué ofrece el catálogo a quien lo usa. Hazlo: es la única
+    forma de detectar el nombre que solo se entiende desde dentro. `pnpm gen:docs` y mirar el
+    `api.json` de un compuesto grande —DataGrid, MultiSelect, AppShell— da la misma señal.
 
 CÓMO TRABAJAR
   · Por tandas temáticas, no por componente. Una tanda = un riesgo de la lista, barrido entero.
@@ -140,7 +189,9 @@ NO HAGAS
   · Ninguna dependencia nueva ni cambio de API pública sin ADR previo.
 
 EMPIEZA por el riesgo 1 —los elementos cambiados—, porque es el único que puede haber roto algo
-que ya funcionaba, y porque los 34 commits del barrido siguen frescos en el historial.
+que ya funcionaba, y porque los 34 commits del barrido siguen frescos en el historial. La
+documentación (riesgo 9) es la de más volumen y la que más se beneficia de ir al final: cuando la
+escribas, el resto de la revisión ya te habrá dicho qué hace de verdad cada cosa.
 ```
 
 ---
@@ -159,6 +210,12 @@ recalibrados con holgura del 5 %).
 
 **Gates que existen y el barrido NO corrió ni una vez**: `pnpm turbo a11y` (axe sobre todas las
 stories) y el de regresión visual de ADR-037.
+
+**El estado de la documentación**, medido por el propio generador del sitio en
+`apps/docs/generated/api.json` → `gaps`: **64 componentes sin una línea de JSDoc** en su contrato,
+**32 props con el valor por defecto indeterminable** —porque no existe ni una anotación `@default` en
+todo el catálogo—, 6 sin `.types.ts` propio y 88 de 158 con `.md`. Es el tramo de más volumen de la
+revisión, y el que decide qué ve un consumidor antes de leer una línea de código.
 
 ## Por qué esta revisión y no otra
 
