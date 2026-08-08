@@ -1,4 +1,4 @@
-import { createVar, fallbackVar, globalStyle, keyframes, style } from "@vanilla-extract/css";
+import { fallbackVar, globalStyle, keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { reduced_media } from "../../styles/motion.css.js";
@@ -13,13 +13,6 @@ const INK = `color-mix(in srgb, ${vars.color.border.default} 40%, transparent)`;
 const BAND = vars.space.xl;
 const RANGE = vars.space.xl;
 const SUPPORTS = "(animation-timeline: scroll())";
-const LENGTH = { syntax: "<length>", inherits: false, initialValue: "0px" } as const;
-
-const block_start = createVar(LENGTH);
-const block_end = createVar(LENGTH);
-const inline_start = createVar(LENGTH);
-const inline_end = createVar(LENGTH);
-
 interface Band {
   image: string;
   position: string;
@@ -47,16 +40,16 @@ const BLOCK: Band[] = [
   {
     image: Gradient("bottom"),
     position: "top center",
-    size: `100% ${block_start}`,
-    name: Grow(block_start),
+    size: `100% ${variables.blockStart}`,
+    name: Grow(variables.blockStart),
     timeline: "scroll(self block)",
     range: `0px ${RANGE}`,
   },
   {
     image: Gradient("top"),
     position: "bottom center",
-    size: `100% ${block_end}`,
-    name: Shrink(block_end),
+    size: `100% ${variables.blockEnd}`,
+    name: Shrink(variables.blockEnd),
     timeline: "scroll(self block)",
     range: `calc(100% - ${RANGE}) 100%`,
   },
@@ -66,8 +59,8 @@ const INLINE: Band[] = [
   {
     image: Gradient("right"),
     position: "left center",
-    size: `${inline_start} 100%`,
-    name: Grow(inline_start),
+    size: `${variables.inlineStart} 100%`,
+    name: Grow(variables.inlineStart),
     timeline: "scroll(self inline)",
     range: `0px ${RANGE}`,
     imageRtl: Gradient("left"),
@@ -76,8 +69,8 @@ const INLINE: Band[] = [
   {
     image: Gradient("left"),
     position: "right center",
-    size: `${inline_end} 100%`,
-    name: Shrink(inline_end),
+    size: `${variables.inlineEnd} 100%`,
+    name: Shrink(variables.inlineEnd),
     timeline: "scroll(self inline)",
     range: `calc(100% - ${RANGE}) 100%`,
     imageRtl: Gradient("right"),
