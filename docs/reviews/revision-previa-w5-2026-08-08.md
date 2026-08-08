@@ -6,14 +6,14 @@ No reabre ningún criterio de WN: busca lo que el barrido dejó mal, a medias o 
 
 ## Lo que se corrió
 
-| Gate                                     | Antes de esta revisión | Después                             |
-| ---------------------------------------- | ---------------------- | ----------------------------------- |
-| `build typecheck lint test`              | verde, 1.235 tests     | verde, **1.240** (5 tests nuevos)   |
-| `check:slots`                            | verde                  | verde                               |
-| `check:contrast`                         | verde                  | verde                               |
-| `size`                                   | verde                  | verde                               |
-| **`turbo a11y` (axe sobre 614 stories)** | **nunca se había corrido** | **3 fallos → verde**            |
-| **`check:docs`**                         | **no podía fallar**    | muerde                              |
+| Gate                                     | Antes de esta revisión     | Después                           |
+| ---------------------------------------- | -------------------------- | --------------------------------- |
+| `build typecheck lint test`              | verde, 1.235 tests         | verde, **1.240** (5 tests nuevos) |
+| `check:slots`                            | verde                      | verde                             |
+| `check:contrast`                         | verde                      | verde                             |
+| `size`                                   | verde                      | verde                             |
+| **`turbo a11y` (axe sobre 614 stories)** | **nunca se había corrido** | **3 fallos → verde**              |
+| **`check:docs`**                         | **no podía fallar**        | muerde                            |
 
 ## 1 · Las conversiones a `Box`/`Text` no cambiaron ningún elemento
 
@@ -32,11 +32,11 @@ herencia. Un `<Text>` dentro de una superficie teñida **ignora el color de esa 
 `Button` pasa `inherit` y por eso está bien. Era **el único de 21 nodos**. Dos de ellos rompían el
 gate de axe con `color-contrast` (serious):
 
-| Story                         | Nodo                                              |
-| ----------------------------- | ------------------------------------------------- |
-| `Overlays/Menu` (ArrowOpens)  | el rótulo del item resaltado                      |
-| `Overlays/ContextMenu`        | ídem                                              |
-| `Data Display/Primitives`     | el rótulo de `Tag variant="filled"`, ×3           |
+| Story                        | Nodo                                    |
+| ---------------------------- | --------------------------------------- |
+| `Overlays/Menu` (ArrowOpens) | el rótulo del item resaltado            |
+| `Overlays/ContextMenu`       | ídem                                    |
+| `Data Display/Primitives`    | el rótulo de `Tag variant="filled"`, ×3 |
 
 Efecto colateral del mismo defecto: **`Tag size` no llegaba a su rótulo**, porque `Text_text` fijaba
 `font-size: body1` por encima del tamaño del contenedor. Lo mismo en los chips de `MultiSelect` y
@@ -145,10 +145,16 @@ los 200 kB del compound entero, sin `SplitChildren` ni `useReveal`. El `/* @__PU
 
 ## 8 · El cuaderno del barrido
 
-Auditado con script contra el código. Ver la sección «Revisión previa a W5» en
+Auditado y **corregido** contra el código. Ver la sección «Revisión previa a W5» en
 [`wn-n3-barrido-ranuras.md`](wn-n3-barrido-ranuras.md): dos razones de descarte eran falsas
-(`Tooltip` y `Popover`), faltan cuatro filas de componentes que sí tienen ranuras, y veinte filas
-dicen «hecho» a secas siendo parciales.
+(`Tooltip` y `Popover`), **32 filas decían «hecho» a secas siendo parciales**, cuatro componentes
+cableados no tenían fila y `AppShell.Header` figuraba como descartado teniendo tres ranuras. La tabla
+pasa de «154 componentes, 485 nodos» a **158 y 510**.
+
+El recuento no sale de contar esparcidos —eso mezcla las ranuras públicas con los resultados de los
+hooks de aria y con las que suben a un contrato común—, sino de cruzar la columna de nodos con los
+miembros de cada `.types.ts`, resolviendo a mano que `iconWrap` se publica como `iconProps`, `nav`
+como `previousProps`/`nextProps` y `panelCard` como `cardProps`.
 
 De ahí salió un defecto real: **las partes de `Card` eran las únicas del catálogo sin style props ni
 reenvío de atributos** —solo aceptaban `className`—, lo que hacía falsa la razón del descarte.
@@ -161,20 +167,20 @@ reenvío de atributos** —solo aceptaban `className`—, lo que hacía falsa la
 Decisión del propietario: **el vocabulario se congela**. Renombrar una ranura es breaking y esta era
 la última ventana; queda anotado para que la decisión sea consciente y no un olvido.
 
-| Dónde                             | Qué                                                                             |
-| --------------------------------- | ------------------------------------------------------------------------------- |
-| `GlobalSearch`                    | `optionBody/optionTitle/optionDescription` donde `Menu` y `CommandPalette` usan el contrato común `body/label/description` |
-| `MultiSelect`                     | `chipProps`/`chipLabelProps` donde `Tag` y `TagsInput` usan `tag*`              |
-| `GlobalSearch`                    | `statusProps` donde otros ocho usan `emptyProps`                                |
-| `GlobalSearch` vs `CommandPalette`| `searchRowProps` vs `inputRowProps`, mismo nodo                                  |
-| `GlobalSearch`                    | `iconProps` cae a la vez sobre la lupa y sobre el icono de cada resultado; `CommandPalette` los separa |
-| `Kanban`                          | `headerProps` (columna) y `headProps` (tarjeta) en el mismo archivo             |
-| `Dialog` vs `Modal`               | `headProps` vs `headerProps`                                                     |
-| `CardComplex`                     | `headerProps` y `footProps` en el mismo tipo                                     |
-| `Nav.Sidebar`                     | `headProps` y `footerProps` en el mismo tipo                                     |
-| `TransferList` vs `MultiSelect`   | `searchProps` cae sobre un `Box` en uno y sobre el `<input>` en el otro          |
-| `AppShellHeader` / `Form.Header`  | `contentProps` y `headerTextProps` para el nodo que `Header`/`Modal`/`CardComplex` llaman `headingProps` |
-| `Calendar`                        | `headingProps` es el `h2` aquí y el envoltorio en los otros tres                |
+| Dónde                              | Qué                                                                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `GlobalSearch`                     | `optionBody/optionTitle/optionDescription` donde `Menu` y `CommandPalette` usan el contrato común `body/label/description` |
+| `MultiSelect`                      | `chipProps`/`chipLabelProps` donde `Tag` y `TagsInput` usan `tag*`                                                         |
+| `GlobalSearch`                     | `statusProps` donde otros ocho usan `emptyProps`                                                                           |
+| `GlobalSearch` vs `CommandPalette` | `searchRowProps` vs `inputRowProps`, mismo nodo                                                                            |
+| `GlobalSearch`                     | `iconProps` cae a la vez sobre la lupa y sobre el icono de cada resultado; `CommandPalette` los separa                     |
+| `Kanban`                           | `headerProps` (columna) y `headProps` (tarjeta) en el mismo archivo                                                        |
+| `Dialog` vs `Modal`                | `headProps` vs `headerProps`                                                                                               |
+| `CardComplex`                      | `headerProps` y `footProps` en el mismo tipo                                                                               |
+| `Nav.Sidebar`                      | `headProps` y `footerProps` en el mismo tipo                                                                               |
+| `TransferList` vs `MultiSelect`    | `searchProps` cae sobre un `Box` en uno y sobre el `<input>` en el otro                                                    |
+| `AppShellHeader` / `Form.Header`   | `contentProps` y `headerTextProps` para el nodo que `Header`/`Modal`/`CardComplex` llaman `headingProps`                   |
+| `Calendar`                         | `headingProps` es el `h2` aquí y el envoltorio en los otros tres                                                           |
 
 ## 9 · La documentación, que es lo que el consumidor ve antes que el código
 
@@ -188,13 +194,13 @@ Manipulando `api.json` el gate pasaba en 703 ms con FULL TURBO, y solo fallaba c
 del directorio. Decisión del propietario: la ficha sigue siendo el directorio —no mueve `catalog.json`
 ni el enrutado— pero lleva dentro los demás componentes públicos cuyo contrato vive ahí.
 
-| | antes | ahora |
-| --- | ---: | ---: |
-| fichas | 158 | 158 |
-| componentes documentados | 158 | **216** |
-| `noContract` | 6 | **0** |
-| `defaultUnknown` | 32 | **5** |
-| `noJsdoc` | 84 | **78** |
+|                          | antes |   ahora |
+| ------------------------ | ----: | ------: |
+| fichas                   |   158 |     158 |
+| componentes documentados |   158 | **216** |
+| `noContract`             |     6 |   **0** |
+| `defaultUnknown`         |    32 |   **5** |
+| `noJsdoc`                |    84 |  **78** |
 
 Ninguno de los 6 `noContract` era un contrato que faltara: cinco eran directorios de familia
 —`Charts`, `DragDrop`, `Kanban`— y el sexto `Toast`, cuyo componente se llama `ToastProvider`.
@@ -211,19 +217,41 @@ por línea —así que `variant = "ghost", color = "gray"` entraba entera como a
 `EmptyModule`, `Stat`, `Feature` y `Blockquote` se convirtieron antes de que ADR-105 existiera y eran
 las únicas del catálogo que se publicaban en blanco.
 
+## 10 · El gate que ADR-037 decidió y nadie construyó
+
+ADR-037 está aceptada desde el 2026-07-28 con herramienta, alcance y determinismo decididos, y no
+existía: `test-runner.ts` solo tenía el hook de axe y no había una captura en el repo. Es el único
+gate que ve que **algo se ha movido de sitio** — los otros siete verifican propiedades, y ni los
+1.241 tests ni las 614 stories de axe detectan un desplazamiento.
+
+Al implementarlo, la premisa del ADR resultó falsa y se enmienda en
+[ADR-112](../adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md): el `toMatchSnapshot` que
+nombra vive en `@playwright/test`, que **no está instalado** —el árbol tiene `playwright`, la librería
+de driver— y el test-runner corre sobre Jest. Capturar no costaba nada; comparar sí.
+
+**El umbral, medido y no supuesto**, que es lo que decide si el gate sirve:
+
+|                                                            |                                            |
+| ---------------------------------------------------------- | ------------------------------------------ |
+| Dos pasadas con el umbral en `0` exacto                    | 75/75 idénticas, **cero píxeles**          |
+| Roto a propósito (`paddingInline` de `Badge`, `md` → `xl`) | 3 capturas fallan con **0,67 %**, salida 1 |
+
+Queda en **0,1 %**, y la segunda medida es su argumento: con el 1 % habitual ese mismo desplazamiento
+habría pasado inadvertido. 75 capturas, 3,2 MB, `pnpm visual`.
+
 ## Lo que queda pendiente
 
-1. **Las veinte filas parciales del cuaderno, con su razón por nodo.** El recuento no se puede sacar a
-   máquina sin criterio: contar los `{...algoProps}` de un archivo mezcla las ranuras públicas con los
-   resultados de los hooks de React Aria —`popoverProps`, `underlayProps`, `buttonProps`,
-   `mergeProps`— y con las que suben a un contrato común porque el componente es interno. Poner un
-   número mal medido en la tabla que es la fuente de verdad es peor que la nota agregada que hay.
-2. **`DataGrid.selectionOnly` a través de páginas** (`DataGrid.tsx:261`). El JSDoc ya dice la verdad;
-   el comportamiento sigue igual por decisión del propietario.
-3. Los 13 nombres incoherentes, congelados a propósito (arriba).
-4. **78 componentes sin JSDoc** en su contrato. El primer lote de ADR-104 ya está; el resto son
-   sobre todo primitivos de layout y utilidades, donde ADR-105 admite que el nombre y el tipo bastan.
-   Conviene revisarlos por lo que un consumidor toca de verdad, no en masa.
+1. Los 13 nombres incoherentes, congelados a propósito (arriba).
+2. **70 componentes sin JSDoc** en su contrato. Hechos por orden de contacto con el consumidor: el
+   primer lote de ADR-104, los dos compuestos, los tres grupos de campo, `FieldError`, `Popover` y
+   `Tooltip`. Los que quedan son sobre todo primitivos de layout y utilidades, donde ADR-105 admite
+   que el nombre y el tipo bastan. Conviene seguir por contacto, no en masa.
+3. **Cinco `defaultUnknown` que son honestos**: los dos `height` de `PieChart` y `RadarChart`
+   comparten contrato base con defectos distintos (260 y 280), dos defectos son una función y
+   `virtualizeFrom` lo comparten las cinco variantes de `Combobox`. Anotar `@default` en el miembro
+   compartido sería mentir en la mitad de los casos.
+4. **No hay `.github/workflows`.** Tres gates —axe, visual y `check:docs`— solo corren si alguien los
+   invoca a mano, y el baseline visual vive por plataforma justamente por eso.
 
 ## Deuda anotada, no urgente
 
