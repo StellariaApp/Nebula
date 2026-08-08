@@ -13,6 +13,7 @@ No reabre ningún criterio de WN: busca lo que el barrido dejó mal, a medias o 
 | `check:contrast`                         | verde                  | verde                               |
 | `size`                                   | verde                  | verde                               |
 | **`turbo a11y` (axe sobre 614 stories)** | **nunca se había corrido** | **3 fallos → verde**            |
+| **`check:docs`**                         | **no podía fallar**    | muerde                              |
 
 ## 1 · Las conversiones a `Box`/`Text` no cambiaron ningún elemento
 
@@ -92,10 +93,10 @@ Las otras: `Rating.partialProps`, `Stepper.stepProps`, `TagsInput.removeProps`,
 
 ### La que no es un JSDoc, es un defecto contra un ADR cerrado
 
-`Card.glass` documenta «por defecto `subtle` (ADR-078)». **`Card` no declara ninguna clase**, así que
-cae en la del `variantMap`, que es `control` — la receta pensada para un botón de 48 px, que es
+`Card.glass` documentaba «por defecto `subtle` (ADR-078)». **`Card` no declaraba ninguna clase**, así
+que caía en la del `variantMap`, que es `control` — la receta pensada para un botón de 48 px, que es
 exactamente lo que ADR-078 §Decisión existe para evitar en superficies. `Paper` sí la declara.
-**Pendiente de decisión**: el arreglo es una línea, pero cambia el material de `<Card variant="glass">`.
+Corregido: el JSDoc describía el ADR y no el código, y ahora los dos dicen lo mismo.
 
 ### Y una que es un defecto de comportamiento
 
@@ -175,25 +176,54 @@ la última ventana; queda anotado para que la decisión sea consciente y no un o
 | `AppShellHeader` / `Form.Header`  | `contentProps` y `headerTextProps` para el nodo que `Header`/`Modal`/`CardComplex` llaman `headingProps` |
 | `Calendar`                        | `headingProps` es el `h2` aquí y el envoltorio en los otros tres                |
 
+## 9 · La documentación, que es lo que el consumidor ve antes que el código
+
+**El gate `check:docs` no podía fallar.** Sus `inputs` estaban escritos como rutas del repo dentro de
+un task de paquete, donde turbo los resuelve contra `tools/docs-gen/`: no casaba ninguno, así que el
+task hasheaba un conjunto vacío y daba cache hit para siempre después de la primera pasada verde.
+Manipulando `api.json` el gate pasaba en 703 ms con FULL TURBO, y solo fallaba con `--force`. Con
+`$TURBO_ROOT$` delante vuelve a morder. `pnpm gen:docs` sí era idempotente byte a byte.
+
+**El generador documentaba 158 de 252 símbolos públicos**, porque resolvía el contrato por el nombre
+del directorio. Decisión del propietario: la ficha sigue siendo el directorio —no mueve `catalog.json`
+ni el enrutado— pero lleva dentro los demás componentes públicos cuyo contrato vive ahí.
+
+| | antes | ahora |
+| --- | ---: | ---: |
+| fichas | 158 | 158 |
+| componentes documentados | 158 | **216** |
+| `noContract` | 6 | **0** |
+| `defaultUnknown` | 32 | **5** |
+| `noJsdoc` | 84 | **78** |
+
+Ninguno de los 6 `noContract` era un contrato que faltara: cinco eran directorios de familia
+—`Charts`, `DragDrop`, `Kanban`— y el sexto `Toast`, cuyo componente se llama `ToastProvider`.
+
+**`@default` no se leía en absoluto**: el generador sacaba el defecto solo de la desestructuración. Se
+le enseña a leer la anotación y se escriben **47 en 33 archivos**, donde el valor no es un literal.
+Los 5 que quedan son honestos: los dos `height` de `PieChart` y `RadarChart` comparten contrato base
+con defectos distintos (260 y 280), dos defectos son una función y `virtualizeFrom` lo comparten las
+cinco variantes de `Combobox`. Se corrigen de paso dos fallos del lector: partía la desestructuración
+por línea —así que `variant = "ghost", color = "gray"` entraba entera como ambigua— y no contaba
+`null` como literal.
+
+**Las 36 ranuras del primer lote de ADR-104** quedan documentadas: `Header`, `Alert`, `EmptyState`,
+`EmptyModule`, `Stat`, `Feature` y `Blockquote` se convirtieron antes de que ADR-105 existiera y eran
+las únicas del catálogo que se publicaban en blanco.
+
 ## Lo que queda pendiente
 
-1. **El generador de fichas de API asume un componente por directorio**, así que **18 componentes
-   públicos saldrían sin ficha**: los 10 de `Charts`, los 4 de `DragDrop`, los 3 de `Kanban` y
-   `ToastProvider`. Los 6 `noContract` que declara no son contratos que falten: cinco son directorios
-   de familia y el sexto es `Toast`, cuyo componente se llama `ToastProvider`. `DateRangePickerProps`
-   vive en `DatePicker.types.ts` y `DateTimePickerProps` en el propio `.tsx`.
-2. **`@default`**: **40 props en 27 archivos** tienen un valor por defecto que el generador no puede
-   leer porque no es un literal en la desestructuración. Medidos y listados. Además, **7 componentes
-   entran en `defaultUnknown` solo porque su desestructuración está en una línea** —`ButtonClose`,
-   `Conditional`, `DateTimePicker`, `Drawer`, `FocusTrap`, `Omit`, `Valid`—, que es un fallo del
-   lector, no del código.
-3. **37 ranuras sin una línea de JSDoc**: son las de los **siete componentes del primer lote de
-   ADR-104** —`Header`, `Alert`, `EmptyState`, `EmptyModule`, `Stat`, `Feature`, `Blockquote`—,
-   convertidos antes de que ADR-105 fijara que cada ranura se documenta al añadirla. `Header` es el
-   caso más caro: `rowProps`, `leadProps`, `trailProps` y `bodyProps` son vocabulario que no se
-   entiende desde fuera.
-4. Las veinte filas parciales del cuaderno, con su razón por nodo.
-5. `Card.glass` contra ADR-078 y `DataGrid.selectionOnly` a través de páginas.
+1. **Las veinte filas parciales del cuaderno, con su razón por nodo.** El recuento no se puede sacar a
+   máquina sin criterio: contar los `{...algoProps}` de un archivo mezcla las ranuras públicas con los
+   resultados de los hooks de React Aria —`popoverProps`, `underlayProps`, `buttonProps`,
+   `mergeProps`— y con las que suben a un contrato común porque el componente es interno. Poner un
+   número mal medido en la tabla que es la fuente de verdad es peor que la nota agregada que hay.
+2. **`DataGrid.selectionOnly` a través de páginas** (`DataGrid.tsx:261`). El JSDoc ya dice la verdad;
+   el comportamiento sigue igual por decisión del propietario.
+3. Los 13 nombres incoherentes, congelados a propósito (arriba).
+4. **78 componentes sin JSDoc** en su contrato. El primer lote de ADR-104 ya está; el resto son
+   sobre todo primitivos de layout y utilidades, donde ADR-105 admite que el nombre y el tipo bastan.
+   Conviene revisarlos por lo que un consumidor toca de verdad, no en masa.
 
 ## Deuda anotada, no urgente
 
