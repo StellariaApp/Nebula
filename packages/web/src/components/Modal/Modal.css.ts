@@ -143,7 +143,8 @@ export const header = style({
   "@layer": {
     [base_layer]: {
       display: "flex",
-      alignItems: "flex-start",
+      alignItems: "center",
+      justifyItems: "center",
       gap: vars.space.md,
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.u5,
@@ -190,7 +191,7 @@ export const footer = style({
     [base_layer]: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-end",
+      justifyItems: "center",
       flexWrap: "wrap",
       gap: vars.space.u3,
       paddingInline: vars.space.lg,
