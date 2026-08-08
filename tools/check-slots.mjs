@@ -83,7 +83,8 @@ function CheckWired(types, tsx) {
       const name = member[1];
       const spread = new RegExp(`\\{\\.\\.\\.[\\w$.?]*\\b${name}\\b`);
       const shorthand = new RegExp(`\\{\\s*${name}\\s*\\}`);
-      if (spread.test(reachable) || shorthand.test(reachable) || reachable.includes(`${name}=`)) {
+      const forwarded = new RegExp(`=\\{[\\w$?.]*\\b${name}\\s*\\}`);
+      if (spread.test(reachable) || shorthand.test(reachable) || forwarded.test(reachable)) {
         continue;
       }
       problems.push(`${relative(REPO, file)}:${String(Line(source, member.index))}  ${name}`);
