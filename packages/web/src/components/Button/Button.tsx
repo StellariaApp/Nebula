@@ -17,6 +17,8 @@ import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./Button.css.js";
 import type { ButtonProps } from "./Button.types.js";
@@ -36,6 +38,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth = false,
       leftSection,
       rightSection,
+      leftSectionProps,
+      rightSectionProps,
+      labelProps,
       permission,
       permissionMode = "hide",
       children,
@@ -151,15 +156,40 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
         {leftSection === undefined ? null : (
-          <span className={cx(styles.section, loading && styles.label_loading)} aria-hidden="true">
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...leftSectionProps}
+            className={cx(
+              styles.section,
+              loading && styles.label_loading,
+              leftSectionProps?.className,
+            )}
+          >
             {leftSection}
-          </span>
+          </Box>
         )}
-        <span className={cx(loading && styles.label_loading)}>{children}</span>
+        <Text
+          component="span"
+          inherit
+          {...labelProps}
+          className={cx(loading && styles.label_loading, labelProps?.className)}
+        >
+          {children}
+        </Text>
         {rightSection === undefined ? null : (
-          <span className={cx(styles.section, loading && styles.label_loading)} aria-hidden="true">
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...rightSectionProps}
+            className={cx(
+              styles.section,
+              loading && styles.label_loading,
+              rightSectionProps?.className,
+            )}
+          >
             {rightSection}
-          </span>
+          </Box>
         )}
       </m.button>
     );

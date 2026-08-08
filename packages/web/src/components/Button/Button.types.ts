@@ -10,6 +10,8 @@ import type {
 
 import type { PressLifecycleProps } from "../../utils/press-props.js";
 import type { StyleProps } from "../../utils/style-props.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 type MotionConflictingProps =
   | "onAnimationStart"
@@ -30,6 +32,15 @@ export interface ButtonProps
     StyleProps,
     PressLifecycleProps,
     PermissionProps {
+  /** Envoltorio de `leftSection`. */
+  leftSectionProps?: BoxSlotProps | undefined;
+  /** Envoltorio de `rightSection`. */
+  rightSectionProps?: BoxSlotProps | undefined;
+  /**
+   * El rótulo, que envuelve a `children`. Con `loading` se atenúa junto a las secciones, que es
+   * como el botón deja sitio al giro sin cambiar de tamaño.
+   */
+  labelProps?: TextSlotProps | undefined;
   variant?: Variant | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;

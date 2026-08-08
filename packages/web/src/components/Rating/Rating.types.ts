@@ -5,9 +5,17 @@ import type { ColorExtended, NebulaField, Size } from "@stellaria/nebula-tokens"
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface RatingProps extends StyleProps, FormFieldSlotProps {
+  /** La fila de símbolos. Es `radiogroup`, o `img` con `readOnly`. */
+  groupProps?: BoxSlotProps | undefined;
+  /**
+   * Cada símbolo. Se esparce sobre TODOS, y sirve a dos elementos: `button` cuando se puede votar y
+   * `span` con `readOnly`. El relleno parcial no tiene ranura: lleva calculado su ancho.
+   */
+  itemProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

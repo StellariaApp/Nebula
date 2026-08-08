@@ -7,6 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./Rating.css.js";
@@ -52,6 +53,8 @@ export function Rating(props: RatingProps): ReactElement {
     headerProps,
     bodyProps,
     errorProps,
+    groupProps,
+    itemProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -107,17 +110,18 @@ export function Rating(props: RatingProps): ReactElement {
       style={sprinkle_style}
     >
       {({ id, ...control }) => (
-        <div
+        <Box
           {...control}
           id={id}
           role={readOnly ? "img" : "radiogroup"}
           aria-label={readOnly ? `${String(fp.value)} de ${String(count)}` : undefined}
-          className={cx(styles.group, className)}
-          style={css_vars}
           data-disabled={fp.isDisabled ? "true" : undefined}
           onMouseLeave={() => {
             Hover(null);
           }}
+          {...groupProps}
+          className={cx(styles.group, className, groupProps?.className)}
+          style={{ ...css_vars, ...groupProps?.style }}
         >
           {name === undefined ? null : <input type="hidden" name={name} value={String(fp.value)} />}
           {[...new Array(count).keys()].map((index) => {
@@ -128,12 +132,14 @@ export function Rating(props: RatingProps): ReactElement {
 
             if (readOnly) {
               return (
-                <span
+                <Box
                   key={position}
-                  className={cx(styles.item, styles.item_size[size])}
+                  component="span"
                   data-active={filled ? "true" : undefined}
                   data-readonly="true"
                   aria-hidden="true"
+                  {...itemProps}
+                  className={cx(styles.item, styles.item_size[size], itemProps?.className)}
                 >
                   {Symbol(filled)}
                   {partial ? (
@@ -141,18 +147,18 @@ export function Rating(props: RatingProps): ReactElement {
                       {Symbol(true)}
                     </span>
                   ) : null}
-                </span>
+                </Box>
               );
             }
 
             return (
-              <button
+              <Box
                 key={position}
+                component="button"
                 type="button"
                 role="radio"
                 aria-checked={Round(fp.value, fractions) === position}
                 aria-label={Label(position)}
-                className={cx(styles.item, styles.item_size[size])}
                 disabled={fp.isDisabled}
                 data-active={filled ? "true" : undefined}
                 data-disabled={fp.isDisabled ? "true" : undefined}
@@ -168,6 +174,8 @@ export function Rating(props: RatingProps): ReactElement {
                 onBlur={() => {
                   Hover(null);
                 }}
+                {...itemProps}
+                className={cx(styles.item, styles.item_size[size], itemProps?.className)}
               >
                 {Symbol(filled)}
                 {partial ? (
@@ -175,10 +183,10 @@ export function Rating(props: RatingProps): ReactElement {
                     {Symbol(true)}
                   </span>
                 ) : null}
-              </button>
+              </Box>
             );
           })}
-        </div>
+        </Box>
       )}
     </FormField>
   );

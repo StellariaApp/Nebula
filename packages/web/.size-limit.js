@@ -459,7 +459,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Rating/Rating.js",
     import: "{ Rating }",
     ignore: ["react", "react-dom"],
-    limit: "34.25 kB",
+    limit: "34.5 kB",
   },
   {
     name: "PinInput (celdas + forms, por módulo)",
@@ -767,7 +767,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Nav/index.js",
     import: "{ Nav }",
     ignore: ["react", "react-dom"],
-    limit: "54.75 kB",
+    limit: "55 kB",
   },
   {
     name: "Pagination (motion, por módulo)",

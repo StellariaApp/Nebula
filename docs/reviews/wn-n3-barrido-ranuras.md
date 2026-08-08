@@ -100,12 +100,12 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Slider/SliderBase.tsx` | 4 | row fill marks mark | hecho (2 de 4; row es la raiz, fill y mark llevan calculada su posicion en el eje. El detector no conto el output del valor. Suben a Slider y RangeSlider) |
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
 | `Tag/Tag.tsx` | 4 | tag section label remove | hecho |
-| `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | pendiente |
+| `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | hecho (1 de 3; actionIcon es la raiz y spinner es el mecanismo de la animacion. iconWrap se publica como iconProps, que es el nombre comun del catalogo) |
 | `AnimatedGradient/AnimatedGradient.tsx` | 3 | animatedGradient drift scrim | pendiente |
 | `Badge/Badge.tsx` | 3 | badge dot section | hecho |
 | `Banderole/Banderole.tsx` | 3 | icon body actions | hecho |
 | `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | pendiente |
-| `Button/Button.tsx` | 3 | button spinner section | pendiente |
+| `Button/Button.tsx` | 3 | button spinner section | hecho (3; button es la raiz y spinner es el mecanismo de la animacion de carga. section son DOS nodos, asi que van separados con los nombres de NavLink. El detector no conto el rotulo, que no lleva clase base) |
 | `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
 | `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
 | `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | hecho |
@@ -120,14 +120,14 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
 | `Loader/Loader.tsx` | 3 | spinner dot bar | descartado: son el mecanismo de la animacion; size y color ya lo cubren |
 | `NavLink/NavLink.tsx` | 3 | indicator section chevron | hecho |
-| `Panel/Panel.tsx` | 3 | panel pane separator | pendiente |
+| `Panel/Panel.tsx` | 3 | panel pane separator | hecho (3; panel es la raiz, y pane son DOS nodos que se publican como masterProps y detailProps, con los nombres de sus props) |
 | `Radio/Radio.tsx` | 3 | input dot labelText | hecho |
-| `Rating/Rating.tsx` | 3 | group item partial | pendiente |
+| `Rating/Rating.tsx` | 3 | group item partial | hecho (2 de 3; partial lleva calculado su ancho, que es el relleno fraccionado. item sirve a dos elementos y va por Box) |
 | `SearchableList/SearchableList.tsx` | 3 | toolbar search count | hecho |
 | `Segment/components/Control.tsx` | 3 | control indicator tab | hecho |
 | `Select/Select.tsx` | 3 | trigger chevron dropdown | hecho |
 | `StarField/StarField.tsx` | 3 | starField aurora star | pendiente |
-| `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | pendiente |
+| `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | hecho (4; el detector no conto el campo de texto. removeProps toma el tipo y el nombre de Tag) |
 | `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
 | `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | pendiente |

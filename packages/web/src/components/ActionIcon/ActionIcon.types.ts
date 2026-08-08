@@ -11,6 +11,7 @@ import type {
 
 import type { PressLifecycleProps } from "../../utils/press-props.js";
 import type { StyleProps } from "../../utils/style-props.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 type MotionConflictingProps =
   | "onAnimationStart"
@@ -31,6 +32,11 @@ export interface ActionIconProps
     StyleProps,
     PressLifecycleProps,
     PermissionProps {
+  /**
+   * Envoltorio del icono. Con `loading` se atenúa, que es como el botón deja sitio al giro sin
+   * cambiar de tamaño; el giro en sí no tiene ranura, porque es el mecanismo de la animación.
+   */
+  iconProps?: BoxSlotProps | undefined;
   variant?: Variant | undefined;
   size?: Size | undefined;
   color?: ColorExtended | undefined;

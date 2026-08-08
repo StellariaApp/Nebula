@@ -6,6 +6,7 @@ import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as variables from "./Panel.vars.css.js";
 import * as styles from "./Panel.css.js";
@@ -31,6 +32,9 @@ export function Panel(props: PanelProps): ReactElement {
     resizable = true,
     labels,
     className,
+    masterProps,
+    detailProps,
+    separatorProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -104,9 +108,11 @@ export function Panel(props: PanelProps): ReactElement {
       }}
       data-orientation={orientation}
     >
-      <div className={styles.pane}>{master}</div>
+      <Box {...masterProps} className={cx(styles.pane, masterProps?.className)}>
+        {master}
+      </Box>
 
-      <div
+      <Box
         role="separator"
         tabIndex={resizable ? 0 : -1}
         aria-label={text.separator}
@@ -114,14 +120,17 @@ export function Panel(props: PanelProps): ReactElement {
         aria-valuenow={current}
         aria-valuemin={min}
         aria-valuemax={max}
-        className={styles.separator}
         data-orientation={orientation}
         data-resizable={resizable ? undefined : "false"}
         onKeyDown={OnKeyDown}
         onPointerDown={OnPointerDown}
+        {...separatorProps}
+        className={cx(styles.separator, separatorProps?.className)}
       />
 
-      <div className={styles.pane}>{detail}</div>
+      <Box {...detailProps} className={cx(styles.pane, detailProps?.className)}>
+        {detail}
+      </Box>
     </div>
   );
 }

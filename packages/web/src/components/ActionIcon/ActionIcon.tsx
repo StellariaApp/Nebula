@@ -17,6 +17,7 @@ import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./ActionIcon.css.js";
 import type { ActionIconProps } from "./ActionIcon.types.js";
@@ -39,6 +40,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       className,
       style,
       glass,
+      iconProps,
       ...rest
     } = props;
 
@@ -139,9 +141,14 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         transition={press_transition}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
-        <span className={cx(styles.icon_wrap, loading && styles.icon_loading)} aria-hidden="true">
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...iconProps}
+          className={cx(styles.icon_wrap, loading && styles.icon_loading, iconProps?.className)}
+        >
           {children}
-        </span>
+        </Box>
       </m.button>
     );
   },

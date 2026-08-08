@@ -6,8 +6,10 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 import { FormField } from "../FormField/FormField.js";
+import { Text } from "../Text/Text.js";
 
 import * as styles from "./TagsInput.css.js";
 import type { TagsInputProps } from "./TagsInput.types.js";
@@ -44,6 +46,10 @@ export function TagsInput(props: TagsInputProps): ReactElement {
     headerProps,
     bodyProps,
     errorProps,
+    tagProps,
+    tagLabelProps,
+    removeProps,
+    inputProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -134,31 +140,39 @@ export function TagsInput(props: TagsInputProps): ReactElement {
           <div className={styles.wrapper}>
             <ul className={styles.wrapper} role="list">
               {tags.map((entry, index) => (
-                <li
+                <Box
                   key={`${entry}-${String(index)}`}
-                  className={styles.tag}
+                  component="li"
                   data-disabled={fp.isDisabled ? "true" : undefined}
+                  {...tagProps}
+                  className={cx(styles.tag, tagProps?.className)}
                 >
-                  <span className={styles.tag_label}>{entry}</span>
+                  <Text
+                    component="span"
+                    {...tagLabelProps}
+                    className={cx(styles.tag_label, tagLabelProps?.className)}
+                  >
+                    {entry}
+                  </Text>
                   {editable ? (
                     <ButtonClose
                       size="xs"
-                      className={styles.remove}
                       aria-label={
                         removeLabel === undefined ? `Quitar ${entry}` : removeLabel(entry)
                       }
                       onPress={() => {
                         Remove(index);
                       }}
+                      {...removeProps}
+                      className={cx(styles.remove, removeProps?.className)}
                     />
                   ) : null}
-                </li>
+                </Box>
               ))}
             </ul>
             <input
               {...control}
               type="text"
-              className={cx(field.input, styles.input, className)}
               value={draft}
               placeholder={tags.length === 0 ? placeholder : undefined}
               disabled={fp.isDisabled}
@@ -172,6 +186,8 @@ export function TagsInput(props: TagsInputProps): ReactElement {
                 Add(draft);
                 set_draft("");
               }}
+              {...inputProps}
+              className={cx(field.input, styles.input, className, inputProps?.className)}
             />
           </div>
         </div>
