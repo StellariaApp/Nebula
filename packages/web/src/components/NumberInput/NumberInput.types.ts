@@ -43,6 +43,7 @@ export interface NumberInputProps
   surface?: FieldSurface | undefined;
   field?: NebulaField<number> | undefined;
   value?: number | undefined;
+  /** @default Number.NaN */
   defaultValue?: number | undefined;
   onChange?: ((value: number) => void) | undefined;
   min?: number | undefined;

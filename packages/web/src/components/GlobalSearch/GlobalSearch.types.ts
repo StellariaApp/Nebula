@@ -34,6 +34,7 @@ export interface GlobalSearchProps extends StyleProps {
   onOpenChange?: ((opened: boolean) => void) | undefined;
   query?: string | undefined;
   loading?: boolean | undefined;
+  /** @default 250 */
   debounce?: number | undefined;
   recent?: readonly GlobalSearchResult[] | undefined;
   withTrigger?: boolean | undefined;

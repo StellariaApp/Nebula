@@ -32,6 +32,7 @@ export interface HeroProps extends Omit<
   size?: HeroSize | undefined;
   align?: "start" | "center" | undefined;
   order?: HeroOrder | undefined;
+  /** @default 1400 */
   contentWidth?: Unit | undefined;
   id?: string | undefined;
   style?: CSSProperties | undefined;

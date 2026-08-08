@@ -42,5 +42,6 @@ interface PeriodPickerBaseProps extends StyleProps {
 export type MonthPickerProps = PeriodPickerBaseProps;
 
 export interface YearPickerProps extends PeriodPickerBaseProps {
+  /** @default 12 */
   yearsPerPage?: number | undefined;
 }

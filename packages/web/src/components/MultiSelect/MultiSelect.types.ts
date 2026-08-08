@@ -50,6 +50,7 @@ export interface MultiSelectProps extends StyleProps, FormFieldSlotProps {
   surface?: FieldSurface | undefined;
   field?: NebulaField<string[]> | undefined;
   value?: readonly string[] | undefined;
+  /** @default [] */
   defaultValue?: readonly string[] | undefined;
   onChange?: ((value: string[]) => void) | undefined;
   searchable?: boolean | undefined;
@@ -58,6 +59,7 @@ export interface MultiSelectProps extends StyleProps, FormFieldSlotProps {
   placement?: PopoverPlacement | undefined;
   maxDropdownHeight?: number | undefined;
   emptyLabel?: string | undefined;
+  /** @default (option) => `Quitar ${option.label}` */
   removeLabel?: ((option: SelectOption) => string) | undefined;
   className?: string | undefined;
   rootClassName?: string | undefined;

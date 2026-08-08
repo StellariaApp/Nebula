@@ -13,6 +13,7 @@ export interface DateDisplayProps extends StyleProps {
   locale?: string | undefined;
   timeZone?: string | undefined;
   options?: Intl.DateTimeFormatOptions | undefined;
+  /** @default 604_800_000 */
   relativeThreshold?: number | undefined;
   withTitle?: boolean | undefined;
   now?: Date | number | undefined;

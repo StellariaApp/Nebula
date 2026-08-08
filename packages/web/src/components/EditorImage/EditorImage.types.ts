@@ -46,6 +46,7 @@ export interface EditorImageProps extends StyleProps {
   onOpenChange?: ((opened: boolean) => void) | undefined;
   onProcess?: ((result: PinturaEditorResult) => void) | undefined;
   alt?: string | undefined;
+  /** @default 4 / 3 */
   ratio?: number | undefined;
   radius?: "none" | "sm" | "md" | "lg" | undefined;
   disabled?: boolean | undefined;

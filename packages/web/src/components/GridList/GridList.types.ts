@@ -16,6 +16,7 @@ export interface GridListProps<T> extends StyleProps {
   mode?: GridListMode | undefined;
   defaultMode?: GridListMode | undefined;
   onModeChange?: ((mode: GridListMode) => void) | undefined;
+  /** @default ["list", "grid", "carousel"] */
   modes?: readonly GridListMode[] | undefined;
   cols?: number | undefined;
   minColWidth?: number | undefined;

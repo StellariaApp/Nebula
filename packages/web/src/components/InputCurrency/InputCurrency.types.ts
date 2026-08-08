@@ -21,6 +21,7 @@ export interface InputCurrencyProps extends StyleProps, FormFieldSlotProps {
   surface?: FieldSurface | undefined;
   field?: NebulaField<number> | undefined;
   value?: number | undefined;
+  /** @default Number.NaN */
   defaultValue?: number | undefined;
   onChange?: ((value: number) => void) | undefined;
   min?: number | undefined;

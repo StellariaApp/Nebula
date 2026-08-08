@@ -105,6 +105,7 @@ export interface TrendIndicatorProps extends Omit<StyleProps, "direction"> {
 export interface RadarChartProps extends Omit<ChartBaseProps, "xAxis" | "yAxis"> {
   /** Clave del eje angular: cada valor distinto es un vértice del polígono. */
   angleKey: string;
+  /** @default 0.22 */
   fillOpacity?: number | undefined;
   withAxisLabels?: boolean | undefined;
   maxValue?: number | undefined;
@@ -120,6 +121,7 @@ export interface ChartLegendProps extends StyleProps {
   /** Cada entrada de la leyenda. Lleva `data-interactive`, que depende de si hay `onToggle`. */
   itemProps?: ComponentPropsWithoutRef<"button"> | undefined;
   entries: readonly ChartLegendEntry[];
+  /** @default [] */
   hidden?: readonly string[] | undefined;
   onToggle?: ((key: string) => void) | undefined;
   label?: string | undefined;

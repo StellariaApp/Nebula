@@ -23,6 +23,7 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
   radius?: RadiusName | number | undefined;
   surface?: GradientBorderSurface | undefined;
   beam?: boolean | undefined;
+  /** @default [1, 2, 3, 4] */
   edges?: readonly GradientBorderEdge[] | undefined;
   sequence?: GradientBorderSequence | undefined;
 }

@@ -49,8 +49,10 @@ export interface RichTextEditorProps extends StyleProps, FormFieldSlotProps {
   defaultValue?: string | undefined;
   onChange?: ((html: string) => void) | undefined;
   field?: NebulaField<string> | undefined;
+  /** @default las cinco filas del grupo completo, que exporta `DEFAULT_TOOLBAR` */
   toolbar?: readonly RichTextGroup[] | undefined;
   placeholder?: string | undefined;
+  /** @default 6 */
   minRows?: number | undefined;
   maxHeight?: number | undefined;
   readOnly?: boolean | undefined;

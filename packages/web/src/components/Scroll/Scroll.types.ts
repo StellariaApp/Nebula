@@ -15,6 +15,7 @@ export interface ScrollOwnProps extends Omit<BoxOwnProps, "component"> {
   momentum?: boolean | undefined;
   bounce?: boolean | undefined;
   spring?: SpringName | undefined;
+  /** @default 1.5 */
   multiplier?: number | undefined;
 }
 

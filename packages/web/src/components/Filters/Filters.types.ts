@@ -73,6 +73,7 @@ export interface FiltersProps extends StyleProps {
   footProps?: BoxSlotProps | undefined;
   filters: readonly FilterDescriptor[];
   state?: FilterState | undefined;
+  /** @default {} */
   defaultState?: FilterState | undefined;
   onChange?: ((state: FilterState) => void) | undefined;
   accessors?: FilterAccessors | undefined;

@@ -62,10 +62,12 @@ export interface DataGridProps<T>
   columns: readonly ColumnDef<T>[];
   getRowId?: ((row: T, index: number) => string) | undefined;
   sorting?: SortingState | undefined;
+  /** @default [] */
   defaultSorting?: SortingState | undefined;
   onSortingChange?: ((sorting: SortingState) => void) | undefined;
   selectable?: boolean | undefined;
   selected?: readonly string[] | undefined;
+  /** @default [] */
   defaultSelected?: readonly string[] | undefined;
   onSelectedChange?: ((keys: string[]) => void) | undefined;
   pageSize?: number | undefined;
@@ -83,14 +85,17 @@ export interface DataGridProps<T>
   search?: string | undefined;
   onSearchChange?: ((query: string) => void) | undefined;
   searchPlaceholder?: string | undefined;
+  /** @default [] */
   activeFilters?: readonly DataGridFilterChip[] | undefined;
   onClearFilters?: (() => void) | undefined;
   filterPanel?: ReactNode | undefined;
+  /** @default [] */
   bulkActions?: readonly DataGridBulkAction[] | undefined;
   toolbarSection?: ReactNode | undefined;
 
   withColumnMenu?: boolean | undefined;
   hiddenColumns?: readonly string[] | undefined;
+  /** @default [] */
   defaultHiddenColumns?: readonly string[] | undefined;
   onHiddenColumnsChange?: ((ids: string[]) => void) | undefined;
   resizable?: boolean | undefined;

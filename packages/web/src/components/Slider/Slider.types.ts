@@ -68,5 +68,6 @@ export interface RangeSliderProps extends SliderBaseProps, FormFieldSlotProps {
   defaultValue?: RangeSliderValue | undefined;
   onChange?: ((value: RangeSliderValue) => void) | undefined;
   onChangeEnd?: ((value: RangeSliderValue) => void) | undefined;
+  /** @default ["Mínimo", "Máximo"] */
   thumbLabels?: readonly [string, string] | undefined;
 }

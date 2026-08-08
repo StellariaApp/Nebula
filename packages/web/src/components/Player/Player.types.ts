@@ -18,6 +18,7 @@ export interface PlayerProps extends StyleProps {
   opened?: boolean | undefined;
   onClose?: (() => void) | undefined;
   title?: ReactNode | undefined;
+  /** @default 16 / 9 */
   ratio?: number | undefined;
   controls?: boolean | undefined;
   playing?: boolean | undefined;

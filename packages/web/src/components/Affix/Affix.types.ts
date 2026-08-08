@@ -14,6 +14,7 @@ export interface AffixProps extends Omit<
   "color" | "top" | "right" | "bottom" | "left" | "position" | "zIndex"
 > {
   children: ReactNode;
+  /** @default { bottom: 24, right: 24 } */
   position?: AffixPosition | undefined;
   zIndex?: number | undefined;
   withinPortal?: boolean | undefined;

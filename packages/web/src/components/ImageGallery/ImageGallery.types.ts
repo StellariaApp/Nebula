@@ -17,8 +17,10 @@ export interface ImageGalleryProps extends StyleProps {
   tileImageProps?: ComponentPropsWithoutRef<"img"> | undefined;
   images: readonly LightboxImage[];
   cols?: number | undefined;
+  /** @default 160 */
   minColWidth?: number | undefined;
   gap?: "xs" | "sm" | "md" | "lg" | undefined;
+  /** @default 4 / 3 */
   ratio?: number | undefined;
   radius?: RadiusName | undefined;
   withLightbox?: boolean | undefined;

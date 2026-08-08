@@ -35,6 +35,7 @@ export interface TagsInputProps extends StyleProps, FormFieldSlotProps {
   placeholder?: string | undefined;
   maxTags?: number | undefined;
   allowDuplicates?: boolean | undefined;
+  /** @default [","] */
   splitChars?: readonly string[] | undefined;
   clearable?: boolean | undefined;
   field?: NebulaField<string[]> | undefined;

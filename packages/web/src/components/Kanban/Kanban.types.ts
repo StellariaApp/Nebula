@@ -53,6 +53,7 @@ export interface KanbanColumnProps extends StyleProps {
   count?: number | undefined;
   limit?: number | undefined;
   empty?: ReactNode | undefined;
+  /** @default 280 */
   width?: number | undefined;
   className?: string | undefined;
 }

@@ -36,7 +36,9 @@ export interface LightboxProps extends StyleProps {
   withZoom?: boolean | undefined;
   withSlideshow?: boolean | undefined;
   withThumbnails?: boolean | undefined;
+  /** @default 4000 */
   slideshowInterval?: number | undefined;
+  /** @default 4 */
   maxZoom?: number | undefined;
   labels?: Partial<LightboxLabels> | undefined;
   className?: string | undefined;

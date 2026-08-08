@@ -4,5 +4,6 @@ import type { ModalProps, ModalSide } from "../Modal/Modal.types.js";
 
 export interface DrawerProps extends Omit<ModalProps, "drawer" | "centered" | "size"> {
   side?: ModalSide | undefined;
+  /** @default "22rem" */
   size?: Unit | undefined;
 }

@@ -34,11 +34,17 @@ export interface TsNamed extends TsNode {
   text: string;
 }
 
+export interface TsJsDocTag {
+  name: string;
+  text?: { text: string }[] | undefined;
+}
+
 export interface TsSymbol {
   getName: () => string;
   flags: number;
   declarations?: TsNode[] | undefined;
   getDocumentationComment: (checker: undefined) => unknown;
+  getJsDocTags: (checker?: undefined) => TsJsDocTag[];
 }
 
 export interface TsChecker {

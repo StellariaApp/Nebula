@@ -12,6 +12,7 @@ export interface ScrollProgressProps extends Omit<StyleProps, "position"> {
   /** Elemento cuyo scroll se sigue. Sin él, el documento. */
   target?: RefObject<HTMLElement | null> | undefined;
   position?: "top" | "bottom" | "static" | undefined;
+  /** @default 3 */
   height?: number | undefined;
   color?: ColorExtended | undefined;
   radius?: "none" | "sm" | "full" | undefined;

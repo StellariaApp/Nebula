@@ -31,6 +31,7 @@ export interface SectionProps extends StyleProps {
   divided?: boolean | undefined;
   glass?: boolean | undefined;
   reveal?: boolean | undefined;
+  /** @default 1180 */
   contentWidth?: Unit | undefined;
   id?: string | undefined;
   size?: SectionSize | undefined;

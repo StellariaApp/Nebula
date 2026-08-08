@@ -44,6 +44,7 @@ export interface AppShellProps extends StyleProps {
   sidebar?: ReactNode | undefined;
   /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
   backdrop?: ReactNode | undefined;
+  /** @default 320 */
   sidebarWidth?: number | undefined;
   /** Tercer estado del carril: la barra encoge a `sidebarMiniWidth` y sus rótulos se ocultan. */
   sidebarCollapsed?: boolean | undefined;

@@ -9,7 +9,9 @@ export interface TooltipProps extends Omit<StyleProps, "maw"> {
   placement?: PopoverPlacement | undefined;
   offset?: number | undefined;
   crossOffset?: number | undefined;
+  /** @default 0 */
   delay?: number | undefined;
+  /** @default 150 */
   closeDelay?: number | undefined;
   disabled?: boolean | undefined;
   opened?: boolean | undefined;

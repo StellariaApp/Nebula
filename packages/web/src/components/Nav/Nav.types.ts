@@ -26,12 +26,16 @@ export interface NavProps extends StyleProps {
   component?: ElementType | undefined;
   size?: NavSize | undefined;
   withBorder?: boolean | undefined;
+  /** @default 1180 */
   contentWidth?: Unit | undefined;
   floating?: boolean | undefined;
   sticky?: boolean | undefined;
   scrolled?: boolean | undefined;
+  /** @default 24 */
   scrollThreshold?: number | undefined;
+  /** @default 1180 */
   floatingWidth?: Unit | undefined;
+  /** @default 12 */
   floatingGap?: Unit | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
