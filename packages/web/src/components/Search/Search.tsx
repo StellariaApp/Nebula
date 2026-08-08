@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Filters } from "../Filters/Filters.js";
 import { SearchInput } from "../SearchInput/SearchInput.js";
@@ -42,6 +43,9 @@ export function Search(props: SearchProps): ReactElement {
     children,
     labels,
     className,
+    barProps,
+    beforeProps,
+    afterProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -56,8 +60,12 @@ export function Search(props: SearchProps): ReactElement {
       data-loading={loading ? "true" : undefined}
     >
       {top}
-      <div className={styles.bar}>
-        {before === undefined ? null : <div className={styles.slot}>{before}</div>}
+      <Box {...barProps} className={cx(styles.bar, barProps?.className)}>
+        {before === undefined ? null : (
+          <Box {...beforeProps} className={cx(styles.slot, beforeProps?.className)}>
+            {before}
+          </Box>
+        )}
 
         {hideSearch ? null : (
           <SearchInput
@@ -97,8 +105,12 @@ export function Search(props: SearchProps): ReactElement {
           </ActionIcon>
         )}
 
-        {after === undefined ? null : <div className={styles.slot}>{after}</div>}
-      </div>
+        {after === undefined ? null : (
+          <Box {...afterProps} className={cx(styles.slot, afterProps?.className)}>
+            {after}
+          </Box>
+        )}
+      </Box>
       {children}
       {bottom}
     </div>

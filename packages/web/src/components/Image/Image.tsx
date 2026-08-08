@@ -11,6 +11,7 @@ import { vars } from "../../theme/contract.css.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Tween } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./Image.css.js";
 import type { ImageProps } from "./Image.types.js";
@@ -36,6 +37,7 @@ export function Image(props: ImageProps): ReactElement {
     placeholder,
     loading = "lazy",
     className,
+    stateProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -61,11 +63,19 @@ export function Image(props: ImageProps): ReactElement {
       data-status={status}
     >
       {broken ? (
-        <span className={styles.state}>{fallback ?? alt}</span>
+        <Box component="span" {...stateProps} className={cx(styles.state, stateProps?.className)}>
+          {fallback ?? alt}
+        </Box>
       ) : (
         <>
           {status === "idle" && placeholder !== undefined ? (
-            <span className={styles.state}>{placeholder}</span>
+            <Box
+              component="span"
+              {...stateProps}
+              className={cx(styles.state, stateProps?.className)}
+            >
+              {placeholder}
+            </Box>
           ) : null}
           <m.img
             className={styles.img}

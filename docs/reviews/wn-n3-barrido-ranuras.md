@@ -116,7 +116,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Countdown/Countdown.tsx` | 3 | unit value caption | hecho |
 | `Dialog/Dialog.tsx` | 3 | dialog head title | hecho |
 | `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | descartado: gradientBorder es la raiz; beam y arc son el mecanismo del haz, con su barrido y su retardo calculados por arista |
-| `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | pendiente |
+| `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | hecho (2 de 3; background es la raiz, y se le dieron style props y reenvio, que era lo que le faltaba) |
 | `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
 | `Loader/Loader.tsx` | 3 | spinner dot bar | descartado: son el mecanismo de la animacion; size y color ya lo cubren |
 | `NavLink/NavLink.tsx` | 3 | indicator section chevron | hecho |
@@ -143,7 +143,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Filters/Filter.tsx` | 2 | range item | pendiente |
 | `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | hecho (1 de 2; gradientBackground es la raiz. El grano queda fuera: es la textura del efecto y su opacidad la fija el tema) |
 | `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
-| `Image/Image.tsx` | 2 | state img | pendiente |
+| `Image/Image.tsx` | 2 | state img | hecho (1 de 2; state son DOS casos con una sola ranura. La imagen la anima motion al aparecer, y su ajuste, radio y tamano ya son props) |
 | `Kanban/KanbanBoard.tsx` | 2 | board columnBody | descartado: board es su raiz y columnBody es la lista que ordena dnd-kit, con sus manejadores de arrastre |
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | hecho (1 de 2; meshGradientBg es la raiz, y el grano queda fuera por lo mismo que en GradientBackground) |
@@ -152,10 +152,10 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | pendiente |
 | `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | pendiente |
 | `RichTextEditor/Toolbar.tsx` | 2 | toolbar group | pendiente |
-| `Search/Search.tsx` | 2 | bar slot | pendiente |
+| `Search/Search.tsx` | 2 | bar slot | hecho (3; slot son DOS nodos y se publican como beforeProps y afterProps, con los nombres de sus props) |
 | `Segment/components/Content.tsx` | 2 | content panel | pendiente |
 | `Signature/Signature.tsx` | 2 | canvas actions | pendiente |
-| `Spoiler/Spoiler.tsx` | 2 | content toggle | pendiente |
+| `Spoiler/Spoiler.tsx` | 2 | content toggle | hecho (2 de 2; el maxHeight del recorte se escribe despues de la ranura) |
 | `Affix/Affix.tsx` | 1 | affix | descartado: es la raiz, que ya lleva style props (el nodo va por Portal, pero sigue siendo su unico nodo) |
 | `Anchor/Anchor.tsx` | 1 | anchor | descartado: es la raiz, que ya lleva style props |
 | `AppShell/components/Aside.tsx` | 1 | asideRegion | descartado: es la raiz de AppShellAside, que ya lleva style props y reenvia el resto |

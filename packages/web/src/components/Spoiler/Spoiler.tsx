@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Anchor } from "../Anchor/Anchor.js";
 
 import * as styles from "./Spoiler.css.js";
@@ -20,6 +21,8 @@ export function Spoiler(props: SpoilerProps): ReactElement {
     defaultExpanded = false,
     onExpandedChange,
     className,
+    contentProps,
+    toggleProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -46,24 +49,30 @@ export function Spoiler(props: SpoilerProps): ReactElement {
 
   return (
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style}>
-      <div
+      <Box
         ref={content_ref}
         id={content_id}
-        className={cx(styles.content, overflows && !open ? styles.clipped : undefined)}
-        style={overflows && !open ? { maxHeight } : undefined}
+        {...contentProps}
+        className={cx(
+          styles.content,
+          overflows && !open ? styles.clipped : undefined,
+          contentProps?.className,
+        )}
+        style={{ ...contentProps?.style, ...(overflows && !open ? { maxHeight } : {}) }}
       >
         {children}
-      </div>
+      </Box>
       {overflows ? (
         <Anchor
           component="button"
           type="button"
-          className={styles.toggle}
           aria-expanded={open}
           aria-controls={content_id}
           onClick={() => {
             set_open(!open);
           }}
+          {...toggleProps}
+          className={cx(styles.toggle, toggleProps?.className)}
         >
           {open ? hideLabel : showLabel}
         </Anchor>
