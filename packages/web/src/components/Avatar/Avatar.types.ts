@@ -19,7 +19,7 @@ export interface AvatarProps extends StyleProps {
   imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
 }
 
-export interface AvatarGroupProps {
+export interface AvatarGroupProps extends StyleProps {
   children: ReactNode;
   max?: number | undefined;
   total?: number | undefined;

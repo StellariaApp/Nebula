@@ -7,6 +7,7 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 import type { SelectOption } from "../../collections/options.js";
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./NativeSelect.css.js";
@@ -42,6 +43,7 @@ export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       defaultValue = "",
       onChange,
       className,
+      chevronProps,
       rootClassName,
       labelProps,
       descriptionProps,
@@ -119,9 +121,14 @@ export const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
                 </optgroup>
               ))}
             </select>
-            <span className={styles.chevron} aria-hidden="true">
+            <Box
+              component="span"
+              aria-hidden="true"
+              {...chevronProps}
+              className={cx(styles.chevron, chevronProps?.className)}
+            >
               {CHEVRON}
-            </span>
+            </Box>
           </div>
         )}
       </FormField>

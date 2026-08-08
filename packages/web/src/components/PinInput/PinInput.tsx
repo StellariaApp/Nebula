@@ -6,6 +6,7 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { FormField } from "../FormField/FormField.js";
 
 import * as styles from "./PinInput.css.js";
@@ -39,6 +40,7 @@ export function PinInput(props: PinInputProps): ReactElement {
     name,
     className,
     rootClassName,
+    groupProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -154,7 +156,12 @@ export function PinInput(props: PinInputProps): ReactElement {
       style={sprinkle_style}
     >
       {({ id, "aria-required": _required, ...control }) => (
-        <div className={cx(styles.group, className)} role="group" {...control}>
+        <Box
+          role="group"
+          {...control}
+          {...groupProps}
+          className={cx(styles.group, className, groupProps?.className)}
+        >
           {name === undefined ? null : <input type="hidden" name={name} value={fp.value} />}
           {[...new Array(length).keys()].map((index) => (
             <div
@@ -191,7 +198,7 @@ export function PinInput(props: PinInputProps): ReactElement {
               />
             </div>
           ))}
-        </div>
+        </Box>
       )}
     </FormField>
   );

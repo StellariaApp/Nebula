@@ -166,7 +166,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `AppShell/components/Section.tsx` | 1 | section | descartado: es la raiz de AppShellSection, que ya lleva style props y reenvia el resto |
 | `AppShell/components/Subbar.tsx` | 1 | sectionSub | descartado: es la raiz de AppShellSubbar, que ya lleva style props y reenvia el resto |
 | `AspectRatio/AspectRatio.tsx` | 1 | aspectRatio | pendiente |
-| `Avatar/Group.tsx` | 1 | group | pendiente |
+| `Avatar/Group.tsx` | 1 | group | descartado: es la raiz. Se le dieron style props y reenvio del resto, que es lo que le faltaba para poder descartarla |
 | `ButtonGroup/ButtonGroup.tsx` | 1 | group | pendiente |
 | `Calendar/CalendarView.tsx` | 1 | months | hecho (1 de 1) |
 | `Charts/SparkLine.tsx` | 1 | spark | pendiente |
@@ -186,18 +186,18 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Grid/Grid.tsx` | 1 | grid | pendiente |
 | `Group/Group.tsx` | 1 | group | pendiente |
 | `Header/Header.tsx` | 1 | header | hecho |
-| `HoverCard/HoverCard.tsx` | 1 | card | pendiente |
+| `HoverCard/HoverCard.tsx` | 1 | card | descartado: la tarjeta flotante ES lo que pintan las style props del componente |
 | `Indicator/Indicator.tsx` | 1 | dot | pendiente |
 | `Kbd/Kbd.tsx` | 1 | kbd | pendiente |
 | `List/List.tsx` | 1 | list | pendiente |
 | `Mark/Mark.tsx` | 1 | mark | pendiente |
-| `NativeSelect/NativeSelect.tsx` | 1 | chevron | pendiente |
+| `NativeSelect/NativeSelect.tsx` | 1 | chevron | hecho (1 de 1; mismo nombre que en Select y MultiSelect) |
 | `Nav/components/Logo.tsx` | 1 | logo | descartado: es la raiz de NavLogo, que ya lleva style props |
 | `Paper/Paper.tsx` | 1 | paper | pendiente |
-| `PermissionGate/PermissionGate.tsx` | 1 | disabled | pendiente |
-| `PinInput/PinInput.tsx` | 1 | group | pendiente |
-| `Player/Player.tsx` | 1 | surface | pendiente |
-| `Popover/Popover.tsx` | 1 | popover | pendiente |
+| `PermissionGate/PermissionGate.tsx` | 1 | disabled | descartado: al conceder no pinta ningun nodo, y el velo de la rama disable ya se ajusta con className |
+| `PinInput/PinInput.tsx` | 1 | group | hecho (1 de 1; es el role=group que agrupa las casillas dentro del FormField) |
+| `Player/Player.tsx` | 1 | surface | descartado: es el className del ReactPlayer, que es un peer (misma excepcion que el editorProps de EditorImage en ADR-104) |
+| `Popover/Popover.tsx` | 1 | popover | descartado: la superficie flotante ES lo que pintan las style props del componente; la flecha y el velo ya tienen ranura |
 | `ScrollProgress/ScrollProgress.tsx` | 1 | bar | pendiente |
 | `Segment/components/Section.tsx` | 1 | section | pendiente |
 | `SimpleGrid/SimpleGrid.tsx` | 1 | simpleGrid | pendiente |
@@ -206,7 +206,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Text/Text.tsx` | 1 | text | pendiente |
 | `ThemeIcon/ThemeIcon.tsx` | 1 | icon | pendiente |
 | `Title/Title.tsx` | 1 | heading | pendiente |
-| `Tooltip/Tooltip.tsx` | 1 | tooltip | pendiente |
+| `Tooltip/Tooltip.tsx` | 1 | tooltip | descartado: el globo ES lo que pintan las style props del componente; la flecha ya tiene ranura |
 | `TypographyStylesProvider/TypographyStylesProvider.tsx` | 1 | typography | pendiente |
 | `UnstyledButton/UnstyledButton.tsx` | 1 | unstyled | pendiente |
 | `VisuallyHidden/VisuallyHidden.tsx` | 1 | visuallyHidden | pendiente |

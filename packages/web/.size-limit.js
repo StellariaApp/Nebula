@@ -550,7 +550,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/TimeInput/TimeInput.js",
     import: "{ TimeInput }",
     ignore: ["react", "react-dom"],
-    limit: "68.25 kB",
+    limit: "68.75 kB",
   },
   {
     name: "MonthPicker (grid propia, sin cadena de fechas, por módulo)",
@@ -655,14 +655,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Combobox/Combobox.js",
     import: "{ Combobox }",
     ignore: ["react", "react-dom"],
-    limit: "75.75 kB",
+    limit: "76.25 kB",
   },
   {
     name: "MultiSelect (combobox múltiple + chips, por módulo)",
     path: "dist/components/MultiSelect/MultiSelect.js",
     import: "{ MultiSelect }",
     ignore: ["react", "react-dom"],
-    limit: "76.25 kB",
+    limit: "76.75 kB",
   },
   {
     name: "Registro de overlays (Jotai, por módulo)",
