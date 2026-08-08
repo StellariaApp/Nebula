@@ -20,6 +20,7 @@ import { DateSegments } from "../../fields/date-segments.js";
 import * as field from "../../styles/field.css.js";
 import { EmptyRange, FormatDate, ParseDate } from "../../utils/date.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { RangeCalendarView } from "../Calendar/CalendarView.js";
 import { CALENDAR_ICON } from "../DatePicker/calendar-icon.js";
 import { DatePickerPopover } from "../DatePicker/DatePickerPopover.js";
@@ -53,6 +54,9 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
     name,
     className,
     rootClassName,
+    triggerProps,
+    popoverProps,
+    separatorProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -179,9 +183,14 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
               fieldRef={start_ref}
               className={cx(className)}
             />
-            <span className={styles.range_separator} aria-hidden="true">
+            <Box
+              component="span"
+              aria-hidden="true"
+              {...separatorProps}
+              className={cx(styles.range_separator, separatorProps?.className)}
+            >
               –
-            </span>
+            </Box>
             <DateSegments state={end_state} fieldProps={end_group} fieldRef={end_ref} />
           </div>
           <button
@@ -191,9 +200,10 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
             type="button"
             aria-label={openLabel}
             aria-labelledby={label === undefined ? undefined : `${id}-label ${id}-trigger`}
-            className={styles.trigger}
             disabled={fp.isDisabled}
             data-focus-visible={isFocusVisible ? "true" : undefined}
+            {...triggerProps}
+            className={cx(styles.trigger, triggerProps?.className)}
           >
             {CALENDAR_ICON}
           </button>
@@ -202,6 +212,7 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
             triggerRef={group_ref}
             dialogProps={dialogProps}
             placement={placement}
+            slotProps={popoverProps}
           >
             <RangeCalendarView
               calendar={calendarProps}

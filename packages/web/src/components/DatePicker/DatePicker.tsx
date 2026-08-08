@@ -54,6 +54,8 @@ export function DatePicker(props: DatePickerProps): ReactElement {
     name,
     className,
     rootClassName,
+    triggerProps,
+    popoverProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -176,9 +178,10 @@ export function DatePicker(props: DatePickerProps): ReactElement {
             type="button"
             aria-label={openLabel}
             aria-labelledby={label === undefined ? undefined : `${id}-label ${id}-trigger`}
-            className={styles.trigger}
             disabled={fp.isDisabled}
             data-focus-visible={isFocusVisible ? "true" : undefined}
+            {...triggerProps}
+            className={cx(styles.trigger, triggerProps?.className)}
           >
             {CALENDAR_ICON}
           </button>
@@ -187,6 +190,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
             triggerRef={group_ref}
             dialogProps={dialogProps}
             placement={placement}
+            slotProps={popoverProps}
           >
             <CalendarView
               calendar={calendarProps}

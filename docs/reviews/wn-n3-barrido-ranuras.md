@@ -133,7 +133,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | hecho (2; cellWrapper es el `td` estructural y la ranura cae en el `div` del dia, que es quien lleva el estado) |
 | `Charts/TrendIndicator.tsx` | 2 | trend arrow | pendiente |
 | `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
-| `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | pendiente |
+| `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | hecho (2 de 2) |
 | `Divider/Divider.tsx` | 2 | line label | hecho |
 | `DragDrop/Draggable.tsx` | 2 | draggable row | pendiente |
 | `DragDrop/SortableItem.tsx` | 2 | draggable row | pendiente |
@@ -172,9 +172,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Charts/SparkLine.tsx` | 1 | spark | pendiente |
 | `Chip/Chip.tsx` | 1 | input | hecho |
 | `Code/Code.tsx` | 1 | base | pendiente |
-| `DatePicker/DatePicker.tsx` | 1 | trigger | pendiente |
-| `DatePicker/DatePickerInput.tsx` | 1 | textTrigger | pendiente |
-| `DatePicker/DatePickerPopover.tsx` | 1 | dialog | pendiente |
+| `DatePicker/DatePicker.tsx` | 1 | trigger | hecho (1 de 1; triggerProps sube a DatePickerBaseProps y lo comparten los tres) |
+| `DatePicker/DatePickerInput.tsx` | 1 | textTrigger | hecho (1 de 1; es el mismo triggerProps del contrato comun: aqui el disparador es el campo entero) |
+| `DatePicker/DatePickerPopover.tsx` | 1 | dialog | hecho (1 de 1; se publica como popoverProps y sube al contrato comun, porque el popover es interno) |
 | `DragDrop/DragDropContext.tsx` | 1 | overlay | pendiente |
 | `DragDrop/DragHandle.tsx` | 1 | handle | pendiente |
 | `DragDrop/Droppable.tsx` | 1 | droppable | pendiente |
