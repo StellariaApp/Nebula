@@ -86,6 +86,8 @@ export interface SparkLineProps extends StyleProps {
 export type TrendDirection = "up" | "down" | "flat";
 
 export interface TrendIndicatorProps extends Omit<StyleProps, "direction"> {
+  /** La flecha. Es decorativa: la direccion se anuncia aparte con un texto oculto. */
+  arrowProps?: BoxSlotProps | undefined;
   value: number;
   direction?: TrendDirection | undefined;
   format?: ((value: number) => string) | undefined;

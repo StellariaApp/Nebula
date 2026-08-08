@@ -18,6 +18,8 @@ import { MotionOff } from "../../../utils/motion.js";
 import { Rubber } from "../../../utils/rubber.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
+import { Box } from "../../Box/Box.js";
+
 import { useSegment } from "../Segment.context.js";
 import * as styles from "../Segment.css.js";
 import type { SegmentContentItemProps, SegmentContentProps } from "../Segment.types.js";
@@ -31,7 +33,7 @@ export function SegmentContentItem(_props: SegmentContentItemProps): null {
 SegmentContentItem.displayName = "SegmentContentItem";
 
 export function SegmentContent(props: SegmentContentProps): ReactElement {
-  const { children, swipeable = true, fill = false, className, ...style_rest } = props;
+  const { children, swipeable = true, fill = false, className, panelProps, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   const segment = useSegment();
   const { theme } = useTheme();
@@ -130,7 +132,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
         {items.map((child, position) => {
           const active = position === index;
           return (
-            <div
+            <Box
               key={child.props.value}
               role="tabpanel"
               id={`${segment.baseId}-panel-${child.props.value}`}
@@ -138,10 +140,11 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
               aria-hidden={active ? undefined : true}
               {...(active ? {} : { inert: true })}
               tabIndex={active ? 0 : -1}
-              className={cx(styles.panel({ fill }), child.props.className)}
+              {...panelProps}
+              className={cx(styles.panel({ fill }), child.props.className, panelProps?.className)}
             >
               {child.props.children}
-            </div>
+            </Box>
           );
         })}
       </m.div>

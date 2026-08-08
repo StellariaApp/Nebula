@@ -7,6 +7,8 @@ import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { UnstyledButtonProps } from "../UnstyledButton/UnstyledButton.types.js";
 
 export interface NumberInputProps
   extends
@@ -26,6 +28,12 @@ export interface NumberInputProps
     >,
     StyleProps,
     FormFieldSlotProps {
+  /** La columna de las dos flechas. No se pinta con `hideControls`. */
+  stepperProps?: BoxSlotProps | undefined;
+  /** La flecha de subir. Se deshabilita sola al llegar a `max`. */
+  incrementProps?: UnstyledButtonProps | undefined;
+  /** La flecha de bajar. Se deshabilita sola al llegar a `min`. */
+  decrementProps?: UnstyledButtonProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

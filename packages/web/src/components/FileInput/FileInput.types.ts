@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
@@ -9,6 +9,11 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface FileInputProps extends StyleProps, FormFieldSlotProps {
+  /**
+   * El boton que abre el explorador y ensena los archivos elegidos. El `input` nativo no lleva
+   * ranura: esta oculto y todo lo que acepta —`accept`, `multiple`, `capture`, `name`— ya son props.
+   */
+  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

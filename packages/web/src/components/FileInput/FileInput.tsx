@@ -40,6 +40,7 @@ export function FileInput(props: FileInputProps): ReactElement {
     name,
     className,
     rootClassName,
+    triggerProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -123,13 +124,14 @@ export function FileInput(props: FileInputProps): ReactElement {
           />
           <button
             type="button"
-            className={cx(styles.trigger, className)}
             disabled={fp.isDisabled}
             aria-label={browseLabel}
             data-placeholder={files.length === 0 ? "true" : undefined}
             onClick={() => {
               input_ref.current?.click();
             }}
+            {...triggerProps}
+            className={cx(styles.trigger, className, triggerProps?.className)}
           >
             {Display()}
           </button>

@@ -7,7 +7,7 @@ import * as styles from "../List.css.js";
 import type { ListItemOwnProps, ListItemProps } from "../List.types.js";
 
 const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListItem(props, ref) {
-  const { component, icon, className, children, ...rest } = props;
+  const { component, icon, className, children, iconProps, ...rest } = props;
 
   if (icon === undefined || icon === null) {
     return (
@@ -24,9 +24,14 @@ const ItemComponent = forwardRef<HTMLElement, ListItemOwnProps>(function ListIte
       className={cx(styles.item_with_icon, className)}
       {...rest}
     >
-      <span className={styles.item_icon} aria-hidden="true">
+      <Box
+        component="span"
+        aria-hidden="true"
+        {...iconProps}
+        className={cx(styles.item_icon, iconProps?.className)}
+      >
         {icon}
-      </span>
+      </Box>
       <span>{children}</span>
     </Box>
   );

@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Charts.css.js";
@@ -34,6 +35,7 @@ export function TrendIndicator(props: TrendIndicatorProps): ReactElement {
     invertColors = false,
     label,
     className,
+    arrowProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -49,9 +51,14 @@ export function TrendIndicator(props: TrendIndicatorProps): ReactElement {
       data-direction={tone}
       data-trend={resolved}
     >
-      <span className={styles.arrow} aria-hidden="true">
+      <Box
+        component="span"
+        aria-hidden="true"
+        {...arrowProps}
+        className={cx(styles.arrow, arrowProps?.className)}
+      >
         {ARROW[resolved]}
-      </span>
+      </Box>
       {format(value)}
       <VisuallyHidden>{label ?? SPOKEN[resolved]}</VisuallyHidden>
     </span>

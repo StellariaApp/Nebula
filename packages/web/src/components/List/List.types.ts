@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import type { SpacingValue } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export type ListType = "ordered" | "unordered";
 
@@ -19,6 +20,8 @@ export type ListProps<C extends ElementType = "ul"> = ListOwnProps & {
 } & Omit<ComponentPropsWithoutRef<C>, keyof ListOwnProps | "component">;
 
 export interface ListItemOwnProps extends Omit<BoxOwnProps, "component"> {
+  /** El envoltorio del icono. Solo se pinta si el item trae `icon`. */
+  iconProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   icon?: ReactNode | undefined;
 }

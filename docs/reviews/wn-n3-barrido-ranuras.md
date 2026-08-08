@@ -117,7 +117,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Dialog/Dialog.tsx` | 3 | dialog head title | hecho |
 | `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | descartado: gradientBorder es la raiz; beam y arc son el mecanismo del haz, con su barrido y su retardo calculados por arista |
 | `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | hecho (2 de 3; background es la raiz, y se le dieron style props y reenvio, que era lo que le faltaba) |
-| `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
+| `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | hecho (1 de 3; item e itemWithIcon son la misma raiz con dos clases segun haya icono) |
 | `Loader/Loader.tsx` | 3 | spinner dot bar | descartado: son el mecanismo de la animacion; size y color ya lo cubren |
 | `NavLink/NavLink.tsx` | 3 | indicator section chevron | hecho |
 | `Panel/Panel.tsx` | 3 | panel pane separator | hecho (3; panel es la raiz, y pane son DOS nodos que se publican como masterProps y detailProps, con los nombres de sus props) |
@@ -131,7 +131,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
 | `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | hecho (2; cellWrapper es el `td` estructural y la ranura cae en el `div` del dia, que es quien lleva el estado) |
-| `Charts/TrendIndicator.tsx` | 2 | trend arrow | pendiente |
+| `Charts/TrendIndicator.tsx` | 2 | trend arrow | hecho (1 de 2; trend es la raiz) |
 | `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
 | `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | hecho (2 de 2) |
 | `Divider/Divider.tsx` | 2 | line label | hecho |
@@ -139,7 +139,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DragDrop/SortableItem.tsx` | 2 | draggable row | descartado: es el nodo que ordena dnd-kit, con su ref y el transform que le escribe, y su row interna es el activador cuando no hay asa |
 | `DragDrop/SortableList.tsx` | 2 | list emptySlot | hecho (2; list es la raiz. El detector no conto el asa, que baja a todas las filas) |
 | `Fieldset/Fieldset.tsx` | 2 | legend description | hecho |
-| `FileInput/FileInput.tsx` | 2 | hidden trigger | pendiente |
+| `FileInput/FileInput.tsx` | 2 | hidden trigger | hecho (1 de 2; hidden es el input nativo oculto y todo lo que acepta ya son props) |
 | `Filters/Filter.tsx` | 2 | range item | pendiente |
 | `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | hecho (1 de 2; gradientBackground es la raiz. El grano queda fuera: es la textura del efecto y su opacidad la fija el tema) |
 | `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
@@ -149,11 +149,11 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | hecho (1 de 2; meshGradientBg es la raiz, y el grano queda fuera por lo mismo que en GradientBackground) |
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | hecho (1 de 2; grid es la raiz de la parte. cellProps sube a MonthPicker y YearPicker) |
 | `Nav/components/Section.tsx` | 2 | actions divider | descartado: son la raiz de NavActions y NavDivider, que ya llevan style props |
-| `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | pendiente |
+| `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | hecho (3; stepperButton son DOS nodos y se publican como incrementProps y decrementProps) |
 | `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | pendiente |
 | `RichTextEditor/Toolbar.tsx` | 2 | toolbar group | pendiente |
 | `Search/Search.tsx` | 2 | bar slot | hecho (3; slot son DOS nodos y se publican como beforeProps y afterProps, con los nombres de sus props) |
-| `Segment/components/Content.tsx` | 2 | content panel | pendiente |
+| `Segment/components/Content.tsx` | 2 | content panel | hecho (1 de 2; content es la raiz y el viewport lo mueve el spring del deslizamiento) |
 | `Signature/Signature.tsx` | 2 | canvas actions | pendiente |
 | `Spoiler/Spoiler.tsx` | 2 | content toggle | hecho (2 de 2; el maxHeight del recorte se escribe despues de la ranura) |
 | `Affix/Affix.tsx` | 1 | affix | descartado: es la raiz, que ya lleva style props (el nodo va por Portal, pero sigue siendo su unico nodo) |

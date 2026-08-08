@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export interface SegmentItemData {
   value: string;
@@ -47,6 +48,8 @@ export interface SegmentControlItemProps {
 }
 
 export interface SegmentContentProps extends StyleProps {
+  /** Cada panel. Se esparce sobre TODOS, y compone por encima del className del propio item. */
+  panelProps?: BoxSlotProps | undefined;
   children: ReactNode;
   swipeable?: boolean | undefined;
   fill?: boolean | undefined;

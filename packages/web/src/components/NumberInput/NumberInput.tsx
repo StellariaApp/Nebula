@@ -7,6 +7,7 @@ import { useFieldProps } from "@stellaria/nebula-hooks";
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { FormField } from "../FormField/FormField.js";
+import { Box } from "../Box/Box.js";
 import { UnstyledButton } from "../UnstyledButton/UnstyledButton.js";
 
 import * as styles from "./NumberInput.css.js";
@@ -34,6 +35,9 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       decrementLabel = "Disminuir",
       className,
       rootClassName,
+      stepperProps,
+      incrementProps,
+      decrementProps,
       errorDisplay = "tooltip",
       labelProps,
       descriptionProps,
@@ -129,26 +133,28 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
               step={step}
             />
             {hideControls ? null : (
-              <div className={styles.stepper}>
+              <Box {...stepperProps} className={cx(styles.stepper, stepperProps?.className)}>
                 <UnstyledButton
-                  className={styles.stepper_button}
                   aria-label={incrementLabel}
                   tabIndex={-1}
                   disabled={fp.isDisabled || at_max}
                   onPress={() => Step(1)}
+                  {...incrementProps}
+                  className={cx(styles.stepper_button, incrementProps?.className)}
                 >
                   ▲
                 </UnstyledButton>
                 <UnstyledButton
-                  className={styles.stepper_button}
                   aria-label={decrementLabel}
                   tabIndex={-1}
                   disabled={fp.isDisabled || at_min}
                   onPress={() => Step(-1)}
+                  {...decrementProps}
+                  className={cx(styles.stepper_button, decrementProps?.className)}
                 >
                   ▼
                 </UnstyledButton>
-              </div>
+              </Box>
             )}
           </div>
         )}
