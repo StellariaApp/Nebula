@@ -19,7 +19,6 @@
       "CardSection",
       "Center",
       "SparkLine",
-      "CheckboxGroup",
       "Code",
       "Collapse",
       "ColorSwatch",
@@ -30,7 +29,6 @@
       "DirectionProvider",
       "DragDropContext",
       "Droppable",
-      "FieldError",
       "FileButton",
       "Flex",
       "FocusTrap",
@@ -44,7 +42,6 @@
       "Grid",
       "GridCol",
       "Group",
-      "Hero",
       "Highlight",
       "HoverCard",
       "KanbanBoard",
@@ -61,12 +58,9 @@
       "Overlay",
       "Paper",
       "PermissionGate",
-      "Popover",
       "Portal",
-      "RadioGroup",
       "Reveal",
       "Scroll",
-      "Section",
       "SectionHeading",
       "Segment",
       "SegmentContentItem",
@@ -77,11 +71,9 @@
       "StarField",
       "StatusBadge",
       "StatusMapProvider",
-      "SwitchGroup",
       "Tabs",
       "Text",
       "ThemeIcon",
-      "Tooltip",
       "Transition",
       "TypographyStylesProvider",
       "UnstyledButton",
@@ -4896,7 +4888,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Las casillas. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran.",
               "slot": false
             },
             {
@@ -4904,7 +4896,7 @@
               "type": "ColorExtended",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -4928,7 +4920,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Deshabilita el grupo entero; una casilla no puede reactivarse por su cuenta.",
               "slot": false
             },
             {
@@ -4944,7 +4936,7 @@
               "type": "ErrorDisplay",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta.",
               "slot": false
             },
             {
@@ -4952,7 +4944,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El grupo es un `fieldset` y esto su `legend`: sin el, las casillas quedan sin nombre comun.",
               "slot": false
             },
             {
@@ -4960,7 +4952,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El `name` del formulario. Todas las casillas del grupo lo comparten.",
               "slot": false
             },
             {
@@ -4992,7 +4984,7 @@
               "type": "Size",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -5000,7 +4992,7 @@
               "type": "string[]",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Los `value` de las casillas marcadas. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse.",
               "slot": false
             }
           ],
@@ -12189,7 +12181,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "El control que se envuelve. El globo se ancla a el, asi que no puede quedarse vacio.",
           "slot": false
         },
         {
@@ -12213,7 +12205,7 @@
           "type": "string | boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Con `true` marca el control como invalido sin texto; con una cadena, esa cadena es el mensaje.",
           "slot": false
         },
         {
@@ -12221,7 +12213,7 @@
           "type": "FieldErrorSource",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La via corta: de un `NebulaField` salen a la vez el estado, el mensaje y si se ha tocado. Manda\nsobre `error`, `message` y `status`, que existen para cuando no hay campo de formulario detras.",
           "slot": false
         },
         {
@@ -12229,7 +12221,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El texto del globo cuando `error` es `true` y no trae mensaje propio.",
           "slot": false
         },
         {
@@ -12237,7 +12229,7 @@
           "type": "number",
           "required": false,
           "default": "12",
-          "doc": null,
+          "doc": "Separacion entre el globo y el control, en px.",
           "slot": false
         },
         {
@@ -12245,7 +12237,7 @@
           "type": "FieldErrorPosition",
           "required": false,
           "default": "\"top-right\"",
-          "doc": null,
+          "doc": "Donde se ancla el globo. Tapa a la style prop `position`, que aqui no aplica.",
           "slot": false
         },
         {
@@ -12261,7 +12253,7 @@
           "type": "string",
           "required": false,
           "default": "\"Validando…\"",
-          "doc": null,
+          "doc": "Lo que anuncia mientras el campo valida. Se lee en voz alta, asi que no puede ser un simbolo.",
           "slot": false
         }
       ],
@@ -14848,7 +14840,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Region bajo el cuerpo, a lo ancho del carril. Equivale a `Hero.Bottom`.",
           "slot": false
         },
         {
@@ -14856,7 +14848,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Cae EN MEDIO del cuerpo, entre la descripcion y las acciones, no al final. Si entre los hijos hay\npartes del compound —`Hero.Header`, `Hero.Title`...— el cuerpo pasa a ser tuyo entero y las props\nde texto dejan de montarse (ADR-111).",
           "slot": false
         },
         {
@@ -14872,7 +14864,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"transparent\"",
-          "doc": null,
+          "doc": "Con `transparent` —el defecto— la banda no pinta fondo propio y hereda el de la pagina.",
           "slot": false
         },
         {
@@ -14880,7 +14872,7 @@
           "type": "Unit",
           "required": false,
           "default": "1400",
-          "doc": null,
+          "doc": "Ancho maximo del carril interior; la banda sigue ocupando el ancho completo.",
           "slot": false
         },
         {
@@ -14896,7 +14888,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El rotulo pequeno sobre el titulo —la novedad, la categoria—. Cae encima de todo el bloque de texto.",
           "slot": false
         },
         {
@@ -14912,7 +14904,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Imagen de fondo a sangre. El texto se lee sobre su velo, no sobre ella: lo gradua `overlayOpacity`.",
           "slot": false
         },
         {
@@ -14920,7 +14912,7 @@
           "type": "string",
           "required": false,
           "default": "\"\"",
-          "doc": null,
+          "doc": "Vacio la deja decorativa, que es lo correcto cuando la imagen no aporta nada que el texto no diga.",
           "slot": false
         },
         {
@@ -14928,7 +14920,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Region a la izquierda del cuerpo. Equivale a `Hero.Left`, que es la via para reordenarla.",
           "slot": false
         },
         {
@@ -14936,7 +14928,7 @@
           "type": "HeroOrder",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "Nivel del encabezado del titulo, de 1 a 6. Es estructura, no tamano: el tamano sale de `size`.",
           "slot": false
         },
         {
@@ -14944,7 +14936,7 @@
           "type": "number",
           "required": false,
           "default": "0.55",
-          "doc": null,
+          "doc": "Opacidad del velo sobre `image`. Sin `image` no hay velo, asi que no tiene efecto.",
           "slot": false
         },
         {
@@ -14952,7 +14944,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Region a la derecha del cuerpo. Equivale a `Hero.Right`.",
           "slot": false
         },
         {
@@ -14984,7 +14976,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Nombra la region por `aria-labelledby`. Sin el, y sin un `Hero.Title` entre los hijos, la banda\nno llega a ser un landmark con nombre.",
           "slot": false
         },
         {
@@ -21464,7 +21456,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Nombra el globo para el lector de pantalla. Hace falta cuando dentro no hay un encabezado que lo haga.",
           "slot": false
         },
         {
@@ -21488,7 +21480,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Margen minimo con el borde de la ventana antes de reposicionar.",
           "slot": false
         },
         {
@@ -21496,7 +21488,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Desplazamiento en el eje perpendicular, en px, para descentrarlo respecto al disparador.",
           "slot": false
         },
         {
@@ -21512,7 +21504,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Apagar el cierre con Escape deja al usuario de teclado sin salida: solo con otra via evidente.",
           "slot": false
         },
         {
@@ -21520,7 +21512,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Deja pasar la interaccion con el resto de la pagina: sin velo, sin atrapar el foco y sin cerrar al\npulsar fuera. Es lo que hace falta para un globo que acompana a un formulario, no para uno modal.",
           "slot": false
         },
         {
@@ -21528,7 +21520,7 @@
           "type": "number",
           "required": false,
           "default": "8",
-          "doc": null,
+          "doc": "Separacion del disparador, en px, en el eje de `placement`.",
           "slot": false
         },
         {
@@ -21544,7 +21536,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Pasarlo lo vuelve controlado: el componente deja de abrir y cerrar por su cuenta y solo emite `onOpenChange`.",
           "slot": false
         },
         {
@@ -21560,7 +21552,7 @@
           "type": "PopoverPlacement",
           "required": false,
           "default": "\"bottom\"",
-          "doc": null,
+          "doc": "La posicion PEDIDA. Si no cabe, React Aria la cambia, salvo que apagues `shouldFlip`.",
           "slot": false
         },
         {
@@ -21576,7 +21568,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Apagarlo deja el globo en su `placement` aunque se salga de la pantalla: solo con posicion garantizada.",
           "slot": false
         },
         {
@@ -21584,7 +21576,7 @@
           "type": "OverlayTriggerElement",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "El elemento que abre y ancla el globo. Recibe el `ref` y los atributos de aria, asi que tiene que reenviarlos.",
           "slot": false
         },
         {
@@ -21592,7 +21584,7 @@
           "type": "string | number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Ancho fijo del globo. Sin el, se ajusta a su contenido.",
           "slot": false
         },
         {
@@ -22088,7 +22080,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Las opciones. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran.",
               "slot": false
             },
             {
@@ -22096,7 +22088,7 @@
               "type": "ColorExtended",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todas las opciones. Una que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -22120,7 +22112,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Deshabilita el grupo entero; una opcion no puede reactivarse por su cuenta.",
               "slot": false
             },
             {
@@ -22136,7 +22128,7 @@
               "type": "ErrorDisplay",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta.",
               "slot": false
             },
             {
@@ -22144,7 +22136,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El grupo es un `fieldset` y esto su `legend`: sin el, las opciones quedan sin nombre comun.",
               "slot": false
             },
             {
@@ -22152,7 +22144,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El `name` del formulario. Es lo que hace que las opciones sean excluyentes entre si.",
               "slot": false
             },
             {
@@ -22184,7 +22176,7 @@
               "type": "Size",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todas las opciones. Una que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -22192,7 +22184,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El `value` de la opcion elegida. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse.",
               "slot": false
             }
           ],
@@ -23646,7 +23638,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Solo se usa si no hay `title` ni `Section.Title`: el titulo, cuando existe, nombra la region.",
           "slot": false
         },
         {
@@ -23654,7 +23646,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lo que acompana a las acciones en la fila de cabecera, a su izquierda. Equivale a `Section.Aside`.",
           "slot": false
         },
         {
@@ -23662,7 +23654,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El cuerpo. Si entre los hijos hay un `Section.Header`, sustituye a la cabecera que montan `title`,\n`description`, `aside` y `actions`; si hay un `Section.Footer`, sustituye a `footer` (ADR-111).",
           "slot": false
         },
         {
@@ -23678,7 +23670,7 @@
           "type": "Unit",
           "required": false,
           "default": "1180",
-          "doc": null,
+          "doc": "Ancho maximo del carril interior; la banda sigue ocupando el ancho completo.",
           "slot": false
         },
         {
@@ -23694,7 +23686,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Linea separadora dentro del carril, para que no cruce la banda de lado a lado de la pantalla.",
           "slot": false
         },
         {
@@ -23702,7 +23694,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lo que se pinta en lugar del contenido cuando `isEmpty`. Sin `isEmpty` no se pinta nunca.",
           "slot": false
         },
         {
@@ -23710,7 +23702,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Sustituye al contenido. Si es una cadena se envuelve en un `Alert` de error que se anuncia solo.",
           "slot": false
         },
         {
@@ -23726,7 +23718,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "La banda de cristal de ADR-082, el peldano mas bajo. Se usa ALTERNANDO secciones: encenderlas todas devuelve un fondo uniforme, que es lo contrario del efecto.",
           "slot": false
         },
         {
@@ -23742,7 +23734,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Enciende la rama de `empty`. `error` manda sobre ella: si hay error, el vacio no se pinta.",
           "slot": false
         },
         {
@@ -23750,7 +23742,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Superpone el velo de carga SIN retirar el contenido, para que la pagina no salte al terminar.",
           "slot": false
         },
         {
@@ -23758,7 +23750,7 @@
           "type": "SectionOrder",
           "required": false,
           "default": "2",
-          "doc": null,
+          "doc": "Nivel del encabezado del titulo, de 2 a 6. Es estructura, no tamano: el tamano es `fz`.",
           "slot": false
         },
         {
@@ -23766,7 +23758,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Aparicion al entrar en viewport. Cambia el elemento raiz al de motion, no anade un nodo (ver `Reveal.md`).",
           "slot": false
         },
         {
@@ -23782,7 +23774,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Nombra la region por `aria-labelledby`, y por eso gana a `aria-label`. Sin el, y sin un\n`Section.Title` entre los hijos, la banda cae al `aria-label`.",
           "slot": false
         }
       ],
@@ -26211,7 +26203,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Los interruptores. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran.",
               "slot": false
             },
             {
@@ -26219,7 +26211,7 @@
               "type": "ColorExtended",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todos los interruptores. Uno que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -26243,7 +26235,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Deshabilita el grupo entero; un interruptor no puede reactivarse por su cuenta.",
               "slot": false
             },
             {
@@ -26259,7 +26251,7 @@
               "type": "ErrorDisplay",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta.",
               "slot": false
             },
             {
@@ -26267,7 +26259,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El grupo es un `fieldset` y esto su `legend`: sin el, los interruptores quedan sin nombre comun.",
               "slot": false
             },
             {
@@ -26275,7 +26267,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "El `name` del formulario. Todos los interruptores del grupo lo comparten.",
               "slot": false
             },
             {
@@ -26299,7 +26291,7 @@
               "type": "Size",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Baja a todos los interruptores. Uno que declare el suyo gana sobre el del grupo.",
               "slot": false
             },
             {
@@ -26307,7 +26299,7 @@
               "type": "string[]",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Los `value` de los interruptores encendidos. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse.",
               "slot": false
             }
           ],
@@ -28021,7 +28013,7 @@
           "type": "number",
           "required": false,
           "default": "150",
-          "doc": null,
+          "doc": "Espera antes de cerrar al salir, que es lo que permite cruzar del disparador al globo.",
           "slot": false
         },
         {
@@ -28037,7 +28029,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Desplazamiento en el eje perpendicular, en px.",
           "slot": false
         },
         {
@@ -28053,7 +28045,7 @@
           "type": "number",
           "required": false,
           "default": "0",
-          "doc": null,
+          "doc": "Espera antes de abrir al apuntar. En cero abre al entrar.",
           "slot": false
         },
         {
@@ -28061,7 +28053,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "No se pinta ni se anuncia. El disparador se queda sin su descripcion, asi que no vale para ocultarlo a ratos.",
           "slot": false
         },
         {
@@ -28069,7 +28061,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "El texto del globo. Llega por `aria-describedby`, que **describe**: no sustituye al nombre del\ndisparador, asi que un boton solo con icono sigue necesitando su `aria-label`.",
           "slot": false
         },
         {
@@ -28077,7 +28069,7 @@
           "type": "string | number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Ancho maximo del globo. Tapa a la style prop `maw`, que aqui caeria en el disparador.",
           "slot": false
         },
         {
@@ -28085,7 +28077,7 @@
           "type": "number",
           "required": false,
           "default": "8",
-          "doc": null,
+          "doc": "Separacion del disparador, en px, en el eje de `placement`.",
           "slot": false
         },
         {
@@ -28101,7 +28093,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Pasarlo lo vuelve controlado: el puntero y el foco dejan de abrirlo y solo emite `onOpenChange`.",
           "slot": false
         },
         {
@@ -28109,7 +28101,7 @@
           "type": "PopoverPlacement",
           "required": false,
           "default": "\"top\"",
-          "doc": null,
+          "doc": "La posicion PEDIDA. Si no cabe, React Aria la cambia.",
           "slot": false
         },
         {
@@ -28117,7 +28109,7 @@
           "type": "OverlayTriggerElement",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "El elemento que lo dispara. Recibe el `ref` y el `aria-describedby`, asi que tiene que reenviarlos.",
           "slot": false
         },
         {

@@ -36,18 +36,26 @@ export interface CheckboxProps
 }
 
 export interface CheckboxGroupProps {
+  /** El grupo es un `fieldset` y esto su `legend`: sin el, las casillas quedan sin nombre comun. */
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
+  /** Los `value` de las casillas marcadas. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse. */
   value?: string[] | undefined;
   defaultValue?: string[] | undefined;
   onChange?: ((value: string[]) => void) | undefined;
+  /** Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo. */
   size?: Size | undefined;
+  /** Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo. */
   color?: ColorExtended | undefined;
+  /** Deshabilita el grupo entero; una casilla no puede reactivarse por su cuenta. */
   disabled?: boolean | undefined;
   required?: boolean | undefined;
+  /** El `name` del formulario. Todas las casillas del grupo lo comparten. */
   name?: string | undefined;
   orientation?: Orientation | undefined;
+  /** Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta. */
   errorDisplay?: ErrorDisplay | undefined;
+  /** Las casillas. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran. */
   children?: ReactNode | undefined;
 }
