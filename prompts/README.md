@@ -7,6 +7,7 @@
 ```
 prompts/
 ├─ 1-fundaciones/      F0  — scaffold + spike TS7 ✅ + tokens + tools + gobernanza
+├─ 1.5-docs-site/      DS  — la web pública (pista paralela; documenta web, native y premium)
 ├─ 2-web/              W1–W6 — desarrollo → publicación 🚀 → premium (superficie web)
 ├─ 2.1-web-refine/    WR  — auditoría visual del catálogo + plan de alineación (entre W4 y W5)
 ├─ 3-theme-creator/    TC  — pista paralela (arranca al cerrar W1)
@@ -19,6 +20,10 @@ prompts/
 | Etapa            | Fase | Archivo                                                                                    | Contenido                                                                          | Prompts |
 | ---------------- | ---- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
 | 1. Fundaciones   | F0   | [1-fundaciones/F0-prompts.md](1-fundaciones/F0-prompts.md)                                 | Scaffold + spike TS7 _(✅ 2026-07-15)_ + tokens + tools + gobernanza               | 4       |
+| 1.5 Docs Site    | DS1  | [1.5-docs-site/DS1-prompts.md](1.5-docs-site/DS1-prompts.md)                               | Spike Next 16 + chasis bilingüe + los 3 generadores                                | 3       |
+|                  | DS2  | [1.5-docs-site/DS2-prompts.md](1.5-docs-site/DS2-prompts.md)                               | `packages/demos` + landing + las 10 guías                                          | 3       |
+|                  | DS3  | [1.5-docs-site/DS3-prompts.md](1.5-docs-site/DS3-prompts.md)                               | Plantilla + piloto de 8 y barrido de las 158 (**8 lotes**)                          | 2 + 8   |
+|                  | DS4  | [1.5-docs-site/DS4-prompts.md](1.5-docs-site/DS4-prompts.md)                               | Gates del sitio + despliegue público + `docs/ds-closure.md`                        | 2       |
 | 2. Web           | W1   | [2-web/W1-prompts.md](2-web/W1-prompts.md)                                                 | Themes + runtime web + playground + piloto de anatomía                             | 4       |
 |                  | W2   | [2-web/W2-prompts.md](2-web/W2-prompts.md)                                                 | Tier 1 (foundation → nav core)                                                     | 5       |
 |                  | W3   | [2-web/W3-prompts.md](2-web/W3-prompts.md)                                                 | Tier 2 (inputs completos, patterns, DataGrid, charts, CardComplex ⚠️checkpoint)    | 5       |
@@ -49,7 +54,7 @@ ejecutan entre fases, cuando su hallazgo abarataría el trabajo de la siguiente.
 
 ## Reglas de uso
 
-1. **Orden**: F0 → W1…W4 → **WR** → W5 → W6 → N1…N4 → N5 → R. **WR va entre W4 y W5** y no es opcional: publicar un catálogo cuya calibración visual no se ha auditado convierte cada defecto en una incidencia de terceros, y el baseline de ADR-037 no puede capturarse sobre defectos conocidos (ver [2.1-web-refine/README.md](2.1-web-refine/README.md)). Flexibilidades permitidas: **TC** corre en paralelo desde el cierre de W1 (hitos: TC.1 tras W1, TC.2 tras W2, TC.3 tras W4); **W6** puede solaparse con el arranque de N1 (el core native solo necesita W5); **N5** requiere N4 + W6.
+1. **Orden**: F0 → W1…W4 → **WR** → W5 → W6 → N1…N4 → N5 → R. **WR va entre W4 y W5** y no es opcional: publicar un catálogo cuya calibración visual no se ha auditado convierte cada defecto en una incidencia de terceros, y el baseline de ADR-037 no puede capturarse sobre defectos conocidos (ver [2.1-web-refine/README.md](2.1-web-refine/README.md)). Flexibilidades permitidas: **TC** corre en paralelo desde el cierre de W1 (hitos: TC.1 tras W1, TC.2 tras W2, TC.3 tras W4); **DS** corre en paralelo desde ya (DS1 y DS2 no dependen de nada; **DS3 requiere WN cerrada** porque escribe 158 páginas contra la API que WN está normalizando); **W6** puede solaparse con el arranque de N1 (el core native solo necesita W5); **N5** requiere N4 + W6.
 2. Cada fase escribe su `docs/<código>-closure.md` con el gate verificado antes de abrir la siguiente.
 3. `docs/` es la fuente de verdad: si cambias una decisión, actualiza el doc/ADR **antes** del siguiente prompt.
 4. Los prompts marcan dónde **preguntar al propietario** (CardComplex W3.5, licencia/visibilidad W5.1, registry premium W6.1, motores con trade-offs). Las respuestas se registran en docs/ADRs.
