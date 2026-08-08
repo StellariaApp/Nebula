@@ -4,13 +4,14 @@ import { useMemo, useRef, type ReactElement } from "react";
 
 import type { CalendarDate, DateValue } from "@internationalized/date";
 import { getLocalTimeZone } from "@internationalized/date";
-import { useFieldProps } from "@stellaria/nebula-hooks";
+import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 import { mergeProps, useButton, useFocusRing, useLocale } from "react-aria";
 import { useDatePickerState } from "react-stately";
 
 import * as field from "../../styles/field.css.js";
 import { FormatDate, ParseDate } from "../../utils/date.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { CalendarDayVars } from "../Calendar/day-vars.js";
 import { CalendarView } from "../Calendar/CalendarView.js";
 import { FormField } from "../FormField/FormField.js";
 
@@ -36,6 +37,8 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
     readOnly = false,
     size = "md",
     surface = "outline",
+    variant = "filled",
+    color = "primary",
     locale: locale_prop,
     minValue,
     maxValue,
@@ -72,6 +75,9 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
     errorProps,
   };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+
+  const { theme } = useTheme();
+  const day_vars = CalendarDayVars(variant, color, theme);
 
   const { locale: ambient } = useLocale();
   const locale = locale_prop ?? ambient;
@@ -183,6 +189,7 @@ export function DatePickerInput(props: DatePickerInputProps): ReactElement {
             slotProps={popoverProps}
           >
             <CalendarView
+              style={day_vars}
               calendar={calendar}
               size={size}
               locale={locale}

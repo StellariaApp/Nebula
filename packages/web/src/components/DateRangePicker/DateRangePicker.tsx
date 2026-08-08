@@ -4,7 +4,7 @@ import { useMemo, useRef, type ReactElement } from "react";
 
 import { createCalendar } from "@internationalized/date";
 import type { CalendarDate, DateValue } from "@internationalized/date";
-import { useFieldProps } from "@stellaria/nebula-hooks";
+import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 import type { DateRange } from "@stellaria/nebula-tokens";
 import {
   mergeProps,
@@ -21,6 +21,7 @@ import * as field from "../../styles/field.css.js";
 import { EmptyRange, FormatDate, ParseDate } from "../../utils/date.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
+import { CalendarDayVars } from "../Calendar/day-vars.js";
 import { RangeCalendarView } from "../Calendar/CalendarView.js";
 import { CALENDAR_ICON } from "../DatePicker/calendar-icon.js";
 import { DatePickerPopover } from "../DatePicker/DatePickerPopover.js";
@@ -39,6 +40,8 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
     readOnly = false,
     size = "md",
     surface = "outline",
+    variant = "filled",
+    color = "primary",
     locale: locale_prop,
     minValue,
     maxValue,
@@ -74,6 +77,9 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
     errorProps,
   };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+
+  const { theme } = useTheme();
+  const day_vars = CalendarDayVars(variant, color, theme);
 
   const { locale: ambient } = useLocale();
   const locale = locale_prop ?? ambient;
@@ -215,6 +221,7 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
             slotProps={popoverProps}
           >
             <RangeCalendarView
+              style={day_vars}
               calendar={calendarProps}
               size={size}
               locale={locale}

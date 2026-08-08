@@ -7,14 +7,12 @@ import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 import type { AriaCalendarProps } from "react-aria";
 
 import { FormatDate, ParseDate } from "../../utils/date.js";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
+import { CalendarDayVars } from "./day-vars.js";
 import { CalendarView } from "./CalendarView.js";
 import type { CalendarProps } from "./Calendar.types.js";
-import * as variables from "./Calendar.vars.css.js";
 
 export function Calendar(props: CalendarProps): ReactElement {
   const {
@@ -88,14 +86,7 @@ export function Calendar(props: CalendarProps): ReactElement {
   };
 
   const { theme } = useTheme();
-  const resolved = ResolveVariant(variant, color, theme);
-  const day_vars = assignInlineVars({
-    [variables.dayBg]: resolved.background,
-    [variables.dayBgHover]: resolved.backgroundHover,
-    [variables.dayFg]: resolved.foreground,
-    [variables.dayBorder]: resolved.borderColor,
-    [variables.rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`,
-  });
+  const day_vars = CalendarDayVars(variant, color, theme);
 
   return (
     <CalendarView

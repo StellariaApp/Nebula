@@ -522,7 +522,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/DatePicker/DatePicker.js",
     import: "{ DatePicker }",
     ignore: ["react", "react-dom"],
-    limit: "95 kB",
+    limit: "97.75 kB",
   },
   {
     name: "DatePickerInput (trigger de texto + calendario, por módulo)",
@@ -536,14 +536,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/DateRangePicker/DateRangePicker.js",
     import: "{ DateRangePicker }",
     ignore: ["react", "react-dom"],
-    limit: "98 kB",
+    limit: "98.75 kB",
   },
   {
     name: "DateTimePicker (DatePicker con granularidad, por módulo)",
     path: "dist/components/DateTimePicker/DateTimePicker.js",
     import: "{ DateTimePicker }",
     ignore: ["react", "react-dom"],
-    limit: "95 kB",
+    limit: "98 kB",
   },
   {
     name: "TimeInput (campo de hora segmentado, por módulo)",

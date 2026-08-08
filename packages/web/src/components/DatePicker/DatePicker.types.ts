@@ -1,8 +1,8 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { DateRange, NebulaField, Size } from "@stellaria/nebula-tokens";
+import type { ColorExtended, DateRange, NebulaField, Size } from "@stellaria/nebula-tokens";
 
-import type { CalendarLabels } from "../Calendar/Calendar.types.js";
+import type { CalendarLabels, CalendarVariant } from "../Calendar/Calendar.types.js";
 import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
@@ -24,6 +24,14 @@ export interface DatePickerBaseProps extends StyleProps {
    * después de la ranura y no se puede pisar; el resto sí.
    */
   popoverProps?: BoxSlotProps | undefined;
+  /**
+   * Receta con la que se tinta el dia elegido del calendario. Es la misma que acepta `Calendar`:
+   * sin ella el calendario del desplegable se quedaba clavado en `primary`, aunque el producto
+   * tuviera otro acento.
+   */
+  variant?: CalendarVariant | undefined;
+  /** Acento del dia elegido y del rango. Va con `variant`. */
+  color?: ColorExtended | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
