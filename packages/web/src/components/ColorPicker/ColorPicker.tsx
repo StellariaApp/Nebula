@@ -8,6 +8,7 @@ import { parseColor, useColorAreaState, useColorSliderState } from "react-statel
 import type { Color } from "react-stately";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./ColorPicker.css.js";
 import type { ColorFormat, ColorPickerLabels, ColorPickerProps } from "./ColorPicker.types.js";
@@ -154,6 +155,8 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
     onChange,
     labels,
     className,
+    swatchesProps,
+    swatchProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -203,13 +206,17 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
         />
       ) : null}
       {swatches === undefined || swatches.length === 0 ? null : (
-        <div className={styles.swatches} role="group" aria-label={labels?.swatches ?? "Muestras"}>
+        <Box
+          role="group"
+          aria-label={labels?.swatches ?? "Muestras"}
+          {...swatchesProps}
+          className={cx(styles.swatches, swatchesProps?.className)}
+        >
           {swatches.map((entry) => (
-            <button
+            <Box
               key={entry}
+              component="button"
               type="button"
-              className={styles.swatch}
-              style={{ background: entry }}
               aria-label={SwatchLabel(labels, entry)}
               aria-pressed={fp.value === entry}
               data-selected={fp.value === entry ? "true" : undefined}
@@ -218,9 +225,12 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
                 const next = ParseColorValue(entry);
                 if (next !== null) Emit(next);
               }}
+              {...swatchProps}
+              className={cx(styles.swatch, swatchProps?.className)}
+              style={{ ...swatchProps?.style, background: entry }}
             />
           ))}
-        </div>
+        </Box>
       )}
     </div>
   );

@@ -5,7 +5,7 @@
 `ChipVariant` es `Extract<Variant, "filled" | "outline" | "light">` y la receta la resuelve
 `ResolveVariant` contra `theme.variantMap` (ADR-038). Chip nació con una función `Palette()` propia que
 horneaba `color-mix(in srgb, color 14%, transparent)` para `light` —la cuarta definición incompatible de
-esa misma receta en el catálogo— y por tanto no recibía el remapeo que `playful` hace de `filled`.
+esa misma receta en el catálogo— y por tanto no recibía el remapeo que un tema puede hacer de `filled`.
 
 El subconjunto **no incluye `ghost` ni `gradient`**, que sí están en la fila de ADR-038 §3 junto a
 Badge. La ejecución de ese ADR lo recorta:

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
@@ -7,11 +7,20 @@ import type { PopoverPlacement } from "../Popover/Popover.types.js";
 import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export type ColorFormat = "hex" | "hexa" | "rgb" | "rgba" | "hsl" | "hsla";
 
 export interface ColorPickerProps extends StyleProps {
+  /** La fila de muestras. Solo se pinta si hay `swatches`. */
+  swatchesProps?: BoxSlotProps | undefined;
+  /**
+   * Cada muestra. Se esparce sobre TODAS. Su `background` se escribe DESPUES de la ranura, porque es
+   * el color que representa; lo demas —tamano, radio, borde— si se ajusta desde aqui.
+   */
+  swatchProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   size?: Size | undefined;
   format?: ColorFormat | undefined;
@@ -35,6 +44,15 @@ export interface ColorPickerLabels {
 }
 
 export interface ColorInputProps extends StyleProps, FormFieldSlotProps {
+  /**
+   * La pastilla que ensena el color. Se esparce sobre las DOS: la del inicio del campo y la de
+   * dentro del boton. Su `background` se escribe despues de la ranura.
+   */
+  previewProps?: BoxSlotProps | undefined;
+  /** El boton que abre el selector. Solo existe con `withPicker`. */
+  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /** El desplegable con el selector. Su posicion la calcula React Aria y no se puede pisar. */
+  dropdownProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

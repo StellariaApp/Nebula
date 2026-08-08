@@ -16,6 +16,7 @@ import { useOverlayTriggerState } from "react-stately";
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
 import * as field from "../../styles/field.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { FormField } from "../FormField/FormField.js";
 
 import { ColorPicker, ParseColorValue } from "./ColorPicker.js";
@@ -38,6 +39,9 @@ export function ColorInput(props: ColorInputProps): ReactElement {
     withPicker = true,
     swatches,
     placement = "bottom start",
+    previewProps,
+    triggerProps,
+    dropdownProps,
     placeholder = "#000000",
     openLabel = "Abrir selector de color",
     labels,
@@ -124,10 +128,17 @@ export function ColorInput(props: ColorInputProps): ReactElement {
           data-invalid={invalid ? "true" : undefined}
           data-disabled={fp.isDisabled ? "true" : undefined}
         >
-          <span
-            className={cx(styles.preview, styles.preview_size[size], styles.checker)}
-            style={{ background: parsed === null ? undefined : fp.value }}
+          <Box
+            component="span"
             aria-hidden="true"
+            {...previewProps}
+            className={cx(
+              styles.preview,
+              styles.preview_size[size],
+              styles.checker,
+              previewProps?.className,
+            )}
+            style={{ ...previewProps?.style, background: parsed === null ? undefined : fp.value }}
           />
           <input
             {...control}
@@ -159,13 +170,24 @@ export function ColorInput(props: ColorInputProps): ReactElement {
               aria-label={openLabel}
               aria-haspopup="dialog"
               aria-expanded={state.isOpen}
-              className={styles.trigger}
               disabled={fp.isDisabled || readOnly}
               data-focus-visible={isFocusVisible ? "true" : undefined}
+              {...triggerProps}
+              className={cx(styles.trigger, triggerProps?.className)}
             >
-              <span
-                className={cx(styles.preview, styles.preview_size[size], styles.checker)}
-                style={{ background: parsed === null ? undefined : fp.value }}
+              <Box
+                component="span"
+                {...previewProps}
+                className={cx(
+                  styles.preview,
+                  styles.preview_size[size],
+                  styles.checker,
+                  previewProps?.className,
+                )}
+                style={{
+                  ...previewProps?.style,
+                  background: parsed === null ? undefined : fp.value,
+                }}
               />
             </button>
           ) : null}
@@ -178,7 +200,8 @@ export function ColorInput(props: ColorInputProps): ReactElement {
                 open={state.isOpen}
                 onExitComplete={presence.OnExitComplete}
                 ref={popover_ref}
-                className={styles.dropdown}
+                {...dropdownProps}
+                className={cx(styles.dropdown, dropdownProps?.className)}
                 style={popoverProps.style}
               >
                 <DismissButton

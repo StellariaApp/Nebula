@@ -340,7 +340,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Chip/ChipGroup.js",
     import: "{ ChipGroup }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "20.5 kB",
   },
   {
     name: "NativeSelect (select nativo + forms, por módulo)",

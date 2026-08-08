@@ -5,6 +5,8 @@ import { useCallback, useMemo, type ReactElement } from "react";
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 
 import { ChipGroupContext, type ChipGroupContextValue } from "./Chip.context.js";
 import * as styles from "./Chip.css.js";
@@ -24,6 +26,8 @@ export function ChipGroup(props: ChipGroupProps): ReactElement {
     disabled,
     name,
     className,
+    legendProps,
+    groupProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -56,9 +60,17 @@ export function ChipGroup(props: ChipGroupProps): ReactElement {
     <ChipGroupContext.Provider value={context}>
       <fieldset className={cx(styles.group_root, sprinkle_class, className)} style={sprinkle_style}>
         {label === undefined || label === null ? null : (
-          <legend className={styles.group_label}>{label}</legend>
+          <Text
+            component="legend"
+            {...legendProps}
+            className={cx(styles.group_label, legendProps?.className)}
+          >
+            {label}
+          </Text>
         )}
-        <div className={styles.group}>{children}</div>
+        <Box {...groupProps} className={cx(styles.group, groupProps?.className)}>
+          {children}
+        </Box>
       </fieldset>
     </ChipGroupContext.Provider>
   );

@@ -5,6 +5,7 @@ import type { ColorExtended, Size, Variant } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 export type ChipVariant = Extract<Variant, "filled" | "outline" | "light">;
 
@@ -33,6 +34,10 @@ export interface ChipProps
 }
 
 export interface ChipGroupProps extends StyleProps {
+  /** La leyenda del grupo. Solo se pinta si hay `label`; el nombre es el de `Fieldset`. */
+  legendProps?: TextSlotProps | undefined;
+  /** La fila de fichas. La raiz es el `fieldset`, y esto es lo que las coloca dentro. */
+  groupProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   label?: ReactNode | undefined;
   multiple?: boolean | undefined;

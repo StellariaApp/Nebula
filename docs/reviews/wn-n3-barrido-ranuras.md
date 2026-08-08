@@ -110,9 +110,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
 | `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | hecho |
 | `Checkbox/Checkbox.tsx` | 3 | input box labelText | hecho |
-| `Chip/ChipGroup.tsx` | 3 | groupRoot groupLabel group | pendiente |
-| `ColorPicker/ColorInput.tsx` | 3 | preview trigger dropdown | pendiente |
-| `ColorPicker/ColorPicker.tsx` | 3 | area swatches swatch | pendiente |
+| `Chip/ChipGroup.tsx` | 3 | groupRoot groupLabel group | hecho (2 de 3; groupRoot es la raiz. groupLabel se publica como legendProps, el nombre de Fieldset) |
+| `ColorPicker/ColorInput.tsx` | 3 | preview trigger dropdown | hecho (3 de 3; preview son DOS nodos y comparten una sola ranura) |
+| `ColorPicker/ColorPicker.tsx` | 3 | area swatches swatch | hecho (2 de 3; area, track y thumb son el mecanismo del selector, con el degradado y la posicion que les calcula aria) |
 | `Countdown/Countdown.tsx` | 3 | unit value caption | hecho |
 | `Dialog/Dialog.tsx` | 3 | dialog head title | hecho |
 | `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | descartado: gradientBorder es la raiz; beam y arc son el mecanismo del haz, con su barrido y su retardo calculados por arista |
