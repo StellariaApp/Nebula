@@ -6,13 +6,13 @@ tests, `size` sin excesos, typecheck y lint en los cuatro paquetes.
 
 ## Cerrado desde el día 4
 
-| Qué                                            | Cómo quedó                                                                 |
-| ---------------------------------------------- | -------------------------------------------------------------------------- |
-| Los tres presupuestos en rojo                  | **0 en rojo**. `Hero` y `Form` se resolvieron por el camino con WN          |
-| El gate ciego al alfa (deuda de ADR-102)       | `CheckTheme` aplana los dos lados antes de medir. 16.65 → 1.30 en el caso peor |
-| `N4` de WN — repartir `hoverActive`            | **Cerrado**, y la regla resultó más estrecha de lo escrito. Ver abajo       |
-| `CLAUDE.md` decía WR y «ADR-001…061»           | Dice WN y 102                                                              |
-| Las tres pantallas del banco                   | Company, warehouse y el primer intento de Rosette, las tres montadas        |
+| Qué                                      | Cómo quedó                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------ |
+| Los tres presupuestos en rojo            | **0 en rojo**. `Hero` y `Form` se resolvieron por el camino con WN             |
+| El gate ciego al alfa (deuda de ADR-102) | `CheckTheme` aplana los dos lados antes de medir. 16.65 → 1.30 en el caso peor |
+| `N4` de WN — repartir `hoverActive`      | **Cerrado**, y la regla resultó más estrecha de lo escrito. Ver abajo          |
+| `CLAUDE.md` decía WR y «ADR-001…061»     | Dice WN y 102                                                                  |
+| Las tres pantallas del banco             | Company, warehouse y el primer intento de Rosette, las tres montadas           |
 
 ### La regla de `hoverActive`, corregida
 
@@ -22,7 +22,7 @@ El prompt de WN listaba veintitantos candidatos. Los reales son **tres** —`Dat
 > `surface.hoverActive` es para selección sobre superficie **neutra**. Si el estado seleccionado
 > lleva **relleno de marca**, el cruce lo resuelve la escala de esa marca.
 
-Un `NavLink` activo está teñido de `accent`; al pasar el ratón tiene que ahondar *ese* tinte, no
+Un `NavLink` activo está teñido de `accent`; al pasar el ratón tiene que ahondar _ese_ tinte, no
 saltar a un gris del sistema. `Calendar`, `GridPicker`, `NavLink` y `Pagination` ya lo resuelven con
 su propia var, y hacen bien.
 
@@ -50,7 +50,7 @@ avatar **es** la de generar—, porque decide la forma de las otras siete.
 
 ### 4. Dos cosas que dejó la calibración de bordes
 
-- **`border.subtle` y `border.default` valen lo mismo** en `dark`, `sober-light` y `playful`. El rol
+- **`border.subtle` y `border.default` valen lo mismo** en `dark`. El rol
   `subtle` perdió contenido propio ahí. O se recupera moviendo su `base`, o se documenta por qué
   existen dos roles idénticos.
 - **Volver a bordes con alfa vuelve a ser una opción** ahora que el gate sabe medirlos. ADR-102 los

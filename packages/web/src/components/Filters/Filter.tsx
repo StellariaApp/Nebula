@@ -2,7 +2,8 @@
 
 import { lazy, Suspense, type ReactElement } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Skeleton } from "../Skeleton/Skeleton.js";
 import { MultiSelect } from "../MultiSelect/MultiSelect.js";
 import { Radio } from "../Radio/Radio.js";
@@ -26,7 +27,8 @@ const LazyDateRangePicker = lazy(async () => {
 });
 
 export function Filter(props: FilterProps): ReactElement {
-  const { filter, accessors, size = "sm", labels, className } = props;
+  const { filter, accessors, size = "sm", labels, className, rangeProps, ...style_rest } = props;
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
   const text = { ...DEFAULT_FILTER_LABELS, ...labels };
 
   const options = (filter.options ?? []).map((option) => ({
@@ -80,7 +82,7 @@ export function Filter(props: FilterProps): ReactElement {
       case "range": {
         const [from, to] = RangeParts(accessors.value(filter.key));
         return (
-          <div className={styles.range}>
+          <Box {...rangeProps} className={cx(styles.range, rangeProps?.className)}>
             <TextInput
               size={size}
               label={filter.label}
@@ -106,7 +108,7 @@ export function Filter(props: FilterProps): ReactElement {
                 Set(JoinRange(from, next));
               }}
             />
-          </div>
+          </Box>
         );
       }
       case "date":
@@ -153,7 +155,12 @@ export function Filter(props: FilterProps): ReactElement {
   })();
 
   return (
-    <div className={cx(styles.item, className)} data-filter={filter.key}>
+    <div
+      className={cx(styles.item, sprinkle_class, className)}
+      style={sprinkle_style}
+      data-filter={filter.key}
+      {...rest}
+    >
       {body}
     </div>
   );

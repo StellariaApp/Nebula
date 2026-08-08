@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { GlassOff } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { BlurOverlay } from "../BlurOverlay.js";
 
 afterEach(cleanup);
 
-type ThemeName = "light" | "dark" | "sober-light" | "playful";
-
-function RenderIn(ui: ReactNode, theme: ThemeName) {
+function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -50,15 +52,15 @@ describe("BlurOverlay", () => {
     expect(node.getAttribute("style") ?? "").toMatch(/0\.94/);
   });
 
-  it("degrada a scrim opaco con effects.glass.enabled=false (sober)", () => {
-    RenderIn(<BlurOverlay data-testid="bo" />, "sober-light");
+  it("degrada a scrim opaco con effects.glass.enabled=false", () => {
+    RenderIn(<BlurOverlay data-testid="bo" />, GlassOff());
     const node = screen.getByTestId("bo");
     expect(node.getAttribute("data-blur")).toBe("off");
     expect(node.getAttribute("style") ?? "").toMatch(/0\.94/);
   });
 
   it("conserva el blur en los temas con glass activo", () => {
-    for (const theme of ["light", "dark", "playful"] as const) {
+    for (const theme of ["light", "dark"] as const) {
       const view = RenderIn(<BlurOverlay data-testid="bo" />, theme);
       expect(screen.getByTestId("bo").getAttribute("data-blur")).toBe("md");
       view.unmount();

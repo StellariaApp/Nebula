@@ -1,16 +1,18 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { StarField } from "../StarField.js";
 import { BuildStars } from "../useStarField.js";
 
 afterEach(cleanup);
 
-type ThemeName = "light" | "dark" | "sober-light" | "playful";
-
-function RenderIn(ui: ReactNode, theme: ThemeName) {
+function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -73,8 +75,8 @@ describe("StarField", () => {
     expect(screen.getByTestId("sf").getAttribute("data-twinkle")).toBe("true");
   });
 
-  it("se queda quieto con motion.tier minimal (sober)", () => {
-    RenderIn(<StarField data-testid="sf" />, "sober-light");
+  it("se queda quieto con motion.tier minimal", () => {
+    RenderIn(<StarField data-testid="sf" />, MotionAt("minimal"));
     const node = screen.getByTestId("sf");
     expect(node.getAttribute("data-twinkle")).toBe("false");
     expect(node.querySelectorAll("i[data-twinkle='false']")).toHaveLength(32);
@@ -98,7 +100,7 @@ describe("StarField", () => {
     const light = RenderIn(<StarField data-testid="sf" />, "light");
     const from_light = style();
     light.unmount();
-    RenderIn(<StarField data-testid="sf" />, "playful");
+    RenderIn(<StarField data-testid="sf" />, "dark");
 
     expect(from_light).toMatch(/var\(--color-text-primary/);
     expect(from_light).toMatch(/var\(--color-accent-400/);

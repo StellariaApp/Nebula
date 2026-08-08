@@ -41,4 +41,4 @@ export const Grow: Story = {
 };
 
 export const Dark: Story = { ...Grow, globals: { theme: "dark" } };
-export const Playful: Story = { ...Default, globals: { theme: "playful" } };
+export const Light: Story = { ...Default, globals: { theme: "light" } };

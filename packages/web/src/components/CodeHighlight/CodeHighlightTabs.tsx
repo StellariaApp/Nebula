@@ -5,6 +5,7 @@ import { useMemo, type ReactElement } from "react";
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Segment } from "../Segment/index.js";
 
 import * as styles from "./CodeHighlight.css.js";
@@ -23,6 +24,7 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
     label,
     labels,
     className,
+    tabListProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -36,11 +38,11 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
 
   return (
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style} {...rest}>
-      <div className={styles.tab_list}>
+      <Box {...tabListProps} className={cx(styles.tab_list, tabListProps?.className)}>
         <Segment value={active} onChange={set_active} size="sm">
           <Segment.Control data={data} {...(label === undefined ? {} : { "aria-label": label })} />
         </Segment>
-      </div>
+      </Box>
       {current === undefined ? null : (
         <CodeHighlight
           {...current}

@@ -3,7 +3,7 @@
 > Auditoría de 32 componentes. 2026-07-31. **No se tocó código.**
 >
 > Dos pasadas: estática sobre los `.css.ts` y sobre el DOM renderizado (Storybook estático +
-> Playwright), en `nebula-dark` y `sober-light` — los dos extremos de la base de espaciado (4 px y
+> Playwright), en `nebula-dark` y `nebula-light` — los dos extremos de la base de espaciado (4 px y
 > 3 px), que es lo que aquí discrimina.
 >
 > **Cobertura: 5 de 32 con medida de render**, más una verificación estática que cubre 2 más. §6.
@@ -41,7 +41,7 @@ correcto** (§3).
   | `xl`   |                      24 px |       12 px | justo                      |
 
   Confirmado sobre el render (`data-display-primitives--indicators`): puntos de **16 px con fuente de
-  10 px** y de **12 px con fuente de 9 px**, **idénticos en `nebula-dark` y `sober-light`**.
+  10 px** y de **12 px con fuente de 9 px**, **idénticos en `nebula-dark` y `nebula-light`**.
 
 - **Valor esperado**: `docs/06` §2 — «**Ningún texto informativo o interactivo baja de 12 px**» — y
   §4.1 — «Ningún componente declara alturas en literales».
@@ -69,7 +69,7 @@ correcto** (§3).
   | `xl`   |   **38 px** | no (`xl` = 36)         | `space.md`      |
 
   Sobre el render (`data-display-primitives--tags`): `md` mide **26 px de alto en los dos temas**,
-  mientras su ancho pasa de **67.3 px** en `nebula-dark` a **63.3 px** en `sober-light`.
+  mientras su ancho pasa de **67.3 px** en `nebula-dark` a **63.3 px** con una densidad compacta.
 
 - **Valor esperado**: `docs/06` §4.1 — «Ningún componente declara alturas en literales» — y ADR-033,
   que fija `compact` para exactamente esta clase de pieza.
@@ -143,7 +143,7 @@ Dos conclusiones distintas, y conviene no confundirlas:
 ### `Badge` es la pieza de referencia, y lo cumple
 
 Medido: **20 / 24 / 28 / 32 / 36 px** = `compact.xs…xl` exactos, con `paddingInline` que **sí** sigue
-la base del tema (8/4/4/8/16 px en `nebula-dark` contra 6/3/3/6/12 px en `sober-light`) y fuentes
+la base del tema (8/4/4/8/16 px en `nebula-dark` contra 6/3/3/6/12 px con densidad compacta) y fuentes
 12/12/13/14/14 px, todas en el suelo o por encima. `docs/06` §4.1 lo nombra como el componente que
 cumple el contrato de `compact` —«Badge lo cumple»— y la medida lo confirma.
 
@@ -178,7 +178,7 @@ Vacío: el paso 4 no se ejecutó.
 | **`Countdown` y `ScrollProgress`**                | **No tienen lámina** — es el hallazgo 5 del censo de WR1.1, que el propietario dejó abierto. WR2 no puede auditar lo que no se puede mirar; queda como consecuencia práctica de aquella decisión, tal como se anticipó                                                                                                                                           |
 | **`StatusBadge`**                                 | Se declara «= `Badge`» por delegación leída en el código, **no medido sobre el render**. Si su mapa de estados inyectara tamaños propios, no se sabría                                                                                                                                                                                                           |
 | **Densidad `data-dense` de `Table` y `DataGrid`** | El punto 3 del foco pedía comprobar la **densidad** además de la prohibición de efectos. Solo se verificó la prohibición                                                                                                                                                                                                                                         |
-| **`nebula-light` y `playful`**                    | Este pase usó `nebula-dark` y `sober-light` por ser los extremos de la base de espaciado. Un defecto de color no estaría aquí                                                                                                                                                                                                                                    |
+| **Otras densidades**                              | Este pase usó los extremos de la base de espaciado. Un defecto de color no estaría aquí                                                                                                                                                                                                                                                                          |
 | **El paso 1: MIRAR**                              | La familia entera junta —que es donde se ve si las cinco piezas pequeñas forman escala— no se ha visto. B-1 se deduce de la tabla                                                                                                                                                                                                                                |
 | **El paso 4: Figma**                              | No ejecutado                                                                                                                                                                                                                                                                                                                                                     |
 

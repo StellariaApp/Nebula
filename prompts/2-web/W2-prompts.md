@@ -135,7 +135,7 @@ MISIÓN:
 3. Navegación (§1.10 Tier 1): Tabs (useTabList), NavLink, Breadcrumbs (declarativo), Pagination
    (declarativa, sin router).
 4. CIERRE DE W2: verifica el gate completo de docs\05-roadmap.md W2 y escribe docs\w2-closure.md
-   (checklist: testing contracts, axe 0 violaciones, presets sober/playful sin componentes rotos,
+   (checklist: testing contracts, axe 0 violaciones, temas oficiales sin componentes rotos,
    budgets, keyboard tests).
 
 REPORTE: cierre de W2 + lista de deuda/preguntas acumuladas para W3.

@@ -39,7 +39,7 @@ tres primeros **subpath exports** del paquete.
 | `pnpm check:contrast`                      | 5 temas · 590 pares · **0 FAIL**                                             |
 | Keyboard tests de DataGrid                 | sorting por cabecera, selección por casilla, paginación y fila con Enter     |
 | Virtualización ≥50 items                   | `DataGrid` a partir de `virtualizeFrom` (50 por defecto), con test de umbral |
-| Presets sober/playful                      | láminas `AllThemes` en cada familia nueva                                    |
+| Temas oficiales                            | láminas `AllThemes` en cada familia nueva                                    |
 | Subpaths aislados                          | ver §Subpaths                                                                |
 
 ## Subpaths

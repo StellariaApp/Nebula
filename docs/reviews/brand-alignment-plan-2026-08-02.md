@@ -257,11 +257,10 @@ sigue siendo trabajo de B2.
 Se aplicó la escalera de ADR-065 a los cinco temas y **funciona**: los tres pares adyacentes superan
 1.08 en los cuatro esquemas, y ningún par comparte color. La asignación, ya calculada y verificada:
 
-| Tema                       | `sunken`    | `base`      | `raised`    | `overlay`  | Ratios                |
-| -------------------------- | ----------- | ----------- | ----------- | ---------- | --------------------- |
-| `nebula-dark`              | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` | 1.098 · 1.094 · 1.134 |
-| `nebula-light` · `playful` | `light.800` | `light.600` | `light.400` | `light.50` | 1.108 · 1.084 · 1.110 |
-| `sober-light`              | `gray.300`  | `gray.200`  | `gray.100`  | `gray.50`  | 1.251 · 1.163 · 1.114 |
+| Tema           | `sunken`    | `base`      | `raised`    | `overlay`  | Ratios                |
+| -------------- | ----------- | ----------- | ----------- | ---------- | --------------------- |
+| `nebula-dark`  | `dark.50`   | `dark.400`  | `dark.600`  | `dark.800` | 1.098 · 1.094 · 1.134 |
+| `nebula-light` | `light.800` | `light.600` | `light.400` | `light.50` | 1.108 · 1.084 · 1.110 |
 
 **Y se revirtió**, porque mover las superficies rompe el color que se apoya en ellas: `check:contrast`
 pasa de 0 a **73 fallos** repartidos por los cinco temas. No son un tipo, son tres:
@@ -309,7 +308,7 @@ tramo**. Los 73 fallos tenían estructura, no eran 73 casos:
 
 | Familia                                   | Corrección                                                    |
 | ----------------------------------------- | ------------------------------------------------------------- |
-| Texto de acento en `ghost` y `outline`    | `scale.600` → `scale.700` (light) · `700` → `800` (sober)     |
+| Texto de acento en `ghost` y `outline`    | `scale.600` → `scale.700` (light)                             |
 | Fondo compuesto de `light`                | `foreground` un peldaño más oscuro                            |
 | `border.strong` bajo el 3:1 de UI         | `gray.500` → `gray.600`                                       |
 | `border.focus` bajo el 3:1 sobre `sunken` | `indigo.500` → `indigo.600`                                   |
@@ -318,7 +317,7 @@ tramo**. Los 73 fallos tenían estructura, no eran 73 casos:
 Todo por **peldaños de paleta**, no por los hex sugeridos: el gate propone un color que cumple, pero
 un hex a mano rompe la escala. El peldaño siguiente cumple igual y sigue siendo del sistema.
 
-**`sober-light` pierde su lienzo gris propio.** Es la única concesión: con la escalera sobre `gray`
+**Un tema claro pierde su lienzo gris propio.** Es la única concesión: con la escalera sobre `gray`
 —que sí existía y cumplía el 1.08— los semánticos 700 se quedaban entre 4.25 y 4.47 sobre el lienzo,
 y no hay peldaño que lo arregle sin oscurecer más el texto. Usa la escalera neutra y conserva su
 carácter donde siempre lo tuvo: los textos `gray` y el `tier: minimal`.

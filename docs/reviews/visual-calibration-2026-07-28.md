@@ -123,8 +123,6 @@ apoyan estos componentes), en los cuatro temas oficiales:
 | ------------ | ----------------: |
 | nebula-dark  |          **1.01** |
 | nebula-light |              1.06 |
-| playful      |              1.06 |
-| sober-light  |              1.11 |
 
 **1.01:1 no es un hover débil: es ninguno.** Y el escalón varía más de 10× entre temas, así que no hay
 ajuste local que lo arregle en los cuatro a la vez. El propietario tenía razón y el defecto es
@@ -173,13 +171,11 @@ cuatro temas, el schema, el Theme Creator y la paridad native. Queda en **ADR-04
 | ------------ | ---------------------- | --------------: | ------------- | --------------: |
 | nebula-dark  | `dark.50`              |        **1.01** | `dark.400`    |       **1.085** |
 | nebula-light | `light.300`            |            1.06 | `light.300`   |           1.062 |
-| playful      | `light.300`            |            1.06 | `light.300`   |           1.062 |
-| sober-light  | `gray.100`             |            1.11 | `light.500`   |           1.072 |
 
 En dark el hover pasa de **inexistente a perceptible** y cambia de signo: antes oscurecía 1 %, ahora
 aclara 8,5 %. Los cuatro temas quedan dentro de 1.06–1.09, contra un rango previo de 1.01–1.11.
 
-`sober-light` toma sus valores de la paleta `light` porque `gray` no tiene escalón fino —`gray.100` ya
+Un tema claro toma sus valores de la paleta `light` porque `gray` no tiene escalón fino —`gray.100` ya
 salta a 1.114— y porque ese tema ya mezclaba ambas paletas.
 
 ### El tope que apareció al calibrar `active`
@@ -188,7 +184,7 @@ salta a 1.114— y porque ese tema ya mezclaba ambas paletas.
 `light.300`), así que ninguna superficie podía ser más oscura que `sunken` sin romper el gate.
 
 El propietario decidió oscurecer `text.muted` a `gray.700`. Como `secondary` ya ocupaba ese peldaño,
-la escalera de texto de `nebula-light` y `playful` se desplaza entera para no colapsar dos roles:
+la escalera de texto de `nebula-light` se desplaza entera para no colapsar dos roles:
 
 | Rol       | Antes      | Después    | AA sobre `active` |
 | --------- | ---------- | ---------- | ----------------: |
@@ -197,7 +193,7 @@ la escalera de texto de `nebula-light` y `playful` se desplaza entera para no co
 | muted     | `gray.600` | `gray.700` |              5.65 |
 
 Los gaps pasan de 2+1 peldaños a 1+1, y `muted` gana 1,15 puntos de margen sobre el mínimo.
-`nebula-dark` y `sober-light` no se tocan: ya pasaban.
+`nebula-dark` no se toca: ya pasaba.
 
 ## 3. Causa (b) — la escalera dentro de un overlay · **CERRADA**
 
@@ -211,8 +207,6 @@ Relación entre `surface.overlay` (cabecera) y `surface.sunken` (cuerpo):
 | ------------ | -------------------: |
 | nebula-dark  |             **1.14** |
 | nebula-light |                 1.06 |
-| playful      |                 1.06 |
-| sober-light  |                 1.20 |
 
 El mismo par de roles produce **2,3× más salto en nebula-dark que en nebula-light**. Eso es exactamente
 el «la relación se percibe invertida» del reporte: no está invertido el orden —`sunken` es más oscuro
@@ -251,8 +245,6 @@ Con las dos superficies confirmadas como intencionales, la medición del borde s
 | ------------ | -----------------------: | --------------------------: |
 | nebula-dark  |                    1.142 |                   **1.984** |
 | nebula-light |                    1.062 |                       1.390 |
-| playful      |                    1.062 |                       1.390 |
-| sober-light  |                    1.195 |                       1.390 |
 
 `border.subtle` en dark estaba a **1.98 contra 1.39 de los temas light y 1.33 del Figma**: un 43 % más
 fuerte que su equivalente. Y `subtle` ya era el borde más suave del contrato, así que ningún componente
@@ -359,7 +351,7 @@ que `sunken` se usara como hover sin que nada lo midiera.
 | ------------- | ----------------------------------------------------------------------------- |
 | Contrato      | `tokens/src/theme/primitives.ts` · `tokens/src/__checks__/contract.test-d.ts` |
 | Enum y schema | `themes/src/enums.ts` (Zod deriva de aquí, no se edita)                       |
-| Temas         | `nebula-dark` · `nebula-light` · `playful` · `sober-light`                    |
+| Temas         | `nebula-dark` · `nebula-light`                                                |
 | Contrato web  | `web/src/theme/contract.css.ts`                                               |
 | Componentes   | `Accordion.css.ts` · `Pagination.css.ts`                                      |
 | Gate          | `tools/contrast-check/src/pairs.ts` · `smoke-theme.ts`                        |
@@ -448,13 +440,11 @@ el valor existente de Nebula, no sobre el diseño.
 | Tema         | antes | ahora | fuente              |
 | ------------ | ----: | ----: | ------------------- |
 | nebula-light | 1.390 | 1.073 | `gray.50`           |
-| playful      | 1.390 | 1.073 | `gray.50`           |
 | nebula-dark  | 1.331 | 1.202 | `palettes.dark.600` |
-| sober-light  | 1.296 | 1.296 | sin cambio          |
 
 Los dos esquemas bajan y **conservan su proporción relativa**: dark queda por encima de light —1.20
 contra 1.07— igual que en el Figma, donde la separación en dark también es la más fuerte de las dos.
-`sober-light` no se toca: es el tema de alto contraste por definición y su 1.296 es deliberado.
+Un tema de alto contraste no se tocaría: su 1.296 sería deliberado.
 
 ### En dark el separador sale de la paleta `dark`, no de `gray`
 
@@ -520,11 +510,9 @@ tiene medio peldaño: de `gray.700` a `gray.600` el contraste sobre el campo sal
 | Tema         | `muted`    | `placeholder`  | sobre el campo | separación vs. valor |
 | ------------ | ---------- | -------------- | -------------: | -------------------: |
 | nebula-light | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
-| playful      | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
 | nebula-dark  | `gray.500` | `gray.500`     |           5.38 |                 3.26 |
-| sober-light  | `gray.700` | `gray.700`     |           5.43 |                 2.32 |
 
-**dark y sober-light ya estaban en su suelo**: el peldaño siguiente cae a 3.90 y 4.04 sobre su fondo de
+**dark ya estaba en su suelo**: el peldaño siguiente cae a 3.90 sobre su fondo de
 campo. El propietario eligió AA estricto sobre la alternativa de declarar un suelo de 3:1 para
 placeholders, que habría dado light `gray.500` y dark `gray.600` a cambio de enmendar `docs/03` §1
 regla 4.

@@ -43,16 +43,14 @@ Desde ADR-034 hay un solo `LazyMotion`, en `NebulaProvider`, y sus features son 
 
 ## Por qué el indicador es `surface.overlay` y no `surface.base`
 
-Era `base`, y en `dark` eso es **exactamente el color del canvas** (`#080a12`) sobre una pista de `#06080f`: la píldora activa quedaba a 1.01 de su fondo, el mismo umbral que ADR-044 declaró como «no es un hover débil, es ninguno». En los temas light no se notaba porque allí `base` es blanco puro contra una pista gris.
+Era `base`, y en `dark` eso es **exactamente el color del canvas** (`#080a12`) sobre una pista de `#06080f`: la píldora activa quedaba a 1.01 de su fondo, el mismo umbral que ADR-044 declaró como «no es un hover débil, es ninguno». En light no se notaba porque allí `base` es blanco puro contra una pista gris.
 
-`overlay` es la superficie más elevada del contrato, que es lo que la píldora es: la pieza que flota sobre la ranura. El cambio deja el paso en 1.14 en dark y **no toca los temas light**, donde `overlay` y `base` valen lo mismo.
+`overlay` es la superficie más elevada del contrato, que es lo que la píldora es: la pieza que flota sobre la ranura. El cambio deja el paso en 1.14 en dark y **no toca light**, donde `overlay` y `base` valen lo mismo.
 
-| Tema        | antes | después |
-| ----------- | ----: | ------: |
-| dark        |  1.01 |    1.14 |
-| sober-light |  1.11 |    1.20 |
-| light       |  1.06 |    1.06 |
-| playful     |  1.06 |    1.06 |
+| Tema  | antes | después |
+| ----- | ----: | ------: |
+| dark  |  1.01 |    1.14 |
+| light |  1.06 |    1.06 |
 
 **Residual anotado**: la pista sigue en `surface.sunken`, que en dark está por debajo del canvas (1.01 contra él), así que el control no tiene contorno propio en ese tema — se lee por la píldora, no por la ranura. Corregirlo es el mismo problema de simetría entre esquemas que la calibración del 2026-07-28 dejó fuera a propósito: obligaría a recalibrar `sunken` u `overlay` globalmente. Se resuelve en el tramo de ADR-038, cuando Segment pase a resolver su superficie desde `variantMap`.
 

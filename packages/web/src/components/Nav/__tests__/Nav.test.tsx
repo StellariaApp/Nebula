@@ -2,13 +2,16 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { GlassOff, MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { NAV_LABELS } from "../labels.js";
 import { Nav } from "../index.js";
 import { BestPathMatch, NormalizePath, ResolveMode } from "../use-nav-active.js";
 
-function RenderIn(ui: ReactNode, theme: "sober-light" | "playful") {
+function RenderIn(ui: ReactNode, theme: NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -249,8 +252,8 @@ describe("Nav flotante", () => {
     );
   });
 
-  it("sober degrada las dos cosas: sin transición y sin cristal", () => {
-    const { container } = RenderIn(<Nav floating>{ANCHORS}</Nav>, "sober-light");
+  it("degrada las dos cosas: sin transición y sin cristal", () => {
+    const { container } = RenderIn(<Nav floating>{ANCHORS}</Nav>, GlassOff(MotionAt("minimal")));
     const root = container.querySelector("[data-floating='true']");
     const inline = root?.getAttribute("style") ?? "";
 

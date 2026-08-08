@@ -43,12 +43,10 @@ corrige en WN.
 `hoverActive` es un peldaño más allá de `active`, en la dirección en que ese tema mueve la
 elevación:
 
-| tema          | `active`    | `hoverActive` | dirección  |
-| ------------- | ----------- | ------------- | ---------- |
-| `dark`        | `dark.500`  | `dark.600`    | más claro  |
-| `light`       | `light.300` | `light.400`   | más oscuro |
-| `playful`     | `light.500` | `light.600`   | más oscuro |
-| `sober-light` | `light.600` | `light.700`   | más oscuro |
+| tema    | `active`    | `hoverActive` | dirección  |
+| ------- | ----------- | ------------- | ---------- |
+| `dark`  | `dark.500`  | `dark.600`    | más claro  |
+| `light` | `light.300` | `light.400`   | más oscuro |
 
 Un componente que dé por sentada una de las dos direcciones se rompe al cambiar de tema. Por eso
 viaja como var y no como cálculo.

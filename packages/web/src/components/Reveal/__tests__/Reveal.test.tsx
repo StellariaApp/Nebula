@@ -2,7 +2,10 @@ import { act } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
+import { MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { Reveal } from "../Reveal.js";
 import { Section } from "../../Section/Section.js";
@@ -45,7 +48,7 @@ class FakeObserver {
   }
 }
 
-function RenderIn(ui: ReactNode, theme: "sober-light" | "playful") {
+function RenderIn(ui: ReactNode, theme: NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -90,7 +93,7 @@ describe("Reveal — la regla de visibilidad", () => {
       <Reveal>
         <p>contenido</p>
       </Reveal>,
-      "sober-light",
+      MotionAt("minimal"),
     );
 
     expect(screen.getByText("contenido")).toBeDefined();

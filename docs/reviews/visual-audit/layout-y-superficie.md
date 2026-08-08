@@ -46,29 +46,29 @@ luminancia relativa (la fórmula de WCAG), que es la vara que usa `docs/06` §5.
 
 ### Superficies contra su fondo, por tema
 
-| Elemento                                | nebula-dark | nebula-light | sober-light |   playful |
+| Elemento | nebula-dark | nebula-light |
 | --------------------------------------- | ----------: | -----------: | ----------: | --------: |
-| `Paper` por defecto vs canvas           |   **1.000** |    **1.000** |   **1.000** | **1.000** |
-| `AppShell` header/navbar/aside vs shell |       1.012 |        1.017 |       1.073 |     1.017 |
-| `Paper` en la lámina `ElevationLadder`  |       1.062 |        1.062 |       1.114 |     1.062 |
+| `Paper` por defecto vs canvas | **1.000** | **1.000** | **1.000** | **1.000** |
+| `AppShell` header/navbar/aside vs shell | 1.012 | 1.017 | 1.073 | 1.017 |
+| `Paper` en la lámina `ElevationLadder` | 1.062 | 1.062 | 1.114 | 1.062 |
 
 Referencias de `docs/06`: el **escalón de interacción** (§5.1) es ~1.08 y el **separador de regiones**
 (§5.2) busca ~1.3–1.4.
 
 ### `Header floating` condensado, por tema
 
-|                                   | nebula-dark             | nebula-light            | sober-light                   | playful                 |
+| | nebula-dark | nebula-light |
 | --------------------------------- | ----------------------- | ----------------------- | ----------------------------- | ----------------------- |
-| `background-color`                | `rgba(15,17,25,.66)`    | `rgba(255,255,255,.58)` | **`rgb(255,255,255)`** opaco  | `rgba(255,255,255,.58)` |
-| `border`                          | `rgba(255,255,255,.12)` | `rgba(255,255,255,.28)` | **`rgb(216,219,222)`** sólido | `rgba(255,255,255,.28)` |
-| `data-animated`                   | `true`                  | `true`                  | **`false`**                   | `true`                  |
-| `border-radius` (`radius.lg`)     | 16 px                   | 16 px                   | 4 px                          | 20 px                   |
-| `z-index`                         | 1100                    | 1100                    | 1100                          | 1100                    |
-| `inset-block-start` · `max-width` | 12 px · 1180 px         | ídem                    | ídem                          | ídem                    |
+| `background-color` | `rgba(15,17,25,.66)` | `rgba(255,255,255,.58)` | **`rgb(255,255,255)`** opaco | `rgba(255,255,255,.58)` |
+| `border` | `rgba(255,255,255,.12)` | `rgba(255,255,255,.28)` | **`rgb(216,219,222)`** sólido | `rgba(255,255,255,.28)` |
+| `data-animated` | `true` | `true` | **`false`** | `true` |
+| `border-radius` (`radius.lg`) | 16 px | 16 px | 4 px | 20 px |
+| `z-index` | 1100 | 1100 | 1100 | 1100 |
+| `inset-block-start` · `max-width` | 12 px · 1180 px | ídem | ídem | ídem |
 
-**Verificado**: la degradación de ADR-059 funciona en los dos ejes a la vez. `sober-light` apaga el
+**Verificado**: la degradación de ADR-059 funciona en los dos ejes a la vez. Un tema sobrio apaga el
 cristal (fondo opaco, borde sólido) **y** la animación (`data-animated="false"`), sin que el estado
-deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en playful.
+deje de cambiar. `radius.lg` es tematizable de verdad: va de 4 px a 20 px según el tema.
 
 ---
 
@@ -96,7 +96,7 @@ deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en p
 - **Confirmado sobre el render (§1.b), y no es «poco contraste» sino ninguno**: en las láminas
   `layout-paper--composition` y `layout-paper--with-border` el `background-color` computado de `Paper`
   es **idéntico al del `body`** en los cuatro temas —`rgb(6,8,15)` en dark, `rgb(255,255,255)` en
-  light y playful, `rgb(246,247,248)` en sober— con **ratio 1.000**. La superficie no está atenuada:
+  light— con **ratio 1.000**. La superficie no está atenuada:
   no existe.
 - **Temas**: los cuatro. `surface.base` y `surface.raised` son roles distintos en los cuatro.
 - **Token propuesto**: `vars.color.surface.raised`.
@@ -124,7 +124,7 @@ deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en p
   pesan lo mismo. Y en los dos extremos la escalera se rompe al revés: `Drawer` —nivel 4— no tiene
   sombra ninguna, y `AppShell` —nivel 2— tampoco.
 - **Temas**: los cuatro, con la salvedad de ADR-028: en dark el paso lo carga la superficie y el rim,
-  no la sombra, así que el síntoma se ve sobre todo en `nebula-light` y `sober-light`.
+  no la sombra, así que el síntoma se ve sobre todo en `nebula-light`.
 - **Token propuesto**: no procede resolverlo aquí. Afecta a componentes de **tres familias**
   (WR2.1, WR2.5 y WR2.6), así que la decisión —¿corrige el código o se reescribe §5?— es de WR3. Lo
   que sí está medido es que **hoy no coinciden**.
@@ -211,8 +211,7 @@ deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en p
 
 - **Componente**: `AppShell` · **Magnitud 3** · **Severidad A**
 - **Valor medido (§1.b)**: relación de luminancia entre `AppShell` header/navbar/aside y el lienzo del
-  shell — **1.012** en `nebula-dark`, **1.017** en `nebula-light`, **1.017** en `playful`, **1.073**
-  en `sober-light`. Sin `box-shadow` en ninguno de los cuatro (A-2).
+  shell — **1.012** en `nebula-dark` y **1.017** en `nebula-light`. Sin `box-shadow` en ninguno (A-2).
 - **Valor esperado**: `docs/06` §5 dice, para dark, que **«el paso lo carga la superficie, no la
   sombra: negro sobre casi-negro no tiene recorrido»**. Medido: la superficie carga **1.012**, que es
   ~7 veces menos que el escalón de interacción de §5.1 (~1.08) — es decir, **la cabecera del shell se
@@ -221,7 +220,7 @@ deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en p
   la sostiene **solo el borde de 1 px**. Sobre una pantalla grande, las tres regiones del shell se
   leen como una sola superficie con líneas encima; y en dark, que es el tema por defecto, es donde
   menos recorrido hay.
-- **Temas**: los cuatro; `sober-light` (1.073) es el único que se acerca al escalón de §5.1, y sigue
+- **Temas**: los dos; ninguno llega al escalón de §5.1, y sigue
   por debajo del separador de §5.2 (~1.3–1.4).
 - **Token propuesto**: no lo resuelve un cambio local. O `surface.raised` se separa más de
   `surface.base` en el contrato, o el nivel 2 recupera su sombra `sm`. Es decisión de WR3 porque toca
@@ -232,7 +231,7 @@ deje de cambiar. `radius.lg` es tematizable de verdad: 4 px en sober, 20 px en p
 - **Componente**: `Foundations/Visual QA/Surfaces` · **Magnitud 1** (estructura) · **Severidad B**
 - **Valor medido**: `FoundationsSurfaces.stories.tsx:50-56` pinta los cinco niveles con
   `<Paper withBorder={…} shadow={…} radius="md" p="lg" bg={step.surface}>` — **`bg` explícito en los
-  cinco**. Medido en el render: ahí `Paper` sí contrasta (1.062 en tres temas, 1.114 en sober),
+  cinco**. Medido en el render: ahí `Paper` sí contrasta (1.062 en los dos temas),
   mientras que en `layout-paper--composition` da 1.000.
 - **Valor esperado**: `docs/06` §8 declara esta lámina como «`Surfaces`: niveles 0–4 en los cuatro
   temas» y §7 la convierte en el gate humano del sistema.
@@ -328,12 +327,12 @@ Esto es lo que este pase **no** puede afirmar. Es la sección más importante de
 | **`backdrop-filter`: no concluyente**              | El headless **neutraliza los filtros**: un `backdrop-filter: blur(16px) saturate(140%)` puesto inline computa a `blur(0px) saturate(1)`. `GlassSurface` se comporta igual que `Header`, así que **no es defecto de ningún componente**. Sí está verificado que la cadena de vars llega intacta: `--surfaceBackdrop` resuelve a `blur(16px) saturate(140%)`. **Si el cristal desenfoca de verdad, este instrumento no puede decirlo**: hace falta un navegador con GPU |
 | **El paso 1 del método: MIRAR**                    | La pasada 2 **mide el render; no lo mira**. Nadie ha recorrido la familia a ojo en los cuatro temas. Lo que un `getComputedStyle` no delata —ritmo, alineación óptica, si una composición «se lee»— sigue sin cubrir                                                                                                                                                                                                                                                  |
 | **El paso 4: Figma**                               | No se abrió ninguna hoja de `.figma/` ni se usó `tools/figma-measure/`. Por eso §4 está vacía                                                                                                                                                                                                                                                                                                                                                                         |
-| ~~Valores resueltos por tema~~                     | **Resuelto en la pasada 2** (§1.b): colores, ratios de luminancia, radios, z-index y degradación de `sober` medidos en los cuatro temas                                                                                                                                                                                                                                                                                                                               |
+| ~~Valores resueltos por tema~~                     | **Resuelto en la pasada 2** (§1.b): colores, ratios de luminancia, radios, z-index y degradación de glass medidos en los temas oficiales                                                                                                                                                                                                                                                                                                                              |
 | **El separador de §5.2 (~1.3–1.4)**                | Medido el escalón entre superficie de región y lienzo (A-4). La relación del **borde de 1 px** contra las dos superficies que separa —que es lo que §5.2 calibra— no se ha calculado                                                                                                                                                                                                                                                                                  |
 | **Magnitud 4 (espaciado) en profundidad**          | Se inventariaron los `vars.space.*` de cada componente, pero no se comprobó la regla «dentro < entre» de §3 sobre composiciones reales, que es donde se ve                                                                                                                                                                                                                                                                                                            |
 | **Magnitud 5 (tipografía)**                        | Fuera del hallazgo 3 de §5, no se auditó. Es el foco de WR2.2                                                                                                                                                                                                                                                                                                                                                                                                         |
 | **`Panel`, `Affix`, `LoadingOverlay`**             | Sin superficie, borde ni sombra propios. Medido que no declaran nada; **no** medido cómo se ven en uso                                                                                                                                                                                                                                                                                                                                                                |
-| **El estado `floating` de `Header` en movimiento** | Los dos estados están medidos (§1.b) y `sober` apaga la animación; pero **la transición entre ellos no se ha visto correr**, ni se ha medido con `prefers-reduced-motion` forzado                                                                                                                                                                                                                                                                                     |
+| **El estado `floating` de `Header` en movimiento** | Los dos estados están medidos (§1.b) y un tier minimal apaga la animación; pero **la transición entre ellos no se ha visto correr**, ni se ha medido con `prefers-reduced-motion` forzado                                                                                                                                                                                                                                                                             |
 | **Densidad `data-dense`**                          | No se probó en ningún componente de la familia                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 **Lo que este informe sí sostiene**: los nueve hallazgos tienen valor medido —siete de ellos ahora

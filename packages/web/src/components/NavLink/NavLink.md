@@ -12,7 +12,7 @@ Al anidar NavLinks se destapó que `Collapse` marcaba `aria-hidden` al cerrarse 
 
 ## Contraste del estado activo
 
-El texto activo usa el tono **700** de la escala, no el 600: con 600 sobre el fondo teñido al 14% no se alcanzaba 4.5:1 en `sober-light`. Es el mismo par que ya validan las variantes `light` y `outline` de `Badge`.
+El texto activo usa el tono **700** de la escala, no el 600: con 600 sobre el fondo teñido al 14% no se alcanzaba 4.5:1 en los temas claros. Es el mismo par que ya validan las variantes `light` y `outline` de `Badge`.
 
 La barra indicadora entra con el spring del tema, y tanto ella como el giro del chevron se apagan con `prefers-reduced-motion` y con `motion.tier: "minimal"`.
 

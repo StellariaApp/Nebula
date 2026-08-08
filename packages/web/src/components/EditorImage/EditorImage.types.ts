@@ -1,6 +1,8 @@
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ComponentType, ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { TextSlotProps } from "../Text/Text.types.js";
 
 /**
  * Forma mínima de `@pqina/react-pintura`. Se declara **estructuralmente** y no se importa de Pintura:
@@ -29,6 +31,14 @@ export interface EditorImageLabels {
 }
 
 export interface EditorImageProps extends StyleProps {
+  /** El boton que abre el editor. Su variable de proporcion se escribe despues de la ranura. */
+  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /** La imagen del boton. Su `src` y su `alt` salen de las props del componente. */
+  imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
+  /** El rotulo flotante sobre la imagen. Solo se pinta si hay editor. */
+  hintProps?: BoxSlotProps | undefined;
+  /** El aviso de peer ausente. Solo se pinta sin `editor` y sin `fallback`. */
+  missingProps?: TextSlotProps | undefined;
   src: string;
   editor?: PinturaEditorComponent | undefined;
   editorProps?: Record<string, unknown> | undefined;

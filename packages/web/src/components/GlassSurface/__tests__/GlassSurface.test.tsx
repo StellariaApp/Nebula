@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { GlassOff } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { GlassSurface } from "../GlassSurface.js";
 
 afterEach(cleanup);
 
-type ThemeName = "light" | "dark" | "sober-light" | "playful";
-
-function RenderIn(ui: ReactNode, theme: ThemeName) {
+function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -48,8 +50,8 @@ describe("GlassSurface", () => {
     expect(screen.getByTestId("gs").getAttribute("data-glass")).toBe("on");
   });
 
-  it("degrada a superficie sólida con effects.glass.enabled=false (sober)", () => {
-    RenderIn(<GlassSurface data-testid="gs" />, "sober-light");
+  it("degrada a superficie sólida con effects.glass.enabled=false", () => {
+    RenderIn(<GlassSurface data-testid="gs" />, GlassOff());
     const node = screen.getByTestId("gs");
     const style = node.getAttribute("style") ?? "";
     expect(node.getAttribute("data-glass")).toBe("off");
@@ -59,7 +61,7 @@ describe("GlassSurface", () => {
   });
 
   it("respeta fallbackSurface al degradar", () => {
-    RenderIn(<GlassSurface fallbackSurface="raised" data-testid="gs" />, "sober-light");
+    RenderIn(<GlassSurface fallbackSurface="raised" data-testid="gs" />, GlassOff());
     expect(screen.getByTestId("gs").getAttribute("style") ?? "").toMatch(/--color-surface-raised/);
   });
 
@@ -68,7 +70,7 @@ describe("GlassSurface", () => {
       <GlassSurface noise data-testid="gs">
         <span>hijo</span>
       </GlassSurface>,
-      "sober-light",
+      GlassOff(),
     );
     expect(screen.getByTestId("gs").querySelectorAll("span[aria-hidden='true']")).toHaveLength(0);
   });
@@ -78,14 +80,19 @@ describe("GlassSurface", () => {
     expect(screen.getByTestId("gs").querySelectorAll("span[aria-hidden='true']")).toHaveLength(1);
   });
 
-  it("resuelve vars distintas por tema", () => {
+  it("el estilo inline son vars: no cambia de esquema, sí con el interruptor de cristal", () => {
     const seen = new Set<string>();
-    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark"] as const) {
       const view = RenderIn(<GlassSurface data-testid="gs" />, theme);
       seen.add(screen.getByTestId("gs").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBeGreaterThan(1);
+    expect(seen.size).toBe(1);
+
+    const view = RenderIn(<GlassSurface data-testid="gs" />, GlassOff());
+    seen.add(screen.getByTestId("gs").getAttribute("style") ?? "");
+    view.unmount();
+    expect(seen.size).toBe(2);
   });
 
   it("no hornea los tokens como valores literales en el estilo inline", () => {

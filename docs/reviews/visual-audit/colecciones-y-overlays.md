@@ -49,7 +49,7 @@ que hay es peor.** No está invertida: en light **no está**.
 - **Matiz que corrige la nota de julio**: el problema **no es de espejo ni de inversión**. Los dos
   esquemas usan el mismo criterio y dark da en la banda; es light el que se queda a un tercio del
   objetivo. La hipótesis de julio llevaba a buscar en el sitio equivocado.
-- **Temas**: medido en `nebula-dark` y `nebula-light`. **No medido en `sober-light` ni `playful`**.
+- **Temas**: medido en `nebula-dark` y `nebula-light`.
 - **Token propuesto**: no procede fijarlo aquí — §5.2 pide calibrar por proporción, así que la
   corrección es de tema, no de componente, y afecta a todos los overlays a la vez.
 
@@ -70,7 +70,7 @@ que hay es peor.** No está invertida: en light **no está**.
   contorno del menú compite con su contenido —es más contrastado que muchos textos secundarios—;
   en light se comporta como debe. Un menú abierto sobre la misma composición pesa distinto según el
   esquema, que es justo lo que §5.2 quiere evitar.
-- **Temas**: los dos medidos. `sober-light` y `playful` no.
+- **Temas**: los dos medidos.
 - **Token propuesto**: es el mismo problema de calibración de A-1 y se resuelve en el mismo sitio: el
   contrato de bordes por esquema, no el `.css.ts` de `Menu`.
 
@@ -136,7 +136,7 @@ Vacío: el paso 4 no se ejecutó.
 | **`Modal` y `Drawer` por su propia lámina**                                                          | El arnés no consiguió disparar `overlays-modal--default` ni `overlays-drawer--default`: el clic sobre los botones de la story no abrió el `[role='dialog']`. Los valores de `Modal` que sí aparecen aquí vienen de `search-commandpalette--abierta`, que lo monta ya abierto. **`Drawer` no está medido en absoluto**; lo que se dice de él es herencia declarada, no medida |
 | **El segundo punto del foco: las cuatro listas de opciones**                                         | `Combobox`, `Select` y `MultiSelect` no se pudieron abrir, así que **no se verificó si se ven idénticas** entre sí ni contra el listbox propio de `GlobalSearch`. Era la mitad del encargo y queda sin hacer                                                                                                                                                                 |
 | **`Popover`, `Tooltip`, `Dialog`, `HoverCard`, `GlobalSearch`, `TransferList`, `Search`, `Filters`** | Sin medida. De `Popover`, `Dialog` y `HoverCard` solo se sabe, por WR2.1 A-2, que comparten `shadow.lg`                                                                                                                                                                                                                                                                      |
-| **`sober-light` y `playful`**                                                                        | Los tres hallazgos están medidos en `nebula-dark` y `nebula-light` únicamente. La rúbrica pide los cuatro; **estos hallazgos están a medio verificar** y podrían comportarse distinto en un tema sin cristal                                                                                                                                                                 |
+| **Temas sin cristal**                                                                                | Los tres hallazgos están medidos en `nebula-dark` y `nebula-light`, que traen cristal; **podrían comportarse distinto en un tema que lo apague**                                                                                                                                                                                                                             |
 | **El estado `hover` de las opciones**                                                                | El escalón de §5.1 (~1.08, y `active` al doble del delta) no se midió en ninguna lista                                                                                                                                                                                                                                                                                       |
 | **El paso 1: MIRAR**                                                                                 | Ningún overlay se ha visto abierto. A-1 es de los que se detectan a ojo en dos segundos: en light, la cabecera y el cuerpo no se separan                                                                                                                                                                                                                                     |
 | **El paso 4: Figma**                                                                                 | No ejecutado                                                                                                                                                                                                                                                                                                                                                                 |

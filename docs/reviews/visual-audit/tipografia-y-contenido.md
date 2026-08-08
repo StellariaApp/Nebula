@@ -81,7 +81,7 @@ Es el foco asignado a esta familia, y **diverge en las dos direcciones**: los t�
 - **Consecuencia para el usuario**: una tecla `Esc` a 10 px es el texto más pequeño del catálogo y va
   dentro de una caja de 18 px, por debajo del peldaño más bajo que el sistema define para lo compacto.
   Y como los valores son literales, **`Kbd` no responde al tema**: medido en `nebula-dark` y en
-  `sober-light`, los cinco tamaños salen idénticos al píxel. Un tema que recalibre la densidad mueve
+  `nebula-light`, los cinco tamaños salen idénticos al píxel. Un tema que recalibre la densidad mueve
   el catálogo entero menos esta pieza.
 - **Temas**: los cuatro, con valores idénticos — que es justamente el síntoma.
 - **Token propuesto**: `vars.size.compact.*` para el alto y `vars.font.size.caption`/`body3`/`body2`

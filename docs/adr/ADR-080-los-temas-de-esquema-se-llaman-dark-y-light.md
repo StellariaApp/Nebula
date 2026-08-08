@@ -3,12 +3,11 @@
 - **Estado**: **aceptada** · 2026-08-02 — a petición del propietario durante WB
 - **Enmienda**: los nombres del registro fijados en [ADR-020](ADR-020-identidad-visual-nebula.md) y
   documentados en `docs/02-theming.md` §3.
-- **No toca**: `sober-light` ni `playful`, que no llevan prefijo de marca.
 
 ## Contexto
 
 El registro de temas oficiales nombraba dos de sus cuatro entradas con el prefijo del sistema:
-`nebula-light`, `nebula-dark`, `sober-light`, `playful`. Dentro de Nebula ese prefijo no distingue
+`nebula-light` y `nebula-dark`. Dentro de Nebula ese prefijo no distingue
 nada —los cuatro son temas de Nebula—, así que sólo aparecía en dos de las cuatro claves y las
 desalineaba.
 
@@ -22,14 +21,12 @@ ortogonal a la marca, que es lo que de verdad es.
 
 Las claves del registro y el tipo pasan a ser:
 
-| Antes          | Ahora         |
-| -------------- | ------------- |
-| `nebula-light` | `light`       |
-| `nebula-dark`  | `dark`        |
-| `sober-light`  | `sober-light` |
-| `playful`      | `playful`     |
+| Antes          | Ahora   |
+| -------------- | ------- |
+| `nebula-light` | `light` |
+| `nebula-dark`  | `dark`  |
 
-`OfficialThemeName` queda en `"light" | "dark" | "sober-light" | "playful"`, y `meta.name` de cada
+`OfficialThemeName` queda en `"light" | "dark"`, y `meta.name` de cada
 tema acompaña a su clave.
 
 **Los exports con nombre no cambian**: siguen siendo `nebulaLight` y `nebulaDark`. Un `export const

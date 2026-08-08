@@ -6,6 +6,7 @@ import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Segment } from "../Segment/index.js";
 
 import * as styles from "./GridList.css.js";
@@ -37,6 +38,8 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
     modeLabels,
     withSwitcher = true,
     className,
+    toolbarProps,
+    itemProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -55,7 +58,7 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
       style={{ ...css_vars, ...sprinkle_style }}
     >
       {withSwitcher && modes.length > 1 ? (
-        <div className={styles.toolbar}>
+        <Box {...toolbarProps} className={cx(styles.toolbar, toolbarProps?.className)}>
           <Segment
             size="sm"
             value={current}
@@ -68,7 +71,7 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
               data={modes.map((entry) => ({ value: entry, label: text[entry] }))}
             />
           </Segment>
-        </div>
+        </Box>
       ) : null}
       {items.length === 0 && empty !== undefined ? (
         empty
@@ -79,9 +82,14 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
           {...(label === undefined ? {} : { "aria-label": label })}
         >
           {items.map((item, index) => (
-            <li key={getKey(item, index)} className={styles.item}>
+            <Box
+              key={getKey(item, index)}
+              component="li"
+              {...itemProps}
+              className={cx(styles.item, itemProps?.className)}
+            >
               {renderItem(item, current, index)}
-            </li>
+            </Box>
           ))}
         </ul>
       )}

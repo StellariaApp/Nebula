@@ -8,7 +8,7 @@ description: Guardrails de glass/blur/gradients/sombras de Nebula — materiales
 ## Reglas
 
 - Todos los efectos se consumen desde tokens (`effects.blur/glass/shadows/gradients` del theme) — nunca valores libres por componente.
-- **`effects.glass.enabled` es ley**: el preset sober lo apaga; todo componente glass degrada a superficie sólida semántica cuando está off.
+- **`effects.glass.enabled` es ley**: un tema puede apagarlo; todo componente glass degrada a superficie sólida semántica cuando está off.
 - Blur operativo máximo recomendado: `md` (8px) en superficies comunes; niveles altos solo en overlays puntuales.
 - Gradients SOLO desde `effects.gradients.{brand,accent,surface}` (tokens nuevos de Nebula) y como acento — nunca para texto principal ni como fondo dominante en pantallas de precisión operativa.
 - Sombras duales: cada token es `{ web: string, native: elevation map }` — nunca definir sombras por plataforma fuera del token.

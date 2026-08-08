@@ -23,7 +23,7 @@ MISIÓN:
    blur gaussiano real (reemplaza 5-tap), border gleam en shader. Dispersión prismática/caustics
    quedan como backlog documentado si el tiempo de la fase no da — pregunta prioridades si hay que
    recortar.
-4. Presets (ios/bold/frosted/dark) + integración con effects.glass del theme (sober lo apaga).
+4. Presets (ios/bold/frosted/dark) + integración con effects.glass del theme (un tema puede apagarlo).
 
 ACEPTACIÓN: demo en playground native con los 4 quality tiers forzables; reduced-motion y
 glass.enabled=false verificados; bundle base intacto (size-limit).

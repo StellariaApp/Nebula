@@ -213,7 +213,7 @@ componente no lo cubre.
 `effects.glass.enabled: false` (ADR-059) cambia el cristal por `surface.raised` con borde sólido y
 `backdrop-filter: none`. `motion.tier: "minimal"` o `prefers-reduced-motion` ponen
 `data-animated="false"`: el estado sigue cambiando, deja de animarse, y el indicador salta en vez de
-deslizarse. `sober-light` trae los dos y por eso es el tema del test de degradación.
+deslizarse. El test de degradación los apaga los dos con un tema ad-hoc (`theme-tweaks`).
 
 En `forced-colors` la pastilla pierde el cristal por `Canvas` y el enlace activo se subraya: el
 color del indicador no sobrevive al modo de alto contraste, y sin el subrayado el activo dejaría de

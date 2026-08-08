@@ -16,6 +16,6 @@ La identidad de Nebula son `indigo` `#3F37C9` y `violet` `#9D4EDD` (ADR-020): so
 
 Este paquete solo contiene los tokens **no cromáticos** (tipografía, motion, effects, layout) más las paletas generadas. Los valores de color que dependen del tema —roles de superficie, texto, borde y los gradientes— viven en `@stellaria/nebula-themes`.
 
-`spacing` se expresa como `unit × scale` para que la densidad sea temable: con `unit: 4` reproduce exactamente la escala absoluta heredada de Stellaria; `sober` usa 3 (compacta) y `playful` 5 (comfortable).
+`spacing` se expresa como `unit × scale` para que la densidad sea temable: con `unit: 4` reproduce exactamente la escala absoluta heredada de Stellaria; un tema puede bajarlo a 3 (compacta) o subirlo a 5 (comfortable).
 
 Las sombras son duales: `{ web: string, native: elevation map }` en un único token, para no duplicar la definición por plataforma.

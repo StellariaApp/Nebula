@@ -101,7 +101,8 @@ LO QUE LLEVA LA PORTADA
 IDENTIDAD
    Construida entera con Nebula. Dark por defecto. Los efectos premium se usan con los guardrails
    de la skill effects-guardrails: si un cristal o un gradiente compromete la legibilidad en el
-   tema sober, se cae — la portada no es una excepción a las reglas del catálogo, es su escaparate.
+   tema que apaga los materiales, se cae — la portada no es una excepción a las reglas del catálogo,
+   es su escaparate.
 
 TAMBIÉN EN ESTE PROMPT
    Metadatos sociales (OG por página, generadas), favicon, sitemap, robots. El sitio se publica en

@@ -38,8 +38,6 @@ ninguno de los dos.
 | -------------- | ------------------ | ------------------ | ----: | --------------------- |
 | `nebula-dark`  | `rgb(8,10,18)`     | `rgb(6,8,15)`      | 1.012 | idéntico a `Paper` ✅ |
 | `nebula-light` | `rgb(253,253,253)` | `rgb(255,255,255)` | 1.017 | ídem ✅               |
-| `sober-light`  | `rgb(255,255,255)` | `rgb(246,247,248)` | 1.073 | ídem ✅               |
-| `playful`      | `rgb(253,253,253)` | `rgb(255,255,255)` | 1.017 | ídem ✅               |
 
 Antes era **1.000 en los cuatro**. `Paper` y `Card` —los dos componentes que `docs/06` §5 pone en el
 nivel 1— ahora pintan la misma superficie.
@@ -118,7 +116,7 @@ checkpoints, y porque **dos de ellas resultaron ser una**.
 | ------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **C2**  | Peldaños intermedios en `sizes.compact`, o la decisión de que no faltan | `Tag` usa 18/22/26/38 y `Kbd` 18/34, ninguno en la escala (20/24/28/32/36). `Slider` necesita un peldaño de pulgar que no existe en ninguna de las dos escalas |
 | **C9**  | Rol `surface.disabled` y/o opacidad de texto deshabilitado tokenizada   | Cinco recetas en el catálogo; el fill del diseño (`#E6ECF3` light / `#1B2540` dark) no corresponde a ningún rol actual                                         |
-| **C13** | Que `color-mix`/`WithAlpha` reciban siempre un color                    | `color-mix(in srgb, <gradiente> 16%, transparent)` es inválido → el rango de fechas desaparece en `playful`                                                    |
+| **C13** | Que `color-mix`/`WithAlpha` reciban siempre un color                    | `color-mix(in srgb, <gradiente> 16%, transparent)` es inválido → el rango de fechas desaparece con un `filled` de gradiente                                    |
 | **C17** | Dirección de hover por variante en `VariantRecipe`                      | `ShiftRef` mueve siempre +1; con la base en el lado oscuro y texto blanco, el hover da 3.70 y `check:contrast` tumba 14 pares                                  |
 
 **C13 y C17 son la misma familia**: el resolver hace suposiciones sobre lo que `variantMap` le va a
@@ -146,7 +144,7 @@ Los seis puntos quedan con número o regla operable. **T3 está desbloqueado.**
 1. **`surface.overlay` es el mismo hex que `surface.base` en tres de los cuatro temas** — ratio
    **1.000**, no un escalón pequeño. `Menu`, `Popover`, `Dialog`, `Modal` y el skip-link de `AppShell`
    pintan exactamente el color del lienzo. C4 no era «el escalón se queda corto», era «no hay escalón».
-2. **En `sober-light`, las series `primary` e `info` de un gráfico son el mismo hex** (`#0099b3`,
+2. **Un tema puede dar el mismo hex a las series `primary` e `info` de un gráfico** (
    ΔE 0.0) y `accent`/`success` están a ΔE 2.0: seis series se dibujan con tres colores y medio.
 3. **Todo bloque de código en prosa renderiza a 11.7 px**, bajo el suelo de 12 px de §2, porque
    `${typography} pre code` resetea `padding` y `background` pero no el tamaño y el `0.9em` se aplica
@@ -188,7 +186,7 @@ QUÉ ESPECIFICAR, con el hueco exacto de cada una
    código. Decidir cuál gana y alinear el otro.
 
 3. C8 — ¿minHeight o height? El recipe `field` usa minHeight y cumple la escala; NavLink usa
-   minHeight y se sale (36 declarado, 40.3 real en nebula, 45.3 en playful). §4.1 dice en qué escala
+   minHeight y se sale (36 declarado, 40.3 real en nebula). §4.1 dice en qué escala
    tiene que caer la altura pero no si el componente debe forzarla. Decidir también si un control
    puede legítimamente no tener altura fija — la variante de NavLink con descripción son dos líneas.
 
@@ -238,12 +236,12 @@ COMPONENTES
 QUÉ HACER
 0. ADR-065, Y EN ESTE ORDEN. Primero SUBIR el escalón de superficie a ≥1.08 entre niveles
    adyacentes (los dos esquemas, todo par adyacente, sunken↔base incluido) y romper la igualdad
-   surface.overlay == surface.base, que hoy es EXACTA en nebula-dark, nebula-light y playful.
+   surface.overlay == surface.base, que hoy es EXACTA en nebula-dark y nebula-light.
    Solo DESPUÉS bajar la sombra a la tabla de §5.3 (nivel 3 → md, nivel 4 → lg). Al revés deja los
    overlays MENOS separados que hoy.
    Hay escalera conforme dentro de las paletas actuales: para nebula-dark, base=dark.50 →
    raised=dark.400 (1.098) → overlay=dark.600 (1.095). No hace falta ampliar el contrato.
-   OJO CON LIGHT: en sober-light surface.raised YA es blanco puro, así que el nivel 3 no tiene
+   OJO CON LIGHT: en un tema claro extremo surface.raised YA es blanco puro, así que el nivel 3 no tiene
    recorrido por encima. La escalera light se construye BAJANDO el lienzo, no subiendo el overlay;
    con escalón 1.08 un raised conforme no pasa de luminancia 0.9222 y gray.50 está en 0.9289.
 1. C6 — §5.2 pide ~1.3–1.4 EN AMBOS ESQUEMAS. Medido: el separador interno da 1.253 en dark y
@@ -275,7 +273,7 @@ Drawer, Menu, Popover, Dialog, HoverCard. Es el tramo que manda sobre la fecha d
 
 ## T4 — Sacar la geometría de los literales ✅ **ejecutado el 2026-08-01, con dos salvedades**
 
-**Resultado medido** (`nebula-dark`; idéntico en `sober-light`, y eso es lo correcto — ver la
+**Resultado medido** (`nebula-dark`; idéntico en los claros, y eso es lo correcto — ver la
 corrección del criterio más abajo):
 
 | Componente                   | Antes                  | Ahora                                                           | Origen                                   |

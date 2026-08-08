@@ -35,7 +35,7 @@ política honesta para una superficie que cambia de color bajo la misma línea d
 autoexplicativa: la letra tiene que leerse en el punto más difícil, no en el más fácil.
 
 Medido, no cambia ninguna tinta de los temas oficiales: `light` y `dark` siguen en blanca (4.53
-mínimo contra 4.33 de la oscura) y `playful` en oscura — su degradado de variante es cyan→lima, donde
+mínimo contra 4.33 de la oscura) y un degradado cyan→lima en oscura, donde
 la blanca daría **1.76:1**.
 
 ### 3. El autor puede declararlo, como en `orange`

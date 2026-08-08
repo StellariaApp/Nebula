@@ -21,16 +21,14 @@ primary · accent · success · warning · info · error
 Es decir: **reutiliza los roles semánticos como paleta categórica.** Medido sobre los cuatro temas
 oficiales (ΔE2000 y simulación dicromática Viénot–Brettel–Mollon):
 
-| Tema           | Peor ratio adyacente | Peor par                     | Peor ΔE dicromático |
-| -------------- | -------------------: | ---------------------------- | ------------------: |
-| `nebula-dark`  |                1.040 | `accent`/`error` 1.004       |             **3.5** |
-| `nebula-light` |                1.040 | `accent`/`error` 1.004       |             **3.5** |
-| `sober-light`  |                1.006 | **`primary`/`info` = 1.000** |             **0.0** |
-| `playful`      |                1.006 | `primary`/`accent` 1.006     |             **3.7** |
+| Tema           | Peor ratio adyacente | Peor par               | Peor ΔE dicromático |
+| -------------- | -------------------: | ---------------------- | ------------------: |
+| `nebula-dark`  |                1.040 | `accent`/`error` 1.004 |             **3.5** |
+| `nebula-light` |                1.040 | `accent`/`error` 1.004 |             **3.5** |
 
 Tres hallazgos, y el segundo es peor que lo que la auditoría reportó:
 
-1. **En `sober-light`, `primary` e `info` son el mismo hex** (`#0099b3`, ΔE2000 = **0.0**), y
+1. **Un tema puede dar el mismo hex a `primary` e `info`** (ΔE2000 = **0.0**), y
    `accent`/`success` están a ΔE 2.0 (`#00a177` vs `#00a270`). Un gráfico de seis series se dibuja
    allí con **tres colores y medio**. La auditoría reportó el par `primary`/`accent` de `nebula`
    (ratio 1.04) y no llegó a este, que es una colisión exacta.
@@ -43,7 +41,7 @@ Tres hallazgos, y el segundo es peor que lo que la auditoría reportó:
 algo —`error` es error—, y una serie categórica no significa nada: es la tercera. Colorear «Ingresos
 de marzo» con el rojo de error es incorrecto aunque los ratios salieran bien. Y como los roles
 semánticos de un tema **no tienen ninguna obligación de ser distinguibles entre sí** —no es lo que
-se les pide—, `sober-light` puede darle el mismo cian a `primary` y a `info` sin estar mal: el
+se les pide—, un tema puede darle el mismo cian a `primary` y a `info` sin estar mal: el
 defecto está en usarlos como paleta.
 
 ## Decisión
@@ -96,7 +94,7 @@ umbrales del punto 1 son el suelo, no el sustituto.
 
 - **Recalibrar los peldaños semánticos hasta que cumplan.** No amplía el contrato. Descartada por dos
   motivos: obliga a los roles semánticos a satisfacer una restricción que no es la suya —`error` debe
-  leerse como error, no ser distinguible de `info`— y en `sober-light` exigiría separar dos roles que
+  leerse como error, no ser distinguible de `info`— y en un tema así exigiría separar dos roles que
   el tema quiere próximos a propósito. Arregla el gráfico rompiendo el tema.
 - **Fijar Okabe-Ito como paleta de charts.** Cumple todo y es dominio público. Descartada como
   decisión: es una excelente **referencia de validación** —y se usa como tal— pero congelaría la

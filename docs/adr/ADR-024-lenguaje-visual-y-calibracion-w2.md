@@ -45,9 +45,9 @@
 - **Mantener solo tokens primitivos**: rechazada; deja decisiones de jerarquía y composición en cada
   autor y no evita la deriva visual.
 - **Hacer Nebula predominantemente glass/gradient**: rechazada; reduce legibilidad, escala mal en
-  interfaces densas y debilita el preset sober.
+  interfaces densas y debilita un tema sobrio.
 - **Reducir tamaños para una estética enterprise compacta**: rechazada como default; la densidad ya
-  se expresa con `sober` y tamaños de control. El tema principal debe priorizar lectura y presencia.
+  se expresa con un tema sobrio y tamaños de control. El tema principal debe priorizar lectura y presencia.
 - **Añadir de inmediato nuevas claves semánticas a `NebulaTheme`**: pospuesta. La primera calibración
   reutiliza las claves actuales; solo se ampliará el contrato si el checkpoint demuestra que no basta,
   mediante un ADR posterior.

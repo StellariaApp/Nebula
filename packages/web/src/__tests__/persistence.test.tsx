@@ -31,7 +31,7 @@ function Switcher() {
       data-testid="s"
       data-name={themeName}
       onClick={() => {
-        setTheme("playful");
+        setTheme("light");
       }}
     >
       x
@@ -52,8 +52,8 @@ describe("persistencia inyectable", () => {
       getByTestId("s").click();
     });
 
-    expect(storage.data.k).toBe("playful");
-    expect(getByTestId("s").getAttribute("data-name")).toBe("playful");
+    expect(storage.data.k).toBe("light");
+    expect(getByTestId("s").getAttribute("data-name")).toBe("light");
   });
 
   it("aplica el tema persistido al montar", () => {

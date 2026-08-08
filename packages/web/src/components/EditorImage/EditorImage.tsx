@@ -5,6 +5,8 @@ import { useMemo, useState, type ReactElement } from "react";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 import { Modal } from "../Modal/Modal.js";
 
 import * as styles from "./EditorImage.css.js";
@@ -36,6 +38,10 @@ export function EditorImage(props: EditorImageProps): ReactElement {
     fallback,
     labels,
     className,
+    triggerProps,
+    imageProps,
+    hintProps,
+    missingProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -60,19 +66,35 @@ export function EditorImage(props: EditorImageProps): ReactElement {
     <div className={cx(sprinkle_class, className)} style={sprinkle_style} {...rest}>
       <button
         type="button"
-        className={cx(styles.trigger, styles.radius[radius])}
-        style={css_vars}
         disabled={disabled || !has_editor}
         aria-label={text.open}
         onClick={() => {
           SetOpen(true);
         }}
+        {...triggerProps}
+        className={cx(styles.trigger, styles.radius[radius], triggerProps?.className)}
+        style={{ ...triggerProps?.style, ...css_vars }}
       >
-        <img className={styles.image} src={src} alt={alt} />
-        {has_editor ? <span className={styles.hint}>{text.open}</span> : null}
+        <img
+          {...imageProps}
+          className={cx(styles.image, imageProps?.className)}
+          src={src}
+          alt={alt}
+        />
+        {has_editor ? (
+          <Box component="span" {...hintProps} className={cx(styles.hint, hintProps?.className)}>
+            {text.open}
+          </Box>
+        ) : null}
       </button>
 
-      {has_editor ? null : (fallback ?? <p className={styles.missing}>{text.missingPeer}</p>)}
+      {has_editor
+        ? null
+        : (fallback ?? (
+            <Text {...missingProps} className={cx(styles.missing, missingProps?.className)}>
+              {text.missingPeer}
+            </Text>
+          ))}
 
       {has_editor && is_open ? (
         <Modal

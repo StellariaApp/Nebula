@@ -64,7 +64,7 @@ REGLAS
 
 - **Cero valores crudos.** Todo ajuste sale de un rol del tema o de un token. Si un color correcto
   no existe en el contrato, la salida es proponer el rol —con ADR— no escribir el hex.
-- **Los cuatro temas o ninguno.** Un ajuste que arregla nebula-dark y rompe sober-light no está
+- **Los dos temas o ninguno.** Un ajuste que arregla nebula-dark y rompe nebula-light no está
   hecho. `pnpm check:contrast` es condición necesaria y no suficiente: pasa el gate y aun así
   puede verse mal.
 - **La arquitectura de T1–T6 no se reabre.** Style props, capa de motion, escalas de tamaño y

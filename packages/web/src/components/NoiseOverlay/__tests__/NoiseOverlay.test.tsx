@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { GlassOff, NoiseAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { NoiseOverlay } from "../NoiseOverlay.js";
 
 afterEach(cleanup);
 
-type ThemeName = "light" | "dark" | "sober-light" | "playful";
-
-function RenderIn(ui: ReactNode, theme: ThemeName) {
+function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -30,8 +32,8 @@ describe("NoiseOverlay", () => {
     expect(node.getAttribute("data-noise")).toBe("on");
   });
 
-  it("playful sube el grano por tema, sin cambiar props", () => {
-    RenderIn(<NoiseOverlay data-testid="no" />, "playful");
+  it("el grano lo fija el tema, sin cambiar props", () => {
+    RenderIn(<NoiseOverlay data-testid="no" />, NoiseAt(0.03));
     expect(screen.getByTestId("no").getAttribute("style") ?? "").toMatch(/0\.03/);
   });
 
@@ -40,8 +42,8 @@ describe("NoiseOverlay", () => {
     expect(screen.getByTestId("no").getAttribute("style") ?? "").toMatch(/0\.08/);
   });
 
-  it("anula el override cuando el tema apaga glass (sober)", () => {
-    RenderIn(<NoiseOverlay opacity={0.08} data-testid="no" />, "sober-light");
+  it("anula el override cuando el tema apaga glass", () => {
+    RenderIn(<NoiseOverlay opacity={0.08} data-testid="no" />, GlassOff());
     const node = screen.getByTestId("no");
     expect(node.getAttribute("data-noise")).toBe("off");
     expect(node.getAttribute("style") ?? "").not.toMatch(/0\.08/);

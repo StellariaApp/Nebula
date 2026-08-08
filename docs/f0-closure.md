@@ -36,7 +36,7 @@
 
 ## Pendientes que abre F1 (theming dual + playgrounds — docs/05)
 
-- `@stellaria/nebula-themes`: **Zod schema** del contrato + temas oficiales `nebula-light`/`nebula-dark` completos + borradores `sober`/`playful` (los presets "radicales" son el test del theming).
+- `@stellaria/nebula-themes`: **Zod schema** del contrato + temas oficiales `nebula-light`/`nebula-dark` completos.
 - Runtime dual: `NebulaProvider` web (createThemeContract + CSS vars + `ColorSchemeScript`) y native (Unistyles configure + storage inyectable); `useTheme()` en hooks.
 - Ambos playgrounds arrancando (Storybook 10.5 web + Expo/SB-RN) con toolbar tema/scheme/reduced-motion.
 - Primeros primitivos demo (Box, Text, Button) en ambas plataformas.

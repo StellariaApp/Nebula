@@ -19,12 +19,12 @@ nada.
 
 Este componente **no** consulta `effects.glass.enabled`. Es la decisión del checkpoint de W4.1:
 `glass.enabled` gobierna glass, blur y ruido —los tres materiales que cuestan compositor—, no los
-gradientes. Un gradiente se neutraliza por sus **propios tokens**: `sober-light` define `brand` como
+gradientes. Un gradiente se neutraliza por sus **propios tokens**: un tema sobrio define `brand` como
 `blue.700 → blue.500`, monocromo, y ahí acaba la degradación. Es la misma regla que ya seguía
 `GradientText` desde W3.1.
 
 Lo que sí lee de `glass` es el grano opcional, que es ruido y por tanto sí cae bajo esa palanca:
-`grain` no pinta nada en sober.
+`grain` no pinta nada con `glass.enabled: false`.
 
 ## Orden de las capas
 

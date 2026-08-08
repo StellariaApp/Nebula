@@ -41,7 +41,7 @@ Los ids de story salen de `apps/playground-web/storybook-static/index.json`.
 
 ## Tres trampas que ya costaron un falso positivo
 
-1. **Medir `background-color` sin mirar `background-image`.** En `playful` varias superficies se
+1. **Medir `background-color` sin mirar `background-image`.** Con un tema de gradientes varias superficies se
    pintan con gradiente: el color computa a `rgba(0,0,0,0)` y parece que no hay fondo. Costó dos
    falsos hallazgos en WR2.7.
 2. **Medir el nodo equivocado en un compound.** El rango del `Calendar` se pinta en el `<td>`

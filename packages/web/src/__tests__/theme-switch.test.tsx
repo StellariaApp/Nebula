@@ -58,8 +58,8 @@ describe("NebulaProvider — switch de tema por clase", () => {
     expect(themeClass["light"]).not.toBe(themeClass["dark"]);
   });
 
-  it("demo: cicla los 4 temas oficiales reconfigurando SOLO la clase del contenedor", () => {
-    const names = ["light", "dark", "sober-light", "playful"] as const;
+  it("demo: cicla los temas oficiales reconfigurando SOLO la clase del contenedor", () => {
+    const names = ["light", "dark"] as const;
     function Cycler() {
       const { setTheme } = useTheme();
       return (

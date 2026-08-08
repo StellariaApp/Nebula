@@ -4,7 +4,7 @@
 >
 > Dos pasadas: estática sobre los `.css.ts` y sobre el DOM renderizado (Storybook estático +
 > Playwright, `getComputedStyle` y `getBoundingClientRect`), en tres temas —`nebula-dark`,
-> `sober-light` y `playful`— porque `nebula-light` comparte escalas con `nebula-dark` y lo que aquí se
+> los dos temas oficiales— porque `nebula-light` comparte escalas con `nebula-dark` y lo que aquí se
 > mide son geometrías, no colores.
 >
 > **Sin paso 4 (Figma)**: §4 vacía. Cobertura real: **9 de 27** con medida de render. Ver §6.
@@ -61,7 +61,7 @@ role="radio">` por estrella, dentro de un `role="radiogroup"`.
   | `lg`   |  8 px |  **20 px** | no                                   |
   | `xl`   | 10 px |  **24 px** | justo                                |
 
-  Idénticos en `nebula-dark` y `sober-light`: **no responden al tema**.
+  Idénticos en `nebula-dark` y `nebula-light`: **no responden al tema**.
 
 - **Origen en el código**: `Slider.css.ts:149-153` (`trackSize`) y `156-161` (`thumbSize`) son
   literales de píxel, sin token.
@@ -81,10 +81,10 @@ role="radio">` por estrella, dentro de un `role="radiogroup"`.
 - **Componente**: `FormField` · **Magnitud 4** · **Severidad A**
 - **Valores medidos** (`forms-formfield--with-error`, distancia real entre cajas):
 
-  | Relación        | nebula-dark | sober-light |  playful | Esperado (`docs/06` §3) |
+  | Relación | nebula-dark | nebula-light | Esperado (`docs/06` §3) |
   | --------------- | ----------: | ----------: | -------: | ----------------------- |
-  | label → ayuda   |    **0 px** |    **0 px** | **0 px** | `xxs`/`xs` (2–4 px) ❌  |
-  | ayuda → control |        8 px |        6 px |    10 px | `sm` ✅                 |
+  | label → ayuda | **0 px** | **0 px** | **0 px** | `xxs`/`xs` (2–4 px) ❌ |
+  | ayuda → control | 8 px | 6 px | 10 px | `sm` ✅ |
 
 - **Origen en el código**: `FormField.css.ts:8-15` — `header` es un `flex column` **sin `gap`**. El
   `gap: sm` que sí funciona es el del `root` (`styles/field.css.ts:18`), que separa el encabezado del
@@ -134,13 +134,13 @@ role="radio">` por estrella, dentro de un `role="radiogroup"`.
 
 Altura real del campo en `forms-inputs--sizes`, medida en los tres temas:
 
-| `size` | Altura medida | Peldaño      | `nebula-dark` | `sober-light` | `playful` |
+| `size` | Altura medida | Peldaño | `nebula-dark` | `nebula-light` |
 | ------ | ------------: | ------------ | ------------- | ------------- | --------- |
-| `xs`   |         30 px | `control.xs` | ✅            | ✅            | ✅        |
-| `sm`   |         36 px | `control.sm` | ✅            | ✅            | ✅        |
-| `md`   |         42 px | `control.md` | ✅            | ✅            | ✅        |
-| `lg`   |         50 px | `control.lg` | ✅            | ✅            | ✅        |
-| `xl`   |         60 px | `control.xl` | ✅            | ✅            | ✅        |
+| `xs` | 30 px | `control.xs` | ✅ | ✅ | ✅ |
+| `sm` | 36 px | `control.sm` | ✅ | ✅ | ✅ |
+| `md` | 42 px | `control.md` | ✅ | ✅ | ✅ |
+| `lg` | 50 px | `control.lg` | ✅ | ✅ | ✅ |
+| `xl` | 60 px | `control.xl` | ✅ | ✅ | ✅ |
 
 Detalle que importa: `styles/field.css.ts:102-129` declara **`minHeight`**, no `height` — el mismo
 patrón que hunde a `NavLink` en WR2.3. Aquí **no falla**, y la medida explica por qué: el `<input>`
@@ -158,7 +158,7 @@ les falta a `Rating` y a `Slider`.
 ### El ritmo del campo, en lo que se pudo medir
 
 `ayuda → control` sale `space.sm` y **sigue la base de espaciado del tema**: 8 px en `nebula-dark`,
-6 px en `sober-light`, 10 px en `playful`. Correcto según §3. El que falla es `label → ayuda` (A-3).
+y se mueve con la densidad del tema. Correcto según §3. El que falla es `label → ayuda` (A-3).
 
 ---
 

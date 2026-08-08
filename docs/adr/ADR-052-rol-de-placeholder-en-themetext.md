@@ -14,8 +14,6 @@ del valor escrito. La separación medida entre `text.muted` —con el que se pin
 | Tema         | separación |
 | ------------ | ---------: |
 | nebula-light |       1.74 |
-| playful      |       1.74 |
-| sober-light  |       2.32 |
 | nebula-dark  |       3.26 |
 
 En dark ya se corrigió lo que se podía sin tocar el contrato (`muted` de `gray.400` a `gray.500`,
@@ -52,12 +50,10 @@ Y la rampa gris no tiene medio peldaño: de `gray.700` a `gray.600` el contraste
    | Tema         | `muted`    | `placeholder`  | sobre el campo | separación vs. valor |
    | ------------ | ---------- | -------------- | -------------: | -------------------: |
    | nebula-light | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
-   | playful      | `gray.700` | **`gray.600`** |           4.54 |      1.74 → **2.34** |
    | nebula-dark  | `gray.500` | `gray.500`     |           5.38 |                 3.26 |
-   | sober-light  | `gray.700` | `gray.700`     |           5.43 |                 2.32 |
 
-   **dark y sober-light no se mueven porque ya están en su suelo**: el peldaño siguiente cae a 3.90 y
-   4.04 sobre su fondo de campo. En sober-light es además coherente con su identidad de tema de alto
+   **dark no se mueve porque ya está en su suelo**: el peldaño siguiente cae a 3.90 sobre su fondo de
+   campo. Es además coherente con su identidad de tema de alto
    contraste, por la que ya quedó exento de la revisión del separador (§7 de la revisión de origen).
 
 4. **Un campo deshabilitado pinta su placeholder con `text.disabled`**, vía

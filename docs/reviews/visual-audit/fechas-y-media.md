@@ -29,12 +29,10 @@ que quedaron.
 - **Componentes**: `Calendar` y `RangeCalendar` · **Magnitud 3** · **Severidad A**
 - **Valor medido** — fondo del `<td>` con `data-range-selected="true"`:
 
-  | Tema           | `background-color` del rango           | ¿Se ve?             |
-  | -------------- | -------------------------------------- | ------------------- |
-  | `nebula-dark`  | `color(srgb 0.549 0.608 1 / 0.16)`     | ✅                  |
-  | `nebula-light` | `color(srgb 0.333 0.333 0.953 / 0.16)` | ✅                  |
-  | `sober-light`  | `color(srgb 0 0.498 0.584 / 0.16)`     | ✅                  |
-  | **`playful`**  | **`rgba(0, 0, 0, 0)`**                 | ❌ **transparente** |
+  | Tema           | `background-color` del rango           | ¿Se ve? |
+  | -------------- | -------------------------------------- | ------- |
+  | `nebula-dark`  | `color(srgb 0.549 0.608 1 / 0.16)`     | ✅      |
+  | `nebula-light` | `color(srgb 0.333 0.333 0.953 / 0.16)` | ✅      |
 
 - **Mecanismo, identificado en el código**: `Calendar.tsx:77` y `RangeCalendar.tsx:86` calculan
 
@@ -43,18 +41,18 @@ que quedaron.
   ```
 
   `resolved.background` viene de `ResolveVariant`. En tres temas es **un color** y `color-mix`
-  funciona. En `playful` es **un gradiente**: medido sobre el día seleccionado, su `background-image`
+  funciona. Con un `filled` de gradiente, medido sobre el día seleccionado, su `background-image`
   es `linear-gradient(135deg, rgb(167,44,196) 0%, rgb(206,0,10…)`. `color-mix(in srgb,
 linear-gradient(…) 16%, transparent)` **no es válido**, así que la declaración se descarta y el
   fondo cae a su valor inicial: transparente. El `fallbackVar(rangeBg, primary.100)` del CSS **no
   protege**, porque la variable sí está definida — lo que es inválido es su contenido.
 
-- **Consecuencia para el usuario**: en `playful`, seleccionar un rango de fechas **no muestra el
+- **Consecuencia para el usuario**: con un `filled` de gradiente, seleccionar un rango de fechas **no muestra el
   rango**. Solo se ven los dos extremos marcados; los días intermedios se pintan exactamente igual que
   los días fuera de la selección. El componente sigue funcionando —el valor es correcto— pero el
   usuario no ve qué ha seleccionado.
-- **Alcance real**: no es «un defecto de `playful`». Es de **cualquier tema cuyo `variantMap` resuelva
-  `primary` a un gradiente**, y el Theme Creator permite construirlos. `playful` es el que lo destapa,
+- **Alcance real**: no es «un defecto de un tema concreto». Es de **cualquier tema cuyo `variantMap`
+  resuelva `primary` a un gradiente**, y el Theme Creator permite construirlos. Un tema así lo destapa,
   no el único afectado.
 - **Temas**: los cuatro medidos; falla en uno.
 - **Token propuesto**: no es de token. `color-mix` necesita un color, así que hay que resolver el
@@ -69,7 +67,6 @@ linear-gradient(…) 16%, transparent)` **no es válido**, así que la declaraci
   | Tema          | serie 0            | serie 1          | ratio de luminancia | Δrgb |
   | ------------- | ------------------ | ---------------- | ------------------: | ---: |
   | `nebula-dark` | `rgb(108,118,255)` | `rgb(237,65,66)` |            **1.04** |  235 |
-  | `sober-light` | `rgb(0,153,179)`   | `rgb(237,65,66)` |            **1.14** |  277 |
 
 - **Valor esperado**: `docs/06` no fija un mínimo de separación entre series (ver §5), pero la propia
   especificación insiste en que un estado no debe distinguirse **solo por color** (§6 lo exige para
@@ -92,14 +89,14 @@ linear-gradient(…) 16%, transparent)` **no es válido**, así que la declaraci
 Los dos parecían defectos graves en la primera medida y **no lo son**. Quedan escritos porque la
 próxima auditoría los va a encontrar igual:
 
-1. **«El día seleccionado es invisible en `playful`».** La primera medida dio
+1. **«El día seleccionado es invisible con un gradiente».** La primera medida dio
    `background-color: rgba(0,0,0,0)` con `color: rgb(255,255,255)` — texto blanco sobre nada, sobre un
-   lienzo blanco. **Falso**: `playful` pinta el día seleccionado con un **gradiente**, que vive en
+   lienzo blanco. **Falso**: un tema así pinta el día seleccionado con un **gradiente**, que vive en
    `background-image` y no en `background-color`. Contrastes reales del día seleccionado: **7.76**
-   (dark), **5.28** (light), **4.70** (sober) — los tres pasan AA.
+   (dark) y **5.28** (light) — los dos pasan AA.
 2. **«Los días del rango no se pintan».** La primera medida buscó el fondo en
    `[data-range-middle]`, que está en la celda interior. **Falso**: el rango se pinta en el `<td>`
-   envolvente con `data-range-selected` (`Calendar.css.ts:116`), y ahí sí está — salvo en `playful`,
+   envolvente con `data-range-selected` (`Calendar.css.ts:116`), y ahí sí está — salvo con un gradiente,
    que es A-1. La celda interior solo gobierna el hover.
 
 Moraleja para el resto de WR2: **medir `background-color` sin mirar `background-image` produce falsos
@@ -112,9 +109,9 @@ distinguen entre sí**, no solo del fondo. Lo verificado:
 
 | Estado        | Cómo se marca                                                                    | ¿Distinto de los demás?                                                |
 | ------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| seleccionado  | fondo sólido (o gradiente en `playful`) + texto invertido                        | **sí**, 4.70–7.76 de contraste                                         |
+| seleccionado  | fondo sólido (o gradiente si el tema lo remapea) + texto invertido               | **sí**, 4.70–7.76 de contraste                                         |
 | hoy           | `box-shadow: inset 0 0 0 1px border.strong` + `semibold` (`Calendar.css.ts:173`) | **sí**, y por dos canales a la vez —anillo y peso—, que es lo correcto |
-| rango         | fondo del `<td>` al 16 % del primario                                            | **sí** en tres temas, **no** en `playful` (A-1)                        |
+| rango         | fondo del `<td>` al 16 % del primario                                            | **sí** con un color, **no** con un gradiente (A-1)                     |
 | deshabilitado | `line-through` + `cursor: not-allowed` (`Calendar.css.ts:164`)                   | **sí**, y no depende solo del color                                    |
 
 Tres de los cuatro estados **no dependen exclusivamente del color** —hoy usa anillo y peso,
@@ -154,7 +151,7 @@ Vacío: el paso 4 no se ejecutó.
 | **`Carousel`, `ImageGallery`, `Lightbox`, `Player`, `RichTextEditor`**            | Sin medida de ningún tipo                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **`EditorImage`**                                                                 | **No tiene lámina** — hallazgo 5 del censo de WR1.1, que el propietario dejó abierto. No auditable                                                                                                                                                                                                                                                                                                                                                                               |
 | **La retícula densa del `Calendar`**                                              | El punto 1 del foco hablaba de «la única cuadrícula densa de texto del sistema». Se midieron los **estados**, no la **densidad**: tamaño de celda, gutter y medida del texto frente a `docs/06` §3–4 siguen sin verificar                                                                                                                                                                                                                                                        |
-| **El paso 1: MIRAR**                                                              | A-1 se ve a ojo en dos segundos: seleccionar un rango en `playful` y comprobar que no pasa nada                                                                                                                                                                                                                                                                                                                                                                                  |
+| **El paso 1: MIRAR**                                                              | A-1 se ve a ojo en dos segundos: seleccionar un rango con un `filled` de gradiente y comprobar que no pasa nada                                                                                                                                                                                                                                                                                                                                                                  |
 | **El paso 4: Figma**                                                              | No ejecutado                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 **Lo que este informe sostiene**: un defecto A con mecanismo identificado en el código y reproducido

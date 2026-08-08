@@ -7,7 +7,7 @@
 > vacía **por diseño, no por omisión**. Es lo que el propio encargo pide declarar en vez de forzar
 > comparaciones con hojas que no son de esta familia.
 >
-> Medido sobre el DOM renderizado en `nebula-dark`, `sober-light` y `playful` — los tres que
+> Medido sobre el DOM renderizado en `nebula-dark` y `nebula-light` — los dos que
 > discriminan aquí, porque `nebula-light` comparte con `nebula-dark` los ajustes de efectos.
 
 ## 1. Resumen
@@ -17,7 +17,7 @@
 | `Kanban` — estados solo por color |     1 |     0 |     0 | A-1      |
 | **Total**                         | **1** | **0** | **0** | **1**    |
 
-Los dos primeros puntos del foco —degradación de `sober` y contención de `playful`— salen
+Los dos primeros puntos del foco —degradación con glass off y contención del budget— salen
 **verificados y correctos** (§3). El tercero produce el único hallazgo.
 
 ---
@@ -57,41 +57,39 @@ Los dos primeros puntos del foco —degradación de `sober` y contención de `pl
 
 ## 3. Coherencia de familia
 
-### Punto 1 del foco — `sober` neutraliza, y los gradientes sobreviven: **correcto**
+### Punto 1 del foco — glass off neutraliza, y los gradientes sobreviven: **correcto**
 
 Ajustes declarados por tema:
 
-|                   | `glass.enabled` | `noiseOpacity` | `motion.tier` |
-| ----------------- | --------------- | -------------: | ------------- |
-| `nebula-dark`     | `true`          |           0.02 | `standard`    |
-| `nebula-light`    | `true`          |        (token) | `standard`    |
-| **`sober-light`** | **`false`**     |          **0** | **`minimal`** |
-| `playful`         | `true`          |           0.03 | `expressive`  |
+|                | `glass.enabled` | `noiseOpacity` | `motion.tier` |
+| -------------- | --------------- | -------------: | ------------- |
+| `nebula-dark`  | `true`          |           0.02 | `standard`    |
+| `nebula-light` | `true`          |        (token) | `standard`    |
 
 Y lo que hace el render, medido:
 
-| Componente           | `nebula-dark`                                         | `sober-light`                                                                                 | `playful`                                 |
+| Componente | `nebula-dark` | con `glass.enabled: false` |
 | -------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| `GlassSurface` fondo | `rgba(15,17,25,0.56)`                                 | **`rgb(255,255,255)` opaco** ✅                                                               | `rgba(255,255,255,0.48)`                  |
-| `AnimatedGradient`   | `data-animated=true`, `animation-name: DRIFT`, 7.56 s | **`false`, `animation-name: none`** ✅                                                        | `true`, `DRIFT`, 7.56 s                   |
-| `GradientBackground` | `linear-gradient(135deg, rgb(140,155,…))`             | **`linear-gradient(135deg, rgb(0,105,12…))`** ✅ sigue siendo gradiente, con la paleta sobria | `linear-gradient(135deg, rgb(167,44,1…))` |
-| `MeshGradientBg`     | `radial-gradient` + tinte al 24 %                     | `radial-gradient` + tinte teal al 24 % ✅                                                     | ídem, tinte naranja                       |
-| `StarField` estrella | `rgb(145,65,208)`                                     | `rgb(6,193,144)`                                                                              | `rgb(250,110,157)`                        |
+| `GlassSurface` fondo | `rgba(15,17,25,0.56)` | **`rgb(255,255,255)` opaco** ✅ | `rgba(255,255,255,0.48)` |
+| `AnimatedGradient` | `data-animated=true`, `animation-name: DRIFT`, 7.56 s | **`false`, `animation-name: none`** ✅ | `true`, `DRIFT`, 7.56 s |
+| `GradientBackground` | `linear-gradient(135deg, rgb(140,155,…))` | **`linear-gradient(135deg, rgb(0,105,12…))`** ✅ sigue siendo gradiente, con la paleta sobria | `linear-gradient(135deg, rgb(167,44,1…))` |
+| `MeshGradientBg` | `radial-gradient` + tinte al 24 % | `radial-gradient` + tinte teal al 24 % ✅ | ídem, tinte naranja |
+| `StarField` estrella | `rgb(145,65,208)` | `rgb(6,193,144)` | `rgb(250,110,157)` |
 
-Las dos mitades del encargo se cumplen: **`sober` apaga el cristal** —el fondo pasa de translúcido a
+Las dos mitades del encargo se cumplen: **glass off apaga el cristal** —el fondo pasa de translúcido a
 sólido, que es exactamente la degradación de ADR-059— **y los gradientes no desaparecen**, solo
 cambian a la paleta del tema. `AnimatedGradient` deja de animar por `motion.tier: minimal` sin dejar
 de pintar su estado final, como pide `docs/06` §6.
 
-### Punto 2 del foco — `playful` no se pasa: **correcto**
+### Punto 2 del foco — el budget no se pasa: **correcto**
 
-`playful` es «el tema que más fácil rompe el budget». Medido, no lo rompe:
+El foco preguntaba por «el tema que más fácil rompe el budget». Medido, no se rompe:
 
 - `GlassSurface`: alfa **0.48** frente a 0.56 de dark — mismo orden, no más agresivo.
 - `MeshGradientBg`: tinte al **24 %**, idéntico en los tres temas.
 - `noiseOpacity` **0.03** frente a 0.02 de dark: un punto por encima, no un salto.
 
-Lo que sí cambia en `playful` es el **tono** (naranja/magenta frente al índigo de dark), no la
+Lo que sí cambia entre temas es el **tono**, no la
 **intensidad** del efecto. Que es la distinción correcta: el tema recalibra la identidad, no el
 presupuesto.
 
@@ -118,23 +116,23 @@ extraer. Es la única de las ocho donde §4 vacía es el resultado correcto.
    una regla operable: no dice si un `GlassSurface` que contiene un `GradientBorder` son uno o dos
    efectos, ni a qué llama «región». Sin eso, el presupuesto no es verificable — ni por una auditoría
    ni por un gate.
-2. **`StarField` en `sober`.** Pinta estrellas en `rgb(6,193,144)`, un verde vivo, en el tema cuyo
-   contrato apaga cristal, ruido y animación. Es coherente con su paleta —el acento de `sober` es
+2. **`StarField` con los efectos apagados.** Pinta estrellas en `rgb(6,193,144)`, un verde vivo, en un
+   tema cuyo contrato apaga cristal, ruido y animación. Es coherente con su paleta —si el acento es
    teal— pero puede no serlo con la intención del tema. No lo marco como hallazgo porque **`docs/06`
-   no dice que `sober` deba desaturar**, solo que degrade los efectos, y eso lo cumple.
+   no dice que un tema así deba desaturar**, solo que degrade los efectos, y eso lo cumple.
 
 ---
 
 ## 6. No medido
 
-| Qué                                                 | Por qué                                                                                                                                                                                                                                                                                   |
-| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **El presupuesto de efectos en composición**        | Es el corazón del punto 2 del foco y **no es verificable con este instrumento**: «un efecto dominante por región» exige mirar composiciones reales, no componentes sueltos. Lo medido es que ningún componente individual se excede en `playful`; **no** que una pantalla no acumule tres |
-| **`backdrop-filter` y `blur` reales**               | El headless **neutraliza los filtros** — verificado en WR2.7: un `blur(16px)` puesto inline computa a `blur(0px)`. Se puede afirmar que `sober` deja el fondo **opaco** (eso es `background-color`, fiable) pero **no** cuánto desenfoca `nebula-dark`. Hace falta un navegador con GPU   |
-| **Los estados de arrastre en movimiento**           | A-1 sale de leer los `.css.ts`, no de arrastrar: los estados solo existen durante el gesto y no se simuló. Lo que está medido son las **reglas**, no su render                                                                                                                            |
-| **`BlurOverlay`, `NoiseOverlay`, `GradientBorder`** | No aparecieron en las láminas recorridas. Tres de los diez sin medida                                                                                                                                                                                                                     |
-| **`reduced-motion`**                                | Solo se verificó la degradación por `motion.tier`. El `@media (prefers-reduced-motion)` no se forzó en ningún tema                                                                                                                                                                        |
-| **El paso 1: MIRAR**                                | Nadie ha visto los efectos juntos. El presupuesto de §6 es, por definición, un juicio visual                                                                                                                                                                                              |
+| Qué                                                 | Por qué                                                                                                                                                                                                                                                                                        |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **El presupuesto de efectos en composición**        | Es el corazón del punto 2 del foco y **no es verificable con este instrumento**: «un efecto dominante por región» exige mirar composiciones reales, no componentes sueltos. Lo medido es que ningún componente individual se excede; **no** que una pantalla no acumule tres                   |
+| **`backdrop-filter` y `blur` reales**               | El headless **neutraliza los filtros** — verificado en WR2.7: un `blur(16px)` puesto inline computa a `blur(0px)`. Se puede afirmar que con glass off el fondo queda **opaco** (eso es `background-color`, fiable) pero **no** cuánto desenfoca `nebula-dark`. Hace falta un navegador con GPU |
+| **Los estados de arrastre en movimiento**           | A-1 sale de leer los `.css.ts`, no de arrastrar: los estados solo existen durante el gesto y no se simuló. Lo que está medido son las **reglas**, no su render                                                                                                                                 |
+| **`BlurOverlay`, `NoiseOverlay`, `GradientBorder`** | No aparecieron en las láminas recorridas. Tres de los diez sin medida                                                                                                                                                                                                                          |
+| **`reduced-motion`**                                | Solo se verificó la degradación por `motion.tier`. El `@media (prefers-reduced-motion)` no se forzó en ningún tema                                                                                                                                                                             |
+| **El paso 1: MIRAR**                                | Nadie ha visto los efectos juntos. El presupuesto de §6 es, por definición, un juicio visual                                                                                                                                                                                                   |
 
 **Lo que este informe sostiene**: la degradación de ADR-059 funciona en los dos ejes y en los tres
 temas medidos, y hay una incoherencia real entre `Kanban` y `DragDrop` con criterio WCAG detrás.

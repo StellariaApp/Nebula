@@ -44,7 +44,7 @@ deuda no era solo una impresión general. W2.V adopta estos criterios verificabl
 
 - Contrato único Web/Native y personalización exclusiva vía temas.
 - Separación paletas/primitivas/roles y `variantMap` en runtime.
-- Dark-first, identidad indigo→violet y presets sober/playful como prueba antifork.
+- Dark-first e identidad indigo→violet; el theming es la prueba antifork.
 - React Aria + Vanilla Extract + motion y el testing contract por componente.
 - Budgets por módulo y disciplina de subpaths para dependencias pesadas.
 - `baseLayer` para permitir style props sin romper contraste.

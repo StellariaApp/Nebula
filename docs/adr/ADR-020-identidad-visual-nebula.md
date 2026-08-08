@@ -38,6 +38,6 @@ El gate `pnpm check:contrast` (5 temas × 28 pares) es el juez definitivo y debe
 ## Consecuencias
 
 - `packages/tokens/src/tokens/palettes.ts` se regenera (archivo generado, no editable a mano).
-- Los 4 temas oficiales cambian de color sin cambios estructurales; `sober` y `playful` mantienen sus propias semillas de primary/accent (blue/teal y grape/pink) — solo heredan las paletas regeneradas.
+- Los temas oficiales cambian de color sin cambios estructurales: solo heredan las paletas regeneradas.
 - `docs/02-theming.md` §3 se actualiza con las semillas y con el default dark.
 - Cualquier captura o material de marketing anterior queda desalineado; se regenera al montar el Theme Creator (F5).

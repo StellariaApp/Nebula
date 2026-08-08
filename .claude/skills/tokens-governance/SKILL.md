@@ -20,7 +20,7 @@ description: Gobernanza de @stellaria/nebula-tokens — contrato NebulaTheme cer
 - [ ] ¿El cambio vive en `packages/tokens` y no en web/native/app?
 - [ ] ¿`src/__checks__/contract.test-d.ts` sigue verde (Keys* ≡ keyof Props; tema de ejemplo compila)?
 - [ ] ¿`pnpm check:contrast` sigue verde?
-- [ ] ¿Los temas oficiales/presets (light/dark/sober/playful) siguen consistentes?
+- [ ] ¿Los temas oficiales (light/dark) siguen consistentes?
 - [ ] ¿Sin aliases redundantes para el mismo token?
 - [ ] ¿Exportado en el barrel correspondiente con especificador ESM `.js`?
 

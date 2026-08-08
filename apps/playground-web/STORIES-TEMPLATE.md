@@ -12,7 +12,7 @@
 
 ## Toolbar global (ya disponible)
 
-- **Tema**: `light` / `dark` / `sober-light` / `playful` (decorator envuelve cada story en `NebulaProvider`, remonta al cambiar).
+- **Tema**: `light` / `dark` (decorator envuelve cada story en `NebulaProvider`, remonta al cambiar).
 - **Motion**: `Motion on` / `Reduced motion` (simula `prefers-reduced-motion`).
 - **Viewport**: phone/tablet/laptop/desktop/wide (breakpoints del theme).
 
@@ -27,7 +27,7 @@
 | `Dark`          | fijado en `dark` vía `globals` (además del toggle de toolbar).                          |
 | `ReducedMotion` | fijado en reduced-motion; verifica el fallback de animación.                            |
 | `Composition`   | uso real con jerarquía, ritmo y componentes vecinos; obligatorio si es visual.          |
-| `AllThemes`     | misma composición en dark/light/sober/playful, sin cambiar props estructurales.         |
+| `AllThemes`     | misma composición en dark/light, sin cambiar props estructurales.                       |
 
 **Play function de teclado** (obligatoria donde haya interacción): Tab/Enter/Space/flechas/Esc/Home/End según el patrón APG del componente (docs/03 §1). Usa `play` + `@storybook/test`.
 

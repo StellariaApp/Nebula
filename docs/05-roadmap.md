@@ -17,13 +17,13 @@
 
 ### W1 — Theming web + playground web _(cerrada — ver `docs/w1-closure.md`)_
 
-**Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `light/dark`, borradores `sober`/`playful`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
+**Entregables**: `@stellaria/nebula-themes` (Zod schema, temas `light/dark`, `loadTheme`); runtime web (`createThemeContract` VE, `NebulaProvider`, `ColorSchemeScript`, `useTheme` + hooks base migrados); `apps/playground-web` (Storybook 10.5 + toolbar tema/scheme/reduced-motion + addon-a11y + size-limit); **piloto de anatomía** (Box, Text, Button completos) que valida las 3 capas de 01 §4.
 **Gate**: cambiar tema reconfigura los pilotos sin tocar código; axe y size-limit verdes; Button con testing contract al 100% (plantilla para todo lo demás).
 
 ### W2 — Web Tier 1 _(cerrada — ver `docs/w2-closure.md`)_
 
 **Entregables**: Foundation/Layout, Typography, Utilities, `@stellaria/nebula-icons` (registry lucide), Buttons/Actions, sistema de forms (FormField + `NebulaField` + `useFieldProps`), inputs básicos, Combobox + Select/MultiSelect, overlays core (Modal, Drawer, Popover, Tooltip, Menu), feedback (Alert, Toast+provider, Loader, Skeleton, Progress), Card compound, Avatar, Badge, navegación core, EmptyState.
-**Gate**: testing contract por componente; axe 0 violaciones; presets sober/playful sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox; láminas `Foundations/Visual QA` y review visual según `docs/06-visual-language.md`.
+**Gate**: testing contract por componente; axe 0 violaciones; los temas oficiales sin componentes "rotos"; budgets; keyboard tests de overlays/menu/combobox; láminas `Foundations/Visual QA` y review visual según `docs/06-visual-language.md`.
 
 ### W3 — Web Tier 2 ✅ CERRADA (docs/w3-closure.md)
 
@@ -124,7 +124,7 @@ typecheck TS7 estricto (lint con contingencia 5.9.3 — ADR-012) · lint (+regla
 
 1. ~~`@stellaria/nebula-icons` como paquete separado~~ — **CONFIRMADO**.
 2. ~~`@stellaria/nebula-people` y `@stellaria/nebula-maps`~~ — **CONFIRMADOS** ambos en el plan premium.
-3. ~~Presets demostrativos `sober` y `playful`~~ — **APROBADOS** nombre y dirección.
+3. ~~Presets demostrativos `sober` y `playful`~~ — retirados en ADR-108; el catálogo oficial queda en `light` y `dark`.
 4. **Valores finales de motion tokens y budgets de bundle**: provisionales, se calibran en W1/W2.
 5. **Changesets** y mecánica exacta del registry privado premium: se decide con mini-ADR en W5/W6.1.
 6. ~~**TipTap vs Lexical**~~ + ~~**cmdk vs propio**~~ — **SUPUESTO CERRADO POR COMPLETO**. La mitad de cmdk la cerró **ADR-057/W3.4** (propio sobre React Aria; cmdk descartado al verificar que arrastra 4 paquetes de Radix, uno de ellos un sistema de diálogo completo). La del editor la cierra **ADR-061/W4.3**: TipTap 3.29.2 es definitivo y Lexical queda descartado por seguir en 0.x —mismo criterio que descartó `@dnd-kit/react` en ADR-060—, con W5 publicando el core.

@@ -51,6 +51,8 @@ export interface CodeHighlightTab extends Omit<CodeHighlightProps, "className"> 
 }
 
 export interface CodeHighlightTabsProps extends StyleProps {
+  /** La barra de pestanas. Cada bloque se configura por su entrada de `tabs`, no desde aqui. */
+  tabListProps?: BoxSlotProps | undefined;
   tabs: readonly CodeHighlightTab[];
   value?: string | undefined;
   defaultValue?: string | undefined;

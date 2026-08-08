@@ -116,7 +116,7 @@ no una composición del consumidor.** Sustituye a la decisión 6.
 13. **Degrada por tema, en los dos ejes.** `effects.glass.enabled: false` (ADR-059) sustituye el
     cristal por `surface.raised` con borde sólido y `backdrop-filter: none`; `motion.tier: "minimal"`
     o `prefers-reduced-motion` ponen `data-animated="false"` y la transición desaparece — el cambio
-    de estado sigue ocurriendo, sin animarse. Verificado en `sober-light`, que trae los dos.
+    de estado sigue ocurriendo, sin animarse. Verificado con un tema que apaga los dos.
 
 14. **El material sale del contrato, no de hex.** Fondo, borde y `backdrop-filter` salen de
     `vars.glass.default`; el resto, de `vars.radius.lg`, `vars.shadow.lg` y `vars.zIndex.sticky`. La

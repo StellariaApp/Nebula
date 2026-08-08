@@ -57,7 +57,7 @@ export const Sizes: Story = {
   ),
 };
 
-/** Cada variante del variantMap. Un tema puede remapearlas: sober apaga glass, glow y gradient. */
+/** Cada variante del variantMap. Un tema puede remapear cualquiera de ellas. */
 export const Variants: Story = {
   render: () => (
     <Flex wrap="wrap" gapx="md" gapy="md" p="lg" bg="surface.base">

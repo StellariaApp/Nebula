@@ -18,8 +18,7 @@ MISIÓN — implementar packages/themes (@stellaria/nebula-themes):
 2. Temas oficiales COMPLETOS como JSON tipado (`satisfies NebulaTheme`): `nebula-light` y `nebula-dark`
    (enterprise vibrante, indigo/violet primary, Geist, motion tier standard, glass on — decisión Stellaria).
    Mapear roles semánticos (surface/text/border/semantic) a pasos concretos de las paletas.
-3. Borradores de presets demostrativos `sober` (radius mínimo, densidad compacta, motion minimal, glass off)
-   y `playful` (radius full, gradients, motion expressive) — aprobados por el propietario; valores iniciales
+3. Los dos temas oficiales `light` y `dark` — aprobados por el propietario; valores iniciales
    razonables, se calibran visualmente en W1.3/W1.4.
 4. `loadTheme(json: unknown): NebulaTheme` — valida con themeSchema y lanza errores legibles.
 5. Tests: los 4 temas validan contra el schema; `pnpm check:contrast` en verde para los 4 (o reporte
@@ -59,7 +58,7 @@ RESTRICCIONES: cero CSS runtime fuera de la inyección de vars; nebula-hooks sol
 política de preguntas del propietario.
 
 ACEPTACIÓN: build/typecheck/lint/test verdes; demo mínima (html estático o test) demostrando
-switch light↔dark↔sober↔playful solo cambiando la clase.
+switch light↔dark solo cambiando la clase.
 REPORTE: decisiones de implementación del contract (naming de vars) y dudas para W1.3.
 ```
 
@@ -76,7 +75,7 @@ docs\adr\ADR-015-testing-stack.md, apps\playground-web\ (placeholder de F0).
 
 MISIÓN — montar apps/playground-web:
 1. Storybook 10.5 (framework react-vite) consumiendo @stellaria/nebula-web con los temas reales.
-2. Toolbar global: selector de tema (nebula-light/dark/sober/playful), toggle prefers-reduced-motion,
+2. Toolbar global: selector de tema (light/dark), toggle prefers-reduced-motion,
    viewport presets. Decorator que envuelve toda story en NebulaProvider.
 3. addon-a11y (axe) activo + test-runner configurado para ejecutar axe sobre TODAS las stories en CI
    (task turbo `a11y`); fallo = exit code ≠ 0.
@@ -121,7 +120,7 @@ MISIÓN — implementar 3 componentes COMPLETOS en packages/web como plantilla c
    qué va en cada capa, cómo se consume el theme) — será la referencia de W2–W4.
 
 RESTRICCIONES: los componentes SOLO leen roles semánticos del theme (nunca paletas crudas ni hex);
-Button debe verse coherente (no "roto") en sober y playful — es el gate del theming. Política de
+Button debe verse coherente (no "roto") en los dos temas — es el gate del theming. Política de
 preguntas del propietario.
 
 ACEPTACIÓN (gate de W1 completo — docs\05-roadmap.md): cambiar tema reconfigura los 3 pilotos sin

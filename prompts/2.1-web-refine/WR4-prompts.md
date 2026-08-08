@@ -40,7 +40,7 @@ CERO VALORES CRUDOS
   Un hex en un .css.ts es el fallo que esta fase existe para eliminar, no una solución rápida.
 
 LOS CUATRO TEMAS O NINGUNO
-  Un ajuste que arregla nebula-dark y rompe sober-light no está hecho. `pnpm check:contrast` es
+  Un ajuste que arregla nebula-dark y rompe nebula-light no está hecho. `pnpm check:contrast` es
   condición NECESARIA Y NO SUFICIENTE: pasa el gate y aun así puede verse mal. Mira los cuatro.
 
 UNA CAUSA POR COMMIT, NO UN COMPONENTE

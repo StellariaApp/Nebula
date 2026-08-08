@@ -53,6 +53,8 @@ export interface FilterLabels {
 }
 
 export interface FilterProps {
+  /** La fila de los dos campos. Solo existe cuando el filtro es de tipo `range`. */
+  rangeProps?: BoxSlotProps | undefined;
   filter: FilterDescriptor;
   accessors: FilterAccessors;
   size?: Size | undefined;

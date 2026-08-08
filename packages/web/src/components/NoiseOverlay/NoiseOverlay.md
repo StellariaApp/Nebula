@@ -3,9 +3,9 @@
 ## El grano es un token, no un adorno
 
 `effects.glass.noiseOpacity` existe en el contrato desde F0 y hasta W4 no lo leía nadie. Este
-componente es su consumidor: sin prop `opacity` toma el valor del tema —0.02 en los dos `nebula`, 0.03
-en `playful`, **0 en sober**—, de modo que la degradación por tema es el comportamiento por defecto y
-no una rama especial.
+componente es su consumidor: sin prop `opacity` toma el valor del tema —0.02 en `light` y `dark`, y 0
+en un tema que apague los materiales—, de modo que la degradación por tema es el comportamiento por
+defecto y no una rama especial.
 
 `effects.glass.enabled === false` fuerza 0 **aunque el consumidor pase `opacity`**. Es deliberado: si
 el tema declara que no hay materiales, un override local no debería poder reintroducirlos, igual que
@@ -15,7 +15,7 @@ el tema declara que no hay materiales, un override local no debería poder reint
 
 `vars.glass.noiseOpacity` es una var del contract, así que un `NoiseOverlay` puramente CSS habría sido
 server-safe y sin `"use client"`. Se descarta por la regla del párrafo anterior: `glass.enabled` es data
-no-CSS (`docs/02` §4) y sin leerla no hay forma de anular un `opacity` explícito en sober.
+no-CSS (`docs/02` §4) y sin leerla no hay forma de anular un `opacity` explícito.
 
 ## El SVG va inline, no como asset
 

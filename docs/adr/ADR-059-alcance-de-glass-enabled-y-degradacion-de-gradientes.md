@@ -4,18 +4,18 @@
 - **Contexto**
 
   El prompt de W4.1 pedía que los ocho componentes de efectos degradasen «con
-  `effects.glass.enabled=false` del tema (sober)». Al aterrizar la familia aparecieron dos lecturas
+  `effects.glass.enabled=false` del tema». Al aterrizar la familia aparecieron dos lecturas
   incompatibles de esa frase, y una de ellas contradice una decisión ya escrita:
 
   - `docs/02` §2 punto 2 presenta `motion.tier` y `effects.glass.enabled` como los dos interruptores
     del tema, y la skill `effects-guardrails` la formula como «todo componente **glass** degrada a
     superficie sólida semántica cuando está off».
   - `GradientText.md` (W3.1, ADR-043) dejó por escrito lo contrario para los gradientes:
-    «`effects.glass.enabled` es específica de glass y los cuatro temas oficiales —sober incluido—
+    «`effects.glass.enabled` es específica de glass y todos los temas oficiales
     pueblan `effects.gradients`. Añadir esa palanca es un cambio del contrato compartido y necesita
     su propio ADR; queda anotado como deuda».
 
-  Sin resolverlo, W4.1 habría entregado cinco componentes de gradiente que se apagan en sober y un
+  Sin resolverlo, W4.1 habría entregado cinco componentes de gradiente que se apagan con glass off y un
   `GradientText` que no, con la misma familia partida en dos comportamientos.
 
 - **Decisión**
@@ -25,7 +25,7 @@
      `noise`/`grain` de cualquier componente que compongan la capa de `styles/noise.css.ts`.
   2. **Los gradientes no consultan esa palanca.** Un gradiente se neutraliza por sus **propios
      tokens**: es responsabilidad de cada tema definir `effects.gradients` con la intensidad que le
-     corresponde. `sober-light` ya lo hace —`brand` es `blue.700 → blue.500` y `accent` es
+     corresponde. Un tema sobrio lo haría —`brand` como `blue.700 → blue.500` y `accent` como
      `teal.700 → teal.500`, ambos monocromos— y ese es el contrato que un tema sobrio debe cumplir.
   3. **La animación de un efecto la gobierna `motion.tier`**, no `glass.enabled`. `AnimatedGradient`
      y `StarField` se detienen con `tier: "minimal"` y con `prefers-reduced-motion`, cada uno con su
@@ -49,9 +49,9 @@
 - **Consecuencias**
 
   - Regla verificable por test en todo componente de efectos nuevo: si consume `blur`,
-    `backdrop-filter` o la capa de ruido, tiene un test que lo apaga en `sober-light`; si consume
-    `effects.gradients`, tiene un test que comprueba que **sigue pintando** en `sober-light`.
-  - «Sober neutraliza los efectos» significa, de forma verificable: glass off, blur cerrado a scrim
+    `backdrop-filter` o la capa de ruido, tiene un test que lo apaga con `glass.enabled: false`; si
+    consume `effects.gradients`, tiene un test que comprueba que **sigue pintando** con glass off.
+  - «Un tema sobrio neutraliza los efectos» significa, de forma verificable: glass off, blur cerrado a scrim
     opaco, `noiseOpacity: 0` y `tier: "minimal"`. **No** significa fondo plano.
   - Un tema que quiera gradientes neutros los define neutros. La responsabilidad es del tema, y el
     gate de contraste (ADR-040) sigue evaluando cada stop.

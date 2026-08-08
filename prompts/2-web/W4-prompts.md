@@ -13,13 +13,13 @@ C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend\docs\style-system-research.md
 
 MISIÓN:
 1. Completar los tokens `effects.gradients` en nebula-tokens/themes si F0 los dejó como esqueleto
-   (brand/accent/surface por tema; sober los define neutros).
+   (brand/accent/surface por tema; un tema sobrio los definiría neutros).
 2. Componentes (§1.15 web): GlassSurface (backdrop-filter + guardrails: prohibido en tablas densas/
    forms críticos — documenta la regla en el JSDoc), GradientText, GradientBorder, GradientBackground,
    AnimatedGradient, MeshGradientBg (CSS), BlurOverlay, NoiseOverlay.
-3. Todos degradan con prefers-reduced-motion y con `effects.glass.enabled=false` del tema (sober).
+3. Todos degradan con prefers-reduced-motion y con `effects.glass.enabled=false` del tema.
 
-REPORTE: captura de los 8 en los 4 temas (stories) + verificación de que sober los neutraliza.
+REPORTE: captura de los 8 en los temas oficiales (stories) + verificación de que glass off los neutraliza.
 ```
 
 ## Prompt W4.2 — DnD/Kanban + Carousel + media

@@ -12,7 +12,7 @@ Unidades: px para dimensiones, ms para duraciones, unitless para weight/lineHeig
 
 Traduce las referencias serializables de una `VariantRecipe` (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`) a valores CSS que los componentes asignan a sus vars locales.
 
-Las referencias a escala se resuelven a **`var(...)` del contrato, nunca a hex**: así, cambiar de tema oficial repinta por CSS sin JS, y solo se recalcula cuando cambia la receta en sí (por ejemplo, `playful` pinta `filled` con gradiente).
+Las referencias a escala se resuelven a **`var(...)` del contrato, nunca a hex**: así, cambiar de tema oficial repinta por CSS sin JS, y solo se recalcula cuando cambia la receta en sí (por ejemplo, un tema que pinte `filled` con gradiente).
 
 Los estados derivan de la receta: el hover desplaza un paso de escala (600→700, el par que valida `check:contrast`) y los fondos transparentes se insinúan con un tinte de la escala activa. El alpha usa `color-mix`, que permite aplicar transparencia a una var sin conocer su valor.
 

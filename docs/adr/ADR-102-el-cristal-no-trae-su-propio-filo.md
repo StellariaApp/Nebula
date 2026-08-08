@@ -63,8 +63,8 @@ es tan translúcido como un filo. Con esto, volver a bordes con alfa vuelve a se
 ## Consecuencias
 
 - Un solo sistema de borde. Un componente con cristal usa los mismos roles que el resto.
-- **Tres temas tienen `subtle` y `default` en el mismo valor** tras la atenuación —`sober-light`,
-  `playful` y `dark`—, porque su `base` deja poco recorrido de rampa por encima. El rol `subtle`
+- **`dark` tiene `subtle` y `default` en el mismo valor** tras la atenuación, porque su `base` deja
+  poco recorrido de rampa por encima. El rol `subtle`
   pierde contenido propio ahí; si se quiere recuperar, hay que mover `base`, no el borde.
 - Gates en verde: contraste 116/116 en 5 temas, 1188 tests, a11y 86 suites y 594 tests, `size` sin
   excesos.

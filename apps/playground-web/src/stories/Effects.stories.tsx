@@ -246,7 +246,7 @@ export const AllThemes: Story = {
               Glass
             </Text>
             <Text component="p" fz="caption" c="text.muted">
-              sober lo apaga
+              glass off lo apaga
             </Text>
           </GlassSurface>
         </Box>

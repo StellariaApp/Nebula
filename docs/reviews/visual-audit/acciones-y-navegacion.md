@@ -38,12 +38,10 @@ propio; esto es lo que sale al medirlo.
 - **Componente**: `NavLink` · **Magnitud 4** (espaciado) · **Severidad A**
 - **Valores medidos** (`navigation-overview--nav-links`, altura real del `NavLink_root`):
 
-  | Tema           | `min-height` declarado | `padding-block` | **Altura real** | ¿Es un peldaño?  |
-  | -------------- | ---------------------: | --------------: | --------------: | ---------------- |
-  | `nebula-dark`  |   36 px (`control.sm`) |           10 px |     **40.3 px** | **no**           |
-  | `nebula-light` |                  36 px |           10 px |     **40.3 px** | **no**           |
-  | `sober-light`  |                  36 px |          7.5 px |       **36 px** | sí, `control.sm` |
-  | `playful`      |                  36 px |         12.5 px |     **45.3 px** | **no**           |
+  | Tema           | `min-height` declarado | `padding-block` | **Altura real** | ¿Es un peldaño? |
+  | -------------- | ---------------------: | --------------: | --------------: | --------------- |
+  | `nebula-dark`  |   36 px (`control.sm`) |           10 px |     **40.3 px** | **no**          |
+  | `nebula-light` |                  36 px |           10 px |     **40.3 px** | **no**          |
 
   Con descripción (dos líneas): 58.3 · 58.3 · 52.8 · 63.8 px.
 
@@ -57,9 +55,10 @@ propio; esto es lo que sale al medirlo.
   peldaños son 30 / 36 / 42 / 50 / 60 y **`sizes` no se recalibra en ningún tema** (verificado: los
   cuatro importan el mismo objeto). 40.3 y 45.3 no existen en `control` ni en `compact`.
 - **Consecuencia para el usuario**: un `NavLink` no alinea con nada de su propia familia, y **no falla
-  igual en los cuatro temas**. Junto a un `Pagination` (36 px) y a un `Button` (42 px): en `sober`
-  coincide con la paginación, en `nebula` cae entre los dos, y en `playful` sobrepasa al botón. Una
-  barra lateral de ocho enlaces acumula **74 px de diferencia** entre `sober` y `playful` — el
+  igual en todos los temas**. Junto a un `Pagination` (36 px) y a un `Button` (42 px) cae entre los
+  dos en `nebula`; con una densidad compacta coincide con la paginación y con una comfortable
+  sobrepasa al botón. Una barra lateral de ocho enlaces acumula **74 px de diferencia** entre los dos
+  extremos de densidad — el
   contenido de debajo se desplaza al cambiar de tema.
 - **Contraste con sus hermanos**: `Button` mide 42 px, `ActionIcon` 42 px, `Pagination` 36 px y
   `Segment` 30/36/42/50 px — **idénticos al píxel en los cuatro temas**, porque declaran altura desde
@@ -125,7 +124,7 @@ Dos cosas verificadas que merecen quedar escritas para que nadie las «corrija»
   alinea con un input `sm`». 36 px es exactamente `control.sm`. La regla se está cumpliendo al pie de
   la letra.
 - **El `tab` interior de `Segment` mide menos que su control** (22/28/34/42 en nebula, 24/30/36/44 en
-  sober, 20/26/32/40 en playful) y **eso también es correcto**: es el control el que declara la altura
+  densidad compacta, 20/26/32/40 en comfortable) y **eso también es correcto**: es el control el que declara la altura
   del peldaño, y el tab va inset por el padding, que sí es temable. Medirlo por el tab da la impresión
   falsa de que `Segment` no cumple la escala.
 

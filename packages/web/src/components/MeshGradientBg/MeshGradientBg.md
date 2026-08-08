@@ -3,8 +3,8 @@
 ## La malla se deriva del token, no se inventa
 
 `MeshCss` (`utils/effects.ts`) coloca **cinco** gradientes radiales en anclas fijas y les asigna
-colores ciclando los `stops` del token. Con eso, un token de dos stops (los `nebula` y `sober`) y uno
-de tres (`playful`) producen mallas coherentes con la identidad de cada tema sin que el componente
+colores ciclando los `stops` del token. Con eso, un token de dos stops y uno
+de tres producen mallas coherentes con la identidad de cada tema sin que el componente
 elija un solo color.
 
 Las anclas, sus alfas (72→38 %) y sus radios (50–62 %) son fijos a propósito: una malla con posiciones
@@ -22,7 +22,7 @@ con una prop: `GrainyGradient` es exactamente esta malla más la capa de ruido d
 propio componente habría duplicado API, tests, story y entrada de size-limit para la misma
 composición. Decidido en el checkpoint de apertura de W4.1.
 
-Como el ruido sí es un material glass, `grain` responde a `effects.glass.enabled`: en sober no pinta
+Como el ruido sí es un material glass, `grain` responde a `effects.glass.enabled`: apagado no pinta
 nada aunque se pase la prop. La malla, en cambio, sigue ahí — la decisión del mismo checkpoint es que
 los gradientes se neutralizan por sus tokens, no por esa palanca (`GradientBackground.md` §Qué NO
 degrada).

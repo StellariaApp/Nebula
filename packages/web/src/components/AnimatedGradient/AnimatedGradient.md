@@ -29,7 +29,7 @@ dos líneas que el compositor ya sabe hacer solo.
 
 ## Las dos paradas
 
-`prefers-reduced-motion` y `motion.tier: "minimal"` (sober) paran el loop, y las dos por caminos
+`prefers-reduced-motion` y `motion.tier: "minimal"` paran el loop, y las dos por caminos
 distintos porque una es CSS y la otra data del tema:
 
 - El media query aplica `still` de `styles/motion.css.ts`;

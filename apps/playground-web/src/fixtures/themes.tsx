@@ -17,8 +17,6 @@ export const MATRIX_A11Y = {
 export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
   { name: "dark", label: "dark" },
   { name: "light", label: "light" },
-  { name: "sober-light", label: "sober-light" },
-  { name: "playful", label: "playful" },
 ];
 
 export type ProductName =

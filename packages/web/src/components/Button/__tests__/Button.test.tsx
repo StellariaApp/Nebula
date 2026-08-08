@@ -3,17 +3,16 @@ import { userEvent } from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { Variant } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, Variant } from "@stellaria/nebula-tokens";
 
+import { MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { Button } from "../Button.js";
 
 afterEach(cleanup);
 
-function RenderButton(
-  ui: ReactNode,
-  theme: "light" | "dark" | "sober-light" | "playful" = "light",
-) {
+function RenderButton(ui: ReactNode, theme: OfficialThemeName | NebulaTheme = "light") {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -140,9 +139,9 @@ describe("Button — interacción y contrato a11y (docs/03 §1)", () => {
 });
 
 describe("Button — theming (gate de W1)", () => {
-  it("reconfigura el mismo componente en los 4 temas sin cambiar props", () => {
+  it("reconfigura el mismo componente en los temas oficiales sin cambiar props", () => {
     const rendered = new Set<string>();
-    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark"] as const) {
       const { unmount } = RenderButton(<Button variant="filled">Tema</Button>, theme);
       const style = screen.getByRole("button").getAttribute("style") ?? "";
       rendered.add(style);
@@ -152,7 +151,7 @@ describe("Button — theming (gate de W1)", () => {
   });
 
   it("desactiva la animación cuando el tema usa motion.tier minimal", () => {
-    RenderButton(<Button>Sobrio</Button>, "sober-light");
+    RenderButton(<Button>Sobrio</Button>, MotionAt("minimal"));
     expect(screen.getByRole("button")).toBeDefined();
   });
 

@@ -69,7 +69,7 @@ navegación por teclado.
    opuesto y en el eje inline, y nada en absoluto sin desbordamiento. Y separación en los cuatro
    temas, que es lo que ningún gate mide (`docs/03` §4 no compara fondo contra fondo): el filo
    separa de su superficie **53 · 47 · 50 · 65** puntos de luminancia en `nebula-dark`,
-   `nebula-light`, `sober-light` y `playful`.
+   `nebula-light`.
 
 3. **La tinta es un rol de borde del contrato mezclado con `color-mix`, no `vars.shadow.*` ni un
    hex.** Vive en una sola constante (`INK` en `Scroll.css.ts`) y **no es prop**: retintarla por

@@ -11,8 +11,6 @@ import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "light", title: "Light" },
   { value: "dark", title: "Dark" },
-  { value: "sober-light", title: "Sober" },
-  { value: "playful", title: "Playful" },
 ];
 
 const REDUCED_MOTION_CSS =

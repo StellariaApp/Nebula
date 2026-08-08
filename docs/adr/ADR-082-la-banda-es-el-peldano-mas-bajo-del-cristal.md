@@ -68,5 +68,5 @@ que `divided` pase a cruzar la banda entera, que habría sido un cambio visual q
   tres claros la heredan de tokens y `dark` la sobreescribe, como el resto de sus niveles. Eso son
   cuatro vars más por tema, y por eso sube el presupuesto de `NebulaProvider` de 72.5 a 73 kB (medido
   72.66). Es el coste fijo de ampliar el contrato, no del componente.
-- `sober-light` tiene `glass.enabled: false`; la banda ahí se pinta igual porque `Section` lee la
+- Con `glass.enabled: false` la banda se pinta igual porque `Section` lee la
   receta del contrato y no pasa por `ResolveVariant`. Es lo mismo que ya hacía `Footer`.

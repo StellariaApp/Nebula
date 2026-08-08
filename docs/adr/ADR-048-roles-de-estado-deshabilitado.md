@@ -49,8 +49,6 @@ tampoco lo mira.
    | ------------ | ------------------ | ------: | --------------- | -------: | ----------------- | -------: |
    | nebula-dark  | `dark.600`         |    1.19 | `gray.800`      |     1.89 | `gray.900`        |     1.47 |
    | nebula-light | `light.600`        |    1.20 | `gray.400`      |     2.07 | `gray.300`        |     1.44 |
-   | playful      | `light.600`        |    1.20 | `gray.400`      |     2.07 | `gray.300`        |     1.44 |
-   | sober-light  | `light.700`        |    1.17 | `gray.400`      |     1.97 | `gray.300`        |     1.38 |
 
    En los dos esquemas el borde queda **entre** la superficie y el texto, de modo que la caja se
    delimita sin competir con su contenido.

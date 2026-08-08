@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { NebulaField, Size } from "@stellaria/nebula-tokens";
 
@@ -6,6 +6,7 @@ import type { ErrorDisplay } from "../FieldError/FieldError.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export type SignatureFormat = "png" | "jpeg";
 
@@ -18,6 +19,13 @@ export interface SignatureLabels {
 }
 
 export interface SignatureProps extends StyleProps, FormFieldSlotProps {
+  /**
+   * El lienzo de firma. Lleva los manejadores de puntero del trazo, asi que un `onPointerDown`
+   * aqui los sustituye; su alto se escribe despues de la ranura, porque sale de `height`.
+   */
+  canvasProps?: ComponentPropsWithoutRef<"canvas"> | undefined;
+  /** La fila de deshacer y limpiar. */
+  actionsProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

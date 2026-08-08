@@ -214,8 +214,9 @@ en vez de forzar comparaciones con hojas que no son de tu familia.
 
 FOCO PROPIO: el effects budget de docs\06 §6 —«máximo un efecto dominante por región»— y la
 degradación por tema de ADR-059. Verifica en los cuatro temas que:
-1. `sober` neutraliza glass, blur y ruido, y que los gradientes se ven sobrios sin desaparecer.
-2. `playful` no se pasa: es el tema que más fácil rompe el budget.
+1. Con `glass.enabled: false` se neutralizan glass, blur y ruido, y los gradientes se ven sobrios sin
+   desaparecer.
+2. Ningún tema se pasa de budget.
 3. Los estados de arrastre de DragDrop/Kanban —origen atenuado, destino resaltado, overlay en vuelo—
    se distinguen sin depender solo del color.
 ```

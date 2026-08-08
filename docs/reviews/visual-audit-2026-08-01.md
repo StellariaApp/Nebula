@@ -210,9 +210,9 @@ Escrito aquí para que no desaparezca del plan sin explicación:
 - **Los hallazgos C no existen.** No es que se descarten: **no se produjeron**, porque el paso 4 no se
   ejecutó. Si se quiere el cubo de ESPECIFICACIÓN alimentado por el diseño y no solo por los huecos
   de `docs/06`, hace falta ejecutar WR1.2b y volver a pasar por las hojas de `.figma/`.
-- **`StarField` en `sober`** pinta estrellas en verde vivo en un tema que apaga cristal, ruido y
+- **`StarField` con los efectos apagados** pinta estrellas en verde vivo en un tema que apaga cristal, ruido y
   animación (WR2.8 §5). **No se marcó como hallazgo** y no entra en el plan: `docs/06` no dice que
-  `sober` deba desaturar, solo que degrade los efectos, y eso lo cumple.
+  un tema así deba desaturar, solo que degrade los efectos, y eso lo cumple.
 - **`Card` ≡ `CardComplex`** se verificó y **es correcto**: es el contrato de C1-Q4. No se toca.
 - **`Pagination` a 36 px** es correcto (§4.1, «una paginación `md` alinea con un input `sm`»). No se
   toca — queda escrito porque parece un defecto y no lo es.
@@ -226,7 +226,7 @@ Agregado de las ocho secciones §6. **Es la parte del informe que dice qué no s
 | **El paso 1 del método: MIRAR**                                       | **No se hizo en ninguna familia.** Las ocho midieron el render con `getComputedStyle`; ninguna lo miró. Ritmo, alineación óptica y «si una composición se lee» siguen sin cubrir — y ese era el motivo declarado de la fase |
 | **El paso 4: Figma**                                                  | No ejecutado en ninguna familia. De ahí los cero C                                                                                                                                                                          |
 | **~80 de 145 componentes sin medida de render**                       | Concentrados en 2.5 (12 sin medir), 2.6 (25) y 2.7 (11)                                                                                                                                                                     |
-| **`backdrop-filter` y `blur` reales**                                 | **No medibles con este instrumento**: el headless neutraliza los filtros — un `blur(16px)` inline computa a `blur(0px)`. Se sabe que `sober` deja el fondo opaco; **no** cuánto desenfoca `nebula-dark`                     |
+| **`backdrop-filter` y `blur` reales**                                 | **No medibles con este instrumento**: el headless neutraliza los filtros — un `blur(16px)` inline computa a `blur(0px)`. Se sabe que con glass off el fondo queda opaco; **no** cuánto desenfoca `nebula-dark`              |
 | **Tres encargos del foco sin hacer**                                  | Las cuatro listas de opciones (2.5), el ritmo con controles altos (2.4), y las seis series de charts en los cuatro temas (2.7)                                                                                              |
 | **`hover`, `active`, `focus-visible`, `loading`**                     | El escalón de interacción de §5.1 **no se verificó en ningún control** del catálogo                                                                                                                                         |
 | **`Countdown`, `ScrollProgress`, `EditorImage`, `ColorSchemeScript`** | Sin lámina: no auditables. Es el hallazgo 5 del censo de WR1.1, que quedó abierto por decisión del propietario                                                                                                              |

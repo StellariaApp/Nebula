@@ -21,21 +21,21 @@ están escritas en ningún sitio**, y las dos se rompieron el mismo día, por ca
 [rangeBg]: `color-mix(in srgb, ${resolved.background} 16%, transparent)`
 ```
 
-En tres temas `resolved.background` es un color y funciona. En `playful` es un **gradiente**
+En los temas oficiales `resolved.background` es un color y funciona. En un tema que lo remapee es un **gradiente**
 —medido: `linear-gradient(135deg, rgb(167,44,196) 0%, rgb(206,0,10…)`—, y
 `color-mix(in srgb, linear-gradient(…) 16%, transparent)` **no es válido**: la declaración se
 descarta y el fondo cae a transparente.
 
-| Tema                                           | fondo del rango medido    |
-| ---------------------------------------------- | ------------------------- |
-| `nebula-dark` · `nebula-light` · `sober-light` | `color(srgb … / 0.16)` ✅ |
-| **`playful`**                                  | **`rgba(0, 0, 0, 0)`** ❌ |
+| `variantMap.filled.background` | fondo del rango medido    |
+| ------------------------------ | ------------------------- |
+| un color                       | `color(srgb … / 0.16)` ✅ |
+| **un gradiente**               | **`rgba(0, 0, 0, 0)`** ❌ |
 
 **El `fallbackVar(rangeBg, primary.100)` del CSS no protege**, porque la variable sí está definida —
 lo inválido es su contenido. Consecuencia para el usuario: seleccionar un rango de fechas **no
 muestra el rango**.
 
-No es un defecto de `playful`: es de **cualquier tema cuyo `variantMap` resuelva a un gradiente**, y
+No es un defecto de un tema concreto: es de **cualquier tema cuyo `variantMap` resuelva a un gradiente**, y
 el Theme Creator permite construirlos.
 
 ### Suposición 2 — «el hover va siempre hacia el 950»
@@ -93,7 +93,7 @@ color. Ninguno de los dos está escrito, y por eso los dos sobrevivieron a todos
   `glow`. **Medido que rompe `light`**: su tinte al 12 % se oscurecería en hover sobre un lienzo
   oscuro, o sea se haría menos visible — exactamente lo contrario de §5.1.
 - **Prohibir gradientes en `variantMap.primary`.** Resolvería C13 sin tocar el resolver, a cambio de
-  quitarle al Theme Creator una capacidad que hoy tiene y que `playful` usa.
+  quitarle al Theme Creator una capacidad que hoy tiene.
 - **Resolver el gradiente a color solo en `Calendar`.** El arreglo mínimo. Descartado: `color-mix` y
   `WithAlpha` se usan en más sitios, y el siguiente que derive de un fondo de variante volverá a
   romperse en silencio.

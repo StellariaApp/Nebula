@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
+
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { BrandGradient, GlassOff } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
+import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { GradientBackground } from "../GradientBackground.js";
 
 afterEach(cleanup);
 
-type ThemeName = "light" | "dark" | "sober-light" | "playful";
-
-function RenderIn(ui: ReactNode, theme: ThemeName) {
+function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   return render(
     <NebulaProvider defaultTheme={theme} storage={null}>
       {ui}
@@ -52,7 +54,7 @@ describe("GradientBackground", () => {
   });
 
   it("el grano responde a glass.enabled, el gradiente no", () => {
-    RenderIn(<GradientBackground grain data-testid="gbg" />, "sober-light");
+    RenderIn(<GradientBackground grain data-testid="gbg" />, GlassOff());
     const node = screen.getByTestId("gbg");
     expect(node.querySelectorAll("span[aria-hidden='true']")).toHaveLength(0);
     expect(node.getAttribute("style") ?? "").toMatch(/linear-gradient\(/);
@@ -63,14 +65,25 @@ describe("GradientBackground", () => {
     expect(screen.getByTestId("gbg").querySelectorAll("span[aria-hidden='true']")).toHaveLength(1);
   });
 
-  it("el eje de marca no cambia de esquema; sober y playful si lo cambian", () => {
+  it("el eje de marca no cambia de esquema, pero sí con los tokens del tema", () => {
     const seen = new Set<string>();
-    for (const theme of ["light", "dark", "sober-light", "playful"] as const) {
+    for (const theme of ["light", "dark"] as const) {
       const view = RenderIn(<GradientBackground data-testid="gbg" />, theme);
       seen.add(screen.getByTestId("gbg").getAttribute("style") ?? "");
       view.unmount();
     }
-    expect(seen.size).toBe(3);
+    expect(seen.size).toBe(1);
+
+    const view = RenderIn(
+      <GradientBackground data-testid="gbg" />,
+      BrandGradient([
+        { color: "#101010", position: 0 },
+        { color: "#f0f0f0", position: 100 },
+      ]),
+    );
+    seen.add(screen.getByTestId("gbg").getAttribute("style") ?? "");
+    view.unmount();
+    expect(seen.size).toBe(2);
   });
 
   it("acepta un gradiente propio y style props", () => {

@@ -12,7 +12,7 @@ Son dos intenciones distintas y la diferencia está en qué pasa cuando el efect
   componente incumple su contrato **en silencio**.
 
 Por eso su degradación no es "quitar el blur", sino **cerrar el velo**: cuando `effects.glass.enabled`
-es `false` (sober), cuando `blur="none"` o cuando `@supports` detecta que no hay `backdrop-filter`, la
+es `false`, cuando `blur="none"` o cuando `@supports` detecta que no hay `backdrop-filter`, la
 opacidad del velo sube a 0.94 y la capa pasa a ser un scrim casi opaco. `data-blur="off"` deja la rama
 observable.
 

@@ -103,7 +103,7 @@ Dos precisiones que la implementación obligó a fijar, ambas documentadas en
    `opacity` y por tanto incumple `docs/03` §2 y `docs/06` §6.
 2. **La degradación «el tema baja el effects budget» no se implementó porque no existe la palanca.**
    `NebulaTheme` solo tiene `effects.glass.enabled`, que es específica de glass, y los cuatro temas
-   oficiales —sober incluido— pueblan `effects.gradients`. Sí se implementaron las tres degradaciones
+   oficiales pueblan `effects.gradients`. Sí se implementaron las tres degradaciones
    que sí son verificables: `@supports` sin soporte de recorte, **forced-colors** (el caso grave: el
    modo fuerza `color` pero no resetea `-webkit-text-fill-color`, así que el titular quedaría
    invisible en alto contraste) y `text-decoration-color`. Añadir una palanca de gradientes al

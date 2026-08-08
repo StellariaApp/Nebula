@@ -89,16 +89,13 @@ de `muted`.
 
 Con rol propio, el peldaño que light no podía dar pasa a estar disponible:
 
-| Tema        | antes (`muted`) | ahora (`placeholder`) | sobre el campo | separación vs. valor |
-| ----------- | --------------- | --------------------- | -------------: | -------------------: |
-| light       | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
-| playful     | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
-| dark        | `gray.500`      | `gray.500`            |           5.38 |                 3.26 |
-| sober-light | `gray.700`      | `gray.700`            |           5.43 |                 2.32 |
+| Tema  | antes (`muted`) | ahora (`placeholder`) | sobre el campo | separación vs. valor |
+| ----- | --------------- | --------------------- | -------------: | -------------------: |
+| light | `gray.700`      | **`gray.600`**        |           4.54 |      1.74 → **2.34** |
+| dark  | `gray.500`      | `gray.500`            |           5.38 |                 3.26 |
 
-**dark y sober-light ya estaban en su suelo** y no se mueven: el siguiente peldaño de la rampa gris cae
-a 3.90 y 4.04 sobre su fondo de campo, por debajo del mínimo de texto. En sober-light además es
-coherente con su identidad de tema de alto contraste. No hay medio peldaño en la rampa.
+**dark ya estaba en su suelo** y no se mueve: el siguiente peldaño de la rampa gris cae a 3.90 sobre
+su fondo de campo, por debajo del mínimo de texto. No hay medio peldaño en la rampa.
 
 Un campo deshabilitado pinta su placeholder con `text.disabled` (`&:disabled::placeholder`), que es el
 rol correcto y el que WCAG exime por componente inactivo. Antes heredaba `muted` sobre

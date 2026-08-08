@@ -36,9 +36,9 @@ otro `duration.expressive` reescala el campo entero.
 1. `prefers-reduced-motion` — `still` más el sustituto estático (opacidad 0.6, escala 1). Sin el
    sustituto, las estrellas quedarían congeladas en el frame que tocara: unas invisibles a 0.2 y otras
    a 1, que es peor que el campo quieto y uniforme.
-2. `motion.tier: "minimal"` (sober) — mismo resultado por `data-twinkle="false"`, decidido en JS.
+2. `motion.tier: "minimal"` — mismo resultado por `data-twinkle="false"`, decidido en JS.
 3. **Parallax** — solo se suscribe al scroll si `parallax`, el tier no es minimal y el media query no
-   está activo. Por eso el listener se monta dentro del `useEffect` y no siempre: en sober no hay ni
+   está activo. Por eso el listener se monta dentro del `useEffect` y no siempre: con tier minimal no hay ni
    handler registrado, no solo un handler que no hace nada.
 
 El parallax escribe `transform` directamente sobre el nodo desde un `requestAnimationFrame` con
@@ -82,8 +82,8 @@ no hay ancestro que recorrer. La ref es explícita a propósito.
 ## Colores
 
 `color` tiñe retícula y estrellas (6 % la retícula, 70 % las estrellas) y `accentColor` marca una de
-cada `accentEvery` — la «estrella rosette» de la referencia, aquí un rol del tema. En `sober-light` el
-acento es teal y el conjunto queda casi monocromo; en `playful`, cian sobre un canvas claro.
+cada `accentEvery` — la «estrella rosette» de la referencia, aquí un rol del tema. Un tema de acento
+apagado deja el conjunto casi monocromo sin que el componente lo sepa.
 
 En `forced-colors: active` el componente entero desaparece: es decorativo y en alto contraste solo
 sería ruido.

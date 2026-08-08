@@ -127,7 +127,7 @@ y recomendaciones que no digan qué token usar.
 
 ### Los cuatro temas, siempre
 
-Todo hallazgo se verifica en `nebula-dark`, `nebula-light`, `sober-light` y `playful`. Un defecto que
+Todo hallazgo se verifica en `nebula-dark` y `nebula-light`. Un defecto que
 solo existe en uno se marca como tal: suele significar que el token está mal elegido, no el valor.
 
 ### Figma no es la autoridad

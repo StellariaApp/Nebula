@@ -1,7 +1,7 @@
 import { chromium } from "playwright-core";
 
 const BASE = process.env.NEBULA_SB_URL ?? "http://127.0.0.1:6011/iframe.html";
-const THEMES = (process.env.NEBULA_THEMES ?? "dark,light,sober-light,playful").split(",");
+const THEMES = (process.env.NEBULA_THEMES ?? "dark,light").split(",");
 
 function Srgb(channel) {
   const v = channel / 255;

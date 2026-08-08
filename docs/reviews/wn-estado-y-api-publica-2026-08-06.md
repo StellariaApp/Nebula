@@ -19,8 +19,6 @@ Consecuencia medida, no supuesta:
 ```
 light       -> THROWS: ThemeValidationError → at effects.glass.surface.band.border
 dark        -> THROWS  (idem, 5 niveles)
-sober-light -> THROWS
-playful     -> THROWS
 ```
 
 **`LoadTheme` rechazaba los cuatro temas oficiales.** Con él, el Theme Creator, cualquier tema en
@@ -40,14 +38,14 @@ tareas, 1188 tests en verde**.
 
 ## 1 · Estado real de los cinco tramos
 
-| Tramo                    | Estado | Medido                                                                                                                |
-| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| **N0** nombres en hojas  | ✅     | ADR-094, commit `7d03b27`. Lint partido por archivo.                                                                    |
-| **N1** vars en su hoja   | ✅\*   | 75 `.vars.css.ts`. Queda **1** `createVar()` en un `.css.ts`: `Scroll`.                                                  |
-| **N2** compound          | ✅\*   | 9/9 en un solo idioma (`Object.assign` en `index.ts`). 6 con `components/`. Barrido hecho: faltan convertir Hero y Section. |
-| **N3** props de ranura   | 🟡     | **8 de 158** (`Alert`, `Blockquote`, `EditorImage`, `EmptyModule`, `EmptyState`, `Feature`, `Header`, `Stat`).           |
-| **N4** `hoverActive`     | ✅     | Cerrado, regla corregida y más estrecha que la del prompt.                                                              |
-| **N5** cuaderno          | 🟡     | H1–H8 abiertos.                                                                                                         |
+| Tramo                   | Estado | Medido                                                                                                                      |
+| ----------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **N0** nombres en hojas | ✅     | ADR-094, commit `7d03b27`. Lint partido por archivo.                                                                        |
+| **N1** vars en su hoja  | ✅\*   | 75 `.vars.css.ts`. Queda **1** `createVar()` en un `.css.ts`: `Scroll`.                                                     |
+| **N2** compound         | ✅\*   | 9/9 en un solo idioma (`Object.assign` en `index.ts`). 6 con `components/`. Barrido hecho: faltan convertir Hero y Section. |
+| **N3** props de ranura  | 🟡     | **8 de 158** (`Alert`, `Blockquote`, `EditorImage`, `EmptyModule`, `EmptyState`, `Feature`, `Header`, `Stat`).              |
+| **N4** `hoverActive`    | ✅     | Cerrado, regla corregida y más estrecha que la del prompt.                                                                  |
+| **N5** cuaderno         | 🟡     | H1–H8 abiertos.                                                                                                             |
 
 ### Los tres cabos sueltos de N1 y N2
 
@@ -102,17 +100,17 @@ Por eso `<Box paddingInlineStart="md" />` y `<Box ps="md" />` son las dos válid
 
 Recuento exacto de largos con atajo **1:1**:
 
-| Familia                       | Largos | Atajo                                        |
-| ----------------------------- | -----: | -------------------------------------------- |
-| padding                       |      9 | `p px py pt pb pl pr ps pe`                  |
-| margin                        |      9 | `m mx my mt mb ml mr ms me`                  |
-| `columnGap` `rowGap`          |      2 | `gapx gapy`                                  |
-| flex + texto responsive       |      7 | `direction wrap align justify self ta fz`    |
-| color / fondo / borde         |      3 | `c bg bdc`                                   |
-| tipografía sin responsive     |      6 | `ff fw lh ls tt td` (+ `ws`)                 |
-| `borderRadius`                |      1 | `r`                                          |
-| `boxShadow` `zIndex`          |      2 | `shadow z`                                   |
-| **Total**                     | **40** |                                              |
+| Familia                   | Largos | Atajo                                     |
+| ------------------------- | -----: | ----------------------------------------- |
+| padding                   |      9 | `p px py pt pb pl pr ps pe`               |
+| margin                    |      9 | `m mx my mt mb ml mr ms me`               |
+| `columnGap` `rowGap`      |      2 | `gapx gapy`                               |
+| flex + texto responsive   |      7 | `direction wrap align justify self ta fz` |
+| color / fondo / borde     |      3 | `c bg bdc`                                |
+| tipografía sin responsive |      6 | `ff fw lh ls tt td` (+ `ws`)              |
+| `borderRadius`            |      1 | `r`                                       |
+| `boxShadow` `zIndex`      |      2 | `shadow z`                                |
+| **Total**                 | **40** |                                           |
 
 Y no toda la duplicación es simétrica. **Las cuatro esquinas** (`borderTopLeftRadius`…) no tienen
 atajo 1:1: `rt`/`rb`/`rl`/`rr` van por pares. Si se quitan los largos, **se pierde poder redondear una
@@ -131,7 +129,7 @@ Sin atajo, y por tanto intocables: `display`, `gap`, `position`, `overflow`, `ov
 
 **Recomendación**: `StyleProps` deja de derivarse de `Sprinkles` por `Omit` y se construye desde una
 lista explícita de props públicas. Las propiedades largas siguen definidas dentro de `Box.css.ts`
-—los atajos las necesitan para mapear—, pero no salen al tipo público. Es *breaking*, así que **tiene
+—los atajos las necesitan para mapear—, pero no salen al tipo público. Es _breaking_, así que **tiene
 que entrar antes de v1** y pide ADR.
 
 ### 3.2 · Valores arbitrarios: hoy no es que no compile, es que **revienta**
@@ -153,13 +151,13 @@ propiedad, no va a sprinkles, va a `style` en línea. El camino de token sigue s
 coste cero; solo el valor arbitrario paga inline. Es lo mismo que ya se hace con `ResolveOpacity`,
 generalizado.
 
-| Familia            | Hoy                | Propuesto                                                       |
-| ------------------ | ------------------ | --------------------------------------------------------------- |
-| `c` `bg` `bdc`     | solo claves        | + `#hex`, `rgb()`, `hsl()`, `oklch()`, `var(--x)`, `color-mix()` |
-| `p*` `m*` `gap*`   | solo claves        | + `number` → `px`, + string CSS (`"1.5rem"`, `"clamp(…)"`)       |
-| `r*`               | solo claves        | + `number` → `px`, + string                                      |
-| `fz` `lh` `ls`     | solo claves        | + `number`, + string                                             |
-| `shadow` `z`       | solo claves        | + string / number                                                |
+| Familia          | Hoy         | Propuesto                                                        |
+| ---------------- | ----------- | ---------------------------------------------------------------- |
+| `c` `bg` `bdc`   | solo claves | + `#hex`, `rgb()`, `hsl()`, `oklch()`, `var(--x)`, `color-mix()` |
+| `p*` `m*` `gap*` | solo claves | + `number` → `px`, + string CSS (`"1.5rem"`, `"clamp(…)"`)       |
+| `r*`             | solo claves | + `number` → `px`, + string                                      |
+| `fz` `lh` `ls`   | solo claves | + `number`, + string                                             |
+| `shadow` `z`     | solo claves | + string / number                                                |
 
 El tipo ya tiene precedente en la casa: `ShadowValue = ShadowToken | (string & Record<never, never>)`
 en `packages/tokens/src/types/effects.ts:9`. Ese patrón conserva el autocompletado de los tokens y
@@ -187,19 +185,19 @@ ni `border-style` el navegador no pinta. Un consumidor que escribe `<Box bdc="bo
 no ve borde y no tiene con qué arreglarlo salvo `style`. Los 158 componentes lo esconden porque el
 grosor lo pone su propia hoja.
 
-| Falta                                      | Por qué                                                              |
-| ------------------------------------------ | -------------------------------------------------------------------- |
-| `bw` `btw` `bbw` `blw` `brw`               | sin grosor, `bdc` es inerte                                          |
-| `bd` (atajo `"1px solid"`)                 | el 90 % de los casos en una prop                                     |
-| `borderStyle`                              | `dashed` para dropzones y separadores                                |
-| `btc` `bbc` `blc` `brc`                    | borde por lado — `fonicredito` los usa a diario                      |
-| `inset`                                    | hoy hay `top/right/bottom/left` sueltos                              |
-| `aspectRatio`                              | media y avatares; hoy se resuelve con `style`                        |
-| `alignContent` `justifyItems` `justifySelf` | `display: grid` está expuesto sin sus props de alineación            |
-| `cursor` `pointerEvents` `visibility`      | estado de interacción, hoy solo por CSS                              |
-| `objectFit`                                | imágenes                                                             |
-| `order`                                    | reordenar sin tocar el DOM                                           |
-| `fs` (`fontStyle`)                         | cursiva                                                              |
+| Falta                                       | Por qué                                                   |
+| ------------------------------------------- | --------------------------------------------------------- |
+| `bw` `btw` `bbw` `blw` `brw`                | sin grosor, `bdc` es inerte                               |
+| `bd` (atajo `"1px solid"`)                  | el 90 % de los casos en una prop                          |
+| `borderStyle`                               | `dashed` para dropzones y separadores                     |
+| `btc` `bbc` `blc` `brc`                     | borde por lado — `fonicredito` los usa a diario           |
+| `inset`                                     | hoy hay `top/right/bottom/left` sueltos                   |
+| `aspectRatio`                               | media y avatares; hoy se resuelve con `style`             |
+| `alignContent` `justifyItems` `justifySelf` | `display: grid` está expuesto sin sus props de alineación |
+| `cursor` `pointerEvents` `visibility`       | estado de interacción, hoy solo por CSS                   |
+| `objectFit`                                 | imágenes                                                  |
+| `order`                                     | reordenar sin tocar el DOM                                |
+| `fs` (`fontStyle`)                          | cursiva                                                   |
 
 Redundancias reales más allá de los alias: ninguna. `flex` frente a `grow`/`shrink`/`basis` se
 solapan pero las dos formas son útiles y así está en todas las librerías del ecosistema.
@@ -255,13 +253,13 @@ lo previsible es que sume poco, pero eso se mide, no se supone.
 
 No coinciden, y conviene elegir uno antes de congelar:
 
-| `fonicredito`  | Nebula `Header`         |
-| -------------- | ----------------------- |
-| `wrapperProps` | `rowProps`              |
-| `headProps`    | `headingProps`          |
-| `titleProps`   | `titleProps` ✅         |
+| `fonicredito`  | Nebula `Header`          |
+| -------------- | ------------------------ |
+| `wrapperProps` | `rowProps`               |
+| `headProps`    | `headingProps`           |
+| `titleProps`   | `titleProps` ✅          |
 | —              | `leadProps` `trailProps` |
-| —              | `bodyProps`             |
+| —              | `bodyProps`              |
 
 Los de Nebula son más descriptivos; los del prompt son los que el propietario tiene en la mano. **Es
 decisión suya**, pero tiene que ser una sola y aplicarse a los 158.
@@ -314,7 +312,7 @@ pública: que las props del padre lleguen al hijo con el tipo del hijo, que es e
 1. ~~Esquema de Zod~~ — hecho en esta revisión.
 2. `Card` y `Segment` reciben `/* @__PURE__ */`; se limpia el `Omit` muerto de `AppShell`; se decide
    `Scroll`. Barato, cierra N1 y N2.
-3. **ADR + poda de los 40 alias largos**, con atajo nuevo para las cuatro esquinas. Es *breaking*:
+3. **ADR + poda de los 40 alias largos**, con atajo nuevo para las cuatro esquinas. Es _breaking_:
    antes de v1 o nunca. Elimina de paso 104 líneas de `Omit<StyleProps, "color">`.
 4. **ADR + valores arbitrarios y familia de borde.** Solo añade; se puede hacer después de v1, pero
    el borde es un hueco que se va a notar el primer día.
@@ -331,12 +329,12 @@ correcto en el síntoma y equivocado en el remedio; el defecto real es otro.
 
 ### 8.1 · La paloma existe en tres geometrías
 
-| Componente          | `d`                     |
-| ------------------- | ----------------------- |
-| `ButtonCopy:38`     | `M5 12l5 5L20 7`        |
-| `Checkbox:90`       | `M5 12l5 5L20 6`        |
-| `Chip:29`           | `M20 6 9 17l-5-5`       |
-| `Stepper:35`        | `M20 6 9 17l-5-5`       |
+| Componente      | `d`               |
+| --------------- | ----------------- |
+| `ButtonCopy:38` | `M5 12l5 5L20 7`  |
+| `Checkbox:90`   | `M5 12l5 5L20 6`  |
+| `Chip:29`       | `M20 6 9 17l-5-5` |
+| `Stepper:35`    | `M20 6 9 17l-5-5` |
 
 `ButtonCopy` y `Checkbox` **difieren en una unidad** (`L20 7` contra `L20 6`). Eso no es una decisión
 de diseño, es deriva de copiar y pegar. Y `Chip`/`Stepper` usan un tercer trazo distinto. La paloma
@@ -420,11 +418,11 @@ Al implementar la optimización de `ExtractStyleProps` salieron dos gates más q
 
 `.size-limit.js` apuntaba a rutas que N2 movió (`67780ed`):
 
-| Entrada      | Apuntaba a                       | Debía apuntar a                             |
-| ------------ | -------------------------------- | ------------------------------------------- |
-| `GridCol`    | `dist/components/Grid/Col.js`    | `dist/components/Grid/components/Col.js`    |
-| `Form`       | `dist/components/Form/Form.js`   | `dist/components/Form/index.js`             |
-| `Table`      | `dist/components/Table/Table.js` | `dist/components/Table/index.js`            |
+| Entrada   | Apuntaba a                       | Debía apuntar a                          |
+| --------- | -------------------------------- | ---------------------------------------- |
+| `GridCol` | `dist/components/Grid/Col.js`    | `dist/components/Grid/components/Col.js` |
+| `Form`    | `dist/components/Form/Form.js`   | `dist/components/Form/index.js`          |
+| `Table`   | `dist/components/Table/Table.js` | `dist/components/Table/index.js`         |
 
 Las dos últimas por la misma causa: N2 movió el `Object.assign` del `.tsx` al `index.ts`, así que el
 módulo raíz ya solo exporta `FormRoot`/`TableRoot`. Con una ruta inexistente, `size-limit` no marca
@@ -449,7 +447,7 @@ comprobar el código de salida explícitamente.
 A/B en el **mismo proceso** contra la implementación original transcrita literal, con el bundle de
 producción de sprinkles. Salida **idéntica** en las cuatro formas.
 
-| Forma del nodo               | Original  |  Nueva   | Mejora |
+| Forma del nodo               |  Original |    Nueva | Mejora |
 | ---------------------------- | --------: | -------: | -----: |
 | estructural (0 style props)  |  1.392 ns |   118 ns |  11,8x |
 | típico (3 style props)       | 11.040 ns | 2.254 ns |   4,9x |

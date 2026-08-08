@@ -1,7 +1,7 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { describe, expect, it } from "vitest";
 
-import { nebulaLight, playful, soberLight } from "@stellaria/nebula-themes";
+import { nebulaLight } from "@stellaria/nebula-themes";
 
 import { vars } from "../theme/contract.css.js";
 import { ThemeToVars } from "../theme/theme-vars.js";
@@ -19,9 +19,12 @@ describe("ThemeToVars", () => {
   });
 
   it("resuelve `space` como unit × scale en px (densidad temable por tema)", () => {
+    const Density = (unit: number) =>
+      ThemeToVars({ ...nebulaLight, spacing: { ...nebulaLight.spacing, unit } }).space.md;
+
     expect(ThemeToVars(nebulaLight).space.md).toBe("16px"); // unit 4 × 4
-    expect(ThemeToVars(soberLight).space.md).toBe("12px"); // unit 3 × 4 (compacto)
-    expect(ThemeToVars(playful).space.md).toBe("20px"); // unit 5 × 4 (cómodo)
+    expect(Density(3)).toBe("12px"); // compacto
+    expect(Density(5)).toBe("20px"); // cómodo
   });
 
   it("assignInlineVars materializa el contrato como objeto {--var: valor}", () => {

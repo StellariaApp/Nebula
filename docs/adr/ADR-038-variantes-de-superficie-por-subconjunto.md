@@ -26,7 +26,7 @@ incompatibles:
 | `components/Alert/Alert.tsx:41-46`     | `scale.500` @ 12 %     | `text.primary` | `scale.500` @ 28 % |
 | `components/Badge/Badge.tsx:30-34`     | `scale.500` @ **14 %** | `scale.700`    | `transparent`      |
 
-Ningún gate lo detecta. Y la consecuencia es funcional, no estética: `playful` remapea `filled` a
+Ningún gate lo detecta. Y la consecuencia es funcional, no estética: un tema que remapee `filled` a
 `gradient.brand` (`packages/themes/src/__tests__/official-themes.test.ts:49`); ese remapeo llega a
 Button y ActionIcon y **no** llega a Alert ni a Badge.
 
@@ -92,7 +92,7 @@ cromática. Sin patrón fijado, W3 los escribe a mano y la deriva pasa de dos co
 ## Alternativas
 
 - **Variantes zero-runtime** con `recipe()` de VE resuelto en build: cuesta 0 kB y no toca ningún
-  budget, pero pierde `variantMap` —un tema no podría remapear `filled` como hace `playful`—, que es
+  budget, pero pierde `variantMap` —un tema no podría remapear `filled`—, que es
   exactamente el defecto que este ADR corrige. Rechazada: resuelve el bundle reintroduciendo el
   problema.
 - **Dejarlo como está**, cada componente con su receta local: 0 kB y 0 ADRs, pero obliga a retirar de

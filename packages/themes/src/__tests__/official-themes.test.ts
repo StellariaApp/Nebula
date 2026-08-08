@@ -35,24 +35,8 @@ describe("semántica de escalas por scheme (decisión W1.1)", () => {
   });
 });
 
-describe("interruptores de preset (docs/02 §2 punto 2)", () => {
-  it("sober-light apaga glass y baja motion a minimal", () => {
-    const sober = officialThemes["sober-light"];
-    expect(sober.effects.glass.enabled).toBe(false);
-    expect(sober.motion.tier).toBe("minimal");
-    expect(sober.spacing.unit).toBe(3);
-  });
-
-  it("playful sube motion a expressive y usa gradiente en filled", () => {
-    const theme = officialThemes.playful;
-    expect(theme.motion.tier).toBe("expressive");
-    expect(theme.variantMap.filled.background).toBe("gradient.brand");
-    expect(theme.spacing.unit).toBe(5);
-  });
-});
-
 describe("rol de placeholder (ADR-052)", () => {
-  it("los cuatro temas lo declaran como color literal", () => {
+  it("los dos temas lo declaran como color literal", () => {
     for (const name of officialThemeNames) {
       expect(officialThemes[name].colors.text.placeholder).toMatch(/^#[0-9a-f]{6}$/);
     }
@@ -65,16 +49,12 @@ describe("rol de placeholder (ADR-052)", () => {
     }
   });
 
-  it("solo light y playful lo atenúan respecto a muted; dark y sober-light están en su suelo", () => {
-    for (const name of ["light", "playful"] as const) {
-      const { text, gray } = officialThemes[name].colors;
-      expect(text.muted).toBe(gray["800"]);
-      expect(text.placeholder).toBe(gray["700"]);
-    }
+  it("light lo atenúa respecto a muted; dark está en su suelo", () => {
+    const light = officialThemes["light"].colors;
+    expect(light.text.muted).toBe(light.gray["800"]);
+    expect(light.text.placeholder).toBe(light.gray["700"]);
 
-    for (const name of ["dark", "sober-light"] as const) {
-      const { text } = officialThemes[name].colors;
-      expect(text.placeholder).toBe(text.muted);
-    }
+    const dark = officialThemes["dark"].colors;
+    expect(dark.text.placeholder).toBe(dark.text.muted);
   });
 });

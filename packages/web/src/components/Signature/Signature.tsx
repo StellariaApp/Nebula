@@ -12,6 +12,7 @@ import {
 import { useFieldProps } from "@stellaria/nebula-hooks";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Button } from "../Button/Button.js";
 import { FormField } from "../FormField/FormField.js";
 
@@ -53,6 +54,8 @@ export function Signature(props: SignatureProps): ReactElement {
     name,
     className,
     rootClassName,
+    canvasProps,
+    actionsProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -205,8 +208,6 @@ export function Signature(props: SignatureProps): ReactElement {
           <canvas
             {...control}
             ref={canvas_ref}
-            className={cx(styles.canvas, styles.size[size], className)}
-            style={{ height }}
             role="img"
             aria-label={signed ? text.signed : text.empty}
             data-disabled={fp.isDisabled ? "true" : undefined}
@@ -215,8 +216,11 @@ export function Signature(props: SignatureProps): ReactElement {
             onPointerMove={Move}
             onPointerUp={Up}
             onPointerCancel={Up}
+            {...canvasProps}
+            className={cx(styles.canvas, styles.size[size], className, canvasProps?.className)}
+            style={{ ...canvasProps?.style, height }}
           />
-          <div className={styles.actions}>
+          <Box {...actionsProps} className={cx(styles.actions, actionsProps?.className)}>
             <Button variant="ghost" size="sm" disabled={fp.isDisabled || !signed} onPress={Undo}>
               {text.undo}
             </Button>
@@ -229,7 +233,7 @@ export function Signature(props: SignatureProps): ReactElement {
             >
               {text.clear}
             </Button>
-          </div>
+          </Box>
           {name === undefined ? null : (
             <input type="hidden" name={name} value={signed ? `${fileName}.${format}` : ""} />
           )}

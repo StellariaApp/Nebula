@@ -158,7 +158,7 @@ El resultado se expone en una var local (`glow`) que consume el CSS.
 "&[data-glow-idle='true']::after": { animationName: GLOW_PULSE }, // breathing sutil (opacity)
 ```
 
-3. **Reduced-motion + tier.** `data-glow-idle` solo se aplica cuando `resolved.animated` (tier ≠ `minimal`) **y** `!prefers-reduced-motion`; el glow suave y el realce en hover se conservan siempre. En sober (glow remapeado sin halo) el `glow` es `none` y el `::after` queda invisible: la variante se degrada sola por tema.
+3. **Reduced-motion + tier.** `data-glow-idle` solo se aplica cuando `resolved.animated` (tier ≠ `minimal`) **y** `!prefers-reduced-motion`; el glow suave y el realce en hover se conservan siempre. En un tema que remapee `glow` sin halo, el `glow` es `none` y el `::after` queda invisible: la variante se degrada sola por tema.
 
 ## 3. Tipado (TS 7 estricto)
 
@@ -187,7 +187,7 @@ Seguir `apps/playground-web/STORIES-TEMPLATE.md`: `Default`, `Variants`, `Sizes`
 Las matrices aisladas no cierran la review visual. Todo componente visual añade:
 
 - `Composition`: contexto creíble con jerarquía, contenido y componentes vecinos reales;
-- `AllThemes`: misma composición en `dark`, `light`, `sober-light` y `playful`;
+- `AllThemes`: misma composición en `dark` y `light`;
 - phone + desktop cuando el ancho cambia su comportamiento;
 - densidad default + data-dense cuando aplique.
 
@@ -209,6 +209,6 @@ relación, una sola escalera de elevación y máximo un efecto dominante por reg
 - [ ] El anillo de foco sale de `styles/focus.css.ts` con `...focus.ring` — nunca un `outline` ni un `boxShadow` propios (ADR-036).
 - [ ] Entry de `size-limit` añadido y dentro de budget (docs/03 §3).
 - [ ] `"use client"` **solo** si el componente es interactivo; los presentacionales quedan server-safe.
-- [ ] Coherente en los 4 temas (sober y playful incluidos) — es el gate del theming.
+- [ ] Coherente en los dos temas oficiales — es el gate del theming.
 - [ ] `Composition` demuestra jerarquía y ritmo reales; no solo variantes aisladas.
 - [ ] Tipografía, spacing, elevación y efectos cumplen `docs/06-visual-language.md`.

@@ -37,7 +37,7 @@ viven en **tres ejes semánticos distintos**.
 | Loader     | `"spinner" \| "dots" \| "bars"`             | `Loader.types.ts:4`      | **forma de la animación**    | no                 |
 
 La consecuencia es verificable y contradice `docs/02-theming.md` §2 punto 3 («hasta el significado
-visual de `variant="filled"` es temable»): **`playful` remapea `filled` a `gradient.brand`**
+visual de `variant="filled"` es temable»): **un tema puede remapear `filled` a `gradient.brand`**
 (`packages/themes/src/__tests__/official-themes.test.ts:49`) y ese remapeo llega a Button y ActionIcon,
 pero **no** a Alert ni a Badge, que seguirán pintando `scale.600` plano.
 
@@ -358,8 +358,6 @@ tenant**, censados por lectura directa:
 | `packages/themes/src/load-theme.ts:36-45`                   | literal exhaustivo escrito a mano         |
 | `packages/themes/src/themes/nebula-dark.ts:113`             | 1 receta                                  |
 | `packages/themes/src/themes/nebula-light.ts:92`             | 1 receta                                  |
-| `packages/themes/src/themes/sober-light.ts:91`              | 1 receta                                  |
-| `packages/themes/src/themes/playful.ts:92`                  | 1 receta                                  |
 | `packages/web/src/theme/resolve-variant.ts` (`ResolveFlat`) | 1 rama del switch de modo plano           |
 | **Cada tema de tenant**                                     | 1 receta — hoy 0, planificados 2 (§3.1.1) |
 
@@ -442,7 +440,7 @@ recalibración de Pagination en T3. Si el propietario aprueba A, hay que recalib
 La alternativa técnica que evita la recalibración: publicar una variante **zero-runtime** para los
 componentes del escalón de 12 kB —recetas resueltas por `recipe()` de VE en build, leyendo los mismos
 `vars` que `ResolveVariant`—. Cuesta 0 kB, pero **pierde `variantMap`**: un tema no podría remapear
-`filled` a `gradient.brand` como hace `playful`. Es decir, resuelve el bundle reintroduciendo
+`filled` a `gradient.brand`. Es decir, resuelve el bundle reintroduciendo
 exactamente el problema de §0.1. **No se recomienda**, pero es la disyuntiva honesta y el propietario
 debe verla: _o_ Badge pesa 13,8 kB _o_ Badge no es realmente temable.
 
@@ -462,7 +460,7 @@ así que N1 hereda el trabajo hecho.
 ### 3.4 Coste de a11y — hay un agujero, y es anterior a esta decisión
 
 `pnpm check:contrast` corre verde: **28 pares × 5 temas** (smoke-light, nebula-light, nebula-dark,
-sober-light, playful) = 140 comprobaciones, 0 FAIL.
+= 140 comprobaciones, 0 FAIL.
 
 ```
 28 pares · 28 PASS · 0 FAIL
@@ -472,7 +470,7 @@ sober-light, playful) = 140 comprobaciones, 0 FAIL.
 Pero la lectura de `tools/contrast-check/src/pairs.ts` muestra que **`BuildPairs()` no lee
 `theme.variantMap` en ningún punto**. Los 28 pares son una lista escrita a mano. El par etiquetado
 `text.onPrimary / primary.600 (filled)` (líneas 36-39) no deriva de la receta: fija
-`bg: (t) => t.colors.primary["600"]` como literal. **En `playful`, cuya receta `filled` es
+`bg: (t) => t.colors.primary["600"]` como literal. **En un tema cuya receta `filled` es
 `gradient.brand`, el gate sigue comprobando `primary.600`, que no es lo que el componente pinta.**
 
 Consecuencias, en orden de importancia:
@@ -572,15 +570,15 @@ sola vez. Ninguno bloquea nada.
 
 ### 5.1 Estado de ejecución
 
-| Tramo   | Estado      | Nota                                                                                 |
-| ------- | ----------- | ------------------------------------------------------------------------------------ |
-| V0      | **cerrado** | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`         |
-| V2 + V3 | **cerrado** | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio |
-| V1      | **cerrado** | ADR-040 aceptado. El gate derivado destapó un fallo AA real en `playful` (ver abajo) |
-| V4      | **cerrado** | Paper, Avatar, Card, Progress y Toast                                                |
-| V5      | **cerrado** | Segment, Tabs, NavLink y Pagination                                                  |
-| V6      | **cerrado** | 18 de 21 componentes con `color` cumplen ya la convención de ADR-021                 |
-| V7 – V8 | sin empezar | trabajo dentro de W3                                                                 |
+| Tramo   | Estado      | Nota                                                                                    |
+| ------- | ----------- | --------------------------------------------------------------------------------------- |
+| V0      | **cerrado** | ADR-041 aceptado. `Divider.variant` → `lineStyle`, `Loader.variant` → `type`            |
+| V2 + V3 | **cerrado** | ADR-038 y ADR-039 aceptados. Alert y Badge al `variantMap`; `dot` pasa a prop propio    |
+| V1      | **cerrado** | ADR-040 aceptado. El gate derivado destapó un fallo AA real en un gradiente (ver abajo) |
+| V4      | **cerrado** | Paper, Avatar, Card, Progress y Toast                                                   |
+| V5      | **cerrado** | Segment, Tabs, NavLink y Pagination                                                     |
+| V6      | **cerrado** | 18 de 21 componentes con `color` cumplen ya la convención de ADR-021                    |
+| V7 – V8 | sin empezar | trabajo dentro de W3                                                                    |
 
 **Tres subconjuntos de ADR-038 no sobrevivieron a la implementación**, y los tres por la misma razón:
 el ADR los asignó sobre el papel y el componente real los desmiente.
@@ -616,7 +614,7 @@ de `docs/03` §3, que ahora distingue presentacionales con y sin theming en runt
 
 **V1 encontró lo que §3.4 predecía, aunque no donde yo lo busqué.** Las 224 combinaciones que medí a
 mano pasaban porque las medí con el `variantMap` de entonces. El gate derivado, en cambio, evalúa lo
-que el tema dice **hoy**: `playful.variantMap.filled` es `gradient.brand`, y sus tres stops fallaban
+que el tema dice **hoy**: un `variantMap.filled` que sea `gradient.brand` con tres stops fallaba
 contra el texto blanco —2,60:1 el peor—. El par literal que el gate traía comprobaba `primary.600` y
 pasaba con 5,53. Es exactamente la mentira que ADR-040 describía, y ningún gate anterior podía verla.
 Corregido subiendo los tres stops al peldaño 600.
@@ -643,7 +641,7 @@ midieron las **224 combinaciones** (8 variantes × 7 escalas × 4 temas) con la 
 la salida real del CLI, y **no falla ninguna**: 147 pares de texto, 21 de gradiente contra cada stop, 6
 de glass compuesto y 28 de borde con identidad. Las escalas se invierten correctamente en dark
 —`primary.800` es `#3630af` en light y `#d0d9ff` en dark—, que es lo que sostiene las recetas en ambos
-esquemas. El caso más ajustado es el gradiente de `playful`, a 4,75:1. Eso **debilita el argumento de
+esquemas. El caso más ajustado es un gradiente de variante, a 4,75:1. Eso **debilita el argumento de
 «V1 antes que V2»**: la validación que V1 automatiza ya se hizo a mano, de modo que V1 conserva su valor
 —tenants y regresiones— pero deja de ser precondición.
 
@@ -708,7 +706,7 @@ ActionIcon   29.64 kB / 34 kB       Button      29.92 kB / 34 kB
 **Contraste** — `node tools/contrast-check/src/cli.ts`:
 
 ```
-28 pares · 28 PASS · 0 FAIL   (× smoke-light, nebula-light, nebula-dark, sober-light, playful)
+28 pares · 28 PASS · 0 FAIL   (× smoke-light, nebula-light, nebula-dark)
 ✔ Gate de contraste en verde para 5 temas.
 ```
 

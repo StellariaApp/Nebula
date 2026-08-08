@@ -23,7 +23,7 @@ necesitas jerarquía dentro de un glass, usa `Paper` o un borde, no otro `GlassS
 
 ## Las tres degradaciones
 
-1. **`effects.glass.enabled === false`** (sober) — el componente pinta `colors.surface[fallbackSurface]`
+1. **`effects.glass.enabled === false`** — el componente pinta `colors.surface[fallbackSurface]`
    con borde `border.subtle` y `backdrop-filter: none`. Se decide en JS porque `glass.enabled` es data
    no-CSS del tema (`docs/02` §4): no existe como var del contract. El atributo `data-glass="off"` deja
    la degradación observable en tests y en el inspector.

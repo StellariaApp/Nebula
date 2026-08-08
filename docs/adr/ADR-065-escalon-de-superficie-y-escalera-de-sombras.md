@@ -19,17 +19,17 @@
 escalón. Medido sobre los valores de token de los cuatro temas oficiales (relación de luminancia
 WCAG, no sobre el render, para aislar el contrato del componente):
 
-| Par de roles         | nebula-dark | nebula-light | sober-light |   playful |
-| -------------------- | ----------: | -----------: | ----------: | --------: |
-| `sunken` → `base`    |       1.062 |        1.062 |       1.114 |     1.062 |
-| `base` → `raised`    |   **1.012** |    **1.017** |       1.073 | **1.017** |
-| `raised` → `overlay` |   **1.012** |    **1.017** |   **1.000** | **1.017** |
-| `base` → `overlay`   |   **1.000** |    **1.000** |       1.073 | **1.000** |
-| `base` → `hover`     |       1.062 |        1.062 |       1.072 |     1.062 |
+| Par de roles         | nebula-dark | nebula-light |
+| -------------------- | ----------: | -----------: |
+| `sunken` → `base`    |       1.062 |        1.062 |
+| `base` → `raised`    |   **1.012** |    **1.017** |
+| `raised` → `overlay` |   **1.012** |    **1.017** |
+| `base` → `overlay`   |   **1.000** |    **1.000** |
+| `base` → `hover`     |       1.062 |        1.062 |
 
 Dos hechos que la auditoría de WR2 no reportó:
 
-1. **`surface.overlay` es el mismo hex que `surface.base` en tres de los cuatro temas.** No es un
+1. **`surface.overlay` es el mismo hex que `surface.base` en los dos temas.** No es un
    escalón pequeño: es **ratio 1.000**. Un `Menu`, un `Popover`, un `Dialog`, un `Modal` y el
    skip-link de `AppShell` pintan **exactamente el color del lienzo** sobre el que flotan. Lo único
    que los separa es el borde y la sombra.
@@ -145,10 +145,10 @@ Los peldaños `xl` y `xxl` siguen existiendo en la escala y siguen disponibles p
 - **Los cinco temas oficiales recalibran `surface.base`, `raised` y `overlay`.** Es un cambio de
   valores, no de contrato: no aparecen roles nuevos.
 - **Los temas light tienen que hacer sitio hacia abajo.** Es la consecuencia menos obvia y la que más
-  trabajo da a T3: en `sober-light`, `surface.raised` ya es **blanco puro**, así que el nivel 3 no
+  trabajo da a T3: en un tema claro extremo, `surface.raised` ya es **blanco puro**, así que el nivel 3 no
   tiene ningún recorrido por encima. Con un escalón de 1.08, un `raised` conforme no puede pasar de
   luminancia 0.9222, y hoy `gray.50` está en 0.9289. La escalera light se construye **bajando el
-  lienzo**, no subiendo el overlay. `nebula-light` y `playful` tienen el mismo problema en su forma
+  lienzo**, no subiendo el overlay. `nebula-light` tiene el mismo problema en su forma
   extrema: lienzo blanco con tarjetas casi blancas.
 - **Once componentes de tres familias cambian de aspecto** — es el tramo más amplio del plan y **manda
   sobre la fecha de captura del baseline de ADR-037**, que se captura después de T3 y T5.

@@ -19,7 +19,7 @@ son una lista escrita a mano: roles de texto sobre las cuatro superficies, `text
 cuatro superficies, y dos pares etiquetados `(filled)` y `(filled:hover)`.
 
 Esos dos últimos son el problema. `pairs.ts:36-47` fija `bg: (t) => t.colors.primary["600"]` como
-literal, no como la resolución de `theme.variantMap.filled.background`. En `playful`, cuya receta
+literal, no como la resolución de `theme.variantMap.filled.background`. En un tema cuya receta
 `filled` es `gradient.brand` (`packages/themes/src/__tests__/official-themes.test.ts:49`), **el gate
 comprueba un color que el componente no pinta**.
 
@@ -95,7 +95,7 @@ una superficie **no cubierta**.
 ## Ejecución (2026-07-28, tramo V1)
 
 **Encontró un fallo real al primer intento, y era justo el que motivaba el ADR.** El par literal
-`text.onPrimary / primary.600 (filled)` pasaba con 5,53:1 en `playful`, pero ese tema remapea
+`text.onPrimary / primary.600 (filled)` pasaba con 5,53:1 en un tema que remapea
 `variantMap.filled.background` a `gradient.brand`, de modo que el componente pintaba otra cosa. Los
 **tres** stops del gradiente fallaban contra el texto blanco —grape.500 3,90 · pink.500 3,92 ·
 orange.400 **2,60**—, no solo el más claro. Corregido subiendo los tres al peldaño 600 (5,53 · 5,49 ·
@@ -110,7 +110,7 @@ referencia que el tool no sepa resolver lanza `UnsupportedRefError` en vez de om
 modo que ampliar `VariantColorRef` sin actualizar el tool pone el gate en rojo, no en verde.
 
 **`ContrastPair` gana `skip?`.** Si un par no aplica a un tema —el borde de `glass` es `border.subtle`
-en tres temas y `border.default` en sober, ninguno de los dos con identidad; el hover no existe cuando
+en unos temas y `border.default` en otros, ninguno de los dos con identidad; el hover no existe cuando
 el fondo no es una referencia de escala— la alternativa era compararlo consigo mismo y producir un
 FAIL de 1,00:1. La exención es ahora explícita y auditable por tema, no un valor de relleno.
 

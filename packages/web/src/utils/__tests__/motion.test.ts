@@ -180,9 +180,9 @@ describe("ScrollSpring", () => {
   });
 
   it("cada tema decide su propia física de scroll", () => {
-    const playful = officialThemes.playful;
-    expect(ScrollSpring("default", playful).stiffness).toBe(
-      playful.motion.spring.default.stiffness * 0.25,
+    const light = officialThemes.light;
+    expect(ScrollSpring("default", light).stiffness).toBe(
+      light.motion.spring.default.stiffness * 0.25,
     );
   });
 });

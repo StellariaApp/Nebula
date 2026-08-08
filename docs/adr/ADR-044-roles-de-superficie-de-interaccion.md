@@ -15,8 +15,6 @@ Relación entre `surface.sunken` —el hover— y `surface.base` —el canvas so
 | ------------ | ----------------: |
 | nebula-dark  |          **1.01** |
 | nebula-light |              1.06 |
-| playful      |              1.06 |
-| sober-light  |              1.11 |
 
 **1.01:1 no es un hover débil: es ninguno.** Y el escalón varía más de 10× entre temas, así que
 ningún ajuste local lo arregla en los cuatro a la vez.
@@ -68,13 +66,11 @@ y una fila con el puntero encima.
    | ------------ | --------------- | ------------------ | ----: | ------------------ | ----: |
    | nebula-dark  | `dark.100`      | `dark.400` (sube)  | 1.085 | `dark.500` (sube)  | 1.128 |
    | nebula-light | `light.50`      | `light.300` (baja) | 1.062 | `light.500` (baja) | 1.150 |
-   | playful      | `light.50`      | `light.300` (baja) | 1.062 | `light.500` (baja) | 1.150 |
-   | sober-light  | `gray.50`       | `light.500` (baja) | 1.072 | `light.600` (baja) | 1.122 |
 
    `active` se calibra al doble del delta de `hover`, no al doble del ratio: la pulsación es un
    estado momentáneo que debe leerse sin ambigüedad.
 
-   `sober-light` toma sus dos valores de la paleta `light` y no de `gray` porque `gray` no tiene
+   Un tema claro toma sus dos valores de la paleta `light` y no de `gray` porque `gray` no tiene
    escalón fino —`gray.100` ya salta a 1.114— y porque ese tema **ya** mezcla ambas paletas
    (`base: gray.50`, `raised: light.50`).
 

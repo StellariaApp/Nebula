@@ -9,7 +9,7 @@ cromáticas del contrato —fondo, primer plano y borde— las resuelve `Resolve
 Hasta entonces `Alert.tsx` tenía una función `Palette()` propia que reimplementaba las recetas a mano.
 No coincidía ni con el contrato ni con la de Badge: para `light`, el contrato dice `scale.500.12` +
 `scale.800`, Alert decía 12 % + `text.primary` y Badge decía 14 % + `scale.700`. Tres definiciones del
-mismo nombre, y ningún gate las comparaba. La consecuencia real: `playful` remapea `filled` a
+mismo nombre, y ningún gate las comparaba. La consecuencia real: un tema que remapee `filled` a
 `gradient.brand` y ese remapeo llegaba a Button pero no aquí.
 
 **Cambio visual deliberado**: en `light` y `outline` el texto pasa de `text.primary` a la escala del

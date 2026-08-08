@@ -40,8 +40,8 @@ export const Default: Story = {};
 
 /**
  * Las 8 recetas del `variantMap`. Lo que pinta cada una lo decide el TEMA:
- * cambia el tema en la toolbar y `filled` puede pasar a gradiente (playful) o
- * `glass` degradar a superficie sólida (sober, que trae glass off).
+ * cambia el tema en la toolbar y la misma variante se resuelve contra el
+ * `variantMap` de cada tema, sin tocar props.
  */
 export const Variants: Story = {
   render: (args) => (

@@ -31,7 +31,7 @@ de una fila de tabla, y arrastrar el motor entero para pintar una línea de 40 p
 
 Tiñe **solo la flecha**, que va `aria-hidden`, y deja el número en `text.primary`. Es el patrón que
 `Stat` ya usaba, y no es una preferencia estética: `semantic.success.600` sobre `surface.base` **no
-llega a AA en sober-light**, y el gate axe lo marcó como `color-contrast` en cuanto el número se pintó
+llega a AA en los temas claros**, y el gate axe lo marcó como `color-contrast` en cuanto el número se pintó
 de verde.
 
 `Stat` pasaba el mismo gate desde W3.3 porque su flecha es decorativa —axe excluye del cálculo de

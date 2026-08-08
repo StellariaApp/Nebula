@@ -35,7 +35,7 @@ Fuera de alcance web y justificado: `List (data, FlatList)` es solo native; `Bre
 | `pnpm --filter @stellaria/nebula-web size` | verde · 75 entradas, todas calibradas con medición real                                                                                                                        |
 | `pnpm --filter playground-web a11y` (axe)  | 294/294 · 0 violaciones (**re-verificado el 2026-07-27: 338/338**, con las láminas `Foundations/Visual QA`)                                                                    |
 | `pnpm check:contrast`                      | verde                                                                                                                                                                          |
-| Presets sober/playful                      | cubiertos por las stories `AllThemes` de cada familia                                                                                                                          |
+| Temas oficiales                            | cubiertos por las stories `AllThemes` de cada familia                                                                                                                          |
 | Keyboard tests de overlays/menu/combobox   | play functions en Popover, Menu, ContextMenu, Modal, Drawer, Select, Combobox, MultiSelect, Segment, Accordion, Pagination                                                     |
 
 ## Decisiones tomadas durante la fase
