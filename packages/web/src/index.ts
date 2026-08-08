@@ -475,8 +475,23 @@ export type { PanelLabels, PanelOrientation, PanelProps } from "./components/Pan
 
 export { Reveal } from "./components/Reveal/index.js";
 export type { RevealPreset, RevealProps } from "./components/Reveal/index.js";
-export { Section } from "./components/Section/index.js";
-export type { SectionProps } from "./components/Section/index.js";
+export {
+  Section,
+  SectionActions,
+  SectionAside,
+  SectionDescription,
+  SectionFooter,
+  SectionHeader,
+  SectionHeading,
+  SectionTitle,
+} from "./components/Section/index.js";
+export type {
+  SectionHeadingProps,
+  SectionOrder,
+  SectionProps,
+  SectionSize,
+  SectionSlotProps,
+} from "./components/Section/index.js";
 export {
   Footer,
   FooterBrand,
@@ -495,8 +510,25 @@ export { Main } from "./components/Main/index.js";
 export type { MainProps } from "./components/Main/index.js";
 export { Header, HEADER_LABELS } from "./components/Header/index.js";
 export type { HeaderLabels, HeaderOrder, HeaderProps } from "./components/Header/index.js";
-export { Hero } from "./components/Hero/index.js";
-export type { HeroProps, HeroSize, HeroVariant } from "./components/Hero/index.js";
+export {
+  Hero,
+  HeroActions,
+  HeroBottom,
+  HeroDescription,
+  HeroHeader,
+  HeroHiper,
+  HeroLeft,
+  HeroRight,
+  HeroSubtitle,
+  HeroTitle,
+} from "./components/Hero/index.js";
+export type {
+  HeroOrder,
+  HeroProps,
+  HeroSize,
+  HeroSlotProps,
+  HeroVariant,
+} from "./components/Hero/index.js";
 export { Feature } from "./components/Feature/index.js";
 export type { FeatureProps } from "./components/Feature/index.js";
 

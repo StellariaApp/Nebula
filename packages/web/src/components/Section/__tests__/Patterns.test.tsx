@@ -4,7 +4,7 @@ import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { Hero } from "../../Hero/Hero.js";
 import { Feature } from "../../Feature/Feature.js";
 import { Main } from "../../Main/Main.js";
-import { Section } from "../Section.js";
+import { Section } from "../index.js";
 
 afterEach(cleanup);
 
@@ -226,5 +226,58 @@ describe("Section — la banda de cristal", () => {
 
     expect(band?.getAttribute("style") ?? "").toContain("900px");
     expect(rail?.textContent).toContain("cuerpo");
+  });
+});
+
+describe("Section compound", () => {
+  it("el titulo como parte sigue nombrando la region y respeta el nivel", () => {
+    render(
+      <Section order={3}>
+        <Section.Header>
+          <Section.Title>Ventas</Section.Title>
+        </Section.Header>
+        contenido
+      </Section>,
+    );
+    expect(screen.getByRole("heading", { name: "Ventas", level: 3 })).toBeDefined();
+    expect(screen.getByRole("region", { name: "Ventas" })).toBeDefined();
+  });
+
+  it("las acciones pueden ir antes de la descripcion, que con props no se puede", () => {
+    render(
+      <Section>
+        <Section.Header>
+          <Section.Title>Ventas</Section.Title>
+          <Section.Actions>
+            <button type="button">Exportar</button>
+          </Section.Actions>
+          <Section.Description>Ultimos 30 dias</Section.Description>
+        </Section.Header>
+        contenido
+      </Section>,
+    );
+    const header = screen.getByRole("heading", { name: "Ventas" }).parentElement;
+    const texts = [...(header?.querySelectorAll("h2, p, button") ?? [])].map((n) => n.textContent);
+    expect(texts).toEqual(["Ventas", "Exportar", "Ultimos 30 dias"]);
+  });
+
+  it("lo que no es una parte se queda en el cuerpo", () => {
+    render(
+      <Section>
+        <Section.Header>
+          <Section.Title>Ventas</Section.Title>
+        </Section.Header>
+        <p>fila uno</p>
+        <Section.Footer>pie</Section.Footer>
+      </Section>,
+    );
+    expect(screen.getByText("fila uno")).toBeDefined();
+    expect(screen.getByText("pie")).toBeDefined();
+  });
+
+  it("una parte fuera de su Section avisa en vez de fallar en silencio", () => {
+    expect(() => render(<Section.Title>huerfano</Section.Title>)).toThrow(
+      /debe usarse dentro de <Section>/,
+    );
   });
 });

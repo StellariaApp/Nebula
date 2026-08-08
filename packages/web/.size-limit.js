@@ -953,7 +953,7 @@ const MODULE_BUDGETS = [
   },
   {
     name: "Section (patrón con estados de carga y error, por módulo)",
-    path: "dist/components/Section/Section.js",
+    path: "dist/components/Section/index.js",
     import: "{ Section }",
     ignore: ["react", "react-dom"],
     limit: "48 kB",
@@ -974,10 +974,10 @@ const MODULE_BUDGETS = [
   },
   {
     name: "Hero (banda de portada temable con variantes, por módulo)",
-    path: "dist/components/Hero/Hero.js",
+    path: "dist/components/Hero/index.js",
     import: "{ Hero }",
     ignore: ["react", "react-dom"],
-    limit: "24.5 kB",
+    limit: "25.75 kB",
   },
   {
     name: "Feature (ThemeIcon + Anchor, por módulo)",

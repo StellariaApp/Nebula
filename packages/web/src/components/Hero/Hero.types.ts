@@ -8,6 +8,14 @@ export type HeroVariant = Extract<Variant, "filled" | "outline" | "light" | "gla
 
 export type HeroSize = "sm" | "md" | "lg" | "xl";
 
+export type HeroOrder = 1 | 2 | 3 | 4 | 5 | 6;
+
+/** Props de cualquier parte de `Hero`: hijos, `className` y las style props del sistema. */
+export interface HeroSlotProps extends Omit<StyleProps, "color" | "left" | "right" | "bottom"> {
+  children?: ReactNode | undefined;
+  className?: string | undefined;
+}
+
 export interface HeroProps extends Omit<
   StyleProps,
   "color" | "align" | "left" | "right" | "bottom"
@@ -23,7 +31,7 @@ export interface HeroProps extends Omit<
   color?: ColorExtended | undefined;
   size?: HeroSize | undefined;
   align?: "start" | "center" | undefined;
-  order?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  order?: HeroOrder | undefined;
   contentWidth?: Unit | undefined;
   id?: string | undefined;
   style?: CSSProperties | undefined;

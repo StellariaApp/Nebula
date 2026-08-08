@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
+import { Children, isValidElement, useId, useMemo, type ReactElement, type ReactNode } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
@@ -9,9 +9,55 @@ import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
+import { HeroActions } from "./components/Actions.js";
+import { HeroBottom } from "./components/Bottom.js";
+import { HeroDescription } from "./components/Description.js";
+import { HeroHeader } from "./components/Header.js";
+import { HeroHiper } from "./components/Hiper.js";
+import { HeroLeft } from "./components/Left.js";
+import { HeroRight } from "./components/Right.js";
+import { HeroSubtitle } from "./components/Subtitle.js";
+import { HeroTitle } from "./components/Title.js";
+import { HeroContext } from "./Hero.context.js";
 import * as styles from "./Hero.css.js";
 import type { HeroProps } from "./Hero.types.js";
 import * as variables from "./Hero.vars.css.js";
+
+interface Split {
+  left: ReactNode[];
+  right: ReactNode[];
+  bottom: ReactNode[];
+  body: ReactNode[];
+}
+
+const REGIONS = new Map<unknown, keyof Split>([
+  [HeroLeft, "left"],
+  [HeroRight, "right"],
+  [HeroBottom, "bottom"],
+]);
+
+function SplitChildren(children: ReactNode): Split {
+  const split: Split = { left: [], right: [], bottom: [], body: [] };
+  Children.forEach(children, (child) => {
+    if (child === null || child === undefined || child === false) return;
+    const region = isValidElement(child) ? REGIONS.get(child.type) : undefined;
+    split[region ?? "body"].push(child);
+  });
+  return split;
+}
+
+const BODY_PARTS = new Set<unknown>([
+  HeroHiper,
+  HeroHeader,
+  HeroTitle,
+  HeroSubtitle,
+  HeroDescription,
+  HeroActions,
+]);
+
+function HasBodyPart(nodes: readonly ReactNode[]): boolean {
+  return nodes.some((node) => isValidElement(node) && BODY_PARTS.has(node.type));
+}
 
 const DEFAULT_WIDTH = 1400;
 
@@ -45,7 +91,10 @@ export function Hero(props: HeroProps): ReactElement {
   const has_image = image !== undefined;
 
   const title_id = useId();
-  const Title = `h${String(order)}` as "h2";
+  const parts = useMemo(() => SplitChildren(children), [children]);
+  const owns_body = HasBodyPart(parts.body);
+  const has_title = title !== undefined;
+  const context = useMemo(() => ({ titleId: title_id, order, size }), [title_id, order, size]);
 
   const css_vars = assignInlineVars({
     [variables.contentMax]: LengthToCss(contentWidth),
@@ -60,45 +109,63 @@ export function Hero(props: HeroProps): ReactElement {
   });
 
   return (
-    <section
-      className={cx(styles.hero, styles.size[size], sprinkle_class, className)}
-      style={{ ...css_vars, ...sprinkle_style }}
-      data-variant={variant}
-      data-align={align}
-      {...(title === undefined ? {} : { "aria-labelledby": title_id })}
-      {...rest}
-    >
-      {has_image ? (
-        <>
-          <img className={styles.media} src={image} alt={imageAlt} />
-          <span className={styles.scrim} aria-hidden="true" />
-        </>
-      ) : null}
+    <HeroContext.Provider value={context}>
+      <section
+        className={cx(styles.hero, styles.size[size], sprinkle_class, className)}
+        style={{ ...css_vars, ...sprinkle_style }}
+        data-variant={variant}
+        data-align={align}
+        {...(has_title || owns_body ? { "aria-labelledby": title_id } : {})}
+        {...rest}
+      >
+        {has_image ? (
+          <>
+            <img className={styles.media} src={image} alt={imageAlt} />
+            <span className={styles.scrim} aria-hidden="true" />
+          </>
+        ) : null}
 
-      {left === undefined ? null : <div className={styles.slot}>{left}</div>}
-
-      <div className={styles.body}>
-        {hiper === undefined ? null : typeof hiper === "string" ? (
-          <p className={styles.hiper}>{hiper}</p>
-        ) : (
-          hiper
+        {parts.left.length > 0 ? (
+          parts.left
+        ) : left === undefined ? null : (
+          <HeroLeft>{left}</HeroLeft>
         )}
-        <div className={styles.header}>
-          {title === undefined ? null : (
-            <Title className={cx(styles.title, styles.title_size[size])} id={title_id}>
-              {title}
-            </Title>
-          )}
-          {subtitle === undefined ? null : <p className={styles.subtitle}>{subtitle}</p>}
-          {description === undefined ? null : <p className={styles.description}>{description}</p>}
-        </div>
-        {children}
-        {actions === undefined ? null : <div className={styles.actions}>{actions}</div>}
-      </div>
 
-      {right === undefined ? null : <div className={styles.slot}>{right}</div>}
-      {bottom === undefined ? null : <div className={styles.bottom}>{bottom}</div>}
-    </section>
+        <div className={styles.body}>
+          {owns_body ? (
+            parts.body
+          ) : (
+            <>
+              {hiper === undefined ? null : typeof hiper === "string" ? (
+                <HeroHiper>{hiper}</HeroHiper>
+              ) : (
+                hiper
+              )}
+              <HeroHeader>
+                {has_title ? <HeroTitle>{title}</HeroTitle> : null}
+                {subtitle === undefined ? null : <HeroSubtitle>{subtitle}</HeroSubtitle>}
+                {description === undefined ? null : (
+                  <HeroDescription>{description}</HeroDescription>
+                )}
+              </HeroHeader>
+              {parts.body}
+              {actions === undefined ? null : <HeroActions>{actions}</HeroActions>}
+            </>
+          )}
+        </div>
+
+        {parts.right.length > 0 ? (
+          parts.right
+        ) : right === undefined ? null : (
+          <HeroRight>{right}</HeroRight>
+        )}
+        {parts.bottom.length > 0 ? (
+          parts.bottom
+        ) : bottom === undefined ? null : (
+          <HeroBottom>{bottom}</HeroBottom>
+        )}
+      </section>
+    </HeroContext.Provider>
   );
 }
 
