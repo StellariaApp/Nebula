@@ -20,9 +20,14 @@ export interface AlertProps extends StyleProps {
   live?: "status" | "alert" | "off" | undefined;
   actions?: ReactNode | undefined;
   className?: string | undefined;
+  /** El titulo. Su `id` es el que nombra la alerta por `aria-labelledby` y se escribe DESPUES de la ranura. Solo se pinta con `title`. */
   titleProps?: TextSlotProps | undefined;
+  /** El glifo. Solo se pinta con `icon`, y va `aria-hidden`: quien informa es el texto. */
   iconProps?: BoxSlotProps | undefined;
+  /** La columna que agrupa titulo, mensaje y acciones. Se pinta siempre. */
   bodyProps?: BoxSlotProps | undefined;
+  /** El mensaje, que es `children`. No existe sin ellos. */
   messageProps?: BoxSlotProps | undefined;
+  /** La fila de acciones. Solo con `actions`. El boton de cerrar no cae aqui ni tiene ranura: lo gobiernan `withCloseButton` y `closeLabel`. */
   actionsProps?: BoxSlotProps | undefined;
 }

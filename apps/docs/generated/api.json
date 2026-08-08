@@ -10,11 +10,9 @@
     "noContract": [],
     "noJsdoc": [
       "Affix",
-      "Alert",
       "Anchor",
       "AspectRatio",
       "AvatarGroup",
-      "Blockquote",
       "Box",
       "ButtonGroup",
       "CardImage",
@@ -32,8 +30,6 @@
       "DirectionProvider",
       "DragDropContext",
       "Droppable",
-      "EmptyModule",
-      "EmptyState",
       "FieldError",
       "FileButton",
       "Flex",
@@ -48,7 +44,6 @@
       "Grid",
       "GridCol",
       "Group",
-      "Header",
       "Hero",
       "Highlight",
       "HoverCard",
@@ -80,7 +75,6 @@
       "Skeleton",
       "Space",
       "StarField",
-      "Stat",
       "StatusBadge",
       "StatusMapProvider",
       "SwitchGroup",
@@ -491,7 +485,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La fila de acciones. Solo con `actions`. El boton de cerrar no cae aqui ni tiene ranura: lo gobiernan `withCloseButton` y `closeLabel`.",
           "slot": true
         },
         {
@@ -499,7 +493,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La columna que agrupa titulo, mensaje y acciones. Se pinta siempre.",
           "slot": true
         },
         {
@@ -507,7 +501,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El glifo. Solo se pinta con `icon`, y va `aria-hidden`: quien informa es el texto.",
           "slot": true
         },
         {
@@ -515,7 +509,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El mensaje, que es `children`. No existe sin ellos.",
           "slot": true
         },
         {
@@ -523,7 +517,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El titulo. Su `id` es el que nombra la alerta por `aria-labelledby` y se escribe DESPUES de la ranura. Solo se pinta con `title`.",
           "slot": true
         }
       ],
@@ -1465,7 +1459,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La atribucion. Solo se pinta con `cite`, y va en un `cite`.",
           "slot": true
         },
         {
@@ -1473,7 +1467,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La caja que envuelve a `children` y a la atribucion. Se pinta siempre.",
           "slot": true
         },
         {
@@ -1481,7 +1475,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El glifo. Solo se pinta con `icon`, va `aria-hidden` y su presencia cambia la maqueta a dos columnas.",
           "slot": true
         }
       ],
@@ -11917,7 +11911,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La banda que junta `action` y `secondaryAction`. Cae DENTRO de la fila de acciones del `EmptyState`, no la sustituye, y no existe si no hay ninguna de las dos.",
           "slot": true
         },
         {
@@ -11925,7 +11919,7 @@
           "type": "import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Text/Text.types\").TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La descripcion, reenviada al `EmptyState`. Solo se pinta con `description`.",
           "slot": true
         },
         {
@@ -11933,7 +11927,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El pie del modulo, fuera del `EmptyState`. Solo se pinta con `footer`.",
           "slot": true
         },
         {
@@ -11941,7 +11935,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El glifo, reenviado al `EmptyState`. Solo se pinta con `icon`.",
           "slot": true
         },
         {
@@ -11949,7 +11943,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La ilustracion, que es propia del modulo y va antes del `EmptyState`. Solo con `illustration`, va `aria-hidden` y su tamano sale de `size`.",
           "slot": true
         },
         {
@@ -11957,7 +11951,7 @@
           "type": "import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Text/Text.types\").TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El titulo, reenviado a la ranura del `EmptyState` que el modulo monta dentro.",
           "slot": true
         }
       ],
@@ -12029,7 +12023,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La fila de acciones. Solo se pinta con `actions`.",
           "slot": true
         },
         {
@@ -12037,7 +12031,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La descripcion. Solo se pinta con `description`.",
           "slot": true
         },
         {
@@ -12045,7 +12039,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El glifo. Solo se pinta con `icon`, y va `aria-hidden`.",
           "slot": true
         },
         {
@@ -12053,7 +12047,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El titulo. Es el unico nodo que se pinta siempre, porque `title` es obligatorio.",
           "slot": true
         }
       ],
@@ -12149,7 +12143,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La descripcion. Solo se pinta con `description`.",
           "slot": true
         },
         {
@@ -12157,7 +12151,7 @@
           "type": "ThemeIconProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El `ThemeIcon` que envuelve al glifo. Solo existe con `icon`, y se esparce DESPUES del tamano, la variante y el color que fija el componente, asi que los sustituye.",
           "slot": true
         },
         {
@@ -12173,7 +12167,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El titulo. Es el unico nodo que se pinta siempre, porque `title` es obligatorio.",
           "slot": true
         }
       ],
@@ -14760,7 +14754,7 @@
           "type": "ActionIconProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El boton de volver. Solo existe con `withBack`, y se esparce DESPUES del manejador y del rotulo, asi que puede sustituir los dos; el rotulo tiene ademas su propia via en `labels.back`.",
           "slot": true
         },
         {
@@ -14768,7 +14762,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La banda bajo la fila, que es donde cae `children`. No existe sin ellos.",
           "slot": true
         },
         {
@@ -14776,7 +14770,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La columna de titulo y subtitulo. No se pinta sin `title` ni `subtitle`.",
           "slot": true
         },
         {
@@ -14784,7 +14778,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El grupo de la izquierda. No se pinta sin `withBack` ni `leftSection`.",
           "slot": true
         },
         {
@@ -14792,7 +14786,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La fila que reparte el ancho entre el grupo izquierdo, el encabezado y el derecho. `children` cuelga por debajo de ella, no dentro.",
           "slot": true
         },
         {
@@ -14800,7 +14794,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El subtitulo. Solo se pinta con `subtitle`.",
           "slot": true
         },
         {
@@ -14808,7 +14802,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El titulo. Su etiqueta sale de `order` (`h1`-`h6`), asi que `component` aqui la cambia sin cambiar el nivel que se anuncia. Con `component` en el propio `Header`, su `id` nombra la region y se escribe DESPUES de la ranura para que no se pueda pisar.",
           "slot": true
         },
         {
@@ -14816,7 +14810,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El grupo de la derecha. Solo se pinta con `rightSection`.",
           "slot": true
         }
       ],
@@ -25750,7 +25744,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La descripcion del pie. Solo se pinta con `description`.",
           "slot": true
         },
         {
@@ -25758,7 +25752,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La variacion. Solo se pinta con `diff`, y lleva `data-trend`, que es de donde sale su color. La flecha y el texto para lector de pantalla van dentro y no tienen ranura.",
           "slot": true
         },
         {
@@ -25766,7 +25760,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El pie: variacion y descripcion. No se pinta si faltan las dos.",
           "slot": true
         },
         {
@@ -25774,7 +25768,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La fila de cabecera: rotulo y glifo.",
           "slot": true
         },
         {
@@ -25782,7 +25776,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El glifo de la cabecera. Solo se pinta con `icon`, y va `aria-hidden`.",
           "slot": true
         },
         {
@@ -25790,7 +25784,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El rotulo, en la fila de cabecera junto al glifo.",
           "slot": true
         },
         {
@@ -25798,7 +25792,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "La cifra. Su tamano sale de `size`.",
           "slot": true
         }
       ],

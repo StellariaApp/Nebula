@@ -17,8 +17,11 @@ export interface FeatureProps extends Omit<StyleProps, "align"> {
   align?: "start" | "center" | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
+  /** El titulo. Es el unico nodo que se pinta siempre, porque `title` es obligatorio. */
   titleProps?: TextSlotProps | undefined;
+  /** La descripcion. Solo se pinta con `description`. */
   descriptionProps?: TextSlotProps | undefined;
+  /** El `ThemeIcon` que envuelve al glifo. Solo existe con `icon`, y se esparce DESPUES del tamano, la variante y el color que fija el componente, asi que los sustituye. */
   iconProps?: ThemeIconProps | undefined;
   /**
    * El enlace del pie. Solo existe con `href`, y `linkText` es su contenido. Se esparce DESPUES del
