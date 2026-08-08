@@ -512,6 +512,21 @@ export const section = style({
   },
 });
 
+export const section_content = style({
+  "@layer": {
+    [base_layer]: {
+      display: "flex",
+      flexDirection: "column",
+      minWidth: 0,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          width: "100%",
+        },
+      },
+    },
+  },
+});
+
 export const section_header = style({
   "@layer": {
     [base_layer]: {
@@ -528,8 +543,10 @@ export const section_header = style({
       borderBlockEnd: `1px solid ${vars.color.border.default}`,
       "@media": {
         [SmallerThan("tablet")]: {
+          alignItems: "flex-end",
+          flexDirection: "column",
           paddingInline: vars.space.md,
-          paddingBlock: vars.space.sm,
+          gap: vars.space.sm,
         },
       },
     },

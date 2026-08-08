@@ -6,6 +6,7 @@ import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as variables from "./AppShell.vars.css.js";
 import * as styles from "./AppShell.css.js";
@@ -48,6 +49,10 @@ export function AppShell(props: AppShellProps): ReactElement {
     labels,
     contentId,
     className,
+    skipProps,
+    chromeProps,
+    mainProps,
+    scrollShadowProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -89,16 +94,37 @@ export function AppShell(props: AppShellProps): ReactElement {
           style={{ ...css_vars, ...sprinkle_style }}
           data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
         >
-          <a href={`#${content_id}`} className={styles.skip}>
+          <a
+            href={`#${content_id}`}
+            {...skipProps}
+            className={cx(styles.skip, skipProps?.className)}
+          >
             {text.skipToContent}
           </a>
           {backdrop}
-          {header === undefined ? null : <div className={styles.chrome}>{header}</div>}
+          {header === undefined ? null : (
+            <Box {...chromeProps} className={cx(styles.chrome, chromeProps?.className)}>
+              {header}
+            </Box>
+          )}
           {sidebar}
-          <main ref={mainRef} id={content_id} tabIndex={-1} className={styles.main}>
-            {scrollShadow ? <div className={styles.scroll_shadow} aria-hidden="true" /> : null}
+          <Box
+            component="main"
+            {...(mainRef === undefined ? {} : { ref: mainRef })}
+            id={content_id}
+            tabIndex={-1}
+            {...mainProps}
+            className={cx(styles.main, mainProps?.className)}
+          >
+            {scrollShadow ? (
+              <Box
+                aria-hidden="true"
+                {...scrollShadowProps}
+                className={cx(styles.scroll_shadow, scrollShadowProps?.className)}
+              />
+            ) : null}
             {children}
-          </main>
+          </Box>
         </div>
       </AppShellContext.Provider>
     );
@@ -111,21 +137,23 @@ export function AppShell(props: AppShellProps): ReactElement {
         style={{ ...css_vars, ...sprinkle_style }}
         data-navbar-collapsed={collapsed ? "true" : undefined}
       >
-        <a href={`#${content_id}`} className={styles.skip}>
+        <a href={`#${content_id}`} {...skipProps} className={cx(styles.skip, skipProps?.className)}>
           {text.skipToContent}
         </a>
 
         {header}
         {navbar}
 
-        <main
+        <Box
+          component="main"
           id={content_id}
           tabIndex={-1}
-          className={styles.main}
           data-padded={padded ? "true" : undefined}
+          {...mainProps}
+          className={cx(styles.main, mainProps?.className)}
         >
           {children}
-        </main>
+        </Box>
 
         {aside}
         {footer}

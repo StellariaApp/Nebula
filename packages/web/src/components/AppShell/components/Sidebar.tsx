@@ -5,7 +5,7 @@ import { useEffect, useRef, type ReactElement } from "react";
 import { useMediaQuery, useTheme } from "@stellaria/nebula-hooks";
 
 import { MotionOff } from "../../../utils/motion.js";
-import { cx } from "../../../utils/style-props.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { ActionIcon } from "../../ActionIcon/ActionIcon.js";
 import { Box } from "../../Box/Box.js";
 import { GlassSurface } from "../../GlassSurface/GlassSurface.js";
@@ -24,13 +24,16 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
     onCollapse,
     collapseLabels = { collapse: "Colapsar la barra", expand: "Expandir la barra" },
     className,
-    ...rest
+    toggleProps,
+    collapseProps,
+    ...style_rest
   } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
 
   return (
-    <aside className={cx(styles.sidebar, className)} {...rest}>
+    <aside className={cx(styles.sidebar, sprinkle_class, className)} style={style} {...rest}>
       {onCollapse === undefined ? null : (
-        <Box className={styles.toggle}>
+        <Box {...toggleProps} className={cx(styles.toggle, toggleProps?.className)}>
           <ActionIcon
             variant="glass"
             glass="strong"
@@ -41,6 +44,7 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
             onPress={() => {
               onCollapse(!collapsed);
             }}
+            {...collapseProps}
           >
             <ChevronRight />
           </ActionIcon>
@@ -52,14 +56,17 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
 }
 
 export function AppShellSidebarHeader(props: AppShellSlotProps): ReactElement {
-  const { children, className } = props;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
     <GlassSurface
       component="header"
       level="default"
       radius={0}
       withBorder={false}
-      className={cx(styles.sidebar_slot, styles.sidebar_header, className)}
+      className={cx(styles.sidebar_slot, styles.sidebar_header, sprinkle_class, className)}
+      style={style}
+      {...rest}
     >
       {children}
     </GlassSurface>
@@ -67,14 +74,17 @@ export function AppShellSidebarHeader(props: AppShellSlotProps): ReactElement {
 }
 
 export function AppShellSidebarFooter(props: AppShellSlotProps): ReactElement {
-  const { children, className } = props;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
     <GlassSurface
       component="footer"
       level="default"
       radius={0}
       withBorder={false}
-      className={cx(styles.sidebar_slot, styles.sidebar_footer, className)}
+      className={cx(styles.sidebar_slot, styles.sidebar_footer, sprinkle_class, className)}
+      style={style}
+      {...rest}
     >
       {children}
     </GlassSurface>
@@ -82,7 +92,8 @@ export function AppShellSidebarFooter(props: AppShellSlotProps): ReactElement {
 }
 
 export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
-  const { children, className } = props;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   const ref = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const reduced = useMediaQuery(REDUCED);
@@ -118,7 +129,12 @@ export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
   }, [animate]);
 
   return (
-    <div ref={ref} className={cx(styles.sidebar_body, className)}>
+    <div
+      ref={ref}
+      className={cx(styles.sidebar_body, sprinkle_class, className)}
+      style={style}
+      {...rest}
+    >
       {children}
     </div>
   );

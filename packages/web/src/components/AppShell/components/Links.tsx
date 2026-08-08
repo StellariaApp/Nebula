@@ -1,46 +1,75 @@
 "use client";
 
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
 import { NavLink } from "../../NavLink/NavLink.js";
 import type { NavLinkProps } from "../../NavLink/NavLink.types.js";
 import { Text } from "../../Text/Text.js";
 
 import * as styles from "../AppShell.css.js";
-import type { AppShellLinksProps } from "../AppShell.types.js";
+import type { AppShellLabelProps, AppShellLinksProps } from "../AppShell.types.js";
 
 export function AppShellLinks(props: AppShellLinksProps): ReactElement {
-  const { children, title, action, className, deep, ...style_rest } = props;
+  const {
+    children,
+    title,
+    action,
+    className,
+    deep,
+    headerProps,
+    titleProps,
+    contentProps,
+    ...style_rest
+  } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
     <div className={cx(styles.links, sprinkle_class, className)} style={style} {...rest}>
       {title === undefined && action === undefined ? null : (
-        <div className={styles.links_header}>
+        <Box {...headerProps} className={cx(styles.links_header, headerProps?.className)}>
           {title === undefined ? (
             <span />
           ) : (
-            <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold" truncate>
+            <Text
+              fz="caption"
+              c="text.muted"
+              tt="uppercase"
+              ls="wide"
+              fw="semibold"
+              truncate
+              {...titleProps}
+            >
               {title}
             </Text>
           )}
           {action}
-        </div>
+        </Box>
       )}
-      <div className={cx(styles.links_content, deep && styles.links_deep)}>{children}</div>
+      <Box
+        {...contentProps}
+        className={cx(styles.links_content, deep && styles.links_deep, contentProps?.className)}
+      >
+        {children}
+      </Box>
     </div>
   );
 }
 
 export function AppShellLink(props: NavLinkProps): ReactElement {
-  return <NavLink className={cx(styles.link, props.className)} {...props} />;
+  return <NavLink {...props} className={cx(styles.link, props.className)} />;
 }
 
-export function AppShellLabel(props: {
-  children: ReactNode;
-  className?: string | undefined;
-  flex?: boolean | undefined;
-}): ReactElement {
-  const { children, className, flex } = props;
-  return <span className={cx(styles.label, className, flex && styles.label_flex)}>{children}</span>;
+export function AppShellLabel(props: AppShellLabelProps): ReactElement {
+  const { children, className, flex, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
+  return (
+    <span
+      className={cx(styles.label, sprinkle_class, className, flex && styles.label_flex)}
+      style={style}
+      {...rest}
+    >
+      {children}
+    </span>
+  );
 }

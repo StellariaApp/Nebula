@@ -81,9 +81,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `InfiniteList/InfiniteList.tsx` | 6 | list item foot live end sentinel | hecho |
 | `Modal/Modal.tsx` | 6 | surface header heading subtitle body footer | hecho |
 | `Nav/components/Links.tsx` | 6 | link links indicator overflow overflowTrigger overflowPanel | hecho (3 de 6; link y links son la raiz de sus partes; indicator lo anima motion con un style calculado) |
-| `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | pendiente |
-| `AppShell/components/Links.tsx` | 5 | links linksHeader linksContent link label | pendiente |
-| `AppShell/components/Sidebar.tsx` | 5 | sidebar toggle sidebarContainer sidebarSlot sidebarBody | pendiente |
+| `AppShell/AppShell.tsx` | 5 | rail skip chrome main scrollShadow | hecho (4 de 5; rail y shell son la raiz de cada montaje) |
+| `AppShell/components/Links.tsx` | 5 | links linksHeader linksContent link label | hecho (3 de 5; links es la raiz, y link y label son la raiz de sus partes. El detector no conto el rotulo de la cabecera) |
+| `AppShell/components/Sidebar.tsx` | 5 | sidebar toggle sidebarContainer sidebarSlot sidebarBody | hecho (2 de 5; sidebar, sidebarSlot y sidebarBody son la raiz de sus partes y sidebarContainer es estructural. El detector no conto el ActionIcon de encoger) |
 | `Charts/ChartPanel.tsx` | 5 | panelGrid panelCard panelHead panelTitle panelDescription | hecho |
 | `Charts/ChartTooltip.tsx` | 5 | tooltip tooltipTitle tooltipRow swatch tooltipValue | hecho |
 | `Kanban/KanbanCard.tsx` | 5 | card cardHead cardTitle cardDescription cardMeta | hecho |
@@ -158,13 +158,13 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Spoiler/Spoiler.tsx` | 2 | content toggle | pendiente |
 | `Affix/Affix.tsx` | 1 | affix | pendiente |
 | `Anchor/Anchor.tsx` | 1 | anchor | pendiente |
-| `AppShell/components/Aside.tsx` | 1 | asideRegion | pendiente |
-| `AppShell/components/Content.tsx` | 1 | content | pendiente |
-| `AppShell/components/Footer.tsx` | 1 | footer | pendiente |
-| `AppShell/components/Header.tsx` | 1 | sectionHeader | pendiente |
-| `AppShell/components/Nav.tsx` | 1 | navbar | pendiente |
-| `AppShell/components/Section.tsx` | 1 | section | pendiente |
-| `AppShell/components/Subbar.tsx` | 1 | sectionSub | pendiente |
+| `AppShell/components/Aside.tsx` | 1 | asideRegion | descartado: es la raiz de AppShellAside, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Content.tsx` | 1 | content | descartado: es la raiz de AppShellContent, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Footer.tsx` | 1 | footer | descartado: es la raiz de AppShellFooter, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Header.tsx` | 1 | sectionHeader | descartado: es la raiz de AppShellHeader, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Nav.tsx` | 1 | navbar | descartado: es la raiz de AppShellNav, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Section.tsx` | 1 | section | descartado: es la raiz de AppShellSection, que ya lleva style props y reenvia el resto |
+| `AppShell/components/Subbar.tsx` | 1 | sectionSub | descartado: es la raiz de AppShellSubbar, que ya lleva style props y reenvia el resto |
 | `AspectRatio/AspectRatio.tsx` | 1 | aspectRatio | pendiente |
 | `Avatar/Group.tsx` | 1 | group | pendiente |
 | `ButtonGroup/ButtonGroup.tsx` | 1 | group | pendiente |
