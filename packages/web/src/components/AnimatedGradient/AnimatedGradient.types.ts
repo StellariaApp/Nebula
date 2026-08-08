@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { GradientRole, RadiusName } from "@stellaria/nebula-tokens";
 
 import type { GradientProp } from "../../theme/resolve-variant.js";
-import type { BoxOwnProps } from "../Box/Box.types.js";
+import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
 export type AnimatedGradientSpeed = "slow" | "base" | "fast";
 
@@ -15,6 +15,12 @@ export type AnimatedGradientSpeed = "slow" | "base" | "fast";
  * detiene con `prefers-reduced-motion` y con `motion.tier: "minimal"`.
  */
 export interface AnimatedGradientOwnProps extends Omit<BoxOwnProps, "component"> {
+  /**
+   * El velo que atenúa el gradiente. Solo se pinta con `scrim` mayor que 0, y de ahí sale su
+   * opacidad; la ranura es lo que permite teñirlo de otro color sin forkear. La capa en deriva no
+   * tiene ranura: es el mecanismo de la animación.
+   */
+  scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   gradient?: GradientRole | GradientProp | undefined;
   radius?: RadiusName | number | undefined;

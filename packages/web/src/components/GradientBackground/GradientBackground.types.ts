@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { GradientRole, RadiusName } from "@stellaria/nebula-tokens";
 
 import type { GradientProp } from "../../theme/resolve-variant.js";
-import type { BoxOwnProps } from "../Box/Box.types.js";
+import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
 /**
  * Región pintada con un gradiente del tema.
@@ -13,6 +13,12 @@ import type { BoxOwnProps } from "../Box/Box.types.js";
  * con su fallback. Si va a llevar texto encima, sube `scrim` hasta que el par vuelva a ser AA.
  */
 export interface GradientBackgroundOwnProps extends Omit<BoxOwnProps, "component"> {
+  /**
+   * El velo que atenúa el gradiente. Solo se pinta con `scrim` mayor que 0, y de ahí sale su
+   * opacidad; la ranura es lo que permite teñirlo de otro color sin forkear. La capa de grano no
+   * tiene ranura: es la textura del efecto y su opacidad la fija el tema.
+   */
+  scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   gradient?: GradientRole | GradientProp | undefined;
   radius?: RadiusName | number | undefined;

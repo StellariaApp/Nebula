@@ -28,6 +28,7 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
       radius = "lg",
       speed = "base",
       scrim = 0,
+      scrimProps,
       className,
       style,
       children,
@@ -60,7 +61,14 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
           data-animated={animated ? "true" : "false"}
           aria-hidden="true"
         />
-        {scrim > 0 ? <span className={styles.scrim} aria-hidden="true" /> : null}
+        {scrim > 0 ? (
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...scrimProps}
+            className={cx(styles.scrim, scrimProps?.className)}
+          />
+        ) : null}
         {children}
       </Box>
     );

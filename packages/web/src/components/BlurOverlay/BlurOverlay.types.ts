@@ -4,6 +4,8 @@ import type { BlurLevel, ColorExtended, RadiusName } from "@stellaria/nebula-tok
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 /**
  * Capa que **desenfoca lo que hay detrás** en vez de teñirlo. `Overlay` es lo contrario: tinte
  * primero, blur opcional.
@@ -13,6 +15,12 @@ import type { StyleProps } from "../../utils/style-props.js";
  * `GlassSurface`: el `backdrop-filter` encadenado se paga por frame.
  */
 export interface BlurOverlayProps extends Omit<StyleProps, "opacity"> {
+  /**
+   * La caja que centra a `children`. No existe sin hijos, y sin ellos la capa entera pasa a ser
+   * `aria-hidden`. El velo no tiene ranura: es el efecto, y lo gobiernan `blur`, `color` y
+   * `opacity`.
+   */
+  contentProps?: BoxSlotProps | undefined;
   blur?: BlurLevel | undefined;
   color?: ColorExtended | undefined;
   opacity?: number | undefined;

@@ -31,6 +31,7 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
       radius = "lg",
       grain: with_grain = false,
       scrim = 0,
+      scrimProps,
       className,
       style,
       children,
@@ -62,7 +63,14 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
         data-grain={with_grain && grain_opacity > 0 ? "on" : "off"}
         {...rest}
       >
-        {scrim > 0 ? <span className={styles.scrim} aria-hidden="true" /> : null}
+        {scrim > 0 ? (
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...scrimProps}
+            className={cx(styles.scrim, scrimProps?.className)}
+          />
+        ) : null}
         {with_grain && grain_opacity > 0 ? (
           <span className={cx(grain, styles.grain_layer)} aria-hidden="true" />
         ) : null}

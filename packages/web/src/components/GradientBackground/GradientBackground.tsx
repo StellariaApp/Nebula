@@ -32,6 +32,7 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
       gradient = "brand",
       radius = "lg",
       scrim = 0,
+      scrimProps,
       grain: with_grain = false,
       className,
       style,
@@ -61,7 +62,14 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
         data-scrim={scrim > 0 ? String(scrim) : undefined}
         {...rest}
       >
-        {scrim > 0 ? <span className={styles.scrim} aria-hidden="true" /> : null}
+        {scrim > 0 ? (
+          <Box
+            component="span"
+            aria-hidden="true"
+            {...scrimProps}
+            className={cx(styles.scrim, scrimProps?.className)}
+          />
+        ) : null}
         {with_grain && grain_opacity > 0 ? (
           <span className={cx(grain, styles.grain_layer)} aria-hidden="true" />
         ) : null}

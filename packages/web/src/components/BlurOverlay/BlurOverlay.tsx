@@ -8,6 +8,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { vars } from "../../theme/contract.css.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./BlurOverlay.css.js";
 import * as variables from "./BlurOverlay.vars.css.js";
@@ -26,6 +27,7 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
     zIndex,
     children,
     className,
+    contentProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -56,7 +58,11 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
       {...rest}
     >
       <span className={styles.veil} aria-hidden="true" />
-      {has_content ? <div className={styles.content}>{children}</div> : null}
+      {has_content ? (
+        <Box {...contentProps} className={cx(styles.content, contentProps?.className)}>
+          {children}
+        </Box>
+      ) : null}
     </div>
   );
 }

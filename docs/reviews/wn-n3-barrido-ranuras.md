@@ -101,10 +101,10 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Switch/Switch.tsx` | 4 | input track thumb labelText | hecho |
 | `Tag/Tag.tsx` | 4 | tag section label remove | hecho |
 | `ActionIcon/ActionIcon.tsx` | 3 | actionIcon spinner iconWrap | hecho (1 de 3; actionIcon es la raiz y spinner es el mecanismo de la animacion. iconWrap se publica como iconProps, que es el nombre comun del catalogo) |
-| `AnimatedGradient/AnimatedGradient.tsx` | 3 | animatedGradient drift scrim | pendiente |
+| `AnimatedGradient/AnimatedGradient.tsx` | 3 | animatedGradient drift scrim | hecho (1 de 3; animatedGradient es la raiz y drift es la capa que anima la deriva) |
 | `Badge/Badge.tsx` | 3 | badge dot section | hecho |
 | `Banderole/Banderole.tsx` | 3 | icon body actions | hecho |
-| `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | pendiente |
+| `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | hecho (1 de 3; blurOverlay es la raiz y veil ES el efecto, gobernado por blur, color y opacity) |
 | `Button/Button.tsx` | 3 | button spinner section | hecho (3; button es la raiz y spinner es el mecanismo de la animacion de carga. section son DOS nodos, asi que van separados con los nombres de NavLink. El detector no conto el rotulo, que no lleva clase base) |
 | `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
 | `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
@@ -115,7 +115,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `ColorPicker/ColorPicker.tsx` | 3 | area swatches swatch | pendiente |
 | `Countdown/Countdown.tsx` | 3 | unit value caption | hecho |
 | `Dialog/Dialog.tsx` | 3 | dialog head title | hecho |
-| `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | pendiente |
+| `GradientBorder/GradientBorder.tsx` | 3 | gradientBorder beam arc | descartado: gradientBorder es la raiz; beam y arc son el mecanismo del haz, con su barrido y su retardo calculados por arista |
 | `Image/BackgroundImage.tsx` | 3 | background overlay backgroundContent | pendiente |
 | `List/components/Item.tsx` | 3 | item itemWithIcon itemIcon | pendiente |
 | `Loader/Loader.tsx` | 3 | spinner dot bar | descartado: son el mecanismo de la animacion; size y color ya lo cubren |
@@ -126,7 +126,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `SearchableList/SearchableList.tsx` | 3 | toolbar search count | hecho |
 | `Segment/components/Control.tsx` | 3 | control indicator tab | hecho |
 | `Select/Select.tsx` | 3 | trigger chevron dropdown | hecho |
-| `StarField/StarField.tsx` | 3 | starField aurora star | pendiente |
+| `StarField/StarField.tsx` | 3 | starField aurora star | descartado: starField es la raiz; aurora y star llevan calculada su geometria y su retardo, y las capas de parallax reciben su transform desde el rAF del scroll |
 | `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | hecho (4; el detector no conto el campo de texto. removeProps toma el tipo y el nombre de Tag) |
 | `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
@@ -141,12 +141,12 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Fieldset/Fieldset.tsx` | 2 | legend description | hecho |
 | `FileInput/FileInput.tsx` | 2 | hidden trigger | pendiente |
 | `Filters/Filter.tsx` | 2 | range item | pendiente |
-| `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | pendiente |
+| `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | hecho (1 de 2; gradientBackground es la raiz. El grano queda fuera: es la textura del efecto y su opacidad la fija el tema) |
 | `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
 | `Image/Image.tsx` | 2 | state img | pendiente |
 | `Kanban/KanbanBoard.tsx` | 2 | board columnBody | descartado: board es su raiz y columnBody es la lista que ordena dnd-kit, con sus manejadores de arrastre |
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
-| `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | pendiente |
+| `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | hecho (1 de 2; meshGradientBg es la raiz, y el grano queda fuera por lo mismo que en GradientBackground) |
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | pendiente |
 | `Nav/components/Section.tsx` | 2 | actions divider | descartado: son la raiz de NavActions y NavDivider, que ya llevan style props |
 | `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | pendiente |
