@@ -8,6 +8,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import { Text } from "../Text/Text.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { FormField } from "../FormField/FormField.js";
 
@@ -39,6 +41,10 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
     withToolbar = true,
     labels,
     className,
+    contentProps,
+    placeholderProps,
+    toolbarProps,
+    toolbarGroupProps,
     labelProps,
     descriptionProps,
     requiredProps,
@@ -149,16 +155,32 @@ export function RichTextEditor(props: RichTextEditorProps): ReactElement {
           data-disabled={resolved.isDisabled ? "true" : "false"}
         >
           {withToolbar && editor !== null ? (
-            <Toolbar editor={editor} groups={toolbar} labels={text} disabled={!editable} />
+            <Toolbar
+              editor={editor}
+              groups={toolbar}
+              labels={text}
+              disabled={!editable}
+              slotProps={toolbarProps}
+              groupProps={toolbarGroupProps}
+            />
           ) : null}
-          <div className={styles.content} data-empty={empty ? "true" : "false"}>
+          <Box
+            data-empty={empty ? "true" : "false"}
+            {...contentProps}
+            className={cx(styles.content, contentProps?.className)}
+          >
             <EditorContent editor={editor} />
             {empty && placeholder !== undefined ? (
-              <span className={styles.placeholder} aria-hidden="true">
+              <Text
+                component="span"
+                aria-hidden="true"
+                {...placeholderProps}
+                className={cx(styles.placeholder, placeholderProps?.className)}
+              >
                 {placeholder}
-              </span>
+              </Text>
             ) : null}
-          </div>
+          </Box>
         </div>
       )}
     </FormField>

@@ -92,7 +92,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Nav/components/Sidebar.tsx` | 5 | sidebarScrim sidebar sidebarHead sidebarBody sidebarFooter | hecho (4; sidebarScrim y sidebar los anima motion y sidebar es ademas la raiz; el detector no conto el ButtonClose) |
 | `QuickAction/QuickAction.tsx` | 5 | badge icon body label description | hecho |
 | `DataGrid/ColumnHeader.tsx` | 4 | headCell sortButton sortIcon resizer | hecho (5; la celda es interna, asi que suben a DataGridProps. El detector no conto el disparador del menu de columna) |
-| `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | pendiente |
+| `EditorImage/EditorImage.tsx` | 4 | trigger image hint missing | hecho (4 de 4; editorProps sigue siendo la excepcion de peer que anoto ADR-104) |
 | `Filters/Filters.tsx` | 4 | panel empty list foot | hecho |
 | `ImageGallery/ImageGallery.tsx` | 4 | empty gallery tile tileImage | hecho (2 de 4; gallery es la raiz y empty es la raiz de su rama) |
 | `Menu/MenuList.tsx` | 4 | item icon labels shortcut | hecho |
@@ -132,7 +132,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
 | `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | hecho (2; cellWrapper es el `td` estructural y la ranura cae en el `div` del dia, que es quien lleva el estado) |
 | `Charts/TrendIndicator.tsx` | 2 | trend arrow | hecho (1 de 2; trend es la raiz) |
-| `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
+| `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | hecho (1 de 2; bare no es un nodo, es la clase que le quita el cromado al CodeHighlight de dentro, y ese ya se configura por cada entrada de tabs) |
 | `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | hecho (2 de 2) |
 | `Divider/Divider.tsx` | 2 | line label | hecho |
 | `DragDrop/Draggable.tsx` | 2 | draggable row | hecho (2; draggable es la raiz y ademas el nodo que arrastra. El detector no conto el asa) |
@@ -140,9 +140,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DragDrop/SortableList.tsx` | 2 | list emptySlot | hecho (2; list es la raiz. El detector no conto el asa, que baja a todas las filas) |
 | `Fieldset/Fieldset.tsx` | 2 | legend description | hecho |
 | `FileInput/FileInput.tsx` | 2 | hidden trigger | hecho (1 de 2; hidden es el input nativo oculto y todo lo que acepta ya son props) |
-| `Filters/Filter.tsx` | 2 | range item | pendiente |
+| `Filters/Filter.tsx` | 2 | range item | hecho (1 de 2; item es la raiz, y se le dieron style props y reenvio para poder descartarla) |
 | `GradientBackground/GradientBackground.tsx` | 2 | gradientBackground scrim | hecho (1 de 2; gradientBackground es la raiz. El grano queda fuera: es la textura del efecto y su opacidad la fija el tema) |
-| `GridList/GridList.tsx` | 2 | toolbar item | pendiente |
+| `GridList/GridList.tsx` | 2 | toolbar item | hecho (2 de 2) |
 | `Image/Image.tsx` | 2 | state img | hecho (1 de 2; state son DOS casos con una sola ranura. La imagen la anima motion al aparecer, y su ajuste, radio y tamano ya son props) |
 | `Kanban/KanbanBoard.tsx` | 2 | board columnBody | descartado: board es su raiz y columnBody es la lista que ordena dnd-kit, con sus manejadores de arrastre |
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
@@ -150,11 +150,11 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `MonthPicker/GridPicker.tsx` | 2 | grid cell | hecho (1 de 2; grid es la raiz de la parte. cellProps sube a MonthPicker y YearPicker) |
 | `Nav/components/Section.tsx` | 2 | actions divider | descartado: son la raiz de NavActions y NavDivider, que ya llevan style props |
 | `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | hecho (3; stepperButton son DOS nodos y se publican como incrementProps y decrementProps) |
-| `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | pendiente |
-| `RichTextEditor/Toolbar.tsx` | 2 | toolbar group | pendiente |
+| `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | hecho (4; suma las dos de su barra, que es interna) |
+| `RichTextEditor/Toolbar.tsx` | 2 | toolbar group | hecho (2 de 2; la barra es interna, asi que suben a RichTextEditor como toolbarProps y toolbarGroupProps) |
 | `Search/Search.tsx` | 2 | bar slot | hecho (3; slot son DOS nodos y se publican como beforeProps y afterProps, con los nombres de sus props) |
 | `Segment/components/Content.tsx` | 2 | content panel | hecho (1 de 2; content es la raiz y el viewport lo mueve el spring del deslizamiento) |
-| `Signature/Signature.tsx` | 2 | canvas actions | pendiente |
+| `Signature/Signature.tsx` | 2 | canvas actions | hecho (2 de 2; el alto del lienzo se escribe despues de la ranura) |
 | `Spoiler/Spoiler.tsx` | 2 | content toggle | hecho (2 de 2; el maxHeight del recorte se escribe despues de la ranura) |
 | `Affix/Affix.tsx` | 1 | affix | descartado: es la raiz, que ya lleva style props (el nodo va por Portal, pero sigue siendo su unico nodo) |
 | `Anchor/Anchor.tsx` | 1 | anchor | descartado: es la raiz, que ya lleva style props |

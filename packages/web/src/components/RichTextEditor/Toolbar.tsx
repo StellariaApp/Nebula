@@ -4,7 +4,10 @@ import { useState, type ReactElement } from "react";
 
 import type { Editor } from "@tiptap/react";
 
+import { cx } from "../../utils/style-props.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
+import { Box } from "../Box/Box.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 import { Button } from "../Button/Button.js";
 import { Popover } from "../Popover/Popover.js";
 import { TextInput } from "../TextInput/TextInput.js";
@@ -18,6 +21,8 @@ interface ToolbarProps {
   groups: readonly RichTextGroup[];
   labels: RichTextLabels;
   disabled: boolean;
+  slotProps?: BoxSlotProps | undefined;
+  groupProps?: BoxSlotProps | undefined;
 }
 
 function IsActive(editor: Editor, action: RichTextAction): boolean {
@@ -165,12 +170,21 @@ function LinkAction(props: {
 }
 
 export function Toolbar(props: ToolbarProps): ReactElement {
-  const { editor, groups, labels, disabled } = props;
+  const { editor, groups, labels, disabled, slotProps, groupProps } = props;
 
   return (
-    <div className={styles.toolbar} role="toolbar" aria-label={labels.toolbar}>
+    <Box
+      role="toolbar"
+      aria-label={labels.toolbar}
+      {...slotProps}
+      className={cx(styles.toolbar, slotProps?.className)}
+    >
       {groups.map((group) => (
-        <div key={group.join("-")} className={styles.group}>
+        <Box
+          key={group.join("-")}
+          {...groupProps}
+          className={cx(styles.group, groupProps?.className)}
+        >
           {group.map((action) =>
             action === "link" ? (
               <LinkAction key={action} editor={editor} labels={labels} disabled={disabled} />
@@ -190,9 +204,9 @@ export function Toolbar(props: ToolbarProps): ReactElement {
               </ActionIcon>
             ),
           )}
-        </div>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }
 
