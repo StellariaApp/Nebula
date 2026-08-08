@@ -397,8 +397,17 @@ El playground mantiene una sección `Foundations/Visual QA` con cinco láminas:
 - `Forms`: label, ayuda, control, error y grupos en densidad default/compacta.
 
 Estas láminas son el baseline de W2.V. Axe y contrast-check siguen siendo gates automáticos; la
-lámina añade el gate humano que hoy falta. Automatizar diffs de captura queda como requisito antes
-del cierre de W2, sin introducir una dependencia hasta decidir la herramienta por ADR.
+lámina añade el gate humano.
+
+**El diff de captura ya está automatizado** y esta deuda queda cerrada. Lo decidió
+[ADR-037](adr/ADR-037-gate-de-regresion-visual.md) —herramienta, alcance y determinismo— y lo
+implementa la revisión previa a W5, con el comparador que enmienda
+[ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md). Se capturan estas cinco láminas
+enteras más las stories `Composition` y `AllThemes` de cada componente: 75 imágenes versionadas en
+`apps/playground-web/__snapshots__/visual/`, con umbral del 0,1 %. `pnpm visual`.
+
+Actualizar el baseline es un acto explícito del PR que cambia el aspecto, con las imágenes visibles en
+el diff; regenerarlo sin declarar el cambio visual es motivo de rechazo de la revisión.
 
 ## 9. Color categórico en datos (ADR-067)
 

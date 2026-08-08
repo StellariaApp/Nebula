@@ -8,7 +8,8 @@
     "build": "storybook build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "a11y": "concurrently -k -s first -n SB,A11Y \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006\""
+    "a11y": "concurrently -k -s first -n SB,A11Y \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006\"",
+    "visual": "concurrently -k -s first -n SB,VIS \"http-server storybook-static -p 6007 --silent\" \"wait-on tcp:127.0.0.1:6007 && test-storybook --url http://127.0.0.1:6007\""
   },
   "devDependencies": {
     "@fontsource-variable/geist": "5.3.0",
@@ -21,6 +22,7 @@
     "@storybook/addon-a11y": "^10.5.2",
     "@storybook/react-vite": "^10.5.2",
     "@storybook/test-runner": "^0.24.4",
+    "@types/jest-image-snapshot": "^6.4.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vanilla-extract/vite-plugin": "^5.2.5",
@@ -28,6 +30,7 @@
     "concurrently": "^10.0.3",
     "form-atoms": "^3.3.3",
     "http-server": "^14.1.1",
+    "jest-image-snapshot": "^6.5.2",
     "jotai": "^2.20.2",
     "lucide-react": "^0.469.0",
     "playwright": "^1.61.1",

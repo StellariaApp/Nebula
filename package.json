@@ -13,6 +13,7 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "size": "turbo run size",
+    "visual": "turbo run visual",
     "check:contrast": "turbo run check:contrast",
     "check:slots": "turbo run check:slots",
     "gen:docs": "turbo run gen:docs",

@@ -8,6 +8,10 @@
     "a11y": {
       "dependsOn": ["build"]
     },
+    "visual": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "typecheck": {
       "dependsOn": ["^build"]
     },
