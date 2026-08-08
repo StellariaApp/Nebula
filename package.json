@@ -15,6 +15,8 @@
     "size": "turbo run size",
     "check:contrast": "turbo run check:contrast",
     "check:slots": "turbo run check:slots",
+    "gen:docs": "turbo run gen:docs",
+    "check:docs": "turbo run check:docs",
     "gen:palette": "turbo run gen:palette --",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

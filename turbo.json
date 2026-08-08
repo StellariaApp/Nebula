@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "storybook-static/**"]
+      "outputs": ["dist/**", "storybook-static/**", ".next/**", "!.next/cache/**"]
     },
     "a11y": {
       "dependsOn": ["build"]
@@ -28,6 +28,17 @@
     },
     "gen:palette": {
       "cache": false
+    },
+    "gen:docs": {
+      "cache": false
+    },
+    "check:docs": {
+      "inputs": [
+        "packages/web/src/**",
+        "packages/web/.size-limit.js",
+        "docs/00-inventory.md",
+        "apps/docs/generated/**"
+      ]
     }
   }
 }

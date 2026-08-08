@@ -1,0 +1,17 @@
+{
+  "name": "nebula-tools-docs-gen",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Generadores del sitio de documentación: registro del catálogo y gate de cobertura. No publicable.",
+  "type": "module",
+  "scripts": {
+    "gen:docs": "node src/catalog.ts",
+    "check:docs": "node src/catalog.ts --check",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "typescript": "7.0.2"
+  }
+}
