@@ -6,6 +6,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
 import * as styles from "./ScrollProgress.css.js";
@@ -31,6 +32,7 @@ export function ScrollProgress(props: ScrollProgressProps): ReactElement {
     onProgress,
     label = "Progreso de lectura",
     className,
+    barProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -90,7 +92,7 @@ export function ScrollProgress(props: ScrollProgressProps): ReactElement {
       aria-valuemax={PERCENT}
       {...rest}
     >
-      <div className={cx(styles.bar, styles.radius[radius])} />
+      <Box {...barProps} className={cx(styles.bar, styles.radius[radius], barProps?.className)} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./Indicator.css.js";
@@ -28,6 +29,7 @@ export function Indicator(props: IndicatorProps): ReactElement {
     withBorder = true,
     announce,
     className,
+    dotProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -48,7 +50,10 @@ export function Indicator(props: IndicatorProps): ReactElement {
     >
       {children}
       {visible ? (
-        <span
+        <Box
+          component="span"
+          aria-hidden="true"
+          {...dotProps}
           className={cx(
             styles.dot,
             styles.size[size],
@@ -56,11 +61,11 @@ export function Indicator(props: IndicatorProps): ReactElement {
             content === null ? styles.bare : styles.badge,
             withBorder ? styles.bordered : undefined,
             processing ? styles.processing : undefined,
+            dotProps?.className,
           )}
-          aria-hidden="true"
         >
           {content}
-        </span>
+        </Box>
       ) : null}
       {visible && announce !== undefined ? <VisuallyHidden>{announce}</VisuallyHidden> : null}
     </span>

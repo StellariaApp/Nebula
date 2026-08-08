@@ -4,9 +4,13 @@ import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export type IndicatorPlacement = "top-start" | "top-end" | "bottom-start" | "bottom-end";
 
 export interface IndicatorProps extends StyleProps {
+  /** La chapa. Solo se pinta con `visible`, y sin `content` es un punto pelado. */
+  dotProps?: BoxSlotProps | undefined;
   children: ReactNode;
   label?: ReactNode | undefined;
   count?: number | undefined;

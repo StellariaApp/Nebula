@@ -156,8 +156,8 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Segment/components/Content.tsx` | 2 | content panel | pendiente |
 | `Signature/Signature.tsx` | 2 | canvas actions | pendiente |
 | `Spoiler/Spoiler.tsx` | 2 | content toggle | pendiente |
-| `Affix/Affix.tsx` | 1 | affix | pendiente |
-| `Anchor/Anchor.tsx` | 1 | anchor | pendiente |
+| `Affix/Affix.tsx` | 1 | affix | descartado: es la raiz, que ya lleva style props (el nodo va por Portal, pero sigue siendo su unico nodo) |
+| `Anchor/Anchor.tsx` | 1 | anchor | descartado: es la raiz, que ya lleva style props |
 | `AppShell/components/Aside.tsx` | 1 | asideRegion | descartado: es la raiz de AppShellAside, que ya lleva style props y reenvia el resto |
 | `AppShell/components/Content.tsx` | 1 | content | descartado: es la raiz de AppShellContent, que ya lleva style props y reenvia el resto |
 | `AppShell/components/Footer.tsx` | 1 | footer | descartado: es la raiz de AppShellFooter, que ya lleva style props y reenvia el resto |
@@ -165,13 +165,13 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `AppShell/components/Nav.tsx` | 1 | navbar | descartado: es la raiz de AppShellNav, que ya lleva style props y reenvia el resto |
 | `AppShell/components/Section.tsx` | 1 | section | descartado: es la raiz de AppShellSection, que ya lleva style props y reenvia el resto |
 | `AppShell/components/Subbar.tsx` | 1 | sectionSub | descartado: es la raiz de AppShellSubbar, que ya lleva style props y reenvia el resto |
-| `AspectRatio/AspectRatio.tsx` | 1 | aspectRatio | pendiente |
+| `AspectRatio/AspectRatio.tsx` | 1 | aspectRatio | descartado: es la raiz, que ya lleva style props |
 | `Avatar/Group.tsx` | 1 | group | descartado: es la raiz. Se le dieron style props y reenvio del resto, que es lo que le faltaba para poder descartarla |
-| `ButtonGroup/ButtonGroup.tsx` | 1 | group | pendiente |
+| `ButtonGroup/ButtonGroup.tsx` | 1 | group | descartado: es la raiz, que ya lleva style props |
 | `Calendar/CalendarView.tsx` | 1 | months | hecho (1 de 1) |
-| `Charts/SparkLine.tsx` | 1 | spark | pendiente |
+| `Charts/SparkLine.tsx` | 1 | spark | descartado: es la raiz, que ya lleva style props (el poligono y la polilinea son el trazo del dato) |
 | `Chip/Chip.tsx` | 1 | input | hecho |
-| `Code/Code.tsx` | 1 | base | pendiente |
+| `Code/Code.tsx` | 1 | base | descartado: es la raiz, que ya lleva style props |
 | `DatePicker/DatePicker.tsx` | 1 | trigger | hecho (1 de 1; triggerProps sube a DatePickerBaseProps y lo comparten los tres) |
 | `DatePicker/DatePickerInput.tsx` | 1 | textTrigger | hecho (1 de 1; es el mismo triggerProps del contrato comun: aqui el disparador es el campo entero) |
 | `DatePicker/DatePickerPopover.tsx` | 1 | dialog | hecho (1 de 1; se publica como popoverProps y sube al contrato comun, porque el popover es interno) |
@@ -180,33 +180,33 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DragDrop/Droppable.tsx` | 1 | droppable | descartado: es la raiz, que ya lleva style props y reenvia el resto |
 | `EmptyModule/EmptyModule.tsx` | 1 | media | hecho |
 | `Feature/Feature.tsx` | 1 | feature | hecho |
-| `GlassSurface/GlassSurface.tsx` | 1 | glassSurface | pendiente |
-| `GradientText/GradientText.tsx` | 1 | gradientText | pendiente |
-| `Grid/components/Col.tsx` | 1 | colBase | pendiente |
-| `Grid/Grid.tsx` | 1 | grid | pendiente |
-| `Group/Group.tsx` | 1 | group | pendiente |
+| `GlassSurface/GlassSurface.tsx` | 1 | glassSurface | descartado: es la raiz, que ya lleva style props; la capa de grano es la textura del efecto |
+| `GradientText/GradientText.tsx` | 1 | gradientText | descartado: es la raiz, que ya lleva style props |
+| `Grid/components/Col.tsx` | 1 | colBase | descartado: es la raiz, que ya lleva style props |
+| `Grid/Grid.tsx` | 1 | grid | descartado: es la raiz, que ya lleva style props |
+| `Group/Group.tsx` | 1 | group | descartado: es la raiz, que ya lleva style props |
 | `Header/Header.tsx` | 1 | header | hecho |
 | `HoverCard/HoverCard.tsx` | 1 | card | descartado: la tarjeta flotante ES lo que pintan las style props del componente |
-| `Indicator/Indicator.tsx` | 1 | dot | pendiente |
-| `Kbd/Kbd.tsx` | 1 | kbd | pendiente |
-| `List/List.tsx` | 1 | list | pendiente |
-| `Mark/Mark.tsx` | 1 | mark | pendiente |
+| `Indicator/Indicator.tsx` | 1 | dot | hecho (1 de 1; la chapa no es la raiz, es el nodo que se posiciona sobre ella) |
+| `Kbd/Kbd.tsx` | 1 | kbd | descartado: es la raiz, que ya lleva style props |
+| `List/List.tsx` | 1 | list | descartado: es la raiz, que ya lleva style props |
+| `Mark/Mark.tsx` | 1 | mark | descartado: es la raiz, que ya lleva style props |
 | `NativeSelect/NativeSelect.tsx` | 1 | chevron | hecho (1 de 1; mismo nombre que en Select y MultiSelect) |
 | `Nav/components/Logo.tsx` | 1 | logo | descartado: es la raiz de NavLogo, que ya lleva style props |
-| `Paper/Paper.tsx` | 1 | paper | pendiente |
+| `Paper/Paper.tsx` | 1 | paper | descartado: es la raiz, que ya lleva style props |
 | `PermissionGate/PermissionGate.tsx` | 1 | disabled | descartado: al conceder no pinta ningun nodo, y el velo de la rama disable ya se ajusta con className |
 | `PinInput/PinInput.tsx` | 1 | group | hecho (1 de 1; es el role=group que agrupa las casillas dentro del FormField) |
 | `Player/Player.tsx` | 1 | surface | descartado: es el className del ReactPlayer, que es un peer (misma excepcion que el editorProps de EditorImage en ADR-104) |
 | `Popover/Popover.tsx` | 1 | popover | descartado: la superficie flotante ES lo que pintan las style props del componente; la flecha y el velo ya tienen ranura |
-| `ScrollProgress/ScrollProgress.tsx` | 1 | bar | pendiente |
-| `Segment/components/Section.tsx` | 1 | section | pendiente |
-| `SimpleGrid/SimpleGrid.tsx` | 1 | simpleGrid | pendiente |
-| `Space/Space.tsx` | 1 | space | pendiente |
+| `ScrollProgress/ScrollProgress.tsx` | 1 | bar | hecho (1 de 1; su ancho sale de una variable que se escribe en la raiz, asi que la ranura no lo pisa) |
+| `Segment/components/Section.tsx` | 1 | section | descartado: es la raiz, que ya lleva style props |
+| `SimpleGrid/SimpleGrid.tsx` | 1 | simpleGrid | descartado: es la raiz, que ya lleva style props |
+| `Space/Space.tsx` | 1 | space | descartado: es la raiz, que ya lleva style props |
 | `Stat/Stat.tsx` | 1 | arrow | hecho |
-| `Text/Text.tsx` | 1 | text | pendiente |
-| `ThemeIcon/ThemeIcon.tsx` | 1 | icon | pendiente |
-| `Title/Title.tsx` | 1 | heading | pendiente |
+| `Text/Text.tsx` | 1 | text | descartado: es la raiz, que ya lleva style props |
+| `ThemeIcon/ThemeIcon.tsx` | 1 | icon | descartado: es la raiz, que ya lleva style props |
+| `Title/Title.tsx` | 1 | heading | descartado: es la raiz, que ya lleva style props |
 | `Tooltip/Tooltip.tsx` | 1 | tooltip | descartado: el globo ES lo que pintan las style props del componente; la flecha ya tiene ranura |
-| `TypographyStylesProvider/TypographyStylesProvider.tsx` | 1 | typography | pendiente |
-| `UnstyledButton/UnstyledButton.tsx` | 1 | unstyled | pendiente |
-| `VisuallyHidden/VisuallyHidden.tsx` | 1 | visuallyHidden | pendiente |
+| `TypographyStylesProvider/TypographyStylesProvider.tsx` | 1 | typography | descartado: es la raiz, que ya lleva style props |
+| `UnstyledButton/UnstyledButton.tsx` | 1 | unstyled | descartado: es la raiz, que ya lleva style props |
+| `VisuallyHidden/VisuallyHidden.tsx` | 1 | visuallyHidden | descartado: es la raiz, que ya lleva style props |
