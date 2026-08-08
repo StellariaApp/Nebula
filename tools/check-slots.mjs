@@ -63,20 +63,30 @@ function CheckOrder(files) {
   return problems;
 }
 
+const TYPES_IMPORT = /from\s+"([^"]*\.types\.js)"/g;
+
 function CheckWired(types, tsx) {
-  const code = new Map();
-  for (const file of tsx) code.set(dirname(file), (code.get(dirname(file)) ?? "") + readFileSync(file, "utf8"));
+  const byDir = new Map();
+  const byContract = new Map();
+
+  for (const file of tsx) {
+    const source = readFileSync(file, "utf8");
+    byDir.set(dirname(file), (byDir.get(dirname(file)) ?? "") + source);
+    for (const found of source.matchAll(TYPES_IMPORT)) {
+      const target = resolve(dirname(file), found[1]).replace(/\.js$/, ".ts");
+      byContract.set(target, (byContract.get(target) ?? "") + source);
+    }
+  }
 
   const problems = [];
   for (const file of types) {
+    let reachable = byContract.get(file) ?? "";
     const dir = dirname(file);
-    let reachable = code.get(dir) ?? "";
+    reachable += byDir.get(dir) ?? "";
     for (const entry of readdirSync(dir)) {
       const path = join(dir, entry);
-      if (statSync(path).isDirectory()) reachable += code.get(path) ?? "";
+      if (statSync(path).isDirectory()) reachable += byDir.get(path) ?? "";
     }
-    const parent = dirname(dir);
-    if (parent !== dir) reachable += code.get(parent) ?? "";
 
     const source = readFileSync(file, "utf8");
     for (const member of source.matchAll(TYPE_MEMBER)) {
