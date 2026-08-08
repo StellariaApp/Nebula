@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
-import { AppShell, Anchor, Badge, Box, Divider, Text, Title } from "@stellaria/nebula-web";
+import { Anchor, AppShell, Badge, Box, Divider, Text, Title } from "@stellaria/nebula-web";
 
 import type { Dictionary } from "../lib/dictionary";
-import { type Lang } from "../lib/i18n";
+import { LANGS, type Lang } from "../lib/i18n";
 import { LangSwitch } from "../islands/lang-switch";
 import { SchemeSwitch } from "../islands/scheme-switch";
 import { Search } from "../islands/search";
@@ -11,7 +11,6 @@ import { Search } from "../islands/search";
 interface ChromeProps {
   lang: Lang;
   dict: Dictionary;
-  path: string;
   children: ReactNode;
 }
 
@@ -19,8 +18,8 @@ const SECTIONS = [
   {
     label: "nav.section.learn",
     links: [
-      { href: "", label: "nav.home" },
-      { href: "/docs/introduccion", label: "nav.docs" },
+      { href: "/", label: "nav.home" },
+      { href: "/docs/introduction", label: "nav.docs" },
     ],
   },
   {
@@ -34,7 +33,7 @@ const SECTIONS = [
   },
 ];
 
-export function Chrome({ lang, dict, path, children }: ChromeProps) {
+export function Chrome({ lang, dict, children }: ChromeProps) {
   return (
     <AppShell
       labels={{ skipToContent: dict["skip.content"] ?? "" }}
@@ -49,12 +48,7 @@ export function Chrome({ lang, dict, path, children }: ChromeProps) {
             {SECTIONS.map((section) => (
               <AppShell.Links key={section.label} title={dict[section.label]}>
                 {section.links.map((link) => (
-                  <AppShell.Link
-                    key={link.href}
-                    href={`/${lang}${link.href}`}
-                    active={path === link.href}
-                    label={dict[link.label]}
-                  />
+                  <AppShell.Link key={link.href} href={link.href} label={dict[link.label]} />
                 ))}
               </AppShell.Links>
             ))}
@@ -76,7 +70,7 @@ export function Chrome({ lang, dict, path, children }: ChromeProps) {
                 placeholder={dict["search.placeholder"] ?? ""}
               />
               <SchemeSwitch label={dict["scheme.switch"] ?? ""} />
-              <LangSwitch lang={lang} label={dict["lang.switch"] ?? ""} />
+              {LANGS.length > 1 && <LangSwitch lang={lang} label={dict["lang.switch"] ?? ""} />}
             </Box>
           }
         >

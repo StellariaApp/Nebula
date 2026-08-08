@@ -1,8 +1,10 @@
-export const LANGS = ["es", "en"] as const;
+export const LANGS = ["en"] as const;
 
 export type Lang = (typeof LANGS)[number];
 
-export const SOURCE_LANG: Lang = "es";
+export const SOURCE_LANG: Lang = "en";
+
+export const LANG_COOKIE = "nebula-lang";
 
 export function IsLang(value: string): value is Lang {
   return (LANGS as readonly string[]).includes(value);
@@ -28,8 +30,9 @@ export function NegotiateLang(header: string | null): Lang {
   return SOURCE_LANG;
 }
 
-export function OtherLang(lang: Lang): Lang {
-  return lang === "es" ? "en" : "es";
+export function ResolveLang(cookie: string | undefined, header: string | null): Lang {
+  if (cookie !== undefined && IsLang(cookie)) return cookie;
+  return NegotiateLang(header);
 }
 
 export function AsLang(value: string): Lang {

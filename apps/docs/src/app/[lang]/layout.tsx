@@ -8,7 +8,7 @@ import { Chrome } from "../../ui/chrome";
 
 export const metadata = {
   title: "Nebula",
-  description: "Librería UI universal para web y React Native.",
+  description: "Universal UI library for web and React Native.",
 };
 
 export function generateStaticParams() {
@@ -33,7 +33,7 @@ export default async function LangLayout({
       </head>
       <body style={{ margin: 0 }}>
         <NebulaProvider defaultTheme="dark">
-          <Chrome lang={lang} dict={dict} path="">
+          <Chrome lang={lang} dict={dict}>
             {children}
           </Chrome>
         </NebulaProvider>

@@ -19,8 +19,8 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         {CATALOG.count} {dict["catalog.count"]}
       </Text>
       <Box display="flex" gap="md">
-        <Anchor href={`/${lang}/docs/introduccion`}>{dict["nav.docs"]}</Anchor>
-        <Anchor href={`/${lang}/components`}>{dict["nav.components"]}</Anchor>
+        <Anchor href="/docs/introduction">{dict["nav.docs"]}</Anchor>
+        <Anchor href="/components">{dict["nav.components"]}</Anchor>
       </Box>
     </Box>
   );

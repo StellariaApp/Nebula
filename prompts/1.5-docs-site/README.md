@@ -17,15 +17,15 @@ muestra con la versión que se va a publicar y un aviso.
 
 ## Lo que ya hay, medido sobre el repo (2026-08-07)
 
-| Activo                                 | Estado                | Sirve para el sitio                                                                 |
-| -------------------------------------- | --------------------- | ------------------------------------------------------------------------------------ |
-| 158 componentes en 7 subpaths          | catálogo completo     | el índice y las 158 páginas                                                          |
-| 96 archivos de stories                 | Storybook 10.5        | **no directamente** — traen fixtures de test y `play()`; ver principio 3              |
-| 88 `<Nombre>.md`                       | notas de mantenimiento | el _porqué_, no la doc de consumo — ADR-105 lo dice explícitamente                    |
-| 71 `.types.ts` con JSDoc               | ADR-105 en marcha     | **la fuente de la tabla de props**                                                    |
-| `utils/style-registry.ts`, 128 props   | ADR-103               | la página de style props, generada entera                                             |
-| `size-limit` por módulo                | docs/03 §3            | el presupuesto real en kB brotli de cada página de componente                         |
-| `apps/theme-creator`                   | **carpeta vacía**     | el sitio será el **primer Next del monorepo**, aunque docs/01 §42 ya declare Next 16.2 |
+| Activo                               | Estado                 | Sirve para el sitio                                                                    |
+| ------------------------------------ | ---------------------- | -------------------------------------------------------------------------------------- |
+| 158 componentes en 7 subpaths        | catálogo completo      | el índice y las 158 páginas                                                            |
+| 96 archivos de stories               | Storybook 10.5         | **no directamente** — traen fixtures de test y `play()`; ver principio 3               |
+| 88 `<Nombre>.md`                     | notas de mantenimiento | el _porqué_, no la doc de consumo — ADR-105 lo dice explícitamente                     |
+| 71 `.types.ts` con JSDoc             | ADR-105 en marcha      | **la fuente de la tabla de props**                                                     |
+| `utils/style-registry.ts`, 128 props | ADR-103                | la página de style props, generada entera                                              |
+| `size-limit` por módulo              | docs/03 §3             | el presupuesto real en kB brotli de cada página de componente                          |
+| `apps/theme-creator`                 | **carpeta vacía**      | el sitio será el **primer Next del monorepo**, aunque docs/01 §42 ya declare Next 16.2 |
 
 Lo que **no** existe: ninguna línea de documentación de consumo. Ni una guía de instalación, ni una
 página de tema, ni un ejemplo pensado para alguien de fuera. Todo lo escrito hasta hoy está dirigido
@@ -33,12 +33,12 @@ a quien mantiene la librería.
 
 ## Las cuatro decisiones del checkpoint (2026-08-07)
 
-| Decisión         | Elegido                          | Consecuencia que ordena la fase                                                                        |
-| ---------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Idioma**       | bilingüe **es + en** desde el día 1 | i18n no es un añadido posterior: es la forma del modelo de contenido desde el primer archivo             |
-| **Stack**        | **Next 16.2** App Router + MDX   | el sitio es además la prueba viva de la integración que W5.2 promete; obliga a un spike de VE previo    |
-| **Demos**        | archivos compartidos             | nace `packages/demos`; el playground y el sitio importan **el mismo** `.tsx`                             |
-| **Despliegue**   | **público desde el primer deploy** | el sitio nace con dominio, robots, sitemap y OG; y con un aviso de estado de API que no se puede omitir |
+| Decisión       | Elegido                            | Consecuencia que ordena la fase                                                                                                                                                                                                                                                                                                                                                         |
+| -------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Idioma**     | **inglés primero**, i18n montada   | **Enmendada por [ADR-110](../../docs/adr/ADR-110-el-idioma-se-resuelve-por-cookie-y-el-origen-es-el-ingles.md)** (2026-08-08). Era «bilingüe es + en desde el día 1» con el idioma en la ruta. Ahora el idioma sale de una **cookie**, la URL no lo lleva, y el sitio se escribe entero en inglés; la maquinaria de i18n queda montada para que añadir un idioma sea añadirlo a `LANGS` |
+| **Stack**      | **Next 16.2** App Router + MDX     | el sitio es además la prueba viva de la integración que W5.2 promete; obliga a un spike de VE previo                                                                                                                                                                                                                                                                                    |
+| **Demos**      | archivos compartidos               | nace `packages/demos`; el playground y el sitio importan **el mismo** `.tsx`                                                                                                                                                                                                                                                                                                            |
+| **Despliegue** | **público desde el primer deploy** | el sitio nace con dominio, robots, sitemap y OG; y con un aviso de estado de API que no se puede omitir                                                                                                                                                                                                                                                                                 |
 
 ## Los cinco principios
 
@@ -57,12 +57,12 @@ a quien mantiene la librería.
 
 ## Las cuatro sub-fases
 
-| Código | Archivo                              | Entregable                                                            | Requiere        |
-| ------ | ------------------------------------ | --------------------------------------------------------------------- | --------------- |
-| DS1    | [DS1-prompts.md](DS1-prompts.md)     | Spike de riesgo · chasis + modelo de contenido i18n · los 3 generadores | nada            |
-| DS2    | [DS2-prompts.md](DS2-prompts.md)     | Landing e identidad · las guías bilingües · `packages/demos`            | DS1             |
-| DS3    | [DS3-prompts.md](DS3-prompts.md)     | Plantilla de página + piloto · barrido de las 158 por familias          | DS2 + **WN**    |
-| DS4    | [DS4-prompts.md](DS4-prompts.md)     | Gates del sitio · despliegue público · `docs/ds-closure.md`             | DS3             |
+| Código | Archivo                          | Entregable                                                              | Requiere     |
+| ------ | -------------------------------- | ----------------------------------------------------------------------- | ------------ |
+| DS1    | [DS1-prompts.md](DS1-prompts.md) | Spike de riesgo · chasis + modelo de contenido i18n · los 3 generadores | nada         |
+| DS2    | [DS2-prompts.md](DS2-prompts.md) | Landing e identidad · las guías bilingües · `packages/demos`            | DS1          |
+| DS3    | [DS3-prompts.md](DS3-prompts.md) | Plantilla de página + piloto · barrido de las 158 por familias          | DS2 + **WN** |
+| DS4    | [DS4-prompts.md](DS4-prompts.md) | Gates del sitio · despliegue público · `docs/ds-closure.md`             | DS3          |
 
 **DS1 y DS2 se pueden empezar hoy.** DS3 espera a WN porque WN todavía rompe API (ADR-103 fue
 _breaking_) y escribir 158 páginas contra una API en movimiento es trabajo que se tira. El barrido de
@@ -71,13 +71,13 @@ tiene, y en `packages/demos` se arregla una vez en vez de dos.
 
 ## Riesgos, con su plan B escrito antes de necesitarlo
 
-| Riesgo                                            | Plan B                                                                                                                                     |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Riesgo                                            | Plan B                                                                                                                                                                                                                                                  |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Vanilla Extract sobre Next 16**                 | El spike separa dos preguntas: (a) que el CSS **del paquete** se sirva —irrenunciable, es la promesa de W5— y (b) que el sitio escriba hojas **propias** —opcional: si no compila, el sitio se pinta solo con style props, que es aún mejor dogfooding— |
-| El spike falla entero                             | Vite + React Router 7 con el mismo contenido y los mismos generadores. Coste: el chasis                                                     |
-| 158 páginas × 2 idiomas es mucho contenido        | La parte generada es idéntica en los dos; solo se traduce la prosa. El gate mide cobertura y la marca en la página, no bloquea publicar     |
-| El JSDoc está en español y viaja al `.d.ts`       | Pregunta abierta #1 — no se puede traducir el autocompletado del consumidor                                                                 |
-| Publicar docs de una librería sin licencia decida | El pie del sitio no declara licencia hasta que el supuesto #11 se cierre en W5. No se implica MIT ni por omisión ni por plantilla           |
+| El spike falla entero                             | Vite + React Router 7 con el mismo contenido y los mismos generadores. Coste: el chasis                                                                                                                                                                 |
+| 158 páginas × 2 idiomas es mucho contenido        | La parte generada es idéntica en los dos; solo se traduce la prosa. El gate mide cobertura y la marca en la página, no bloquea publicar                                                                                                                 |
+| El JSDoc está en español y viaja al `.d.ts`       | Pregunta abierta #1 — no se puede traducir el autocompletado del consumidor                                                                                                                                                                             |
+| Publicar docs de una librería sin licencia decida | El pie del sitio no declara licencia hasta que el supuesto #11 se cierre en W5. No se implica MIT ni por omisión ni por plantilla                                                                                                                       |
 
 ## Preguntas abiertas — se responden dentro de la fase, no antes
 

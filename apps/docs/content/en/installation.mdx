@@ -1,0 +1,39 @@
+---
+title: Installation
+summary: What to install, and what you do NOT need to configure to consume the catalogue.
+order: 2
+---
+
+# Installation
+
+```bash
+pnpm add @stellaria/nebula-web
+```
+
+## You do not need the Vanilla Extract plugin
+
+The package compiles its stylesheets in its own build and ships **plain CSS** next to the JS. Your
+bundler only has to resolve an `import "./something.css"` from `node_modules`, which every bundler
+does. This site is the proof: it runs on Next with Turbopack and installs no plugin.
+
+## Wrap your app
+
+```tsx
+import { NebulaProvider, ColorSchemeScript } from "@stellaria/nebula-web";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript defaultTheme="dark" />
+      </head>
+      <body>
+        <NebulaProvider defaultTheme="dark">{children}</NebulaProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+`ColorSchemeScript` goes in the `head` and stops the browser painting the wrong scheme before the JS
+loads.
