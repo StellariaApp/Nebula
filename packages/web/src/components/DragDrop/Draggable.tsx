@@ -7,6 +7,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./DragDrop.css.js";
 import * as drag_drop_vars from "./DragDrop.vars.css.js";
@@ -22,6 +23,8 @@ export function Draggable(props: DraggableProps): ReactElement {
     withHandle = false,
     label,
     className,
+    rowProps,
+    handleProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -54,7 +57,7 @@ export function Draggable(props: DraggableProps): ReactElement {
       {...rest}
     >
       {withHandle ? (
-        <div className={styles.row}>
+        <Box {...rowProps} className={cx(styles.row, rowProps?.className)}>
           <DragHandle
             attributes={activator.attributes}
             listeners={activator.listeners}
@@ -62,9 +65,10 @@ export function Draggable(props: DraggableProps): ReactElement {
             disabled={disabled}
             dragging={isDragging}
             label={label === undefined ? labels.handle : `${labels.handle}: ${label}`}
+            slotProps={handleProps}
           />
           {children}
-        </div>
+        </Box>
       ) : (
         children
       )}

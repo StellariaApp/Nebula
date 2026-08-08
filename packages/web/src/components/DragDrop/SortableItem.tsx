@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactElement, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -19,10 +19,11 @@ export interface SortableItemProps {
   disabled: boolean;
   withHandle: boolean;
   component: "li" | "div";
+  handleProps?: ComponentPropsWithoutRef<"button"> | undefined;
 }
 
 export function SortableItem(props: SortableItemProps): ReactElement {
-  const { id, children, disabled, withHandle, component } = props;
+  const { id, children, disabled, withHandle, component, handleProps } = props;
 
   const labels = useDragDropLabels();
   const {
@@ -59,6 +60,7 @@ export function SortableItem(props: SortableItemProps): ReactElement {
             disabled={disabled}
             dragging={isDragging}
             label={labels.handle}
+            slotProps={handleProps}
           />
           {children}
         </div>

@@ -135,9 +135,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
 | `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | hecho (2 de 2) |
 | `Divider/Divider.tsx` | 2 | line label | hecho |
-| `DragDrop/Draggable.tsx` | 2 | draggable row | pendiente |
-| `DragDrop/SortableItem.tsx` | 2 | draggable row | pendiente |
-| `DragDrop/SortableList.tsx` | 2 | list emptySlot | pendiente |
+| `DragDrop/Draggable.tsx` | 2 | draggable row | hecho (2; draggable es la raiz y ademas el nodo que arrastra. El detector no conto el asa) |
+| `DragDrop/SortableItem.tsx` | 2 | draggable row | descartado: es el nodo que ordena dnd-kit, con su ref y el transform que le escribe, y su row interna es el activador cuando no hay asa |
+| `DragDrop/SortableList.tsx` | 2 | list emptySlot | hecho (2; list es la raiz. El detector no conto el asa, que baja a todas las filas) |
 | `Fieldset/Fieldset.tsx` | 2 | legend description | hecho |
 | `FileInput/FileInput.tsx` | 2 | hidden trigger | pendiente |
 | `Filters/Filter.tsx` | 2 | range item | pendiente |
@@ -175,9 +175,9 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `DatePicker/DatePicker.tsx` | 1 | trigger | hecho (1 de 1; triggerProps sube a DatePickerBaseProps y lo comparten los tres) |
 | `DatePicker/DatePickerInput.tsx` | 1 | textTrigger | hecho (1 de 1; es el mismo triggerProps del contrato comun: aqui el disparador es el campo entero) |
 | `DatePicker/DatePickerPopover.tsx` | 1 | dialog | hecho (1 de 1; se publica como popoverProps y sube al contrato comun, porque el popover es interno) |
-| `DragDrop/DragDropContext.tsx` | 1 | overlay | pendiente |
-| `DragDrop/DragHandle.tsx` | 1 | handle | pendiente |
-| `DragDrop/Droppable.tsx` | 1 | droppable | pendiente |
+| `DragDrop/DragDropContext.tsx` | 1 | overlay | descartado: es el DragOverlay de dnd-kit, que lo mueve la libreria con su propio transform |
+| `DragDrop/DragHandle.tsx` | 1 | handle | hecho (1 de 1; DragHandle es interno, asi que su ranura se publica como handleProps en Draggable y SortableList) |
+| `DragDrop/Droppable.tsx` | 1 | droppable | descartado: es la raiz, que ya lleva style props y reenvia el resto |
 | `EmptyModule/EmptyModule.tsx` | 1 | media | hecho |
 | `Feature/Feature.tsx` | 1 | feature | hecho |
 | `GlassSurface/GlassSurface.tsx` | 1 | glassSurface | pendiente |

@@ -1,6 +1,8 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
+
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export type DragAxis = "both" | "x" | "y";
 
@@ -32,6 +34,13 @@ export interface DragDropContextProps {
 }
 
 export interface DraggableProps extends StyleProps {
+  /** La fila que reparte asa y contenido. Solo existe con `withHandle`. */
+  rowProps?: BoxSlotProps | undefined;
+  /**
+   * El asa de arrastre. Solo existe con `withHandle`, y lleva `data-dragging`. El nodo que se
+   * arrastra no tiene ranura: lo mueve dnd-kit con un `transform` calculado.
+   */
+  handleProps?: ComponentPropsWithoutRef<"button"> | undefined;
   id: string;
   children: ReactNode;
   disabled?: boolean | undefined;
@@ -49,6 +58,13 @@ export interface DroppableProps extends StyleProps {
 }
 
 export interface SortableListProps<T> extends StyleProps {
+  /** El aviso de lista vacia. Solo se pinta sin `items` y con `empty`. */
+  emptyProps?: BoxSlotProps | undefined;
+  /**
+   * El asa de cada fila. Se esparce sobre TODAS y solo existe con `withHandle`. Las filas en si no
+   * tienen ranura: llevan el ref y el `transform` que dnd-kit les escribe al ordenar.
+   */
+  handleProps?: ComponentPropsWithoutRef<"button"> | undefined;
   items: readonly T[];
   getKey: (item: T, index: number) => string;
   renderItem: (item: T, index: number) => ReactNode;

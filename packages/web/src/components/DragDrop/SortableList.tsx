@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import * as styles from "./DragDrop.css.js";
 import { DragDropContext } from "./DragDropContext.js";
@@ -37,6 +38,8 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
     empty,
     labels,
     className,
+    emptyProps,
+    handleProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -66,7 +69,13 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
           {...rest}
         >
           {items.length === 0 && empty !== undefined ? (
-            <li className={styles.empty_slot}>{empty}</li>
+            <Box
+              component="li"
+              {...emptyProps}
+              className={cx(styles.empty_slot, emptyProps?.className)}
+            >
+              {empty}
+            </Box>
           ) : null}
           {items.map((item, index) => {
             const key = keys[index] as string;
@@ -77,6 +86,7 @@ export function SortableList<T>(props: SortableListProps<T>): ReactElement {
                 component="li"
                 disabled={disabled}
                 withHandle={withHandle}
+                handleProps={handleProps}
               >
                 {renderItem(item, index)}
               </SortableItem>
