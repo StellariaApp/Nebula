@@ -37,8 +37,24 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
     onChange,
     isDateUnavailable,
     className,
+    monthsProps,
+    headerProps,
+    headingProps,
+    previousProps,
+    nextProps,
+    cellProps,
+    weekdayProps,
     ...style_rest
   } = props;
+  const slots = {
+    monthsProps,
+    headerProps,
+    headingProps,
+    previousProps,
+    nextProps,
+    cellProps,
+    weekdayProps,
+  };
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   const fp = useFieldProps<DateRange>({
@@ -97,6 +113,7 @@ export function RangeCalendar(props: RangeCalendarProps): ReactElement {
       locale={locale}
       labels={labels}
       visibleMonths={visibleMonths}
+      slots={slots}
       className={cx(sprinkle_class, className)}
       style={{ ...day_vars, ...sprinkle_style }}
     />

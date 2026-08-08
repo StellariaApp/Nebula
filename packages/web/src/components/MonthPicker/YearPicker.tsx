@@ -50,6 +50,7 @@ export function YearPicker(props: YearPickerProps): ReactElement {
     defaultValue = "",
     onChange,
     className,
+    cellProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -113,6 +114,7 @@ export function YearPicker(props: YearPickerProps): ReactElement {
         size={size}
         label={typeof label === "string" ? label : "Selecciona un año"}
         disabled={fp.isDisabled}
+        cellProps={cellProps}
       />
     </div>
   );

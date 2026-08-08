@@ -11,11 +11,12 @@ import { useCalendarState, useRangeCalendarState } from "react-stately";
 import type { Size } from "@stellaria/nebula-tokens";
 
 import { cx } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 
 import { CalendarGrid } from "./CalendarGrid.js";
 import { CalendarHeader } from "./CalendarHeader.js";
 import * as styles from "./Calendar.css.js";
-import type { CalendarLabels } from "./Calendar.types.js";
+import type { CalendarLabels, CalendarSlotProps } from "./Calendar.types.js";
 
 interface ViewShellProps {
   size: Size;
@@ -24,6 +25,7 @@ interface ViewShellProps {
   visibleMonths?: number | undefined;
   className?: string | undefined;
   style?: CSSProperties | undefined;
+  slots?: CalendarSlotProps | undefined;
 }
 
 export interface CalendarViewProps extends ViewShellProps {
@@ -39,6 +41,7 @@ export function CalendarView(props: CalendarViewProps): ReactElement {
     visibleMonths = 1,
     className,
     style,
+    slots,
   } = props;
 
   const { locale: ambient } = useLocale();
@@ -62,12 +65,20 @@ export function CalendarView(props: CalendarViewProps): ReactElement {
         prevButtonProps={prevButtonProps}
         nextButtonProps={nextButtonProps}
         labels={labels}
+        slots={slots}
       />
-      <div className={styles.months}>
+      <Box {...slots?.monthsProps} className={cx(styles.months, slots?.monthsProps?.className)}>
         {[...new Array(months).keys()].map((offset) => (
-          <CalendarGrid key={offset} state={state} offset={offset} size={size} locale={locale} />
+          <CalendarGrid
+            key={offset}
+            state={state}
+            offset={offset}
+            size={size}
+            locale={locale}
+            slots={slots}
+          />
         ))}
-      </div>
+      </Box>
     </div>
   );
 }
@@ -87,6 +98,7 @@ export function RangeCalendarView(props: RangeCalendarViewProps): ReactElement {
     visibleMonths = 1,
     className,
     style,
+    slots,
   } = props;
 
   const { locale: ambient } = useLocale();
@@ -115,12 +127,20 @@ export function RangeCalendarView(props: RangeCalendarViewProps): ReactElement {
         prevButtonProps={prevButtonProps}
         nextButtonProps={nextButtonProps}
         labels={labels}
+        slots={slots}
       />
-      <div className={styles.months}>
+      <Box {...slots?.monthsProps} className={cx(styles.months, slots?.monthsProps?.className)}>
         {[...new Array(months).keys()].map((offset) => (
-          <CalendarGrid key={offset} state={state} offset={offset} size={size} locale={locale} />
+          <CalendarGrid
+            key={offset}
+            state={state}
+            offset={offset}
+            size={size}
+            locale={locale}
+            slots={slots}
+          />
         ))}
-      </div>
+      </Box>
     </div>
   );
 }

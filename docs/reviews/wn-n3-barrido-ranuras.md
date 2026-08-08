@@ -106,7 +106,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Banderole/Banderole.tsx` | 3 | icon body actions | hecho |
 | `BlurOverlay/BlurOverlay.tsx` | 3 | blurOverlay veil content | hecho (1 de 3; blurOverlay es la raiz y veil ES el efecto, gobernado por blur, color y opacity) |
 | `Button/Button.tsx` | 3 | button spinner section | hecho (3; button es la raiz y spinner es el mecanismo de la animacion de carga. section son DOS nodos, asi que van separados con los nombres de NavLink. El detector no conto el rotulo, que no lleva clase base) |
-| `Calendar/CalendarHeader.tsx` | 3 | nav header heading | pendiente |
+| `Calendar/CalendarHeader.tsx` | 3 | nav header heading | hecho (4; nav son DOS nodos y se publican como previousProps y nextProps. Suben a Calendar y RangeCalendar en CalendarSlotProps) |
 | `Card/Card.tsx` | 3 | badges meta actions | descartado: los tres nodos son la raiz de las partes del compound |
 | `Charts/ChartLegend.tsx` | 3 | legend legendItem swatch | hecho |
 | `Checkbox/Checkbox.tsx` | 3 | input box labelText | hecho |
@@ -130,7 +130,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `TagsInput/TagsInput.tsx` | 3 | tag tagLabel remove | hecho (4; el detector no conto el campo de texto. removeProps toma el tipo y el nombre de Tag) |
 | `Avatar/Avatar.tsx` | 2 | avatar image | hecho |
 | `Blockquote/Blockquote.tsx` | 2 | blockquote iconWrap | hecho |
-| `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | pendiente |
+| `Calendar/CalendarGrid.tsx` | 2 | cellWrapper weekday | hecho (2; cellWrapper es el `td` estructural y la ranura cae en el `div` del dia, que es quien lleva el estado) |
 | `Charts/TrendIndicator.tsx` | 2 | trend arrow | pendiente |
 | `CodeHighlight/CodeHighlightTabs.tsx` | 2 | tabList bare | pendiente |
 | `DateRangePicker/DateRangePicker.tsx` | 2 | rangeSeparator trigger | pendiente |
@@ -147,7 +147,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `Kanban/KanbanBoard.tsx` | 2 | board columnBody | descartado: board es su raiz y columnBody es la lista que ordena dnd-kit, con sus manejadores de arrastre |
 | `LoadingOverlay/LoadingOverlay.tsx` | 2 | body label | hecho |
 | `MeshGradientBg/MeshGradientBg.tsx` | 2 | meshGradientBg scrim | hecho (1 de 2; meshGradientBg es la raiz, y el grano queda fuera por lo mismo que en GradientBackground) |
-| `MonthPicker/GridPicker.tsx` | 2 | grid cell | pendiente |
+| `MonthPicker/GridPicker.tsx` | 2 | grid cell | hecho (1 de 2; grid es la raiz de la parte. cellProps sube a MonthPicker y YearPicker) |
 | `Nav/components/Section.tsx` | 2 | actions divider | descartado: son la raiz de NavActions y NavDivider, que ya llevan style props |
 | `NumberInput/NumberInput.tsx` | 2 | stepper stepperButton | pendiente |
 | `RichTextEditor/RichTextEditor.tsx` | 2 | content placeholder | pendiente |
@@ -168,7 +168,7 @@ juicio; cuando lo haga, se anota aquí el porqué.
 | `AspectRatio/AspectRatio.tsx` | 1 | aspectRatio | pendiente |
 | `Avatar/Group.tsx` | 1 | group | pendiente |
 | `ButtonGroup/ButtonGroup.tsx` | 1 | group | pendiente |
-| `Calendar/CalendarView.tsx` | 1 | months | pendiente |
+| `Calendar/CalendarView.tsx` | 1 | months | hecho (1 de 1) |
 | `Charts/SparkLine.tsx` | 1 | spark | pendiente |
 | `Chip/Chip.tsx` | 1 | input | hecho |
 | `Code/Code.tsx` | 1 | base | pendiente |

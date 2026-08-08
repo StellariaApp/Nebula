@@ -5,6 +5,8 @@ import { useEffect, useRef, useState, type ReactElement } from "react";
 import type { Size } from "@stellaria/nebula-tokens";
 
 import { cx } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 import * as styles from "./GridPicker.css.js";
 
@@ -23,10 +25,21 @@ export interface GridPickerProps {
   label: string;
   disabled?: boolean | undefined;
   className?: string | undefined;
+  cellProps?: BoxSlotProps | undefined;
 }
 
 export function GridPicker(props: GridPickerProps): ReactElement {
-  const { items, value, onSelect, columns, size, label, disabled = false, className } = props;
+  const {
+    items,
+    value,
+    onSelect,
+    columns,
+    size,
+    label,
+    disabled = false,
+    className,
+    cellProps,
+  } = props;
 
   const selected_index = items.findIndex((item) => item.value === value);
   const [active, set_active] = useState(selected_index === -1 ? 0 : selected_index);
@@ -84,16 +97,15 @@ export function GridPicker(props: GridPickerProps): ReactElement {
         const is_selected = item.value === value;
         const is_disabled = disabled || item.disabled === true;
         return (
-          <div
+          <Box
             key={item.value}
-            ref={(node) => {
+            ref={(node: HTMLDivElement | null) => {
               refs.current[index] = node;
             }}
             role="option"
             aria-selected={is_selected}
             aria-disabled={is_disabled ? true : undefined}
             tabIndex={index === active ? 0 : -1}
-            className={cx(styles.cell, styles.cell_size[size])}
             data-selected={is_selected ? "true" : undefined}
             data-disabled={is_disabled ? "true" : undefined}
             onClick={() => {
@@ -102,9 +114,11 @@ export function GridPicker(props: GridPickerProps): ReactElement {
               set_active(index);
               onSelect(item.value);
             }}
+            {...cellProps}
+            className={cx(styles.cell, styles.cell_size[size], cellProps?.className)}
           >
             {item.label}
-          </div>
+          </Box>
         );
       })}
     </div>

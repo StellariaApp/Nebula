@@ -557,14 +557,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/MonthPicker/MonthPicker.js",
     import: "{ MonthPicker }",
     ignore: ["react", "react-dom"],
-    limit: "34.75 kB",
+    limit: "35.5 kB",
   },
   {
     name: "YearPicker (grid propia, sin cadena de fechas, por módulo)",
     path: "dist/components/MonthPicker/YearPicker.js",
     import: "{ YearPicker }",
     ignore: ["react", "react-dom"],
-    limit: "34.25 kB",
+    limit: "34.75 kB",
   },
   {
     name: "Checkbox (nativo + visual, por módulo)",

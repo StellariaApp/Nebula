@@ -6,6 +6,8 @@ import type { CalendarVariant } from "../Calendar/Calendar.types.js";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BoxSlotProps } from "../Box/Box.types.js";
+
 export interface PeriodPickerLabels {
   previousYear?: string | undefined;
   nextYear?: string | undefined;
@@ -14,6 +16,11 @@ export interface PeriodPickerLabels {
 }
 
 interface PeriodPickerBaseProps extends StyleProps {
+  /**
+   * Cada casilla de la rejilla. Se esparce sobre TODAS: salen de `minValue` y `maxValue`, no de
+   * composición. Es un `div` con `role="option"`, así que se tipa como `div`.
+   */
+  cellProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   size?: Size | undefined;
   variant?: CalendarVariant | undefined;

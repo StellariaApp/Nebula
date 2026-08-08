@@ -46,6 +46,7 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
     defaultValue = "",
     onChange,
     className,
+    cellProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -111,6 +112,7 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
         size={size}
         label={typeof label === "string" ? label : "Selecciona un mes"}
         disabled={fp.isDisabled}
+        cellProps={cellProps}
       />
     </div>
   );
