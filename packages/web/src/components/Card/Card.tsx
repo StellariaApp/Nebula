@@ -93,7 +93,7 @@ export function Card(props: CardProps): ReactElement {
     shadow = "none",
     padding = "lg",
     withBorder = true,
-    glass,
+    glass = "subtle",
     interactive: interactive_prop,
     onPress,
     href,
