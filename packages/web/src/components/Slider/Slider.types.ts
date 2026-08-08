@@ -18,10 +18,15 @@ export interface SliderMark {
 
 interface SliderBaseProps extends StyleProps {
   /**
-   * La fila de marcas. Solo se pinta con `marks`. La marca suelta no lleva ranura —lleva calculada
-   * su posicion en el eje—, pero el color y la tipografia se heredan desde aqui.
+   * La fila de marcas. Solo se pinta con `marks`.
    */
   marksProps?: BoxSlotProps | undefined;
+  /**
+   * Cada marca. Se esparce sobre TODAS. Su posicion en el eje se escribe DESPUES de la ranura,
+   * porque sale de su `value`; el color y la tipografia se pueden poner aqui o heredarse de
+   * `marksProps`.
+   */
+  markProps?: BoxSlotProps | undefined;
   /** El valor que se muestra al lado. Solo con `withValue`; se anuncia solo, porque es un `output`. */
   outputProps?: TextSlotProps | undefined;
   label?: ReactNode | undefined;

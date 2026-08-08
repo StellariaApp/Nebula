@@ -6,6 +6,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import * as styles from "./Charts.css.js";
 import type { ChartBaseProps, ChartDatum } from "./Charts.types.js";
+import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 
 export interface ChartFrameProps {
@@ -13,6 +14,7 @@ export interface ChartFrameProps {
   titleProps: ChartBaseProps["titleProps"];
   summary: string | undefined;
   summaryProps: ChartBaseProps["summaryProps"];
+  canvasProps: ChartBaseProps["canvasProps"];
   detailsProps: ChartBaseProps["detailsProps"];
   detailsSummaryProps: ChartBaseProps["detailsSummaryProps"];
   tableProps: ChartBaseProps["tableProps"];
@@ -33,6 +35,7 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -74,9 +77,7 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
         </Text>
       ) : null}
 
-      <div
-        className={styles.canvas}
-        style={{ height }}
+      <Box
         {...(has_title || has_summary
           ? {
               role: "img",
@@ -84,9 +85,12 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
               ...(has_title && has_summary ? { "aria-describedby": summary_id } : {}),
             }
           : {})}
+        {...canvasProps}
+        className={cx(styles.canvas, canvasProps?.className)}
+        style={{ ...canvasProps?.style, height }}
       >
         {children}
-      </div>
+      </Box>
 
       {has_summary ? (
         <Text

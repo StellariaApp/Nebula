@@ -55,6 +55,7 @@ export function Rating(props: RatingProps): ReactElement {
     errorProps,
     groupProps,
     itemProps,
+    partialProps,
     ...style_rest
   } = props;
   const field_slots = {
@@ -143,9 +144,14 @@ export function Rating(props: RatingProps): ReactElement {
                 >
                   {Symbol(filled)}
                   {partial ? (
-                    <span className={styles.partial} style={{ width: `${String(ratio * 100)}%` }}>
+                    <Box
+                      component="span"
+                      {...partialProps}
+                      className={cx(styles.partial, partialProps?.className)}
+                      style={{ ...partialProps?.style, width: `${String(ratio * 100)}%` }}
+                    >
                       {Symbol(true)}
-                    </span>
+                    </Box>
                   ) : null}
                 </Box>
               );
@@ -179,9 +185,14 @@ export function Rating(props: RatingProps): ReactElement {
               >
                 {Symbol(filled)}
                 {partial ? (
-                  <span className={styles.partial} style={{ width: `${String(ratio * 100)}%` }}>
+                  <Box
+                    component="span"
+                    {...partialProps}
+                    className={cx(styles.partial, partialProps?.className)}
+                    style={{ ...partialProps?.style, width: `${String(ratio * 100)}%` }}
+                  >
                     {Symbol(true)}
-                  </span>
+                  </Box>
                 ) : null}
               </Box>
             );

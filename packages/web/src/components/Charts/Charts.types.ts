@@ -28,6 +28,12 @@ export interface ChartBaseProps extends StyleProps {
   titleProps?: TextSlotProps | undefined;
   /** El parrafo del resumen, que es la descripcion accesible del grafico. Sin `summary` no se pinta. */
   summaryProps?: TextSlotProps | undefined;
+  /**
+   * El lienzo donde se pinta el grafico. Su alto se escribe DESPUES de la ranura, porque sale de
+   * `height`; con `title` o `summary` lleva ademas el `role="img"` y el `aria-labelledby` que le
+   * dan nombre accesible, asi que reescribirlos aqui deja el grafico sin nombre.
+   */
+  canvasProps?: BoxSlotProps | undefined;
   /** El `details` que despliega la tabla de datos. Solo existe con `withDataTable`. */
   detailsProps?: ComponentPropsWithoutRef<"details"> | undefined;
   /** El `summary` que abre ese desplegable, donde cae `dataTableLabel`. Solo existe con `withDataTable`. */

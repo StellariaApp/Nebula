@@ -45,6 +45,7 @@ export function RadarChart(props: RadarChartProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -66,6 +67,7 @@ export function RadarChart(props: RadarChartProps): ReactElement {
       titleProps={titleProps}
       summary={summary}
       summaryProps={summaryProps}
+      canvasProps={canvasProps}
       detailsProps={detailsProps}
       detailsSummaryProps={detailsSummaryProps}
       tableProps={tableProps}

@@ -15,6 +15,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as styles from "./Progress.css.js";
 import type { ProgressProps, ProgressSegment } from "./Progress.types.js";
 import * as variables from "./Progress.vars.css.js";
+import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 
 const BAR_HEIGHT: Record<Size, number> = { xs: 4, sm: 6, md: 8, lg: 12, xl: 16 };
@@ -64,6 +65,7 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
     label,
     className,
     color = "primary",
+    fillProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -105,14 +107,17 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
       {...(label === undefined ? {} : { "aria-label": label })}
     >
       {list.map((segment, index) => (
-        <span
+        <Box
           key={segment.label ?? `${String(index)}-${segment.color ?? color}`}
-          className={cx(styles.fill, striped && styles.striped)}
+          component="span"
+          {...(segment.label === undefined ? { "aria-hidden": true } : { title: segment.label })}
+          {...fillProps}
+          className={cx(styles.fill, striped && styles.striped, fillProps?.className)}
           style={{
+            ...fillProps?.style,
             width: `${String(Math.min(100, Math.max(0, (segment.value / max) * 100)))}%`,
             background: ResolveAccent(segment.color ?? color, "600"),
           }}
-          {...(segment.label === undefined ? { "aria-hidden": true } : { title: segment.label })}
         />
       ))}
     </div>

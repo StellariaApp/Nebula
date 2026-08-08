@@ -25,6 +25,7 @@ export function PieChart(props: PieChartProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -44,6 +45,7 @@ export function PieChart(props: PieChartProps): ReactElement {
       titleProps={titleProps}
       summary={summary}
       summaryProps={summaryProps}
+      canvasProps={canvasProps}
       detailsProps={detailsProps}
       detailsSummaryProps={detailsSummaryProps}
       tableProps={tableProps}

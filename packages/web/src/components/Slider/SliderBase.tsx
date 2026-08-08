@@ -99,6 +99,7 @@ function TrackVars(
 
 export interface SliderBaseProps {
   marksProps: SliderProps["marksProps"];
+  markProps: SliderProps["markProps"];
   outputProps: SliderProps["outputProps"];
   values: number[];
   onChange: (values: number[]) => void;
@@ -141,6 +142,7 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
     name,
     className,
     marksProps,
+    markProps,
     outputProps,
   } = props;
 
@@ -229,13 +231,18 @@ export function SliderBase(props: SliderBaseProps): ReactElement {
               className={cx(styles.marks, marksProps?.className)}
             >
               {marks.map((entry) => (
-                <span
+                <Box
                   key={entry.value}
-                  className={styles.mark}
-                  style={{ left: `${String(((entry.value - min) / (max - min)) * 100)}%` }}
+                  component="span"
+                  {...markProps}
+                  className={cx(styles.mark, markProps?.className)}
+                  style={{
+                    ...markProps?.style,
+                    left: `${String(((entry.value - min) / (max - min)) * 100)}%`,
+                  }}
                 >
                   {entry.label ?? entry.value}
-                </span>
+                </Box>
               ))}
             </Box>
           )}

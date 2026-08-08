@@ -9,11 +9,16 @@ import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface RatingProps extends StyleProps, FormFieldSlotProps {
+  /**
+   * El relleno parcial de un simbolo a medias. Solo existe con `fractions` mayor que 1. Su ancho se
+   * escribe DESPUES de la ranura, porque es la fraccion que representa.
+   */
+  partialProps?: BoxSlotProps | undefined;
   /** La fila de símbolos. Es `radiogroup`, o `img` con `readOnly`. */
   groupProps?: BoxSlotProps | undefined;
   /**
    * Cada símbolo. Se esparce sobre TODOS, y sirve a dos elementos: `button` cuando se puede votar y
-   * `span` con `readOnly`. El relleno parcial no tiene ranura: lleva calculado su ancho.
+   * `span` con `readOnly`.
    */
   itemProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;

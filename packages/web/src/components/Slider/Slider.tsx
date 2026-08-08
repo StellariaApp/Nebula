@@ -42,6 +42,7 @@ export function Slider(props: SliderProps): ReactElement {
     bodyProps,
     errorProps,
     marksProps,
+    markProps,
     outputProps,
     ...style_rest
   } = props;
@@ -82,6 +83,7 @@ export function Slider(props: SliderProps): ReactElement {
       {({ id }) => (
         <SliderBase
           marksProps={marksProps}
+          markProps={markProps}
           outputProps={outputProps}
           values={[fp.value]}
           onChange={(next) => {

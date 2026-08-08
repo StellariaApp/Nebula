@@ -4,6 +4,7 @@ import type { ColorExtended, Size, Unit, Variant } from "@stellaria/nebula-token
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { TextSlotProps } from "../Text/Text.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export type ProgressVariant = Extract<Variant, "light" | "outline" | "ghost">;
 
@@ -14,6 +15,12 @@ export interface ProgressSegment {
 }
 
 export interface ProgressProps extends StyleProps {
+  /**
+   * Cada tramo de la barra. Se esparce sobre TODOS. Su ancho y su color se escriben DESPUES de la
+   * ranura, porque son el dato; el resto si se ajusta. No existe con `type="ring"` ni con
+   * `indeterminate`, que es una capa animada aparte.
+   */
+  fillProps?: BoxSlotProps | undefined;
   /**
    * El rotulo del centro del anillo, que es el nodo que envuelve a `children`. Solo existe con
    * `type="ring"` y solo si hay `children`; en la barra no se pinta nada.

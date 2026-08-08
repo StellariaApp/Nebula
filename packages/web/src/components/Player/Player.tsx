@@ -37,6 +37,7 @@ export function Player(props: PlayerProps): ReactElement {
     onError,
     labels,
     className,
+    surfaceProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -55,7 +56,8 @@ export function Player(props: PlayerProps): ReactElement {
       {...rest}
     >
       <ReactPlayer
-        className={styles.surface}
+        {...surfaceProps}
+        className={cx(styles.surface, surfaceProps?.className)}
         src={src}
         controls={controls}
         playing={playing}

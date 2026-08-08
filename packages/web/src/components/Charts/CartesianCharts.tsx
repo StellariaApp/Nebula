@@ -72,6 +72,7 @@ export function BarChart(props: BarChartProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -88,6 +89,7 @@ export function BarChart(props: BarChartProps): ReactElement {
       titleProps={titleProps}
       summary={summary}
       summaryProps={summaryProps}
+      canvasProps={canvasProps}
       detailsProps={detailsProps}
       detailsSummaryProps={detailsSummaryProps}
       tableProps={tableProps}
@@ -141,6 +143,7 @@ export function LineChart(props: LineChartProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -157,6 +160,7 @@ export function LineChart(props: LineChartProps): ReactElement {
       titleProps={titleProps}
       summary={summary}
       summaryProps={summaryProps}
+      canvasProps={canvasProps}
       detailsProps={detailsProps}
       detailsSummaryProps={detailsSummaryProps}
       tableProps={tableProps}
@@ -211,6 +215,7 @@ export function AreaChart(props: AreaChartProps): ReactElement {
     titleProps,
     summary,
     summaryProps,
+    canvasProps,
     detailsProps,
     detailsSummaryProps,
     tableProps,
@@ -227,6 +232,7 @@ export function AreaChart(props: AreaChartProps): ReactElement {
       titleProps={titleProps}
       summary={summary}
       summaryProps={summaryProps}
+      canvasProps={canvasProps}
       detailsProps={detailsProps}
       detailsSummaryProps={detailsSummaryProps}
       tableProps={tableProps}
