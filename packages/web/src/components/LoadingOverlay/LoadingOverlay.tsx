@@ -60,15 +60,16 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
             center
           >
             <Box
-              role="status"
               aria-live="polite"
               {...bodyProps}
+              role="status"
               className={cx(styles.body, bodyProps?.className)}
             >
               <Box component="span" aria-hidden="true" {...loaderProps}>
                 {loader ?? <Loader size="md" />}
               </Box>
               <Text
+                inherit
                 component="span"
                 {...labelProps}
                 className={cx(styles.label, labelProps?.className)}

@@ -113,7 +113,6 @@ export function Panel(props: PanelProps): ReactElement {
       </Box>
 
       <Box
-        role="separator"
         tabIndex={resizable ? 0 : -1}
         aria-label={text.separator}
         aria-orientation={is_horizontal ? "vertical" : "horizontal"}
@@ -125,6 +124,7 @@ export function Panel(props: PanelProps): ReactElement {
         onKeyDown={OnKeyDown}
         onPointerDown={OnPointerDown}
         {...separatorProps}
+        role="separator"
         className={cx(styles.separator, separatorProps?.className)}
       />
 

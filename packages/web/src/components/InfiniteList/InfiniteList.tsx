@@ -125,8 +125,9 @@ export function InfiniteList<T, TPage = readonly T[]>(
 
       <Box
         aria-live="polite"
-        role="status"
+
         {...liveProps}
+        role="status"
         className={cx(styles.live, liveProps?.className)}
       >
         {source.loadingMore ? text.loading : ""}

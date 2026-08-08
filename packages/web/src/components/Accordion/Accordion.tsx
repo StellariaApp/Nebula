@@ -120,16 +120,17 @@ export function Accordion<Multiple extends boolean = false>(
                   triggers.current[index] = node;
                 }}
                 type="button"
+
+                disabled={item_disabled}
+                data-open={is_open ? "true" : undefined}
+                {...triggerProps}
                 id={trigger_id}
                 aria-expanded={is_open}
                 aria-controls={panel_id}
-                disabled={item_disabled}
-                data-open={is_open ? "true" : undefined}
                 onClick={() => {
                   Toggle(item.value);
                 }}
                 onKeyDown={HandleKeyDown(index)}
-                {...triggerProps}
                 className={cx(styles.trigger, triggerProps?.className)}
               >
                 {chevronPosition === "start" ? (
@@ -171,9 +172,9 @@ export function Accordion<Multiple extends boolean = false>(
             </h3>
             <Collapse in={is_open}>
               <Box
+                {...panelProps}
                 id={panel_id}
                 aria-labelledby={trigger_id}
-                {...panelProps}
                 className={cx(styles.panel, panelProps?.className)}
               >
                 {item.content}

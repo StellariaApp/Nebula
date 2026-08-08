@@ -69,8 +69,9 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
       {has_title ? (
         <Text
           component="figcaption"
-          id={title_id}
+
           {...titleProps}
+          id={title_id}
           className={cx(styles.title, titleProps?.className)}
         >
           {title}
@@ -94,8 +95,8 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
 
       {has_summary ? (
         <Text
-          id={summary_id}
           {...summaryProps}
+          id={summary_id}
           className={cx(styles.summary, summaryProps?.className)}
         >
           {summary}

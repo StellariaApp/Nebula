@@ -107,6 +107,17 @@ export const actions = style({
   },
 });
 
+export const aside = style({
+  "@layer": {
+    [base_layer]: {
+      display: "flex",
+      alignItems: "center",
+      gap: vars.space.xs,
+      minWidth: 0,
+    },
+  },
+});
+
 export const body = style({
   "@layer": {
     [base_layer]: { position: "relative", minWidth: 0 },

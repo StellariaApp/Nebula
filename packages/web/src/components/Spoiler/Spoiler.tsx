@@ -51,8 +51,9 @@ export function Spoiler(props: SpoilerProps): ReactElement {
     <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style}>
       <Box
         ref={content_ref}
-        id={content_id}
+
         {...contentProps}
+        id={content_id}
         className={cx(
           styles.content,
           overflows && !open ? styles.clipped : undefined,
@@ -67,11 +68,12 @@ export function Spoiler(props: SpoilerProps): ReactElement {
           component="button"
           type="button"
           aria-expanded={open}
-          aria-controls={content_id}
+
           onClick={() => {
             set_open(!open);
           }}
           {...toggleProps}
+          aria-controls={content_id}
           className={cx(styles.toggle, toggleProps?.className)}
         >
           {open ? hideLabel : showLabel}

@@ -86,7 +86,11 @@ function ToastItem(props: ItemProps): ReactElement {
       )}
       <Box {...slots.bodyProps} className={cx(styles.body, slots.bodyProps?.className)}>
         {toast.title === undefined || toast.title === null ? null : (
-          <Text {...slots.titleProps} className={cx(styles.title, slots.titleProps?.className)}>
+          <Text
+            inherit
+            {...slots.titleProps}
+            className={cx(styles.title, slots.titleProps?.className)}
+          >
             {toast.title}
           </Text>
         )}
@@ -159,7 +163,7 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
     <>
       {children}
       <Portal>
-        <div
+        <Box
           {...regionProps}
           className={cx(
             styles.region,
@@ -167,7 +171,7 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
             sprinkle_class,
             regionProps?.className,
           )}
-          style={sprinkle_style}
+          style={{ ...sprinkle_style, ...regionProps?.style }}
           role="region"
           aria-label={regionLabel}
         >
@@ -194,7 +198,7 @@ export function ToastProvider(props: ToastProviderProps): ReactElement {
               </m.div>
             ))}
           </AnimatePresence>
-        </div>
+        </Box>
       </Portal>
     </>
   );

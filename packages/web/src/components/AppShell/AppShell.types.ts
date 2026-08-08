@@ -80,7 +80,10 @@ export interface AppShellLinksProps extends StyleProps {
   headerProps?: BoxSlotProps | undefined;
   /** El rótulo de esa cabecera. Solo se pinta con `title`. */
   titleProps?: TextSlotProps | undefined;
-  /** La columna de enlaces. Lleva la sangría extra cuando el grupo es `deep`. */
+  /**
+   * La columna de enlaces. Con el grupo `deep` pierde el borde inferior —y el relleno del carril
+   * cuando está encogido o en pantalla estrecha—, para que el grupo anide sin costura.
+   */
   contentProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   /** Rótulo del grupo. Se va al encoger, como el resto de rótulos del carril. */

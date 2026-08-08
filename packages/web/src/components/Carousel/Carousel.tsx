@@ -130,10 +130,11 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
           {items.map((item, position) => (
             <Box
               key={getKey(item, position)}
-              role="group"
+
               aria-roledescription="slide"
               aria-label={text.slide(position + 1, total)}
               {...slideProps}
+              role="group"
               className={cx(styles.slide, slideProps?.className)}
             >
               {renderItem(item, position)}

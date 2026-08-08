@@ -76,9 +76,9 @@ const FormFieldComponent = forwardRef<HTMLElement, FormFieldOwnProps>(
             {label === undefined || label === null ? null : (
               <Text
                 component="label"
+                {...labelProps}
                 id={`${input_id}-label`}
                 htmlFor={input_id}
-                {...labelProps}
                 className={cx(styles.label, labelProps?.className)}
               >
                 {label}
@@ -97,8 +97,8 @@ const FormFieldComponent = forwardRef<HTMLElement, FormFieldOwnProps>(
             {description === undefined || description === null ? null : (
               <Text
                 component="span"
-                id={description_id}
                 {...descriptionProps}
+                id={description_id}
                 className={cx(styles.description, descriptionProps?.className)}
               >
                 {description}

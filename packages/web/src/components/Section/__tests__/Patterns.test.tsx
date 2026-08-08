@@ -8,6 +8,10 @@ import { Section } from "../index.js";
 
 afterEach(cleanup);
 
+function WithoutIds(html: string): string {
+  return html.replaceAll(/\b(id|aria-labelledby|for|aria-controls)="[^"]*"/g, '$1="_"');
+}
+
 describe("Section", () => {
   it("el título nombra la región y respeta el nivel pedido", () => {
     render(
@@ -279,5 +283,69 @@ describe("Section compound", () => {
     expect(() => render(<Section.Title>huerfano</Section.Title>)).toThrow(
       /debe usarse dentro de <Section>/,
     );
+  });
+
+  it("Section.Aside llega al DOM, igual que la prop aside", () => {
+    render(
+      <Section title="Ventas">
+        <Section.Aside>
+          <button type="button">Rango</button>
+        </Section.Aside>
+        contenido
+      </Section>,
+    );
+    expect(screen.getByRole("button", { name: "Rango" })).toBeDefined();
+  });
+
+  it("el camino de props y el de partes producen el mismo DOM", () => {
+    const { container: with_props } = render(
+      <Section
+        title="Ventas"
+        description="Ultimos 30 dias"
+        aside={<button type="button">Rango</button>}
+        actions={<button type="button">Exportar</button>}
+        footer="pie"
+      >
+        contenido
+      </Section>,
+    );
+    const props_path = WithoutIds(with_props.innerHTML);
+    cleanup();
+
+    const { container: with_parts } = render(
+      <Section>
+        <Section.Header>
+          <Section.Heading>
+            <Section.Title>Ventas</Section.Title>
+            <Section.Description>Ultimos 30 dias</Section.Description>
+          </Section.Heading>
+          <Section.Actions>
+            <Section.Aside>
+              <button type="button">Rango</button>
+            </Section.Aside>
+            <button type="button">Exportar</button>
+          </Section.Actions>
+        </Section.Header>
+        contenido
+        <Section.Footer>pie</Section.Footer>
+      </Section>,
+    );
+    expect(WithoutIds(with_parts.innerHTML)).toBe(props_path);
+  });
+
+  it("una cabecera propia sin titulo no deja el aria-labelledby colgando", () => {
+    const { container } = render(
+      <Section aria-label="Ventas">
+        <Section.Header>
+          <Section.Description>Ultimos 30 dias</Section.Description>
+        </Section.Header>
+        contenido
+      </Section>,
+    );
+    const region = container.querySelector("section");
+    const labelledby = region?.getAttribute("aria-labelledby") ?? null;
+
+    expect(labelledby === null || document.getElementById(labelledby) !== null).toBe(true);
+    expect(screen.getByRole("region", { name: "Ventas" })).toBeDefined();
   });
 });

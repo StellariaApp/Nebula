@@ -11,6 +11,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { OverlayMotionSlotProps } from "../../overlays/overlay-motion.js";
 
 export interface SelectProps extends StyleProps, FormFieldSlotProps {
   data: readonly SelectOption[];
@@ -38,8 +39,12 @@ export interface SelectProps extends StyleProps, FormFieldSlotProps {
   valueProps?: BoxSlotProps | undefined;
   /** El chevron. Lleva `data-open`, que es de donde sale su giro. */
   chevronProps?: BoxSlotProps | undefined;
-  /** El desplegable. Su ancho se calcula del disparador; la ranura se compone, no lo pisa. */
-  dropdownProps?: BoxSlotProps | undefined;
+  /**
+   * El desplegable, que es el envoltorio de motion de la superficie flotante y no pasa por `Box`:
+   * no acepta style props. Su ancho y su posición se escriben después de la ranura y no se pisan;
+   * el `style` que pases se compone con ellos.
+   */
+  dropdownProps?: OverlayMotionSlotProps | undefined;
   rootClassName?: string | undefined;
   name?: string | undefined;
 }

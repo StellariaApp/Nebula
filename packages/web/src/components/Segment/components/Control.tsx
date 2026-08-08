@@ -141,14 +141,14 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
               indicator.SetItemRef(index)(node);
             }}
             type="button"
+            disabled={item_disabled}
+            {...tabProps}
             role={segment.hasPanels ? "tab" : "radio"}
             aria-selected={segment.hasPanels ? active : undefined}
             aria-checked={segment.hasPanels ? undefined : active}
             aria-controls={segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined}
             id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
             tabIndex={active ? 0 : -1}
-            disabled={item_disabled}
-            {...tabProps}
             className={cx(styles.tab, tabProps?.className)}
             data-active={active ? "true" : undefined}
             data-disabled={item_disabled ? "true" : undefined}

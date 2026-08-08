@@ -113,14 +113,15 @@ export function Rating(props: RatingProps): ReactElement {
       {({ id, ...control }) => (
         <Box
           {...control}
-          id={id}
-          role={readOnly ? "img" : "radiogroup"}
+
           aria-label={readOnly ? `${String(fp.value)} de ${String(count)}` : undefined}
           data-disabled={fp.isDisabled ? "true" : undefined}
           onMouseLeave={() => {
             Hover(null);
           }}
           {...groupProps}
+          role={readOnly ? "img" : "radiogroup"}
+          id={id}
           className={cx(styles.group, className, groupProps?.className)}
           style={{ ...css_vars, ...groupProps?.style }}
         >
@@ -162,17 +163,18 @@ export function Rating(props: RatingProps): ReactElement {
                 key={position}
                 component="button"
                 type="button"
-                role="radio"
-                aria-checked={Round(fp.value, fractions) === position}
-                aria-label={Label(position)}
                 disabled={fp.isDisabled}
                 data-active={filled ? "true" : undefined}
                 data-disabled={fp.isDisabled ? "true" : undefined}
-                onClick={() => {
-                  fp.onChange(position);
-                }}
                 onMouseEnter={() => {
                   Hover(position);
+                }}
+                {...itemProps}
+                role="radio"
+                aria-checked={Round(fp.value, fractions) === position}
+                aria-label={Label(position)}
+                onClick={() => {
+                  fp.onChange(position);
                 }}
                 onFocus={() => {
                   Hover(position);
@@ -180,7 +182,6 @@ export function Rating(props: RatingProps): ReactElement {
                 onBlur={() => {
                   Hover(null);
                 }}
-                {...itemProps}
                 className={cx(styles.item, styles.item_size[size], itemProps?.className)}
               >
                 {Symbol(filled)}

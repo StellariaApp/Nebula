@@ -67,7 +67,12 @@ export function Tag(props: TagProps): ReactElement {
           {leftSection}
         </Box>
       )}
-      <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
+      <Text
+        inherit
+        component="span"
+        {...labelProps}
+        className={cx(styles.label, labelProps?.className)}
+      >
         {children}
       </Text>
       {onRemove === undefined ? null : (

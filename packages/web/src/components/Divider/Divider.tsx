@@ -71,6 +71,7 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
             className={cx(styles.line, left_class, lineProps?.className)}
           />
           <Text
+            inherit
             component="span"
             {...labelProps}
             className={cx(styles.label, labelProps?.className)}

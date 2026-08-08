@@ -194,21 +194,13 @@ export function CardComplex(props: CardComplexProps): ReactElement {
         )}
 
         {description === undefined ? null : (
-          <p
+          <Text
             {...descriptionProps}
             className={cx(styles.description, descriptionProps?.className)}
-            {...(lines === undefined
-              ? {}
-              : {
-                  style: {
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: lines,
-                  },
-                })}
+            {...(lines === undefined ? {} : { lines })}
           >
             {description}
-          </p>
+          </Text>
         )}
 
         {badges?.main === undefined ? null : (

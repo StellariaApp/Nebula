@@ -76,7 +76,7 @@ export function Dialog(props: DialogProps): ReactElement {
               {title === undefined ? (
                 <span />
               ) : (
-                <Text {...titleProps} className={cx(styles.title, titleProps?.className)}>
+                <Text inherit {...titleProps} className={cx(styles.title, titleProps?.className)}>
                   {title}
                 </Text>
               )}

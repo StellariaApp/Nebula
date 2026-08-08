@@ -102,19 +102,19 @@ export function GridPicker(props: GridPickerProps): ReactElement {
             ref={(node: HTMLDivElement | null) => {
               refs.current[index] = node;
             }}
+            data-selected={is_selected ? "true" : undefined}
+            data-disabled={is_disabled ? "true" : undefined}
+            {...cellProps}
             role="option"
             aria-selected={is_selected}
             aria-disabled={is_disabled ? true : undefined}
             tabIndex={index === active ? 0 : -1}
-            data-selected={is_selected ? "true" : undefined}
-            data-disabled={is_disabled ? "true" : undefined}
             onClick={() => {
               if (is_disabled) return;
               should_focus.current = false;
               set_active(index);
               onSelect(item.value);
             }}
-            {...cellProps}
             className={cx(styles.cell, styles.cell_size[size], cellProps?.className)}
           >
             {item.label}

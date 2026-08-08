@@ -111,9 +111,10 @@ export function AppShell(props: AppShellProps): ReactElement {
           <Box
             component="main"
             {...(mainRef === undefined ? {} : { ref: mainRef })}
-            id={content_id}
+
             tabIndex={-1}
             {...mainProps}
+            id={content_id}
             className={cx(styles.main, mainProps?.className)}
           >
             {scrollShadow ? (
@@ -146,10 +147,11 @@ export function AppShell(props: AppShellProps): ReactElement {
 
         <Box
           component="main"
-          id={content_id}
+
           tabIndex={-1}
           data-padded={padded ? "true" : undefined}
           {...mainProps}
+          id={content_id}
           className={cx(styles.main, mainProps?.className)}
         >
           {children}

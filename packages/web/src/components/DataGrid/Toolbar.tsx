@@ -94,9 +94,9 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
 
       {activeFilters.length > 0 ? (
         <Box
-          role="group"
           aria-label={labels.filters}
           {...chipsProps}
+          role="group"
           className={cx(styles.chips, chipsProps?.className)}
         >
           {activeFilters.map((filter) => (
@@ -121,9 +121,9 @@ export function DataGridToolbar(props: DataGridToolbarProps): ReactElement {
 
       {has_selection ? (
         <Box
-          role="group"
           aria-label={labels.selectedCount(selectedKeys.length)}
           {...bulkBarProps}
+          role="group"
           className={cx(styles.bulk_bar, bulkBarProps?.className)}
         >
           <Text

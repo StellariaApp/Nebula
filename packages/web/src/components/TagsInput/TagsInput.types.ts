@@ -16,7 +16,7 @@ export interface TagsInputProps extends StyleProps, FormFieldSlotProps {
   tagProps?: BoxSlotProps | undefined;
   /** El rótulo de cada etiqueta. */
   tagLabelProps?: TextSlotProps | undefined;
-  /** El aspa que quita cada etiqueta. No se pinta si el campo es de solo lectura. */
+  /** El aspa que quita cada etiqueta. No se pinta si el campo es de solo lectura ni si esta deshabilitado. */
   removeProps?: ButtonCloseProps | undefined;
   /**
    * El campo de texto. Se esparce DESPUÉS del manejador de teclado propio, así que un `onKeyDown`

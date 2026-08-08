@@ -9,7 +9,10 @@ import type { BoxSlotProps } from "../Box/Box.types.js";
 export type IndicatorPlacement = "top-start" | "top-end" | "bottom-start" | "bottom-end";
 
 export interface IndicatorProps extends StyleProps {
-  /** La chapa. Solo se pinta con `visible`, y sin `content` es un punto pelado. */
+  /**
+   * La chapa. No se pinta con `disabled`, ni con un `count` que no llegue a cuenta —cero sin
+   * `showZero`— y sin `label`. Sin `label` ni `count` es un punto pelado.
+   */
   dotProps?: BoxSlotProps | undefined;
   children: ReactNode;
   label?: ReactNode | undefined;

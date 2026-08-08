@@ -186,7 +186,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
             type="button"
             {...zoneProps}
             className={cx(styles.zone, styles.size[size], className, zoneProps?.className)}
-            style={height === undefined ? undefined : { minHeight: height }}
+            style={{ ...zoneProps?.style, ...(height === undefined ? {} : { minHeight: height }) }}
             disabled={fp.isDisabled}
             data-drag={drag === "idle" ? undefined : drag}
             data-invalid={fp.isInvalid ? "true" : undefined}
@@ -205,6 +205,7 @@ export function Dropzone(props: DropzoneProps): ReactElement {
               {icon ?? CLOUD}
             </Box>
             <Text
+              inherit
               component="span"
               {...titleProps}
               className={cx(styles.title, titleProps?.className)}

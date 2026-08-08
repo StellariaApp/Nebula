@@ -71,6 +71,7 @@ export function Countdown(props: CountdownProps): ReactElement {
               className={cx(styles.unit, unitProps?.className)}
             >
               <Text
+                inherit
                 component="span"
                 {...valueProps}
                 className={cx(styles.value, valueProps?.className)}

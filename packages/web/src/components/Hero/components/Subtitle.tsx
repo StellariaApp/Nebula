@@ -10,7 +10,12 @@ export function HeroSubtitle(props: HeroSlotProps): ReactElement {
   const { children, className, ...style_rest } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   return (
-    <Text className={cx(styles.subtitle, sprinkle_class, className)} style={style} {...rest}>
+    <Text
+      inherit
+      className={cx(styles.subtitle, sprinkle_class, className)}
+      style={style}
+      {...rest}
+    >
       {children}
     </Text>
   );

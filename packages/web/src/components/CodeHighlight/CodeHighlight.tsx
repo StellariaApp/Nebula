@@ -65,7 +65,7 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
     >
       {has_header ? (
         <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
-          <Text component="span" {...filenameProps}>
+          <Text inherit component="span" {...filenameProps}>
             {filename ?? lang}
           </Text>
           {withCopy ? (

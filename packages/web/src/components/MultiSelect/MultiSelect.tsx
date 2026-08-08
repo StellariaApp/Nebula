@@ -219,6 +219,7 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
                 className={cx(styles.chip, chipProps?.className)}
               >
                 <Text
+                  inherit
                   component="span"
                   {...chipLabelProps}
                   className={cx(styles.chip_label, chipLabelProps?.className)}
@@ -239,14 +240,14 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
             ))}
             <input
               {...inputProps}
-              id={control.id}
-              aria-describedby={control["aria-describedby"]}
-              aria-invalid={control["aria-invalid"]}
               ref={input_ref}
-              onKeyDown={HandleKeyDown}
               readOnly={!searchable}
               placeholder={chips.length === 0 ? placeholder : undefined}
               {...searchProps}
+              id={control.id}
+              aria-describedby={control["aria-describedby"]}
+              aria-invalid={control["aria-invalid"]}
+              onKeyDown={HandleKeyDown}
               className={cx(styles.search, className, searchProps?.className)}
             />
           </Box>
@@ -281,6 +282,7 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
                 {...dropdownProps}
                 className={cx(select_styles.dropdown, dropdownProps?.className)}
                 style={{
+                  ...dropdownProps?.style,
                   ...popoverProps.style,
                   width: input_ref.current?.closest("div")?.parentElement?.offsetWidth,
                   ...(maxDropdownHeight === undefined ? {} : { maxHeight: maxDropdownHeight }),

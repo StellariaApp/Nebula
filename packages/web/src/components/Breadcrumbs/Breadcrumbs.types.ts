@@ -37,6 +37,10 @@ export interface BreadcrumbsProps extends StyleProps {
   separatorProps?: BoxSlotProps | undefined;
   /** La migaja actual, que lleva `aria-current` y no es enlace. */
   currentProps?: BoxSlotProps | undefined;
-  /** Las migajas navegables. No cae sobre la actual. */
-  linkProps?: BoxSlotProps | undefined;
+  /**
+   * Las migajas navegables. No cae sobre la actual. Su elemento sale del `component` de cada item,
+   * o de su `href`: con `href` es un `a` y sin el un `button`. No pasa por `Box`, asi que no acepta
+   * style props.
+   */
+  linkProps?: ComponentPropsWithoutRef<"a"> | undefined;
 }

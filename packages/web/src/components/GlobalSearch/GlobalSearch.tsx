@@ -157,7 +157,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
           type="button"
           {...triggerProps}
           className={cx(styles.trigger, sprinkle_class, className, triggerProps?.className)}
-          style={sprinkle_style}
+          style={{ ...sprinkle_style, ...triggerProps?.style }}
           onClick={() => {
             SetOpen(true);
           }}
@@ -216,10 +216,10 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
         </Box>
 
         <Box
-          id={`${auto_id}-list`}
-          role="listbox"
           aria-label={text.input}
           {...listProps}
+          id={`${auto_id}-list`}
+          role="listbox"
           className={cx(styles.list, listProps?.className)}
         >
           {groups.map((group) => (
@@ -241,14 +241,14 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                 cursor += 1;
                 const index = cursor;
                 return (
-                  <div
+                  <Box
                     key={result.id}
-                    id={`${auto_id}-${String(index)}`}
+                    data-active={index === active ? "true" : "false"}
                     {...optionProps}
-                    className={cx(styles.option, optionProps?.className)}
+                    id={`${auto_id}-${String(index)}`}
                     role="option"
                     aria-selected={index === active}
-                    data-active={index === active ? "true" : "false"}
+                    className={cx(styles.option, optionProps?.className)}
                     onPointerMove={() => {
                       set_active(index);
                     }}
@@ -271,6 +271,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                       className={cx(styles.option_body, optionBodyProps?.className)}
                     >
                       <Text
+                        inherit
                         component="span"
                         {...optionTitleProps}
                         className={cx(styles.option_title, optionTitleProps?.className)}
@@ -290,7 +291,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                         </Text>
                       )}
                     </Box>
-                  </div>
+                  </Box>
                 );
               })}
             </div>
@@ -299,8 +300,8 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
 
         {flat.length === 0 && !loading ? (
           <Text
-            role="status"
             {...statusProps}
+            role="status"
             className={cx(styles.status, statusProps?.className)}
           >
             {empty ?? text.empty}

@@ -1,11 +1,10 @@
-import type { ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type { SpacingValue, Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
-import type { MarkProps } from "../Mark/Mark.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface FooterProps extends StyleProps {
@@ -23,8 +22,12 @@ export interface FooterProps extends StyleProps {
 }
 
 export interface FooterBrandProps extends StyleProps {
-  /** El enlace de marca, que envuelve el logo. Solo se pinta si hay `logo`. */
-  linkProps?: MarkProps | undefined;
+  /**
+   * El enlace de marca, que envuelve el logo. Solo se pinta si hay `logo`. Su elemento sale de
+   * `component`, o de `href`: con `href` es un `a` y sin el un `span`, y en ninguno de los dos casos
+   * pasa por `Box`, asi que no acepta style props.
+   */
+  linkProps?: ComponentPropsWithoutRef<"a"> | undefined;
   /** La descripcion bajo la marca, si la hay. */
   descriptionProps?: TextSlotProps | undefined;
   children?: ReactNode | undefined;
@@ -39,7 +42,10 @@ export interface FooterBrandProps extends StyleProps {
 export interface FooterGroupProps extends StyleProps {
   /** El titulo del grupo, si lo hay. */
   titleProps?: TextSlotProps | undefined;
-  /** La lista de enlaces. Solo existe si los hijos son enlaces; si no, van sueltos. */
+  /**
+   * La lista de enlaces. Existe en cuanto uno de los hijos es un `Footer.Group.Link`, y entonces
+   * envuelve a todos; sin ninguno, van sueltos.
+   */
   listProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   title?: ReactNode | undefined;

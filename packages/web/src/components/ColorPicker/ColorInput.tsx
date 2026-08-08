@@ -138,7 +138,10 @@ export function ColorInput(props: ColorInputProps): ReactElement {
               styles.checker,
               previewProps?.className,
             )}
-            style={{ ...previewProps?.style, background: parsed === null ? undefined : fp.value }}
+            style={{
+              ...previewProps?.style,
+              ...(parsed === null ? {} : { background: fp.value }),
+            }}
           />
           <input
             {...control}
@@ -202,7 +205,7 @@ export function ColorInput(props: ColorInputProps): ReactElement {
                 ref={popover_ref}
                 {...dropdownProps}
                 className={cx(styles.dropdown, dropdownProps?.className)}
-                style={popoverProps.style}
+                style={{ ...dropdownProps?.style, ...popoverProps.style }}
               >
                 <DismissButton
                   onDismiss={() => {

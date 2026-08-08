@@ -148,6 +148,7 @@ export function TagsInput(props: TagsInputProps): ReactElement {
                   className={cx(styles.tag, tagProps?.className)}
                 >
                   <Text
+                    inherit
                     component="span"
                     {...tagLabelProps}
                     className={cx(styles.tag_label, tagLabelProps?.className)}
@@ -178,6 +179,7 @@ export function TagsInput(props: TagsInputProps): ReactElement {
               disabled={fp.isDisabled}
               readOnly={readOnly}
               required={required && tags.length === 0}
+              {...inputProps}
               onChange={(event) => {
                 Flush(event.target.value);
               }}
@@ -186,7 +188,6 @@ export function TagsInput(props: TagsInputProps): ReactElement {
                 Add(draft);
                 set_draft("");
               }}
-              {...inputProps}
               className={cx(field.input, styles.input, className, inputProps?.className)}
             />
           </div>

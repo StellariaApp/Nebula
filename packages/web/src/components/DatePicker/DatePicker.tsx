@@ -180,13 +180,13 @@ export function DatePicker(props: DatePickerProps): ReactElement {
           <button
             {...mergeProps(dom_button, focusProps)}
             ref={trigger_ref}
-            id={`${id}-trigger`}
             type="button"
             aria-label={openLabel}
-            aria-labelledby={label === undefined ? undefined : `${id}-label ${id}-trigger`}
             disabled={fp.isDisabled}
             data-focus-visible={isFocusVisible ? "true" : undefined}
             {...triggerProps}
+            id={`${id}-trigger`}
+            aria-labelledby={label === undefined ? undefined : `${id}-label ${id}-trigger`}
             className={cx(styles.trigger, triggerProps?.className)}
           >
             {CALENDAR_ICON}

@@ -49,7 +49,10 @@ export interface DataGridBulkAction {
 export interface DataGridExport {
   filename?: string | undefined;
   delimiter?: string | undefined;
-  /** Con selección activa exporta solo lo seleccionado; por defecto exporta todas las filas. */
+  /**
+   * Con selección activa exporta solo lo seleccionado de la página en curso, porque sale del
+   * modelo paginado; por defecto exporta todas las filas del modelo core.
+   */
   selectionOnly?: boolean | undefined;
 }
 
@@ -102,7 +105,10 @@ export interface DataGridProps<T>
   scrollerProps?: BoxSlotProps | undefined;
   /** La tabla. Lleva `aria-busy` mientras carga y el manejador de teclado de la reticula. */
   tableProps?: ComponentPropsWithoutRef<"table"> | undefined;
-  /** El rotulo de la tabla cuando esta oculto. Con `captionVisible` no hay nodo que ajustar. */
+  /**
+   * El rotulo de la tabla cuando `captionVisible` es falso: cae sobre el `span` de dentro del
+   * `caption`. Con `captionVisible` el rotulo se pinta directo y no hay nodo que ajustar.
+   */
   captionProps?: BoxSlotProps | undefined;
   /** La cabecera de la tabla. */
   headProps?: BoxSlotProps | undefined;
@@ -120,8 +126,9 @@ export interface DataGridProps<T>
 
 /**
  * Las ranuras de la barra de herramientas. La barra entera solo existe si algo la justifica
- * —`withToolbar`, busqueda, filtros activos, acciones en lote, exportacion o `toolbarSection`—; sin
- * eso no hay nodo que ajustar.
+ * —`withToolbar`, busqueda, filtros activos, acciones en lote, exportacion, `toolbarSection` o
+ * `withColumnMenu` con alguna columna oculta, que es como se llega al boton de reponerlas—; sin eso
+ * no hay nodo que ajustar.
  */
 export interface DataGridToolbarSlotProps {
   /** La barra entera. */

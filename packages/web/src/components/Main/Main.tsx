@@ -148,11 +148,12 @@ export function Main(props: MainProps): ReactElement {
 
       {header}
 
-      <main
+      <Box
+        component="main"
         ref={content_ref}
-        id={content_id}
         tabIndex={-1}
         {...contentProps}
+        id={content_id}
         className={cx(styles.content, contentProps?.className)}
         style={{ ...content_vars, ...contentProps?.style }}
         data-padded={padded ? "true" : undefined}
@@ -161,7 +162,7 @@ export function Main(props: MainProps): ReactElement {
         data-spacing={spacing === undefined ? undefined : "true"}
       >
         {children}
-      </main>
+      </Box>
 
       {footer}
     </div>

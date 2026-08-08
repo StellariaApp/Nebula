@@ -93,6 +93,15 @@ export interface OverlayMotionProps extends Omit<
   children: ReactNode;
 }
 
+/**
+ * Lo que una prop de ranura puede ajustar del envoltorio de motion: todo menos lo que el componente
+ * gobierna —si está abierto, qué superficie es y qué pinta dentro—.
+ */
+export type OverlayMotionSlotProps = Omit<
+  OverlayMotionProps,
+  "open" | "surface" | "children" | "onExitComplete"
+>;
+
 export const OverlayMotion = forwardRef<HTMLDivElement, OverlayMotionProps>(
   function OverlayMotion(props, ref): ReactElement {
     const {

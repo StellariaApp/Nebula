@@ -187,7 +187,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
         </Text>
       ) : (
         <>
-          <div
+          <Box
             {...stageProps}
             className={cx(styles.stage, stageProps?.className)}
             style={{ ...css_vars, ...stageProps?.style }}
@@ -212,7 +212,7 @@ export function Lightbox(props: LightboxProps): ReactElement {
               data-panning={zoom.panning ? "true" : "false"}
               draggable={false}
             />
-          </div>
+          </Box>
 
           {image.caption === undefined ? null : (
             <Text {...captionProps} className={cx(styles.caption, captionProps?.className)}>

@@ -208,7 +208,7 @@ export function Signature(props: SignatureProps): ReactElement {
           <canvas
             {...control}
             ref={canvas_ref}
-            role="img"
+
             aria-label={signed ? text.signed : text.empty}
             data-disabled={fp.isDisabled ? "true" : undefined}
             data-invalid={fp.isInvalid ? "true" : undefined}
@@ -217,6 +217,7 @@ export function Signature(props: SignatureProps): ReactElement {
             onPointerUp={Up}
             onPointerCancel={Up}
             {...canvasProps}
+            role="img"
             className={cx(styles.canvas, styles.size[size], className, canvasProps?.className)}
             style={{ ...canvasProps?.style, height }}
           />

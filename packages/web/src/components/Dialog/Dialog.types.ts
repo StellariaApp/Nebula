@@ -24,7 +24,10 @@ export interface DialogProps extends Omit<
   withinPortal?: boolean | undefined;
   live?: "polite" | "assertive" | undefined;
   className?: string | undefined;
-  /** Fila de cabecera. Solo se pinta si hay `title` o boton de cierre. */
+  /**
+   * Fila de cabecera. Solo se pinta con `title` o con `withCloseButton`; el boton necesita ademas
+   * `onClose`, asi que sin el la fila se pinta vacia.
+   */
   headProps?: BoxSlotProps | undefined;
   /** El titulo. Sin `title` la cabecera deja un hueco vacio para no descolocar el cierre. */
   titleProps?: TextSlotProps | undefined;

@@ -93,8 +93,9 @@ export function Header(props: HeaderProps): ReactElement {
             {has_title ? (
               <Text
                 component={Heading}
-                id={title_id}
+
                 {...titleProps}
+                id={title_id}
                 className={cx(styles.title, titleProps?.className)}
               >
                 {title}

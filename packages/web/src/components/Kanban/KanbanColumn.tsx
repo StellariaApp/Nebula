@@ -57,8 +57,9 @@ export function KanbanColumn(props: KanbanColumnProps): ReactElement {
       >
         <Text
           component="h3"
-          id={heading_id}
+
           {...titleProps}
+          id={heading_id}
           className={cx(styles.column_title, titleProps?.className)}
         >
           {title}

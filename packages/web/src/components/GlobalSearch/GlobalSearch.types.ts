@@ -41,7 +41,7 @@ export interface GlobalSearchProps extends StyleProps {
   empty?: ReactNode | undefined;
   labels?: Partial<GlobalSearchLabels> | undefined;
   className?: string | undefined;
-  /** El boton que abre el buscador. No existe si se controla desde fuera con `opened`. */
+  /** El boton que abre el buscador. Solo existe con `withTrigger`; apagalo si se abre desde fuera. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   /** El atajo de teclado del disparador. Solo con `withShortcut`. */
   shortcutProps?: BoxSlotProps | undefined;

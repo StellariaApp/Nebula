@@ -174,9 +174,9 @@ export function Toolbar(props: ToolbarProps): ReactElement {
 
   return (
     <Box
-      role="toolbar"
       aria-label={labels.toolbar}
       {...slotProps}
+      role="toolbar"
       className={cx(styles.toolbar, slotProps?.className)}
     >
       {groups.map((group) => (

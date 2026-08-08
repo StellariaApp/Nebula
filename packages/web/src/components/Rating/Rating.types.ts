@@ -10,8 +10,9 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface RatingProps extends StyleProps, FormFieldSlotProps {
   /**
-   * El relleno parcial de un simbolo a medias. Solo existe con `fractions` mayor que 1. Su ancho se
-   * escribe DESPUES de la ranura, porque es la fraccion que representa.
+   * El relleno parcial de un simbolo a medias. Solo se pinta cuando el valor cae entre dos
+   * simbolos, con `fractions` o sin el. Su ancho se escribe DESPUES de la ranura, porque es la
+   * fraccion que representa.
    */
   partialProps?: BoxSlotProps | undefined;
   /** La fila de símbolos. Es `radiogroup`, o `img` con `readOnly`. */

@@ -92,7 +92,12 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
         </Box>
       )}
       <Box component="span" {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
-        <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
+        <Text
+          inherit
+          component="span"
+          {...labelProps}
+          className={cx(styles.label, labelProps?.className)}
+        >
           {label}
         </Text>
         {description === undefined || description === null ? null : (
@@ -153,8 +158,8 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
       </button>
       <Collapse in={is_open}>
         <Box
-          id={panel_id}
           {...childrenProps}
+          id={panel_id}
           className={cx(styles.children, childrenProps?.className)}
         >
           {children}

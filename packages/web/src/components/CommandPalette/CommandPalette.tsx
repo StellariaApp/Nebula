@@ -51,11 +51,11 @@ function CommandRow(props: RowProps): ReactElement {
 
   return (
     <li
-      {...aria_option}
       ref={ref}
       data-focused={isFocused ? "true" : undefined}
       data-disabled={isDisabled ? "true" : undefined}
       {...slots.optionProps}
+      {...aria_option}
       className={cx(styles.option, slots.optionProps?.className)}
     >
       {data?.icon === undefined || data.icon === null ? null : (
@@ -74,6 +74,7 @@ function CommandRow(props: RowProps): ReactElement {
         className={cx(styles.body, slots.bodyProps?.className)}
       >
         <Text
+          inherit
           component="span"
           {...slots.labelProps}
           className={cx(styles.label, slots.labelProps?.className)}

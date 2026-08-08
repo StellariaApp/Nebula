@@ -4,7 +4,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
-import type { AnchorProps } from "../Anchor/Anchor.types.js";
+import type { AnchorSlotProps } from "../Anchor/Anchor.types.js";
 import type { ThemeIconProps } from "../ThemeIcon/ThemeIcon.types.js";
 
 export interface FeatureProps extends Omit<StyleProps, "align"> {
@@ -20,5 +20,9 @@ export interface FeatureProps extends Omit<StyleProps, "align"> {
   titleProps?: TextSlotProps | undefined;
   descriptionProps?: TextSlotProps | undefined;
   iconProps?: ThemeIconProps | undefined;
-  linkProps?: AnchorProps | undefined;
+  /**
+   * El enlace del pie. Solo existe con `href`, y `linkText` es su contenido. Se esparce DESPUES del
+   * `href`, asi que puede sustituirlo.
+   */
+  linkProps?: AnchorSlotProps | undefined;
 }

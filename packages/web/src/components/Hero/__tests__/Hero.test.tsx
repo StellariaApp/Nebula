@@ -5,6 +5,10 @@ import { Hero } from "../index.js";
 
 afterEach(cleanup);
 
+function WithoutIds(html: string): string {
+  return html.replaceAll(/\b(id|aria-labelledby|for|aria-controls)="[^"]*"/g, '$1="_"');
+}
+
 describe("Hero", () => {
   it("el titulo nombra la region y respeta el nivel pedido", () => {
     render(<Hero title="Nebula" order={2} />);
@@ -82,5 +86,55 @@ describe("Hero compound", () => {
 
   it("una parte fuera de su Hero avisa en vez de fallar en silencio", () => {
     expect(() => render(<Hero.Title>huerfano</Hero.Title>)).toThrow(/debe usarse dentro de <Hero>/);
+  });
+
+  it("un cuerpo por partes sin titulo no deja el aria-labelledby colgando", () => {
+    const { container } = render(
+      <Hero>
+        <Hero.Header>
+          <Hero.Subtitle>Sin hojas de calculo</Hero.Subtitle>
+        </Hero.Header>
+      </Hero>,
+    );
+    const region = container.querySelector("section");
+    const labelledby = region?.getAttribute("aria-labelledby") ?? null;
+
+    expect(labelledby === null || document.getElementById(labelledby) !== null).toBe(true);
+  });
+
+  it("el camino de props y el de partes producen el mismo DOM", () => {
+    const { container: with_props } = render(
+      <Hero
+        hiper="Novedad"
+        title="Nebula"
+        subtitle="Universal"
+        description="Una libreria"
+        actions={<button type="button">Empezar</button>}
+        left="izquierda"
+        right="derecha"
+        bottom="pie"
+      />,
+    );
+    const props_path = WithoutIds(with_props.innerHTML);
+    cleanup();
+
+    const { container: with_parts } = render(
+      <Hero>
+        <Hero.Left>izquierda</Hero.Left>
+        <Hero.Hiper>Novedad</Hero.Hiper>
+        <Hero.Header>
+          <Hero.Title>Nebula</Hero.Title>
+          <Hero.Subtitle>Universal</Hero.Subtitle>
+          <Hero.Description>Una libreria</Hero.Description>
+        </Hero.Header>
+        <Hero.Actions>
+          <button type="button">Empezar</button>
+        </Hero.Actions>
+        <Hero.Right>derecha</Hero.Right>
+        <Hero.Bottom>pie</Hero.Bottom>
+      </Hero>,
+    );
+
+    expect(WithoutIds(with_parts.innerHTML)).toBe(props_path);
   });
 });

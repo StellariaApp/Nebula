@@ -77,8 +77,8 @@ function Pane(props: PaneProps): ReactElement {
           className={cx(styles.pane_head, slots.paneHeadProps?.className)}
         >
           <Text
-            id={id}
             {...slots.paneTitleProps}
+            id={id}
             className={cx(styles.pane_title, slots.paneTitleProps?.className)}
           >
             {pane.title}

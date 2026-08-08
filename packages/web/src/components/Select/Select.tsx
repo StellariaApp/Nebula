@@ -166,8 +166,8 @@ export function Select(props: SelectProps): ReactElement {
           >
             <Box
               component="span"
-              {...aria_value}
               {...valueProps}
+              {...aria_value}
               className={cx(
                 styles.value,
                 selected === undefined ? styles.placeholder : undefined,
@@ -197,6 +197,7 @@ export function Select(props: SelectProps): ReactElement {
                 {...dropdownProps}
                 className={cx(styles.dropdown, dropdownProps?.className)}
                 style={{
+                  ...dropdownProps?.style,
                   ...popoverProps.style,
                   width: trigger_ref.current?.parentElement?.offsetWidth,
                   ...(maxDropdownHeight === undefined ? {} : { maxHeight: maxDropdownHeight }),

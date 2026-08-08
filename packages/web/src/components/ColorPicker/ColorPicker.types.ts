@@ -8,6 +8,7 @@ import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { OverlayMotionSlotProps } from "../../overlays/overlay-motion.js";
 
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
@@ -51,8 +52,12 @@ export interface ColorInputProps extends StyleProps, FormFieldSlotProps {
   previewProps?: BoxSlotProps | undefined;
   /** El boton que abre el selector. Solo existe con `withPicker`. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El desplegable con el selector. Su posicion la calcula React Aria y no se puede pisar. */
-  dropdownProps?: BoxSlotProps | undefined;
+  /**
+   * El desplegable con el selector, que es el envoltorio de motion de la superficie flotante y no
+   * pasa por `Box`: no acepta style props. Su posicion la calcula React Aria y se escribe despues
+   * de la ranura; el `style` que pases se compone con ella.
+   */
+  dropdownProps?: OverlayMotionSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;

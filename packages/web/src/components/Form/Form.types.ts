@@ -5,7 +5,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
-import type { TitleProps } from "../Title/Title.types.js";
+import type { TitleSlotProps } from "../Title/Title.types.js";
 
 export type BanderoleSide = "start" | "end";
 
@@ -26,8 +26,8 @@ export interface FormProps extends StyleProps {
 export interface FormHeaderProps extends StyleProps {
   /** Columna de titulo, descripcion y contenido de la cabecera. */
   headerTextProps?: BoxSlotProps | undefined;
-  /** El titulo, que es un `Title` de orden 3. */
-  titleProps?: TitleProps | undefined;
+  /** El titulo, que es un `Title` de orden 3. `component` cambia su etiqueta sin tocar el nivel. */
+  titleProps?: TitleSlotProps | undefined;
   /** Las acciones de la cabecera, si las hay. */
   actionsProps?: BoxSlotProps | undefined;
   title?: ReactNode | undefined;

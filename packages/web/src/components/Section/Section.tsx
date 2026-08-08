@@ -13,6 +13,7 @@ import {
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
+import { ContainsPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
@@ -32,19 +33,17 @@ import * as variables from "./Section.vars.css.js";
 
 interface Split {
   header: ReactNode[];
-  aside: ReactNode[];
   footer: ReactNode[];
   body: ReactNode[];
 }
 
 const REGIONS = new Map<unknown, keyof Split>([
   [SectionHeader, "header"],
-  [SectionAside, "aside"],
   [SectionFooter, "footer"],
 ]);
 
 function SplitChildren(children: ReactNode): Split {
-  const split: Split = { header: [], aside: [], footer: [], body: [] };
+  const split: Split = { header: [], footer: [], body: [] };
   Children.forEach(children, (child) => {
     if (child === null || child === undefined || child === false) return;
     const region = isValidElement(child) ? REGIONS.get(child.type) : undefined;
@@ -84,13 +83,16 @@ export function Section(props: SectionProps): ReactElement {
   const has_title = title !== undefined;
   const has_own_header = parts.header.length > 0;
   const context = useMemo(() => ({ titleId: title_id, order }), [title_id, order]);
+  const names_region = useMemo(
+    () => has_title || ContainsPart(children, SectionTitle),
+    [has_title, children],
+  );
 
-  const labelling =
-    has_title || has_own_header
-      ? { "aria-labelledby": title_id }
-      : aria_label === undefined
-        ? {}
-        : { "aria-label": aria_label };
+  const labelling = names_region
+    ? { "aria-labelledby": title_id }
+    : aria_label === undefined
+      ? {}
+      : { "aria-label": aria_label };
 
   const rail_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
   const revealed = useReveal();
@@ -131,7 +133,7 @@ export function Section(props: SectionProps): ReactElement {
               </SectionHeading>
               {actions === undefined && aside === undefined ? null : (
                 <SectionActions>
-                  {aside}
+                  {aside === undefined ? null : <SectionAside>{aside}</SectionAside>}
                   {actions}
                 </SectionActions>
               )}

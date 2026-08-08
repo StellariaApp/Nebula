@@ -170,9 +170,9 @@ export function FormFooter(props: FormFooterProps): ReactElement {
     <div className={cx(styles.footer, sprinkle_class, className)} style={sprinkle_style}>
       {error === undefined || error === false ? null : (
         <Box
-          id={form.errorId}
-          role="alert"
           {...errorProps}
+          role="alert"
+          id={form.errorId}
           className={cx(styles.error, errorProps?.className)}
         >
           {error}

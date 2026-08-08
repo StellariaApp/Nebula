@@ -9,6 +9,7 @@ import type { FieldSurface } from "../../styles/field-surface.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { OverlayMotionSlotProps } from "../../overlays/overlay-motion.js";
 import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export type DateGranularity = "day" | "hour" | "minute" | "second";
@@ -20,10 +21,11 @@ export interface DatePickerBaseProps extends StyleProps {
    */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   /**
-   * La superficie flotante del calendario. Su posición la calcula React Aria, así que su `style` va
-   * después de la ranura y no se puede pisar; el resto sí.
+   * La superficie flotante del calendario, que es el envoltorio de motion y no pasa por `Box`: no
+   * acepta style props. Su posición la calcula React Aria y se escribe después de la ranura; el
+   * `style` que pases se compone con ella.
    */
-  popoverProps?: BoxSlotProps | undefined;
+  popoverProps?: OverlayMotionSlotProps | undefined;
   /**
    * Receta con la que se tinta el dia elegido del calendario. Es la misma que acepta `Calendar`:
    * sin ella el calendario del desplegable se quedaba clavado en `primary`, aunque el producto

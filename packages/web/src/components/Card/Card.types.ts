@@ -47,7 +47,8 @@ export interface CardImageProps {
   className?: string | undefined;
 }
 
-export interface CardSlotProps {
+/** Props de las partes de `Card` —`Badges`, `Meta` y `Actions`—: hijos, `className` y style props. */
+export interface CardSlotProps extends StyleProps {
   children: ReactNode;
   className?: string | undefined;
 }

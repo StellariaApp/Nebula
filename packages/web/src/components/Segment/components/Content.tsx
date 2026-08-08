@@ -134,13 +134,13 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
           return (
             <Box
               key={child.props.value}
+              {...panelProps}
               role="tabpanel"
               id={`${segment.baseId}-panel-${child.props.value}`}
               aria-labelledby={`${segment.baseId}-tab-${child.props.value}`}
               aria-hidden={active ? undefined : true}
               {...(active ? {} : { inert: true })}
               tabIndex={active ? 0 : -1}
-              {...panelProps}
               className={cx(styles.panel({ fill }), child.props.className, panelProps?.className)}
             >
               {child.props.children}

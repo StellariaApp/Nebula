@@ -207,9 +207,9 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
       ) : null}
       {swatches === undefined || swatches.length === 0 ? null : (
         <Box
-          role="group"
           aria-label={labels?.swatches ?? "Muestras"}
           {...swatchesProps}
+          role="group"
           className={cx(styles.swatches, swatchesProps?.className)}
         >
           {swatches.map((entry) => (

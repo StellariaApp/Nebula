@@ -97,7 +97,7 @@ export interface CardComplexProps extends StyleProps {
   /** El titulo. */
   titleProps?: TextSlotProps | undefined;
   /** La descripcion. Su recorte por lineas lo fija `lines`; la ranura se compone con el. */
-  descriptionProps?: BoxSlotProps | undefined;
+  descriptionProps?: TextSlotProps | undefined;
   /** La fila de metadatos. */
   metaProps?: BoxSlotProps | undefined;
   /** El bloque de responsable, con su avatar. */

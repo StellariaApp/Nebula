@@ -148,6 +148,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       </Box>
       {label === undefined || label === null ? null : (
         <Text
+          inherit
           component="span"
           {...labelProps}
           className={cx(styles.label_text, labelProps?.className)}

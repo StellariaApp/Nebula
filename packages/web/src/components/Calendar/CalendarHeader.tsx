@@ -71,6 +71,7 @@ export function CalendarHeader(props: CalendarHeaderProps): ReactElement {
         {CHEVRON_LEFT}
       </NavButton>
       <Text
+        inherit
         component="h2"
         {...slots?.headingProps}
         className={cx(styles.heading, slots?.headingProps?.className)}

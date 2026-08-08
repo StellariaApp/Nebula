@@ -50,8 +50,8 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
         )}
         {description === undefined || description === null ? null : (
           <Text
-            id={description_id}
             {...descriptionProps}
+            id={description_id}
             className={cx(styles.description, descriptionProps?.className)}
           >
             {description}

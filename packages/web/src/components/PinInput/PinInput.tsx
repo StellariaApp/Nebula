@@ -157,9 +157,9 @@ export function PinInput(props: PinInputProps): ReactElement {
     >
       {({ id, "aria-required": _required, ...control }) => (
         <Box
-          role="group"
           {...control}
           {...groupProps}
+          role="group"
           className={cx(styles.group, className, groupProps?.className)}
         >
           {name === undefined ? null : <input type="hidden" name={name} value={fp.value} />}

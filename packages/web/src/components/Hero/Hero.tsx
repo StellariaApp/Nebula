@@ -6,6 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ContainsPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
@@ -94,6 +95,10 @@ export function Hero(props: HeroProps): ReactElement {
   const parts = useMemo(() => SplitChildren(children), [children]);
   const owns_body = HasBodyPart(parts.body);
   const has_title = title !== undefined;
+  const names_region = useMemo(
+    () => has_title || ContainsPart(children, HeroTitle),
+    [has_title, children],
+  );
   const context = useMemo(() => ({ titleId: title_id, order, size }), [title_id, order, size]);
 
   const css_vars = assignInlineVars({
@@ -115,7 +120,7 @@ export function Hero(props: HeroProps): ReactElement {
         style={{ ...css_vars, ...sprinkle_style }}
         data-variant={variant}
         data-align={align}
-        {...(has_title || owns_body ? { "aria-labelledby": title_id } : {})}
+        {...(names_region ? { "aria-labelledby": title_id } : {})}
         {...rest}
       >
         {has_image ? (

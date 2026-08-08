@@ -194,8 +194,8 @@ export function Modal(props: ModalProps): ReactElement {
                   <Text
                     component="h2"
                     {...aria_title}
-                    id={title_id}
                     {...titleProps}
+                    id={title_id}
                     className={cx(styles.title, titleProps?.className)}
                   >
                     {title}

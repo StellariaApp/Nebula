@@ -49,22 +49,37 @@ export function CardImage(props: CardImageProps): ReactElement {
 CardImage.displayName = "CardImage";
 
 export function CardBadges(props: CardSlotProps): ReactElement {
-  const { children, className } = props;
-  return <div className={cx(styles.badges, className)}>{children}</div>;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
+  return (
+    <div className={cx(styles.badges, sprinkle_class, className)} style={style} {...rest}>
+      {children}
+    </div>
+  );
 }
 
 CardBadges.displayName = "CardBadges";
 
 export function CardMeta(props: CardSlotProps): ReactElement {
-  const { children, className } = props;
-  return <div className={cx(styles.meta, className)}>{children}</div>;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
+  return (
+    <div className={cx(styles.meta, sprinkle_class, className)} style={style} {...rest}>
+      {children}
+    </div>
+  );
 }
 
 CardMeta.displayName = "CardMeta";
 
 export function CardActions(props: CardSlotProps): ReactElement {
-  const { children, className } = props;
-  return <div className={cx(styles.actions, className)}>{children}</div>;
+  const { children, className, ...style_rest } = props;
+  const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
+  return (
+    <div className={cx(styles.actions, sprinkle_class, className)} style={style} {...rest}>
+      {children}
+    </div>
+  );
 }
 
 CardActions.displayName = "CardActions";

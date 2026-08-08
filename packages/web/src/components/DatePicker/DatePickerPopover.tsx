@@ -53,7 +53,7 @@ export function DatePickerPopover(props: DatePickerPopoverProps): ReactElement |
         ref={popover_ref}
         {...slotProps}
         className={cx(styles.dialog, slotProps?.className)}
-        style={aria_popover.style}
+        style={{ ...slotProps?.style, ...aria_popover.style }}
       >
         <DismissButton onDismiss={Close} />
         <div {...aria_dialog} ref={dialog_ref}>

@@ -44,7 +44,10 @@ export interface StepperProps extends StyleProps {
   listProps?: BoxSlotProps | undefined;
   /** Cada paso. Lleva `data-state`, que es de donde sale su tinte.  */
   itemProps?: BoxSlotProps | undefined;
-  /** El area pulsable del paso. Es un boton si hay `onStepClick`, y un span si no. */
+  /**
+   * El area pulsable del paso. Es un boton solo en los pasos que `onStepClick` puede activar
+   * —alcanzables, no deshabilitados y distintos del actual—; en el resto es un span.
+   */
   stepProps?: BoxSlotProps | undefined;
   /** La viñeta del paso. Su tamaño lo fija `size`; la ranura se compone con el. */
   bulletProps?: BoxSlotProps | undefined;

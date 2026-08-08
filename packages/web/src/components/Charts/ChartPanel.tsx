@@ -53,8 +53,9 @@ export function ChartPanel(props: ChartPanelProps): ReactElement {
                   {panel.title === undefined ? null : (
                     <Text
                       component="h3"
-                      id={heading_id}
+
                       {...titleProps}
+                      id={heading_id}
                       className={cx(styles.panel_title, titleProps?.className)}
                     >
                       {panel.title}

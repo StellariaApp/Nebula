@@ -324,16 +324,16 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
 
       {filterPanel === undefined ? null : (
         <Box
-          role="group"
           aria-label={text.filters}
           {...panelProps}
+          role="group"
           className={cx(styles.panel, panelProps?.className)}
         >
           {filterPanel}
         </Box>
       )}
 
-      <div
+      <Box
         ref={scroller_ref}
         {...scrollerProps}
         className={cx(styles.scroller, scrollerProps?.className)}
@@ -375,7 +375,10 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                       scope="col"
                       {...thProps}
                       className={cx(styles.th, styles.cell_focus, thProps?.className)}
-                      style={resizable ? { width: header.getSize() } : undefined}
+                      style={{
+                        ...thProps?.style,
+                        ...(resizable ? { width: header.getSize() } : {}),
+                      }}
                       {...(direction === false
                         ? {}
                         : { "aria-sort": direction === "asc" ? "ascending" : "descending" })}
@@ -473,7 +476,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
                         key={cell.id}
                         {...tdProps}
                         className={cx(styles.td, styles.cell_focus, tdProps?.className)}
-                        style={{ height: rowHeight }}
+                        style={{ ...tdProps?.style, height: rowHeight }}
                         {...keyboard.CellProps(position + 1, index)}
                       >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -495,7 +498,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
             ) : null}
           </tbody>
         </table>
-      </div>
+      </Box>
 
       {withPagination && table.getPageCount() > 1 ? (
         <Box {...footProps} className={cx(styles.foot, footProps?.className)}>

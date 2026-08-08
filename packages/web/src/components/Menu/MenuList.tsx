@@ -77,14 +77,14 @@ function MenuRow(props: RowProps): ReactElement {
         {...slots.bodyProps}
         className={cx(styles.labels, slots.bodyProps?.className)}
       >
-        <Text component="span" {...aria_label_props} {...slots.labelProps}>
+        <Text inherit component="span" {...slots.labelProps} {...aria_label_props}>
           {node.rendered}
         </Text>
         {data?.description === undefined || data.description === null ? null : (
           <Text
             component="span"
-            {...aria_description_props}
             {...slots.descriptionProps}
+            {...aria_description_props}
             className={cx(styles.description, slots.descriptionProps?.className)}
           >
             {data.description}
@@ -94,8 +94,8 @@ function MenuRow(props: RowProps): ReactElement {
       {data?.shortcut === undefined ? null : (
         <Box
           component="kbd"
-          {...aria_shortcut_props}
           {...slots.shortcutProps}
+          {...aria_shortcut_props}
           className={cx(styles.shortcut, slots.shortcutProps?.className)}
         >
           {data.shortcut}

@@ -77,7 +77,7 @@ export function Alert(props: AlertProps): ReactElement {
       )}
       <Box {...bodyProps} className={cx(styles.body, bodyProps?.className)}>
         {title === undefined ? null : (
-          <Text id={title_id} {...titleProps} className={cx(styles.title, titleProps?.className)}>
+          <Text {...titleProps} id={title_id} className={cx(styles.title, titleProps?.className)}>
             {title}
           </Text>
         )}

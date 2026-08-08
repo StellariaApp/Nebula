@@ -38,6 +38,7 @@ export function ChartTooltip(props: ChartTooltipProps): ReactElement {
           />
           <span>{item.label}</span>
           <Text
+            inherit
             component="span"
             {...valueProps}
             className={cx(styles.tooltip_value, valueProps?.className)}
