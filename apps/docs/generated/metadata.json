@@ -1,0 +1,2263 @@
+{
+  "version": 1,
+  "count": 158,
+  "gaps": {
+    "budget": [
+      "DataGrid"
+    ],
+    "themeKeys": [
+      "Affix",
+      "AspectRatio",
+      "ButtonClose",
+      "ButtonCopy",
+      "ButtonGroup",
+      "Center",
+      "Collapse",
+      "Combobox",
+      "Conditional",
+      "Container",
+      "CurrencyDisplay",
+      "DateDisplay",
+      "DateRangePicker",
+      "DateTimePicker",
+      "DirectionProvider",
+      "Drawer",
+      "FileButton",
+      "Flex",
+      "FocusTrap",
+      "GradientText",
+      "Grid",
+      "Group",
+      "Highlight",
+      "InputCurrency",
+      "InputDial",
+      "InputPhone",
+      "NProgress",
+      "Omit",
+      "PasswordInput",
+      "PermissionGate",
+      "Portal",
+      "Reveal",
+      "SearchInput",
+      "SimpleGrid",
+      "Space",
+      "StatusBadge",
+      "Tabs",
+      "TextInput",
+      "Textarea",
+      "TimeInput",
+      "Transition",
+      "Valid",
+      "VisuallyHidden"
+    ]
+  },
+  "components": [
+    {
+      "name": "Accordion",
+      "budget": "28.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "size.control",
+        "space.md",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "ActionIcon",
+      "budget": "41.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "motion.duration",
+        "motion.easing",
+        "radius.full",
+        "radius.md",
+        "size.control"
+      ]
+    },
+    {
+      "name": "Affix",
+      "budget": "20.25 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Alert",
+      "budget": "43 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Anchor",
+      "budget": "20.5 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "radius.xs"
+      ]
+    },
+    {
+      "name": "AnimatedGradient",
+      "budget": "24.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "motion.duration",
+        "motion.easing",
+        "motion.tier",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "AppShell",
+      "budget": "23.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "glass.strong",
+        "motion.duration",
+        "motion.easing",
+        "radius.md",
+        "radius.sm",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs",
+        "zIndex.overlay",
+        "zIndex.sticky",
+        "zIndex.tooltip"
+      ]
+    },
+    {
+      "name": "AspectRatio",
+      "budget": "20.25 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Avatar",
+      "budget": "25.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "font.family",
+        "font.weight",
+        "radius.full",
+        "radius.md",
+        "radius.sm",
+        "size.control"
+      ]
+    },
+    {
+      "name": "Badge",
+      "budget": "25.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "radius.md",
+        "radius.sm",
+        "size.compact",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Banderole",
+      "budget": "42.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.family",
+        "font.size",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "zIndex.sticky"
+      ]
+    },
+    {
+      "name": "Blockquote",
+      "budget": "23.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "radius.sm",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "BlurOverlay",
+      "budget": "23.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "blur",
+        "effects.glass",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "Box",
+      "budget": "19.75 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.accent",
+        "color.border",
+        "color.gray",
+        "color.primary",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.leading",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius",
+        "shadow",
+        "space.lg",
+        "space.md",
+        "space.none",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxl",
+        "space.xxs",
+        "space.xxxl",
+        "zIndex"
+      ]
+    },
+    {
+      "name": "Breadcrumbs",
+      "budget": "21 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.size",
+        "font.weight",
+        "radius.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Burger",
+      "budget": "39.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "radius.full",
+        "radius.sm",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Button",
+      "budget": "42.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "motion.duration",
+        "motion.easing",
+        "radius.full",
+        "radius.md",
+        "size.control",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxl",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "ButtonClose",
+      "budget": "41.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "ButtonCopy",
+      "budget": "42 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "ButtonGroup",
+      "budget": "20 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Calendar",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "radius.sm",
+        "size.control",
+        "space.lg",
+        "space.sm",
+        "space.u3",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Card",
+      "budget": "33.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs",
+        "shadow.lg",
+        "shadow.md",
+        "shadow.sm",
+        "shadow.xl",
+        "shadow.xs",
+        "shadow.xxl",
+        "shadow.xxs",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "CardComplex",
+      "budget": "80 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Carousel",
+      "budget": "51 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.primary",
+        "color.text",
+        "font.size",
+        "radius.full",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Center",
+      "budget": "19.75 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Charts",
+      "budget": "23.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.lg",
+        "radius.md",
+        "radius.xxs",
+        "shadow.md",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "budget": "24.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "radius.xs",
+        "size.control",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Chip",
+      "budget": "26 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "radius.md",
+        "radius.sm",
+        "size.compact",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.u3",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Code",
+      "budget": "20 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "radius.sm",
+        "space.md"
+      ]
+    },
+    {
+      "name": "CodeHighlight",
+      "budget": "43.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "radius.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Collapse",
+      "budget": "26.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "ColorPicker",
+      "budget": "48.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "radius.full",
+        "radius.md",
+        "radius.sm",
+        "radius.xs",
+        "shadow.md",
+        "shadow.sm",
+        "size.compact",
+        "space.md",
+        "space.u3",
+        "space.xs",
+        "zIndex.dropdown"
+      ]
+    },
+    {
+      "name": "ColorSwatch",
+      "budget": "32.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.text",
+        "radius.full",
+        "radius.sm",
+        "radius.xs",
+        "shadow.xs"
+      ]
+    },
+    {
+      "name": "Combobox",
+      "budget": "79.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "CommandPalette",
+      "budget": "2 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Conditional",
+      "budget": "2 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Container",
+      "budget": "21.5 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Countdown",
+      "budget": "21.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "CurrencyDisplay",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "DataGrid",
+      "budget": null,
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.sm",
+        "space.sm",
+        "space.xs",
+        "space.xxl",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "DateDisplay",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "DatePicker",
+      "budget": "102.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "radius.md",
+        "radius.sm",
+        "shadow.md",
+        "space.md",
+        "space.xs",
+        "space.xxs",
+        "zIndex.dropdown"
+      ]
+    },
+    {
+      "name": "DateRangePicker",
+      "budget": "103.25 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "DateTimePicker",
+      "budget": "102.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Dialog",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "shadow.lg",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "DirectionProvider",
+      "budget": "20 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Divider",
+      "budget": "22.5 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "space.lg",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "DragDrop",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.size",
+        "radius.md",
+        "radius.xs",
+        "shadow.lg",
+        "size.compact",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "budget": "48.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Dropzone",
+      "budget": "48.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "space.lg",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "EditorImage",
+      "budget": "49.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.lineHeight",
+        "font.size",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "space.md",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "EmptyModule",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius.lg",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "EmptyState",
+      "budget": "27.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxl",
+        "space.xxxl"
+      ]
+    },
+    {
+      "name": "Feature",
+      "budget": "25.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "FieldError",
+      "budget": "31.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "shadow.md",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "zIndex.tooltip"
+      ]
+    },
+    {
+      "name": "Fieldset",
+      "budget": "21.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "space.md",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "FileButton",
+      "budget": "2 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "FileInput",
+      "budget": "47.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text"
+      ]
+    },
+    {
+      "name": "Filters",
+      "budget": "86.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.text",
+        "font.family",
+        "font.size",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Flex",
+      "budget": "19.75 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "FocusTrap",
+      "budget": "17 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Footer",
+      "budget": "23.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "glass.subtle",
+        "radius.sm",
+        "radius.xs",
+        "size.compact",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxs",
+        "zIndex.sticky"
+      ]
+    },
+    {
+      "name": "Form",
+      "budget": "45.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius.sm",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "FormField",
+      "budget": "33.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "space.xs"
+      ]
+    },
+    {
+      "name": "GlassSurface",
+      "budget": "23 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "effects.glass",
+        "glass",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs",
+        "shadow.lg",
+        "shadow.md",
+        "shadow.sm",
+        "shadow.xl",
+        "shadow.xs",
+        "shadow.xxl",
+        "shadow.xxs"
+      ]
+    },
+    {
+      "name": "GlobalSearch",
+      "budget": "51.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.letterSpacing",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.sm",
+        "radius.xs",
+        "size.control",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "GradientBackground",
+      "budget": "24.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "effects.glass",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "GradientBorder",
+      "budget": "25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "motion.duration",
+        "motion.tier",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "GradientText",
+      "budget": "23.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Grid",
+      "budget": "22.25 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "GridList",
+      "budget": "43.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Group",
+      "budget": "21.75 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Header",
+      "budget": "43 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "size.control",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Hero",
+      "budget": "26.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.accent",
+        "colors.text",
+        "font.display",
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxxl"
+      ]
+    },
+    {
+      "name": "Highlight",
+      "budget": "23.25 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "HoverCard",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius.md",
+        "shadow.md",
+        "space.md"
+      ]
+    },
+    {
+      "name": "Image",
+      "budget": "29 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.gray",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius",
+        "radius.md",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "ImageGallery",
+      "budget": "51.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.size",
+        "radius",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Indicator",
+      "budget": "23.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "size.compact",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "InfiniteList",
+      "budget": "80 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.size",
+        "space.md",
+        "space.none",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "InputCurrency",
+      "budget": "35.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "InputDial",
+      "budget": "79.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "InputPhone",
+      "budget": "79.5 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "JsonInput",
+      "budget": "34.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.family",
+        "font.lineHeight",
+        "font.size"
+      ]
+    },
+    {
+      "name": "Kanban",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.lg",
+        "radius.md",
+        "shadow.xxs",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Kbd",
+      "budget": "20 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.xs",
+        "size.compact",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Lightbox",
+      "budget": "51 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.size",
+        "radius.md",
+        "radius.xs",
+        "space.sm",
+        "space.xl",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "List",
+      "budget": "21.75 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "space.lg",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Loader",
+      "budget": "23.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "motion.easing",
+        "radius.full",
+        "radius.xs"
+      ]
+    },
+    {
+      "name": "LoadingOverlay",
+      "budget": "34 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.size",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Main",
+      "budget": "24.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "radius.sm",
+        "space.lg",
+        "space.sm",
+        "space.xs",
+        "zIndex.base",
+        "zIndex.overlay"
+      ]
+    },
+    {
+      "name": "Mark",
+      "budget": "22.5 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "radius.xs"
+      ]
+    },
+    {
+      "name": "Menu",
+      "budget": "64.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.primary",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.sm",
+        "shadow.md",
+        "size.compact",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs",
+        "zIndex.dropdown"
+      ]
+    },
+    {
+      "name": "MeshGradientBg",
+      "budget": "23.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "effects.glass",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "Modal",
+      "budget": "48.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "blur.sm",
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "motion.duration",
+        "motion.easing",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "shadow.lg",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.u3",
+        "space.u5",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "MonthPicker",
+      "budget": "37.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "size.control",
+        "space.sm",
+        "space.u3",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "MultiSelect",
+      "budget": "80.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.lineHeight",
+        "font.size",
+        "radius.full",
+        "radius.sm",
+        "space.md",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "NProgress",
+      "budget": "23.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "NativeSelect",
+      "budget": "34.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "space.lg",
+        "space.md"
+      ]
+    },
+    {
+      "name": "Nav",
+      "budget": "57.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "effects.glass",
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "glass.default",
+        "glass.strong",
+        "glass.subtle",
+        "motion.duration",
+        "motion.easing",
+        "motion.tier",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "shadow.lg",
+        "size.compact",
+        "size.control",
+        "space.md",
+        "space.sm",
+        "space.u3",
+        "space.u5",
+        "space.xs",
+        "space.xxs",
+        "zIndex.dropdown",
+        "zIndex.modal",
+        "zIndex.overlay",
+        "zIndex.sticky"
+      ]
+    },
+    {
+      "name": "NavLink",
+      "budget": "33.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "glass.control",
+        "radius.full",
+        "radius.sm",
+        "size.control",
+        "space.md",
+        "space.sm",
+        "space.u2_5",
+        "space.u3",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "NoiseOverlay",
+      "budget": "21 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "effects.glass",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "NumberInput",
+      "budget": "43.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.text",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Omit",
+      "budget": "2 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Overlay",
+      "budget": "23 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "blur.lg",
+        "blur.md",
+        "blur.sm",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs"
+      ]
+    },
+    {
+      "name": "Pagination",
+      "budget": "32.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "size.control",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Panel",
+      "budget": "21 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border"
+      ]
+    },
+    {
+      "name": "Paper",
+      "budget": "25.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs",
+        "shadow.lg",
+        "shadow.md",
+        "shadow.sm",
+        "shadow.xl",
+        "shadow.xs",
+        "shadow.xxl",
+        "shadow.xxs"
+      ]
+    },
+    {
+      "name": "PasswordInput",
+      "budget": "43.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "PermissionGate",
+      "budget": "20.25 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "PinInput",
+      "budget": "35 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "size.control",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "Player",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "radius.md"
+      ]
+    },
+    {
+      "name": "Popover",
+      "budget": "47.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "shadow.md",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "zIndex.popover"
+      ]
+    },
+    {
+      "name": "Portal",
+      "budget": "6 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Progress",
+      "budget": "26.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "motion.easing",
+        "radius.full"
+      ]
+    },
+    {
+      "name": "QuickAction",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "motion.duration",
+        "motion.easing",
+        "radius.full",
+        "radius.lg",
+        "radius.md",
+        "radius.none",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "radius.xxl",
+        "radius.xxs",
+        "size.compact",
+        "size.control",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Radio",
+      "budget": "23.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "radius.full",
+        "size.control",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Rating",
+      "budget": "36 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "size.compact",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Reveal",
+      "budget": "27.25 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "RichTextEditor",
+      "budget": "175.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.primary",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.sm",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Scroll",
+      "budget": "24.5 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "radius.full",
+        "space.xl"
+      ]
+    },
+    {
+      "name": "ScrollProgress",
+      "budget": "23.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "radius.full",
+        "radius.sm",
+        "zIndex.sticky"
+      ]
+    },
+    {
+      "name": "Search",
+      "budget": "93.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "SearchInput",
+      "budget": "43.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "SearchableList",
+      "budget": "80 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.size",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "Section",
+      "budget": "48.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "glass.band",
+        "space.lg",
+        "space.md",
+        "space.xl",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Segment",
+      "budget": "42.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "motion.spring",
+        "motion.tier",
+        "radius.full",
+        "shadow.xxs",
+        "size.control",
+        "space.md",
+        "space.u2_5",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Select",
+      "budget": "73 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "radius.md",
+        "shadow.md",
+        "space.sm",
+        "zIndex.dropdown"
+      ]
+    },
+    {
+      "name": "Signature",
+      "budget": "48.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.surface",
+        "color.text",
+        "radius.lg",
+        "radius.md",
+        "radius.sm",
+        "radius.xl",
+        "radius.xs",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "SimpleGrid",
+      "budget": "22 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Skeleton",
+      "budget": "22.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.surface",
+        "motion.easing",
+        "radius",
+        "radius.full",
+        "radius.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Slider",
+      "budget": "48.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "shadow.xs",
+        "size.control",
+        "space.lg",
+        "space.md",
+        "space.sm"
+      ]
+    },
+    {
+      "name": "Space",
+      "budget": "21 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "Spoiler",
+      "budget": "21.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "font.size",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "StarField",
+      "budget": "24.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "motion.duration",
+        "motion.easing",
+        "motion.tier",
+        "radius.full"
+      ]
+    },
+    {
+      "name": "Stat",
+      "budget": "21.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.semantic",
+        "color.text",
+        "font.family",
+        "font.letterSpacing",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "StatusBadge",
+      "budget": "25.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Stepper",
+      "budget": "26.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.semantic",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "radius.sm",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Switch",
+      "budget": "38.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "motion.spring",
+        "radius.full",
+        "shadow.xs",
+        "sizes.control",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Table",
+      "budget": "22 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "budget": "43 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Tag",
+      "budget": "43 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "radius.md",
+        "radius.sm",
+        "size.compact",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "TagsInput",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.lineHeight",
+        "font.size",
+        "radius.full",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Text",
+      "budget": "20 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.leading",
+        "font.letterSpacing",
+        "font.size",
+        "font.weight"
+      ]
+    },
+    {
+      "name": "TextInput",
+      "budget": "34 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Textarea",
+      "budget": "34.25 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "ThemeIcon",
+      "budget": "24.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "radius.full",
+        "radius.md",
+        "radius.sm"
+      ]
+    },
+    {
+      "name": "TimeInput",
+      "budget": "71.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "Timeline",
+      "budget": "25.75 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.size",
+        "font.weight",
+        "radius.full",
+        "space.lg",
+        "space.sm",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Title",
+      "budget": "20.25 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.text",
+        "font.family",
+        "font.leading",
+        "font.letterSpacing",
+        "font.size",
+        "font.weight"
+      ]
+    },
+    {
+      "name": "Toast",
+      "budget": "49.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "shadow.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs",
+        "zIndex.toast"
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "budget": "43.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.gray",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.sm",
+        "shadow.md",
+        "space.sm",
+        "space.xs",
+        "zIndex.tooltip"
+      ]
+    },
+    {
+      "name": "TransferList",
+      "budget": "49.25 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.border",
+        "color.surface",
+        "color.text",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.sm",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "Transition",
+      "budget": "28.75 kB",
+      "boundary": "client",
+      "themeKeys": []
+    },
+    {
+      "name": "TypographyStylesProvider",
+      "budget": "20.5 kB",
+      "boundary": "server",
+      "themeKeys": [
+        "color.border",
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "font.lineHeight",
+        "font.size",
+        "font.weight",
+        "radius.md",
+        "radius.xs",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xxs"
+      ]
+    },
+    {
+      "name": "UnstyledButton",
+      "budget": "29.5 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "radius.xs"
+      ]
+    },
+    {
+      "name": "Valid",
+      "budget": "2 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
+      "name": "VisuallyHidden",
+      "budget": "19.75 kB",
+      "boundary": "server",
+      "themeKeys": []
+    }
+  ]
+}

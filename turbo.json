@@ -30,14 +30,18 @@
       "cache": false
     },
     "gen:docs": {
+      "dependsOn": ["@stellaria/nebula-web#build"],
       "cache": false
     },
     "check:docs": {
+      "dependsOn": ["@stellaria/nebula-web#build"],
       "inputs": [
-        "packages/web/src/**",
-        "packages/web/.size-limit.js",
-        "docs/00-inventory.md",
-        "apps/docs/generated/**"
+        "src/**",
+        "$TURBO_ROOT$/packages/web/src/**",
+        "$TURBO_ROOT$/packages/web/dist/**",
+        "$TURBO_ROOT$/packages/web/.size-limit.js",
+        "$TURBO_ROOT$/docs/00-inventory.md",
+        "$TURBO_ROOT$/apps/docs/generated/**"
       ]
     }
   }

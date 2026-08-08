@@ -1,14 +1,9 @@
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readdirSync } from "node:fs";
+import { join } from "node:path";
 
-const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const WEB = join(REPO, "packages/web");
-const COMPONENTS = join(WEB, "src/components");
+import { COMPONENTS, Dirs, Exists, REPO, Read, SUBPATHS, WEB } from "./shared.ts";
+
 const INVENTORY = join(REPO, "docs/00-inventory.md");
-const OUT = join(REPO, "apps/docs/generated/catalog.json");
-
-const SUBPATHS = ["command", "charts", "datagrid", "dnd", "carousel", "media", "editor"];
 
 type Boundary = "client" | "server";
 
@@ -59,12 +54,6 @@ const FAMILY_ALIASES: Record<string, string[]> = {
   ],
 };
 
-function Dirs(root: string): string[] {
-  return readdirSync(root)
-    .filter((entry) => statSync(join(root, entry)).isDirectory())
-    .sort();
-}
-
 function Tokens(cell: string): string[] {
   return cell
     .replace(/\([^)]*\)/g, " ")
@@ -74,7 +63,7 @@ function Tokens(cell: string): string[] {
 }
 
 function Families(): Map<string, string> {
-  const source = readFileSync(INVENTORY, "utf8");
+  const source = Read(INVENTORY);
   const by_component = new Map<string, string>();
   let family: string | undefined;
 
@@ -104,25 +93,25 @@ function Families(): Map<string, string> {
 function SubpathOf(name: string): string | null {
   for (const subpath of SUBPATHS) {
     const barrel = join(WEB, "src", subpath, "index.ts");
-    if (!existsSync(barrel)) continue;
-    if (readFileSync(barrel, "utf8").includes(`/components/${name}/`)) return `/${subpath}`;
+    if (!Exists(barrel)) continue;
+    if (Read(barrel).includes(`/components/${name}/`)) return `/${subpath}`;
   }
-  const root = readFileSync(join(WEB, "src/index.ts"), "utf8");
+  const root = Read(join(WEB, "src/index.ts"));
   return root.includes(`/components/${name}/`) ? "." : null;
 }
 
 function BoundaryOf(dir: string): Boundary {
   const files = readdirSync(dir).filter((f) => f.endsWith(".tsx") && !f.includes(".test."));
   for (const file of files) {
-    if (readFileSync(join(dir, file), "utf8").startsWith('"use client"')) return "client";
+    if (Read(join(dir, file)).startsWith('"use client"')) return "client";
   }
   return files.length === 0 ? "server" : "server";
 }
 
 function Parts(dir: string, name: string): string[] {
   const index = join(dir, "index.ts");
-  if (!existsSync(index)) return [];
-  const source = readFileSync(index, "utf8");
+  if (!Exists(index)) return [];
+  const source = Read(index);
   const block = /Object\.assign\(\s*[\w$]+,\s*\{([\s\S]*?)\}\s*\)/.exec(source);
   if (!block) return [];
   return [...(block[1] ?? "").matchAll(/^\s*([A-Z][\w$]*)\s*[,:]/gm)]
@@ -131,7 +120,7 @@ function Parts(dir: string, name: string): string[] {
 }
 
 function Budgets(): Map<string, string> {
-  const source = readFileSync(join(WEB, ".size-limit.js"), "utf8");
+  const source = Read(join(WEB, ".size-limit.js"));
   const by_component = new Map<string, string>();
   const entries = source.matchAll(
     /path:\s*"dist\/components\/([A-Za-z0-9]+)\/[^"]*",[\s\S]*?limit:\s*"([^"]+)"/g,
@@ -144,7 +133,7 @@ function Budgets(): Map<string, string> {
   return by_component;
 }
 
-function Build(): Catalog {
+export function BuildCatalog(): Catalog {
   const families = Families();
   const budgets = Budgets();
   const gaps: Gaps = { family: [], subpath: [], budget: [] };
@@ -168,34 +157,10 @@ function Build(): Catalog {
       parts,
       boundary: BoundaryOf(dir),
       budget,
-      notes: existsSync(join(dir, `${name}.md`)),
-      contract: existsSync(join(dir, `${name}.types.ts`)),
+      notes: Exists(join(dir, `${name}.md`)),
+      contract: Exists(join(dir, `${name}.types.ts`)),
     };
   });
 
   return { version: 1, count: components.length, gaps, components };
-}
-
-function Serialize(catalog: Catalog): string {
-  return `${JSON.stringify(catalog, null, 2)}\n`;
-}
-
-const catalog = Build();
-const text = Serialize(catalog);
-const check = process.argv.includes("--check");
-
-if (check) {
-  const current = existsSync(OUT) ? readFileSync(OUT, "utf8") : "";
-  if (current !== text) {
-    console.error("El registro del catálogo no coincide con el código. Corre `pnpm gen:docs`.");
-    process.exit(1);
-  }
-  console.log(`registro ok — ${String(catalog.count)} componentes`);
-} else {
-  writeFileSync(OUT, text);
-  console.log(`registro escrito — ${String(catalog.count)} componentes`);
-}
-
-for (const [kind, list] of Object.entries(catalog.gaps)) {
-  if (list.length > 0) console.log(`  hueco declarado (${kind}): ${String(list.length)}`);
 }

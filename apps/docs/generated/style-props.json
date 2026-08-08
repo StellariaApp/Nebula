@@ -1,0 +1,1649 @@
+{
+  "version": 1,
+  "count": 128,
+  "corners": [
+    "rbl",
+    "rbr",
+    "rtl",
+    "rtr"
+  ],
+  "lanes": {
+    "atomic": 29,
+    "open": 99
+  },
+  "props": [
+    {
+      "name": "align",
+      "css": [
+        "alignItems"
+      ],
+      "token": null,
+      "keywords": [
+        "flex-start",
+        "flex-end",
+        "center",
+        "stretch",
+        "baseline"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "alignContent",
+      "css": [
+        "alignContent"
+      ],
+      "token": null,
+      "keywords": [
+        "flex-start",
+        "flex-end",
+        "center",
+        "stretch",
+        "space-between",
+        "space-around",
+        "space-evenly"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "aspectRatio",
+      "css": [
+        "aspectRatio"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "basis",
+      "css": [
+        "flexBasis"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bd",
+      "css": [
+        "border"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdb",
+      "css": [
+        "borderBottom"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdbc",
+      "css": [
+        "borderBottomColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdbs",
+      "css": [
+        "borderBottomStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdbw",
+      "css": [
+        "borderBottomWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bdc",
+      "css": [
+        "borderColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdl",
+      "css": [
+        "borderLeft"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdlc",
+      "css": [
+        "borderLeftColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdls",
+      "css": [
+        "borderLeftStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdlw",
+      "css": [
+        "borderLeftWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bdr",
+      "css": [
+        "borderRight"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdrc",
+      "css": [
+        "borderRightColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdrs",
+      "css": [
+        "borderRightStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdrw",
+      "css": [
+        "borderRightWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bds",
+      "css": [
+        "borderStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdt",
+      "css": [
+        "borderTop"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdtc",
+      "css": [
+        "borderTopColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdts",
+      "css": [
+        "borderTopStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "bdtw",
+      "css": [
+        "borderTopWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bdw",
+      "css": [
+        "borderWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bg",
+      "css": [
+        "background"
+      ],
+      "token": "color",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockEnd",
+      "css": [
+        "borderBlockEnd"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockEndColor",
+      "css": [
+        "borderBlockEndColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockEndStyle",
+      "css": [
+        "borderBlockEndStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockEndWidth",
+      "css": [
+        "borderBlockEndWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockStart",
+      "css": [
+        "borderBlockStart"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockStartColor",
+      "css": [
+        "borderBlockStartColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockStartStyle",
+      "css": [
+        "borderBlockStartStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderBlockStartWidth",
+      "css": [
+        "borderBlockStartWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineEnd",
+      "css": [
+        "borderInlineEnd"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineEndColor",
+      "css": [
+        "borderInlineEndColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineEndStyle",
+      "css": [
+        "borderInlineEndStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineEndWidth",
+      "css": [
+        "borderInlineEndWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineStart",
+      "css": [
+        "borderInlineStart"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineStartColor",
+      "css": [
+        "borderInlineStartColor"
+      ],
+      "token": "role",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineStartStyle",
+      "css": [
+        "borderInlineStartStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "borderInlineStartWidth",
+      "css": [
+        "borderInlineStartWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "bottom",
+      "css": [
+        "bottom"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "c",
+      "css": [
+        "color"
+      ],
+      "token": "color",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "cursor",
+      "css": [
+        "cursor"
+      ],
+      "token": null,
+      "keywords": [
+        "auto",
+        "default",
+        "pointer",
+        "text",
+        "move",
+        "grab",
+        "grabbing",
+        "not-allowed",
+        "wait",
+        "help",
+        "crosshair",
+        "zoom-in",
+        "zoom-out"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "direction",
+      "css": [
+        "flexDirection"
+      ],
+      "token": null,
+      "keywords": [
+        "row",
+        "column",
+        "row-reverse",
+        "column-reverse"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "display",
+      "css": [
+        "display"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "flex",
+        "block",
+        "inline",
+        "inline-flex",
+        "inline-block",
+        "grid",
+        "inline-grid",
+        "contents"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "ff",
+      "css": [
+        "fontFamily"
+      ],
+      "token": "fontFamily",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "flex",
+      "css": [
+        "flex"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "fs",
+      "css": [
+        "fontStyle"
+      ],
+      "token": null,
+      "keywords": [
+        "normal",
+        "italic",
+        "oblique"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "fw",
+      "css": [
+        "fontWeight"
+      ],
+      "token": "fontWeight",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "fz",
+      "css": [
+        "fontSize"
+      ],
+      "token": "fontSize",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "gap",
+      "css": [
+        "gap"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "gapx",
+      "css": [
+        "columnGap"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "gapy",
+      "css": [
+        "rowGap"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "gridArea",
+      "css": [
+        "gridArea"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "gridAutoFlow",
+      "css": [
+        "gridAutoFlow"
+      ],
+      "token": null,
+      "keywords": [
+        "row",
+        "column",
+        "dense",
+        "row dense",
+        "column dense"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "gridColumn",
+      "css": [
+        "gridColumn"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "gridRow",
+      "css": [
+        "gridRow"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "gridTemplateColumns",
+      "css": [
+        "gridTemplateColumns"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "gridTemplateRows",
+      "css": [
+        "gridTemplateRows"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "grow",
+      "css": [
+        "flexGrow"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "h",
+      "css": [
+        "height"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "inset",
+      "css": [
+        "inset"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "insetBlock",
+      "css": [
+        "insetBlock"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "insetInline",
+      "css": [
+        "insetInline"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "justify",
+      "css": [
+        "justifyContent"
+      ],
+      "token": null,
+      "keywords": [
+        "flex-start",
+        "flex-end",
+        "center",
+        "space-between",
+        "space-around",
+        "space-evenly"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "justifyItems",
+      "css": [
+        "justifyItems"
+      ],
+      "token": null,
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "justifySelf",
+      "css": [
+        "justifySelf"
+      ],
+      "token": null,
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "left",
+      "css": [
+        "left"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "lh",
+      "css": [
+        "lineHeight"
+      ],
+      "token": "lineHeight",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "ls",
+      "css": [
+        "letterSpacing"
+      ],
+      "token": "letterSpacing",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "m",
+      "css": [
+        "margin"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "mah",
+      "css": [
+        "maxHeight"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "maw",
+      "css": [
+        "maxWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "mb",
+      "css": [
+        "marginBottom"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "me",
+      "css": [
+        "marginInlineEnd"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "mih",
+      "css": [
+        "minHeight"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "miw",
+      "css": [
+        "minWidth"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "ml",
+      "css": [
+        "marginLeft"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "mr",
+      "css": [
+        "marginRight"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "ms",
+      "css": [
+        "marginInlineStart"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "mt",
+      "css": [
+        "marginTop"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "mx",
+      "css": [
+        "marginInline"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "my",
+      "css": [
+        "marginBlock"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "objectFit",
+      "css": [
+        "objectFit"
+      ],
+      "token": null,
+      "keywords": [
+        "contain",
+        "cover",
+        "fill",
+        "none",
+        "scale-down"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "objectPosition",
+      "css": [
+        "objectPosition"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "opacity",
+      "css": [
+        "opacity"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "order",
+      "css": [
+        "order"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "overflow",
+      "css": [
+        "overflow"
+      ],
+      "token": null,
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "overflowX",
+      "css": [
+        "overflowX"
+      ],
+      "token": null,
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "overflowY",
+      "css": [
+        "overflowY"
+      ],
+      "token": null,
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "p",
+      "css": [
+        "padding"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "pb",
+      "css": [
+        "paddingBottom"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "pe",
+      "css": [
+        "paddingInlineEnd"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "pl",
+      "css": [
+        "paddingLeft"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "placeItems",
+      "css": [
+        "placeItems"
+      ],
+      "token": null,
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "pointerEvents",
+      "css": [
+        "pointerEvents"
+      ],
+      "token": null,
+      "keywords": [
+        "auto",
+        "none"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "position",
+      "css": [
+        "position"
+      ],
+      "token": null,
+      "keywords": [
+        "relative",
+        "absolute",
+        "fixed",
+        "sticky",
+        "static"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "pr",
+      "css": [
+        "paddingRight"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "ps",
+      "css": [
+        "paddingInlineStart"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "pt",
+      "css": [
+        "paddingTop"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "px",
+      "css": [
+        "paddingInline"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "py",
+      "css": [
+        "paddingBlock"
+      ],
+      "token": "space",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "atomic"
+    },
+    {
+      "name": "r",
+      "css": [
+        "borderRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rb",
+      "css": [
+        "borderBottomLeftRadius",
+        "borderBottomRightRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rbl",
+      "css": [
+        "borderBottomLeftRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rbr",
+      "css": [
+        "borderBottomRightRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "right",
+      "css": [
+        "right"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rl",
+      "css": [
+        "borderTopLeftRadius",
+        "borderBottomLeftRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rr",
+      "css": [
+        "borderTopRightRadius",
+        "borderBottomRightRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rt",
+      "css": [
+        "borderTopLeftRadius",
+        "borderTopRightRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rtl",
+      "css": [
+        "borderTopLeftRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "rtr",
+      "css": [
+        "borderTopRightRadius"
+      ],
+      "token": "radius",
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "self",
+      "css": [
+        "alignSelf"
+      ],
+      "token": null,
+      "keywords": [
+        "auto",
+        "flex-start",
+        "flex-end",
+        "center",
+        "stretch",
+        "baseline"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "shadow",
+      "css": [
+        "boxShadow"
+      ],
+      "token": "shadow",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "shrink",
+      "css": [
+        "flexShrink"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "size",
+      "css": [
+        "width",
+        "height"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "ta",
+      "css": [
+        "textAlign"
+      ],
+      "token": null,
+      "keywords": [
+        "left",
+        "center",
+        "right",
+        "justify",
+        "start",
+        "end"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "td",
+      "css": [
+        "textDecoration"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "underline",
+        "line-through"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "top",
+      "css": [
+        "top"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "tt",
+      "css": [
+        "textTransform"
+      ],
+      "token": null,
+      "keywords": [
+        "none",
+        "uppercase",
+        "lowercase",
+        "capitalize"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "userSelect",
+      "css": [
+        "userSelect"
+      ],
+      "token": null,
+      "keywords": [
+        "auto",
+        "none",
+        "text",
+        "all"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "verticalAlign",
+      "css": [
+        "verticalAlign"
+      ],
+      "token": null,
+      "keywords": [
+        "baseline",
+        "top",
+        "middle",
+        "bottom",
+        "sub",
+        "super"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "visibility",
+      "css": [
+        "visibility"
+      ],
+      "token": null,
+      "keywords": [
+        "visible",
+        "hidden",
+        "collapse"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "w",
+      "css": [
+        "width"
+      ],
+      "token": null,
+      "keywords": null,
+      "open": true,
+      "length": true,
+      "responsive": "open"
+    },
+    {
+      "name": "wrap",
+      "css": [
+        "flexWrap"
+      ],
+      "token": null,
+      "keywords": [
+        "nowrap",
+        "wrap",
+        "wrap-reverse"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "atomic"
+    },
+    {
+      "name": "ws",
+      "css": [
+        "whiteSpace"
+      ],
+      "token": null,
+      "keywords": [
+        "normal",
+        "nowrap",
+        "pre",
+        "pre-wrap",
+        "pre-line"
+      ],
+      "open": false,
+      "length": false,
+      "responsive": "open"
+    },
+    {
+      "name": "z",
+      "css": [
+        "zIndex"
+      ],
+      "token": "zIndex",
+      "keywords": null,
+      "open": true,
+      "length": false,
+      "responsive": "open"
+    }
+  ]
+}

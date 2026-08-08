@@ -5,12 +5,13 @@
   "description": "Generadores del sitio de documentación: registro del catálogo y gate de cobertura. No publicable.",
   "type": "module",
   "scripts": {
-    "gen:docs": "node src/catalog.ts",
-    "check:docs": "node src/catalog.ts --check",
+    "gen:docs": "node src/index.ts",
+    "check:docs": "node src/index.ts --check",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
   },
   "devDependencies": {
+    "@stellaria/nebula-web": "workspace:*",
     "@types/node": "26.1.1",
     "typescript": "7.0.2"
   }

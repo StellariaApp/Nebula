@@ -32,3 +32,6 @@ Thumbs.db
 
 # Figma MCP (descargas de assets)
 .figma/
+
+# salida de size-limit --json, que se pide a mano al revisar presupuestos
+size-report.json

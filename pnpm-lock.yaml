@@ -410,6 +410,9 @@ importers:
 
   tools/docs-gen:
     devDependencies:
+      '@stellaria/nebula-web':
+        specifier: workspace:*
+        version: link:../../packages/web
       '@types/node':
         specifier: 26.1.1
         version: 26.1.1
