@@ -260,7 +260,7 @@ export function DataGrid<T>(props: DataGridProps<T>): ReactElement {
       );
       const source: Row<T>[] =
         options.selectionOnly === true && selected_keys.length > 0
-          ? table.getRowModel().rows.filter((row) => row.getIsSelected())
+          ? table.getCoreRowModel().rows.filter((row) => row.getIsSelected())
           : table.getCoreRowModel().rows;
       const body = source.map((row) =>
         row

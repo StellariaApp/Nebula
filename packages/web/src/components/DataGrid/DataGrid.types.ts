@@ -50,8 +50,9 @@ export interface DataGridExport {
   filename?: string | undefined;
   delimiter?: string | undefined;
   /**
-   * Con selección activa exporta solo lo seleccionado de la página en curso, porque sale del
-   * modelo paginado; por defecto exporta todas las filas del modelo core.
+   * Con selección activa exporta solo lo seleccionado, esté en la página visible o no. Sin ella, y
+   * por defecto, exporta todas las filas. Las dos ramas salen del modelo core, así que la
+   * paginación no recorta el fichero y el orden es el de origen, no el de la vista.
    */
   selectionOnly?: boolean | undefined;
 }

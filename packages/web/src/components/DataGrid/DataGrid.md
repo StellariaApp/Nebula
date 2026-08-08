@@ -48,6 +48,15 @@ tabla paginada espera el conjunto, no la página. Con `selectionOnly` y selecci�
 seleccionado. Las columnas ocultas nunca salen —si el usuario las quitó de la vista, quitarlas del
 fichero es lo coherente— y la columna de selección tampoco.
 
+**Las dos ramas leen el modelo core, y eso es lo que hace verdad el párrafo anterior.** La de
+selección leía el modelo paginado, así que seleccionar tres filas repartidas en tres páginas
+descargaba un fichero con una: el mismo razonamiento que justifica exportar el conjunto y no la
+página se le aplicaba a la rama por defecto y no a esta. Corregido en la revisión previa a W5, con un
+test que selecciona a través de páginas y cuenta las líneas del CSV.
+
+El precio, que ya pagaba la rama por defecto: el orden del fichero es el de origen, no el de la vista
+ordenada.
+
 ## Resize por teclado, no solo por puntero
 
 El asa es un `<button>` con nombre accesible que responde a las flechas en pasos de 16 px, además del

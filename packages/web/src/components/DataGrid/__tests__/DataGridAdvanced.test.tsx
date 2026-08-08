@@ -242,4 +242,38 @@ describe("DataGrid — export CSV", () => {
     render(<DataGrid data={FILAS} columns={COLUMNS} getRowId={Key} />);
     expect(screen.queryByRole("button", { name: DATA_GRID_LABELS.exportCsv })).toBeNull();
   });
+
+  it("con selectionOnly exporta la selección entera, no la de la página visible", async () => {
+    const user = userEvent.setup();
+    const blobs: Blob[] = [];
+    vi.spyOn(URL, "createObjectURL").mockImplementation((value) => {
+      if (value instanceof Blob) blobs.push(value);
+      return "blob:test";
+    });
+    vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => undefined);
+    vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
+
+    try {
+      render(
+        <DataGrid
+          data={FILAS}
+          columns={COLUMNS}
+          getRowId={Key}
+          selectable
+          pageSize={2}
+          selected={["1", "3"]}
+          exportCsv={{ selectionOnly: true }}
+        />,
+      );
+      await user.click(screen.getByRole("button", { name: DATA_GRID_LABELS.exportCsv }));
+
+      const BOM = "﻿";
+      const text = (await blobs[0]?.text()) ?? "";
+      const lines = text.replace(BOM, "").trim().split("\r\n");
+
+      expect(lines).toEqual(["Nombre,Importe", "Acme,1200", "Gamma,450"]);
+    } finally {
+      vi.restoreAllMocks();
+    }
+  });
 });
