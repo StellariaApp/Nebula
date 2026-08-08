@@ -51,6 +51,31 @@ pasaron a ser raíz de una parte, así que ninguna necesita ranura. El barrido q
 Es el techo con el criterio aplicado por nombre de clase. Cada tanda puede descartar nodos por
 juicio; cuando lo haga, se anota aquí el porqué.
 
+## Revisión previa a W5 (2026-08-08, sesión de refinamiento)
+
+La tabla se auditó contra el código con script. **Lo que la tabla dice y el código no sostiene**, para
+que quien la lea no la tome por exacta:
+
+- **Dos razones de descarte eran falsas** y están corregidas arriba: `Tooltip` y `Popover` decían que
+  la flecha y el velo «ya tienen ranura», y esos nombres venían de react-aria, no de sus props
+  públicas.
+- **La tabla declara 154 componentes; el catálogo tiene 158.** Faltan `Alert`, `EmptyState`,
+  `FormField` y `Main`, que suman 18 ranuras cableadas y nunca tuvieron fila.
+- **Veinte filas dicen «hecho» a secas siendo parciales.** El nodo caído tiene razón, pero la fila no
+  la anota, así que la columna Estado no es auditable en esas veinte. Las de más volumen:
+  `Dropzone` (5 de 9), `InfiniteList` (3 de 6), `DataGrid` (10 de 13), `CardComplex` (9 de 11),
+  `Stepper` (7 de 9), `Modal` (6 de 7, y lista `surface` como hecho sin serlo), `NavLink`,
+  `Menu/MenuList`, `Accordion`, `Pagination`, `Switch`, `SearchableList`, `ChartLegend`,
+  `ChartTooltip`, `Segment/Control`, `Chip`.
+- **`AppShell/components/Header.tsx` figura como descartado** y tiene tres ranuras publicadas.
+- **El párrafo de abajo da dos cifras que no salen de la tabla**: son 46 filas descartadas (57 nodos)
+  y 74 nodos caídos dentro de filas `hecho`, no 47 y 57.
+- **El descarte de `Card`** se apoyaba en que sus tres nodos son la raíz de partes del compound; esas
+  partes solo aceptaban `className`. Corregido en el código: `CardSlotProps` extiende ahora
+  `StyleProps` y las tres reenvían el resto de atributos, como el resto de compounds.
+
+Nada de esto cambia una decisión del barrido: cambia lo que la tabla puede demostrar.
+
 ## Repaso de los descartes (2026-08-08)
 
 Repasadas las 47 filas descartadas enteras y los 57 nodos caidos dentro de filas `hecho`. El grupo
@@ -220,7 +245,7 @@ atributos como props.
 | `PermissionGate/PermissionGate.tsx`                     |     1 | disabled                                                                                                           | descartado: al conceder no pinta ningun nodo, y el velo de la rama disable ya se ajusta con className                                                                                                                                    |
 | `PinInput/PinInput.tsx`                                 |     1 | group                                                                                                              | hecho (1 de 1; es el role=group que agrupa las casillas dentro del FormField)                                                                                                                                                            |
 | `Player/Player.tsx`                                     |     1 | surface                                                                                                            | hecho (1 de 1; el peer se tipa con los atributos del `video` que pinta, no con BoxSlotProps)                                                                                                                                             |
-| `Popover/Popover.tsx`                                   |     1 | popover                                                                                                            | descartado: la superficie flotante ES lo que pintan las style props del componente; la flecha y el velo ya tienen ranura                                                                                                                 |
+| `Popover/Popover.tsx`                                   |     1 | popover                                                                                                            | descartado: la superficie flotante ES lo que pintan las style props del componente. La flecha y el velo son mecanismo de `usePopover` (revisión previa a W5: la razón anterior decía que ya tenían ranura, y no la tienen)                |
 | `ScrollProgress/ScrollProgress.tsx`                     |     1 | bar                                                                                                                | hecho (1 de 1; su ancho sale de una variable que se escribe en la raiz, asi que la ranura no lo pisa)                                                                                                                                    |
 | `Segment/components/Section.tsx`                        |     1 | section                                                                                                            | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
 | `SimpleGrid/SimpleGrid.tsx`                             |     1 | simpleGrid                                                                                                         | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
@@ -229,7 +254,7 @@ atributos como props.
 | `Text/Text.tsx`                                         |     1 | text                                                                                                               | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
 | `ThemeIcon/ThemeIcon.tsx`                               |     1 | icon                                                                                                               | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
 | `Title/Title.tsx`                                       |     1 | heading                                                                                                            | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
-| `Tooltip/Tooltip.tsx`                                   |     1 | tooltip                                                                                                            | descartado: el globo ES lo que pintan las style props del componente; la flecha ya tiene ranura                                                                                                                                          |
+| `Tooltip/Tooltip.tsx`                                   |     1 | tooltip                                                                                                            | descartado: el globo ES lo que pintan las style props del componente. La flecha es mecanismo de posicionamiento de react-aria (revisión previa a W5: la razón anterior decía que ya tenía ranura, y no la tiene)                          |
 | `TypographyStylesProvider/TypographyStylesProvider.tsx` |     1 | typography                                                                                                         | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
 | `UnstyledButton/UnstyledButton.tsx`                     |     1 | unstyled                                                                                                           | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
 | `VisuallyHidden/VisuallyHidden.tsx`                     |     1 | visuallyHidden                                                                                                     | descartado: es la raiz, que ya lleva style props                                                                                                                                                                                         |
