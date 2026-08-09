@@ -256,8 +256,11 @@ habría pasado inadvertido. 75 capturas, 3,2 MB, `pnpm visual`.
    comparten contrato base con defectos distintos (260 y 280), dos defectos son una función y
    `virtualizeFrom` lo comparten las cinco variantes de `Combobox`. Anotar `@default` en el miembro
    compartido sería mentir en la mitad de los casos.
-4. **No hay `.github/workflows`.** Tres gates —axe, visual y `check:docs`— solo corren si alguien los
-   invoca a mano, y el baseline visual vive por plataforma justamente por eso.
+4. ~~**No hay `.github/workflows`.** Tres gates —axe, visual y `check:docs`— solo corren si alguien
+   los invoca a mano, y el baseline visual vive por plataforma justamente por eso.~~ **Cerrado el
+   2026-08-09**: `gates.yml` corre ocho de los nueve en cada PR. El visual sigue fuera —su baseline es
+   por plataforma y en Linux no hay contra qué comparar—, con el motivo escrito en el propio workflow,
+   en docs/03 §4.1 y en la enmienda de ADR-112. Es el único gate que queda a mano.
 
 ## Deuda anotada, no urgente
 

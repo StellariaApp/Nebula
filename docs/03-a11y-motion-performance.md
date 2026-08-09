@@ -140,4 +140,19 @@ Reglas transversales:
 7. **Props de ranura** (`tools/check-slots.mjs`, [ADR-106](adr/ADR-106-gate-de-props-de-ranura.md)): verifica el orden del esparcido frente a `className` (ADR-098) y que ninguna `<nodo>Props` declarada en un `.types.ts` se quede sin llegar a su nodo. Lee fuente, no `dist`; `pnpm check:slots`.
 8. **Regresión visual por captura** ([ADR-037](adr/ADR-037-gate-de-regresion-visual.md), comparador enmendado por [ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md)): el mismo test-runner que corre axe captura las cinco láminas `Foundations/Visual QA` y las stories `Composition` y `AllThemes` de cada componente —**75 imágenes**— y las compara con el baseline versionado en `apps/playground-web/__snapshots__/visual/<plataforma>/`. Umbral **0,1 %**, calibrado midiendo: dos pasadas seguidas dan cero píxeles de diferencia, y romper un `paddingInline` de `Badge` falla con 0,67 %. `pnpm visual`. Es el único gate que ve que algo se ha movido de sitio: los otros siete verifican propiedades.
 
-> **Nota (2026-08-08)**: el gate 8 se implementa en la revisión previa a W5. ADR-037 lo decidió el 2026-07-28 y quedó sin construir; el barrido de ranuras de WN convirtió ~95 nodos sin que ningún gate pudiera detectar un desplazamiento. Mientras no exista `.github/workflows`, el «entorno único» que pide ADR-037 §3 es la máquina de quien lo genera, y por eso el baseline se guarda por plataforma.
+9. **Frescura de la documentación generada** (`tools/docs-gen`, `pnpm check:docs`): regenera el catálogo, el API y las props de estilo y falla si lo comprometido no coincide con el código. Evita que `apps/docs/generated/` describa una versión anterior del catálogo.
+
+> **Nota (2026-08-08)**: el gate 8 se implementa en la revisión previa a W5. ADR-037 lo decidió el 2026-07-28 y quedó sin construir; el barrido de ranuras de WN convirtió ~95 nodos sin que ningún gate pudiera detectar un desplazamiento.
+
+### 4.1 Qué corre en CI y qué no
+
+`.github/workflows/gates.yml`, en cada PR y en cada push a `main`:
+
+| job     | gates                                                                                      |
+| ------- | ------------------------------------------------------------------------------------------ |
+| `gates` | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` |
+| `a11y`  | axe sobre todas las stories (gate 1)                                                       |
+
+`gates` corre con `turbo --continue`: un PR ve **todos** los fallos en la primera vuelta en vez de descubrirlos de uno en uno.
+
+**El gate 8 —regresión visual— no corre en CI**, y es el único hueco. Su baseline está versionado por plataforma y hoy solo existe el de `win32`; un runner Linux no tendría contra qué comparar, y regenerarlo daría falsos positivos por encima del umbral del 0,1 %. El «entorno único» que pide ADR-037 §3 sigue sin candidato: cuando lo tenga será un contenedor con fuentes fijadas, y esa es una decisión aparte ([enmienda de ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md)). Mientras tanto se corre a mano con `pnpm visual`, y el workflow lleva un job que no hace otra cosa que recordarlo en cada PR.

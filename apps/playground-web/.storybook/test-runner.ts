@@ -47,9 +47,10 @@ const MOTION_SETTLE_MS = 2500;
  * —la misma vía que unifica ADR-034—, y `animations: "disabled"` en la captura, que congela las
  * decorativas infinitas que el gate de axe ya no puede esperar.
  *
- * El baseline lleva la plataforma en su ruta (ADR-112): sin `.github/workflows`, el «entorno único»
- * del §3 es hoy la máquina de quien lo genera, y separarlos evita que el primer CI en Linux borre el
- * que ya sirve de referencia.
+ * El baseline lleva la plataforma en su ruta (ADR-112) porque el «entorno único» del §3 es hoy la
+ * máquina de quien lo genera. `.github/workflows/gates.yml` corre los otros ocho gates y deja este
+ * fuera a propósito, con el motivo escrito ahí: en Linux no hay baseline contra el que comparar, y
+ * regenerarlo daría falsos positivos por encima del umbral del 0,1 %. Se corre a mano.
  *
  * Se enciende por el nombre del script que arranca la cadena y no por un `VAR=valor` en línea, que en
  * Windows no es sintaxis válida. `npm_lifecycle_event` lo hereda todo el árbol de procesos, así que

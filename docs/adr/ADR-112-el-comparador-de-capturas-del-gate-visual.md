@@ -63,6 +63,25 @@ Linux convivan en vez de invalidarse, y que el día que exista CI su primera pas
 borrar el que ya sirve de referencia local. Sigue cumpliéndose la regla de fondo del §3: **cada
 baseline se compara solo consigo mismo**.
 
+### Enmienda del 2026-08-09 — ya hay CI, y el gate visual sigue fuera
+
+`.github/workflows/gates.yml` corre **ocho** gates. El visual no es uno de ellos, y conviene decir por
+qué, porque el párrafo de arriba se escribió esperando lo contrario.
+
+Que exista un runner en Linux no resuelve el problema: lo mueve. Su primera pasada escribiría un
+baseline `linux` que nadie ha revisado —el gate no compara, **acepta**—, y a partir de ahí compararía
+capturas de Linux contra sí mismas con un umbral del 0,1 % calibrado midiendo que dos pasadas _en la
+misma máquina_ dan cero. Entre dos ejecuciones de un runner efímero no dan cero: el antialiasing y la
+síntesis de fuentes dependen de las que haya instaladas, y el margen medido no cubre eso.
+
+Así que la regla del §3 —un entorno único— sigue sin tener candidato. El día que lo tenga será **un
+contenedor con fuentes fijadas**, y ese contenedor pasará a ser el entorno único para todos, no solo
+para el CI: el baseline de win32 se retiraría en el mismo PR en vez de convivir con él. Es una
+decisión aparte y no se toma aquí.
+
+Mientras tanto el gate se corre a mano con `pnpm visual`, y el workflow lleva un job que no hace nada
+salvo explicar esto en cada PR — el hueco visible vale más que el hueco callado.
+
 ## Alternativas descartadas
 
 **`@playwright/test` como runner aparte.** Da el `toMatchSnapshot` que ADR-037 nombra, con

@@ -1,0 +1,103 @@
+name: Gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  # Ocho de los nueve gates de docs/03 §4, en una sola pasada de turbo.
+  #
+  # `--continue` es deliberado: sin el, turbo para en el primer fallo y quien
+  # abre el PR descubre los gates de uno en uno, un push por gate. Con el, la
+  # primera vuelta ya dice todo lo que hay que arreglar.
+  gates:
+    name: build · typecheck · lint · test · size · slots · contrast · docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # Antes que setup-node: `cache: pnpm` necesita el binario ya instalado.
+      # Sin version, action-setup lee `packageManager` del package.json raiz.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Gates
+        run: pnpm turbo build typecheck lint test size check:slots check:contrast check:docs --continue
+
+  # El noveno gate: axe sobre todas las stories. Va en su propio job porque
+  # necesita el navegador de Playwright, y porque un fallo suyo no debe tapar un
+  # lint roto: son senales distintas y conviene verlas a la vez.
+  #
+  # Paga otra vez el build —no hay cache remota configurada—, pero en paralelo:
+  # cuesta computo, no reloj.
+  a11y:
+    name: axe sobre las stories
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Playwright
+        run: pnpm --filter playground-web exec playwright install --with-deps chromium
+
+      # El test-runner decide entre axe y capturas por `npm_lifecycle_event`
+      # (.storybook/test-runner.ts). Aqui vale `a11y`, asi que el gate visual
+      # queda apagado por construccion — no por una variable que se pueda
+      # olvidar.
+      - name: a11y
+        run: pnpm turbo a11y
+
+  # El gate de regresion visual NO corre aqui, y no por olvido.
+  #
+  # Compara pixeles contra un baseline versionado POR PLATAFORMA
+  # (apps/playground-web/__snapshots__/visual/<plataforma>/), y hoy solo existe
+  # el de win32: en un runner Linux no habria contra que comparar. Y generar uno
+  # tampoco lo cierra — el antialiasing y la sintesis de fuentes difieren entre
+  # maquinas mas que el umbral del 0,1 % que fija ADR-112, asi que el gate
+  # empezaria a dar falsos positivos y en dos semanas nadie lo miraria.
+  #
+  # Cerrarlo pide una de dos, y las dos son decision aparte (ADR-037 §3 pide un
+  # «entorno unico» y no dice cual):
+  #   - generar el baseline DENTRO de un contenedor fijo, que pasa a SER ese
+  #     entorno unico y sustituye a la maquina de quien lo genera;
+  #   - o delegar la captura en un servicio externo.
+  #
+  # Mientras tanto se corre a mano con `pnpm visual`. Este job existe para que
+  # el hueco se vea en cada PR en lugar de desaparecer.
+  visual-a-mano:
+    name: regresion visual — a mano, ver el porque
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Por que este gate no corre en CI
+        run: |
+          echo "Baseline visual versionado por plataforma; hoy solo existe win32."
+          echo "Un runner Linux no tiene contra que comparar, y regenerarlo daria"
+          echo "falsos positivos sobre el umbral del 0,1 % (ADR-037 §3, ADR-112)."
+          echo "Se corre a mano: pnpm visual"
