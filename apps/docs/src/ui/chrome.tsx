@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
 
-import { Anchor, AppShell, Badge, Box, Divider, Text, Title } from "@stellaria/nebula-web";
+import { Anchor, AppShell, Badge, Box, Divider, Text } from "@stellaria/nebula-web";
 
 import type { Dictionary } from "../lib/dictionary";
 import { LANGS, type Lang } from "../lib/i18n";
 import { LangSwitch } from "../islands/lang-switch";
 import { SchemeSwitch } from "../islands/scheme-switch";
 import { Search } from "../islands/search";
+import { Logo } from "./logo";
 
 interface ChromeProps {
   lang: Lang;
@@ -40,9 +41,9 @@ export function Chrome({ lang, dict, children }: ChromeProps) {
       sidebar={
         <AppShell.Sidebar>
           <AppShell.Sidebar.Header>
-            <Title order={2} fz="h5" c="text.primary">
-              {dict["site.name"] ?? "Nebula"}
-            </Title>
+            <Anchor href="/" aria-label={dict["site.name"]} display="flex" align="center" px="sm">
+              <Logo id="chrome-logo" height={24} />
+            </Anchor>
           </AppShell.Sidebar.Header>
           <AppShell.Sidebar.Body>
             {SECTIONS.map((section) => (

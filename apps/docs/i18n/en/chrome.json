@@ -69,5 +69,8 @@
   "home.stat.gates.note": "all blocking",
   "home.stat.styleProps.note": "on every primitive",
   "home.stat.themes.note": "light and dark",
-  "home.closing.body": "The core is MIT and public. Install it, theme it, and ship both platforms from the same components."
+  "home.closing.body": "The core is MIT and public. Install it, theme it, and ship both platforms from the same components.",
+  "catalog.lede": "Every web component in v1, with the entry point it ships from, whether it runs on the server, and its brotli budget.",
+  "reserved.empty.title": "Nothing to read here yet",
+  "reserved.empty.body": "This page lands with web v1. In the meantime, the component reference is already complete."
 }
