@@ -90,6 +90,7 @@ portada y dime si se queda, se reduce o se quita.
 | `87720aa` | La escala de la portada llega a `/components`, `/docs`, `/theme` y demás   |
 | `391a169` | DS2.3 — las cinco guías de /docs, con las obligaciones del consumidor     |
 | `8fe16eb` | Primer lote de contratos JSDoc al inglés: 57 bloques en 8 componentes     |
+| `a338f8c` | Segundo lote: 74 bloques en 6 componentes (controles, overlays, AppShell) |
 
 ---
 
@@ -100,8 +101,8 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 57 de 500**; quedan
-   443 en 94 archivos. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
+1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 131 de 500**; quedan
+   365 en 88 archivos. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
 2. **Bloqueado por D-4**: traducir las 95 cadenas por defecto en español. No lo empiezo sin tu
    decisión, porque cambia el comportamiento de 47 componentes.
 
