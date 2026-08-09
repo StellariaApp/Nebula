@@ -25,9 +25,17 @@ que significa una sección —una franja de la página—, pero conviene saberlo
 
 ## `glass` — la banda intercalada
 
-Enciende la receta `band`, el peldaño más bajo del cristal (ADR-082): fondo al 2 % en dark, filo
-arriba y abajo, y 1 px de desenfoque. Está por debajo del botón y del chrome a propósito; lo que hace
-legible una franja de 1400 px no es el desenfoque sino su filo.
+Enciende la receta `band`, el peldaño más bajo del cristal (ADR-082): velo al 78 %, filo arriba y
+abajo, y 1 px de desenfoque. Está por debajo del botón y del chrome a propósito.
+
+Lo que hace legible una franja de 1400 px es **el velo**, no el desenfoque ni el filo. Desde
+[ADR-118](../../../../../docs/adr/ADR-118-el-cristal-recupera-su-filo-y-el-velo-se-vuelve-opaco.md)
+los cinco niveles tienen velos casi iguales —0.78 a 0.90— y el mismo filo plano, así que lo único
+que separa a `band` de `strong` es cuánto difumina: 1 px contra 16. Elegir `band` es pedir que lo de
+debajo **se siga leyendo**, no que se transparente.
+
+Ojo con eso al alternarlas sobre un fondo decorativo: una `Section glass` ya no deja ver el
+`StarField`, lo difumina. La franja se distingue por color, no por transparencia.
 
 Se usa **alternando**, no en todas las secciones:
 

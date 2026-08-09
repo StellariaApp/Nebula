@@ -105,9 +105,15 @@ grupo entero que aparece cuando cargan los permisos.
 
 ## `backdrop` existe porque el cristal necesita fondo
 
-Las partes usan cristal por capas —`subtle` en la barra, `default` en la cabecera, `control` en la
-subbarra— y un cristal sobre un plano opaco no se lee. `backdrop` es la capa decorativa detrás de
-todo, que es donde vive un `StarField`.
+Las partes usan cristal por capas —`strong` en la cabecera, `default` en la subbarra y en el pie,
+`subtle` en la barra y en el aside— y un cristal sobre un plano opaco no se lee. `backdrop` es la capa
+decorativa detrás de todo, que es donde vive un `StarField`.
+
+Los cinco niveles son el **defecto de la prop `level`**, no una constante: `<AppShell.Nav
+level="strong">` es válido. Por eso el filo de cada región se lee de la var de `GlassSurface` con
+`fallbackVar` en vez de clavarse en la hoja
+([ADR-118](../../../../../docs/adr/ADR-118-el-cristal-recupera-su-filo-y-el-velo-se-vuelve-opaco.md)): si el
+nivel cambia, velo y filo cambian juntos.
 
 ## Por qué la barra compone y no rellena ranuras
 

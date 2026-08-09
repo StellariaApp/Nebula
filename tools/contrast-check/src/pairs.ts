@@ -1,6 +1,13 @@
 import type { NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
 
-import { OnColor, ResolveBackground, ResolveRef, SEMANTIC_SCALES, ShiftRef } from "./resolve.ts";
+import {
+  Composite,
+  OnColor,
+  ResolveBackground,
+  ResolveRef,
+  SEMANTIC_SCALES,
+  ShiftRef,
+} from "./resolve.ts";
 
 export interface ContrastPair {
   label: string;
@@ -12,6 +19,7 @@ export interface ContrastPair {
 }
 
 const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active", "hoverActive"] as const;
+const GLASS_LEVELS = ["band", "control", "subtle", "default", "strong"] as const;
 const FIELD_SURFACES = ["sunken", "base", "raised", "overlay"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 
@@ -177,6 +185,18 @@ export function BuildPairs(): ContrastPair[] {
     bg: (t) => t.colors.surface.base,
     min: 3,
   });
+
+  for (const level of GLASS_LEVELS) {
+    for (const surface of SURFACES) {
+      pairs.push({
+        label: `glass.${level} (filo) / surface.${surface}`,
+        skip: (t) => !t.effects.glass.enabled,
+        fg: (t) => t.effects.glass.surface[level].borderColor,
+        bg: (t) => Composite(t.effects.glass.surface[level].background, t.colors.surface[surface]),
+        min: 1.15,
+      });
+    }
+  }
 
   pairs.push(...BuildVariantPairs());
 

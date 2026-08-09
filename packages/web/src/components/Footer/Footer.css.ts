@@ -18,6 +18,7 @@ export const root = style({
       paddingInline: vars.space.lg,
       color: vars.color.text.secondary,
       fontFamily: vars.font.family.sans,
+      background: vars.color.surface.overlay,
 
       selectors: {
         "&[data-with-border='true']": {
@@ -25,14 +26,13 @@ export const root = style({
         },
         "&[data-glass='true']": {
           background: vars.glass.subtle.background,
-          borderBlockStart: `1px solid ${vars.color.border.subtle}`,
+          borderBlockStart: `1px solid ${vars.glass.subtle.borderColor}`,
           backdropFilter: vars.glass.subtle.backdropFilter,
         },
         "&[data-sticky='true']": {
           position: "sticky",
           insetBlockEnd: 0,
           zIndex: vars.zIndex.sticky,
-          background: vars.color.surface.base,
         },
       },
     },

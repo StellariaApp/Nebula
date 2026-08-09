@@ -84,6 +84,12 @@ export interface ThemeMotion {
 export interface GlassSurfaceRecipe {
   background: string;
   backdropFilter: string;
+  /**
+   * The edge of the material, as a colour. Translucent by design: an opaque edge does not
+   * composite with what is behind the glass, so it reads as a dead line over a gradient and as
+   * nothing at all over a flat surface. The width is the consumer's, never the token's.
+   */
+  borderColor: string;
 }
 
 export interface ThemeGlass {

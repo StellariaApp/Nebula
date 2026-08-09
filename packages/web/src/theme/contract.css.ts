@@ -140,11 +140,11 @@ export const vars = createThemeContract({
   blur: { none: null, xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
   shadow: { xxs: null, xs: null, sm: null, md: null, lg: null, xl: null, xxl: null },
   glass: {
-    band: { background: null, backdropFilter: null },
-    control: { background: null, backdropFilter: null },
-    subtle: { background: null, backdropFilter: null },
-    default: { background: null, backdropFilter: null },
-    strong: { background: null, backdropFilter: null },
+    band: { background: null, backdropFilter: null, borderColor: null },
+    control: { background: null, backdropFilter: null, borderColor: null },
+    subtle: { background: null, backdropFilter: null, borderColor: null },
+    default: { background: null, backdropFilter: null, borderColor: null },
+    strong: { background: null, backdropFilter: null, borderColor: null },
     noiseOpacity: null,
   },
   zIndex: {

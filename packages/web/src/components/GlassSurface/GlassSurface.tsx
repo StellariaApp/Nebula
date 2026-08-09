@@ -44,7 +44,10 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
     const css_vars = assignInlineVars({
       [variables.bg]: enabled ? vars.glass[level].background : solid,
       [variables.solidBg]: solid,
-      [variables.borderRule]: `1px solid ${vars.color.border.default}`,
+      [variables.borderColor]: enabled
+        ? vars.glass[level].borderColor
+        : vars.color.border.subtle,
+      [variables.solidBorderColor]: vars.color.border.subtle,
       [variables.backdrop]: enabled ? vars.glass[level].backdropFilter : "none",
     });
 

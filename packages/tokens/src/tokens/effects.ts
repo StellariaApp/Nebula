@@ -15,24 +15,29 @@ export const blur = {
 export const glass = {
   surface: {
     band: {
-      background: "rgba(255, 255, 255, 0.55)",
+      background: "rgba(255, 255, 255, 0.78)",
       backdropFilter: `blur(${blur.xxs}) saturate(110%)`,
+      borderColor: "#e9e9ea",
     },
     control: {
-      background: "rgba(15, 17, 25, 0.02)",
+      background: "rgba(255, 255, 255, 0.81)",
       backdropFilter: `blur(${blur.xs}) saturate(120%)`,
+      borderColor: "#e9e9ea",
     },
     subtle: {
-      background: "rgba(255, 255, 255, 0.38)",
+      background: "rgba(255, 255, 255, 0.84)",
       backdropFilter: `blur(${blur.sm}) saturate(130%)`,
+      borderColor: "#e9e9ea",
     },
     default: {
-      background: "rgba(255, 255, 255, 0.48)",
+      background: "rgba(255, 255, 255, 0.87)",
       backdropFilter: `blur(${blur.lg}) saturate(140%)`,
+      borderColor: "#e9e9ea",
     },
     strong: {
-      background: "rgba(255, 255, 255, 0.58)",
+      background: "rgba(255, 255, 255, 0.90)",
       backdropFilter: `blur(${blur.xl}) saturate(140%)`,
+      borderColor: "#e9e9ea",
     },
   } satisfies Record<GlassLevel, GlassSurfaceRecipe>,
   noiseOpacity: 0.02,

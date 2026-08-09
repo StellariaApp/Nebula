@@ -72,24 +72,29 @@ export const nebulaDark = {
     glass: {
       surface: {
         band: {
-          background: "rgba(255, 255, 255, 0.02)",
+          background: "rgba(15, 17, 25, 0.78)",
           backdropFilter: `blur(${blur.xxs}) saturate(110%)`,
+          borderColor: "#23252c",
         },
         control: {
-          background: "rgba(255, 255, 255, 0.03)",
+          background: "rgba(15, 17, 25, 0.81)",
           backdropFilter: `blur(${blur.xs}) saturate(120%)`,
+          borderColor: "#23252c",
         },
         subtle: {
-          background: "rgba(15, 17, 25, 0.46)",
+          background: "rgba(15, 17, 25, 0.84)",
           backdropFilter: `blur(${blur.sm}) saturate(130%)`,
+          borderColor: "#23252c",
         },
         default: {
-          background: "rgba(15, 17, 25, 0.56)",
+          background: "rgba(15, 17, 25, 0.87)",
           backdropFilter: `blur(${blur.lg}) saturate(140%)`,
+          borderColor: "#23252c",
         },
         strong: {
-          background: "rgba(15, 17, 25, 0.66)",
+          background: "rgba(15, 17, 25, 0.90)",
           backdropFilter: `blur(${blur.xl}) saturate(140%)`,
+          borderColor: "#23252c",
         },
       },
       noiseOpacity: 0.02,

@@ -69,7 +69,9 @@ type NebulaTheme = {
   // 5. EFECTOS — glass/blur/gradients CON GUARDRAILS (tokens, no valores libres)
   effects: {
     blur:  { none…xxl }
-    glass: { surface: { subtle; default; strong }; noiseOpacity; enabled: boolean }
+    glass: { surface: Record<GlassLevel, { background; backdropFilter; borderColor }>; noiseOpacity; enabled: boolean }
+            // 5 niveles (ADR-078). El filo es del material, y va plano porque el velo es opaco
+            // —0.78 a 0.90— (ADR-118). Lo que separa un nivel de otro es el desenfoque, no el velo.
     shadows: { xxs…xxl }                          // por plataforma: box-shadow vs elevation map
     gradients: { brand; accent; surface }         // ⚠️ NUEVOS — hoy no existen en Stellaria (gap detectado)
   }
@@ -117,7 +119,7 @@ Los tres presets demostrativos son parte del criterio de aceptación del theming
 | Gap                                                     | Acción                                                                                          |
 | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | No existen tokens `gradient.*` (docs los asumen)        | Crear `effects.gradients` en el contrato (ver §2)                                               |
-| `glass.border`/`glass.noise` inconsistentes docs↔código | Contrato final: `glass.surface.* + noiseOpacity` (lo real) + `border` dentro de la receta glass |
+| `glass.border`/`glass.noise` inconsistentes docs↔código | **Cerrado**: `glass.surface.<nivel>` = `{ background, backdropFilter, borderColor }` + `noiseOpacity`. El filo salió del contrato en ADR-102 y volvió con alfa, y con gate que lo mide, en ADR-118 |
 | Escala 100–900 implementada                             | Regenerar a 50–950 con palette-gen                                                              |
 | Web theme = clases VE vacías                            | Implementar `createThemeContract` + materialización de temas                                    |
 | Colores semánticos planos (`success = green`)           | Roles semánticos completos (§2.1) con sub-roles de superficie/texto/borde                       |

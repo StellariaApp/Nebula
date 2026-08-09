@@ -258,7 +258,6 @@ export interface ResolvedVariant {
   borderColor: string;
   borderWidth: string;
   backdropFilter: string;
-  glassBorder: string;
   glow: string;
   animated: boolean;
   gradientAnimated: boolean;
@@ -272,7 +271,6 @@ const UNSTYLED: ResolvedVariant = {
   borderColor: "transparent",
   borderWidth: "0",
   backdropFilter: "none",
-  glassBorder: "transparent",
   glow: "none",
   animated: false,
   gradientAnimated: false,
@@ -297,7 +295,6 @@ function ResolveFlat(
     borderColor: "transparent",
     borderWidth: "0",
     backdropFilter: "none",
-    glassBorder: "none",
     glow: "none",
     animated: theme.motion.tier !== "minimal",
     gradientAnimated: false,
@@ -372,13 +369,12 @@ function ResolveScale(
           ? vars.color.text.onGradient
           : ResolveColorRef(recipe.foreground, scale),
     borderColor: glass_on
-      ? vars.color.border.default
+      ? glass_recipe.borderColor
       : recipe.border === "none"
         ? "transparent"
         : ResolveColorRef(recipe.border, scale),
     borderWidth: glass_on || recipe.border !== "none" ? "1px" : "0",
     backdropFilter: glass_on ? glass_recipe.backdropFilter : "none",
-    glassBorder: glass_on ? `1px solid ${vars.color.border.default}` : "none",
     glow: recipe.glow === undefined ? "none" : TintedGlow(background),
     animated: theme.motion.tier !== "minimal",
     gradientAnimated: gradientOverride !== undefined && gradientAnimated,

@@ -9,5 +9,7 @@ sobre el contenido mientras se desplaza —eso es chrome—, sino que cierra la 
 superficie más. Darle `glass.default` lo pondría a competir con el nav, que sí es chrome y sí
 necesita separarse del contenido que le pasa por debajo.
 
-El borde superior sale de la misma receta, de modo que filo y velo van a juego. Con `withBorder` y
-sin `glass`, el borde sigue siendo `border.subtle`.
+El borde superior sale de la misma receta —`glass.subtle.borderColor`—, de modo que filo y velo van a
+juego ([ADR-118](../../../../../docs/adr/ADR-118-el-cristal-recupera-su-filo-y-el-velo-se-vuelve-opaco.md)).
+Con `withBorder` y sin `glass` no hay receta de cristal que consultar, así que el borde es
+`border.subtle`.

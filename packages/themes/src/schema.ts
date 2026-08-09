@@ -1,4 +1,5 @@
 import { paletteNames } from "@stellaria/nebula-tokens";
+import type { GlassLevel, GlassSurfaceRecipe } from "@stellaria/nebula-tokens";
 import { z } from "zod";
 
 import {
@@ -122,10 +123,30 @@ const motion = z.strictObject({
   ),
 });
 
+const GLASS_EDGE_FALLBACK = {
+  band: "rgba(128, 128, 128, 0.10)",
+  control: "rgba(128, 128, 128, 0.20)",
+  subtle: "rgba(128, 128, 128, 0.16)",
+  default: "rgba(128, 128, 128, 0.20)",
+  strong: "rgba(128, 128, 128, 0.24)",
+} as const satisfies Record<GlassLevel, string>;
+
 const glassSurfaceRecipe = z.strictObject({
   background: colorValue,
   backdropFilter: z.string().min(1),
+  borderColor: colorValue.optional(),
 });
+
+const glassSurface = z
+  .record(z.enum(glassLevels), glassSurfaceRecipe)
+  .transform((surface) =>
+    Object.fromEntries(
+      glassLevels.map((level) => {
+        const recipe = surface[level];
+        return [level, { ...recipe, borderColor: recipe?.borderColor ?? GLASS_EDGE_FALLBACK[level] }];
+      }),
+    ) as Record<GlassLevel, GlassSurfaceRecipe>,
+  );
 
 const dualShadow = z.strictObject({
   web: z.string().min(1),
@@ -154,7 +175,7 @@ const gradientToken = z.strictObject({
 const effects = z.strictObject({
   blur: z.record(z.enum(blurLevels), z.string().min(1)),
   glass: z.strictObject({
-    surface: z.record(z.enum(glassLevels), glassSurfaceRecipe),
+    surface: glassSurface,
     noiseOpacity: z.number().min(0).max(1),
     enabled: z.boolean(),
   }),

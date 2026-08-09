@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
@@ -6,8 +6,11 @@ import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
+import * as glass_surface_vars from "../GlassSurface/GlassSurface.vars.css.js";
 import * as variables from "./AppShell.vars.css.js";
 import * as NavLinkStyles from "../NavLink/NavLink.css.js";
+
+const GLASS_EDGE = fallbackVar(glass_surface_vars.borderColor, vars.color.border.default);
 
 export const shell = style({
   "@layer": {
@@ -253,12 +256,12 @@ export const sidebar_header = style({
     [base_layer]: {
       top: 0,
       padding: 0,
-      borderBlock: `1px solid ${vars.color.border.default} !important`,
+      borderBlock: `1px solid ${GLASS_EDGE} !important`,
       "@media": {
         [SmallerThan("tablet")]: {
           left: 0,
           borderBlock: "none !important",
-          borderInlineEnd: `1px solid ${vars.color.border.default} !important`,
+          borderInlineEnd: `1px solid ${GLASS_EDGE} !important`,
         },
       },
     },
@@ -269,13 +272,13 @@ export const sidebar_footer = style({
   "@layer": {
     [base_layer]: {
       bottom: 0,
-      borderBlockStart: `1px solid ${vars.color.border.default} !important`,
+      borderBlockStart: `1px solid ${GLASS_EDGE} !important`,
       justifyContent: "space-between",
       "@media": {
         [SmallerThan("tablet")]: {
           right: 0,
           borderBlockStart: "none !important",
-          borderInlineStart: `1px solid ${vars.color.border.default} !important`,
+          borderInlineStart: `1px solid ${GLASS_EDGE} !important`,
         },
       },
     },
@@ -540,7 +543,7 @@ export const section_header = style({
       paddingBlock: vars.space.md,
       minWidth: 0,
       borderInline: "none !important",
-      borderBlockEnd: `1px solid ${vars.color.border.default}`,
+      borderBlockEnd: `1px solid ${GLASS_EDGE}`,
       "@media": {
         [SmallerThan("tablet")]: {
           alignItems: "flex-end",
@@ -558,7 +561,7 @@ export const section_sub = style({
     [base_layer]: {
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
-      borderBlockEnd: `1px solid ${vars.color.border.default}`,
+      borderBlockEnd: `1px solid ${GLASS_EDGE}`,
       borderBlockStart: "none !important",
       borderInline: "none !important",
       minWidth: 0,
@@ -584,7 +587,7 @@ export const navbar = style({
       overflowY: "auto",
       overflowX: "hidden",
       minWidth: 0,
-      borderInlineEnd: `1px solid ${vars.color.border.default}`,
+      borderInlineEnd: `1px solid ${GLASS_EDGE}`,
       ...motion.layout,
       "@media": { "(prefers-reduced-motion: reduce)": motion.still },
     },
@@ -601,7 +604,7 @@ export const aside_region = style({
       blockSize: `calc(100dvh - ${variables.headHeight})`,
       overflowY: "auto",
       minWidth: 0,
-      borderInlineStart: `1px solid ${vars.color.border.default}`,
+      borderInlineStart: `1px solid ${GLASS_EDGE}`,
     },
   },
 });
@@ -617,7 +620,7 @@ export const footer = style({
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
       minWidth: 0,
-      borderBlockStart: `1px solid ${vars.color.border.default}`,
+      borderBlockStart: `1px solid ${GLASS_EDGE}`,
     },
   },
 });

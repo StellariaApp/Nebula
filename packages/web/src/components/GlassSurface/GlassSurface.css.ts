@@ -54,7 +54,16 @@ export const glass_surface = recipe({
       full: { borderRadius: vars.radius.full },
     },
     withBorder: {
-      true: { "@layer": { [base_layer]: { border: variables.borderRule } } },
+      true: {
+        "@layer": {
+          [base_layer]: {
+            border: `1px solid ${variables.borderColor}`,
+            "@supports": {
+              [NO_BACKDROP]: { borderColor: variables.solidBorderColor },
+            },
+          },
+        },
+      },
       false: { "@layer": { [base_layer]: { border: "none" } } },
     },
   },
