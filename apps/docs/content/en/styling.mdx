@@ -1,0 +1,75 @@
+---
+title: Styling
+summary: Style props, theme tokens, and the one rule about which value wins.
+order: 5
+---
+
+There are three ways to change how something looks, and they are meant for different things.
+
+## 1. Variants — what the component is
+
+```tsx
+<Button variant="gradient" color="primary" size="lg" />
+```
+
+A variant is a **recipe resolved against the active theme**: background, hover, active, foreground,
+border and glow, all derived together. That is why a theme can retune every button in the product
+without anyone editing a component.
+
+## 2. Style props — where it sits
+
+Every component accepts the same **128 style props**, the same names everywhere:
+
+```tsx
+<Card p="lg" maw={640} display="flex" direction="column" gap="md" r="xl" />
+```
+
+They are grouped the way you would expect: spacing (`p`, `px`, `mt`, `gap`…), radius (`r`, `rt`,
+`rbl`…), colour (`c`, `bg`, `bdc`), border (`bd`, `bdw`, `bds` and their per-side forms), type (`fz`,
+`fw`, `lh`, `ls`, `ta`), layout (`display`, `direction`, `align`, `justify`, `grid*`), size (`w`,
+`h`, `miw`, `maw`), position (`top`, `inset`, `z`) and a few utilities (`shadow`, `opacity`,
+`cursor`).
+
+**Token first, raw value if you need it.** `p="lg"` resolves against the theme's spacing scale;
+`p={20}` writes 20px. Prefer the token — that is what makes a density change reach the whole product.
+
+**They are responsive.** Any of them takes an object keyed by breakpoint:
+
+```tsx
+<SimpleGrid cols={{ base: 1, tablet: 3 }} gap={{ base: "sm", laptop: "xl" }} />
+```
+
+## 3. The theme — everything at once
+
+`NebulaTheme` covers colour, typography, radii, spacing, sizes, motion and effects, plus the variant
+recipes themselves. Two products that look nothing alike ship from the same components by swapping
+this object. See [the theme page](/theme).
+
+## The one rule: style props win
+
+Style props are emitted outside CSS layers, and component styles are emitted inside one. **Unlayered
+CSS always beats layered CSS**, regardless of order or specificity. So:
+
+```tsx
+<Card p="lg" />        // your padding wins over the Card's own
+<Button bg="red.500" /> // your background wins over the variant's
+```
+
+This is deliberate — it means you never have to reach for `!important` — but it cuts both ways: a
+style prop will silently override a prop that the component thought it owned. If a value is not
+taking effect, check whether something else is setting the same CSS property through a style prop.
+
+## Escape hatches, in order of preference
+
+1. **Style props.** Cover most of it.
+2. **Slot props.** Most components expose their inner nodes as `<node>Props` — `labelProps`,
+   `iconProps`, `contentProps` — so you can reach inside without a wrapper.
+3. **`className`.** It composes last, so your class is there; whether it wins depends on the same
+   layer rule above.
+4. **A theme.** If you are overriding the same thing in many places, it belongs in the theme, not in
+   the call sites.
+
+## What not to do
+
+Do not import from inside the package (`@stellaria/nebula-web/dist/...`). Only the documented entry
+points are stable — the package root, and the nine subpath entries.

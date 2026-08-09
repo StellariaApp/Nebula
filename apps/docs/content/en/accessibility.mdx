@@ -1,0 +1,66 @@
+---
+title: Accessibility
+summary: What the catalogue guarantees, what it needs from you, and the gates that keep it honest.
+order: 4
+---
+
+Nebula targets **WCAG 2.2 AA**, and it is checked by machines rather than promised in a README. Four
+of the eight blocking CI gates exist for accessibility alone.
+
+## What you get without doing anything
+
+- **Keyboard.** Everything interactive is reachable and operable without a mouse. Overlays trap
+  focus, restore it on close, and answer to Escape. The behaviour comes from React Aria, not from
+  hand-written key handlers.
+- **Focus ring.** One geometry for the whole catalogue: `outline: 2px solid` with a 4px offset,
+  defined in a single place. It is an `outline` and not a `box-shadow` on purpose — the gap of a focus
+  ring has to let the surface behind it show through, and a shadow cannot express that. It also
+  survives forced-colors mode, where the system repaints it for you.
+- **Contrast.** Colour is validated at the token level rather than audited per screen: 158 pairs per
+  theme, text and surface, in every state. A theme that fails does not build.
+- **Reduced motion.** Every animation has a still fallback, and `motion.tier: "minimal"` in a theme
+  turns the whole catalogue calm without touching a component.
+
+## What the catalogue needs from you
+
+**Name your icon-only controls.** A `Button` or `ActionIcon` with only a glyph has no accessible
+name, and no library can invent one:
+
+```tsx
+<ActionIcon aria-label="Delete row" onPress={Remove}>
+  <TrashIcon />
+</ActionIcon>
+```
+
+**Pass the labels.** Several components carry visible or screen-reader-only strings — the skip link,
+the burger, the drawer close button, the trend of a `Stat`. They have defaults so the component
+never renders nameless, but a default is not your copy, and it is not your language:
+
+```tsx
+<Main withSkipLink skipLabel="Skip to content" />
+<Stat label="Matched" value="1,248" diff="+12%" trend="up" diffLabel="increase" />
+```
+
+**Keep the heading order.** The catalogue gives you `Title order={n}`, which sets the level
+independently of the size — `<Title order={2} fz="h4">` is an `h2` that looks like an `h4`. Use that
+to keep the outline correct instead of picking a heading by how big it looks.
+
+## The gates, so you know what is actually covered
+
+| Gate | What it checks |
+| --- | --- |
+| axe on every story | Each component, in every documented state |
+| Contrast check | Every text/surface pair of every official theme |
+| Keyboard tests | Tab, arrows, Escape and Enter in overlays, menus, combobox and tabs |
+| Reduced-motion tests | That the still fallback exists and is used |
+| Visual regression | 75 screenshots, so a silent shift of position is caught |
+| Slot props | That every declared slot actually reaches its node |
+
+What they do **not** check is your composition: an axe pass on a component says nothing about the
+page you built with it. Run axe on your own pages too.
+
+## Where a component states its contract
+
+Each component's `.types.ts` documents its accessibility contract, and its tests verify it. If a prop
+exists to name something, the contract says so — that is the place to look before assuming a default
+is good enough.

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { Anchor, AppShell, Badge, Box, Divider, Text } from "@stellaria/nebula-web";
 
+import { DocIndex } from "../lib/content";
 import type { Dictionary } from "../lib/dictionary";
 import { LANGS, type Lang } from "../lib/i18n";
 import { LangSwitch } from "../islands/lang-switch";
@@ -15,26 +16,16 @@ interface ChromeProps {
   children: ReactNode;
 }
 
-const SECTIONS = [
-  {
-    label: "nav.section.learn",
-    links: [
-      { href: "/", label: "nav.home" },
-      { href: "/docs/introduction", label: "nav.docs" },
-    ],
-  },
-  {
-    label: "nav.section.reference",
-    links: [
-      { href: "/components", label: "nav.components" },
-      { href: "/theme", label: "nav.theme" },
-      { href: "/native", label: "nav.native" },
-      { href: "/changelog", label: "nav.changelog" },
-    ],
-  },
+const REFERENCE = [
+  { href: "/components", label: "nav.components" },
+  { href: "/theme", label: "nav.theme" },
+  { href: "/native", label: "nav.native" },
+  { href: "/changelog", label: "nav.changelog" },
 ];
 
-export function Chrome({ lang, dict, children }: ChromeProps) {
+export async function Chrome({ lang, dict, children }: ChromeProps) {
+  const guides = await DocIndex(lang);
+
   return (
     <AppShell
       labels={{ skipToContent: dict["skip.content"] ?? "" }}
@@ -46,13 +37,21 @@ export function Chrome({ lang, dict, children }: ChromeProps) {
             </Anchor>
           </AppShell.Sidebar.Header>
           <AppShell.Sidebar.Body>
-            {SECTIONS.map((section) => (
-              <AppShell.Links key={section.label} title={dict[section.label]}>
-                {section.links.map((link) => (
-                  <AppShell.Link key={link.href} href={link.href} label={dict[link.label]} />
-                ))}
-              </AppShell.Links>
-            ))}
+            <AppShell.Links title={dict["nav.section.learn"]}>
+              <AppShell.Link href="/" label={dict["nav.home"]} />
+              {guides.map((guide) => (
+                <AppShell.Link
+                  key={guide.slug.join("/")}
+                  href={`/docs/${guide.slug.join("/")}`}
+                  label={guide.title}
+                />
+              ))}
+            </AppShell.Links>
+            <AppShell.Links title={dict["nav.section.reference"]}>
+              {REFERENCE.map((link) => (
+                <AppShell.Link key={link.href} href={link.href} label={dict[link.label]} />
+              ))}
+            </AppShell.Links>
           </AppShell.Sidebar.Body>
           <AppShell.Sidebar.Footer>
             <Badge variant="light" color="warning">

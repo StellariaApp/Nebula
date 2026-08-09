@@ -1,0 +1,76 @@
+---
+title: Server and client components
+summary: Which components run on the server, why most do not, and where to draw the boundary.
+order: 3
+---
+
+Of the 158 web components, **30 render on the server and 128 are client components**. Every entry in
+the [component reference](/components) says which it is.
+
+## The 30 that run on the server
+
+They are the ones with no state, no effects and no event handlers — layout and typography:
+
+```
+Anchor  AspectRatio  Blockquote  Box  ButtonGroup  Center  Code  Conditional
+Container  Divider  Fieldset  Flex  Footer  Grid  Group  Highlight  Kbd  List
+Loader  Mark  Omit  Scroll  SimpleGrid  Skeleton  Space  Text  Title
+TypographyStylesProvider  Valid  VisuallyHidden
+```
+
+You can build an entire page shell — grid, headings, copy, links, dividers — without shipping a byte
+of component JavaScript.
+
+## Why the other 128 are not
+
+Not because they are heavy. Because they **read the theme at runtime**.
+
+A variant like `filled` or `glass` is not a fixed class: it is a recipe resolved against the active
+theme object, which lives in React context. Add to that focus management from React Aria, the motion
+layer, and anything that reads `prefers-reduced-motion`, and the component has to be a client
+component. That is the price of theming that reaches the whole visual surface instead of four
+colours.
+
+## Where to put the boundary
+
+`NebulaProvider` is a client component, so it marks the boundary once, high up. **Everything below it
+can still be a Server Component** — passing a server-rendered subtree as `children` to a client
+component does not turn it into client code.
+
+```tsx
+// A Server Component. Renders on the server, ships no JS.
+export default async function Page() {
+  const rows = await LoadRows();
+  return (
+    <Container>
+      <Title order={1}>Reconciliation</Title>
+      <Text c="text.secondary">{rows.length} movements pending.</Text>
+      <ReconcileButton />
+    </Container>
+  );
+}
+```
+
+`Container`, `Title` and `Text` stay on the server. Only `ReconcileButton` — which wraps the
+interactive parts — is client code.
+
+The mistake to avoid is the opposite: putting `"use client"` at the top of the page because one
+button needs it. That drags the whole subtree across the boundary, including the parts that were
+free.
+
+## Subpath entry points
+
+Nine components ship behind their own entry point, so their dependencies only land in your bundle if
+you import them:
+
+| Subpath | What it brings |
+| --- | --- |
+| `/charts` | Recharts |
+| `/datagrid` | TanStack Table and Virtual |
+| `/editor` | TipTap |
+| `/dnd` | dnd-kit |
+| `/carousel` | Embla |
+| `/media` | the player |
+| `/command` | the command palette |
+
+Everything else — 149 components — comes from the package root.

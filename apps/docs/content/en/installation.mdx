@@ -1,6 +1,6 @@
 ---
 title: Installation
-summary: What to install, and what you do NOT need to configure to consume the catalogue.
+summary: What to install, the two things you have to do yourself, and what you do NOT need to configure.
 order: 2
 ---
 
@@ -17,7 +17,7 @@ does. This site is the proof: it runs on Next with Turbopack and installs no plu
 ## Wrap your app
 
 ```tsx
-import { NebulaProvider, ColorSchemeScript } from "@stellaria/nebula-web";
+import { NebulaProvider, ColorSchemeScript, vars } from "@stellaria/nebula-web";
 
 export default function RootLayout({ children }) {
   return (
@@ -25,13 +25,71 @@ export default function RootLayout({ children }) {
       <head>
         <ColorSchemeScript defaultTheme="dark" />
       </head>
-      <body>
-        <NebulaProvider defaultTheme="dark">{children}</NebulaProvider>
+      <body style={{ margin: 0, background: vars.color.surface.base, color: vars.color.text.primary }}>
+        <NebulaProvider defaultTheme="dark" applyTheme="root">
+          {children}
+        </NebulaProvider>
       </body>
     </html>
   );
 }
 ```
 
-`ColorSchemeScript` goes in the `head` and stops the browser painting the wrong scheme before the JS
-loads.
+Those are **three pieces of one mechanism**, and they only work together.
+
+`ColorSchemeScript` runs before the first paint and writes the theme onto `<html>`.
+`applyTheme="root"` tells the provider that the theme lives there, so it does not declare a second
+one on its own element. And the canvas on `body` reads the theme variables, because the catalogue
+never paints `html` or `body` — those are yours.
+
+Leave out the script and `applyTheme="root"` renders unstyled until hydration: the server has no way
+to know which theme the visitor picked last time. If you cannot add the script, drop `applyTheme` and
+the provider will theme its own subtree instead — you get a flash when the stored theme differs from
+`defaultTheme`, which is the trade-off.
+
+## Load the typeface
+
+**The library does not download fonts, on purpose.** Imposing a loading strategy — CDN, `next/font`,
+a bundler plugin — would tie you to one. The theme declares the family; fetching it is yours.
+
+The official themes ask for **Geist**. The fastest route is the variable Fontsource packages, which
+cover weights 100–900 in a single file:
+
+```bash
+pnpm add @fontsource-variable/geist @fontsource-variable/geist-mono
+```
+
+```tsx
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+```
+
+If you would rather use your own typeface, override `font.family` in your theme. What you should not
+do is skip both: you will silently get your system font, and every size, weight and letter-spacing in
+the catalogue was calibrated against Geist.
+
+## Do not put the provider under a transformed ancestor
+
+Overlays — `Popover`, `Tooltip`, `Menu`, `ContextMenu`, `Select`, `Combobox`, `MultiSelect` — portal
+into a container the provider owns, so they stay inside the theme. They position themselves with
+`position: fixed`.
+
+An ancestor with `transform`, `filter` or `contain` **above the provider** creates a containing
+block, and `fixed` starts resolving against that element instead of the viewport. Your overlays will
+be offset. The container itself is mounted without overflow constraints so it never causes this on its
+own — but a transformed wrapper of your own will.
+
+## Then use it
+
+```tsx
+import { Button, Card, Stat } from "@stellaria/nebula-web";
+
+export function Panel() {
+  return (
+    <Card withBorder p="lg">
+      <Stat label="Closing days" value="4" diff="-62 %" trend="down" diffLabel="decrease" />
+      <Button variant="gradient">Deploy</Button>
+    </Card>
+  );
+}
+```

@@ -95,3 +95,21 @@ export async function Coverage(): Promise<Record<Lang, { total: number; translat
   }
   return out;
 }
+
+export interface DocEntry {
+  slug: string[];
+  title: string;
+  order: number;
+}
+
+/** El índice de guías del idioma, ordenado por `order` del front matter. */
+export async function DocIndex(lang: Lang): Promise<DocEntry[]> {
+  const slugs = await Walk(Root(lang));
+  const entries: DocEntry[] = [];
+  for (const slug of slugs) {
+    const doc = await ReadDoc(lang, slug);
+    if (doc === null) continue;
+    entries.push({ slug, title: doc.front.title, order: doc.front.order });
+  }
+  return entries.sort((a, b) => a.order - b.order);
+}
