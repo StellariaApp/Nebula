@@ -18,21 +18,21 @@ export interface CarouselLabels {
 
 export interface CarouselProps<T> extends Omit<StyleProps, "align"> {
   /**
-   * Cada diapositiva. Se esparce sobre TODAS: llegan por `items`, no por composicion. Su ancho sale
-   * de `slideSize`, asi que fijarlo aqui desajusta el arrastre de embla.
+   * Every slide. It spreads over ALL of them: they arrive through `items`, not through composition.
+   * Their width comes from `slideSize`, so pinning it here throws off the embla drag.
    */
   slideProps?: BoxSlotProps | undefined;
-  /** El aviso de carrusel vacio. Solo se pinta sin `items` y con `empty`. */
+  /** The empty-carousel notice. Only rendered with no `items` and with `empty`. */
   emptyProps?: TextSlotProps | undefined;
-  /** La barra de controles. No se pinta sin `withControls` ni `withIndicators`. */
+  /** The control bar. Not rendered without `withControls` or `withIndicators`. */
   controlsProps?: BoxSlotProps | undefined;
-  /** La lista de indicadores. Solo con `withIndicators`. */
+  /** The indicator list. Only with `withIndicators`. */
   indicatorsProps?: ComponentPropsWithoutRef<"ul"> | undefined;
-  /** Cada indicador. Se esparce sobre TODOS; el activo lleva `aria-current`. */
+  /** Every indicator. It spreads over ALL of them; the active one carries `aria-current`. */
   indicatorProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El boton de anterior. Solo con `withControls`; su `disabled` sale de si queda algo detras. */
+  /** The previous button. Only with `withControls`; its `disabled` comes from whether anything is left behind. */
   previousProps?: ActionIconProps | undefined;
-  /** El boton de siguiente. Solo con `withControls`; su `disabled` sale de si queda algo delante. */
+  /** The next button. Only with `withControls`; its `disabled` comes from whether anything is left ahead. */
   nextProps?: ActionIconProps | undefined;
   items: readonly T[];
   getKey: (item: T, index: number) => string;

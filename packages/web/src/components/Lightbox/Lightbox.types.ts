@@ -42,24 +42,24 @@ export interface LightboxProps extends StyleProps {
   maxZoom?: number | undefined;
   labels?: Partial<LightboxLabels> | undefined;
   className?: string | undefined;
-  /** El aviso de galeria vacia. Sustituye a todo lo demas cuando no hay imagenes. */
+  /** The empty-gallery notice. It replaces everything else when there are no images. */
   emptyProps?: TextSlotProps | undefined;
-  /** El escenario donde vive la imagen. Lleva el foco y los gestos de zoom. */
+  /** The stage the image lives on. It carries the focus and the zoom gestures. */
   stageProps?: BoxSlotProps | undefined;
-  /** La imagen. Lleva `data-panning`, que es lo que cambia su cursor al arrastrar. */
+  /** The image. It carries `data-panning`, which is what changes its cursor while dragging. */
   imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
-  /** El pie de la imagen, si la trae. */
+  /** The image caption, when it has one. */
   captionProps?: TextSlotProps | undefined;
-  /** La barra de controles. */
+  /** The control bar. */
   barProps?: BoxSlotProps | undefined;
-  /** Cada grupo de la barra. Se esparce sobre LOS DOS, el de navegacion y el de zoom. */
+  /** Each group in the bar. It spreads over BOTH, the navigation one and the zoom one. */
   groupProps?: BoxSlotProps | undefined;
-  /** El contador de posicion. */
+  /** The position counter. */
   counterProps?: TextSlotProps | undefined;
-  /** La tira de miniaturas. Solo con `withThumbnails` y mas de una imagen. */
+  /** The thumbnail strip. Only with `withThumbnails` and more than one image. */
   filmstripProps?: BoxSlotProps | undefined;
-  /** Cada miniatura. Se esparce sobre todas; la actual lleva `aria-current`. */
+  /** Every thumbnail. It spreads over all of them; the current one carries `aria-current`. */
   thumbProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** La imagen de cada miniatura. */
+  /** The image of each thumbnail. */
   thumbImageProps?: ComponentPropsWithoutRef<"img"> | undefined;
 }

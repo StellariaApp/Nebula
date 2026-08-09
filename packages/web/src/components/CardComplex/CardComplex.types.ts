@@ -84,25 +84,25 @@ export interface CardComplexProps extends StyleProps {
   footer?: ReactNode | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
-  /** El marco de la media. Lleva `data-selected`, que es de donde sale su realce. */
+  /** The media frame. It carries `data-selected`, which is where its highlight comes from. */
   mediaProps?: BoxSlotProps | undefined;
-  /** La fila de acciones sobre la media. */
+  /** The action row over the media. */
   mediaActionsProps?: BoxSlotProps | undefined;
-  /** El cuerpo de la tarjeta, bajo la media. */
+  /** The card body, below the media. */
   bodyProps?: BoxSlotProps | undefined;
-  /** La cabecera. No se pinta si no hay titulo ni acciones. */
+  /** The header. Not rendered without a title or actions. */
   headerProps?: BoxSlotProps | undefined;
-  /** Columna de chapas y titulo, dentro de la cabecera. */
+  /** Badge and title column, inside the header. */
   headingProps?: BoxSlotProps | undefined;
-  /** El titulo. */
+  /** The title. */
   titleProps?: TextSlotProps | undefined;
-  /** La descripcion. Su recorte por lineas lo fija `lines`; la ranura se compone con el. */
+  /** The description. Its line clamp comes from `lines`; the slot composes with it. */
   descriptionProps?: TextSlotProps | undefined;
-  /** La fila de metadatos. */
+  /** The metadata row. */
   metaProps?: BoxSlotProps | undefined;
-  /** El bloque de responsable, con su avatar. */
+  /** The owner block, with its avatar. */
   personProps?: BoxSlotProps | undefined;
-  /** El pie. No se pinta si no hay footer, acciones ni chapas. */
+  /** The footer. Not rendered without a footer, actions or badges. */
   footProps?: BoxSlotProps | undefined;
   "aria-label"?: string | undefined;
 }

@@ -22,25 +22,25 @@ export interface TransferListPane {
 }
 
 /**
- * Las ranuras de un panel. Se esparcen sobre LOS DOS —origen y destino—: el componente los pinta
- * con el mismo codigo, asi que no hay forma de ajustar solo uno desde fuera.
+ * The slots of a panel. They spread over BOTH — source and target: the component renders them with
+ * the same code, so there is no way to adjust only one from outside.
  */
 export interface TransferPaneSlotProps {
-  /** El panel. */
+  /** The panel. */
   paneProps?: BoxSlotProps | undefined;
-  /** Su cabecera. Solo se pinta si el panel trae `title`. */
+  /** Its header. Only rendered when the panel has a `title`. */
   paneHeadProps?: BoxSlotProps | undefined;
-  /** El titulo del panel. */
+  /** The panel title. */
   paneTitleProps?: TextSlotProps | undefined;
-  /** El recuento. Va en la cabecera si hay titulo, y al pie si no. */
+  /** The count. It goes in the header when there is a title, and in the footer when there is not. */
   paneCountProps?: TextSlotProps | undefined;
-  /** El envoltorio del buscador. Solo con `searchable`. */
+  /** The search wrapper. Only with `searchable`. */
   searchProps?: BoxSlotProps | undefined;
-  /** La lista de opciones, que es el `listbox`. */
+  /** The option list, which is the `listbox`. */
   listProps?: BoxSlotProps | undefined;
-  /** Cada opcion. Se esparce sobre todas. */
+  /** Every option. It spreads over all of them. */
   itemProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El aviso de panel vacio. */
+  /** The empty-panel notice. */
   emptyProps?: TextSlotProps | undefined;
 }
 
@@ -56,6 +56,6 @@ export interface TransferListProps extends StyleProps, TransferPaneSlotProps {
   disabled?: boolean | undefined;
   labels?: Partial<TransferListLabels> | undefined;
   className?: string | undefined;
-  /** La fila de botones entre los dos paneles. */
+  /** The button row between the two panels. */
   controlsProps?: BoxSlotProps | undefined;
 }

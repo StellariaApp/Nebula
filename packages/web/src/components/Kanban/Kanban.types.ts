@@ -38,13 +38,13 @@ export interface KanbanBoardProps<T> extends StyleProps {
 }
 
 export interface KanbanColumnProps extends StyleProps {
-  /** La cabecera de la columna. */
+  /** The column header. */
   headerProps?: BoxSlotProps | undefined;
-  /** El titulo, que es el `h3` al que apunta el `aria-labelledby` de la columna. */
+  /** The title, which is the `h3` the column `aria-labelledby` points at. */
   titleProps?: TextSlotProps | undefined;
-  /** El recuento. Lleva `data-over-limit`, de donde sale su aviso al pasarse del tope. */
+  /** The count. It carries `data-over-limit`, which is where its warning comes from once the cap is exceeded. */
   countProps?: TextSlotProps | undefined;
-  /** El aviso de columna vacia. Solo se pinta si no hay hijos. */
+  /** The empty-column notice. Only rendered with no children. */
   emptyProps?: TextSlotProps | undefined;
   id: string;
   title: ReactNode;
@@ -59,13 +59,13 @@ export interface KanbanColumnProps extends StyleProps {
 }
 
 export interface KanbanCardProps extends StyleProps {
-  /** La cabecera de la tarjeta. No se pinta si no hay titulo ni chapa. */
+  /** The card header. Not rendered without a title or a badge. */
   headProps?: BoxSlotProps | undefined;
-  /** El titulo de la tarjeta. */
+  /** The card title. */
   titleProps?: TextSlotProps | undefined;
-  /** La descripcion, si la trae. */
+  /** The description, when it has one. */
   descriptionProps?: TextSlotProps | undefined;
-  /** La fila de metadatos, si la trae. */
+  /** The metadata row, when it has one. */
   metaProps?: BoxSlotProps | undefined;
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
