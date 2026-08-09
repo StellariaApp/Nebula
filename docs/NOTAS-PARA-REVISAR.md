@@ -94,6 +94,7 @@ portada y dime si se queda, se reduce o se quita.
 | `85a4b25` | Tercer lote: 62 bloques en los 4 subpath con más contrato                 |
 | `63b96e4` | Cuarto lote: 44 bloques en formulario, feedback y navegación              |
 | `2f262d9` | Quinto lote: 42 bloques, entre ellos las 6 ranuras que comparten 27 campos|
+| `bb2aa8f` | Sexto lote: 45 bloques en los cinco componentes de colección              |
 
 ---
 
@@ -104,8 +105,8 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 279 de 500**; quedan
-   217 en 73 archivos. A ~45 bloques por tanda son unas cinco tandas más. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
+1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 324 de 500**; quedan
+   174 en 68 archivos. A ~45 bloques por tanda son unas cuatro tandas más. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
 2. **Bloqueado por D-4**: traducir las 95 cadenas por defecto en español. No lo empiezo sin tu
    decisión, porque cambia el comportamiento de 47 componentes.
 
