@@ -1,7 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Box, Button, Text } from "@stellaria/nebula-web";
+import { Box, Button } from "@stellaria/nebula-web";
+
+import ButtonColors from "@stellaria/nebula-demos/Button/Colors.js";
+import ButtonComposition from "@stellaria/nebula-demos/Button/Composition.js";
+import ButtonFullWidth from "@stellaria/nebula-demos/Button/FullWidth.js";
+import ButtonSizes from "@stellaria/nebula-demos/Button/Sizes.js";
+import ButtonStates from "@stellaria/nebula-demos/Button/States.js";
+import ButtonVariants from "@stellaria/nebula-demos/Button/Variants.js";
+import ButtonWithSections from "@stellaria/nebula-demos/Button/WithSections.js";
 
 import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 
@@ -43,84 +51,18 @@ export const Default: Story = {};
  * cambia el tema en la toolbar y la misma variante se resuelve contra el
  * `variantMap` de cada tema, sin tocar props.
  */
-export const Variants: Story = {
-  render: (args) => (
-    <Box display="flex" gap="sm" wrap="wrap" maw={640}>
-      {VARIANTS.map((variant) => (
-        <Button key={variant} {...args} variant={variant}>
-          {variant}
-        </Button>
-      ))}
-    </Box>
-  ),
-};
+export const Variants: Story = { render: () => <ButtonVariants /> };
 
 /** Alturas reales de `sizes.control` del tema activo. */
-export const Sizes: Story = {
-  render: (args) => (
-    <Box display="flex" gap="sm" align="center" wrap="wrap">
-      {SIZES.map((size) => (
-        <Button key={size} {...args} size={size}>
-          {size}
-        </Button>
-      ))}
-    </Box>
-  ),
-};
+export const Sizes: Story = { render: () => <ButtonSizes /> };
 
-export const Colors: Story = {
-  render: (args) => (
-    <Box display="flex" gap="sm" wrap="wrap" maw={640}>
-      {(["primary", "accent", "success", "warning", "error", "info"] as const).map((color) => (
-        <Button key={color} {...args} color={color}>
-          {color}
-        </Button>
-      ))}
-    </Box>
-  ),
-};
+export const Colors: Story = { render: () => <ButtonColors /> };
 
-export const States: Story = {
-  render: (args) => (
-    <Box display="flex" gap="sm" wrap="wrap" align="center">
-      <Button {...args}>normal</Button>
-      <Button {...args} disabled>
-        disabled
-      </Button>
-      <Button {...args} loading>
-        loading
-      </Button>
-      <Button {...args} fullWidth={false} variant="outline" disabled>
-        outline disabled
-      </Button>
-    </Box>
-  ),
-};
+export const States: Story = { render: () => <ButtonStates /> };
 
-export const WithSections: Story = {
-  render: (args) => (
-    <Box display="flex" gap="sm" wrap="wrap" align="center">
-      <Button {...args} leftSection={<span>←</span>}>
-        Anterior
-      </Button>
-      <Button {...args} rightSection={<span>→</span>}>
-        Siguiente
-      </Button>
-      <Button {...args} aria-label="Cerrar" leftSection={<span>×</span>}>
-        {null}
-      </Button>
-    </Box>
-  ),
-};
+export const WithSections: Story = { render: () => <ButtonWithSections /> };
 
-export const FullWidth: Story = {
-  args: { fullWidth: true },
-  render: (args) => (
-    <Box w={420}>
-      <Button {...args}>Ocupa todo el ancho</Button>
-    </Box>
-  ),
-};
+export const FullWidth: Story = { render: () => <ButtonFullWidth /> };
 
 export const Light: Story = {
   ...Variants,
@@ -191,23 +133,4 @@ export const DisabledIsNotFocusable: Story = {
 };
 
 /** Una acción principal por región; el resto baja de jerarquía por variante, no por tamaño. */
-export const Composition: Story = {
-  render: () => (
-    <Box display="flex" direction="column" gap="lg" style={{ maxWidth: "52ch" }}>
-      <Box display="flex" direction="column" gap="sm">
-        <Text fz="h5" fw="semibold" lh="tight">
-          Confirmar dispersión
-        </Text>
-        <Text fz="body2" c="text.secondary">
-          Se enviarán 128 transferencias por un total de MXN 1,248,300.00. La operación no se puede
-          revertir una vez liquidada.
-        </Text>
-      </Box>
-      <Box display="flex" gap="sm" wrap="wrap">
-        <Button>Confirmar dispersión</Button>
-        <Button variant="outline">Revisar lote</Button>
-        <Button variant="ghost">Cancelar</Button>
-      </Box>
-    </Box>
-  ),
-};
+export const Composition: Story = { render: () => <ButtonComposition /> };

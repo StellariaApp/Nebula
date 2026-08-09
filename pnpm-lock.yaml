@@ -81,6 +81,9 @@ importers:
       '@fontsource-variable/geist-mono':
         specifier: 5.3.0
         version: 5.3.0
+      '@stellaria/nebula-demos':
+        specifier: workspace:*
+        version: link:../../packages/demos
       '@stellaria/nebula-hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -162,6 +165,37 @@ importers:
       zod:
         specifier: 4.4.3
         version: 4.4.3
+
+  packages/demos:
+    dependencies:
+      '@stellaria/nebula-icons':
+        specifier: workspace:*
+        version: link:../icons
+      '@stellaria/nebula-themes':
+        specifier: workspace:*
+        version: link:../themes
+      '@stellaria/nebula-tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      '@stellaria/nebula-web':
+        specifier: workspace:*
+        version: link:../web
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      react:
+        specifier: ^19.2.7
+        version: 19.2.7
+      react-dom:
+        specifier: ^19.2.7
+        version: 19.2.7(react@19.2.7)
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
 
   packages/hooks:
     dependencies:
