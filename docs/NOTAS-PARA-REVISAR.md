@@ -131,6 +131,11 @@ portada y dime si se queda, se reduce o se quita.
 **No queda trabajo que no dependa de una decisión tuya.** Todo lo que estaba en la lista está
 cerrado y commiteado.
 
+> **El job de continuación está parado.** Lo pediste para que siguiera «hasta que termines», y
+> terminó: llevaba dos despertares levantándose sin nada que hacer. Si al volver decides alguna de
+> las cuatro y quieres que siga solo, dilo y lo vuelvo a montar. Nota: era de sesión, así que en
+> cualquier caso no habría sobrevivido a cerrar Claude.
+
 Lo único pendiente es **D-4**, y está arriba esperando tu criterio: las 120 cadenas de interfaz en
 español de 51 componentes. No lo empiezo sin tu decisión porque traducir un defecto cambia el
 comportamiento de la librería, no solo su documentación.
