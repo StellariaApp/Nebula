@@ -1,0 +1,94 @@
+import { act, cleanup, render } from "@testing-library/react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { afterEach, describe, expect, it } from "vitest";
+
+import { useTheme } from "@stellaria/nebula-hooks";
+
+import { ColorSchemeScript } from "../provider/color-scheme-script.js";
+import { NebulaProvider } from "../provider/nebula-provider.js";
+import { themeClass } from "../theme/themes.css.js";
+
+afterEach(() => {
+  cleanup();
+  const root = document.documentElement;
+  for (const name of Object.values(themeClass)) root.classList.remove(name);
+  root.removeAttribute("data-nebula-theme");
+  root.removeAttribute("data-scheme");
+});
+
+function Switcher() {
+  const { setTheme } = useTheme();
+  return (
+    <button
+      type="button"
+      data-testid="to-light"
+      onClick={() => {
+        setTheme("light");
+      }}
+    >
+      light
+    </button>
+  );
+}
+
+describe("applyTheme='root' — el tema vive en <html> (ADR-117)", () => {
+  it("no deja clase ni atributos de tema en el envoltorio del provider", () => {
+    const { container } = render(
+      <NebulaProvider storage={null} applyTheme="root">
+        <span>hola</span>
+      </NebulaProvider>,
+    );
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.className).toBe("");
+    expect(wrapper.getAttribute("data-nebula-theme")).toBeNull();
+    expect(wrapper.getAttribute("data-scheme")).toBeNull();
+  });
+
+  it("pone la clase, los atributos y el color-scheme en <html>", () => {
+    render(
+      <NebulaProvider storage={null} applyTheme="root">
+        <span>hola</span>
+      </NebulaProvider>,
+    );
+    const root = document.documentElement;
+    expect(root.classList.contains(themeClass["dark"])).toBe(true);
+    expect(root.getAttribute("data-nebula-theme")).toBe("dark");
+    expect(root.getAttribute("data-scheme")).toBe("dark");
+    expect(root.style.colorScheme).toBe("dark");
+  });
+
+  it("setTheme reemplaza la clase de <html> sin acumular la anterior", () => {
+    const { getByTestId } = render(
+      <NebulaProvider storage={null} applyTheme="root">
+        <Switcher />
+      </NebulaProvider>,
+    );
+    const root = document.documentElement;
+
+    act(() => {
+      getByTestId("to-light").click();
+    });
+
+    expect(root.classList.contains(themeClass["light"])).toBe(true);
+    expect(root.classList.contains(themeClass["dark"])).toBe(false);
+    expect(root.getAttribute("data-scheme")).toBe("light");
+  });
+
+  it("el modo por defecto sigue siendo 'wrapper' y no toca <html>", () => {
+    const { container } = render(
+      <NebulaProvider storage={null}>
+        <span>hola</span>
+      </NebulaProvider>,
+    );
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.className).toBe(themeClass["dark"]);
+    expect(document.documentElement.getAttribute("data-nebula-theme")).toBeNull();
+  });
+
+  it("ColorSchemeScript serializa el mapa de clases para pintar antes del primer frame", () => {
+    const html = renderToStaticMarkup(<ColorSchemeScript defaultTheme="dark" />);
+    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain(themeClass["light"]);
+    expect(html).toContain("classList.add");
+  });
+});

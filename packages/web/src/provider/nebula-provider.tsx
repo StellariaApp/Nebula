@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type CSSProperties,
   type ReactNode,
@@ -30,6 +31,17 @@ export interface NebulaProviderProps {
   defaultTheme?: OfficialThemeName | NebulaTheme;
   storage?: ThemeStorage | null;
   storageKey?: string;
+  /**
+   * Where the theme is declared (ADR-117).
+   *
+   * - `"wrapper"` (default) declares it on the provider's own element, so the server-rendered HTML
+   *   already carries it. This is what a nested provider needs — a demo with its own theme, a theme
+   *   matrix — and the only mode that works without `ColorSchemeScript`.
+   * - `"root"` declares it on `<html>`. **It requires `ColorSchemeScript` in `<head>`**: that script
+   *   is what paints the theme before the first frame, and without it the page stays unstyled until
+   *   hydration. In exchange there is no flash when the stored theme differs from `defaultTheme`.
+   */
+  applyTheme?: "wrapper" | "root";
 }
 
 interface ActiveTheme {
@@ -80,10 +92,13 @@ export function NebulaProvider({
   defaultTheme = "dark",
   storage,
   storageKey = "nebula-theme",
+  applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
   const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme));
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
   const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
+  const applied_vars = useRef<string[]>([]);
+  const on_root = applyTheme === "root";
 
   const store = useMemo<ThemeStorage | null>(
     () => (storage === undefined ? DefaultStorage() : storage),
@@ -110,6 +125,21 @@ export function NebulaProvider({
       set_active(Resolve(saved));
     }
   }, [store, storageKey]);
+
+  useEffect(() => {
+    if (!on_root || typeof document === "undefined") return;
+    const root = document.documentElement;
+    for (const name of Object.values(themeClass)) root.classList.remove(name);
+    if (active.className !== undefined) root.classList.add(active.className);
+    for (const name of applied_vars.current) root.style.removeProperty(name);
+    applied_vars.current = Object.keys(active.style ?? {});
+    for (const [name, value] of Object.entries(active.style ?? {})) {
+      root.style.setProperty(name, String(value));
+    }
+    root.setAttribute("data-nebula-theme", active.name);
+    root.setAttribute("data-scheme", active.theme.meta.scheme);
+    root.style.colorScheme = active.theme.meta.scheme;
+  }, [on_root, active]);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
@@ -140,10 +170,10 @@ export function NebulaProvider({
   return (
     <ThemeContext.Provider value={value}>
       <div
-        className={active.className}
-        style={active.style}
-        data-nebula-theme={active.name}
-        data-scheme={active.theme.meta.scheme}
+        className={on_root ? undefined : active.className}
+        style={on_root ? undefined : active.style}
+        data-nebula-theme={on_root ? undefined : active.name}
+        data-scheme={on_root ? undefined : active.theme.meta.scheme}
       >
         <UNSAFE_PortalProvider getContainer={GetPortalContainer}>
           <LazyMotion features={domMax} strict>
