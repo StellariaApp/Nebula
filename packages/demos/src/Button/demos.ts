@@ -1,12 +1,12 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import Colors from "./Colors.js";
-import Composition from "./Composition.js";
-import FullWidth from "./FullWidth.js";
-import Sizes from "./Sizes.js";
-import States from "./States.js";
-import Variants from "./Variants.js";
-import WithSections from "./WithSections.js";
+import Colors from "./Colors";
+import Composition from "./Composition";
+import FullWidth from "./FullWidth";
+import Sizes from "./Sizes";
+import States from "./States";
+import Variants from "./Variants";
+import WithSections from "./WithSections";
 
 export const button: DemoFamily = {
   component: "Button",

@@ -6,9 +6,9 @@ import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Box, Button, Modal, Text, Title } from "@stellaria/nebula-web";
 import type { ModalProps } from "@stellaria/nebula-web";
 
-import ModalAsDrawer from "@stellaria/nebula-demos/Modal/AsDrawer.js";
-import ModalBasic from "@stellaria/nebula-demos/Modal/Basic.js";
-import ModalComposition from "@stellaria/nebula-demos/Modal/Composition.js";
+import ModalAsDrawer from "@stellaria/nebula-demos/Modal/AsDrawer";
+import ModalBasic from "@stellaria/nebula-demos/Modal/Basic";
+import ModalComposition from "@stellaria/nebula-demos/Modal/Composition";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 

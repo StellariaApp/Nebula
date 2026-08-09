@@ -3,13 +3,13 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { Box, Button } from "@stellaria/nebula-web";
 
-import ButtonColors from "@stellaria/nebula-demos/Button/Colors.js";
-import ButtonComposition from "@stellaria/nebula-demos/Button/Composition.js";
-import ButtonFullWidth from "@stellaria/nebula-demos/Button/FullWidth.js";
-import ButtonSizes from "@stellaria/nebula-demos/Button/Sizes.js";
-import ButtonStates from "@stellaria/nebula-demos/Button/States.js";
-import ButtonVariants from "@stellaria/nebula-demos/Button/Variants.js";
-import ButtonWithSections from "@stellaria/nebula-demos/Button/WithSections.js";
+import ButtonColors from "@stellaria/nebula-demos/Button/Colors";
+import ButtonComposition from "@stellaria/nebula-demos/Button/Composition";
+import ButtonFullWidth from "@stellaria/nebula-demos/Button/FullWidth";
+import ButtonSizes from "@stellaria/nebula-demos/Button/Sizes";
+import ButtonStates from "@stellaria/nebula-demos/Button/States";
+import ButtonVariants from "@stellaria/nebula-demos/Button/Variants";
+import ButtonWithSections from "@stellaria/nebula-demos/Button/WithSections";
 
 import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
 

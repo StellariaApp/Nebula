@@ -1,8 +1,8 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import AsDrawer from "./AsDrawer.js";
-import Basic from "./Basic.js";
-import Composition from "./Composition.js";
+import AsDrawer from "./AsDrawer";
+import Basic from "./Basic";
+import Composition from "./Composition";
 
 export const modal: DemoFamily = {
   component: "Modal",

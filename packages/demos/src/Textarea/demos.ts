@@ -1,6 +1,6 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import Autosize from "./Autosize.js";
+import Autosize from "./Autosize";
 
 export const textarea: DemoFamily = {
   component: "Textarea",

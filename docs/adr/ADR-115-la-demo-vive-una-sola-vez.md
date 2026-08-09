@@ -61,6 +61,17 @@ motivos:
 Conserva `typecheck` y `lint`; lo que no tiene es `build`. El precedente está en `tools/`, que ya son
 paquetes privados consumidos desde fuente.
 
+### Y por eso sus imports van SIN extensión
+
+El monorepo exige el especificador ESM explícito (`./x.js`) porque su `dist` se ejecuta en Node sin
+bundler. Aquí no hay `dist`, y **Turbopack no resuelve `./x.js` a `./x.tsx`** (ADR-107 §6): el sitio
+rompía con «module not found» en un import que Vite sí aceptaba.
+
+Los imports relativos de este paquete y los subpaths con los que se consume van **sin extensión**, que
+es lo que entienden los dos bundlers. `tsconfig.base` ya usa `moduleResolution: "bundler"`, así que
+`tsc` lo acepta sin tocar nada. El mapa de `exports` sí la lleva —`"./*": "./src/*.tsx"`— porque
+TypeScript necesita que el destino apunte a un archivo real.
+
 ### Los metadatos van aparte y son lo único que se traduce
 
 Cada carpeta de componente lleva un `demos.ts` con el registro de sus demos: `id`, el componente y su
@@ -74,13 +85,13 @@ Los textos visibles dentro de la demo se quedan en inglés, que es lo que
 
 Una story y una demo no son lo mismo. De las stories de una familia, solo una parte enseña un uso:
 
-| Bucket                 | Ejemplo                                                        | Destino          |
-| ---------------------- | -------------------------------------------------------------- | ---------------- |
-| **Demo**               | `Variants`, `Sizes`, `WithSections`, `Composition`             | `packages/demos` |
-| **Gate**               | `KeyboardActivation`, `DisabledIsNotFocusable`, `KeyboardFlow` | se queda         |
-| **Matriz de tema**     | `AllThemes`, `Dark`, `Light`                                   | se queda         |
-| **Parámetro de gate**  | `ReducedMotion`                                                | se queda         |
-| **Trivial**            | `Default` (solo `args`)                                        | se queda         |
+| Bucket                | Ejemplo                                                        | Destino          |
+| --------------------- | -------------------------------------------------------------- | ---------------- |
+| **Demo**              | `Variants`, `Sizes`, `WithSections`, `Composition`             | `packages/demos` |
+| **Gate**              | `KeyboardActivation`, `DisabledIsNotFocusable`, `KeyboardFlow` | se queda         |
+| **Matriz de tema**    | `AllThemes`, `Dark`, `Light`                                   | se queda         |
+| **Parámetro de gate** | `ReducedMotion`                                                | se queda         |
+| **Trivial**           | `Default` (solo `args`)                                        | se queda         |
 
 Las tres últimas categorías son **la razón de ser del playground**: alimentan axe, el gate de teclado,
 el de reduced-motion y el baseline visual de [ADR-037](ADR-037-gate-de-regresion-visual.md). Sacarlas

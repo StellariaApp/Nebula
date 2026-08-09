@@ -1,13 +1,13 @@
-import { button } from "./Button/demos.js";
-import { modal } from "./Modal/demos.js";
-import { numberInput } from "./NumberInput/demos.js";
-import { passwordInput } from "./PasswordInput/demos.js";
-import { searchInput } from "./SearchInput/demos.js";
-import { textarea } from "./Textarea/demos.js";
-import { textInput } from "./TextInput/demos.js";
-import type { Demo, DemoFamily } from "./types.js";
+import { button } from "./Button/demos";
+import { modal } from "./Modal/demos";
+import { numberInput } from "./NumberInput/demos";
+import { passwordInput } from "./PasswordInput/demos";
+import { searchInput } from "./SearchInput/demos";
+import { textarea } from "./Textarea/demos";
+import { textInput } from "./TextInput/demos";
+import type { Demo, DemoFamily } from "./types";
 
-export type { Demo, DemoFamily } from "./types.js";
+export type { Demo, DemoFamily } from "./types";
 
 export const FAMILIES: readonly DemoFamily[] = [
   button,

@@ -11,6 +11,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@stellaria/nebula-demos": "workspace:*",
     "@stellaria/nebula-hooks": "workspace:*",
     "@stellaria/nebula-icons": "workspace:*",
     "@stellaria/nebula-themes": "workspace:*",

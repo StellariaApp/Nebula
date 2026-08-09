@@ -25,5 +25,22 @@
   "catalog.budget": "budget",
   "catalog.subpath": "subpath",
   "reserved.title": "Not yet",
-  "reserved.body": "This route is reserved and its content lands later."
+  "reserved.body": "This route is reserved and its content lands later.",
+  "home.eyebrow": "Web + React Native",
+  "home.headline": "One catalogue. Two platforms. Zero forks.",
+  "home.lede": "Nebula is a UI library where the contract lives in the tokens and each platform only implements the visual layer. Two products that look nothing alike ship from the same components — you change the theme, never the code.",
+  "home.cta.start": "Get started",
+  "home.cta.browse": "Browse components",
+  "home.proof.title": "Same markup. Different product.",
+  "home.proof.body": "Nothing below changes when you switch: not a prop, not a class, not a component. Only the theme. This is what every other library calls theming and stops at four colours.",
+  "home.pillars.title": "What the theme actually reaches",
+  "home.pillar.theme.title": "Colour, type, motion, radii, shadows, glass",
+  "home.pillar.theme.body": "The NebulaTheme contract covers the whole visual surface, including the variant recipes. A product retunes all of it from one object.",
+  "home.pillar.a11y.title": "Accessibility is a gate, not a promise",
+  "home.pillar.a11y.body": "Every story runs axe on every commit, alongside keyboard, reduced-motion, contrast and visual-regression gates. Eight of them, all blocking.",
+  "home.pillar.budget.title": "Every module has a budget",
+  "home.pillar.budget.body": "size-limit measures each entry point in brotli kB and fails the build when it drifts. Heavy dependencies live behind subpaths you opt into.",
+  "home.premium.title": "Open core, domain packages",
+  "home.premium.body": "The core is MIT and public. Six domain packages — the parts that carry business semantics — are licensed commercially.",
+  "home.premium.note": "Domain packages ship after web v1. Nothing here is available yet."
 }

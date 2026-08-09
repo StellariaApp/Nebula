@@ -1,6 +1,6 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import Controlled from "./Controlled.js";
+import Controlled from "./Controlled";
 
 export const numberInput: DemoFamily = {
   component: "NumberInput",

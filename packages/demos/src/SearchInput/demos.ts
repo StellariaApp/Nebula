@@ -1,6 +1,6 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import Basic from "./Basic.js";
+import Basic from "./Basic";
 
 export const searchInput: DemoFamily = {
   component: "SearchInput",

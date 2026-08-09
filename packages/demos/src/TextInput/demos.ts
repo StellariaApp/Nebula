@@ -1,7 +1,7 @@
-import type { DemoFamily } from "../types.js";
+import type { DemoFamily } from "../types";
 
-import Basic from "./Basic.js";
-import Sizes from "./Sizes.js";
+import Basic from "./Basic";
+import Sizes from "./Sizes";
 
 export const textInput: DemoFamily = {
   component: "TextInput",

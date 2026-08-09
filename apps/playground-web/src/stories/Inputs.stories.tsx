@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import NumberInputControlled from "@stellaria/nebula-demos/NumberInput/Controlled.js";
-import PasswordInputBasic from "@stellaria/nebula-demos/PasswordInput/Basic.js";
-import SearchInputBasic from "@stellaria/nebula-demos/SearchInput/Basic.js";
-import TextareaAutosize from "@stellaria/nebula-demos/Textarea/Autosize.js";
-import TextInputBasic from "@stellaria/nebula-demos/TextInput/Basic.js";
-import TextInputSizes from "@stellaria/nebula-demos/TextInput/Sizes.js";
+import NumberInputControlled from "@stellaria/nebula-demos/NumberInput/Controlled";
+import PasswordInputBasic from "@stellaria/nebula-demos/PasswordInput/Basic";
+import SearchInputBasic from "@stellaria/nebula-demos/SearchInput/Basic";
+import TextareaAutosize from "@stellaria/nebula-demos/Textarea/Autosize";
+import TextInputBasic from "@stellaria/nebula-demos/TextInput/Basic";
+import TextInputSizes from "@stellaria/nebula-demos/TextInput/Sizes";
 
 const meta: Meta = {
   title: "Forms/Inputs",
