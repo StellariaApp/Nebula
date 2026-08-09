@@ -4,32 +4,32 @@ import type { OverlayTriggerElement, PopoverPlacement } from "../Popover/Popover
 import type { StyleProps } from "../../utils/style-props.js";
 
 export interface TooltipProps extends Omit<StyleProps, "maw"> {
-  /** El elemento que lo dispara. Recibe el `ref` y el `aria-describedby`, asi que tiene que reenviarlos. */
+  /** The element that triggers it. It receives the `ref` and the `aria-describedby`, so it has to forward them. */
   trigger: OverlayTriggerElement;
   /**
-   * El texto del globo. Llega por `aria-describedby`, que **describe**: no sustituye al nombre del
-   * disparador, asi que un boton solo con icono sigue necesitando su `aria-label`.
+   * The bubble text. It arrives through `aria-describedby`, which **describes**: it does not replace
+   * the trigger name, so an icon-only button still needs its `aria-label`.
    */
   label: ReactNode;
-  /** La posicion PEDIDA. Si no cabe, React Aria la cambia. */
+  /** The REQUESTED placement. If it does not fit, React Aria changes it. */
   placement?: PopoverPlacement | undefined;
-  /** Separacion del disparador, en px, en el eje de `placement`. */
+  /** Distance from the trigger, in px, along the `placement` axis. */
   offset?: number | undefined;
-  /** Desplazamiento en el eje perpendicular, en px. */
+  /** Offset along the perpendicular axis, in px. */
   crossOffset?: number | undefined;
-  /** Espera antes de abrir al apuntar. En cero abre al entrar. @default 0 */
+  /** Delay before opening on hover. At zero it opens on enter. @default 0 */
   delay?: number | undefined;
-  /** Espera antes de cerrar al salir, que es lo que permite cruzar del disparador al globo. @default 150 */
+  /** Delay before closing on leave, which is what lets you travel from the trigger to the bubble. @default 150 */
   closeDelay?: number | undefined;
-  /** No se pinta ni se anuncia. El disparador se queda sin su descripcion, asi que no vale para ocultarlo a ratos. */
+  /** Neither rendered nor announced. The trigger loses its description, so this is not the way to hide it temporarily. */
   disabled?: boolean | undefined;
-  /** Pasarlo lo vuelve controlado: el puntero y el foco dejan de abrirlo y solo emite `onOpenChange`. */
+  /** Passing it makes the tooltip controlled: pointer and focus stop opening it and it only emits `onOpenChange`. */
   opened?: boolean | undefined;
   defaultOpened?: boolean | undefined;
   onOpenChange?: ((opened: boolean) => void) | undefined;
   withArrow?: boolean | undefined;
   color?: "neutral" | "inverted" | undefined;
-  /** Ancho maximo del globo. Tapa a la style prop `maw`, que aqui caeria en el disparador. */
+  /** Maximum width of the bubble. It shadows the `maw` style prop, which here would land on the trigger. */
   maw?: number | string | undefined;
   className?: string | undefined;
 }

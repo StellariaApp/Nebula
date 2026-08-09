@@ -15,13 +15,13 @@ export interface AppShellLabels {
 }
 
 export interface AppShellProps extends StyleProps {
-  /** El enlace de salto al contenido, que solo se ve al recibir foco. Existe en los dos montajes. */
+  /** The skip-to-content link, visible only when focused. It exists in both layouts. */
   skipProps?: ComponentPropsWithoutRef<"a"> | undefined;
-  /** La banda del cromado superior. Solo existe en el montaje de carril, y solo si hay `header`. */
+  /** The top chrome band. Only exists in the rail layout, and only with a `header`. */
   chromeProps?: BoxSlotProps | undefined;
-  /** El `main`. En el carril es ademas quien desplaza; su ref se pasa aparte, por `mainRef`. */
+  /** The `main`. In the rail layout it is also what scrolls; its ref goes separately, through `mainRef`. */
   mainProps?: BoxSlotProps | undefined;
-  /** La vela de sombra del inicio del area que desplaza. Solo en el carril y con `scrollShadow`. */
+  /** The shadow sail at the start of the scrolling area. Rail layout only, and only with `scrollShadow`. */
   scrollShadowProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   header?: ReactNode | undefined;
@@ -40,29 +40,29 @@ export interface AppShellProps extends StyleProps {
   labels?: Partial<AppShellLabels> | undefined;
   contentId?: string | undefined;
   className?: string | undefined;
-  /** Barra a altura completa. Su presencia cambia el shell al montaje de carril. */
+  /** Full-height bar. Its presence switches the shell to the rail layout. */
   sidebar?: ReactNode | undefined;
-  /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
+  /** Decorative layer behind everything: this is where a `StarField` lives. */
   backdrop?: ReactNode | undefined;
   /** @default 320 */
   sidebarWidth?: number | undefined;
-  /** Tercer estado del carril: la barra encoge a `sidebarMiniWidth` y sus rótulos se ocultan. */
+  /** Third rail state: the bar shrinks to `sidebarMiniWidth` and its labels are hidden. */
   sidebarCollapsed?: boolean | undefined;
   sidebarMiniWidth?: number | undefined;
   chromeHeight?: number | undefined;
-  /** El `main` es quien desplaza en el carril; se expone para engancharle un fondo con parallax. */
+  /** The `main` is what scrolls in the rail layout; it is exposed so you can hook a parallax background to it. */
   mainRef?: RefObject<HTMLElement | null> | undefined;
-  /** Vela de sombra al inicio del área que desplaza; aparece bajo el cromado, no sobre él. */
+  /** Shadow sail at the start of the scrolling area; it appears under the chrome, not over it. */
   scrollShadow?: boolean | undefined;
-  /** Desde qué altura se pega la vela: sirve para dejarla bajo un cromado pegajoso. */
+  /** The height the sail sticks from: use it to keep it beneath sticky chrome. */
   scrollShadowOffset?: number | undefined;
 }
 
 export interface AppShellRailProps extends StyleProps {
   children?: ReactNode | undefined;
-  /** Barra a altura completa. Su presencia cambia el shell al modo carril. */
+  /** Full-height bar. Its presence switches the shell to rail mode. */
   sidebar?: ReactNode | undefined;
-  /** Capa decorativa detrás de todo: es donde vive un `StarField`. */
+  /** Decorative layer behind everything: this is where a `StarField` lives. */
   backdrop?: ReactNode | undefined;
   sidebarWidth?: number | undefined;
   chromeHeight?: number | undefined;
@@ -77,17 +77,17 @@ export interface AppShellSlotProps extends StyleProps {
 }
 
 export interface AppShellLinksProps extends StyleProps {
-  /** La cabecera del grupo. No se pinta si no hay `title` ni `action`. */
+  /** The group header. Not rendered without a `title` or an `action`. */
   headerProps?: BoxSlotProps | undefined;
-  /** El rótulo de esa cabecera. Solo se pinta con `title`. */
+  /** The label of that header. Only rendered with `title`. */
   titleProps?: TextSlotProps | undefined;
   /**
-   * La columna de enlaces. Con el grupo `deep` pierde el borde inferior —y el relleno del carril
-   * cuando está encogido o en pantalla estrecha—, para que el grupo anide sin costura.
+   * The link column. With a `deep` group it loses the bottom border — and the rail padding when the
+   * bar is collapsed or the screen is narrow — so the group nests without a seam.
    */
   contentProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
-  /** Rótulo del grupo. Se va al encoger, como el resto de rótulos del carril. */
+  /** Group label. It goes away on collapse, like every other label in the rail. */
   title?: ReactNode | undefined;
   action?: ReactNode | undefined;
   className?: string | undefined;
@@ -97,18 +97,18 @@ export interface AppShellLinksProps extends StyleProps {
 export interface AppShellLabelProps extends Omit<StyleProps, "flex"> {
   children: ReactNode;
   className?: string | undefined;
-  /** El rótulo ocupa el hueco libre de la fila. Tapa a la style prop `flex`, que aquí no aplica. */
+  /** The label takes the free space in the row. It shadows the `flex` style prop, which does not apply here. */
   flex?: boolean | undefined;
 }
 
 export interface AppShellSidebarProps extends StyleProps {
-  /** El anclaje del botón de encoger. No se pinta sin `onCollapse`. */
+  /** The anchor for the collapse button. Not rendered without `onCollapse`. */
   toggleProps?: BoxSlotProps | undefined;
-  /** Ese botón. Lleva `aria-expanded`, que es de donde sale el giro del chevron. */
+  /** That button. It carries `aria-expanded`, which is where the chevron rotation comes from. */
   collapseProps?: ActionIconProps | undefined;
   children?: ReactNode | undefined;
   level?: GlassLevel | undefined;
-  /** Con callback, la barra pinta su propio botón de encoger. Desaparece bajo `laptop`. */
+  /** With a callback, the bar renders its own collapse button. It disappears below `laptop`. */
   collapsed?: boolean | undefined;
   onCollapse?: ((collapsed: boolean) => void) | undefined;
   collapseLabels?: { collapse: string; expand: string } | undefined;
@@ -124,11 +124,11 @@ export interface AppShellSectionProps extends StyleProps {
 }
 
 export interface AppShellHeaderProps extends Omit<StyleProps, "order"> {
-  /** La columna de título y subtítulo. No se pinta si le pasas `children`, que la sustituye. */
+  /** The title and subtitle column. Not rendered if you pass `children`, which replaces it. */
   contentProps?: BoxSlotProps | undefined;
-  /** El título. Su nivel de encabezado sale de `order`, no del tamaño. */
+  /** The title. Its heading level comes from `order`, not from the size. */
   titleProps?: TitleSlotProps | undefined;
-  /** El subtítulo. Solo se pinta con `subtitle`. */
+  /** The subtitle. Only rendered with `subtitle`. */
   subtitleProps?: TextSlotProps | undefined;
   title?: ReactNode | undefined;
   subtitle?: ReactNode | undefined;
@@ -136,7 +136,7 @@ export interface AppShellHeaderProps extends Omit<StyleProps, "order"> {
   actions?: ReactNode | undefined;
   children?: ReactNode | undefined;
   level?: GlassLevel | undefined;
-  /** En el montaje con rejilla, la cabecera se pega arriba y toma su área. */
+  /** In the grid layout, the header sticks to the top and takes its area. */
   sticky?: boolean | undefined;
   className?: string | undefined;
 }
@@ -157,7 +157,7 @@ export interface AppShellFooterProps extends StyleProps {
 export interface AppShellSubbarProps extends StyleProps {
   children: ReactNode;
   level?: GlassLevel | undefined;
-  /** Se queda pegada justo debajo de la cabecera al desplazar. */
+  /** It sticks right below the header when scrolling. */
   sticky?: boolean | undefined;
   className?: string | undefined;
 }

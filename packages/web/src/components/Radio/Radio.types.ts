@@ -21,35 +21,35 @@ export interface RadioProps
   color?: ColorExtended | undefined;
   disabled?: boolean | undefined;
   rootClassName?: string | undefined;
-  /** Rotulo junto al radio. */
+  /** Label next to the radio. */
   labelProps?: TextSlotProps | undefined;
-  /** El circulo visual. El input nativo va aparte. */
+  /** The visual circle. The native input is separate. */
   indicatorProps?: BoxSlotProps | undefined;
-  /** El punto interior, que aparece al marcar. */
+  /** The inner dot, which appears on selection. */
   markProps?: BoxSlotProps | undefined;
 }
 
 export interface RadioGroupProps {
-  /** El grupo es un `fieldset` y esto su `legend`: sin el, las opciones quedan sin nombre comun. */
+  /** The group is a `fieldset` and this is its `legend`: without it the options have no shared name. */
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
-  /** El `value` de la opcion elegida. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse. */
+  /** The `value` of the chosen option. Passing it makes the group controlled and `defaultValue` stops being read. */
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((value: string) => void) | undefined;
-  /** Baja a todas las opciones. Una que declare el suyo gana sobre el del grupo. */
+  /** Cascades to every option. One that declares its own wins over the group. */
   size?: Size | undefined;
-  /** Baja a todas las opciones. Una que declare el suyo gana sobre el del grupo. */
+  /** Cascades to every option. One that declares its own wins over the group. */
   color?: ColorExtended | undefined;
-  /** Deshabilita el grupo entero; una opcion no puede reactivarse por su cuenta. */
+  /** Disables the whole group; an option cannot re-enable itself. */
   disabled?: boolean | undefined;
   required?: boolean | undefined;
-  /** El `name` del formulario. Es lo que hace que las opciones sean excluyentes entre si. */
+  /** The form `name`. It is what makes the options mutually exclusive. */
   name?: string | undefined;
   orientation?: Orientation | undefined;
-  /** Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta. */
+  /** With `text` the error sits below the group and takes up space; with `tooltip` it floats and does not shift the layout. */
   errorDisplay?: ErrorDisplay | undefined;
-  /** Las opciones. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran. */
+  /** The options. The group owns their state, so their own `checked` and `onChange` are redundant. */
   children?: ReactNode | undefined;
 }

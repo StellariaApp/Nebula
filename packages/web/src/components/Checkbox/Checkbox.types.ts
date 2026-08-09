@@ -27,35 +27,35 @@ export interface CheckboxProps
   disabled?: boolean | undefined;
   error?: boolean | undefined;
   rootClassName?: string | undefined;
-  /** Rotulo junto a la casilla. */
+  /** Label next to the box. */
   labelProps?: TextSlotProps | undefined;
-  /** La casilla visual. El input nativo va aparte y sigue recibiendo className. */
+  /** The visual box. The native input is separate and still receives `className`. */
   indicatorProps?: BoxSlotProps | undefined;
-  /** La marca de dentro: paloma, o guion si indeterminate. */
+  /** The mark inside: a tick, or a dash when indeterminate. */
   markProps?: GlyphProps | undefined;
 }
 
 export interface CheckboxGroupProps {
-  /** El grupo es un `fieldset` y esto su `legend`: sin el, las casillas quedan sin nombre comun. */
+  /** The group is a `fieldset` and this is its `legend`: without it the boxes have no shared name. */
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
   error?: string | boolean | undefined;
-  /** Los `value` de las casillas marcadas. Pasarlo lo vuelve controlado y `defaultValue` deja de mirarse. */
+  /** The `value` of each checked box. Passing it makes the group controlled and `defaultValue` stops being read. */
   value?: string[] | undefined;
   defaultValue?: string[] | undefined;
   onChange?: ((value: string[]) => void) | undefined;
-  /** Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo. */
+  /** Cascades to every box. One that declares its own wins over the group. */
   size?: Size | undefined;
-  /** Baja a todas las casillas. Una que declare el suyo gana sobre el del grupo. */
+  /** Cascades to every box. One that declares its own wins over the group. */
   color?: ColorExtended | undefined;
-  /** Deshabilita el grupo entero; una casilla no puede reactivarse por su cuenta. */
+  /** Disables the whole group; a box cannot re-enable itself. */
   disabled?: boolean | undefined;
   required?: boolean | undefined;
-  /** El `name` del formulario. Todas las casillas del grupo lo comparten. */
+  /** The form `name`. Every box in the group shares it. */
   name?: string | undefined;
   orientation?: Orientation | undefined;
-  /** Con `text` el error va bajo el grupo y ocupa sitio; con `tooltip` flota y no descoloca la maqueta. */
+  /** With `text` the error sits below the group and takes up space; with `tooltip` it floats and does not shift the layout. */
   errorDisplay?: ErrorDisplay | undefined;
-  /** Las casillas. El grupo gobierna su estado, asi que su `checked` y su `onChange` propios sobran. */
+  /** The boxes. The group owns their state, so their own `checked` and `onChange` are redundant. */
   children?: ReactNode | undefined;
 }
