@@ -69,6 +69,16 @@ ADR-114 decidió que la superficie pública se escribe en inglés, pero se aplic
   defecto en español, que ahora mismo es solo el playground.
 - **Traducir solo lo que no tiene salida** —`GridList` y los cinco `Error()`— y dejar los 119
   defectos. Mínimo cambio de comportamiento; el sitio ya demuestra que pasar la etiqueta funciona.
+  Los seis sitios, ya localizados, para que sea ejecutable sin volver a buscarlos:
+
+  | archivo | línea | qué dice |
+  | --- | --- | --- |
+  | `components/GridList/GridList.tsx` | 70 | `aria-label="Modo de vista"` |
+  | `components/Form/Form.context.ts` | 12 | «Los subcomponentes de Form solo funcionan dentro de `<Form>`.» |
+  | `components/Hero/Hero.context.ts` | 17 | «`Hero.*` debe usarse dentro de `<Hero>`.» |
+  | `components/Section/Section.context.ts` | 16 | «`Section.*` debe usarse dentro de `<Section>`.» |
+  | `components/Segment/Segment.context.ts` | 28 | «`Segment.*` debe usarse dentro de `<Segment>`.» |
+  | `provider/nebula-provider.tsx` | 112 | «Tema desconocido: …» (plantilla, no cadena literal) |
 - **Un diccionario de la librería con `locale`.** Es un sistema de i18n dentro del catálogo; alcance
   muy superior y probablemente fuera de v1.
 
