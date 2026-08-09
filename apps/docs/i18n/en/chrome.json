@@ -42,5 +42,14 @@
   "home.pillar.budget.body": "size-limit measures each entry point in brotli kB and fails the build when it drifts. Heavy dependencies live behind subpaths you opt into.",
   "home.premium.title": "Open core, domain packages",
   "home.premium.body": "The core is MIT and public. Six domain packages — the parts that carry business semantics — are licensed commercially.",
-  "home.premium.note": "Domain packages ship after web v1. Nothing here is available yet."
+  "home.premium.note": "Domain packages ship after web v1. Nothing here is available yet.",
+  "home.numbers.title": "Measured, not claimed",
+  "home.stat.components": "Web components",
+  "home.stat.gates": "Blocking CI gates",
+  "home.stat.styleProps": "Style props",
+  "home.stat.themes": "Official themes",
+  "home.legal": "Core released under the MIT licence. Domain packages are licensed commercially.",
+  "home.premium.badge": "Commercial licence",
+  "home.closing.title": "Build the whole product from one catalogue",
+  "home.cta.source": "Read the source"
 }

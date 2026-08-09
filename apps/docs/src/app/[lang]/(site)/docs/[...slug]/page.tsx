@@ -3,11 +3,11 @@ import { compileMDX } from "next-mdx-remote/rsc";
 
 import { Box, Text } from "@stellaria/nebula-web";
 
-import { AllSlugs, ReadDoc } from "../../../../lib/content";
-import { Dict } from "../../../../lib/dictionary";
-import { AsLang } from "../../../../lib/i18n";
-import { FallbackNotice } from "../../../../ui/fallback-notice";
-import { MDX_COMPONENTS } from "../../../../ui/mdx";
+import { AllSlugs, ReadDoc } from "../../../../../lib/content";
+import { Dict } from "../../../../../lib/dictionary";
+import { AsLang } from "../../../../../lib/i18n";
+import { FallbackNotice } from "../../../../../ui/fallback-notice";
+import { MDX_COMPONENTS } from "../../../../../ui/mdx";
 
 export async function generateStaticParams() {
   return (await AllSlugs()).map(({ lang, slug }) => ({ lang, slug }));

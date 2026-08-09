@@ -1,8 +1,8 @@
 import { Badge, Box, Divider, Table, Text, Title } from "@stellaria/nebula-web";
 
-import { ByFamily, CATALOG } from "../../../lib/catalog";
-import { Dict } from "../../../lib/dictionary";
-import { AsLang } from "../../../lib/i18n";
+import { ByFamily, CATALOG } from "../../../../lib/catalog";
+import { Dict } from "../../../../lib/dictionary";
+import { AsLang } from "../../../../lib/i18n";
 
 export default async function Components({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: raw } = await params;
