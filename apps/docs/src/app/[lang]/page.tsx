@@ -8,12 +8,12 @@ import {
   Divider,
   Feature,
   Footer,
+  GlassSurface,
   GradientBorder,
   GradientText,
   Hero,
   Main,
   Nav,
-  Paper,
   Reveal,
   Section,
   SimpleGrid,
@@ -25,6 +25,7 @@ import {
 import { CATALOG } from "../../lib/catalog";
 import { Dict } from "../../lib/dictionary";
 import { AsLang } from "../../lib/i18n";
+import { ThemeFab } from "../../islands/theme-fab";
 import { Logo, Mark } from "../../ui/logo";
 import type { Dictionary } from "../../lib/dictionary";
 
@@ -43,19 +44,40 @@ export function Panel() {
 
 const GLYPH = {
   theme: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <circle cx="12" cy="12" r="9" />
       <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" />
     </svg>
   ),
   a11y: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <circle cx="12" cy="4" r="2" />
       <path d="M4 8h16M12 10v10M12 14l-4 6M12 14l4 6" />
     </svg>
   ),
   budget: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <path d="M3 17l5-6 4 4 5-8 4 5" />
     </svg>
   ),
@@ -88,7 +110,7 @@ function Bar({ dict }: { dict: Dictionary }) {
 function Preview() {
   return (
     <GradientBorder beam radius="xl" width={2} w="100%" maw={540}>
-      <Paper variant="glass" r="xl" p="lg" w="100%" display="flex" direction="column" gap="md">
+      <GlassSurface p="lg" display="flex" direction="column" gap="md" r="inherit">
         <Box display="flex" align="center" gap="xs">
           <Mark id="preview-mark" size={20} />
           <Code>app/panel.tsx</Code>
@@ -108,7 +130,7 @@ function Preview() {
             614 axe checks
           </Badge>
         </Box>
-      </Paper>
+      </GlassSurface>
     </GradientBorder>
   );
 }
@@ -140,11 +162,17 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
   return (
     <Main
+      momentum
       withSkipLink
+      skipLabel={dict["skip.content"]}
       header={<Bar dict={dict} />}
       footer={<Foot dict={dict} />}
       background={<StarField parallax aurora translucency={2} />}
     >
+      <ThemeFab
+        labels={{ dark: dict["theme.to.dark"] ?? "", light: dict["theme.to.light"] ?? "" }}
+      />
+
       <Hero
         size="xl"
         mih="820px"
@@ -152,7 +180,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         hiper={<Badge variant="light">{dict["home.eyebrow"]}</Badge>}
         title={
           <>
-            One catalogue. Two platforms.
+            One catalogue.
+            <br />
+            Two platforms.
             <br />
             <GradientText>Zero forks.</GradientText>
           </>
