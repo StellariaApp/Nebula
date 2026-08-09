@@ -2,43 +2,79 @@
   "$schema": "https://turborepo.com/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "storybook-static/**", ".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        "storybook-static/**",
+        ".next/**",
+        "!.next/cache/**"
+      ]
+    },
+    "dev": {
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": false,
+      "persistent": true
     },
     "a11y": {
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "visual": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "cache": false
     },
     "typecheck": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "size": {
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "check:contrast": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "check:slots": {
-      "inputs": ["src/**/*.tsx", "src/**/*.types.ts", "../../tools/check-slots.mjs"]
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.types.ts",
+        "../../tools/check-slots.mjs"
+      ]
     },
     "gen:palette": {
       "cache": false
     },
     "gen:docs": {
-      "dependsOn": ["@stellaria/nebula-web#build"],
+      "dependsOn": [
+        "@stellaria/nebula-web#build"
+      ],
       "cache": false
     },
     "check:docs": {
-      "dependsOn": ["@stellaria/nebula-web#build"],
+      "dependsOn": [
+        "@stellaria/nebula-web#build"
+      ],
       "inputs": [
         "src/**",
         "$TURBO_ROOT$/packages/web/src/**",
