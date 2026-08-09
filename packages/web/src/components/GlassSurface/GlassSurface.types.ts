@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type { GlassLevel, RadiusName, ShadowLevel } from "@stellaria/nebula-tokens";
+import type { GlassLevel, ShadowLevel } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
@@ -18,7 +18,6 @@ export type GlassFallbackSurface = "base" | "raised" | "overlay" | "sunken";
 export interface GlassSurfaceOwnProps extends Omit<BoxOwnProps, "component" | "shadow"> {
   component?: ElementType | undefined;
   level?: GlassLevel | undefined;
-  radius?: RadiusName | number | undefined;
   withBorder?: boolean | undefined;
   noise?: boolean | undefined;
   shadow?: ShadowLevel | "none" | undefined;

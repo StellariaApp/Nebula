@@ -13,7 +13,6 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveGradient } from "../../theme/resolve-variant.js";
 import { cx } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./AnimatedGradient.css.js";
@@ -25,7 +24,7 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
     const {
       component,
       gradient = "brand",
-      radius = "lg",
+      r = "lg",
       speed = "base",
       scrim = 0,
       scrimProps,
@@ -43,16 +42,13 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
       [variables.scrimAlpha]: String(scrim),
     });
 
-    const named_radius = typeof radius === "string" ? radius : "lg";
-    const inline_radius: CSSProperties =
-      typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
-
     return (
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.animated_gradient({ radius: named_radius }), className)}
-        style={{ ...css_vars, ...inline_radius, ...style }}
+        r={r}
+        className={cx(styles.animated_gradient(), className)}
+        style={{ ...css_vars, ...style }}
         data-animated={animated ? "true" : "false"}
         {...rest}
       >

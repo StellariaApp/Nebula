@@ -21,7 +21,7 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
     blur = "md",
     color = "surface.base",
     opacity = 0.35,
-    radius = "none",
+    r = 0,
     fixed = false,
     center = false,
     zIndex,
@@ -30,7 +30,7 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
     contentProps,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps({ r, ...style_rest });
 
   const { theme } = useTheme();
   const enabled = theme.effects.glass.enabled && blur !== "none";
@@ -45,7 +45,7 @@ export function BlurOverlay(props: BlurOverlayProps): ReactElement {
 
   return (
     <div
-      className={cx(styles.blur_overlay, styles.radius[radius], sprinkle_class, className)}
+      className={cx(styles.blur_overlay, sprinkle_class, className)}
       style={{
         ...css_vars,
         ...(zIndex === undefined ? {} : { zIndex }),

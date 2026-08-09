@@ -104,7 +104,7 @@ export const ReducedMotion: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Paper maw={620} p="lg" radius="lg" withBorder shadow="xs">
+    <Paper maw={620} p="lg" r="lg" withBorder shadow="xs">
       <Title order={3} mb="xs">
         Periodo del informe
       </Title>

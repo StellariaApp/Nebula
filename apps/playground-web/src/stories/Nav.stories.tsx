@@ -234,7 +234,7 @@ function Landing(props: { scrolled?: boolean | undefined }): ReactElement {
               cristal del tema.
             </Text>
             {Array.from({ length: 3 }, (_, index) => (
-              <Card key={index} p="md" withBorder radius="md">
+              <Card key={index} p="md" withBorder r="md">
                 <Text fz="body3">
                   {item.label} · bloque {String(index + 1)}
                 </Text>

@@ -17,7 +17,7 @@ export const Shadows: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       {(["xs", "sm", "md", "lg", "xl"] as const).map((shadow) => (
-        <Paper key={shadow} shadow={shadow} radius="md" p="md" miw={120}>
+        <Paper key={shadow} shadow={shadow} r="md" p="md" miw={120}>
           <Text>shadow {shadow}</Text>
         </Paper>
       ))}
@@ -28,10 +28,10 @@ export const Shadows: Story = {
 export const WithBorder: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
-      <Paper withBorder radius="md" p="md">
+      <Paper withBorder r="md" p="md">
         <Text>con borde</Text>
       </Paper>
-      <Paper withBorder radius="lg" p="md" bg="surface.sunken">
+      <Paper withBorder r="lg" p="md" bg="surface.sunken">
         <Text>borde + bg sunken</Text>
       </Paper>
     </Box>
@@ -42,7 +42,7 @@ export const Radius: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       {(["xs", "md", "xl"] as const).map((radius) => (
-        <Paper key={radius} withBorder radius={radius} p="md" miw={110}>
+        <Paper key={radius} withBorder r={radius} p="md" miw={110}>
           <Text>radius {radius}</Text>
         </Paper>
       ))}
@@ -59,7 +59,7 @@ export const Composition: Story = {
     <Box display="flex" direction="column" gap="lg" style={{ maxWidth: "60ch" }}>
       <Box display="flex" direction="column" gap="md">
         {["Cuenta operativa", "Cuenta de reserva"].map((account) => (
-          <Paper key={account} withBorder shadow="xs" radius="md" p="lg">
+          <Paper key={account} withBorder shadow="xs" r="md" p="lg">
             <Box display="flex" justify="space-between" align="baseline" gap="md">
               <Text fw="semibold">{account}</Text>
               <Text fz="body2" c="text.secondary">
@@ -72,7 +72,7 @@ export const Composition: Story = {
           </Paper>
         ))}
       </Box>
-      <Paper withBorder shadow="md" radius="md" p="lg">
+      <Paper withBorder shadow="md" r="md" p="lg">
         <Text fw="semibold">Detalle seleccionado</Text>
         <Text fz="body2" c="text.secondary" mt="xs">
           Un solo peldaño por encima de la colección basta para señalar el foco.
@@ -87,10 +87,10 @@ export const AllThemes: Story = {
   render: () => (
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">
-        <Paper withBorder shadow="xs" radius="md" p="md">
+        <Paper withBorder shadow="xs" r="md" p="md">
           <Text fz="body2">Nivel 1 · card</Text>
         </Paper>
-        <Paper withBorder shadow="md" radius="md" p="md">
+        <Paper withBorder shadow="md" r="md" p="md">
           <Text fz="body2">Nivel 3 · popover</Text>
         </Paper>
       </Box>

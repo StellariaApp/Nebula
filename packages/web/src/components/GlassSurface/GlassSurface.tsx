@@ -14,7 +14,6 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { grain } from "../../styles/noise.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { cx } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./GlassSurface.css.js";
@@ -26,7 +25,7 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
     const {
       component,
       level = "default",
-      radius = "lg",
+      r = "lg",
       withBorder = true,
       noise = false,
       shadow = "none",
@@ -51,19 +50,16 @@ const GlassSurfaceComponent = forwardRef<HTMLElement, GlassSurfaceOwnProps>(
       [variables.backdrop]: enabled ? vars.glass[level].backdropFilter : "none",
     });
 
-    const named_radius = typeof radius === "string" ? radius : "lg";
-    const inline_radius: CSSProperties =
-      typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
-
     return (
       <Box
         ref={ref}
         component={component ?? "div"}
+        r={r}
         className={cx(
-          styles.glass_surface({ shadow, radius: named_radius, withBorder }),
+          styles.glass_surface({ shadow, withBorder }),
           className,
         )}
-        style={{ ...css_vars, ...inline_radius, ...style }}
+        style={{ ...css_vars, ...style }}
         data-glass={enabled ? "on" : "off"}
         data-level={level}
         {...rest}

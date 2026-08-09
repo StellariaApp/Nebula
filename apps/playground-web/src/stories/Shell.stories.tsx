@@ -92,10 +92,10 @@ function Shell(): ReactElement {
         actions={<Button size="sm">Exportar</Button>}
       >
         <SimpleGrid cols={{ base: 1, tablet: 2 }} spacing="md">
-          <Card p="md" withBorder radius="md">
+          <Card p="md" withBorder r="md">
             <Text fz="body3">M-1042 · Aurora S.A.</Text>
           </Card>
-          <Card p="md" withBorder radius="md">
+          <Card p="md" withBorder r="md">
             <Text fz="body3">M-1043 · Nébula Ltda.</Text>
           </Card>
         </SimpleGrid>

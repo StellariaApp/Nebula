@@ -1,7 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./GradientBorder.vars.css.js";
@@ -58,20 +57,8 @@ export const gradient_border = recipe({
     },
   },
   variants: {
-    radius: {
-      none: { borderRadius: vars.radius.none },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
   },
   defaultVariants: {
-    radius: "lg",
   },
 });
 

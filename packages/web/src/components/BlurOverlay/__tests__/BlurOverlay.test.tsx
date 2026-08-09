@@ -67,8 +67,8 @@ describe("BlurOverlay", () => {
     }
   });
 
-  it("acepta fixed, radius y zIndex", () => {
-    render(<BlurOverlay fixed radius="lg" zIndex={40} data-testid="bo" />);
+  it("acepta fixed, r y zIndex", () => {
+    render(<BlurOverlay fixed r="lg" zIndex={40} data-testid="bo" />);
     const node = screen.getByTestId("bo");
     expect(node.getAttribute("data-fixed")).toBe("true");
     expect(node.getAttribute("style") ?? "").toMatch(/z-index:\s*40/);

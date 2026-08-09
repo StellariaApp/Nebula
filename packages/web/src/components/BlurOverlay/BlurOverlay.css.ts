@@ -1,6 +1,5 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./BlurOverlay.vars.css.js";
@@ -56,14 +55,3 @@ export const content = style({
   },
 });
 
-export const radius = styleVariants({
-  none: { borderRadius: 0 },
-  xxs: { borderRadius: vars.radius.xxs },
-  xs: { borderRadius: vars.radius.xs },
-  sm: { borderRadius: vars.radius.sm },
-  md: { borderRadius: vars.radius.md },
-  lg: { borderRadius: vars.radius.lg },
-  xl: { borderRadius: vars.radius.xl },
-  xxl: { borderRadius: vars.radius.xxl },
-  full: { borderRadius: vars.radius.full },
-});

@@ -21,7 +21,7 @@ function Demo({ transition }: { transition: TransitionPreset }) {
         {mounted ? "Ocultar" : "Mostrar"}
       </Button>
       <Transition mounted={mounted} transition={transition}>
-        <Paper p="md" withBorder radius="md">
+        <Paper p="md" withBorder r="md">
           <Text>preset: {transition}</Text>
         </Paper>
       </Transition>

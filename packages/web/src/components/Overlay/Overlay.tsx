@@ -11,7 +11,6 @@ import {
   blur as blur_variants,
   content,
   overlay,
-  radius as radius_variants,
   veil,
 } from "./Overlay.css.js";
 import * as variables from "./Overlay.vars.css.js";
@@ -22,7 +21,7 @@ export function Overlay(props: OverlayProps): ReactElement {
     color = "black",
     opacity = 0.6,
     blur = "none",
-    radius = "none",
+    r = 0,
     fixed = false,
     center = false,
     zIndex,
@@ -30,7 +29,7 @@ export function Overlay(props: OverlayProps): ReactElement {
     className,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps({ r, ...style_rest });
 
   const css_vars = assignInlineVars({
     [variables.tint]: ResolveAccent(color, "600"),
@@ -44,7 +43,6 @@ export function Overlay(props: OverlayProps): ReactElement {
       className={cx(
         overlay,
         blur_variants[blur],
-        radius_variants[radius],
         sprinkle_class,
         className,
       )}

@@ -102,7 +102,7 @@ export const Composition: Story = {
   render: function Render() {
     const [amount, set_amount] = useState(0);
     return (
-      <Paper maw={560} p="xl" radius="lg" withBorder shadow="sm">
+      <Paper maw={560} p="xl" r="lg" withBorder shadow="sm">
         <Title order={3} mb="xs">
           Alta de proveedor
         </Title>

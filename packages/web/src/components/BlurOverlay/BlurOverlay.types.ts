@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { BlurLevel, ColorExtended, RadiusName } from "@stellaria/nebula-tokens";
+import type { BlurLevel, ColorExtended } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -24,7 +24,6 @@ export interface BlurOverlayProps extends Omit<StyleProps, "opacity"> {
   blur?: BlurLevel | undefined;
   color?: ColorExtended | undefined;
   opacity?: number | undefined;
-  radius?: RadiusName | "none" | undefined;
   fixed?: boolean | undefined;
   center?: boolean | undefined;
   zIndex?: number | undefined;

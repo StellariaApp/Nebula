@@ -28,7 +28,7 @@ export const NavLinks: Story = {
   render: function Nav() {
     const [active, set_active] = useState("inicio");
     return (
-      <Paper withBorder radius="md" p="xs" style={{ maxWidth: 280 }}>
+      <Paper withBorder r="md" p="xs" style={{ maxWidth: 280 }}>
         <Box display="flex" direction="column" gap="xxs">
           <NavLink
             label="Inicio"
@@ -95,7 +95,7 @@ export const Composition: Story = {
     const [page, set_page] = useState(1);
     return (
       <Box display="flex" gap="lg" style={{ alignItems: "flex-start" }}>
-        <Paper withBorder radius="md" p="xs" style={{ width: 240, flexShrink: 0 }}>
+        <Paper withBorder r="md" p="xs" style={{ width: 240, flexShrink: 0 }}>
           <Box display="flex" direction="column" gap="xxs">
             <NavLink label="Resumen" leftSection="🏠" active />
             <NavLink label="Solicitudes" leftSection="📄" />

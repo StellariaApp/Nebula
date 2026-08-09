@@ -15,7 +15,7 @@ export function AppShellFooter(props: AppShellFooterProps): ReactElement {
     <GlassSurface
       component="footer"
       level={level}
-      radius={0}
+      r={0}
       className={cx(styles.footer, sprinkle_class, className)}
       style={style}
       {...rest}

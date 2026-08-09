@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type { GradientRole, RadiusName } from "@stellaria/nebula-tokens";
+import type { GradientRole } from "@stellaria/nebula-tokens";
 
 import type { GradientProp } from "../../theme/resolve-variant.js";
 import type { BoxOwnProps } from "../Box/Box.types.js";
@@ -20,7 +20,6 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
   component?: ElementType | undefined;
   gradient?: GradientRole | GradientProp | undefined;
   width?: number | undefined;
-  radius?: RadiusName | number | undefined;
   surface?: GradientBorderSurface | undefined;
   beam?: boolean | undefined;
   /** @default [1, 2, 3, 4] */

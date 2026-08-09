@@ -75,7 +75,7 @@ export const Dark: Story = { ...WithError, globals: { theme: "dark" } };
 
 export const Composition: Story = {
   render: () => (
-    <Paper p="lg" radius="lg" shadow="sm" withBorder maw={480}>
+    <Paper p="lg" r="lg" shadow="sm" withBorder maw={480}>
       <Box display="flex" direction="column" gap="lg">
         <Box display="flex" direction="column" gap="xs">
           <Title order={4}>Protege tu cuenta</Title>

@@ -62,7 +62,7 @@ function Recarga(): ReactElement {
   const [activa, set_activa] = useState(true);
 
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
         <Rotulo>Recarga automática y límite del ciclo</Rotulo>
         <Switch
@@ -140,7 +140,7 @@ function Planes(): ReactElement {
             <Card
               key={plan.nombre}
               withBorder
-              radius="lg"
+              r="lg"
               padding="none"
               variant={actual ? "light" : "outline"}
             >
@@ -303,12 +303,12 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
           ) : null}
 
           <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 4 })} spacing="md">
-            <Card withBorder radius="lg" padding="none">
+            <Card withBorder r="lg" padding="none">
               <Box p="md">
                 <Stat label="Saldo" value={Rosets(SALDO.rosets)} description="disponible ahora" />
               </Box>
             </Card>
-            <Card withBorder radius="lg" padding="none">
+            <Card withBorder r="lg" padding="none">
               <Box p="md">
                 <Stat
                   label="Consumido"
@@ -318,7 +318,7 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
                 <Progress value={pct} size="xs" mt="xs" label="Consumo del ciclo" />
               </Box>
             </Card>
-            <Card withBorder radius="lg" padding="none">
+            <Card withBorder r="lg" padding="none">
               <Box p="md">
                 <Tooltip
                   label="Rosets de trabajos ya admitidos. Se convierten en consumo o vuelven"
@@ -334,7 +334,7 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
                 />
               </Box>
             </Card>
-            <Card withBorder radius="lg" padding="none">
+            <Card withBorder r="lg" padding="none">
               <Box p="md">
                 <Stat
                   label="Trabajos a la vez"

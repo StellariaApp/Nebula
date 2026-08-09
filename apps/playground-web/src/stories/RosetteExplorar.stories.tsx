@@ -90,7 +90,7 @@ function TarjetaAvatar({
   onClonar: (avatar: AvatarPublico) => void;
 }): ReactElement {
   return (
-    <Card withBorder radius="lg" padding="none" overflow="hidden">
+    <Card withBorder r="lg" padding="none" overflow="hidden">
       <Placeholder ratio={4 / 3} />
       <Box p="sm">
         <Flex align="center" gap="sm" miw={0}>
@@ -147,7 +147,7 @@ function TarjetaAvatar({
 function TarjetaAccion({ accion }: { accion: AccionPublica }): ReactElement {
   const coste = 3 * TARIFA.imagen;
   return (
-    <Card withBorder radius="lg" padding="none" overflow="hidden">
+    <Card withBorder r="lg" padding="none" overflow="hidden">
       <Placeholder ratio={3 / 4} label="Ejemplo curado" />
       <Box p="sm">
         <Flex align="center" gap="xs" wrap="wrap" mb="xxs">
@@ -348,7 +348,7 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
             </Box>
 
             <Box display="flex" direction="column" gap="md" miw={0}>
-              <GlassSurface level="subtle" radius="lg" withBorder p="md">
+              <GlassSurface level="subtle" r="lg" withBorder p="md">
                 <Rotulo>Tres permisos, no uno</Rotulo>
                 <Box display="flex" direction="column" gap="sm">
                   {[
@@ -379,7 +379,7 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
                 </Box>
               </GlassSurface>
 
-              <GlassSurface level="subtle" radius="lg" withBorder p="md">
+              <GlassSurface level="subtle" r="lg" withBorder p="md">
                 <Rotulo>La acción principal no es clonar</Rotulo>
                 <Text fz="body3" c="text.secondary">
                   Clonar cuesta 110 o 160 rosets y se lleva el canon de otro. Usar una{" "}
@@ -395,7 +395,7 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
                 </Text>
               </GlassSurface>
 
-              <GlassSurface level="subtle" radius="lg" withBorder p="md">
+              <GlassSurface level="subtle" r="lg" withBorder p="md">
                 <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
                   <Rotulo>Lo que sigue abierto</Rotulo>
                   <Badge variant="light" size="sm" color="error">

@@ -42,17 +42,6 @@ export const glass_surface = recipe({
       xl: { boxShadow: vars.shadow.xl },
       xxl: { boxShadow: vars.shadow.xxl },
     },
-    radius: {
-      none: { borderRadius: 0 },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
     withBorder: {
       true: {
         "@layer": {
@@ -69,7 +58,6 @@ export const glass_surface = recipe({
   },
   defaultVariants: {
     shadow: "none",
-    radius: "lg",
     withBorder: true,
   },
 });

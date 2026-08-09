@@ -35,17 +35,6 @@ export const paper = recipe({
       xl: { boxShadow: vars.shadow.xl },
       xxl: { boxShadow: vars.shadow.xxl },
     },
-    radius: {
-      none: { borderRadius: vars.radius.none },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
     withBorder: {
       true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
       false: {},
@@ -53,7 +42,6 @@ export const paper = recipe({
   },
   defaultVariants: {
     shadow: "none",
-    radius: "md",
     withBorder: false,
     glowing: false,
   },

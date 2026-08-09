@@ -18,7 +18,7 @@ export function AppShellAside(props: AppShellNavProps): ReactElement {
       component="aside"
       aria-label={shell.complementaryLabel}
       level={level}
-      radius={0}
+      r={0}
       className={cx(styles.aside_region, sprinkle_class, className)}
       style={style}
       {...rest}

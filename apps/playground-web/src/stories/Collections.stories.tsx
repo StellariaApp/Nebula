@@ -138,7 +138,7 @@ export const Timelines: Story = {
 export const Stats: Story = {
   render: () => (
     <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
-      <Paper p="lg" radius="md" withBorder>
+      <Paper p="lg" r="md" withBorder>
         <Stat
           label="Ingresos"
           value={MXN.format(68700)}
@@ -147,7 +147,7 @@ export const Stats: Story = {
           description="vs. mes anterior"
         />
       </Paper>
-      <Paper p="lg" radius="md" withBorder>
+      <Paper p="lg" r="md" withBorder>
         <Stat
           label="Cancelaciones"
           value="14"
@@ -156,7 +156,7 @@ export const Stats: Story = {
           description="vs. mes anterior"
         />
       </Paper>
-      <Paper p="lg" radius="md" withBorder>
+      <Paper p="lg" r="md" withBorder>
         <Stat label="Clientes activos" value="1 284" trend="flat" diff="0 %" size="lg" />
       </Paper>
     </SimpleGrid>
@@ -194,7 +194,7 @@ export const Grids: Story = {
       label="Facturas"
       minColWidth={200}
       renderItem={(factura, mode) => (
-        <Card p="md" radius="md" withBorder>
+        <Card p="md" r="md" withBorder>
           <Title order={5}>{factura.id}</Title>
           <Text fz="caption" c="text.muted">
             {factura.cliente}

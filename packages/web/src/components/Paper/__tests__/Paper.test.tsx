@@ -8,16 +8,16 @@ afterEach(cleanup);
 describe("Paper", () => {
   it("renderiza una superficie con clases de recipe", () => {
     render(
-      <Paper data-testid="p" shadow="md" radius="lg" withBorder>
+      <Paper data-testid="p" shadow="md" r="lg" withBorder>
         x
       </Paper>,
     );
     expect(screen.getByTestId("p").className.length).toBeGreaterThan(0);
   });
 
-  it("acepta un radius numérico como estilo inline", () => {
-    render(<Paper data-testid="p" radius={20} />);
-    expect(screen.getByTestId("p").style.borderRadius).toBe("20px");
+  it("acepta un radio numérico por la style prop (ADR-119)", () => {
+    render(<Paper data-testid="p" r={20} />);
+    expect(screen.getByTestId("p").style.getPropertyValue("--nb-r")).toBe("20px");
   });
 
   it("permite pisar el fondo con una style prop de Box (base en @layer)", () => {

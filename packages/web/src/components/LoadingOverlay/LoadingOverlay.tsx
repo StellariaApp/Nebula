@@ -23,7 +23,7 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
     color = "surface.base",
     opacity = 0.75,
     blur = "sm",
-    radius = "none",
+    r = 0,
     zIndex = 100,
     className,
     bodyProps,
@@ -55,7 +55,7 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
             color={color}
             opacity={opacity}
             blur={blur}
-            radius={radius}
+            r={r}
             zIndex={zIndex}
             center
           >

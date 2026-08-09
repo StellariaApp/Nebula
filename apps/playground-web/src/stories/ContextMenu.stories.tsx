@@ -23,7 +23,7 @@ const ITEMS: MenuItemData[] = [
 ];
 
 const SURFACE = (
-  <Paper withBorder radius="md" p="xl" shadow="xs">
+  <Paper withBorder r="md" p="xl" shadow="xs">
     <Text>Haz click derecho aquí</Text>
   </Paper>
 );
@@ -42,7 +42,7 @@ export const Composition: Story = {
       <Box display="flex" direction="column" gap="xs">
         {["Contrato marco.pdf", "Anexo tarifas.xlsx", "Acta 2041.docx"].map((name) => (
           <ContextMenu key={name} items={ITEMS} aria-label={`Acciones de ${name}`}>
-            <Paper withBorder radius="sm" p="sm">
+            <Paper withBorder r="sm" p="sm">
               <Text>{name}</Text>
             </Paper>
           </ContextMenu>

@@ -3,7 +3,6 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type {
   ColorExtended,
   PermissionProps,
-  RadiusName,
   Size,
   Variant,
   VariantProps,
@@ -53,7 +52,6 @@ export interface QuickActionProps
   color?: ColorExtended | undefined;
   gradient?: VariantProps["gradient"] | undefined;
   size?: Size | undefined;
-  radius?: RadiusName | undefined;
   orientation?: QuickActionOrientation | undefined;
   badge?: ReactNode | undefined;
   disabled?: boolean | undefined;

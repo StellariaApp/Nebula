@@ -31,7 +31,7 @@ function Backdrop(props: { children: ReactNode; h?: number }): ReactElement {
   const { children, h = 220 } = props;
   return (
     <Box position="relative" h={h} r="lg" style={{ overflow: "hidden", isolation: "isolate" }}>
-      <MeshGradientBg gradient="brand" radius="lg" style={{ position: "absolute", inset: 0 }} />
+      <MeshGradientBg gradient="brand" r="lg" style={{ position: "absolute", inset: 0 }} />
       <Box position="relative" p="lg" h="100%">
         {children}
       </Box>
@@ -139,7 +139,7 @@ export const VeloConBlur: Story = {
         oculta el contenido de un lector de pantalla: la región de detrás va marcada con{" "}
         <code>inert</code>.
       </Text>
-      <BlurOverlay radius="lg" center>
+      <BlurOverlay r="lg" center>
         <Button variant="filled" size="sm">
           Desbloquear
         </Button>
@@ -161,7 +161,7 @@ export const Grano: Story = {
           bg="surface.raised"
           style={{ overflow: "hidden", isolation: "isolate" }}
         >
-          <NoiseOverlay {...(value === undefined ? {} : { opacity: value })} radius="md" />
+          <NoiseOverlay {...(value === undefined ? {} : { opacity: value })} r="md" />
           <Box position="relative" p="md">
             <Text component="p" fz="caption" ff="mono" c="text.muted">
               {value === undefined ? "del tema" : `opacity=${String(value)}`}
@@ -205,7 +205,7 @@ export const Composition: Story = {
       <MeshGradientBg
         gradient="brand"
         grain
-        radius="xl"
+        r="xl"
         style={{ position: "absolute", inset: 0 }}
       />
       <Box position="relative" p="xl">
@@ -239,7 +239,7 @@ export const AllThemes: Story = {
   render: () => (
     <ThemeMatrix>
       <Box position="relative" h={150} r="md" style={{ overflow: "hidden", isolation: "isolate" }}>
-        <MeshGradientBg gradient="brand" radius="md" style={{ position: "absolute", inset: 0 }} />
+        <MeshGradientBg gradient="brand" r="md" style={{ position: "absolute", inset: 0 }} />
         <Box position="relative" p="md">
           <GlassSurface noise p="md">
             <Text component="p" fz="body2">

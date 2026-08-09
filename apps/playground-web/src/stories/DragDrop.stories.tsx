@@ -52,7 +52,7 @@ function Lista(): React.ReactElement {
         items={items}
         getKey={(item) => item}
         renderItem={(item) => (
-          <Paper p="sm" radius="md" withBorder>
+          <Paper p="sm" r="md" withBorder>
             <Text fz="body2">{item}</Text>
           </Paper>
         )}
@@ -78,7 +78,7 @@ export const SinAsa: Story = {
           items={items}
           getKey={(item) => item}
           renderItem={(item) => (
-            <Paper p="sm" radius="md" withBorder>
+            <Paper p="sm" r="md" withBorder>
               <Text fz="body2">{item}</Text>
             </Paper>
           )}
@@ -99,7 +99,7 @@ export const Horizontal: Story = {
         items={items}
         getKey={(item) => item}
         renderItem={(item) => (
-          <Paper p="sm" radius="md" withBorder>
+          <Paper p="sm" r="md" withBorder>
             <Text fz="body2">{item}</Text>
           </Paper>
         )}
@@ -117,7 +117,7 @@ export const Primitivas: Story = {
       <Box display="flex" gap="md" wrap="wrap">
         <Droppable id="origen" label="Origen" p="md" miw={200}>
           <Draggable id="ficha" withHandle>
-            <Paper p="sm" radius="md" withBorder>
+            <Paper p="sm" r="md" withBorder>
               <Text fz="body2">Ficha suelta</Text>
             </Paper>
           </Draggable>

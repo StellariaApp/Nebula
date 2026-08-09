@@ -171,7 +171,7 @@ export const Rtl: Story = {
     <DirectionProvider>
       <Box display="flex" direction="column" gap="md" maw={620}>
         <DirectionToggle />
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           <Box ps="lg" style={{ borderInlineStart: "3px solid currentColor" }}>
             <Text fz="body2">
               El borde y el espaciado usan propiedades lógicas (<code>ps</code>), así que cambian de

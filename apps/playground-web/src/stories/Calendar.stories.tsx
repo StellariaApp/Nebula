@@ -123,7 +123,7 @@ export const ReducedMotion: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Paper maw={420} p="lg" radius="lg" withBorder shadow="xs">
+    <Paper maw={420} p="lg" r="lg" withBorder shadow="xs">
       <Title order={3} mb="xs">
         Reprogramar visita
       </Title>

@@ -62,7 +62,7 @@ export function AppShellSidebarHeader(props: AppShellSlotProps): ReactElement {
     <GlassSurface
       component="header"
       level="default"
-      radius={0}
+      r={0}
       withBorder={false}
       className={cx(styles.sidebar_slot, styles.sidebar_header, sprinkle_class, className)}
       style={style}
@@ -80,7 +80,7 @@ export function AppShellSidebarFooter(props: AppShellSlotProps): ReactElement {
     <GlassSurface
       component="footer"
       level="default"
-      radius={0}
+      r={0}
       withBorder={false}
       className={cx(styles.sidebar_slot, styles.sidebar_footer, sprinkle_class, className)}
       style={style}

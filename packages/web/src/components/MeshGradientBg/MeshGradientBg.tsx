@@ -16,7 +16,6 @@ import * as noise_vars from "../../styles/noise.vars.css.js";
 import { ResolveGradientToken } from "../../theme/resolve-variant.js";
 import { MeshBase, MeshCss } from "../../utils/effects.js";
 import { cx } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./MeshGradientBg.css.js";
@@ -28,7 +27,7 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
     const {
       component,
       gradient = "brand",
-      radius = "lg",
+      r = "lg",
       grain: with_grain = false,
       scrim = 0,
       scrimProps,
@@ -49,16 +48,13 @@ const MeshGradientBgComponent = forwardRef<HTMLElement, MeshGradientBgOwnProps>(
       [noise_vars.opacity]: String(grain_opacity),
     });
 
-    const named_radius = typeof radius === "string" ? radius : "lg";
-    const inline_radius: CSSProperties =
-      typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
-
     return (
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.mesh_gradient_bg({ radius: named_radius }), className)}
-        style={{ ...css_vars, ...inline_radius, ...style }}
+        r={r}
+        className={cx(styles.mesh_gradient_bg(), className)}
+        style={{ ...css_vars, ...style }}
         data-gradient={gradient}
         data-grain={with_grain && grain_opacity > 0 ? "on" : "off"}
         {...rest}

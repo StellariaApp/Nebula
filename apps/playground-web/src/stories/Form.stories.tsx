@@ -43,7 +43,7 @@ const PAISES: SelectOption[] = [
 
 export const Default: Story = {
   render: () => (
-    <Paper maw={560} p="xl" radius="lg" withBorder>
+    <Paper maw={560} p="xl" r="lg" withBorder>
       <Form onSubmit={() => undefined}>
         <Form.Header title="Alta de cliente" description="Los datos mínimos para facturar." />
         <Form.Content columns={2}>
@@ -60,7 +60,7 @@ export const Default: Story = {
 
 export const WithBanderole: Story = {
   render: () => (
-    <Paper maw={560} p="xl" radius="lg" withBorder>
+    <Paper maw={560} p="xl" r="lg" withBorder>
       <Form color="warning">
         <Form.Banderole>Este formulario está en borrador y no se ha enviado.</Form.Banderole>
         <Form.Header title="Solicitud" />
@@ -75,7 +75,7 @@ export const WithBanderole: Story = {
 
 export const Pending: Story = {
   render: () => (
-    <Paper maw={480} p="xl" radius="lg" withBorder>
+    <Paper maw={480} p="xl" r="lg" withBorder>
       <Form isPending>
         <Form.Header title="Guardando" description="Todos los campos quedan bloqueados." />
         <Form.Content>
@@ -89,7 +89,7 @@ export const Pending: Story = {
 
 export const WithError: Story = {
   render: () => (
-    <Paper maw={480} p="xl" radius="lg" withBorder>
+    <Paper maw={480} p="xl" r="lg" withBorder>
       <Form>
         <Form.Header title="Alta" />
         <Form.Content>
@@ -110,7 +110,7 @@ export const Delete: Story = {
     const [opened, set_opened] = useState(false);
     return (
       <Box display="flex" direction="column" gap="xl" maw={480}>
-        <Paper p="xl" radius="lg" withBorder>
+        <Paper p="xl" r="lg" withBorder>
           <FormDelete
             alert={{
               title: "Vas a eliminar la factura F-1042",
@@ -241,7 +241,7 @@ export const MultiStep: Story = {
     };
 
     return (
-      <Paper maw={620} p="xl" radius="lg" withBorder shadow="sm">
+      <Paper maw={620} p="xl" r="lg" withBorder shadow="sm">
         <Form onSubmit={stepper.isLast ? Enviar : Siguiente}>
           <Form.Header
             title="Alta de proveedor"

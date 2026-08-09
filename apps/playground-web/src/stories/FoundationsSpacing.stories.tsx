@@ -107,7 +107,7 @@ export const RegionRhythm: Story = {
               {section.body}
             </Text>
           </Flex>
-          <Paper withBorder p="lg" radius="md">
+          <Paper withBorder p="lg" r="md">
             <Flex direction="column" gapy="md">
               <Flex justify="space-between" align="center" gapx="md">
                 <Text fw="semibold">Plan Escala</Text>
@@ -143,7 +143,7 @@ export const AllThemes: Story = {
             Método de pago y dirección fiscal.
           </Text>
         </Flex>
-        <Paper withBorder p="md" radius="md">
+        <Paper withBorder p="md" r="md">
           <Flex direction="column" gapy="sm">
             <Text fw="semibold">Plan Escala</Text>
             <Text fz="caption" c="text.muted">

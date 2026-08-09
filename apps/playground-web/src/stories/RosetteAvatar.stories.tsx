@@ -73,7 +73,7 @@ const PREAJUSTES: Preajuste[] = [
 function PreajusteTile({ preajuste }: { preajuste: Preajuste }): ReactElement {
   const puesto = preajuste.valor !== undefined;
   return (
-    <Card withBorder radius="md" padding="none">
+    <Card withBorder r="md" padding="none">
       <Box p="sm">
         <Flex align="center" gap="xs" c={puesto ? "primary.600" : "text.muted"}>
           <Icon name={preajuste.icon} size={14} />
@@ -103,7 +103,7 @@ const ACCION = {
 
 function SelectorDeAccion(): ReactElement {
   return (
-    <Card withBorder radius="md" padding="none">
+    <Card withBorder r="md" padding="none">
       <Box p="sm">
         <Flex align="center" justify="space-between" gap="xs">
           <Text fz="caption" tt="uppercase" ls="wide" fw="semibold" c="text.muted">
@@ -143,7 +143,7 @@ function Componer(): ReactElement {
       : `${String(candidatas)} × ${String(TARIFA.imagen)} imagen`;
 
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Segment defaultValue="imagen" fullWidth>
         <Segment.Control aria-label="Qué generar">
           <Segment.Control.Item value="imagen">Imagen</Segment.Control.Item>
@@ -284,7 +284,7 @@ function CandidataTile({
   progreso?: number | undefined;
 }): ReactElement {
   return (
-    <Card withBorder radius="md" padding="none" overflow="hidden">
+    <Card withBorder r="md" padding="none" overflow="hidden">
       <Placeholder ratio={3 / 4} icon={estado === "fallida" ? "warning" : "image"}>
         {progreso === undefined ? null : (
           <Progress value={progreso} size="xs" w="70%" label="Progreso de la generación" />
@@ -349,7 +349,7 @@ const COMPOSICION = [
 
 function Contexto(): ReactElement {
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Rotulo>Lo que viaja en esta generación</Rotulo>
       <Timeline items={COMPOSICION} active={COMPOSICION.length} />
 
@@ -477,7 +477,7 @@ function Galeria(): ReactElement {
           {MEDIOS.map((medio) => {
             const es_publico = publicos.has(medio.id);
             return (
-              <Card key={medio.id} withBorder radius="md" padding="none" overflow="hidden">
+              <Card key={medio.id} withBorder r="md" padding="none" overflow="hidden">
                 <Placeholder
                   ratio={3 / 4}
                   icon={TIPO_MEDIO[medio.tipo]}
@@ -500,7 +500,7 @@ function Galeria(): ReactElement {
         </SimpleGrid>
       </Box>
 
-      <GlassSurface level="subtle" radius="lg" withBorder p="md">
+      <GlassSurface level="subtle" r="lg" withBorder p="md">
         <Rotulo>Sidecar del activo</Rotulo>
         <Box display="flex" direction="column" gap="sm">
           {SIDECAR.map((linea) => (
@@ -547,7 +547,7 @@ function Capa({
   children: ReactNode;
 }): ReactElement {
   return (
-    <Card withBorder radius="md" padding="none">
+    <Card withBorder r="md" padding="none">
       <Box p="sm">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Text fz="body3" fw="semibold">
@@ -567,7 +567,7 @@ function Chat(): ReactElement {
   return (
     <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
       <Box style={{ gridColumn: "span 2" }} miw={0}>
-        <GlassSurface level="subtle" radius="lg" withBorder p="md">
+        <GlassSurface level="subtle" r="lg" withBorder p="md">
           <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
             <Flex align="center" gap="sm" miw={0}>
               <Avatar name={AVATAR_ACTIVO.nombre} size="sm" radius="full" />
@@ -609,7 +609,7 @@ function Chat(): ReactElement {
                 <Box maw="80%">
                   <Card
                     withBorder
-                    radius="md"
+                    r="md"
                     padding="none"
                     variant={turno.de === "usuario" ? "light" : "outline"}
                   >
@@ -644,7 +644,7 @@ function Chat(): ReactElement {
         </GlassSurface>
       </Box>
 
-      <GlassSurface level="subtle" radius="lg" withBorder p="md">
+      <GlassSurface level="subtle" r="lg" withBorder p="md">
         <Rotulo>Memoria</Rotulo>
         <Box display="flex" direction="column" gap="sm">
           <Capa titulo="1 · Canon condensado" cuando="siempre">
@@ -727,7 +727,7 @@ const ANCLAS = [
 function Identidad(): ReactElement {
   return (
     <SimpleGrid cols={Cols({ base: 1, laptop: 2 })} spacing="md">
-      <GlassSurface level="subtle" radius="lg" withBorder p="md">
+      <GlassSurface level="subtle" r="lg" withBorder p="md">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Rotulo>Canon</Rotulo>
           <Group gap="xs">
@@ -769,7 +769,7 @@ function Identidad(): ReactElement {
         </Text>
       </GlassSurface>
 
-      <GlassSurface level="subtle" radius="lg" withBorder p="md">
+      <GlassSurface level="subtle" r="lg" withBorder p="md">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Rotulo>Juego de anclas</Rotulo>
           <Badge variant="light" size="sm" color="success">
@@ -778,7 +778,7 @@ function Identidad(): ReactElement {
         </Flex>
         <SimpleGrid cols={Cols({ base: 3, tablet: 3, laptop: 3 })} spacing="sm">
           {ANCLAS.map((ancla) => (
-            <Card key={ancla.n} withBorder radius="md" padding="none" overflow="hidden">
+            <Card key={ancla.n} withBorder r="md" padding="none" overflow="hidden">
               <Placeholder ratio={1} icon="anchor" />
               <Box p="xs">
                 <Text fz="caption" fw="semibold" truncate>
@@ -824,7 +824,7 @@ function Assets(): ReactElement {
       </Flex>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 3 })} spacing="md">
         {UBICACIONES.map((ubicacion) => (
-          <Card key={ubicacion.nombre} withBorder radius="lg" padding="none" overflow="hidden">
+          <Card key={ubicacion.nombre} withBorder r="lg" padding="none" overflow="hidden">
             <Placeholder
               ratio={16 / 9}
               icon="pin"

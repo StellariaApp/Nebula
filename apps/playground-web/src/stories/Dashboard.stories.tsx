@@ -252,7 +252,7 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder radius="lg" padding="none">
+    <Card withBorder r="lg" padding="none">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>
@@ -370,7 +370,7 @@ function SideBarBody(): ReactElement {
   return (
     <AppShell.Sidebar.Body>
       <Box p="sm" display="flex" align="center" justify="center" bg="surface.base">
-        <GradientBorder beam width={2} surface="overlay" radius="md" p="xs" w="100%">
+        <GradientBorder beam width={2} surface="overlay" r="md" p="xs" w="100%">
           <AppShell.Links title="Super Administrador" deep>
             <AppShell.Link
               label={<AppShell.Label>Super Administrador</AppShell.Label>}
@@ -549,7 +549,7 @@ function Metric({
   hint: string;
 }): ReactElement {
   return (
-    <GlassSurface level="subtle" radius="md" withBorder p="md">
+    <GlassSurface level="subtle" r="md" withBorder p="md">
       <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
         {label}
       </Text>
@@ -578,7 +578,7 @@ function ServiceCard({
 }): ReactElement {
   const pct = Math.round((used / quota) * 100);
   return (
-    <Card withBorder radius="lg" p="md">
+    <Card withBorder r="lg" p="md">
       <Flex align="center" gap="sm">
         <Box c="primary.600" display="flex">
           <Icon name={icon} size={22} />
@@ -670,7 +670,7 @@ function CompanyDetail(): ReactElement {
       value: "resumen",
       label: "Resumen",
       content: (
-        <GlassSurface level="subtle" radius="md" p="md">
+        <GlassSurface level="subtle" r="md" p="md">
           <Box display="flex" direction="column" gap="lg" pt="md">
             <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
               <Metric label="Servicios activos" value="3" hint="de 5 contratados" />
@@ -713,7 +713,7 @@ function CompanyDetail(): ReactElement {
       value: "equipo",
       label: "Equipo",
       content: (
-        <GlassSurface level="subtle" radius="md" p="md">
+        <GlassSurface level="subtle" r="md" p="md">
           <TeamTable />
         </GlassSurface>
       ),
@@ -722,7 +722,7 @@ function CompanyDetail(): ReactElement {
       value: "ajustes",
       label: "Ajustes",
       content: (
-        <GlassSurface level="subtle" radius="md" p="md">
+        <GlassSurface level="subtle" r="md" p="md">
           <Title order={2} fz="h6">
             Datos de la empresa
           </Title>
@@ -886,7 +886,7 @@ function WarehouseService(): ReactElement {
             <Metric label="Entradas del mes" value="24" hint="+6 frente a julio" />
             <Metric label="Referencias" value="5" hint="1 retirada" />
           </SimpleGrid>
-          <GlassSurface level="subtle" radius="md" withBorder p="lg">
+          <GlassSurface level="subtle" r="md" withBorder p="lg">
             <Title order={2} fz="h6" mb="sm">
               Material
             </Title>
@@ -899,7 +899,7 @@ function WarehouseService(): ReactElement {
       value: "movimientos",
       label: "Movimientos",
       content: (
-        <GlassSurface level="subtle" radius="md" withBorder p="lg">
+        <GlassSurface level="subtle" r="md" withBorder p="lg">
           <Title order={2} fz="h6">
             Sin movimientos esta semana
           </Title>

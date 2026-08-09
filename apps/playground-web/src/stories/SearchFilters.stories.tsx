@@ -104,7 +104,7 @@ function Demo(): ReactElement {
         after={<Button size="md">Exportar</Button>}
       />
 
-      <Card p="none" withBorder radius="md">
+      <Card p="none" withBorder r="md">
         <Table caption={`${String(rows.length)} movimientos`} captionVisible highlightOnHover>
           <Table.Head>
             <Table.Row>

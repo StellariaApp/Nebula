@@ -52,7 +52,7 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
       component,
       gradient = "brand",
       width = 1,
-      radius = "lg",
+      r = "lg",
       surface = "none",
       beam = false,
       edges = ALL_EDGES,
@@ -84,16 +84,13 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
       [variables.beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS * share)})`,
     });
 
-    const named_radius = typeof radius === "string" ? radius : "lg";
-    const inline_radius: CSSProperties =
-      typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
-
     return (
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.gradient_border({ radius: named_radius }), className)}
-        style={{ ...css_vars, ...inline_radius, ...style }}
+        r={r}
+        className={cx(styles.gradient_border(), className)}
+        style={{ ...css_vars, ...style }}
         data-surface={surface}
         data-beam={animated ? sequence : undefined}
         {...rest}

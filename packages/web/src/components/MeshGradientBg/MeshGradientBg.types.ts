@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type { GradientRole, RadiusName } from "@stellaria/nebula-tokens";
+import type { GradientRole } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
@@ -21,7 +21,6 @@ export interface MeshGradientBgOwnProps extends Omit<BoxOwnProps, "component"> {
   scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   gradient?: GradientRole | undefined;
-  radius?: RadiusName | number | undefined;
   grain?: boolean | undefined;
   scrim?: number | undefined;
 }

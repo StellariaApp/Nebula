@@ -26,20 +26,8 @@ export const mesh_gradient_bg = recipe({
     },
   },
   variants: {
-    radius: {
-      none: { borderRadius: vars.radius.none },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
   },
   defaultVariants: {
-    radius: "lg",
   },
 });
 

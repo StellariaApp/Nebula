@@ -17,7 +17,7 @@ export function AppShellNav(props: AppShellNavProps): ReactElement {
     <GlassSurface
       component="nav"
       level={level}
-      radius={0}
+      r={0}
       className={cx(styles.navbar, sprinkle_class, className)}
       style={style}
       aria-label={shell.navigationLabel}

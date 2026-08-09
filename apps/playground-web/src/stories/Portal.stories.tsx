@@ -19,7 +19,7 @@ export const Default: Story = {
         <Paper
           p="sm"
           withBorder
-          radius="md"
+          r="md"
           style={{ position: "fixed", bottom: 16, right: 16, zIndex: 9999 }}
         >
           <Text>portaleado a body</Text>
@@ -34,7 +34,7 @@ export const Disabled: Story = {
     <Box p="sm" bg="surface.sunken" r="md">
       <Text>Con `disabled`, el Portal renderiza en su sitio original:</Text>
       <Portal disabled>
-        <Paper p="sm" withBorder radius="md" mt="sm">
+        <Paper p="sm" withBorder r="md" mt="sm">
           <Text>renderizado en línea</Text>
         </Paper>
       </Portal>

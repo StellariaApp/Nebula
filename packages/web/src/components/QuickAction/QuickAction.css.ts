@@ -78,23 +78,12 @@ export const tile = recipe({
       lg: { padding: vars.space.md, gap: vars.space.sm, minHeight: vars.size.control.xl },
       xl: { padding: vars.space.lg, gap: vars.space.sm, minHeight: vars.size.control.xl },
     },
-    radius: {
-      none: { borderRadius: vars.radius.none },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
     fullWidth: {
       true: { display: "flex", width: "100%" },
       false: {},
     },
   },
-  defaultVariants: { orientation: "vertical", size: "md", radius: "lg", fullWidth: false },
+  defaultVariants: { orientation: "vertical", size: "md", fullWidth: false },
 });
 
 export const icon = recipe({

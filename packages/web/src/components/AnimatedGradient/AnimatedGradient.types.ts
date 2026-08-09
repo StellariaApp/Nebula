@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 
-import type { GradientRole, RadiusName } from "@stellaria/nebula-tokens";
+import type { GradientRole } from "@stellaria/nebula-tokens";
 
 import type { GradientProp } from "../../theme/resolve-variant.js";
 import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
@@ -23,7 +23,6 @@ export interface AnimatedGradientOwnProps extends Omit<BoxOwnProps, "component">
   scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   gradient?: GradientRole | GradientProp | undefined;
-  radius?: RadiusName | number | undefined;
   speed?: AnimatedGradientSpeed | undefined;
   scrim?: number | undefined;
 }

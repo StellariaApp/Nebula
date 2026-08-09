@@ -54,7 +54,7 @@ export const Default: Story = {
         items={SLIDES}
         getKey={(slide) => slide.id}
         renderItem={(slide) => (
-          <Paper p="lg" radius="lg" withBorder>
+          <Paper p="lg" r="lg" withBorder>
             <Text component="p" fz="caption" c="text.muted" mb="xxs">
               {slide.title}
             </Text>
@@ -73,7 +73,7 @@ export const VariosPorVista: Story = {
       items={SLIDES}
       getKey={(slide) => slide.id}
       renderItem={(slide) => (
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           <Text component="p" fz="caption" c="text.muted">
             {slide.title}
           </Text>
@@ -168,7 +168,7 @@ export const ReducedMotion: Story = {
         items={SLIDES}
         getKey={(slide) => slide.id}
         renderItem={(slide) => (
-          <Paper p="lg" radius="lg" withBorder>
+          <Paper p="lg" r="lg" withBorder>
             <Text fz="body2">{slide.title}</Text>
           </Paper>
         )}
@@ -185,7 +185,7 @@ export const ReducedMotion: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Card maw={760} p="lg" radius="lg" withBorder>
+    <Card maw={760} p="lg" r="lg" withBorder>
       <Box display="flex" justify="space-between" align="center" mb="md">
         <Box>
           <Text component="p" fz="caption" fw="semibold" tt="uppercase" ls="wide" c="text.muted">
@@ -212,7 +212,7 @@ export const AllThemes: Story = {
         items={SLIDES}
         getKey={(slide) => slide.id}
         renderItem={(slide) => (
-          <Paper p="md" radius="md" withBorder>
+          <Paper p="md" r="md" withBorder>
             <Text fz="body3">{slide.title}</Text>
           </Paper>
         )}

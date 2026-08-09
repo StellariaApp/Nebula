@@ -80,7 +80,7 @@ const ICON_DOTS = (
 
 function Panel(): ReactElement {
   return (
-    <Card p="md" withBorder radius="md">
+    <Card p="md" withBorder r="md">
       <Box display="flex" direction="column" gap="md">
         <Box display="flex" align="center" justify="space-between" gap="sm">
           <Title order={5}>Cobro M-1042</Title>
@@ -195,7 +195,7 @@ function Demo(): ReactElement {
 
   return (
     <Box display="flex" direction="column" gap="lg">
-      <Card p="md" withBorder radius="md" bg="surface.sunken">
+      <Card p="md" withBorder r="md" bg="surface.sunken">
         <Box display="flex" direction="column" gap="sm">
           <Title order={6}>Resolver de ejemplo</Title>
           <Text fz="body3" c="text.secondary">
@@ -244,7 +244,7 @@ export const WithoutProvider: Story = {
         Sin <Code>PermissionProvider</Code> montado, la ausencia de permiso es una denegación
         explícita: no se muestra nada por defecto.
       </Text>
-      <Card p="md" withBorder radius="md">
+      <Card p="md" withBorder r="md">
         <Box display="flex" direction="column" gap="sm">
           <Gate
             permission="cobros.anular"

@@ -34,17 +34,6 @@ export const card = recipe({
       true: { "@layer": { [base_layer]: { boxShadow: variables.glow } } },
       false: {},
     },
-    radius: {
-      none: { borderRadius: vars.radius.none },
-      xxs: { borderRadius: vars.radius.xxs },
-      xs: { borderRadius: vars.radius.xs },
-      sm: { borderRadius: vars.radius.sm },
-      md: { borderRadius: vars.radius.md },
-      lg: { borderRadius: vars.radius.lg },
-      xl: { borderRadius: vars.radius.xl },
-      xxl: { borderRadius: vars.radius.xxl },
-      full: { borderRadius: vars.radius.full },
-    },
     shadow: {
       none: {},
       xxs: { boxShadow: vars.shadow.xxs },
@@ -87,7 +76,6 @@ export const card = recipe({
     },
   },
   defaultVariants: {
-    radius: "md",
     shadow: "none",
     padding: "lg",
     withBorder: true,

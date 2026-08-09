@@ -161,7 +161,7 @@ function Portada(): ReactElement {
         </>
       }
       right={
-        <GradientBorder beam radius="xl" width={4} w={500} h={500}>
+        <GradientBorder beam r="xl" width={4} w={500} h={500}>
           <Paper variant="glass" w="100%" h="100%" r="xl" />
         </GradientBorder>
       }
@@ -234,7 +234,7 @@ function Pricing(): ReactElement {
               h="100%"
               p="lg"
               withBorder
-              radius="md"
+              r="md"
               display="flex"
               direction="column"
               gap="sm"

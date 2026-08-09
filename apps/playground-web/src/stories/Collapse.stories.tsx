@@ -21,7 +21,7 @@ function Demo() {
         {open ? "Cerrar" : "Abrir"}
       </Button>
       <Collapse in={open}>
-        <Paper p="md" withBorder radius="md" maw={360}>
+        <Paper p="md" withBorder r="md" maw={360}>
           <Text>
             Contenido que se pliega y despliega animando la altura. Es una transición discreta, así
             que animar `height` está permitido.

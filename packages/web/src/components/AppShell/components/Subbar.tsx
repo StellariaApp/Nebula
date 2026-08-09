@@ -14,7 +14,7 @@ export function AppShellSubbar(props: AppShellSubbarProps): ReactElement {
   return (
     <GlassSurface
       level={level}
-      radius={0}
+      r={0}
       className={cx(styles.section_sub, sticky && styles.sticky_sub, sprinkle_class, className)}
       style={style}
       {...rest}

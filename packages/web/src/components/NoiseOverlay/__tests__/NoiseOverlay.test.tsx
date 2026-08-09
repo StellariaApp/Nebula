@@ -49,8 +49,8 @@ describe("NoiseOverlay", () => {
     expect(node.getAttribute("style") ?? "").not.toMatch(/0\.08/);
   });
 
-  it("acepta radius, fixed y zIndex", () => {
-    render(<NoiseOverlay radius="xl" fixed zIndex={3} data-testid="no" />);
+  it("acepta r, fixed y zIndex", () => {
+    render(<NoiseOverlay r="xl" fixed zIndex={3} data-testid="no" />);
     const node = screen.getByTestId("no");
     expect(node.className).not.toBe("");
     expect(node.getAttribute("style") ?? "").toMatch(/z-index:\s*3/);

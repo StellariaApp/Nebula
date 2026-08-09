@@ -167,7 +167,7 @@ function Invitar({ abierto, onClose }: { abierto: boolean; onClose: () => void }
 
 function Asientos({ gratis }: { gratis: boolean }): ReactElement {
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
         <Rotulo>Asientos</Rotulo>
         <Badge variant="light" size="sm" color={gratis ? "warning" : "success"}>
@@ -311,7 +311,7 @@ function Papeles(): ReactElement {
       <Rotulo mt="lg">Qué puede cada papel</Rotulo>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 4 })} spacing="md">
         {PAPELES.map((fila) => (
-          <Card key={fila.papel} withBorder radius="md" padding="none">
+          <Card key={fila.papel} withBorder r="md" padding="none">
             <Box p="md">
               <Badge variant="light" color={PAPEL_TONO[fila.papel]} size="sm">
                 {fila.papel}

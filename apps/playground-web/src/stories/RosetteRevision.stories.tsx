@@ -278,7 +278,7 @@ function Estacion(): ReactElement {
             gap="sm"
             style={{ gridTemplateColumns: comparando ? "1fr 1fr" : "1fr" }}
           >
-            <Card withBorder radius="lg" padding="none" overflow="hidden">
+            <Card withBorder r="lg" padding="none" overflow="hidden">
               <Placeholder
                 alto={420}
                 label={`Candidata ${String(actual.id)} · ${actual.encuadre}`}
@@ -301,7 +301,7 @@ function Estacion(): ReactElement {
             </Card>
 
             {comparando ? (
-              <Card withBorder radius="lg" padding="none" overflow="hidden">
+              <Card withBorder r="lg" padding="none" overflow="hidden">
                 <Placeholder
                   alto={420}
                   icon="anchor"
@@ -456,7 +456,7 @@ function Estacion(): ReactElement {
         </Box>
 
         <Box display="flex" direction="column" gap="md" miw={0}>
-          <GlassSurface level="subtle" radius="lg" withBorder p="md">
+          <GlassSurface level="subtle" r="lg" withBorder p="md">
             <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
               <Rotulo>Veredicto</Rotulo>
               <Badge variant="light" size="sm" color={pasa ? "success" : "warning"}>
@@ -493,7 +493,7 @@ function Estacion(): ReactElement {
             ) : null}
           </GlassSurface>
 
-          <GlassSurface level="subtle" radius="lg" withBorder p="md">
+          <GlassSurface level="subtle" r="lg" withBorder p="md">
             <Rotulo>Anclas de este encuadre</Rotulo>
             <SimpleGrid cols={Cols({ base: 3 })} spacing="xs">
               {ANCLAS.slice(0, 6).map((papel, i) => {
@@ -515,7 +515,7 @@ function Estacion(): ReactElement {
                   >
                     <Card
                       withBorder
-                      radius="sm"
+                      r="sm"
                       padding="none"
                       overflow="hidden"
                       variant={cubre ? "light" : "outline"}
@@ -541,7 +541,7 @@ function Estacion(): ReactElement {
             </Text>
           </GlassSurface>
 
-          <GlassSurface level="subtle" radius="lg" withBorder p="md">
+          <GlassSurface level="subtle" r="lg" withBorder p="md">
             <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
               <Rotulo>Descartadas</Rotulo>
               <Badge variant="light" size="sm">

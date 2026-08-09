@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
 import type {
-  RadiusName,
   ColorExtended,
   GlassLevel,
   ShadowLevel,
@@ -20,7 +19,6 @@ export interface CardProps extends Omit<StyleProps, "shadow"> {
   children: ReactNode;
   variant?: CardVariant | undefined;
   color?: ColorExtended | undefined;
-  radius?: RadiusName | undefined;
   shadow?: ShadowLevel | "none" | undefined;
   padding?: "none" | "md" | "lg" | "xl" | undefined;
   withBorder?: boolean | undefined;

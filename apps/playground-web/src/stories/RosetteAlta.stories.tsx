@@ -141,7 +141,7 @@ function PasoOrigen({
           />
           <SimpleGrid cols={Cols({ base: 3, tablet: 6 })} spacing="sm" mt="md">
             {FOTOS.map((foto) => (
-              <Card key={foto.nombre} withBorder radius="sm" padding="none" overflow="hidden">
+              <Card key={foto.nombre} withBorder r="sm" padding="none" overflow="hidden">
                 <Placeholder ratio={1} />
                 <Box p="xxs">
                   <Text fz="caption" c="text.muted" truncate>
@@ -213,7 +213,7 @@ function PasoTecho({
       </Text>
 
       <SimpleGrid cols={Cols({ base: 1, tablet: 2 })} spacing="md" mt="md">
-        <Card withBorder radius="md" padding="none">
+        <Card withBorder r="md" padding="none">
           <Box p="md">
             <Rotulo>Qué cambia en la extracción</Rotulo>
             <Text fz="body3" c="text.secondary">
@@ -246,7 +246,7 @@ function PasoTecho({
           </Box>
         </Card>
 
-        <Card withBorder radius="md" padding="none">
+        <Card withBorder r="md" padding="none">
           <Box p="md">
             <Rotulo>Qué cambia en el juego de anclas</Rotulo>
             <Flex align="baseline" gap="sm">
@@ -298,7 +298,7 @@ function PasoExtraccion(): ReactElement {
           { titulo: "13 paths", nota: "los que el techo A permite preguntar" },
           { titulo: Rosets(TARIFA.extraccion), nota: "se cobra al lanzarla" },
         ].map((dato) => (
-          <Card key={dato.titulo} withBorder radius="md" padding="none">
+          <Card key={dato.titulo} withBorder r="md" padding="none">
             <Box p="md">
               <Text fz="h5" fw="bold">
                 {dato.titulo}
@@ -430,7 +430,7 @@ function PasoRevision({
           </Box>
         </Box>
 
-        <GlassSurface level="subtle" radius="lg" withBorder p="md">
+        <GlassSurface level="subtle" r="lg" withBorder p="md">
           <Rotulo>Cómo se resolvieron los conflictos</Rotulo>
           <Box display="flex" direction="column" gap="sm">
             {[
@@ -499,7 +499,7 @@ function PasoBase(): ReactElement {
     <Box>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2 })} spacing="md" maw={720}>
         {["De frente", "De espaldas"].map((vista) => (
-          <Card key={vista} withBorder radius="lg" padding="none" overflow="hidden">
+          <Card key={vista} withBorder r="lg" padding="none" overflow="hidden">
             <Placeholder ratio={3 / 4} label={vista} />
           </Card>
         ))}
@@ -563,7 +563,7 @@ function PasoAnclas({ techo }: { techo: string }): ReactElement {
 
       <SimpleGrid cols={Cols({ base: 2, tablet: 3, laptop: 5 })} spacing="md">
         {papeles.map((papel) => (
-          <Card key={papel.n} withBorder radius="md" padding="none" overflow="hidden">
+          <Card key={papel.n} withBorder r="md" padding="none" overflow="hidden">
             <Placeholder ratio={1} icon="anchor" />
             <Box p="xs">
               <Text fz="caption" fw="semibold" truncate>
@@ -633,7 +633,7 @@ function Cuenta({
   const { lineas, total } = CuentaDeAlta({ techo, origen, autogenera });
 
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Rotulo>La cuenta del alta</Rotulo>
       <Box display="flex" direction="column" gap="xxs">
         {lineas.map((linea) => (

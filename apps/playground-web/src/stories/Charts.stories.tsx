@@ -111,13 +111,13 @@ export const Ligeros: Story = {
       </Box>
 
       <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Stat label="Cobros" value="71 000" diff={<TrendIndicator value={22} />} />
           <Box mt="sm">
             <SparkLine data={[42, 51, 48, 62, 58, 71]} label="Cobros del semestre" withArea />
           </Box>
         </Card>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Stat
             label="Devoluciones"
             value="3 100"
@@ -127,7 +127,7 @@ export const Ligeros: Story = {
             <SparkLine data={[32, 28, 41, 26, 39, 31]} color="error" label="Devoluciones" />
           </Box>
         </Card>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Stat label="Ticket medio" value="1 240" diff={<TrendIndicator value={0} />} />
           <Box mt="sm">
             <SparkLine data={[12, 12, 12, 12, 12, 12]} color="gray" label="Ticket medio" />

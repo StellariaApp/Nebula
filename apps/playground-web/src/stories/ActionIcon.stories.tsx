@@ -67,7 +67,7 @@ export const Keyboard: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Paper p="sm" radius="lg" withBorder>
+    <Paper p="sm" r="lg" withBorder>
       <Box display="flex" gap="sm" align="center">
         <Text fz="body2" fw="semibold">
           Vista del panel

@@ -1,4 +1,3 @@
-import type { RadiusName } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -12,7 +11,6 @@ import type { StyleProps } from "../../utils/style-props.js";
  */
 export interface NoiseOverlayProps extends Omit<StyleProps, "opacity"> {
   opacity?: number | undefined;
-  radius?: RadiusName | "none" | undefined;
   fixed?: boolean | undefined;
   zIndex?: number | undefined;
   className?: string | undefined;

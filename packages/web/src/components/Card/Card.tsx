@@ -89,7 +89,7 @@ export function Card(props: CardProps): ReactElement {
     children,
     variant,
     color = "primary",
-    radius = "md",
+    r = "md",
     shadow = "none",
     padding = "lg",
     withBorder = true,
@@ -101,7 +101,7 @@ export function Card(props: CardProps): ReactElement {
     "aria-label": aria_label,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps({ r, ...style_rest });
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -115,7 +115,6 @@ export function Card(props: CardProps): ReactElement {
 
   const class_name = cx(
     styles.card({
-      radius,
       shadow,
       padding,
       withBorder: withBorder || resolved?.borderWidth === "1px",

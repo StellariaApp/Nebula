@@ -59,19 +59,19 @@ export const WithPanels: Story = {
       <Segment.Control aria-label="Secciones" data={SECCIONES} />
       <Segment.Content>
         <Segment.Content.Item value="resumen">
-          <Paper withBorder radius="md" p="lg">
+          <Paper withBorder r="md" p="lg">
             <Title order={5}>Resumen</Title>
             <Text c="text.secondary">Saldo disponible y próximos vencimientos.</Text>
           </Paper>
         </Segment.Content.Item>
         <Segment.Content.Item value="movimientos">
-          <Paper withBorder radius="md" p="lg">
+          <Paper withBorder r="md" p="lg">
             <Title order={5}>Movimientos</Title>
             <Text c="text.secondary">Últimos 30 días de actividad.</Text>
           </Paper>
         </Segment.Content.Item>
         <Segment.Content.Item value="documentos">
-          <Paper withBorder radius="md" p="lg">
+          <Paper withBorder r="md" p="lg">
             <Title order={5}>Documentos</Title>
             <Text c="text.secondary">Contratos y anexos firmados.</Text>
           </Paper>

@@ -109,7 +109,7 @@ function Bar({ dict }: { dict: Dictionary }) {
 
 function Preview() {
   return (
-    <GradientBorder beam radius="xl" width={2} w="100%" maw={540}>
+    <GradientBorder beam r="xl" width={2} w="100%" maw={540}>
       <GlassSurface p="lg" display="flex" direction="column" gap="md" r="inherit">
         <Box display="flex" align="center" gap="xs">
           <Mark id="preview-mark" size={20} />
@@ -250,7 +250,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             <Reveal key={name} component="article" index={index}>
               <Card
                 withBorder
-                radius="md"
+                r="md"
                 p="md"
                 h="100%"
                 display="flex"

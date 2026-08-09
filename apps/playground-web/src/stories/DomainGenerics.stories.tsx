@@ -207,7 +207,7 @@ export const Composition: Story = {
           <QuickAction label="Envíos" icon={ICON_BOX} description="Ver ruta" color="accent" />
         </SimpleGrid>
 
-        <Card p="none" withBorder radius="md">
+        <Card p="none" withBorder r="md">
           <Table caption="Movimientos del mes" captionVisible highlightOnHover>
             <Table.Head>
               <Table.Row>
@@ -301,7 +301,7 @@ function ListsDemo(): React.ReactElement {
             }, 600);
           }}
           renderItem={(row) => (
-            <Card p="sm" withBorder radius="sm">
+            <Card p="sm" withBorder r="sm">
               <Text fz="body3">
                 {row.id} · {row.cliente}
               </Text>
@@ -322,7 +322,7 @@ function ListsDemo(): React.ReactElement {
           withCount
           noResults={<Text fz="body3">Ningún movimiento coincide con la búsqueda.</Text>}
           renderItem={(row) => (
-            <Card p="sm" withBorder radius="sm">
+            <Card p="sm" withBorder r="sm">
               <Text fz="body3">
                 {row.id} · {row.cliente}
               </Text>

@@ -35,7 +35,7 @@ export const Unstyled: Story = {
 
 export const Close: Story = {
   render: () => (
-    <Paper p="md" withBorder radius="md" style={{ position: "relative" }}>
+    <Paper p="md" withBorder r="md" style={{ position: "relative" }}>
       <ButtonClose style={{ position: "absolute", top: 8, right: 8 }} />
       <Text>Panel con un ButtonClose (aria-label &quot;Cerrar&quot; por defecto).</Text>
     </Paper>

@@ -45,16 +45,16 @@ export const Velos: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       <Box position="relative" w={220} h={140} r="md" style={{ overflow: "hidden" }}>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body3">Contenido debajo del velo</Text>
         </Card>
-        <Overlay opacity={0.6} radius="md" />
+        <Overlay opacity={0.6} r="md" />
       </Box>
       <Box position="relative" w={220} h={140} r="md" style={{ overflow: "hidden" }}>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body3">Con contenido centrado</Text>
         </Card>
-        <Overlay opacity={0.6} radius="md">
+        <Overlay opacity={0.6} r="md">
           <Button size="sm">Desbloquear</Button>
         </Overlay>
       </Box>
@@ -79,13 +79,13 @@ function CargaDemo(): ReactElement {
         Cargar durante 1,6 s
       </Button>
       <Box position="relative" r="md" style={{ overflow: "hidden" }}>
-        <Card p="lg" withBorder radius="md">
+        <Card p="lg" withBorder r="md">
           <Title order={6}>Movimientos</Title>
           <Text fz="body3" c="text.secondary" mt="xs">
             El velo cubre esta tarjeta sin retirar su contenido.
           </Text>
         </Card>
-        <LoadingOverlay visible={loading} label="Cargando movimientos" radius="md" />
+        <LoadingOverlay visible={loading} label="Cargando movimientos" r="md" />
       </Box>
       <NProgress loading={loading} />
     </Box>
@@ -176,10 +176,10 @@ export const AllThemes: Story = {
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">
         <Box position="relative" h={80} r="md" style={{ overflow: "hidden" }}>
-          <Card p="sm" withBorder radius="md">
+          <Card p="sm" withBorder r="md">
             <Text fz="caption">Bajo el velo</Text>
           </Card>
-          <Overlay opacity={0.5} radius="md" />
+          <Overlay opacity={0.5} r="md" />
         </Box>
         <NProgress loading value={60} withinPortal={false} />
       </Box>

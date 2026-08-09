@@ -16,7 +16,7 @@ export const Sizes: Story = {
     <>
       {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
         <Container key={size} size={size} my="sm">
-          <Paper p="sm" withBorder radius="md">
+          <Paper p="sm" withBorder r="md">
             <Text>size = {size}</Text>
           </Paper>
         </Container>
@@ -28,7 +28,7 @@ export const Sizes: Story = {
 export const Fluid: Story = {
   render: () => (
     <Container fluid py="md">
-      <Paper p="md" withBorder radius="md">
+      <Paper p="md" withBorder r="md">
         <Text>fluid: ocupa todo el ancho disponible</Text>
       </Paper>
     </Container>

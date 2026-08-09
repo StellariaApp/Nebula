@@ -47,7 +47,7 @@ export const Default: Story = {
       <Filler label="antes del pliegue" />
       <Filler label="sigue bajando" />
       <Reveal>
-        <Card p="lg" withBorder radius="md">
+        <Card p="lg" withBorder r="md">
           <Title order={3}>Aparezco al entrar</Title>
           <Text fz="body3" c="text.secondary">
             `preset=&quot;slide-up&quot;` por defecto, `once` activado.
@@ -69,7 +69,7 @@ export const Variants: Story = {
       <Filler label="desplaza" />
       {PRESETS.map((preset) => (
         <Reveal key={preset} preset={preset}>
-          <Card p="md" withBorder radius="md">
+          <Card p="md" withBorder r="md">
             <Text fz="body2" ff="mono">
               {preset}
             </Text>
@@ -93,7 +93,7 @@ export const Stagger: Story = {
       <SimpleGrid cols={{ base: 2, tablet: 4 }} spacing="md">
         {Array.from({ length: 12 }, (_, index) => (
           <Reveal key={index} index={index}>
-            <Card p="md" withBorder radius="md">
+            <Card p="md" withBorder r="md">
               <Text fz="body3">#{String(index + 1)}</Text>
             </Card>
           </Reveal>
@@ -114,13 +114,13 @@ export const States: Story = {
       </Text>
       <Filler label="desplaza" />
       <Reveal>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body2">once (defecto): me quedo</Text>
         </Card>
       </Reveal>
       <Filler label="sigue" />
       <Reveal once={false}>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body2">once=false: me voy y vuelvo</Text>
         </Card>
       </Reveal>
@@ -138,7 +138,7 @@ export const ReducedMotion: Story = {
         animación. El contenido aparece y ya.
       </Text>
       <Reveal>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body2">Visible sin depender de nada</Text>
         </Card>
       </Reveal>
@@ -150,7 +150,7 @@ export const Dark: Story = {
   globals: { theme: "dark" },
   render: () => (
     <Reveal>
-      <Card p="lg" withBorder radius="md">
+      <Card p="lg" withBorder r="md">
         <Title order={3}>Bloque revelado</Title>
       </Card>
     </Reveal>
@@ -162,7 +162,7 @@ export const AllThemes: Story = {
   render: () => (
     <ThemeMatrix extra={[{ theme: rosette, label: "rosette" }]}>
       <Reveal>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body3">Bloque revelado</Text>
         </Card>
       </Reveal>

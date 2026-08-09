@@ -110,27 +110,27 @@ export const Indicators: Story = {
   render: () => (
     <Group gap="xl" align="center">
       <Indicator announce="3 mensajes sin leer" count={3}>
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           Bandeja
         </Paper>
       </Indicator>
       <Indicator count={150} max={99} color="warning">
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           Avisos
         </Paper>
       </Indicator>
       <Indicator color="success" size="sm">
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           En línea
         </Paper>
       </Indicator>
       <Indicator processing color="info">
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           Sincronizando
         </Paper>
       </Indicator>
       <Indicator count={5} disabled>
-        <Paper p="md" radius="md" withBorder>
+        <Paper p="md" r="md" withBorder>
           Apagado
         </Paper>
       </Indicator>
@@ -153,7 +153,7 @@ export const Spoilers: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Paper maw={520} p="xl" radius="lg" withBorder shadow="sm">
+    <Paper maw={520} p="xl" r="lg" withBorder shadow="sm">
       <Group justify="space-between" align="flex-start" mb="md">
         <Group gap="sm" align="center">
           <ThemeIcon variant="light" color="accent" size="lg" radius="md">

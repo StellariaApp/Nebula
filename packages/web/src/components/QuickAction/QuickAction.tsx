@@ -37,7 +37,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       color = "primary",
       gradient,
       size = "md",
-      radius = "lg",
+      r = "lg",
       orientation = "vertical",
       badge,
       disabled = false,
@@ -82,7 +82,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       className: sprinkle_class,
       style: sprinkle_style,
       rest: dom_rest,
-    } = ExtractStyleProps(style_and_rest);
+    } = ExtractStyleProps({ r, ...style_and_rest });
 
     const press_options = {
       isDisabled: is_disabled,
@@ -158,7 +158,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
 
     const shared = {
       className: cx(
-        styles.tile({ orientation, size, radius, fullWidth }),
+        styles.tile({ orientation, size, fullWidth }),
         sprinkle_class,
         className,
       ),

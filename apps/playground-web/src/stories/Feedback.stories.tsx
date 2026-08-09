@@ -162,7 +162,7 @@ export const Composition: Story = {
       <Alert color="info" title="En revisión">
         Un analista está validando la documentación.
       </Alert>
-      <Paper withBorder radius="md" p="lg">
+      <Paper withBorder r="md" p="lg">
         <Box display="flex" direction="column" gap="sm">
           <Text fw="semibold">Avance del expediente</Text>
           <Progress

@@ -134,7 +134,7 @@ export const ReducedMotion: Story = {
 
 export const Composition: Story = {
   render: () => (
-    <Paper maw={560} p="xl" radius="lg" withBorder shadow="sm">
+    <Paper maw={560} p="xl" r="lg" withBorder shadow="sm">
       <Text
         component="p"
         fz="caption"

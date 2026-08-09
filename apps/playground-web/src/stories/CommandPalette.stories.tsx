@@ -136,7 +136,7 @@ function Demo(props: { gated?: boolean }): ReactElement {
 
   return (
     <Box display="flex" direction="column" gap="md">
-      <Card p="md" withBorder radius="md">
+      <Card p="md" withBorder r="md">
         <Box display="flex" direction="column" gap="sm">
           <Title order={6}>Paleta de comandos</Title>
           <Text fz="body3" c="text.secondary">

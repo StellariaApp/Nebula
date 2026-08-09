@@ -31,7 +31,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
     <GlassSurface
       component="header"
       level={level}
-      radius={0}
+      r={0}
       className={cx(
         styles.section_header,
         sticky && styles.sticky_chrome,

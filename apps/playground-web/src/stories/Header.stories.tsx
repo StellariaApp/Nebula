@@ -112,10 +112,10 @@ function InShell(): ReactElement {
       }
     >
       <SimpleGrid cols={{ base: 1, tablet: 2 }} spacing="md">
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body3">M-1042 · Aurora S.A.</Text>
         </Card>
-        <Card p="md" withBorder radius="md">
+        <Card p="md" withBorder r="md">
           <Text fz="body3">M-1043 · Nébula Ltda.</Text>
         </Card>
       </SimpleGrid>
@@ -144,7 +144,7 @@ export const InMain: Story = {
       >
         <Box display="flex" direction="column" gap="md">
           {Array.from({ length: 8 }, (_, index) => (
-            <Card key={index} p="md" withBorder radius="md">
+            <Card key={index} p="md" withBorder r="md">
               <Text fz="body3">Movimiento {String(index + 1)}</Text>
             </Card>
           ))}

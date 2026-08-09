@@ -112,7 +112,7 @@ export const States: Story = {
 export const Composition: Story = {
   render: () => (
     <Box p="lg" bg="surface.base">
-      <Paper withBorder radius="md" p="lg" style={{ maxWidth: "56ch" }}>
+      <Paper withBorder r="md" p="lg" style={{ maxWidth: "56ch" }}>
         <Flex direction="column" gapy="lg">
           <Flex direction="column" gapy="sm">
             <Title order={4}>Cancelar la suscripción</Title>

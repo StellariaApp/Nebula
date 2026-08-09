@@ -13,7 +13,6 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { cx } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Paper.css.js";
@@ -24,7 +23,7 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
   const {
     component,
     shadow = "none",
-    radius = "lg",
+    r = "lg",
     withBorder = false,
     variant,
     color = "primary",
@@ -37,10 +36,6 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
   const { theme } = useTheme();
   const resolved =
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
-
-  const named_radius = typeof radius === "string" ? radius : "md";
-  const inline_radius: CSSProperties =
-    typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
 
   const css_vars =
     resolved === null
@@ -57,16 +52,16 @@ const PaperComponent = forwardRef<HTMLElement, PaperOwnProps>(function Paper(pro
     <Box
       ref={ref}
       component={component ?? "div"}
+      r={r}
       className={cx(
         styles.paper({
           shadow,
-          radius: named_radius,
           withBorder: withBorder || resolved?.borderWidth === "1px",
           glowing: resolved !== null && resolved.glow !== "none",
         }),
         className,
       )}
-      style={{ ...css_vars, ...inline_radius, ...style }}
+      style={{ ...css_vars, ...style }}
       data-variant={variant}
       {...rest}
     >

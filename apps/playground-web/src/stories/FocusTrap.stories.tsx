@@ -15,7 +15,7 @@ type Story = StoryObj<typeof FocusTrap>;
 export const Default: Story = {
   render: () => (
     <FocusTrap>
-      <Paper p="md" withBorder radius="md">
+      <Paper p="md" withBorder r="md">
         <Group gap="sm">
           <Button size="sm">uno</Button>
           <Button size="sm">dos</Button>

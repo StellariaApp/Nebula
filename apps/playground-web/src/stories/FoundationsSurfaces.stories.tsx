@@ -51,7 +51,7 @@ function Ladder(): React.ReactElement {
           key={step.level}
           withBorder={step.border}
           shadow={step.shadow}
-          radius="md"
+          r="md"
           p="lg"
           bg={step.surface}
         >
@@ -121,7 +121,7 @@ export const ShadowSteps: Story = {
   render: () => (
     <Flex wrap="wrap" gapx="lg" gapy="lg" p="xl" bg="surface.base">
       {SHADOW_STEPS.map((step) => (
-        <Paper key={step} shadow={step} radius="md" p="lg" style={{ minWidth: 132 }}>
+        <Paper key={step} shadow={step} r="md" p="lg" style={{ minWidth: 132 }}>
           <Text fz="caption" ff="mono" c="text.muted">
             {step}
           </Text>
@@ -182,7 +182,7 @@ export const AllThemes: Story = {
             key={step.level}
             withBorder={step.border}
             shadow={step.shadow}
-            radius="md"
+            r="md"
             p="md"
             {...(step.level === 0 ? { bg: "surface.sunken" as const } : {})}
           >

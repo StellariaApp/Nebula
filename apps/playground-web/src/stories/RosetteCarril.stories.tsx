@@ -50,7 +50,7 @@ function Explicacion({
   recomendado: boolean;
 }): ReactElement {
   return (
-    <GlassSurface level="subtle" radius="lg" withBorder p="md">
+    <GlassSurface level="subtle" r="lg" withBorder p="md">
       <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
         <Rotulo>{titulo}</Rotulo>
         <Badge variant="light" size="sm" color={recomendado ? "success" : "gray"}>
@@ -81,7 +81,7 @@ function BarraInferior({
   etiqueta: string;
 }): ReactElement {
   return (
-    <Card withBorder radius="md" padding="none">
+    <Card withBorder r="md" padding="none">
       <Flex
         component="nav"
         aria-label={etiqueta}
@@ -233,7 +233,7 @@ function Contenido(): ReactElement {
       <Rotulo mt="lg">El conmutador de estudio</Rotulo>
       <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">
         <Box style={{ gridColumn: "span 2" }} miw={0}>
-          <GlassSurface level="subtle" radius="lg" withBorder p="md">
+          <GlassSurface level="subtle" r="lg" withBorder p="md">
             <Text fz="body3" c="text.secondary">
               El usuario llega desde <strong>Polaris</strong>, que lee los servicios de la empresa y
               redirige, y puede pertenecer a más de un estudio. El conmutador vive en la{" "}
@@ -270,13 +270,13 @@ function Contenido(): ReactElement {
           </GlassSurface>
         </Box>
 
-        <GlassSurface level="subtle" radius="lg" withBorder p="md">
+        <GlassSurface level="subtle" r="lg" withBorder p="md">
           <Rotulo>Estudios de este usuario</Rotulo>
           {[
             { nombre: "Casa Rosette", papel: "Propietario · plan Pro", activo: true },
             { nombre: "Estudio Lumen", papel: "Operador · plan Starter", activo: false },
           ].map((estudio) => (
-            <Card key={estudio.nombre} withBorder radius="md" padding="none" mb="xs">
+            <Card key={estudio.nombre} withBorder r="md" padding="none" mb="xs">
               <Flex align="center" gap="sm" p="sm">
                 <Box c={estudio.activo ? "primary.600" : "text.muted"} display="flex">
                   <Icon name="studio" size={18} />
@@ -410,7 +410,7 @@ function CarrilPorAvatares(): ReactElement {
 
           <SimpleGrid cols={Cols({ base: 2, tablet: 3, laptop: 4 })} spacing="md">
             {AVATARES.map((avatar) => (
-              <Card key={avatar.id} withBorder radius="md" padding="none" overflow="hidden">
+              <Card key={avatar.id} withBorder r="md" padding="none" overflow="hidden">
                 <Placeholder ratio={4 / 3} />
                 <Box p="sm">
                   <Text fz="body3" fw="semibold" truncate>

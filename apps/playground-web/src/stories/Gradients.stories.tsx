@@ -49,7 +49,7 @@ export const Roles: Story = {
           <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
             gradient=&quot;{role}&quot;
           </Text>
-          <GradientBackground gradient={role} h={72} radius="md" />
+          <GradientBackground gradient={role} h={72} r="md" />
         </Box>
       ))}
     </Box>
@@ -60,7 +60,7 @@ export const Scrim: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       {([0, 0.25, 0.5, 0.75] as const).map((value) => (
-        <GradientBackground key={value} scrim={value} p="md" w={200} radius="md">
+        <GradientBackground key={value} scrim={value} p="md" w={200} r="md">
           <Text component="p" fz="caption" ff="mono" mb="xxs">
             scrim={value}
           </Text>
@@ -77,7 +77,7 @@ export const Anillos: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       {([1, 2, 3] as const).map((width) => (
-        <GradientBorder key={width} width={width} surface="raised" p="md" w={190} radius="lg">
+        <GradientBorder key={width} width={width} surface="raised" p="md" w={190} r="lg">
           <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
             width={width}
           </Text>
@@ -86,7 +86,7 @@ export const Anillos: Story = {
           </Text>
         </GradientBorder>
       ))}
-      <GradientBorder gradient="accent" width={2} p="md" w={190} radius="lg">
+      <GradientBorder gradient="accent" width={2} p="md" w={190} r="lg">
         <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
           interior transparente
         </Text>
@@ -119,7 +119,7 @@ export const AnillosAnimados: Story = {
           p="md"
           w={190}
           h={130}
-          radius="lg"
+          r="lg"
         >
           <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
             {item.label}
@@ -141,14 +141,14 @@ export const Malla: Story = {
           <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
             {role}
           </Text>
-          <MeshGradientBg gradient={role} w={220} h={140} radius="lg" />
+          <MeshGradientBg gradient={role} w={220} h={140} r="lg" />
         </Box>
       ))}
       <Box>
         <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
           brand + grain
         </Text>
-        <MeshGradientBg gradient="brand" grain w={220} h={140} radius="lg" />
+        <MeshGradientBg gradient="brand" grain w={220} h={140} r="lg" />
       </Box>
     </Box>
   ),
@@ -158,7 +158,7 @@ export const Deriva: Story = {
   render: () => (
     <Box display="flex" gap="md" wrap="wrap">
       {(["slow", "base", "fast"] as const).map((speed) => (
-        <AnimatedGradient key={speed} speed={speed} scrim={0.3} p="md" w={220} h={140} radius="lg">
+        <AnimatedGradient key={speed} speed={speed} scrim={0.3} p="md" w={220} h={140} r="lg">
           <Text component="p" fz="caption" ff="mono" c="text.muted">
             speed=&quot;{speed}&quot;
           </Text>
@@ -181,7 +181,7 @@ export const ReducedMotion: Story = {
   globals: { reducedMotion: "reduce" },
   render: () => (
     <Box maw={560}>
-      <AnimatedGradient p="lg" h={160} radius="lg" scrim={0.3}>
+      <AnimatedGradient p="lg" h={160} r="lg" scrim={0.3}>
         <Text component="p" fz="body2">
           La capa se detiene en el frame 0 con su transformada de reposo, no en la posición sin
           escalar: si volviera a escala 1 se verían las esquinas del recorte.
@@ -194,7 +194,7 @@ export const ReducedMotion: Story = {
 export const Composition: Story = {
   render: () => (
     <Box maw={720}>
-      <AnimatedGradient radius="xl" scrim={0.55} p="xl">
+      <AnimatedGradient r="xl" scrim={0.55} p="xl">
         <Group justify="space-between" mb="lg">
           <Badge variant="light">v1 · web</Badge>
           <Text component="p" fz="caption" ff="mono" c="text.muted">
@@ -222,14 +222,14 @@ export const AllThemes: Story = {
   render: () => (
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">
-        <GradientBackground h={56} radius="md" />
-        <GradientBorder width={2} surface="raised" p="sm" radius="md">
+        <GradientBackground h={56} r="md" />
+        <GradientBorder width={2} surface="raised" p="sm" r="md">
           <Text component="p" fz="caption">
             anillo
           </Text>
         </GradientBorder>
-        <MeshGradientBg h={56} radius="md" grain />
-        <AnimatedGradient h={56} radius="md" />
+        <MeshGradientBg h={56} r="md" grain />
+        <AnimatedGradient h={56} r="md" />
       </Box>
     </ThemeMatrix>
   ),

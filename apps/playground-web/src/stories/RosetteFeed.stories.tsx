@@ -176,7 +176,7 @@ function Pieza({
       </Box>
 
       <Box position="absolute" style={{ left: 16, right: 88, bottom: 32 }}>
-        <GlassSurface level="strong" radius="lg" withBorder p="md">
+        <GlassSurface level="strong" r="lg" withBorder p="md">
           <Flex align="center" gap="sm" miw={0}>
             <Avatar name={pieza.avatar} size="sm" radius="full" />
             <Box miw={0} style={{ flex: 1 }}>

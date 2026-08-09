@@ -89,7 +89,7 @@ export const Density: Story = {
 export const Groups: Story = {
   render: () => (
     <Box p="lg" bg="surface.base">
-      <Paper withBorder radius="md" p="lg" style={{ maxWidth: "52ch" }}>
+      <Paper withBorder r="md" p="lg" style={{ maxWidth: "52ch" }}>
         <Flex direction="column" gapy="xl">
           <Flex direction="column" gapy="md">
             <Title order={5}>Datos fiscales</Title>

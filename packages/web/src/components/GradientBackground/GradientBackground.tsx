@@ -15,7 +15,6 @@ import { grain } from "../../styles/noise.css.js";
 import * as noise_vars from "../../styles/noise.vars.css.js";
 import { ResolveGradient } from "../../theme/resolve-variant.js";
 import { cx } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./GradientBackground.css.js";
@@ -30,7 +29,7 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
     const {
       component,
       gradient = "brand",
-      radius = "lg",
+      r = "lg",
       scrim = 0,
       scrimProps,
       grain: with_grain = false,
@@ -49,16 +48,13 @@ const GradientBackgroundComponent = forwardRef<HTMLElement, GradientBackgroundOw
       [noise_vars.opacity]: String(grain_opacity),
     });
 
-    const named_radius = typeof radius === "string" ? radius : "lg";
-    const inline_radius: CSSProperties =
-      typeof radius === "number" ? { borderRadius: LengthToCss(radius) } : {};
-
     return (
       <Box
         ref={ref}
         component={component ?? "div"}
-        className={cx(styles.gradient_background({ radius: named_radius }), className)}
-        style={{ ...css_vars, ...inline_radius, ...style }}
+        r={r}
+        className={cx(styles.gradient_background(), className)}
+        style={{ ...css_vars, ...style }}
         data-scrim={scrim > 0 ? String(scrim) : undefined}
         {...rest}
       >
