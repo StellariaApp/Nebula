@@ -121,9 +121,13 @@ portada y dime si se queda, se reduce o se quita.
 **No queda trabajo que no dependa de una decisión tuya.** Todo lo que estaba en la lista está
 cerrado y commiteado.
 
-Lo único pendiente es **D-4**, y está arriba esperando tu criterio: traducir las cadenas por defecto
-en español de 47 componentes. No lo empiezo sin tu decisión porque cambia el comportamiento de la
-librería, no solo su documentación.
+Lo único pendiente es **D-4**, y está arriba esperando tu criterio: las 120 cadenas de interfaz en
+español de 51 componentes. No lo empiezo sin tu decisión porque traducir un defecto cambia el
+comportamiento de la librería, no solo su documentación.
+
+De las cuatro decisiones abiertas, **D-4 es la única que tiene un fallo real dentro** —el
+`aria-label` de `GridList` que nadie puede tapar— y se cierra con seis cambios si eliges la opción
+mínima. `D-1`, `D-2` y `D-3` son criterio, no urgencia.
 
 ---
 
