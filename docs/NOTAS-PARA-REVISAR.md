@@ -85,6 +85,9 @@ portada y dime si se queda, se reduce o se quita.
 | `6b9acab` | `pnpm dev` levanta la cadena entera en watch                              |
 | `54d96d4` | Conmutador de tema flotante y el skip link deja de estar en español       |
 | `d2fbd19` | ADR-119 — el radio lo manda la style prop: 11 componentes, 189 llamadas   |
+| `26146e8` | Portada: cabecera móvil, jerarquía de bandas, Stats, copy al diccionario  |
+| `168a0e2` | ProductSwitch a `Segment` y sin español en el lector de pantalla          |
+| `87720aa` | La escala de la portada llega a `/components`, `/docs`, `/theme` y demás   |
 
 ---
 
@@ -95,25 +98,12 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **Bloqueante de la cabecera en móvil.** Por debajo de 768 px `Nav.Links` y `Nav.Actions` se
-   ocultan por su `collapse` por defecto, y la portada no monta `Burger` ni `Nav.Sidebar`: se pierden
-   los cuatro enlaces **y el CTA**, y la única navegación queda al final de ~2.400 px de scroll. La
-   demo del playground ya lo resuelve (`Landing.stories.tsx`), hay que copiar ese montaje.
-2. **Bloqueante de lector de pantalla en `ProductSwitch`.** `Stat` con `diff`+`trend` y sin
-   `diffLabel` mete un `VisuallyHidden` con «al alza»/«a la baja» en español, y ese demo se pinta en
-   la portada en inglés. Hay el mismo patrón latente en `Charts/TrendIndicator`.
-3. **`Segment` en el selector de producto de `ProductSwitch`** — lo pediste y quedó sin hacer. Ojo:
-   si `SegmentContent` monta los seis paneles a la vez son seis `NebulaProvider`; probablemente haya
-   que usar solo `SegmentControl`.
-4. **Portada, hallazgos de la auditoría todavía sin tocar**: las cinco secciones son `size="xl"` y
-   los cinco títulos miden 24 px, así que no hay jerarquía; `spacing` está muerto en las tres
-   `SimpleGrid` porque `gap` gana; los cuatro `Stat` van sin `diff`/`trend` mientras el snippet de al
-   lado los anuncia; `Footer.Brand` recibe el tagline como children en vez de por `description`; hay
-   copy fuera del diccionario en el TSX.
-5. **DS2.3 — las guías bajo `/docs`.** La de instalación tiene que enseñar juntas las tres piezas del
-   anti-flash (ADR-117), más las dos obligaciones del consumidor: carga de fuente (ADR-031) y nada de
-   `transform`/`filter`/`contain` en un ancestro (ADR-030).
-6. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes.
+1. **DS2.3 — las guías bajo `/docs`.** Hoy solo existen `introduction` e `installation`. La de
+   instalación tiene que enseñar juntas las tres piezas del anti-flash (ADR-117), más las dos
+   obligaciones del consumidor: carga de fuente (ADR-031) y nada de `transform`/`filter`/`contain`
+   en un ancestro (ADR-030). Faltan además las de accesibilidad, frontera RSC y estilos.
+2. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes.
+3. **Depende de D-4**: traducir las 95 cadenas por defecto. No lo empiezo sin tu decisión.
 
 ---
 
