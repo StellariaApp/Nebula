@@ -122,16 +122,7 @@
         "color.text",
         "motion.duration",
         "motion.easing",
-        "motion.tier",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "motion.tier"
       ]
     },
     {
@@ -233,15 +224,7 @@
       "boundary": "client",
       "themeKeys": [
         "blur",
-        "effects.glass",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "effects.glass"
       ]
     },
     {
@@ -375,15 +358,6 @@
         "color.text",
         "font.family",
         "font.size",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs",
         "shadow.lg",
         "shadow.md",
         "shadow.sm",
@@ -971,14 +945,6 @@
         "color.text",
         "effects.glass",
         "glass",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs",
         "shadow.lg",
         "shadow.md",
         "shadow.sm",
@@ -1018,16 +984,7 @@
       "themeKeys": [
         "color.surface",
         "color.text",
-        "effects.glass",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "effects.glass"
       ]
     },
     {
@@ -1038,16 +995,7 @@
         "color.border",
         "color.surface",
         "motion.duration",
-        "motion.tier",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "motion.tier"
       ]
     },
     {
@@ -1101,7 +1049,7 @@
       "boundary": "client",
       "themeKeys": [
         "color.accent",
-        "colors.text",
+        "color.text",
         "font.display",
         "font.family",
         "font.letterSpacing",
@@ -1372,16 +1320,7 @@
       "themeKeys": [
         "color.surface",
         "color.text",
-        "effects.glass",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "effects.glass"
       ]
     },
     {
@@ -1476,7 +1415,6 @@
         "font.lineHeight",
         "font.size",
         "font.weight",
-        "glass.default",
         "glass.strong",
         "glass.subtle",
         "motion.duration",
@@ -1529,15 +1467,7 @@
       "budget": "21 kB",
       "boundary": "client",
       "themeKeys": [
-        "effects.glass",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "effects.glass"
       ]
     },
     {
@@ -1563,15 +1493,7 @@
       "themeKeys": [
         "blur.lg",
         "blur.md",
-        "blur.sm",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs"
+        "blur.sm"
       ]
     },
     {
@@ -1606,15 +1528,6 @@
         "color.border",
         "color.surface",
         "color.text",
-        "radius.full",
-        "radius.lg",
-        "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs",
         "shadow.lg",
         "shadow.md",
         "shadow.sm",
@@ -1702,15 +1615,7 @@
         "font.weight",
         "motion.duration",
         "motion.easing",
-        "radius.full",
-        "radius.lg",
         "radius.md",
-        "radius.none",
-        "radius.sm",
-        "radius.xl",
-        "radius.xs",
-        "radius.xxl",
-        "radius.xxs",
         "size.compact",
         "size.control",
         "space.lg",
