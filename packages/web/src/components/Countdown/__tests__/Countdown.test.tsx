@@ -40,7 +40,7 @@ describe("Countdown", () => {
 
   it("da el tiempo restante en texto para el lector de pantalla", () => {
     render(<Countdown to={new Date(Date.now() + 2 * HOUR).toISOString()} />);
-    expect(screen.getByRole("timer").textContent).toMatch(/Quedan/);
+    expect(screen.getByRole("timer").textContent).toMatch(/left/);
   });
 
   it("muestra el mensaje de fin cuando la fecha ya pasó", () => {

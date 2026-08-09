@@ -22,7 +22,7 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
     children,
     collapsed = false,
     onCollapse,
-    collapseLabels = { collapse: "Colapsar la barra", expand: "Expandir la barra" },
+    collapseLabels = { collapse: "Collapse the sidebar", expand: "Expand the sidebar" },
     className,
     toggleProps,
     collapseProps,

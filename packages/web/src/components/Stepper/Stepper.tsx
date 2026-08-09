@@ -20,7 +20,7 @@ const DEFAULT_LABELS: StepperLabels = {
   completed: "completado",
   current: "paso actual",
   pending: "pendiente",
-  error: "con errores",
+  error: "with errors",
 };
 
 const CHECK = <Check strokeWidth={3} />;

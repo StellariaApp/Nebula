@@ -12,7 +12,7 @@ describe("TagsInput", () => {
   it("pinta un item por tag con su botón de quitar", () => {
     render(<TagsInput label="Etiquetas" value={["react", "aria"]} />);
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
-    expect(screen.getByRole("button", { name: "Quitar react" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Remove react" })).toBeDefined();
   });
 
   it("añade un tag con Enter", async () => {
@@ -65,7 +65,7 @@ describe("TagsInput", () => {
 
   it("en readOnly no ofrece quitar", () => {
     render(<TagsInput label="Etiquetas" value={["a"]} readOnly />);
-    expect(screen.queryByRole("button", { name: "Quitar a" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Remove a" })).toBeNull();
   });
 });
 
@@ -91,7 +91,7 @@ describe("FileInput", () => {
     const on_change = vi.fn();
     const file = new File(["x"], "a.png");
     render(<FileInput label="Adjunto" value={[file]} onChange={on_change} />);
-    await userEvent.click(screen.getByRole("button", { name: "Quitar archivos" }));
+    await userEvent.click(screen.getByRole("button", { name: "Remove files" }));
     expect(on_change).toHaveBeenCalledWith([]);
   });
 

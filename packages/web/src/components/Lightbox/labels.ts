@@ -1,15 +1,15 @@
 import type { LightboxLabels } from "./Lightbox.types.js";
 
 export const LIGHTBOX_LABELS: LightboxLabels = {
-  region: "Visor de imágenes",
-  close: "Cerrar el visor",
-  previous: "Imagen anterior",
-  next: "Imagen siguiente",
-  zoomIn: "Acercar",
-  zoomOut: "Alejar",
-  resetZoom: "Restablecer el zoom",
-  play: "Iniciar el pase de diapositivas",
-  pause: "Pausar el pase de diapositivas",
+  region: "Image viewer",
+  close: "Close the viewer",
+  previous: "Previous image",
+  next: "Next image",
+  zoomIn: "Zoom in",
+  zoomOut: "Zoom out",
+  resetZoom: "Reset the zoom",
+  play: "Start the slideshow",
+  pause: "Pause the slideshow",
   counter: (index, total) => `${String(index)} de ${String(total)}`,
-  zoomLevel: (percent) => `Zoom al ${String(percent)} %`,
+  zoomLevel: (percent) => `Zoom at ${String(percent)}%`,
 };

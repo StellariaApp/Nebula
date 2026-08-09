@@ -18,7 +18,7 @@ import { Text } from "../Text/Text.js";
 export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
   const {
     visible,
-    label = "Cargando",
+    label = "Loading",
     loader,
     color = "surface.base",
     opacity = 0.75,

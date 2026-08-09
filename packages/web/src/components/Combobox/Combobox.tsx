@@ -47,7 +47,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
     virtualizeFrom,
     optionHeight,
     emptyLabel,
-    toggleLabel = "Mostrar opciones",
+    toggleLabel = "Show options",
     className,
     rootClassName,
     name,

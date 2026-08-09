@@ -25,6 +25,6 @@ export const SegmentContext = createContext<SegmentContextValue | null>(null);
 
 export function useSegment(): SegmentContextValue {
   const context = useContext(SegmentContext);
-  if (context === null) throw new Error("Segment.* debe usarse dentro de <Segment>.");
+  if (context === null) throw new Error("Segment.* must be used inside <Segment>.");
   return context;
 }

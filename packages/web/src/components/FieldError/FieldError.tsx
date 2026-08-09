@@ -34,7 +34,7 @@ export function FieldError(props: FieldErrorProps): ReactElement {
     color: color_prop,
     position = "top-right",
     offset = 12,
-    validatingLabel = "Validando…",
+    validatingLabel = "Validating…",
     className,
     ...style_rest
   } = props;

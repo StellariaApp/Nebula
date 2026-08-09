@@ -60,7 +60,7 @@ describe("Lightbox", () => {
     render(<Open />);
     const stage = screen.getByRole("group", { name: LIGHTBOX_LABELS.region });
     expect(stage.getAttribute("data-zoomed")).toBe("false");
-    expect(screen.getByText("Zoom al 100 %")).toBeDefined();
+    expect(screen.getByText("Zoom at 100%")).toBeDefined();
   });
 
   it("el zoom sale por transform, no por width/height", () => {

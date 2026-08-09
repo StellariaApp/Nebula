@@ -46,19 +46,40 @@ export function Panel() {
 
 const GLYPH = {
   theme: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <circle cx="12" cy="12" r="9" />
       <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" />
     </svg>
   ),
   a11y: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <circle cx="12" cy="4" r="2" />
       <path d="M4 8h16M12 10v10M12 14l-4 6M12 14l4 6" />
     </svg>
   ),
   budget: (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth={2}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
       <path d="M3 17l5-6 4 4 5-8 4 5" />
     </svg>
   ),
@@ -162,7 +183,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       skipLabel={dict["skip.content"]}
       header={<Bar dict={dict} />}
       footer={<Foot dict={dict} />}
-      background={<StarField parallax aurora translucency={2} />}
+      background={<StarField parallax aurora translucency={3} />}
     >
       <ThemeFab
         labels={{ dark: dict["theme.to.dark"] ?? "", light: dict["theme.to.light"] ?? "" }}

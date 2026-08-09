@@ -22,7 +22,7 @@ function Validate(raw: string): Parsed {
     JSON.parse(raw);
     return { valid: true, message: undefined };
   } catch (cause) {
-    return { valid: false, message: cause instanceof Error ? cause.message : "JSON inválido" };
+    return { valid: false, message: cause instanceof Error ? cause.message : "Invalid JSON" };
   }
 }
 

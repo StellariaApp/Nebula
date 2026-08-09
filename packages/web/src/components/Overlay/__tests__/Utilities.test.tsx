@@ -17,19 +17,19 @@ describe("Burger", () => {
   it("anuncia su estado y alterna al pulsar", async () => {
     const on_change = vi.fn();
     render(<Burger onChange={on_change} />);
-    const button = screen.getByRole("button", { name: "Abrir menú" });
+    const button = screen.getByRole("button", { name: "Open menu" });
     expect(button.getAttribute("aria-expanded")).toBe("false");
     await userEvent.click(button);
     expect(on_change).toHaveBeenCalledWith(true);
-    expect(screen.getByRole("button", { name: "Cerrar menú" }).getAttribute("aria-expanded")).toBe(
+    expect(screen.getByRole("button", { name: "Close menu" }).getAttribute("aria-expanded")).toBe(
       "true",
     );
   });
 
   it("controlado no cambia por su cuenta", async () => {
     render(<Burger opened={false} onChange={vi.fn()} />);
-    await userEvent.click(screen.getByRole("button", { name: "Abrir menú" }));
-    expect(screen.getByRole("button", { name: "Abrir menú" })).toBeDefined();
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
   });
 
   it("responde a Enter, no solo al ratón", async () => {
@@ -43,7 +43,7 @@ describe("Burger", () => {
   it("deshabilitado no alterna", async () => {
     const on_change = vi.fn();
     render(<Burger onChange={on_change} disabled />);
-    await userEvent.click(screen.getByRole("button", { name: "Abrir menú" }));
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
     expect(on_change).not.toHaveBeenCalled();
   });
 });
@@ -147,7 +147,7 @@ describe("Dialog", () => {
         aviso
       </Dialog>,
     );
-    expect(screen.queryByRole("button", { name: "Cerrar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Close" })).toBeNull();
     unmount();
 
     render(
@@ -155,7 +155,7 @@ describe("Dialog", () => {
         aviso
       </Dialog>,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Cerrar" }));
+    await userEvent.click(screen.getByRole("button", { name: "Close" }));
     expect(on_close).toHaveBeenCalledTimes(1);
   });
 });

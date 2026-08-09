@@ -11,7 +11,7 @@ const types: LoaderType[] = ["spinner", "dots", "bars"];
 describe("Loader", () => {
   it("es un status con nombre accesible por defecto", () => {
     render(<Loader />);
-    expect(screen.getByRole("status", { name: "Cargando" })).toBeDefined();
+    expect(screen.getByRole("status", { name: "Loading" })).toBeDefined();
   });
 
   it("el label es inyectable para no meter copy de negocio en el core", () => {

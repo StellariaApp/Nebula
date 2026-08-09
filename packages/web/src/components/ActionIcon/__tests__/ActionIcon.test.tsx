@@ -51,11 +51,11 @@ describe("ActionIcon", () => {
   it("loading anuncia aria-busy y bloquea la interacción", async () => {
     const on_press = vi.fn();
     Wrap(
-      <ActionIcon aria-label="Guardar" loading onPress={on_press}>
+      <ActionIcon aria-label="Save" loading onPress={on_press}>
         {DOT}
       </ActionIcon>,
     );
-    const button = screen.getByRole("button", { name: "Guardar" });
+    const button = screen.getByRole("button", { name: "Save" });
     expect(button.getAttribute("aria-busy")).toBe("true");
     await userEvent.click(button);
     expect(on_press).not.toHaveBeenCalled();

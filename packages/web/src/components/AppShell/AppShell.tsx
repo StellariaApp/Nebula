@@ -16,9 +16,9 @@ import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./constants.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 
 const DEFAULT_LABELS: AppShellLabels = {
-  skipToContent: "Saltar al contenido",
-  navigation: "Navegación principal",
-  complementary: "Panel lateral",
+  skipToContent: "Skip to content",
+  navigation: "Main navigation",
+  complementary: "Side panel",
 };
 
 export function AppShell(props: AppShellProps): ReactElement {

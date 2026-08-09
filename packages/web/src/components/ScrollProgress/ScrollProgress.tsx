@@ -30,7 +30,7 @@ export function ScrollProgress(props: ScrollProgressProps): ReactElement {
     radius = "none",
     withTrack = false,
     onProgress,
-    label = "Progreso de lectura",
+    label = "Reading progress",
     className,
     barProps,
     ...style_rest

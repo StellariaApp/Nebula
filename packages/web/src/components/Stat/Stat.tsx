@@ -12,9 +12,9 @@ import type { StatProps, StatTrend } from "./Stat.types.js";
 
 const ARROW: Record<StatTrend, string> = { up: "▲", down: "▼", flat: "→" };
 const TREND_LABEL: Record<StatTrend, string> = {
-  up: "al alza",
-  down: "a la baja",
-  flat: "sin cambios",
+  up: "up",
+  down: "down",
+  flat: "unchanged",
 };
 
 export function Stat(props: StatProps): ReactElement {

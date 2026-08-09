@@ -15,8 +15,8 @@ export function Spoiler(props: SpoilerProps): ReactElement {
   const {
     children,
     maxHeight = 100,
-    showLabel = "Mostrar más",
-    hideLabel = "Mostrar menos",
+    showLabel = "Show more",
+    hideLabel = "Show less",
     expanded,
     defaultExpanded = false,
     onExpandedChange,

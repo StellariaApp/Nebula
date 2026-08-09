@@ -29,13 +29,13 @@ function Open(props: Partial<Parameters<typeof GlobalSearch>[0]> = {}) {
 describe("GlobalSearch", () => {
   it("pinta un disparador con atajo", () => {
     render(<GlobalSearch results={[]} onQueryChange={vi.fn()} />);
-    const trigger = screen.getByRole("button", { name: /Buscar/ });
+    const trigger = screen.getByRole("button", { name: /Search/ });
     expect(trigger.textContent).toContain(GLOBAL_SEARCH_LABELS.shortcut);
   });
 
   it("puede prescindir del disparador", () => {
     render(<GlobalSearch results={[]} onQueryChange={vi.fn()} withTrigger={false} />);
-    expect(screen.queryByRole("button", { name: /Buscar/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Search/ })).toBeNull();
   });
 
   it("el campo es un combobox con la lista vinculada", () => {

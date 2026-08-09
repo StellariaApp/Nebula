@@ -78,7 +78,7 @@ export function Modal(props: ModalProps): ReactElement {
     closeOnClickOutside = true,
     closeOnEscape = true,
     withCloseButton = true,
-    closeLabel = "Cerrar",
+    closeLabel = "Close",
     padding = "lg",
     radius,
     className,

@@ -54,7 +54,7 @@ describe("MultiSelect", () => {
     const OnChange = vi.fn();
     const user = userEvent.setup();
     render(<MultiSelect label="Países" data={DATA} value={["mx", "cl"]} onChange={OnChange} />);
-    await user.click(screen.getByRole("button", { name: "Quitar México" }));
+    await user.click(screen.getByRole("button", { name: "Remove México" }));
     expect(OnChange).toHaveBeenCalledWith(["cl"]);
   });
 

@@ -43,7 +43,7 @@ describe("MonthPicker", () => {
 
   it("cambia de año con la cabecera", async () => {
     render(<MonthPicker label="Mes" defaultValue="2026-07" />);
-    await userEvent.click(screen.getByRole("button", { name: "Año siguiente" }));
+    await userEvent.click(screen.getByRole("button", { name: "Next year" }));
     expect(screen.getByText("2027")).toBeDefined();
   });
 });
@@ -59,7 +59,7 @@ describe("YearPicker", () => {
 
   it("avanza de página con la cabecera", async () => {
     render(<YearPicker label="Año" defaultValue="2026" yearsPerPage={12} />);
-    await userEvent.click(screen.getByRole("button", { name: "Años siguientes" }));
+    await userEvent.click(screen.getByRole("button", { name: "Next years" }));
     expect(screen.getByRole("option", { name: "2032" })).toBeDefined();
   });
 

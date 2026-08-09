@@ -59,7 +59,7 @@ export interface MultiSelectProps extends StyleProps, FormFieldSlotProps {
   placement?: PopoverPlacement | undefined;
   maxDropdownHeight?: number | undefined;
   emptyLabel?: string | undefined;
-  /** @default (option) => `Quitar ${option.label}` */
+  /** @default (option) => `Remove ${option.label}` */
   removeLabel?: ((option: SelectOption) => string) | undefined;
   className?: string | undefined;
   rootClassName?: string | undefined;

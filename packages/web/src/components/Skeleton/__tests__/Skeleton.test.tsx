@@ -9,7 +9,7 @@ afterEach(cleanup);
 describe("Skeleton", () => {
   it("anuncia la carga con role=status", () => {
     render(<Skeleton />);
-    expect(screen.getByRole("status", { name: "Cargando contenido" })).toBeDefined();
+    expect(screen.getByRole("status", { name: "Loading content" })).toBeDefined();
   });
 
   it("con loading=false renderiza a sus hijos", () => {
@@ -31,7 +31,7 @@ describe("Skeleton", () => {
 describe("Loader", () => {
   it("anuncia su estado con una etiqueta accesible", () => {
     render(<Loader />);
-    expect(screen.getByRole("status", { name: "Cargando" })).toBeDefined();
+    expect(screen.getByRole("status", { name: "Loading" })).toBeDefined();
   });
 
   it("acepta una etiqueta propia", () => {

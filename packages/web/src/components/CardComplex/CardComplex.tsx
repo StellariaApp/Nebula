@@ -216,7 +216,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
             <Box {...metaProps} className={cx(styles.meta_row, metaProps?.className)}>
               {meta.createdAt === undefined ? null : (
                 <span>
-                  {meta.createdAtLabel ?? "Creado"}{" "}
+                  {meta.createdAtLabel ?? "Created"}{" "}
                   <DateDisplay
                     value={meta.createdAt}
                     mode="auto"
@@ -226,7 +226,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
               )}
               {meta.updatedAt === undefined ? null : (
                 <span>
-                  {meta.updatedAtLabel ?? "Actualizado"}{" "}
+                  {meta.updatedAtLabel ?? "Updated"}{" "}
                   <DateDisplay
                     value={meta.updatedAt}
                     mode="auto"

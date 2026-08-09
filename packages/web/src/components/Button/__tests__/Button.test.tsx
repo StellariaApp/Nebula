@@ -33,8 +33,8 @@ const ALL_VARIANTS: Variant[] = [
 
 describe("Button — render y variantes", () => {
   it("renderiza un button accesible por rol y nombre", () => {
-    RenderButton(<Button>Guardar</Button>);
-    expect(screen.getByRole("button", { name: "Guardar" })).toBeDefined();
+    RenderButton(<Button>Save</Button>);
+    expect(screen.getByRole("button", { name: "Save" })).toBeDefined();
   });
 
   it("usa type=button por defecto (no envía formularios por accidente)", () => {

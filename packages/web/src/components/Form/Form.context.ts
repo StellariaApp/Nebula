@@ -9,7 +9,7 @@ export const FormContext = createContext<FormContextValue | null>(null);
 export function useFormContext(): FormContextValue {
   const value = useContext(FormContext);
   if (value === null) {
-    throw new Error("Los subcomponentes de Form solo funcionan dentro de <Form>.");
+    throw new Error("Form subcomponents only work inside <Form>.");
   }
   return value;
 }

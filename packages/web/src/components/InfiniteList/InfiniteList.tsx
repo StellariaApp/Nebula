@@ -13,9 +13,9 @@ import { ResolveInfiniteSource } from "./use-infinite-source.js";
 import { Box } from "../Box/Box.js";
 
 const DEFAULT_LABELS: InfiniteListLabels = {
-  loadMore: "Cargar más",
-  loading: "Cargando más elementos",
-  end: "No hay más elementos",
+  loadMore: "Load more",
+  loading: "Loading more items",
+  end: "No more items",
 };
 
 export function InfiniteList<T, TPage = readonly T[]>(

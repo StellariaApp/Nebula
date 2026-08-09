@@ -48,7 +48,7 @@ export function DateRangePicker(props: DateRangePickerProps): ReactElement {
     placement = "bottom start",
     visibleMonths = 2,
     labels,
-    openLabel = "Abrir calendario",
+    openLabel = "Open calendar",
     field: nebula_field,
     value,
     defaultValue,

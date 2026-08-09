@@ -39,7 +39,7 @@ describe("Form", () => {
     );
     expect(screen.getByRole("heading", { name: "Alta" })).toBeDefined();
     expect(screen.getByLabelText("Nombre")).toBeDefined();
-    expect(screen.getByRole("button", { name: "Guardar" })).toHaveProperty("type", "submit");
+    expect(screen.getByRole("button", { name: "Save" })).toHaveProperty("type", "submit");
   });
 
   it("envía y previene la navegación del navegador", async () => {
@@ -49,7 +49,7 @@ describe("Form", () => {
         <Form.Footer />
       </Form>,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Guardar" }));
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
     expect(on_submit).toHaveBeenCalledTimes(1);
     expect(on_submit.mock.calls[0]?.[0]?.defaultPrevented).toBe(true);
   });
@@ -83,7 +83,7 @@ describe("Form", () => {
         </Form.Footer>
       </Form>,
     );
-    expect(screen.queryByRole("button", { name: "Guardar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Save" })).toBeNull();
     expect(screen.getByRole("button", { name: "Solo esto" })).toBeDefined();
   });
 
@@ -98,7 +98,7 @@ describe("Form", () => {
 
   it("un subcomponente fuera de Form falla con un mensaje claro", () => {
     const quiet = vi.spyOn(console, "error").mockImplementation(() => undefined);
-    expect(() => render(<Form.Footer />)).toThrow(/dentro de <Form>/);
+    expect(() => render(<Form.Footer />)).toThrow(/only work inside <Form>/);
     quiet.mockRestore();
   });
 });
@@ -106,8 +106,8 @@ describe("Form", () => {
 describe("FormDelete", () => {
   it("usa el color de error y el texto destructivo", () => {
     render(<FormDelete alert={{ title: "Vas a eliminar" }} onCancel={vi.fn()} />);
-    expect(screen.getByRole("button", { name: "Eliminar" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Cancelar" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Delete" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeDefined();
     expect(screen.getByText("Vas a eliminar")).toBeDefined();
   });
 });
@@ -145,7 +145,7 @@ describe("Stepper", () => {
   it("un paso con error se anuncia como tal", () => {
     const con_error = [{ label: "Datos", error: true }, { label: "Fin" }];
     render(<Stepper steps={con_error} active={1} />);
-    expect(screen.getAllByRole("listitem")[0]?.textContent).toContain("con errores");
+    expect(screen.getAllByRole("listitem")[0]?.textContent).toContain("with errors");
   });
 
   it("cada variante del subconjunto resuelve una receta distinta", () => {

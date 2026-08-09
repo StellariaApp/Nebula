@@ -11,9 +11,9 @@ import type { TrendDirection, TrendIndicatorProps } from "./Charts.types.js";
 
 const ARROW: Record<TrendDirection, string> = { up: "▲", down: "▼", flat: "→" };
 const SPOKEN: Record<TrendDirection, string> = {
-  up: "al alza",
-  down: "a la baja",
-  flat: "sin cambios",
+  up: "up",
+  down: "down",
+  flat: "unchanged",
 };
 
 export function Direction(value: number): TrendDirection {

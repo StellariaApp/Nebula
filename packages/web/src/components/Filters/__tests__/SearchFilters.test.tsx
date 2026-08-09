@@ -72,7 +72,7 @@ describe("filter-state", () => {
 describe("Filters", () => {
   it("el disparador abre el panel con un filtro por descriptor", async () => {
     render(<Controlled />);
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
     await screen.findByLabelText("Cliente");
     const rendered = [...document.querySelectorAll("[data-filter]")].map((node) =>
       node.getAttribute("data-filter"),
@@ -83,7 +83,7 @@ describe("Filters", () => {
   it("escribir en un filtro de texto publica el estado", async () => {
     const on_change = vi.fn();
     render(<Controlled onChange={on_change} />);
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
     await screen.findByText("Cliente");
     await userEvent.type(screen.getByLabelText("Cliente"), "au");
     expect(on_change).toHaveBeenCalled();
@@ -93,8 +93,8 @@ describe("Filters", () => {
 
   it("sin filtros declarados el panel lo dice", async () => {
     render(<Filters filters={[]} />);
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
-    expect(await screen.findByText("No hay filtros disponibles")).toBeDefined();
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
+    expect(await screen.findByText("No filters available")).toBeDefined();
   });
 
   it("acepta accessors externos en vez de estado propio", async () => {
@@ -110,7 +110,7 @@ describe("Filters", () => {
         }}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
     expect(await screen.findByDisplayValue("aurora")).toBeDefined();
   });
 
@@ -127,9 +127,9 @@ describe("Filters", () => {
         }}
       />,
     );
-    expect(screen.getByRole("button", { name: /Filtros/ }).textContent).toContain("1");
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
-    await userEvent.click(await screen.findByRole("button", { name: "Quitar todos" }));
+    expect(screen.getByRole("button", { name: /Filters/ }).textContent).toContain("1");
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
+    await userEvent.click(await screen.findByRole("button", { name: "Clear all" }));
     expect(on_delete).toHaveBeenCalled();
   });
 });
@@ -137,7 +137,7 @@ describe("Filters", () => {
 describe("Search", () => {
   it("compone el buscador y expone su nombre accesible", () => {
     render(<Search />);
-    expect(screen.getByRole("searchbox", { name: "Buscar" })).toBeDefined();
+    expect(screen.getByRole("searchbox", { name: "Search" })).toBeDefined();
   });
 
   it("hideSearch retira el campo y conserva los slots", () => {
@@ -157,17 +157,17 @@ describe("Search", () => {
   it("el botón de refrescar solo existe cuando hay onRefresh", async () => {
     const on_refresh = vi.fn();
     const { unmount } = render(<Search />);
-    expect(screen.queryByRole("button", { name: "Actualizar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Refresh" })).toBeNull();
     unmount();
 
     render(<Search onRefresh={on_refresh} />);
-    await userEvent.click(screen.getByRole("button", { name: "Actualizar" }));
+    await userEvent.click(screen.getByRole("button", { name: "Refresh" }));
     expect(on_refresh).toHaveBeenCalledTimes(1);
   });
 
   it("los filtros se delegan en Filters", async () => {
     render(<Search filters={FILTERS} />);
-    await userEvent.click(screen.getByRole("button", { name: /Filtros/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Filters/ }));
     await screen.findByLabelText("Cliente");
     expect(document.querySelectorAll("[data-filter]")).toHaveLength(3);
   });

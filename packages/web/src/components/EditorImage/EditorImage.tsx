@@ -16,11 +16,11 @@ import type { EditorImageLabels, EditorImageProps } from "./EditorImage.types.js
 const DEFAULT_RATIO = 4 / 3;
 
 const EDITOR_IMAGE_LABELS: EditorImageLabels = {
-  open: "Editar la imagen",
-  close: "Cerrar el editor",
-  region: "Editor de imagen",
+  open: "Edit the image",
+  close: "Close the editor",
+  region: "Image editor",
   missingPeer:
-    "EditorImage necesita que le pases el editor de Pintura en la prop `editor`. Pintura es una peer-dependency opcional con licencia comercial: instálala en tu proyecto y pasa `PinturaEditor` de @pqina/react-pintura.",
+    "EditorImage needs you to pass the Pintura editor in the `editor` prop. Pintura is an optional peer dependency under a commercial licence: install it in your project and pass `PinturaEditor` from @pqina/react-pintura.",
 };
 
 export function EditorImage(props: EditorImageProps): ReactElement {

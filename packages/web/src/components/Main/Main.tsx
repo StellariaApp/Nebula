@@ -33,7 +33,7 @@ export function Main(props: MainProps): ReactElement {
     smooth = true,
     spring = "default",
     multiplier = 2.4,
-    skipLabel = "Saltar al contenido",
+    skipLabel = "Skip to content",
     withSkipLink = false,
     id,
     className,

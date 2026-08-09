@@ -116,7 +116,7 @@ export const KeyboardFlow: Story = {
     const dialog = await body.findByRole("dialog", { name: "Confirmar acción" });
     await expect(dialog).toBeInTheDocument();
 
-    await userEvent.click(body.getByRole("button", { name: "Cerrar" }));
+    await userEvent.click(body.getByRole("button", { name: "Close" }));
     await waitFor(() => {
       void expect(body.queryByRole("dialog")).toBeNull();
     });

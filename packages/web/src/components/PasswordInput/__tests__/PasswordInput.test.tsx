@@ -11,9 +11,9 @@ describe("PasswordInput", () => {
     render(<PasswordInput label="Clave" defaultValue="secreto" />);
     const input = screen.getByLabelText<HTMLInputElement>("Clave");
     expect(input.type).toBe("password");
-    const toggle = screen.getByRole("button", { name: "Mostrar contraseña" });
+    const toggle = screen.getByRole("button", { name: "Show password" });
     await userEvent.click(toggle);
     expect(input.type).toBe("text");
-    expect(screen.getByRole("button", { name: "Ocultar contraseña" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Hide password" })).toBeDefined();
   });
 });

@@ -104,7 +104,7 @@ describe("CommandPalette", () => {
   it("abierta expone un combobox y la lista de comandos", async () => {
     render(<CommandPalette items={ITEMS} defaultOpened />);
     expect(await screen.findByRole("dialog")).toBeDefined();
-    expect(screen.getByRole("combobox", { name: "Buscar comandos" })).toBeDefined();
+    expect(screen.getByRole("combobox", { name: "Search commands" })).toBeDefined();
     expect(screen.getAllByRole("option")).toHaveLength(4);
   });
 
@@ -128,7 +128,7 @@ describe("CommandPalette", () => {
     render(<CommandPalette items={ITEMS} defaultOpened />);
     await screen.findByRole("dialog");
     await userEvent.type(screen.getByRole("combobox"), "zzzz");
-    expect(screen.getByText("Sin resultados")).toBeDefined();
+    expect(screen.getByText("No results")).toBeDefined();
   });
 
   it("el atajo global abre la paleta", async () => {

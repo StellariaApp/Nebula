@@ -16,8 +16,8 @@ export function FormDelete(props: FormDeleteProps): ReactElement {
     onCancel,
     isPending = false,
     disabled = false,
-    submitText = "Eliminar",
-    cancelText = "Cancelar",
+    submitText = "Delete",
+    cancelText = "Cancel",
     error,
     className,
     ...style_rest

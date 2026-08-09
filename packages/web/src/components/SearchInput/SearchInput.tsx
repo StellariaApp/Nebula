@@ -33,7 +33,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
       onSearch,
       debounce = 300,
       clearable = true,
-      clearLabel = "Limpiar",
+      clearLabel = "Clear",
       className,
       rootClassName,
       errorDisplay = "tooltip",

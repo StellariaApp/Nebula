@@ -14,9 +14,9 @@ import * as variables from "./GridList.vars.css.js";
 import type { GridListMode, GridListProps } from "./GridList.types.js";
 
 const DEFAULT_MODE_LABELS: Record<GridListMode, string> = {
-  list: "Lista",
-  grid: "Cuadrícula",
-  carousel: "Carrusel",
+  list: "List",
+  grid: "Grid",
+  carousel: "Carousel",
 };
 
 const ALL_MODES: readonly GridListMode[] = ["list", "grid", "carousel"];
@@ -36,6 +36,7 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
     empty,
     label,
     modeLabels,
+    switcherLabel = "View mode",
     withSwitcher = true,
     className,
     toolbarProps,
@@ -67,7 +68,7 @@ export function GridList<T>(props: GridListProps<T>): ReactElement {
             }}
           >
             <Segment.Control
-              aria-label="Modo de vista"
+              aria-label={switcherLabel}
               data={modes.map((entry) => ({ value: entry, label: text[entry] }))}
             />
           </Segment>

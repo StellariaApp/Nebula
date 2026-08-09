@@ -140,7 +140,7 @@ export function PinInput(props: PinInputProps): ReactElement {
 
   const Label = (index: number): string =>
     cellLabel === undefined
-      ? `Dígito ${String(index + 1)} de ${String(length)}`
+      ? `Digit ${String(index + 1)} of ${String(length)}`
       : cellLabel(index, length);
 
   return (

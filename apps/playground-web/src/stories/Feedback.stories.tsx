@@ -212,7 +212,7 @@ export const ToastFlow: Story = {
     const toast = await body.findByRole("status");
     await expect(toast).toHaveTextContent("Cambios guardados");
 
-    await userEvent.click(body.getByRole("button", { name: "Cerrar notificación" }));
+    await userEvent.click(body.getByRole("button", { name: "Dismiss notification" }));
     await waitFor(() => {
       void expect(body.queryByRole("status")).toBeNull();
     });

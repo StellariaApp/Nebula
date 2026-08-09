@@ -10,8 +10,8 @@ export interface AppShellState {
 
 const FALLBACK: AppShellState = {
   collapsed: false,
-  navigationLabel: "Navegación principal",
-  complementaryLabel: "Panel lateral",
+  navigationLabel: "Main navigation",
+  complementaryLabel: "Side panel",
 };
 
 export const AppShellContext = createContext<AppShellState>(FALLBACK);

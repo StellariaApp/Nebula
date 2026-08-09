@@ -85,7 +85,7 @@ describe("Hero compound", () => {
   });
 
   it("una parte fuera de su Hero avisa en vez de fallar en silencio", () => {
-    expect(() => render(<Hero.Title>huerfano</Hero.Title>)).toThrow(/debe usarse dentro de <Hero>/);
+    expect(() => render(<Hero.Title>huerfano</Hero.Title>)).toThrow(/must be used inside <Hero>/);
   });
 
   it("un cuerpo por partes sin titulo no deja el aria-labelledby colgando", () => {

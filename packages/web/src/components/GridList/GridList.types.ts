@@ -24,6 +24,8 @@ export interface GridListProps<T> extends StyleProps {
   empty?: ReactNode | undefined;
   label?: string | undefined;
   modeLabels?: Partial<Record<GridListMode, string>> | undefined;
+  /** Names the view switcher for a screen reader. It has no visible text of its own. */
+  switcherLabel?: string | undefined;
   withSwitcher?: boolean | undefined;
   className?: string | undefined;
 }

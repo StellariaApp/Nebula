@@ -108,8 +108,8 @@ describe("RangeSlider", () => {
     expect(thumbs).toHaveLength(2);
     expect(thumbs[0]?.value).toBe("20");
     expect(thumbs[1]?.value).toBe("80");
-    expect(thumbs[0]?.getAttribute("aria-label")).toBe("Mínimo");
-    expect(thumbs[1]?.getAttribute("aria-label")).toBe("Máximo");
+    expect(thumbs[0]?.getAttribute("aria-label")).toBe("Minimum");
+    expect(thumbs[1]?.getAttribute("aria-label")).toBe("Maximum");
   });
 
   it("emite {start,end} al mover un thumb", async () => {

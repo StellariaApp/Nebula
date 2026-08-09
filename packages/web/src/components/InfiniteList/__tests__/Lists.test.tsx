@@ -62,8 +62,8 @@ describe("InfiniteList — props sueltas", () => {
   });
 
   it("sin items pinta el vacío", () => {
-    render(<InfiniteList items={[]} getKey={Key} renderItem={Render} empty={<p>Sin datos</p>} />);
-    expect(screen.getByText("Sin datos")).toBeDefined();
+    render(<InfiniteList items={[]} getKey={Key} renderItem={Render} empty={<p>No data</p>} />);
+    expect(screen.getByText("No data")).toBeDefined();
   });
 
   it("el botón de cargar más existe aunque autoLoad esté activo", async () => {
@@ -71,7 +71,7 @@ describe("InfiniteList — props sueltas", () => {
     render(
       <InfiniteList items={ROWS} getKey={Key} renderItem={Render} hasMore onLoadMore={on_load} />,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Cargar más" }));
+    await userEvent.click(screen.getByRole("button", { name: "Load more" }));
     expect(on_load).toHaveBeenCalledTimes(1);
   });
 
@@ -89,13 +89,13 @@ describe("InfiniteList — props sueltas", () => {
 
   it("sin hasMore no hay botón ni observer", () => {
     render(<InfiniteList items={ROWS} getKey={Key} renderItem={Render} />);
-    expect(screen.queryByRole("button", { name: "Cargar más" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Load more" })).toBeNull();
     expect(FakeObserver.instances).toHaveLength(0);
   });
 
   it("loadingMore anuncia en la región viva y marca aria-busy", () => {
     render(<InfiniteList items={ROWS} getKey={Key} renderItem={Render} loadingMore />);
-    expect(screen.getByRole("status").textContent).toBe("Cargando más elementos");
+    expect(screen.getByRole("status").textContent).toBe("Loading more items");
     expect(screen.getByRole("list").getAttribute("aria-busy")).toBe("true");
   });
 });
@@ -130,10 +130,10 @@ describe("InfiniteList — objeto de query duck-typed", () => {
         query={{ data: { pages: [{ items: ROWS }] } }}
         getKey={Key}
         renderItem={Render}
-        empty={<p>Sin datos</p>}
+        empty={<p>No data</p>}
       />,
     );
-    expect(screen.getByText("Sin datos")).toBeDefined();
+    expect(screen.getByText("No data")).toBeDefined();
   });
 
   it("hasNextPage y fetchNextPage del query gobiernan el pie", async () => {
@@ -145,7 +145,7 @@ describe("InfiniteList — objeto de query duck-typed", () => {
         renderItem={Render}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Cargar más" }));
+    await userEvent.click(screen.getByRole("button", { name: "Load more" }));
     expect(fetch_next).toHaveBeenCalledTimes(1);
   });
 
@@ -155,10 +155,10 @@ describe("InfiniteList — objeto de query duck-typed", () => {
         query={{ isPending: true }}
         getKey={Key}
         renderItem={Render}
-        skeleton={<p>Cargando</p>}
+        skeleton={<p>Loading</p>}
       />,
     );
-    expect(screen.getByText("Cargando")).toBeDefined();
+    expect(screen.getByText("Loading")).toBeDefined();
   });
 
   it("una prop suelta gana al objeto de query", async () => {
@@ -172,7 +172,7 @@ describe("InfiniteList — objeto de query duck-typed", () => {
         renderItem={Render}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: "Cargar más" }));
+    await userEvent.click(screen.getByRole("button", { name: "Load more" }));
     expect(on_load).toHaveBeenCalledTimes(1);
     expect(fetch_next).not.toHaveBeenCalled();
   });
@@ -223,7 +223,7 @@ describe("SearchableList", () => {
         renderItem={Render}
         getSearchText={(row) => row.name}
         debounce={0}
-        empty={<p>Sin datos</p>}
+        empty={<p>No data</p>}
         noResults={<p>Nada coincide</p>}
       />,
     );
@@ -231,7 +231,7 @@ describe("SearchableList", () => {
     await waitFor(() => {
       expect(screen.getByText("Nada coincide")).toBeDefined();
     });
-    expect(screen.queryByText("Sin datos")).toBeNull();
+    expect(screen.queryByText("No data")).toBeNull();
   });
 
   it("minLength retrasa el filtrado", async () => {

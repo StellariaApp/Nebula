@@ -21,7 +21,7 @@ describe("Tag", () => {
   it("el botón de quitar nombra la etiqueta que quita", async () => {
     const on_remove = vi.fn();
     render(<Tag onRemove={on_remove}>Motion</Tag>);
-    const remove = screen.getByRole("button", { name: "Quitar: Motion" });
+    const remove = screen.getByRole("button", { name: "Remove: Motion" });
     await userEvent.click(remove);
     expect(on_remove).toHaveBeenCalledTimes(1);
   });

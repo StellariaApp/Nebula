@@ -48,7 +48,7 @@ describe("Modal y Drawer animan el panel, no su contenido", () => {
 
   it("el drawer entra deslizando por su borde, no fundiéndose", () => {
     render(
-      <Drawer opened onClose={() => undefined} title="Filtros">
+      <Drawer opened onClose={() => undefined} title="Filters">
         <p>contenido</p>
       </Drawer>,
     );
@@ -60,7 +60,7 @@ describe("Modal y Drawer animan el panel, no su contenido", () => {
 
   it("el lado del drawer decide la dirección del deslizamiento", () => {
     render(
-      <Drawer opened side="start" onClose={() => undefined} title="Filtros">
+      <Drawer opened side="start" onClose={() => undefined} title="Filters">
         <p>contenido</p>
       </Drawer>,
     );

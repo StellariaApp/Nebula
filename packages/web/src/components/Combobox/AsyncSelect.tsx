@@ -16,10 +16,10 @@ export function AsyncSelect(props: AsyncSelectProps): ReactElement {
     load,
     debounce = 300,
     minQueryLength = 1,
-    loadingLabel = "Buscando…",
-    errorLabel = "No se pudo cargar",
+    loadingLabel = "Searching…",
+    errorLabel = "Could not load",
     initialData = NO_OPTIONS,
-    emptyLabel = "Sin resultados",
+    emptyLabel = "No results",
     ...rest
   } = props;
 

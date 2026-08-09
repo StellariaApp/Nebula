@@ -31,7 +31,7 @@ export function Alert(props: AlertProps): ReactElement {
     icon,
     withCloseButton = false,
     onClose,
-    closeLabel = "Cerrar aviso",
+    closeLabel = "Dismiss notice",
     live,
     actions,
     className,

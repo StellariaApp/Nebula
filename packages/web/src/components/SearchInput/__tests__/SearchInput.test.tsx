@@ -9,8 +9,8 @@ afterEach(cleanup);
 describe("SearchInput", () => {
   it("dispara onSearch con debounce", async () => {
     const on_search = vi.fn();
-    render(<SearchInput label="Buscar" onSearch={on_search} debounce={50} />);
-    await userEvent.type(screen.getByLabelText("Buscar"), "abc");
+    render(<SearchInput label="Search" onSearch={on_search} debounce={50} />);
+    await userEvent.type(screen.getByLabelText("Search"), "abc");
     await waitFor(() => {
       expect(on_search).toHaveBeenCalledWith("abc");
     });
@@ -20,7 +20,7 @@ describe("SearchInput", () => {
     render(<SearchInput label="B" defaultValue="hola" />);
     const input = screen.getByLabelText<HTMLInputElement>("B");
     expect(input.value).toBe("hola");
-    await userEvent.click(screen.getByRole("button", { name: "Limpiar" }));
+    await userEvent.click(screen.getByRole("button", { name: "Clear" }));
     expect(input.value).toBe("");
   });
 });

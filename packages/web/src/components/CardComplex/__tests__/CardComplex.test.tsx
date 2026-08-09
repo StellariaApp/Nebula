@@ -110,7 +110,7 @@ describe("CardComplex", () => {
         }}
       />,
     );
-    expect(screen.getByText(/Creado/)).toBeDefined();
+    expect(screen.getByText(/Created/)).toBeDefined();
     expect(screen.getByText(/Ada Lovelace/)).toBeDefined();
   });
 

@@ -39,7 +39,7 @@ describe("EmptyState", () => {
     const OnPress = vi.fn();
     const user = userEvent.setup();
     render(
-      <EmptyState title="Sin datos" actions={<Button onPress={OnPress}>Reintentar</Button>} />,
+      <EmptyState title="No data" actions={<Button onPress={OnPress}>Reintentar</Button>} />,
     );
     await user.click(screen.getByRole("button", { name: "Reintentar" }));
     expect(OnPress).toHaveBeenCalledTimes(1);

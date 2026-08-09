@@ -31,21 +31,21 @@ describe("Section", () => {
 
   it("el error sustituye al contenido y se anuncia", () => {
     render(
-      <Section title="Movimientos" error="No se pudo cargar">
+      <Section title="Movimientos" error="Could not load">
         contenido
       </Section>,
     );
-    expect(screen.getByRole("alert").textContent).toContain("No se pudo cargar");
+    expect(screen.getByRole("alert").textContent).toContain("Could not load");
     expect(screen.queryByText("contenido")).toBeNull();
   });
 
   it("isEmpty pinta el vacío en lugar del contenido", () => {
     render(
-      <Section title="Movimientos" isEmpty empty={<p>Sin datos</p>}>
+      <Section title="Movimientos" isEmpty empty={<p>No data</p>}>
         contenido
       </Section>,
     );
-    expect(screen.getByText("Sin datos")).toBeDefined();
+    expect(screen.getByText("No data")).toBeDefined();
     expect(screen.queryByText("contenido")).toBeNull();
   });
 
@@ -73,7 +73,7 @@ describe("Main", () => {
         cuerpo
       </Main>,
     );
-    const skip = screen.getByRole("link", { name: "Saltar al contenido" });
+    const skip = screen.getByRole("link", { name: "Skip to content" });
     expect(skip.getAttribute("href")).toBe("#contenido-principal");
     expect(screen.getByRole("main").getAttribute("id")).toBe("contenido-principal");
   });
@@ -281,7 +281,7 @@ describe("Section compound", () => {
 
   it("una parte fuera de su Section avisa en vez de fallar en silencio", () => {
     expect(() => render(<Section.Title>huerfano</Section.Title>)).toThrow(
-      /debe usarse dentro de <Section>/,
+      /must be used inside <Section>/,
     );
   });
 
@@ -289,12 +289,12 @@ describe("Section compound", () => {
     render(
       <Section title="Ventas">
         <Section.Aside>
-          <button type="button">Rango</button>
+          <button type="button">Range</button>
         </Section.Aside>
         contenido
       </Section>,
     );
-    expect(screen.getByRole("button", { name: "Rango" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Range" })).toBeDefined();
   });
 
   it("el camino de props y el de partes producen el mismo DOM", () => {
@@ -302,7 +302,7 @@ describe("Section compound", () => {
       <Section
         title="Ventas"
         description="Ultimos 30 dias"
-        aside={<button type="button">Rango</button>}
+        aside={<button type="button">Range</button>}
         actions={<button type="button">Exportar</button>}
         footer="pie"
       >
@@ -321,7 +321,7 @@ describe("Section compound", () => {
           </Section.Heading>
           <Section.Actions>
             <Section.Aside>
-              <button type="button">Rango</button>
+              <button type="button">Range</button>
             </Section.Aside>
             <button type="button">Exportar</button>
           </Section.Actions>

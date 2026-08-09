@@ -60,7 +60,7 @@ describe("Carousel", () => {
 
   it("pinta un indicador por slide y marca el activo", () => {
     render(<Basic withIndicators />);
-    const dots = screen.getAllByRole("button", { name: /Ir a la diapositiva/ });
+    const dots = screen.getAllByRole("button", { name: /Go to slide/ });
     expect(dots).toHaveLength(3);
     expect(dots[0]?.getAttribute("aria-current")).toBe("true");
   });

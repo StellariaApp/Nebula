@@ -2,15 +2,15 @@ import type { DragDropLabels } from "./DragDrop.types.js";
 
 export const DRAG_DROP_LABELS: DragDropLabels = {
   instructions:
-    "Pulsa espacio o intro para levantar el elemento. Muévelo con las flechas, suelta con espacio o intro y cancela con escape.",
-  start: (id) => `Has levantado el elemento ${id}.`,
-  over: (id, overId) => `El elemento ${id} está sobre la posición de ${overId}.`,
+    "Press space or enter to pick the item up. Move it with the arrow keys, drop it with space or enter, and cancel with escape.",
+  start: (id) => `You have picked up item ${id}.`,
+  over: (id, overId) => `Item ${id} is over the position of ${overId}.`,
   drop: (id, overId) =>
     overId === null
-      ? `El elemento ${id} se ha soltado en su posición original.`
-      : `El elemento ${id} se ha soltado sobre ${overId}.`,
-  cancel: (id) => `Se ha cancelado el movimiento de ${id}, que vuelve a su posición original.`,
-  handle: "Reordenar",
+      ? `Item ${id} was dropped back in its original position.`
+      : `Item ${id} was dropped over ${overId}.`,
+  cancel: (id) => `The move of ${id} was cancelled, and it returns to its original position.`,
+  handle: "Reorder",
   item: "elemento arrastrable",
 };
 

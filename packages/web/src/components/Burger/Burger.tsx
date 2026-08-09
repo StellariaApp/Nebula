@@ -33,8 +33,8 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
       size = "md",
       color = "text.primary",
       disabled = false,
-      openLabel = "Abrir menú",
-      closeLabel = "Cerrar menú",
+      openLabel = "Open menu",
+      closeLabel = "Close menu",
       className,
       style,
       ...rest

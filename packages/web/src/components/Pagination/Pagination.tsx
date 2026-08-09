@@ -55,12 +55,12 @@ export function Pagination(props: PaginationProps): ReactElement {
   const items = PaginationRange(total, active, siblings, boundaries);
 
   const text = {
-    root: labels?.root ?? "Paginación",
-    previous: labels?.previous ?? "Página anterior",
-    next: labels?.next ?? "Página siguiente",
-    first: labels?.first ?? "Primera página",
-    last: labels?.last ?? "Última página",
-    page: labels?.page ?? ((value: number) => `Página ${String(value)}`),
+    root: labels?.root ?? "Pagination",
+    previous: labels?.previous ?? "Previous page",
+    next: labels?.next ?? "Next page",
+    first: labels?.first ?? "First page",
+    last: labels?.last ?? "Last page",
+    page: labels?.page ?? ((value: number) => `Page ${String(value)}`),
   };
 
   const resolved = ResolveVariant(variant, color, theme);

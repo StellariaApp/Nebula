@@ -66,8 +66,8 @@ describe("permission en controles", () => {
   });
 
   it("un Button sin prop permission no pasa por el gate", () => {
-    render(<Button>Guardar</Button>);
-    expect(screen.getByRole("button", { name: "Guardar" })).toBeDefined();
+    render(<Button>Save</Button>);
+    expect(screen.getByRole("button", { name: "Save" })).toBeDefined();
   });
 
   it("ActionIcon aplica el mismo contrato", () => {

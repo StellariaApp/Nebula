@@ -25,10 +25,10 @@ import { Text } from "../Text/Text.js";
 import { Search } from "../../glyphs/index.js";
 
 const DEFAULT_LABELS: CommandPaletteLabels = {
-  placeholder: "Escribe un comando o busca…",
-  search: "Buscar comandos",
-  empty: "Sin resultados",
-  list: "Comandos",
+  placeholder: "Type a command or search…",
+  search: "Search commands",
+  empty: "No results",
+  list: "Commands",
 };
 
 const ICON_SEARCH = <Search />;

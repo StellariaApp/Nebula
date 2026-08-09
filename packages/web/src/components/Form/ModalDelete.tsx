@@ -8,7 +8,7 @@ import { FormDelete } from "./FormDelete.js";
 import type { ModalDeleteProps } from "./FormDelete.types.js";
 
 export function ModalDelete(props: ModalDeleteProps): ReactElement {
-  const { opened, onClose, title = "Confirmar eliminación", size = "sm", ...form } = props;
+  const { opened, onClose, title = "Confirm deletion", size = "sm", ...form } = props;
 
   return (
     <Modal

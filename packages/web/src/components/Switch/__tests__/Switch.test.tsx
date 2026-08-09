@@ -9,8 +9,8 @@ afterEach(cleanup);
 describe("Switch", () => {
   it("expone role=switch y alterna su estado", async () => {
     const on_change = vi.fn();
-    render(<Switch label="Notificaciones" onChange={on_change} />);
-    const control = screen.getByRole("switch", { name: "Notificaciones" });
+    render(<Switch label="Notifications" onChange={on_change} />);
+    const control = screen.getByRole("switch", { name: "Notifications" });
     await userEvent.click(control);
     expect(on_change).toHaveBeenCalledWith(true);
   });

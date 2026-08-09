@@ -65,7 +65,7 @@ export function CalendarHeader(props: CalendarHeaderProps): ReactElement {
       <NavButton
         buttonProps={prevButtonProps}
         size={size}
-        label={labels?.previousMonth ?? "Mes anterior"}
+        label={labels?.previousMonth ?? "Previous month"}
         slotProps={slots?.previousProps}
       >
         {CHEVRON_LEFT}
@@ -81,7 +81,7 @@ export function CalendarHeader(props: CalendarHeaderProps): ReactElement {
       <NavButton
         buttonProps={nextButtonProps}
         size={size}
-        label={labels?.nextMonth ?? "Mes siguiente"}
+        label={labels?.nextMonth ?? "Next month"}
         slotProps={slots?.nextProps}
       >
         {CHEVRON_RIGHT}

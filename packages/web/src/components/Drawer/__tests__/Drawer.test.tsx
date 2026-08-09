@@ -16,16 +16,16 @@ const ROLES: SelectOption[] = [
 describe("Drawer", () => {
   it("expone un diálogo con su título", () => {
     render(
-      <Drawer opened onClose={() => undefined} title="Filtros">
+      <Drawer opened onClose={() => undefined} title="Filters">
         <span>contenido</span>
       </Drawer>,
     );
-    expect(screen.getByRole("dialog", { name: "Filtros" })).toBeDefined();
+    expect(screen.getByRole("dialog", { name: "Filters" })).toBeDefined();
   });
 
   it("marca data-drawer para el layout lateral", () => {
     render(
-      <Drawer opened onClose={() => undefined} title="Filtros">
+      <Drawer opened onClose={() => undefined} title="Filters">
         <span>contenido</span>
       </Drawer>,
     );
@@ -36,11 +36,11 @@ describe("Drawer", () => {
     const OnClose = vi.fn();
     const user = userEvent.setup();
     render(
-      <Drawer opened onClose={OnClose} title="Filtros">
+      <Drawer opened onClose={OnClose} title="Filters">
         <span>contenido</span>
       </Drawer>,
     );
-    await user.click(screen.getByRole("button", { name: "Cerrar" }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
     expect(OnClose).toHaveBeenCalledTimes(1);
   });
 

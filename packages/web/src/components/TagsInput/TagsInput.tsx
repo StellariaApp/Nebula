@@ -159,7 +159,7 @@ export function TagsInput(props: TagsInputProps): ReactElement {
                     <ButtonClose
                       size="xs"
                       aria-label={
-                        removeLabel === undefined ? `Quitar ${entry}` : removeLabel(entry)
+                        removeLabel === undefined ? `Remove ${entry}` : removeLabel(entry)
                       }
                       onPress={() => {
                         Remove(index);

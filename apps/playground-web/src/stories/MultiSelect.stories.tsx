@@ -119,7 +119,7 @@ export const KeyboardFlow: Story = {
     await userEvent.keyboard("{Enter}");
 
     await expect(
-      canvas.getByRole("button", { name: "Quitar Bug", hidden: true }),
+      canvas.getByRole("button", { name: "Remove Bug", hidden: true }),
     ).toBeInTheDocument();
   },
 };

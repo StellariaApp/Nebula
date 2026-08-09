@@ -26,11 +26,11 @@ afterEach(cleanup);
 describe("ButtonCopy", () => {
   it("copia el valor al portapapeles y cambia el label a Copiado", async () => {
     Wrap(<ButtonCopy value="hola mundo" />);
-    const button = screen.getByRole("button", { name: "Copiar" });
+    const button = screen.getByRole("button", { name: "Copy" });
     await userEvent.click(button);
     expect(writeText).toHaveBeenCalledWith("hola mundo");
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Copiado" })).toBeDefined();
+      expect(screen.getByRole("button", { name: "Copied" })).toBeDefined();
     });
   });
 });

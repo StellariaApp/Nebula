@@ -48,8 +48,8 @@ describe("RadarChart", () => {
   });
 
   it("muestra el vacío declarado", () => {
-    render(<RadarChart data={[]} series={SERIES} angleKey="eje" empty="Sin datos" />);
-    expect(screen.getByText("Sin datos")).toBeDefined();
+    render(<RadarChart data={[]} series={SERIES} angleKey="eje" empty="No data" />);
+    expect(screen.getByText("No data")).toBeDefined();
   });
 });
 

@@ -33,12 +33,12 @@ describe("PaginationRange", () => {
 describe("Pagination", () => {
   it("es un nav con nombre accesible", () => {
     render(<Pagination total={5} />);
-    expect(screen.getByRole("navigation", { name: "Paginación" })).toBeDefined();
+    expect(screen.getByRole("navigation", { name: "Pagination" })).toBeDefined();
   });
 
   it("marca la página activa con aria-current", () => {
     render(<Pagination total={5} defaultPage={3} />);
-    expect(screen.getByRole("button", { name: "Página 3" }).getAttribute("aria-current")).toBe(
+    expect(screen.getByRole("button", { name: "Page 3" }).getAttribute("aria-current")).toBe(
       "page",
     );
   });
@@ -47,7 +47,7 @@ describe("Pagination", () => {
     const OnChange = vi.fn();
     const user = userEvent.setup();
     render(<Pagination total={5} onChange={OnChange} />);
-    await user.click(screen.getByRole("button", { name: "Página 4" }));
+    await user.click(screen.getByRole("button", { name: "Page 4" }));
     expect(OnChange).toHaveBeenCalledWith(4);
   });
 
@@ -56,21 +56,21 @@ describe("Pagination", () => {
     const user = userEvent.setup();
     render(<Pagination total={5} defaultPage={2} onChange={OnChange} />);
 
-    await user.click(screen.getByRole("button", { name: "Página siguiente" }));
+    await user.click(screen.getByRole("button", { name: "Next page" }));
     expect(OnChange).toHaveBeenLastCalledWith(3);
   });
 
   it("deshabilita el anterior en la primera página", () => {
     render(<Pagination total={5} defaultPage={1} />);
     expect(
-      screen.getByRole<HTMLButtonElement>("button", { name: "Página anterior" }).disabled,
+      screen.getByRole<HTMLButtonElement>("button", { name: "Previous page" }).disabled,
     ).toBe(true);
   });
 
   it("withEdges añade primera y última", () => {
     render(<Pagination total={20} defaultPage={10} withEdges />);
-    expect(screen.getByRole("button", { name: "Primera página" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Última página" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "First page" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Last page" })).toBeDefined();
   });
 
   it("disabled bloquea todos los botones", () => {
@@ -81,7 +81,7 @@ describe("Pagination", () => {
 
   it("respeta el modo controlado", () => {
     render(<Pagination total={5} page={2} onChange={() => undefined} />);
-    expect(screen.getByRole("button", { name: "Página 2" }).getAttribute("aria-current")).toBe(
+    expect(screen.getByRole("button", { name: "Page 2" }).getAttribute("aria-current")).toBe(
       "page",
     );
   });

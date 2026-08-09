@@ -8,7 +8,7 @@ afterEach(cleanup);
 describe("ScrollProgress", () => {
   it("se anuncia como barra de progreso con rango", () => {
     render(<ScrollProgress />);
-    const bar = screen.getByRole("progressbar", { name: "Progreso de lectura" });
+    const bar = screen.getByRole("progressbar", { name: "Reading progress" });
     expect(bar.getAttribute("aria-valuemin")).toBe("0");
     expect(bar.getAttribute("aria-valuemax")).toBe("100");
     expect(bar.getAttribute("aria-valuenow")).toBe("0");

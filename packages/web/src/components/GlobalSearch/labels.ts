@@ -1,13 +1,13 @@
 import type { GlobalSearchLabels } from "./GlobalSearch.types.js";
 
 export const GLOBAL_SEARCH_LABELS: GlobalSearchLabels = {
-  trigger: "Buscar",
-  input: "Búsqueda global",
-  placeholder: "Busca en toda la aplicación…",
-  empty: "Sin resultados",
-  loading: "Buscando…",
-  recent: "Recientes",
+  trigger: "Search",
+  input: "Global search",
+  placeholder: "Search the whole app…",
+  empty: "No results",
+  loading: "Searching…",
+  recent: "Recent",
   results: (count) =>
-    count === 0 ? "Sin resultados" : `${String(count)} resultado${count === 1 ? "" : "s"}`,
+    count === 0 ? "No results" : `${String(count)} resultado${count === 1 ? "" : "s"}`,
   shortcut: "Ctrl K",
 };

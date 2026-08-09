@@ -47,7 +47,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
     placement = "bottom start",
     visibleMonths = 1,
     labels,
-    openLabel = "Abrir calendario",
+    openLabel = "Open calendar",
     granularity = "day",
     field: nebula_field,
     value,

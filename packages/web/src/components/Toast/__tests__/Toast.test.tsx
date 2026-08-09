@@ -14,7 +14,7 @@ afterEach(() => {
 describe("Toast", () => {
   it("la región es un landmark con nombre", () => {
     render(<ToastProvider />);
-    expect(screen.getByRole("region", { name: "Notificaciones" })).toBeDefined();
+    expect(screen.getByRole("region", { name: "Notifications" })).toBeDefined();
   });
 
   it("nebulaToast.success publica un status sin prop-drilling", async () => {
@@ -41,7 +41,7 @@ describe("Toast", () => {
       nebulaToast.info("Aviso", { duration: 0 });
     });
     await screen.findByRole("status");
-    await user.click(screen.getByRole("button", { name: "Cerrar notificación" }));
+    await user.click(screen.getByRole("button", { name: "Dismiss notification" }));
     await waitFor(() => {
       expect(screen.queryByRole("status")).toBeNull();
     });
@@ -95,6 +95,6 @@ describe("Toast", () => {
       nebulaToast.info("Persistente", { duration: 0, dismissible: false });
     });
     await screen.findByText("Persistente");
-    expect(screen.queryByRole("button", { name: "Cerrar notificación" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Dismiss notification" })).toBeNull();
   });
 });

@@ -111,7 +111,7 @@ describe("TrendIndicator", () => {
   it("formatea con signo y anuncia el sentido para lectores", () => {
     render(<TrendIndicator value={12} />);
     expect(screen.getByText("+12 %")).toBeDefined();
-    expect(screen.getByText("al alza")).toBeDefined();
+    expect(screen.getByText("up")).toBeDefined();
   });
 
   it("invertColors cambia el color pero no el sentido leído", () => {
@@ -128,7 +128,7 @@ describe("TrendIndicator", () => {
 
   it("el cero se lee como sin cambios", () => {
     render(<TrendIndicator value={0} />);
-    expect(screen.getByText("sin cambios")).toBeDefined();
+    expect(screen.getByText("unchanged")).toBeDefined();
   });
 
   it("el color va en la flecha, no en el número — contraste AA", () => {

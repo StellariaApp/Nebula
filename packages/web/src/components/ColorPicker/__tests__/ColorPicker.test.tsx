@@ -13,7 +13,7 @@ describe("ColorPicker", () => {
   it("expone área, tono y muestras con nombre accesible", () => {
     render(<ColorPicker label="Color" defaultValue="#3f37c9" swatches={SWATCHES} />);
     expect(screen.getByRole("group", { name: "Color" })).toBeDefined();
-    expect(screen.getByRole("group", { name: "Muestras" })).toBeDefined();
+    expect(screen.getByRole("group", { name: "Swatches" })).toBeDefined();
     expect(screen.getAllByRole("button")).toHaveLength(SWATCHES.length);
   });
 
@@ -35,10 +35,10 @@ describe("ColorPicker", () => {
 
   it("añade el canal alpha solo con withAlpha", () => {
     const { unmount } = render(<ColorPicker label="Color" defaultValue="#3f37c9" />);
-    expect(screen.queryByLabelText("Opacidad")).toBeNull();
+    expect(screen.queryByLabelText("Opacity")).toBeNull();
     unmount();
     render(<ColorPicker label="Color" defaultValue="#3f37c9" withAlpha format="hexa" />);
-    expect(screen.getByLabelText("Opacidad")).toBeDefined();
+    expect(screen.getByLabelText("Opacity")).toBeDefined();
   });
 
   it("no rompe con un color malformado", () => {
@@ -65,18 +65,18 @@ describe("ColorInput", () => {
     const input = screen.getByLabelText("Color");
     await userEvent.type(input, "rojo");
     expect(input.getAttribute("aria-invalid")).toBe("true");
-    expect(screen.getByRole("alert").textContent).toBe("Color no reconocido");
+    expect(screen.getByRole("alert").textContent).toBe("Colour not recognised");
   });
 
   it("abre el picker desde el trigger", async () => {
     render(<ColorInput label="Color" defaultValue="#3f37c9" swatches={SWATCHES} />);
-    await userEvent.click(screen.getByRole("button", { name: "Abrir selector de color" }));
-    expect(screen.getByRole("group", { name: "Muestras" })).toBeDefined();
+    await userEvent.click(screen.getByRole("button", { name: "Open colour picker" }));
+    expect(screen.getByRole("group", { name: "Swatches" })).toBeDefined();
   });
 
   it("oculta el trigger con withPicker={false}", () => {
     render(<ColorInput label="Color" defaultValue="#3f37c9" withPicker={false} />);
-    expect(screen.queryByRole("button", { name: "Abrir selector de color" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Open colour picker" })).toBeNull();
   });
 
   it("lee el valor de un NebulaField", () => {

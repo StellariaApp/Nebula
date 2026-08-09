@@ -22,7 +22,7 @@ export function Banderole(props: BanderoleProps): ReactElement {
     icon,
     actions,
     onClose,
-    closeLabel = "Cerrar aviso",
+    closeLabel = "Dismiss notice",
     label,
     sticky = false,
     className,

@@ -16,9 +16,9 @@ function Wrap(ui: ReactNode) {
 }
 
 describe("ButtonClose", () => {
-  it("tiene nombre accesible por defecto (Cerrar)", () => {
+  it("tiene nombre accesible por defecto (Close)", () => {
     Wrap(<ButtonClose />);
-    expect(screen.getByRole("button", { name: "Cerrar" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Close" })).toBeDefined();
   });
 
   it("respeta un aria-label del consumidor", () => {

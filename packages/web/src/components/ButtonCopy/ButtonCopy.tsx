@@ -18,8 +18,8 @@ export const ButtonCopy = forwardRef<HTMLButtonElement, ButtonCopyProps>(
       timeout = 1500,
       copyIcon = COPY_ICON,
       copiedIcon = CHECK_ICON,
-      copyLabel = "Copiar",
-      copiedLabel = "Copiado",
+      copyLabel = "Copy",
+      copiedLabel = "Copied",
       variant = "light",
       color = "gray",
       ...rest

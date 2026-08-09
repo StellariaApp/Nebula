@@ -12,7 +12,7 @@ const CLOSE_ICON = <Close />;
 export const ButtonClose = forwardRef<HTMLButtonElement, ButtonCloseProps>(
   function ButtonClose(props, ref) {
     const { variant = "ghost", color = "gray", ...rest } = props;
-    const aria_label = props["aria-label"] ?? "Cerrar";
+    const aria_label = props["aria-label"] ?? "Close";
 
     return (
       <ActionIcon ref={ref} variant={variant} color={color} {...rest} aria-label={aria_label}>

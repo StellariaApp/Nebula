@@ -43,7 +43,7 @@ export function ColorInput(props: ColorInputProps): ReactElement {
     triggerProps,
     dropdownProps,
     placeholder = "#000000",
-    openLabel = "Abrir selector de color",
+    openLabel = "Open colour picker",
     labels,
     field: nebula_field,
     value,
@@ -86,7 +86,7 @@ export function ColorInput(props: ColorInputProps): ReactElement {
   const malformed = fp.value.trim() !== "" && parsed === null;
   const form_error =
     fp.errorMessage ??
-    (malformed ? "Color no reconocido" : undefined) ??
+    (malformed ? "Colour not recognised" : undefined) ??
     (fp.isInvalid ? true : undefined);
   const invalid = fp.isInvalid || malformed;
 

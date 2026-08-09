@@ -13,9 +13,9 @@ import type { SearchLabels, SearchProps } from "./Search.types.js";
 import { Refresh } from "../../glyphs/index.js";
 
 const DEFAULT_LABELS: SearchLabels = {
-  placeholder: "Buscar",
-  search: "Buscar",
-  refresh: "Actualizar",
+  placeholder: "Search",
+  search: "Search",
+  refresh: "Refresh",
 };
 
 const ICON_REFRESH = <Refresh />;

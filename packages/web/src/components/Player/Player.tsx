@@ -15,8 +15,8 @@ import type { PlayerProps } from "./Player.types.js";
 const DEFAULT_RATIO = 16 / 9;
 
 const PLAYER_LABELS = {
-  region: "Reproductor de vídeo",
-  close: "Cerrar el reproductor",
+  region: "Video player",
+  close: "Close the player",
 } as const;
 
 export function Player(props: PlayerProps): ReactElement {

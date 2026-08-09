@@ -57,14 +57,14 @@ describe("FieldError", () => {
 
   it("muestra 'Validando…' tras el retardo", async () => {
     render(
-      <FieldError field={Field({ status: "validating" })} validatingLabel="Validando…">
+      <FieldError field={Field({ status: "validating" })} validatingLabel="Validating…">
         <input />
       </FieldError>,
     );
     expect(screen.queryByRole("alert")).toBeNull();
     await waitFor(
       () => {
-        expect(screen.getByRole("alert").textContent).toBe("Validando…");
+        expect(screen.getByRole("alert").textContent).toBe("Validating…");
       },
       { timeout: 1500 },
     );

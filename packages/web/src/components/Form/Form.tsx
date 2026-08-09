@@ -153,8 +153,8 @@ export function FormFooter(props: FormFooterProps): ReactElement {
   const {
     children,
     error,
-    submitText = "Guardar",
-    cancelText = "Cancelar",
+    submitText = "Save",
+    cancelText = "Cancel",
     onCancel,
     hideSubmit = false,
     align = "end",

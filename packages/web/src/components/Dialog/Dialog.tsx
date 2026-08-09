@@ -33,7 +33,7 @@ export function Dialog(props: DialogProps): ReactElement {
     width = 340,
     zIndex = 300,
     withCloseButton = true,
-    closeLabel = "Cerrar",
+    closeLabel = "Close",
     withinPortal = true,
     live = "polite",
     className,

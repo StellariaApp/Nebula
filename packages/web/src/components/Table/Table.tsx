@@ -174,7 +174,7 @@ export function TableCell(props: TableCellProps): ReactElement {
 }
 
 export function TableScrollContainer(props: TableScrollProps): ReactElement {
-  const { children, minWidth = 640, label = "Tabla desplazable", className, ...style_rest } = props;
+  const { children, minWidth = 640, label = "Scrollable table", className, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   return (

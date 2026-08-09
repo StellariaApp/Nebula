@@ -152,7 +152,7 @@ export const OpensCalendarWithKeyboard: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /Abrir calendario/ });
+    const trigger = canvas.getByRole("button", { name: /Open calendar/ });
     trigger.focus();
     await userEvent.keyboard("{Enter}");
     await waitFor(async () => {

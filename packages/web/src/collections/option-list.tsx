@@ -120,7 +120,7 @@ export function OptionList(props: OptionListProps): ReactElement {
     listBoxProps: outer,
     renderOption,
     withCheck = true,
-    emptyLabel = "Sin resultados",
+    emptyLabel = "No results",
     virtualizeFrom,
     rowHeight = DEFAULT_ROW_HEIGHT,
     viewportHeight = DEFAULT_VIEWPORT,

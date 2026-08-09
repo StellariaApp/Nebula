@@ -10,7 +10,7 @@ import { FormField } from "../FormField/FormField.js";
 import { SliderBase } from "./SliderBase.js";
 import type { RangeSliderProps, RangeSliderValue } from "./Slider.types.js";
 
-const DEFAULT_THUMB_LABELS = ["Mínimo", "Máximo"] as const;
+const DEFAULT_THUMB_LABELS = ["Minimum", "Maximum"] as const;
 
 export function RangeSlider(props: RangeSliderProps): ReactElement {
   const {
@@ -116,7 +116,7 @@ export function RangeSlider(props: RangeSliderProps): ReactElement {
           formatValue={formatValue}
           thumbLabels={thumbLabels}
           ariaLabelledBy={label === undefined ? undefined : `${id}-label`}
-          ariaLabel={label === undefined ? "Rango" : undefined}
+          ariaLabel={label === undefined ? "Range" : undefined}
           name={name}
           className={className}
         />

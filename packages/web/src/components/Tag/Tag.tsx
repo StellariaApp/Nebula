@@ -24,7 +24,7 @@ export function Tag(props: TagProps): ReactElement {
     radius = "full",
     leftSection,
     onRemove,
-    removeLabel = "Quitar",
+    removeLabel = "Remove",
     disabled = false,
     className,
     sectionProps,

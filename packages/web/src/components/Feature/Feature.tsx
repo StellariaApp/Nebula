@@ -17,7 +17,7 @@ export function Feature(props: FeatureProps): ReactElement {
     icon,
     color = "primary",
     href,
-    linkText = "Saber más",
+    linkText = "Learn more",
     align = "start",
     children,
     className,

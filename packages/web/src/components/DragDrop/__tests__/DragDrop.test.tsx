@@ -112,10 +112,10 @@ describe("SortableList", () => {
         getKey={(item: string) => item}
         renderItem={(item: string) => <span>{item}</span>}
         onReorder={vi.fn()}
-        empty="Sin elementos"
+        empty="No items"
       />,
     );
-    expect(screen.getByText("Sin elementos")).toBeDefined();
+    expect(screen.getByText("No items")).toBeDefined();
   });
 
   it("permite arrastrar la fila entera cuando withHandle es false", () => {

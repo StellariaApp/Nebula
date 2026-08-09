@@ -12,7 +12,7 @@ import * as variables from "./Panel.vars.css.js";
 import * as styles from "./Panel.css.js";
 import type { PanelLabels, PanelProps } from "./Panel.types.js";
 
-const DEFAULT_LABELS: PanelLabels = { separator: "Redimensionar paneles" };
+const DEFAULT_LABELS: PanelLabels = { separator: "Resize panels" };
 
 function Clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));

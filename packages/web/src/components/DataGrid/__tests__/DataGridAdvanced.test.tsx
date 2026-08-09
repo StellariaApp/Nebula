@@ -74,7 +74,7 @@ describe("DataGrid — toolbar", () => {
       />,
     );
     expect(screen.getByText("Estado: activo")).toBeDefined();
-    await user.click(screen.getByRole("button", { name: /Quitar el filtro/ }));
+    await user.click(screen.getByRole("button", { name: /Remove the filter/ }));
     expect(on_clear).toHaveBeenCalledTimes(1);
   });
 

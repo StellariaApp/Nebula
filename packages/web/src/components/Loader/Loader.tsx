@@ -24,7 +24,7 @@ export function Loader(props: LoaderProps): ReactElement {
     type = "spinner",
     size,
     color = "primary",
-    label = "Cargando",
+    label = "Loading",
     className,
     ...style_rest
   } = props;

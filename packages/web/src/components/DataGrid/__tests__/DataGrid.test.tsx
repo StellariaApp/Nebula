@@ -89,7 +89,7 @@ describe("DataGrid", () => {
         onSelectedChange={on_selected}
       />,
     );
-    await userEvent.click(screen.getAllByRole("checkbox", { name: "Seleccionar fila" })[0]!);
+    await userEvent.click(screen.getAllByRole("checkbox", { name: "Select row" })[0]!);
     expect(on_selected).toHaveBeenCalledWith(["1"]);
   });
 
@@ -104,7 +104,7 @@ describe("DataGrid", () => {
         onSelectedChange={on_selected}
       />,
     );
-    await userEvent.click(screen.getByRole("checkbox", { name: "Seleccionar todas las filas" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "Select all rows" }));
     expect(on_selected).toHaveBeenCalledWith(["1", "2", "3"]);
   });
 
@@ -116,10 +116,10 @@ describe("DataGrid", () => {
     }));
     render(<DataGrid data={many} columns={COLUMNS} getRowId={Key} pageSize={5} />);
     expect(screen.getAllByRole("row")).toHaveLength(6);
-    expect(screen.getByText("Página 1 de 3")).toBeDefined();
+    expect(screen.getByText("Page 1 of 3")).toBeDefined();
 
-    await userEvent.click(screen.getByRole("button", { name: "Siguiente" }));
-    expect(screen.getByText("Página 2 de 3")).toBeDefined();
+    await userEvent.click(screen.getByRole("button", { name: "Next" }));
+    expect(screen.getByText("Page 2 of 3")).toBeDefined();
   });
 
   it("no virtualiza por debajo del umbral", () => {

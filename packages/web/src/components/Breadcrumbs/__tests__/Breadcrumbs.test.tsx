@@ -68,12 +68,12 @@ describe("Breadcrumbs", () => {
     render(
       <Breadcrumbs
         items={[
-          { key: "a", label: "Volver", onSelect: on_select },
+          { key: "a", label: "Back", onSelect: on_select },
           { key: "b", label: "Aquí" },
         ]}
       />,
     );
-    await user.click(screen.getByRole("button", { name: "Volver" }));
+    await user.click(screen.getByRole("button", { name: "Back" }));
     expect(on_select).toHaveBeenCalledTimes(1);
   });
 

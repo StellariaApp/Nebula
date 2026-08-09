@@ -32,7 +32,7 @@ describe("Player", () => {
 
   it("abre el reproductor dentro de un diálogo con nombre accesible", () => {
     render(<Player src={SRC} opened onClose={vi.fn()} />);
-    expect(screen.getByRole("dialog", { name: "Reproductor de vídeo" })).toBeDefined();
+    expect(screen.getByRole("dialog", { name: "Video player" })).toBeDefined();
     expect(screen.getByTestId("react-player")).toBeDefined();
   });
 

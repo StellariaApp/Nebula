@@ -23,7 +23,7 @@ export function NProgress(props: NProgressProps): ReactElement | null {
     color = "primary",
     height = 3,
     zIndex = 400,
-    label = "Cargando la página",
+    label = "Loading the page",
     withinPortal = true,
     className,
     ...style_rest

@@ -28,7 +28,7 @@ describe("DatePicker", () => {
   it("abre el calendario y emite ISO al elegir un día", async () => {
     const on_change = vi.fn();
     render(<DatePicker label="Fecha" defaultValue="2026-07-15" onChange={on_change} />);
-    await userEvent.click(screen.getByRole("button", { name: /Abrir calendario/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Open calendar/ }));
     await waitFor(() => {
       expect(Cell(22)).toBeDefined();
     });
@@ -38,7 +38,7 @@ describe("DatePicker", () => {
 
   it("cierra el popover con Escape", async () => {
     render(<DatePicker label="Fecha" defaultValue="2026-07-15" />);
-    await userEvent.click(screen.getByRole("button", { name: /Abrir calendario/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Open calendar/ }));
     await waitFor(() => {
       expect(Cell(15)).toBeDefined();
     });
@@ -58,7 +58,7 @@ describe("DatePicker", () => {
 
   it("no abre el calendario deshabilitado", async () => {
     render(<DatePicker label="Fecha" disabled defaultValue="2026-07-15" />);
-    const trigger = screen.getByRole("button", { name: /Abrir calendario/ });
+    const trigger = screen.getByRole("button", { name: /Open calendar/ });
     await userEvent.click(trigger);
     expect(screen.queryByRole("dialog")).toBeNull();
   });
@@ -74,7 +74,7 @@ describe("DatePicker", () => {
 
 describe("DateTimePicker", () => {
   it("añade segmentos de hora y emite fecha-hora ISO", () => {
-    render(<DateTimePicker label="Cita" value="2026-07-29T14:30" />);
+    render(<DateTimePicker label="Quote" value="2026-07-29T14:30" />);
     const segments = screen.getAllByRole("spinbutton");
     expect(segments.length).toBeGreaterThanOrEqual(5);
   });
@@ -129,7 +129,7 @@ describe("DateRangePicker", () => {
         visibleMonths={1}
       />,
     );
-    await userEvent.click(screen.getByRole("button", { name: /Abrir calendario/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Open calendar/ }));
     await waitFor(() => {
       expect(Cell(10)).toBeDefined();
     });

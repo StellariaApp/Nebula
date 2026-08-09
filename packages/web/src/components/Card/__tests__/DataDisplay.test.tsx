@@ -117,13 +117,13 @@ describe("EmptyState", () => {
   it("muestra título, descripción y acciones", () => {
     render(
       <EmptyState
-        title="Sin resultados"
+        title="No results"
         description="Prueba con otros filtros."
-        actions={<button type="button">Limpiar</button>}
+        actions={<button type="button">Clear</button>}
       />,
     );
-    expect(screen.getByText("Sin resultados")).toBeDefined();
+    expect(screen.getByText("No results")).toBeDefined();
     expect(screen.getByText("Prueba con otros filtros.")).toBeDefined();
-    expect(screen.getByRole("button", { name: "Limpiar" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Clear" })).toBeDefined();
   });
 });

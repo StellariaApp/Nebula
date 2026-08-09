@@ -14,6 +14,6 @@ export const HeroContext = createContext<HeroContextValue | null>(null);
 
 export function useHero(): HeroContextValue {
   const context = useContext(HeroContext);
-  if (context === null) throw new Error("Hero.* debe usarse dentro de <Hero>.");
+  if (context === null) throw new Error("Hero.* must be used inside <Hero>.");
   return context;
 }

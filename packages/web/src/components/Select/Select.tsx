@@ -25,7 +25,7 @@ export function Select(props: SelectProps): ReactElement {
     data,
     label,
     description,
-    placeholder = "Selecciona una opción",
+    placeholder = "Select an option",
     error,
     errorDisplay = "tooltip",
     required = false,

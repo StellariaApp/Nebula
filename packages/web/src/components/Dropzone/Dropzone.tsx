@@ -25,11 +25,11 @@ const ACCEPT: Record<DropzoneKind, string> = {
 };
 
 const DEFAULT_LABELS: DropzoneLabels = {
-  idle: "Arrastra archivos o pulsa para elegirlos",
-  hint: "También puedes soltarlos aquí",
-  accept: "Suelta para añadir",
-  reject: "Este tipo de archivo no se admite",
-  remove: "Quitar archivo",
+  idle: "Drag files here or click to choose them",
+  hint: "You can also drop them here",
+  accept: "Drop to add",
+  reject: "That file type is not accepted",
+  remove: "Remove file",
 };
 
 const CLOUD = <UploadCloud strokeWidth={1.5} />;

@@ -20,9 +20,9 @@ describe("AppShell", () => {
       </AppShell>,
     );
     expect(screen.getByRole("banner")).toBeDefined();
-    expect(screen.getByRole("navigation", { name: "Navegación principal" })).toBeDefined();
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeDefined();
     expect(screen.getByRole("main")).toBeDefined();
-    expect(screen.getByRole("complementary", { name: "Panel lateral" })).toBeDefined();
+    expect(screen.getByRole("complementary", { name: "Side panel" })).toBeDefined();
     expect(screen.getByRole("contentinfo")).toBeDefined();
   });
 
@@ -41,7 +41,7 @@ describe("AppShell", () => {
         contenido
       </AppShell>,
     );
-    expect(screen.getByRole("link", { name: "Saltar al contenido" }).getAttribute("href")).toBe(
+    expect(screen.getByRole("link", { name: "Skip to content" }).getAttribute("href")).toBe(
       "#principal",
     );
     const main = screen.getByRole("main");
@@ -88,7 +88,7 @@ describe("Panel", () => {
     render(
       <Panel master={<p>lista</p>} detail={<p>detalle</p>} defaultSize={320} min={160} max={640} />,
     );
-    const separator = screen.getByRole("separator", { name: "Redimensionar paneles" });
+    const separator = screen.getByRole("separator", { name: "Resize panels" });
     expect(separator.getAttribute("aria-valuenow")).toBe("320");
     expect(separator.getAttribute("aria-valuemin")).toBe("160");
     expect(separator.getAttribute("aria-valuemax")).toBe("640");

@@ -109,7 +109,7 @@ export function ChartFrame(props: ChartFrameProps): ReactElement {
             {...detailsSummaryProps}
             className={cx(styles.details_summary, detailsSummaryProps?.className)}
           >
-            {dataTableLabel ?? "Ver datos en tabla"}
+            {dataTableLabel ?? "View data as a table"}
           </summary>
           <div className={styles.table_wrap}>
             <table {...tableProps} className={cx(styles.table, tableProps?.className)}>

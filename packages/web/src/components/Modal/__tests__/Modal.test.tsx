@@ -45,12 +45,12 @@ describe("Modal", () => {
         opened
         onClose={() => {}}
         title="Confirmar"
-        footer={<button type="button">Guardar</button>}
+        footer={<button type="button">Save</button>}
       >
         <p>Contenido</p>
       </Modal>,
     );
-    const guardar = screen.getByRole("button", { name: "Guardar" });
+    const guardar = screen.getByRole("button", { name: "Save" });
     const contenido = screen.getByText("Contenido");
     expect(guardar).toBeDefined();
     expect(contenido.parentElement?.contains(guardar)).toBe(false);
@@ -58,19 +58,19 @@ describe("Modal", () => {
 
   it("sin footer no se renderiza la región", () => {
     render(<Controlled />);
-    expect(screen.queryByRole("button", { name: "Guardar" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Save" })).toBeNull();
   });
 
   it("renderiza subtítulo y botón de cierre", () => {
     render(<Controlled />);
     expect(screen.getByText("Esta acción no se puede deshacer")).toBeDefined();
-    expect(screen.getByRole("button", { name: "Cerrar" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Close" })).toBeDefined();
   });
 
   it("cierra al pulsar el botón de cierre", async () => {
     const user = userEvent.setup();
     render(<Controlled />);
-    await user.click(screen.getByRole("button", { name: "Cerrar" }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
     await waitFor(
       () => {
         expect(screen.queryByRole("dialog")).toBeNull();

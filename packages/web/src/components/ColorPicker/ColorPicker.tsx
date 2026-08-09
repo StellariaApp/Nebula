@@ -187,14 +187,14 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
         color={hsb}
         onChange={Emit}
         disabled={fp.isDisabled}
-        label={labels?.area ?? "Saturación y brillo"}
+        label={labels?.area ?? "Saturation and brightness"}
       />
       <ColorChannel
         color={hsb}
         onChange={Emit}
         channel="hue"
         disabled={fp.isDisabled}
-        label={labels?.hue ?? "Tono"}
+        label={labels?.hue ?? "Hue"}
       />
       {withAlpha ? (
         <ColorChannel
@@ -202,12 +202,12 @@ export function ColorPicker(props: ColorPickerProps): ReactElement {
           onChange={Emit}
           channel="alpha"
           disabled={fp.isDisabled}
-          label={labels?.alpha ?? "Opacidad"}
+          label={labels?.alpha ?? "Opacity"}
         />
       ) : null}
       {swatches === undefined || swatches.length === 0 ? null : (
         <Box
-          aria-label={labels?.swatches ?? "Muestras"}
+          aria-label={labels?.swatches ?? "Swatches"}
           {...swatchesProps}
           role="group"
           className={cx(styles.swatches, swatchesProps?.className)}

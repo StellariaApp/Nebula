@@ -96,14 +96,14 @@ describe("Calendar", () => {
 
   it("cambia de mes con los controles de cabecera", async () => {
     render(<Calendar label="Fecha" defaultValue="2026-07-15" />);
-    await userEvent.click(screen.getByRole("button", { name: "Mes siguiente" }));
+    await userEvent.click(screen.getByRole("button", { name: "Next month" }));
     expect(screen.getByRole("button", { name: Day(15, "August") })).toBeDefined();
   });
 });
 
 describe("RangeCalendar", () => {
   it("marca el rango completo entre start y end", () => {
-    render(<RangeCalendar label="Rango" value={{ start: "2026-07-10", end: "2026-07-14" }} />);
+    render(<RangeCalendar label="Range" value={{ start: "2026-07-10", end: "2026-07-14" }} />);
     expect(Cell(10).closest("td")?.getAttribute("data-range-start")).toBe("true");
     expect(Cell(12).closest("td")?.getAttribute("data-range-selected")).toBe("true");
     expect(Cell(14).closest("td")?.getAttribute("data-range-end")).toBe("true");
@@ -114,7 +114,7 @@ describe("RangeCalendar", () => {
     const on_change = vi.fn();
     render(
       <RangeCalendar
-        label="Rango"
+        label="Range"
         defaultValue={{ start: "2026-07-01", end: "2026-07-02" }}
         onChange={on_change}
       />,

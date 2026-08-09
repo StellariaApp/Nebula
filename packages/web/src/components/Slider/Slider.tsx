@@ -107,7 +107,7 @@ export function Slider(props: SliderProps): ReactElement {
           withValue={withValue}
           formatValue={formatValue}
           ariaLabelledBy={label === undefined ? undefined : `${id}-label`}
-          ariaLabel={label === undefined ? "Valor" : undefined}
+          ariaLabel={label === undefined ? "Value" : undefined}
           name={name}
           className={className}
         />

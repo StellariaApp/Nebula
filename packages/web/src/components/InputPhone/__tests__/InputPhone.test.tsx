@@ -70,7 +70,7 @@ describe("InputPhone", () => {
   it("expone dos controles: número y prefijo", () => {
     render(<InputPhone label="Teléfono" dialValue="MX" />);
     expect(screen.getByLabelText("Teléfono")).toHaveProperty("type", "tel");
-    expect(screen.getByLabelText("Prefijo telefónico")).toBeDefined();
+    expect(screen.getByLabelText("Dialling code")).toBeDefined();
   });
 
   it("emite número y prefijo por separado", async () => {
@@ -97,7 +97,7 @@ describe("InputPhone", () => {
       />,
     );
     expect(screen.getByLabelText<HTMLInputElement>("Teléfono").value).toBe("5512345678");
-    expect(screen.getByLabelText<HTMLInputElement>("Prefijo telefónico").value).toBe("+57");
+    expect(screen.getByLabelText<HTMLInputElement>("Dialling code").value).toBe("+57");
   });
 });
 
@@ -149,14 +149,14 @@ describe("InputCurrency", () => {
 describe("Signature", () => {
   it("es un lienzo con nombre accesible y acciones deshabilitadas en vacío", () => {
     render(<Signature label="Firma" />);
-    expect(screen.getByRole("img", { name: "Sin firma" })).toBeDefined();
-    expect(screen.getByRole("button", { name: "Deshacer trazo" })).toHaveProperty("disabled", true);
-    expect(screen.getByRole("button", { name: "Borrar firma" })).toHaveProperty("disabled", true);
+    expect(screen.getByRole("img", { name: "No signature" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Undo stroke" })).toHaveProperty("disabled", true);
+    expect(screen.getByRole("button", { name: "Clear signature" })).toHaveProperty("disabled", true);
   });
 
   it("describe el lienzo con la pista de uso", () => {
     render(<Signature label="Firma" />);
-    const canvas = screen.getByRole("img", { name: "Sin firma" });
+    const canvas = screen.getByRole("img", { name: "No signature" });
     const described = canvas.getAttribute("aria-describedby");
     expect(described).not.toBeNull();
   });
@@ -167,14 +167,14 @@ describe("Dropzone", () => {
     render(<Dropzone label="Adjuntos" />);
     const zone = screen.getByRole("button", { name: "Adjuntos" });
     expect(zone.tagName).toBe("BUTTON");
-    expect(zone.textContent).toContain("Arrastra archivos");
+    expect(zone.textContent).toContain("Drag files here");
   });
 
   it("lista los archivos del valor y ofrece quitarlos", () => {
     const file = new File(["x"], "contrato.pdf", { type: "application/pdf" });
     render(<Dropzone label="Adjuntos" kind="pdf" value={[file]} />);
     expect(screen.getByText("contrato.pdf")).toBeDefined();
-    expect(screen.getByRole("button", { name: /Quitar archivo: contrato\.pdf/ })).toBeDefined();
+    expect(screen.getByRole("button", { name: /Remove file: contrato\.pdf/ })).toBeDefined();
   });
 
   it("quita el archivo indicado", async () => {
@@ -182,7 +182,7 @@ describe("Dropzone", () => {
     const a = new File(["a"], "a.pdf", { type: "application/pdf" });
     const b = new File(["b"], "b.pdf", { type: "application/pdf" });
     render(<Dropzone label="Adjuntos" kind="pdf" value={[a, b]} onChange={on_change} />);
-    await userEvent.click(screen.getByRole("button", { name: /Quitar archivo: a\.pdf/ }));
+    await userEvent.click(screen.getByRole("button", { name: /Remove file: a\.pdf/ }));
     expect(on_change).toHaveBeenCalledWith([b]);
   });
 

@@ -31,7 +31,7 @@ describe("Alert", () => {
     const OnClose = vi.fn();
     const user = userEvent.setup();
     render(<Alert title="Aviso" withCloseButton onClose={OnClose} />);
-    await user.click(screen.getByRole("button", { name: "Cerrar aviso" }));
+    await user.click(screen.getByRole("button", { name: "Dismiss notice" }));
     expect(OnClose).toHaveBeenCalledTimes(1);
   });
 

@@ -100,8 +100,8 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
           isDisabled: disabled,
         }}
         labels={{
-          previousMonth: labels?.previousYear ?? "Año anterior",
-          nextMonth: labels?.nextYear ?? "Año siguiente",
+          previousMonth: labels?.previousYear ?? "Previous year",
+          nextMonth: labels?.nextYear ?? "Next year",
         }}
       />
       <GridPicker
@@ -110,7 +110,7 @@ export function MonthPicker(props: MonthPickerProps): ReactElement {
         onSelect={fp.onChange}
         columns={MONTH_COLUMNS}
         size={size}
-        label={typeof label === "string" ? label : "Selecciona un mes"}
+        label={typeof label === "string" ? label : "Select a month"}
         disabled={fp.isDisabled}
         cellProps={cellProps}
       />

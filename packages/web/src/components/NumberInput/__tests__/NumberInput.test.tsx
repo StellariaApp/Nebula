@@ -16,15 +16,15 @@ describe("NumberInput", () => {
   it("incrementa/disminuye con los controles y aplica el clamp", async () => {
     const on_change = vi.fn();
     render(<NumberInput label="N" value={3} onChange={on_change} min={0} max={5} step={1} />);
-    await userEvent.click(screen.getByRole("button", { name: "Incrementar" }));
+    await userEvent.click(screen.getByRole("button", { name: "Increase" }));
     expect(on_change).toHaveBeenLastCalledWith(4);
-    await userEvent.click(screen.getByRole("button", { name: "Disminuir" }));
+    await userEvent.click(screen.getByRole("button", { name: "Decrease" }));
     expect(on_change).toHaveBeenLastCalledWith(2);
   });
 
   it("deshabilita el incremento al alcanzar el máximo", () => {
     render(<NumberInput label="N" value={5} onChange={() => undefined} max={5} />);
-    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Incrementar" }).disabled).toBe(
+    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Increase" }).disabled).toBe(
       true,
     );
   });

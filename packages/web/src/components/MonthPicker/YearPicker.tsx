@@ -102,8 +102,8 @@ export function YearPicker(props: YearPickerProps): ReactElement {
           isDisabled: disabled,
         }}
         labels={{
-          previousMonth: labels?.previousRange ?? "Años anteriores",
-          nextMonth: labels?.nextRange ?? "Años siguientes",
+          previousMonth: labels?.previousRange ?? "Previous years",
+          nextMonth: labels?.nextRange ?? "Next years",
         }}
       />
       <GridPicker
@@ -112,7 +112,7 @@ export function YearPicker(props: YearPickerProps): ReactElement {
         onSelect={fp.onChange}
         columns={YEAR_COLUMNS}
         size={size}
-        label={typeof label === "string" ? label : "Selecciona un año"}
+        label={typeof label === "string" ? label : "Select a year"}
         disabled={fp.isDisabled}
         cellProps={cellProps}
       />

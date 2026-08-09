@@ -130,15 +130,15 @@ export const KeyboardFlow: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByRole("navigation", { name: "Paginación" })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: "Página 1" })).toHaveAttribute(
+    await expect(canvas.getByRole("navigation", { name: "Pagination" })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Page 1" })).toHaveAttribute(
       "aria-current",
       "page",
     );
-    await expect(canvas.getByRole("button", { name: "Página anterior" })).toBeDisabled();
+    await expect(canvas.getByRole("button", { name: "Previous page" })).toBeDisabled();
 
-    await userEvent.click(canvas.getByRole("button", { name: "Página siguiente" }));
-    await expect(canvas.getByRole("button", { name: "Página 2" })).toHaveAttribute(
+    await userEvent.click(canvas.getByRole("button", { name: "Next page" }));
+    await expect(canvas.getByRole("button", { name: "Page 2" })).toHaveAttribute(
       "aria-current",
       "page",
     );

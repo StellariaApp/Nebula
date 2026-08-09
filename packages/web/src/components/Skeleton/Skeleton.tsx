@@ -32,7 +32,7 @@ export function Skeleton(props: SkeletonProps): ReactElement {
     circle = false,
     animation = "shimmer",
     lines = 1,
-    label = "Cargando contenido",
+    label = "Loading content",
     className,
     ...style_rest
   } = props;

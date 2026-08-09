@@ -14,8 +14,8 @@ import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 
 const DEFAULT_LABELS: SearchableListLabels = {
-  placeholder: "Buscar",
-  search: "Buscar en la lista",
+  placeholder: "Search",
+  search: "Search the list",
   results: (count) => (count === 1 ? "1 resultado" : `${String(count)} resultados`),
 };
 

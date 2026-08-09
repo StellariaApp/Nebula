@@ -22,11 +22,11 @@ import type { SignatureLabels, SignatureProps } from "./Signature.types.js";
 type Stroke = { x: number; y: number }[];
 
 const DEFAULT_LABELS: SignatureLabels = {
-  hint: "Dibuja tu firma con el ratón, el dedo o un lápiz digital",
-  signed: "Firma capturada",
-  empty: "Sin firma",
-  undo: "Deshacer trazo",
-  clear: "Borrar firma",
+  hint: "Draw your signature with a mouse, a finger or a stylus",
+  signed: "Signature captured",
+  empty: "No signature",
+  undo: "Undo stroke",
+  clear: "Clear signature",
 };
 
 const MIME = { png: "image/png", jpeg: "image/jpeg" } as const;

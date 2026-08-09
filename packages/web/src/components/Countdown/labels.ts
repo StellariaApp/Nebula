@@ -1,13 +1,13 @@
 import type { CountdownLabels } from "./Countdown.types.js";
 
 export const COUNTDOWN_LABELS: CountdownLabels = {
-  days: "días",
-  hours: "horas",
+  days: "days",
+  hours: "hours",
   minutes: "min",
   seconds: "seg",
-  finished: "Tiempo agotado",
+  finished: "Time is up",
   remaining: (parts) =>
     parts.days > 0
-      ? `Quedan ${String(parts.days)} días y ${String(parts.hours)} horas`
-      : `Quedan ${String(parts.hours)} horas y ${String(parts.minutes)} minutos`,
+      ? `${String(parts.days)} days and ${String(parts.hours)} hours left`
+      : `${String(parts.hours)} hours and ${String(parts.minutes)} minutes left`,
 };

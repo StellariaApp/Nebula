@@ -10,7 +10,7 @@ describe("PinInput", () => {
   it("renderiza una celda etiquetada por posición", () => {
     render(<PinInput label="Código" length={4} />);
     expect(screen.getAllByRole("textbox")).toHaveLength(4);
-    expect(screen.getByLabelText("Dígito 1 de 4")).toBeDefined();
+    expect(screen.getByLabelText("Digit 1 of 4")).toBeDefined();
   });
 
   it("avanza el foco al escribir y emite el valor acumulado", async () => {
@@ -71,6 +71,6 @@ describe("PinInput", () => {
   it("enmascara con mask", () => {
     render(<PinInput label="Código" length={4} mask defaultValue="12" />);
     expect(screen.queryAllByRole("textbox")).toHaveLength(0);
-    expect(screen.getByLabelText("Dígito 1 de 4").getAttribute("type")).toBe("password");
+    expect(screen.getByLabelText("Digit 1 of 4").getAttribute("type")).toBe("password");
   });
 });

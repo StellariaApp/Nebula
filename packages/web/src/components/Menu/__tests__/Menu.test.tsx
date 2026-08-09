@@ -12,7 +12,7 @@ const ITEMS: MenuItemData[] = [
   { key: "edit", label: "Editar" },
   { key: "duplicate", label: "Duplicar", shortcut: "⌘D" },
   { key: "archive", label: "Archivar", disabled: true },
-  { key: "delete", label: "Eliminar", danger: true },
+  { key: "delete", label: "Delete", danger: true },
 ];
 
 function Sample(props: { onAction?: (key: string) => void }): React.ReactElement {
