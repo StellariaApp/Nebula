@@ -11,24 +11,25 @@ export type FieldErrorPosition =
 export type FieldErrorSource = Pick<NebulaField<unknown>, "status" | "error" | "touched">;
 
 export interface FieldErrorProps extends Omit<StyleProps, "position"> {
-  /** El control que se envuelve. El globo se ancla a el, asi que no puede quedarse vacio. */
+  /** The control being wrapped. The bubble anchors to it, so it cannot be left empty. */
   children: ReactNode;
   /**
-   * La via corta: de un `NebulaField` salen a la vez el estado, el mensaje y si se ha tocado. Manda
-   * sobre `error`, `message` y `status`, que existen para cuando no hay campo de formulario detras.
+   * The short route: a `NebulaField` provides the state, the message and whether it has been touched,
+   * all at once. It wins over `error`, `message` and `status`, which exist for when there is no form
+   * field behind.
    */
   field?: FieldErrorSource | undefined;
-  /** Con `true` marca el control como invalido sin texto; con una cadena, esa cadena es el mensaje. */
+  /** With `true` it marks the control invalid with no text; with a string, that string is the message. */
   error?: string | boolean | undefined;
-  /** El texto del globo cuando `error` es `true` y no trae mensaje propio. */
+  /** The bubble text when `error` is `true` and brings no message of its own. */
   message?: string | undefined;
   status?: FieldStatus | undefined;
   color?: "error" | "info" | undefined;
-  /** Donde se ancla el globo. Tapa a la style prop `position`, que aqui no aplica. */
+  /** Where the bubble anchors. It shadows the `position` style prop, which does not apply here. */
   position?: FieldErrorPosition | undefined;
-  /** Separacion entre el globo y el control, en px. */
+  /** Distance between the bubble and the control, in px. */
   offset?: number | undefined;
-  /** Lo que anuncia mientras el campo valida. Se lee en voz alta, asi que no puede ser un simbolo. */
+  /** What it announces while the field is validating. It is read aloud, so it cannot be a symbol. */
   validatingLabel?: string | undefined;
   className?: string | undefined;
 }

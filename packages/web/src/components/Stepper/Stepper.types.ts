@@ -40,22 +40,22 @@ export interface StepperProps extends StyleProps {
   allowNextStepsSelect?: boolean | undefined;
   labels?: Partial<StepperLabels> | undefined;
   className?: string | undefined;
-  /** La lista de pasos. */
+  /** The list of steps. */
   listProps?: BoxSlotProps | undefined;
-  /** Cada paso. Lleva `data-state`, que es de donde sale su tinte.  */
+  /** Every step. It carries `data-state`, which is where its tint comes from.  */
   itemProps?: BoxSlotProps | undefined;
   /**
-   * El area pulsable del paso. Es un boton solo en los pasos que `onStepClick` puede activar
-   * —alcanzables, no deshabilitados y distintos del actual—; en el resto es un span.
+   * The pressable area of the step. It is a button only on the steps `onStepClick` can activate —
+   * reachable, not disabled and not the current one; on the rest it is a span.
    */
   stepProps?: BoxSlotProps | undefined;
-  /** La viñeta del paso. Su tamaño lo fija `size`; la ranura se compone con el. */
+  /** The step bullet. Its size comes from `size`; the slot composes with it. */
   bulletProps?: BoxSlotProps | undefined;
-  /** Columna de rotulo y descripcion. */
+  /** Label and description column. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El rotulo del paso. */
+  /** The step label. */
   labelProps?: TextSlotProps | undefined;
-  /** La descripcion, si el paso la trae. */
+  /** The description, when the step has one. */
   descriptionProps?: TextSlotProps | undefined;
   rootClassName?: string | undefined;
 }

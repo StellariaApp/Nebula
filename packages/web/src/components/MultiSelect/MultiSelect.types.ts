@@ -15,27 +15,27 @@ import type { TextSlotProps } from "../Text/Text.types.js";
 import type { UnstyledButtonProps } from "../UnstyledButton/UnstyledButton.types.js";
 
 export interface MultiSelectProps extends StyleProps, FormFieldSlotProps {
-  /** La caja que agrupa las fichas y el buscador. */
+  /** The box that groups the tags and the search field. */
   controlProps?: BoxSlotProps | undefined;
-  /** Cada ficha de valor elegido. Se esparce sobre TODAS. */
+  /** Every tag of a chosen value. It spreads over ALL of them. */
   chipProps?: BoxSlotProps | undefined;
-  /** El rotulo de cada ficha. */
+  /** The label of each tag. */
   chipLabelProps?: TextSlotProps | undefined;
-  /** La aspa que quita cada ficha. Su rotulo accesible sale de `removeLabel`. */
+  /** The cross that removes each tag. Its accessible label comes from `removeLabel`. */
   chipRemoveProps?: UnstyledButtonProps | undefined;
   /**
-   * El campo de busqueda. Se esparce DESPUES de las props de combobox de aria y del manejador de
-   * teclado propio, asi que un `onKeyDown` aqui se lleva por delante el borrado con retroceso.
+   * The search field. It spreads AFTER the aria combobox props and after the component keyboard
+   * handler, so an `onKeyDown` here takes out backspace-to-remove.
    */
   searchProps?: ComponentPropsWithoutRef<"input"> | undefined;
-  /** El boton que abre la lista. */
+  /** The button that opens the list. */
   triggerProps?: UnstyledButtonProps | undefined;
-  /** El chevron de ese boton. Lleva `data-open`, que es de donde sale su giro. */
+  /** The chevron of that button. It carries `data-open`, which is where its rotation comes from. */
   chevronProps?: BoxSlotProps | undefined;
   /**
-   * El desplegable, que es el envoltorio de motion de la superficie flotante y no pasa por `Box`:
-   * no acepta style props. Su ancho y su posición se escriben después de la ranura y no se pisan;
-   * el `style` que pases se compone con ellos.
+   * The dropdown, which is the motion wrapper of the floating surface and does not go through `Box`:
+   * it does not accept style props. Its width and position are written after the slot and are not
+   * overridden; the `style` you pass composes with them.
    */
   dropdownProps?: OverlayMotionSlotProps | undefined;
   data: readonly SelectOption[];

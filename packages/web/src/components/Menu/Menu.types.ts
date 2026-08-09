@@ -19,27 +19,27 @@ export interface MenuItemData extends PermissionProps {
 }
 
 /**
- * Las ranuras de cada fila. Se esparcen sobre TODAS: las filas llegan por `items`, no por
- * composicion, asi que no hay forma de ajustar una sola desde fuera.
+ * The slots of every row. They spread over ALL of them: rows arrive through `items`, not through
+ * composition, so there is no way to adjust a single one from outside.
  *
- * La fila en si NO tiene ranura: la anima motion con entrada escalonada, y una prop ahi deja que
- * el consumidor pise el escalonado.
+ * The row itself has NO slot: motion animates it with a staggered entrance, and a prop there would
+ * let the consumer override the stagger.
  */
 export interface MenuSlotProps {
-  /** Envoltorio del icono, si la fila lo trae. */
+  /** Wrapper for the icon, when the row has one. */
   iconProps?: BoxSlotProps | undefined;
-  /** Columna de rotulo y descripcion. */
+  /** Label and description column. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El rotulo. Se esparce DESPUES de las props de aria, asi que el consumidor gana. */
+  /** The label. It spreads AFTER the aria props, so the consumer wins. */
   labelProps?: TextSlotProps | undefined;
-  /** La descripcion, si la fila la trae. */
+  /** The description, when the row has one. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El atajo de teclado, que se pinta en un `kbd`. */
+  /** The keyboard shortcut, rendered in a `kbd`. */
   shortcutProps?: BoxSlotProps | undefined;
 }
 
 export interface MenuListOwnProps extends MenuSlotProps {
-  /** La lista. Lleva ya las props de menu de aria. */
+  /** The list. It already carries the aria menu props. */
   listProps?: BoxSlotProps | undefined;
   items: MenuItemData[];
   onAction?: ((key: string) => void) | undefined;

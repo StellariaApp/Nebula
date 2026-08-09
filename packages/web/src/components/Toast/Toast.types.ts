@@ -32,27 +32,27 @@ export interface ToastRecord extends ToastOptions {
 }
 
 /**
- * Las ranuras de cada notificacion. Se esparcen sobre TODAS las que muestre el proveedor: el
- * contenido de una notificacion llega por `nebulaToast`, no por composicion, asi que no hay forma
- * de ajustar una sola desde aqui.
+ * The slots of every toast. They spread over ALL the toasts the provider shows: the content of a
+ * toast arrives through `nebulaToast`, not through composition, so there is no way to adjust a
+ * single one from here.
  */
 export interface ToastSlotProps {
-  /** Cada notificacion. Lleva el `role` que decide su color: alert si es error o aviso. */
+  /** Every toast. It carries the `role` that decides its colour: `alert` when it is an error or a warning. */
   toastProps?: BoxSlotProps | undefined;
-  /** Envoltorio del icono, si la notificacion lo trae. */
+  /** Wrapper for the icon, when the toast has one. */
   iconProps?: BoxSlotProps | undefined;
-  /** Columna de titulo, mensaje y accion. */
+  /** Title, message and action column. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El titulo, si lo hay. */
+  /** The title, when there is one. */
   titleProps?: TextSlotProps | undefined;
-  /** El mensaje, si lo hay. */
+  /** The message, when there is one. */
   messageProps?: BoxSlotProps | undefined;
-  /** La accion, si la hay. */
+  /** The action, when there is one. */
   actionProps?: BoxSlotProps | undefined;
 }
 
 export interface ToastProviderProps extends Omit<StyleProps, "position">, ToastSlotProps {
-  /** La region que agrupa las notificaciones. Es un landmark, asi que lleva rotulo. */
+  /** The region that groups the toasts. It is a landmark, so it carries a label. */
   regionProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   position?: ToastPosition | undefined;
