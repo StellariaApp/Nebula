@@ -3,8 +3,12 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-import { Box, Button, Modal, Text, TextInput, Title } from "@stellaria/nebula-web";
+import { Box, Button, Modal, Text, Title } from "@stellaria/nebula-web";
 import type { ModalProps } from "@stellaria/nebula-web";
+
+import ModalAsDrawer from "@stellaria/nebula-demos/Modal/AsDrawer.js";
+import ModalBasic from "@stellaria/nebula-demos/Modal/Basic.js";
+import ModalComposition from "@stellaria/nebula-demos/Modal/Composition.js";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
@@ -17,12 +21,16 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
-type DemoProps = Omit<ModalProps, "opened" | "onClose" | "children"> & {
+/**
+ * Fixture del playground, no una demo: existe para que los gates puedan abrir un modal con
+ * cualquier combinación de props sin escribir un archivo por combinación.
+ */
+type FixtureProps = Omit<ModalProps, "opened" | "onClose" | "children"> & {
   label?: string;
   children?: React.ReactNode;
 };
 
-function Demo(props: DemoProps): React.ReactElement {
+function Fixture(props: FixtureProps): React.ReactElement {
   const { label = "Abrir modal", children, ...modal } = props;
   const [opened, set_opened] = useState(false);
   return (
@@ -35,35 +43,31 @@ function Demo(props: DemoProps): React.ReactElement {
   );
 }
 
-export const Default: Story = {
-  render: () => <Demo title="Confirmar acción" subtitle="Esta acción no se puede deshacer" />,
-};
+export const Default: Story = { render: () => <ModalBasic /> };
 
 export const Sizes: Story = {
   render: () => (
-    <Box display="flex" gap="sm" style={{ flexWrap: "wrap" }}>
+    <Box display="flex" gap="sm" wrap="wrap">
       {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
-        <Demo key={size} size={size} label={size} title={`Modal ${size}`} />
+        <Fixture key={size} size={size} label={size} title={`Modal ${size}`} />
       ))}
     </Box>
   ),
 };
 
 export const FullScreen: Story = {
-  render: () => <Demo fullScreen title="Pantalla completa" label="Abrir a pantalla completa" />,
+  render: () => <Fixture fullScreen title="Pantalla completa" label="Abrir a pantalla completa" />,
 };
 
 export const Blurred: Story = {
-  render: () => <Demo blurred title="Fondo desenfocado" label="Abrir con blur" />,
+  render: () => <Fixture blurred title="Fondo desenfocado" label="Abrir con blur" />,
 };
 
-export const AsDrawer: Story = {
-  render: () => <Demo drawer title="Modal en modo drawer" label="Abrir lateral" />,
-};
+export const AsDrawer: Story = { render: () => <ModalAsDrawer /> };
 
 export const WithoutCloseButton: Story = {
   render: () => (
-    <Demo
+    <Fixture
       withCloseButton={false}
       closeOnClickOutside={false}
       title="Cierre explícito"
@@ -72,32 +76,17 @@ export const WithoutCloseButton: Story = {
   ),
 };
 
-export const Composition: Story = {
-  render: () => (
-    <Demo
-      title="Invitar al equipo"
-      subtitle="Se enviará un correo con la invitación"
-      size="sm"
-      footer={
-        <>
-          <Button variant="outline">Cancelar</Button>
-          <Button>Enviar invitación</Button>
-        </>
-      }
-    >
-      <Box display="flex" direction="column" gap="md">
-        <TextInput label="Correo" placeholder="persona@empresa.com" required />
-        <TextInput label="Cargo" placeholder="Analista" />
-      </Box>
-    </Demo>
-  ),
-};
+export const Composition: Story = { render: () => <ModalComposition /> };
 
 export const Dark: Story = { ...Composition, globals: { theme: "dark" } };
 
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,
-  render: (args, ctx) => <ThemeMatrix>{Composition.render?.(args, ctx)}</ThemeMatrix>,
+  render: () => (
+    <ThemeMatrix>
+      <ModalComposition />
+    </ThemeMatrix>
+  ),
 };
 
 export const ReducedMotion: Story = { ...Default, globals: { reducedMotion: "reduce" } };
@@ -109,12 +98,12 @@ export const ReducedMotion: Story = { ...Default, globals: { reducedMotion: "red
  */
 export const KeyboardFlow: Story = {
   render: () => (
-    <Demo title="Confirmar acción">
+    <Fixture title="Confirmar acción">
       <Box display="flex" direction="column" gap="md">
         <Text>¿Deseas continuar?</Text>
         <Button>Continuar</Button>
       </Box>
-    </Demo>
+    </Fixture>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -137,8 +126,8 @@ export const KeyboardFlow: Story = {
 export const OnlyTitle: Story = {
   name: "Solo título",
   render: () => (
-    <Demo title="Sin subtítulo">
+    <Fixture title="Sin subtítulo">
       <Title order={6}>Cuerpo</Title>
-    </Demo>
+    </Fixture>
   ),
 };
