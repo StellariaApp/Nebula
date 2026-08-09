@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type {
   ColorExtended,
@@ -32,6 +32,14 @@ export interface ButtonProps
     StyleProps,
     PressLifecycleProps,
     PermissionProps {
+  /**
+   * El elemento que pinta. Con algo distinto de `button` —un `a` para un CTA que navega, el `Link`
+   * de un router— React Aria le pone el `role`, el `tabIndex` y el manejo de Espacio y Enter, así
+   * que el contrato de teclado no se degrada. El `type` solo se escribe si el elemento es un botón.
+   */
+  component?: ElementType | undefined;
+  /** Solo tiene efecto con `component`: son los atributos del elemento que hayas elegido. */
+  href?: string | undefined;
   /** Envoltorio de `leftSection`. */
   leftSectionProps?: BoxSlotProps | undefined;
   /** Envoltorio de `rightSection`. */

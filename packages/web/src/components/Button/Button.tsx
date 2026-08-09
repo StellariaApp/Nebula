@@ -10,7 +10,7 @@ import {
 
 import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
+import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant } from "../../theme/resolve-variant.js";
@@ -26,9 +26,22 @@ import * as variables from "./Button.vars.css.js";
 
 const PRESS_SCALE = 0.98;
 
+/**
+ * Lo que `useButton` anade para emular un boton y que en un ancla con `href` sobra: el rol prestado,
+ * el foco que el ancla ya trae, y el teclado —en un enlace, Espacio desplaza la pagina y no activa—.
+ */
+const BUTTON_ONLY = ["role", "tabIndex", "onKeyDown", "onKeyUp"] as const;
+
+function WithoutButtonSemantics<T extends object>(props: T): T {
+  const out = { ...props } as Record<string, unknown>;
+  for (const key of BUTTON_ONLY) delete out[key];
+  return out as T;
+}
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(props, forwardedRef) {
     const {
+      component,
       variant = "filled",
       size = "md",
       color = "primary",
@@ -73,11 +86,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       style: sprinkle_style,
       rest: dom_rest,
     } = ExtractStyleProps(style_and_rest);
+    const element = component ?? "button";
+    const is_button = element === "button";
+    /**
+     * Un ancla con `href` ES un enlace: se queda con su rol nativo, con su foco nativo y sin el
+     * manejador de Espacio, que en un enlace desplaza la pagina y no activa. Enter sigue navegando
+     * por el navegador, asi que `onPress` tampoco se pierde.
+     */
+    const is_link = element === "a" && typeof style_and_rest["href"] === "string";
+    const Root = useMemo(() => m.create(element), [element]);
+
     const { buttonProps, isPressed } = useButton(
       {
         isDisabled: is_disabled,
-        elementType: "button",
-        type: type ?? "button",
+        elementType: typeof element === "string" ? element : "span",
+        ...(is_button ? { type: type ?? "button" } : {}),
         ...(onClick === undefined
           ? {}
           : {
@@ -127,19 +150,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       resolved.animated &&
       prefers_reduced !== true;
 
-    const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
-      HTMLMotionProps<"button">,
-      "style"
-    >;
+    const dom_props = mergeProps(
+      is_link ? WithoutButtonSemantics(buttonProps) : buttonProps,
+      hoverProps,
+      focusProps,
+      dom_rest,
+    ) as unknown as Omit<HTMLMotionProps<"button">, "style">;
 
     if (denied && permissionMode === "hide") return null;
 
     return (
-      <m.button
+      <Root
         {...dom_props}
         ref={ref}
         className={cx(styles.button({ size, fullWidth }), sprinkle_class, className)}
-        style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
+        style={{ ...css_vars, ...sprinkle_style, ...style }}
         data-hovered={isHovered ? "true" : undefined}
         data-pressed={isPressed ? "true" : undefined}
         data-focus-visible={isFocusVisible ? "true" : undefined}
@@ -191,7 +216,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {rightSection}
           </Box>
         )}
-      </m.button>
+      </Root>
     );
   },
 );

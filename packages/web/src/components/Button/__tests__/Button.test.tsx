@@ -198,3 +198,47 @@ describe("Button — theming (gate de W1)", () => {
     expect(screen.getByTestId("btn").getAttribute("color")).toBeNull();
   });
 });
+
+describe("Button polimórfico (ADR-116)", () => {
+  it("con component='a' pinta un enlace que navega y conserva su nombre", () => {
+    RenderButton(
+      <Button component="a" href="/docs/installation">
+        Get started
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: "Get started" });
+
+    expect(link.tagName).toBe("A");
+    expect(link.getAttribute("href")).toBe("/docs/installation");
+  });
+
+  it("un enlace no lleva type, que seria HTML invalido", () => {
+    RenderButton(
+      <Button component="a" href="/x" data-testid="cta">
+        ir
+      </Button>,
+    );
+    expect(screen.getByTestId("cta").getAttribute("type")).toBeNull();
+  });
+
+  it("sin component sigue siendo un button con su type", () => {
+    RenderButton(<Button data-testid="btn">acción</Button>);
+    const button = screen.getByTestId("btn");
+
+    expect(button.tagName).toBe("BUTTON");
+    expect(button.getAttribute("type")).toBe("button");
+  });
+
+  it("sobre un elemento sin semantica de boton, aria le pone el rol y el foco", () => {
+    RenderButton(
+      <Button component="span" data-testid="span-btn">
+        acción
+      </Button>,
+    );
+    const node = screen.getByTestId("span-btn");
+
+    expect(node.tagName).toBe("SPAN");
+    expect(node.getAttribute("role")).toBe("button");
+    expect(node.getAttribute("tabindex")).toBe("0");
+  });
+});
