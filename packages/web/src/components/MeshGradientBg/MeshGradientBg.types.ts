@@ -5,18 +5,18 @@ import type { GradientRole } from "@stellaria/nebula-tokens";
 import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
 /**
- * Malla de gradientes radiales derivada de los stops de `effects.gradients[gradient]`. Con `grain`
- * añade la textura de ruido del tema: esa combinación es lo que `00-inventory` §1.15 llama
+ * A mesh of radial gradients derived from the stops of `effects.gradients[gradient]`. With `grain`
+ * it adds the theme noise texture: that combination is what `00-inventory` §1.15 calls
  * `GrainyGradient`.
  *
- * GUARDRAIL (docs/06 §6): fondo de hero, onboarding, empty state o pantalla de entrada. No es fondo
- * de trabajo — ni tablas, ni formularios, ni lectura larga.
+ * GUARDRAIL (docs/06 §6): background for a hero, onboarding, empty state or entry screen. It is not
+ * a working background — not tables, not forms, not long-form reading.
  */
 export interface MeshGradientBgOwnProps extends Omit<BoxOwnProps, "component"> {
   /**
-   * El velo que atenúa la malla. Solo se pinta con `scrim` mayor que 0, y de ahí sale su opacidad;
-   * la ranura es lo que permite teñirlo de otro color sin forkear. La capa de grano no tiene
-   * ranura: es la textura del efecto y su opacidad la fija el tema.
+   * The veil that dims the mesh. Only rendered with `scrim` greater than 0, which is where its
+   * opacity comes from; the slot is what lets you tint it another colour without forking. The grain
+   * layer has no slot: it is the texture of the effect and the theme fixes its opacity.
    */
   scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;

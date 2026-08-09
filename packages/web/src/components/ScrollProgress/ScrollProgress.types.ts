@@ -7,9 +7,9 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export interface ScrollProgressProps extends Omit<StyleProps, "position"> {
-  /** La barra que avanza. Su ancho sale de una variable que se escribe en la raiz, no aqui. */
+  /** The advancing bar. Its width comes from a variable written on the root, not here. */
   barProps?: BoxSlotProps | undefined;
-  /** Elemento cuyo scroll se sigue. Sin él, el documento. */
+  /** The element whose scroll is tracked. Without it, the document. */
   target?: RefObject<HTMLElement | null> | undefined;
   position?: "top" | "bottom" | "static" | undefined;
   /** @default 3 */

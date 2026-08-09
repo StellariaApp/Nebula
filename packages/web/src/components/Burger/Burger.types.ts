@@ -10,7 +10,7 @@ export interface BurgerProps
     Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled" | "onChange">,
     StyleProps,
     PressLifecycleProps {
-  /** Punto por debajo del cual el botón aparece; por defecto siempre. */
+  /** The breakpoint below which the button appears; always, by default. */
   showBelow?: "always" | "phone" | "tablet" | "laptop" | undefined;
   opened?: boolean | undefined;
   defaultOpened?: boolean | undefined;

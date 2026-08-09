@@ -44,8 +44,8 @@ export interface SearchableListProps<T, TPage = readonly T[]> extends StyleProps
     | undefined;
   label?: string | undefined;
   className?: string | undefined;
-  /** La barra con el buscador y lo que traiga `toolbar`. */
+  /** The bar with the search field and whatever `toolbar` brings. */
   toolbarProps?: BoxSlotProps | undefined;
-  /** El recuento de resultados. Solo se pinta con `withCount` y datos cargados. */
+  /** The result count. Only rendered with `withCount` and loaded data. */
   countProps?: TextSlotProps | undefined;
 }

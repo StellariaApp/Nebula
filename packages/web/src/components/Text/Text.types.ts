@@ -14,8 +14,8 @@ export type TextProps<C extends ElementType = "p"> = TextOwnProps & {
 } & Omit<ComponentPropsWithoutRef<C>, keyof TextOwnProps | "component">;
 
 /**
- * Props de una ranura de texto que el componente pinta con un `Text`: las style props del sistema
- * mas `truncate`, `lines` e `inherit`. `component` acepta cualquier etiqueta, asi que un rotulo se
- * puede convertir en otro elemento sin forkear el componente que lo envuelve.
+ * Props of a text slot the component renders with a `Text`: the system style props plus `truncate`,
+ * `lines` and `inherit`. `component` accepts any tag, so a label can become another element without
+ * forking the component that wraps it.
  */
 export type TextSlotProps = TextOwnProps & Omit<ComponentPropsWithoutRef<"p">, keyof TextOwnProps>;

@@ -24,10 +24,10 @@ export interface MainProps extends StyleProps {
   withSkipLink?: boolean | undefined;
   id?: string | undefined;
   className?: string | undefined;
-  /** El enlace de salto. Solo se pinta con withSkipLink. */
+  /** The skip link. Only rendered with `withSkipLink`. */
   skipProps?: BoxSlotProps | undefined;
-  /** Capa de fondo. Solo se pinta si hay background. */
+  /** The background layer. Only rendered with a `background`. */
   backdropProps?: BoxSlotProps | undefined;
-  /** El <main>. Su style se compone con las vars de contentWidth y spacing, no las pisa. */
+  /** The `<main>`. Its style composes with the `contentWidth` and `spacing` vars, it does not override them. */
   contentProps?: BoxSlotProps | undefined;
 }

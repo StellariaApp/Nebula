@@ -20,7 +20,7 @@ export type ListProps<C extends ElementType = "ul"> = ListOwnProps & {
 } & Omit<ComponentPropsWithoutRef<C>, keyof ListOwnProps | "component">;
 
 export interface ListItemOwnProps extends Omit<BoxOwnProps, "component"> {
-  /** El envoltorio del icono. Solo se pinta si el item trae `icon`. */
+  /** Wrapper for the icon. Only rendered when the item has an `icon`. */
   iconProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;
   icon?: ReactNode | undefined;

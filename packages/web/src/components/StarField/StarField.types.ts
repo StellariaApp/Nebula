@@ -7,14 +7,14 @@ import type { StyleProps } from "../../utils/style-props.js";
 export type StarDensity = "xs" | "sm" | "md" | "lg" | "xl";
 
 /**
- * Fondo de retícula con estrellas: la firma visual de Stellaria como componente del sistema.
+ * A grid background with stars: the Stellaria visual signature as a system component.
  *
- * Es decorativo (`aria-hidden`) y no ocupa flujo: se monta como hermano absoluto dentro de una región
- * posicionada. El parpadeo y el parallax se apagan con `prefers-reduced-motion` y con
- * `motion.tier: "minimal"`; la retícula y las estrellas se quedan estáticas y legibles.
+ * It is decorative (`aria-hidden`) and takes no flow: it mounts as an absolute sibling inside a
+ * positioned region. The twinkle and the parallax turn off with `prefers-reduced-motion` and with
+ * `motion.tier: "minimal"`; the grid and the stars stay static and legible.
  *
- * GUARDRAIL (docs/06 §6): un solo efecto dominante por región. Va en hero, landing, login, empty
- * state o pantalla de entrada — no detrás de una tabla ni de un formulario.
+ * GUARDRAIL (docs/06 §6): one dominant effect per region. It belongs on a hero, a landing, a login,
+ * an empty state or an entry screen — not behind a table or a form.
  */
 export interface StarFieldProps extends Omit<StyleProps, "opacity"> {
   density?: StarDensity | undefined;

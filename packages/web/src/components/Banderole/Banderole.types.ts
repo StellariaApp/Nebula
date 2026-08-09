@@ -19,10 +19,10 @@ export interface BanderoleProps extends StyleProps {
   closeLabel?: string | undefined;
   sticky?: boolean | undefined;
   className?: string | undefined;
-  /** Envoltorio del icono, si lo hay. */
+  /** Wrapper for the icon, when there is one. */
   iconProps?: BoxSlotProps | undefined;
   /** Envoltorio del contenido. */
   bodyProps?: BoxSlotProps | undefined;
-  /** Envoltorio de las acciones, si las hay. */
+  /** Wrapper for the actions, when there are any. */
   actionsProps?: BoxSlotProps | undefined;
 }

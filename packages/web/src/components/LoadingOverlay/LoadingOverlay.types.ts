@@ -17,10 +17,10 @@ export interface LoadingOverlayProps extends Omit<StyleProps, "opacity"> {
   blur?: OverlayBlur | undefined;
   zIndex?: number | undefined;
   className?: string | undefined;
-  /** La caja de estado. Lleva `role="status"`, asi que su contenido se anuncia. */
+  /** The status box. It carries `role="status"`, so its content is announced. */
   bodyProps?: BoxSlotProps | undefined;
-  /** Envoltorio del indicador. El indicador en si se sustituye con `loader`. */
+  /** Wrapper for the spinner. The spinner itself is replaced with `loader`. */
   loaderProps?: BoxSlotProps | undefined;
-  /** El rotulo bajo el indicador. */
+  /** The label below the spinner. */
   labelProps?: TextSlotProps | undefined;
 }

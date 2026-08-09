@@ -33,11 +33,11 @@ export interface PaginationProps extends StyleProps {
   color?: ColorExtended | undefined;
   labels?: PaginationLabels | undefined;
   className?: string | undefined;
-  /** La lista de controles. */
+  /** The list of controls. */
   listProps?: BoxSlotProps | undefined;
-  /** Cada boton: flechas y numeros. Se esparce sobre TODOS, incluido el activo. */
+  /** Every button: arrows and numbers. It spreads over ALL of them, the active one included. */
   controlProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El contenido de cada boton. En las flechas de avance lleva ya un giro de 180 grados. */
+  /** The content of each button. On the forward arrows it already carries a 180-degree rotation. */
   valueProps?: BoxSlotProps | undefined;
 }
 

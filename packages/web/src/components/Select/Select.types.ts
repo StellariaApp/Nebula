@@ -33,16 +33,16 @@ export interface SelectProps extends StyleProps, FormFieldSlotProps {
   maxDropdownHeight?: number | undefined;
   emptyLabel?: string | undefined;
   className?: string | undefined;
-  /** El boton que abre la lista. */
+  /** The button that opens the list. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El valor mostrado en el boton. Lleva el estilo de marcador cuando no hay seleccion. */
+  /** The value shown in the button. It carries the placeholder style when there is no selection. */
   valueProps?: BoxSlotProps | undefined;
-  /** El chevron. Lleva `data-open`, que es de donde sale su giro. */
+  /** The chevron. It carries `data-open`, which is where its rotation comes from. */
   chevronProps?: BoxSlotProps | undefined;
   /**
-   * El desplegable, que es el envoltorio de motion de la superficie flotante y no pasa por `Box`:
-   * no acepta style props. Su ancho y su posición se escriben después de la ranura y no se pisan;
-   * el `style` que pases se compone con ellos.
+   * The dropdown, which is the motion wrapper of the floating surface and does not go through `Box`:
+   * it does not accept style props. Its width and position are written after the slot and are not
+   * overridden; the `style` you pass composes with them.
    */
   dropdownProps?: OverlayMotionSlotProps | undefined;
   rootClassName?: string | undefined;

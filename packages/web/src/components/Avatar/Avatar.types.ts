@@ -15,7 +15,7 @@ export interface AvatarProps extends StyleProps {
   variant?: AvatarVariant | undefined;
   color?: ColorExtended | undefined;
   className?: string | undefined;
-  /** La imagen. Solo se pinta si hay `src` y no ha fallado la carga; si falla, caen las iniciales. */
+  /** The image. Only rendered with a `src` that has not failed to load; on failure the initials take over. */
   imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
 }
 

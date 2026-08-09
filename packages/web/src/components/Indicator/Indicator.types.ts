@@ -10,8 +10,8 @@ export type IndicatorPlacement = "top-start" | "top-end" | "bottom-start" | "bot
 
 export interface IndicatorProps extends StyleProps {
   /**
-   * La chapa. No se pinta con `disabled`, ni con un `count` que no llegue a cuenta —cero sin
-   * `showZero`— y sin `label`. Sin `label` ni `count` es un punto pelado.
+   * The badge. Not rendered with `disabled`, nor with a `count` that does not qualify — zero without
+   * `showZero` — and no `label`. With neither `label` nor `count` it is a bare dot.
    */
   dotProps?: BoxSlotProps | undefined;
   children: ReactNode;

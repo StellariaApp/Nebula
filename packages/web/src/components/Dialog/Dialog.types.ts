@@ -25,11 +25,11 @@ export interface DialogProps extends Omit<
   live?: "polite" | "assertive" | undefined;
   className?: string | undefined;
   /**
-   * Fila de cabecera. Solo se pinta con `title` o con `withCloseButton`; el boton necesita ademas
-   * `onClose`, asi que sin el la fila se pinta vacia.
+   * The header row. Only rendered with `title` or with `withCloseButton`; the button also needs
+   * `onClose`, so without it the row renders empty.
    */
   headProps?: BoxSlotProps | undefined;
-  /** El titulo. Sin `title` la cabecera deja un hueco vacio para no descolocar el cierre. */
+  /** The title. Without `title` the header leaves an empty gap so the close button does not shift. */
   titleProps?: TextSlotProps | undefined;
   "aria-label"?: string | undefined;
 }

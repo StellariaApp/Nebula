@@ -33,8 +33,8 @@ export interface ActionIconProps
     PressLifecycleProps,
     PermissionProps {
   /**
-   * Envoltorio del icono. Con `loading` se atenúa, que es como el botón deja sitio al giro sin
-   * cambiar de tamaño; el giro en sí no tiene ranura, porque es el mecanismo de la animación.
+   * Wrapper for the icon. With `loading` it dims, which is how the button makes room for the spinner
+   * without changing size; the spinner itself has no slot, because it is the mechanism of the animation.
    */
   iconProps?: BoxSlotProps | undefined;
   variant?: Variant | undefined;

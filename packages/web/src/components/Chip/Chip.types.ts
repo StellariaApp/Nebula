@@ -29,14 +29,14 @@ export interface ChipProps
   icon?: ReactNode | undefined;
   className?: string | undefined;
   rootClassName?: string | undefined;
-  /** Envoltorio del icono. Cae tanto sobre el icono propio como sobre la paloma de marcado. */
+  /** Wrapper for the icon. It lands both on the icon itself and on the check mark. */
   iconProps?: BoxSlotProps | undefined;
 }
 
 export interface ChipGroupProps extends StyleProps {
-  /** La leyenda del grupo. Solo se pinta si hay `label`; el nombre es el de `Fieldset`. */
+  /** The group legend. Only rendered with a `label`; the name is the one `Fieldset` uses. */
   legendProps?: TextSlotProps | undefined;
-  /** La fila de fichas. La raiz es el `fieldset`, y esto es lo que las coloca dentro. */
+  /** The chip row. The root is the `fieldset`, and this is what lays them out inside it. */
   groupProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   label?: ReactNode | undefined;

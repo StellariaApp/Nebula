@@ -33,7 +33,7 @@ export interface SegmentProps extends StyleProps {
 export type SegmentControlData = ReadonlyArray<string | SegmentItemData>;
 
 export interface SegmentControlProps extends StyleProps {
-  /** Cada pestaña. Se esparce sobre TODAS. El indicador NO se expone: lo mueve motion. */
+  /** Every tab. It spreads over ALL of them. The indicator is NOT exposed: motion moves it. */
   tabProps?: ComponentPropsWithoutRef<"button"> | undefined;
   data?: SegmentControlData | undefined;
   children?: ReactNode | undefined;
@@ -48,7 +48,7 @@ export interface SegmentControlItemProps {
 }
 
 export interface SegmentContentProps extends StyleProps {
-  /** Cada panel. Se esparce sobre TODOS, y compone por encima del className del propio item. */
+  /** Every panel. It spreads over ALL of them, and composes above the item own `className`. */
   panelProps?: BoxSlotProps | undefined;
   children: ReactNode;
   swipeable?: boolean | undefined;

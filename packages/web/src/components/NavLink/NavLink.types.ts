@@ -29,12 +29,12 @@ export interface NavLinkProps extends StyleProps, PermissionProps {
   leftSectionProps?: BoxSlotProps | undefined;
   /** Envoltorio de rightSection. */
   rightSectionProps?: BoxSlotProps | undefined;
-  /** Columna de rotulo y descripcion. */
+  /** Label and description column. */
   bodyProps?: BoxSlotProps | undefined;
   /** Rotulo del enlace. */
   labelProps?: TextSlotProps | undefined;
-  /** Descripcion bajo el rotulo, si la hay. */
+  /** The description below the label, when there is one. */
   descriptionProps?: TextSlotProps | undefined;
-  /** Panel de enlaces hijos. Vive dentro de un Collapse. */
+  /** The child-link panel. It lives inside a `Collapse`. */
   childrenProps?: BoxSlotProps | undefined;
 }

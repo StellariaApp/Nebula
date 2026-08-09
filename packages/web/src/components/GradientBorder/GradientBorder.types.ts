@@ -12,9 +12,9 @@ export type GradientBorderEdge = 1 | 2 | 3 | 4;
 export type GradientBorderSequence = "continuous" | "spaced";
 
 /**
- * Anillo de gradiente alrededor del contenido, sin teñir su interior.
+ * A gradient ring around the content, without tinting its inside.
  *
- * GUARDRAIL: es acento de marca (docs/06 §6). Un anillo por región, no uno por fila de una lista.
+ * GUARDRAIL: it is a brand accent (docs/06 §6). One ring per region, not one per row of a list.
  */
 export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
   component?: ElementType | undefined;

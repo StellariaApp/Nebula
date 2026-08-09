@@ -12,15 +12,15 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 
 export interface TagsInputProps extends StyleProps, FormFieldSlotProps {
-  /** Cada etiqueta puesta. Se esparce sobre TODAS; llevan `data-disabled`. */
+  /** Every tag added. It spreads over ALL of them; they carry `data-disabled`. */
   tagProps?: BoxSlotProps | undefined;
-  /** El rótulo de cada etiqueta. */
+  /** The label of each tag. */
   tagLabelProps?: TextSlotProps | undefined;
-  /** El aspa que quita cada etiqueta. No se pinta si el campo es de solo lectura ni si esta deshabilitado. */
+  /** The cross that removes each tag. Not rendered when the field is read-only or disabled. */
   removeProps?: ButtonCloseProps | undefined;
   /**
-   * El campo de texto. Se esparce DESPUÉS del manejador de teclado propio, así que un `onKeyDown`
-   * aquí se lleva por delante el alta con Enter y el borrado con retroceso.
+   * The text field. It spreads AFTER the component keyboard handler, so an `onKeyDown` here takes out
+   * add-on-Enter and backspace-to-remove.
    */
   inputProps?: ComponentPropsWithoutRef<"input"> | undefined;
   label?: ReactNode | undefined;

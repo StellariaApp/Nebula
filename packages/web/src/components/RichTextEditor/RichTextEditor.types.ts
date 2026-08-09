@@ -37,19 +37,19 @@ export interface RichTextLabels extends Record<RichTextAction, string> {
 }
 
 export interface RichTextEditorProps extends StyleProps, FormFieldSlotProps {
-  /** El area editable. Lleva `data-empty`, de donde sale que se vea el marcador. */
+  /** The editable area. It carries `data-empty`, which is what makes the placeholder show. */
   contentProps?: BoxSlotProps | undefined;
-  /** El marcador de posicion. Solo se pinta con el editor vacio y con `placeholder`. */
+  /** The placeholder. Only rendered with an empty editor and a `placeholder`. */
   placeholderProps?: TextSlotProps | undefined;
-  /** La barra de acciones. Solo con `withToolbar`. */
+  /** The action bar. Only with `withToolbar`. */
   toolbarProps?: BoxSlotProps | undefined;
-  /** Cada grupo de la barra. Se esparce sobre TODOS; los grupos salen de `toolbar`. */
+  /** Every group in the bar. It spreads over ALL of them; the groups come from `toolbar`. */
   toolbarGroupProps?: BoxSlotProps | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;
   onChange?: ((html: string) => void) | undefined;
   field?: NebulaField<string> | undefined;
-  /** @default las cinco filas del grupo completo, que exporta `DEFAULT_TOOLBAR` */
+  /** @default the five rows of the full group, exported as `DEFAULT_TOOLBAR` */
   toolbar?: readonly RichTextGroup[] | undefined;
   placeholder?: string | undefined;
   /** @default 6 */

@@ -23,8 +23,8 @@ export interface TagProps extends StyleProps {
   className?: string | undefined;
   /** Envoltorio de `leftSection`. */
   sectionProps?: BoxSlotProps | undefined;
-  /** El rotulo, que es el contenido de la etiqueta. */
+  /** The label, which is the content of the tag. */
   labelProps?: TextSlotProps | undefined;
-  /** El boton de quitar. Solo se pinta si hay `onRemove`. */
+  /** The remove button. Only rendered with `onRemove`. */
   removeProps?: ButtonCloseProps | undefined;
 }

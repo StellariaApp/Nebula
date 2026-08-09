@@ -10,8 +10,9 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface FileInputProps extends StyleProps, FormFieldSlotProps {
   /**
-   * El boton que abre el explorador y ensena los archivos elegidos. El `input` nativo no lleva
-   * ranura: esta oculto y todo lo que acepta —`accept`, `multiple`, `capture`, `name`— ya son props.
+   * The button that opens the file browser and shows the chosen files. The native `input` has no
+   * slot: it is hidden, and everything it accepts — `accept`, `multiple`, `capture`, `name` — is
+   * already a prop.
    */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   label?: ReactNode | undefined;

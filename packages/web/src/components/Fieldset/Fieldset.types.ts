@@ -14,8 +14,8 @@ export interface FieldsetProps
   surface?: FieldsetSurface | undefined;
   disabled?: boolean | undefined;
   className?: string | undefined;
-  /** La leyenda. Solo se pinta si hay `legend`. */
+  /** The legend. Only rendered with `legend`. */
   legendProps?: TextSlotProps | undefined;
-  /** La descripcion. Lleva el id al que apunta el `aria-describedby` del grupo. */
+  /** The description. It carries the id the group `aria-describedby` points at. */
   descriptionProps?: TextSlotProps | undefined;
 }

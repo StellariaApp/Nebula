@@ -18,16 +18,16 @@ export interface SliderMark {
 
 interface SliderBaseProps extends StyleProps {
   /**
-   * La fila de marcas. Solo se pinta con `marks`.
+   * The row of marks. Only rendered with `marks`.
    */
   marksProps?: BoxSlotProps | undefined;
   /**
-   * Cada marca. Se esparce sobre TODAS. Su posicion en el eje se escribe DESPUES de la ranura,
-   * porque sale de su `value`; el color y la tipografia se pueden poner aqui o heredarse de
+   * Every mark. It spreads over ALL of them. Its position along the axis is written AFTER the slot,
+   * because it comes from its `value`; colour and typography can be set here or inherited from
    * `marksProps`.
    */
   markProps?: BoxSlotProps | undefined;
-  /** El valor que se muestra al lado. Solo con `withValue`; se anuncia solo, porque es un `output`. */
+  /** The value shown beside it. Only with `withValue`; it announces itself, because it is an `output`. */
   outputProps?: TextSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

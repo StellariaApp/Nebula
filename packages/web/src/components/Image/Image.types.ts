@@ -9,9 +9,9 @@ export type ImageFit = "cover" | "contain" | "fill" | "none" | "scale-down";
 
 export interface ImageProps extends StyleProps {
   /**
-   * El hueco de estado. Se comparte entre DOS casos: el marcador de posicion mientras carga y el
-   * texto de reserva cuando falla o falta `src`. La imagen no lleva ranura: la anima motion al
-   * aparecer, y su ajuste, su radio y su tamano ya son props.
+   * The state slot. It is shared by TWO cases: the placeholder while loading and the fallback text
+   * when `src` fails or is missing. The image has no slot: motion animates it as it appears, and its
+   * fit, radius and size are already props.
    */
   stateProps?: BoxSlotProps | undefined;
   src?: string | undefined;
@@ -27,9 +27,9 @@ export interface ImageProps extends StyleProps {
 }
 
 export interface BackgroundImageProps {
-  /** El velo sobre la imagen. Solo se pinta con `overlay`, y de ahi sale su opacidad. */
+  /** The veil over the image. Only rendered with `overlay`, which is where its opacity comes from. */
   overlayProps?: BoxSlotProps | undefined;
-  /** La caja del contenido, por encima del velo. */
+  /** The content box, above the veil. */
   contentProps?: BoxSlotProps | undefined;
   src: string;
   children?: ReactNode | undefined;

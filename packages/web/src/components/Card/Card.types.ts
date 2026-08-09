@@ -22,7 +22,7 @@ export interface CardProps extends Omit<StyleProps, "shadow"> {
   shadow?: ShadowLevel | "none" | undefined;
   padding?: "none" | "md" | "lg" | "xl" | undefined;
   withBorder?: boolean | undefined;
-  /** Peldaño de cristal cuando `variant="glass"`. Por defecto `subtle` (ADR-078). */
+  /** Glass step when `variant="glass"`. `subtle` by default (ADR-078). */
   glass?: GlassLevel | undefined;
   interactive?: boolean | undefined;
   onPress?: (() => void) | undefined;
@@ -45,7 +45,7 @@ export interface CardImageProps {
   className?: string | undefined;
 }
 
-/** Props de las partes de `Card` —`Badges`, `Meta` y `Actions`—: hijos, `className` y style props. */
+/** Props of the `Card` parts — `Badges`, `Meta` and `Actions`: children, `className` and style props. */
 export interface CardSlotProps extends StyleProps {
   children: ReactNode;
   className?: string | undefined;

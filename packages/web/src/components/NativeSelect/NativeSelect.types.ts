@@ -24,7 +24,7 @@ export interface NativeSelectProps
     >,
     StyleProps,
     FormFieldSlotProps {
-  /** El chevron del campo. Lo pinta el componente porque un `select` nativo no lo deja estilar. */
+  /** The field chevron. The component renders it because a native `select` does not let you style one. */
   chevronProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

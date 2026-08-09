@@ -16,14 +16,14 @@ export interface ProgressSegment {
 
 export interface ProgressProps extends StyleProps {
   /**
-   * Cada tramo de la barra. Se esparce sobre TODOS. Su ancho y su color se escriben DESPUES de la
-   * ranura, porque son el dato; el resto si se ajusta. No existe con `type="ring"` ni con
-   * `indeterminate`, que es una capa animada aparte.
+   * Every segment of the bar. It spreads over ALL of them. Their width and colour are written AFTER
+   * the slot, because they are the data; everything else can be adjusted. It does not exist with
+   * `type="ring"` nor with `indeterminate`, which is a separate animated layer.
    */
   fillProps?: BoxSlotProps | undefined;
   /**
-   * El rotulo del centro del anillo, que es el nodo que envuelve a `children`. Solo existe con
-   * `type="ring"` y solo si hay `children`; en la barra no se pinta nada.
+   * The label at the centre of the ring, which is the node wrapping `children`. It only exists with
+   * `type="ring"` and only with `children`; on the bar nothing is rendered.
    */
   ringLabelProps?: TextSlotProps | undefined;
   value?: number | undefined;

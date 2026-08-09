@@ -33,20 +33,20 @@ export interface ButtonProps
     PressLifecycleProps,
     PermissionProps {
   /**
-   * El elemento que pinta. Con algo distinto de `button` —un `a` para un CTA que navega, el `Link`
-   * de un router— React Aria le pone el `role`, el `tabIndex` y el manejo de Espacio y Enter, así
-   * que el contrato de teclado no se degrada. El `type` solo se escribe si el elemento es un botón.
+   * The element it renders. With anything other than `button` — an `a` for a CTA that navigates, a
+   * router `Link` — React Aria adds the `role`, the `tabIndex` and the Space and Enter handling, so
+   * the keyboard contract does not degrade. The `type` is only written when the element is a button.
    */
   component?: ElementType | undefined;
-  /** Solo tiene efecto con `component`: son los atributos del elemento que hayas elegido. */
+  /** Only has an effect with `component`: these are the attributes of the element you chose. */
   href?: string | undefined;
   /** Envoltorio de `leftSection`. */
   leftSectionProps?: BoxSlotProps | undefined;
   /** Envoltorio de `rightSection`. */
   rightSectionProps?: BoxSlotProps | undefined;
   /**
-   * El rótulo, que envuelve a `children`. Con `loading` se atenúa junto a las secciones, que es
-   * como el botón deja sitio al giro sin cambiar de tamaño.
+   * The label, which wraps `children`. With `loading` it dims alongside the sections, which is how
+   * the button makes room for the spinner without changing size.
    */
   labelProps?: TextSlotProps | undefined;
   variant?: Variant | undefined;

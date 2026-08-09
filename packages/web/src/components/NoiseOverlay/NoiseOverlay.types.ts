@@ -2,12 +2,12 @@
 import type { StyleProps } from "../../utils/style-props.js";
 
 /**
- * Grano fino sobre la región que lo contiene. Es la textura de `effects.glass.noiseOpacity`, no un
- * efecto libre: sin `opacity` explícita toma la del tema y con `effects.glass.enabled=false` no
- * pinta nada.
+ * Fine grain over the region that contains it. It is the texture of `effects.glass.noiseOpacity`,
+ * not a free effect: without an explicit `opacity` it takes the theme one, and with
+ * `effects.glass.enabled=false` it paints nothing.
  *
- * GUARDRAIL: es decorativo y va siempre sobre una superficie ya resuelta. Nunca sobre texto de
- * lectura larga ni sobre celdas de datos.
+ * GUARDRAIL: it is decorative and always goes over an already-resolved surface. Never over long-form
+ * text or over data cells.
  */
 export interface NoiseOverlayProps extends Omit<StyleProps, "opacity"> {
   opacity?: number | undefined;

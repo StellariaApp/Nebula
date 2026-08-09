@@ -7,18 +7,18 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 
 /**
- * Capa que **desenfoca lo que hay detrás** en vez de teñirlo. `Overlay` es lo contrario: tinte
- * primero, blur opcional.
+ * A layer that **blurs what is behind it** instead of tinting it. `Overlay` is the opposite: tint
+ * first, blur optional.
  *
- * GUARDRAIL: `blur` operativo máximo `md` (investigación de estilo de Stellaria §4.5); `lg`+ solo en
- * overlays puntuales a pantalla completa. No apilar dos BlurOverlay ni montarlo sobre un
- * `GlassSurface`: el `backdrop-filter` encadenado se paga por frame.
+ * GUARDRAIL: `md` is the maximum operational `blur` (Stellaria style research §4.5); `lg` and above
+ * only in occasional full-screen overlays. Do not stack two BlurOverlays, and do not mount one over
+ * a `GlassSurface`: chained `backdrop-filter` is paid for every frame.
  */
 export interface BlurOverlayProps extends Omit<StyleProps, "opacity"> {
   /**
-   * La caja que centra a `children`. No existe sin hijos, y sin ellos la capa entera pasa a ser
-   * `aria-hidden`. El velo no tiene ranura: es el efecto, y lo gobiernan `blur`, `color` y
-   * `opacity`.
+   * The box that centres `children`. It does not exist without children, and without them the whole
+   * layer becomes `aria-hidden`. The veil has no slot: it is the effect, and `blur`, `color` and
+   * `opacity` govern it.
    */
   contentProps?: BoxSlotProps | undefined;
   blur?: BlurLevel | undefined;

@@ -3,8 +3,8 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
 /**
- * Aplica la tipografía del tema al HTML que no controla Nebula: markdown renderizado, salida del
- * `RichTextEditor`, CMS. Es el único sitio del catálogo que estiliza por selector de etiqueta.
+ * Applies the theme typography to HTML that Nebula does not control: rendered markdown,
+ * `RichTextEditor` output, a CMS. It is the only place in the catalogue that styles by tag selector.
  */
 export interface TypographyStylesProviderOwnProps extends Omit<BoxOwnProps, "component"> {
   component?: ElementType | undefined;

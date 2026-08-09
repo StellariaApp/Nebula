@@ -17,10 +17,9 @@ export interface PeriodPickerLabels {
 
 interface PeriodPickerBaseProps extends StyleProps {
   /**
-   * Cada casilla de la rejilla. Se esparce sobre TODAS: las genera el componente —los doce meses
-   * del año a la vista, o la página de años—, no la composición; `minValue` y `maxValue` solo
-   * deciden cuáles quedan deshabilitadas. Es un `div` con `role="option"`, así que se tipa como
-   * `div`.
+   * Every cell in the grid. It spreads over ALL of them: the component generates them — the twelve
+   * months of the visible year, or the page of years — not composition; `minValue` and `maxValue`
+   * only decide which end up disabled. It is a `div` with `role="option"`, so it is typed as a `div`.
    */
   cellProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;

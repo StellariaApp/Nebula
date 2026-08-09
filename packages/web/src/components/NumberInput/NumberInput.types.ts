@@ -28,11 +28,11 @@ export interface NumberInputProps
     >,
     StyleProps,
     FormFieldSlotProps {
-  /** La columna de las dos flechas. No se pinta con `hideControls`. */
+  /** The column of the two arrows. Not rendered with `hideControls`. */
   stepperProps?: BoxSlotProps | undefined;
-  /** La flecha de subir. Se deshabilita sola al llegar a `max`. */
+  /** The up arrow. It disables itself on reaching `max`. */
   incrementProps?: UnstyledButtonProps | undefined;
-  /** La flecha de bajar. Se deshabilita sola al llegar a `min`. */
+  /** The down arrow. It disables itself on reaching `min`. */
   decrementProps?: UnstyledButtonProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

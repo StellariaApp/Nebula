@@ -9,9 +9,9 @@ export interface PlayerLabels {
 
 export interface PlayerProps extends StyleProps {
   /**
-   * El reproductor de dentro del marco. Es el unico nodo del catalogo que pinta un peer —react-player—
-   * y por eso se tipa con los atributos del `video` que pinta y no con `BoxSlotProps`: su `src`, su tamano y
-   * sus manejadores los gobierna el componente.
+   * The player inside the frame. It is the only node in the catalogue that renders a peer —
+   * react-player — and that is why it is typed with the attributes of the `video` it renders and not
+   * with `BoxSlotProps`: the component governs its `src`, its size and its handlers.
    */
   surfaceProps?: ComponentPropsWithoutRef<"video"> | undefined;
   src: string;

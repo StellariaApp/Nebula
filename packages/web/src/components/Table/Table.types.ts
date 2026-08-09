@@ -8,8 +8,8 @@ export type TableAlign = "start" | "center" | "end";
 
 export interface TableProps extends StyleProps {
   /**
-   * El `caption` de la tabla. Con `captionVisible={false}` el texto queda dentro de un
-   * `VisuallyHidden`, asi que lo que se pase aqui no se ve; sigue valiendo para `id` o `lang`.
+   * The table `caption`. With `captionVisible={false}` the text sits inside a `VisuallyHidden`, so
+   * whatever you pass here is not visible; it is still useful for `id` or `lang`.
    */
   captionProps?: TextSlotProps | undefined;
   children: ReactNode;

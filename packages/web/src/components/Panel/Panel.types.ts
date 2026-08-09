@@ -11,13 +11,13 @@ export interface PanelLabels {
 }
 
 export interface PanelProps extends StyleProps {
-  /** El panel de `master`. Su tamaño lo fija `size`; los dos paneles comparten clase pero no ranura. */
+  /** The `master` panel. Its size comes from `size`; the two panels share a class but not a slot. */
   masterProps?: BoxSlotProps | undefined;
-  /** El panel de `detail`, que ocupa lo que sobra. */
+  /** The `detail` panel, which takes whatever is left. */
   detailProps?: BoxSlotProps | undefined;
   /**
-   * El asa que reparte el espacio. Lleva el teclado y el puntero del redimensionado, así que un
-   * `onKeyDown` o un `onPointerDown` aquí los sustituye en vez de sumarse.
+   * The handle that splits the space. It carries the keyboard and pointer handling of the resize, so
+   * an `onKeyDown` or an `onPointerDown` here replaces them instead of adding to them.
    */
   separatorProps?: BoxSlotProps | undefined;
   master: ReactNode;

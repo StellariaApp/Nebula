@@ -14,11 +14,11 @@ export interface SearchLabels {
 }
 
 export interface SearchProps extends Omit<StyleProps, "top" | "bottom"> {
-  /** La barra que agrupa buscador, filtros y acciones. */
+  /** The bar that groups search, filters and actions. */
   barProps?: BoxSlotProps | undefined;
-  /** El hueco de `before`. Solo se pinta si lo hay. */
+  /** The `before` slot. Only rendered when there is one. */
   beforeProps?: BoxSlotProps | undefined;
-  /** El hueco de `after`. Solo se pinta si lo hay. */
+  /** The `after` slot. Only rendered when there is one. */
   afterProps?: BoxSlotProps | undefined;
   value?: string | undefined;
   defaultValue?: string | undefined;

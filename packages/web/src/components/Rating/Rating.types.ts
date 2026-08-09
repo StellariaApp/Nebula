@@ -10,16 +10,16 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 
 export interface RatingProps extends StyleProps, FormFieldSlotProps {
   /**
-   * El relleno parcial de un simbolo a medias. Solo se pinta cuando el valor cae entre dos
-   * simbolos, con `fractions` o sin el. Su ancho se escribe DESPUES de la ranura, porque es la
-   * fraccion que representa.
+   * The partial fill of a half symbol. Only rendered when the value falls between two symbols, with
+   * or without `fractions`. Its width is written AFTER the slot, because it is the fraction it
+   * represents.
    */
   partialProps?: BoxSlotProps | undefined;
-  /** La fila de símbolos. Es `radiogroup`, o `img` con `readOnly`. */
+  /** The row of symbols. It is a `radiogroup`, or an `img` with `readOnly`. */
   groupProps?: BoxSlotProps | undefined;
   /**
-   * Cada símbolo. Se esparce sobre TODOS, y sirve a dos elementos: `button` cuando se puede votar y
-   * `span` con `readOnly`.
+   * Every symbol. It spreads over ALL of them, and serves two elements: a `button` when it can be
+   * rated and a `span` with `readOnly`.
    */
   itemProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;

@@ -15,9 +15,9 @@ export type AnchorProps<C extends ElementType = "a"> = AnchorOwnProps & {
 } & Omit<ComponentPropsWithoutRef<C>, keyof AnchorOwnProps | "component">;
 
 /**
- * Props de una ranura que el componente pinta con un `Anchor`: las style props del sistema mas
- * `underline` y `external`. `component` acepta cualquier etiqueta, que es lo que permite que un
- * enlace se pinte como `button` sin forkear al componente que lo envuelve.
+ * Props of a slot the component renders with an `Anchor`: the system style props plus `underline`
+ * and `external`. `component` accepts any tag, which is what lets a link render as a `button`
+ * without forking the component that wraps it.
  */
 export type AnchorSlotProps = AnchorOwnProps &
   Omit<ComponentPropsWithoutRef<"a">, keyof AnchorOwnProps>;

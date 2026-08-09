@@ -41,10 +41,10 @@ export interface InfiniteListProps<T, TPage = readonly T[]> extends StyleProps {
   label?: string | undefined;
   gap?: "none" | "xs" | "sm" | "md" | "lg" | undefined;
   className?: string | undefined;
-  /** La lista. Su hueco lo fija `gap`; la ranura se compone con el. */
+  /** The list. Its gap comes from `gap`; the slot composes with it. */
   listProps?: BoxSlotProps | undefined;
-  /** Cada entrada. Se esparce sobre todas; su contenido lo pinta `renderItem`. */
+  /** Every entry. It spreads over all of them; `renderItem` renders their content. */
   itemProps?: BoxSlotProps | undefined;
-  /** La region que anuncia la carga. Lleva `role="status"`, asi que se lee sola. */
+  /** The region that announces loading. It carries `role="status"`, so it reads itself out. */
   liveProps?: BoxSlotProps | undefined;
 }

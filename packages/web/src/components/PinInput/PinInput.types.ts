@@ -13,7 +13,7 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 export type PinInputType = "numeric" | "alphanumeric";
 
 export interface PinInputProps extends StyleProps, FormFieldSlotProps {
-  /** La fila de casillas. Es el `role="group"` que agrupa los campos dentro del `FormField`. */
+  /** The row of boxes. It is the `role="group"` that groups the fields inside the `FormField`. */
   groupProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

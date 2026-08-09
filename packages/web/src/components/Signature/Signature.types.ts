@@ -20,11 +20,11 @@ export interface SignatureLabels {
 
 export interface SignatureProps extends StyleProps, FormFieldSlotProps {
   /**
-   * El lienzo de firma. Lleva los manejadores de puntero del trazo, asi que un `onPointerDown`
-   * aqui los sustituye; su alto se escribe despues de la ranura, porque sale de `height`.
+   * The signature canvas. It carries the pointer handlers of the stroke, so an `onPointerDown` here
+   * replaces them; its height is written after the slot, because it comes from `height`.
    */
   canvasProps?: ComponentPropsWithoutRef<"canvas"> | undefined;
-  /** La fila de deshacer y limpiar. */
+  /** The undo and clear row. */
   actionsProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;

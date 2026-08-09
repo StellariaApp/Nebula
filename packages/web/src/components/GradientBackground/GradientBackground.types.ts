@@ -6,17 +6,17 @@ import type { GradientProp } from "../../theme/resolve-variant.js";
 import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
 /**
- * Región pintada con un gradiente del tema.
+ * A region painted with a theme gradient.
  *
- * GUARDRAIL (docs/06 §6): acento de marca en CTA, badge, header o hero. **No** es fondo dominante de
- * tablas, formularios ni lectura larga, y nunca pinta texto principal — para eso está `GradientText`
- * con su fallback. Si va a llevar texto encima, sube `scrim` hasta que el par vuelva a ser AA.
+ * GUARDRAIL (docs/06 §6): brand accent on a CTA, badge, header or hero. It is **not** the dominant
+ * background of tables, forms or long-form reading, and it never paints primary text — `GradientText`
+ * with its fallback is for that. If it will carry text, raise `scrim` until the pair is AA again.
  */
 export interface GradientBackgroundOwnProps extends Omit<BoxOwnProps, "component"> {
   /**
-   * El velo que atenúa el gradiente. Solo se pinta con `scrim` mayor que 0, y de ahí sale su
-   * opacidad; la ranura es lo que permite teñirlo de otro color sin forkear. La capa de grano no
-   * tiene ranura: es la textura del efecto y su opacidad la fija el tema.
+   * The veil that dims the gradient. Only rendered with `scrim` greater than 0, which is where its
+   * opacity comes from; the slot is what lets you tint it another colour without forking. The grain
+   * layer has no slot: it is the texture of the effect and the theme fixes its opacity.
    */
   scrimProps?: BoxSlotProps | undefined;
   component?: ElementType | undefined;

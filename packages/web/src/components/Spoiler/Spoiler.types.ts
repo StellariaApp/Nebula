@@ -7,11 +7,11 @@ import type { AnchorSlotProps } from "../Anchor/Anchor.types.js";
 
 export interface SpoilerProps extends StyleProps {
   /**
-   * El bloque recortado. Su `max-height` se escribe DESPUES de la ranura mientras esta cerrado,
-   * porque es lo que hace el recorte; el resto si se ajusta.
+   * The clipped block. Its `max-height` is written AFTER the slot while it is closed, because that is
+   * what does the clipping; everything else can be adjusted.
    */
   contentProps?: BoxSlotProps | undefined;
-  /** El enlace que abre y cierra. Solo se pinta si el contenido desborda `maxHeight`. */
+  /** The link that opens and closes. Only rendered when the content overflows `maxHeight`. */
   toggleProps?: AnchorSlotProps | undefined;
   children: ReactNode;
   maxHeight?: number | undefined;
