@@ -38,34 +38,45 @@ por eso no se migraron. Conviene que lo confirmes, porque rompe la simetría de 
 En los tres, `r` redondearía la raíz y dejaría el elemento interior cuadrado. Migrarlos no es un
 renombre: es cambiar qué se redondea.
 
-### D-4 · 95 cadenas por defecto en español, en 47 componentes
+### D-4 · 120 cadenas de interfaz en español — remedidas, y el diagnóstico cambia
 
-Van tres veces que aparece el mismo fallo en el sitio público: el skip link decía «Saltar al
-contenido», el `Burger` «Abrir menú», el `Nav.Sidebar` «Cerrar la navegación», y `Stat` mete «al
-alza» en el lector de pantalla. Cada vez lo he tapado pasando la etiqueta explícita, pero el
-problema no es del sitio.
+Van cuatro veces que se cuela español en el sitio público: el skip link decía «Saltar al contenido»,
+el `Burger` «Abrir menú», el `Nav.Sidebar` «Cerrar la navegación», y `Stat` metía «al alza» en el
+lector de pantalla. Cada vez lo tapé pasando la etiqueta a mano.
 
-Medido: **95 cadenas visibles o de lector de pantalla escritas en español como valor por defecto, en
-47 archivos** de `packages/web`. Entre ellas `PasswordInput` («Mostrar contraseña»), `NProgress`
-(«Cargando la página»), `Toast` («Cerrar notificación»), `Spoiler`, `AppShell`, `InputPhone`,
-`YearPicker`.
+**Remedido con el método bueno** —palabras funcionales, no tildes, que es el que corrigió el recuento
+del JSDoc—: son **120 cadenas en 51 componentes**, no 95 en 47.
 
-Un consumidor angloparlante que no pase la prop se lleva español en su producto, y en la mitad de
-los casos es texto que **solo oye un lector de pantalla**, así que no lo ve nadie en QA.
+Pero el número no es lo que decide. Lo que decide es **si el consumidor tiene salida**, y ahí el
+diagnóstico que yo mismo escribí antes estaba mal encuadrado:
 
-ADR-114 ya decidió que la superficie pública se escribe en inglés, pero se aplicó al JSDoc, no a los
-valores por defecto.
+| | |
+| --- | --- |
+| Tienen prop de etiqueta —`labels`, `*Label`, `linkText`— | **119** |
+| **Sin ninguna salida** | **1** |
 
-- **Traducir los 95 defectos a inglés.** Coherente con ADR-114. Rompe visualmente a cualquier
-  consumidor hispanohablante que hoy dependa del defecto — que ahora mismo es solo el playground.
-- **Dejarlos y exigir que se pasen siempre.** Obliga a un lint que detecte props de etiqueta sin
-  pasar, y no hay forma razonable de escribirlo.
+Esa una es **`GridList.tsx:70`, un `aria-label="Modo de vista"` escrito a pelo**. No hay prop que lo
+tape: un consumidor angloparlante no puede arreglarlo de ninguna manera. Las otras 119 son una
+molestia —hay que pasar la prop— pero están documentadas y son suyas.
+
+Aparte, y es otra conversación, hay **cuatro mensajes de `Error()` en español** que solo ve un
+desarrollador: `Form`, `Hero`, `Section` y `Segment` («`X.*` debe usarse dentro de `<X>`»), más el
+«Tema desconocido» de `NebulaProvider`.
+
+ADR-114 decidió que la superficie pública se escribe en inglés, pero se aplicó al JSDoc, no a esto.
+
+- **Traducir las 120 y la de `GridList`.** Coherente con ADR-114. Rompe a quien hoy dependa del
+  defecto en español, que ahora mismo es solo el playground.
+- **Traducir solo lo que no tiene salida** —`GridList` y los cinco `Error()`— y dejar los 119
+  defectos. Mínimo cambio de comportamiento; el sitio ya demuestra que pasar la etiqueta funciona.
 - **Un diccionario de la librería con `locale`.** Es un sistema de i18n dentro del catálogo; alcance
   muy superior y probablemente fuera de v1.
 
-**Recomendación**: traducir los 95 ahora, antes de W5, porque después de publicar cada cadena es una
-rotura para alguien. Es mecánico y lo cubren los tests que ya asertan por rol y no por texto —hay que
-comprobarlo—.
+**Recomendación**: la primera, antes de W5, porque después de publicar cada cadena es una rotura para
+alguien. Pero si te preocupa el alcance, **la segunda cierra el único fallo real con seis cambios** y
+se puede hacer hoy mismo.
+
+No he tocado nada de esto: traducir un defecto cambia el comportamiento de la librería, y eso es tuyo.
 
 ### D-3 · El fondo del sitio ya no se ve a través del cristal
 
@@ -131,6 +142,9 @@ librería, no solo su documentación.
   ADR-119.
 - **No hay `.github/workflows`.** Los ocho gates existen y pasan, pero **nadie los corre salvo a
   mano**. Es el hueco más grande de cara a W5.
+- **Los recuentos por tildes están todos mal, y ya van dos.** El JSDoc en español era 7 veces más de
+  lo estimado; D-4 era un 26 % más (120 y no 95). Si vuelve a aparecer un recuento de español en este
+  repo, remídelo por palabras funcionales antes de creértelo.
 - **El JSDoc en español era 7 veces más de lo estimado.** Las notas decían «~70 contratos»; ese
   número salía de buscar **tildes**, así que se dejaba fuera todo el español sin acentuar («El
   elemento que pinta», «Solo se pinta con `icon`»). Medido con detección por palabras funcionales:
