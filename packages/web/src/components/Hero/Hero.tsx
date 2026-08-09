@@ -5,6 +5,7 @@ import { Children, isValidElement, useId, useMemo, type ReactElement, type React
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ContainsPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -104,7 +105,7 @@ export function Hero(props: HeroProps): ReactElement {
   const css_vars = assignInlineVars({
     [variables.contentMax]: LengthToCss(contentWidth),
     [variables.bg]: resolved.background,
-    [variables.fg]: color === "transparent" ? theme.colors.text.primary : resolved.foreground,
+    [variables.fg]: color === "transparent" ? vars.color.text.primary : resolved.foreground,
     [variables.borderColor]: resolved.borderColor,
     [variables.borderWidth]: resolved.borderWidth,
     [variables.backdropFilter]: resolved.backdropFilter,
