@@ -88,6 +88,7 @@ portada y dime si se queda, se reduce o se quita.
 | `26146e8` | Portada: cabecera móvil, jerarquía de bandas, Stats, copy al diccionario  |
 | `168a0e2` | ProductSwitch a `Segment` y sin español en el lector de pantalla          |
 | `87720aa` | La escala de la portada llega a `/components`, `/docs`, `/theme` y demás   |
+| `391a169` | DS2.3 — las cinco guías de /docs, con las obligaciones del consumidor     |
 
 ---
 
@@ -98,12 +99,10 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **DS2.3 — las guías bajo `/docs`.** Hoy solo existen `introduction` e `installation`. La de
-   instalación tiene que enseñar juntas las tres piezas del anti-flash (ADR-117), más las dos
-   obligaciones del consumidor: carga de fuente (ADR-031) y nada de `transform`/`filter`/`contain`
-   en un ancestro (ADR-030). Faltan además las de accesibilidad, frontera RSC y estilos.
-2. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes.
-3. **Depende de D-4**: traducir las 95 cadenas por defecto. No lo empiezo sin tu decisión.
+1. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes. Es lo único que queda
+   que no dependa de una decisión tuya.
+2. **Bloqueado por D-4**: traducir las 95 cadenas por defecto en español. No lo empiezo sin tu
+   decisión, porque cambia el comportamiento de 47 componentes.
 
 ---
 
