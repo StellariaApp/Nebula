@@ -43,10 +43,17 @@ Con `r` se escribe `r={0}`.
 `radius` **no es duplicación**: es una lista corta deliberada, y quitarla ampliaría el API en vez de
 reducirlo. Un `Badge` no debería poder ser `xxl`.
 
-**Los cuatro quedan fuera de este ADR**, por decisión del propietario. Con una deuda anotada: el
-guardarraíl es poroso, porque los cuatro extienden `StyleProps` y hoy mismo se puede escribir
-`<Badge r="xxl">` y gana. Cerrarlo de verdad exige capar `r` en esos cuatro o un lint, y es una
-decisión distinta de la que resuelve este ADR.
+**Los cuatro quedan fuera de este ADR**, por decisión del propietario.
+
+**Enmienda del 2026-08-09**: el guardarraíl era poroso —los cuatro extienden `StyleProps`, así que
+`<Badge r="xxl">` se escribía y ganaba— y se cierra **con lint, no con tipos**: un
+`no-restricted-syntax` sobre `JSXOpeningElement[name.name=/^(Avatar|Badge|Modal|Popover)$/] >
+JSXAttribute[name.name="r"]`.
+
+Se eligió sobre capar `r` con `Omit<StyleProps, "r">` porque eso habría convertido a estos cuatro en
+la excepción **contraria** a la que decide este ADR para los otros once. El lint cierra el agujero
+donde hay un motivo de diseño sin tocar el principio de que el primitivo manda, y deja una salida
+explícita —un `eslint-disable`— para quien tenga una razón.
 
 ## Decisión
 

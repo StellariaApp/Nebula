@@ -26,6 +26,11 @@ const NamingConvention = (global, local, extra = []) => [
   { selector: "import", format: null },
 ];
 
+// ADR-119: los cuatro componentes cuyo `radius` es una lista corta deliberada.
+const SHORT_LIST_RADIUS = ["Avatar", "Badge", "Modal", "Popover"];
+
+const RestrictedRadius = `JSXOpeningElement[name.name=/^(${SHORT_LIST_RADIUS.join("|")})$/] > JSXAttribute[name.name="r"]`;
+
 export default tseslint.config(
   {
     ignores: [
@@ -67,6 +72,19 @@ export default tseslint.config(
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
           caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          // ADR-119: el radio lo manda la style prop `r`, salvo en estos cuatro,
+          // que restringen a propósito su lista de radios. Pero los cuatro
+          // extienden `StyleProps`, así que `r` se cuela y gana: la lista corta
+          // no restringía nada. Esto la hace real sin capar `r` en los tipos,
+          // que sería la excepción contraria a lo que ADR-119 decidió.
+          selector: RestrictedRadius,
+          message:
+            "Usa `radius` en Avatar, Badge, Modal y Popover: su lista de radios es corta a propósito (ADR-119). `r` la saltaría.",
         },
       ],
     },
