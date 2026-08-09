@@ -50,9 +50,9 @@ export interface DataGridExport {
   filename?: string | undefined;
   delimiter?: string | undefined;
   /**
-   * Con selección activa exporta solo lo seleccionado, esté en la página visible o no. Sin ella, y
-   * por defecto, exporta todas las filas. Las dos ramas salen del modelo core, así que la
-   * paginación no recorta el fichero y el orden es el de origen, no el de la vista.
+   * With selection on, it exports only what is selected, whether or not it sits on the visible page.
+   * Without it, and by default, it exports every row. Both branches read the core model, so
+   * pagination does not trim the file and the order is the source order, not the view order.
    */
   selectionOnly?: boolean | undefined;
 }
@@ -105,65 +105,65 @@ export interface DataGridProps<T>
 
   labels?: Partial<DataGridLabels> | undefined;
   className?: string | undefined;
-  /** El panel de filtros. Solo se pinta si hay `filterPanel`. */
+  /** The filter panel. Only rendered with `filterPanel`. */
   panelProps?: BoxSlotProps | undefined;
-  /** El area que desplaza. Su altura la fija `maxHeight`; la ranura se compone con ella. */
+  /** The scrolling area. Its height comes from `maxHeight`; the slot composes with it. */
   scrollerProps?: BoxSlotProps | undefined;
-  /** La tabla. Lleva `aria-busy` mientras carga y el manejador de teclado de la reticula. */
+  /** The table. It carries `aria-busy` while loading, plus the grid keyboard handler. */
   tableProps?: ComponentPropsWithoutRef<"table"> | undefined;
   /**
-   * El rotulo de la tabla cuando `captionVisible` es falso: cae sobre el `span` de dentro del
-   * `caption`. Con `captionVisible` el rotulo se pinta directo y no hay nodo que ajustar.
+   * The table label when `captionVisible` is false: it lands on the `span` inside the `caption`.
+   * With `captionVisible` the label renders directly and there is no node to adjust.
    */
   captionProps?: BoxSlotProps | undefined;
-  /** La cabecera de la tabla. */
+  /** The table header. */
   headProps?: BoxSlotProps | undefined;
-  /** Cada celda de cabecera. Se esparce sobre TODAS. */
+  /** Every header cell. It spreads over ALL of them. */
   thProps?: ComponentPropsWithoutRef<"th"> | undefined;
-  /** La celda de tabla vacia. Cubre tanto el estado de carga como el de sin datos. */
+  /** The empty table cell. It covers both the loading state and the no-data one. */
   emptyProps?: BoxSlotProps | undefined;
-  /** Cada fila de datos. Se esparce sobre todas; la seleccionada lleva `data-selected`. */
+  /** Every data row. It spreads over all of them; the selected one carries `data-selected`. */
   rowProps?: ComponentPropsWithoutRef<"tr"> | undefined;
-  /** Cada celda de datos. Su alto lo fija `rowHeight`. */
+  /** Every data cell. Its height comes from `rowHeight`. */
   tdProps?: ComponentPropsWithoutRef<"td"> | undefined;
-  /** El pie con la paginacion. */
+  /** The footer with the pagination. */
   footProps?: BoxSlotProps | undefined;
 }
 
 /**
- * Las ranuras de la barra de herramientas. La barra entera solo existe si algo la justifica
- * —`withToolbar`, busqueda, filtros activos, acciones en lote, exportacion, `toolbarSection` o
- * `withColumnMenu` con alguna columna oculta, que es como se llega al boton de reponerlas—; sin eso
- * no hay nodo que ajustar.
+ * The toolbar slots. The toolbar only exists at all if something justifies it — `withToolbar`,
+ * search, active filters, bulk actions, export, `toolbarSection`, or `withColumnMenu` with a hidden
+ * column, which is how you reach the button that brings them back. Without any of that there is no
+ * node to adjust.
  */
 export interface DataGridToolbarSlotProps {
-  /** La barra entera. */
+  /** The whole toolbar. */
   toolbarProps?: BoxSlotProps | undefined;
-  /** El hueco del buscador. Solo con `onSearchChange`. */
+  /** The search slot. Only with `onSearchChange`. */
   toolbarSearchProps?: BoxSlotProps | undefined;
   /**
-   * La fila donde caen `toolbarSection` y los botones de exportar y reponer columnas. Comparte clase
-   * con la fila de paginacion del pie, pero la ranura solo cae en la de la barra.
+   * The row where `toolbarSection` and the export and restore-columns buttons land. It shares a class
+   * with the pagination row in the footer, but the slot only lands on the toolbar one.
    */
   toolbarActionsProps?: BoxSlotProps | undefined;
-  /** La fila de filtros activos. Solo si hay alguno. */
+  /** The active-filters row. Only when there are any. */
   chipsProps?: BoxSlotProps | undefined;
-  /** La barra de acciones en lote. Solo con seleccion y con `bulkActions`. */
+  /** The bulk-actions bar. Only with a selection and with `bulkActions`. */
   bulkBarProps?: BoxSlotProps | undefined;
-  /** El recuento de seleccionadas de esa barra. Lleva `aria-live`, asi que se anuncia al cambiar. */
+  /** The selected count in that bar. It carries `aria-live`, so it is announced when it changes. */
   bulkCountProps?: TextSlotProps | undefined;
 }
 
-/** Las ranuras de cada celda de cabecera. Se esparcen sobre TODAS las columnas. */
+/** The slots of every header cell. They spread over ALL columns. */
 export interface DataGridColumnSlotProps {
-  /** La fila de dentro del `th`, con el rotulo, el menu y el asa de ancho. */
+  /** The row inside the `th`, with the label, the menu and the resize handle. */
   headCellProps?: BoxSlotProps | undefined;
-  /** El boton que ordena. Solo en columnas ordenables. */
+  /** The sort button. Only on sortable columns. */
   sortButtonProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** La flecha de orden de ese boton, que dice ascendente, descendente o sin ordenar. */
+  /** The sort arrow of that button, which says ascending, descending or unsorted. */
   sortIconProps?: BoxSlotProps | undefined;
-  /** El disparador del menu de columna. Solo con `withColumnMenu` y si el menu tiene entradas. */
+  /** The column menu trigger. Only with `withColumnMenu` and when the menu has entries. */
   columnMenuProps?: ActionIconProps | undefined;
-  /** El asa que cambia el ancho. Solo en columnas redimensionables; lleva `data-resizing`. */
+  /** The handle that changes the width. Only on resizable columns; it carries `data-resizing`. */
   resizerProps?: ComponentPropsWithoutRef<"button"> | undefined;
 }

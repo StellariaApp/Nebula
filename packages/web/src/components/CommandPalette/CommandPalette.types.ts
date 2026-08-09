@@ -26,37 +26,37 @@ export interface CommandPaletteLabels {
 }
 
 /**
- * Las ranuras de cada fila. Se esparcen sobre TODAS: las filas salen de `items` filtrados por la
- * busqueda, no de composicion, asi que no hay forma de ajustar una sola desde fuera.
+ * The slots of every row. They spread over ALL of them: rows come from `items` filtered by the
+ * search, not from composition, so there is no way to adjust a single one from outside.
  *
- * Los nombres son los de `Menu`, que tiene la misma anatomia de fila; el contrato comun manda sobre
- * el nombre de la clase.
+ * The names are the ones `Menu` uses, which has the same row anatomy; the shared contract wins over
+ * the class name.
  */
 export interface CommandPaletteSlotProps {
-  /** Cada fila. Lleva `data-focused` y `data-disabled`, y ya las props de opcion de aria. */
+  /** Every row. It carries `data-focused` and `data-disabled`, and the aria option props already. */
   optionProps?: ComponentPropsWithoutRef<"li"> | undefined;
-  /** Envoltorio del icono, si el comando lo trae. */
+  /** Wrapper for the icon, when the command has one. */
   iconProps?: BoxSlotProps | undefined;
-  /** Columna de rotulo y descripcion. */
+  /** Label and description column. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El rotulo del comando. */
+  /** The command label. */
   labelProps?: TextSlotProps | undefined;
-  /** La descripcion, si el comando la trae. */
+  /** The description, when the command has one. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El atajo, que se pinta con `Kbd`. Solo si el comando trae `shortcut`. */
+  /** The shortcut, rendered with `Kbd`. Only when the command has a `shortcut`. */
   shortcutProps?: Omit<KbdProps, "children"> | undefined;
 }
 
 export interface CommandPaletteProps extends CommandPaletteSlotProps {
-  /** La fila del buscador: la lupa y el campo. */
+  /** The search row: the magnifier and the field. */
   inputRowProps?: BoxSlotProps | undefined;
-  /** El glifo de la lupa de esa fila, que no es el icono de las filas de comando. */
+  /** The magnifier glyph of that row, which is not the icon of the command rows. */
   searchIconProps?: BoxSlotProps | undefined;
-  /** El campo de busqueda. Se esparce DESPUES de las props de combobox de aria. */
+  /** The search field. It spreads AFTER the aria combobox props. */
   inputProps?: ComponentPropsWithoutRef<"input"> | undefined;
-  /** El aviso de sin resultados. Sustituye a la lista, no se suma a ella. */
+  /** The no-results notice. It replaces the list, it is not added to it. */
   emptyProps?: TextSlotProps | undefined;
-  /** La lista de comandos. Se esparce DESPUES de las props de listbox de aria. */
+  /** The command list. It spreads AFTER the aria listbox props. */
   listProps?: ComponentPropsWithoutRef<"ul"> | undefined;
   items: readonly CommandItem[];
   opened?: boolean | undefined;

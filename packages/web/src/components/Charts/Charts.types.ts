@@ -24,21 +24,21 @@ export interface ChartAxis {
 }
 
 export interface ChartBaseProps extends StyleProps {
-  /** El `figcaption` del titulo, que es a quien apunta el `aria-labelledby` del lienzo. Sin `title` no se pinta. */
+  /** The title `figcaption`, which is what the canvas `aria-labelledby` points at. Not rendered without `title`. */
   titleProps?: TextSlotProps | undefined;
-  /** El parrafo del resumen, que es la descripcion accesible del grafico. Sin `summary` no se pinta. */
+  /** The summary paragraph, which is the accessible description of the chart. Not rendered without `summary`. */
   summaryProps?: TextSlotProps | undefined;
   /**
-   * El lienzo donde se pinta el grafico. Su alto se escribe DESPUES de la ranura, porque sale de
-   * `height`; con `title` o `summary` lleva ademas el `role="img"` y el `aria-labelledby` que le
-   * dan nombre accesible, asi que reescribirlos aqui deja el grafico sin nombre.
+   * The canvas the chart is painted on. Its height is written AFTER the slot, because it comes from
+   * `height`; with `title` or `summary` it also carries the `role="img"` and the `aria-labelledby`
+   * that give it an accessible name, so rewriting those here leaves the chart nameless.
    */
   canvasProps?: BoxSlotProps | undefined;
-  /** El `details` que despliega la tabla de datos. Solo existe con `withDataTable`. */
+  /** The `details` that discloses the data table. Only exists with `withDataTable`. */
   detailsProps?: ComponentPropsWithoutRef<"details"> | undefined;
-  /** El `summary` que abre ese desplegable, donde cae `dataTableLabel`. Solo existe con `withDataTable`. */
+  /** The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`. */
   detailsSummaryProps?: ComponentPropsWithoutRef<"summary"> | undefined;
-  /** La tabla de datos de dentro del desplegable. Solo existe con `withDataTable`. */
+  /** The data table inside the disclosure. Only exists with `withDataTable`. */
   tableProps?: ComponentPropsWithoutRef<"table"> | undefined;
   data: readonly ChartDatum[];
   series: readonly ChartSeries[];
@@ -92,7 +92,7 @@ export interface SparkLineProps extends StyleProps {
 export type TrendDirection = "up" | "down" | "flat";
 
 export interface TrendIndicatorProps extends Omit<StyleProps, "direction"> {
-  /** La flecha. Es decorativa: la direccion se anuncia aparte con un texto oculto. */
+  /** The arrow. Decorative: the direction is announced separately with hidden text. */
   arrowProps?: BoxSlotProps | undefined;
   value: number;
   direction?: TrendDirection | undefined;
@@ -103,7 +103,7 @@ export interface TrendIndicatorProps extends Omit<StyleProps, "direction"> {
 }
 
 export interface RadarChartProps extends Omit<ChartBaseProps, "xAxis" | "yAxis"> {
-  /** Clave del eje angular: cada valor distinto es un vértice del polígono. */
+  /** Key of the angular axis: each distinct value is a vertex of the polygon. */
   angleKey: string;
   /** @default 0.22 */
   fillOpacity?: number | undefined;
@@ -118,7 +118,7 @@ export interface ChartLegendEntry {
 }
 
 export interface ChartLegendProps extends StyleProps {
-  /** Cada entrada de la leyenda. Lleva `data-interactive`, que depende de si hay `onToggle`. */
+  /** Every legend entry. It carries `data-interactive`, which depends on whether there is an `onToggle`. */
   itemProps?: ComponentPropsWithoutRef<"button"> | undefined;
   entries: readonly ChartLegendEntry[];
   /** @default [] */
@@ -136,11 +136,11 @@ export interface ChartTooltipDatum {
 }
 
 export interface ChartTooltipProps extends StyleProps {
-  /** El titulo del globo, si lo hay. */
+  /** The tooltip title, when there is one. */
   titleProps?: TextSlotProps | undefined;
-  /** Cada fila de serie. Se esparce sobre todas. */
+  /** Every series row. It spreads over all of them. */
   rowProps?: BoxSlotProps | undefined;
-  /** El valor de cada fila, ya pasado por `format` si lo hay. */
+  /** The value of each row, already passed through `format` when there is one. */
   valueProps?: TextSlotProps | undefined;
   title?: ReactNode | undefined;
   items: readonly ChartTooltipDatum[];
@@ -158,13 +158,13 @@ export interface ChartPanelItem {
 }
 
 export interface ChartPanelProps extends StyleProps {
-  /** Cada tarjeta de panel. Se esparce sobre TODAS; su ancho lo fija el `span` de cada panel. */
+  /** Every panel card. It spreads over ALL of them; the width comes from the `span` of each panel. */
   cardProps?: ComponentPropsWithoutRef<"section"> | undefined;
-  /** La cabecera de cada panel. No se pinta si el panel no trae titulo ni accion. */
+  /** The header of each panel. Not rendered when the panel has no title and no action. */
   headProps?: BoxSlotProps | undefined;
-  /** El titulo de cada panel, que es el `h3` al que apunta su `aria-labelledby`. */
+  /** The title of each panel, which is the `h3` its `aria-labelledby` points at. */
   titleProps?: TextSlotProps | undefined;
-  /** La descripcion de cada panel, si la trae. */
+  /** The description of each panel, when it has one. */
   descriptionProps?: TextSlotProps | undefined;
   panels: readonly ChartPanelItem[];
   cols?: 1 | 2 | 3 | undefined;
