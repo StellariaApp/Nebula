@@ -89,6 +89,7 @@ portada y dime si se queda, se reduce o se quita.
 | `168a0e2` | ProductSwitch a `Segment` y sin español en el lector de pantalla          |
 | `87720aa` | La escala de la portada llega a `/components`, `/docs`, `/theme` y demás   |
 | `391a169` | DS2.3 — las cinco guías de /docs, con las obligaciones del consumidor     |
+| `8fe16eb` | Primer lote de contratos JSDoc al inglés: 57 bloques en 8 componentes     |
 
 ---
 
@@ -99,8 +100,8 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes. Es lo único que queda
-   que no dependa de una decisión tuya.
+1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 57 de 500**; quedan
+   443 en 94 archivos. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
 2. **Bloqueado por D-4**: traducir las 95 cadenas por defecto en español. No lo empiezo sin tu
    decisión, porque cambia el comportamiento de 47 componentes.
 
@@ -121,6 +122,12 @@ portada y dime si se queda, se reduce o se quita.
   ADR-119.
 - **No hay `.github/workflows`.** Los ocho gates existen y pasan, pero **nadie los corre salvo a
   mano**. Es el hueco más grande de cara a W5.
+- **El JSDoc en español era 7 veces más de lo estimado.** Las notas decían «~70 contratos»; ese
+  número salía de buscar **tildes**, así que se dejaba fuera todo el español sin acentuar («El
+  elemento que pinta», «Solo se pinta con `icon`»). Medido con detección por palabras funcionales:
+  **500 bloques en 102 archivos**. La lección es más general que el JSDoc: cualquier recuento de
+  español hecho por acentos en este repo está mal, incluido el de D-4 —esas 95 cadenas también se
+  midieron por tildes y por palabras clave, así que el número real es probablemente mayor—.
 
 ---
 
