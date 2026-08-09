@@ -26,8 +26,29 @@ const NamingConvention = (global, local, extra = []) => [
   { selector: "import", format: null },
 ];
 
-// ADR-119: los cuatro componentes cuyo `radius` es una lista corta deliberada.
-const SHORT_LIST_RADIUS = ["Avatar", "Badge", "Modal", "Popover"];
+// ADR-119: los componentes cuyo `radius` es una lista corta deliberada sobre la
+// raíz. Son once, no los cuatro que censó el ADR, y los siete que faltaban se
+// escapaban por dos vías que su búsqueda no cubría: `Chip`, `ColorSwatch`,
+// `ScrollProgress`, `Tag` y `ThemeIcon` aplican su lista con un mapa de
+// `styleVariants` en vez de una variante de `recipe`; `Drawer` y `StatusBadge`
+// la reenvían a `Modal` y a `Badge`.
+//
+// Los otros cinco que declaran `radius` —EditorImage, Image, ImageGallery,
+// Progress, Skeleton— no entran: el suyo apunta a un elemento interior, así que
+// `r` no compite con él, redondea otra cosa.
+const SHORT_LIST_RADIUS = [
+  "Avatar",
+  "Badge",
+  "Chip",
+  "ColorSwatch",
+  "Drawer",
+  "Modal",
+  "Popover",
+  "ScrollProgress",
+  "StatusBadge",
+  "Tag",
+  "ThemeIcon",
+];
 
 const RestrictedRadius = `JSXOpeningElement[name.name=/^(${SHORT_LIST_RADIUS.join("|")})$/] > JSXAttribute[name.name="r"]`;
 
@@ -77,14 +98,13 @@ export default tseslint.config(
       "no-restricted-syntax": [
         "error",
         {
-          // ADR-119: el radio lo manda la style prop `r`, salvo en estos cuatro,
-          // que restringen a propósito su lista de radios. Pero los cuatro
+          // ADR-119: el radio lo manda la style prop `r`, salvo en estos once,
+          // que restringen a propósito su lista de radios. Pero los once
           // extienden `StyleProps`, así que `r` se cuela y gana: la lista corta
           // no restringía nada. Esto la hace real sin capar `r` en los tipos,
           // que sería la excepción contraria a lo que ADR-119 decidió.
           selector: RestrictedRadius,
-          message:
-            "Usa `radius` en Avatar, Badge, Modal y Popover: su lista de radios es corta a propósito (ADR-119). `r` la saltaría.",
+          message: `Usa \`radius\` en ${SHORT_LIST_RADIUS.join(", ")}: su lista de radios es corta a propósito (ADR-119). \`r\` la saltaría.`,
         },
       ],
     },

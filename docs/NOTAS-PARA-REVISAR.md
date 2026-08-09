@@ -10,23 +10,25 @@ diario.**
 De las cuatro que había abiertas, **tres las cerraste el 2026-08-09** (D-1 regla de lint, D-3 la
 banda se queda, D-4 traducir las 120). Queda una, y es la única que sigue sin respuesta.
 
-### D-2 · Tres componentes que parecían duplicación y no lo son
+### D-2 · Cinco componentes que parecían duplicación y no lo son
 
-Al inspeccionar a qué elemento apunta cada `radius` aparecieron tres que **no** son duplicación, y
-por eso no se migraron en ADR-119. Conviene que lo confirmes, porque rompe su simetría:
+Al inspeccionar a qué elemento apunta cada `radius` aparecieron cinco que **no** son duplicación, y
+por eso no se migraron en ADR-119. Conviene que lo confirmes:
 
-| componente     | a qué apunta su `radius`                                                                  |
-| -------------- | ----------------------------------------------------------------------------------------- |
+| componente     | a qué apunta su `radius`                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------ |
 | `Image`        | una var compartida por el `<span>` raíz y por `styles.background`, que usa otro componente |
-| `ImageGallery` | el radio de **cada baldosa**, no el del contenedor                                        |
-| `Skeleton`     | el radio de **cada línea**, y se cruza con `circle`                                       |
+| `ImageGallery` | el radio de **cada baldosa**, no el del contenedor                                         |
+| `Skeleton`     | el radio de **cada línea**, y se cruza con `circle`                                        |
+| `EditorImage`  | `styles.trigger`, no la raíz                                                               |
+| `Progress`     | la var del track                                                                           |
 
-En los tres, `r` redondearía la raíz y dejaría el elemento interior cuadrado. Migrarlos no es un
+En los cinco, `r` redondearía la raíz y dejaría el elemento interior cuadrado. Migrarlos no es un
 renombre: es cambiar qué se redondea.
 
-**Recomendación**: dejarlos como están y escribirlo en ADR-119 como tercer caso —«el `radius` apunta
-a un elemento interior»—, que es lo que de verdad son. Hoy están fuera del ADR sin que el ADR diga
-por qué.
+**Ya está escrito en ADR-119** como cuarto caso —«el radio apunta a un elemento interior»—, que es lo
+que de verdad son; antes estaban fuera del ADR sin que el ADR dijera por qué. Lo que falta es tu
+visto bueno a que se queden así, no el texto.
 
 ### El único gate que no corre en CI
 
@@ -43,13 +45,13 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 
 ## 2. Lo que está cerrado y commiteado
 
-| commit    | qué                                                                       |
-| --------- | ------------------------------------------------------------------------- |
+| commit    | qué                                                                        |
+| --------- | -------------------------------------------------------------------------- |
 | `7e658da` | ADR-118 — el cristal recupera su filo y el velo se vuelve opaco            |
 | `7334fbf` | `Hero` leía el color del texto del objeto del tema y no del contrato       |
 | `6b9acab` | `pnpm dev` levanta la cadena entera en watch                               |
 | `54d96d4` | Conmutador de tema flotante y el skip link deja de estar en español        |
-| `d2fbd19` | ADR-119 — el radio lo manda la style prop: 11 componentes, 189 llamadas    |
+| `d2fbd19` | ADR-119 — el radio lo manda la style prop: 12 componentes, 201 llamadas    |
 | `26146e8` | Portada: cabecera móvil, jerarquía de bandas, Stats, copy al diccionario   |
 | `168a0e2` | ProductSwitch a `Segment` y sin español en el lector de pantalla           |
 | `87720aa` | La escala de la portada llega a `/components`, `/docs`, `/theme` y demás   |
@@ -59,7 +61,7 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 | `85a4b25` | Tercer lote: 62 bloques en los 4 subpath con más contrato                  |
 | `63b96e4` | Cuarto lote: 44 bloques en formulario, feedback y navegación               |
 | `2f262d9` | Quinto lote: 42 bloques, entre ellos las 6 ranuras que comparten 27 campos |
-| `bb2aa8f` | Sexto lote: 45 bloques en los cinco componentes de colección              |
+| `bb2aa8f` | Sexto lote: 45 bloques en los cinco componentes de colección               |
 | `b03b4f5` | Séptimo lote: 63 bloques en 13 componentes                                 |
 | `95bf23c` | **ADR-114 cerrado**: los 500 contratos JSDoc están en inglés               |
 | `6cce1ab` | **ADR-120 cerrado (D-4)**: 191 cadenas de interfaz al inglés               |
@@ -97,6 +99,14 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 - **`Paper` tenía un defecto**: con `radius` numérico el recipe caía a la clase `"md"` —no a su
   defecto `"lg"`— y luego la pisaba el estilo inline. Emitía una clase muerta. Desaparece con
   ADR-119.
+- **El caché de turbo no veía `eslint.config.js`.** No había `globalDependencies`, así que una regla
+  de lint nueva salía **FULL TURBO sin lintear nada**. Lo vi al ampliar la regla de D-1: 17 tareas
+  «en verde», cero ejecutadas. Arreglado añadiendo `eslint.config.js` y `tsconfig.base.json` a
+  `globalDependencies`, y verificado que ahora invalida. Es el mismo fallo de clase que el de los
+  `inputs` de `check:docs`: **un gate que no puede fallar no es un gate**, y los dos se veían igual
+  desde fuera —verde.
+- **El censo de ADR-119 se hizo buscando variantes de `recipe`**, y siete componentes aplican su lista
+  corta de radios con `styleVariants` o reenviándola a otro componente. La regla de lint cubría 4 de 11. Ampliada y verificada con una sonda: las once disparan.
 - **Los recuentos de español están todos mal, y ya van tres.** El JSDoc era 7 veces lo estimado (500
   bloques, no ~70); D-4 era un 26 % más (120, no 95); y al ejecutarla aparecieron **73 cadenas más**
   que ninguna heurística vio, porque son de una palabra («Guardar», «Negrita») o no llevan ninguna
