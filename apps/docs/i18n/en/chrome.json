@@ -53,5 +53,21 @@
   "home.closing.title": "Build the whole product from one catalogue",
   "home.cta.source": "Read the source",
   "theme.to.dark": "Switch to dark theme",
-  "theme.to.light": "Switch to light theme"
+  "theme.to.light": "Switch to light theme",
+  "nav.menu.open": "Open menu",
+  "nav.menu.close": "Close menu",
+  "nav.drawer.label": "Site navigation",
+  "home.hero.title.a": "One catalogue.",
+  "home.hero.title.b": "Two platforms.",
+  "home.hero.title.c": "Zero forks.",
+  "home.preview.file": "app/panel.tsx",
+  "home.preview.deploy": "Deploy",
+  "home.preview.previewLabel": "Preview",
+  "home.preview.checks": "614 accessibility checks",
+  "home.version": "v0",
+  "home.stat.components.diff": "in v1",
+  "home.stat.gates.note": "all blocking",
+  "home.stat.styleProps.note": "on every primitive",
+  "home.stat.themes.note": "light and dark",
+  "home.closing.body": "The core is MIT and public. Install it, theme it, and ship both platforms from the same components."
 }

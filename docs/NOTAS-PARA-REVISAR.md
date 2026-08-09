@@ -55,33 +55,36 @@ portada y dime si se queda, se reduce o se quita.
 | `7334fbf` | `Hero` leía el color del texto del objeto del tema y no del contrato      |
 | `6b9acab` | `pnpm dev` levanta la cadena entera en watch                              |
 | `54d96d4` | Conmutador de tema flotante y el skip link deja de estar en español       |
+| `d2fbd19` | ADR-119 — el radio lo manda la style prop: 11 componentes, 189 llamadas   |
 
 ---
 
 ## 3. Lo que queda, en orden
 
-1. **ADR-119 — terminar y commitear.** Los once componentes de duplicación ya no tienen `radius`;
-   quedan los gates completos y el commit. Los ~190 sitios de llamada de stories, demos y sitio ya
-   están migrados a `r`.
-2. **Bloqueante de la cabecera en móvil.** Por debajo de 768 px `Nav.Links` y `Nav.Actions` se
+> **PRIORIDAD, dicha por el propietario**: iterar sobre el **diseño de la portada** hasta que esté a
+> nivel de publicación. Solo después se pasa a las demás vistas, **reutilizando lo que salga de la
+> portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
+> Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
+
+1. **Bloqueante de la cabecera en móvil.** Por debajo de 768 px `Nav.Links` y `Nav.Actions` se
    ocultan por su `collapse` por defecto, y la portada no monta `Burger` ni `Nav.Sidebar`: se pierden
    los cuatro enlaces **y el CTA**, y la única navegación queda al final de ~2.400 px de scroll. La
    demo del playground ya lo resuelve (`Landing.stories.tsx`), hay que copiar ese montaje.
-3. **Bloqueante de lector de pantalla en `ProductSwitch`.** `Stat` con `diff`+`trend` y sin
+2. **Bloqueante de lector de pantalla en `ProductSwitch`.** `Stat` con `diff`+`trend` y sin
    `diffLabel` mete un `VisuallyHidden` con «al alza»/«a la baja» en español, y ese demo se pinta en
    la portada en inglés. Hay el mismo patrón latente en `Charts/TrendIndicator`.
-4. **`Segment` en el selector de producto de `ProductSwitch`** — lo pediste y quedó sin hacer. Ojo:
+3. **`Segment` en el selector de producto de `ProductSwitch`** — lo pediste y quedó sin hacer. Ojo:
    si `SegmentContent` monta los seis paneles a la vez son seis `NebulaProvider`; probablemente haya
    que usar solo `SegmentControl`.
-5. **Portada, hallazgos de la auditoría todavía sin tocar**: las cinco secciones son `size="xl"` y
+4. **Portada, hallazgos de la auditoría todavía sin tocar**: las cinco secciones son `size="xl"` y
    los cinco títulos miden 24 px, así que no hay jerarquía; `spacing` está muerto en las tres
    `SimpleGrid` porque `gap` gana; los cuatro `Stat` van sin `diff`/`trend` mientras el snippet de al
    lado los anuncia; `Footer.Brand` recibe el tagline como children en vez de por `description`; hay
    copy fuera del diccionario en el TSX.
-6. **DS2.3 — las guías bajo `/docs`.** La de instalación tiene que enseñar juntas las tres piezas del
+5. **DS2.3 — las guías bajo `/docs`.** La de instalación tiene que enseñar juntas las tres piezas del
    anti-flash (ADR-117), más las dos obligaciones del consumidor: carga de fuente (ADR-031) y nada de
    `transform`/`filter`/`contain` en un ancestro (ADR-030).
-7. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes.
+6. **Traducir a inglés los ~70 contratos con JSDoc** (ADR-114), por lotes.
 
 ---
 
