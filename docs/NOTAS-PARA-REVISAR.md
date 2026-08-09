@@ -38,6 +38,35 @@ por eso no se migraron. Conviene que lo confirmes, porque rompe la simetría de 
 En los tres, `r` redondearía la raíz y dejaría el elemento interior cuadrado. Migrarlos no es un
 renombre: es cambiar qué se redondea.
 
+### D-4 · 95 cadenas por defecto en español, en 47 componentes
+
+Van tres veces que aparece el mismo fallo en el sitio público: el skip link decía «Saltar al
+contenido», el `Burger` «Abrir menú», el `Nav.Sidebar` «Cerrar la navegación», y `Stat` mete «al
+alza» en el lector de pantalla. Cada vez lo he tapado pasando la etiqueta explícita, pero el
+problema no es del sitio.
+
+Medido: **95 cadenas visibles o de lector de pantalla escritas en español como valor por defecto, en
+47 archivos** de `packages/web`. Entre ellas `PasswordInput` («Mostrar contraseña»), `NProgress`
+(«Cargando la página»), `Toast` («Cerrar notificación»), `Spoiler`, `AppShell`, `InputPhone`,
+`YearPicker`.
+
+Un consumidor angloparlante que no pase la prop se lleva español en su producto, y en la mitad de
+los casos es texto que **solo oye un lector de pantalla**, así que no lo ve nadie en QA.
+
+ADR-114 ya decidió que la superficie pública se escribe en inglés, pero se aplicó al JSDoc, no a los
+valores por defecto.
+
+- **Traducir los 95 defectos a inglés.** Coherente con ADR-114. Rompe visualmente a cualquier
+  consumidor hispanohablante que hoy dependa del defecto — que ahora mismo es solo el playground.
+- **Dejarlos y exigir que se pasen siempre.** Obliga a un lint que detecte props de etiqueta sin
+  pasar, y no hay forma razonable de escribirlo.
+- **Un diccionario de la librería con `locale`.** Es un sistema de i18n dentro del catálogo; alcance
+  muy superior y probablemente fuera de v1.
+
+**Recomendación**: traducir los 95 ahora, antes de W5, porque después de publicar cada cadena es una
+rotura para alguien. Es mecánico y lo cubren los tests que ya asertan por rol y no por texto —hay que
+comprobarlo—.
+
 ### D-3 · El fondo del sitio ya no se ve a través del cristal
 
 Con el velo cerrado en 0.78–0.90 (ADR-118), `Section glass` pasó de dejar ver el `StarField` a

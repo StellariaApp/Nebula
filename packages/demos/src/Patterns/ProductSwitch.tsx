@@ -8,6 +8,7 @@ import {
   GradientText,
   NebulaProvider,
   Paper,
+  Segment,
   SimpleGrid,
   Stat,
   Text,
@@ -27,6 +28,11 @@ const PRODUCT_NAMES: readonly ProductName[] = [
   "nova",
 ];
 
+const SCHEMES = [
+  { value: "dark", label: "Dark" },
+  { value: "light", label: "Light" },
+];
+
 function Surface(): ReactElement {
   return (
     <Box display="flex" direction="column" gap="lg" p="lg">
@@ -42,10 +48,10 @@ function Surface(): ReactElement {
 
       <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="sm">
         <Card>
-          <Stat label="Matched" value="1,248" diff="+12%" trend="up" />
+          <Stat label="Matched" value="1,248" diff="+12%" trend="up" diffLabel="increase" />
         </Card>
         <Card>
-          <Stat label="Pending" value="36" diff="-4%" trend="down" />
+          <Stat label="Pending" value="36" diff="-4%" trend="down" diffLabel="decrease" />
         </Card>
         <Card>
           <Stat label="Accounts" value="9" />
@@ -73,25 +79,23 @@ export default function ProductSwitch(): ReactElement {
 
   return (
     <Box display="flex" direction="column" gap="md">
-      <Box display="flex" gap="xs" wrap="wrap" role="group" aria-label="Product theme">
-        {PRODUCT_NAMES.map((name) => (
-          <Button
-            key={name}
-            size="xs"
-            variant={name === product ? "filled" : "outline"}
-            aria-pressed={name === product}
-            onPress={() => set_product(name)}
-          >
-            {name}
-          </Button>
-        ))}
-        <Button
-          size="xs"
-          variant="ghost"
-          onPress={() => set_scheme(scheme === "dark" ? "light" : "dark")}
+      <Box display="flex" gap="sm" wrap="wrap" align="center">
+        <Segment
+          value={product}
+          onChange={(value) => {
+            set_product(value as ProductName);
+          }}
         >
-          {scheme === "dark" ? "Light" : "Dark"}
-        </Button>
+          <Segment.Control aria-label="Product theme" data={[...PRODUCT_NAMES]} />
+        </Segment>
+        <Segment
+          value={scheme}
+          onChange={(value) => {
+            set_scheme(value === "light" ? "light" : "dark");
+          }}
+        >
+          <Segment.Control aria-label="Colour scheme" data={SCHEMES} />
+        </Segment>
       </Box>
 
       <Box bdw={1} bds="solid" bdc="border.subtle" r="lg" overflow="hidden">
