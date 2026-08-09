@@ -14,23 +14,23 @@ export interface FormFieldControlProps {
 }
 
 /**
- * Las seis ranuras que comparten los 27 componentes de campo. Viajan juntas para que el contrato no
- * pueda divergir entre ellos: una ranura añadida aqui la tienen los 27 sin tocarlos.
+ * The six slots shared by the 27 field components. They travel together so the contract cannot
+ * diverge between them: a slot added here is had by all 27 without touching them.
  */
 export interface FormFieldSlotProps {
-  /** Rotulo del campo. Cae sobre el `<label>`, que ya lleva el `htmlFor` del control. */
+  /** The field label. It lands on the `<label>`, which already carries the control `htmlFor`. */
   labelProps?: TextSlotProps | undefined;
-  /** Texto de ayuda bajo el rotulo. Solo se pinta si hay `description`. */
+  /** Help text below the label. Only rendered with `description`. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El asterisco de obligatorio, que vive dentro del rotulo. Solo se pinta con `required`. */
+  /** The required asterisk, which lives inside the label. Only rendered with `required`. */
   requiredProps?: BoxSlotProps | undefined;
-  /** Fila de rotulo y descripcion. No se pinta si el campo no tiene ninguno de los dos. */
+  /** The label and description row. Not rendered when the field has neither. */
   headerProps?: BoxSlotProps | undefined;
-  /** Envoltorio del control. */
+  /** Wrapper for the control. */
   bodyProps?: BoxSlotProps | undefined;
   /**
-   * Configura el `FieldError`. Con `errorDisplay="tooltip"` se esparce entero; con `"text"` no hay
-   * `FieldError` que configurar —es un `Text` con `role="alert"`— y solo se honra `className`.
+   * Configures the `FieldError`. With `errorDisplay="tooltip"` it spreads whole; with `"text"` there is
+   * no `FieldError` to configure — it is a `Text` with `role="alert"` — and only `className` is honoured.
    */
   errorProps?: Omit<FieldErrorProps, "children"> | undefined;
 }

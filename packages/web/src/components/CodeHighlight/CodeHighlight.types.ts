@@ -13,24 +13,24 @@ export interface CodeHighlightLabels {
 }
 
 /**
- * Bloque de código con superficie del tema, numeración, scroll y copia.
+ * Code block with the theme surface, line numbers, scrolling and copy.
  *
- * **No resalta por sí solo** ([ADR-061](../../../../../docs/adr/ADR-061-rich-content-tiptap-y-dependencias-de-w43.md)):
- * `code` se pinta como texto plano y `html` espera markup ya resaltado, que se inyecta con
- * `dangerouslySetInnerHTML`. Sanear ese HTML es responsabilidad de quien lo produce.
+ * **It does not highlight on its own** ([ADR-061](../../../../../docs/adr/ADR-061-rich-content-tiptap-y-dependencias-de-w43.md)):
+ * `code` renders as plain text and `html` expects already-highlighted markup, injected with
+ * `dangerouslySetInnerHTML`. Sanitising that HTML is the responsibility of whoever produces it.
  */
 export interface CodeHighlightProps extends StyleProps {
-  /** La cabecera. Solo se pinta si hay `filename` o `lang`. */
+  /** The header. Only rendered with `filename` or `lang`. */
   headerProps?: BoxSlotProps | undefined;
-  /** El rotulo de la cabecera, que pinta `filename` y cae en `lang` si no lo hay. */
+  /** The header label, which renders `filename` and falls back to `lang` when there is none. */
   filenameProps?: TextSlotProps | undefined;
-  /** El anclaje flotante de la copia. Solo existe SIN cabecera: con ella, el boton va dentro. */
+  /** The floating anchor for the copy button. It only exists WITHOUT a header: with one, the button goes inside it. */
   floatingCopyProps?: BoxSlotProps | undefined;
-  /** El boton de copiar, en la cabecera o flotante. Su `value` lo calcula el componente. */
+  /** The copy button, in the header or floating. The component computes its `value`. */
   copyProps?: Omit<ButtonCopyProps, "value"> | undefined;
   /**
-   * El bloque de codigo, que es la region enfocable con nombre accesible. La numeracion y el codigo
-   * no tienen ranura: comparten metrica de linea y separarlas descuadra los numeros.
+   * The code block, which is the focusable region with an accessible name. The line numbers and the
+   * code have no slot: they share a line metric, and separating them knocks the numbers out of line.
    */
   preProps?: ComponentPropsWithoutRef<"pre"> | undefined;
   code?: string | undefined;
@@ -51,7 +51,7 @@ export interface CodeHighlightTab extends Omit<CodeHighlightProps, "className"> 
 }
 
 export interface CodeHighlightTabsProps extends StyleProps {
-  /** La barra de pestanas. Cada bloque se configura por su entrada de `tabs`, no desde aqui. */
+  /** The tab bar. Each block is configured through its own `tabs` entry, not from here. */
   tabListProps?: BoxSlotProps | undefined;
   tabs: readonly CodeHighlightTab[];
   value?: string | undefined;

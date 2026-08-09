@@ -21,28 +21,27 @@ export interface CalendarLabels {
 }
 
 /**
- * Las ranuras del calendario, compartidas por `Calendar` y `RangeCalendar`. Las rejillas y los días
- * los monta React Aria a partir del estado, no por composición, así que cada ranura de día o de
- * rótulo se esparce sobre TODOS.
+ * The calendar slots, shared by `Calendar` and `RangeCalendar`. React Aria builds the grids and the
+ * days from state, not from composition, so every day or label slot spreads over ALL of them.
  */
 export interface CalendarSlotProps {
-  /** La fila de meses. Con `visibleMonths` mayor que 1 es quien los pone en fila. */
+  /** The month row. With `visibleMonths` greater than 1, this is what lines them up. */
   monthsProps?: BoxSlotProps | undefined;
-  /** La cabecera, con las dos flechas y el rótulo del mes. */
+  /** The header, with the two arrows and the month label. */
   headerProps?: BoxSlotProps | undefined;
-  /** El rótulo del mes, que es el `h2` de la cabecera. Su texto lo compone React Aria. */
+  /** The month label, which is the `h2` of the header. React Aria composes its text. */
   headingProps?: TextSlotProps | undefined;
-  /** La flecha de mes anterior. Su rótulo accesible sale de `labels.previousMonth`. */
+  /** The previous-month arrow. Its accessible label comes from `labels.previousMonth`. */
   previousProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** La flecha de mes siguiente. Su rótulo accesible sale de `labels.nextMonth`. */
+  /** The next-month arrow. Its accessible label comes from `labels.nextMonth`. */
   nextProps?: ComponentPropsWithoutRef<"button"> | undefined;
   /**
-   * Cada día. Se esparce sobre TODOS y va DESPUÉS de las props de celda de aria, que traen el
-   * teclado y la selección; llevan `data-selected`, `data-today` y el resto del estado, que es de
-   * donde salen sus colores.
+   * Every day. It spreads over ALL of them and goes AFTER the aria cell props, which bring the
+   * keyboard and the selection; they carry `data-selected`, `data-today` and the rest of the state,
+   * which is where their colours come from.
    */
   cellProps?: BoxSlotProps | undefined;
-  /** Cada rótulo de día de la semana. */
+  /** Every weekday label. */
   weekdayProps?: ComponentPropsWithoutRef<"th"> | undefined;
 }
 

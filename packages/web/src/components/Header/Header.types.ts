@@ -25,20 +25,20 @@ export interface HeaderProps extends StyleProps {
   labels?: Partial<HeaderLabels> | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
-  /** La fila que reparte el ancho entre el grupo izquierdo, el encabezado y el derecho. `children` cuelga por debajo de ella, no dentro. */
+  /** The row that splits the width between the left group, the heading and the right one. `children` hangs below it, not inside. */
   rowProps?: BoxSlotProps | undefined;
-  /** El grupo de la izquierda. No se pinta sin `withBack` ni `leftSection`. */
+  /** The left group. Not rendered without `withBack` or `leftSection`. */
   leadProps?: BoxSlotProps | undefined;
-  /** La columna de titulo y subtitulo. No se pinta sin `title` ni `subtitle`. */
+  /** The title and subtitle column. Not rendered without `title` or `subtitle`. */
   headingProps?: BoxSlotProps | undefined;
-  /** El grupo de la derecha. Solo se pinta con `rightSection`. */
+  /** The right group. Only rendered with `rightSection`. */
   trailProps?: BoxSlotProps | undefined;
-  /** La banda bajo la fila, que es donde cae `children`. No existe sin ellos. */
+  /** The band below the row, which is where `children` lands. It does not exist without them. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El titulo. Su etiqueta sale de `order` (`h1`-`h6`), asi que `component` aqui la cambia sin cambiar el nivel que se anuncia. Con `component` en el propio `Header`, su `id` nombra la region y se escribe DESPUES de la ranura para que no se pueda pisar. */
+  /** The title. Its tag comes from `order` (`h1`-`h6`), so `component` here changes the tag without changing the level that is announced. With `component` on the `Header` itself, its `id` names the region and is written AFTER the slot so it cannot be overridden. */
   titleProps?: TextSlotProps | undefined;
-  /** El subtitulo. Solo se pinta con `subtitle`. */
+  /** The subtitle. Only rendered with `subtitle`. */
   subtitleProps?: TextSlotProps | undefined;
-  /** El boton de volver. Solo existe con `withBack`, y se esparce DESPUES del manejador y del rotulo, asi que puede sustituir los dos; el rotulo tiene ademas su propia via en `labels.back`. */
+  /** The back button. It only exists with `withBack`, and it spreads AFTER the handler and the label, so it can replace both; the label also has its own route through `labels.back`. */
   backProps?: ActionIconProps | undefined;
 }

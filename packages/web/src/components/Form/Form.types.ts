@@ -10,7 +10,7 @@ import type { TitleSlotProps } from "../Title/Title.types.js";
 export type BanderoleSide = "start" | "end";
 
 export interface FormProps extends StyleProps {
-  /** El `fieldset` que agrupa los campos. Es quien los deshabilita mientras `isPending`. */
+  /** The `fieldset` that groups the fields. It is what disables them while `isPending`. */
   fieldsetProps?: BoxSlotProps | undefined;
   children: ReactNode;
   onSubmit?: ((event: FormEvent<HTMLFormElement>) => Promise<void> | void) | undefined;
@@ -24,11 +24,11 @@ export interface FormProps extends StyleProps {
 }
 
 export interface FormHeaderProps extends StyleProps {
-  /** Columna de titulo, descripcion y contenido de la cabecera. */
+  /** The header title, description and content column. */
   headerTextProps?: BoxSlotProps | undefined;
-  /** El titulo, que es un `Title` de orden 3. `component` cambia su etiqueta sin tocar el nivel. */
+  /** The title, which is a `Title` of order 3. `component` changes its tag without touching the level. */
   titleProps?: TitleSlotProps | undefined;
-  /** Las acciones de la cabecera, si las hay. */
+  /** The header actions, when there are any. */
   actionsProps?: BoxSlotProps | undefined;
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
@@ -51,9 +51,9 @@ export interface FormContentProps extends StyleProps {
 }
 
 export interface FormFooterProps extends Omit<StyleProps, "align"> {
-  /** El aviso de error del formulario. Lleva `role="alert"` y el id al que apunta el campo. */
+  /** The form error notice. It carries `role="alert"` and the id the field points at. */
   errorProps?: BoxSlotProps | undefined;
-  /** La fila de botones. Su alineacion la fija `align`; la ranura se compone con ella. */
+  /** The button row. Its alignment comes from `align`; the slot composes with it. */
   actionsProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   error?: ReactNode | undefined;
