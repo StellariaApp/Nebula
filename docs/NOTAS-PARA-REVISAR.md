@@ -96,6 +96,7 @@ portada y dime si se queda, se reduce o se quita.
 | `2f262d9` | Quinto lote: 42 bloques, entre ellos las 6 ranuras que comparten 27 campos|
 | `bb2aa8f` | Sexto lote: 45 bloques en los cinco componentes de colección              |
 | `b03b4f5` | Séptimo lote: 63 bloques en 13 componentes                                |
+| `95bf23c` | **ADR-114 cerrado**: los 500 contratos JSDoc están en inglés              |
 
 ---
 
@@ -106,10 +107,12 @@ portada y dime si se queda, se reduce o se quita.
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **Traducir a inglés los contratos con JSDoc** (ADR-114), por lotes. **Van 387 de 500**; quedan
-   111 en 55 archivos. Dos tandas más y se cierra. Es lo único que queda que no dependa de una decisión tuya, y avanza solo.
-2. **Bloqueado por D-4**: traducir las 95 cadenas por defecto en español. No lo empiezo sin tu
-   decisión, porque cambia el comportamiento de 47 componentes.
+**No queda trabajo que no dependa de una decisión tuya.** Todo lo que estaba en la lista está
+cerrado y commiteado.
+
+Lo único pendiente es **D-4**, y está arriba esperando tu criterio: traducir las cadenas por defecto
+en español de 47 componentes. No lo empiezo sin tu decisión porque cambia el comportamiento de la
+librería, no solo su documentación.
 
 ---
 
