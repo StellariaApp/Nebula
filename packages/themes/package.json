@@ -2,6 +2,7 @@
   "name": "@stellaria/nebula-themes",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "description": "Temas oficiales, Zod schema del theme y presets del design system Nebula",
   "type": "module",
   "sideEffects": false,

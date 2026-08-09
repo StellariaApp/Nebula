@@ -2,6 +2,7 @@
   "name": "@stellaria/nebula-hooks",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "description": "Hooks cross-platform sin UI del design system Nebula",
   "type": "module",
   "sideEffects": false,

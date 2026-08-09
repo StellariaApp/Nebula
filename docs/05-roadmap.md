@@ -126,11 +126,11 @@ typecheck TS7 estricto (lint con contingencia 5.9.3 — ADR-012) · lint (+regla
 2. ~~`@stellaria/nebula-people` y `@stellaria/nebula-maps`~~ — **CONFIRMADOS** ambos en el plan premium.
 3. ~~Presets demostrativos `sober` y `playful`~~ — retirados en ADR-108; el catálogo oficial queda en `light` y `dark`.
 4. **Valores finales de motion tokens y budgets de bundle**: provisionales, se calibran en W1/W2.
-5. **Changesets** y mecánica exacta del registry privado premium: se decide con mini-ADR en W5/W6.1.
+5. ~~**Mecánica del registry privado premium**~~ — **CERRADO por [ADR-113](adr/ADR-113-el-nucleo-es-mit-y-los-dominios-se-venden.md)** (2026-08-08): organización npm **privada** con token por cliente en su `.npmrc`, que es lo que conserva semver y `npm update`. Los seis paquetes de dominio nacen `private: true` y no se quitan nunca. Descartadas la venta del código fuente (sin ruta de actualización) y el registry autoalojado (infraestructura antes del primer cliente). **Changesets sigue abierto** como entregable de W5, que es donde toca.
 6. ~~**TipTap vs Lexical**~~ + ~~**cmdk vs propio**~~ — **SUPUESTO CERRADO POR COMPLETO**. La mitad de cmdk la cerró **ADR-057/W3.4** (propio sobre React Aria; cmdk descartado al verificar que arrastra 4 paquetes de Radix, uno de ellos un sistema de diálogo completo). La del editor la cierra **ADR-061/W4.3**: TipTap 3.29.2 es definitivo y Lexical queda descartado por seguir en 0.x —mismo criterio que descartó `@dnd-kit/react` en ADR-060—, con W5 publicando el core.
 7. **Jest para native** vs unificar en Vitest: propuesto Jest; validar al abrir N1.
 8. ~~**Grupos de props de `CardComplex`**~~ — **RESUELTO en el checkpoint de W3.5**: `media`/`badges`/`actions`/`meta` + básicas planas, con `actions` como lista tipada `CardAction[]` con ranura de posición en vez de las cuatro props con nombre de tfv. Registrado en `docs/01` §4.
 9. ~~**`caption: 8px`**~~ — **RESUELTO en ADR-024/W2.V**: `caption=12`, `body3=13` y ningún
    texto informativo o interactivo baja de 12 px.
 10. **Storage de persistencia de tema** (MMKV recomendado, inyectable): confirmar que no debe imponerse.
-11. **Publicación pública vs privada del core** + **licencia** (MIT/BSL/propietaria): asumo core **público**; confirmar en W5.1 — bloquea W5.2.
+11. ~~**Publicación pública vs privada del core** + **licencia**~~ — **CERRADO por [ADR-113](adr/ADR-113-el-nucleo-es-mit-y-los-dominios-se-venden.md)** (2026-08-08): el núcleo es **MIT y público**. `LICENSE` en la raíz y campo `license` en los seis paquetes; el paso de `private: true` a `publishConfig` es entregable de W5, no del ADR. Ya no bloquea W5.2 ni el pie del sitio.

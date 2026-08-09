@@ -2,6 +2,7 @@
   "name": "@stellaria/nebula-native",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "description": "Componentes React Native del design system Nebula (Unistyles 3 + Reanimated 4 + Skia)",
   "type": "module",
   "sideEffects": false,
