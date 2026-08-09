@@ -36,15 +36,15 @@ export interface QuickActionProps
     PressLifecycleProps,
     PermissionProps {
   label: ReactNode;
-  /** La chapa de aviso, si hay `badge`. */
+  /** The notification badge, when there is a `badge`. */
   badgeProps?: BoxSlotProps | undefined;
-  /** Envoltorio del icono. Su tamaño lo fija `size`; la ranura se compone con el. */
+  /** Wrapper for the icon. Its size comes from `size`; the slot composes with it. */
   iconProps?: BoxSlotProps | undefined;
-  /** Columna de rotulo y descripcion. */
+  /** Label and description column. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El rotulo. */
+  /** The label. */
   labelProps?: TextSlotProps | undefined;
-  /** La descripcion, si la hay. */
+  /** The description, when there is one. */
   descriptionProps?: TextSlotProps | undefined;
   icon?: ReactNode | undefined;
   description?: ReactNode | undefined;

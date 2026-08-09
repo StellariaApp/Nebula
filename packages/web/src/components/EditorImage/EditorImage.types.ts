@@ -5,9 +5,9 @@ import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 
 /**
- * Forma mínima de `@pqina/react-pintura`. Se declara **estructuralmente** y no se importa de Pintura:
- * es una peer-dependency opcional de licencia comercial (C1-Q6, ADR-014 regla 4), así que Nebula no
- * puede depender de sus tipos ni instalarla para compilar.
+ * The minimal shape of `@pqina/react-pintura`. It is declared **structurally** and not imported from
+ * Pintura: it is an optional peer dependency under a commercial licence (C1-Q6, ADR-014 rule 4), so
+ * Nebula can neither depend on its types nor install it to compile.
  */
 export interface PinturaEditorResult {
   dest: Blob | File;
@@ -31,13 +31,13 @@ export interface EditorImageLabels {
 }
 
 export interface EditorImageProps extends StyleProps {
-  /** El boton que abre el editor. Su variable de proporcion se escribe despues de la ranura. */
+  /** The button that opens the editor. Its aspect-ratio variable is written after the slot. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** La imagen del boton. Su `src` y su `alt` salen de las props del componente. */
+  /** The button image. Its `src` and `alt` come from the component props. */
   imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
-  /** El rotulo flotante sobre la imagen. Solo se pinta si hay editor. */
+  /** The floating label over the image. Only rendered when there is an editor. */
   hintProps?: BoxSlotProps | undefined;
-  /** El aviso de peer ausente. Solo se pinta sin `editor` y sin `fallback`. */
+  /** The missing-peer notice. Only rendered without `editor` and without `fallback`. */
   missingProps?: TextSlotProps | undefined;
   src: string;
   editor?: PinturaEditorComponent | undefined;

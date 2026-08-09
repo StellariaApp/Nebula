@@ -15,11 +15,11 @@ import type { FormFieldSlotProps } from "../FormField/FormField.types.js";
 export type ColorFormat = "hex" | "hexa" | "rgb" | "rgba" | "hsl" | "hsla";
 
 export interface ColorPickerProps extends StyleProps {
-  /** La fila de muestras. Solo se pinta si hay `swatches`. */
+  /** The swatch row. Only rendered with `swatches`. */
   swatchesProps?: BoxSlotProps | undefined;
   /**
-   * Cada muestra. Se esparce sobre TODAS. Su `background` se escribe DESPUES de la ranura, porque es
-   * el color que representa; lo demas —tamano, radio, borde— si se ajusta desde aqui.
+   * Every swatch. It spreads over ALL of them. Its `background` is written AFTER the slot, because it
+   * is the colour it represents; everything else — size, radius, border — can be adjusted from here.
    */
   swatchProps?: BoxSlotProps | undefined;
   label?: ReactNode | undefined;
@@ -46,16 +46,16 @@ export interface ColorPickerLabels {
 
 export interface ColorInputProps extends StyleProps, FormFieldSlotProps {
   /**
-   * La pastilla que ensena el color. Se esparce sobre las DOS: la del inicio del campo y la de
-   * dentro del boton. Su `background` se escribe despues de la ranura.
+   * The chip that shows the colour. It spreads over BOTH: the one at the start of the field and the
+   * one inside the button. Its `background` is written after the slot.
    */
   previewProps?: BoxSlotProps | undefined;
-  /** El boton que abre el selector. Solo existe con `withPicker`. */
+  /** The button that opens the picker. It only exists with `withPicker`. */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   /**
-   * El desplegable con el selector, que es el envoltorio de motion de la superficie flotante y no
-   * pasa por `Box`: no acepta style props. Su posicion la calcula React Aria y se escribe despues
-   * de la ranura; el `style` que pases se compone con ella.
+   * The dropdown with the picker, which is the motion wrapper of the floating surface and does not go
+   * through `Box`: it does not accept style props. React Aria computes its position and writes it
+   * after the slot; the `style` you pass composes with it.
    */
   dropdownProps?: OverlayMotionSlotProps | undefined;
   label?: ReactNode | undefined;

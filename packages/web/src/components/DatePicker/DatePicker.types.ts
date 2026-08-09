@@ -16,23 +16,23 @@ export type DateGranularity = "day" | "hour" | "minute" | "second";
 
 export interface DatePickerBaseProps extends StyleProps {
   /**
-   * El botón que abre el calendario. En `DatePicker` y `DateRangePicker` es el icono del extremo;
-   * en `DatePickerInput` es el campo entero, que ahí es un botón y no un campo segmentado.
+   * The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the
+   * end; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.
    */
   triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
   /**
-   * La superficie flotante del calendario, que es el envoltorio de motion y no pasa por `Box`: no
-   * acepta style props. Su posición la calcula React Aria y se escribe después de la ranura; el
-   * `style` que pases se compone con ella.
+   * The floating surface of the calendar, which is the motion wrapper and does not go through `Box`:
+   * it does not accept style props. React Aria computes its position and writes it after the slot;
+   * the `style` you pass composes with it.
    */
   popoverProps?: OverlayMotionSlotProps | undefined;
   /**
-   * Receta con la que se tinta el dia elegido del calendario. Es la misma que acepta `Calendar`:
-   * sin ella el calendario del desplegable se quedaba clavado en `primary`, aunque el producto
-   * tuviera otro acento.
+   * The recipe used to tint the chosen day in the calendar. It is the same one `Calendar` accepts:
+   * without it the calendar in the dropdown stayed pinned to `primary`, even when the product had a
+   * different accent.
    */
   variant?: CalendarVariant | undefined;
-  /** Acento del dia elegido y del rango. Va con `variant`. */
+  /** Accent of the chosen day and of the range. It goes with `variant`. */
   color?: ColorExtended | undefined;
   label?: ReactNode | undefined;
   description?: ReactNode | undefined;
@@ -75,7 +75,7 @@ export interface DatePickerInputProps extends DatePickerBaseProps, FormFieldSlot
 }
 
 export interface DateRangePickerProps extends DatePickerBaseProps, FormFieldSlotProps {
-  /** El guion que separa las dos fechas. Es decorativo: va con `aria-hidden`. */
+  /** The dash between the two dates. Decorative: it is `aria-hidden`. */
   separatorProps?: BoxSlotProps | undefined;
   field?: NebulaField<DateRange> | undefined;
   value?: DateRange | undefined;

@@ -11,12 +11,12 @@ export interface EmptyStateProps extends StyleProps {
   actions?: ReactNode | undefined;
   size?: "sm" | "md" | "lg" | undefined;
   className?: string | undefined;
-  /** El titulo. Es el unico nodo que se pinta siempre, porque `title` es obligatorio. */
+  /** The title. The only node always rendered, because `title` is required. */
   titleProps?: TextSlotProps | undefined;
-  /** La descripcion. Solo se pinta con `description`. */
+  /** The description. Only rendered with `description`. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El glifo. Solo se pinta con `icon`, y va `aria-hidden`. */
+  /** The glyph. Only rendered with `icon`, and it is `aria-hidden`. */
   iconProps?: BoxSlotProps | undefined;
-  /** La fila de acciones. Solo se pinta con `actions`. */
+  /** The action row. Only rendered with `actions`. */
   actionsProps?: BoxSlotProps | undefined;
 }

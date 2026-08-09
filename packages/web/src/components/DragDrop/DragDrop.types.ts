@@ -34,11 +34,11 @@ export interface DragDropContextProps {
 }
 
 export interface DraggableProps extends StyleProps {
-  /** La fila que reparte asa y contenido. Solo existe con `withHandle`. */
+  /** The row that splits handle and content. It only exists with `withHandle`. */
   rowProps?: BoxSlotProps | undefined;
   /**
-   * El asa de arrastre. Solo existe con `withHandle`, y lleva `data-dragging`. El nodo que se
-   * arrastra no tiene ranura: lo mueve dnd-kit con un `transform` calculado.
+   * The drag handle. It only exists with `withHandle`, and it carries `data-dragging`. The node
+   * being dragged has no slot: dnd-kit moves it with a computed `transform`.
    */
   handleProps?: ComponentPropsWithoutRef<"button"> | undefined;
   id: string;
@@ -58,11 +58,11 @@ export interface DroppableProps extends StyleProps {
 }
 
 export interface SortableListProps<T> extends StyleProps {
-  /** El aviso de lista vacia. Solo se pinta sin `items` y con `empty`. */
+  /** The empty-list notice. Only rendered with no `items` and with `empty`. */
   emptyProps?: BoxSlotProps | undefined;
   /**
-   * El asa de cada fila. Se esparce sobre TODAS y solo existe con `withHandle`. Las filas en si no
-   * tienen ranura: llevan el ref y el `transform` que dnd-kit les escribe al ordenar.
+   * The handle of each row. It spreads over ALL of them and only exists with `withHandle`. The rows
+   * themselves have no slot: they carry the ref and the `transform` dnd-kit writes while sorting.
    */
   handleProps?: ComponentPropsWithoutRef<"button"> | undefined;
   items: readonly T[];

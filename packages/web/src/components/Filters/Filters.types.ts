@@ -53,7 +53,7 @@ export interface FilterLabels {
 }
 
 export interface FilterProps {
-  /** La fila de los dos campos. Solo existe cuando el filtro es de tipo `range`. */
+  /** The row of the two fields. It only exists when the filter is of type `range`. */
   rangeProps?: BoxSlotProps | undefined;
   filter: FilterDescriptor;
   accessors: FilterAccessors;
@@ -63,13 +63,13 @@ export interface FilterProps {
 }
 
 export interface FiltersProps extends StyleProps {
-  /** El panel del popover. */
+  /** The popover panel. */
   panelProps?: BoxSlotProps | undefined;
-  /** El aviso de que no hay filtros. Solo se pinta si la lista viene vacia. */
+  /** The no-filters notice. Only rendered when the list arrives empty. */
   emptyProps?: TextSlotProps | undefined;
-  /** La lista de filtros. No se pinta mientras `loading`. */
+  /** The filter list. Not rendered while `loading`. */
   listProps?: BoxSlotProps | undefined;
-  /** El pie con el boton de limpiar. Solo aparece si hay filtros activos. */
+  /** The footer with the clear button. It only appears when there are active filters. */
   footProps?: BoxSlotProps | undefined;
   filters: readonly FilterDescriptor[];
   state?: FilterState | undefined;

@@ -17,16 +17,16 @@ export interface EmptyModuleProps extends StyleProps {
   size?: "sm" | "md" | "lg" | undefined;
   surface?: EmptyModuleSurface | undefined;
   className?: string | undefined;
-  /** El titulo, reenviado a la ranura del `EmptyState` que el modulo monta dentro. */
+  /** The title, forwarded to the slot of the `EmptyState` the module mounts inside. */
   titleProps?: EmptyStateProps["titleProps"] | undefined;
-  /** La descripcion, reenviada al `EmptyState`. Solo se pinta con `description`. */
+  /** The description, forwarded to the `EmptyState`. Only rendered with `description`. */
   descriptionProps?: EmptyStateProps["descriptionProps"] | undefined;
-  /** El glifo, reenviado al `EmptyState`. Solo se pinta con `icon`. */
+  /** The glyph, forwarded to the `EmptyState`. Only rendered with `icon`. */
   iconProps?: EmptyStateProps["iconProps"] | undefined;
-  /** La ilustracion, que es propia del modulo y va antes del `EmptyState`. Solo con `illustration`, va `aria-hidden` y su tamano sale de `size`. */
+  /** The illustration, which belongs to the module and goes before the `EmptyState`. Only with `illustration`; it is `aria-hidden` and its size comes from `size`. */
   illustrationProps?: BoxSlotProps | undefined;
-  /** La banda que junta `action` y `secondaryAction`. Cae DENTRO de la fila de acciones del `EmptyState`, no la sustituye, y no existe si no hay ninguna de las dos. */
+  /** The band that joins `action` and `secondaryAction`. It lands INSIDE the `EmptyState` action row, it does not replace it, and it does not exist without at least one of the two. */
   actionsProps?: BoxSlotProps | undefined;
-  /** El pie del modulo, fuera del `EmptyState`. Solo se pinta con `footer`. */
+  /** The module footer, outside the `EmptyState`. Only rendered with `footer`. */
   footerProps?: BoxSlotProps | undefined;
 }

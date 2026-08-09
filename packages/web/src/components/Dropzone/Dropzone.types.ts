@@ -45,15 +45,15 @@ export interface DropzoneProps extends StyleProps, FormFieldSlotProps {
   labels?: Partial<DropzoneLabels> | undefined;
   name?: string | undefined;
   className?: string | undefined;
-  /** La zona de soltar, que es el boton. Lleva `data-drag`, de donde sale su realce. */
+  /** The drop zone, which is the button. It carries `data-drag`, which is where its highlight comes from. */
   zoneProps?: ComponentPropsWithoutRef<"button"> | undefined;
-  /** El icono de la zona. Se sustituye entero con `icon`. */
+  /** The zone icon. `icon` replaces it whole. */
   iconProps?: BoxSlotProps | undefined;
-  /** El titulo, que cambia con el estado de arrastre. */
+  /** The title, which changes with the drag state. */
   titleProps?: TextSlotProps | undefined;
-  /** La pista bajo el titulo. */
+  /** The hint below the title. */
   hintProps?: TextSlotProps | undefined;
-  /** La lista de archivos elegidos. Solo se pinta si hay alguno. */
+  /** The list of chosen files. Only rendered when there are any. */
   listProps?: BoxSlotProps | undefined;
   rootClassName?: string | undefined;
 }

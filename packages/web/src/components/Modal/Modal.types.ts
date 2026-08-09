@@ -30,17 +30,17 @@ export interface ModalProps extends StyleProps {
   padding?: "none" | "sm" | "md" | "lg" | undefined;
   radius?: "none" | "sm" | "md" | "lg" | undefined;
   className?: string | undefined;
-  /** Fila de cabecera: encabezado a la izquierda, boton de cierre a la derecha. */
+  /** The header row: heading on the left, close button on the right. */
   headerProps?: BoxSlotProps | undefined;
-  /** Columna de titulo y subtitulo, dentro de la cabecera. */
+  /** Title and subtitle column, inside the header. */
   headingProps?: BoxSlotProps | undefined;
-  /** El titulo. Se esparce DESPUES de las props de aria, asi que el consumidor gana. */
+  /** The title. It spreads AFTER the aria props, so the consumer wins. */
   titleProps?: TextSlotProps | undefined;
-  /** El subtitulo, si lo hay. */
+  /** The subtitle, when there is one. */
   subtitleProps?: TextSlotProps | undefined;
-  /** El cuerpo. Su relleno lo gobierna `padding`; la ranura se compone con el, no lo pisa. */
+  /** The body. Its padding is governed by `padding`; the slot composes with it, it does not override it. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El pie, si hay `footer`. */
+  /** The footer, when there is a `footer`. */
   footerProps?: BoxSlotProps | undefined;
   bodyClassName?: string | undefined;
   "aria-label"?: string | undefined;

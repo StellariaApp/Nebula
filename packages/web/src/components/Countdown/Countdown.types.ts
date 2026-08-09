@@ -23,7 +23,7 @@ export interface CountdownLabels {
 }
 
 export interface CountdownProps extends StyleProps {
-  /** Instante objetivo en ISO (ADR-050: el valor que cruza la API pública es string, no Date). */
+  /** Target instant in ISO (ADR-050: the value that crosses the public API is a string, not a Date). */
   to: string;
   onComplete?: (() => void) | undefined;
   withDays?: boolean | undefined;
@@ -32,10 +32,10 @@ export interface CountdownProps extends StyleProps {
   size?: "sm" | "md" | "lg" | undefined;
   labels?: Partial<CountdownLabels> | undefined;
   className?: string | undefined;
-  /** Cada unidad —dias, horas, minutos—. Se esparce sobre TODAS, no sobre una. */
+  /** Every unit — days, hours, minutes. It spreads over ALL of them, not over one. */
   unitProps?: BoxSlotProps | undefined;
-  /** La cifra de cada unidad, ya rellenada a dos digitos. */
+  /** The figure of each unit, already padded to two digits. */
   valueProps?: TextSlotProps | undefined;
-  /** El rotulo bajo la cifra. */
+  /** The label below the figure. */
   captionProps?: TextSlotProps | undefined;
 }
