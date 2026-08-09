@@ -51,20 +51,20 @@ export interface NavLogoProps extends StyleProps {
 }
 
 export interface NavSidebarProps {
-  /** La cabecera del cajon, que solo lleva el boton de cerrar. */
+  /** The drawer header, which carries only the close button. */
   headProps?: BoxSlotProps | undefined;
-  /** Ese boton de cerrar. El velo tambien cierra y no es una ranura: es el propio velo. */
+  /** That close button. The scrim closes too, and it is not a slot: it is the scrim itself. */
   closeProps?: ButtonCloseProps | undefined;
-  /** El cuerpo con desplazamiento, donde caen los hijos. */
+  /** The scrolling body, where the children land. */
   bodyProps?: BoxSlotProps | undefined;
-  /** El pie del cajon. No se pinta sin `footer`. */
+  /** The drawer footer. Not rendered without `footer`. */
   footerProps?: BoxSlotProps | undefined;
   opened: boolean;
   onClose: () => void;
   children?: ReactNode | undefined;
-  /** Va al pie, en columna: es donde caben el badge de estado y el CTA. */
+  /** Goes in the footer, stacked: this is where the status badge and the CTA fit. */
   footer?: ReactNode | undefined;
-  /** Por encima de este punto el cajón se cierra solo. */
+  /** Above this point the drawer closes by itself. */
   collapse?: NavLinksCollapse | undefined;
   closeLabel?: string | undefined;
   label?: string | undefined;
@@ -72,18 +72,18 @@ export interface NavSidebarProps {
 }
 
 export interface NavLinksProps extends Omit<StyleProps, "align"> {
-  /** El desplegable de los enlaces que no caben. Solo con `overflowMenu`, y solo si sobra alguno. */
+  /** The dropdown for the links that do not fit. Only with `overflowMenu`, and only if any are left over. */
   overflowProps?: ComponentPropsWithoutRef<"details"> | undefined;
-  /** Su disparador, el de los tres puntos. */
+  /** Its trigger, the three-dot one. */
   overflowTriggerProps?: ComponentPropsWithoutRef<"summary"> | undefined;
-  /** El panel del desplegable, donde caen los enlaces ocultos. */
+  /** The dropdown panel, where the hidden links land. */
   overflowPanelProps?: BoxSlotProps | undefined;
   children?: ReactNode | undefined;
   active?: string | undefined;
   activeMode?: NavActiveMode | undefined;
   align?: NavLinksAlign | undefined;
   collapse?: NavLinksCollapse | undefined;
-  /** Priority+: mide el ancho real y manda al menú los enlaces que no caben. */
+  /** Priority+: measures the real width and sends the links that do not fit to the menu. */
   overflowMenu?: boolean | undefined;
   spyOffset?: number | undefined;
   variant?: Variant | undefined;
@@ -110,7 +110,7 @@ export interface NavLinkItemProps extends StyleProps {
 export interface NavSlotProps extends StyleProps {
   children?: ReactNode | undefined;
   className?: string | undefined;
-  /** Bajo este punto las acciones desaparecen: viven en el pie del cajón. */
+  /** Below this point the actions disappear: they live in the drawer footer. */
   collapse?: NavLinksCollapse | undefined;
 }
 

@@ -17,15 +17,15 @@ export interface FeatureProps extends Omit<StyleProps, "align"> {
   align?: "start" | "center" | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
-  /** El titulo. Es el unico nodo que se pinta siempre, porque `title` es obligatorio. */
+  /** The title. The only node always rendered, because `title` is required. */
   titleProps?: TextSlotProps | undefined;
-  /** La descripcion. Solo se pinta con `description`. */
+  /** The description. Only rendered with `description`. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El `ThemeIcon` que envuelve al glifo. Solo existe con `icon`, y se esparce DESPUES del tamano, la variante y el color que fija el componente, asi que los sustituye. */
+  /** The `ThemeIcon` wrapping the glyph. Only exists with `icon`, and it spreads AFTER the size, variant and colour the component sets, so it overrides them. */
   iconProps?: ThemeIconProps | undefined;
   /**
-   * El enlace del pie. Solo existe con `href`, y `linkText` es su contenido. Se esparce DESPUES del
-   * `href`, asi que puede sustituirlo.
+   * The footer link. Only exists with `href`, and `linkText` is its content. It spreads AFTER the
+   * `href`, so it can override it.
    */
   linkProps?: AnchorSlotProps | undefined;
 }

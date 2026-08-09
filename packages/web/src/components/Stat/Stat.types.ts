@@ -10,20 +10,20 @@ export type StatTrend = "up" | "down" | "flat";
 
 export interface StatProps extends Omit<StyleProps, "align"> {
   label: ReactNode;
-  /** El rotulo, en la fila de cabecera junto al glifo. */
+  /** The label, on the header row next to the glyph. */
   labelProps?: TextSlotProps | undefined;
   value: ReactNode;
-  /** La cifra. Su tamano sale de `size`. */
+  /** The figure. Its size comes from `size`. */
   valueProps?: TextSlotProps | undefined;
-  /** La descripcion del pie. Solo se pinta con `description`. */
+  /** The footer description. Only rendered with `description`. */
   descriptionProps?: TextSlotProps | undefined;
-  /** El glifo de la cabecera. Solo se pinta con `icon`, y va `aria-hidden`. */
+  /** The header glyph. Only rendered with `icon`, and it is `aria-hidden`. */
   iconProps?: BoxSlotProps | undefined;
-  /** La variacion. Solo se pinta con `diff`, y lleva `data-trend`, que es de donde sale su color. La flecha y el texto para lector de pantalla van dentro y no tienen ranura. */
+  /** The change. Only rendered with `diff`, and it carries `data-trend`, which is where its colour comes from. The arrow and the screen-reader text live inside it and have no slot of their own. */
   diffProps?: TextSlotProps | undefined;
-  /** La fila de cabecera: rotulo y glifo. */
+  /** The header row: label and glyph. */
   headProps?: BoxSlotProps | undefined;
-  /** El pie: variacion y descripcion. No se pinta si faltan las dos. */
+  /** The footer: change and description. Not rendered if both are missing. */
   footProps?: BoxSlotProps | undefined;
   description?: ReactNode | undefined;
   icon?: ReactNode | undefined;

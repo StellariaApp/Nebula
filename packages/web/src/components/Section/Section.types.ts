@@ -8,7 +8,7 @@ export type SectionSize = "sm" | "md" | "lg" | "xl";
 
 export type SectionOrder = 2 | 3 | 4 | 5 | 6;
 
-/** Props de cualquier parte de `Section`: hijos, `className` y las style props del sistema. */
+/** Props of any `Section` part: children, `className` and the system style props. */
 export interface SectionSlotProps extends StyleProps {
   children?: ReactNode | undefined;
   className?: string | undefined;
@@ -18,41 +18,41 @@ export type SectionHeadingProps = SectionSlotProps;
 
 export interface SectionProps extends StyleProps {
   /**
-   * El cuerpo. Si entre los hijos hay un `Section.Header`, sustituye a la cabecera que montan `title`,
-   * `description`, `aside` y `actions`; si hay un `Section.Footer`, sustituye a `footer` (ADR-111).
+   * The body. A `Section.Header` among the children replaces the header built from `title`,
+   * `description`, `aside` and `actions`; a `Section.Footer` replaces `footer` (ADR-111).
    */
   children?: ReactNode | undefined;
   /**
-   * Nombra la region por `aria-labelledby`, y por eso gana a `aria-label`. Sin el, y sin un
-   * `Section.Title` entre los hijos, la banda cae al `aria-label`.
+   * Names the region through `aria-labelledby`, which is why it beats `aria-label`. Without it, and
+   * without a `Section.Title` among the children, the band falls back to `aria-label`.
    */
   title?: ReactNode | undefined;
   description?: ReactNode | undefined;
   actions?: ReactNode | undefined;
-  /** Lo que acompana a las acciones en la fila de cabecera, a su izquierda. Equivale a `Section.Aside`. */
+  /** What sits beside the actions on the header row, to their left. Equivalent to `Section.Aside`. */
   aside?: ReactNode | undefined;
   footer?: ReactNode | undefined;
-  /** Superpone el velo de carga SIN retirar el contenido, para que la pagina no salte al terminar. */
+  /** Lays the loading veil over the content WITHOUT removing it, so the page does not jump when it ends. */
   loading?: boolean | undefined;
-  /** Sustituye al contenido. Si es una cadena se envuelve en un `Alert` de error que se anuncia solo. */
+  /** Replaces the content. A string is wrapped in an error `Alert` that announces itself. */
   error?: ReactNode | undefined;
-  /** Lo que se pinta en lugar del contenido cuando `isEmpty`. Sin `isEmpty` no se pinta nunca. */
+  /** What renders in place of the content when `isEmpty`. Without `isEmpty` it never renders. */
   empty?: ReactNode | undefined;
-  /** Enciende la rama de `empty`. `error` manda sobre ella: si hay error, el vacio no se pinta. */
+  /** Turns on the `empty` branch. `error` wins over it: with an error, the empty state does not render. */
   isEmpty?: boolean | undefined;
-  /** Nivel del encabezado del titulo, de 2 a 6. Es estructura, no tamano: el tamano es `fz`. */
+  /** Heading level of the title, 2 to 6. Structure, not size: the size is `fz`. */
   order?: SectionOrder | undefined;
-  /** Linea separadora dentro del carril, para que no cruce la banda de lado a lado de la pantalla. */
+  /** A rule inside the rail, so it does not cross the band from edge to edge of the screen. */
   divided?: boolean | undefined;
-  /** La banda de cristal de ADR-082, el peldano mas bajo. Se usa ALTERNANDO secciones: encenderlas todas devuelve un fondo uniforme, que es lo contrario del efecto. */
+  /** The glass band of ADR-082, the lowest step. Use it ALTERNATING sections: turning it on everywhere gives you a uniform background, which is the opposite of the effect. */
   glass?: boolean | undefined;
-  /** Aparicion al entrar en viewport. Cambia el elemento raiz al de motion, no anade un nodo (ver `Reveal.md`). */
+  /** Reveal on entering the viewport. Swaps the root element for the motion one, it does not add a node (see `Reveal.md`). */
   reveal?: boolean | undefined;
-  /** Ancho maximo del carril interior; la banda sigue ocupando el ancho completo. @default 1180 */
+  /** Maximum width of the inner rail; the band still spans the full width. @default 1180 */
   contentWidth?: Unit | undefined;
   id?: string | undefined;
   size?: SectionSize | undefined;
   className?: string | undefined;
-  /** Solo se usa si no hay `title` ni `Section.Title`: el titulo, cuando existe, nombra la region. */
+  /** Only used when there is no `title` and no `Section.Title`: the title, when present, names the region. */
   "aria-label"?: string | undefined;
 }
