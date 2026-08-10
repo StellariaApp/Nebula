@@ -4,7 +4,7 @@ export const COUNTDOWN_LABELS: CountdownLabels = {
   days: "days",
   hours: "hours",
   minutes: "min",
-  seconds: "seg",
+  seconds: "sec",
   finished: "Time is up",
   remaining: (parts) =>
     parts.days > 0

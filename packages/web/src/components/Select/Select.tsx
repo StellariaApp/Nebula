@@ -154,7 +154,6 @@ export function Select(props: SelectProps): ReactElement {
             {...control}
             ref={trigger_ref}
             type="button"
-            {...aria_trigger}
             {...triggerProps}
             className={cx(styles.trigger, className, triggerProps?.className)}
             disabled={fp.isDisabled}

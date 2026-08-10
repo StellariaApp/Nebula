@@ -87,4 +87,21 @@ describe("Select", () => {
     await user.click(screen.getByRole("button", { name: /País/ }));
     expect(screen.queryByRole("listbox")).toBeNull();
   });
+
+  it("no filtra al DOM las props de press de React Aria", () => {
+    render(<Select label="País" data={DATA} />);
+    const trigger = screen.getByRole("button", { name: /País/ });
+    for (const name of trigger.getAttributeNames()) {
+      expect(name.toLowerCase()).not.toContain("preventfocusonpress");
+    }
+    expect(trigger.outerHTML.toLowerCase()).not.toContain("onpress");
+  });
+
+  it("abre con el teclado desde el disparador", async () => {
+    const user = userEvent.setup();
+    render(<Select label="País" data={DATA} />);
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+    expect(await screen.findByRole("listbox")).toBeDefined();
+  });
 });

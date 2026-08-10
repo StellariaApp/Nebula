@@ -73,18 +73,6 @@ export async function ReadDoc(lang: Lang, slug: string[]): Promise<Doc | null> {
   }
 }
 
-export async function AllSlugs(): Promise<{ lang: Lang; slug: string[] }[]> {
-  const source = await Walk(Root(SOURCE_LANG));
-  const out: { lang: Lang; slug: string[] }[] = [];
-  for (const lang of LANGS) {
-    const own = await Walk(Root(lang));
-    const seen = new Set(source.map((s) => s.join("/")));
-    for (const slug of own) seen.add(slug.join("/"));
-    for (const key of [...seen].sort()) out.push({ lang, slug: key.split("/") });
-  }
-  return out;
-}
-
 export async function Coverage(): Promise<Record<Lang, { total: number; translated: number }>> {
   const source = await Walk(Root(SOURCE_LANG));
   const total = source.length;

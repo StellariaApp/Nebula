@@ -142,7 +142,7 @@ export function Footer(props: FooterProps): ReactElement {
     contentWidth = DEFAULT_WIDTH,
     spacing,
     sticky = false,
-    glass = false,
+    glass = true,
     withBorder = true,
     className,
     columnsProps,

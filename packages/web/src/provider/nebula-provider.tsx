@@ -106,14 +106,19 @@ export function NebulaProvider({
   );
 
   const set_theme = useCallback(
-    (name: string): void => {
-      if (!IsOfficialName(name)) {
+    (next: string | NebulaTheme): void => {
+      if (typeof next !== "string") {
+        set_active(Resolve(next));
+        store?.setItem(storageKey, next.meta.scheme);
+        return;
+      }
+      if (!IsOfficialName(next)) {
         throw new Error(
-          `Tema desconocido: "${name}". Temas oficiales: ${Object.keys(themeClass).join(", ")}.`,
+          `Tema desconocido: "${next}". Temas oficiales: ${Object.keys(themeClass).join(", ")}.`,
         );
       }
-      set_active(Resolve(name));
-      store?.setItem(storageKey, name);
+      set_active(Resolve(next));
+      store?.setItem(storageKey, next);
     },
     [store, storageKey],
   );

@@ -8,6 +8,7 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
+    "./themes/products": "./src/themes/products.ts",
     "./*": "./src/*.tsx"
   },
   "scripts": {

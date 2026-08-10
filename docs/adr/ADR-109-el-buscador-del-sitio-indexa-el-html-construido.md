@@ -20,8 +20,15 @@ tercero y mete una petición de red en cada tecleo.
 1. Pagefind corre **después** de `next build`, sobre la salida estática. No conoce React, ni MDX, ni
    el árbol de rutas: lee HTML. Si mañana el sitio se rehace con Vite, el mismo comando sigue
    valiendo — es exactamente lo que el principio 4 pide.
-2. **El índice se parte por idioma solo.** Pagefind detecta `<html lang>`, que el layout de `[lang]`
-   ya emite correctamente, y sirve el índice del idioma activo. Buscar en español no trae resultados
+
+   > **Pendiente desde [ADR-122](ADR-122-el-segmento-lang-desaparece-del-router.md)** (2026-08-09):
+   > las 7 rutas del sitio pasaron a dinámicas, así que `next build` ya no deja HTML que indexar.
+   > Este punto hay que resolverlo **antes** de implementar el buscador —indexar desde
+   > `content/*.mdx` o prerenderizar una instantánea solo para el índice—. Hoy no rompe nada porque
+   > Pagefind no está instalado ni cableado.
+
+2. **El índice se parte por idioma solo.** Pagefind detecta `<html lang>`, que el layout raíz ya
+   emite correctamente, y sirve el índice del idioma activo. Buscar en español no trae resultados
    en inglés.
 3. **Se excluye del índice lo generado que no es prosa**: las tablas del registro del catálogo se
    marcan con `data-pagefind-ignore` salvo el nombre del componente. Indexar 158 filas de presupuesto

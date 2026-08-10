@@ -30,7 +30,7 @@ export const button = recipe({
     margin: 0,
     fontFamily: vars.font.family.sans,
     fontWeight: vars.font.weight.semibold,
-    lineHeight: vars.font.lineHeight.normal,
+    lineHeight: vars.font.lineHeight.tight,
     letterSpacing: vars.font.letterSpacing.normal,
     textDecoration: "none",
     whiteSpace: "nowrap",
@@ -99,7 +99,7 @@ export const button = recipe({
         height: vars.size.control.sm,
         paddingInline: vars.space.md,
         gap: vars.space.xs,
-        fontSize: vars.font.size.body2,
+        fontSize: vars.font.size.body3,
       },
       md: {
         height: vars.size.control.md,
@@ -111,7 +111,7 @@ export const button = recipe({
         height: vars.size.control.lg,
         paddingInline: vars.space.xl,
         gap: vars.space.sm,
-        fontSize: vars.font.size.button,
+        fontSize: vars.font.size.body1,
       },
       xl: {
         height: vars.size.control.xl,

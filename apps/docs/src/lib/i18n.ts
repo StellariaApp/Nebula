@@ -34,7 +34,3 @@ export function ResolveLang(cookie: string | undefined, header: string | null): 
   if (cookie !== undefined && IsLang(cookie)) return cookie;
   return NegotiateLang(header);
 }
-
-export function AsLang(value: string): Lang {
-  return IsLang(value) ? value : SOURCE_LANG;
-}

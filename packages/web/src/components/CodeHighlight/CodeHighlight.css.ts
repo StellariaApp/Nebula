@@ -25,7 +25,7 @@ export const header = style({
       alignItems: "center",
       justifyContent: "space-between",
       gap: vars.space.sm,
-      padding: `${vars.space.xxs} ${vars.space.xs}`,
+      padding: `${vars.space.xxs} ${vars.space.sm}`,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
       background: vars.color.surface.base,
       fontSize: vars.font.size.caption,

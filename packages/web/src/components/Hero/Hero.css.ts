@@ -83,8 +83,13 @@ export const slot = style({
       position: "relative",
       zIndex: 1,
       flexShrink: 0,
-      maxWidth: "100%",
-      "@media": { [SmallerThan("laptop")]: { flexShrink: 1, minWidth: 0 } },
+      maxWidth: "max-content",
+      "@media": {
+        [SmallerThan("laptop")]: {
+          width: "100%",
+          maxWidth: "100%",
+        },
+      },
     },
   },
 });
@@ -93,6 +98,7 @@ export const hiper = style({
   "@layer": {
     [base_layer]: {
       margin: 0,
+      width: "fit-content",
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
       textTransform: "uppercase",
@@ -107,7 +113,7 @@ export const header = style({
     [base_layer]: {
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.sm,
+      gap: vars.space.md,
     },
   },
 });

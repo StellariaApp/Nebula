@@ -1,14 +1,12 @@
 import { Badge, Box, Table, Text, Title } from "@stellaria/nebula-web";
 
-import { ByFamily, CATALOG } from "../../../../lib/catalog";
-import { Dict } from "../../../../lib/dictionary";
-import { AsLang } from "../../../../lib/i18n";
-import { PageHeader } from "../../../../ui/page-header";
+import { ByFamily, CATALOG } from "../../../lib/catalog";
+import { Dict } from "../../../lib/dictionary";
+import { CurrentLang } from "../../../lib/lang";
+import { PageHeader } from "../../../ui/page-header";
 
-export default async function Components({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang: raw } = await params;
-  const lang = AsLang(raw);
-  const dict = await Dict(lang, "chrome");
+export default async function Components() {
+  const dict = await Dict(await CurrentLang(), "chrome");
   const families = ByFamily();
 
   return (

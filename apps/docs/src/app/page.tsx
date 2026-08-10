@@ -1,48 +1,39 @@
-import ProductSwitch from "@stellaria/nebula-demos/Patterns/ProductSwitch";
+import MotionLab from "@stellaria/nebula-demos/Patterns/MotionLab";
+import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import {
   Badge,
   Box,
   Button,
   Card,
   Code,
-  Divider,
   Feature,
   Footer,
-  GlassSurface,
-  GradientBorder,
   GradientText,
   Hero,
   Main,
   Reveal,
   SimpleGrid,
-  StarField,
   Stat,
   Text,
 } from "@stellaria/nebula-web";
 
-import { CATALOG } from "../../lib/catalog";
-import { Dict } from "../../lib/dictionary";
-import { AsLang } from "../../lib/i18n";
-import { SiteNav } from "../../islands/site-nav";
-import { ThemeFab } from "../../islands/theme-fab";
-import { Band } from "../../ui/band";
-import { Logo, Mark } from "../../ui/logo";
-import type { Dictionary } from "../../lib/dictionary";
+import { CATALOG } from "../lib/catalog";
+import { Dict } from "../lib/dictionary";
+import { CurrentLang } from "../lib/lang";
+import { HeroPreview } from "../islands/hero-preview";
 
-const PREMIUM = ["commerce", "sales", "payments", "people", "maps", "native-camera"];
+import { SiteNav } from "../islands/site-nav";
+import { ThemePanel } from "../islands/theme-panel";
+import { Band } from "../ui/band";
+import { SiteBackground } from "../ui/site-background";
+import { Logo } from "../ui/logo";
+import type { Dictionary } from "../lib/dictionary";
 
 const PILLARS = ["theme", "a11y", "budget"] as const;
 
-const SNIPPET = `import { Button, Card, Stat } from "@stellaria/nebula-web";
+const FRAMEWORKS = ["Next.js", "Vite", "React Router"];
 
-export function Panel() {
-  return (
-    <Card withBorder p="lg">
-      <Stat label="Closing days" value="4" diff="-62 %" trend="down" />
-      <Button variant="gradient">Deploy</Button>
-    </Card>
-  );
-}`;
+const INSTALL = "pnpm add @stellaria/nebula-web";
 
 const GLYPH = {
   theme: (
@@ -106,34 +97,6 @@ function Bar({ dict }: { dict: Dictionary }) {
   );
 }
 
-function Preview({ dict }: { dict: Dictionary }) {
-  return (
-    <GradientBorder beam r="xl" width={2} w="100%" maw={540}>
-      <GlassSurface p="lg" display="flex" direction="column" gap="md" r="inherit">
-        <Box display="flex" align="center" gap="xs">
-          <Mark id="preview-mark" size={20} />
-          <Code>{dict["home.preview.file"]}</Code>
-        </Box>
-        <Code block fz="caption">
-          {SNIPPET}
-        </Code>
-        <Divider />
-        <Box display="flex" align="center" gap="sm" wrap="wrap">
-          <Button size="sm" variant="gradient">
-            {dict["home.preview.deploy"]}
-          </Button>
-          <Button size="sm" variant="outline">
-            {dict["home.preview.previewLabel"]}
-          </Button>
-          <Badge variant="light" color="success">
-            {dict["home.preview.checks"]}
-          </Badge>
-        </Box>
-      </GlassSurface>
-    </GradientBorder>
-  );
-}
-
 function Foot({ dict }: { dict: Dictionary }) {
   return (
     <Footer glass>
@@ -156,9 +119,8 @@ function Foot({ dict }: { dict: Dictionary }) {
   );
 }
 
-export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang: raw } = await params;
-  const lang = AsLang(raw);
+export default async function Home() {
+  const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
 
   const NUMBERS = [
@@ -167,13 +129,13 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       value: String(CATALOG.count),
       description: dict["home.stat.components.diff"],
     },
-    { label: dict["home.stat.gates"], value: "8", description: dict["home.stat.gates.note"] },
+    { label: dict["home.stat.gates"], value: "9", description: dict["home.stat.gates.note"] },
     {
       label: dict["home.stat.styleProps"],
       value: "128",
       description: dict["home.stat.styleProps.note"],
     },
-    { label: dict["home.stat.themes"], value: "2", description: dict["home.stat.themes.note"] },
+    { label: dict["home.stat.themes"], value: "7", description: dict["home.stat.themes.note"] },
   ];
 
   return (
@@ -183,17 +145,35 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       skipLabel={dict["skip.content"]}
       header={<Bar dict={dict} />}
       footer={<Foot dict={dict} />}
-      background={<StarField parallax aurora translucency={3} />}
+      background={<SiteBackground />}
     >
-      <ThemeFab
-        labels={{ dark: dict["theme.to.dark"] ?? "", light: dict["theme.to.light"] ?? "" }}
+      <ThemePanel
+        labels={{
+          open: dict["panel.open"] ?? "",
+          close: dict["panel.close"] ?? "",
+          region: dict["panel.region"] ?? "",
+          lede: dict["panel.lede"] ?? "",
+          product: dict["panel.product"] ?? "",
+          scheme: dict["panel.scheme"] ?? "",
+          dark: dict["panel.dark"] ?? "",
+          light: dict["panel.light"] ?? "",
+          motion: dict["panel.motion"] ?? "",
+          glass: dict["panel.glass"] ?? "",
+          corner: dict["panel.corner"] ?? "",
+          density: dict["panel.density"] ?? "",
+          face: dict["panel.face"] ?? "",
+        }}
       />
 
       <Hero
         size="xl"
-        mih="820px"
-        contentWidth={640}
-        hiper={<Badge variant="light">{dict["home.eyebrow"]}</Badge>}
+        mih="760px"
+        contentWidth={620}
+        hiper={
+          <Box display="flex">
+            <Badge variant="light">{dict["home.eyebrow"]}</Badge>
+          </Box>
+        }
         title={
           <>
             {dict["home.hero.title.a"]}
@@ -214,19 +194,35 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </Button>
           </>
         }
-        right={<Preview dict={dict} />}
+        right={
+          <HeroPreview
+            labels={{
+              copy: dict["home.preview.copy"] ?? "",
+              copied: dict["home.preview.copied"] ?? "",
+              checks: dict["home.preview.checks"] ?? "",
+              filename: dict["home.preview.file"] ?? "",
+              snippetCopy: dict["home.preview.snippetCopy"] ?? "",
+              code: dict["home.preview.code"] ?? "",
+              result: dict["home.preview.result"] ?? "",
+              view: dict["home.preview.view"] ?? "",
+              tooltip: dict["home.preview.tooltip"] ?? "",
+              info: dict["home.preview.info"] ?? "",
+            }}
+          />
+        }
       />
 
       <Band
         glass
         level="major"
+        eyebrow={dict["home.proof.eyebrow"]}
         title={dict["home.proof.title"]}
         description={dict["home.proof.body"]}
       >
-        <ProductSwitch />
+        <ProductSurface />
       </Band>
 
-      <Band level="minor" title={dict["home.numbers.title"]}>
+      <Band level="strip" title={dict["home.numbers.title"]}>
         <SimpleGrid cols={{ base: 2, tablet: 4 }} gap="lg">
           {NUMBERS.map((item) => (
             <Stat
@@ -240,61 +236,70 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         </SimpleGrid>
       </Band>
 
-      <Band level="major" title={dict["home.pillars.title"]}>
-        <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="xl">
-          {PILLARS.map((key, index) => (
-            <Reveal key={key} component="article" index={index}>
-              <Feature
-                icon={GLYPH[key]}
-                title={dict[`home.pillar.${key}.title`]}
-                description={dict[`home.pillar.${key}.body`]}
-              />
-            </Reveal>
-          ))}
-        </SimpleGrid>
-      </Band>
-
       <Band
-        level="minor"
-        title={dict["home.premium.title"]}
-        description={dict["home.premium.body"]}
-        footer={
-          <Text fz="caption" c="text.muted">
-            {dict["home.premium.note"]}
-          </Text>
-        }
+        center
+        level="major"
+        eyebrow={dict["home.reach.eyebrow"]}
+        title={dict["home.pillars.title"]}
+        description={dict["home.reach.body"]}
       >
-        <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="md">
-          {PREMIUM.map((name, index) => (
-            <Reveal key={name} component="article" index={index}>
-              <Card withBorder r="md" p="md" h="100%" display="flex" direction="column" gap="xs">
-                <Code>@stellaria/nebula-{name}</Code>
-                <Badge variant="outline" size="sm" color="accent">
-                  {dict["home.premium.badge"]}
-                </Badge>
-              </Card>
-            </Reveal>
-          ))}
-        </SimpleGrid>
+        <Box display="flex" direction="column" gap="xl">
+          <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="xl">
+            {PILLARS.map((key, index) => (
+              <Reveal key={key} component="article" index={index}>
+                <Feature
+                  icon={GLYPH[key]}
+                  title={dict[`home.pillar.${key}.title`]}
+                  description={dict[`home.pillar.${key}.body`]}
+                />
+              </Reveal>
+            ))}
+          </SimpleGrid>
+        </Box>
       </Band>
 
       <Band
+        glass
+        level="minor"
+        eyebrow={dict["home.motion.eyebrow"]}
+        title={dict["home.motion.title"]}
+        description={dict["home.motion.body"]}
+      >
+        <MotionLab />
+      </Band>
+
+      <Band
+        center
         level="closing"
         title={dict["home.closing.title"]}
         description={dict["home.closing.body"]}
       >
-        <Box display="flex" gap="md" wrap="wrap">
-          <Button component="a" href="/docs/installation" size="lg" variant="gradient">
-            {dict["home.cta.start"]}
-          </Button>
-          <Button
-            component="a"
-            href="https://github.com/stellaria/nebula"
-            size="lg"
-            variant="glass"
-          >
-            {dict["home.cta.source"]}
-          </Button>
+        <Box display="flex" direction="column" gap="lg" align="center">
+          <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="md" w="100%">
+            {FRAMEWORKS.map((name) => (
+              <Card key={name} withBorder r="md" p="md">
+                <Box display="flex" direction="column" gap="xs" align="flex-start">
+                  <Text fz="body2" fw="semibold">
+                    {name}
+                  </Text>
+                  <Code>{INSTALL}</Code>
+                </Box>
+              </Card>
+            ))}
+          </SimpleGrid>
+          <Box display="flex" gap="md" wrap="wrap" justify="center">
+            <Button component="a" href="/docs/installation" size="lg" variant="gradient">
+              {dict["home.cta.start"]}
+            </Button>
+            <Button
+              component="a"
+              href="https://github.com/stellaria/nebula"
+              size="lg"
+              variant="glass"
+            >
+              {dict["home.cta.source"]}
+            </Button>
+          </Box>
         </Box>
       </Band>
     </Main>

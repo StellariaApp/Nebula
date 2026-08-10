@@ -36,7 +36,7 @@ const SCHEMES = [
 function Surface(): ReactElement {
   return (
     <Box display="flex" direction="column" gap="lg" p="lg">
-      <Box display="flex" direction="column" gap="xs">
+      <Box display="flex" direction="column" gap="xs" align="flex-start">
         <Badge variant="light">Reconciliation</Badge>
         <Title order={3} fz="h4">
           <GradientText>Every movement, matched</GradientText>

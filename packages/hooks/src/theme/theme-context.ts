@@ -5,7 +5,14 @@ import type { ColorScheme, NebulaTheme } from "@stellaria/nebula-tokens";
 export interface ThemeContextValue {
   theme: NebulaTheme;
   themeName: string;
-  setTheme: (name: string) => void;
+  /**
+   * Switches the active theme (ADR-121). A name resolves against the official themes and throws when
+   * it is not one of them; a whole `NebulaTheme` is applied as inline vars over the contract.
+   *
+   * A custom theme is not persisted — it cannot be rebuilt from a stored name — but its
+   * `meta.scheme` is, so reloading lands on the official theme of the same scheme.
+   */
+  setTheme: (next: string | NebulaTheme) => void;
   scheme: ColorScheme;
   systemScheme: ColorScheme | undefined;
 }

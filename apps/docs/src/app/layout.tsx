@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { ColorSchemeScript, NebulaProvider, vars } from "@stellaria/nebula-web";
 
-import { AsLang, LANGS } from "../../lib/i18n";
+import { CurrentLang } from "../lib/lang";
 
 export const metadata = {
   title: "Nebula",
@@ -10,19 +10,8 @@ export const metadata = {
   icons: { icon: "/icon.svg" },
 };
 
-export function generateStaticParams() {
-  return LANGS.map((lang) => ({ lang }));
-}
-
-export default async function LangLayout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang: raw } = await params;
-  const lang = AsLang(raw);
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const lang = await CurrentLang();
 
   return (
     <html lang={lang} suppressHydrationWarning>

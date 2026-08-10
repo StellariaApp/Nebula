@@ -1,6 +1,8 @@
 # ADR-110 — El idioma del sitio se resuelve por cookie, y el idioma de origen es el inglés
 
-- **Estado**: aceptada · 2026-08-08 (decisión del propietario)
+- **Estado**: aceptada · 2026-08-08 (decisión del propietario) · **§5 y §6 enmendados por
+  [ADR-122](ADR-122-el-segmento-lang-desaparece-del-router.md)** (2026-08-09): el segmento `[lang]` y
+  `proxy.ts` desaparecen y la cookie se lee en el layout. Los puntos 1 a 4 siguen vigentes tal cual.
 - **Enmienda**: la fila «Idioma» del checkpoint de DS (`prompts/1.5-docs-site/README.md`) y el punto 1
   de DS1.2, que fijaban rutas `/[lang]/...` y español como idioma de origen.
 - **Depende de**: [ADR-107](ADR-107-el-sitio-es-una-app-next-que-no-compila-vanilla-extract.md)
