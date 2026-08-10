@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "dependsOn": [
+        "@stellaria/nebula-tokens#build",
+        "@stellaria/nebula-hooks#build",
+        "@stellaria/nebula-themes#build",
+        "@stellaria/nebula-icons#build"
+      ],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

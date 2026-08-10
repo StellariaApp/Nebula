@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --filter=docs...",
+    "dev:ui": "turbo run dev --filter=playground-web",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "test": "turbo run test",
