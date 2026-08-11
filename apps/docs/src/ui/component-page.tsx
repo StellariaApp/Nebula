@@ -9,6 +9,8 @@ import { ReadDoc } from "../lib/content";
 import { Dict, type Dictionary } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
 import { FindPreview } from "../previews";
+import { ComponentSlug } from "../lib/catalog";
+import { FindSurface } from "../surfaces";
 import { MDX_COMPONENTS } from "./mdx";
 import { PageHeader } from "./page-header";
 
@@ -115,6 +117,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
   const dict = await Dict(lang, "chrome");
   const api = FindApi(entry.name);
   const preview = FindPreview(entry.name);
+  const surface = FindSurface(entry.name);
   const doc = await ReadDoc(lang, SECTION, [entry.name.toLowerCase()]);
 
   const prose =
@@ -152,6 +155,22 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
         <Code fz="caption">{entry.subpath === "." ? ROOT_SUBPATH : entry.subpath}</Code>
         {api === undefined ? null : <Code fz="caption">{api.contract}</Code>}
       </Box>
+
+      {surface === undefined ? null : (
+        <Anchored id="preview" title={dict["api.preview"] ?? ""}>
+          <Card withBorder r="lg" padding="none" overflow="hidden">
+            <Box
+              component="iframe"
+              src={`/preview/${ComponentSlug(entry.name)}`}
+              title={`${entry.name} preview`}
+              w="100%"
+              h={surface.height}
+              display="block"
+              bdw={0}
+            />
+          </Card>
+        </Anchored>
+      )}
 
       {preview === undefined ? null : (
         <>
