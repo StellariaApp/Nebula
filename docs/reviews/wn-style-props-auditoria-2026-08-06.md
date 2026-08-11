@@ -7,11 +7,11 @@ Base para el ADR de `StyleProps` v2. Responde a las decisiones 1, 4 y 5 del chec
 
 ## 1 · Hoy hay tres carriles, y ninguno hace las tres cosas
 
-| Carril                       | Props   | Token | Valor abierto | Responsive |
-| ---------------------------- | ------- | :---: | :-----------: | :--------: |
-| **A** sprinkles responsive   | 29 + 27 |  sí   |    **no**     |     sí     |
-| **B** sprinkles sin responsive | 21 + 17 |  sí   |    **no**     |   **no**   |
-| **C** `style` en línea       | 15      | **no** |      sí      |   **no**   |
+| Carril                         | Props   | Token  | Valor abierto | Responsive |
+| ------------------------------ | ------- | :----: | :-----------: | :--------: |
+| **A** sprinkles responsive     | 29 + 27 |   sí   |    **no**     |     sí     |
+| **B** sprinkles sin responsive | 21 + 17 |   sí   |    **no**     |   **no**   |
+| **C** `style` en línea         | 15      | **no** |      sí       |   **no**   |
 
 Ese reparto es el defecto de fondo: qué puede hacer una prop depende del carril donde cayó, no de lo
 que la propiedad CSS admite. `p` es responsive pero no acepta `10px`; `w` acepta `240` pero no
@@ -59,25 +59,25 @@ Se quedan con nombre completo: `display` · `position` · `overflow` · `overflo
 Hoy solo existe `bdc`, y **`bdc` a solas no dibuja nada**: sin grosor ni estilo el navegador no
 pinta. Es el hueco más visible del catálogo.
 
-| Nivel               | Props                                    | Ejemplo                        |
-| ------------------- | ---------------------------------------- | ------------------------------ |
-| todo en uno         | `bd`                                     | `bd="1px solid #fffeed"`       |
-| por faceta          | `bdw` `bds` `bdc`                        | `bds="dashed"`                 |
-| por lado, en uno    | `bdt` `bdb` `bdl` `bdr`                  | `bdt="1px solid"`              |
-| por lado y faceta   | `bdtw bdts bdtc` · `bdbw bdbs bdbc` · `bdlw bdls bdlc` · `bdrw bdrs bdrc` | `bdtc="border.strong"` |
+| Nivel             | Props                                                                     | Ejemplo                  |
+| ----------------- | ------------------------------------------------------------------------- | ------------------------ |
+| todo en uno       | `bd`                                                                      | `bd="1px solid #fffeed"` |
+| por faceta        | `bdw` `bds` `bdc`                                                         | `bds="dashed"`           |
+| por lado, en uno  | `bdt` `bdb` `bdl` `bdr`                                                   | `bdt="1px solid"`        |
+| por lado y faceta | `bdtw bdts bdtc` · `bdbw bdbs bdbc` · `bdlw bdls bdlc` · `bdrw bdrs bdrc` | `bdtc="border.strong"`   |
 
 `bdc` conserva su significado actual (color de los cuatro lados), así que no rompe nada.
 
 ### 3.2 · El resto, por familia
 
-| Familia         | Faltan                                                                       |
-| --------------- | ---------------------------------------------------------------------------- |
-| Posición        | `inset`, `insetInline`, `insetBlock`                                          |
-| Caja            | `aspectRatio`, `size` (ancho y alto en una), `objectFit`, `objectPosition`     |
-| Flex            | `order`, `alignContent`                                                       |
-| Grid            | `justifyItems`, `justifySelf`, `placeItems`, `gridColumn`, `gridRow`, `gridTemplateColumns`, `gridTemplateRows`, `gridAutoFlow` |
-| Tipografía      | `fs` (`font-style`), `verticalAlign`                                          |
-| Interacción     | `cursor`, `pointerEvents`, `userSelect`, `visibility`                          |
+| Familia     | Faltan                                                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Posición    | `inset`, `insetInline`, `insetBlock`                                                                                            |
+| Caja        | `aspectRatio`, `size` (ancho y alto en una), `objectFit`, `objectPosition`                                                      |
+| Flex        | `order`, `alignContent`                                                                                                         |
+| Grid        | `justifyItems`, `justifySelf`, `placeItems`, `gridColumn`, `gridRow`, `gridTemplateColumns`, `gridTemplateRows`, `gridAutoFlow` |
+| Tipografía  | `fs` (`font-style`), `verticalAlign`                                                                                            |
+| Interacción | `cursor`, `pointerEvents`, `userSelect`, `visibility`                                                                           |
 
 **`display: "grid"` está expuesto desde el primer día y no hay una sola prop para gobernarlo.** Es
 la carencia más incoherente de la lista.
@@ -95,8 +95,14 @@ La propuesta son dos carriles que conviven, elegidos por el valor:
 breakpoint:
 
 ```css
-.px_open { padding-inline: var(--nb-px); }
-@media (min-width: 768px) { .px_open { padding-inline: var(--nb-px-tablet, var(--nb-px)); } }
+.px_open {
+  padding-inline: var(--nb-px);
+}
+@media (min-width: 768px) {
+  .px_open {
+    padding-inline: var(--nb-px-tablet, var(--nb-px));
+  }
+}
 ```
 
 ```tsx
@@ -148,5 +154,5 @@ nombre CSS cuando la abreviatura sería críptica o ambigua—, aplicada a un ca
 
 `rt` `rb` `rl` `rr` van **por pares** (`rt` = las dos de arriba). Al podar los nombres largos se
 pierde poder redondear una sola esquina. Hace falta un atajo propio: `rtl` `rtr` `rbl` `rbr`. El
-riesgo es que `rtl` se lea como *right-to-left*. Alternativa: `r1 r2 r3 r4` en orden CSS, que nadie
+riesgo es que `rtl` se lea como _right-to-left_. Alternativa: `r1 r2 r3 r4` en orden CSS, que nadie
 confunde pero tampoco nadie recuerda. **Recomiendo `rtl/rtr/rbl/rbr`** y decirlo en el `.md`.

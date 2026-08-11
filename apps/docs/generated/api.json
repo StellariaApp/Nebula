@@ -71,7 +71,6 @@
       "StarField",
       "StatusBadge",
       "StatusMapProvider",
-      "Tabs",
       "Text",
       "ThemeIcon",
       "Transition",
@@ -87,12 +86,7 @@
       "CreatableSelect",
       "VirtualizedSelect"
     ],
-    "noDestructuring": [
-      "AreaChart",
-      "BarChart",
-      "LineChart",
-      "SearchableSelect"
-    ]
+    "noDestructuring": ["AreaChart", "BarChart", "LineChart", "SearchableSelect"]
   },
   "components": [
     {
@@ -4386,9 +4380,7 @@
               "count": 128
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": ["default"],
           "subComponents": []
         },
         {
@@ -4580,9 +4572,7 @@
               "count": 128
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": ["default"],
           "subComponents": []
         },
         {
@@ -4733,9 +4723,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": ["default"],
           "subComponents": []
         }
       ]
@@ -5324,6 +5312,30 @@
           "slot": false
         },
         {
+          "name": "collapsedHeight",
+          "type": "number",
+          "required": false,
+          "default": "240",
+          "doc": "The height it folds to. Ignored without `expandable`.",
+          "slot": false
+        },
+        {
+          "name": "color",
+          "type": "ColorExtended",
+          "required": false,
+          "default": "\"primary\"",
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Folds the block and offers a button. The `pre` keeps its scroll, so nothing becomes unreachable.",
+          "slot": false
+        },
+        {
           "name": "filename",
           "type": "ReactNode",
           "required": false,
@@ -5337,6 +5349,14 @@
           "required": false,
           "default": "1",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "glass",
+          "type": "GlassLevel",
+          "required": false,
+          "default": "\"subtle\"",
+          "doc": "The blur step, only with `variant=\"glass\"`.",
           "slot": false
         },
         {
@@ -5369,6 +5389,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "variant",
+          "type": "CodeHighlightVariant",
+          "required": false,
+          "default": null,
+          "doc": "Without it the block keeps its own calibrated surface, which is not a variant of the map.",
           "slot": false
         },
         {
@@ -7299,9 +7327,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": ["default"],
           "subComponents": []
         },
         {
@@ -7877,9 +7903,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": ["default"],
           "subComponents": []
         }
       ]
@@ -10695,9 +10719,9 @@
         },
         {
           "name": "color",
-          "type": "BorderRole",
+          "type": "ColorExtended",
           "required": false,
-          "default": "\"default\"",
+          "default": "\"border.default\"",
           "doc": null,
           "slot": false
         },
@@ -23863,6 +23887,22 @@
           "contract": "SegmentContentProps",
           "own": [
             {
+              "name": "auto",
+              "type": "boolean",
+              "required": false,
+              "default": null,
+              "doc": "Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set.",
+              "slot": false
+            },
+            {
+              "name": "autoWidth",
+              "type": "boolean",
+              "required": false,
+              "default": null,
+              "doc": "Same on the horizontal axis: every panel takes its own width and the box springs to the active\none, capped at the room it has. Panels without a width of their own collapse, so it does not\nsuit text that is meant to wrap.",
+              "slot": false
+            },
+            {
               "name": "children",
               "type": "ReactNode",
               "required": true,
@@ -23883,7 +23923,15 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Stretches the viewport and every panel to the height of the box. Takes precedence over `auto`.",
+              "slot": false
+            },
+            {
+              "name": "loop",
+              "type": "boolean",
+              "required": false,
+              "default": null,
+              "doc": "Wraps the swipe around, so the first panel follows the last one. Needs two panels or more.",
               "slot": false
             },
             {
@@ -26347,6 +26395,22 @@
           "slot": false
         },
         {
+          "name": "auto",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set.",
+          "slot": false
+        },
+        {
+          "name": "autoWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Same on the horizontal axis: every panel takes its own width and the box springs to it.",
+          "slot": false
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false,
@@ -26399,7 +26463,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Stretches the panels to the height of the box. Takes precedence over `auto`.",
           "slot": false
         },
         {
@@ -26408,6 +26472,14 @@
           "required": false,
           "default": "false",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Wraps the swipe around, so the first panel follows the last one. Needs two panels or more.",
           "slot": false
         },
         {

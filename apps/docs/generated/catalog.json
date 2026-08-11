@@ -4,9 +4,7 @@
   "gaps": {
     "family": [],
     "subpath": [],
-    "budget": [
-      "DataGrid"
-    ]
+    "budget": ["DataGrid"]
   },
   "components": [
     {
@@ -80,11 +78,7 @@
       "family": "Foundation / Layout",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "AppShell.Body",
-        "AppShell.Footer",
-        "AppShell.Header"
-      ],
+      "parts": ["AppShell.Body", "AppShell.Footer", "AppShell.Header"],
       "boundary": "client",
       "budget": "23.75 kB",
       "notes": true,
@@ -249,13 +243,7 @@
       "family": "Data Display",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Card.Actions",
-        "Card.Badges",
-        "Card.Image",
-        "Card.Meta",
-        "Card.Section"
-      ],
+      "parts": ["Card.Actions", "Card.Badges", "Card.Image", "Card.Meta", "Card.Section"],
       "boundary": "client",
       "budget": "33.5 kB",
       "notes": true,
@@ -695,9 +683,7 @@
       "family": "Foundation / Layout",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Footer.Link"
-      ],
+      "parts": ["Footer.Link"],
       "boundary": "server",
       "budget": "23.25 kB",
       "notes": true,
@@ -708,12 +694,7 @@
       "family": "Domain-Specific",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Form.Banderole",
-        "Form.Content",
-        "Form.Footer",
-        "Form.Header"
-      ],
+      "parts": ["Form.Banderole", "Form.Content", "Form.Footer", "Form.Header"],
       "boundary": "client",
       "budget": "45.5 kB",
       "notes": true,
@@ -790,9 +771,7 @@
       "family": "Foundation / Layout",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Grid.Col"
-      ],
+      "parts": ["Grid.Col"],
       "boundary": "server",
       "budget": "22.25 kB",
       "notes": true,
@@ -1000,9 +979,7 @@
       "family": "Typography",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "List.Item"
-      ],
+      "parts": ["List.Item"],
       "boundary": "server",
       "budget": "21.75 kB",
       "notes": true,
@@ -1134,9 +1111,7 @@
       "family": "Navigation",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Nav.Link"
-      ],
+      "parts": ["Nav.Link"],
       "boundary": "client",
       "budget": "57.75 kB",
       "notes": true,
@@ -1425,6 +1400,7 @@
       "parts": [
         "Section.Actions",
         "Section.Aside",
+        "Section.Body",
         "Section.Description",
         "Section.Footer",
         "Section.Header",
@@ -1441,9 +1417,7 @@
       "family": "Inputs & Forms",
       "subpath": ".",
       "compound": true,
-      "parts": [
-        "Segment.Item"
-      ],
+      "parts": ["Segment.Item"],
       "boundary": "client",
       "budget": "42.5 kB",
       "notes": true,

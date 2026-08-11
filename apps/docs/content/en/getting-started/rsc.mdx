@@ -5,7 +5,7 @@ order: 3
 ---
 
 Of the 158 web components, **30 render on the server and 128 are client components**. Every entry in
-the [component reference](/components) says which it is.
+the [component reference](/guides/components) says which it is.
 
 ## The 30 that run on the server
 
@@ -63,14 +63,14 @@ free.
 Nine components ship behind their own entry point, so their dependencies only land in your bundle if
 you import them:
 
-| Subpath | What it brings |
-| --- | --- |
-| `/charts` | Recharts |
+| Subpath     | What it brings             |
+| ----------- | -------------------------- |
+| `/charts`   | Recharts                   |
 | `/datagrid` | TanStack Table and Virtual |
-| `/editor` | TipTap |
-| `/dnd` | dnd-kit |
-| `/carousel` | Embla |
-| `/media` | the player |
-| `/command` | the command palette |
+| `/editor`   | TipTap                     |
+| `/dnd`      | dnd-kit                    |
+| `/carousel` | Embla                      |
+| `/media`    | the player                 |
+| `/command`  | the command palette        |
 
 Everything else — 149 components — comes from the package root.

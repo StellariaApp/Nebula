@@ -4,9 +4,7 @@ summary: What to install, the two things you have to do yourself, and what you d
 order: 2
 ---
 
-```bash
-pnpm add @stellaria/nebula-web
-```
+<Install packages="@stellaria/nebula-web" />
 
 ## You do not need the Vanilla Extract plugin
 
@@ -25,7 +23,9 @@ export default function RootLayout({ children }) {
       <head>
         <ColorSchemeScript defaultTheme="dark" />
       </head>
-      <body style={{ margin: 0, background: vars.color.surface.base, color: vars.color.text.primary }}>
+      <body
+        style={{ margin: 0, background: vars.color.surface.base, color: vars.color.text.primary }}
+      >
         <NebulaProvider defaultTheme="dark" applyTheme="root">
           {children}
         </NebulaProvider>
@@ -55,9 +55,7 @@ a bundler plugin — would tie you to one. The theme declares the family; fetchi
 The official themes ask for **Geist**. The fastest route is the variable Fontsource packages, which
 cover weights 100–900 in a single file:
 
-```bash
-pnpm add @fontsource-variable/geist @fontsource-variable/geist-mono
-```
+<Install packages="@fontsource-variable/geist @fontsource-variable/geist-mono" />
 
 ```tsx
 import "@fontsource-variable/geist";

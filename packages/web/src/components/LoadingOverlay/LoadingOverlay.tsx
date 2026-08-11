@@ -51,14 +51,7 @@ export function LoadingOverlay(props: LoadingOverlayProps): ReactElement {
             visible ? Tween("fast", "standard", motion_context) : ExitTween("fast", motion_context)
           }
         >
-          <Overlay
-            color={color}
-            opacity={opacity}
-            blur={blur}
-            r={r}
-            zIndex={zIndex}
-            center
-          >
+          <Overlay color={color} opacity={opacity} blur={blur} r={r} zIndex={zIndex} center>
             <Box
               aria-live="polite"
               {...bodyProps}

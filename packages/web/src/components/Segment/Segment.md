@@ -25,6 +25,133 @@ Las cuatro que renderizan un elemento propio: `Segment` (la columna raíz), `Seg
 
 El root descubre los paneles porque `Segment.Content` los registra en el contexto; hasta ese registro el control se comporta como radiogroup.
 
+## El alto tiene tres modos y `fill` manda (ADR-123)
+
+El carril es un flex row, así que **por defecto todos los paneles se estiran al más alto**. Es estable
+—la caja no salta al cambiar de sección— pero un panel corto paga el alto del más largo.
+
+| modo        | qué mide la caja                     | cuándo                                     |
+| ----------- | ------------------------------------ | ------------------------------------------ |
+| defecto     | el panel más alto, por `align-items` | contenidos de alto parecido                |
+| `auto`      | el panel **activo**, con muelle      | contenidos dispares y sin alto de contexto |
+| `fill`      | el 100 % de la caja                  | el consumidor ya fija el alto (`h`, grid)  |
+| `autoWidth` | el **ancho** del panel activo        | diapositivas con ancho propio              |
+
+**`fill` gana sobre `auto`**: los dos gobiernan lo mismo y `fill` es el que ya existía. Con `fill`,
+`auto` no hace nada.
+
+`auto` mide con un `ResizeObserver` sobre el panel activo y **la altura salta al soltar**, no
+interpola con el arrastre: durante el gesto la caja conserva el alto del panel de salida y un vecino
+más alto se recorta. Interpolar exigiría medir los `n` paneles en vez de uno, y el corte es
+invisible salvo con diferencias de alto grandes.
+
+Hasta la primera medida no hay alto en línea, así que el HTML servido no fija altura: `auto` no
+introduce un salto desde cero en la hidratación. Antes de hidratar la caja se comporta como el modo por
+defecto —la altura del panel más alto—, que es la degradación buena.
+
+### `autoWidth` es lo mismo en horizontal, pero no sale gratis
+
+El alto es gratis porque cada panel se mide solo. El ancho no: **por defecto todos los paneles miden
+exactamente la ventana**, y eso es lo que hace que el paso del swipe sea uniforme. Con `autoWidth` cada
+panel pasa a `width: max-content` y el paso deja de serlo, así que la geometría se mide panel a panel:
+posición y ancho de cada uno con `offsetLeft`/`offsetWidth`, que **no ven los transforms** —ni el del
+carril ni el del bucle— y por eso se pueden leer en cualquier momento del gesto.
+
+Medido en el hero del sitio: la caja va de **320×386** (la tarjeta) a **555×420** (el bloque de código)
+con muelle en los dos ejes, y el vecino asoma con su propio ancho al arrastrar.
+
+### El primer pintado se ciñe al panel activo, sin esperar a la medida
+
+Entre el primer pintado y la hidratación **no hay medida**, así que la caja valdría el 100 % de su
+padre. Con paneles de ancho propio eso deja dos defectos, y se veían los dos en el hero del sitio: el
+panel siguiente **asoma por el borde** si el padre es más ancho que el activo —basta con que la fuente
+aún no haya cargado y una fila hermana mida de más—, y el panel activo, que ya es `max-content`, se
+apoya a la izquierda dejando **un hueco a la derecha**.
+
+La caja emite `data-ready` y `data-fit`, y mientras no hay geometría:
+
+- los paneles inactivos se ocultan, y con `autoWidth` además **salen del flujo** —`position: absolute`—,
+  así que no cuentan para el ancho de la caja pero **sí se pueden medir**: un absoluto con
+  `width: max-content` mide lo mismo que medirá en flujo, de modo que una sola pasada basta;
+- la caja pasa a `width: fit-content` y suelta la contención, así que se ciñe al único panel que queda
+  en flujo. Medido: 320 px exactos desde el primer pintado, en vez de los 350 del padre.
+
+Va en CSS y no en JavaScript porque los atributos viajan en el HTML servido: el primer pintado ya sale
+bien en vez de corregirse al hidratar. En cuanto hay geometría pasan a `true` y todo vuelve a su sitio,
+que es lo que hace falta para que los vecinos asomen al arrastrar.
+
+**Las posiciones se calculan, no se leen.** `offsetLeft` daría la posición real, pero es la que está
+mal justo en ese estado —los inactivos están apilados en el absoluto—, así que el carril se reconstruye
+sumando anchos y `gap`, que es exactamente como reparte un flex row. El ancho sí se lee, con
+`getBoundingClientRect`, que da fracción de píxel y **no se ve afectado por los transforms** del bucle
+porque una traslación no cambia el ancho.
+
+Es el mismo trato que `auto`, en el otro eje: **un panel sin ancho propio colapsa**. No sirve para
+texto que deba fluir, porque `max-content` es la línea sin partir. La caja se acota con
+`max-width: 100%`, que se resuelve contra el padre; si ese padre también se dimensiona por su contenido
+—un `max-content`, un `inline-block`— crecerá con ella, porque la contención mata la aportación
+intrínseca pero no un ancho explícito.
+
+## El bucle recoloca paneles, no los clona (ADR-123)
+
+`loop` no duplica nada. Cada panel lleva un desplazamiento modular propio, `round((pos − p) / n)`
+vueltas de `n · paso`, que lo lleva a la copia más cercana a la ventana. Con cuatro paneles parados
+en el primero, el cuarto se sitúa en `−4 · paso`: **justo a la izquierda del primero**, que es lo que
+un carrusel infinito necesita.
+
+Clonar era la alternativa obvia y está descartada por dos razones que no se arreglan: el clon
+duplicaría el `id` del `tabpanel` al que apunta `aria-controls` —HTML inválido y mapeo roto para AT— y
+duplicaría el contenido del consumidor, con su estado; un formulario dentro de un panel existiría dos
+veces.
+
+**El desplazamiento se calcula desde la posición viva del carril, no desde el índice asentado.** Esa
+es la diferencia que hace que el bucle funcione **con dos paneles**, que es el caso real del catálogo
+(código/resultado): con el índice asentado, el otro panel viviría fijo en un lado y arrastrar hacia el
+contrario dejaría hueco. Por eso cada panel necesita su propio `MotionValue` derivado
+(`components/Panel.tsx`) y no basta con estado de React: un `setState` por cruce llega un fotograma
+tarde y en un flick rápido ese fotograma se ve.
+
+**Un gesto mueve un panel como mucho.** El destino se acota a ±1 desde la página en la que empezó el
+arrastre, no desde donde acabó el dedo. Sin esa cota, `loop` no tiene banda elástica que frene el
+arrastre y un manotazo de 1.400 px sobre paneles de 496 aterrizaba tres pantallas más allá: eso era el
+salto raro. Medido en navegador, ese mismo arrastre avanza ahora exactamente un panel.
+
+Con `loop`, **el click en una pestaña también toma el camino corto**: la página interna es un entero
+sin límites y el valor es su módulo, así que ir del último al primero avanza un paso en vez de
+recorrer los de en medio. Sin `loop` la página es el índice y nada cambia.
+
+Cuando el camino corto **empata** —dos paneles, o los antípodas de un número par— gana el sentido de
+las pestañas: pulsar la de la izquierda desliza hacia la derecha. El componente semilla resuelve el
+empate siempre hacia delante, y con dos paneles eso hace que el contenido entre siempre por el mismo
+lado sin importar qué pestaña pulses.
+
+Con menos de dos paneles `loop` se ignora. El teclado del `Control` ya daba la vuelta antes de este
+ADR y no depende de la prop: `loop` gobierna el carril, no la navegación.
+
+## La caja no puede medir la suma de sus diapositivas (ADR-123)
+
+Cada panel es `width: 100%` **del carril**, y el carril es `width: 100%` de la caja. Eso funciona
+mientras el ancho baje desde fuera. Cuando un ancestro se dimensiona por su contenido —`max-content`,
+`fit-content`, un `inline-block`, una celda de tabla— el navegador pregunta a la caja cuánto mide, y
+la respuesta que salía era **la suma de todos los paneles**: cada uno aporta el ancho intrínseco de su
+contenido, más los `gap`. Medido en el playground, tres paneles dentro de un `max-content` daban una
+caja de **998 px** en vez de 480, y con ella tres paneles de 998.
+
+Por eso la caja lleva `contain: inline-size`: declara que **su ancho no depende de su contenido**, que
+es justo lo que es una ventana con `overflow: hidden`. Su aportación intrínseca pasa a ser cero y el
+ancestro se dimensiona por lo demás que tenga —en el caso medido, la barra de pestañas: 239 px—.
+
+La consecuencia a tener presente: dentro de un contenedor que se encoge a su contenido, **el ancho
+tiene que venir de otra cosa**. Un `Segment.Content` que sea el único hijo de un `inline-block` mide
+cero, y eso es correcto: no hay ancho que un carrusel pueda inventarse a partir de sus diapositivas.
+
+## `gap` es la separación entre paneles
+
+La style prop `gap` de `Segment.Content` **no cae en la caja exterior** —que no es flex y la ignoraría—
+sino en el carril, así que es el aire entre diapositivas mientras se deslizan. El paso del swipe deja
+de ser el ancho y pasa a ser `ancho + gap`, leído del `columnGap` computado del carril para no
+depender de cómo se expresó el token.
+
 ## Motion y gesto
 
 El indicador y los paneles se mueven con `MotionValue` + `useSpring` usando `theme.motion.spring`, no con transiciones CSS. Se eligió el gesto `onPan` en vez de `drag` de motion porque `drag` mueve el elemento 1:1 con el puntero: alimentando el `MotionValue` a mano y leyendo su versión con spring, el arrastre sale suavizado en vez de lineal.

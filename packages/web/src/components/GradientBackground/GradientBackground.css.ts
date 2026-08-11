@@ -23,10 +23,8 @@ export const gradient_background = recipe({
       },
     },
   },
-  variants: {
-  },
-  defaultVariants: {
-  },
+  variants: {},
+  defaultVariants: {},
 });
 
 export const scrim = style({

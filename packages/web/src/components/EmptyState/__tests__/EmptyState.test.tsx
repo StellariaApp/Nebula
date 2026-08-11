@@ -38,9 +38,7 @@ describe("EmptyState", () => {
   it("la acción sigue siendo operable dentro del estado vacío", async () => {
     const OnPress = vi.fn();
     const user = userEvent.setup();
-    render(
-      <EmptyState title="No data" actions={<Button onPress={OnPress}>Reintentar</Button>} />,
-    );
+    render(<EmptyState title="No data" actions={<Button onPress={OnPress}>Reintentar</Button>} />);
     await user.click(screen.getByRole("button", { name: "Reintentar" }));
     expect(OnPress).toHaveBeenCalledTimes(1);
   });

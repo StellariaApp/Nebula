@@ -23,8 +23,8 @@ extremo, y la elevación se hunde desde `base`. Los dos esquemas estaban usando 
 `nebula-dark` espeja al claro. Los cuatro peldaños de superficie pasan a ser consecutivos y el
 `overlay` se va al fondo:
 
-| rol       | antes            | ahora            |
-| --------- | ---------------- | ---------------- |
+| rol       | antes                | ahora                    |
+| --------- | -------------------- | ------------------------ |
 | `overlay` | `dark.800` `#262831` | **`dark.400`** `#13151d` |
 | `base`    | `dark.400` `#13151d` | **`dark.600`** `#1b1e27` |
 | `raised`  | `dark.600` `#1b1e27` | **`dark.700`** `#20222c` |

@@ -22,7 +22,7 @@ prompts/
 | 1. Fundaciones   | F0   | [1-fundaciones/F0-prompts.md](1-fundaciones/F0-prompts.md)                                 | Scaffold + spike TS7 _(✅ 2026-07-15)_ + tokens + tools + gobernanza               | 4       |
 | 1.5 Docs Site    | DS1  | [1.5-docs-site/DS1-prompts.md](1.5-docs-site/DS1-prompts.md)                               | Spike Next 16 + chasis bilingüe + los 3 generadores                                | 3       |
 |                  | DS2  | [1.5-docs-site/DS2-prompts.md](1.5-docs-site/DS2-prompts.md)                               | `packages/demos` + landing + las 10 guías                                          | 3       |
-|                  | DS3  | [1.5-docs-site/DS3-prompts.md](1.5-docs-site/DS3-prompts.md)                               | Plantilla + piloto de 8 y barrido de las 158 (**8 lotes**)                          | 2 + 8   |
+|                  | DS3  | [1.5-docs-site/DS3-prompts.md](1.5-docs-site/DS3-prompts.md)                               | Plantilla + piloto de 8 y barrido de las 158 (**8 lotes**)                         | 2 + 8   |
 |                  | DS4  | [1.5-docs-site/DS4-prompts.md](1.5-docs-site/DS4-prompts.md)                               | Gates del sitio + despliegue público + `docs/ds-closure.md`                        | 2       |
 | 2. Web           | W1   | [2-web/W1-prompts.md](2-web/W1-prompts.md)                                                 | Themes + runtime web + playground + piloto de anatomía                             | 4       |
 |                  | W2   | [2-web/W2-prompts.md](2-web/W2-prompts.md)                                                 | Tier 1 (foundation → nav core)                                                     | 5       |

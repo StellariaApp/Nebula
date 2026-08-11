@@ -151,7 +151,10 @@ describe("Signature", () => {
     render(<Signature label="Firma" />);
     expect(screen.getByRole("img", { name: "No signature" })).toBeDefined();
     expect(screen.getByRole("button", { name: "Undo stroke" })).toHaveProperty("disabled", true);
-    expect(screen.getByRole("button", { name: "Clear signature" })).toHaveProperty("disabled", true);
+    expect(screen.getByRole("button", { name: "Clear signature" })).toHaveProperty(
+      "disabled",
+      true,
+    );
   });
 
   it("describe el lienzo con la pista de uso", () => {

@@ -1,5 +1,10 @@
 import { FlipScale, nebulaDark, nebulaLight } from "@stellaria/nebula-themes";
-import { palettes, type MotionTier, type NebulaTheme, type Scale11 } from "@stellaria/nebula-tokens";
+import {
+  palettes,
+  type MotionTier,
+  type NebulaTheme,
+  type Scale11,
+} from "@stellaria/nebula-tokens";
 
 export type ProductName =
   "rosette" | "stellaria" | "lagrange" | "polaris" | "aurora" | "nova" | "eclipse" | "cosmos";
@@ -244,7 +249,7 @@ export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
     glass: theme.effects.glass.enabled,
     corner: CornerFromTheme(theme),
     density: DensityFromTheme(theme),
-    face: theme.font.family.sans.includes("serif") ? "serif" : "sans",
+    face: theme.font.family.sans === SERIF ? "serif" : "sans",
   };
 }
 
@@ -263,8 +268,7 @@ export function ResolveChoice(choice: ThemeChoice): string | NebulaTheme {
   return {
     ...base,
     motion: { ...base.motion, tier: choice.motion },
-    radius:
-      choice.corner === "sharp" ? SHARP : choice.corner === "round" ? ROUND : base.radius,
+    radius: choice.corner === "sharp" ? SHARP : choice.corner === "round" ? ROUND : base.radius,
     spacing: { ...base.spacing, unit: UNIT[choice.density] },
     font: {
       ...base.font,

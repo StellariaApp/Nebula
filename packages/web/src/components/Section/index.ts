@@ -1,5 +1,6 @@
 import { SectionActions } from "./components/Actions.js";
 import { SectionAside } from "./components/Aside.js";
+import { SectionBody } from "./components/Body.js";
 import { SectionDescription } from "./components/Description.js";
 import { SectionFooter } from "./components/Footer.js";
 import { SectionHeader, SectionHeading } from "./components/Header.js";
@@ -13,12 +14,14 @@ export const Section = /* @__PURE__ */ Object.assign(SectionRoot, {
   Description: SectionDescription,
   Actions: SectionActions,
   Aside: SectionAside,
+  Body: SectionBody,
   Footer: SectionFooter,
 });
 
 export {
   SectionActions,
   SectionAside,
+  SectionBody,
   SectionDescription,
   SectionFooter,
   SectionHeader,

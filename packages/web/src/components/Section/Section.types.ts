@@ -56,3 +56,7 @@ export interface SectionProps extends StyleProps {
   /** Only used when there is no `title` and no `Section.Title`: the title, when present, names the region. */
   "aria-label"?: string | undefined;
 }
+
+export interface SectionRailProps extends SectionSlotProps {
+  size?: SectionSize | undefined;
+}

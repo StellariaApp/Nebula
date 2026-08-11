@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
-import type { BorderRole, Orientation } from "@stellaria/nebula-tokens";
+import type { ColorExtended, Orientation } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
 
@@ -16,7 +16,7 @@ export interface DividerOwnProps extends Omit<BoxOwnProps, "component" | "color"
   orientation?: Orientation | undefined;
   size?: DividerSize | number | undefined;
   lineStyle?: DividerStyle | undefined;
-  color?: BorderRole | undefined;
+  color?: ColorExtended | undefined;
   label?: ReactNode | undefined;
   /** BOTH lines, the one before and the one after the label: it is the same element repeated. */
   lineProps?: BoxSlotProps | undefined;

@@ -132,24 +132,34 @@ export const content = style({
     [base_layer]: {
       position: "relative",
       overflow: "hidden",
+      contain: "inline-size",
       width: "100%",
+      maxWidth: "100%",
       minWidth: 0,
     },
   },
 });
 
-export const viewport = style({
-  display: "flex",
-  flexDirection: "row",
-  touchAction: "pan-y",
+export const viewport = recipe({
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    touchAction: "pan-y",
+  },
+  variants: {
+    mode: {
+      max: {},
+      auto: { alignItems: "flex-start" },
+      fill: { height: "100%" },
+    },
+  },
+  defaultVariants: { mode: "max" },
 });
 
 export const panel = recipe({
   base: {
     flexShrink: 0,
     boxSizing: "border-box",
-    width: "100%",
-    minWidth: 0,
     display: "flex",
     flexDirection: "column",
     selectors: {
@@ -157,12 +167,17 @@ export const panel = recipe({
     },
   },
   variants: {
-    fill: {
-      true: { height: "100%" },
-      false: {},
+    mode: {
+      max: {},
+      auto: {},
+      fill: { height: "100%" },
+    },
+    fit: {
+      true: { width: "max-content" },
+      false: { width: "100%", minWidth: 0 },
     },
   },
-  defaultVariants: { fill: false },
+  defaultVariants: { mode: "max", fit: false },
 });
 
 export const section = style({
@@ -177,3 +192,17 @@ export const section = style({
 });
 
 globalStyle(`${panel.classNames.base}[aria-hidden='true']`, { pointerEvents: "none" });
+
+globalStyle(`${content}[data-ready='false'] ${panel.classNames.base}[aria-hidden='true']`, {
+  visibility: "hidden",
+});
+
+globalStyle(`${content}[data-fit='true'][data-ready='false']`, {
+  contain: "none",
+  width: "fit-content",
+});
+
+globalStyle(
+  `${content}[data-fit='true'][data-ready='false'] ${panel.classNames.base}[aria-hidden='true']`,
+  { position: "absolute", top: 0, insetInlineStart: 0 },
+);

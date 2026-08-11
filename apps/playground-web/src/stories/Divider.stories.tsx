@@ -36,7 +36,7 @@ export const Variants: Story = {
     <Box display="flex" direction="column" gap="md">
       <Divider lineStyle="solid" />
       <Divider lineStyle="dashed" />
-      <Divider lineStyle="dotted" color="strong" size="md" />
+      <Divider lineStyle="dotted" color="border.strong" size="md" />
     </Box>
   ),
 };

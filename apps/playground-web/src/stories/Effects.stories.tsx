@@ -202,12 +202,7 @@ export const ReducedMotion: Story = {
 export const Composition: Story = {
   render: () => (
     <Box position="relative" r="xl" style={{ overflow: "hidden", isolation: "isolate" }}>
-      <MeshGradientBg
-        gradient="brand"
-        grain
-        r="xl"
-        style={{ position: "absolute", inset: 0 }}
-      />
+      <MeshGradientBg gradient="brand" grain r="xl" style={{ position: "absolute", inset: 0 }} />
       <Box position="relative" p="xl">
         <Group justify="space-between" mb="lg">
           <Text component="p" fz="caption" fw="semibold" tt="uppercase" ls="wide" c="text.muted">

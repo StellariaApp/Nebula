@@ -333,6 +333,12 @@ gate y ser ilegible. Un texto a opacidad parcial se mide sobre el render antes d
   completas.
 - Gradients son acento de marca en CTA, badge, header o hero. No son fondo dominante en tablas,
   formularios ni lectura larga y nunca pintan texto principal.
+- **El campo ambiental de página es la excepción, y se mide** (ADR-129). Un `StarField` a pantalla
+  completa detrás de todo —tabla y lectura larga incluidas— vale si cumple las cuatro: vive en la capa
+  de fondo y nada del contenido se apoya en él, la rejilla no pasa de `translucency: 1`, la densidad
+  no pasa de `sm`, y **es el único efecto dominante de la página** —ninguna región vuelve a montar el
+  suyo encima—. Fuera de esa calibración sigue valiendo la regla de arriba: hero, entrada y estado
+  vacío.
 - Sombras no animan. Glow ambiental anima solo `opacity/transform` y deriva su duración de motion
   tokens (`expressive × 6` para breathing, `expressive × 12` para recorridos largos).
 - Reduced motion elimina loops ambientales y conserva el estado final legible.

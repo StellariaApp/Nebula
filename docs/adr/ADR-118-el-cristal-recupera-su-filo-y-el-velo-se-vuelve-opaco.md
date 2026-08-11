@@ -39,12 +39,12 @@ y con un velo del 2 % lo que hay detrás es casi todo.
 El primer diseño puso el filo **con alfa**, que es la respuesta correcta a un velo fino. Se calibró
 contra la maqueta en cuatro pasos, y cada uno lo pidió el propietario mirando la pantalla:
 
-| paso                       | filo                                  | qué se vio                                                          |
-| -------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
-| filo con alfa, sin teñir   | blanco / tinta puros, 1.19 – 1.87     | «se sienten muy fuertes» — y era cierto: 2× a 8× el resto del catálogo (1.05 – 1.11) |
-| teñido 35 % a `surface.overlay` | 1.11 – 1.45                      | mejor, todavía marcado                                              |
-| teñido 60 %                | 1.05 – 1.24                           | al nivel de un borde plano                                          |
-| teñido 85 – 90 %           | 1.00 – 1.07                           | el filo deja de existir; el tint deja de ser un dial                 |
+| paso                            | filo                              | qué se vio                                                                           |
+| ------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
+| filo con alfa, sin teñir        | blanco / tinta puros, 1.19 – 1.87 | «se sienten muy fuertes» — y era cierto: 2× a 8× el resto del catálogo (1.05 – 1.11) |
+| teñido 35 % a `surface.overlay` | 1.11 – 1.45                       | mejor, todavía marcado                                                               |
+| teñido 60 %                     | 1.05 – 1.24                       | al nivel de un borde plano                                                           |
+| teñido 85 – 90 %                | 1.00 – 1.07                       | el filo deja de existir; el tint deja de ser un dial                                 |
 
 El final de ese recorrido dice algo: **lo que sobraba no era el filo, era el contraste entre el filo
 y un velo demasiado fino**. De ahí la decisión que sí cierra el problema.
@@ -74,9 +74,9 @@ El argumento del contexto —un color opaco no compone con lo que hay detrás—
 no queda casi nada detrás**. Medido, filo plano contra el relleno de su propio nivel y contra el mismo
 mesh que destapó el problema:
 
-| velo             | filo plano, sobre su relleno | filo plano, **sobre el mesh** |
-| ---------------- | ---------------------------- | ----------------------------- |
-| fino (2 – 58 %)  | 1.00 – 1.05                  | **3.50 – 4.24**               |
+| velo              | filo plano, sobre su relleno | filo plano, **sobre el mesh** |
+| ----------------- | ---------------------------- | ----------------------------- |
+| fino (2 – 58 %)   | 1.00 – 1.05                  | **3.50 – 4.24**               |
 | opaco (78 – 90 %) | **1.20 – 1.21**              | **1.01 – 1.11**               |
 
 Las dos decisiones son una sola: **el filo plano solo es válido porque el velo es opaco.** Subir la

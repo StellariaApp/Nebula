@@ -19,7 +19,7 @@ export interface HeroPreviewLabels {
   filename: string;
   snippetCopy: string;
   code: string;
-  result: string;
+  component: string;
   view: string;
   tooltip: string;
   info: string;
@@ -34,8 +34,8 @@ export function HeroPreview({ labels }: { labels: HeroPreviewLabels }): ReactEle
       r="xl"
       width={2}
       w={{
-        base: "max-content",
-        tablet: "100%",
+        base: "100%",
+        laptop: "max-content",
       }}
     >
       <GlassSurface level="default" p="lg" r="xl" display="flex" direction="column" gap="md">
@@ -45,7 +45,7 @@ export function HeroPreview({ labels }: { labels: HeroPreviewLabels }): ReactEle
             copy: labels.snippetCopy,
             copied: labels.copied,
             code: labels.code,
-            result: labels.result,
+            component: labels.component,
             view: labels.view,
             tooltip: labels.tooltip,
             info: labels.info,

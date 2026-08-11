@@ -20,6 +20,7 @@ const REDUCED = "(prefers-reduced-motion: reduce)";
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   const {
     children,
+    level = "subtle",
     collapsed = false,
     onCollapse,
     collapseLabels = { collapse: "Collapse the sidebar", expand: "Expand the sidebar" },
@@ -50,7 +51,9 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
           </ActionIcon>
         </Box>
       )}
-      <div className={styles.sidebar_container}>{children}</div>
+      <GlassSurface level={level} r={0} className={styles.sidebar_container}>
+        {children}
+      </GlassSurface>
     </aside>
   );
 }

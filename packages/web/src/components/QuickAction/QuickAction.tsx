@@ -157,11 +157,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     );
 
     const shared = {
-      className: cx(
-        styles.tile({ orientation, size, fullWidth }),
-        sprinkle_class,
-        className,
-      ),
+      className: cx(styles.tile({ orientation, size, fullWidth }), sprinkle_class, className),
       style: { ...css_vars, ...sprinkle_style, ...style } as MotionStyle,
       "data-hovered": isHovered ? "true" : undefined,
       "data-pressed": is_pressed ? "true" : undefined,

@@ -97,7 +97,12 @@ function BarraInferior({
           aria-label="Cambiar de estudio"
           p="sm"
           bdc="border.default"
-          style={{ border: "none", borderInlineEnd: "1px solid", background: "none", cursor: "pointer" }}
+          style={{
+            border: "none",
+            borderInlineEnd: "1px solid",
+            background: "none",
+            cursor: "pointer",
+          }}
         >
           <Icon name="studio" size={18} />
         </Box>
@@ -128,7 +133,12 @@ function BarraInferior({
           aria-label="Saldo"
           p="sm"
           bdc="border.default"
-          style={{ border: "none", borderInlineStart: "1px solid", background: "none", cursor: "pointer" }}
+          style={{
+            border: "none",
+            borderInlineStart: "1px solid",
+            background: "none",
+            cursor: "pointer",
+          }}
         >
           <Icon name="roset" size={18} />
         </Box>
@@ -336,7 +346,11 @@ function CarrilPorAvatares(): ReactElement {
       sidebarCollapsed={mini}
       backdrop={<StarField fixed parallax aurora density="sm" scroller={scroller} />}
       sidebar={
-        <AppShell.Sidebar aria-label="Navegación por avatares" collapsed={mini} onCollapse={set_mini}>
+        <AppShell.Sidebar
+          aria-label="Navegación por avatares"
+          collapsed={mini}
+          onCollapse={set_mini}
+        >
           <AppShell.Sidebar.Header>
             <Box c="primary.600" display="flex">
               <Icon name="studio" size={24} />

@@ -15,7 +15,7 @@ adoptó a medias porque nacieron después de la mayoría de los componentes.
 | `<Nombre>.vars.css.ts`     | 58 componentes                         | **18** declaran `createVar()` en el `.css.ts`                  |
 | Compound                   | 9 de 158, en **tres** idiomas          | criterio de cuál lo necesita, idioma único y carpeta de partes |
 | Props de ranura (`*Props`) | **ninguno** con la forma canónica      | el patrón entero                                               |
-| `surface.hoverActive`      | contrato, 4 temas y 3 consumidores      | **cerrado** (2026-08-05) — ver N4                              |
+| `surface.hoverActive`      | contrato, 4 temas y 3 consumidores     | **cerrado** (2026-08-05) — ver N4                              |
 
 Ninguna es cosmética. Todas deciden si un consumidor puede ajustar un componente sin forkearlo,
 que es el principio que ordena el proyecto.

@@ -12,7 +12,7 @@ export const tooltip = recipe({
       [base_layer]: {
         boxSizing: "border-box",
         paddingInline: vars.space.sm,
-        paddingBlock: vars.space.xs,
+        paddingBlock: vars.space.sm,
         borderRadius: vars.radius.sm,
         fontFamily: vars.font.family.sans,
         fontSize: vars.font.size.caption,

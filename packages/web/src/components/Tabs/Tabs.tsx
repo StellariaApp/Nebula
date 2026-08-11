@@ -23,6 +23,9 @@ export function Tabs(props: TabsProps): ReactElement {
     swipeable = true,
     draggable = true,
     fill = false,
+    auto = false,
+    autoWidth = false,
+    loop = false,
     className,
     "aria-label": aria_label,
     ...style_rest
@@ -53,7 +56,13 @@ export function Tabs(props: TabsProps): ReactElement {
         }))}
         {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
       />
-      <Segment.Content swipeable={swipeable} fill={fill}>
+      <Segment.Content
+        swipeable={swipeable}
+        fill={fill}
+        auto={auto}
+        autoWidth={autoWidth}
+        loop={loop}
+      >
         {tabs.map((tab) => (
           <Segment.Content.Item key={tab.value} value={tab.value}>
             {tab.content}

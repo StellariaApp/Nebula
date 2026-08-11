@@ -95,7 +95,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Divider/Divider.js",
     import: "{ Divider }",
     ignore: ["react", "react-dom"],
-    limit: "22.5 kB",
+    limit: "23 kB",
   },
   {
     name: "Space (primitivo temable en runtime, por módulo)",
@@ -1267,14 +1267,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/CodeHighlight/CodeHighlight.js",
     import: "{ CodeHighlight }",
     ignore: ["react", "react-dom"],
-    limit: "43.5 kB",
+    limit: "44.5 kB",
   },
   {
     name: "CodeHighlightTabs (CodeHighlight + Segment, por módulo)",
     path: "dist/components/CodeHighlight/CodeHighlightTabs.js",
     import: "{ CodeHighlightTabs }",
     ignore: ["react", "react-dom"],
-    limit: "55 kB",
+    limit: "56 kB",
   },
   {
     name: "TransferList (dos listbox + SearchInput, por módulo)",

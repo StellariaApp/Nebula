@@ -2,9 +2,7 @@
   "version": 1,
   "count": 158,
   "gaps": {
-    "budget": [
-      "DataGrid"
-    ],
+    "budget": ["DataGrid"],
     "themeKeys": [
       "Affix",
       "AspectRatio",
@@ -74,13 +72,7 @@
       "name": "ActionIcon",
       "budget": "41.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "motion.duration",
-        "motion.easing",
-        "radius.full",
-        "radius.md",
-        "size.control"
-      ]
+      "themeKeys": ["motion.duration", "motion.easing", "radius.full", "radius.md", "size.control"]
     },
     {
       "name": "Affix",
@@ -109,9 +101,7 @@
       "name": "Anchor",
       "budget": "20.5 kB",
       "boundary": "server",
-      "themeKeys": [
-        "radius.xs"
-      ]
+      "themeKeys": ["radius.xs"]
     },
     {
       "name": "AnimatedGradient",
@@ -193,14 +183,7 @@
       "name": "Banderole",
       "budget": "42.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "font.family",
-        "font.size",
-        "space.md",
-        "space.sm",
-        "space.xs",
-        "zIndex.sticky"
-      ]
+      "themeKeys": ["font.family", "font.size", "space.md", "space.sm", "space.xs", "zIndex.sticky"]
     },
     {
       "name": "Blockquote",
@@ -222,10 +205,7 @@
       "name": "BlurOverlay",
       "budget": "23.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "blur",
-        "effects.glass"
-      ]
+      "themeKeys": ["blur", "effects.glass"]
     },
     {
       "name": "Box",
@@ -277,12 +257,7 @@
       "name": "Burger",
       "budget": "39.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.surface",
-        "radius.full",
-        "radius.sm",
-        "space.xxs"
-      ]
+      "themeKeys": ["color.surface", "radius.full", "radius.sm", "space.xxs"]
     },
     {
       "name": "Button",
@@ -502,6 +477,7 @@
         "font.size",
         "radius.md",
         "space.sm",
+        "space.xl",
         "space.xs",
         "space.xxs"
       ]
@@ -589,13 +565,7 @@
       "name": "Countdown",
       "budget": "21.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text",
-        "font.lineHeight",
-        "font.size",
-        "font.weight",
-        "space.xs"
-      ]
+      "themeKeys": ["color.text", "font.lineHeight", "font.size", "font.weight", "space.xs"]
     },
     {
       "name": "CurrencyDisplay",
@@ -686,7 +656,6 @@
       "budget": "22.5 kB",
       "boundary": "server",
       "themeKeys": [
-        "color.border",
         "color.text",
         "font.family",
         "font.lineHeight",
@@ -853,9 +822,7 @@
       "name": "FileInput",
       "budget": "47.75 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text"
-      ]
+      "themeKeys": ["color.text"]
     },
     {
       "name": "Filters",
@@ -931,9 +898,7 @@
       "name": "FormField",
       "budget": "33.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "space.xs"
-      ]
+      "themeKeys": ["space.xs"]
     },
     {
       "name": "GlassSurface",
@@ -981,22 +946,13 @@
       "name": "GradientBackground",
       "budget": "24.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.surface",
-        "color.text",
-        "effects.glass"
-      ]
+      "themeKeys": ["color.surface", "color.text", "effects.glass"]
     },
     {
       "name": "GradientBorder",
       "budget": "25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.border",
-        "color.surface",
-        "motion.duration",
-        "motion.tier"
-      ]
+      "themeKeys": ["color.border", "color.surface", "motion.duration", "motion.tier"]
     },
     {
       "name": "GradientText",
@@ -1014,12 +970,7 @@
       "name": "GridList",
       "budget": "43.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "space.lg",
-        "space.md",
-        "space.sm",
-        "space.xs"
-      ]
+      "themeKeys": ["space.lg", "space.md", "space.sm", "space.xs"]
     },
     {
       "name": "Group",
@@ -1058,7 +1009,6 @@
         "font.weight",
         "space.lg",
         "space.md",
-        "space.sm",
         "space.xl",
         "space.xs",
         "space.xxxl"
@@ -1169,11 +1119,7 @@
       "name": "JsonInput",
       "budget": "34.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "font.family",
-        "font.lineHeight",
-        "font.size"
-      ]
+      "themeKeys": ["font.family", "font.lineHeight", "font.size"]
     },
     {
       "name": "Kanban",
@@ -1235,33 +1181,19 @@
       "name": "List",
       "budget": "21.75 kB",
       "boundary": "server",
-      "themeKeys": [
-        "color.text",
-        "font.family",
-        "space.lg",
-        "space.xs"
-      ]
+      "themeKeys": ["color.text", "font.family", "space.lg", "space.xs"]
     },
     {
       "name": "Loader",
       "budget": "23.25 kB",
       "boundary": "server",
-      "themeKeys": [
-        "motion.easing",
-        "radius.full",
-        "radius.xs"
-      ]
+      "themeKeys": ["motion.easing", "radius.full", "radius.xs"]
     },
     {
       "name": "LoadingOverlay",
       "budget": "34 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text",
-        "font.family",
-        "font.size",
-        "space.xs"
-      ]
+      "themeKeys": ["color.text", "font.family", "font.size", "space.xs"]
     },
     {
       "name": "Main",
@@ -1284,9 +1216,7 @@
       "name": "Mark",
       "budget": "22.5 kB",
       "boundary": "server",
-      "themeKeys": [
-        "radius.xs"
-      ]
+      "themeKeys": ["radius.xs"]
     },
     {
       "name": "Menu",
@@ -1317,11 +1247,7 @@
       "name": "MeshGradientBg",
       "budget": "23.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.surface",
-        "color.text",
-        "effects.glass"
-      ]
+      "themeKeys": ["color.surface", "color.text", "effects.glass"]
     },
     {
       "name": "Modal",
@@ -1395,11 +1321,7 @@
       "name": "NativeSelect",
       "budget": "34.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text",
-        "space.lg",
-        "space.md"
-      ]
+      "themeKeys": ["color.text", "space.lg", "space.md"]
     },
     {
       "name": "Nav",
@@ -1466,19 +1388,13 @@
       "name": "NoiseOverlay",
       "budget": "21 kB",
       "boundary": "client",
-      "themeKeys": [
-        "effects.glass"
-      ]
+      "themeKeys": ["effects.glass"]
     },
     {
       "name": "NumberInput",
       "budget": "43.75 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.border",
-        "color.text",
-        "space.xs"
-      ]
+      "themeKeys": ["color.border", "color.text", "space.xs"]
     },
     {
       "name": "Omit",
@@ -1490,11 +1406,7 @@
       "name": "Overlay",
       "budget": "23 kB",
       "boundary": "client",
-      "themeKeys": [
-        "blur.lg",
-        "blur.md",
-        "blur.sm"
-      ]
+      "themeKeys": ["blur.lg", "blur.md", "blur.sm"]
     },
     {
       "name": "Pagination",
@@ -1516,9 +1428,7 @@
       "name": "Panel",
       "budget": "21 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.border"
-      ]
+      "themeKeys": ["color.border"]
     },
     {
       "name": "Paper",
@@ -1553,18 +1463,13 @@
       "name": "PinInput",
       "budget": "35 kB",
       "boundary": "client",
-      "themeKeys": [
-        "size.control",
-        "space.sm"
-      ]
+      "themeKeys": ["size.control", "space.sm"]
     },
     {
       "name": "Player",
       "budget": "70 kB",
       "boundary": "client",
-      "themeKeys": [
-        "radius.md"
-      ]
+      "themeKeys": ["radius.md"]
     },
     {
       "name": "Popover",
@@ -1647,11 +1552,7 @@
       "name": "Rating",
       "budget": "36 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text",
-        "size.compact",
-        "space.xxs"
-      ]
+      "themeKeys": ["color.text", "size.compact", "space.xxs"]
     },
     {
       "name": "Reveal",
@@ -1685,31 +1586,19 @@
       "name": "Scroll",
       "budget": "24.5 kB",
       "boundary": "server",
-      "themeKeys": [
-        "color.border",
-        "radius.full",
-        "space.xl"
-      ]
+      "themeKeys": ["color.border", "radius.full", "space.xl"]
     },
     {
       "name": "ScrollProgress",
       "budget": "23.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.surface",
-        "radius.full",
-        "radius.sm",
-        "zIndex.sticky"
-      ]
+      "themeKeys": ["color.surface", "radius.full", "radius.sm", "zIndex.sticky"]
     },
     {
       "name": "Search",
       "budget": "93.75 kB",
       "boundary": "client",
-      "themeKeys": [
-        "space.sm",
-        "space.xs"
-      ]
+      "themeKeys": ["space.sm", "space.xs"]
     },
     {
       "name": "SearchInput",
@@ -1721,12 +1610,7 @@
       "name": "SearchableList",
       "budget": "80 kB",
       "boundary": "client",
-      "themeKeys": [
-        "color.text",
-        "font.family",
-        "font.size",
-        "space.sm"
-      ]
+      "themeKeys": ["color.text", "font.family", "font.size", "space.sm"]
     },
     {
       "name": "Section",
@@ -1744,7 +1628,9 @@
         "space.md",
         "space.xl",
         "space.xs",
-        "space.xxs"
+        "space.xxl",
+        "space.xxs",
+        "space.xxxl"
       ]
     },
     {
@@ -1849,21 +1735,13 @@
       "name": "Spoiler",
       "budget": "21.25 kB",
       "boundary": "client",
-      "themeKeys": [
-        "font.size",
-        "space.xs"
-      ]
+      "themeKeys": ["font.size", "space.xs"]
     },
     {
       "name": "StarField",
       "budget": "24.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "motion.duration",
-        "motion.easing",
-        "motion.tier",
-        "radius.full"
-      ]
+      "themeKeys": ["motion.duration", "motion.easing", "motion.tier", "radius.full"]
     },
     {
       "name": "Stat",
@@ -2015,11 +1893,7 @@
       "name": "ThemeIcon",
       "budget": "24.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "radius.full",
-        "radius.md",
-        "radius.sm"
-      ]
+      "themeKeys": ["radius.full", "radius.md", "radius.sm"]
     },
     {
       "name": "TimeInput",
@@ -2094,7 +1968,6 @@
         "radius.sm",
         "shadow.md",
         "space.sm",
-        "space.xs",
         "zIndex.tooltip"
       ]
     },
@@ -2148,9 +2021,7 @@
       "name": "UnstyledButton",
       "budget": "29.5 kB",
       "boundary": "client",
-      "themeKeys": [
-        "radius.xs"
-      ]
+      "themeKeys": ["radius.xs"]
     },
     {
       "name": "Valid",

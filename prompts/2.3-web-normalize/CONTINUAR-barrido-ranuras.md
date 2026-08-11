@@ -82,14 +82,14 @@ Quedan ~234 nodos, techo del detector.
 
 **Antes del barrido se cerró**, y no hay que reabrirlo:
 
-| | |
-| --- | --- |
-| Gates rojos | El esquema de Zod rechazaba los 4 temas; `.size-limit.js` no podía correr desde N2 |
-| ADR-103 | `StyleProps` sale del registro: poda de 40 alias largos, 63 props nuevas, valor abierto y responsive |
-| ADR-104 | La ranura se tipa con el componente que la pinta |
-| ADR-105 | El JSDoc de API pública no es un comentario |
-| Glifos | 42 `<svg>` en 32 archivos → 25 glifos compartidos; la paloma existía en 3 geometrías |
-| `ExtractStyleProps` | Reescrito: 3x–11,8x según la forma del nodo |
+|                     |                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| Gates rojos         | El esquema de Zod rechazaba los 4 temas; `.size-limit.js` no podía correr desde N2                   |
+| ADR-103             | `StyleProps` sale del registro: poda de 40 alias largos, 63 props nuevas, valor abierto y responsive |
+| ADR-104             | La ranura se tipa con el componente que la pinta                                                     |
+| ADR-105             | El JSDoc de API pública no es un comentario                                                          |
+| Glifos              | 42 `<svg>` en 32 archivos → 25 glifos compartidos; la paloma existía en 3 geometrías                 |
+| `ExtractStyleProps` | Reescrito: 3x–11,8x según la forma del nodo                                                          |
 
 ## Lo que sigue abierto y no es del barrido
 

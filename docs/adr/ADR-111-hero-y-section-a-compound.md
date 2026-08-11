@@ -63,6 +63,9 @@ Section.Header · Section.Title · Section.Description · Section.Actions
 Section.Aside · Section.Footer
 ```
 
+> [ADR-124](ADR-124-el-cuerpo-de-la-seccion-se-sustituye-y-el-carril-no.md) añade a esa lista
+> `Section.Body`, que sustituye el envoltorio del cuerpo. El carril se queda interno.
+
 ### `Hero.Header` no es relleno
 
 Es lo que agrupa título, subtítulo y descripción con su espaciado, y es además **la prueba de que el

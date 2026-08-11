@@ -21,7 +21,33 @@ El divisor de `divided` también vive en el carril, para que una sección dividi
 de lado a lado de la pantalla.
 
 **Consecuencia a tener presente**: un `bg` por style props pinta la banda entera, no el carril. Es lo
-que significa una sección —una franja de la página—, pero conviene saberlo antes de usarlo.
+que significa una sección —una franja de la página—, pero conviene saberlo antes de usarlo. Si lo que
+quieres pintar es el cuerpo, la vía es `Section.Body`.
+
+El carril es una pieza interna y no se expone como parte
+([ADR-124](../../../../../docs/adr/ADR-124-el-cuerpo-de-la-seccion-se-sustituye-y-el-carril-no.md)):
+el carril público del catálogo es `Container`, y `Hero` tampoco expone el suyo.
+
+## `Section.Body` sustituye el envoltorio, no el estado
+
+Las partes de [ADR-111](../../../../../docs/adr/ADR-111-hero-y-section-a-compound.md) reordenan la
+cabecera. `Section.Body` hace otra cosa: sin él, la raíz envuelve los hijos sueltos en su propio
+cuerpo; con él, el envoltorio es el tuyo y ahí caben tus style props.
+
+```tsx
+<Section title="Movimientos">
+  <Section.Body p="lg">
+    <Table />
+  </Section.Body>
+</Section>
+```
+
+Lo que **no** cambia al traer el tuyo: `error` y `empty` siguen sustituyendo su contenido, y el velo
+de `loading` sigue tendiéndose por dentro —lo necesita, porque se ancla al `position: relative` del
+cuerpo—. Por eso la raíz clona tu elemento en vez de renderizarlo tal cual.
+
+Para los bordes, dos reglas: lo que quede suelto entra en tu cuerpo detrás de lo que pusiste dentro,
+y si escribes dos `Section.Body` manda el primero y el segundo pasa a ser contenido suyo.
 
 ## `glass` — la banda intercalada
 

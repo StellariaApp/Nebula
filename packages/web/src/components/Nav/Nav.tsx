@@ -28,6 +28,7 @@ export function Nav(props: NavProps): ReactElement {
     size = "md",
     withBorder = false,
     contentWidth = DEFAULT_WIDTH,
+    level = "strong",
     floating = false,
     sticky = false,
     scrolled,
@@ -64,21 +65,20 @@ export function Nav(props: NavProps): ReactElement {
     else progress.jump(next);
   }, [is_condensed, springs_geometry, progress]);
 
-  const surface_vars = tracks_scroll
-    ? assignInlineVars({
-        ...(floating
-          ? {
-              [variables.floatingMax]: LengthToCss(floatingWidth),
-              [variables.floatingGap]: LengthToCss(floatingGap),
-            }
-          : {}),
-        [variables.surfaceBg]: glass_on ? vars.glass.subtle.background : vars.color.surface.overlay,
-        [variables.surfaceBorder]: `1px solid ${
-          glass_on ? vars.glass.subtle.borderColor : vars.color.border.subtle
-        }`,
-        [variables.surfaceBackdrop]: glass_on ? vars.glass.subtle.backdropFilter : "none",
-      })
-    : {};
+  const skin = vars.glass[level];
+  const surface_vars = assignInlineVars({
+    ...(floating
+      ? {
+          [variables.floatingMax]: LengthToCss(floatingWidth),
+          [variables.floatingGap]: LengthToCss(floatingGap),
+        }
+      : {}),
+    [variables.surfaceBg]: glass_on ? skin.background : vars.color.surface.overlay,
+    [variables.surfaceBorder]: `1px solid ${
+      glass_on ? skin.borderColor : vars.color.border.subtle
+    }`,
+    [variables.surfaceBackdrop]: glass_on ? skin.backdropFilter : "none",
+  });
 
   const Root = springs_geometry ? (TAGS[tag] ?? tag) : tag;
   const progress_var = floating
@@ -91,6 +91,7 @@ export function Nav(props: NavProps): ReactElement {
         styles.root({ size, withBorder: floating ? false : withBorder }),
         floating ? styles.floating : undefined,
         sticky && !floating ? styles.sticky : undefined,
+        tracks_scroll ? undefined : styles.solid,
         sprinkle_class,
         className,
       )}

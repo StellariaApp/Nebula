@@ -15,6 +15,10 @@ export type StarDensity = "xs" | "sm" | "md" | "lg" | "xl";
  *
  * GUARDRAIL (docs/06 §6): one dominant effect per region. It belongs on a hero, a landing, a login,
  * an empty state or an entry screen — not behind a table or a form.
+ *
+ * The one exception is the page-wide ambient layer (ADR-129): `fixed`, behind everything, with
+ * `translucency` at 1 and `density` at `sm` or lower, and nothing else on the page claiming a
+ * dominant effect. Any denser calibration behind a table or a form is out of contract.
  */
 export interface StarFieldProps extends Omit<StyleProps, "opacity"> {
   density?: StarDensity | undefined;

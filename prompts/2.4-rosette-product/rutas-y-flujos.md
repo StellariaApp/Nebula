@@ -5,7 +5,7 @@
 > documentos que las nueve pantallas se construyeron **sin** leer. Aquí está lo que eso costó, el
 > mapa de rutas simplificado, y los flujos de punta a punta.
 >
-> **Esto no toca ninguna story todavía.** Reestructurar rutas cambia el carril, y el carril *es* la
+> **Esto no toca ninguna story todavía.** Reestructurar rutas cambia el carril, y el carril _es_ la
 > barra inferior del móvil: se acuerda antes y se monta después.
 
 ---
@@ -14,17 +14,17 @@
 
 Nueve cosas, y ninguna es de gusto: todas son fidelidad al modelo.
 
-| # | Qué está mal | Qué dice el corpus |
-| --: | --- | --- |
-| 1 | La biblioteca es **global** y mezcla assets con acciones | §4.5: `sceneAsset.avatar` es una ref. **Los assets cuelgan del avatar.** Las acciones son del estudio (§4.6, `scope`) |
-| 2 | Los assets son **tres tipos** | §5.5: son **cinco** — ubicación, outfit, peinado, **juguete** y **plancha de gesto**. Los dos últimos son de F4 |
-| 3 | Crear un asset no valida nada | §5.5 rechaza **al crear**: un outfit sin decir qué tapa, un juguete sin decir cuánto mide, una plancha generada o sin declarar que se le quitó la identidad |
-| 4 | El avatar tiene **cinco** estados | §4.2 tiene **seis**: falta `extraido`. Y `archivedFrom`: restaurar devuelve al estado del que se archivó, no a `borrador` |
-| 5 | La revisión solo contempla imagen | §4.8: el medio va `generado → reproducido → aprobada`. **`POST /media/:id/played` es ruta propia**: no se aprueba un vídeo ni una voz sin que conste que alguien lo reprodujo |
-| 6 | «Voz» es una pestaña del selector y no hay nada detrás | §5.7 bis: la voz necesita **ancla de voz** —`POST /voice/candidates`, `PUT /voice`— antes de poder producir una nota. Es el mismo patrón que las anclas de imagen y no está maquetado |
-| 7 | El banco se enseña como catálogo de lectura | §5.7: `GET /actions` **sirve solo lo publicado**, y publicar exige `POST /observe` — que una persona mire y anote. Es un flujo de curaduría, no una tabla |
-| 8 | No existe el techo del estudio, ni el equipo, ni la auditoría | §4.1 `ceiling` del estudio · §5.2 `members` · §5.2 `/audit/*`, construido en F11 |
-| 9 | Los cinco códigos de error no están diseñados | §5.9: `402` `409` `422` `424` `429`. Hoy la maqueta insinúa dos y confunde saldo con concurrencia |
+|   # | Qué está mal                                                  | Qué dice el corpus                                                                                                                                                                    |
+| --: | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|   1 | La biblioteca es **global** y mezcla assets con acciones      | §4.5: `sceneAsset.avatar` es una ref. **Los assets cuelgan del avatar.** Las acciones son del estudio (§4.6, `scope`)                                                                 |
+|   2 | Los assets son **tres tipos**                                 | §5.5: son **cinco** — ubicación, outfit, peinado, **juguete** y **plancha de gesto**. Los dos últimos son de F4                                                                       |
+|   3 | Crear un asset no valida nada                                 | §5.5 rechaza **al crear**: un outfit sin decir qué tapa, un juguete sin decir cuánto mide, una plancha generada o sin declarar que se le quitó la identidad                           |
+|   4 | El avatar tiene **cinco** estados                             | §4.2 tiene **seis**: falta `extraido`. Y `archivedFrom`: restaurar devuelve al estado del que se archivó, no a `borrador`                                                             |
+|   5 | La revisión solo contempla imagen                             | §4.8: el medio va `generado → reproducido → aprobada`. **`POST /media/:id/played` es ruta propia**: no se aprueba un vídeo ni una voz sin que conste que alguien lo reprodujo         |
+|   6 | «Voz» es una pestaña del selector y no hay nada detrás        | §5.7 bis: la voz necesita **ancla de voz** —`POST /voice/candidates`, `PUT /voice`— antes de poder producir una nota. Es el mismo patrón que las anclas de imagen y no está maquetado |
+|   7 | El banco se enseña como catálogo de lectura                   | §5.7: `GET /actions` **sirve solo lo publicado**, y publicar exige `POST /observe` — que una persona mire y anote. Es un flujo de curaduría, no una tabla                             |
+|   8 | No existe el techo del estudio, ni el equipo, ni la auditoría | §4.1 `ceiling` del estudio · §5.2 `members` · §5.2 `/audit/*`, construido en F11                                                                                                      |
+|   9 | Los cinco códigos de error no están diseñados                 | §5.9: `402` `409` `422` `424` `429`. Hoy la maqueta insinúa dos y confunde saldo con concurrencia                                                                                     |
 
 Y dos que no son errores pero sí huecos: **`grant`** (§4.9) no aparece por ningún lado —cambiar el
 techo es una autorización con autor y fecha, no un interruptor— y **`/provider-credit/*`** no debe
@@ -38,23 +38,23 @@ aparecer nunca en la interfaz del estudio, cosa que conviene dejar escrita para 
 Cinco cosas que no se pueden resolver desde aquí porque el corpus se contradice o calla.
 
 **2.1 · `GET /avatars/:id/assets` está documentada dos veces con dos significados.** En §5.5 son los
-assets de escena —ubicación, outfit, peinado, juguete, plancha—; en §5.6 y §5.7 bis es *«todo lo que
-ha producido, las tres modalidades en una lista»*. Son la misma ruta y dos colecciones distintas.
-El renombrado del 05/08 movió `assets` a *«recursos de uso exclusivo»* y `media` a *«lo que
-produce»*, así que la de §5.7 bis parece la que sobra — pero es la que el bloqueo 7 construyó.
+assets de escena —ubicación, outfit, peinado, juguete, plancha—; en §5.6 y §5.7 bis es _«todo lo que
+ha producido, las tres modalidades en una lista»_. Son la misma ruta y dos colecciones distintas.
+El renombrado del 05/08 movió `assets` a _«recursos de uso exclusivo»_ y `media` a _«lo que
+produce»_, así que la de §5.7 bis parece la que sobra — pero es la que el bloqueo 7 construyó.
 **Propuesta:** lo producido vive en `GET /media?avatar=`, que ya existe en la misma tabla.
 
-**2.2 · Los assets son tres o son cinco.** §7.3 dice *«tres tipos, una sola colección»*; §5.5 dice
+**2.2 · Los assets son tres o son cinco.** §7.3 dice _«tres tipos, una sola colección»_; §5.5 dice
 cinco. §5.5 es posterior —juguete y plancha salieron de F4, gastando— así que gana, pero §7.3 sigue
 diciendo tres y es el documento que alguien va a leer para diseñar el selector.
 
 **2.3 · La memoria dice vectorial en dos sitios y texto en uno.** §4.10 tiene `embedding` y §4.11
-pide *«índice vectorial · MongoDB Atlas Vector Search»*; §9.2 lo desmiente **midiendo**: el
+pide _«índice vectorial · MongoDB Atlas Vector Search»_; §9.2 lo desmiente **midiendo**: el
 proveedor no hace embeddings, `POST /v1/embeddings` contesta `404`, y la recuperación es búsqueda
 de texto. Gana el hecho medido, y §4 tiene un campo que nadie va a poder rellenar.
 
 **2.4 · La base de dos vistas tiene precio y no tiene ruta.** §10.1 la cobra —0 la primera, 20
-rehacerla— y la llama *«el último paso del alta»*. En §5 no hay ningún endpoint que la produzca. O
+rehacerla— y la llama _«el último paso del alta»_. En §5 no hay ningún endpoint que la produzca. O
 está dentro de `POST /anchors`, o falta.
 
 **2.5 · Lo que decidiste hoy no tiene modelo todavía.** Público/privado por avatar, visibilidad por
@@ -117,14 +117,14 @@ pantalla.
 
 ### Lo que no es entrada de carril, y dónde queda
 
-| Qué | Dónde | Por qué |
-| --- | --- | --- |
-| **El banco de acciones** | se **cura** en la revisión · se **administra** desde los ajustes del estudio | `POST /observe` pide que una persona mire la imagen y anote qué escalón salió. Eso ocurre **mirando la imagen**, que es la revisión. Una pantalla aparte obligaría a mirarla dos veces |
-| **Techo del estudio, auditoría** | ajustes del estudio, tras el conmutador | Es donde ya vive «qué es este estudio», y es la única esquina que no se mueve entre las tres anchuras |
-| **Assets** | pestaña del avatar | §4.5: `sceneAsset.avatar` es una ref |
-| **Revisión** | modo, colgado del avatar | ver abajo |
-| **Avatar activo** | **retirado del carril** | era un parche para un carril sin raíz. El ancla de contexto es la cabecera del propio avatar, y en el móvil devuelve un hueco |
-| **«Lo que te espera»** | arriba de `Avatares`, y la cuenta en el carril | vivía en Home. Se muda a donde se actúa sobre ello, y la cuenta viaja en el carril para verse desde el lado público |
+| Qué                              | Dónde                                                                        | Por qué                                                                                                                                                                                |
+| -------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **El banco de acciones**         | se **cura** en la revisión · se **administra** desde los ajustes del estudio | `POST /observe` pide que una persona mire la imagen y anote qué escalón salió. Eso ocurre **mirando la imagen**, que es la revisión. Una pantalla aparte obligaría a mirarla dos veces |
+| **Techo del estudio, auditoría** | ajustes del estudio, tras el conmutador                                      | Es donde ya vive «qué es este estudio», y es la única esquina que no se mueve entre las tres anchuras                                                                                  |
+| **Assets**                       | pestaña del avatar                                                           | §4.5: `sceneAsset.avatar` es una ref                                                                                                                                                   |
+| **Revisión**                     | modo, colgado del avatar                                                     | ver abajo                                                                                                                                                                              |
+| **Avatar activo**                | **retirado del carril**                                                      | era un parche para un carril sin raíz. El ancla de contexto es la cabecera del propio avatar, y en el móvil devuelve un hueco                                                          |
+| **«Lo que te espera»**           | arriba de `Avatares`, y la cuenta en el carril                               | vivía en Home. Se muda a donde se actúa sobre ello, y la cuenta viaja en el carril para verse desde el lado público                                                                    |
 
 ### Medido en la barra inferior
 
@@ -294,14 +294,14 @@ presenta junto, que era la mitad; falta que el formulario no deje guardar el est
 
 ## 5 · Las máquinas de estado, que son lo que la interfaz pinta
 
-| Entidad | Estados | Lo que la interfaz debe poder enseñar |
-| --- | --- | --- |
-| **avatar** | `borrador → extraido → completado → anclado → producible`, y `archivado` desde cualquiera | qué falta para el siguiente, y que restaurar vuelve a `archivedFrom` |
-| **generationJob** | `pendiente → reservado → enviado → completado` \| `fallido` \| `devuelto` | el `errorClass` cuando falla, y si los rosets volvieron |
-| **mediaAsset** | `candidata → aprobada` \| `descartada` | quién revisó y cuándo |
-| **medio (vídeo/voz)** | `generado → reproducido → aprobada` \| `descartada` | que aprobar está **bloqueado** hasta reproducir |
-| **anchorSet** | `generando → vigente → archivado` | que rehacer un ancla archiva el juego entero |
-| **canon** | versión `n` → `n+1`, con `supersededBy` | qué versión usó cada activo |
+| Entidad               | Estados                                                                                   | Lo que la interfaz debe poder enseñar                                |
+| --------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **avatar**            | `borrador → extraido → completado → anclado → producible`, y `archivado` desde cualquiera | qué falta para el siguiente, y que restaurar vuelve a `archivedFrom` |
+| **generationJob**     | `pendiente → reservado → enviado → completado` \| `fallido` \| `devuelto`                 | el `errorClass` cuando falla, y si los rosets volvieron              |
+| **mediaAsset**        | `candidata → aprobada` \| `descartada`                                                    | quién revisó y cuándo                                                |
+| **medio (vídeo/voz)** | `generado → reproducido → aprobada` \| `descartada`                                       | que aprobar está **bloqueado** hasta reproducir                      |
+| **anchorSet**         | `generando → vigente → archivado`                                                         | que rehacer un ancla archiva el juego entero                         |
+| **canon**             | versión `n` → `n+1`, con `supersededBy`                                                   | qué versión usó cada activo                                          |
 
 ---
 
@@ -323,15 +323,15 @@ Por orden de lo que bloquea a lo que no:
 
 Nada de esto está hecho. Es el presupuesto de la reestructura, por si conviene partirla:
 
-| Story | Cambio |
-| --- | --- |
-| `fixtures/rosette` | estado `extraido`, cinco tipos de asset, carril de cuatro entradas |
-| `El carril` | cuatro entradas · rehacer la barra inferior y volver a medir las tres anchuras |
-| `Revisión` | pasa a `/avatares/:id/revision` · añade la rama de vídeo y voz con `played` |
-| `Biblioteca` | se parte: `Acciones` (curaduría + cobertura) y la pestaña de assets del avatar |
-| `El avatar` | pestaña `identidad` gana el ancla de voz · `galería` gana las tres modalidades |
-| `Avatares del estudio` | contador de pendientes de revisión, que sustituye a la sección |
-| **nuevas** | `Estudio`, `Vídeo y voz`, `Estados de error`, `Entrar sin plan` |
+| Story                  | Cambio                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `fixtures/rosette`     | estado `extraido`, cinco tipos de asset, carril de cuatro entradas             |
+| `El carril`            | cuatro entradas · rehacer la barra inferior y volver a medir las tres anchuras |
+| `Revisión`             | pasa a `/avatares/:id/revision` · añade la rama de vídeo y voz con `played`    |
+| `Biblioteca`           | se parte: `Acciones` (curaduría + cobertura) y la pestaña de assets del avatar |
+| `El avatar`            | pestaña `identidad` gana el ancla de voz · `galería` gana las tres modalidades |
+| `Avatares del estudio` | contador de pendientes de revisión, que sustituye a la sección                 |
+| **nuevas**             | `Estudio`, `Vídeo y voz`, `Estados de error`, `Entrar sin plan`                |
 
 Cuatro stories tocadas y cuatro nuevas. Se puede hacer por partes; el orden que menos retrabajo
 produce es **carril → revisión → biblioteca → el resto**, porque el carril decide la navegación de

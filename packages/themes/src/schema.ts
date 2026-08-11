@@ -137,16 +137,18 @@ const glassSurfaceRecipe = z.strictObject({
   borderColor: colorValue.optional(),
 });
 
-const glassSurface = z
-  .record(z.enum(glassLevels), glassSurfaceRecipe)
-  .transform((surface) =>
+const glassSurface = z.record(z.enum(glassLevels), glassSurfaceRecipe).transform(
+  (surface) =>
     Object.fromEntries(
       glassLevels.map((level) => {
         const recipe = surface[level];
-        return [level, { ...recipe, borderColor: recipe?.borderColor ?? GLASS_EDGE_FALLBACK[level] }];
+        return [
+          level,
+          { ...recipe, borderColor: recipe?.borderColor ?? GLASS_EDGE_FALLBACK[level] },
+        ];
       }),
     ) as Record<GlassLevel, GlassSurfaceRecipe>,
-  );
+);
 
 const dualShadow = z.strictObject({
   web: z.string().min(1),

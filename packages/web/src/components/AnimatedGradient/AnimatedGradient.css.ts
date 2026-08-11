@@ -28,10 +28,8 @@ export const animated_gradient = recipe({
       },
     },
   },
-  variants: {
-  },
-  defaultVariants: {
-  },
+  variants: {},
+  defaultVariants: {},
 });
 
 export const drift = style({

@@ -7,3 +7,5 @@ export const chromeHeight = createVar();
 export const shadowOffset = createVar();
 export const railWidth = createVar();
 export const railMiniWidth = createVar();
+
+export const contentMax = createVar();

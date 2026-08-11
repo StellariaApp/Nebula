@@ -1,4 +1,3 @@
-
 import type { StyleProps } from "../../utils/style-props.js";
 
 /**

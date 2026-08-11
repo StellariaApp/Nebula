@@ -109,3 +109,45 @@ describe("CodeHighlightTabs", () => {
     expect(screen.getByTestId("cht")).toBeDefined();
   });
 });
+
+function Root(): HTMLElement {
+  const region = screen.getByLabelText(CODE_HIGHLIGHT_LABELS.region(undefined));
+  const root = region.parentElement?.parentElement;
+  if (root === null || root === undefined) throw new Error("sin raíz de CodeHighlight");
+  return root;
+}
+
+describe("CodeHighlight — superficie y plegado (ADR-124)", () => {
+  it("sin variant no viste el bloque", () => {
+    render(<CodeHighlight code={SOURCE} />);
+    expect(Root().className).not.toContain("dressed_true");
+  });
+
+  it("con variant viste el bloque y publica las variables", () => {
+    render(<CodeHighlight code={SOURCE} variant="glass" />);
+    expect(Root().className).toContain("dressed_true");
+    expect(Root().getAttribute("style")).toContain("--");
+  });
+
+  it("expandable ofrece el botón y alterna su estado", async () => {
+    const user = userEvent.setup();
+    render(<CodeHighlight code={SOURCE} expandable />);
+    const button = screen.getByRole("button", { name: CODE_HIGHLIGHT_LABELS.expand });
+    expect(button.getAttribute("aria-expanded")).toBe("false");
+    await user.click(button);
+    const open = screen.getByRole("button", { name: CODE_HIGHLIGHT_LABELS.collapse });
+    expect(open.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("sin expandable no hay botón de plegado", () => {
+    render(<CodeHighlight code={SOURCE} />);
+    expect(screen.queryByRole("button", { name: CODE_HIGHLIGHT_LABELS.expand })).toBeNull();
+  });
+
+  it("el código plegado sigue siendo alcanzable: el pre conserva su foco y su scroll", () => {
+    render(<CodeHighlight code={SOURCE} expandable />);
+    const region = screen.getByLabelText(CODE_HIGHLIGHT_LABELS.region(undefined));
+    expect(region.getAttribute("tabindex")).toBe("0");
+    expect(region.textContent).toContain("console.log");
+  });
+});

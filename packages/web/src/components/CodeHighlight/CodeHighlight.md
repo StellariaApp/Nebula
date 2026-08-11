@@ -37,3 +37,22 @@ el número correcto por casualidad, pero sobre el texto es lo que se lee.
 `direction: ltr` y `text-align: left` fijos en el `<pre>`, incluso dentro de un `DirectionProvider` en
 RTL. El código fuente no se lee de derecha a izquierda en ningún idioma: voltearlo rompe la indentación
 y el orden de los operadores. Es la misma regla que aplica `TypographyStylesProvider` a sus `<pre>`.
+
+## La superficie sale del `variantMap` y el plegado no esconde nada (ADR-124)
+
+Sin `variant` el bloque conserva su calibración propia —`surface.sunken` con filo `border.subtle`—,
+que no es ninguna variante del mapa. Con `variant` la resuelve `ResolveVariant` y la vuelca a
+variables, igual que `Card`: por eso `glass` trae también su `glass` level.
+
+**`gradient`, `glow` y `ghost` quedan fuera.** Los dos primeros porque `docs/06` §6 dice que un
+gradiente no es fondo de lectura larga, y treinta líneas de código lo son; `ghost` porque sin
+superficie ni filo el bloque deja de leerse como bloque.
+
+`expandable` recorta a `collapsedHeight` y ofrece un botón, pero **el `pre` conserva su `tabIndex` y
+su scroll**: el código plegado sigue siendo alcanzable con rueda y con teclado, y sin JavaScript el
+bloque nace plegado y se recorre igual. Esa es la razón de no usar `<details>`, que al cerrarse saca
+el contenido del árbol de accesibilidad y del `Ctrl+F` de la página — y el contenido es justo lo que
+la gente busca.
+
+El velo de desvanecido se apaga con `prefers-reduced-motion`. No anima; es el mismo interruptor con el
+que se pide sobriedad.

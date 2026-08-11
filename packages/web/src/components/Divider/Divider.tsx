@@ -8,7 +8,7 @@ import {
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../theme/contract.css.js";
+import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
@@ -31,7 +31,7 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
     orientation = "horizontal",
     size = "xs",
     lineStyle = "solid",
-    color = "default",
+    color = "border.default",
     label,
     labelPosition = "center",
     className,
@@ -44,7 +44,7 @@ const DividerComponent = forwardRef<HTMLElement, DividerOwnProps>(function Divid
   const has_label = label !== undefined && label !== null && orientation === "horizontal";
 
   const css_vars = assignInlineVars({
-    [variables.color]: vars.color.border[color],
+    [variables.color]: ResolveAccent(color),
     [variables.thickness]: ResolveThickness(size),
     [variables.style]: lineStyle,
   });

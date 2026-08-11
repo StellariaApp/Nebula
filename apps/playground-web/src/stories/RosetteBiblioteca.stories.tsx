@@ -65,16 +65,86 @@ const ASSETS: Asset[] = [
   { id: "u2", nombre: "Gimnasio", tipo: "ubicacion", contentClass: "safe", icono: true },
   { id: "u3", nombre: "Cocina de casa", tipo: "ubicacion", contentClass: "safe", icono: false },
   { id: "u4", nombre: "Dormitorio", tipo: "ubicacion", contentClass: "safe", icono: false },
-  { id: "o1", nombre: "Lino blanco", tipo: "outfit", ubicacion: "Azotea al atardecer", contentClass: "safe", icono: true },
-  { id: "o2", nombre: "Vestido de noche", tipo: "outfit", ubicacion: "Azotea al atardecer", contentClass: "safe", icono: true },
-  { id: "o3", nombre: "Gabardina", tipo: "outfit", ubicacion: "Azotea al atardecer", contentClass: "safe", icono: false },
-  { id: "o4", nombre: "Top y mallas", tipo: "outfit", ubicacion: "Gimnasio", contentClass: "safe", icono: true },
-  { id: "o5", nombre: "Sudadera ancha", tipo: "outfit", ubicacion: "Gimnasio", contentClass: "safe", icono: false },
-  { id: "o6", nombre: "Camisa de dormir", tipo: "outfit", ubicacion: "Dormitorio", contentClass: "safe", icono: false },
-  { id: "o7", nombre: "Conjunto de encaje", tipo: "outfit", ubicacion: "Dormitorio", contentClass: "nsfw", icono: false },
-  { id: "p1", nombre: "Suelto con ondas", tipo: "peinado", ubicacion: "Azotea al atardecer", contentClass: "safe", icono: true },
-  { id: "p2", nombre: "Recogido alto", tipo: "peinado", ubicacion: "Gimnasio", contentClass: "safe", icono: false },
-  { id: "p3", nombre: "Trenza lateral", tipo: "peinado", ubicacion: "Cocina de casa", contentClass: "safe", icono: false },
+  {
+    id: "o1",
+    nombre: "Lino blanco",
+    tipo: "outfit",
+    ubicacion: "Azotea al atardecer",
+    contentClass: "safe",
+    icono: true,
+  },
+  {
+    id: "o2",
+    nombre: "Vestido de noche",
+    tipo: "outfit",
+    ubicacion: "Azotea al atardecer",
+    contentClass: "safe",
+    icono: true,
+  },
+  {
+    id: "o3",
+    nombre: "Gabardina",
+    tipo: "outfit",
+    ubicacion: "Azotea al atardecer",
+    contentClass: "safe",
+    icono: false,
+  },
+  {
+    id: "o4",
+    nombre: "Top y mallas",
+    tipo: "outfit",
+    ubicacion: "Gimnasio",
+    contentClass: "safe",
+    icono: true,
+  },
+  {
+    id: "o5",
+    nombre: "Sudadera ancha",
+    tipo: "outfit",
+    ubicacion: "Gimnasio",
+    contentClass: "safe",
+    icono: false,
+  },
+  {
+    id: "o6",
+    nombre: "Camisa de dormir",
+    tipo: "outfit",
+    ubicacion: "Dormitorio",
+    contentClass: "safe",
+    icono: false,
+  },
+  {
+    id: "o7",
+    nombre: "Conjunto de encaje",
+    tipo: "outfit",
+    ubicacion: "Dormitorio",
+    contentClass: "nsfw",
+    icono: false,
+  },
+  {
+    id: "p1",
+    nombre: "Suelto con ondas",
+    tipo: "peinado",
+    ubicacion: "Azotea al atardecer",
+    contentClass: "safe",
+    icono: true,
+  },
+  {
+    id: "p2",
+    nombre: "Recogido alto",
+    tipo: "peinado",
+    ubicacion: "Gimnasio",
+    contentClass: "safe",
+    icono: false,
+  },
+  {
+    id: "p3",
+    nombre: "Trenza lateral",
+    tipo: "peinado",
+    ubicacion: "Cocina de casa",
+    contentClass: "safe",
+    icono: false,
+  },
 ];
 
 /* ── Las acciones del banco ─────────────────────────────────────────────────── */
@@ -248,10 +318,10 @@ function PanelAcciones(): ReactElement {
         title="El banco es el único control de escalón que existe en su vía"
         mb="md"
       >
-        Al cerrar F5, <strong>13 de 23 acciones declaraban un escalón por debajo del que
-        producen</strong>, y las trece hacia arriba. Por eso el escalón <em>observado</em> se anota
-        aparte del declarado, lo firma una persona, y una acción sin observar{" "}
-        <strong>no la sirve el banco</strong>.
+        Al cerrar F5,{" "}
+        <strong>13 de 23 acciones declaraban un escalón por debajo del que producen</strong>, y las
+        trece hacia arriba. Por eso el escalón <em>observado</em> se anota aparte del declarado, lo
+        firma una persona, y una acción sin observar <strong>no la sirve el banco</strong>.
       </Alert>
 
       <Flex align="center" gap="sm" wrap="wrap" mb="md">

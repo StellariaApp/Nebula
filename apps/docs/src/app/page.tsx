@@ -7,7 +7,8 @@ import {
   Card,
   Code,
   Feature,
-  Footer,
+  Flex,
+  GlassSurface,
   GradientText,
   Hero,
   Main,
@@ -18,15 +19,17 @@ import {
 } from "@stellaria/nebula-web";
 
 import { CATALOG } from "../lib/catalog";
+import { GuidesHome } from "../lib/content";
 import { Dict } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
+import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { HeroPreview } from "../islands/hero-preview";
 
 import { SiteNav } from "../islands/site-nav";
 import { ThemePanel } from "../islands/theme-panel";
 import { Band } from "../ui/band";
 import { SiteBackground } from "../ui/site-background";
-import { Logo } from "../ui/logo";
+import { SiteFooter } from "../ui/site-footer";
 import type { Dictionary } from "../lib/dictionary";
 
 const PILLARS = ["theme", "a11y", "budget"] as const;
@@ -76,14 +79,13 @@ const GLYPH = {
   ),
 };
 
-function Bar({ dict }: { dict: Dictionary }) {
+function Bar({ dict, guides }: { dict: Dictionary; guides: string }) {
   return (
     <SiteNav
       links={[
-        { href: "/components", label: dict["nav.components"] ?? "" },
-        { href: "/docs/introduction", label: dict["nav.docs"] ?? "" },
+        { href: guides, label: dict["nav.docs"] ?? "" },
+        { href: SectionHref("components"), label: dict["section.components"] ?? "" },
         { href: "/theme", label: dict["nav.theme"] ?? "" },
-        { href: "/changelog", label: dict["nav.changelog"] ?? "" },
       ]}
       labels={{
         site: dict["site.name"] ?? "",
@@ -97,31 +99,10 @@ function Bar({ dict }: { dict: Dictionary }) {
   );
 }
 
-function Foot({ dict }: { dict: Dictionary }) {
-  return (
-    <Footer glass>
-      <Footer.Brand
-        logo={<Logo id="foot-logo" height={24} />}
-        href="/"
-        description={dict["site.tagline"]}
-      />
-      <Footer.Group title={dict["nav.section.learn"]}>
-        <Footer.Group.Link href="/docs/installation">{dict["home.cta.start"]}</Footer.Group.Link>
-        <Footer.Group.Link href="/docs/introduction">{dict["nav.docs"]}</Footer.Group.Link>
-      </Footer.Group>
-      <Footer.Group title={dict["nav.section.reference"]}>
-        <Footer.Group.Link href="/components">{dict["nav.components"]}</Footer.Group.Link>
-        <Footer.Group.Link href="/theme">{dict["nav.theme"]}</Footer.Group.Link>
-        <Footer.Group.Link href="/changelog">{dict["nav.changelog"]}</Footer.Group.Link>
-      </Footer.Group>
-      <Footer.Legal>{dict["home.legal"]}</Footer.Legal>
-    </Footer>
-  );
-}
-
 export default async function Home() {
   const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
+  const guides = await GuidesHome(lang);
 
   const NUMBERS = [
     {
@@ -143,8 +124,8 @@ export default async function Home() {
       momentum
       withSkipLink
       skipLabel={dict["skip.content"]}
-      header={<Bar dict={dict} />}
-      footer={<Foot dict={dict} />}
+      header={<Bar dict={dict} guides={guides} />}
+      footer={<SiteFooter dict={dict} />}
       background={<SiteBackground />}
     >
       <ThemePanel
@@ -161,13 +142,12 @@ export default async function Home() {
           glass: dict["panel.glass"] ?? "",
           corner: dict["panel.corner"] ?? "",
           density: dict["panel.density"] ?? "",
-          face: dict["panel.face"] ?? "",
         }}
       />
 
       <Hero
         size="xl"
-        mih="760px"
+        mih="720px"
         contentWidth={620}
         hiper={
           <Box display="flex">
@@ -186,10 +166,15 @@ export default async function Home() {
         description={dict["home.lede"]}
         actions={
           <>
-            <Button component="a" href="/docs/installation" size="lg" variant="gradient">
+            <Button
+              component="a"
+              href={SectionHref(DEFAULT_SECTION, "installation")}
+              size="lg"
+              variant="gradient"
+            >
               {dict["home.cta.start"]}
             </Button>
-            <Button component="a" href="/components" size="lg" variant="glass">
+            <Button component="a" href={SectionHref("components")} size="lg" variant="glass">
               {dict["home.cta.browse"]} ({CATALOG.count})
             </Button>
           </>
@@ -203,7 +188,7 @@ export default async function Home() {
               filename: dict["home.preview.file"] ?? "",
               snippetCopy: dict["home.preview.snippetCopy"] ?? "",
               code: dict["home.preview.code"] ?? "",
-              result: dict["home.preview.result"] ?? "",
+              component: dict["home.preview.component"] ?? "",
               view: dict["home.preview.view"] ?? "",
               tooltip: dict["home.preview.tooltip"] ?? "",
               info: dict["home.preview.info"] ?? "",
@@ -222,20 +207,6 @@ export default async function Home() {
         <ProductSurface />
       </Band>
 
-      <Band level="strip" title={dict["home.numbers.title"]}>
-        <SimpleGrid cols={{ base: 2, tablet: 4 }} gap="lg">
-          {NUMBERS.map((item) => (
-            <Stat
-              key={String(item.label)}
-              size="lg"
-              label={item.label}
-              value={item.value}
-              description={item.description}
-            />
-          ))}
-        </SimpleGrid>
-      </Band>
-
       <Band
         center
         level="major"
@@ -243,19 +214,35 @@ export default async function Home() {
         title={dict["home.pillars.title"]}
         description={dict["home.reach.body"]}
       >
-        <Box display="flex" direction="column" gap="xl">
-          <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="xl">
-            {PILLARS.map((key, index) => (
-              <Reveal key={key} component="article" index={index}>
+        <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="xxl">
+          {PILLARS.map((key, index) => (
+            <Reveal key={key} component="article" index={index}>
+              <GlassSurface w="100%" h="100%" level="strong" p="lg" r="md">
                 <Feature
                   icon={GLYPH[key]}
                   title={dict[`home.pillar.${key}.title`]}
                   description={dict[`home.pillar.${key}.body`]}
                 />
-              </Reveal>
+              </GlassSurface>
+            </Reveal>
+          ))}
+        </SimpleGrid>
+        <Flex w="100%" gap="xxl" direction="column">
+          <Text fz="h4" fw="semibold" ta="center">
+            {dict["home.numbers.title"]}
+          </Text>
+          <SimpleGrid cols={{ base: 2, tablet: 4 }} gap="lg">
+            {NUMBERS.map((item) => (
+              <Stat
+                key={String(item.label)}
+                size="lg"
+                label={item.label}
+                value={item.value}
+                description={item.description}
+              />
             ))}
           </SimpleGrid>
-        </Box>
+        </Flex>
       </Band>
 
       <Band
@@ -288,7 +275,12 @@ export default async function Home() {
             ))}
           </SimpleGrid>
           <Box display="flex" gap="md" wrap="wrap" justify="center">
-            <Button component="a" href="/docs/installation" size="lg" variant="gradient">
+            <Button
+              component="a"
+              href={SectionHref(DEFAULT_SECTION, "installation")}
+              size="lg"
+              variant="gradient"
+            >
               {dict["home.cta.start"]}
             </Button>
             <Button

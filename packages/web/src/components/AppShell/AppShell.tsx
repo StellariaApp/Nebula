@@ -6,6 +6,7 @@ import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
 import * as variables from "./AppShell.vars.css.js";
@@ -31,6 +32,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     sidebar,
     backdrop,
     sidebarWidth = SIDEBAR_WIDTH,
+    contentWidth,
     chromeHeight: chrome = CHROME_HEIGHT,
     mainRef,
     scrollShadow = true,
@@ -84,13 +86,19 @@ export function AppShell(props: AppShellProps): ReactElement {
     [variables.railMiniWidth]: `${String(sidebarMiniWidth)}px`,
     [variables.chromeHeight]: `${String(chrome)}px`,
     [variables.shadowOffset]: `${String(scrollShadowOffset)}px`,
+    ...(contentWidth === undefined ? {} : { [variables.contentMax]: LengthToCss(contentWidth) }),
   });
 
   if (railed) {
     return (
       <AppShellContext.Provider value={shell_state}>
         <div
-          className={cx(styles.rail, sprinkle_class, className)}
+          className={cx(
+            styles.rail,
+            contentWidth === undefined ? undefined : styles.bounded,
+            sprinkle_class,
+            className,
+          )}
           style={{ ...css_vars, ...sprinkle_style }}
           data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
         >

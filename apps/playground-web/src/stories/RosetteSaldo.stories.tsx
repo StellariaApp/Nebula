@@ -42,12 +42,48 @@ import {
  * arreglaron reconciliando contra disco.                                       */
 
 const ASIENTOS = [
-  { fecha: "05/08 14:12", concepto: "Tanda de 3 candidatas · Rose Aldana", tipo: "consumo", rosets: -30, coste: "$0,2520" },
-  { fecha: "05/08 14:02", concepto: "Reserva · 3 trabajos", tipo: "reserva", rosets: -30, coste: "—" },
-  { fecha: "05/08 13:58", concepto: "Trabajo fallido · transporte", tipo: "devolución", rosets: 10, coste: "$0,0000" },
-  { fecha: "05/08 11:20", concepto: "Juego de 9 anclas · Nadia Ortiz", tipo: "consumo", rosets: -150, coste: "$0,7152" },
-  { fecha: "05/08 09:04", concepto: "Recarga automática", tipo: "recarga", rosets: 1428, coste: "$50,00" },
-  { fecha: "01/08 00:00", concepto: "Asignación del ciclo · plan Pro", tipo: "asignación", rosets: 11900, coste: "—" },
+  {
+    fecha: "05/08 14:12",
+    concepto: "Tanda de 3 candidatas · Rose Aldana",
+    tipo: "consumo",
+    rosets: -30,
+    coste: "$0,2520",
+  },
+  {
+    fecha: "05/08 14:02",
+    concepto: "Reserva · 3 trabajos",
+    tipo: "reserva",
+    rosets: -30,
+    coste: "—",
+  },
+  {
+    fecha: "05/08 13:58",
+    concepto: "Trabajo fallido · transporte",
+    tipo: "devolución",
+    rosets: 10,
+    coste: "$0,0000",
+  },
+  {
+    fecha: "05/08 11:20",
+    concepto: "Juego de 9 anclas · Nadia Ortiz",
+    tipo: "consumo",
+    rosets: -150,
+    coste: "$0,7152",
+  },
+  {
+    fecha: "05/08 09:04",
+    concepto: "Recarga automática",
+    tipo: "recarga",
+    rosets: 1428,
+    coste: "$50,00",
+  },
+  {
+    fecha: "01/08 00:00",
+    concepto: "Asignación del ciclo · plan Pro",
+    tipo: "asignación",
+    rosets: 11900,
+    coste: "—",
+  },
 ];
 
 const TIPO_TONO = {
@@ -186,9 +222,10 @@ function Planes(): ReactElement {
       </SimpleGrid>
       <Text fz="caption" c="text.muted" mt="sm">
         Los rosets se renuevan cada mes y no se acumulan; en anual, arrastre de hasta la mitad de lo
-        no usado a un solo mes siguiente. <strong>Subir de plan siempre sale mejor que comprar
-        saldo suelto</strong>, y eso no es una promesa comercial: el roset extra más barato queda a
-        $0,028 y ninguno de los tres planes llega ahí.
+        no usado a un solo mes siguiente.{" "}
+        <strong>Subir de plan siempre sale mejor que comprar saldo suelto</strong>, y eso no es una
+        promesa comercial: el roset extra más barato queda a $0,028 y ninguno de los tres planes
+        llega ahí.
       </Text>
     </Box>
   );

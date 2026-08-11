@@ -20,41 +20,45 @@ El resto de `docs/` y los ADRs siguen en español: son documentación interna, n
 
 ## Rutas — la URL no lleva idioma
 
-Mapa cerrado el 2026-08-08 con el propietario. La vara de medir es `mantine.dev` y `ui.shadcn.com`.
-Tres cubos, que son los que ya nombra `i18n/<lang>/chrome.json`: **Learn**, **Reference** y el resto.
+Mapa reestructurado el 2026-08-10 por
+[ADR-127](../../docs/adr/ADR-127-las-guias-se-parten-en-seis-secciones.md), que sustituye al cerrado
+el 2026-08-08. La vara de medir sigue siendo `mantine.dev`.
 
-| Ruta                        | Cubo      | Estado                                                                   |
-| --------------------------- | --------- | ------------------------------------------------------------------------ |
-| `/`                         | —         | portada                                                                  |
-| `/docs/[...slug]`           | Learn     | **toda la prosa**: instalación, inicio rápido, a11y, RSC, estilos, guías |
-| `/components`               | Reference | índice de las 158, por familia, desde el registro generado               |
-| `/components/web/<name>`    | Reference | la ficha de cada componente                                              |
-| `/components/native`        | Reference | «próximamente» con el inventario planificado — hay 0 componentes native  |
-| `/components/native/<name>` | Reference | **reservada** — llega con N1                                             |
-| `/styles`                   | Reference | las 128 style props de ADR-103, generada entera                          |
-| `/theme`                    | Reference | el contrato `NebulaTheme` y cómo se cambia todo desde él                 |
-| `/theme/tokens`             | Reference | color, espaciado, tipografía, motion, radios, sombras                    |
-| `/theme/creator`            | Reference | **reservada** — pista TC                                                 |
-| `/premium`                  | —         | escaparate de los 6 paquetes de dominio, sin precio ni fecha             |
-| `/premium/<paquete>`        | —         | **reservada** — llega con W6                                             |
-| `/pricing`                  | —         | **reservada** — necesita el modelo comercial de ADR-113 desplegado       |
-| `/changelog`                | —         | desde el primer deploy, con el badge de API en normalización             |
-| `/agents`                   | —         | cómo consumir Nebula desde un agente de IA                               |
-| `/llms.txt`                 | —         | índice plano para modelos                                                |
-| `/llms-full.txt`            | —         | el catálogo entero en texto                                              |
-| `/components/web/<name>.md` | —         | cada ficha en markdown plano, para agentes                               |
+**Toda la documentación cuelga de `/guides`**, repartida en seis secciones hermanas. Cada una tiene su
+URL, su índice y su propio carril; las pestañas y el carril viven en `guides/layout.tsx` para que
+saltar de sección no remonte nada.
 
-### Las cuatro decisiones que fijan este mapa
+| Ruta                             | Estado                                                             |
+| -------------------------------- | ------------------------------------------------------------------ |
+| `/`                              | portada                                                            |
+| `/guides/getting-started`        | índice de la sección                                               |
+| `/guides/getting-started/[slug]` | **la prosa**: introducción, instalación, RSC, a11y, estilos        |
+| `/guides/components`             | índice de las 158, por familia, desde el registro generado         |
+| `/guides/components/<name>`      | la ficha de cada componente — **pendiente**, hoy es 404            |
+| `/guides/theming-styles`         | **reservada** — el contrato `NebulaTheme` y las 128 style props    |
+| `/guides/hooks`                  | **reservada** — `@stellaria/nebula-hooks`                          |
+| `/guides/form`                   | **reservada** — el contrato `field` y form-atoms                   |
+| `/guides/native`                 | **reservada** — el catálogo React Native, llega con N1             |
+| `/theme`                         | el Theme Creator — **reservada**, pista TC                         |
+| `/changelog`                     | desde el primer deploy, con el badge de API en normalización       |
+| `/premium`                       | escaparate de los 6 paquetes de dominio, sin precio ni fecha       |
+| `/pricing`                       | **reservada** — necesita el modelo comercial de ADR-113 desplegado |
+| `/agents`                        | cómo consumir Nebula desde un agente de IA                         |
+| `/llms.txt` · `/llms-full.txt`   | índice plano y catálogo entero en texto, para modelos              |
+| `/guides/components/<name>.md`   | cada ficha en markdown plano, para agentes                         |
 
-1. **Toda la prosa vive bajo `/docs`.** No hay `/guides` como raíz: las recetas por framework son
-   `/docs/guides/<framework>`. Dos raíces de prosa producen una pregunta permanente —«¿dónde va
-   esto?»— que con dos ficheros de contenido no se justifica.
-2. **La plataforma cuelga de `/components`, no de la raíz.** Sustituye a la `/native` que esta tabla
-   reservaba: el segmento significa algo donde hay un catálogo que dividir.
-3. **El premium es escaparate, no catálogo.** Separado de `/components` a propósito: mezclarlos
-   obliga a poner candados por toda la tabla de 158 y convierte el índice en una tienda.
-4. **`/agents` es documentación legible por máquinas**, no una familia de componentes. Se deriva de
-   `generated/*.json`, así que es casi todo generación y no prosa.
+Redirigen: `/docs/:slug*` → `/guides/getting-started/:slug*`, `/components` → `/guides/components`,
+`/native` → `/guides/native` y `/guides` → `/guides/getting-started`.
+
+### Las tres decisiones que fijan este mapa
+
+1. **Una sola raíz de documentación.** `Components` es una sección de Guides, no una raíz hermana:
+   las dos son documentación y el nav superior solo nombra las tres páginas realmente distintas
+   —Home, Guides y Theme Creator—.
+2. **La sección sale de la carpeta**, `content/<lang>/<section>/`, no del front matter. Una sola
+   fuente, sin forma de que ruta y metadato discrepen.
+3. **El premium es escaparate, no catálogo.** Separado de `/guides/components` a propósito:
+   mezclarlos obliga a poner candados por toda la tabla de 158 y convierte el índice en una tienda.
 
 ### Lo que el pie declara
 

@@ -37,10 +37,38 @@ interface Pieza {
 }
 
 const PIEZAS: Pieza[] = [
-  { id: "v1", estudio: "Casa Rosette", avatar: "Rose Aldana", accion: "De pie junto a la barandilla", duracion: "0:05", escalon: "A" },
-  { id: "v2", estudio: "Estudio Lumen", avatar: "Mara Iriarte", accion: "Caminando descalza por el pasillo", duracion: "0:10", escalon: "A" },
-  { id: "v3", estudio: "Casa Rosette", avatar: "Vera Solís", accion: "Sentada leyendo junto a la ventana", duracion: "0:05", escalon: "A" },
-  { id: "v4", estudio: "Taller Nueve", avatar: "Ada Winter", accion: "Apoyada en el marco de la puerta", duracion: "0:15", escalon: "A" },
+  {
+    id: "v1",
+    estudio: "Casa Rosette",
+    avatar: "Rose Aldana",
+    accion: "De pie junto a la barandilla",
+    duracion: "0:05",
+    escalon: "A",
+  },
+  {
+    id: "v2",
+    estudio: "Estudio Lumen",
+    avatar: "Mara Iriarte",
+    accion: "Caminando descalza por el pasillo",
+    duracion: "0:10",
+    escalon: "A",
+  },
+  {
+    id: "v3",
+    estudio: "Casa Rosette",
+    avatar: "Vera Solís",
+    accion: "Sentada leyendo junto a la ventana",
+    duracion: "0:05",
+    escalon: "A",
+  },
+  {
+    id: "v4",
+    estudio: "Taller Nueve",
+    avatar: "Ada Winter",
+    accion: "Apoyada en el marco de la puerta",
+    duracion: "0:15",
+    escalon: "A",
+  },
 ];
 
 function Acciones({ onGenerar }: { onGenerar: () => void }): ReactElement {
@@ -135,12 +163,7 @@ function ReproductorEnLinea({ active, duracion, progreso }: ReproductorProps): R
       </Box>
 
       <Box position="absolute" style={{ top: 0, left: 0, right: 0 }}>
-        <Progress
-          value={active ? progreso : 0}
-          size="xs"
-          radius={0}
-          label="Progreso de la pieza"
-        />
+        <Progress value={active ? progreso : 0} size="xs" radius={0} label="Progreso de la pieza" />
       </Box>
 
       <Box position="absolute" style={{ left: 16, top: 16 }}>
@@ -287,8 +310,8 @@ function Feed(): ReactElement {
         </Button>
 
         <Alert variant="light" color="warning" mt="md" icon={<Icon name="warning" />}>
-          El escalón de la acción se comprueba contra los tres techos —estudio, avatar y tu
-          permiso— y gana el más restrictivo.
+          El escalón de la acción se comprueba contra los tres techos —estudio, avatar y tu permiso—
+          y gana el más restrictivo.
         </Alert>
       </Drawer>
     </Box>

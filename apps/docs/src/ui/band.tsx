@@ -39,6 +39,7 @@ export function Band({
     <Section
       reveal
       size={scale.size}
+      gap="lg"
       {...(glass ? { glass: true } : {})}
       {...(id === undefined ? {} : { id })}
       {...(footer === undefined ? {} : { footer })}
@@ -60,7 +61,7 @@ export function Band({
           )}
         </Section.Heading>
       </Section.Header>
-      {children}
+      <Section.Body>{children}</Section.Body>
     </Section>
   );
 }

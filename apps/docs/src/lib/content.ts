@@ -4,6 +4,7 @@ import { join, resolve } from "node:path";
 import matter from "gray-matter";
 
 import { LANGS, SOURCE_LANG, type Lang } from "./i18n";
+import { DEFAULT_SECTION, SectionHref } from "./sections";
 
 export interface Frontmatter {
   title: string;
@@ -22,6 +23,10 @@ export interface Doc {
 
 function Root(lang: Lang): string {
   return resolve(process.cwd(), "content", lang);
+}
+
+function SectionRoot(lang: Lang, section: string): string {
+  return join(Root(lang), section);
 }
 
 async function Walk(dir: string, base: string[] = []): Promise<string[][]> {
@@ -55,8 +60,8 @@ function Parse(raw: string): { front: Frontmatter; body: string } {
   };
 }
 
-export async function ReadDoc(lang: Lang, slug: string[]): Promise<Doc | null> {
-  const file = `${join(...slug)}.mdx`;
+export async function ReadDoc(lang: Lang, section: string, slug: string[]): Promise<Doc | null> {
+  const file = `${join(section, ...slug)}.mdx`;
 
   try {
     const raw = await readFile(join(Root(lang), file), "utf8");
@@ -84,20 +89,40 @@ export async function Coverage(): Promise<Record<Lang, { total: number; translat
   return out;
 }
 
+/**
+ * A dónde lleva una sección: a su primera página, no a su índice. Sin páginas —las reservadas— cae
+ * en el índice, que es lo único que hay.
+ */
+export async function SectionLanding(lang: Lang, section: string): Promise<string> {
+  const [first] = await DocIndex(lang, section);
+  return first === undefined ? SectionHref(section) : SectionHref(section, ...first.slug);
+}
+
+/** El destino de «Guides» en la barra, el pie y la portada. */
+export async function GuidesHome(lang: Lang): Promise<string> {
+  return SectionLanding(lang, DEFAULT_SECTION);
+}
+
 export interface DocEntry {
   slug: string[];
   title: string;
+  summary: string;
   order: number;
 }
 
-/** El índice de guías del idioma, ordenado por `order` del front matter. */
-export async function DocIndex(lang: Lang): Promise<DocEntry[]> {
-  const slugs = await Walk(Root(lang));
+/** El índice de una sección del idioma, ordenado por `order` del front matter. */
+export async function DocIndex(lang: Lang, section: string): Promise<DocEntry[]> {
+  const slugs = await Walk(SectionRoot(lang, section));
   const entries: DocEntry[] = [];
   for (const slug of slugs) {
-    const doc = await ReadDoc(lang, slug);
+    const doc = await ReadDoc(lang, section, slug);
     if (doc === null) continue;
-    entries.push({ slug, title: doc.front.title, order: doc.front.order });
+    entries.push({
+      slug,
+      title: doc.front.title,
+      summary: doc.front.summary,
+      order: doc.front.order,
+    });
   }
   return entries.sort((a, b) => a.order - b.order);
 }

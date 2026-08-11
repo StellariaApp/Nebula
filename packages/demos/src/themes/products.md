@@ -19,10 +19,10 @@ dos cosas es cada una.
 `setTheme` acepta un nombre oficial o un tema entero ([ADR-121](../../../../docs/adr/ADR-121-set-theme-acepta-un-tema-entero.md)),
 y **las dos vías no son equivalentes**:
 
-| Lo que se pasa | Se persiste | `ColorSchemeScript` lo pinta antes del primer frame |
-| -------------- | ----------- | --------------------------------------------------- |
-| `"dark"`       | sí          | sí — la clase está en el mapa que serializa          |
-| un `NebulaTheme` | sólo su scheme | no — son vars inline, y las escribe el efecto    |
+| Lo que se pasa   | Se persiste    | `ColorSchemeScript` lo pinta antes del primer frame |
+| ---------------- | -------------- | --------------------------------------------------- |
+| `"dark"`         | sí             | sí — la clase está en el mapa que serializa         |
+| un `NebulaTheme` | sólo su scheme | no — son vars inline, y las escribe el efecto       |
 
 Así que `ResolveChoice` devuelve **el nombre** cuando la elección es la identidad de Nebula sin
 retocar, que es el caso por defecto y el que ve todo el que llega al sitio: sin salto al recargar y con

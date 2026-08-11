@@ -51,10 +51,10 @@ código** —un porqué de motion, un contrato de a11y, una excepción medida, u
 condicionalidad—. Se comprueba en revisión, como hasta ahora; lo que cambia es que ya no compite con
 el JSDoc, porque cada uno cubre una cosa distinta:
 
-| Dónde     | Qué                                                   | Quién lo lee            |
-| --------- | ----------------------------------------------------- | ----------------------- |
-| **JSDoc** | qué es esta prop y cuándo no aplica                    | el consumidor, al teclear |
-| **`.md`** | por qué el componente es así y qué se descartó         | quien lo mantiene       |
+| Dónde     | Qué                                            | Quién lo lee              |
+| --------- | ---------------------------------------------- | ------------------------- |
+| **JSDoc** | qué es esta prop y cuándo no aplica            | el consumidor, al teclear |
+| **`.md`** | por qué el componente es así y qué se descartó | quien lo mantiene         |
 
 ## Consecuencias
 

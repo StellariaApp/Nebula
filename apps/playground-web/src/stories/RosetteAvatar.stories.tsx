@@ -65,7 +65,13 @@ interface Preajuste {
 }
 
 const PREAJUSTES: Preajuste[] = [
-  { key: "ubicacion", label: "Ubicación", valor: "Azotea al atardecer", nota: "6 outfits relacionados", icon: "pin" },
+  {
+    key: "ubicacion",
+    label: "Ubicación",
+    valor: "Azotea al atardecer",
+    nota: "6 outfits relacionados",
+    icon: "pin",
+  },
   { key: "outfit", label: "Outfit", valor: "Lino blanco", nota: "clase segura", icon: "wardrobe" },
   { key: "peinado", label: "Peinado", nota: "sin elegir · opcional", icon: "scissors" },
 ];
@@ -168,8 +174,8 @@ function Componer(): ReactElement {
           icon={<Icon name="warning" />}
           title="La vía custom no lleva verificador"
         >
-          El activo hereda el escalón que pidas, no el que salga. Está medido que cuatro veces
-          sobre unas 60 no coincidieron.
+          El activo hereda el escalón que pidas, no el que salga. Está medido que cuatro veces sobre
+          unas 60 no coincidieron.
         </Alert>
       ) : (
         <Box mt="sm">
@@ -339,7 +345,10 @@ function Cola(): ReactElement {
 
 const COMPOSICION = [
   { title: "1 · Preámbulo de anclas", description: "emparejado con las 9 que viajan" },
-  { title: "2 · Bloque de identidad", description: "literal del canon v7, sin cambiar una palabra" },
+  {
+    title: "2 · Bloque de identidad",
+    description: "literal del canon v7, sin cambiar una palabra",
+  },
   { title: "3 · Escena", description: "Azotea al atardecer" },
   { title: "4 · Vestuario y peinado", description: "lino blanco, con un sitio en la escena" },
   { title: "5 · Acción", description: "de pie junto a la barandilla" },
@@ -469,8 +478,8 @@ function Galeria(): ReactElement {
         </Flex>
 
         <Alert variant="light" color="info" icon={<Icon name="eye" />} mb="md">
-          <strong>Rose Aldana es un avatar público</strong>, así que puedes elegir pieza a pieza
-          qué se ve fuera del estudio. Lo que no marques no sale de aquí, aunque el avatar lo esté.
+          <strong>Rose Aldana es un avatar público</strong>, así que puedes elegir pieza a pieza qué
+          se ve fuera del estudio. Lo que no marques no sale de aquí, aunque el avatar lo esté.
         </Alert>
 
         <SimpleGrid cols={Cols({ base: 2, tablet: 3, desktop: 4 })} spacing="md">
@@ -700,7 +709,12 @@ const CAMPOS = [
   { path: "physical.hair.color", valor: "castaño oscuro", origen: "extraido", confianza: "0,91" },
   { path: "physical.eyes", valor: "avellana", origen: "extraido", confianza: "0,78" },
   { path: "physical.build", valor: "media, curva", origen: "directed", confianza: null },
-  { path: "renderDirectives.skin", valor: "descriptor + luz frontal difusa", origen: "derived", confianza: null },
+  {
+    path: "renderDirectives.skin",
+    valor: "descriptor + luz frontal difusa",
+    origen: "derived",
+    confianza: null,
+  },
   { path: "voice.timbre", valor: "grave, pausado", origen: "generated", confianza: null },
   { path: "intimacyAxes.declaredCeiling", valor: "D", origen: "directed", confianza: null },
 ];

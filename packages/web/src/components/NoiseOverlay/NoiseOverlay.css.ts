@@ -7,4 +7,3 @@ export const fixed = style({
     [base_layer]: { position: "fixed" },
   },
 });
-

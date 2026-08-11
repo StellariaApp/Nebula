@@ -37,6 +37,7 @@ import {
   ThemeIcon,
   Timeline,
   Title,
+  Segment,
 } from "@stellaria/nebula-web";
 import { AreaChart, BarChart, PieChart, SparkLine } from "@stellaria/nebula-web/charts";
 import type { ReactElement, ReactNode } from "react";
@@ -77,11 +78,46 @@ const ACTIVITY = [
 ] as const;
 
 const THREADS = [
-  { who: "Carlos Iglesias", when: "10:21", subject: "Launch recap", unread: true, tag: "Work", tone: "info" },
-  { who: "Stripe", when: "Yesterday", subject: "Invoice INV-0241 is due", unread: true, tag: "Billing", tone: "warning" },
-  { who: "Maya Okafor", when: "Mon", subject: "Design review: v3", unread: false, tag: undefined, tone: undefined },
-  { who: "Parker Wren", when: "Fri", subject: "Q2 growth plan", unread: false, tag: undefined, tone: undefined },
-  { who: "Amelia Ruiz", when: "Apr 22", subject: "Weekly summary", unread: false, tag: "Travel", tone: "success" },
+  {
+    who: "Carlos Iglesias",
+    when: "10:21",
+    subject: "Launch recap",
+    unread: true,
+    tag: "Work",
+    tone: "info",
+  },
+  {
+    who: "Stripe",
+    when: "Yesterday",
+    subject: "Invoice INV-0241 is due",
+    unread: true,
+    tag: "Billing",
+    tone: "warning",
+  },
+  {
+    who: "Maya Okafor",
+    when: "Mon",
+    subject: "Design review: v3",
+    unread: false,
+    tag: undefined,
+    tone: undefined,
+  },
+  {
+    who: "Parker Wren",
+    when: "Fri",
+    subject: "Q2 growth plan",
+    unread: false,
+    tag: undefined,
+    tone: undefined,
+  },
+  {
+    who: "Amelia Ruiz",
+    when: "Apr 22",
+    subject: "Weekly summary",
+    unread: false,
+    tag: "Travel",
+    tone: "success",
+  },
 ] as const;
 
 const LABELS = [
@@ -112,9 +148,23 @@ const STEPS = [
 ];
 
 const FAQ = [
-  { value: "themes", label: "How does theming work?", content: "One NebulaTheme object retunes colour, type, geometry, density, motion and glass across the whole catalogue." },
-  { value: "platforms", label: "Does it run on React Native?", content: "The contract lives in the tokens; each platform implements only the visual layer." },
-  { value: "budget", label: "How big is it?", content: "size-limit measures every entry point in brotli kB and fails the build when it drifts." },
+  {
+    value: "themes",
+    label: "How does theming work?",
+    content:
+      "One NebulaTheme object retunes colour, type, geometry, density, motion and glass across the whole catalogue.",
+  },
+  {
+    value: "platforms",
+    label: "Does it run on React Native?",
+    content: "The contract lives in the tokens; each platform implements only the visual layer.",
+  },
+  {
+    value: "budget",
+    label: "How big is it?",
+    content:
+      "size-limit measures every entry point in brotli kB and fails the build when it drifts.",
+  },
 ];
 
 const MAILBOXES = [
@@ -148,7 +198,14 @@ const MEMBERS = [
   { who: "Cruz Vega", role: "Viewer", state: "review" },
 ] as const;
 
-export const SCENARIOS = ["components", "dashboard", "mail", "finances", "onboarding", "settings"] as const;
+export const SCENARIOS = [
+  "components",
+  "dashboard",
+  "mail",
+  "finances",
+  "onboarding",
+  "settings",
+] as const;
 
 export type Scenario = (typeof SCENARIOS)[number];
 
@@ -593,7 +650,14 @@ function Mail(): ReactElement {
             </Text>
             <Box display="flex" align="center" gap="sm" p="xs" r="sm" bg="surface.sunken">
               <ThemeIcon size="sm" variant="light" radius="sm">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <path d="M14 3v5h5M6 3h9l5 5v13H6z" />
                 </svg>
               </ThemeIcon>
@@ -606,7 +670,14 @@ function Mail(): ReactElement {
                 </Text>
               </Box>
               <ActionIcon size="sm" variant="ghost" aria-label="Download attachment">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14" />
                 </svg>
               </ActionIcon>
@@ -741,7 +812,12 @@ function Finances(): ReactElement {
         </Card>
 
         <Card withBorder r="md" padding="none">
-          <Table highlightOnHover density="compact" caption="Recent activity" captionVisible={false}>
+          <Table
+            highlightOnHover
+            density="compact"
+            caption="Recent activity"
+            captionVisible={false}
+          >
             <Table.Head>
               <Table.Row>
                 <Table.Title>Txn</Table.Title>
@@ -925,16 +1001,23 @@ function Settings(): ReactElement {
   );
 }
 
-const VIEWS: Record<Scenario, () => ReactElement> = {
-  components: Components,
-  dashboard: Dashboard,
-  mail: Mail,
-  finances: Finances,
-  onboarding: Onboarding,
-  settings: Settings,
-};
+const VIEWS: [Scenario, ReactElement][] = [
+  ["components", <Components />],
+  ["dashboard", <Dashboard />],
+  ["mail", <Mail />],
+  ["finances", <Finances />],
+  ["onboarding", <Onboarding />],
+  ["settings", <Settings />],
+];
 
-export default function Scenarios({ scenario }: { scenario: Scenario }): ReactElement {
-  const View = VIEWS[scenario];
-  return <View />;
+export default function Scenarios(): ReactElement {
+  return (
+    <Segment.Content w="100%" gap="lg" auto>
+      {VIEWS.map(([name, view]) => (
+        <Segment.Content.Item key={name} value={name}>
+          {view}
+        </Segment.Content.Item>
+      ))}
+    </Segment.Content>
+  );
 }

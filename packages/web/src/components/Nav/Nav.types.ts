@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
-import type { ColorExtended, Unit, Variant } from "@stellaria/nebula-tokens";
+import type { ColorExtended, GlassLevel, Unit, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
@@ -28,6 +28,8 @@ export interface NavProps extends StyleProps {
   withBorder?: boolean | undefined;
   /** @default 1180 */
   contentWidth?: Unit | undefined;
+  /** The glass step of the bar surface. A static bar wears it from the start (ADR-125). */
+  level?: GlassLevel | undefined;
   floating?: boolean | undefined;
   sticky?: boolean | undefined;
   scrolled?: boolean | undefined;

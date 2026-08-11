@@ -593,3 +593,26 @@ describe("Resolución de rutas", () => {
     expect(ResolveMode("hash", undefined, ["/a"])).toBe("hash");
   });
 });
+
+describe("Nav — superficie de la barra estática (ADR-125)", () => {
+  it("una barra estática viste desde el principio", () => {
+    const view = render(
+      <Nav>
+        <Nav.Logo href="/">logo</Nav.Logo>
+      </Nav>,
+    );
+    const root = view.container.querySelector("div[class*='Nav_solid']");
+    expect(root).not.toBeNull();
+    expect(root?.getAttribute("style")).toContain("--");
+  });
+
+  it("una barra que sigue al scroll no la lleva puesta de salida", () => {
+    const view = render(
+      <Nav sticky>
+        <Nav.Logo href="/">logo</Nav.Logo>
+      </Nav>,
+    );
+    expect(view.container.querySelector("div[class*='Nav_solid']")).toBeNull();
+    expect(view.container.querySelector("[data-scrolled='false']")).not.toBeNull();
+  });
+});

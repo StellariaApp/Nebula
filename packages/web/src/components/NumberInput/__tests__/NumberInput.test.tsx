@@ -24,8 +24,6 @@ describe("NumberInput", () => {
 
   it("deshabilita el incremento al alcanzar el máximo", () => {
     render(<NumberInput label="N" value={5} onChange={() => undefined} max={5} />);
-    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Increase" }).disabled).toBe(
-      true,
-    );
+    expect(screen.getByRole<HTMLButtonElement>("button", { name: "Increase" }).disabled).toBe(true);
   });
 });

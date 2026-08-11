@@ -24,7 +24,14 @@ export interface TabsProps extends StyleProps {
   fullWidth?: boolean | undefined;
   swipeable?: boolean | undefined;
   draggable?: boolean | undefined;
+  /** Stretches the panels to the height of the box. Takes precedence over `auto`. */
   fill?: boolean | undefined;
+  /** Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set. */
+  auto?: boolean | undefined;
+  /** Same on the horizontal axis: every panel takes its own width and the box springs to it. */
+  autoWidth?: boolean | undefined;
+  /** Wraps the swipe around, so the first panel follows the last one. Needs two panels or more. */
+  loop?: boolean | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
   padded?: boolean | undefined;

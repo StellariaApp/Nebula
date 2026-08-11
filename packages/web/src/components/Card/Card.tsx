@@ -89,7 +89,7 @@ export function Card(props: CardProps): ReactElement {
     children,
     variant,
     color = "primary",
-    r = "md",
+    r = "lg",
     shadow = "none",
     padding = "lg",
     withBorder = true,
@@ -101,7 +101,10 @@ export function Card(props: CardProps): ReactElement {
     "aria-label": aria_label,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps({ r, ...style_rest });
+  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps({
+    r,
+    ...style_rest,
+  });
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();

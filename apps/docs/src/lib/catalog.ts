@@ -37,3 +37,16 @@ export function ByFamily(): { family: string; components: CatalogEntry[] }[] {
 export function Find(name: string): CatalogEntry | undefined {
   return CATALOG.components.find((entry) => entry.name === name);
 }
+
+/** El ancla de la familia dentro del índice: `Data display` → `data-display`. */
+export function FamilySlug(family: string): string {
+  return family
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** La URL de la ficha: `CodeHighlight` → `code-highlight`. */
+export function ComponentSlug(name: string): string {
+  return name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+}

@@ -76,13 +76,20 @@ function Duplicar({
   onClose: () => void;
 }): ReactElement {
   const [rehacer, set_rehacer] = useState(false);
-  const juego = avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
+  const juego =
+    avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
 
   return (
-    <Drawer opened={abierto} onClose={onClose} side="end" size={420} title={`Duplicar ${avatar.nombre}`}>
+    <Drawer
+      opened={abierto}
+      onClose={onClose}
+      side="end"
+      size={420}
+      title={`Duplicar ${avatar.nombre}`}
+    >
       <Text fz="body3" c="text.secondary">
-        El duplicado parte del canon v{avatar.canon} y <strong>hereda el juego de{" "}
-        {avatar.anclas[1]} anclas y su validación</strong>. Nace en{" "}
+        El duplicado parte del canon v{avatar.canon} y{" "}
+        <strong>hereda el juego de {avatar.anclas[1]} anclas y su validación</strong>. Nace en{" "}
         <strong>producible</strong>, listo para generar.
       </Text>
 
@@ -125,11 +132,7 @@ function Duplicar({
 
       <Divider my="md" />
 
-      <Switch
-        checked={rehacer}
-        onChange={set_rehacer}
-        label="Rehacer el juego de anclas"
-      />
+      <Switch checked={rehacer} onChange={set_rehacer} label="Rehacer el juego de anclas" />
       <Text fz="caption" c="text.muted" mt="xxs">
         Solo si quieres una identidad distinta. Es la opción cara y ya no es un duplicado: es un
         avatar nuevo con el canon copiado.
@@ -477,11 +480,7 @@ function Avatares({ duplicando = false }: { duplicando?: boolean | undefined }):
               />
             }
             renderItem={(avatar, mode) =>
-              mode === "list" ? (
-                <FichaLista avatar={avatar} />
-              ) : (
-                <FichaGrande avatar={avatar} />
-              )
+              mode === "list" ? <FichaLista avatar={avatar} /> : <FichaGrande avatar={avatar} />
             }
           />
         </AppShell.Content>

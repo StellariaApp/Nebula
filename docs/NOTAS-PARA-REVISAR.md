@@ -130,3 +130,40 @@ Estos archivos llevan cambios tuyos en curso y los he dejado fuera de mis commit
 
 `Nav.tsx` y `apps/docs/src/app/[lang]/page.tsx` sí entraron en mis commits porque tenía que tocarlos;
 llevan dentro tu `glass.strong`, el `momentum`, el `GlassSurface` y el `r="inherit"`.
+
+## Reestructura de `/guides` — decisiones tomadas (2026-08-10)
+
+> **Implementada** y recogida en
+> [ADR-127](adr/ADR-127-las-guias-se-parten-en-seis-secciones.md). Las seis secciones quedaron en
+> `getting-started`, `components`, `theming-styles`, `hooks`, `form` y `native` — `Native` sale de la
+> raíz y entra en Guides.
+
+El sitio pasa de una sección con dos grupos a **seis secciones hermanas**, cada una con su URL y su
+propio carril:
+
+```
+/guides/getting-started            /guides/components            /guides/hooks
+/guides/getting-started/installation   /guides/components/button     /guides/hooks/some-hook
+```
+
+`Components` **vive dentro de Guides**, no como raíz aparte. El nav superior queda con Home · Guides ·
+Theme Creator, que son las tres páginas realmente distintas.
+
+**Decidido por el propietario:**
+
+1. **Las pestañas navegan con `router.push`**, no con anclas. Se asume el coste: sin clic central, sin
+   `Cmd+clic` y sin enlace visible para el crawler. La alternativa —`href` en
+   `Segment.Control.Item`— queda descartada por ahora; si se retoma, es API del catálogo y va con ADR.
+2. **Las secciones sin contenido aparecen igual**, marcadas como próximas con la pantalla de
+   `Reserved` que ya existe. Theming & Styles, Hooks y Form entran así.
+
+**Lo que hace que no se remonte**: las pestañas y el carril viven en `guides/layout.tsx`. Un layout de
+App Router no se desmonta mientras navegas dentro de su segmento, así que la sección activa se lee con
+`useSelectedLayoutSegment()` y solo cambia el `children`. Si las pestañas viven en las páginas, se
+remontan en cada salto.
+
+**Es un solo commit y no se puede partir**: mover `content/<lang>/*.mdx` a
+`content/<lang>/<section>/` rompe `/docs/*` hasta que existan el layout, las dos rutas nuevas
+(`[section]/page.tsx` y `[section]/[...slug]/page.tsx`) y los redirects `/docs/:slug*` →
+`/guides/getting-started/:slug*` y `/components` → `/guides/components`. La sección sale de la
+carpeta, no del front matter: una sola fuente.

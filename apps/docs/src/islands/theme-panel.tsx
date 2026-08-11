@@ -7,7 +7,6 @@ import {
   THEMES,
   type Corner,
   type Density,
-  type Face,
   type ThemeChoice,
   type ThemeName,
 } from "@stellaria/nebula-demos/themes/products";
@@ -25,7 +24,7 @@ import {
   Text,
 } from "@stellaria/nebula-web";
 import type { MotionTier } from "@stellaria/nebula-tokens";
-import { useId, useState, type ReactElement } from "react";
+import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 
 const SHOWN: readonly ThemeName[] = [
   "nebula",
@@ -43,8 +42,6 @@ const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
 
 const DENSITIES: readonly Density[] = ["compact", "cosy", "roomy"];
 
-const FACES: readonly Face[] = ["sans", "serif"];
-
 export interface ThemePanelLabels {
   open: string;
   close: string;
@@ -57,7 +54,6 @@ export interface ThemePanelLabels {
   glass: string;
   corner: string;
   density: string;
-  face: string;
   lede: string;
 }
 
@@ -86,6 +82,26 @@ export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactEleme
   const { theme, setTheme } = useTheme();
   const [open, set_open] = useState(false);
   const panel_id = useId();
+  const shell = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const Away = (event: PointerEvent): void => {
+      const node = shell.current;
+      if (node !== null && !node.contains(event.target as Node)) set_open(false);
+    };
+    const Escape = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") set_open(false);
+    };
+
+    document.addEventListener("pointerdown", Away);
+    document.addEventListener("keydown", Escape);
+    return () => {
+      document.removeEventListener("pointerdown", Away);
+      document.removeEventListener("keydown", Escape);
+    };
+  }, [open]);
 
   const choice = ChoiceFromTheme(theme);
   const { name, scheme } = choice;
@@ -96,7 +112,7 @@ export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactEleme
 
   return (
     <Affix position={{ bottom: 24, right: 24 }}>
-      <Box display="flex" direction="column" align="flex-end" gap="sm">
+      <Box ref={shell} display="flex" direction="column" align="flex-end" gap="sm">
         {open ? (
           <GlassSurface
             component="section"
@@ -213,22 +229,6 @@ export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactEleme
                 }}
               >
                 <Segment.Control aria-label={labels.density} data={[...DENSITIES]} />
-              </Segment>
-            </Box>
-
-            <Box display="flex" direction="column" gap="xs">
-              <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-                {labels.face}
-              </Text>
-              <Segment
-                value={choice.face}
-                size="sm"
-                fullWidth
-                onChange={(value) => {
-                  Apply({ face: value as Face });
-                }}
-              >
-                <Segment.Control aria-label={labels.face} data={[...FACES]} />
               </Segment>
             </Box>
 

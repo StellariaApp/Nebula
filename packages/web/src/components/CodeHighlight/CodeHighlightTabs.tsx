@@ -37,7 +37,11 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
   const current = tabs.find((tab) => tab.value === active) ?? tabs[0];
 
   return (
-    <div className={cx(styles.root, sprinkle_class, className)} style={sprinkle_style} {...rest}>
+    <div
+      className={cx(styles.root({}), sprinkle_class, className)}
+      style={sprinkle_style}
+      {...rest}
+    >
       <Box {...tabListProps} className={cx(styles.tab_list, tabListProps?.className)}>
         <Segment value={active} onChange={set_active} size="sm">
           <Segment.Control data={data} {...(label === undefined ? {} : { "aria-label": label })} />

@@ -117,10 +117,10 @@ Los tres presets demostrativos son parte del criterio de aceptación del theming
 
 ## 6. Gaps a resolver en la migración (desde Stellaria)
 
-| Gap                                                     | Acción                                                                                          |
-| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| No existen tokens `gradient.*` (docs los asumen)        | Crear `effects.gradients` en el contrato (ver §2)                                               |
+| Gap                                                     | Acción                                                                                                                                                                                             |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| No existen tokens `gradient.*` (docs los asumen)        | Crear `effects.gradients` en el contrato (ver §2)                                                                                                                                                  |
 | `glass.border`/`glass.noise` inconsistentes docs↔código | **Cerrado**: `glass.surface.<nivel>` = `{ background, backdropFilter, borderColor }` + `noiseOpacity`. El filo salió del contrato en ADR-102 y volvió con alfa, y con gate que lo mide, en ADR-118 |
-| Escala 100–900 implementada                             | Regenerar a 50–950 con palette-gen                                                              |
-| Web theme = clases VE vacías                            | Implementar `createThemeContract` + materialización de temas                                    |
-| Colores semánticos planos (`success = green`)           | Roles semánticos completos (§2.1) con sub-roles de superficie/texto/borde                       |
+| Escala 100–900 implementada                             | Regenerar a 50–950 con palette-gen                                                                                                                                                                 |
+| Web theme = clases VE vacías                            | Implementar `createThemeContract` + materialización de temas                                                                                                                                       |
+| Colores semánticos planos (`success = green`)           | Roles semánticos completos (§2.1) con sub-roles de superficie/texto/borde                                                                                                                          |

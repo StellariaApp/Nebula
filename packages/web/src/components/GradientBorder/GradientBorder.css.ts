@@ -56,10 +56,8 @@ export const gradient_border = recipe({
       },
     },
   },
-  variants: {
-  },
-  defaultVariants: {
-  },
+  variants: {},
+  defaultVariants: {},
 });
 
 export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gradient_border>>;

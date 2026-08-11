@@ -82,6 +82,18 @@ export const inner = style({
   },
 });
 
+export const solid = style({
+  "@layer": {
+    [base_layer]: {
+      position: "relative",
+      zIndex: vars.zIndex.sticky,
+      backgroundColor: variables.surfaceBg,
+      borderBlockEnd: variables.surfaceBorder,
+      backdropFilter: variables.surfaceBackdrop,
+    },
+  },
+});
+
 export const sticky = style({
   "@layer": {
     [base_layer]: {

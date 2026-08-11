@@ -25,10 +25,25 @@ describe("Divider", () => {
   });
 
   it("resuelve color, grosor y estilo en vars locales (sin hex)", () => {
-    render(<Divider color="strong" size="md" lineStyle="dashed" />);
+    render(<Divider color="border.strong" size="md" lineStyle="dashed" />);
     const style = screen.getByRole("separator").getAttribute("style") ?? "";
     expect(style).toContain("var(--");
     expect(style).toContain("dashed");
     expect(style).not.toMatch(/#[0-9a-f]{6}/i);
+  });
+
+  it("acepta el mismo vocabulario que la style prop c (ADR-021)", () => {
+    const { rerender } = render(<Divider color="primary.600" />);
+    const Style = (): string => screen.getByRole("separator").getAttribute("style") ?? "";
+    expect(Style()).toContain("var(--");
+
+    rerender(<Divider color="primary.600.40" />);
+    expect(Style()).toContain("color-mix");
+
+    rerender(<Divider color="currentColor" />);
+    expect(Style()).toContain("currentColor");
+
+    rerender(<Divider color="#ff0000" />);
+    expect(Style()).toContain("#ff0000");
   });
 });

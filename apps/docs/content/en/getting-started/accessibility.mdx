@@ -47,14 +47,14 @@ to keep the outline correct instead of picking a heading by how big it looks.
 
 ## The gates, so you know what is actually covered
 
-| Gate | What it checks |
-| --- | --- |
-| axe on every story | Each component, in every documented state |
-| Contrast check | Every text/surface pair of every official theme |
-| Keyboard tests | Tab, arrows, Escape and Enter in overlays, menus, combobox and tabs |
-| Reduced-motion tests | That the still fallback exists and is used |
-| Visual regression | 75 screenshots, so a silent shift of position is caught |
-| Slot props | That every declared slot actually reaches its node |
+| Gate                 | What it checks                                                      |
+| -------------------- | ------------------------------------------------------------------- |
+| axe on every story   | Each component, in every documented state                           |
+| Contrast check       | Every text/surface pair of every official theme                     |
+| Keyboard tests       | Tab, arrows, Escape and Enter in overlays, menus, combobox and tabs |
+| Reduced-motion tests | That the still fallback exists and is used                          |
+| Visual regression    | 75 screenshots, so a silent shift of position is caught             |
+| Slot props           | That every declared slot actually reaches its node                  |
 
 What they do **not** check is your composition: an axe pass on a component says nothing about the
 page you built with it. Run axe on your own pages too.

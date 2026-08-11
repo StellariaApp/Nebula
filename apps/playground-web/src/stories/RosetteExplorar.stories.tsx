@@ -58,10 +58,42 @@ interface AvatarPublico {
 }
 
 const PUBLICOS: AvatarPublico[] = [
-  { id: "rose", nombre: "Rose Aldana", estudio: "Casa Rosette", techo: "D", piezas: 24, clonable: true, seguidores: "1.284" },
-  { id: "mara", nombre: "Mara Iriarte", estudio: "Estudio Lumen", techo: "A", piezas: 41, clonable: false, seguidores: "973" },
-  { id: "june", nombre: "June Petrova", estudio: "Taller Nueve", techo: "B", piezas: 12, clonable: true, seguidores: "2.110" },
-  { id: "vera", nombre: "Vera Solís", estudio: "Casa Rosette", techo: "A", piezas: 9, clonable: false, seguidores: "640" },
+  {
+    id: "rose",
+    nombre: "Rose Aldana",
+    estudio: "Casa Rosette",
+    techo: "D",
+    piezas: 24,
+    clonable: true,
+    seguidores: "1.284",
+  },
+  {
+    id: "mara",
+    nombre: "Mara Iriarte",
+    estudio: "Estudio Lumen",
+    techo: "A",
+    piezas: 41,
+    clonable: false,
+    seguidores: "973",
+  },
+  {
+    id: "june",
+    nombre: "June Petrova",
+    estudio: "Taller Nueve",
+    techo: "B",
+    piezas: 12,
+    clonable: true,
+    seguidores: "2.110",
+  },
+  {
+    id: "vera",
+    nombre: "Vera Solís",
+    estudio: "Casa Rosette",
+    techo: "A",
+    piezas: 9,
+    clonable: false,
+    seguidores: "640",
+  },
 ];
 
 interface AccionPublica {
@@ -74,12 +106,54 @@ interface AccionPublica {
 }
 
 const CATALOGO: AccionPublica[] = [
-  { id: "c1", label: "De pie junto a la barandilla, mirando la ciudad", escalon: "A", group: "cuerpo entero frontal", usos: 1284, suggestive: false },
-  { id: "c2", label: "Sentada leyendo junto a la ventana", escalon: "A", group: "cuerpo entero perfil", usos: 973, suggestive: false },
-  { id: "c3", label: "Ajustándose el puño de la camisa", escalon: "A", group: "plano de manos", usos: 640, suggestive: true },
-  { id: "c4", label: "Retrato de tres cuartos con luz lateral", escalon: "A", group: "plano de cara", usos: 2110, suggestive: false },
-  { id: "c5", label: "Caminando descalza por el pasillo", escalon: "A", group: "cuerpo entero frontal", usos: 415, suggestive: false },
-  { id: "c6", label: "Apoyada en el marco de la puerta", escalon: "A", group: "cuerpo entero perfil", usos: 802, suggestive: true },
+  {
+    id: "c1",
+    label: "De pie junto a la barandilla, mirando la ciudad",
+    escalon: "A",
+    group: "cuerpo entero frontal",
+    usos: 1284,
+    suggestive: false,
+  },
+  {
+    id: "c2",
+    label: "Sentada leyendo junto a la ventana",
+    escalon: "A",
+    group: "cuerpo entero perfil",
+    usos: 973,
+    suggestive: false,
+  },
+  {
+    id: "c3",
+    label: "Ajustándose el puño de la camisa",
+    escalon: "A",
+    group: "plano de manos",
+    usos: 640,
+    suggestive: true,
+  },
+  {
+    id: "c4",
+    label: "Retrato de tres cuartos con luz lateral",
+    escalon: "A",
+    group: "plano de cara",
+    usos: 2110,
+    suggestive: false,
+  },
+  {
+    id: "c5",
+    label: "Caminando descalza por el pasillo",
+    escalon: "A",
+    group: "cuerpo entero frontal",
+    usos: 415,
+    suggestive: false,
+  },
+  {
+    id: "c6",
+    label: "Apoyada en el marco de la puerta",
+    escalon: "A",
+    group: "cuerpo entero perfil",
+    usos: 802,
+    suggestive: true,
+  },
 ];
 
 function TarjetaAvatar({
@@ -194,7 +268,8 @@ function Clonar({
   onClose: () => void;
 }): ReactElement | null {
   if (avatar === null) return null;
-  const juego = avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
+  const juego =
+    avatar.techo === "A" || avatar.techo === "B" ? TARIFA.anclasBase : TARIFA.anclasDetalle;
 
   return (
     <Drawer opened onClose={onClose} side="end" size={440} title={`Clonar ${avatar.nombre}`}>
@@ -317,11 +392,11 @@ function Explorar({ panel = "avatares" }: { panel?: string | undefined }): React
             title="Esta pantalla es la raíz, y no existe en plan-demo"
             mb="md"
           >
-            Decisión del titular, 06/08/2026: <strong>la puerta de Rosette es el catálogo
-            público</strong>, no un panel del estudio. Pero Explorar es territorio de{" "}
-            <strong>plan-produccion</strong>, así que <strong>mientras no exista, la raíz cae a
-            Avatares</strong> —donde ahora vive «lo que te espera»— y esta pantalla llega con el
-            producto público.
+            Decisión del titular, 06/08/2026:{" "}
+            <strong>la puerta de Rosette es el catálogo público</strong>, no un panel del estudio.
+            Pero Explorar es territorio de <strong>plan-produccion</strong>, así que{" "}
+            <strong>mientras no exista, la raíz cae a Avatares</strong> —donde ahora vive «lo que te
+            espera»— y esta pantalla llega con el producto público.
           </Alert>
 
           <SimpleGrid cols={Cols({ base: 1, laptop: 3 })} spacing="md">

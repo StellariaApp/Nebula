@@ -174,6 +174,96 @@ export const Composition: Story = {
   ),
 };
 
+/** `auto` mide el panel activo, `loop` da la vuelta al arrastrar y `gap` separa las diapositivas. */
+export const AutoHeightAndLoop: Story = {
+  render: () => (
+    <Box maw={480}>
+      <Segment defaultValue="corto" fullWidth>
+        <Segment.Control
+          aria-label="Alturas"
+          data={[
+            { value: "corto", label: "Corto" },
+            { value: "largo", label: "Largo" },
+            { value: "medio", label: "Medio" },
+          ]}
+        />
+        <Segment.Content auto loop gap="md">
+          <Segment.Content.Item value="corto">
+            <Paper withBorder r="md" p="lg">
+              <Text>Una sola línea.</Text>
+            </Paper>
+          </Segment.Content.Item>
+          <Segment.Content.Item value="largo">
+            <Paper withBorder r="md" p="lg">
+              <Box display="flex" direction="column" gap="sm">
+                <Title order={5}>Panel largo</Title>
+                {["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"].map((line) => (
+                  <Text key={line} c="text.secondary">
+                    {line} de cinco párrafos, para que la caja tenga que crecer.
+                  </Text>
+                ))}
+              </Box>
+            </Paper>
+          </Segment.Content.Item>
+          <Segment.Content.Item value="medio">
+            <Paper withBorder r="md" p="lg">
+              <Box display="flex" direction="column" gap="sm">
+                <Title order={5}>Panel medio</Title>
+                <Text c="text.secondary">Dos líneas bastan para verlo encoger.</Text>
+              </Box>
+            </Paper>
+          </Segment.Content.Item>
+        </Segment.Content>
+      </Segment>
+    </Box>
+  ),
+};
+
+/** `autoWidth` hace lo mismo en horizontal: cada panel trae su ancho y la caja va al del activo. */
+export const AutoWidth: Story = {
+  render: () => (
+    <Box display="flex" direction="column" gap="md" align="flex-start">
+      <Segment defaultValue="Estrecho">
+        <Segment.Control aria-label="Anchos" data={["Estrecho", "Ancho"]} />
+        <Segment.Content auto autoWidth loop gap="md">
+          <Segment.Content.Item value="Estrecho">
+            <Paper withBorder r="md" p="lg" w={240}>
+              <Text>240 de ancho.</Text>
+            </Paper>
+          </Segment.Content.Item>
+          <Segment.Content.Item value="Ancho">
+            <Paper withBorder r="md" p="lg" w={480}>
+              <Text>480 de ancho, y la caja tiene que crecer hasta aquí.</Text>
+            </Paper>
+          </Segment.Content.Item>
+        </Segment.Content>
+      </Segment>
+    </Box>
+  ),
+};
+
+/** Dentro de un contenedor `max-content` la caja no puede medir la suma de sus diapositivas. */
+export const InsideIntrinsicWidth: Story = {
+  render: () => (
+    <Box w="max-content" p="md" bd="1px dashed" bdc="border.default" r="md">
+      <Segment defaultValue="Corto">
+        <Segment.Control aria-label="Anchos" data={["Corto", "Largo"]} />
+        <Segment.Content loop gap="md">
+          <Segment.Content.Item value="Corto">
+            <Text>Breve.</Text>
+          </Segment.Content.Item>
+          <Segment.Content.Item value="Largo">
+            <Text>
+              Un panel con bastante más texto que el anterior, para que su ancho intrínseco sea
+              claramente mayor y se note si la caja lo suma.
+            </Text>
+          </Segment.Content.Item>
+        </Segment.Content>
+      </Segment>
+    </Box>
+  ),
+};
+
 export const Dark: Story = { ...Composition, globals: { theme: "dark" } };
 
 export const AllThemes: Story = {

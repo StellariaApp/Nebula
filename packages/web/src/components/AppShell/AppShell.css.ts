@@ -100,6 +100,17 @@ export const rail = style({
   },
 });
 
+export const bounded = style({
+  "@layer": {
+    [base_layer]: {
+      maxInlineSize: variables.contentMax,
+      marginInline: "auto",
+      inlineSize: "100%",
+      background: "transparent",
+    },
+  },
+});
+
 export const sidebar = style({
   "@layer": {
     [base_layer]: {
@@ -133,7 +144,7 @@ export const sidebar_container = style({
       overflowX: "visible",
       position: "relative",
       zIndex: 0,
-      borderInlineEnd: `1px solid ${vars.color.border.default}`,
+      borderInlineEnd: `1px solid ${GLASS_EDGE}`,
       borderInlineStart: "none !important",
       borderBlock: "none !important",
       "@media": {
@@ -291,7 +302,6 @@ export const sidebar_body = style({
       flex: 1,
       minHeight: "max-content",
       overflow: "hidden",
-      backgroundColor: vars.color.surface.overlay,
       padding: 0,
       "@media": {
         [SmallerThan("tablet")]: {

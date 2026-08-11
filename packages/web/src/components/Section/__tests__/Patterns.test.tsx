@@ -333,6 +333,54 @@ describe("Section compound", () => {
     expect(WithoutIds(with_parts.innerHTML)).toBe(props_path);
   });
 
+  it("un cuerpo propio sustituye al generado en vez de anidarse dentro", () => {
+    render(
+      <Section id="s">
+        <Section.Body className="mio">tabla</Section.Body>
+      </Section>,
+    );
+    const rail = document.getElementById("s")?.querySelector(":scope > div");
+
+    expect(rail?.querySelector(":scope > div.mio")?.textContent).toContain("tabla");
+    expect(rail?.querySelectorAll("div").length).toBe(1);
+  });
+
+  it("lo que queda suelto entra en el cuerpo propio, detras de su contenido", () => {
+    render(
+      <Section id="s">
+        <Section.Body className="mio">tabla</Section.Body>
+        <p>nota</p>
+      </Section>,
+    );
+    const body = document.querySelector("div.mio");
+
+    expect(body?.textContent).toBe("tablanota");
+  });
+
+  it("loading sigue velando el cuerpo propio por dentro", () => {
+    render(
+      <Section id="s" loading>
+        <Section.Body className="mio">tabla</Section.Body>
+      </Section>,
+    );
+    const body = document.querySelector("div.mio");
+
+    expect(body?.textContent).toContain("tabla");
+    expect(body?.querySelector("[role='status']")).not.toBeNull();
+  });
+
+  it("el error sustituye el contenido del cuerpo propio, no el cuerpo", () => {
+    render(
+      <Section id="s" error="Could not load">
+        <Section.Body className="mio">tabla</Section.Body>
+      </Section>,
+    );
+    const body = document.querySelector("div.mio");
+
+    expect(body?.contains(screen.getByRole("alert"))).toBe(true);
+    expect(screen.queryByText("tabla")).toBeNull();
+  });
+
   it("una cabecera propia sin titulo no deja el aria-labelledby colgando", () => {
     const { container } = render(
       <Section aria-label="Ventas">

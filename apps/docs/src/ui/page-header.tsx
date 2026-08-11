@@ -10,12 +10,7 @@ export interface PageHeaderProps {
   aside?: ReactNode | undefined;
 }
 
-export function PageHeader({
-  title,
-  description,
-  eyebrow,
-  aside,
-}: PageHeaderProps): ReactElement {
+export function PageHeader({ title, description, eyebrow, aside }: PageHeaderProps): ReactElement {
   return (
     <Box
       component="header"
@@ -28,7 +23,11 @@ export function PageHeader({
       bdbs="solid"
       bdc="border.subtle"
     >
-      {eyebrow === undefined ? null : <Badge variant="light">{eyebrow}</Badge>}
+      {eyebrow === undefined ? null : (
+        <Box display="flex">
+          <Badge variant="light">{eyebrow}</Badge>
+        </Box>
+      )}
       <Box display="flex" align="baseline" justify="space-between" gap="md" wrap="wrap">
         <Title order={1} fz="h1" c="text.primary">
           {title}

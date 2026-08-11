@@ -55,8 +55,20 @@ const ESQUEMA: Campo[] = [
   { path: "identity.name", etiqueta: "Nombre", valor: "Cleo Marchand", origen: "directed" },
   { path: "identity.declaredAge", etiqueta: "Edad declarada", valor: "32", origen: "directed" },
   { path: "identity.renderAge", etiqueta: "Edad de render", origen: undefined },
-  { path: "physical.height", etiqueta: "Altura", valor: "1,68 m", origen: "extraido", confianza: "0,54" },
-  { path: "physical.build", etiqueta: "Complexión", valor: "media", origen: "extraido", confianza: "0,81" },
+  {
+    path: "physical.height",
+    etiqueta: "Altura",
+    valor: "1,68 m",
+    origen: "extraido",
+    confianza: "0,54",
+  },
+  {
+    path: "physical.build",
+    etiqueta: "Complexión",
+    valor: "media",
+    origen: "extraido",
+    confianza: "0,81",
+  },
   {
     path: "physical.hair.color",
     etiqueta: "Color de pelo",
@@ -65,13 +77,43 @@ const ESQUEMA: Campo[] = [
     confianza: "0,62",
     nota: "Dos fotos discrepaban. Gana la de 4032 × 3024 y la confianza baja.",
   },
-  { path: "physical.hair.length", etiqueta: "Largo de pelo", valor: "por el hombro", origen: "extraido", confianza: "0,88" },
-  { path: "physical.hair.texture", etiqueta: "Textura", valor: "ondulado", origen: "extraido", confianza: "0,74" },
-  { path: "physical.eyes", etiqueta: "Ojos", valor: "avellana", origen: "extraido", confianza: "0,79" },
+  {
+    path: "physical.hair.length",
+    etiqueta: "Largo de pelo",
+    valor: "por el hombro",
+    origen: "extraido",
+    confianza: "0,88",
+  },
+  {
+    path: "physical.hair.texture",
+    etiqueta: "Textura",
+    valor: "ondulado",
+    origen: "extraido",
+    confianza: "0,74",
+  },
+  {
+    path: "physical.eyes",
+    etiqueta: "Ojos",
+    valor: "avellana",
+    origen: "extraido",
+    confianza: "0,79",
+  },
   { path: "physical.brows", etiqueta: "Cejas", origen: undefined },
-  { path: "physical.skinTone", etiqueta: "Tono de piel", valor: "medio cálido", origen: "extraido", confianza: "0,85" },
+  {
+    path: "physical.skinTone",
+    etiqueta: "Tono de piel",
+    valor: "medio cálido",
+    origen: "extraido",
+    confianza: "0,85",
+  },
   { path: "physical.proportions", etiqueta: "Proporciones", origen: undefined },
-  { path: "constants.marks", etiqueta: "Marcas y lunares", valor: "lunar bajo el ojo izquierdo", origen: "extraido", confianza: "0,66" },
+  {
+    path: "constants.marks",
+    etiqueta: "Marcas y lunares",
+    valor: "lunar bajo el ojo izquierdo",
+    origen: "extraido",
+    confianza: "0,66",
+  },
   { path: "intimacyAxes.descriptors.bust", etiqueta: "Busto", intimo: true },
   { path: "intimacyAxes.descriptors.rear", etiqueta: "Trasero", intimo: true },
   { path: "intimacyAxes.descriptors.vulvaShape", etiqueta: "Forma", intimo: true },
@@ -266,8 +308,8 @@ function PasoTecho({
               {Rosets(estrecho ? TARIFA.anclasBase : TARIFA.anclasDetalle)}
             </Badge>
             <Text fz="caption" c="text.muted" mt="sm">
-              Precio de paquete, no derivado: después de medirlo, el número de anclas <em>es</em>{" "}
-              el precio del avatar —el canon y la extracción son el 4 %—.
+              Precio de paquete, no derivado: después de medirlo, el número de anclas <em>es</em> el
+              precio del avatar —el canon y la extracción son el 4 %—.
             </Text>
           </Box>
         </Card>
@@ -288,8 +330,8 @@ function PasoExtraccion(): ReactElement {
         title={`La extracción cuesta ${Rosets(TARIFA.extraccion)}`}
       >
         Un modelo de visión rellena los campos que puede, cada uno con su confianza. No intenta
-        adivinar la edad real, ni la identidad de la persona fotografiada, ni el parecido con
-        nadie: extrae rasgos visuales, no personas.
+        adivinar la edad real, ni la identidad de la persona fotografiada, ni el parecido con nadie:
+        extrae rasgos visuales, no personas.
       </Alert>
 
       <SimpleGrid cols={Cols({ base: 1, tablet: 3 })} spacing="md" mt="md">
@@ -354,11 +396,7 @@ function CampoFila({
           />
         ) : (
           <Group gap="xs">
-            <Badge
-              size="xs"
-              variant="light"
-              color={ORIGEN_TONO[campo.origen ?? "derived"]}
-            >
+            <Badge size="xs" variant="light" color={ORIGEN_TONO[campo.origen ?? "derived"]}>
               {campo.origen}
               {campo.confianza === undefined ? "" : ` · ${campo.confianza}`}
             </Badge>
@@ -664,8 +702,9 @@ function Cuenta({
         </Badge>
       </Flex>
       <Text fz="caption" c="text.muted" mt="xs">
-        Cada línea se cobra cuando ocurre. <strong>La construcción del canon solo se cobra cuando
-        la hace el sistema</strong>: escribirlo a mano es gratis, siempre y entero.
+        Cada línea se cobra cuando ocurre.{" "}
+        <strong>La construcción del canon solo se cobra cuando la hace el sistema</strong>:
+        escribirlo a mano es gratis, siempre y entero.
       </Text>
     </GlassSurface>
   );
@@ -692,12 +731,7 @@ function Alta(): ReactElement {
     <PasoOrigen key="origen" origen={origen} onOrigen={set_origen} />,
     <PasoTecho key="techo" techo={techo} onTecho={set_techo} />,
     ...(origen === "fotos" ? [<PasoExtraccion key="extraccion" />] : []),
-    <PasoRevision
-      key="revision"
-      techo={techo}
-      marcados={marcados}
-      onMarcados={set_marcados}
-    />,
+    <PasoRevision key="revision" techo={techo} marcados={marcados} onMarcados={set_marcados} />,
     <PasoBase key="base" />,
     <PasoAnclas key="anclas" techo={techo} />,
   ];

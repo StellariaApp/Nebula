@@ -24,10 +24,10 @@ Medido con detección por palabras funcionales —no por tildes, que ya subestim
 
 Clasificadas por si el consumidor puede taparlas:
 
-| | |
-| --- | --- |
+|                                                          |         |
+| -------------------------------------------------------- | ------- |
 | Tienen prop de etiqueta —`labels`, `*Label`, `linkText`— | **117** |
-| **Sin ninguna salida** | **1** |
+| **Sin ninguna salida**                                   | **1**   |
 
 La única sin salida es `GridList.tsx:70`, un `aria-label="Modo de vista"` escrito a pelo. **Eso no es
 un defecto discutible: es un fallo**, porque un consumidor angloparlante no puede arreglarlo de

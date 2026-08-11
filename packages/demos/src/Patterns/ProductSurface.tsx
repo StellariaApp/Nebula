@@ -23,21 +23,12 @@ function Brand(name: ThemeName, scheme: "dark" | "light"): string {
   return `linear-gradient(120deg, ${from}, ${to})`;
 }
 
-function Label({ children }: { children: string }): ReactElement {
-  return (
-    <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-      {children}
-    </Text>
-  );
-}
-
 function Switcher(): ReactElement {
   const { theme, setTheme } = useTheme();
   const choice = ChoiceFromTheme(theme);
 
   return (
     <Box display="flex" direction="column" gap="xs" align="flex-start">
-      <Label>Product theme</Label>
       <Box display="flex" gap="sm" align="center" wrap="wrap">
         <Segment
           value={choice.name}
@@ -85,19 +76,18 @@ export default function ProductSurface(): ReactElement {
   const [scenario, set_scenario] = useState<Scenario>("components");
 
   return (
-    <Box display="flex" direction="column" gap="lg">
-      <Switcher />
-      <Divider />
-      <Box display="flex" direction="column" gap="xs" align="flex-start">
-        <Label>Situation</Label>
-        <Box display="flex" justify="space-between" align="center" gap="md" wrap="wrap" w="100%">
-          <Segment
-            value={scenario}
-            size="sm"
-            onChange={(value) => {
-              set_scenario(value as Scenario);
-            }}
-          >
+    <Segment
+      value={scenario}
+      size="sm"
+      onChange={(value) => {
+        set_scenario(value as Scenario);
+      }}
+    >
+      <Box display="flex" direction="column" gap="lg">
+        <Switcher />
+        <Divider />
+        <Box display="flex" direction="column" gap="xs" align="flex-start">
+          <Box display="flex" justify="space-between" align="center" gap="md" wrap="wrap" w="100%">
             <Segment.Control
               aria-label="Situation"
               data={SCENARIOS.map((entry) => ({
@@ -109,13 +99,13 @@ export default function ProductSurface(): ReactElement {
                 ),
               }))}
             />
-          </Segment>
-          <Text fz="caption" c="text.muted">
-            Six surfaces, one catalogue, zero forks.
-          </Text>
+            <Text fz="caption" c="text.muted">
+              Six surfaces, one catalogue, zero forks
+            </Text>
+          </Box>
         </Box>
+        <Scenarios />
       </Box>
-      <Scenarios scenario={scenario} />
-    </Box>
+    </Segment>
   );
 }

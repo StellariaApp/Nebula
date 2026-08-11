@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge, Burger, Button, Nav } from "@stellaria/nebula-web";
-import { useState, type ReactElement } from "react";
+import { useState, type ReactElement, type ReactNode } from "react";
 
 import { Logo } from "../ui/logo";
 
@@ -19,14 +19,28 @@ export interface SiteNavLabels {
   drawer: string;
 }
 
-const CTA_HREF = "/docs/installation";
+const CTA_HREF = "/guides/getting-started/installation";
 
 export function SiteNav({
   links,
   labels,
+  actions,
+  drawer,
+  floating = true,
+  contentWidth,
+  height,
 }: {
   links: readonly SiteNavLink[];
   labels: SiteNavLabels;
+  /** Lo que va a la derecha. Sin ello manda el par de la landing: la insignia y el CTA. */
+  actions?: ReactNode | undefined;
+  /** Lo que el cajón añade bajo los enlaces: en docs, el índice del carril. */
+  drawer?: ReactNode | undefined;
+  floating?: boolean | undefined;
+  /** El mismo eje que el grid del carril: las dos capas comparten tope o no alinean. */
+  contentWidth?: number | undefined;
+  /** Alto mínimo de la barra. Sin él manda el peldaño de `size`. */
+  height?: number | undefined;
 }): ReactElement {
   const [menu, set_menu] = useState(false);
 
@@ -37,22 +51,32 @@ export function SiteNav({
   ));
 
   return (
-    <Nav component="header" aria-label={labels.site} floating>
+    <Nav
+      component="header"
+      aria-label={labels.site}
+      floating={floating}
+      {...(contentWidth === undefined ? {} : { contentWidth })}
+      {...(height === undefined ? {} : { mih: height })}
+    >
       <Nav.Logo href="/" aria-label={labels.site}>
         <Logo id="nav-logo" height={26} />
       </Nav.Logo>
 
-      <Nav.Links aria-label={labels.nav} justify="center" overflowMenu>
+      <Nav.Links aria-label={labels.nav} justify="flex-start" overflowMenu>
         {items}
       </Nav.Links>
 
       <Nav.Actions>
-        <Badge variant="light" color="warning">
-          v0
-        </Badge>
-        <Button component="a" href={CTA_HREF} size="sm" variant="gradient">
-          {labels.cta}
-        </Button>
+        {actions ?? (
+          <>
+            <Badge variant="light" color="primary">
+              v0
+            </Badge>
+            <Button component="a" href={CTA_HREF} size="sm" variant="gradient">
+              {labels.cta}
+            </Button>
+          </>
+        )}
       </Nav.Actions>
 
       <Burger
@@ -78,6 +102,7 @@ export function SiteNav({
         }
       >
         {items}
+        {drawer}
       </Nav.Sidebar>
     </Nav>
   );

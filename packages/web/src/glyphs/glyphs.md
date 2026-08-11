@@ -34,12 +34,12 @@ Todo menos el carril del registro. Cada glifo tiene la forma `IconComponent` de
 Antes había **42 `<svg>` en 32 archivos y 32 cuerpos distintos**, con el mismo glifo dibujado de
 varias formas:
 
-| Glifo    | Geometrías que convivían                                                       |
-| -------- | ------------------------------------------------------------------------------ |
-| paloma   | `M20 6 9 17l-5-5` · `M5 12l5 5L20 7` · `M5 12l5 5L20 6`                          |
-| lupa     | mango `-3.5` · `-3.5` con otra sintaxis · `-4.3`                                 |
-| chevrón  | `m9 18 6-6-6-6` y `M9 18l6-6-6-6`, misma forma escrita de dos maneras            |
-| X        | mismo trazo con `strokeWidth` 2 y 3                                              |
+| Glifo   | Geometrías que convivían                                              |
+| ------- | --------------------------------------------------------------------- |
+| paloma  | `M20 6 9 17l-5-5` · `M5 12l5 5L20 7` · `M5 12l5 5L20 6`               |
+| lupa    | mango `-3.5` · `-3.5` con otra sintaxis · `-4.3`                      |
+| chevrón | `m9 18 6-6-6-6` y `M9 18l6-6-6-6`, misma forma escrita de dos maneras |
+| X       | mismo trazo con `strokeWidth` 2 y 3                                   |
 
 `ButtonCopy` y `Checkbox` diferían **en una unidad** (`L20 7` contra `L20 6`). Eso no es una decisión
 de diseño, es deriva de copiar y pegar.

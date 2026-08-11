@@ -1,5 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import type { ColorExtended, GlassLevel, Variant } from "@stellaria/nebula-tokens";
+
 import type { StyleProps } from "../../utils/style-props.js";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
@@ -10,7 +12,15 @@ export interface CodeHighlightLabels {
   copy: string;
   copied: string;
   region: (lang: string | undefined) => string;
+  expand: string;
+  collapse: string;
 }
+
+/**
+ * The surface of the block. `gradient`, `glow` and `ghost` are excluded on purpose: the first two are
+ * not a background for long reading (`docs/06` §6) and the third leaves the block without an edge.
+ */
+export type CodeHighlightVariant = Extract<Variant, "filled" | "light" | "outline" | "glass">;
 
 /**
  * Code block with the theme surface, line numbers, scrolling and copy.
@@ -33,6 +43,15 @@ export interface CodeHighlightProps extends StyleProps {
    * code have no slot: they share a line metric, and separating them knocks the numbers out of line.
    */
   preProps?: ComponentPropsWithoutRef<"pre"> | undefined;
+  /** Without it the block keeps its own calibrated surface, which is not a variant of the map. */
+  variant?: CodeHighlightVariant | undefined;
+  color?: ColorExtended | undefined;
+  /** The blur step, only with `variant="glass"`. */
+  glass?: GlassLevel | undefined;
+  /** Folds the block and offers a button. The `pre` keeps its scroll, so nothing becomes unreachable. */
+  expandable?: boolean | undefined;
+  /** The height it folds to. Ignored without `expandable`. @default 240 */
+  collapsedHeight?: number | undefined;
   code?: string | undefined;
   html?: string | undefined;
   lang?: string | undefined;

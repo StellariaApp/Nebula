@@ -25,10 +25,8 @@ export const mesh_gradient_bg = recipe({
       },
     },
   },
-  variants: {
-  },
-  defaultVariants: {
-  },
+  variants: {},
+  defaultVariants: {},
 });
 
 export const scrim = style({

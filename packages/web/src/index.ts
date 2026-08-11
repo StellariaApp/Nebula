@@ -479,6 +479,7 @@ export {
   Section,
   SectionActions,
   SectionAside,
+  SectionBody,
   SectionDescription,
   SectionFooter,
   SectionHeader,

@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode, RefObject } from "react";
 
-import type { GlassLevel } from "@stellaria/nebula-tokens";
+import type { GlassLevel, Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
@@ -46,6 +46,11 @@ export interface AppShellProps extends StyleProps {
   backdrop?: ReactNode | undefined;
   /** @default 320 */
   sidebarWidth?: number | undefined;
+  /**
+   * Bounds the rail grid — bar and content together — and centres it. Only the surfaces stay
+   * full-bleed. Rail layout only.
+   */
+  contentWidth?: Unit | undefined;
   /** Third rail state: the bar shrinks to `sidebarMiniWidth` and its labels are hidden. */
   sidebarCollapsed?: boolean | undefined;
   sidebarMiniWidth?: number | undefined;

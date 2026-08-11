@@ -32,7 +32,6 @@ export const rail = style({
     [base_layer]: {
       display: "flex",
       flexDirection: "column",
-      gap: vars.space.xl,
       minWidth: 0,
       boxSizing: "border-box",
       width: "100%",
@@ -120,7 +119,13 @@ export const aside = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: { position: "relative", minWidth: 0 },
+    [base_layer]: {
+      position: "relative",
+      minWidth: 0,
+      flexDirection: "column",
+      display: "flex",
+      gap: "inherit",
+    },
   },
 });
 
@@ -133,29 +138,41 @@ export const foot = style({
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [base_layer]: { paddingBlock: BAND_PADDING.xl, minHeight: BAND_MIN_HEIGHT.xl },
+      [base_layer]: {
+        paddingBlock: BAND_PADDING.xl,
+        minHeight: BAND_MIN_HEIGHT.xl,
+      },
     },
   },
   lg: {
     "@layer": {
-      [base_layer]: { paddingBlock: BAND_PADDING.lg, minHeight: BAND_MIN_HEIGHT.lg },
+      [base_layer]: {
+        paddingBlock: BAND_PADDING.lg,
+        minHeight: BAND_MIN_HEIGHT.lg,
+      },
     },
   },
   md: {
     "@layer": {
-      [base_layer]: { paddingBlock: BAND_PADDING.md, minHeight: BAND_MIN_HEIGHT.md },
+      [base_layer]: {
+        paddingBlock: BAND_PADDING.md,
+        minHeight: BAND_MIN_HEIGHT.md,
+      },
     },
   },
   sm: {
     "@layer": {
-      [base_layer]: { paddingBlock: BAND_PADDING.sm, minHeight: BAND_MIN_HEIGHT.sm },
+      [base_layer]: {
+        paddingBlock: BAND_PADDING.sm,
+        minHeight: BAND_MIN_HEIGHT.sm,
+      },
     },
   },
 });
 
 export const rail_size = styleVariants({
-  xl: { "@layer": { [base_layer]: { paddingInline: vars.space.xl } } },
-  lg: { "@layer": { [base_layer]: { paddingInline: vars.space.xl } } },
-  md: { "@layer": { [base_layer]: { paddingInline: vars.space.lg } } },
-  sm: { "@layer": { [base_layer]: { paddingInline: vars.space.md } } },
+  xl: { "@layer": { [base_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxxl } } },
+  lg: { "@layer": { [base_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxl } } },
+  md: { "@layer": { [base_layer]: { paddingInline: vars.space.lg, gap: vars.space.xl } } },
+  sm: { "@layer": { [base_layer]: { paddingInline: vars.space.md, gap: vars.space.lg } } },
 });
