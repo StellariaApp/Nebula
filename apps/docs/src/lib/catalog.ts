@@ -50,3 +50,8 @@ export function FamilySlug(family: string): string {
 export function ComponentSlug(name: string): string {
   return name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
+
+/** La vuelta: el registro manda, así que la URL se resuelve contra él y no al revés. */
+export function FromSlug(slug: string): CatalogEntry | undefined {
+  return CATALOG.components.find((entry) => ComponentSlug(entry.name) === slug);
+}

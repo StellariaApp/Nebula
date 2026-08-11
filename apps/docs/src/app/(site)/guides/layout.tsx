@@ -10,7 +10,6 @@ import type { Lang } from "../../../lib/i18n";
 import { CurrentLang } from "../../../lib/lang";
 import { BAND_HEIGHT, CHROME_HEIGHT, NAV_HEIGHT, SHELL_WIDTH } from "../../../lib/layout";
 import { SECTIONS, SectionHref, type Section } from "../../../lib/sections";
-import { SiteFooter } from "../../../ui/site-footer";
 
 async function Rail({
   section,
@@ -139,11 +138,8 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
           </AppShell.Sidebar>
         }
       >
-        <AppShell.Section mih="100%">
+        <AppShell.Section mih={`calc(100% - ${String(CHROME_HEIGHT)}px)`}>
           <AppShell.Content grow={1}>{children}</AppShell.Content>
-          <Box mt="xl">
-            <SiteFooter dict={dict} id="guides-foot-logo" />
-          </Box>
         </AppShell.Section>
       </AppShell>
     </Box>

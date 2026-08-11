@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 
 import { Box } from "@stellaria/nebula-web";
 
+import { FromSlug } from "../../../../../lib/catalog";
 import { DocIndex, ReadDoc } from "../../../../../lib/content";
 import { Dict } from "../../../../../lib/dictionary";
 import { Headings } from "../../../../../lib/headings";
@@ -11,6 +12,7 @@ import { CurrentLang } from "../../../../../lib/lang";
 import { CHROME_HEIGHT } from "../../../../../lib/layout";
 import { FindSection, SectionHref } from "../../../../../lib/sections";
 import { Toc } from "../../../../../islands/toc";
+import { ComponentPage } from "../../../../../ui/component-page";
 import { DocNav } from "../../../../../ui/doc-nav";
 import { FallbackNotice } from "../../../../../ui/fallback-notice";
 import { MDX_COMPONENTS } from "../../../../../ui/mdx";
@@ -24,7 +26,14 @@ export default async function DocPage({
   params: Promise<{ section: string; slug: string[] }>;
 }) {
   const { section, slug } = await params;
-  if (FindSection(section) === undefined) notFound();
+  const current = FindSection(section);
+  if (current === undefined) notFound();
+
+  if (current.kind === "catalog") {
+    const entry = slug.length === 1 ? FromSlug(slug[0] ?? "") : undefined;
+    if (entry === undefined) notFound();
+    return <ComponentPage entry={entry} />;
+  }
 
   const lang = await CurrentLang();
   const doc = await ReadDoc(lang, section, slug);
