@@ -3,6 +3,7 @@ import type { ReactElement, ReactNode } from "react";
 import { Anchor, AppShell, Box, GlassSurface, Text } from "@stellaria/nebula-web";
 
 import { GuidesRail, GuidesTabs, RailLink } from "../../../islands/guides-nav";
+import { Momentum } from "../../../islands/momentum";
 import { ByFamily, ComponentSlug, FamilySlug } from "../../../lib/catalog";
 import { DocIndex, SectionLanding } from "../../../lib/content";
 import { Dict, type Dictionary } from "../../../lib/dictionary";
@@ -75,6 +76,10 @@ async function Rail({
   );
 }
 
+const MAIN_ID = "guides-main";
+
+const RAIL = "aside";
+
 export default async function GuidesLayout({ children }: { children: ReactNode }) {
   const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
@@ -124,6 +129,7 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
         mih={0}
         h="auto"
         contentWidth={SHELL_WIDTH}
+        contentId={MAIN_ID}
         scrollShadow={false}
         mainProps={{ pt: CHROME_HEIGHT }}
         labels={{ skipToContent: dict["skip.content"] ?? "" }}
@@ -142,6 +148,8 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
         <AppShell.Section mih={`calc(100% - ${String(CHROME_HEIGHT)}px)`}>
           <AppShell.Content grow={1}>{children}</AppShell.Content>
         </AppShell.Section>
+        <Momentum target={`#${MAIN_ID}`} />
+        <Momentum target={RAIL} />
       </AppShell>
     </Box>
   );

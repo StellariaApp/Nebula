@@ -4,8 +4,11 @@ import { AppShell, Box } from "@stellaria/nebula-web";
 
 import { Dict } from "../../../lib/dictionary";
 import { CurrentLang } from "../../../lib/lang";
+import { Momentum } from "../../../islands/momentum";
 import { NAV_HEIGHT, SHELL_WIDTH } from "../../../lib/layout";
 import { SiteFooter } from "../../../ui/site-footer";
+
+const MAIN_ID = "plain-main";
 
 export default async function PlainLayout({ children }: { children: ReactNode }) {
   const lang = await CurrentLang();
@@ -18,6 +21,7 @@ export default async function PlainLayout({ children }: { children: ReactNode })
       miw={0}
       mih={0}
       h="auto"
+      contentId={MAIN_ID}
       mainProps={{ pt: NAV_HEIGHT }}
       labels={{ skipToContent: dict["skip.content"] ?? "" }}
     >
@@ -27,6 +31,7 @@ export default async function PlainLayout({ children }: { children: ReactNode })
           <SiteFooter dict={dict} id="plain-foot-logo" />
         </Box>
       </Box>
+      <Momentum target={`#${MAIN_ID}`} />
     </AppShell>
   );
 }
