@@ -123,5 +123,5 @@ export const effects = {
 } as const;
 
 export const ink = {
-  floor: 1.8,
+  floor: 1.5,
 } as const satisfies ThemeInk;
