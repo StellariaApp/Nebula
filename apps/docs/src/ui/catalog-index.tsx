@@ -1,4 +1,5 @@
 import { Anchor, Badge, Box, Card, Code, Table, Text, Title } from "@stellaria/nebula-web";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 import { ByFamily, CATALOG, ComponentSlug, FamilySlug } from "../lib/catalog";
@@ -68,6 +69,7 @@ export async function CatalogIndex(): Promise<ReactElement> {
                           <Table.Cell>
                             <Box display="flex" align="center" gap="xs" wrap="wrap">
                               <Anchor
+                                component={Link}
                                 href={SectionHref(SECTION, ComponentSlug(entry.name))}
                                 fz="body3"
                                 fw="medium"

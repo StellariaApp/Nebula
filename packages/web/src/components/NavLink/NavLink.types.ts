@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 import type { ColorExtended, PermissionProps, Variant } from "@stellaria/nebula-tokens";
 
@@ -13,6 +13,11 @@ export interface NavLinkProps extends StyleProps, PermissionProps {
   label: ReactNode;
   description?: ReactNode | undefined;
   href?: string | undefined;
+  /**
+   * Router adapter: the component depends on neither Next nor any other router. Without it the link
+   * is an `<a>`, which reloads the document — in an SPA that throws away the rail's own scroll.
+   */
+  component?: ElementType | undefined;
   onPress?: (() => void) | undefined;
   active?: boolean | undefined;
   disabled?: boolean | undefined;

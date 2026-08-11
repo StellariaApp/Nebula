@@ -139,7 +139,6 @@ export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
       const view = scroller.getBoundingClientRect();
       const top = Nearest(box.top - view.top, box.bottom - view.bottom);
       const left = Nearest(box.left - view.left, box.right - view.right);
-      settled = true;
       if (top === 0 && left === 0) return;
 
       scroller.scrollTo({
@@ -147,6 +146,7 @@ export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
         left: scroller.scrollLeft + left,
         behavior: animate && settled ? "smooth" : "auto",
       });
+      settled = true;
     };
 
     Reveal();

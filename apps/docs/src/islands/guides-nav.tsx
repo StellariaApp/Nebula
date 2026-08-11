@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
 
@@ -67,5 +68,5 @@ export function GuidesRail({
 
 export function RailLink({ href, label }: { href: string; label: string }): ReactElement {
   const pathname = usePathname();
-  return <AppShell.Link href={href} label={label} active={pathname === href} />;
+  return <AppShell.Link component={Link} href={href} label={label} active={pathname === href} />;
 }

@@ -25,6 +25,7 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
     label,
     description,
     href,
+    component,
     onPress,
     active = false,
     disabled = false,
@@ -48,6 +49,8 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
+
+  const Element = component ?? "a";
 
   const { theme } = useTheme();
   const granted = usePermissionGranted(permission);
@@ -167,14 +170,14 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
       </Collapse>
     </>
   ) : href !== undefined ? (
-    <a
+    <Element
       {...shared}
       href={is_disabled ? undefined : href}
       {...(active ? { "aria-current": "page" as const } : {})}
       {...(is_disabled ? { "aria-disabled": true } : {})}
     >
       {inner}
-    </a>
+    </Element>
   ) : (
     <button
       {...shared}

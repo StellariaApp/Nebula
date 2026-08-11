@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { Badge, Burger, Button, Nav } from "@stellaria/nebula-web";
 import { useState, type ReactElement, type ReactNode } from "react";
 
@@ -45,7 +47,7 @@ export function SiteNav({
   const [menu, set_menu] = useState(false);
 
   const items = links.map((link) => (
-    <Nav.Links.Link key={link.href} href={link.href}>
+    <Nav.Links.Link key={link.href} component={Link} href={link.href}>
       {link.label}
     </Nav.Links.Link>
   ));
@@ -72,7 +74,7 @@ export function SiteNav({
             <Badge variant="light" color="primary">
               v0
             </Badge>
-            <Button component="a" href={CTA_HREF} size="sm" variant="gradient">
+            <Button component={Link} href={CTA_HREF} size="sm" variant="gradient">
               {labels.cta}
             </Button>
           </>
@@ -96,7 +98,7 @@ export function SiteNav({
         label={labels.drawer}
         closeLabel={labels.menuClose}
         footer={
-          <Button component="a" href={CTA_HREF} variant="gradient" fullWidth>
+          <Button component={Link} href={CTA_HREF} variant="gradient" fullWidth>
             {labels.cta}
           </Button>
         }

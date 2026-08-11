@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Footer } from "@stellaria/nebula-web";
 import type { ReactElement } from "react";
 
@@ -22,23 +24,32 @@ export async function SiteFooter({
   return (
     <Footer glass>
       <Footer.Brand
+        component={Link}
         logo={<Logo id={id} height={24} />}
         href="/"
         description={dict["site.tagline"]}
       />
       <Footer.Group title={dict["nav.section.learn"]}>
-        <Footer.Group.Link href={SectionHref(DEFAULT_SECTION, "installation")}>
+        <Footer.Group.Link component={Link} href={SectionHref(DEFAULT_SECTION, "installation")}>
           {dict["home.cta.start"]}
         </Footer.Group.Link>
-        <Footer.Group.Link href={guides}>{dict["nav.docs"]}</Footer.Group.Link>
+        <Footer.Group.Link component={Link} href={guides}>
+          {dict["nav.docs"]}
+        </Footer.Group.Link>
       </Footer.Group>
       <Footer.Group title={dict["nav.section.reference"]}>
-        <Footer.Group.Link href={SectionHref("components")}>
+        <Footer.Group.Link component={Link} href={SectionHref("components")}>
           {dict["section.components"]}
         </Footer.Group.Link>
-        <Footer.Group.Link href="/theme">{dict["nav.theme"]}</Footer.Group.Link>
-        <Footer.Group.Link href={SectionHref("native")}>{dict["section.native"]}</Footer.Group.Link>
-        <Footer.Group.Link href="/changelog">{dict["nav.changelog"]}</Footer.Group.Link>
+        <Footer.Group.Link component={Link} href="/theme">
+          {dict["nav.theme"]}
+        </Footer.Group.Link>
+        <Footer.Group.Link component={Link} href={SectionHref("native")}>
+          {dict["section.native"]}
+        </Footer.Group.Link>
+        <Footer.Group.Link component={Link} href="/changelog">
+          {dict["nav.changelog"]}
+        </Footer.Group.Link>
       </Footer.Group>
       <Footer.Group title="GitHub">
         <Footer.Group.Link href="https://github.com/stellaria/nebula">

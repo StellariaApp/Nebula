@@ -1,4 +1,5 @@
 import { Anchor, Box, Card, Text } from "@stellaria/nebula-web";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 import type { DocEntry } from "../lib/content";
@@ -24,7 +25,7 @@ function Step({
   align: "flex-start" | "flex-end";
 }): ReactElement {
   return (
-    <Anchor href={`${base}/${entry.slug.join("/")}`} td="none" w="100%">
+    <Anchor component={Link} href={`${base}/${entry.slug.join("/")}`} td="none" w="100%">
       <Card withBorder r="lg" padding="md">
         <Box display="flex" direction="column" gap="xxs" align={align}>
           <Text fz="caption" c="text.muted">

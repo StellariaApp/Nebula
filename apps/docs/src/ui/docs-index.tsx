@@ -1,4 +1,5 @@
 import { Anchor, Box, Card, Text, Title } from "@stellaria/nebula-web";
+import Link from "next/link";
 import type { ReactElement } from "react";
 
 import { DocIndex } from "../lib/content";
@@ -25,6 +26,7 @@ export async function DocsIndex({ section }: { section: Section }): Promise<Reac
         {docs.map((doc) => (
           <Anchor
             key={doc.slug.join("/")}
+            component={Link}
             href={SectionHref(section.slug, ...doc.slug)}
             td="none"
             h="100%"
