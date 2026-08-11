@@ -1,0 +1,19 @@
+---
+title: Omit
+summary: Renders nothing when the flag is true — the negative form of a guard.
+order: 5
+---
+
+`Omit` renders `children` unless `omit` is true. Pure logic, server-safe, no DOM.
+
+## Why it exists next to Conditional
+
+It is the negative form, and it exists because that is how the consuming apps already read:
+`omit={!canEdit}` next to a block that should disappear. Keeping the prop name makes the migration
+from the seed codebase one-to-one, with no conditions rewritten — and a rewritten condition is where
+a permission bug is born.
+
+## About the name
+
+`Omit` collides with TypeScript's `Omit<>` utility, but only in the value space of the module that
+imports it: the type still resolves. If the clash bothers you in a given file, alias the import.

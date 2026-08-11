@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import matter from "gray-matter";
 
 import { LANGS, SOURCE_LANG, type Lang } from "./i18n";
-import { DEFAULT_SECTION, SectionHref } from "./sections";
+import { DEFAULT_SECTION, FindSection, SectionHref } from "./sections";
 
 export interface Frontmatter {
   title: string;
@@ -94,6 +94,8 @@ export async function Coverage(): Promise<Record<Lang, { total: number; translat
  * en el índice, que es lo único que hay.
  */
 export async function SectionLanding(lang: Lang, section: string): Promise<string> {
+  if (FindSection(section)?.kind !== "docs") return SectionHref(section);
+
   const [first] = await DocIndex(lang, section);
   return first === undefined ? SectionHref(section) : SectionHref(section, ...first.slug);
 }

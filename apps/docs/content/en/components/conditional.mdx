@@ -1,0 +1,26 @@
+---
+title: Conditional
+summary: One branch or the other, so the JSX keeps reading like a list of things.
+order: 4
+---
+
+Pure logic: `children` when `when` is true, `fallback` otherwise. No DOM and no client boundary — it
+renders on the server.
+
+## Why not just use `&&`
+
+For one line, `&&` is better and you should use it. `Conditional` earns its place when the branch is
+long enough that a ternary swallows the shape of the JSX, and when both sides exist:
+
+```tsx
+<Conditional when={rows.length > 0} fallback={<EmptyState title="Nothing yet" />}>
+  <Table>…</Table>
+</Conditional>
+```
+
+The alternative is a ternary wrapping thirty lines, with its `:` off screen.
+
+## One trap it does not have
+
+`{count && <Badge>{count}</Badge>}` renders a literal `0` when the count is zero, because `0` is
+falsy and still a valid React child. `when={count > 0}` cannot make that mistake.

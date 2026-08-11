@@ -1,0 +1,28 @@
+---
+title: FocusTrap
+summary: Keeps the keyboard inside a subtree, and hands it back when it closes.
+order: 2
+---
+
+`FocusTrap` renders no DOM of its own. It wraps a subtree and, while `active`, the Tab key cannot
+leave it.
+
+## Why an overlay needs it
+
+A dialog that does not trap focus is a dialog only for the mouse. Tab past the last button and you
+land on the page behind it — still there, still scrollable, and now unreachable by eye. The APG
+requires the trap for modal dialogs, and the difference is not cosmetic: without it a keyboard user
+has no way to tell where they are.
+
+## The three switches
+
+- `active` turns the containment on and off. It is a prop, not a mount, so the same subtree can trap
+  or release without losing its state.
+- `restoreFocus` returns focus to whatever held it when the trap unmounts. Skipping it is the most
+  common bug in a home-made modal: you close it and focus falls back to `<body>`.
+- `autoFocus` moves focus to the first tabbable element on mount.
+
+## You rarely mount it yourself
+
+`Modal`, `Drawer`, `Popover` and `Dialog` already trap. Use it directly when you build a surface that
+behaves like a dialog and is not one of them.

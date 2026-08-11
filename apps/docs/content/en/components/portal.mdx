@@ -1,0 +1,30 @@
+---
+title: Portal
+summary: Renders its children somewhere else in the DOM, and waits for the client to do it.
+order: 1
+---
+
+There is nothing to look at here: `Portal` renders the same children you gave it, only somewhere else
+in the document. What it changes is **where they land**, and that does not show up in a preview.
+
+## What it is for
+
+A dropdown inside a card with `overflow: hidden` gets clipped. A tooltip inside a stacking context
+with a `transform` paints under the next section. Neither is a styling bug: both elements are trapped
+by an ancestor. `Portal` moves them out — to `document.body` by default, or to whatever you pass as
+`target`.
+
+## It does not portal until it mounts
+
+Server and client render the same tree first, and only after mounting does the content move. That is
+deliberate: portaling during the server pass produces markup the client cannot match, which is a
+hydration mismatch in Next. The cost is one frame in its original position; the alternative is an
+error in the console and a subtree React rebuilds from scratch.
+
+`disabled` turns it off and renders in place — useful when the same component is used both inside and
+outside a clipping ancestor.
+
+## You rarely mount it yourself
+
+Every overlay in the catalogue already portals: `Modal`, `Drawer`, `Popover`, `Menu`, `Tooltip`,
+`Lightbox`. Reach for `Portal` when you build a surface the catalogue does not cover.

@@ -1,0 +1,25 @@
+---
+title: VisuallyHidden
+summary: Text only a screen reader gets. Being invisible is the whole point.
+order: 3
+---
+
+It renders its children with the clip pattern: off the visual page, still in the accessibility tree. A
+preview would show nothing, which is exactly what it does.
+
+## What it is for
+
+Two cases, and both are about a name.
+
+An icon-only button has no accessible name, because the glyph is decorative. Either you give it an
+`aria-label` or you put the label inside a `VisuallyHidden` — the second wins when the text is long,
+carries markup, or has to be translated like every other string in the app.
+
+A live region announces a change nobody should read twice: "3 results", "saved". The screen reader
+says it; the page already shows the same change some other way.
+
+## What it is not
+
+It is not `display: none` and it is not `visibility: hidden` — those take the node out of the
+accessibility tree too, which defeats the purpose. It is also not a way to hide content you would
+rather not show: if it is meant for nobody, delete it.

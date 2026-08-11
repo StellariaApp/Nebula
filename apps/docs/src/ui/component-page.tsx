@@ -118,7 +118,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
   const api = FindApi(entry.name);
   const preview = FindPreview(entry.name);
   const surface = FindSurface(entry.name);
-  const doc = await ReadDoc(lang, SECTION, [entry.name.toLowerCase()]);
+  const doc = await ReadDoc(lang, SECTION, [ComponentSlug(entry.name)]);
 
   const prose =
     doc === null

@@ -1,0 +1,16 @@
+---
+title: Valid
+summary: One branch when it is valid, another when it is not.
+order: 6
+---
+
+`Valid` renders `children` when `valid` is true and `invalid` when it is not. Pure logic,
+server-safe.
+
+## What it adds over Conditional
+
+The names. `valid` / `invalid` is the vocabulary of a form, and a block that reads
+`<Valid valid={email.ok} invalid={<FieldError />}>` says what it is about without a comment.
+`Conditional` says the same thing in generic terms, and both compile to the same two branches.
+
+Reach for it in validation, and for `Conditional` everywhere else.

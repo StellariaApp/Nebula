@@ -1,0 +1,29 @@
+---
+title: Toast
+summary: A queue you call, not a component you mount.
+order: 10
+---
+
+There is no `<Toast>` to render. You mount one `ToastProvider` near the root, which paints the queue
+in a portal, and from anywhere in the app you ask for a notification:
+
+```tsx
+nebulaToast.success("Theme saved");
+nebulaToast.error("That address is taken", { variant: "filled" });
+```
+
+The queue lives in a store, so the call site does not need to be a component, hold state, or know
+where the toast will appear.
+
+## The API
+
+`show` for the plain case, `success` and `error` for the two that carry a colour, and `dismiss` to
+take one down before its timer ends.
+
+## `variant` travels with each toast
+
+It is an option of the notification, not of the provider — one queue can mix a quiet confirmation and
+a loud failure, and there is only ever one provider. The subset is `filled`, `light` and `glass`.
+
+`gradient` and `glow` are deliberately out: a toast arrives without being asked for, and `docs/06` §6
+reserves the glow for a primary action or a selection. A notice that stacks in a queue is neither.

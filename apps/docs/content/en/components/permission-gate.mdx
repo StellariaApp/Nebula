@@ -1,0 +1,35 @@
+---
+title: PermissionGate
+summary: Renders a subtree only for whoever holds the permission, without the core knowing your backend.
+order: 9
+---
+
+`PermissionGate` takes a `permission` key and renders its children only when the current resolver
+grants it. What happens when it does not is up to `mode`: hide the subtree, or keep it visible and
+disabled.
+
+## The core does not know how you authorise
+
+The catalogue never talks to your API. A `PermissionProvider` receives a `resolver` from your app —
+`(key) => boolean` — and every gate asks that. Your permissions can come from a token, a store or a
+response you cached; none of it reaches the component.
+
+## Type the keys once
+
+Augment the registry a single time and every gate in the app is checked:
+
+```ts
+declare module "@stellaria/nebula-tokens" {
+  interface NebulaPermissions {
+    keys: "orders.read" | "orders.write" | "invoices.void";
+  }
+}
+```
+
+No generics at the call sites, and a typo in a key stops the build instead of silently hiding a
+button.
+
+## It is not security
+
+It decides what to render, nothing else. Anything that matters is checked again on the server: a gate
+the user cannot see is still a request they can send.

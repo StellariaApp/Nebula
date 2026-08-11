@@ -1,0 +1,20 @@
+---
+title: DirectionProvider
+summary: Turns the catalogue right-to-left, and the CSS is the easy half.
+order: 7
+---
+
+It does two things, and the second is the one that matters.
+
+1. It sets `dir` on a container, which is the obvious part.
+2. It wraps the subtree in React Aria's `I18nProvider` with an RTL locale, which is what actually
+   makes the catalogue work backwards.
+
+## Why the attribute alone is not enough
+
+Set `dir="rtl"` by hand and the CSS flips — the logical properties do their job. React Aria keeps
+thinking in LTR: the arrow keys of a listbox move to the wrong side, a Popover with
+`placement="start"` resolves to the left, and keyboard reordering computes the wrong index. Every
+directional decision in Aria comes from its locale, not from the attribute.
+
+That is the whole reason this is a component and not a line of CSS.

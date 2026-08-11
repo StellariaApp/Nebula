@@ -1,0 +1,22 @@
+---
+title: TypographyStylesProvider
+summary: Gives the catalogue's type scale to HTML you did not write.
+order: 8
+---
+
+Markup that arrives as a string — from a CMS, from Markdown, from a rich text editor — carries none
+of your classes. Its `h2`, `p`, `ul` and `blockquote` render with the browser defaults, which match
+nothing else on the page.
+
+`TypographyStylesProvider` styles that subtree from the theme: sizes, line heights, the space between
+blocks, lists and quotes. It is the one place where a bare tag selector is the right tool, and it is
+scoped so it never leaks past its own children.
+
+```tsx
+<TypographyStylesProvider>
+  <div dangerouslySetInnerHTML={{ __html: article.body }} />
+</TypographyStylesProvider>
+```
+
+For content you do write, use `Title`, `Text` and `List`: they carry the same scale and they are
+typed.
