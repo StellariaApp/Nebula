@@ -5,6 +5,7 @@ import {
   ChoiceFromTheme,
   ResolveChoice,
   THEMES,
+  THEME_NAMES,
   type Corner,
   type Density,
   type ThemeChoice,
@@ -26,18 +27,6 @@ import {
 } from "@stellaria/nebula-web";
 import type { MotionTier } from "@stellaria/nebula-tokens";
 import { useEffect, useId, useRef, useState, type ReactElement } from "react";
-
-const SHOWN: readonly ThemeName[] = [
-  "nebula",
-  "rosette",
-  "stellaria",
-  "polaris",
-  "lagrange",
-  "aurora",
-  "nova",
-  "eclipse",
-  "cosmos",
-];
 
 const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
 
@@ -168,7 +157,7 @@ export function ThemePanel({
           Apply({ name: value as ThemeName });
         }}
       >
-        {SHOWN.map((entry) => (
+        {THEME_NAMES.map((entry) => (
           <Radio
             key={entry}
             value={entry}

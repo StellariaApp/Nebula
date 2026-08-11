@@ -17,7 +17,7 @@ import {
 } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { PRODUCTS, PRODUCT_NAMES } from "../themes/products";
+import { PRODUCTS, PRODUCT_NAMES, type ProductName } from "../themes/products";
 
 const SCHEMES = [
   { value: "dark", label: "Dark" },
