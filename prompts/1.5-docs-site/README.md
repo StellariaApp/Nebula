@@ -111,6 +111,6 @@ Numeración desde el siguiente libre (hoy el último es ADR-106; WN puede consum
 
 - `docs/05-roadmap.md` — la pista DS con sus gates.
 - `prompts/README.md` — índice, estructura y la regla de orden.
-- `docs/01-architecture.md` — el árbol del monorepo gana `apps/docs` y `packages/demos`, y la tabla
+- `docs/01-architecture.md` — el árbol del monorepo gana `apps/web` y `packages/demos`, y la tabla
   de stack gana el Next del sitio.
 - `docs/03-a11y-motion-performance.md` §4 — los gates propios del sitio.

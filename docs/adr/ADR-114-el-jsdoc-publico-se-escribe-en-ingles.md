@@ -60,5 +60,5 @@ a abrir».
   igual el idioma.
 - Los `<Nombre>.md` **no se traducen**. ADR-105 ya los separó del JSDoc por audiencia —«quien lo
   mantiene» frente a «el consumidor, al teclear»— y esa frontera es ahora también la del idioma.
-- El diccionario del sitio (`apps/docs/i18n/`) es donde vive la prosa traducible. Si algún día hay
+- El diccionario del sitio (`apps/web/i18n/`) es donde vive la prosa traducible. Si algún día hay
   español en el sitio, sale de ahí y no del `.d.ts`.

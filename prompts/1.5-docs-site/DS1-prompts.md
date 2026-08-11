@@ -37,7 +37,7 @@ EL SPIKE SEPARA DOS PREGUNTAS. No las mezcles: la primera es irrenunciable y la 
       además demuestra en producción que el catálogo se basta. Deja dicho cuál de los dos
       caminos queda, y si es el segundo, qué se pierde.
 
-MONTA EL SPIKE EN apps/docs (mínimo, desechable si hace falta)
+MONTA EL SPIKE EN apps/web (mínimo, desechable si hace falta)
   - Next 16.2 App Router + React 19.2, registrado en pnpm-workspace y turbo (build/typecheck/lint).
   - Una ruta SERVER COMPONENT que importe componentes server-safe del paquete (Text, Title,
     Paper, Divider) SIN "use client" propio, y una isla cliente con Button + Modal.
@@ -63,7 +63,7 @@ RESTRICCIONES
   no se toca: apps consumen paquetes, jamás al revés. Convenciones ADR-019 desde el primer archivo.
 
 ACEPTACIÓN
-  pnpm turbo build typecheck lint en verde con apps/docs dentro. Una página en servidor con
+  pnpm turbo build typecheck lint en verde con apps/web dentro. Una página en servidor con
   componentes reales, los 4 temas conmutables sin flash y un MDX renderizado.
 
 REPORTE

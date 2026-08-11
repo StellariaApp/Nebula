@@ -97,7 +97,7 @@ sitios declarando las mismas variables con una regla de desempate escrita a mano
   `theme-switch` y `portal-theme-scope` siguen valiendo tal cual, y siguen cubriendo el modo `wrapper`.
 - **`ColorSchemeScript` deja de ser decorativo** y pasa a ser el requisito de `"root"`. Cambia su
   salida, así que su test de serialización se amplía a la clase.
-- **El sitio (`apps/docs`) usa `"root"`** y es la prueba de producción del modo.
+- **El sitio (`apps/web`) usa `"root"`** y es la prueba de producción del modo.
 - **La guía de instalación de DS2.3 debe enseñar las tres piezas juntas**: el script en `<head>`, el
   `applyTheme="root"` y el lienzo en `body`.
 - **Tests nuevos** para lo que decide este ADR: que en `"root"` el `div` no lleva clase, que `<html>`

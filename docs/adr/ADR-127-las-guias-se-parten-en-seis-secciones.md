@@ -2,7 +2,7 @@
 
 - **Estado**: aceptada · 2026-08-10 (decisión del propietario, `docs/NOTAS-PARA-REVISAR.md`) · **WN** ·
   implementada
-- **Cambia API pública**: no. Es el mapa de rutas de `apps/docs`, que estaba cerrado en su README
+- **Cambia API pública**: no. Es el mapa de rutas de `apps/web`, que estaba cerrado en su README
   (2026-08-08) y este ADR sustituye. Ningún paquete del catálogo cambia.
 - **Depende de**: [ADR-122](ADR-122-el-segmento-lang-desaparece-del-router.md) (el idioma no está en
   la URL) · [ADR-126](ADR-126-el-carril-y-el-contenido-comparten-eje.md) (el eje compartido).

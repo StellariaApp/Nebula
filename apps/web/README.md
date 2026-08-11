@@ -1,4 +1,4 @@
-# apps/docs — la web pública de Nebula
+# apps/web — la web pública de Nebula
 
 Sitio construido **con Nebula**. Cero CSS de terceros: cada página es una prueba de producción del
 catálogo.

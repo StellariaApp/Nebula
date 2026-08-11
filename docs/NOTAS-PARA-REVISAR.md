@@ -128,7 +128,7 @@ Estos archivos llevan cambios tuyos en curso y los he dejado fuera de mis commit
 - `packages/web/src/components/Hero/Hero.css.ts` — `gap: sm → md` en el header.
 - `packages/web/src/components/Button/Button.css.ts` — los tres `fontSize` de tamaño.
 
-`Nav.tsx` y `apps/docs/src/app/[lang]/page.tsx` sí entraron en mis commits porque tenía que tocarlos;
+`Nav.tsx` y `apps/web/src/app/[lang]/page.tsx` sí entraron en mis commits porque tenía que tocarlos;
 llevan dentro tu `glass.strong`, el `momentum`, el `GlassSurface` y el `r="inherit"`.
 
 ## Reestructura de `/guides` — decisiones tomadas (2026-08-10)

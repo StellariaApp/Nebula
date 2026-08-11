@@ -47,7 +47,7 @@ reducirlo. Un `Badge` no debería poder ser `xxl`.
 **Los cuatro quedan fuera de este ADR**, por decisión del propietario.
 
 **Enmienda del 2026-08-09 — el censo se quedó corto, y por los dos extremos.** Al regenerar
-`apps/docs/generated/api.json` se vio que `radius` había desaparecido de **12** props y no de las 15
+`apps/web/generated/api.json` se vio que `radius` había desaparecido de **12** props y no de las 15
 que dice la decisión. Tirando de ahí, el reparto de los tres casos falla en dos sitios:
 
 - **Del caso 2 solo se migraron 6 de 9.** `Image`, `ImageGallery` y `Skeleton` se retuvieron al

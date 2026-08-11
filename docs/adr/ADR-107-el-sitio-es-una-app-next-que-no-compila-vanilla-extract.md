@@ -2,14 +2,14 @@
 
 - **Estado**: **aceptada** · 2026-08-07 (salida del spike DS1.1; aceptada por el propietario el mismo día)
 - **Contexto**: el checkpoint de DS (2026-08-07) eligió Next 16.2 + MDX y bilingüe desde el día 1.
-  `apps/docs` es el **primer Next del monorepo**. El riesgo declarado en `prompts/1.5-docs-site/README.md`
+  `apps/web` es el **primer Next del monorepo**. El riesgo declarado en `prompts/1.5-docs-site/README.md`
   era Vanilla Extract sobre Next, separado en dos preguntas: que el CSS **del paquete** se sirva
   (irrenunciable, es la promesa que W5.2 verifica) y que el sitio escriba hojas **propias** (opcional).
   Este ADR fija lo que el spike midió.
 
 ## Decisión
 
-1. **`apps/docs` es una app Next 16.2.12, App Router, React 19.2, sobre Turbopack**, que es el
+1. **`apps/web` es una app Next 16.2.12, App Router, React 19.2, sobre Turbopack**, que es el
    empaquetador por defecto de Next 16. Se registra en `pnpm-workspace` y en `turbo` con
    `build`/`typecheck`/`lint`.
 
@@ -26,13 +26,13 @@
 
 4. **Pipeline MDX: `next-mdx-remote/rsc` + `gray-matter`**, no `@next/mdx`. Razón en Alternativas.
 
-5. **TypeScript**: `apps/docs` declara su `typescript@7.0.2` como el resto de paquetes y activa
+5. **TypeScript**: `apps/web` declara su `typescript@7.0.2` como el resto de paquetes y activa
    `experimental.useTypeScriptCli`. Sin ese flag, el typecheck de Next falla con
    «TypeScript 7.0.2 does not provide the compiler API required by Next.js». **La contingencia de
    ADR-012 no se amplía**: `tsc` sigue en 7.0.2 y el pin 5.9.3 de la raíz sigue siendo solo para el
    typed-linting.
 
-6. **Excepción a la regla de imports con extensión.** En `apps/docs` los imports relativos van **sin**
+6. **Excepción a la regla de imports con extensión.** En `apps/web` los imports relativos van **sin**
    extensión. Turbopack no resuelve `./x.js` a `./x.tsx`. La regla de `CLAUDE.md` existe porque el
    `dist` de los paquetes se ejecuta directo en Node; una app empaquetada no está en ese caso.
 
@@ -79,7 +79,7 @@ comparación.
   compilación de `/` en **6,2 s**; `next build` completo en **11,1 s** (compilación 4,6 s, typecheck
   1,3 s, prerender 0,9 s); las 4 rutas prerenderizan estáticas. Primera carga de `/`: **235 kB brotli**
   de JS y **18,5 kB brotli** de CSS.
-- **`apps/docs` entra en `turbo.json`**: `build` gana `.next/**` como salida, con `!.next/cache/**`.
+- **`apps/web` entra en `turbo.json`**: `build` gana `.next/**` como salida, con `!.next/cache/**`.
 - Este ADR **no** cierra el hosting ni el dominio (pregunta abierta 2 de la fase) ni el idioma del
   JSDoc (pregunta 1). Solo el chasis.
 

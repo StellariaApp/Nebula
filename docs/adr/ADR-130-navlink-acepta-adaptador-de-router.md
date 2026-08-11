@@ -26,7 +26,7 @@ en una SPA eso tira el scroll del propio carril.
 
 ## Consecuencias
 
-- **`apps/docs` pasa `next/link`** en el carril, la barra, el pie, la tabla del catálogo, las fichas
+- **`apps/web` pasa `next/link`** en el carril, la barra, el pie, la tabla del catálogo, las fichas
   de sección y el par anterior/siguiente. Verificado: tres saltos —dos del carril y uno de la barra—
   con **una sola carga de documento**, la inicial, y un testigo en `window` que sobrevive a todos.
 - **El carril conserva su posición**: con el activo a la vista no se mueve —1200 antes y después del

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -11,6 +12,7 @@ import { Headings } from "../../../../../lib/headings";
 import { CurrentLang } from "../../../../../lib/lang";
 import { CHROME_HEIGHT } from "../../../../../lib/layout";
 import { FindSection, SectionHref } from "../../../../../lib/sections";
+import { OgHref, SITE_DESCRIPTION } from "../../../../../lib/site";
 import { Toc } from "../../../../../islands/toc";
 import { ComponentPage } from "../../../../../ui/component-page";
 import { DocNav } from "../../../../../ui/doc-nav";
@@ -19,6 +21,74 @@ import { MDX_COMPONENTS } from "../../../../../ui/mdx";
 import { PageHeader } from "../../../../../ui/page-header";
 
 const SOURCE = "https://github.com/stellaria/nebula/edit/main/apps/docs/content";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ section: string; slug: string[] }>;
+}): Promise<Metadata> {
+  const { section, slug } = await params;
+  const current = FindSection(section);
+  if (current === undefined) return {};
+
+  const lang = await CurrentLang();
+  const canonical = SectionHref(section, ...slug);
+
+  if (current.kind === "catalog") {
+    const entry = FromSlug(slug[0] ?? "");
+    if (entry === undefined) return {};
+
+    const doc = await ReadDoc(lang, section, [slug[0] ?? ""]);
+    const description =
+      doc?.front.summary ??
+      `${entry.name} in the Nebula catalogue: props, slot props and the entry point it ships from.`;
+
+    const card = OgHref({
+      eyebrow: entry.family ?? "Components",
+      title: entry.name,
+      description,
+      tags: [
+        entry.subpath === "." ? "@stellaria/nebula-web" : (entry.subpath ?? ""),
+        entry.boundary,
+        ...(entry.budget === null ? [] : [entry.budget]),
+      ],
+    });
+
+    return {
+      title: entry.name,
+      description,
+      alternates: { canonical },
+      openGraph: {
+        title: entry.name,
+        description,
+        url: canonical,
+        type: "article",
+        images: [card],
+      },
+      twitter: { images: [card] },
+    };
+  }
+
+  const doc = await ReadDoc(lang, section, slug);
+  if (doc === null) return {};
+
+  const description = doc.front.summary || SITE_DESCRIPTION;
+  const card = OgHref({ eyebrow: "Guides", title: doc.front.title, description });
+
+  return {
+    title: doc.front.title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: doc.front.title,
+      description,
+      url: canonical,
+      type: "article",
+      images: [card],
+    },
+    twitter: { images: [card] },
+  };
+}
 
 export default async function DocPage({
   params,

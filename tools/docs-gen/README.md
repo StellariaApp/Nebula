@@ -1,7 +1,7 @@
 # nebula-tools-docs-gen
 
 Genera lo que el sitio de documentación **no debe escribir a mano**: cuatro JSON en
-`apps/docs/generated/`.
+`apps/web/generated/`.
 
 ```bash
 pnpm gen:docs     # los escribe

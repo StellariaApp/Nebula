@@ -70,7 +70,7 @@ El propietario conoce los cuatro y decide seguir.
 
 ## Consecuencias
 
-- `apps/docs/src/proxy.ts` se borra; `apps/docs/src/lib/lang.ts` se añade.
+- `apps/web/src/proxy.ts` se borra; `apps/web/src/lib/lang.ts` se añade.
 - Verificado tras el cambio: `/`, `/components`, `/theme`, `/changelog`, `/native` y `/docs/<slug>`
   responden 200; cada slug renderiza su propio documento; `<html lang="en">` correcto; una cookie con
   un idioma inexistente se ignora sin romper. `typecheck`, `lint` y `build` en verde.

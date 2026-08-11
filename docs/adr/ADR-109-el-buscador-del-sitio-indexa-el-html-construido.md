@@ -33,7 +33,7 @@ tercero y mete una petición de red en cada tecleo.
 3. **Se excluye del índice lo generado que no es prosa**: las tablas del registro del catálogo se
    marcan con `data-pagefind-ignore` salvo el nombre del componente. Indexar 158 filas de presupuesto
    y frontera RSC produce ruido, no resultados.
-4. **Es dependencia de build, no de runtime del servidor**: `devDependency` de `apps/docs`. Lo que
+4. **Es dependencia de build, no de runtime del servidor**: `devDependency` de `apps/web`. Lo que
    llega al navegador es el runtime de Pagefind (~10 kB brotli) más los fragmentos del índice, y
    **solo cuando el usuario abre el buscador** — carga diferida, nunca en la primera pintura.
 
@@ -53,11 +53,11 @@ tercero y mete una petición de red en cada tecleo.
 
 ## Consecuencias
 
-- **Dependencia nueva**: `pagefind` como `devDependency` de `apps/docs`. El `build` del paquete pasa a
+- **Dependencia nueva**: `pagefind` como `devDependency` de `apps/web`. El `build` del paquete pasa a
   ser `next build && pagefind --site .next/...`, y el gate del sitio comprueba que el índice existe y
   no está vacío.
 - **El buscador no funciona en `next dev`** sin correr el índice antes. Es el precio de indexar la
-  salida: en desarrollo el campo queda inerte. Se documenta en el README de `apps/docs`.
+  salida: en desarrollo el campo queda inerte. Se documenta en el README de `apps/web`.
 - **Hoy el campo de búsqueda está montado pero no busca.** DS1.2 deja el hueco del cromado con su
   `aria-label` y su sitio en la cabecera; el cableado entra cuando este ADR se acepte. Está declarado
   como tal y no se presenta como funcionalidad entregada.

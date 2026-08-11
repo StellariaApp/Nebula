@@ -91,7 +91,7 @@ Empieza por aquí, en este orden de riesgo.
   9 · LA DOCUMENTACIÓN, QUE ES LO QUE EL CONSUMIDOR VE ANTES QUE EL CÓDIGO
       El sitio público (fase DS) genera sus fichas de API desde el `.d.ts` PUBLICADO con
       `tools/docs-gen`, así que el JSDoc del catálogo no es un comentario: es la página. Y el
-      generador ya declara sus huecos en `apps/docs/generated/api.json`, campo `gaps`. Medidos
+      generador ya declara sus huecos en `apps/web/generated/api.json`, campo `gaps`. Medidos
       hoy, sobre 158 componentes:
 
         noJsdoc         64   componentes sin una sola línea de JSDoc en su contrato
@@ -212,7 +212,7 @@ recalibrados con holgura del 5 %).
 stories) y el de regresión visual de ADR-037.
 
 **El estado de la documentación**, medido por el propio generador del sitio en
-`apps/docs/generated/api.json` → `gaps`: **64 componentes sin una línea de JSDoc** en su contrato,
+`apps/web/generated/api.json` → `gaps`: **64 componentes sin una línea de JSDoc** en su contrato,
 **32 props con el valor por defecto indeterminable** —porque no existe ni una anotación `@default` en
 todo el catálogo—, 6 sin `.types.ts` propio y 88 de 158 con `.md`. Es el tramo de más volumen de la
 revisión, y el que decide qué ve un consumidor antes de leer una línea de código.

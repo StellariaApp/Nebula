@@ -88,7 +88,7 @@ dentro de un contenedor más estrecho. Ese número no era arbitrario: era `320` 
 `result`) + `16` (el `gap`) + `420` (el bloque de código del panel `code`). **La suma de las
 diapositivas.**
 
-El origen está en `apps/docs/src/islands/hero-preview.tsx`, que envuelve la demo en
+El origen está en `apps/web/src/islands/hero-preview.tsx`, que envuelve la demo en
 `w={{ base: "max-content" }}`. Con un ancestro que se dimensiona por su contenido, el navegador
 pregunta a la caja cuánto mide y la caja contestaba con la aportación intrínseca del carril, que es la
 de todos sus paneles sumados. Reproducido en el playground: tres paneles dentro de un `max-content`

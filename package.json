@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter=docs...",
+    "dev": "turbo run dev --filter=web...",
     "dev:ui": "turbo run dev --filter=playground-web",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
