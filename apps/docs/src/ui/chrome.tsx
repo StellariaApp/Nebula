@@ -8,7 +8,6 @@ import { LANGS, type Lang } from "../lib/i18n";
 import { NAV_HEIGHT, SHELL_WIDTH } from "../lib/layout";
 import { SectionHref } from "../lib/sections";
 import { LangSwitch } from "../islands/lang-switch";
-import { SchemeSwitch } from "../islands/scheme-switch";
 import { Search } from "../islands/search";
 import { SiteNav } from "../islands/site-nav";
 import { ThemePanel } from "../islands/theme-panel";
@@ -22,6 +21,21 @@ interface ChromeProps {
 
 export async function Chrome({ lang, dict, children }: ChromeProps): Promise<ReactElement> {
   const guides = await GuidesHome(lang);
+
+  const PANEL = {
+    open: dict["panel.open"] ?? "",
+    close: dict["panel.close"] ?? "",
+    region: dict["panel.region"] ?? "",
+    lede: dict["panel.lede"] ?? "",
+    product: dict["panel.product"] ?? "",
+    scheme: dict["panel.scheme"] ?? "",
+    dark: dict["panel.dark"] ?? "",
+    light: dict["panel.light"] ?? "",
+    motion: dict["panel.motion"] ?? "",
+    glass: dict["panel.glass"] ?? "",
+    corner: dict["panel.corner"] ?? "",
+    density: dict["panel.density"] ?? "",
+  };
 
   return (
     <Box display="flex" direction="column" h="100dvh">
@@ -51,7 +65,7 @@ export async function Chrome({ lang, dict, children }: ChromeProps): Promise<Rea
                 label={dict["search.label"] ?? ""}
                 placeholder={dict["search.placeholder"] ?? ""}
               />
-              <SchemeSwitch label={dict["scheme.switch"] ?? ""} />
+              <ThemePanel anchored labels={PANEL} />
               {LANGS.length > 1 && <LangSwitch lang={lang} label={dict["lang.switch"] ?? ""} />}
             </>
           }
@@ -59,23 +73,6 @@ export async function Chrome({ lang, dict, children }: ChromeProps): Promise<Rea
       </Box>
 
       {children}
-
-      <ThemePanel
-        labels={{
-          open: dict["panel.open"] ?? "",
-          close: dict["panel.close"] ?? "",
-          region: dict["panel.region"] ?? "",
-          lede: dict["panel.lede"] ?? "",
-          product: dict["panel.product"] ?? "",
-          scheme: dict["panel.scheme"] ?? "",
-          dark: dict["panel.dark"] ?? "",
-          light: dict["panel.light"] ?? "",
-          motion: dict["panel.motion"] ?? "",
-          glass: dict["panel.glass"] ?? "",
-          corner: dict["panel.corner"] ?? "",
-          density: dict["panel.density"] ?? "",
-        }}
-      />
     </Box>
   );
 }

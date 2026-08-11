@@ -14,6 +14,7 @@ import {
   ActionIcon,
   Affix,
   Box,
+  Popover,
   ColorSwatch,
   Divider,
   GlassSurface,
@@ -78,14 +79,21 @@ function Brand(name: ThemeName, scheme: "dark" | "light"): string {
   return `linear-gradient(120deg, ${from}, ${to})`;
 }
 
-export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactElement {
+export function ThemePanel({
+  labels,
+  anchored = false,
+}: {
+  labels: ThemePanelLabels;
+  /** En la barra: el disparador va en línea y el panel se abre hacia abajo, colgado de él. */
+  anchored?: boolean | undefined;
+}): ReactElement {
   const { theme, setTheme } = useTheme();
   const [open, set_open] = useState(false);
   const panel_id = useId();
   const shell = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || anchored) return;
 
     const Away = (event: PointerEvent): void => {
       const node = shell.current;
@@ -101,7 +109,7 @@ export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactEleme
       document.removeEventListener("pointerdown", Away);
       document.removeEventListener("keydown", Escape);
     };
-  }, [open]);
+  }, [open, anchored]);
 
   const choice = ChoiceFromTheme(theme);
   const { name, scheme } = choice;
@@ -110,169 +118,190 @@ export function ThemePanel({ labels }: { labels: ThemePanelLabels }): ReactEleme
     setTheme(ResolveChoice({ ...choice, ...patch }));
   }
 
+  const panel = (
+    <GlassSurface
+      component="section"
+      id={panel_id}
+      level={anchored ? "band" : "strong"}
+      withBorder={!anchored}
+      r="lg"
+      p="lg"
+      w={368}
+      mah="calc(100dvh - 140px)"
+      overflow="auto"
+      display="flex"
+      direction="column"
+      gap="md"
+      aria-label={labels.region}
+    >
+      <Box display="flex" align="flex-start" justify="space-between" gap="sm">
+        <Box display="flex" direction="column" gap="xxs">
+          <Text fz="body2" fw="semibold">
+            {labels.region}
+          </Text>
+          <Text fz="caption" c="text.muted">
+            {labels.lede}
+          </Text>
+        </Box>
+        <ActionIcon
+          size="sm"
+          variant="ghost"
+          r="full"
+          aria-label={labels.close}
+          onPress={() => {
+            set_open(false);
+          }}
+        >
+          {CLOSE}
+        </ActionIcon>
+      </Box>
+
+      <Divider />
+
+      <RadioGroup
+        label={labels.product}
+        value={name}
+        size="sm"
+        onChange={(value) => {
+          Apply({ name: value as ThemeName });
+        }}
+      >
+        {SHOWN.map((entry) => (
+          <Radio
+            key={entry}
+            value={entry}
+            label={
+              <Box display="flex" align="center" gap="sm">
+                <ColorSwatch color={Brand(entry, scheme)} size={16} />
+                <Text fz="body3" tt="capitalize">
+                  {entry}
+                </Text>
+              </Box>
+            }
+          />
+        ))}
+      </RadioGroup>
+
+      <Divider />
+
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          {labels.scheme}
+        </Text>
+        <Segment
+          value={scheme}
+          size="sm"
+          fullWidth
+          onChange={(value) => {
+            Apply({ scheme: value === "light" ? "light" : "dark" });
+          }}
+        >
+          <Segment.Control
+            aria-label={labels.scheme}
+            data={[
+              { value: "dark", label: labels.dark },
+              { value: "light", label: labels.light },
+            ]}
+          />
+        </Segment>
+      </Box>
+
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          {labels.corner}
+        </Text>
+        <Segment
+          value={choice.corner}
+          size="sm"
+          fullWidth
+          onChange={(value) => {
+            Apply({ corner: value as Corner });
+          }}
+        >
+          <Segment.Control aria-label={labels.corner} data={[...CORNERS]} />
+        </Segment>
+      </Box>
+
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          {labels.density}
+        </Text>
+        <Segment
+          value={choice.density}
+          size="sm"
+          fullWidth
+          onChange={(value) => {
+            Apply({ density: value as Density });
+          }}
+        >
+          <Segment.Control aria-label={labels.density} data={[...DENSITIES]} />
+        </Segment>
+      </Box>
+
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          {labels.motion}
+        </Text>
+        <Segment
+          value={theme.motion.tier}
+          size="sm"
+          fullWidth
+          onChange={(value) => {
+            Apply({ motion: value as MotionTier });
+          }}
+        >
+          <Segment.Control aria-label={labels.motion} data={[...TIERS]} />
+        </Segment>
+      </Box>
+
+      <Switch
+        size="sm"
+        label={labels.glass}
+        checked={theme.effects.glass.enabled}
+        onChange={(checked) => {
+          Apply({ glass: checked });
+        }}
+      />
+    </GlassSurface>
+  );
+
+  const trigger = (
+    <ActionIcon
+      size={anchored ? "md" : "lg"}
+      r="full"
+      variant="glass"
+      glass="strong"
+      aria-label={open ? labels.close : labels.open}
+      aria-expanded={open}
+      {...(open ? { "aria-controls": panel_id } : {})}
+      onPress={() => {
+        set_open((value) => !value);
+      }}
+    >
+      {SLIDERS}
+    </ActionIcon>
+  );
+
+  if (anchored) {
+    return (
+      <Popover
+        trigger={trigger}
+        opened={open}
+        onOpenChange={set_open}
+        placement="bottom end"
+        padding="none"
+        radius="lg"
+      >
+        {panel}
+      </Popover>
+    );
+  }
+
   return (
     <Affix position={{ bottom: 24, right: 24 }}>
       <Box ref={shell} display="flex" direction="column" align="flex-end" gap="sm">
-        {open ? (
-          <GlassSurface
-            component="section"
-            id={panel_id}
-            level="strong"
-            r="lg"
-            p="lg"
-            w={368}
-            mah="calc(100dvh - 140px)"
-            overflow="auto"
-            display="flex"
-            direction="column"
-            gap="md"
-            aria-label={labels.region}
-          >
-            <Box display="flex" align="flex-start" justify="space-between" gap="sm">
-              <Box display="flex" direction="column" gap="xxs">
-                <Text fz="body2" fw="semibold">
-                  {labels.region}
-                </Text>
-                <Text fz="caption" c="text.muted">
-                  {labels.lede}
-                </Text>
-              </Box>
-              <ActionIcon
-                size="sm"
-                variant="ghost"
-                r="full"
-                aria-label={labels.close}
-                onPress={() => {
-                  set_open(false);
-                }}
-              >
-                {CLOSE}
-              </ActionIcon>
-            </Box>
-
-            <Divider />
-
-            <RadioGroup
-              label={labels.product}
-              value={name}
-              size="sm"
-              onChange={(value) => {
-                Apply({ name: value as ThemeName });
-              }}
-            >
-              {SHOWN.map((entry) => (
-                <Radio
-                  key={entry}
-                  value={entry}
-                  label={
-                    <Box display="flex" align="center" gap="sm">
-                      <ColorSwatch color={Brand(entry, scheme)} size={16} />
-                      <Text fz="body3" tt="capitalize">
-                        {entry}
-                      </Text>
-                    </Box>
-                  }
-                />
-              ))}
-            </RadioGroup>
-
-            <Divider />
-
-            <Box display="flex" direction="column" gap="xs">
-              <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-                {labels.scheme}
-              </Text>
-              <Segment
-                value={scheme}
-                size="sm"
-                fullWidth
-                onChange={(value) => {
-                  Apply({ scheme: value === "light" ? "light" : "dark" });
-                }}
-              >
-                <Segment.Control
-                  aria-label={labels.scheme}
-                  data={[
-                    { value: "dark", label: labels.dark },
-                    { value: "light", label: labels.light },
-                  ]}
-                />
-              </Segment>
-            </Box>
-
-            <Box display="flex" direction="column" gap="xs">
-              <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-                {labels.corner}
-              </Text>
-              <Segment
-                value={choice.corner}
-                size="sm"
-                fullWidth
-                onChange={(value) => {
-                  Apply({ corner: value as Corner });
-                }}
-              >
-                <Segment.Control aria-label={labels.corner} data={[...CORNERS]} />
-              </Segment>
-            </Box>
-
-            <Box display="flex" direction="column" gap="xs">
-              <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-                {labels.density}
-              </Text>
-              <Segment
-                value={choice.density}
-                size="sm"
-                fullWidth
-                onChange={(value) => {
-                  Apply({ density: value as Density });
-                }}
-              >
-                <Segment.Control aria-label={labels.density} data={[...DENSITIES]} />
-              </Segment>
-            </Box>
-
-            <Box display="flex" direction="column" gap="xs">
-              <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-                {labels.motion}
-              </Text>
-              <Segment
-                value={theme.motion.tier}
-                size="sm"
-                fullWidth
-                onChange={(value) => {
-                  Apply({ motion: value as MotionTier });
-                }}
-              >
-                <Segment.Control aria-label={labels.motion} data={[...TIERS]} />
-              </Segment>
-            </Box>
-
-            <Switch
-              size="sm"
-              label={labels.glass}
-              checked={theme.effects.glass.enabled}
-              onChange={(checked) => {
-                Apply({ glass: checked });
-              }}
-            />
-          </GlassSurface>
-        ) : null}
-
-        <ActionIcon
-          size="lg"
-          r="full"
-          variant="glass"
-          glass="strong"
-          aria-label={open ? labels.close : labels.open}
-          aria-expanded={open}
-          {...(open ? { "aria-controls": panel_id } : {})}
-          onPress={() => {
-            set_open((value) => !value);
-          }}
-        >
-          {SLIDERS}
-        </ActionIcon>
+        {open ? panel : null}
+        {trigger}
       </Box>
     </Affix>
   );
