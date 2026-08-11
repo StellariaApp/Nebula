@@ -14,6 +14,7 @@ import {
   fontWeightNames,
   glassLevels,
   gradientRoles,
+  gradientInks,
   gradientTypes,
   letterSpacingNames,
   lineHeightNames,
@@ -164,6 +165,7 @@ const dualShadow = z.strictObject({
 const gradientToken = z.strictObject({
   type: z.enum(gradientTypes),
   angle: z.number(),
+  ink: z.enum(gradientInks).optional(),
   stops: z
     .array(
       z.strictObject({
@@ -185,10 +187,15 @@ const effects = z.strictObject({
   gradients: z.record(z.enum(gradientRoles), gradientToken),
 });
 
+const ink = z.strictObject({
+  floor: z.number().min(0).max(21),
+});
+
 export const themeSchema = z.strictObject({
   meta,
   palettes: z.record(z.enum(paletteNames), scale11),
   colors,
+  ink,
   font,
   radius: z.record(z.enum(radiusNames), z.number().min(0)),
   spacing,

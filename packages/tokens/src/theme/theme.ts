@@ -131,10 +131,26 @@ export interface ThemeEffects {
 export type ThemeZIndex = Record<ZIndexName, number>;
 export type ThemeBreakpoints = Record<BreakpointName, number>;
 
+export interface ThemeInk {
+  /**
+   * Contrast ratio below which light ink gives way to dark over a fill or a gradient.
+   *
+   * Light ink is the default and wins ties, so this is the only thing that ever forces dark:
+   * raise it to keep text legible on pale fills, lower it to keep the type light no matter what.
+   * At `0` every fill takes light ink, including a yellow one, which is a deliberate choice a
+   * product makes about its own look — not something the library decides for it.
+   *
+   * The official themes ship `2`, which puts light ink on every surface except `warning`.
+   * A gradient overrides the outcome outright with {@link GradientToken.ink}.
+   */
+  floor: number;
+}
+
 export interface NebulaTheme {
   meta: ThemeMeta;
   palettes: Record<PaletteName, Scale11>;
   colors: ThemeColors;
+  ink: ThemeInk;
   font: ThemeFont;
   radius: ThemeRadius;
   spacing: ThemeSpacing;

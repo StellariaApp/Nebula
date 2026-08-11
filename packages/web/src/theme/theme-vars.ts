@@ -39,7 +39,10 @@ function GradientInk(theme: NebulaTheme, ref: string): string | undefined {
   const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
   if (token === undefined) return undefined;
   if (token.ink !== undefined) return token.ink === "dark" ? INK_DARK : INK_LIGHT;
-  return WorstInk(token.stops.map((stop) => stop.color));
+  return WorstInk(
+    token.stops.map((stop) => stop.color),
+    theme.ink.floor,
+  );
 }
 
 /** La tinta la decide el propio relleno de cada escala, no el autor del tema (ADR-085). */
@@ -49,7 +52,7 @@ function OnFill(theme: NebulaTheme, scale: InkScale): string {
   if (gradient !== undefined) return gradient;
   if (!ref.startsWith(FILL_SCALE)) return theme.colors.text.onPrimary;
   const fill = ScaleOf(theme, scale)[ref.slice(FILL_SCALE.length)];
-  return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill);
+  return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill, theme.ink.floor);
 }
 
 function Inks(theme: NebulaTheme): Record<InkScale, string> {

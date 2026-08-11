@@ -30,6 +30,9 @@ Secciones del tema (todas obligatorias — un tema incompleto no valida):
 type NebulaTheme = {
   meta: { name: string; scheme: "light" | "dark"; version: string }
 
+  // 0. TINTA — hasta dónde aguanta la letra clara antes de ceder a la oscura (ADR-132)
+  ink: { floor: number }         // 0 = clara siempre · 2 = el de los oficiales · 4.5 = AA estricto
+
   // 1. COLOR — escalas 50–950 (11 pasos, C2-Q4) + roles semánticos
   palettes: Record<PaletteName, Scale11>        // indigo, violet, green, … (16 base, extensibles)
   colors: {
@@ -98,7 +101,9 @@ Puntos clave:
 | `light` / `dark`                           | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
 | (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                              |
 
-Los tres presets demostrativos son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
+**v1 publica estos dos y solo estos dos** ([ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md)). Los ocho temas de producto de `packages/demos` —`rosette`, `stellaria`, `polaris`, `lagrange`, `aurora`, `nova`, `eclipse`, `cosmos`, cada uno en dark y light— son la demostración del argumento de la librería, no contrato: viven en un paquete no publicable y no pasan por `check:contrast`. Promover uno después de v1 es una minor; quitar o renombrar uno publicado sería breaking, y por eso la lista se cierra corta.
+
+Los temas de producto son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
 
 ## 4. Runtime
 

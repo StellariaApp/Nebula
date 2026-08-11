@@ -88,6 +88,19 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 
 ## 4. Cosas que descubrí y conviene que sepas
 
+- **Seis temas de producto siguen fallando el texto de su degradado** (W5.0, T0). Con el suelo de
+  tinta de [ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md) ya en su sitio, `rosette`,
+  `stellaria`, `lagrange`, `aurora`, `eclipse` y `cosmos` quedan entre **4,32 y 4,34** contra el
+  mínimo de 4,5 en `variantMap.gradient · <escala> (texto)`. **No se arregla con la tinta**: medido el
+  mejor ink posible de cada uno, ninguno llega a 4,5, porque su segundo stop es el escalón `400` de
+  su paleta. Mover ese stop a `500` tampoco es la cura general —arregla `lagrange`, `eclipse` y
+  `cosmos` a 4,50–4,53 y hunde `polaris` de 7,08 a 4,33—. `polaris` y `nova` sí están limpios, 0 FAIL
+  en los 158 pares. No bloquea v1 porque estos temas no se publican, pero se ven en el sitio.
+- **El degradado de marca oficial pasa AA con 4,53 sobre 4,5**, tres centésimas de margen. El escalón
+  400/500 de las paletas generadas cae justo sobre la frontera AA para texto, así que
+  `variant="gradient"` con letra es marginal por construcción en todo el sistema de paletas y el
+  aprobado del tema oficial no es holgura de diseño. El color queda congelado por decisión del
+  propietario (checkpoint T0).
 - **`pnpm dev` y los gates son mutuamente excluyentes.** El watch reescribe `dist` sin parar y
   `size-limit`, `tsc` y el build de una pasada leen ese mismo `dist`. Con dev vivo salen fallos
   fantasma: `TS5033` al escribir los `.d.ts.map`, `Could not resolve .../packages/web/undefined` en

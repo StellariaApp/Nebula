@@ -1,7 +1,12 @@
 {
   "version": 1,
   "count": 128,
-  "corners": ["rbl", "rbr", "rtl", "rtr"],
+  "corners": [
+    "rbl",
+    "rbr",
+    "rtl",
+    "rtr"
+  ],
   "lanes": {
     "atomic": 29,
     "open": 99
@@ -9,16 +14,26 @@
   "props": [
     {
       "name": "align",
-      "css": ["alignItems"],
+      "css": [
+        "alignItems"
+      ],
       "token": null,
-      "keywords": ["flex-start", "flex-end", "center", "stretch", "baseline"],
+      "keywords": [
+        "flex-start",
+        "flex-end",
+        "center",
+        "stretch",
+        "baseline"
+      ],
       "open": false,
       "length": false,
       "responsive": "atomic"
     },
     {
       "name": "alignContent",
-      "css": ["alignContent"],
+      "css": [
+        "alignContent"
+      ],
       "token": null,
       "keywords": [
         "flex-start",
@@ -35,7 +50,9 @@
     },
     {
       "name": "aspectRatio",
-      "css": ["aspectRatio"],
+      "css": [
+        "aspectRatio"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -44,7 +61,9 @@
     },
     {
       "name": "basis",
-      "css": ["flexBasis"],
+      "css": [
+        "flexBasis"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -53,7 +72,9 @@
     },
     {
       "name": "bd",
-      "css": ["border"],
+      "css": [
+        "border"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -62,7 +83,9 @@
     },
     {
       "name": "bdb",
-      "css": ["borderBottom"],
+      "css": [
+        "borderBottom"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -71,7 +94,9 @@
     },
     {
       "name": "bdbc",
-      "css": ["borderBottomColor"],
+      "css": [
+        "borderBottomColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -80,16 +105,27 @@
     },
     {
       "name": "bdbs",
-      "css": ["borderBottomStyle"],
+      "css": [
+        "borderBottomStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "bdbw",
-      "css": ["borderBottomWidth"],
+      "css": [
+        "borderBottomWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -98,7 +134,9 @@
     },
     {
       "name": "bdc",
-      "css": ["borderColor"],
+      "css": [
+        "borderColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -107,7 +145,9 @@
     },
     {
       "name": "bdl",
-      "css": ["borderLeft"],
+      "css": [
+        "borderLeft"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -116,7 +156,9 @@
     },
     {
       "name": "bdlc",
-      "css": ["borderLeftColor"],
+      "css": [
+        "borderLeftColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -125,16 +167,27 @@
     },
     {
       "name": "bdls",
-      "css": ["borderLeftStyle"],
+      "css": [
+        "borderLeftStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "bdlw",
-      "css": ["borderLeftWidth"],
+      "css": [
+        "borderLeftWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -143,7 +196,9 @@
     },
     {
       "name": "bdr",
-      "css": ["borderRight"],
+      "css": [
+        "borderRight"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -152,7 +207,9 @@
     },
     {
       "name": "bdrc",
-      "css": ["borderRightColor"],
+      "css": [
+        "borderRightColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -161,16 +218,27 @@
     },
     {
       "name": "bdrs",
-      "css": ["borderRightStyle"],
+      "css": [
+        "borderRightStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "bdrw",
-      "css": ["borderRightWidth"],
+      "css": [
+        "borderRightWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -179,16 +247,27 @@
     },
     {
       "name": "bds",
-      "css": ["borderStyle"],
+      "css": [
+        "borderStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "bdt",
-      "css": ["borderTop"],
+      "css": [
+        "borderTop"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -197,7 +276,9 @@
     },
     {
       "name": "bdtc",
-      "css": ["borderTopColor"],
+      "css": [
+        "borderTopColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -206,16 +287,27 @@
     },
     {
       "name": "bdts",
-      "css": ["borderTopStyle"],
+      "css": [
+        "borderTopStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "bdtw",
-      "css": ["borderTopWidth"],
+      "css": [
+        "borderTopWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -224,7 +316,9 @@
     },
     {
       "name": "bdw",
-      "css": ["borderWidth"],
+      "css": [
+        "borderWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -233,7 +327,9 @@
     },
     {
       "name": "bg",
-      "css": ["background"],
+      "css": [
+        "background"
+      ],
       "token": "color",
       "keywords": null,
       "open": true,
@@ -242,7 +338,9 @@
     },
     {
       "name": "borderBlockEnd",
-      "css": ["borderBlockEnd"],
+      "css": [
+        "borderBlockEnd"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -251,7 +349,9 @@
     },
     {
       "name": "borderBlockEndColor",
-      "css": ["borderBlockEndColor"],
+      "css": [
+        "borderBlockEndColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -260,16 +360,27 @@
     },
     {
       "name": "borderBlockEndStyle",
-      "css": ["borderBlockEndStyle"],
+      "css": [
+        "borderBlockEndStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "borderBlockEndWidth",
-      "css": ["borderBlockEndWidth"],
+      "css": [
+        "borderBlockEndWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -278,7 +389,9 @@
     },
     {
       "name": "borderBlockStart",
-      "css": ["borderBlockStart"],
+      "css": [
+        "borderBlockStart"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -287,7 +400,9 @@
     },
     {
       "name": "borderBlockStartColor",
-      "css": ["borderBlockStartColor"],
+      "css": [
+        "borderBlockStartColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -296,16 +411,27 @@
     },
     {
       "name": "borderBlockStartStyle",
-      "css": ["borderBlockStartStyle"],
+      "css": [
+        "borderBlockStartStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "borderBlockStartWidth",
-      "css": ["borderBlockStartWidth"],
+      "css": [
+        "borderBlockStartWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -314,7 +440,9 @@
     },
     {
       "name": "borderInlineEnd",
-      "css": ["borderInlineEnd"],
+      "css": [
+        "borderInlineEnd"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -323,7 +451,9 @@
     },
     {
       "name": "borderInlineEndColor",
-      "css": ["borderInlineEndColor"],
+      "css": [
+        "borderInlineEndColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -332,16 +462,27 @@
     },
     {
       "name": "borderInlineEndStyle",
-      "css": ["borderInlineEndStyle"],
+      "css": [
+        "borderInlineEndStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "borderInlineEndWidth",
-      "css": ["borderInlineEndWidth"],
+      "css": [
+        "borderInlineEndWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -350,7 +491,9 @@
     },
     {
       "name": "borderInlineStart",
-      "css": ["borderInlineStart"],
+      "css": [
+        "borderInlineStart"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -359,7 +502,9 @@
     },
     {
       "name": "borderInlineStartColor",
-      "css": ["borderInlineStartColor"],
+      "css": [
+        "borderInlineStartColor"
+      ],
       "token": "role",
       "keywords": null,
       "open": true,
@@ -368,16 +513,27 @@
     },
     {
       "name": "borderInlineStartStyle",
-      "css": ["borderInlineStartStyle"],
+      "css": [
+        "borderInlineStartStyle"
+      ],
       "token": null,
-      "keywords": ["none", "solid", "dashed", "dotted", "double", "hidden"],
+      "keywords": [
+        "none",
+        "solid",
+        "dashed",
+        "dotted",
+        "double",
+        "hidden"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "borderInlineStartWidth",
-      "css": ["borderInlineStartWidth"],
+      "css": [
+        "borderInlineStartWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -386,7 +542,9 @@
     },
     {
       "name": "bottom",
-      "css": ["bottom"],
+      "css": [
+        "bottom"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -395,7 +553,9 @@
     },
     {
       "name": "c",
-      "css": ["color"],
+      "css": [
+        "color"
+      ],
       "token": "color",
       "keywords": null,
       "open": true,
@@ -404,7 +564,9 @@
     },
     {
       "name": "cursor",
-      "css": ["cursor"],
+      "css": [
+        "cursor"
+      ],
       "token": null,
       "keywords": [
         "auto",
@@ -427,16 +589,25 @@
     },
     {
       "name": "direction",
-      "css": ["flexDirection"],
+      "css": [
+        "flexDirection"
+      ],
       "token": null,
-      "keywords": ["row", "column", "row-reverse", "column-reverse"],
+      "keywords": [
+        "row",
+        "column",
+        "row-reverse",
+        "column-reverse"
+      ],
       "open": false,
       "length": false,
       "responsive": "atomic"
     },
     {
       "name": "display",
-      "css": ["display"],
+      "css": [
+        "display"
+      ],
       "token": null,
       "keywords": [
         "none",
@@ -455,7 +626,9 @@
     },
     {
       "name": "ff",
-      "css": ["fontFamily"],
+      "css": [
+        "fontFamily"
+      ],
       "token": "fontFamily",
       "keywords": null,
       "open": true,
@@ -464,7 +637,9 @@
     },
     {
       "name": "flex",
-      "css": ["flex"],
+      "css": [
+        "flex"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -473,16 +648,24 @@
     },
     {
       "name": "fs",
-      "css": ["fontStyle"],
+      "css": [
+        "fontStyle"
+      ],
       "token": null,
-      "keywords": ["normal", "italic", "oblique"],
+      "keywords": [
+        "normal",
+        "italic",
+        "oblique"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "fw",
-      "css": ["fontWeight"],
+      "css": [
+        "fontWeight"
+      ],
       "token": "fontWeight",
       "keywords": null,
       "open": true,
@@ -491,7 +674,9 @@
     },
     {
       "name": "fz",
-      "css": ["fontSize"],
+      "css": [
+        "fontSize"
+      ],
       "token": "fontSize",
       "keywords": null,
       "open": true,
@@ -500,7 +685,9 @@
     },
     {
       "name": "gap",
-      "css": ["gap"],
+      "css": [
+        "gap"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -509,7 +696,9 @@
     },
     {
       "name": "gapx",
-      "css": ["columnGap"],
+      "css": [
+        "columnGap"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -518,7 +707,9 @@
     },
     {
       "name": "gapy",
-      "css": ["rowGap"],
+      "css": [
+        "rowGap"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -527,7 +718,9 @@
     },
     {
       "name": "gridArea",
-      "css": ["gridArea"],
+      "css": [
+        "gridArea"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -536,16 +729,26 @@
     },
     {
       "name": "gridAutoFlow",
-      "css": ["gridAutoFlow"],
+      "css": [
+        "gridAutoFlow"
+      ],
       "token": null,
-      "keywords": ["row", "column", "dense", "row dense", "column dense"],
+      "keywords": [
+        "row",
+        "column",
+        "dense",
+        "row dense",
+        "column dense"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "gridColumn",
-      "css": ["gridColumn"],
+      "css": [
+        "gridColumn"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -554,7 +757,9 @@
     },
     {
       "name": "gridRow",
-      "css": ["gridRow"],
+      "css": [
+        "gridRow"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -563,7 +768,9 @@
     },
     {
       "name": "gridTemplateColumns",
-      "css": ["gridTemplateColumns"],
+      "css": [
+        "gridTemplateColumns"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -572,7 +779,9 @@
     },
     {
       "name": "gridTemplateRows",
-      "css": ["gridTemplateRows"],
+      "css": [
+        "gridTemplateRows"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -581,7 +790,9 @@
     },
     {
       "name": "grow",
-      "css": ["flexGrow"],
+      "css": [
+        "flexGrow"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -590,7 +801,9 @@
     },
     {
       "name": "h",
-      "css": ["height"],
+      "css": [
+        "height"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -599,7 +812,9 @@
     },
     {
       "name": "inset",
-      "css": ["inset"],
+      "css": [
+        "inset"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -608,7 +823,9 @@
     },
     {
       "name": "insetBlock",
-      "css": ["insetBlock"],
+      "css": [
+        "insetBlock"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -617,7 +834,9 @@
     },
     {
       "name": "insetInline",
-      "css": ["insetInline"],
+      "css": [
+        "insetInline"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -626,7 +845,9 @@
     },
     {
       "name": "justify",
-      "css": ["justifyContent"],
+      "css": [
+        "justifyContent"
+      ],
       "token": null,
       "keywords": [
         "flex-start",
@@ -642,25 +863,41 @@
     },
     {
       "name": "justifyItems",
-      "css": ["justifyItems"],
+      "css": [
+        "justifyItems"
+      ],
       "token": null,
-      "keywords": ["start", "end", "center", "stretch"],
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "justifySelf",
-      "css": ["justifySelf"],
+      "css": [
+        "justifySelf"
+      ],
       "token": null,
-      "keywords": ["start", "end", "center", "stretch"],
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "left",
-      "css": ["left"],
+      "css": [
+        "left"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -669,7 +906,9 @@
     },
     {
       "name": "lh",
-      "css": ["lineHeight"],
+      "css": [
+        "lineHeight"
+      ],
       "token": "lineHeight",
       "keywords": null,
       "open": true,
@@ -678,7 +917,9 @@
     },
     {
       "name": "ls",
-      "css": ["letterSpacing"],
+      "css": [
+        "letterSpacing"
+      ],
       "token": "letterSpacing",
       "keywords": null,
       "open": true,
@@ -687,7 +928,9 @@
     },
     {
       "name": "m",
-      "css": ["margin"],
+      "css": [
+        "margin"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -696,7 +939,9 @@
     },
     {
       "name": "mah",
-      "css": ["maxHeight"],
+      "css": [
+        "maxHeight"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -705,7 +950,9 @@
     },
     {
       "name": "maw",
-      "css": ["maxWidth"],
+      "css": [
+        "maxWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -714,7 +961,9 @@
     },
     {
       "name": "mb",
-      "css": ["marginBottom"],
+      "css": [
+        "marginBottom"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -723,7 +972,9 @@
     },
     {
       "name": "me",
-      "css": ["marginInlineEnd"],
+      "css": [
+        "marginInlineEnd"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -732,7 +983,9 @@
     },
     {
       "name": "mih",
-      "css": ["minHeight"],
+      "css": [
+        "minHeight"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -741,7 +994,9 @@
     },
     {
       "name": "miw",
-      "css": ["minWidth"],
+      "css": [
+        "minWidth"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -750,7 +1005,9 @@
     },
     {
       "name": "ml",
-      "css": ["marginLeft"],
+      "css": [
+        "marginLeft"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -759,7 +1016,9 @@
     },
     {
       "name": "mr",
-      "css": ["marginRight"],
+      "css": [
+        "marginRight"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -768,7 +1027,9 @@
     },
     {
       "name": "ms",
-      "css": ["marginInlineStart"],
+      "css": [
+        "marginInlineStart"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -777,7 +1038,9 @@
     },
     {
       "name": "mt",
-      "css": ["marginTop"],
+      "css": [
+        "marginTop"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -786,7 +1049,9 @@
     },
     {
       "name": "mx",
-      "css": ["marginInline"],
+      "css": [
+        "marginInline"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -795,7 +1060,9 @@
     },
     {
       "name": "my",
-      "css": ["marginBlock"],
+      "css": [
+        "marginBlock"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -804,16 +1071,26 @@
     },
     {
       "name": "objectFit",
-      "css": ["objectFit"],
+      "css": [
+        "objectFit"
+      ],
       "token": null,
-      "keywords": ["contain", "cover", "fill", "none", "scale-down"],
+      "keywords": [
+        "contain",
+        "cover",
+        "fill",
+        "none",
+        "scale-down"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "objectPosition",
-      "css": ["objectPosition"],
+      "css": [
+        "objectPosition"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -822,7 +1099,9 @@
     },
     {
       "name": "opacity",
-      "css": ["opacity"],
+      "css": [
+        "opacity"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -831,7 +1110,9 @@
     },
     {
       "name": "order",
-      "css": ["order"],
+      "css": [
+        "order"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -840,34 +1121,60 @@
     },
     {
       "name": "overflow",
-      "css": ["overflow"],
+      "css": [
+        "overflow"
+      ],
       "token": null,
-      "keywords": ["visible", "hidden", "scroll", "auto", "clip"],
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "overflowX",
-      "css": ["overflowX"],
+      "css": [
+        "overflowX"
+      ],
       "token": null,
-      "keywords": ["visible", "hidden", "scroll", "auto", "clip"],
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "overflowY",
-      "css": ["overflowY"],
+      "css": [
+        "overflowY"
+      ],
       "token": null,
-      "keywords": ["visible", "hidden", "scroll", "auto", "clip"],
+      "keywords": [
+        "visible",
+        "hidden",
+        "scroll",
+        "auto",
+        "clip"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "p",
-      "css": ["padding"],
+      "css": [
+        "padding"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -876,7 +1183,9 @@
     },
     {
       "name": "pb",
-      "css": ["paddingBottom"],
+      "css": [
+        "paddingBottom"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -885,7 +1194,9 @@
     },
     {
       "name": "pe",
-      "css": ["paddingInlineEnd"],
+      "css": [
+        "paddingInlineEnd"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -894,7 +1205,9 @@
     },
     {
       "name": "pl",
-      "css": ["paddingLeft"],
+      "css": [
+        "paddingLeft"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -903,34 +1216,56 @@
     },
     {
       "name": "placeItems",
-      "css": ["placeItems"],
+      "css": [
+        "placeItems"
+      ],
       "token": null,
-      "keywords": ["start", "end", "center", "stretch"],
+      "keywords": [
+        "start",
+        "end",
+        "center",
+        "stretch"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "pointerEvents",
-      "css": ["pointerEvents"],
+      "css": [
+        "pointerEvents"
+      ],
       "token": null,
-      "keywords": ["auto", "none"],
+      "keywords": [
+        "auto",
+        "none"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "position",
-      "css": ["position"],
+      "css": [
+        "position"
+      ],
       "token": null,
-      "keywords": ["relative", "absolute", "fixed", "sticky", "static"],
+      "keywords": [
+        "relative",
+        "absolute",
+        "fixed",
+        "sticky",
+        "static"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "pr",
-      "css": ["paddingRight"],
+      "css": [
+        "paddingRight"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -939,7 +1274,9 @@
     },
     {
       "name": "ps",
-      "css": ["paddingInlineStart"],
+      "css": [
+        "paddingInlineStart"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -948,7 +1285,9 @@
     },
     {
       "name": "pt",
-      "css": ["paddingTop"],
+      "css": [
+        "paddingTop"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -957,7 +1296,9 @@
     },
     {
       "name": "px",
-      "css": ["paddingInline"],
+      "css": [
+        "paddingInline"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -966,7 +1307,9 @@
     },
     {
       "name": "py",
-      "css": ["paddingBlock"],
+      "css": [
+        "paddingBlock"
+      ],
       "token": "space",
       "keywords": null,
       "open": true,
@@ -975,7 +1318,9 @@
     },
     {
       "name": "r",
-      "css": ["borderRadius"],
+      "css": [
+        "borderRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -984,7 +1329,10 @@
     },
     {
       "name": "rb",
-      "css": ["borderBottomLeftRadius", "borderBottomRightRadius"],
+      "css": [
+        "borderBottomLeftRadius",
+        "borderBottomRightRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -993,7 +1341,9 @@
     },
     {
       "name": "rbl",
-      "css": ["borderBottomLeftRadius"],
+      "css": [
+        "borderBottomLeftRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1002,7 +1352,9 @@
     },
     {
       "name": "rbr",
-      "css": ["borderBottomRightRadius"],
+      "css": [
+        "borderBottomRightRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1011,7 +1363,9 @@
     },
     {
       "name": "right",
-      "css": ["right"],
+      "css": [
+        "right"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -1020,7 +1374,10 @@
     },
     {
       "name": "rl",
-      "css": ["borderTopLeftRadius", "borderBottomLeftRadius"],
+      "css": [
+        "borderTopLeftRadius",
+        "borderBottomLeftRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1029,7 +1386,10 @@
     },
     {
       "name": "rr",
-      "css": ["borderTopRightRadius", "borderBottomRightRadius"],
+      "css": [
+        "borderTopRightRadius",
+        "borderBottomRightRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1038,7 +1398,10 @@
     },
     {
       "name": "rt",
-      "css": ["borderTopLeftRadius", "borderTopRightRadius"],
+      "css": [
+        "borderTopLeftRadius",
+        "borderTopRightRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1047,7 +1410,9 @@
     },
     {
       "name": "rtl",
-      "css": ["borderTopLeftRadius"],
+      "css": [
+        "borderTopLeftRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1056,7 +1421,9 @@
     },
     {
       "name": "rtr",
-      "css": ["borderTopRightRadius"],
+      "css": [
+        "borderTopRightRadius"
+      ],
       "token": "radius",
       "keywords": null,
       "open": true,
@@ -1065,16 +1432,27 @@
     },
     {
       "name": "self",
-      "css": ["alignSelf"],
+      "css": [
+        "alignSelf"
+      ],
       "token": null,
-      "keywords": ["auto", "flex-start", "flex-end", "center", "stretch", "baseline"],
+      "keywords": [
+        "auto",
+        "flex-start",
+        "flex-end",
+        "center",
+        "stretch",
+        "baseline"
+      ],
       "open": false,
       "length": false,
       "responsive": "atomic"
     },
     {
       "name": "shadow",
-      "css": ["boxShadow"],
+      "css": [
+        "boxShadow"
+      ],
       "token": "shadow",
       "keywords": null,
       "open": true,
@@ -1083,7 +1461,9 @@
     },
     {
       "name": "shrink",
-      "css": ["flexShrink"],
+      "css": [
+        "flexShrink"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -1092,7 +1472,10 @@
     },
     {
       "name": "size",
-      "css": ["width", "height"],
+      "css": [
+        "width",
+        "height"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -1101,25 +1484,42 @@
     },
     {
       "name": "ta",
-      "css": ["textAlign"],
+      "css": [
+        "textAlign"
+      ],
       "token": null,
-      "keywords": ["left", "center", "right", "justify", "start", "end"],
+      "keywords": [
+        "left",
+        "center",
+        "right",
+        "justify",
+        "start",
+        "end"
+      ],
       "open": false,
       "length": false,
       "responsive": "atomic"
     },
     {
       "name": "td",
-      "css": ["textDecoration"],
+      "css": [
+        "textDecoration"
+      ],
       "token": null,
-      "keywords": ["none", "underline", "line-through"],
+      "keywords": [
+        "none",
+        "underline",
+        "line-through"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "top",
-      "css": ["top"],
+      "css": [
+        "top"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -1128,43 +1528,74 @@
     },
     {
       "name": "tt",
-      "css": ["textTransform"],
+      "css": [
+        "textTransform"
+      ],
       "token": null,
-      "keywords": ["none", "uppercase", "lowercase", "capitalize"],
+      "keywords": [
+        "none",
+        "uppercase",
+        "lowercase",
+        "capitalize"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "userSelect",
-      "css": ["userSelect"],
+      "css": [
+        "userSelect"
+      ],
       "token": null,
-      "keywords": ["auto", "none", "text", "all"],
+      "keywords": [
+        "auto",
+        "none",
+        "text",
+        "all"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "verticalAlign",
-      "css": ["verticalAlign"],
+      "css": [
+        "verticalAlign"
+      ],
       "token": null,
-      "keywords": ["baseline", "top", "middle", "bottom", "sub", "super"],
+      "keywords": [
+        "baseline",
+        "top",
+        "middle",
+        "bottom",
+        "sub",
+        "super"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "visibility",
-      "css": ["visibility"],
+      "css": [
+        "visibility"
+      ],
       "token": null,
-      "keywords": ["visible", "hidden", "collapse"],
+      "keywords": [
+        "visible",
+        "hidden",
+        "collapse"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "w",
-      "css": ["width"],
+      "css": [
+        "width"
+      ],
       "token": null,
       "keywords": null,
       "open": true,
@@ -1173,25 +1604,41 @@
     },
     {
       "name": "wrap",
-      "css": ["flexWrap"],
+      "css": [
+        "flexWrap"
+      ],
       "token": null,
-      "keywords": ["nowrap", "wrap", "wrap-reverse"],
+      "keywords": [
+        "nowrap",
+        "wrap",
+        "wrap-reverse"
+      ],
       "open": false,
       "length": false,
       "responsive": "atomic"
     },
     {
       "name": "ws",
-      "css": ["whiteSpace"],
+      "css": [
+        "whiteSpace"
+      ],
       "token": null,
-      "keywords": ["normal", "nowrap", "pre", "pre-wrap", "pre-line"],
+      "keywords": [
+        "normal",
+        "nowrap",
+        "pre",
+        "pre-wrap",
+        "pre-line"
+      ],
       "open": false,
       "length": false,
       "responsive": "open"
     },
     {
       "name": "z",
-      "css": ["zIndex"],
+      "css": [
+        "zIndex"
+      ],
       "token": "zIndex",
       "keywords": null,
       "open": true,

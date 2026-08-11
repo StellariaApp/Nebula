@@ -50,7 +50,6 @@
       "Loader",
       "Mark",
       "NProgress",
-      "Nav",
       "NavDivider",
       "NavLogo",
       "NoiseOverlay",
@@ -86,7 +85,12 @@
       "CreatableSelect",
       "VirtualizedSelect"
     ],
-    "noDestructuring": ["AreaChart", "BarChart", "LineChart", "SearchableSelect"]
+    "noDestructuring": [
+      "AreaChart",
+      "BarChart",
+      "LineChart",
+      "SearchableSelect"
+    ]
   },
   "components": [
     {
@@ -741,6 +745,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "contentWidth",
+          "type": "Unit",
+          "required": false,
+          "default": null,
+          "doc": "Bounds the rail grid — bar and content together — and centres it. Only the surfaces stay\nfull-bleed. Rail layout only.",
           "slot": false
         },
         {
@@ -4380,7 +4392,9 @@
               "count": 128
             }
           ],
-          "gaps": ["default"],
+          "gaps": [
+            "default"
+          ],
           "subComponents": []
         },
         {
@@ -4572,7 +4586,9 @@
               "count": 128
             }
           ],
-          "gaps": ["default"],
+          "gaps": [
+            "default"
+          ],
           "subComponents": []
         },
         {
@@ -4723,7 +4739,9 @@
               "count": 127
             }
           ],
-          "gaps": ["default"],
+          "gaps": [
+            "default"
+          ],
           "subComponents": []
         }
       ]
@@ -7327,7 +7345,9 @@
               "count": 127
             }
           ],
-          "gaps": ["default"],
+          "gaps": [
+            "default"
+          ],
           "subComponents": []
         },
         {
@@ -7903,7 +7923,9 @@
               "count": 127
             }
           ],
-          "gaps": ["default"],
+          "gaps": [
+            "default"
+          ],
           "subComponents": []
         }
       ]
@@ -19529,6 +19551,14 @@
           "slot": false
         },
         {
+          "name": "level",
+          "type": "GlassLevel",
+          "required": false,
+          "default": "\"strong\"",
+          "doc": "The glass step of the bar surface. A static bar wears it from the start (ADR-125).",
+          "slot": false
+        },
+        {
           "name": "scrolled",
           "type": "boolean",
           "required": false,
@@ -19844,6 +19874,14 @@
           "required": false,
           "default": "\"primary\"",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "component",
+          "type": "ElementType",
+          "required": false,
+          "default": null,
+          "doc": "Router adapter: the component depends on neither Next nor any other router. Without it the link\nis an `<a>`, which reloads the document — in an SPA that throws away the rail's own scroll.",
           "slot": false
         },
         {

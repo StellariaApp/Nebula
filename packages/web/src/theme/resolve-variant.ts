@@ -285,7 +285,7 @@ function ResolveFlat(
   gradientAnimated: boolean,
 ): ResolvedVariant {
   const { base } = flat;
-  const on = OnColor(flat.concrete);
+  const on = OnColor(flat.concrete, theme.ink.floor);
 
   const solid = (bg: string, hover: string, active: string, fg: string): ResolvedVariant => ({
     background: bg,
@@ -342,7 +342,7 @@ function ResolveScale(
   const is_transparent = recipe.background === "transparent";
 
   const fill_hex = FillHex(recipe.background, scale, theme);
-  const dark_ink = fill_hex !== undefined && OnColor(fill_hex) === INK_DARK;
+  const dark_ink = fill_hex !== undefined && OnColor(fill_hex, theme.ink.floor) === INK_DARK;
   const darker = theme.meta.scheme === "dark" ? -1 : 1;
   const deepen = dark_ink ? -darker : darker;
   const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, deepen);

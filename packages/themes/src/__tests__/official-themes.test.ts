@@ -1,3 +1,4 @@
+import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { describe, expect, it } from "vitest";
 
 import { LoadTheme } from "../load-theme.js";
@@ -32,6 +33,31 @@ describe("semántica de escalas por scheme (decisión W1.1)", () => {
   it("en light las escalas de roles son las crudas", () => {
     const light = officialThemes["light"];
     expect(light.colors.primary).toEqual(light.palettes.indigo);
+  });
+});
+
+describe("tinta declarada de un degradado (ADR-089)", () => {
+  const WithInk = (ink: unknown): unknown => {
+    const theme: unknown = JSON.parse(JSON.stringify(officialThemes["dark"]));
+    (theme as { effects: { gradients: { brand: Record<string, unknown> } } }).effects.gradients.brand[
+      "ink"
+    ] = ink;
+    return theme;
+  };
+
+  it.each(["light", "dark"])("el schema acepta ink=%s, que el contrato TS declara", (ink) => {
+    expect(LoadTheme(WithInk(ink)).effects.gradients.brand.ink).toBe(ink);
+  });
+
+  it("sigue siendo opcional: los oficiales no lo declaran", () => {
+    for (const name of officialThemeNames) {
+      const theme: NebulaTheme = officialThemes[name];
+      expect(theme.effects.gradients.brand.ink).toBeUndefined();
+    }
+  });
+
+  it("rechaza un valor fuera del par light/dark", () => {
+    expect(() => LoadTheme(WithInk("auto"))).toThrow();
   });
 });
 

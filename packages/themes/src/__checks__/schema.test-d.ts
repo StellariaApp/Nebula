@@ -1,4 +1,4 @@
-import type { NebulaTheme, VariantRecipe } from "@stellaria/nebula-tokens";
+import type { GradientToken, NebulaTheme, VariantRecipe } from "@stellaria/nebula-tokens";
 import type { z } from "zod";
 
 import type { themeSchema } from "../schema.js";
@@ -18,10 +18,28 @@ export type CheckRadius = Expect<Extends<SchemaTheme["radius"], NebulaTheme["rad
 export type CheckSpacing = Expect<Extends<SchemaTheme["spacing"], NebulaTheme["spacing"]>>;
 export type CheckSizes = Expect<Extends<SchemaTheme["sizes"], NebulaTheme["sizes"]>>;
 export type CheckMotion = Expect<Extends<SchemaTheme["motion"], NebulaTheme["motion"]>>;
-export type CheckEffects = Expect<Extends<SchemaTheme["effects"], NebulaTheme["effects"]>>;
+export type CheckInk = Expect<Extends<SchemaTheme["ink"], NebulaTheme["ink"]>>;
 export type CheckZIndex = Expect<Extends<SchemaTheme["zIndex"], NebulaTheme["zIndex"]>>;
 export type CheckBreakpoints = Expect<
   Extends<SchemaTheme["breakpoints"], NebulaTheme["breakpoints"]>
+>;
+
+type SchemaEffects = SchemaTheme["effects"];
+type SchemaGradient = SchemaEffects["gradients"]["brand"];
+
+export type CheckEffectsBlur = Expect<
+  Extends<SchemaEffects["blur"], NebulaTheme["effects"]["blur"]>
+>;
+export type CheckEffectsGlass = Expect<
+  Extends<SchemaEffects["glass"], NebulaTheme["effects"]["glass"]>
+>;
+export type CheckEffectsShadows = Expect<
+  Extends<SchemaEffects["shadows"], NebulaTheme["effects"]["shadows"]>
+>;
+export type CheckGradientType = Expect<Extends<SchemaGradient["type"], GradientToken["type"]>>;
+export type CheckGradientStops = Expect<Extends<SchemaGradient["stops"], GradientToken["stops"]>>;
+export type CheckGradientInk = Expect<
+  Extends<NonNullable<SchemaGradient["ink"]>, NonNullable<GradientToken["ink"]>>
 >;
 
 type SchemaRecipe = SchemaTheme["variantMap"]["filled"];

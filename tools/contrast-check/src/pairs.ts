@@ -2,6 +2,7 @@ import type { NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-
 
 import {
   Composite,
+  GradientInk,
   OnColor,
   ResolveBackground,
   ResolveRef,
@@ -41,11 +42,6 @@ function FillHex(
   background: string,
   scale: SemanticScaleName,
 ): string | undefined {
-  if (background.startsWith("gradient.")) {
-    const role = background.slice("gradient.".length);
-    const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
-    return token?.stops[0]?.color;
-  }
   const [group, key, alpha] = background.split(".");
   if (group !== "scale" || key === undefined || alpha !== undefined) return undefined;
   return ResolveRef(theme, `scale.${key}`, scale, theme.colors.surface.base) ?? undefined;
@@ -54,8 +50,10 @@ function FillHex(
 function VariantForeground(theme: NebulaTheme, variant: Variant, scale: string): string {
   const recipe = theme.variantMap[variant];
   if (recipe.foreground === ON_FILL) {
+    const gradient = GradientInk(theme, recipe.background);
+    if (gradient !== undefined) return gradient;
     const fill = FillHex(theme, recipe.background, scale as SemanticScaleName);
-    if (fill !== undefined) return OnColor(fill);
+    if (fill !== undefined) return OnColor(fill, theme.ink.floor);
   }
   return (
     ResolveRef(theme, recipe.foreground, scale as never, theme.colors.surface.base) ??
@@ -92,7 +90,8 @@ function BuildVariantPairs(): ContrastPair[] {
           const recipe = t.variantMap[variant];
           const fill = FillHex(t, recipe.background, scale);
           const darker = t.meta.scheme === "dark" ? -1 : 1;
-          const deepen = fill !== undefined && OnColor(fill) === "#0b0b0b" ? -darker : darker;
+          const deepen =
+            fill !== undefined && OnColor(fill, t.ink.floor) === "#0b0b0b" ? -darker : darker;
           const hovered = { ...recipe, background: ShiftRef(recipe.background, deepen) };
           return (
             ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))

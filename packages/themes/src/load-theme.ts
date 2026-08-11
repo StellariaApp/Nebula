@@ -1,10 +1,17 @@
-import type { NebulaTheme, VariantMap, VariantRecipe } from "@stellaria/nebula-tokens";
+import type {
+  GradientToken,
+  NebulaTheme,
+  ThemeEffects,
+  VariantMap,
+  VariantRecipe,
+} from "@stellaria/nebula-tokens";
 import { z } from "zod";
 
 import { themeSchema } from "./schema.js";
 
 type ParsedTheme = z.output<typeof themeSchema>;
 type ParsedRecipe = ParsedTheme["variantMap"]["filled"];
+type ParsedGradient = ParsedTheme["effects"]["gradients"]["brand"];
 
 export class ThemeValidationError extends Error {
   readonly issues: z.ZodError["issues"];
@@ -27,6 +34,16 @@ function NormalizeRecipe(recipe: ParsedRecipe): VariantRecipe {
   return normalized;
 }
 
+function NormalizeGradient(token: ParsedGradient): GradientToken {
+  const normalized: GradientToken = {
+    type: token.type,
+    angle: token.angle,
+    stops: token.stops.map((stop) => ({ color: stop.color, position: stop.position })),
+  };
+  if (token.ink !== undefined) normalized.ink = token.ink;
+  return normalized;
+}
+
 export function LoadTheme(json: unknown): NebulaTheme {
   const result = themeSchema.safeParse(json);
   if (!result.success) {
@@ -43,5 +60,14 @@ export function LoadTheme(json: unknown): NebulaTheme {
     gradient: NormalizeRecipe(parsed.variantMap.gradient),
     unstyled: NormalizeRecipe(parsed.variantMap.unstyled),
   };
-  return { ...parsed, variantMap: variant_map };
+  const gradients: ThemeEffects["gradients"] = {
+    brand: NormalizeGradient(parsed.effects.gradients.brand),
+    accent: NormalizeGradient(parsed.effects.gradients.accent),
+    surface: NormalizeGradient(parsed.effects.gradients.surface),
+  };
+  return {
+    ...parsed,
+    effects: { ...parsed.effects, gradients },
+    variantMap: variant_map,
+  };
 }

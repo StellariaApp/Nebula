@@ -1,5 +1,5 @@
 import type { BlurLevel, GlassLevel, ShadowLevel } from "../theme/primitives.js";
-import type { DualShadow, GlassSurfaceRecipe } from "../theme/theme.js";
+import type { DualShadow, GlassSurfaceRecipe, ThemeInk } from "../theme/theme.js";
 
 export const blur = {
   none: "0px",
@@ -121,3 +121,7 @@ export const effects = {
   glass,
   shadows,
 } as const;
+
+export const ink = {
+  floor: 2,
+} as const satisfies ThemeInk;

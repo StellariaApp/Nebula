@@ -7,7 +7,7 @@ export const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "../../..")
 export const WEB = join(REPO, "packages/web");
 export const COMPONENTS = join(WEB, "src/components");
 export const DIST = join(WEB, "dist");
-export const OUT_DIR = join(REPO, "apps/docs/generated");
+export const OUT_DIR = join(REPO, "apps/web/generated");
 
 export const SUBPATHS = ["command", "charts", "datagrid", "dnd", "carousel", "media", "editor"];
 

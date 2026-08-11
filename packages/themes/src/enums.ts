@@ -194,6 +194,8 @@ export const gradientRoles = enumValues<GradientRole>()(["brand", "accent", "sur
 
 export const gradientTypes = enumValues<GradientToken["type"]>()(["linear", "radial"]);
 
+export const gradientInks = enumValues<NonNullable<GradientToken["ink"]>>()(["light", "dark"]);
+
 export const variants = enumValues<Variant>()([
   "filled",
   "outline",

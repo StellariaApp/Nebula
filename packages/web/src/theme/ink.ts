@@ -26,20 +26,20 @@ export function Contrast(a: string, b: string): number {
   return Ratio(Luminance(a), Luminance(b));
 }
 
-export function WorstInk(stops: readonly string[]): string {
+export function WorstInk(stops: readonly string[], floor: number): string {
   let light = Number.POSITIVE_INFINITY;
   let dark = Number.POSITIVE_INFINITY;
   for (const stop of stops) {
     light = Math.min(light, Contrast(stop, INK_LIGHT));
     dark = Math.min(dark, Contrast(stop, INK_DARK));
   }
-  return light >= dark ? INK_LIGHT : INK_DARK;
+  return light >= floor || light >= dark ? INK_LIGHT : INK_DARK;
 }
 
-export function OnColor(concrete: string | null): string {
+export function OnColor(concrete: string | null, floor: number): string {
   if (concrete === null) return INK_LIGHT;
   const fill = Luminance(concrete);
   const light = Ratio(fill, Luminance(INK_LIGHT));
   const dark = Ratio(fill, Luminance(INK_DARK));
-  return light >= dark ? INK_LIGHT : INK_DARK;
+  return light >= floor || light >= dark ? INK_LIGHT : INK_DARK;
 }

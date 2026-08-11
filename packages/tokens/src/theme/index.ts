@@ -42,6 +42,7 @@ export type {
   ThemeDisplay,
   ThemeFont,
   ThemeGlass,
+  ThemeInk,
   ThemeMeta,
   ThemeMotion,
   ThemeRadius,

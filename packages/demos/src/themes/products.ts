@@ -66,11 +66,11 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
     lift: -6,
   },
   nova: {
-    primary: palettes.violet,
-    accent: palettes.cyan,
-    from: palettes.cyan["500"],
-    to: palettes.violet["400"],
-    tint: palettes.violet["800"],
+    primary: palettes.teal,
+    accent: palettes.green,
+    from: palettes.teal["500"],
+    to: palettes.green["400"],
+    tint: palettes.teal["800"],
     wash: 0.05,
     lift: -6,
   },
@@ -148,7 +148,6 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
         brand: {
           type: "linear",
           angle: 100,
-          ink: "light",
           stops: [
             { color: seed.from, position: 0 },
             { color: seed.to, position: 100 },

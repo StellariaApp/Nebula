@@ -10,6 +10,10 @@ import type {
 
 const toRgb = converter("rgb");
 
+const INK_LIGHT = "#ffffff";
+const INK_DARK = "#0b0b0b";
+const GRADIENT_REF = "gradient.";
+
 export const SEMANTIC_SCALES: readonly SemanticScaleName[] = [
   "primary",
   "accent",
@@ -124,8 +128,8 @@ export function ResolveBackground(
     return { bg: Composite(surface.background, backdrop), detail: `glass ${recipe.glass}` };
   }
 
-  if (recipe.background.startsWith("gradient.")) {
-    const role = recipe.background.slice("gradient.".length);
+  if (recipe.background.startsWith(GRADIENT_REF)) {
+    const role = recipe.background.slice(GRADIENT_REF.length);
     const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
     if (token === undefined) throw new UnsupportedRefError(recipe.background);
     let worst: { bg: string; ratio: number } | null = null;
@@ -151,9 +155,30 @@ function Luminance(hex: string): number {
   return 0.2126 * channel(rgb.r) + 0.7152 * channel(rgb.g) + 0.0722 * channel(rgb.b);
 }
 
-/** Réplica de `OnColor` de `packages/web/src/theme/ink.ts`: gana la tinta que más contrasta. */
-export function OnColor(fill: string): string {
-  return Ratio(fill, "#ffffff") >= Ratio(fill, "#0b0b0b") ? "#ffffff" : "#0b0b0b";
+/** Réplica de `OnColor` de `packages/web/src/theme/ink.ts`: la clara manda salvo bajo el suelo. */
+export function OnColor(fill: string, floor: number): string {
+  const light = Ratio(fill, INK_LIGHT);
+  return light >= floor || light >= Ratio(fill, INK_DARK) ? INK_LIGHT : INK_DARK;
+}
+
+/** Réplica de `WorstInk` de `packages/web/src/theme/ink.ts`: el suelo se mide en el peor stop. */
+export function WorstInk(stops: readonly string[], floor: number): string {
+  const light = Math.min(...stops.map((stop) => Ratio(INK_LIGHT, stop)));
+  const dark = Math.min(...stops.map((stop) => Ratio(INK_DARK, stop)));
+  return light >= floor || light >= dark ? INK_LIGHT : INK_DARK;
+}
+
+/** Réplica de `GradientInk` de `packages/web/src/theme/theme-vars.ts` (ADR-089). */
+export function GradientInk(theme: NebulaTheme, ref: string): string | undefined {
+  if (!ref.startsWith(GRADIENT_REF)) return undefined;
+  const role = ref.slice(GRADIENT_REF.length);
+  const token = theme.effects.gradients[role as keyof NebulaTheme["effects"]["gradients"]];
+  if (token === undefined) return undefined;
+  if (token.ink !== undefined) return token.ink === "dark" ? INK_DARK : INK_LIGHT;
+  return WorstInk(
+    token.stops.map((stop) => stop.color),
+    theme.ink.floor,
+  );
 }
 
 export function Ratio(a: string, b: string): number {

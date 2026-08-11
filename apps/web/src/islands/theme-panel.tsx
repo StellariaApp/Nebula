@@ -35,6 +35,8 @@ const SHOWN: readonly ThemeName[] = [
   "lagrange",
   "aurora",
   "nova",
+  "eclipse",
+  "cosmos",
 ];
 
 const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
