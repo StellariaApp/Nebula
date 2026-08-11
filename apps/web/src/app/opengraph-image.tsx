@@ -6,7 +6,7 @@ export const alt = "Nebula — a universal UI library for web and React Native";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
   return OgImage({
     eyebrow: "Web + React Native",
     title: SITE_TAGLINE,

@@ -14,7 +14,7 @@ function Clip(value: string | null, max: number): string | undefined {
  * La tarjeta parametrizada. Existe como endpoint y no como `opengraph-image` de la ruta porque el
  * router no admite nada **después** de un catch-all, y las fichas viven bajo `[...slug]`.
  */
-export function GET(request: NextRequest): Response {
+export async function GET(request: NextRequest): Promise<Response> {
   const query = request.nextUrl.searchParams;
   const tags = (query.get("tags") ?? "")
     .split(",")
