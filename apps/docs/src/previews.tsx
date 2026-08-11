@@ -59,12 +59,14 @@ import {
   TransferList,
   Transition,
   Calendar,
+  CardComplex,
   Collapse,
   ColorPicker,
   Dropzone,
   Grid,
   HoverCard,
   Image,
+  InputDial,
   InputPhone,
   LoadingOverlay,
   Menu,
@@ -72,8 +74,10 @@ import {
   Overlay,
   Popover,
   Reveal,
+  Search,
   Section,
   Segment,
+  Signature,
   Banderole,
   Blockquote,
   Burger,
@@ -124,8 +128,14 @@ import type { Size, Variant } from "@stellaria/nebula-tokens";
 import {
   DialogPreview,
   DrawerPreview,
+  FileButtonPreview,
+  FiltersPreview,
+  GlobalSearchPreview,
   GridListPreview,
+  InfiniteListPreview,
+  LightboxPreview,
   ModalPreview,
+  SearchableListPreview,
 } from "./islands/live-preview";
 
 export interface PreviewSample {
@@ -1040,6 +1050,12 @@ export const PREVIEWS: Record<string, Preview> = {
     ),
   },
   GridList: { base: <GridListPreview /> },
+  InfiniteList: { base: <InfiniteListPreview /> },
+  SearchableList: { base: <SearchableListPreview /> },
+  FileButton: { base: <FileButtonPreview /> },
+  Lightbox: { base: <LightboxPreview /> },
+  GlobalSearch: { base: <GlobalSearchPreview /> },
+  Filters: { base: <FiltersPreview /> },
 
   ImageGallery: {
     base: (
@@ -1109,6 +1125,34 @@ export const PREVIEWS: Record<string, Preview> = {
   DateRangePicker: { base: <DateRangePicker w={300} label="Period" /> },
   DateTimePicker: { base: <DateTimePicker w={300} label="Starts at" /> },
   InputCurrency: { base: <InputCurrency w={240} label="Amount" currency="EUR" /> },
+
+  Search: {
+    base: (
+      <Search
+        w={360}
+        labels={{ placeholder: "Search components", search: "Search", refresh: "Refresh" }}
+      />
+    ),
+  },
+  Signature: { base: <Signature w={320} label="Sign here" /> },
+  InputDial: { base: <InputDial w={240} label="Rotation" /> },
+  Box: {
+    base: (
+      <Box w={240} p="md" r="md" bdw={1} bds="solid" bdc="border.subtle">
+        <Text fz="body3">Every style prop lands here.</Text>
+      </Box>
+    ),
+  },
+  CardComplex: {
+    base: (
+      <CardComplex
+        w={320}
+        title="Reconciliation"
+        description="24 movements pending since Monday."
+        badges={{ title: [{ key: "state", label: "Open" }] }}
+      />
+    ),
+  },
 
   Anchor: { base: <Anchor href="#preview">A link</Anchor> },
   Code: { base: <Code>pnpm add @stellaria/nebula-web</Code> },
