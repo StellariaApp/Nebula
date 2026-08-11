@@ -97,6 +97,8 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
 const FOCUS_STEP = { dark: "400", light: "600" } as const;
 const CHANNEL_MAX = 255;
 
+const PRODUCT_INK_FLOOR = 1;
+
 function Channels(hex: string): [number, number, number] {
   const raw = hex.replace("#", "");
   return [
@@ -134,6 +136,7 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
   return {
     ...base,
     meta: { name: dark ? name : `${name}-light`, scheme, version: "0.1.0" },
+    ink: { floor: PRODUCT_INK_FLOOR },
     colors: {
       ...base.colors,
       primary: dark ? FlipScale(seed.primary) : seed.primary,
