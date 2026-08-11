@@ -16,6 +16,29 @@ import { ChevronRight } from "../../../glyphs/index.js";
 
 const ACTIVE = "[data-active='true']";
 const REDUCED = "(prefers-reduced-motion: reduce)";
+const SCROLLS = new Set(["auto", "scroll", "overlay"]);
+
+/**
+ * El contenedor que scrollea la barra. Se busca a mano porque `scrollIntoView` arrastra a TODOS los
+ * ancestros: el grid del carril es `overflow: hidden` y llevarlo ahí desplaza la página entera sin
+ * que nadie pueda devolverla.
+ */
+function Scroller(node: HTMLElement): HTMLElement | null {
+  let parent = node.parentElement;
+  while (parent !== null) {
+    const style = getComputedStyle(parent);
+    if (SCROLLS.has(style.overflowY) || SCROLLS.has(style.overflowX)) return parent;
+    parent = parent.parentElement;
+  }
+  return null;
+}
+
+/** Lo que hay que mover para que el borde más cercano entre en vista, y cero si ya cabe. */
+function Nearest(before: number, after: number): number {
+  if (before < 0) return before;
+  if (after > 0) return after;
+  return 0;
+}
 
 export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   const {
@@ -109,13 +132,21 @@ export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
     let settled = false;
     const Reveal = (): void => {
       const target = root.querySelector(ACTIVE);
-      if (target === null) return;
-      target.scrollIntoView({
-        block: "nearest",
-        inline: "nearest",
+      const scroller = Scroller(root);
+      if (target === null || scroller === null) return;
+
+      const box = target.getBoundingClientRect();
+      const view = scroller.getBoundingClientRect();
+      const top = Nearest(box.top - view.top, box.bottom - view.bottom);
+      const left = Nearest(box.left - view.left, box.right - view.right);
+      settled = true;
+      if (top === 0 && left === 0) return;
+
+      scroller.scrollTo({
+        top: scroller.scrollTop + top,
+        left: scroller.scrollLeft + left,
         behavior: animate && settled ? "smooth" : "auto",
       });
-      settled = true;
     };
 
     Reveal();

@@ -90,9 +90,14 @@ bloque de usuario y la cabecera quedan a la misma altura sin que nadie repita un
 ## `Sidebar.Body` revela el enlace activo
 
 Una barra con secciones por permiso desplaza, y tras una recarga el enlace de la ruta actual puede
-quedar fuera de vista. `Sidebar.Body` observa `data-active` en su subárbol y llama a `scrollIntoView`
-con `block`/`inline: "nearest"`: solo desplaza si el enlace no se ve, y sirve igual para el carril
-vertical que para la barra horizontal de `tablet`, donde el recorrido es en el eje inline.
+quedar fuera de vista. `Sidebar.Body` observa `data-active` en su subárbol y, si el enlace no se ve,
+mueve **solo su propio contenedor** —el que scrollea de verdad— hasta el borde más cercano, en los dos
+ejes: sirve igual para el carril vertical que para la barra horizontal de `tablet`.
+
+**No usa `scrollIntoView` a propósito.** Esa API arrastra a todos los ancestros scrollables, y el grid
+del carril es `overflow: hidden`: llevarlo ahí desplaza la página entera y nadie puede devolverla.
+Medido en el sitio de docs con un enlace activo al final de la lista: el grid se iba 120 px y el
+título de la página acababa debajo del cromado fijo.
 
 El primer pase es seco. Animar el salto inicial es un tirón sin causa aparente para quien acaba de
 entrar; el desplazamiento suave solo tiene sentido cuando el activo **cambia** —una navegación— y por
