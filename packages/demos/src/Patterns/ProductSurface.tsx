@@ -3,18 +3,14 @@
 import { Box, ColorSwatch, Divider, Segment, Text, useTheme } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { ChoiceFromTheme, ResolveChoice, THEMES, type ThemeName } from "../themes/products";
+import {
+  ChoiceFromTheme,
+  ResolveChoice,
+  THEMES,
+  THEME_NAMES,
+  type ThemeName,
+} from "../themes/products";
 import Scenarios, { SCENARIOS, type Scenario } from "./Scenarios";
-
-const SHOWN: readonly ThemeName[] = [
-  "nebula",
-  "rosette",
-  "stellaria",
-  "polaris",
-  "lagrange",
-  "aurora",
-  "nova",
-];
 
 function Brand(name: ThemeName, scheme: "dark" | "light"): string {
   const stops = THEMES[name][scheme].effects.gradients.brand.stops;
@@ -39,7 +35,7 @@ function Switcher(): ReactElement {
         >
           <Segment.Control
             aria-label="Product theme"
-            data={SHOWN.map((entry) => ({
+            data={THEME_NAMES.map((entry) => ({
               value: entry,
               label: (
                 <Box display="flex" align="center" gap="xs">

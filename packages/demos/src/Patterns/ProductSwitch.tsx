@@ -17,16 +17,7 @@ import {
 } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { PRODUCTS, type ProductName } from "../themes/products";
-
-const PRODUCT_NAMES: readonly ProductName[] = [
-  "rosette",
-  "stellaria",
-  "polaris",
-  "lagrange",
-  "aurora",
-  "nova",
-];
+import { PRODUCTS, PRODUCT_NAMES } from "../themes/products";
 
 const SCHEMES = [
   { value: "dark", label: "Dark" },

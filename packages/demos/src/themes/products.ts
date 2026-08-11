@@ -176,6 +176,19 @@ export const THEMES: Record<ThemeName, Record<"dark" | "light", NebulaTheme>> = 
   ...PRODUCTS,
 };
 
+export const PRODUCT_NAMES: readonly ProductName[] = [
+  "rosette",
+  "stellaria",
+  "polaris",
+  "lagrange",
+  "aurora",
+  "nova",
+  "eclipse",
+  "cosmos",
+];
+
+export const THEME_NAMES: readonly ThemeName[] = ["nebula", ...PRODUCT_NAMES];
+
 export type Corner = "sharp" | "soft" | "round";
 
 export type Density = "compact" | "cosy" | "roomy";
