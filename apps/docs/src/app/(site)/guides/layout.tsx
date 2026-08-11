@@ -44,6 +44,7 @@ async function Rail({
             deep
             title={
               <Anchor
+                fw="semibold"
                 href={`${SectionHref(section.slug)}#${FamilySlug(family)}`}
                 td="none"
                 c="inherit"

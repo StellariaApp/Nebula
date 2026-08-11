@@ -36,9 +36,28 @@ import {
   TagsInput,
   Timeline,
   TimeInput,
+  AnimatedGradient,
   Avatar,
   Badge,
+  BlurOverlay,
   Box,
+  Combobox,
+  Conditional,
+  Countdown,
+  DateDisplay,
+  DateRangePicker,
+  DateTimePicker,
+  EmptyModule,
+  Form,
+  GradientBackground,
+  ImageGallery,
+  InputCurrency,
+  MeshGradientBg,
+  NoiseOverlay,
+  Scroll,
+  StarField,
+  TransferList,
+  Transition,
   Calendar,
   Collapse,
   ColorPicker,
@@ -102,7 +121,12 @@ import type { ReactElement, ReactNode } from "react";
 
 import type { Size, Variant } from "@stellaria/nebula-tokens";
 
-import { DialogPreview, DrawerPreview, ModalPreview } from "./islands/overlay-preview";
+import {
+  DialogPreview,
+  DrawerPreview,
+  GridListPreview,
+  ModalPreview,
+} from "./islands/live-preview";
 
 export interface PreviewSample {
   label: string;
@@ -930,6 +954,161 @@ export const PREVIEWS: Record<string, Preview> = {
       </Section>
     ),
   },
+
+  StarField: {
+    base: (
+      <Box
+        position="relative"
+        w={300}
+        h={140}
+        r="md"
+        overflow="hidden"
+        bdw={1}
+        bds="solid"
+        bdc="border.subtle"
+      >
+        <StarField aurora />
+      </Box>
+    ),
+  },
+  AnimatedGradient: {
+    base: (
+      <Box position="relative" w={300} h={140} r="md" overflow="hidden">
+        <AnimatedGradient h="100%" />
+      </Box>
+    ),
+  },
+  MeshGradientBg: {
+    base: (
+      <Box position="relative" w={300} h={140} r="md" overflow="hidden">
+        <MeshGradientBg h="100%" />
+      </Box>
+    ),
+  },
+  GradientBackground: {
+    base: (
+      <Box position="relative" w={300} h={140} r="md" overflow="hidden">
+        <GradientBackground h="100%" />
+      </Box>
+    ),
+  },
+  NoiseOverlay: {
+    base: (
+      <Box position="relative" w={300} h={140} r="md" overflow="hidden">
+        <Skeleton w={300} h={140} />
+        <NoiseOverlay />
+      </Box>
+    ),
+  },
+  BlurOverlay: {
+    base: (
+      <Box position="relative" w={300} h={140} r="md" overflow="hidden">
+        <Skeleton w={300} h={140} />
+        <BlurOverlay blur="md">
+          <Text fz="body3">Behind the glass</Text>
+        </BlurOverlay>
+      </Box>
+    ),
+  },
+
+  Combobox: {
+    base: (
+      <Combobox
+        w={280}
+        label="Component"
+        placeholder="Type to filter"
+        data={[
+          { value: "button", label: "Button" },
+          { value: "badge", label: "Badge" },
+          { value: "card", label: "Card" },
+        ]}
+      />
+    ),
+  },
+  TransferList: {
+    base: (
+      <TransferList
+        w={420}
+        height={160}
+        data={[
+          { value: "charts", label: "Charts" },
+          { value: "datagrid", label: "DataGrid" },
+          { value: "editor", label: "RichTextEditor" },
+        ]}
+        defaultValue={["charts"]}
+      />
+    ),
+  },
+  GridList: { base: <GridListPreview /> },
+
+  ImageGallery: {
+    base: (
+      <ImageGallery
+        w={320}
+        cols={3}
+        images={[
+          { src: "/logo.svg", alt: "Nebula" },
+          { src: "/icon.svg", alt: "Nebula mark" },
+          { src: "/logo.svg", alt: "Nebula again" },
+        ]}
+      />
+    ),
+  },
+
+  Countdown: { base: <Countdown to="2027-01-01T00:00:00.000Z" /> },
+  DateDisplay: { base: <DateDisplay value="2026-08-11T09:30:00.000Z" preset="long" /> },
+  EmptyModule: {
+    base: (
+      <EmptyModule
+        w={360}
+        icon={STAR}
+        title="No movements yet"
+        description="They land when the first reconciliation runs."
+      />
+    ),
+  },
+  Form: {
+    base: (
+      <Form w={320}>
+        <TextInput label="Email" placeholder="you@example.com" />
+        <Button type="submit" variant="light">
+          Send
+        </Button>
+      </Form>
+    ),
+  },
+  Conditional: {
+    base: (
+      <Conditional when fallback={<Text fz="body3">Hidden</Text>}>
+        <Text fz="body3">Rendered because `when` is true.</Text>
+      </Conditional>
+    ),
+  },
+  Transition: {
+    base: (
+      <Transition mounted>
+        <Card withBorder r="lg" padding="md" w={240}>
+          <Text fz="body3">Mounted with its preset.</Text>
+        </Card>
+      </Transition>
+    ),
+  },
+  Scroll: {
+    base: (
+      <Scroll h={120} w={280} shadows>
+        <Box display="flex" direction="column" gap="sm" p="sm">
+          {["Button", "Badge", "Card", "Table", "Alert", "Chip"].map((name) => (
+            <Text key={name} fz="body3">
+              {name}
+            </Text>
+          ))}
+        </Box>
+      </Scroll>
+    ),
+  },
+  DateRangePicker: { base: <DateRangePicker w={300} label="Period" /> },
+  DateTimePicker: { base: <DateTimePicker w={300} label="Starts at" /> },
+  InputCurrency: { base: <InputCurrency w={240} label="Amount" currency="EUR" /> },
 
   Anchor: { base: <Anchor href="#preview">A link</Anchor> },
   Code: { base: <Code>pnpm add @stellaria/nebula-web</Code> },

@@ -1,10 +1,11 @@
 "use client";
 
-import { Button, Dialog, Drawer, Modal, Text } from "@stellaria/nebula-web";
+import { Button, Card, Dialog, Drawer, GridList, Modal, Text } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
 /**
- * Los overlays controlados no se pueden enseñar quietos: la muestra es el disparador, que es como
+ * Las muestras que no cruzan la frontera RSC: las de estado y las de render-prop, porque una función
+ * no se serializa de servidor a cliente. Los overlays controlados no se pueden enseñar quietos: la muestra es el disparador, que es como
  * se usan de verdad. Vive aquí y no en `previews.tsx` porque necesita estado.
  */
 export function ModalPreview(): ReactElement {
@@ -94,5 +95,21 @@ export function DialogPreview(): ReactElement {
         <Text fz="body3">A corner dialog does not take the screen.</Text>
       </Dialog>
     </>
+  );
+}
+
+/** `getKey` y `renderItem` son funciones: tienen que nacer en cliente. */
+export function GridListPreview(): ReactElement {
+  return (
+    <GridList
+      w={360}
+      items={["Button", "Badge", "Card", "Table"]}
+      getKey={(item) => item}
+      renderItem={(item) => (
+        <Card withBorder r="md" padding="md">
+          <Text fz="body3">{item}</Text>
+        </Card>
+      )}
+    />
   );
 }
