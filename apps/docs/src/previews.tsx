@@ -126,6 +126,17 @@ import type { ReactElement, ReactNode } from "react";
 import type { Size, Variant } from "@stellaria/nebula-tokens";
 
 import {
+  CarouselPreview,
+  ChartsPreview,
+  CommandPalettePreview,
+  DataGridPreview,
+  DragDropPreview,
+  EditorImagePreview,
+  KanbanPreview,
+  PlayerPreview,
+  RichTextEditorPreview,
+} from "./islands/heavy-preview";
+import {
   DialogPreview,
   DrawerPreview,
   FileButtonPreview,
@@ -1049,6 +1060,16 @@ export const PREVIEWS: Record<string, Preview> = {
       />
     ),
   },
+  Charts: { base: <ChartsPreview /> },
+  DataGrid: { base: <DataGridPreview /> },
+  Carousel: { base: <CarouselPreview /> },
+  Kanban: { base: <KanbanPreview /> },
+  DragDrop: { base: <DragDropPreview /> },
+  RichTextEditor: { base: <RichTextEditorPreview /> },
+  EditorImage: { base: <EditorImagePreview /> },
+  Player: { base: <PlayerPreview /> },
+  CommandPalette: { base: <CommandPalettePreview /> },
+
   GridList: { base: <GridListPreview /> },
   InfiniteList: { base: <InfiniteListPreview /> },
   SearchableList: { base: <SearchableListPreview /> },
