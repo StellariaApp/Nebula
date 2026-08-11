@@ -33,10 +33,19 @@ function Scroller(node: HTMLElement): HTMLElement | null {
   return null;
 }
 
-/** Lo que hay que mover para que el borde más cercano entre en vista, y cero si ya cabe. */
-function Nearest(before: number, after: number): number {
-  if (before < 0) return before;
-  if (after > 0) return after;
+const REVEAL_GAP = { min: 48, max: 200, part: 4 } as const;
+
+/**
+ * Lo que hay que mover para que el borde más cercano entre en vista, y cero si ya cabe. Sobrepasa un
+ * poco a propósito: parar justo en el borde deja el activo pegado al filo y sin contexto alrededor.
+ */
+function Nearest(before: number, after: number, size: number): number {
+  const gap = Math.min(
+    REVEAL_GAP.max,
+    Math.max(REVEAL_GAP.min, Math.round(size / REVEAL_GAP.part)),
+  );
+  if (before < 0) return before - gap;
+  if (after > 0) return after + gap;
   return 0;
 }
 
@@ -137,8 +146,8 @@ export function AppShellSidebarBody(props: AppShellSlotProps): ReactElement {
 
       const box = target.getBoundingClientRect();
       const view = scroller.getBoundingClientRect();
-      const top = Nearest(box.top - view.top, box.bottom - view.bottom);
-      const left = Nearest(box.left - view.left, box.right - view.right);
+      const top = Nearest(box.top - view.top, box.bottom - view.bottom, view.height);
+      const left = Nearest(box.left - view.left, box.right - view.right, view.width);
       if (top === 0 && left === 0) return;
 
       scroller.scrollTo({
