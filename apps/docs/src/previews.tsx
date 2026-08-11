@@ -39,6 +39,22 @@ import {
   Avatar,
   Badge,
   Box,
+  Calendar,
+  Collapse,
+  ColorPicker,
+  Dropzone,
+  Grid,
+  HoverCard,
+  Image,
+  InputPhone,
+  LoadingOverlay,
+  Menu,
+  MonthPicker,
+  Overlay,
+  Popover,
+  Reveal,
+  Section,
+  Segment,
   Banderole,
   Blockquote,
   Burger,
@@ -85,6 +101,8 @@ import {
 import type { ReactElement, ReactNode } from "react";
 
 import type { Size, Variant } from "@stellaria/nebula-tokens";
+
+import { DialogPreview, DrawerPreview, ModalPreview } from "./islands/overlay-preview";
 
 export interface PreviewSample {
   label: string;
@@ -805,6 +823,113 @@ export const PREVIEWS: Record<string, Preview> = {
     ),
   },
   NProgress: { base: <NProgress value={40} w={320} /> },
+
+  Modal: { base: <ModalPreview /> },
+  Drawer: { base: <DrawerPreview /> },
+  Dialog: { base: <DialogPreview /> },
+  Popover: {
+    base: (
+      <Popover trigger={<Button variant="light">Open popover</Button>}>
+        <Text fz="body3" p="sm">
+          Anchored to its trigger, and React Aria moves it if it does not fit.
+        </Text>
+      </Popover>
+    ),
+  },
+  HoverCard: {
+    base: (
+      <HoverCard trigger={<Anchor href="#preview">@stellaria</Anchor>}>
+        <Text fz="body3" p="sm">
+          Opens on hover and on focus, never on click.
+        </Text>
+      </HoverCard>
+    ),
+  },
+  Menu: {
+    base: (
+      <Menu
+        trigger={<Button variant="light">Open menu</Button>}
+        items={[
+          { key: "copy", label: "Copy" },
+          { key: "duplicate", label: "Duplicate", shortcut: "⌘D" },
+          { key: "delete", label: "Delete", disabled: true },
+        ]}
+      />
+    ),
+  },
+  Overlay: {
+    base: (
+      <Box position="relative" w={240} h={100} r="md" overflow="hidden">
+        <Skeleton w={240} h={100} />
+        <Overlay blur="sm" center>
+          <Text fz="body3">Over it</Text>
+        </Overlay>
+      </Box>
+    ),
+  },
+  LoadingOverlay: {
+    base: (
+      <Box position="relative" w={240} h={100} r="md" overflow="hidden">
+        <Skeleton w={240} h={100} />
+        <LoadingOverlay visible label="Loading" />
+      </Box>
+    ),
+  },
+  Collapse: {
+    base: (
+      <Collapse in>
+        <Text fz="body3" maw={320}>
+          The height animates from zero, and it does not animate with reduced motion.
+        </Text>
+      </Collapse>
+    ),
+  },
+  Reveal: {
+    base: (
+      <Reveal>
+        <Card withBorder r="lg" padding="md" w={240}>
+          <Text fz="body3">Enters when it comes into view.</Text>
+        </Card>
+      </Reveal>
+    ),
+  },
+  Segment: {
+    base: (
+      <Segment defaultValue="preview">
+        <Segment.Control aria-label="View">
+          <Segment.Control.Item value="preview">Preview</Segment.Control.Item>
+          <Segment.Control.Item value="code">Code</Segment.Control.Item>
+        </Segment.Control>
+      </Segment>
+    ),
+  },
+  Calendar: { base: <Calendar /> },
+  MonthPicker: { base: <MonthPicker w={240} label="Period" /> },
+  ColorPicker: { base: <ColorPicker w={240} /> },
+  Dropzone: { base: <Dropzone w={320} label="Drop the theme JSON here" /> },
+  InputPhone: { base: <InputPhone w={280} label="Phone" /> },
+  Image: {
+    base: <Image src="/logo.svg" alt="Nebula" w={160} h={80} fit="contain" />,
+  },
+  Grid: {
+    base: (
+      <Grid w={320} gutter="sm">
+        <Grid.Col span={6}>
+          <Skeleton h={40} />
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Skeleton h={40} />
+        </Grid.Col>
+      </Grid>
+    ),
+  },
+  Section: {
+    base: (
+      <Section title="Movements" description="What moved this month." w={420}>
+        <Skeleton h={40} />
+      </Section>
+    ),
+  },
 
   Anchor: { base: <Anchor href="#preview">A link</Anchor> },
   Code: { base: <Code>pnpm add @stellaria/nebula-web</Code> },
