@@ -46,9 +46,10 @@ de ADR-020 escrito a mano y no `vars`.
 
 ## Consecuencias
 
-- **El origen sale del entorno**: `NEXT_PUBLIC_SITE_URL`, con `https://nebula.stellaria.dev` como
-  defecto. Ese dominio es una suposición y hay que confirmarlo antes de publicar: de él cuelgan las
-  canónicas, el sitemap y las URL absolutas de las tarjetas.
+- **El origen sale del entorno**: `NEXT_PUBLIC_SITE_URL`, con `https://nebula.stellaria.app` —el
+  dominio real, confirmado por el propietario— como defecto. De él cuelgan las canónicas, el sitemap
+  y las URL absolutas de las tarjetas, así que un despliegue en otro origen lo pone por entorno y no
+  toca código.
 - **El grafo JSON-LD va fuera del árbol de cliente.** Dentro de `Main` no llegaba al DOM; como
   hermano en el servidor, sí.
 - Una página que declara su propio `openGraph` **pisa** el `opengraph-image` heredado: `/theme` y
