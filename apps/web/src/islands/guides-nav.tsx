@@ -39,6 +39,7 @@ export function GuidesTabs({
       size="sm"
       variant="light"
       draggable={false}
+      overflowMode="scroll"
     >
       <Segment.Control aria-label={label} bg="transparent" bdw={0}>
         {sections.map((section) => (

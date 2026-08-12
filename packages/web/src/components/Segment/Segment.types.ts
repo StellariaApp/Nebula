@@ -15,6 +15,8 @@ export type SegmentSize = "sm" | "md" | "lg" | "xl";
 
 export type SegmentVariant = Extract<Variant, "filled" | "light">;
 
+export type SegmentOverflowMode = "visible" | "scroll" | "wrap";
+
 export interface SegmentProps extends StyleProps {
   children: ReactNode;
   value?: string | undefined;
@@ -27,6 +29,12 @@ export interface SegmentProps extends StyleProps {
   disabled?: boolean | undefined;
   fullWidth?: boolean | undefined;
   draggable?: boolean | undefined;
+  /**
+   * What the control does when its tabs do not fit. `scroll` slides the bar and keeps one row,
+   * `wrap` breaks it into rows and moves the indicator on both axes. Both turn the drag gesture off.
+   * Not named `overflow`: that one is a style prop and lands on the same element.
+   */
+  overflowMode?: SegmentOverflowMode | undefined;
   className?: string | undefined;
 }
 

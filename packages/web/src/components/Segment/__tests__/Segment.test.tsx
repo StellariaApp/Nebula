@@ -8,6 +8,7 @@ import type { SegmentContentProps } from "../Segment.types.js";
 afterEach(cleanup);
 afterEach(() => {
   vi.restoreAllMocks();
+  Reflect.deleteProperty(HTMLElement.prototype, "scrollTo");
 });
 
 const DATA = [
@@ -40,6 +41,57 @@ function StubRects(height: number): void {
       toJSON: () => ({}),
     };
   });
+}
+
+const TAB_WIDTH = 100;
+
+const BAR_WIDTH = 250;
+
+const TAB_HEIGHT = 32;
+
+function IndexOf(node: HTMLElement): number {
+  const parent = node.parentElement;
+  if (parent === null) return 0;
+  return Array.prototype.indexOf.call(parent.children, node) - 1;
+}
+
+function StubBar(): ReturnType<typeof vi.fn> {
+  const ScrollTo = vi.fn();
+  Object.defineProperty(HTMLElement.prototype, "scrollTo", {
+    configurable: true,
+    writable: true,
+    value: ScrollTo,
+  });
+  vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(BAR_WIDTH);
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function Rect(
+    this: HTMLElement,
+  ): DOMRect {
+    const tab = this.getAttribute("role") === "radio" || this.getAttribute("role") === "tab";
+    const left = tab ? IndexOf(this) * TAB_WIDTH : 0;
+    const width = tab ? TAB_WIDTH : BAR_WIDTH;
+    return {
+      x: left,
+      y: 0,
+      top: 0,
+      left,
+      right: left + width,
+      bottom: TAB_HEIGHT,
+      width,
+      height: TAB_HEIGHT,
+      toJSON: () => ({}),
+    };
+  });
+  return ScrollTo;
+}
+
+function Bar(): HTMLElement {
+  return screen.getByRole("radiogroup", { name: "Secciones" });
+}
+
+function Indicator(): HTMLElement {
+  const node = Bar().firstElementChild;
+  if (node === null) throw new Error("el indicador no existe");
+  return node as HTMLElement;
 }
 
 type ContentOptions = Omit<SegmentContentProps, "children">;
@@ -282,6 +334,71 @@ describe("Segment", () => {
       expect(screen.getByRole("tabpanel")).toBeDefined();
     });
     expect(view.container.querySelectorAll("[title='panel']")).toHaveLength(DATA.length);
+  });
+
+  it("con scroll trae a la vista el tab activo que cae fuera de la ventana", async () => {
+    const ScrollTo = StubBar();
+    render(
+      <Segment value="notas" overflowMode="scroll" onChange={() => undefined}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+      </Segment>,
+    );
+    await waitFor(() => {
+      expect(ScrollTo).toHaveBeenCalledWith(
+        expect.objectContaining({ left: TAB_WIDTH * 4 - BAR_WIDTH }),
+      );
+    });
+  });
+
+  it("con scroll no mueve la barra si el tab activo ya se ve", async () => {
+    const ScrollTo = StubBar();
+    render(
+      <Segment value="resumen" overflowMode="scroll" onChange={() => undefined}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+      </Segment>,
+    );
+    await waitFor(() => {
+      expect(Bar()).toBeDefined();
+    });
+    expect(ScrollTo).not.toHaveBeenCalled();
+  });
+
+  it("sin overflowMode la barra nunca se desplaza sola", async () => {
+    const ScrollTo = StubBar();
+    render(
+      <Segment value="notas" onChange={() => undefined}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+      </Segment>,
+    );
+    await waitFor(() => {
+      expect(Bar()).toBeDefined();
+    });
+    expect(ScrollTo).not.toHaveBeenCalled();
+  });
+
+  it("con wrap el indicador se posiciona también en vertical", async () => {
+    StubBar();
+    render(
+      <Segment value="notas" overflowMode="wrap" onChange={() => undefined}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+      </Segment>,
+    );
+    await waitFor(() => {
+      expect(Indicator().style.height).toBe(`${String(TAB_HEIGHT)}px`);
+    });
+  });
+
+  it("sin wrap el indicador no fija alto en línea", async () => {
+    StubBar();
+    render(
+      <Segment value="notas" onChange={() => undefined}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+      </Segment>,
+    );
+    await waitFor(() => {
+      expect(Bar()).toBeDefined();
+    });
+    expect(Indicator().style.height).toBe("");
   });
 
   it("respeta el modo controlado", async () => {

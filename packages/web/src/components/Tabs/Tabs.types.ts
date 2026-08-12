@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { ColorExtended, PermissionProps } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
-import type { SegmentSize, SegmentVariant } from "../Segment/Segment.types.js";
+import type { SegmentOverflowMode, SegmentSize, SegmentVariant } from "../Segment/Segment.types.js";
 
 export interface TabItem extends PermissionProps {
   value: string;
@@ -35,4 +35,6 @@ export interface TabsProps extends StyleProps {
   className?: string | undefined;
   "aria-label"?: string | undefined;
   padded?: boolean | undefined;
+  /** What the tab bar does when its tabs do not fit: `scroll` slides it, `wrap` breaks it into rows. */
+  overflowMode?: SegmentOverflowMode | undefined;
 }

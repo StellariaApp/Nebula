@@ -41,7 +41,6 @@
       "Portal",
       "Reveal",
       "SectionHeading",
-      "Segment",
       "SegmentContentItem",
       "SegmentControlItem",
       "StarField",
@@ -23830,6 +23829,14 @@
           "slot": false
         },
         {
+          "name": "overflowMode",
+          "type": "SegmentOverflowMode",
+          "required": false,
+          "default": "\"visible\"",
+          "doc": "What the control does when its tabs do not fit. `scroll` slides the bar and keeps one row,\n`wrap` breaks it into rows and moves the indicator on both axes. Both turn the drag gesture off.\nNot named `overflow`: that one is a style prop and lands on the same element.",
+          "slot": false
+        },
+        {
           "name": "padded",
           "type": "boolean",
           "required": false,
@@ -26478,6 +26485,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "overflowMode",
+          "type": "SegmentOverflowMode",
+          "required": false,
+          "default": null,
+          "doc": "What the tab bar does when its tabs do not fit: `scroll` slides it, `wrap` breaks it into rows.",
           "slot": false
         },
         {

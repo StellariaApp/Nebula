@@ -55,8 +55,21 @@ export const control = recipe({
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
       false: {},
     },
+    overflowMode: {
+      visible: {},
+      scroll: {
+        maxWidth: "100%",
+        overflowX: "auto",
+        overscrollBehaviorInline: "contain",
+        scrollbarWidth: "none",
+        selectors: {
+          "&::-webkit-scrollbar": { display: "none" },
+        },
+      },
+      wrap: { flexWrap: "wrap" },
+    },
   },
-  defaultVariants: { size: "md", fullWidth: false },
+  defaultVariants: { size: "md", fullWidth: false, overflowMode: "visible" },
 });
 
 export type SegmentControlVariants = NonNullable<RecipeVariants<typeof control>>;
@@ -85,46 +98,65 @@ export const indicator = recipe({
       lg: { height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2.4)` },
       xl: { height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2.8)` },
     },
+    flow: {
+      row: {},
+      wrap: { top: 0, bottom: "auto" },
+    },
   },
+  defaultVariants: { flow: "row" },
 });
 
-export const tab = style({
-  "@layer": {
-    [base_layer]: {
-      position: "relative",
-      zIndex: 1,
-      flex: 1,
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingInline: vars.space.md,
-      border: "none",
-      background: "transparent",
-      font: "inherit",
-      fontWeight: vars.font.weight.semibold,
-      lineHeight: 1,
-      fontSize: "inherit",
-      cursor: "pointer",
-      color: vars.color.text.secondary,
-      whiteSpace: "nowrap",
-      userSelect: "none",
-      borderRadius: vars.radius.full,
-      ...motion.interaction,
-      outline: "none",
-      selectors: {
-        "&[data-active='true']": {
-          color: fallbackVar(variables.indicatorFg, vars.color.text.primary),
+export const tab = recipe({
+  base: {
+    "@layer": {
+      [base_layer]: {
+        position: "relative",
+        zIndex: 1,
+        flex: 1,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingInline: vars.space.md,
+        border: "none",
+        background: "transparent",
+        font: "inherit",
+        fontWeight: vars.font.weight.semibold,
+        lineHeight: 1,
+        fontSize: "inherit",
+        cursor: "pointer",
+        color: vars.color.text.secondary,
+        whiteSpace: "nowrap",
+        userSelect: "none",
+        borderRadius: vars.radius.full,
+        ...motion.interaction,
+        outline: "none",
+        selectors: {
+          "&[data-active='true']": {
+            color: fallbackVar(variables.indicatorFg, vars.color.text.primary),
+          },
+          "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
+          "&:focus-visible": {
+            ...focus.ring,
+          },
         },
-        "&[data-disabled='true']": { cursor: "not-allowed", color: vars.color.text.muted },
-        "&:focus-visible": {
-          ...focus.ring,
+        "@media": {
+          "(prefers-reduced-motion: reduce)": motion.still,
         },
-      },
-      "@media": {
-        "(prefers-reduced-motion: reduce)": motion.still,
       },
     },
   },
+  variants: {
+    fullWidth: {
+      true: { minWidth: 0, overflow: "hidden" },
+      false: {},
+    },
+    overflowMode: {
+      visible: {},
+      scroll: { flex: "0 0 auto" },
+      wrap: {},
+    },
+  },
+  defaultVariants: { fullWidth: false, overflowMode: "visible" },
 });
 
 export const content = style({

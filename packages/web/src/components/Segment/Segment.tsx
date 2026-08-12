@@ -22,6 +22,7 @@ export function Segment(props: SegmentProps): ReactElement {
     disabled = false,
     fullWidth = false,
     draggable = true,
+    overflowMode = "visible",
     className,
     padded = false,
     ...style_rest
@@ -50,6 +51,7 @@ export function Segment(props: SegmentProps): ReactElement {
       disabled,
       fullWidth,
       draggable,
+      overflowMode,
       baseId: base_id,
       hasPanels: panels.length > 0,
       RegisterPanels,
@@ -64,6 +66,7 @@ export function Segment(props: SegmentProps): ReactElement {
       disabled,
       fullWidth,
       draggable,
+      overflowMode,
       base_id,
       panels,
       RegisterPanels,

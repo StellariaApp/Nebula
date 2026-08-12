@@ -74,6 +74,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     count: items.length,
     draggable: segment.draggable,
     disabled: segment.disabled,
+    overflowMode: segment.overflowMode,
     onSelect: Select,
     isEnabled: Enabled,
   });
@@ -109,6 +110,8 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     [variables.indicatorFg]: resolved.foreground,
   });
 
+  const wrapped = segment.overflowMode === "wrap";
+
   return (
     <div
       ref={indicator.containerRef}
@@ -116,7 +119,11 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
       aria-label={aria_label}
       aria-orientation={segment.hasPanels ? "horizontal" : undefined}
       className={cx(
-        styles.control({ size: segment.size, fullWidth: segment.fullWidth }),
+        styles.control({
+          size: segment.size,
+          fullWidth: segment.fullWidth,
+          overflowMode: segment.overflowMode,
+        }),
         sprinkle_class,
         className,
       )}
@@ -126,8 +133,13 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     >
       <m.span
         aria-hidden="true"
-        className={styles.indicator({ size: segment.size })}
-        style={{ x: indicator.x, width: indicator.width, opacity: indicator.ready ? 1 : 0 }}
+        className={styles.indicator({ size: segment.size, flow: wrapped ? "wrap" : "row" })}
+        style={{
+          x: indicator.x,
+          width: indicator.width,
+          opacity: indicator.ready ? 1 : 0,
+          ...(wrapped ? { y: indicator.y, height: indicator.height } : {}),
+        }}
         {...indicator.panHandlers}
       />
       {items.map((item, index) => {
@@ -149,7 +161,13 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
             aria-controls={segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined}
             id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
             tabIndex={active ? 0 : -1}
-            className={cx(styles.tab, tabProps?.className)}
+            className={cx(
+              styles.tab({
+                fullWidth: segment.fullWidth,
+                overflowMode: segment.overflowMode,
+              }),
+              tabProps?.className,
+            )}
             data-active={active ? "true" : undefined}
             data-disabled={item_disabled ? "true" : undefined}
             onClick={() => {

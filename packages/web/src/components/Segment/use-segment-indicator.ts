@@ -13,18 +13,25 @@ import {
 
 import { Rubber } from "../../utils/rubber.js";
 
+import type { SegmentOverflowMode } from "./Segment.types.js";
+
 const FLICK_VELOCITY = 380;
 
 interface Rect {
   x: number;
+  y: number;
   width: number;
+  height: number;
 }
+
+const EMPTY_RECT: Rect = { x: 0, y: 0, width: 0, height: 0 };
 
 export interface SegmentIndicatorOptions {
   activeIndex: number;
   count: number;
   draggable: boolean;
   disabled: boolean;
+  overflowMode: SegmentOverflowMode;
   onSelect: (index: number) => void;
   isEnabled?: ((index: number) => boolean) | undefined;
 }
@@ -33,7 +40,9 @@ export interface SegmentIndicatorApi {
   containerRef: (node: HTMLElement | null) => void;
   SetItemRef: (index: number) => (node: HTMLElement | null) => void;
   x: MotionValue<number>;
+  y: MotionValue<number>;
   width: MotionValue<number>;
+  height: MotionValue<number>;
   ready: boolean;
   dragging: boolean;
   panHandlers: {
@@ -45,7 +54,7 @@ export interface SegmentIndicatorApi {
 }
 
 export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIndicatorApi {
-  const { activeIndex, count, draggable, disabled, onSelect, isEnabled } = options;
+  const { activeIndex, count, draggable, disabled, overflowMode, onSelect, isEnabled } = options;
 
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
@@ -58,10 +67,14 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
   const [dragging, set_dragging] = useState(false);
 
   const target_x = useMotionValue(0);
+  const target_y = useMotionValue(0);
   const target_w = useMotionValue(0);
+  const target_h = useMotionValue(0);
   const config = { stiffness: spring.stiffness, damping: spring.damping, mass: spring.mass };
   const spring_x = useSpring(target_x, config);
+  const spring_y = useSpring(target_y, config);
   const spring_w = useSpring(target_w, config);
+  const spring_h = useSpring(target_h, config);
 
   const first = useRef(true);
   const origin = useRef(0);
@@ -70,15 +83,28 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
   const Measure = useCallback(() => {
     const root = container.current;
     if (root === null) return;
-    const base = root.getBoundingClientRect().left;
+    const box_root = root.getBoundingClientRect();
+    const base_x = box_root.left + root.clientLeft - root.scrollLeft;
+    const base_y = box_root.top + root.clientTop - root.scrollTop;
     const next = items.current.slice(0, count).map((node) => {
-      if (node === null) return { x: 0, width: 0 };
+      if (node === null) return EMPTY_RECT;
       const box = node.getBoundingClientRect();
-      return { x: box.left - base, width: box.width };
+      return {
+        x: box.left - base_x,
+        y: box.top - base_y,
+        width: box.width,
+        height: box.height,
+      };
     });
     set_rects((prev) =>
       prev.length === next.length &&
-      prev.every((rect, index) => rect.x === next[index]?.x && rect.width === next[index]?.width)
+      prev.every(
+        (rect, index) =>
+          rect.x === next[index]?.x &&
+          rect.y === next[index]?.y &&
+          rect.width === next[index]?.width &&
+          rect.height === next[index]?.height,
+      )
         ? prev
         : next,
     );
@@ -121,15 +147,48 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
     if (rect === undefined || rect.width === 0 || dragging) return;
     if (first.current || !is_animated) {
       target_x.jump(rect.x);
+      target_y.jump(rect.y);
       target_w.jump(rect.width);
+      target_h.jump(rect.height);
       spring_x.jump(rect.x);
+      spring_y.jump(rect.y);
       spring_w.jump(rect.width);
+      spring_h.jump(rect.height);
       first.current = false;
       return;
     }
     target_x.set(rect.x);
+    target_y.set(rect.y);
     target_w.set(rect.width);
-  }, [activeIndex, rects, dragging, is_animated, target_x, target_w, spring_x, spring_w]);
+    target_h.set(rect.height);
+  }, [
+    activeIndex,
+    rects,
+    dragging,
+    is_animated,
+    target_x,
+    target_y,
+    target_w,
+    target_h,
+    spring_x,
+    spring_y,
+    spring_w,
+    spring_h,
+  ]);
+
+  useEffect(() => {
+    const root = container.current;
+    const rect = rects[activeIndex];
+    if (overflowMode !== "scroll" || root === null || rect === undefined || rect.width === 0)
+      return;
+    const start = root.scrollLeft;
+    const end = start + root.clientWidth;
+    if (rect.x >= start && rect.x + rect.width <= end) return;
+    const left = rect.x < start ? rect.x : rect.x + rect.width - root.clientWidth;
+    if (typeof root.scrollTo === "function")
+      root.scrollTo({ left, behavior: is_animated ? "smooth" : "auto" });
+    else root.scrollLeft = left;
+  }, [overflowMode, activeIndex, rects, is_animated]);
 
   const Nearest = useCallback(
     (position: number): number => {
@@ -149,7 +208,8 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
     [rects, activeIndex, isEnabled],
   );
 
-  const can_drag = draggable && is_animated && !disabled && rects.length > 1;
+  const can_drag =
+    draggable && is_animated && !disabled && rects.length > 1 && overflowMode === "visible";
 
   const HandlePanStart = useCallback(() => {
     origin.current = target_x.get();
@@ -191,7 +251,9 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
     containerRef: SetContainerRef,
     SetItemRef,
     x: is_animated ? spring_x : target_x,
+    y: is_animated ? spring_y : target_y,
     width: is_animated ? spring_w : target_w,
+    height: is_animated ? spring_h : target_h,
     ready: rects.some((rect) => rect.width > 0),
     dragging,
     panHandlers: can_drag

@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 
 import type { ColorExtended } from "@stellaria/nebula-tokens";
 
-import type { SegmentSize, SegmentVariant } from "./Segment.types.js";
+import type { SegmentOverflowMode, SegmentSize, SegmentVariant } from "./Segment.types.js";
 
 export interface SegmentContextValue {
   value: string;
@@ -15,6 +15,7 @@ export interface SegmentContextValue {
   disabled: boolean;
   fullWidth: boolean;
   draggable: boolean;
+  overflowMode: SegmentOverflowMode;
   baseId: string;
   hasPanels: boolean;
   RegisterPanels: (values: string[]) => void;

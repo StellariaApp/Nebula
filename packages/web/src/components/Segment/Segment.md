@@ -19,6 +19,34 @@ Las cuatro que renderizan un elemento propio: `Segment` (la columna raíz), `Seg
 
 `Segment.Control.Item` y `Segment.Content.Item` **no** las aceptan: devuelven `null` y existen solo para declarar datos que lee el padre, como `Conditional` o `Portal`. La consecuencia práctica es que el panel de un `Content.Item` se sigue estilando por su `className`, que es lo que el padre le pasa al `div` del panel. Abrirlo exigiría que `SegmentContent` extrajese las style props de las props de cada hijo, y eso se decidirá con evidencia de uso.
 
+## Qué hace la barra cuando no cabe (ADR-135)
+
+`overflowMode` vive en la raíz y viaja por el contexto, como `size` o `fullWidth`. `Tabs` lo hereda.
+
+| modo        | qué hace la barra                              | arrastre |
+| ----------- | ---------------------------------------------- | -------- |
+| `"visible"` | desborda a su padre — el defecto de siempre    | sí       |
+| `"scroll"`  | se desliza en una fila, con la barra oculta    | no       |
+| `"wrap"`    | rompe en filas y el indicador se mueve en 2 ejes | no      |
+
+No se llama `overflow` porque **ese nombre ya está cogido**: `overflow`, `overflowX` y `wrap` son
+style props, y `SegmentProps extends StyleProps`. La style prop `overflow` sigue cayendo en el `div`
+del control y es cosa distinta de esta.
+
+**El gesto se apaga en `scroll` y en `wrap`.** En `scroll` porque el `onPan` del indicador y el
+scroll táctil se pelean por el mismo dedo en el mismo eje, y debe ganar el del sistema, que trae
+inercia y rebote. En `wrap` porque `Rubber` acota un eje y un arrastre que cruza filas no es el gesto
+de un segmento. Click y teclado siguen completos: el gesto siempre fue mejora progresiva.
+
+Con `scroll`, el tab activo **se trae a la vista** al cambiar de valor, desplazando solo la barra
+—nunca la página—, porque si no el teclado deja el foco fuera de la ventana visible.
+
+`fullWidth` es aparte y compone con los tres: sus tabs llevan `min-width: 0` y `overflow: hidden`,
+que es lo que hace que `width: 100%` se cumpla de verdad. El recorte es duro, sin puntos
+suspensivos: `text-overflow: ellipsis` no se aplica a un contenedor flex y el rótulo de un item es
+`ReactNode`, así que envolverlo en un bloque le cambiaría la caja a quien hoy le pasa un nodo. Con
+rótulos largos, el modo es `scroll`.
+
 ## El rol ARIA depende de si hay paneles
 
 `Segment.Control` emite `tablist` + `tab` + `aria-controls` **solo cuando el Segment tiene un `Segment.Content`**; sin paneles cae a `radiogroup` + `radio`. Un `tablist` cuyas pestañas no controlan nada es ARIA incorrecto, y ese es también el motivo de que `SegmentedControl` siga existiendo aparte: es el selector de valor suelto y siempre es un radiogroup.
