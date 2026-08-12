@@ -43,6 +43,12 @@ const MOTION_SETTLE_MS = 2500;
  * imágenes que cambian en bloque ante cualquier recalibración de token, y una revisión que nadie lee
  * es un gate que no existe.
  *
+ * Antes de disparar se espera a `document.fonts.ready`. El margen fijo no sirve para esto: si la
+ * Geist no ha llegado, el navegador mide con la de reserva y todo lo que abraza su contenido —un
+ * botón, una etiqueta, una celda— sale con otro ancho. Sin esta espera el gate compara dos
+ * tipografías y llama regresión a la diferencia; se detectó al correrlo por primera vez en W5.0,
+ * con seis láminas fallando entre 0,17 % y 0,20 % sin que ningún componente hubiera cambiado.
+ *
  * El determinismo del §3, con lo que se puede fijar desde aquí: viewport constante, `reduced-motion`
  * —la misma vía que unifica ADR-034—, y `animations: "disabled"` en la captura, que congela las
  * decorativas infinitas que el gate de axe ya no puede esperar.
@@ -108,6 +114,9 @@ const config: TestRunnerConfig = {
 
     if (VISUAL) {
       if (!InScope(context.title, context.name)) return;
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
       await page.waitForTimeout(SETTLE_MS);
       const shot = await page.screenshot({
         fullPage: true,

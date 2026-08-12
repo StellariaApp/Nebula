@@ -88,6 +88,26 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 
 ## 4. Cosas que descubrí y conviene que sepas
 
+- **Los dos gates de P0 corridos por primera vez (W5.0, 2026-08-11).**
+  - **`a11y` limpio a la primera**: 96 suites, 617 tests, **0 violaciones**. El prompt de la fase
+    daba por hecho que axe encontraría cosas; no encontró ninguna.
+  - **`visual`: 69 de 75 en verde, 6 en rojo** entre 0,176 % y 0,20 % sobre un umbral de 0,1 %, en
+    tres láminas — `actions--sizes`, `spacing` (sus cuatro variantes) y `datagrid-y-charts`.
+    **No son una regresión del catálogo.** Medido en los píxeles: el relleno del botón es idéntico
+    (`94,99,248` en baseline y actual), la altura es la misma y ningún componente que aparezca en
+    esas láminas se ha tocado desde la captura. Lo único que cambia es que **el texto mide menos
+    ahora**: un botón que abraza su contenido encoge 6 px (121 → 115) y un párrafo rompe en otra
+    palabra. Es la firma de un entorno de render distinto, no de un cambio de código, y es
+    exactamente el argumento del «entorno único» que ADR-037 §3 pide y que sigue sin decidirse.
+  - Descartado por experimento que fuera la carga de la tipografía: bloqueando las `woff2` fallan
+    **73 de 75** con diffs de 0,5–1,4 %, así que el baseline sí se capturó con la Geist.
+  - **El capturador no esperaba a `document.fonts.ready`** —solo un margen fijo de 700 ms—, así que
+    podía disparar midiendo con la tipografía de reserva. Corregido en `test-runner.ts`. No era la
+    causa de estos seis, pero era una carrera real esperando a ocurrir.
+  - **Decisión pendiente**: regenerar esos seis baselines o no. No lo he hecho: el prompt de la fase
+    lo prohíbe explícitamente sin justificación escrita, y ésta es la justificación para que decidas.
+
+
 - **Seis temas de producto siguen fallando el texto de su degradado** (W5.0, T0). Con el suelo de
   tinta de [ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md) ya en su sitio, `rosette`,
   `stellaria`, `lagrange`, `aurora`, `eclipse` y `cosmos` quedan entre **4,32 y 4,34** contra el

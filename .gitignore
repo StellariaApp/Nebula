@@ -35,3 +35,7 @@ Thumbs.db
 
 # salida de size-limit --json, que se pide a mano al revisar presupuestos
 size-report.json
+
+# diffs del gate visual: los escribe jest-image-snapshot al fallar y se regeneran
+# en cada pasada. El baseline de al lado (__snapshots__/visual/<plataforma>/) SI se versiona
+**/__snapshots__/visual/__diff__/
