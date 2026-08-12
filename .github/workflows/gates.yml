@@ -172,6 +172,17 @@ jobs:
       # El tarball sale de un checkout limpio, no del `dist` que hubiera en una maquina.
       - run: pnpm turbo build --filter=@stellaria/nebula-web...
 
+      # `changeset publish` se traga el error de npm: cuando la publicacion falla,
+      # `isAlreadyPublishedError` lee `error.message` y si npm no devolvio la forma que espera,
+      # revienta con un TypeError y el motivo real no llega al log. Se publica el paquete mas
+      # pequeno con npm directamente para ver que dice npm de verdad, y solo despues se deja a
+      # changesets con los demas.
+      - name: que dice npm de verdad
+        working-directory: packages/icons
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       # La procedencia se enciende por entorno, no por bandera: `changeset publish`
       # solo acepta `--tag`, `--otp` y `--no-git-tag`, y pasa el resto a
       # `npm publish`, que si lee NPM_CONFIG_PROVENANCE.
