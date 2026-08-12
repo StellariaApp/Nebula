@@ -13,6 +13,11 @@
     "theme-creator",
     "web",
     "@stellaria/nebula-demos",
-    "@stellaria/nebula-native"
+    "@stellaria/nebula-native",
+    "nebula-tools-contrast-check",
+    "nebula-tools-docs-gen",
+    "nebula-tools-figma-measure",
+    "nebula-tools-palette-gen",
+    "nebula-tools-render-measure"
   ]
 }

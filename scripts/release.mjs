@@ -328,7 +328,20 @@ ${String(error.message)}`);
   }
 
   const versions = PACKAGES.map((pkg) => `${pkg.name}@${Version(pkg.dir)}`);
-  Git(["add", "--", ".changeset", ...PACKAGES.map((pkg) => `packages/${pkg.dir}`)]);
+
+  /**
+   * Se commitea lo que `changeset version` toco, no una lista escrita a mano: el arbol estaba
+   * limpio antes (lo exige `Guard`), asi que todo lo que este sucio ahora lo escribio el. Con una
+   * lista fija se quedaron fuera los `tools/` que changesets subio por ser dependientes.
+   */
+  const touched = Git(["status", "--porcelain"])
+    .split("\n")
+    .map((line) => line.slice(3).trim())
+    .filter((line) => line.length > 0);
+
+  if (touched.length === 0) Stop("`changeset version` no cambio nada. Revisa la configuracion.");
+
+  Git(["add", "--", ...touched]);
   Git(["commit", "-m", `chore(release): ${versions.join(" · ")}`]);
 
   working.message("Empujando");
