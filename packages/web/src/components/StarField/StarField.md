@@ -37,9 +37,21 @@ otro `duration.expressive` reescala el campo entero.
    sustituto, las estrellas quedarían congeladas en el frame que tocara: unas invisibles a 0.2 y otras
    a 1, que es peor que el campo quieto y uniforme.
 2. `motion.tier: "minimal"` — mismo resultado por `data-twinkle="false"`, decidido en JS.
-3. **Parallax** — solo se suscribe al scroll si `parallax`, el tier no es minimal y el media query no
-   está activo. Por eso el listener se monta dentro del `useEffect` y no siempre: con tier minimal no hay ni
-   handler registrado, no solo un handler que no hace nada.
+3. **Parallax** — solo se suscribe al scroll si `parallax`, el tier no es minimal y ninguno de los dos
+   media queries está activo. Por eso el listener se monta dentro del `useEffect` y no siempre: con tier
+   minimal no hay ni handler registrado, no solo un handler que no hace nada.
+
+La segunda consulta es `(pointer: coarse)`, y **es una parada de rendimiento, no de preferencia**. El
+parallax escribe dos `transform` por fotograma de scroll sobre capas fijas del tamaño de la ventana, y
+en un táctil eso se paga recorriendo la página entera con un presupuesto de compositor mucho más corto.
+El efecto además se aprecia poco donde la ventana es alta y estrecha. Va aquí y no en el sitio de
+llamada porque decidirlo fuera obliga a un `useMediaQuery`, y eso es una frontera de cliente nueva:
+medido en `apps/web`, convertir `SiteBackground` en isla resharding las hojas de Vanilla Extract y
+sumaba **7 ficheros CSS bloqueantes a cada página** sin cambiar un solo byte del total. El componente
+ya es de cliente, así que dentro sale gratis.
+
+Las estrellas siguen siendo las mismas: `density` es un coste de una vez —los nodos y su animación CSS,
+que compone la GPU—, no un coste por fotograma en el hilo principal.
 
 El parallax escribe `transform` directamente sobre el nodo desde un `requestAnimationFrame` con
 coalescencia (un frame pendiente como máximo) y el listener es `passive`. No pasa por estado de React:

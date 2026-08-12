@@ -18,6 +18,7 @@ import { useStarField } from "./useStarField.js";
 const GRID_DRIFT = 0.018;
 const STARS_DRIFT = 0.045;
 const REDUCED = "(prefers-reduced-motion: reduce)";
+const COARSE = "(pointer: coarse)";
 
 export function StarField(props: StarFieldProps): ReactElement {
   const {
@@ -52,6 +53,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     if (!parallax || !animated) return;
     if (typeof window === "undefined") return;
     if (window.matchMedia(REDUCED).matches) return;
+    if (window.matchMedia(COARSE).matches) return;
 
     const node = scroller?.current ?? null;
     const target: Window | HTMLElement = node ?? window;

@@ -23,6 +23,8 @@ import {
 } from "@stellaria/nebula-web";
 import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 
+import { useOnScreen } from "../use-on-screen";
+
 const SPRINGS = ["gentle", "default", "snappy"] as const;
 
 const PRESETS = ["scale", "pop", "slide-up", "slide-right"] as const;
@@ -57,19 +59,20 @@ function Cell({ title, children }: { title: string; children: ReactNode }): Reac
 function Pulse(): ReactElement {
   const [phase, set_phase] = useState(-1);
   const { theme } = useTheme();
+  const [ref, visible] = useOnScreen();
 
   useEffect(() => {
-    if (theme.motion.tier === "minimal") return;
+    if (theme.motion.tier === "minimal" || !visible) return;
     const timer = window.setInterval(() => {
       set_phase((value) => (value + 1) % PRESETS.length);
     }, TICK);
     return () => {
       window.clearInterval(timer);
     };
-  }, [theme.motion.tier]);
+  }, [theme.motion.tier, visible]);
 
   return (
-    <Box display="flex" direction="column" gap="xs" mih={124}>
+    <Box ref={ref} display="flex" direction="column" gap="xs" mih={124}>
       {PRESETS.map((preset, index) => (
         <Transition key={preset} mounted={phase !== index} transition={preset}>
           <Box display="flex">
@@ -85,13 +88,21 @@ function Pulse(): ReactElement {
 
 function Ticking(): ReactElement {
   const [mounted, set_mounted] = useState(false);
+  const [ref, visible] = useOnScreen();
 
   useEffect(() => {
     set_mounted(true);
   }, []);
 
-  if (!mounted) return <Skeleton h={44} r="sm" />;
-  return <Countdown to="2027-01-01T00:00:00.000Z" size="sm" withSeconds />;
+  return (
+    <Box ref={ref}>
+      {mounted && visible ? (
+        <Countdown to="2027-01-01T00:00:00.000Z" size="sm" withSeconds />
+      ) : (
+        <Skeleton h={44} r="sm" />
+      )}
+    </Box>
+  );
 }
 
 function Tokens(): ReactElement {
