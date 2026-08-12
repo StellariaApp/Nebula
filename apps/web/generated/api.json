@@ -39,10 +39,6 @@
       "UnstyledButton"
     ],
     "defaultUnknown": [
-      "PieChart",
-      "RadarChart",
-      "TrendIndicator",
-      "CreatableSelect",
       "VirtualizedSelect"
     ],
     "noDestructuring": [
@@ -3383,8 +3379,8 @@
               "name": "curve",
               "type": "\"linear\" | \"monotone\" | \"step\"",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"linear\"",
+              "doc": "How the line joins its points. `\"monotone\"` smooths without inventing peaks between them;\n`\"step\"` is the honest one for a value that changes in jumps rather than continuously.",
               "slot": false
             },
             {
@@ -3392,7 +3388,7 @@
               "type": "readonly Readonly<Record<string, string | number | null | undefined>>[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The rows, one per point along the axis. Every key a `series` or an axis names has to exist on\nthem — a missing key is not an error, it simply plots nothing.",
               "slot": false
             },
             {
@@ -3400,7 +3396,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the disclosure that opens the table says. It falls back to \"View data as a table\", English\nby default (ADR-120); translate it at the call site.",
               "slot": false
             },
             {
@@ -3408,7 +3404,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What replaces the whole chart when `data` is empty. Without it an empty chart still renders its\nframe and axes, which reads as broken rather than as empty.",
               "slot": false
             },
             {
@@ -3416,15 +3412,15 @@
               "type": "number",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "How solid the fill under the line is. It stays low on purpose: stacked areas at full opacity\nhide each other, and the point of the fill is volume, not colour.",
               "slot": false
             },
             {
               "name": "height",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "260",
+              "doc": "Height of the canvas in pixels. The width always comes from the container — only the height is\nfixed, because a chart with no height collapses to nothing inside a responsive wrapper.",
               "slot": false
             },
             {
@@ -3432,7 +3428,7 @@
               "type": "readonly ChartSeries[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Which keys of `data` are drawn, and in what order. The order also assigns the palette, so\nreordering this recolours the chart; pin a `color` on the series to stop that.",
               "slot": false
             },
             {
@@ -3440,7 +3436,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The prose description of what the chart shows, and the canvas's accessible description. This is\nwhere the trend goes: a screen reader gets nothing from the shape of the line.",
               "slot": false
             },
             {
@@ -3448,7 +3444,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The caption, and the accessible name of the canvas through `aria-labelledby`. Without it — and\nwithout `summary` — the canvas carries no `role=\"img\"` at all, so the chart is invisible to\nassistive tech rather than merely unnamed.",
               "slot": false
             },
             {
@@ -3456,7 +3452,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
             {
@@ -3464,7 +3460,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether each point is marked. Worth turning on when the points are few and read as readings,\nand worth leaving off past a few dozen, where the dots merge into the line anyway.",
               "slot": false
             },
             {
@@ -3472,7 +3468,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the background grid is drawn.",
               "slot": false
             },
             {
@@ -3480,7 +3476,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the series legend is drawn.",
               "slot": false
             },
             {
@@ -3488,7 +3484,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
             {
@@ -3496,7 +3492,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The category axis. Left out it reads the `name` key, which is why data shaped that way needs no\naxis config at all.",
               "slot": false
             },
             {
@@ -3504,7 +3500,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The value axis. Left out it scales itself to the data.",
               "slot": false
             }
           ],
@@ -3584,7 +3580,7 @@
               "type": "readonly Readonly<Record<string, string | number | null | undefined>>[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The rows, one per point along the axis. Every key a `series` or an axis names has to exist on\nthem — a missing key is not an error, it simply plots nothing.",
               "slot": false
             },
             {
@@ -3592,7 +3588,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the disclosure that opens the table says. It falls back to \"View data as a table\", English\nby default (ADR-120); translate it at the call site.",
               "slot": false
             },
             {
@@ -3600,31 +3596,31 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What replaces the whole chart when `data` is empty. Without it an empty chart still renders its\nframe and axes, which reads as broken rather than as empty.",
               "slot": false
             },
             {
               "name": "height",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "260",
+              "doc": "Height of the canvas in pixels. The width always comes from the container — only the height is\nfixed, because a chart with no height collapses to nothing inside a responsive wrapper.",
               "slot": false
             },
             {
               "name": "layout",
               "type": "\"horizontal\" | \"vertical\"",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"horizontal\"",
+              "doc": "Which way the bars run. `\"vertical\"` lays them along the y axis, which is the one that survives\nlong category labels — horizontal bars have to truncate them.",
               "slot": false
             },
             {
               "name": "radius",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "4",
+              "doc": "How rounded the end of each bar is, as a raw length.",
               "slot": false
             },
             {
@@ -3632,7 +3628,7 @@
               "type": "readonly ChartSeries[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Which keys of `data` are drawn, and in what order. The order also assigns the palette, so\nreordering this recolours the chart; pin a `color` on the series to stop that.",
               "slot": false
             },
             {
@@ -3640,7 +3636,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The prose description of what the chart shows, and the canvas's accessible description. This is\nwhere the trend goes: a screen reader gets nothing from the shape of the line.",
               "slot": false
             },
             {
@@ -3648,7 +3644,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The caption, and the accessible name of the canvas through `aria-labelledby`. Without it — and\nwithout `summary` — the canvas carries no `role=\"img\"` at all, so the chart is invisible to\nassistive tech rather than merely unnamed.",
               "slot": false
             },
             {
@@ -3656,7 +3652,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
             {
@@ -3664,7 +3660,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the background grid is drawn.",
               "slot": false
             },
             {
@@ -3672,7 +3668,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the series legend is drawn.",
               "slot": false
             },
             {
@@ -3680,7 +3676,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
             {
@@ -3688,7 +3684,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The category axis. Left out it reads the `name` key, which is why data shaped that way needs no\naxis config at all.",
               "slot": false
             },
             {
@@ -3696,7 +3692,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The value axis. Left out it scales itself to the data.",
               "slot": false
             }
           ],
@@ -3999,8 +3995,8 @@
               "name": "curve",
               "type": "\"linear\" | \"monotone\" | \"step\"",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"linear\"",
+              "doc": "How the line joins its points. `\"monotone\"` smooths without inventing peaks between them;\n`\"step\"` is the honest one for a value that changes in jumps rather than continuously.",
               "slot": false
             },
             {
@@ -4008,7 +4004,7 @@
               "type": "readonly Readonly<Record<string, string | number | null | undefined>>[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The rows, one per point along the axis. Every key a `series` or an axis names has to exist on\nthem — a missing key is not an error, it simply plots nothing.",
               "slot": false
             },
             {
@@ -4016,7 +4012,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the disclosure that opens the table says. It falls back to \"View data as a table\", English\nby default (ADR-120); translate it at the call site.",
               "slot": false
             },
             {
@@ -4024,15 +4020,15 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What replaces the whole chart when `data` is empty. Without it an empty chart still renders its\nframe and axes, which reads as broken rather than as empty.",
               "slot": false
             },
             {
               "name": "height",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "260",
+              "doc": "Height of the canvas in pixels. The width always comes from the container — only the height is\nfixed, because a chart with no height collapses to nothing inside a responsive wrapper.",
               "slot": false
             },
             {
@@ -4040,7 +4036,7 @@
               "type": "readonly ChartSeries[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Which keys of `data` are drawn, and in what order. The order also assigns the palette, so\nreordering this recolours the chart; pin a `color` on the series to stop that.",
               "slot": false
             },
             {
@@ -4048,7 +4044,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The prose description of what the chart shows, and the canvas's accessible description. This is\nwhere the trend goes: a screen reader gets nothing from the shape of the line.",
               "slot": false
             },
             {
@@ -4056,7 +4052,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The caption, and the accessible name of the canvas through `aria-labelledby`. Without it — and\nwithout `summary` — the canvas carries no `role=\"img\"` at all, so the chart is invisible to\nassistive tech rather than merely unnamed.",
               "slot": false
             },
             {
@@ -4064,7 +4060,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
             {
@@ -4072,7 +4068,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether each point is marked. Worth turning on when the points are few and read as readings,\nand worth leaving off past a few dozen, where the dots merge into the line anyway.",
               "slot": false
             },
             {
@@ -4080,7 +4076,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the background grid is drawn.",
               "slot": false
             },
             {
@@ -4088,7 +4084,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the series legend is drawn.",
               "slot": false
             },
             {
@@ -4096,7 +4092,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
             {
@@ -4104,7 +4100,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The category axis. Left out it reads the `name` key, which is why data shaped that way needs no\naxis config at all.",
               "slot": false
             },
             {
@@ -4112,7 +4108,7 @@
               "type": "ChartAxis",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The value axis. Left out it scales itself to the data.",
               "slot": false
             }
           ],
@@ -4192,7 +4188,7 @@
               "type": "readonly ColorExtended[]",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "One colour per slice, in the order of `data`. Left out, the chart palette assigns them; give\nthis only when the slices carry meaning a palette cannot, like a status.",
               "slot": false
             },
             {
@@ -4200,7 +4196,7 @@
               "type": "readonly Readonly<Record<string, string | number | null | undefined>>[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The rows, one per point along the axis. Every key a `series` or an axis names has to exist on\nthem — a missing key is not an error, it simply plots nothing.",
               "slot": false
             },
             {
@@ -4208,7 +4204,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the disclosure that opens the table says. It falls back to \"View data as a table\", English\nby default (ADR-120); translate it at the call site.",
               "slot": false
             },
             {
@@ -4216,7 +4212,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Opens the hole in the middle. It is what makes room for a total in the centre, and it is the\nshape that compares slices better — an angle at the centre is harder to read than an arc.",
               "slot": false
             },
             {
@@ -4224,15 +4220,15 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What replaces the whole chart when `data` is empty. Without it an empty chart still renders its\nframe and axes, which reads as broken rather than as empty.",
               "slot": false
             },
             {
               "name": "height",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "260",
+              "doc": "Height of the canvas in pixels. The width always comes from the container — only the height is\nfixed, because a chart with no height collapses to nothing inside a responsive wrapper.",
               "slot": false
             },
             {
@@ -4240,7 +4236,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Key of `data` holding the name of each slice, used in the legend and the tooltip.",
               "slot": false
             },
             {
@@ -4248,7 +4244,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The prose description of what the chart shows, and the canvas's accessible description. This is\nwhere the trend goes: a screen reader gets nothing from the shape of the line.",
               "slot": false
             },
             {
@@ -4256,7 +4252,7 @@
               "type": "number",
               "required": false,
               "default": "32",
-              "doc": null,
+              "doc": "How thick the ring is when `donut` is on, measured inwards from the outer edge. Read by nothing\non a solid pie.",
               "slot": false
             },
             {
@@ -4264,7 +4260,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The caption, and the accessible name of the canvas through `aria-labelledby`. Without it — and\nwithout `summary` — the canvas carries no `role=\"img\"` at all, so the chart is invisible to\nassistive tech rather than merely unnamed.",
               "slot": false
             },
             {
@@ -4272,7 +4268,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Key of `data` holding the number each slice is sized by.",
               "slot": false
             },
             {
@@ -4280,7 +4276,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
             {
@@ -4288,7 +4284,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Whether the background grid is drawn.",
               "slot": false
             },
             {
@@ -4296,7 +4292,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether the series legend is drawn.",
               "slot": false
             },
             {
@@ -4304,7 +4300,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             }
           ],
@@ -4364,9 +4360,7 @@
               "count": 128
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": [],
           "subComponents": []
         },
         {
@@ -4394,7 +4388,7 @@
               "type": "readonly Readonly<Record<string, string | number | null | undefined>>[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The rows, one per point along the axis. Every key a `series` or an axis names has to exist on\nthem — a missing key is not an error, it simply plots nothing.",
               "slot": false
             },
             {
@@ -4402,7 +4396,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the disclosure that opens the table says. It falls back to \"View data as a table\", English\nby default (ADR-120); translate it at the call site.",
               "slot": false
             },
             {
@@ -4410,7 +4404,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What replaces the whole chart when `data` is empty. Without it an empty chart still renders its\nframe and axes, which reads as broken rather than as empty.",
               "slot": false
             },
             {
@@ -4418,15 +4412,15 @@
               "type": "number",
               "required": false,
               "default": "0.22",
-              "doc": null,
+              "doc": "How solid the fill inside each polygon is. It stays low because overlapping series is the whole\npoint of a radar, and an opaque fill hides the ones behind.",
               "slot": false
             },
             {
               "name": "height",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "280",
+              "doc": "Height of the canvas in pixels. It is taller than the other charts by default because a radar\nneeds room in both axes at once — its vertices run all the way round.",
               "slot": false
             },
             {
@@ -4434,7 +4428,7 @@
               "type": "number",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Pins the outer ring to a fixed value instead of the largest one in `data`. It is what makes two\nradars comparable: scaled to their own maximum, the same shape can mean different numbers.",
               "slot": false
             },
             {
@@ -4442,7 +4436,7 @@
               "type": "readonly ChartSeries[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Which keys of `data` are drawn, and in what order. The order also assigns the palette, so\nreordering this recolours the chart; pin a `color` on the series to stop that.",
               "slot": false
             },
             {
@@ -4450,7 +4444,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The prose description of what the chart shows, and the canvas's accessible description. This is\nwhere the trend goes: a screen reader gets nothing from the shape of the line.",
               "slot": false
             },
             {
@@ -4458,7 +4452,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The caption, and the accessible name of the canvas through `aria-labelledby`. Without it — and\nwithout `summary` — the canvas carries no `role=\"img\"` at all, so the chart is invisible to\nassistive tech rather than merely unnamed.",
               "slot": false
             },
             {
@@ -4466,7 +4460,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether the vertices are named around the edge. Without them the shape has no referent.",
               "slot": false
             },
             {
@@ -4474,7 +4468,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
             {
@@ -4482,7 +4476,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether the background grid is drawn.",
               "slot": false
             },
             {
@@ -4490,7 +4484,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether the series legend is drawn.",
               "slot": false
             },
             {
@@ -4498,7 +4492,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             }
           ],
@@ -4558,9 +4552,7 @@
               "count": 128
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": [],
           "subComponents": []
         },
         {
@@ -4659,15 +4651,15 @@
               "type": "TrendDirection",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Forces the arrow instead of deriving it from the sign of `value`. For a figure whose direction\nis not its sign — a rank, where falling to 3rd is an improvement.",
               "slot": false
             },
             {
               "name": "format",
               "type": "((value: number) => string)",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "a signed percentage, like `+12 %`",
+              "doc": "How the number is printed. The default signs positives and adds a percent — replace it for any\nfigure that is not a percentage, since nothing else here checks the unit.",
               "slot": false
             },
             {
@@ -4675,7 +4667,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Swaps which direction reads as good, without touching the arrow. For a figure where rising is\nbad — churn, latency, cost — so the arrow still points up and the colour still warns.",
               "slot": false
             },
             {
@@ -4683,7 +4675,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What is announced in place of \"up\", \"down\" or \"unchanged\". The arrow is `aria-hidden`, so this\nhidden text is the only thing carrying the direction; it is English by default (ADR-120).",
               "slot": false
             },
             {
@@ -4691,7 +4683,7 @@
               "type": "number",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The number shown, and the one whose sign picks the arrow when `direction` is left out.",
               "slot": false
             }
           ],
@@ -4711,9 +4703,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": [],
           "subComponents": []
         }
       ]
@@ -6433,7 +6423,7 @@
               "type": "number",
               "required": false,
               "default": "300",
-              "doc": null,
+              "doc": "How long the typing has to settle before `load` runs, in milliseconds. It is the only thing\nbetween a keystroke and a request, so it is the dial to turn when the endpoint is rate-limited.",
               "slot": false
             },
             {
@@ -6489,7 +6479,7 @@
               "type": "string",
               "required": false,
               "default": "\"Could not load\"",
-              "doc": null,
+              "doc": "What is announced when the fetch rejects. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -6505,7 +6495,7 @@
               "type": "readonly SelectOption[]",
               "required": false,
               "default": "[]",
-              "doc": null,
+              "doc": "What the list holds before the first fetch — recents, favourites. Without it the menu opens\nempty until something is typed.",
               "slot": false
             },
             {
@@ -6521,7 +6511,7 @@
               "type": "(query: string) => Promise<readonly SelectOption[]>",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Fetches the options for what has been typed. It replaces `data`, which is why that prop is gone\nfrom this contract: the list is the result of this call and nothing else.",
               "slot": false
             },
             {
@@ -6529,7 +6519,7 @@
               "type": "string",
               "required": false,
               "default": "\"Searching…\"",
-              "doc": null,
+              "doc": "What is announced while a fetch is in flight. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -6553,7 +6543,7 @@
               "type": "number",
               "required": false,
               "default": "1",
-              "doc": null,
+              "doc": "How many characters have to be typed before `load` runs at all. It exists for endpoints where a\none-letter query would match most of the table.",
               "slot": false
             },
             {
@@ -7041,7 +7031,7 @@
               "type": "readonly SelectOption[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The options. Narrower than the base contract on purpose: creating an option means building one,\nso the shape has to be known rather than free-form.",
               "slot": false
             },
             {
@@ -7153,7 +7143,7 @@
               "type": "((label: string) => SelectOption | string | null)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Runs when the create entry is picked, and decides what the new option is. Returning `null`\nrefuses the creation — the place to reject a name the server has already taken.",
               "slot": false
             },
             {
@@ -7216,8 +7206,8 @@
               "name": "shouldCreate",
               "type": "((label: string, data: readonly SelectOption[]) => boolean)",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "hidden when the input is blank or already matches an option, case-insensitively",
+              "doc": "Decides whether the create entry is offered for what has been typed. The default hides it for\nblank input and for a label that already exists, compared case-insensitively — replace it when\nduplicates are legitimate, or when the match has to be made server-side.",
               "slot": false
             },
             {
@@ -7317,9 +7307,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": [],
           "subComponents": []
         },
         {
