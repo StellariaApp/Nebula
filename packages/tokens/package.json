@@ -1,6 +1,6 @@
 {
   "name": "@stellaria/nebula-tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Tokens base y contratos de tipos compartidos del design system Nebula",
   "license": "MIT",
   "author": "Stellaria",
