@@ -753,9 +753,7 @@
         "color.text",
         "font.lineHeight",
         "font.size",
-        "radius.lg",
         "radius.md",
-        "radius.sm",
         "space.md",
         "space.xs"
       ]
@@ -1094,7 +1092,6 @@
         "color.text",
         "font.family",
         "font.size",
-        "radius",
         "radius.md",
         "space.sm"
       ]
@@ -1108,7 +1105,7 @@
         "color.surface",
         "color.text",
         "font.size",
-        "radius",
+        "radius.md",
         "space.lg",
         "space.md",
         "space.sm",
@@ -1815,7 +1812,6 @@
       "themeKeys": [
         "color.surface",
         "motion.easing",
-        "radius",
         "radius.full",
         "radius.sm",
         "space.xs"

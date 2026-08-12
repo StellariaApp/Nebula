@@ -39,7 +39,7 @@ export function CardImage(props: CardImageProps): ReactElement {
         {...(src === undefined ? {} : { src })}
         alt={alt}
         height={height}
-        radius={0}
+        r={0}
         {...(className === undefined ? {} : { className })}
       />
     </CardSection>

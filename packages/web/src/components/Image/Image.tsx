@@ -3,7 +3,6 @@
 import { useState, type ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import type { RadiusName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
@@ -17,14 +16,6 @@ import * as styles from "./Image.css.js";
 import type { ImageProps } from "./Image.types.js";
 import * as variables from "./Image.vars.css.js";
 
-export function ResolveRadius(radius: ImageProps["radius"]): string {
-  if (radius === undefined) return vars.radius.md;
-  if (typeof radius === "string" && radius in vars.radius) {
-    return vars.radius[radius as RadiusName];
-  }
-  return LengthToCss(radius);
-}
-
 export function Image(props: ImageProps): ReactElement {
   const {
     src,
@@ -32,7 +23,6 @@ export function Image(props: ImageProps): ReactElement {
     width = "100%",
     height = "auto",
     fit = "cover",
-    radius,
     fallback,
     placeholder,
     loading = "lazy",
@@ -53,7 +43,7 @@ export function Image(props: ImageProps): ReactElement {
   const css_vars = assignInlineVars({
     [variables.width]: LengthToCss(width),
     [variables.height]: LengthToCss(height),
-    [variables.radius]: ResolveRadius(radius),
+    [variables.radius]: vars.radius.md,
   });
 
   return (

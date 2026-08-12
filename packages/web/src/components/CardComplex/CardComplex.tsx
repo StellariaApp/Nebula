@@ -136,7 +136,7 @@ export function CardComplex(props: CardComplexProps): ReactElement {
         className={cx(sprinkle_class, className)}
         {...(sprinkle_style === undefined ? {} : { style: sprinkle_style })}
       >
-        <Skeleton height={140} radius="sm" />
+        <Skeleton height={140} r="sm" />
         <Skeleton height={20} width="60%" mt="sm" />
         <Skeleton height={14} lines={2} mt="xs" />
       </Card>

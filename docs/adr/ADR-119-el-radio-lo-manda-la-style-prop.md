@@ -144,3 +144,51 @@ es algo que un consumidor pueda razonar ni un test fijar de forma estable.
 - Los `.md` de módulo que documenten `radius` se corrigen en el mismo PR.
 - El baseline visual **no debería moverse**: los defectos se conservan uno a uno. Si alguna captura
   cambia, es que un defecto no se trasladó bien, y hay que mirarlo en vez de rebasarlo.
+
+## Enmienda del 2026-08-12 — el cuarto caso desaparece, y con él D-2
+
+El propietario cierra la duda que quedaba abierta como D-2 con un criterio de una línea: **si ya
+existe `r`, no debería existir `radius`**. Se aplica a los cinco que se habían retenido, y el cuarto
+caso —«el radio apunta a un elemento interior»— deja de existir.
+
+Al medirlo antes de tocar nada apareció que el diagnóstico de D-2 se quedaba corto. **En tres de los
+cinco, `radius` ya era duplicación pura**, no un camino a otro nodo:
+
+| componente        | dónde cae `sprinkle_class` (`r`) | qué gobernaba `radius`   | ¿mismo nodo? |
+| ----------------- | -------------------------------- | ------------------------ | ------------ |
+| `Progress`        | `styles.track`                   | el track                 | **sí**       |
+| `Image`           | `styles.root`                    | la raíz                  | **sí**       |
+| `Skeleton` (1 línea, su defecto) | el `<span>`       | ese mismo `<span>`       | **sí**       |
+| `Skeleton` (varias líneas) | el contenedor           | cada línea               | no           |
+| `ImageGallery`    | el contenedor                    | cada baldosa             | no           |
+| `EditorImage`     | el `div` envolvente              | el disparador            | no           |
+
+Y en los tres del «sí» no competían de igual a igual: las hojas de componente escriben su radio
+**dentro de `base_layer`** y las sprinkles de `Box` se crean **sin capa**. Como en CSS lo no
+encapado gana a lo encapado sin importar el orden, `r` ya ganaba siempre. `radius` no duplicaba:
+**estaba muerta en cuanto el consumidor pasaba `r`**, sin error de tipos ni aviso.
+
+### Lo que sustituye a `radius` donde sí llegaba a otro nodo
+
+No una prop nueva, sino la ranura que el nodo ya tenía o que le faltaba (ADR-104). Una sola gramática
+—`r`— alcanzable en cualquier elemento:
+
+- `ImageGallery`: `tileProps={{ r: "lg" }}`. Ya existía; no hizo falta añadir nada.
+- `Skeleton`: **gana `lineProps`**. Era el único de los cinco sin una sola prop de ranura, y sus
+  líneas no tenían forma de alcanzarse desde fuera.
+- `EditorImage`: `triggerProps` pasa de `ComponentPropsWithoutRef<"button">` a
+  `EditorImageTriggerProps` —los atributos del botón más las style props—, y el disparador pasa a
+  `Box component="button"` para que lleguen. Su radio por defecto baja a la hoja.
+- `Progress` e `Image`: borrado limpio, sin sustituto. `r` ya alcanzaba ese nodo.
+
+### Consecuencias
+
+- **Rompe**: `radius` desaparece de `Image`, `BackgroundImage`, `ImageGallery`, `Skeleton`,
+  `EditorImage` y `Progress`. Con los 12 de la decisión original, el catálogo queda sin ninguna
+  `radius` que compita con `r`; las once de lista corta siguen fuera por el caso 3.
+- `BackgroundImageProps` pasa a **extender `StyleProps`**, que es lo que su implementación ya hacía
+  en runtime sin que el tipo lo declarara.
+- Se retira `ResolveRadius` de `Image`, que era API exportada y queda sin función, y su test.
+- Migrados los llamantes internos —`Card` y `CardComplex`— y tres stories.
+- El baseline visual **no debería moverse**: los defectos se conservan uno a uno (`Progress` a
+  `full`, `Image` a `md`, `ImageGallery` a `md`, `Skeleton` a `sm`, `EditorImage` a `md`).

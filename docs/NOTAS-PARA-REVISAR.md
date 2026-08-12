@@ -10,25 +10,12 @@ diario.**
 De las cuatro que había abiertas, **tres las cerraste el 2026-08-09** (D-1 regla de lint, D-3 la
 banda se queda, D-4 traducir las 120). Queda una, y es la única que sigue sin respuesta.
 
-### D-2 · Cinco componentes que parecían duplicación y no lo son
+### D-2 · CERRADA el 2026-08-12
 
-Al inspeccionar a qué elemento apunta cada `radius` aparecieron cinco que **no** son duplicación, y
-por eso no se migraron en ADR-119. Conviene que lo confirmes:
-
-| componente     | a qué apunta su `radius`                                                                   |
-| -------------- | ------------------------------------------------------------------------------------------ |
-| `Image`        | una var compartida por el `<span>` raíz y por `styles.background`, que usa otro componente |
-| `ImageGallery` | el radio de **cada baldosa**, no el del contenedor                                         |
-| `Skeleton`     | el radio de **cada línea**, y se cruza con `circle`                                        |
-| `EditorImage`  | `styles.trigger`, no la raíz                                                               |
-| `Progress`     | la var del track                                                                           |
-
-En los cinco, `r` redondearía la raíz y dejaría el elemento interior cuadrado. Migrarlos no es un
-renombre: es cambiar qué se redondea.
-
-**Ya está escrito en ADR-119** como cuarto caso —«el radio apunta a un elemento interior»—, que es lo
-que de verdad son; antes estaban fuera del ADR sin que el ADR dijera por qué. Lo que falta es tu
-visto bueno a que se queden así, no el texto.
+Los cinco componentes que retenían `radius` lo pierden: **si ya existe `r`, no debería existir
+`radius`**. Ver la enmienda de [ADR-119](adr/ADR-119-el-radio-lo-manda-la-style-prop.md). Al medirlo
+apareció además que en tres de los cinco `radius` ya estaba muerta —las sprinkles van sin capa y
+ganan siempre a la hoja del componente—, así que no era solo incoherencia de API.
 
 ### El único gate que no corre en CI
 

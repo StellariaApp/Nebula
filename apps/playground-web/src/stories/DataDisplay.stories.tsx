@@ -95,7 +95,7 @@ export const Images: Story = {
   render: () => (
     <SimpleGrid cols={2} spacing="md">
       <Image alt="Sin origen todavía" fallback="Imagen no disponible" height={160} />
-      <BackgroundImage src="" radius="md" overlay={55}>
+      <BackgroundImage src="" r="md" overlay={55}>
         <Box p="lg">
           <Title order={5} c="text.inverted">
             Con capa de contraste

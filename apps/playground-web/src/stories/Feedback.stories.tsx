@@ -90,7 +90,7 @@ export const Skeletons: Story = {
           <Skeleton lines={2} />
         </Box>
       </Box>
-      <Skeleton height={140} radius="md" />
+      <Skeleton height={140} r="md" />
       <Skeleton animation="pulse" height="1.5em" width="60%" />
     </Box>
   ),

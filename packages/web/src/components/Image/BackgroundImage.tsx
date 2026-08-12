@@ -2,10 +2,10 @@ import type { ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
+import { vars } from "../../theme/contract.css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 
-import { ResolveRadius } from "./Image.js";
 import * as styles from "./Image.css.js";
 import type { BackgroundImageProps } from "./Image.types.js";
 import * as variables from "./Image.vars.css.js";
@@ -16,7 +16,6 @@ export function BackgroundImage(props: BackgroundImageProps): ReactElement {
   const {
     src,
     children,
-    radius,
     overlay = false,
     className,
     overlayProps,
@@ -28,7 +27,7 @@ export function BackgroundImage(props: BackgroundImageProps): ReactElement {
   const percent = overlay === false ? 0 : overlay === true ? DEFAULT_OVERLAP : overlay;
 
   const css_vars = assignInlineVars({
-    [variables.radius]: ResolveRadius(radius),
+    [variables.radius]: vars.radius.md,
     [variables.overlayAlpha]: `${String(percent)}%`,
   });
 

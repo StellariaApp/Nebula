@@ -25,7 +25,6 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
     minColWidth = DEFAULT_MIN_COL,
     gap = "sm",
     ratio = DEFAULT_RATIO,
-    radius = "md",
     withLightbox = true,
     withThumbnails = true,
     withSlideshow = false,
@@ -54,7 +53,7 @@ export function ImageGallery(props: ImageGalleryProps): ReactElement {
         ? `repeat(auto-fill, minmax(${String(minColWidth)}px, 1fr))`
         : `repeat(${String(cols)}, minmax(0, 1fr))`,
     [image_gallery_vars.ratio]: String(ratio),
-    [image_gallery_vars.tileRadius]: vars.radius[radius],
+    [image_gallery_vars.tileRadius]: vars.radius.md,
   });
 
   const Open = (position: number): void => {

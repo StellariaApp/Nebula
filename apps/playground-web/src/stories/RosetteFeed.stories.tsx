@@ -163,7 +163,7 @@ function ReproductorEnLinea({ active, duracion, progreso }: ReproductorProps): R
       </Box>
 
       <Box position="absolute" style={{ top: 0, left: 0, right: 0 }}>
-        <Progress value={active ? progreso : 0} size="xs" radius={0} label="Progreso de la pieza" />
+        <Progress value={active ? progreso : 0} size="xs" r={0} label="Progreso de la pieza" />
       </Box>
 
       <Box position="absolute" style={{ left: 16, top: 16 }}>

@@ -59,7 +59,6 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
   const {
     max = 100,
     size,
-    radius,
     striped = false,
     indeterminate = false,
     label,
@@ -76,7 +75,7 @@ function Bar(props: ProgressProps, track: Track): ReactElement {
 
   const css_vars = assignInlineVars({
     [variables.trackHeight]: Resolve(size, BAR_HEIGHT),
-    [variables.trackRadius]: radius === undefined ? vars.radius.full : LengthToCss(radius),
+    [variables.trackRadius]: vars.radius.full,
   });
 
   if (indeterminate) {

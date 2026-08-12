@@ -33,7 +33,6 @@ export function EditorImage(props: EditorImageProps): ReactElement {
     onProcess,
     alt = "",
     ratio = DEFAULT_RATIO,
-    radius = "md",
     disabled = false,
     fallback,
     labels,
@@ -64,7 +63,8 @@ export function EditorImage(props: EditorImageProps): ReactElement {
 
   return (
     <div className={cx(sprinkle_class, className)} style={sprinkle_style} {...rest}>
-      <button
+      <Box
+        component="button"
         type="button"
         disabled={disabled || !has_editor}
         aria-label={text.open}
@@ -72,7 +72,7 @@ export function EditorImage(props: EditorImageProps): ReactElement {
           SetOpen(true);
         }}
         {...triggerProps}
-        className={cx(styles.trigger, styles.radius[radius], triggerProps?.className)}
+        className={cx(styles.trigger, triggerProps?.className)}
         style={{ ...triggerProps?.style, ...css_vars }}
       >
         <img
@@ -86,7 +86,7 @@ export function EditorImage(props: EditorImageProps): ReactElement {
             {text.open}
           </Box>
         ) : null}
-      </button>
+      </Box>
 
       {has_editor
         ? null

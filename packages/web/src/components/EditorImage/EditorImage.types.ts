@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ComponentType, ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
-import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 
 /**
@@ -30,9 +30,17 @@ export interface EditorImageLabels {
   missingPeer: string;
 }
 
+/** Props of the trigger: the button attributes plus the system style props, so `r` reaches it. */
+export type EditorImageTriggerProps = BoxOwnProps &
+  Omit<ComponentPropsWithoutRef<"button">, keyof BoxOwnProps>;
+
 export interface EditorImageProps extends StyleProps {
-  /** The button that opens the editor. Its aspect-ratio variable is written after the slot. */
-  triggerProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /**
+   * The button that opens the editor. Its aspect-ratio variable is written after the slot. It is
+   * also the route to the shape of the frame —`triggerProps={{ r: "lg" }}`—, which used to be the
+   * `radius` prop: the style props of the component itself land on the wrapper, not on the button.
+   */
+  triggerProps?: EditorImageTriggerProps | undefined;
   /** The button image. Its `src` and `alt` come from the component props. */
   imageProps?: ComponentPropsWithoutRef<"img"> | undefined;
   /** The floating label over the image. Only rendered when there is an editor. */
@@ -48,7 +56,6 @@ export interface EditorImageProps extends StyleProps {
   alt?: string | undefined;
   /** @default 4 / 3 */
   ratio?: number | undefined;
-  radius?: "none" | "sm" | "md" | "lg" | undefined;
   disabled?: boolean | undefined;
   fallback?: ReactNode | undefined;
   labels?: Partial<EditorImageLabels> | undefined;

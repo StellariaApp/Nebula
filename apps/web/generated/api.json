@@ -44,7 +44,6 @@
       "Segment",
       "SegmentContentItem",
       "SegmentControlItem",
-      "Skeleton",
       "StarField",
       "StatusBadge",
       "StatusMapProvider",
@@ -11750,14 +11749,6 @@
           "slot": false
         },
         {
-          "name": "radius",
-          "type": "\"sm\" | \"md\" | \"lg\" | \"none\"",
-          "required": false,
-          "default": "\"md\"",
-          "doc": null,
-          "slot": false
-        },
-        {
           "name": "ratio",
           "type": "number",
           "required": false,
@@ -11809,10 +11800,10 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "EditorImageTriggerProps",
           "required": false,
           "default": null,
-          "doc": "The button that opens the editor. Its aspect-ratio variable is written after the slot.",
+          "doc": "The button that opens the editor. Its aspect-ratio variable is written after the slot. It is\nalso the route to the shape of the frame —`triggerProps={{ r: \"lg\" }}`—, which used to be the\n`radius` prop: the style props of the component itself land on the wrapper, not on the button.",
           "slot": true
         }
       ],
@@ -15262,14 +15253,6 @@
           "slot": false
         },
         {
-          "name": "radius",
-          "type": "Unit | RadiusName",
-          "required": false,
-          "default": null,
-          "doc": null,
-          "slot": false
-        },
-        {
           "name": "src",
           "type": "string",
           "required": false,
@@ -15333,14 +15316,6 @@
               "slot": false
             },
             {
-              "name": "radius",
-              "type": "Unit | RadiusName",
-              "required": false,
-              "default": null,
-              "doc": null,
-              "slot": false
-            },
-            {
               "name": "src",
               "type": "string",
               "required": true,
@@ -15367,7 +15342,12 @@
               "slot": true
             }
           ],
-          "inherited": [],
+          "inherited": [
+            {
+              "group": "styleProps",
+              "count": 128
+            }
+          ],
           "gaps": [],
           "subComponents": []
         }
@@ -15450,14 +15430,6 @@
           "slot": false
         },
         {
-          "name": "radius",
-          "type": "RadiusName",
-          "required": false,
-          "default": "\"md\"",
-          "doc": null,
-          "slot": false
-        },
-        {
           "name": "ratio",
           "type": "number",
           "required": false,
@@ -15504,7 +15476,7 @@
           "type": "BoxSlotProps",
           "required": false,
           "default": null,
-          "doc": "Every tile. It spreads over ALL of them, and serves two elements: a `button` when the tile opens\nthe viewer or there is an `onSelect`, and a `div` when it leads nowhere.",
+          "doc": "Every tile. It spreads over ALL of them, and serves two elements: a `button` when the tile opens\nthe viewer or there is an `onSelect`, and a `div` when it leads nowhere. It is also the route to\nthe corner of the tile —`tileProps={{ r: \"lg\" }}`—, which used to be the `radius` prop.",
           "slot": true
         }
       ],
@@ -21666,14 +21638,6 @@
           "slot": false
         },
         {
-          "name": "radius",
-          "type": "Unit",
-          "required": false,
-          "default": null,
-          "doc": null,
-          "slot": false
-        },
-        {
           "name": "segments",
           "type": "readonly ProgressSegment[]",
           "required": false,
@@ -24709,7 +24673,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Turns the block into a circle, which is what an avatar placeholder needs.",
           "slot": false
         },
         {
@@ -24741,7 +24705,7 @@
           "type": "number",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "How many lines the block is drawn as. Above one the last is shortened, as running text does.",
           "slot": false
         },
         {
@@ -24749,14 +24713,6 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
-          "slot": false
-        },
-        {
-          "name": "radius",
-          "type": "Unit | RadiusName",
-          "required": false,
-          "default": null,
           "doc": null,
           "slot": false
         },
@@ -24769,7 +24725,16 @@
           "slot": false
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "lineProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "Every line of the block. It spreads over ALL of them, and it is the route to the shape of the\nline itself —`lineProps={{ r: \"lg\" }}`—: with more than one line the style props land on the\nstack that holds them, not on the lines. With a single line there is no stack, so the style\nprops already reach it and this slot is redundant.",
+          "slot": true
+        }
+      ],
       "inherited": [
         {
           "group": "styleProps",

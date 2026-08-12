@@ -1,4 +1,4 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
@@ -15,6 +15,7 @@ export const trigger = style({
       width: "100%",
       padding: 0,
       border: `1px solid ${vars.color.border.subtle}`,
+      borderRadius: vars.radius.md,
       background: vars.color.surface.sunken,
       aspectRatio: variables.frameRatio,
       overflow: "hidden",
@@ -70,9 +71,3 @@ export const missing = style({
   },
 });
 
-export const radius = styleVariants({
-  none: { borderRadius: 0 },
-  sm: { borderRadius: vars.radius.sm },
-  md: { borderRadius: vars.radius.md },
-  lg: { borderRadius: vars.radius.lg },
-});

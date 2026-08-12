@@ -3,20 +3,9 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { BackgroundImage } from "../BackgroundImage.js";
-import { Image, ResolveRadius } from "../Image.js";
+import { Image } from "../Image.js";
 
 afterEach(cleanup);
-
-describe("ResolveRadius", () => {
-  it("los nombres del contrato salen como var del tema", () => {
-    expect(ResolveRadius(undefined)).toContain("var(");
-    expect(ResolveRadius("lg")).toContain("var(");
-  });
-
-  it("una longitud libre se emite tal cual", () => {
-    expect(ResolveRadius(18)).toBe("18px");
-  });
-});
 
 describe("Image", () => {
   it("el alt es obligatorio y llega a la imagen", () => {

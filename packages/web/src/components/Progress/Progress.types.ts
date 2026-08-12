@@ -34,7 +34,6 @@ export interface ProgressProps extends StyleProps {
   color?: ColorExtended | undefined;
   size?: Size | Unit | undefined;
   thickness?: number | undefined;
-  radius?: Unit | undefined;
   striped?: boolean | undefined;
   indeterminate?: boolean | undefined;
   label?: string | undefined;
