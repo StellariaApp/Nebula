@@ -80,10 +80,10 @@ export const indicator = recipe({
   },
   variants: {
     size: {
-      sm: { height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 2)` },
+      sm: { height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.6)` },
       md: { height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)` },
-      lg: { height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2)` },
-      xl: { height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2)` },
+      lg: { height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2.4)` },
+      xl: { height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2.8)` },
     },
   },
 });
