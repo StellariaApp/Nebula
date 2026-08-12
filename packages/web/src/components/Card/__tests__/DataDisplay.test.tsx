@@ -62,6 +62,38 @@ describe("Image", () => {
   });
 });
 
+describe("la raiz de Card esparce los atributos del DOM", () => {
+  it("los lleva al div cuando no es pulsable", () => {
+    render(
+      <Card id="resumen" data-testid="tarjeta" aria-describedby="pie">
+        contenido
+      </Card>,
+    );
+    const root = screen.getByTestId("tarjeta");
+    expect(root.tagName).toBe("DIV");
+    expect(root.id).toBe("resumen");
+    expect(root.getAttribute("aria-describedby")).toBe("pie");
+  });
+
+  it("y tambien cuando href la convierte en ancla", () => {
+    render(
+      <Card href="/x" data-testid="tarjeta">
+        contenido
+      </Card>,
+    );
+    expect(screen.getByTestId("tarjeta").tagName).toBe("A");
+  });
+
+  it("no pisan lo que la tarjeta calcula", () => {
+    render(
+      <Card data-testid="tarjeta" className="mia">
+        contenido
+      </Card>,
+    );
+    expect(screen.getByTestId("tarjeta").className).toContain("mia");
+  });
+});
+
 describe("Card", () => {
   it("por defecto no es interactiva", () => {
     render(

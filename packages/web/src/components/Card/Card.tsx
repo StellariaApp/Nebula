@@ -101,7 +101,11 @@ export function Card(props: CardProps): ReactElement {
     "aria-label": aria_label,
     ...style_rest
   } = props;
-  const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps({
+  const {
+    className: sprinkle_class,
+    style: sprinkle_style,
+    rest,
+  } = ExtractStyleProps({
     r,
     ...style_rest,
   });
@@ -154,6 +158,7 @@ export function Card(props: CardProps): ReactElement {
 
   return href !== undefined ? (
     <m.a
+      {...rest}
       {...motion_props}
       href={href}
       className={class_name}
@@ -163,6 +168,7 @@ export function Card(props: CardProps): ReactElement {
     </m.a>
   ) : onPress !== undefined ? (
     <m.button
+      {...rest}
       {...motion_props}
       type="button"
       className={class_name}
@@ -173,6 +179,7 @@ export function Card(props: CardProps): ReactElement {
     </m.button>
   ) : (
     <m.div
+      {...rest}
       {...motion_props}
       className={class_name}
       {...(aria_label === undefined ? {} : { "aria-label": aria_label })}

@@ -7,7 +7,6 @@ export const GLOBAL_SEARCH_LABELS: GlobalSearchLabels = {
   empty: "No results",
   loading: "Searching…",
   recent: "Recent",
-  results: (count) =>
-    count === 0 ? "No results" : `${String(count)} resultado${count === 1 ? "" : "s"}`,
+  results: (count) => (count === 0 ? "No results" : `${String(count)} result${count === 1 ? "" : "s"}`),
   shortcut: "Ctrl K",
 };

@@ -11,6 +11,11 @@ export interface GlobalSearchResult {
   description?: ReactNode | undefined;
   icon?: ReactNode | undefined;
   group?: string | undefined;
+  /**
+   * Turns the result into a real link, so it answers to a middle click and to «open in a new tab».
+   * Whoever claims the result owns the navigation: with `onSelect` —on the result or on the
+   * component— the default is prevented and the consumer routes; without it, the browser follows.
+   */
   href?: string | undefined;
   onSelect?: (() => void) | undefined;
 }

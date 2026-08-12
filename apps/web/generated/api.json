@@ -2758,6 +2758,10 @@
       "slots": [],
       "inherited": [
         {
+          "group": "html",
+          "count": 275
+        },
+        {
           "group": "styleProps",
           "count": 127
         }

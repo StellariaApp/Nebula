@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type {
   ColorExtended,
@@ -15,7 +15,7 @@ export type CardVariant = Extract<
   "filled" | "outline" | "light" | "glass" | "glow" | "gradient"
 >;
 
-export interface CardProps extends Omit<StyleProps, "shadow"> {
+interface CardOwnProps extends Omit<StyleProps, "shadow"> {
   children: ReactNode;
   variant?: CardVariant | undefined;
   color?: ColorExtended | undefined;
@@ -30,6 +30,14 @@ export interface CardProps extends Omit<StyleProps, "shadow"> {
   className?: string | undefined;
   "aria-label"?: string | undefined;
 }
+
+/**
+ * The attributes of the root come on top of the card's own props. Which element they land on depends
+ * on the card: `href` makes it an anchor, `onPress` a button, and neither leaves a `div` — so an
+ * attribute that only makes sense on one of the three is the consumer's call, not the type's.
+ */
+export type CardProps = CardOwnProps &
+  Omit<ComponentPropsWithoutRef<"div">, keyof CardOwnProps | "color">;
 
 export interface CardSectionProps {
   children: ReactNode;

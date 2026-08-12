@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState, type KeyboardEvent, type ReactElement } from "react";
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+  type KeyboardEvent,
+  type MouseEvent,
+  type ReactElement,
+} from "react";
 
 import { useDebounce } from "@stellaria/nebula-hooks";
 
@@ -110,6 +118,10 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
   const groups = useMemo(() => GroupBy(showing), [showing]);
   const flat = groups.flatMap((group) => group.items);
 
+  /** Nadie ha reclamado el resultado, asi que el `href` es la unica instruccion que queda. */
+  const Unclaimed = (result: GlobalSearchResult): boolean =>
+    result.href !== undefined && result.onSelect === undefined && onSelect === undefined;
+
   const Choose = (result: GlobalSearchResult): void => {
     result.onSelect?.();
     onSelect?.(result);
@@ -143,7 +155,9 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
       const chosen = flat[active];
       if (chosen === undefined) return;
       event.preventDefault();
+      const follow = Unclaimed(chosen) ? chosen.href : undefined;
       Choose(chosen);
+      if (follow !== undefined) globalThis.location.assign(follow);
     }
   };
 
@@ -244,6 +258,9 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                   <Box
                     key={result.id}
                     data-active={index === active ? "true" : "false"}
+                    {...(result.href === undefined
+                      ? {}
+                      : { component: "a" as const, href: result.href })}
                     {...optionProps}
                     id={`${auto_id}-${String(index)}`}
                     role="option"
@@ -252,7 +269,8 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
                     onPointerMove={() => {
                       set_active(index);
                     }}
-                    onClick={() => {
+                    onClick={(event: MouseEvent<HTMLElement>) => {
+                      if (!Unclaimed(result)) event.preventDefault();
                       Choose(result);
                     }}
                   >
