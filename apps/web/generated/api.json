@@ -26,7 +26,6 @@
       "ModalDelete",
       "HoverCard",
       "KanbanBoard",
-      "Kbd",
       "Loader",
       "NProgress",
       "NavDivider",
@@ -41,7 +40,6 @@
       "StarField",
       "StatusBadge",
       "StatusMapProvider",
-      "ThemeIcon",
       "UnstyledButton"
     ],
     "defaultUnknown": [
@@ -510,8 +508,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"a\"",
+          "doc": "The element it paints, and the seam where a router plugs in: pass your framework's link\ncomponent (`component={NextLink}`) and its own props travel through untouched. It is why the\ncore carries no router dependency.",
           "slot": false
         },
         {
@@ -519,7 +517,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Opens in a new tab and adds `rel=\"noopener noreferrer\"` in the same move — the two go together\nso an external target can never reach `window.opener`. Both are spread before the rest, so an\nexplicit `target` or `rel` of your own still wins.",
           "slot": false
         },
         {
@@ -551,7 +549,7 @@
           "type": "AnchorUnderline",
           "required": false,
           "default": "\"always\"",
-          "doc": null,
+          "doc": "When the underline shows. It is on always because the link has to be tellable from body text\nwithout relying on colour; `\"hover\"` and `\"never\"` move that job onto something else, and the\nsurrounding design has to provide it.",
           "slot": false
         }
       ],
@@ -1373,7 +1371,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The attribution, set apart under the quote in a `cite`. Nothing renders there without it, so\nstyling the slot through `citeProps` alone will not bring the line back.",
           "slot": false
         },
         {
@@ -1389,15 +1387,15 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The accent, drawn from the 500 step of this scale. It tints the rule down the leading edge and\nthe `icon` with it — the quote's own text keeps reading as body copy either way.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"blockquote\"",
+          "doc": "The element it paints. It is a real `blockquote` by default, which is what marks the passage as\nquoted rather than merely indented.",
           "slot": false
         },
         {
@@ -1405,7 +1403,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "An opening glyph. Its presence is what switches the layout to two columns, and it is rendered\n`aria-hidden`, so it can only ever decorate the quote — never carry part of it.",
           "slot": false
         }
       ],
@@ -5249,7 +5247,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Turns the run of code into a `pre` block: line breaks and indentation survive, and long lines\nscroll sideways instead of wrapping. An explicit `component` overrides the tag but keeps the\nblock styling. Nothing here highlights syntax — that is `CodeHighlight`.",
           "slot": false
         },
         {
@@ -5272,8 +5270,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"code\"",
+          "doc": "The element it paints. Left alone it follows `block`, so setting it by hand is how you keep the\nblock styling on a different tag — and how you lose the whitespace preservation that only `pre`\ngives you.",
           "slot": false
         }
       ],
@@ -14226,8 +14224,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"span\"",
+          "doc": "The element it paints — inline, so a gradient run can sit inside a heading. Keep the text short\nwhatever tag you pick: the clip works per line box, so a paragraph gets the whole gradient over\nagain on every single line.",
           "slot": false
         },
         {
@@ -14235,7 +14233,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"text.primary\"",
-          "doc": null,
+          "doc": "The colour painted whenever the clip cannot be: no browser support, Windows forced colors, and\nthe underline, which would otherwise be clipped away to nothing. It is not decoration — clipped\ntext is transparent, so this is the only thing between a failed gradient and invisible text.",
           "slot": false
         },
         {
@@ -14243,7 +14241,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
           "default": "\"brand\"",
-          "doc": null,
+          "doc": "A theme gradient role, or a literal `{ from, to }` pair. The role is resolved against the live\ntheme and follows a theme switch; a literal pair is frozen where you wrote it.",
           "slot": false
         },
         {
@@ -14251,7 +14249,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Takes family, size, weight, line height and tracking from the parent instead of the component's\nown. What you want for a gradient word inside a heading, so it does not resize the line.",
           "slot": false
         }
       ],
@@ -14999,7 +14997,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Plain text, not nodes: the component splits this string to wrap the matches, so anything with\nmarkup in it would be torn apart. That is why the type narrows here and why formatting inside\nthe highlighted text is not possible.",
           "slot": false
         },
         {
@@ -15015,15 +15013,15 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"warning\"",
-          "doc": null,
+          "doc": "Passed on to the `mark` around every match. It tints the matches only — the rest of the text\nkeeps the colour it inherits.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"p\"",
+          "doc": "The element wrapping the whole run of text; the matches themselves are always `mark`.",
           "slot": false
         },
         {
@@ -15031,7 +15029,7 @@
           "type": "string | string[]",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "What to mark. Matching is case-insensitive and lands anywhere, including inside a word, so a\nshort term marks more than you expect. Regex characters are escaped, which makes a raw search\nbox safe to pipe in here; empty strings are dropped, and an empty array marks nothing.",
           "slot": false
         },
         {
@@ -17119,7 +17117,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The legend on the cap. It never wraps, and it is one key per element: a chord is either a\nsingle string you write out or several `Kbd` side by side — nothing here splits it for you.",
           "slot": false
         },
         {
@@ -17135,7 +17133,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "The cap's own type size and height. It does not follow the text it sits in, so a `Kbd` inside\nsmall print has to be stepped down by hand or it will tower over the line.",
           "slot": false
         }
       ],
@@ -17373,8 +17371,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"ul\"",
+          "doc": "The element it paints. Left alone it follows `type`, so set it only to keep the list styling on\nanother tag — and remember that a list that is not `ul` or `ol` stops being announced as one.",
           "slot": false
         },
         {
@@ -17382,7 +17380,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "One glyph to replace the native markers across the list, laying every item out as icon beside\ncontent. It reaches items by cloning the direct children, so an item that brings its own `icon`\nkeeps it and an item wrapped in another component never receives one.",
           "slot": false
         },
         {
@@ -17390,7 +17388,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": "\"xs\"",
-          "doc": null,
+          "doc": "Gap under each item, applied to the direct `li` children only and cleared on the last one, so a\nnested list keeps its own rhythm instead of inheriting this one.",
           "slot": false
         },
         {
@@ -17398,7 +17396,7 @@
           "type": "ListType",
           "required": false,
           "default": "\"unordered\"",
-          "doc": null,
+          "doc": "Whether the list is numbered, which is what picks `ol` over `ul`. It changes the semantics, not\nthe look: use it when the order carries meaning, not to get numbers.",
           "slot": false
         },
         {
@@ -17406,7 +17404,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Restores the indent the component strips, and with it hangs the markers outside the text block\nso wrapped lines line up under each other. Prose wants it on; a list used as layout does not.",
           "slot": false
         }
       ],
@@ -17443,8 +17441,8 @@
               "name": "component",
               "type": "(ElementType & C)",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"li\"",
+              "doc": "The element it paints.",
               "slot": false
             },
             {
@@ -17452,7 +17450,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "This item's own glyph, which beats the one the parent `List` hands down. It is `aria-hidden`\nand it replaces the marker, so whatever it stands for has to be in the item's text as well.",
               "slot": false
             }
           ],
@@ -17837,15 +17835,15 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"warning\"",
-          "doc": null,
+          "doc": "Which scale the highlight is drawn from — the 200 step fills the background and the 900 step\nwrites the text, which is what keeps the pair readable in any of them. Name the scale only\n(`\"success\"`), never a step: `\"success.500\"` pins BOTH ends to that one step and the text\ndisappears into its own background.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"mark\"",
+          "doc": "The element it paints. A real `mark` is what tells assistive tech this run is called out, so\nchanging it turns the highlight into decoration the reader never hears about.",
           "slot": false
         }
       ],
@@ -27379,7 +27377,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The glyph. It is centred and takes `currentColor` from the variant, so an icon drawn with\n`fill=\"currentColor\"` follows the palette without being told; one with a baked-in colour will\nnot, and stops answering to the theme.",
           "slot": false
         },
         {
@@ -27395,7 +27393,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the variant draws from. Background, foreground and border are picked together for the\npair to stay legible, which is why the variant, not this, decides how strong it looks.",
           "slot": false
         },
         {
@@ -27403,7 +27401,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Names the icon for assistive tech, turning it into an `img` role. Without it the tile is\n`aria-hidden`, which is the right answer next to a visible label and the wrong one when the\nicon is the only thing carrying the meaning.",
           "slot": false
         },
         {
@@ -27411,7 +27409,7 @@
           "type": "\"sm\" | \"md\" | \"full\"",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "How round the tile is. `\"full\"` makes it a circle — the usual pick for an avatar-like badge.",
           "slot": false
         },
         {
@@ -27419,7 +27417,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "The tile's fixed square, in both axes at once, and the glyph's font size with it. The tile never\nshrinks in a flex row, so it is the text beside it that gives way when space runs out.",
           "slot": false
         },
         {
@@ -27427,7 +27425,7 @@
           "type": "ThemeIconVariant",
           "required": false,
           "default": "\"light\"",
-          "doc": null,
+          "doc": "How the tile is filled. `\"light\"` is the tinted wash meant to sit in body copy without shouting;\n`\"filled\"` and `\"gradient\"` are loud enough to read as a control, so avoid them where the icon\nis not one.",
           "slot": false
         }
       ],
