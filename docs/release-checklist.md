@@ -51,10 +51,44 @@ changeset.
       y esa fase existe para validar que el mismo `NebulaTheme` sirve en las dos plataformas. En 0.x
       una correccion de contrato se arregla; en 1.x costaria un 2.0.0 a las pocas semanas.
 
-## Lo que W5.2 hace
+## W5.2 · PUBLICADO el 2026-08-12
 
-1. `pnpm release` → `minor`. Deja los seis en `0.1.0`, commitea y empuja.
-2. El workflow construye desde un checkout limpio y publica con procedencia.
+Los seis en npm en `0.1.0`, publicados por el CI tras pasar los ocho gates y axe.
+
+| Paquete | Sin empaquetar |
+| ------- | -------------: |
+| `@stellaria/nebula-web` | 2.115 kB |
+| `@stellaria/nebula-themes` | 183 kB |
+| `@stellaria/nebula-tokens` | 89 kB |
+| `@stellaria/nebula-icons` | 42 kB |
+| `@stellaria/nebula-hooks` | 41 kB |
+| `@stellaria/nebula` | 4 kB |
+
+### Lo que costo llegar, por si vuelve a pasar
+
+- **`--provenance` no es bandera de `changeset publish`.** Su uso es `[--tag] [--otp]
+  [--no-git-tag]`; la procedencia va por `NPM_CONFIG_PROVENANCE`.
+- **`setup-node` y pnpm no componian.** El `.npmrc` que escribe `setup-node` en un userconfig
+  temporal no llegaba a pnpm, asi que el token no autenticaba y npm devolvia `E404` en el `PUT` — el
+  mismo codigo que da un permiso insuficiente. Se escribe explicito.
+- **`E404` no distingue** «token ausente» de «token sin permiso»: npm responde igual para no revelar
+  si un paquete con scope existe. Por eso el job corre `npm whoami` antes de publicar.
+- **El token necesitaba «Bypass 2FA».** Un granular con escritura sobre el scope y la organizacion
+  autentica, pero sin esa casilla no puede publicar desde un runner, que no puede teclear un codigo.
+- **`changeset publish` tapa el error de npm**: su `isAlreadyPublishedError` revienta con un
+  TypeError si npm no devuelve la forma que espera, y el log ensena el fallo del manejador.
+
+### Lo que NO se consiguio: la procedencia
+
+**Ninguno de los seis lleva atestacion.** La razon no es de configuracion: la procedencia escribe en
+un registro publico de transparencia y **npm la exige sobre un repositorio publico**.
+`StellariaApp/Nebula` es privado, asi que npm la omite **en silencio**, sin fallar la publicacion —
+ni siquiera con `--provenance` explicito.
+
+Queda como decision del propietario, y no es menor: [ADR-113](adr/ADR-113-el-nucleo-es-mit-y-los-dominios-se-venden.md)
+dice que **el nucleo es MIT y publico**, y hoy el repositorio no lo es. Publicar codigo MIT desde un
+repositorio cerrado es coherente con la licencia pero deja sin verificar de donde sale el tarball.
+`NPM_CONFIG_PROVENANCE` se deja puesto: el dia que el repositorio se abra, empieza a firmar solo.
 4. **Verificación en un Next 16 virgen**: `pnpm create next-app`, instalar los paquetes desde npm
    —no desde el workspace—, montar el provider con un tema y un `Button`, y comprobar que la hoja de
    estilos llega y que no hay parpadeo de esquema.
