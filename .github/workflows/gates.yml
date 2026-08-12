@@ -147,6 +147,28 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # `setup-node` escribe su .npmrc en un userconfig temporal, y pnpm no siempre lo honra: el
+      # token acabaria sin llegar a npm y un PUT sin autenticar a un paquete con scope responde
+      # 404, el mismo error que da un permiso insuficiente. Se escribe explicito para que la
+      # autenticacion no dependa de como compongan las dos herramientas.
+      - name: autenticar contra el registro
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "@stellaria:registry=https://registry.npmjs.org/" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Antes de intentar publicar, que diga QUIEN es. Sin esto, un token vacio y un token sin
+      # permiso dan el mismo 404 y no hay forma de distinguirlos desde el log.
+      - name: quien soy en npm
+        run: |
+          npm whoami || {
+            echo "::error::El token no autentica. Revisa el secreto NPM_TOKEN."
+            exit 1
+          }
+          echo "Paquetes a los que este token puede escribir:"
+          npm access list packages 2>&1 | head -20 || echo "(el token no puede listar permisos)"
+
       # El tarball sale de un checkout limpio, no del `dist` que hubiera en una maquina.
       - run: pnpm turbo build --filter=@stellaria/nebula-web...
 

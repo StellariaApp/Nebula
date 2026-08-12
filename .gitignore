@@ -23,6 +23,8 @@ ios/
 spike/
 
 # env & logs
+# lo escribe el CI con el token; nunca debe versionarse
+.npmrc
 .env
 .env.*
 !.env.example
