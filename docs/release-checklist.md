@@ -94,6 +94,17 @@ repositorio cerrado es coherente con la licencia pero deja sin verificar de dond
    estilos llega y que no hay parpadeo de esquema.
 5. Comprobar en npm que cada paquete muestra su README, su licencia y su enlace al repositorio.
 
+## Lo que falta para cerrar el gate de W5
+
+La verificación de consumo. El roadmap la pide sobre «un Next 16 virgen», y se hace mejor
+consumiendo la librería en un proyecto real: **la landing de Rosette**, que es Next 16.2.1 y React
+19.2.4 —las versiones exactas de la matriz de compatibilidad— con 19 componentes propios y 3.596
+líneas de CSS escritas sin Nebula delante.
+
+Está escrito en [prompts/2-web/W5.3-verificacion-en-rosette.md](../prompts/2-web/W5.3-verificacion-en-rosette.md),
+listo para pegar en una sesión limpia. El entregable no es el refactor: es la lista de lo que al
+catálogo le falta, y llega a tiempo de corregir contrato en `0.2.0` sin costar una versión mayor.
+
 ## Lo que NO entra
 
 - Native. `@stellaria/nebula-native` no se publica en W5: requiere N1.
