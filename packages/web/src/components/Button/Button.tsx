@@ -43,6 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       component,
       variant = "filled",
+      glass = "subtle",
       size = "md",
       color = "primary",
       gradient,
@@ -123,8 +124,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { focusProps, isFocusVisible } = useFocusRing();
 
     const resolved = useMemo(
-      () => ResolveVariant(variant, color, theme, gradient),
-      [variant, color, theme, gradient],
+      () => ResolveVariant(variant, color, theme, gradient, glass),
+      [variant, color, theme, gradient, glass],
     );
 
     const css_vars = useMemo<CSSProperties>(

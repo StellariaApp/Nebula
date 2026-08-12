@@ -1831,6 +1831,14 @@
           "slot": false
         },
         {
+          "name": "glass",
+          "type": "GlassLevel",
+          "required": false,
+          "default": "\"subtle\"",
+          "doc": null,
+          "slot": false
+        },
+        {
           "name": "gradient",
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; }",
           "required": false,

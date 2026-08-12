@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type {
   ColorExtended,
+  GlassLevel,
   PermissionProps,
   Size,
   Variant,
@@ -51,6 +52,7 @@ export interface ButtonProps
   labelProps?: TextSlotProps | undefined;
   variant?: Variant | undefined;
   size?: Size | undefined;
+  glass?: GlassLevel | undefined;
   color?: ColorExtended | undefined;
   gradient?: VariantProps["gradient"] | undefined;
   disabled?: boolean | undefined;
