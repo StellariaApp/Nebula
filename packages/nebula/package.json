@@ -1,0 +1,18 @@
+{
+  "name": "@stellaria/nebula",
+  "version": "0.0.0",
+  "description": "Mapa de los paquetes de Nebula. No exporta codigo: instala el que necesites.",
+  "keywords": ["nebula", "design-system", "react", "react-native", "ui"],
+  "license": "MIT",
+  "author": "Stellaria",
+  "homepage": "https://nebula.stellaria.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StellariaApp/Nebula.git",
+    "directory": "packages/nebula"
+  },
+  "bugs": "https://github.com/StellariaApp/Nebula/issues",
+  "files": ["README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public" }
+}

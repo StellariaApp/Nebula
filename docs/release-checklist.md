@@ -40,33 +40,21 @@ changeset.
 
 ## Bloquea W5.2 — necesita tu respuesta
 
-- [ ] **El paquete paraguas `@stellaria/nebula`.** **No existe**: npm devuelve 404, así que ADR-013
-      se equivocaba al darlo por publicado. El nombre está libre en tu propio scope.
-      Las tres salidas, con lo que cuesta cada una:
-      - **Meta-paquete que reexporta el core.** Un `pnpm add @stellaria/nebula` y ya. Cómodo, pero
-        rompe el aislamiento de subpaths que ADR-014 construyó: si reexporta todo, el consumidor
-        pierde la frontera que evita cargar Recharts sin pedirlo. Y hay que versionarlo con los cinco.
-      - **Deprecarlo** con `npm deprecate`, apuntando a `@stellaria/nebula-web`. Es lo más honesto si
-        no va a mantenerse, y libera el nombre de expectativas.
-      - **Solo documentación**: un paquete con README y sin código, que explica el mapa de paquetes.
-        Barato y sin trampa, pero es raro en npm.
+**Las dos estan cerradas** (2026-08-12):
 
-      **Recomendación: reservarlo con un paquete de solo documentación.** Como no existe, deprecar no
-      aplica; y reexportar el core choca de frente con el argumento de los subpaths, que es lo que
-      hace que importar un botón no cueste 130 kB de gráficas. Un README que explique el mapa de
-      paquetes cuesta nada y evita que el nombre acabe apuntando a otra cosa.
-
-- [ ] **`NPM_TOKEN` como secreto del repositorio.** Está en el `.env` local, que es lo correcto para
-      no publicar a mano, pero el workflow lo lee de `secrets.NPM_TOKEN`: hay que darlo de alta en
-      GitHub antes del primer release o la publicación fallará con un 401.
+- [x] **El paraguas se reserva con solo README.** ADR-013 daba `@stellaria/nebula` por publicado y
+      npm devolvia 404, asi que no habia nada que deprecar. `packages/nebula` es un paquete sin
+      codigo que explica que instalar. Reexportar el core se descarto: borraria la frontera de
+      subpaths que hace que importar un boton no cueste 130 kB de graficas.
+- [x] **`NPM_TOKEN` dado de alta** como secreto del repositorio.
+- [x] **La primera version es `0.1.0`.** No es prudencia generica: N1 —native— todavia no ha corrido,
+      y esa fase existe para validar que el mismo `NebulaTheme` sirve en las dos plataformas. En 0.x
+      una correccion de contrato se arregla; en 1.x costaria un 2.0.0 a las pocas semanas.
 
 ## Lo que W5.2 hace
 
-1. Dar de alta `NPM_TOKEN` como secreto del repositorio.
-2. `pnpm release`. Con `0.0.0` de partida, `minor` da `0.1.0` y `major` da `1.0.0`. **Es una
-   decisión, no un trámite**: `1.0.0` compromete a semver desde el minuto uno, con el catálogo recién
-   congelado.
-3. Revisar el changelog que generó y ver el workflow publicar.
+1. `pnpm release` → `minor`. Deja los seis en `0.1.0`, commitea y empuja.
+2. El workflow construye desde un checkout limpio y publica con procedencia.
 4. **Verificación en un Next 16 virgen**: `pnpm create next-app`, instalar los paquetes desde npm
    —no desde el workspace—, montar el provider con un tema y un `Button`, y comprobar que la hoja de
    estilos llega y que no hay parpadeo de esquema.

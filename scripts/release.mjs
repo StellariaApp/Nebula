@@ -14,7 +14,15 @@ import process from "node:process";
  * `pnpm release --dry` ensena todo lo que haria sin escribir nada.
  */
 
-const PACKAGES = ["tokens", "hooks", "themes", "icons", "web"];
+/** Los publicables, en `packages/<dir>`. El paraguas no sigue el patron `nebula-<dir>`. */
+const PACKAGES = [
+  { dir: "tokens", name: "@stellaria/nebula-tokens" },
+  { dir: "hooks", name: "@stellaria/nebula-hooks" },
+  { dir: "themes", name: "@stellaria/nebula-themes" },
+  { dir: "icons", name: "@stellaria/nebula-icons" },
+  { dir: "web", name: "@stellaria/nebula-web" },
+  { dir: "nebula", name: "@stellaria/nebula" },
+];
 const MODEL = "claude-haiku-4-5-20251001";
 const ARGS = process.argv.slice(2);
 const DRY = ARGS.some((a) => ["--dry", "--dry-run"].includes(a));
@@ -53,8 +61,15 @@ function Range() {
 /** Solo se versiona lo que cambio: es lo que el versionado independiente de ADR-134 quiere decir. */
 function Changed(range) {
   const scope = range ?? "HEAD";
-  return PACKAGES.filter((name) => {
-    const files = Git(["log", "--name-only", "--pretty=format:", scope, "--", `packages/${name}`]);
+  return PACKAGES.filter((pkg) => {
+    const files = Git([
+      "log",
+      "--name-only",
+      "--pretty=format:",
+      scope,
+      "--",
+      `packages/${pkg.dir}`,
+    ]);
     return files.trim().length > 0;
   });
 }
@@ -68,7 +83,7 @@ function Prompt(subjects, packages) {
   return [
     "Escribe las notas de release de una libreria de componentes de UI, en espanol.",
     "",
-    `Paquetes que suben: ${packages.map((p) => `@stellaria/nebula-${p}`).join(", ")}.`,
+    `Paquetes que suben: ${packages.map((p) => p.name).join(", ")}.`,
     "",
     "Reglas:",
     "- Entre dos y cinco vinetas, una linea cada una. Sin encabezados y sin preambulo.",
@@ -167,7 +182,7 @@ async function Main() {
 
   console.log(`\n  rango:    ${range ?? "todo el historial"}`);
   console.log(`  commits:  ${String(subjects.length)}`);
-  console.log(`  paquetes: ${packages.map((p) => `nebula-${p}`).join(", ")}\n`);
+  console.log(`  paquetes: ${packages.map((p) => p.name).join(", ")}\n`);
 
   const bump =
     FIXED ?? (await Ask("  salto (patch / minor / major): ", ["patch", "minor", "major"]));
@@ -179,7 +194,7 @@ async function Main() {
 
   const body = [
     "---",
-    ...packages.map((name) => `"@stellaria/nebula-${name}": ${bump}`),
+    ...packages.map((pkg) => `"${pkg.name}": ${bump}`),
     "---",
     "",
     summary,
@@ -203,12 +218,12 @@ async function Main() {
 
   Run("pnpm exec changeset version");
 
-  const versions = PACKAGES.map((name) => {
-    const json = JSON.parse(readFileSync(`packages/${name}/package.json`, "utf8"));
-    return `nebula-${name}@${json.version}`;
+  const versions = PACKAGES.map((pkg) => {
+    const json = JSON.parse(readFileSync(`packages/${pkg.dir}/package.json`, "utf8"));
+    return `${pkg.name}@${json.version}`;
   }).join(" · ");
 
-  Git(["add", "--", ".changeset", ...PACKAGES.map((n) => `packages/${n}`)]);
+  Git(["add", "--", ".changeset", ...PACKAGES.map((pkg) => `packages/${pkg.dir}`)]);
   Git(["commit", "-m", `chore(release): ${versions}`]);
   Run("git push");
 
