@@ -24,7 +24,7 @@ export function PageHeader({ title, description, eyebrow, aside }: PageHeaderPro
       bdc="border.subtle"
     >
       {eyebrow === undefined ? null : (
-        <Box display="flex">
+        <Box display="flex" data-pagefind-ignore="all">
           <Badge variant="light">{eyebrow}</Badge>
         </Box>
       )}
@@ -32,10 +32,12 @@ export function PageHeader({ title, description, eyebrow, aside }: PageHeaderPro
         <Title order={1} fz="h1" c="text.primary">
           {title}
         </Title>
-        {aside}
+        <Box display="flex" data-pagefind-ignore="all">
+          {aside}
+        </Box>
       </Box>
       {description === undefined ? null : (
-        <Text fz="body1" c="text.secondary" maw="62ch">
+        <Text fz="body1" c="text.secondary" maw="62ch" data-pagefind-meta="summary">
           {description}
         </Text>
       )}

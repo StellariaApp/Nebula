@@ -31,7 +31,7 @@ function Anchored({
 }): ReactElement {
   return (
     <Box component="section" id={id} aria-labelledby={`${id}-title`} mt="xxl">
-      <Box display="flex" align="center" gap="sm" mb="sm">
+      <Box display="flex" align="center" gap="sm" mb="sm" data-pagefind-ignore="all">
         <Title id={`${id}-title`} order={2} fz="h5" c="text.primary">
           {title}
         </Title>
@@ -67,7 +67,7 @@ function Stage({ children }: { children: ReactNode }): ReactElement {
  */
 function Props({ rows, dict }: { rows: readonly ApiProp[]; dict: Dictionary }): ReactElement {
   return (
-    <Box data-pagefind-ignore>
+    <Box data-pagefind-ignore="all">
       <Card withBorder r="lg" padding="none">
         <Table.ScrollContainer minWidth={640}>
           <Table>
@@ -161,7 +161,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
         }
       />
 
-      <Box display="flex" align="center" gap="sm" wrap="wrap">
+      <Box display="flex" align="center" gap="sm" wrap="wrap" data-pagefind-ignore="all">
         <Code fz="caption">{entry.subpath === "." ? ROOT_SUBPATH : entry.subpath}</Code>
         {api === undefined ? null : <Code fz="caption">{api.contract}</Code>}
       </Box>
@@ -250,7 +250,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
       {api === undefined || api.slots.length === 0 ? null : (
         <Anchored id="slots" title={dict["api.slots"] ?? ""} count={api.slots.length}>
           <Box display="flex" direction="column" gap="sm">
-            <Text fz="body3" c="text.secondary" maw="72ch">
+            <Text fz="body3" c="text.secondary" maw="72ch" data-pagefind-ignore="all">
               {dict["api.slots.lede"]}
             </Text>
             <Props rows={api.slots} dict={dict} />
@@ -272,7 +272,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
 
       {api === undefined || api.inherited.length === 0 ? null : (
         <Anchored id="inherited" title={dict["api.inherited"] ?? ""}>
-          <Box display="flex" direction="column" gap="sm">
+          <Box display="flex" direction="column" gap="sm" data-pagefind-ignore="all">
             <Text fz="body3" c="text.secondary" maw="72ch">
               {dict["api.inherited.lede"]}
             </Text>

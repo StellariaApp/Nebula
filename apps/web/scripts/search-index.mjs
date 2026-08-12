@@ -39,6 +39,13 @@ function Stage() {
 
 Stage();
 
+/**
+ * La salida se borra antes de generarla: los fragmentos llevan hash en el nombre, asi que Pagefind
+ * no pisa los de la pasada anterior y el directorio acumula un fragmento por cada version que haya
+ * tenido cada pagina. Se sirven todos, y quien lea el indice a mano lee el que encuentre primero.
+ */
+rmSync(OUT, { recursive: true, force: true });
+
 execSync(`pagefind --site "${STAGE}" --output-path "${OUT}"`, { stdio: "inherit", cwd: ROOT });
 
 rmSync(STAGE, { recursive: true, force: true });

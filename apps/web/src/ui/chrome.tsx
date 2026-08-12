@@ -68,6 +68,7 @@ export async function Chrome({ lang, dict, children }: ChromeProps): Promise<Rea
                   placeholder: dict["search.placeholder"] ?? "",
                   empty: dict["search.empty"] ?? "",
                   loading: dict["search.loading"] ?? "",
+                  frequent: dict["search.frequent"] ?? "",
                 }}
               />
               <ThemePanel anchored labels={PANEL} />

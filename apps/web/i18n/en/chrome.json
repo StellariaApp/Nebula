@@ -112,6 +112,7 @@
   "reserved.themingStyles": "How the NebulaTheme contract reaches every component, and the 128 style props that ride on top of it. Both are already closed in docs/02 and ADR-103 — this section is the reading version.",
   "reserved.title": "Not yet",
   "search.empty": "Nothing matches that yet.",
+  "search.frequent": "Start here",
   "search.label": "Search the documentation",
   "search.loading": "Searching…",
   "search.placeholder": "Search…",
