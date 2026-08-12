@@ -43,8 +43,11 @@ jobs:
       # El tarball sale de un checkout limpio, no del `dist` que hubiera en una maquina.
       - run: pnpm turbo build --filter=@stellaria/nebula-web...
 
+      # La procedencia se enciende por entorno, no por bandera: `changeset publish` solo acepta
+      # `--tag`, `--otp` y `--no-git-tag`, y pasa el resto a `npm publish`, que si lee
+      # NPM_CONFIG_PROVENANCE.
       - name: publicar
-        run: pnpm exec changeset publish --provenance
+        run: pnpm exec changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
