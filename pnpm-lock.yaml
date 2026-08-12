@@ -295,6 +295,8 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
 
+  packages/nebula: {}
+
   packages/themes:
     dependencies:
       '@stellaria/nebula-tokens':
