@@ -13,7 +13,7 @@ import { SOURCE_LANG } from "../../../../../lib/i18n";
 import { CurrentLang } from "../../../../../lib/lang";
 import { CHROME_HEIGHT } from "../../../../../lib/layout";
 import { FindSection, SectionHref } from "../../../../../lib/sections";
-import { OgHref, SITE_DESCRIPTION } from "../../../../../lib/site";
+import { CONTENT_PATH, OgHref, REPO_URL, SITE_DESCRIPTION } from "../../../../../lib/site";
 import { Toc } from "../../../../../islands/toc";
 import { ComponentPage } from "../../../../../ui/component-page";
 import { DocNav } from "../../../../../ui/doc-nav";
@@ -21,7 +21,7 @@ import { FallbackNotice } from "../../../../../ui/fallback-notice";
 import { MDX_COMPONENTS } from "../../../../../ui/mdx";
 import { PageHeader } from "../../../../../ui/page-header";
 
-const SOURCE = "https://github.com/stellaria/nebula/edit/main/apps/docs/content";
+const SOURCE = `${REPO_URL}/edit/main/${CONTENT_PATH}`;
 
 /**
  * Las mismas tres fuentes que enumera el sitemap —el índice de documentos y el registro del

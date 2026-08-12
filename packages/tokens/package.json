@@ -1,9 +1,16 @@
 {
   "name": "@stellaria/nebula-tokens",
   "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
   "description": "Tokens base y contratos de tipos compartidos del design system Nebula",
+  "license": "MIT",
+  "author": "Stellaria",
+  "homepage": "https://nebula.stellaria.app/guides/getting-started/installation",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StellariaApp/Nebula.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": "https://github.com/StellariaApp/Nebula/issues",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -15,8 +22,16 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.map",
+    "LICENSE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",

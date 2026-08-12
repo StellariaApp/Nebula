@@ -1,9 +1,16 @@
 {
   "name": "@stellaria/nebula-icons",
   "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
   "description": "Componente Icon y registry de iconos (base lucide) del design system Nebula",
+  "license": "MIT",
+  "author": "Stellaria",
+  "homepage": "https://nebula.stellaria.app/guides/getting-started/installation",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StellariaApp/Nebula.git",
+    "directory": "packages/icons"
+  },
+  "bugs": "https://github.com/StellariaApp/Nebula/issues",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -19,8 +26,16 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.map",
+    "LICENSE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
@@ -28,6 +43,28 @@
     "lint": "eslint .",
     "test": "vitest run",
     "size": "size-limit"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=0.400.0",
+    "react": "^19.2.7"
+  },
+  "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^12.1.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^29.1.1",
+    "lucide-react": "^0.469.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "size-limit": "^12.1.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
   },
   "size-limit": [
     {
@@ -70,28 +107,5 @@
       ],
       "limit": "4 kB"
     }
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^12.1.0",
-    "@testing-library/react": "^16.3.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "jsdom": "^29.1.1",
-    "lucide-react": "^0.469.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "size-limit": "^12.1.0",
-    "typescript": "7.0.2",
-    "vitest": "4.1.10"
-  },
-  "peerDependencies": {
-    "lucide-react": ">=0.400.0",
-    "react": "^19.2.7"
-  },
-  "peerDependenciesMeta": {
-    "lucide-react": {
-      "optional": true
-    }
-  }
+  ]
 }

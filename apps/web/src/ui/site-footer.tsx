@@ -8,6 +8,7 @@ import type { Dictionary } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { Logo } from "./logo";
+import { REPO_URL } from "../lib/site";
 
 export interface SiteFooterProps {
   dict: Dictionary;
@@ -52,7 +53,7 @@ export async function SiteFooter({
         </Footer.Group.Link>
       </Footer.Group>
       <Footer.Group title="GitHub">
-        <Footer.Group.Link href="https://github.com/stellaria/nebula">
+        <Footer.Group.Link href={REPO_URL}>
           {dict["home.cta.source"]}
         </Footer.Group.Link>
       </Footer.Group>

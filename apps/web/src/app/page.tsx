@@ -22,7 +22,7 @@ import {
 
 import { CATALOG } from "../lib/catalog";
 import { GuidesHome } from "../lib/content";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
+import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 import { Dict } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
@@ -139,7 +139,7 @@ export default async function Home() {
         "@type": "SoftwareSourceCode",
         name: SITE_NAME,
         description: SITE_DESCRIPTION,
-        codeRepository: "https://github.com/stellaria/nebula",
+        codeRepository: REPO_URL,
         programmingLanguage: "TypeScript",
         license: "https://opensource.org/licenses/MIT",
         runtimePlatform: ["React", "React Native"],
@@ -318,7 +318,7 @@ export default async function Home() {
               </Button>
               <Button
                 component="a"
-                href="https://github.com/stellaria/nebula"
+                href={REPO_URL}
                 size="lg"
                 variant="glass"
               >

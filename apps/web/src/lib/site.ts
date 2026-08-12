@@ -6,6 +6,15 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nebula.stel
 
 export const SITE_NAME = "Nebula";
 
+/**
+ * El repositorio, en un solo sitio. Estaba escrito a mano en cinco —el JSON-LD de la portada, dos
+ * enlaces y los dos «editar esta pagina»— y los cinco apuntaban a una organizacion que no es la del
+ * remoto. Dos llevaban ademas `apps/docs/content`, ruta que dejo de existir al renombrar el sitio.
+ */
+export const REPO_URL = "https://github.com/StellariaApp/Nebula";
+
+export const CONTENT_PATH = "apps/web/content";
+
 export const SITE_TAGLINE = "One catalogue, two platforms, zero forks";
 
 export const SITE_DESCRIPTION =

@@ -1,9 +1,16 @@
 {
   "name": "@stellaria/nebula-web",
   "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
   "description": "Componentes web del design system Nebula (Vanilla Extract + React Aria + motion)",
+  "license": "MIT",
+  "author": "Stellaria",
+  "homepage": "https://nebula.stellaria.app/guides/getting-started/installation",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StellariaApp/Nebula.git",
+    "directory": "packages/web"
+  },
+  "bugs": "https://github.com/StellariaApp/Nebula/issues",
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -45,8 +52,16 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.map",
+    "LICENSE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite build --watch --no-emptyOutDir",
@@ -83,6 +98,12 @@
     "react-stately": "^3.48.0",
     "recharts": "^3.10.1"
   },
+  "peerDependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "form-atoms": ">=3.0.0",
+    "@pqina/react-pintura": ">=9.0.0"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^12.1.0",
     "@testing-library/react": "^16.3.2",
@@ -100,8 +121,12 @@
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vitest": "4.1.10"
   },
-  "peerDependencies": {
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+  "peerDependenciesMeta": {
+    "form-atoms": {
+      "optional": true
+    },
+    "@pqina/react-pintura": {
+      "optional": true
+    }
   }
 }
