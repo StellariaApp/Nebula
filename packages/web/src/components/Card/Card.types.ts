@@ -16,18 +16,60 @@ export type CardVariant = Extract<
 >;
 
 interface CardOwnProps extends Omit<StyleProps, "shadow"> {
+  /** The card's content, usually assembled from its parts. */
   children: ReactNode;
+  /**
+   * How the surface is filled. Leaving it out is a real choice, not a missing one: the card then
+   * resolves no variant at all and keeps the plain surface, which is what most cards want. With it
+   * left out, `color` and `glass` are read by nothing.
+   */
   variant?: CardVariant | undefined;
+  /**
+   * The scale the variant draws from. Only read when there is a `variant`.
+   * @default "primary"
+   */
   color?: ColorExtended | undefined;
+  /**
+   * Depth of the drop shadow. Flat by default because a grid of raised cards reads as noise; lift
+   * the one card that has to come forward, not all of them.
+   * @default "none"
+   */
   shadow?: ShadowLevel | "none" | undefined;
+  /**
+   * Inner padding. `"none"` is for a card whose parts bring their own — an edge-to-edge image, a
+   * section with its own inset.
+   * @default "lg"
+   */
   padding?: "none" | "md" | "lg" | "xl" | undefined;
+  /**
+   * Whether the hairline is drawn. Turning it off is not always enough: a variant that resolves a
+   * border of its own puts it back, because the fill needs the edge to sit against.
+   * @default true
+   */
   withBorder?: boolean | undefined;
   /** Glass step when `variant="glass"`. `subtle` by default (ADR-078). */
   glass?: GlassLevel | undefined;
+  /**
+   * Whether the card lifts on hover and gives on press. Left out it decides for itself, turning on
+   * as soon as there is an `onPress` or an `href`; set it by hand only to lift a card that does
+   * nothing, or to still one that does.
+   */
   interactive?: boolean | undefined;
+  /**
+   * Makes the whole card a `button` and runs on press. `href` beats it: with both, the card is an
+   * anchor and this never fires.
+   */
   onPress?: (() => void) | undefined;
+  /**
+   * Makes the whole card an anchor. It wins the root element over `onPress`, and it is what lets a
+   * card be opened in a new tab — a card built on `onPress` cannot be.
+   */
   href?: string | undefined;
   className?: string | undefined;
+  /**
+   * Names the card. An actionable card needs it whenever its content does not already say where it
+   * leads, since everything inside is read as one long link name otherwise.
+   */
   "aria-label"?: string | undefined;
 }
 

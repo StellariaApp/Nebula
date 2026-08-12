@@ -186,7 +186,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The glyph, and the whole of the button's content. It is `aria-hidden`, so the control has no\naccessible name until you give it one — an `aria-label` here is not optional.",
           "slot": false
         },
         {
@@ -194,7 +194,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the variant draws from. Name the scale and let the variant pick the steps out of it;\npinning a step here is what breaks the hover and active states, which are derived from it.",
           "slot": false
         },
         {
@@ -202,7 +202,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Blocks the press and drops the hover and press animation with it. No need to pair it with\n`loading`, which already disables on its own.",
           "slot": false
         },
         {
@@ -210,7 +210,7 @@
           "type": "GlassLevel",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
         {
@@ -218,7 +218,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; }",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Read only by `variant=\"gradient\"`, where it replaces the theme's pair. `deg` is 135 if you do\nnot say otherwise, and `animate` needs this override to exist at all — it does nothing over the\ntheme's own gradient.",
           "slot": false
         },
         {
@@ -226,7 +226,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Lays a spinner over the button, marks it `aria-busy` and disables it. The icon dims in place\nrather than being swapped out, so the button holds its square while the work runs.",
           "slot": false
         },
         {
@@ -234,7 +234,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "The button's square, in both axes at once. It is the tap target, so anything below `md` on a\ntouch surface has to be given room by its container instead.",
           "slot": false
         },
         {
@@ -242,7 +242,7 @@
           "type": "Variant",
           "required": false,
           "default": "\"filled\"",
-          "doc": null,
+          "doc": "The recipe the theme resolves background, border, glow and glass from, all at once. A row of\nicon buttons reads as one control strip only if they share it.",
           "slot": false
         }
       ],
@@ -955,7 +955,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The image's alt text, and the accessible name of the whole avatar when there is no image. It\nfalls back to `name`; with neither, the avatar says nothing at all — which is what you want\nbeside a name already written out, and not what you want when it stands alone.",
           "slot": false
         },
         {
@@ -963,7 +963,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Replaces the initials — a glyph, a status mark. It never shows over an image, so it is the\nfallback's fallback and not a layer on top.",
           "slot": false
         },
         {
@@ -979,7 +979,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the fallback draws from. Deriving it from the name is the consumer's job — the same\n`color` here gives every avatar in a list the same tint.",
           "slot": false
         },
         {
@@ -987,7 +987,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Where the initials come from: the first letter of the first and last words, uppercased. It also\nnames the avatar when there is no `alt`.",
           "slot": false
         },
         {
@@ -995,15 +995,15 @@
           "type": "\"sm\" | \"md\" | \"full\"",
           "required": false,
           "default": "\"full\"",
-          "doc": null,
+          "doc": "How round it is. `\"sm\"` and `\"md\"` are what turn it into a squircle for a team or an org.",
           "slot": false
         },
         {
           "name": "size",
           "type": "Size | Unit",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"md\"",
+          "doc": "The avatar's square, as a control step or as any length. Unlike the rest of the sizes here it\ntakes a raw value, which is what lets it line up with a row of arbitrary height.",
           "slot": false
         },
         {
@@ -1011,7 +1011,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The picture. A load failure is remembered for the life of the component, so it falls back to\nthe initials once and does not flicker between the two on later renders.",
           "slot": false
         },
         {
@@ -1019,7 +1019,7 @@
           "type": "AvatarVariant",
           "required": false,
           "default": "\"light\"",
-          "doc": null,
+          "doc": "How the fallback is filled. It only ever shows when there is no image, so it dresses the\ninitials and nothing else.",
           "slot": false
         }
       ],
@@ -1123,7 +1123,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The label. A badge is a `span` with no role of its own, so this text is all a screen reader\ngets — a status shown by colour alone does not reach one.",
           "slot": false
         },
         {
@@ -1139,7 +1139,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the variant and the dot draw from. It is also the whole semantic signal of a status\nbadge, which is why the label has to repeat it in words.",
           "slot": false
         },
         {
@@ -1147,7 +1147,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Puts a coloured dot before the label, taking the 600 step of `color` regardless of how pale the\nvariant is. It is the status cue that survives a `\"light\"` badge on a busy row.",
           "slot": false
         },
         {
@@ -1155,7 +1155,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Stretches the pill to its container instead of hugging the label.",
           "slot": false
         },
         {
@@ -1163,7 +1163,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "An adornment before the label. It is `aria-hidden`, so it can only repeat what the label says.",
           "slot": false
         },
         {
@@ -1171,7 +1171,7 @@
           "type": "\"sm\" | \"md\" | \"full\"",
           "required": false,
           "default": "\"full\"",
-          "doc": null,
+          "doc": "How round the pill is.",
           "slot": false
         },
         {
@@ -1179,7 +1179,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The same after the label, but this one is NOT `aria-hidden` — it is read out, which is what\nmakes it the place for a count or a dismiss control rather than a decorative glyph.",
           "slot": false
         },
         {
@@ -1187,7 +1187,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "Height, padding and type of the pill together. It does not follow the text it sits beside, so a\nbadge inside small print has to be stepped down by hand.",
           "slot": false
         },
         {
@@ -1195,7 +1195,7 @@
           "type": "BadgeVariant",
           "required": false,
           "default": "\"light\"",
-          "doc": null,
+          "doc": "How the pill is filled. `\"light\"` is the tinted wash that sits in a table or a list without\ncompeting with the row; the solid ones pull enough attention to read as a control.",
           "slot": false
         }
       ],
@@ -1690,7 +1690,7 @@
           "type": "string",
           "required": false,
           "default": "\"Close menu\"",
-          "doc": null,
+          "doc": "The name it takes while open, swapped in alongside `aria-expanded`.",
           "slot": false
         },
         {
@@ -1698,7 +1698,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"text.primary\"",
-          "doc": null,
+          "doc": "The bars' colour. A role path like the default resolves straight to that token; naming one of\nthe theme's scales instead takes its 600 step.",
           "slot": false
         },
         {
@@ -1706,7 +1706,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Where the state starts when nothing controls it. Ignored the moment `opened` is passed.",
           "slot": false
         },
         {
@@ -1714,7 +1714,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Blocks the press, so the state can only be moved from outside.",
           "slot": false
         },
         {
@@ -1722,7 +1722,7 @@
           "type": "((opened: boolean) => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Fires with the state the button is moving TO, in both modes — so it is the change hook when\nuncontrolled and the only way to move when controlled.",
           "slot": false
         },
         {
@@ -1730,7 +1730,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The open state, controlled. Passing it takes the state away from the button for good: it stops\ntracking its own, and `onChange` becomes the only thing that can move it.",
           "slot": false
         },
         {
@@ -1738,7 +1738,7 @@
           "type": "string",
           "required": false,
           "default": "\"Open menu\"",
-          "doc": null,
+          "doc": "The button's accessible name while closed — three bare bars have no text of their own. Say what\nthe press does, not what the state is: `aria-expanded` already carries the state.\nIt is English by default (ADR-120); translate it at the call site.",
           "slot": false
         },
         {
@@ -1754,7 +1754,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "The button's box, and with it how far the bars travel as they cross. The two are tied on\npurpose: a bar that moves the wrong distance does not land on a clean X.",
           "slot": false
         }
       ],
@@ -1785,7 +1785,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The label. It is wrapped in a `Text` that inherits, so it takes the button's own type instead of\nimposing paragraph type on it.",
           "slot": false
         },
         {
@@ -1793,7 +1793,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the variant draws from. Name the scale and let the variant pick the steps out of it;\npinning a step here is what breaks the hover and active states, which are derived from it.",
           "slot": false
         },
         {
@@ -1809,7 +1809,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Blocks the press and drops the hover and press animation with it. No need to pair it with\n`loading`, which already disables on its own.",
           "slot": false
         },
         {
@@ -1817,7 +1817,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Stretches the button to its container instead of hugging the label.",
           "slot": false
         },
         {
@@ -1825,7 +1825,7 @@
           "type": "GlassLevel",
           "required": false,
           "default": "\"subtle\"",
-          "doc": null,
+          "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
         {
@@ -1833,7 +1833,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; }",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Read only by `variant=\"gradient\"`, where it replaces the theme's pair. `deg` is 135 if you do\nnot say otherwise, and `animate` needs this override to exist at all — it does nothing over the\ntheme's own gradient.",
           "slot": false
         },
         {
@@ -1849,7 +1849,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "An adornment before the label. It is `aria-hidden`, so it can only ever repeat what the label\nalready says — an icon that carries meaning of its own belongs in the label.",
           "slot": false
         },
         {
@@ -1857,7 +1857,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Lays a spinner over the button, marks it `aria-busy` and disables it. Label and sections dim in\nplace instead of being removed, so the button holds its width while the work runs.",
           "slot": false
         },
         {
@@ -1865,7 +1865,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The same after the label, and `aria-hidden` for the same reason.",
           "slot": false
         },
         {
@@ -1873,7 +1873,7 @@
           "type": "Size",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "The control's height and padding. The label does not carry its own type scale — it inherits the\nbutton's — so this is the one step that resizes the whole thing.",
           "slot": false
         },
         {
@@ -1881,7 +1881,7 @@
           "type": "Variant",
           "required": false,
           "default": "\"filled\"",
-          "doc": null,
+          "doc": "The recipe the theme resolves background, border, glow and glass from, all at once. It is the\nvariant and not `color` that decides how loudly the button reads, so a secondary action stays\nsecondary whatever scale you tint it with.",
           "slot": false
         }
       ],
@@ -1949,7 +1949,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"gray\"",
-          "doc": null,
+          "doc": "The scale the variant draws from. Name the scale and let the variant pick the steps out of it;\npinning a step here is what breaks the hover and active states, which are derived from it.",
           "slot": false
         },
         {
@@ -1957,7 +1957,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Blocks the press and drops the hover and press animation with it. No need to pair it with\n`loading`, which already disables on its own.",
           "slot": false
         },
         {
@@ -1965,7 +1965,7 @@
           "type": "GlassLevel",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
         {
@@ -1973,7 +1973,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; }",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Read only by `variant=\"gradient\"`, where it replaces the theme's pair. `deg` is 135 if you do\nnot say otherwise, and `animate` needs this override to exist at all — it does nothing over the\ntheme's own gradient.",
           "slot": false
         },
         {
@@ -1981,7 +1981,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lays a spinner over the button, marks it `aria-busy` and disables it. The icon dims in place\nrather than being swapped out, so the button holds its square while the work runs.",
           "slot": false
         },
         {
@@ -1989,7 +1989,7 @@
           "type": "Size",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The button's square, in both axes at once. It is the tap target, so anything below `md` on a\ntouch surface has to be given room by its container instead.",
           "slot": false
         },
         {
@@ -1997,7 +1997,7 @@
           "type": "Variant",
           "required": false,
           "default": "\"ghost\"",
-          "doc": null,
+          "doc": "The recipe the theme resolves background, border, glow and glass from, all at once. A row of\nicon buttons reads as one control strip only if they share it.",
           "slot": false
         }
       ],
@@ -2041,7 +2041,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"gray\"",
-          "doc": null,
+          "doc": "The scale the variant draws from. Name the scale and let the variant pick the steps out of it;\npinning a step here is what breaks the hover and active states, which are derived from it.",
           "slot": false
         },
         {
@@ -2049,7 +2049,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "<Check />",
-          "doc": null,
+          "doc": "The glyph while the copied state lasts. The button also swaps to the success scale for that\nwindow, so a glyph with a colour baked in will fight the confirmation instead of carrying it.",
           "slot": false
         },
         {
@@ -2057,7 +2057,7 @@
           "type": "string",
           "required": false,
           "default": "\"Copied\"",
-          "doc": null,
+          "doc": "The name it takes while copied. Swapping it is what announces the copy to a screen reader —\nnothing else about the change is spoken.",
           "slot": false
         },
         {
@@ -2065,7 +2065,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "<Clipboard />",
-          "doc": null,
+          "doc": "The glyph at rest.",
           "slot": false
         },
         {
@@ -2073,7 +2073,7 @@
           "type": "string",
           "required": false,
           "default": "\"Copy\"",
-          "doc": null,
+          "doc": "The button's accessible name at rest. There is no visible text, so this is the only name it\nhas. It is English by default (ADR-120); translate it at the call site.",
           "slot": false
         },
         {
@@ -2081,7 +2081,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Blocks the press and drops the hover and press animation with it. No need to pair it with\n`loading`, which already disables on its own.",
           "slot": false
         },
         {
@@ -2089,7 +2089,7 @@
           "type": "GlassLevel",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
         {
@@ -2097,7 +2097,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; }",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Read only by `variant=\"gradient\"`, where it replaces the theme's pair. `deg` is 135 if you do\nnot say otherwise, and `animate` needs this override to exist at all — it does nothing over the\ntheme's own gradient.",
           "slot": false
         },
         {
@@ -2105,7 +2105,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lays a spinner over the button, marks it `aria-busy` and disables it. The icon dims in place\nrather than being swapped out, so the button holds its square while the work runs.",
           "slot": false
         },
         {
@@ -2113,7 +2113,7 @@
           "type": "Size",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The button's square, in both axes at once. It is the tap target, so anything below `md` on a\ntouch surface has to be given room by its container instead.",
           "slot": false
         },
         {
@@ -2121,7 +2121,7 @@
           "type": "number",
           "required": false,
           "default": "1500",
-          "doc": null,
+          "doc": "How long the copied state lasts, in milliseconds. Pressing again restarts it rather than\nstacking, so a run of presses still leaves exactly one window open.",
           "slot": false
         },
         {
@@ -2129,7 +2129,7 @@
           "type": "string",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "What goes to the clipboard, read at press time. It needs a secure context — over plain HTTP the\nclipboard API is not there, the copy fails and the button never reaches its copied state.",
           "slot": false
         },
         {
@@ -2137,7 +2137,7 @@
           "type": "Variant",
           "required": false,
           "default": "\"light\"",
-          "doc": null,
+          "doc": "The recipe the theme resolves background, border, glow and glass from, all at once. A row of\nicon buttons reads as one control strip only if they share it.",
           "slot": false
         }
       ],
@@ -2661,7 +2661,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Names the card. An actionable card needs it whenever its content does not already say where it\nleads, since everything inside is read as one long link name otherwise.",
           "slot": false
         },
         {
@@ -2669,7 +2669,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The card's content, usually assembled from its parts.",
           "slot": false
         },
         {
@@ -2684,8 +2684,8 @@
           "name": "color",
           "type": "ColorExtended",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"primary\"",
+          "doc": "The scale the variant draws from. Only read when there is a `variant`.",
           "slot": false
         },
         {
@@ -2701,7 +2701,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Makes the whole card an anchor. It wins the root element over `onPress`, and it is what lets a\ncard be opened in a new tab — a card built on `onPress` cannot be.",
           "slot": false
         },
         {
@@ -2709,7 +2709,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Whether the card lifts on hover and gives on press. Left out it decides for itself, turning on\nas soon as there is an `onPress` or an `href`; set it by hand only to lift a card that does\nnothing, or to still one that does.",
           "slot": false
         },
         {
@@ -2717,23 +2717,23 @@
           "type": "(() => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Makes the whole card a `button` and runs on press. `href` beats it: with both, the card is an\nanchor and this never fires.",
           "slot": false
         },
         {
           "name": "padding",
           "type": "\"md\" | \"lg\" | \"xl\" | \"none\"",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"lg\"",
+          "doc": "Inner padding. `\"none\"` is for a card whose parts bring their own — an edge-to-edge image, a\nsection with its own inset.",
           "slot": false
         },
         {
           "name": "shadow",
           "type": "\"none\" | ShadowLevel",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"none\"",
+          "doc": "Depth of the drop shadow. Flat by default because a grid of raised cards reads as noise; lift\nthe one card that has to come forward, not all of them.",
           "slot": false
         },
         {
@@ -2741,15 +2741,15 @@
           "type": "CardVariant",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "How the surface is filled. Leaving it out is a real choice, not a missing one: the card then\nresolves no variant at all and keeps the plain surface, which is what most cards want. With it\nleft out, `color` and `glass` are read by nothing.",
           "slot": false
         },
         {
           "name": "withBorder",
           "type": "boolean",
           "required": false,
-          "default": "false",
-          "doc": null,
+          "default": "true",
+          "doc": "Whether the hairline is drawn. Turning it off is not always enough: a variant that resolves a\nborder of its own puts it back, because the fill needs the edge to sit against.",
           "slot": false
         }
       ],
