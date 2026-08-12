@@ -14,15 +14,12 @@
       "CardImage",
       "CardSection",
       "SparkLine",
-      "Collapse",
       "ColorSwatch",
-      "Conditional",
       "DateDisplay",
       "DirectionProvider",
       "DragDropContext",
       "Droppable",
       "FileButton",
-      "FocusTrap",
       "FooterLegal",
       "FooterLink",
       "FormDelete",
@@ -35,10 +32,8 @@
       "NavDivider",
       "NavLogo",
       "NoiseOverlay",
-      "Omit",
       "Overlay",
       "PermissionGate",
-      "Portal",
       "Reveal",
       "SectionHeading",
       "SegmentContentItem",
@@ -47,9 +42,7 @@
       "StatusBadge",
       "StatusMapProvider",
       "ThemeIcon",
-      "Transition",
-      "UnstyledButton",
-      "Valid"
+      "UnstyledButton"
     ],
     "defaultUnknown": [
       "PieChart",
@@ -5584,7 +5577,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What collapses. Their natural height is what the animation measures, so a child of its own\nanimated height fights it; the wrapper element this component adds is always present.",
           "slot": false
         },
         {
@@ -5592,7 +5585,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lands on the animated element, after the classes the style props generate.",
           "slot": false
         },
         {
@@ -5600,15 +5593,15 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Swaps the default spring for a tween of this many milliseconds. The spring is the better fit\nfor content of unknown height; reach for a fixed duration when the opening has to line up with\nanother animation.",
           "slot": false
         },
         {
           "name": "in",
           "type": "boolean",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "false",
+          "doc": "Whether the block is open. Closed is not unmounted: the children stay in the DOM, marked\n`aria-hidden` and `inert`, so they are out of the accessibility tree and out of the tab order\nwhile keeping their state.",
           "slot": false
         },
         {
@@ -5616,7 +5609,7 @@
           "type": "CSSProperties",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Inline styles on the animated element; they beat the style props. Setting `overflow` here\noverrides the `hidden` the component applies, and the content spills out mid-animation instead\nof being clipped.",
           "slot": false
         }
       ],
@@ -8095,7 +8088,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The `when` branch. It is a plain ternary, not a mount gate: both branches are evaluated by the\nparent before they get here, so an expression that must not run needs its own guard.",
           "slot": false
         },
         {
@@ -8103,7 +8096,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "null",
-          "doc": null,
+          "doc": "The other branch. Left out, a false `when` renders nothing at all, which is the usual case.",
           "slot": false
         },
         {
@@ -8111,7 +8104,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Which branch renders. It defaults to false rather than true, so leaving it out renders the\n`fallback` and never the children.",
           "slot": false
         }
       ],
@@ -12932,7 +12925,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether the trap holds focus inside the subtree. Turning it off releases focus without\nunmounting anything, which is how a trap is suspended — a nested overlay taking over, a step\nthat hands control back to the page — while its content stays on screen.",
           "slot": false
         },
         {
@@ -12940,7 +12933,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Moves focus to the first tabbable node when the trap mounts. Leave it off when something inside\nalready claims focus — a field with its own `autoFocus`, or a dialog that focuses its heading.",
           "slot": false
         },
         {
@@ -12948,7 +12941,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The trapped subtree. The trap renders no element of its own, so the children have to supply the\nnode: focus is contained by what they render, not by a wrapper this component adds.",
           "slot": false
         },
         {
@@ -12956,7 +12949,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Returns focus, on unmount, to whatever had it when the trap mounted. Overlays that open from a\ntrigger want this on; without it, focus falls back to the document and the next Tab starts over\nfrom the top of the page.",
           "slot": false
         }
       ],
@@ -20294,7 +20287,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What renders while it is kept. Nothing takes its place when omitted: this is a removal, not a\nswap, and there is no fallback branch by design.",
           "slot": false
         },
         {
@@ -20302,7 +20295,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Removes the children when true. It is the inverse of a guard — the flag names what to drop, not\nwhat to keep — so leaving it out renders them.",
           "slot": false
         }
       ],
@@ -21571,7 +21564,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What renders at the other end of the portal. Nothing reaches the DOM on the first render: the\nportal waits for the client mount effect, so the server output is empty and there is no\nhydration mismatch. Anything that must be in the server HTML does not belong here.",
           "slot": false
         },
         {
@@ -21579,7 +21572,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Renders the children in place instead, which keeps them subject to the ancestors' `overflow`\nand stacking context. It is also the only branch that renders on the server.",
           "slot": false
         },
         {
@@ -21587,7 +21580,7 @@
           "type": "string | Element | null",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Where to portal to, as an element or as a CSS selector resolved against the document on every\nrender. A selector that matches nothing is not an error: it falls back to the container of the\nsurrounding React Aria portal provider, and to `document.body` when there is none.",
           "slot": false
         }
       ],
@@ -28321,7 +28314,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What animates. They always land inside a `div` this component adds, so a `Transition` between a\nflex or grid container and its item inserts a level that breaks the layout.",
           "slot": false
         },
         {
@@ -28329,7 +28322,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lands on the animated element, after the classes the style props generate.",
           "slot": false
         },
         {
@@ -28337,7 +28330,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Length of the animation in milliseconds, replacing the theme's `base`. The exit takes two\nthirds of it, so it always reads as faster than the entrance. Ignored on the entrance when\n`spring` is set.",
           "slot": false
         },
         {
@@ -28345,7 +28338,7 @@
           "type": "boolean",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "Drives presence. On the way to false the children stay in the DOM until the exit animation\nends, so unmounting the `Transition` itself cuts that animation short. A first render with it\nalready true does NOT animate in — only later changes do.",
           "slot": false
         },
         {
@@ -28353,7 +28346,7 @@
           "type": "(() => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Fires once the exit has finished and the children have left the DOM — the moment to release\nwhat the content held. It never fires on the entrance.",
           "slot": false
         },
         {
@@ -28361,7 +28354,7 @@
           "type": "SpringName",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Drives the entrance with a theme spring instead of a tween, which leaves `duration` applying to\nthe exit only. The exit is always a tween: a spring has no fixed end to unmount on.",
           "slot": false
         },
         {
@@ -28369,7 +28362,7 @@
           "type": "CSSProperties",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Inline styles on the animated element; they beat the style props. Do not set `opacity`,\n`transform`, `scale`, `x` or `y` here — the animation drives those and will overwrite them.",
           "slot": false
         },
         {
@@ -28377,7 +28370,7 @@
           "type": "TransitionPreset",
           "required": false,
           "default": "\"fade\"",
-          "doc": null,
+          "doc": "Which way it enters and leaves; the exit is the entrance played backwards. Every preset moves\nonly `transform` and `opacity`, which is what keeps it off the main thread.",
           "slot": false
         }
       ],
@@ -28478,7 +28471,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What renders once the value is valid.",
           "slot": false
         },
         {
@@ -28486,7 +28479,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "null",
-          "doc": null,
+          "doc": "What stands in when the value is not valid — an error message, a placeholder, an empty state.\nLeft out, an invalid value renders nothing.",
           "slot": false
         },
         {
@@ -28494,7 +28487,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Which branch renders. It defaults to false rather than true, so leaving it out renders the\n`invalid` branch and never the children.",
           "slot": false
         }
       ],
@@ -28527,8 +28520,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"span\"",
+          "doc": "The element it paints. An inline `span` by default, so the text can sit inside a sentence\nwithout splitting it; switch to `\"div\"` when the hidden content is block-level, since the\nbrowser silently breaks a block element nested in a paragraph.",
           "slot": false
         }
       ],
