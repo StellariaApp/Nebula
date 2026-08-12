@@ -69,15 +69,27 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 2. **P1 — documentar el contrato**, en la sesion paralela. 27 % de props documentadas.
 3. **W6 — Premium web**: los cinco paquetes de dominio, el registry privado y la mecanica de
    licencias. Es la ultima fase web del roadmap.
-4. **Deuda del sitio, sin tocar**:
-   - `site-background.tsx` va con `density="md"` y `translucency` 2/4; ADR-129 fija `sm` o menos y
-     `1`. **Verificado el 2026-08-12: sigue abierto.** Uno de los dos tiene que ceder.
-   - Los enlaces del carril no llevan icono, asi que en la barra inferior de movil y en el carril
-     mini de tablet se ven vacios.
-   - El `iframe` de las superficies no repinta al cambiar el tema desde el panel: hereda por
-     `localStorage` al cargar y ahi se queda.
+4. **Deuda del sitio, revisada una por una el 2026-08-12**:
+   - ~~`site-background.tsx` contradice ADR-129~~ — **ARREGLADO**. Iba con `density="md"` fijo y
+     `translucency` 2/4; el ADR fija `sm`/`1` para el cromado y `md`/`2` para la portada, o sea que
+     estaba mal en los dos ejes y el JSDoc de la prop describia lo que el codigo no hacia («menos
+     estrellas» con una densidad que nunca cambiaba).
+   - ~~Los enlaces del carril no llevan icono y se ven vacios en la barra inferior de movil y en el
+     carril mini de tablet~~ — **OBSOLETA**. Verificado: el sitio **nunca** pasa `collapsed` a
+     `AppShell.Sidebar` y no monta ninguna barra inferior, asi que esas dos superficies no existen
+     desde la reestructura de ADR-127. `NavLinkProps` si tiene ranura de icono (`leftSection`) el dia
+     que hagan falta.
+   - **El `iframe` de las muestras no repinta al cambiar el tema** — SIGUE ABIERTA, y no se ha
+     tocado porque vive en los archivos que el propietario esta refactorizando (`component-page.tsx`
+     y el nuevo `preview-panel.tsx`).
+     **El arreglo, para cuando se toque esa zona**: `/preview/[name]` no monta provider propio, asi
+     que hereda del layout raiz por `localStorage` al cargar y ahi se queda — es otro documento con
+     su propio arbol de React, y el cambio de tema del padre no lo alcanza. Se resuelve pasando el
+     tema en la URL (`?scheme=…`) desde una isla cliente que lea `useTheme()`, y dandole al `iframe`
+     una `key` con ese mismo valor para que remonte al cambiar. El `iframe` esta hoy en un componente
+     de servidor, que no puede saber el tema: por eso hace falta la isla.
    - La cache de dev de Turbopack se corrompe y sirve codigo viejo. Se cura borrando
-     `apps/web/.next/dev` entero — no basta con `cache/`, que fue lo que fallo la primera vez.
+     `apps/web/.next/dev` **entero** — no basta con `cache/`, que fue lo que fallo la primera vez.
 5. **Tus decisiones, ninguna bloqueante**:
    - **El repositorio publico.** Bloquea la procedencia de npm, y ADR-113 ya daba el nucleo por
      publico. Ver `docs/release-checklist.md`.

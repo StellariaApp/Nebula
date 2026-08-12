@@ -10,5 +10,13 @@ export interface SiteBackgroundProps {
 }
 
 export function SiteBackground({ ambient = false }: SiteBackgroundProps = {}): ReactElement {
-  return <StarField fixed parallax aurora density="md" translucency={ambient ? 2 : 4} />;
+  return (
+    <StarField
+      fixed
+      parallax
+      aurora
+      density={ambient ? "sm" : "md"}
+      translucency={ambient ? 1 : 2}
+    />
+  );
 }
