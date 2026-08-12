@@ -39,8 +39,14 @@ import {
   Title,
   Segment,
 } from "@stellaria/nebula-web";
-import { AreaChart, BarChart, PieChart, SparkLine } from "@stellaria/nebula-web/charts";
 import type { ReactElement, ReactNode } from "react";
+
+import { Deferred } from "../defer";
+
+const AreaChart = Deferred(async () => (await import("@stellaria/nebula-web/charts")).AreaChart);
+const BarChart = Deferred(async () => (await import("@stellaria/nebula-web/charts")).BarChart);
+const PieChart = Deferred(async () => (await import("@stellaria/nebula-web/charts")).PieChart);
+const SparkLine = Deferred(async () => (await import("@stellaria/nebula-web/charts")).SparkLine);
 
 const FLOW = [
   { month: "Feb", matched: 812, pending: 96 },

@@ -1,4 +1,4 @@
-import { Badge, Box, Card, Code, CodeHighlight, Table, Text, Title } from "@stellaria/nebula-web";
+import { Badge, Box, Card, Code, Table, Text, Title } from "@stellaria/nebula-web";
 import type { ReactElement, ReactNode } from "react";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -8,7 +8,7 @@ import { type CatalogEntry } from "../lib/catalog";
 import { ReadDoc } from "../lib/content";
 import { Dict, type Dictionary } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
-import { FindPreview } from "../previews";
+import { PreviewPanel } from "../islands/preview-panel";
 import { ComponentSlug } from "../lib/catalog";
 import { FindSurface } from "../surfaces";
 import { MDX_COMPONENTS } from "./mdx";
@@ -43,17 +43,6 @@ function Anchored({
       </Box>
       {children}
     </Box>
-  );
-}
-
-/** El escenario de la muestra: superficie propia para que el componente no flote sobre la página. */
-function Stage({ children }: { children: ReactNode }): ReactElement {
-  return (
-    <Card withBorder r="lg" padding="lg">
-      <Box display="flex" gap="lg" wrap="wrap" align="flex-end">
-        {children}
-      </Box>
-    </Card>
   );
 }
 
@@ -126,7 +115,6 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
   const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
   const api = FindApi(entry.name);
-  const preview = FindPreview(entry.name);
   const surface = FindSurface(entry.name);
   const doc = await ReadDoc(lang, SECTION, [ComponentSlug(entry.name)]);
 
@@ -182,58 +170,14 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
         </Anchored>
       )}
 
-      {preview === undefined ? null : (
-        <>
-          <Anchored id="preview" title={dict["api.preview"] ?? ""}>
-            <Stage>{preview.base}</Stage>
-          </Anchored>
-
-          {preview.groups === undefined ? null : (
-            <Anchored id="variants" title={dict["api.variants"] ?? ""}>
-              <Box display="flex" direction="column" gap="md">
-                {preview.groups.map((group) => (
-                  <Box key={group.title} display="flex" direction="column" gap="xs">
-                    <Text fz="caption" c="text.muted" tt="uppercase" ls="wide" fw="semibold">
-                      {group.title}
-                    </Text>
-                    <Stage>
-                      {group.items.map((item) => (
-                        <Box
-                          key={item.label}
-                          display="flex"
-                          direction="column"
-                          gap="xs"
-                          align="flex-start"
-                        >
-                          {item.node}
-                          <Text fz="caption" c="text.muted">
-                            {item.label}
-                          </Text>
-                        </Box>
-                      ))}
-                    </Stage>
-                  </Box>
-                ))}
-              </Box>
-            </Anchored>
-          )}
-
-          {preview.usage === undefined ? null : (
-            <Anchored id="usage" title={dict["api.usage"] ?? ""}>
-              <Box display="flex" direction="column" gap="md">
-                <Stage>{preview.usage.node}</Stage>
-                <CodeHighlight
-                  code={preview.usage.code}
-                  lang="tsx"
-                  variant="glass"
-                  withCopy
-                  r="lg"
-                />
-              </Box>
-            </Anchored>
-          )}
-        </>
-      )}
+      <PreviewPanel
+        name={entry.name}
+        labels={{
+          preview: dict["api.preview"] ?? "",
+          variants: dict["api.variants"] ?? "",
+          usage: dict["api.usage"] ?? "",
+        }}
+      />
 
       {prose === null ? null : (
         <Box display="flex" direction="column" gap="md" mt="lg">
