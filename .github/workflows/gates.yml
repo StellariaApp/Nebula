@@ -177,7 +177,11 @@ jobs:
       # revienta con un TypeError y el motivo real no llega al log. Se publica el paquete mas
       # pequeno con npm directamente para ver que dice npm de verdad, y solo despues se deja a
       # changesets con los demas.
+      # No puede tumbar el pipeline: en cuanto `icons` este publicado, este paso volveria a
+      # intentarlo en cada push y npm rechaza republicar una version. Sale del workflow en cuanto
+      # sepamos que responde npm.
       - name: que dice npm de verdad
+        continue-on-error: true
         working-directory: packages/icons
         run: npm publish --access public --provenance
         env:
