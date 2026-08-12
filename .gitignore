@@ -2,6 +2,8 @@
 node_modules/
 
 # builds
+# lo reescribe Next segun si lo ultimo fue build o dev; no es de nadie
+next-env.d.ts
 dist/
 build/
 storybook-static/
