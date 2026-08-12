@@ -39,7 +39,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       children,
       className,
       style,
-      glass,
+      glass = "veil",
       iconProps,
       ...rest
     } = props;

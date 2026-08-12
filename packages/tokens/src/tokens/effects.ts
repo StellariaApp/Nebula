@@ -14,6 +14,11 @@ export const blur = {
 
 export const glass = {
   surface: {
+    veil: {
+      background: "rgba(255, 255, 255, 0.30)",
+      backdropFilter: `blur(${blur.xxs}) saturate(120%)`,
+      borderColor: "#dedede",
+    },
     band: {
       background: "rgba(255, 255, 255, 0.78)",
       backdropFilter: `blur(${blur.xxs}) saturate(110%)`,

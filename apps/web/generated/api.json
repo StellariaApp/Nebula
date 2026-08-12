@@ -201,7 +201,7 @@
           "name": "glass",
           "type": "GlassLevel",
           "required": false,
-          "default": null,
+          "default": "\"veil\"",
           "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
@@ -1816,7 +1816,7 @@
           "name": "glass",
           "type": "GlassLevel",
           "required": false,
-          "default": "\"subtle\"",
+          "default": "\"veil\"",
           "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
@@ -21749,6 +21749,14 @@
           "required": false,
           "default": "false",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "glass",
+          "type": "GlassLevel",
+          "required": false,
+          "default": "\"veil\"",
+          "doc": "Clase de cristal de la variante `glass`. Por defecto `veil`, la de los accionables (ADR-136).",
           "slot": false
         },
         {

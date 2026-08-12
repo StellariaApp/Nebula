@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type {
   ColorExtended,
+  GlassLevel,
   PermissionProps,
   Size,
   Variant,
@@ -51,6 +52,8 @@ export interface QuickActionProps
   variant?: Variant | undefined;
   color?: ColorExtended | undefined;
   gradient?: VariantProps["gradient"] | undefined;
+  /** Clase de cristal de la variante `glass`. Por defecto `veil`, la de los accionables (ADR-136). */
+  glass?: GlassLevel | undefined;
   size?: Size | undefined;
   orientation?: QuickActionOrientation | undefined;
   badge?: ReactNode | undefined;

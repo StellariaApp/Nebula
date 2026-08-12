@@ -125,6 +125,7 @@ const motion = z.strictObject({
 });
 
 const GLASS_EDGE_FALLBACK = {
+  veil: "rgba(128, 128, 128, 0.24)",
   band: "rgba(128, 128, 128, 0.10)",
   control: "rgba(128, 128, 128, 0.20)",
   subtle: "rgba(128, 128, 128, 0.16)",

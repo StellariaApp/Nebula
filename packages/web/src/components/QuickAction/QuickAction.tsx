@@ -36,6 +36,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       variant = "light",
       color = "primary",
       gradient,
+      glass = "veil",
       size = "md",
       r = "lg",
       orientation = "vertical",
@@ -123,8 +124,8 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     const { focusProps, isFocusVisible } = useFocusRing();
 
     const resolved = useMemo(
-      () => ResolveVariant(variant, color, theme, gradient),
-      [variant, color, theme, gradient],
+      () => ResolveVariant(variant, color, theme, gradient, glass),
+      [variant, color, theme, gradient, glass],
     );
 
     const css_vars = useMemo<CSSProperties>(

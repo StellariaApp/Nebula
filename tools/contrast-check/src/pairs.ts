@@ -1,4 +1,4 @@
-import type { NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type { GlassLevel, NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
 
 import {
   Composite,
@@ -20,7 +20,25 @@ export interface ContrastPair {
 }
 
 const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active", "hoverActive"] as const;
-const GLASS_LEVELS = ["band", "control", "subtle", "default", "strong"] as const;
+/**
+ * Exhaustiva por tipos: si `GlassLevel` gana un valor y no se anade aqui, esto deja de compilar. La
+ * lista era un literal suelto y un nivel nuevo habria viajado sin que ningun par lo midiera.
+ */
+const EnumValues =
+  <Union extends string>() =>
+  <const Values extends readonly Union[]>(
+    values: [Union] extends [Values[number]] ? Values : never,
+  ): Values =>
+    values;
+
+const GLASS_LEVELS = EnumValues<GlassLevel>()([
+  "veil",
+  "band",
+  "control",
+  "subtle",
+  "default",
+  "strong",
+]);
 const FIELD_SURFACES = ["sunken", "base", "raised", "overlay"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
 

@@ -43,7 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       component,
       variant = "filled",
-      glass = "subtle",
+      glass = "veil",
       size = "md",
       color = "primary",
       gradient,
