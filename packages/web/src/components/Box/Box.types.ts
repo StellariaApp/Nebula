@@ -3,8 +3,14 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export interface BoxOwnProps extends StyleProps {
+  /**
+   * The element it paints. Everything else about `Box` is style, so this is what decides its
+   * semantics: without it you get a `div`, which is right for a wrapper and wrong for anything a
+   * screen reader should announce. The DOM props it accepts follow from this. @default "div"
+   */
   component?: ElementType | undefined;
   children?: ReactNode | undefined;
+  /** Composes with the classes `Box` computes instead of replacing them. */
   className?: string | undefined;
 }
 

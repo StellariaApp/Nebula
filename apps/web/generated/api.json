@@ -10,73 +10,48 @@
     "noContract": [],
     "noJsdoc": [
       "Affix",
-      "Anchor",
-      "AspectRatio",
       "AvatarGroup",
-      "Box",
-      "ButtonGroup",
       "CardImage",
       "CardSection",
-      "Center",
       "SparkLine",
-      "Code",
       "Collapse",
       "ColorSwatch",
       "Conditional",
-      "Container",
-      "CurrencyDisplay",
       "DateDisplay",
       "DirectionProvider",
       "DragDropContext",
       "Droppable",
       "FileButton",
-      "Flex",
       "FocusTrap",
       "FooterLegal",
       "FooterLink",
       "FormDelete",
       "ModalDelete",
-      "GlassSurface",
-      "GradientBorder",
-      "GradientText",
-      "Grid",
-      "GridCol",
-      "Group",
-      "Highlight",
       "HoverCard",
       "KanbanBoard",
       "Kbd",
-      "List",
       "Loader",
-      "Mark",
       "NProgress",
       "NavDivider",
       "NavLogo",
       "NoiseOverlay",
       "Omit",
       "Overlay",
-      "Paper",
       "PermissionGate",
       "Portal",
       "Reveal",
-      "Scroll",
       "SectionHeading",
       "Segment",
       "SegmentContentItem",
       "SegmentControlItem",
-      "SimpleGrid",
       "Skeleton",
-      "Space",
       "StarField",
       "StatusBadge",
       "StatusMapProvider",
-      "Text",
       "ThemeIcon",
       "Transition",
-      "TypographyStylesProvider",
       "UnstyledButton",
-      "Valid",
-      "VisuallyHidden"
+      "Valid"
     ],
     "defaultUnknown": [
       "PieChart",
@@ -537,7 +512,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -561,7 +536,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Takes family, size, weight and line height from the parent instead of the `Text` defaults. For\ntext that must sit inside a heading or a button without breaking its type.",
           "slot": false
         },
         {
@@ -569,7 +544,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Clamps the text to this many lines with an ellipsis. Beats `truncate`, and only applies above\nzero. Needs a width to work against: inside a flex child, that usually means `miw={0}`.",
           "slot": false
         },
         {
@@ -577,7 +552,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Cuts the text to a single line with an ellipsis. Ignored when `lines` is set, which does the\nsame thing over several lines. The full text stays in the DOM, so it is still read aloud.",
           "slot": false
         },
         {
@@ -616,7 +591,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -952,15 +927,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -968,7 +943,7 @@
           "type": "number",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "Width divided by height — `16 / 9` for video, `1` for a square. It reserves the height from the\nwidth before the content loads, which is what keeps an image or an iframe from shifting the\npage as it arrives.",
           "slot": false
         }
       ],
@@ -1415,7 +1390,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -1583,15 +1558,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. Everything else about `Box` is style, so this is what decides its\nsemantics: without it you get a `div`, which is right for a wrapper and wrong for anything a\nscreen reader should announce. The DOM props it accepts follow from this.",
           "slot": false
         }
       ],
@@ -2217,7 +2192,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -3357,15 +3332,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. `Center` only centres; the semantics are yours.",
           "slot": false
         },
         {
@@ -3373,7 +3348,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Centres as `inline-flex`, so the box flows inside a line instead of taking the full width.\nUnlike `Flex`, `display` does not override it: centring is what this component is.",
           "slot": false
         }
       ],
@@ -5287,7 +5262,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -8152,15 +8127,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. `main` or `section` when the container IS the region, so the landmark\nand the width live on one node instead of two.",
           "slot": false
         },
         {
@@ -8168,7 +8143,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Spans the full width, ignoring `size`, while keeping the horizontal padding.",
           "slot": false
         },
         {
@@ -8176,7 +8151,7 @@
           "type": "Size | Unit",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "Maximum width of the content. The named steps are reading measures, not breakpoints — `xs` 540,\n`sm` 720, `md` 960, `lg` 1140, `xl` 1320 px — and any other length is taken as written.",
           "slot": false
         }
       ],
@@ -8334,8 +8309,8 @@
           "name": "component",
           "type": "ElementType",
           "required": false,
-          "default": "\"span\"",
-          "doc": null,
+          "default": "\"p\"",
+          "doc": "The element it paints. A paragraph by default, so use `component=\"span\"` for text that lives\ninside a sentence — a `<p>` nested in a `<p>` is invalid markup the browser silently splits.",
           "slot": false
         },
         {
@@ -8375,7 +8350,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Takes family, size, weight and line height from the parent instead of the `Text` defaults. For\ntext that must sit inside a heading or a button without breaking its type.",
           "slot": false
         },
         {
@@ -8383,7 +8358,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Clamps the text to this many lines with an ellipsis. Beats `truncate`, and only applies above\nzero. Needs a width to work against: inside a flex child, that usually means `miw={0}`.",
           "slot": false
         },
         {
@@ -8439,7 +8414,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Cuts the text to a single line with an ellipsis. Ignored when `lines` is set, which does the\nsame thing over several lines. The full text stays in the DOM, so it is still read aloud.",
           "slot": false
         }
       ],
@@ -10736,7 +10711,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -12916,15 +12891,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. `Flex` only sets `display`, so the semantics are yours.",
           "slot": false
         },
         {
@@ -12932,7 +12907,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Lays out as `inline-flex`, so the box flows inside a line of text instead of breaking it. An\nexplicit `display` beats this.",
           "slot": false
         }
       ],
@@ -13643,7 +13618,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -13787,7 +13762,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -14090,7 +14065,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -14170,7 +14145,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -14249,7 +14224,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -14312,7 +14287,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -14320,15 +14295,15 @@
           "type": "number",
           "required": false,
           "default": "12",
-          "doc": null,
+          "doc": "How many columns a full row spans. It is the unit `Grid.Col`'s `span` counts against, so\nchanging it rescales every child at once.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -14336,7 +14311,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Lets the columns of the last row stretch to fill it instead of leaving a gap on the end.\nOnly affects a row that did not fill up.",
           "slot": false
         },
         {
@@ -14344,7 +14319,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "Gap between columns and rows. Replaces `gap`, which `Grid` does not accept.",
           "slot": false
         },
         {
@@ -14352,7 +14327,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Wraps columns that do not fit onto the next row. Turn it off and they shrink instead, which is\nwhat you want for a row that must stay one line.",
           "slot": false
         }
       ],
@@ -14382,31 +14357,31 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Composes with the classes `Box` computes instead of replacing them.",
               "slot": false
             },
             {
               "name": "component",
               "type": "(ElementType & C)",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"div\"",
+              "doc": "The element it paints.",
               "slot": false
             },
             {
               "name": "offset",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "0",
+              "doc": "Empty columns left before it, to push it right without an empty `Grid.Col`.",
               "slot": false
             },
             {
               "name": "span",
               "type": "ColSpan",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"auto\"",
+              "doc": "How many of the grid's `columns` it takes. `\"auto\"` shares the free space with its siblings and\n`\"content\"` takes only what its content needs, so neither counts against `columns`.",
               "slot": false
             }
           ],
@@ -14599,15 +14574,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -14615,7 +14590,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "Gap between children, horizontal and vertical once they wrap.",
           "slot": false
         },
         {
@@ -14623,7 +14598,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Makes every child take the same share of the width, whatever its content.",
           "slot": false
         },
         {
@@ -14631,7 +14606,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "With `grow`, caps each child so a long one cannot push the row past its container. Turn it off\nonly when you want the row to overflow on purpose. Does nothing without `grow`.",
           "slot": false
         },
         {
@@ -14639,7 +14614,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Wraps children that do not fit onto the next line instead of shrinking them.",
           "slot": false
         }
       ],
@@ -15037,7 +15012,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -15069,7 +15044,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Takes family, size, weight and line height from the parent instead of the `Text` defaults. For\ntext that must sit inside a heading or a button without breaking its type.",
           "slot": false
         },
         {
@@ -15077,7 +15052,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Clamps the text to this many lines with an ellipsis. Beats `truncate`, and only applies above\nzero. Needs a width to work against: inside a flex child, that usually means `miw={0}`.",
           "slot": false
         },
         {
@@ -15085,7 +15060,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Cuts the text to a single line with an ellipsis. Ignored when `lines` is set, which does the\nsame thing over several lines. The full text stays in the DOM, so it is still read aloud.",
           "slot": false
         }
       ],
@@ -17415,7 +17390,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -17485,7 +17460,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Composes with the classes `Box` computes instead of replacing them.",
               "slot": false
             },
             {
@@ -17878,7 +17853,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -18319,7 +18294,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -20737,7 +20712,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -20745,15 +20720,15 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "Which scale the `variant` paints with. Does nothing without a `variant`.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. `article` or `section` when the sheet is a region of its own, so the\nelevation does not cost you the semantics.",
           "slot": false
         },
         {
@@ -20761,7 +20736,7 @@
           "type": "\"none\" | ShadowLevel",
           "required": false,
           "default": "\"none\"",
-          "doc": null,
+          "doc": "Elevation. It reads as height, so keep it consistent with what sits around: a sheet raised\nabove its neighbours for no reason reads as an overlay.",
           "slot": false
         },
         {
@@ -20769,7 +20744,7 @@
           "type": "PaperVariant",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The colour recipe, resolved against the theme's `variantMap` — so what `filled` or `glass`\nlooks like is the theme's call, not the component's. Without it the sheet is the plain raised\nsurface, which is the right default for a page.",
           "slot": false
         },
         {
@@ -20777,7 +20752,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Draws the edge. A `variant` that already brings its own border turns it on regardless, so this\nis only needed on the flat sheet.",
           "slot": false
         }
       ],
@@ -22817,7 +22792,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -24655,7 +24630,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -24663,15 +24638,15 @@
           "type": "SimpleGridCols",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "Columns of equal width. Unlike `Grid`, children declare no span: the count lives here. A number\napplies at every width; an object sets it per breakpoint from `base` upwards.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. `ul` when the grid IS a list, so the count is announced.",
           "slot": false
         },
         {
@@ -24679,7 +24654,7 @@
           "type": "\"start\" | \"end\" | \"center\" | \"stretch\"",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "How each cell sits in its column. Cells stretch by default, so a row of cards ends up the same\nheight; anything else lets them keep their own.",
           "slot": false
         },
         {
@@ -24687,7 +24662,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "Gap between columns, and between rows unless `verticalSpacing` overrides it.",
           "slot": false
         },
         {
@@ -24695,7 +24670,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Gap between rows when it should differ from `spacing`. Falls back to `spacing`.",
           "slot": false
         }
       ],
@@ -25374,15 +25349,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -25390,7 +25365,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Vertical gap. Reach for it when the gap belongs to one spot and not to the layout — a container\nwith `gap` says the rhythm once and does not leave empty nodes in the DOM.",
           "slot": false
         },
         {
@@ -25398,7 +25373,7 @@
           "type": "SpacingValue",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Horizontal gap. Only useful between inline or flex siblings; a block box already fills its row.",
           "slot": false
         }
       ],
@@ -26996,15 +26971,15 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"p\"",
+          "doc": "The element it paints. A paragraph by default, so use `component=\"span\"` for text that lives\ninside a sentence — a `<p>` nested in a `<p>` is invalid markup the browser silently splits.",
           "slot": false
         },
         {
@@ -27012,7 +26987,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Takes family, size, weight and line height from the parent instead of the `Text` defaults. For\ntext that must sit inside a heading or a button without breaking its type.",
           "slot": false
         },
         {
@@ -27020,7 +26995,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Clamps the text to this many lines with an ellipsis. Beats `truncate`, and only applies above\nzero. Needs a width to work against: inside a flex child, that usually means `miw={0}`.",
           "slot": false
         },
         {
@@ -27028,7 +27003,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Cuts the text to a single line with an ellipsis. Ignored when `lines` is set, which does the\nsame thing over several lines. The full text stays in the DOM, so it is still read aloud.",
           "slot": false
         }
       ],
@@ -27874,7 +27849,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -28441,7 +28416,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
@@ -28553,7 +28528,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Composes with the classes `Box` computes instead of replacing them.",
           "slot": false
         },
         {
