@@ -98,14 +98,29 @@ function Next(current, bump) {
   return `${String(major)}.${String(minor)}.${String(patch + 1)}`;
 }
 
+/**
+ * Los paquetes van con su descripcion, no solo con su nombre. Sin eso el modelo deduce lo que hacen
+ * y publica cosas falsas: en el primer ensayo dijo que el paraguas «reexporta el core», que es justo
+ * lo contrario de lo que es.
+ */
 function Prompt(subjects, packages) {
+  const described = packages.map((pkg) => {
+    const json = JSON.parse(readFileSync(`packages/${pkg.dir}/package.json`, "utf8"));
+    return `- ${pkg.name}: ${json.description ?? "sin descripcion"}`;
+  });
+
   return [
     "Escribe las notas de release de una libreria de componentes de UI, en espanol.",
     "",
-    `Paquetes que suben: ${packages.map((p) => p.name).join(", ")}.`,
+    "Paquetes que suben, con lo que ES cada uno. No supongas nada mas sobre ellos:",
+    ...described,
+    "",
+    "Responde UNICAMENTE con vinetas que empiecen por `- `. Ni una frase antes ni despues:",
+    "nada de razonar en voz alta, nada de explicar tus criterios, nada de encabezados. Lo que",
+    "escribas se publica tal cual en el CHANGELOG y en la ficha de npm.",
     "",
     "Reglas:",
-    "- Entre dos y cinco vinetas, una linea cada una. Sin encabezados y sin preambulo.",
+    "- Entre dos y cinco vinetas, una linea cada una.",
     "- Cada vinetas dice QUE cambia para quien consume la libreria, no que archivo se toco.",
     "- Si un cambio rompe algo, empieza esa vinetas con `BREAKING:`.",
     "- Nada de relleno: si solo hubo un cambio real, una vinetas.",
@@ -113,6 +128,19 @@ function Prompt(subjects, packages) {
     "Commits:",
     ...subjects.map((s) => `- ${s}`),
   ].join("\n");
+}
+
+/**
+ * El modelo antepone a veces un parrafo razonando —por que algo no es BREAKING, en que estado esta
+ * el repo— y eso acabaria publicado en npm palabra por palabra. Se queda solo con las vinetas, que
+ * es lo unico que el prompt pide: la instruccion la hace cumplir el codigo, no la buena fe.
+ */
+function OnlyBullets(text) {
+  const lines = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("- "));
+  return lines.length === 0 ? null : lines.join("\n");
 }
 
 function HasCli() {
@@ -163,9 +191,8 @@ async function Summary(subjects, packages) {
       if (response.ok) {
         const body = await response.json();
         const text = body.content?.[0]?.text;
-        if (typeof text === "string" && text.trim().length > 0) {
-          return { text: text.trim(), source: "API de Anthropic" };
-        }
+        const bullets = typeof text === "string" ? OnlyBullets(text) : null;
+        if (bullets !== null) return { text: bullets, source: "API de Anthropic" };
       }
     } catch {
       /* la cadena sigue: el release nunca depende de que haya red. */
@@ -174,8 +201,8 @@ async function Summary(subjects, packages) {
 
   if (HasCli()) {
     try {
-      const out = execSync("claude -p", { input: prompt, encoding: "utf8" });
-      if (out.trim().length > 0) return { text: out.trim(), source: "CLI de Claude" };
+      const bullets = OnlyBullets(execSync("claude -p", { input: prompt, encoding: "utf8" }));
+      if (bullets !== null) return { text: bullets, source: "CLI de Claude" };
     } catch {
       /* idem. */
     }
