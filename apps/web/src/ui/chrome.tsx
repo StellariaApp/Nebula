@@ -62,8 +62,13 @@ export async function Chrome({ lang, dict, children }: ChromeProps): Promise<Rea
           actions={
             <>
               <Search
-                label={dict["search.label"] ?? ""}
-                placeholder={dict["search.placeholder"] ?? ""}
+                labels={{
+                  trigger: dict["search.trigger"] ?? "",
+                  input: dict["search.label"] ?? "",
+                  placeholder: dict["search.placeholder"] ?? "",
+                  empty: dict["search.empty"] ?? "",
+                  loading: dict["search.loading"] ?? "",
+                }}
               />
               <ThemePanel anchored labels={PANEL} />
               {LANGS.length > 1 && <LangSwitch lang={lang} label={dict["lang.switch"] ?? ""} />}

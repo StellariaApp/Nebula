@@ -57,58 +57,68 @@ function Stage({ children }: { children: ReactNode }): ReactElement {
   );
 }
 
+/**
+ * La tabla queda fuera del índice de búsqueda (ADR-109 §3): indexar 158 filas de tipo, defecto y
+ * presupuesto produce ruido —cada ficha casaba con cualquier consulta y el extracto salía siendo la
+ * tabla— y lo que alguien busca es el componente, no el valor por defecto de una prop.
+ *
+ * La marca va en un `Box` y no en el `Card` porque `Card` descarta el resto de props y el atributo
+ * se quedaba en el payload RSC sin llegar al DOM.
+ */
 function Props({ rows, dict }: { rows: readonly ApiProp[]; dict: Dictionary }): ReactElement {
   return (
-    <Card withBorder r="lg" padding="none">
-      <Table.ScrollContainer minWidth={640}>
-        <Table>
-          <Table.Head>
-            <Table.Row>
-              <Table.Title>{dict["api.prop"]}</Table.Title>
-              <Table.Title>{dict["api.type"]}</Table.Title>
-              <Table.Title>{dict["api.default"]}</Table.Title>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            {rows.map((prop) => (
-              <Table.Row key={prop.name}>
-                <Table.Cell>
-                  <Box display="flex" direction="column" gap="xxs">
-                    <Box display="flex" align="center" gap="xs" wrap="wrap">
-                      <Text fz="body3" fw="medium" c="text.primary">
-                        {prop.name}
-                      </Text>
-                      {prop.required && (
-                        <Badge variant="light" color="warning" size="xs">
-                          {dict["api.required"]}
-                        </Badge>
+    <Box data-pagefind-ignore>
+      <Card withBorder r="lg" padding="none">
+        <Table.ScrollContainer minWidth={640}>
+          <Table>
+            <Table.Head>
+              <Table.Row>
+                <Table.Title>{dict["api.prop"]}</Table.Title>
+                <Table.Title>{dict["api.type"]}</Table.Title>
+                <Table.Title>{dict["api.default"]}</Table.Title>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {rows.map((prop) => (
+                <Table.Row key={prop.name}>
+                  <Table.Cell>
+                    <Box display="flex" direction="column" gap="xxs">
+                      <Box display="flex" align="center" gap="xs" wrap="wrap">
+                        <Text fz="body3" fw="medium" c="text.primary">
+                          {prop.name}
+                        </Text>
+                        {prop.required && (
+                          <Badge variant="light" color="warning" size="xs">
+                            {dict["api.required"]}
+                          </Badge>
+                        )}
+                      </Box>
+                      {prop.doc === null ? null : (
+                        <Text fz="caption" c="text.secondary" maw="60ch">
+                          {prop.doc}
+                        </Text>
                       )}
                     </Box>
-                    {prop.doc === null ? null : (
-                      <Text fz="caption" c="text.secondary" maw="60ch">
-                        {prop.doc}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Code fz="caption">{prop.type}</Code>
+                  </Table.Cell>
+                  <Table.Cell>
+                    {prop.default === null ? (
+                      <Text fz="caption" c="text.muted">
+                        —
                       </Text>
+                    ) : (
+                      <Code fz="caption">{prop.default}</Code>
                     )}
-                  </Box>
-                </Table.Cell>
-                <Table.Cell>
-                  <Code fz="caption">{prop.type}</Code>
-                </Table.Cell>
-                <Table.Cell>
-                  {prop.default === null ? (
-                    <Text fz="caption" c="text.muted">
-                      —
-                    </Text>
-                  ) : (
-                    <Code fz="caption">{prop.default}</Code>
-                  )}
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </Table.ScrollContainer>
-    </Card>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Table.ScrollContainer>
+      </Card>
+    </Box>
   );
 }
 
