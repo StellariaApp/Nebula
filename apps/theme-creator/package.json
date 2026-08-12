@@ -1,0 +1,7 @@
+{
+  "name": "theme-creator",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Placeholder: editor visual de NebulaTheme. Spec en docs/02-theming.md §5; MVP en la fase TC.",
+  "type": "module"
+}

@@ -33,6 +33,8 @@ importers:
         specifier: 8.64.0
         version: 8.64.0(eslint@9.39.5)(typescript@5.9.3)
 
+  apps/playground-native: {}
+
   apps/playground-web:
     devDependencies:
       '@fontsource-variable/geist':
@@ -125,6 +127,8 @@ importers:
       zod:
         specifier: 4.4.3
         version: 4.4.3
+
+  apps/theme-creator: {}
 
   apps/web:
     dependencies:

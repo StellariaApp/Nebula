@@ -7,5 +7,12 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["playground-web", "playground-native", "theme-creator", "web", "@stellaria/nebula-demos"]
+  "ignore": [
+    "playground-web",
+    "playground-native",
+    "theme-creator",
+    "web",
+    "@stellaria/nebula-demos",
+    "@stellaria/nebula-native"
+  ]
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { cancel, confirm, intro, isCancel, note, outro, select, spinner } from "@clack/prompts";
 import { execFileSync, execSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import process from "node:process";
 
@@ -32,7 +32,19 @@ const DRY = ARGS.some((a) => ["--dry", "--dry-run"].includes(a));
 const FIXED = ARGS.find((a) => a.startsWith("--bump="))?.slice("--bump=".length);
 
 const Git = (args) => execFileSync("git", args, { encoding: "utf8" }).trim();
-const Run = (line) => execSync(line, { stdio: "pipe" });
+/**
+ * La salida se captura para no romper el spinner, pero si falla se ensena: con `stdio: "pipe"` a
+ * secas el error llegaba como un volcado de Buffer en vez de como el mensaje que changesets
+ * escribio.
+ */
+function Run(line) {
+  try {
+    execSync(line, { stdio: "pipe" });
+  } catch (error) {
+    const detail = String(error?.stderr ?? error?.stdout ?? error?.message ?? "").trim();
+    throw new Error(detail.length > 0 ? detail : `Fallo: ${line}`);
+  }
+}
 
 function Stop(message) {
   cancel(message);
@@ -43,6 +55,22 @@ function Stop(message) {
 function Bail(value) {
   if (isCancel(value)) Stop("Cancelado. No se ha escrito nada.");
   return value;
+}
+
+/**
+ * La config de changesets se valida ANTES de escribir nada. `changeset status` la lee entera, asi
+ * que un `ignore` con un nombre que no existe sale aqui y no a mitad del release: el primer intento
+ * real fallo justo por eso, con un changeset ya escrito en disco.
+ */
+function CheckConfig() {
+  try {
+    execSync("pnpm exec changeset status", { stdio: "pipe" });
+  } catch (error) {
+    const detail = String(error?.stderr ?? "").trim();
+    Stop(`La configuracion de changesets no valida:
+
+${detail}`);
+  }
 }
 
 /** El arbol tiene que estar limpio y al dia: se va a versionar lo que haya aqui. */
@@ -215,6 +243,7 @@ async function Main() {
   intro(DRY ? "  Nebula · release (ensayo)  " : "  Nebula · release  ");
 
   if (!DRY) Guard();
+  CheckConfig();
 
   const range = Range();
   const packages = Changed(range);
@@ -285,8 +314,18 @@ async function Main() {
   working.start("Versionando");
 
   mkdirSync(".changeset", { recursive: true });
-  writeFileSync(join(".changeset", `release-${String(Date.now())}.md`), body, "utf8");
-  Run("pnpm exec changeset version");
+  const file = join(".changeset", `release-${String(Date.now())}.md`);
+  writeFileSync(file, body, "utf8");
+
+  try {
+    Run("pnpm exec changeset version");
+  } catch (error) {
+    rmSync(file, { force: true });
+    working.stop("Fallo al versionar");
+    Stop(`No se ha versionado nada y el changeset se ha retirado.
+
+${String(error.message)}`);
+  }
 
   const versions = PACKAGES.map((pkg) => `${pkg.name}@${Version(pkg.dir)}`);
   Git(["add", "--", ".changeset", ...PACKAGES.map((pkg) => `packages/${pkg.dir}`)]);

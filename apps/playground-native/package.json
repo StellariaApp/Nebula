@@ -1,0 +1,7 @@
+{
+  "name": "playground-native",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Placeholder: galeria native sobre Expo + Storybook. Se monta en N1 (docs/05-roadmap.md).",
+  "type": "module"
+}
