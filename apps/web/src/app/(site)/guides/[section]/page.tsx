@@ -3,11 +3,16 @@ import { notFound } from "next/navigation";
 
 import { Dict } from "../../../../lib/dictionary";
 import { CurrentLang } from "../../../../lib/lang";
-import { FindSection, SectionHref } from "../../../../lib/sections";
+import { FindSection, SECTIONS, SectionHref } from "../../../../lib/sections";
 import { SITE_DESCRIPTION } from "../../../../lib/site";
 import { CatalogIndex } from "../../../../ui/catalog-index";
 import { DocsIndex } from "../../../../ui/docs-index";
 import { Reserved } from "../../../../ui/reserved";
+
+/** Las seis secciones son un registro cerrado, así que la ruta se prerenderiza entera (ADR-133). */
+export function generateStaticParams(): { section: string }[] {
+  return SECTIONS.map((entry) => ({ section: entry.slug }));
+}
 
 export async function generateMetadata({
   params,

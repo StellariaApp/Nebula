@@ -60,6 +60,7 @@ export default tseslint.config(
       "**/storybook-static/**",
       "**/.expo/**",
       "**/.next/**",
+      "**/public/pagefind/**",
       "spike/**",
     ],
   },

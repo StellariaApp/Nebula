@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && pnpm run search:index",
+    "search:index": "node scripts/search-index.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
@@ -28,6 +29,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "pagefind": "1.5.2",
     "typescript": "7.0.2"
   }
 }

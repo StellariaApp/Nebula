@@ -5,10 +5,11 @@ import remarkGfm from "remark-gfm";
 
 import { Box } from "@stellaria/nebula-web";
 
-import { FromSlug } from "../../../../../lib/catalog";
+import { CATALOG, ComponentSlug, FromSlug } from "../../../../../lib/catalog";
 import { DocIndex, ReadDoc } from "../../../../../lib/content";
 import { Dict } from "../../../../../lib/dictionary";
 import { Headings } from "../../../../../lib/headings";
+import { SOURCE_LANG } from "../../../../../lib/i18n";
 import { CurrentLang } from "../../../../../lib/lang";
 import { CHROME_HEIGHT } from "../../../../../lib/layout";
 import { FindSection, SectionHref } from "../../../../../lib/sections";
@@ -21,6 +22,22 @@ import { MDX_COMPONENTS } from "../../../../../ui/mdx";
 import { PageHeader } from "../../../../../ui/page-header";
 
 const SOURCE = "https://github.com/stellaria/nebula/edit/main/apps/docs/content";
+
+/**
+ * Las mismas tres fuentes que enumera el sitemap —el índice de documentos y el registro del
+ * catálogo—, para que ruta prerenderizada y URL anunciada no puedan discrepar (ADR-133).
+ */
+export async function generateStaticParams(): Promise<{ section: string; slug: string[] }[]> {
+  const docs = await DocIndex(SOURCE_LANG, "getting-started");
+
+  return [
+    ...docs.map((doc) => ({ section: "getting-started", slug: doc.slug })),
+    ...CATALOG.components.map((entry) => ({
+      section: "components",
+      slug: [ComponentSlug(entry.name)],
+    })),
+  ];
+}
 
 export async function generateMetadata({
   params,
@@ -123,7 +140,7 @@ export default async function DocPage({
   return (
     <Box display="flex" direction="column" w="100%" maw={1180} mx="auto">
       <Box display="flex" align="flex-start" gap="xxl" w="100%">
-        <Box display="flex" direction="column" maw={820} miw={0} grow={1}>
+        <Box display="flex" direction="column" maw={820} miw={0} grow={1} data-pagefind-body>
           {doc.fallbackFrom !== null && (
             <FallbackNotice dict={dict} from={doc.lang} section={section} slug={slug} />
           )}

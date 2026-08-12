@@ -132,7 +132,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
         ).content;
 
   return (
-    <Box display="flex" direction="column" w="100%" maw={1180} mx="auto">
+    <Box display="flex" direction="column" w="100%" maw={1180} mx="auto" data-pagefind-body>
       <PageHeader
         title={entry.name}
         eyebrow={entry.family}
