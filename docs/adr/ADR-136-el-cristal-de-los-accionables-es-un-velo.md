@@ -35,8 +35,13 @@ Medido sobre el catálogo: de los 24 componentes que resuelven variante, **22 ca
 
 | tema  | fondo                       | desenfoque                 | borde     |
 | ----- | --------------------------- | -------------------------- | --------- |
-| dark  | `rgba(15, 17, 25, 0.30)`    | `blur(1px) saturate(120%)` | `#31333b` |
+| dark  | `rgba(255, 255, 255, 0.05)` | `blur(1px) saturate(120%)` | `#3f4249` |
 | light | `rgba(255, 255, 255, 0.30)` | `blur(1px) saturate(120%)` | `#dedede` |
+
+**En dark el velo aclara en vez de oscurecer**, y esa es la diferencia que se ve: un velo oscuro sobre
+un fondo oscuro no separa nada, solo apaga. Pintado sobre `surface.base` la píldora pasa de `#171a23`
+—que es prácticamente el propio canvas— a `#262932`. Es, literalmente, la receta que ADR-078 escribió
+para dark y que el tema nunca llegó a tener: `rgba(255, 255, 255, 0.05)`.
 
 ### 2. El borde es la palanca, y por eso el velo puede bajar tanto
 
@@ -49,10 +54,12 @@ debajo del mínimo a partir de **α ≈ 0,68** contra `surface.sunken`.
 | 0,70 |                 1,158 |                  1,177 |
 | 0,65 |             **1,145** |                  1,170 |
 
-Subiendo el borde a ~11 % de tinta sobre el propio velo, el velo baja a 0,30 y **el filo sube**: de
-1,18 a 1,28. Es el mismo razonamiento de ADR-078 —el borde separa, no el tinte—, aplicado al revés
-para ganar transparencia en vez de para justificarla. `check:contrast` da **165 pares · 165 PASS · 0
-FAIL** en los tres temas, con el filo de `veil` entre 1,18 y 1,46.
+Subiendo el borde, el velo puede bajar y **el filo sube** en vez de caer. `check:contrast` da **165
+pares · 165 PASS · 0 FAIL** en los tres temas, con el filo de `veil` entre 1,25 y 1,60 en dark y entre
+1,26 y 1,35 en light — por encima del 1,18 que daba `control`, siendo mucho más transparente.
+
+Es el mismo razonamiento de ADR-078 —el borde separa, no el tinte— aplicado al revés: allí justificaba
+un velo tenue, aquí permite bajarlo más.
 
 ### 3. Solo tres componentes lo toman por defecto, porque solo tres pueden
 

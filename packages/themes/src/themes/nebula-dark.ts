@@ -74,9 +74,9 @@ export const nebulaDark = {
     glass: {
       surface: {
         veil: {
-          background: "rgba(15, 17, 25, 0.30)",
+          background: "rgba(255, 255, 255, 0.05)",
           backdropFilter: `blur(${blur.xxs}) saturate(120%)`,
-          borderColor: "#31333b",
+          borderColor: "#3f4249",
         },
         band: {
           background: "rgba(15, 17, 25, 0.78)",
