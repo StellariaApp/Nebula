@@ -88,6 +88,19 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 
 ## 4. Cosas que descubrí y conviene que sepas
 
+- **P1 queda a medias por decisión del propietario (2026-08-11), y `noJsdoc` no es la medida buena.**
+  Hecha la tanda 1: once contratos de la capa de composición —Box, Text, Flex, Center, Container,
+  Grid, Grid.Col, Group, SimpleGrid, Space, AspectRatio y Paper—. `noJsdoc` pasa de **68 a 43**,
+  pero el número engaña: el JSDoc de `BoxOwnProps.className` lo heredan todos los que extienden
+  `Box` y el gate solo exige **una** prop documentada, así que saca del contador a componentes
+  cuyas props propias siguen vacías —`Code` sale con 1 de 4, `GradientText` con 1 de 6—.
+  **La medida honesta es por prop: 833 de 3.136, un 27 %**, con **114 componentes** que el gate da
+  por buenos con menos de un tercio documentado (`Button` 5/15, `Avatar` 1/10, `Card` 1/12,
+  `ButtonCopy` 1/14). Si P1 se retoma, el criterio de salida debería ser props documentadas y no
+  componentes sin JSDoc; añadir un `gaps.thinlyDocumented` a `tools/docs-gen` lo haría medible y
+  quedó propuesto sin ejecutar.
+
+
 - **Los dos gates de P0 corridos por primera vez (W5.0, 2026-08-11).**
   - **`a11y` limpio a la primera**: 96 suites, 617 tests, **0 violaciones**. El prompt de la fase
     daba por hecho que axe encontraría cosas; no encontró ninguna.
