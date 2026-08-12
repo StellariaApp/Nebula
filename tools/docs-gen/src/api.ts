@@ -195,10 +195,20 @@ function SplitTop(source: string): string[] {
   return parts;
 }
 
+/**
+ * Los tipos que TypeScript no puede nombrar en corto los emite como `import("<ruta>").Tipo`, con la
+ * ruta ABSOLUTA de la maquina que genero. Eso hacia dos danos: publicaba el directorio personal de
+ * quien corriera `gen:docs` en la ficha de 158 componentes, y volvia `api.json` irreproducible, asi
+ * que el gate de frescura no podia pasar en un runner Linux ni aunque el codigo fuera identico.
+ *
+ * Se recorta el `import(...)` y se deja el nombre, que es lo unico que el lector necesita.
+ */
+const IMPORT_PATH = /import\("[^"]*"\)\./g;
+
 function RenderType(ts: CompilerApi, checker: TsChecker, symbol: TsSymbol, at: TsNode): string {
   const type = checker.getTypeOfSymbolAtLocation(symbol, at);
   const text = checker.typeToString(type, at, ts.TypeFormatFlags.NoTruncation);
-  return text.replace(/\s*\|\s*undefined$/, "");
+  return text.replace(IMPORT_PATH, "").replace(/\s*\|\s*undefined$/, "");
 }
 
 interface Target {

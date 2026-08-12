@@ -171,7 +171,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens and closes. It already carries the `aria-expanded` and the `aria-controls`.",
@@ -603,7 +603,7 @@
         },
         {
           "name": "gradient",
-          "type": "{ from: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; to: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
+          "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
           "default": "\"brand\"",
           "doc": null,
@@ -893,7 +893,7 @@
         },
         {
           "name": "skipProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The skip-to-content link, visible only when focused. It exists in both layouts.",
@@ -1036,7 +1036,7 @@
       "slots": [
         {
           "name": "imageProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The image. Only rendered with a `src` that has not failed to load; on failure the initials take over.",
@@ -1643,7 +1643,7 @@
         },
         {
           "name": "expandProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that reveals the hidden crumbs. It only appears when the trail collapses.",
@@ -1659,7 +1659,7 @@
         },
         {
           "name": "linkProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The navigable crumbs. It does not land on the current one. Their element comes from the\n`component` of each item, or from its `href`: with `href` it is an `a`, without it a `button`.\nIt does not go through `Box`, so it does not accept style props.",
@@ -2405,7 +2405,7 @@
         },
         {
           "name": "nextProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The next-month arrow. Its accessible label comes from `labels.nextMonth`.",
@@ -2413,7 +2413,7 @@
         },
         {
           "name": "previousProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The previous-month arrow. Its accessible label comes from `labels.previousMonth`.",
@@ -2421,7 +2421,7 @@
         },
         {
           "name": "weekdayProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every weekday label.",
@@ -2620,7 +2620,7 @@
             },
             {
               "name": "nextProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The next-month arrow. Its accessible label comes from `labels.nextMonth`.",
@@ -2628,7 +2628,7 @@
             },
             {
               "name": "previousProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The previous-month arrow. Its accessible label comes from `labels.previousMonth`.",
@@ -2636,7 +2636,7 @@
             },
             {
               "name": "weekdayProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "Every weekday label.",
@@ -3270,7 +3270,7 @@
         },
         {
           "name": "indicatorProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every indicator. It spreads over ALL of them; the active one carries `aria-current`.",
@@ -3278,7 +3278,7 @@
         },
         {
           "name": "indicatorsProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLUListElement>, HTMLUListElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The indicator list. Only with `withIndicators`.",
@@ -3525,7 +3525,7 @@
             },
             {
               "name": "detailsProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `details` that discloses the data table. Only exists with `withDataTable`.",
@@ -3533,7 +3533,7 @@
             },
             {
               "name": "detailsSummaryProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`.",
@@ -3549,7 +3549,7 @@
             },
             {
               "name": "tableProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The data table inside the disclosure. Only exists with `withDataTable`.",
@@ -3717,7 +3717,7 @@
             },
             {
               "name": "detailsProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `details` that discloses the data table. Only exists with `withDataTable`.",
@@ -3725,7 +3725,7 @@
             },
             {
               "name": "detailsSummaryProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`.",
@@ -3741,7 +3741,7 @@
             },
             {
               "name": "tableProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The data table inside the disclosure. Only exists with `withDataTable`.",
@@ -3813,7 +3813,7 @@
           "slots": [
             {
               "name": "itemProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "Every legend entry. It carries `data-interactive`, which depends on whether there is an `onToggle`.",
@@ -3877,7 +3877,7 @@
           "slots": [
             {
               "name": "cardProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "Every panel card. It spreads over ALL of them; the width comes from the `span` of each panel.",
@@ -4133,7 +4133,7 @@
             },
             {
               "name": "detailsProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `details` that discloses the data table. Only exists with `withDataTable`.",
@@ -4141,7 +4141,7 @@
             },
             {
               "name": "detailsSummaryProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`.",
@@ -4157,7 +4157,7 @@
             },
             {
               "name": "tableProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The data table inside the disclosure. Only exists with `withDataTable`.",
@@ -4325,7 +4325,7 @@
             },
             {
               "name": "detailsProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `details` that discloses the data table. Only exists with `withDataTable`.",
@@ -4333,7 +4333,7 @@
             },
             {
               "name": "detailsSummaryProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`.",
@@ -4349,7 +4349,7 @@
             },
             {
               "name": "tableProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The data table inside the disclosure. Only exists with `withDataTable`.",
@@ -4519,7 +4519,7 @@
             },
             {
               "name": "detailsProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `details` that discloses the data table. Only exists with `withDataTable`.",
@@ -4527,7 +4527,7 @@
             },
             {
               "name": "detailsSummaryProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The `summary` that opens that disclosure, where `dataTableLabel` lands. Only exists with `withDataTable`.",
@@ -4543,7 +4543,7 @@
             },
             {
               "name": "tableProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The data table inside the disclosure. Only exists with `withDataTable`.",
@@ -5447,7 +5447,7 @@
         },
         {
           "name": "preProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLPreElement>, HTMLPreElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLPreElement>, HTMLPreElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The code block, which is the focusable region with an accessible name. The line numbers and the\ncode have no slot: they share a line metric, and separating them knocks the numbers out of line.",
@@ -6014,7 +6014,7 @@
             },
             {
               "name": "triggerProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The button that opens the picker. It only exists with `withPicker`.",
@@ -6836,7 +6836,7 @@
             },
             {
               "name": "menuTrigger",
-              "type": "import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Combobox/Combobox.types\").ComboboxMenuTrigger",
+              "type": "ComboboxMenuTrigger",
               "required": false,
               "default": "\"input\"",
               "doc": null,
@@ -8020,7 +8020,7 @@
         },
         {
           "name": "inputProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The search field. It spreads AFTER the aria combobox props.",
@@ -8044,7 +8044,7 @@
         },
         {
           "name": "listProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLUListElement>, HTMLUListElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The command list. It spreads AFTER the aria listbox props.",
@@ -8052,7 +8052,7 @@
         },
         {
           "name": "optionProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every row. It carries `data-focused` and `data-disabled`, and the aria option props already.",
@@ -8815,7 +8815,7 @@
         },
         {
           "name": "resizerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The handle that changes the width. Only on resizable columns; it carries `data-resizing`.",
@@ -8823,7 +8823,7 @@
         },
         {
           "name": "rowProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every data row. It spreads over all of them; the selected one carries `data-selected`.",
@@ -8839,7 +8839,7 @@
         },
         {
           "name": "sortButtonProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The sort button. Only on sortable columns.",
@@ -8855,7 +8855,7 @@
         },
         {
           "name": "tableProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The table. It carries `aria-busy` while loading, plus the grid keyboard handler.",
@@ -8863,7 +8863,7 @@
         },
         {
           "name": "tdProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every data cell. Its height comes from `rowHeight`.",
@@ -8871,7 +8871,7 @@
         },
         {
           "name": "thProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every header cell. It spreads over ALL of them.",
@@ -9294,7 +9294,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the\nend; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.",
@@ -9597,7 +9597,7 @@
             },
             {
               "name": "triggerProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the\nend; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.",
@@ -9893,7 +9893,7 @@
             },
             {
               "name": "triggerProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the\nend; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.",
@@ -10191,7 +10191,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the\nend; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.",
@@ -10487,7 +10487,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the calendar. In `DatePicker` and `DateRangePicker` it is the icon at the\nend; in `DatePickerInput` it is the whole field, which there is a button and not a segmented field.",
@@ -10947,7 +10947,7 @@
           "slots": [
             {
               "name": "handleProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The drag handle. It only exists with `withHandle`, and it carries `data-dragging`. The node\nbeing dragged has no slot: dnd-kit moves it with a computed `transform`.",
@@ -11138,7 +11138,7 @@
             },
             {
               "name": "handleProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The handle of each row. It spreads over ALL of them and only exists with `withHandle`. The rows\nthemselves have no slot: they carry the ref and the `transform` dnd-kit writes while sorting.",
@@ -11660,7 +11660,7 @@
         },
         {
           "name": "zoneProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The drop zone, which is the button. It carries `data-drag`, which is where its highlight comes from.",
@@ -11788,7 +11788,7 @@
         },
         {
           "name": "imageProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button image. Its `src` and `alt` come from the component props.",
@@ -11916,7 +11916,7 @@
         },
         {
           "name": "descriptionProps",
-          "type": "import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Text/Text.types\").TextSlotProps",
+          "type": "TextSlotProps",
           "required": false,
           "default": null,
           "doc": "The description, forwarded to the `EmptyState`. Only rendered with `description`.",
@@ -11948,7 +11948,7 @@
         },
         {
           "name": "titleProps",
-          "type": "import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Text/Text.types\").TextSlotProps",
+          "type": "TextSlotProps",
           "required": false,
           "default": null,
           "doc": "The title, forwarded to the slot of the `EmptyState` the module mounts inside.",
@@ -12665,7 +12665,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the file browser and shows the chosen files. The native `input` has no\nslot: it is hidden, and everything it accepts — `accept`, `multiple`, `capture`, `name` — is\nalready a prop.",
@@ -13125,7 +13125,7 @@
             },
             {
               "name": "linkProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The brand link that wraps the logo. Only rendered with `logo`. Its element comes from\n`component`, or from `href`: with `href` it is an `a`, without it a `span`. Neither goes\nthrough `Box`, so it does not accept style props.",
@@ -13955,7 +13955,7 @@
         },
         {
           "name": "inputProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The search field, which is the `combobox`.",
@@ -14027,7 +14027,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the search. Only exists with `withTrigger`; turn it off if you open it from elsewhere.",
@@ -14073,7 +14073,7 @@
         },
         {
           "name": "gradient",
-          "type": "{ from: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; to: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
+          "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
           "default": "\"brand\"",
           "doc": null,
@@ -14161,7 +14161,7 @@
         },
         {
           "name": "gradient",
-          "type": "{ from: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; to: import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/tokens/dist/index\").ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
+          "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
           "default": "\"brand\"",
           "doc": null,
@@ -15469,7 +15469,7 @@
       "slots": [
         {
           "name": "tileImageProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The thumbnail of each tile. Its `alt` comes from the image, and it is only rendered when the tile is not pressable.",
@@ -17309,7 +17309,7 @@
         },
         {
           "name": "imageProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The image. It carries `data-panning`, which is what changes its cursor while dragging.",
@@ -17325,7 +17325,7 @@
         },
         {
           "name": "thumbImageProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The image of each thumbnail.",
@@ -17333,7 +17333,7 @@
         },
         {
           "name": "thumbProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every thumbnail. It spreads over all of them; the current one carries `aria-current`.",
@@ -19118,7 +19118,7 @@
         },
         {
           "name": "searchProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The search field. It spreads AFTER the aria combobox props and after the component keyboard\nhandler, so an `onKeyDown` here takes out backspace-to-remove.",
@@ -19702,7 +19702,7 @@
             },
             {
               "name": "overflowProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "The dropdown for the links that do not fit. Only with `overflowMenu`, and only if any are left over.",
@@ -19710,7 +19710,7 @@
             },
             {
               "name": "overflowTriggerProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "Its trigger, the three-dot one.",
@@ -20503,7 +20503,7 @@
       "slots": [
         {
           "name": "controlProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every button: arrows and numbers. It spreads over ALL of them, the active one included.",
@@ -21380,7 +21380,7 @@
       "slots": [
         {
           "name": "surfaceProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The player inside the frame. It is the only node in the catalogue that renders a peer —\nreact-player — and that is why it is typed with the attributes of the `video` it renders and not\nwith `BoxSlotProps`: the component governs its `src`, its size and its handlers.",
@@ -22988,7 +22988,7 @@
         },
         {
           "name": "defaultFilterState",
-          "type": "Readonly<Record<string, import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Filters/Filters.types\").FilterValue>>",
+          "type": "Readonly<Record<string, FilterValue>>",
           "required": false,
           "default": null,
           "doc": null,
@@ -23020,7 +23020,7 @@
         },
         {
           "name": "filterState",
-          "type": "Readonly<Record<string, import(\"C:/Users/Skr13/Documents/GitHub/Nebula/packages/web/dist/components/Filters/Filters.types\").FilterValue>>",
+          "type": "Readonly<Record<string, FilterValue>>",
           "required": false,
           "default": null,
           "doc": null,
@@ -24017,7 +24017,7 @@
           "slots": [
             {
               "name": "tabProps",
-              "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+              "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
               "required": false,
               "default": null,
               "doc": "Every tab. It spreads over ALL of them. The indicator is NOT exposed: motion moves it.",
@@ -24309,7 +24309,7 @@
         },
         {
           "name": "triggerProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The button that opens the list.",
@@ -24525,7 +24525,7 @@
         },
         {
           "name": "canvasProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The signature canvas. It carries the pointer handlers of the stroke, so an `onPointerDown` here\nreplaces them; its height is written after the slot, because it comes from `height`.",
@@ -26867,7 +26867,7 @@
         },
         {
           "name": "inputProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "The text field. It spreads AFTER the component keyboard handler, so an `onKeyDown` here takes out\nadd-on-Enter and backspace-to-remove.",
@@ -28225,7 +28225,7 @@
         },
         {
           "name": "itemProps",
-          "type": "Omit<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").DetailedHTMLProps<import(\"C:/Users/Skr13/Documents/GitHub/Nebula/node_modules/.pnpm/@types+react@19.2.17/node_modules/@types/react/index\").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
           "required": false,
           "default": null,
           "doc": "Every option. It spreads over all of them.",
