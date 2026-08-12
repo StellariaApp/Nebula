@@ -79,7 +79,6 @@ export const indicator = recipe({
     "@layer": {
       [base_layer]: {
         position: "absolute",
-        top: `calc(${vars.space.u2_5} - 1px)`,
         bottom: vars.space.xs,
         height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)`,
         insetInlineStart: 0,
@@ -93,10 +92,22 @@ export const indicator = recipe({
   },
   variants: {
     size: {
-      sm: { height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.6)` },
-      md: { height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)` },
-      lg: { height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2.4)` },
-      xl: { height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2.8)` },
+      sm: {
+        height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.6)`,
+        top: `calc(${vars.space.u2_5} - 3px)`,
+      },
+      md: {
+        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)`,
+        top: `calc(${vars.space.u2_5} - 1px)`,
+      },
+      lg: {
+        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2.4)`,
+        top: `calc(${vars.space.u2_5} + 1px)`,
+      },
+      xl: {
+        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2.8)`,
+        top: `calc(${vars.space.u2_5} + 3px)`,
+      },
     },
     flow: {
       row: {},

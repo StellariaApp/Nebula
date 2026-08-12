@@ -15,9 +15,9 @@ import * as variables from "./Rating.vars.css.js";
 import type { RatingProps } from "./Rating.types.js";
 import { Star } from "../../glyphs/index.js";
 
-const STAR = <Star fill="currentColor" stroke="none" />;
+const STAR = <Star width="80%" height="80%" fill="currentColor" stroke="none" />;
 
-const EMPTY_STAR = <Star strokeWidth={1.6} />;
+const EMPTY_STAR = <Star width="70%" height="70%" strokeWidth={1.6} />;
 
 function Round(value: number, fractions: number): number {
   return Math.round(value * fractions) / fractions;
