@@ -1,13 +1,13 @@
-name: Gates
+name: Gates y publicacion
 
 on:
   push:
     branches: [main]
   pull_request:
 
-concurrency:
-  group: gates-${{ github.ref }}
-  cancel-in-progress: true
+# La concurrencia va POR JOB y no en el workflow: los gates se cancelan cuando
+# llega un push nuevo —lo viejo ya no interesa— pero una publicacion a medias no
+# se puede cancelar sin dejar la mitad de los paquetes en el registro.
 
 env:
   TURBO_TELEMETRY_DISABLED: 1
@@ -22,6 +22,9 @@ jobs:
     name: build · typecheck · lint · test · size · slots · contrast · docs
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    concurrency:
+      group: gates-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
 
@@ -50,6 +53,9 @@ jobs:
     name: axe sobre las stories
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    concurrency:
+      group: a11y-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
 
@@ -101,3 +107,57 @@ jobs:
           echo "Un runner Linux no tiene contra que comparar, y regenerarlo daria"
           echo "falsos positivos sobre el umbral del 0,1 % (ADR-037 §3, ADR-112)."
           echo "Se corre a mano: pnpm visual"
+
+  # Publica lo que `pnpm release` haya versionado, y SOLO si los gates pasaron.
+  #
+  # Antes vivia en su propio workflow y corria en paralelo, asi que un catalogo
+  # con los tests en rojo podia acabar en npm: el job de release solo hacia
+  # `build`. Con `needs` no se publica nada que no haya pasado los ocho gates y
+  # axe.
+  #
+  # No hace falta orquestar tags ni condiciones de version: `changeset publish`
+  # es idempotente y solo manda al registro lo que todavia no esta, asi que este
+  # job corre en cada push a main y no hace nada hasta que una version sube.
+  publish:
+    name: publicar en npm
+    needs: [gates, a11y]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: publish
+      cancel-in-progress: false
+    # `id-token` firma la procedencia; `contents` es para empujar los tags.
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      # El tarball sale de un checkout limpio, no del `dist` que hubiera en una maquina.
+      - run: pnpm turbo build --filter=@stellaria/nebula-web...
+
+      # La procedencia se enciende por entorno, no por bandera: `changeset publish`
+      # solo acepta `--tag`, `--otp` y `--no-git-tag`, y pasa el resto a
+      # `npm publish`, que si lee NPM_CONFIG_PROVENANCE.
+      - name: publicar
+        run: pnpm exec changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+
+      - name: empujar los tags que cree changeset
+        run: git push --follow-tags
