@@ -75,20 +75,11 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 
 ## 4. Cosas que descubrí y conviene que sepas
 
-- **`GlobalSearchResult.href` está declarado y no se usa** (W5.0 P2). Es API pública que W5
-  publica: el tipo lo ofrece, y `grep -rn href packages/web/src/components/GlobalSearch/` solo lo
-  encuentra en el `.types.ts`. `Choose` llama a `result.onSelect` y a `onSelect`, y nunca navega. Un
-  consumidor que lo rellene no obtiene nada. **O se implementa —el resultado se pinta como enlace,
-  que además da clic central y «abrir en pestaña nueva»— o sale del contrato.**
-- **`Card` descarta todos los atributos del DOM.** `CardProps` no extiende
-  `ComponentPropsWithoutRef<"div">` y su raíz destructura de `ExtractStyleProps` solo `className` y
-  `style`, tirando el `rest`. Así que `id`, `data-*` y `aria-*` sobre un `Card` desaparecen sin
-  aviso — y los `data-*` ni siquiera fallan en TypeScript, que los deja pasar siempre. Se descubrió
-  porque `data-pagefind-ignore` se quedaba en el payload RSC sin llegar al DOM. Sus partes
-  (`Card.Badges`, `Card.Meta`) **sí** esparcen el resto, así que la raíz es la incoherente.
-- **`GLOBAL_SEARCH_LABELS.results` mezcla español en unos defectos en inglés**: devuelve
-  `"3 resultados"` junto a `"No results"` y `"Searching…"`. Es cadena visible para el consumidor.
-
+- **Los tres defectos de contrato de W5.0 están CERRADOS** (2026-08-12, commit `54f1abf`).
+  `GlobalSearchResult.href` se implementa como ancla real —clic central y pestaña nueva incluidos—
+  con la regla de que quien reclama el resultado manda; la raíz de `Card` esparce ya los atributos
+  del DOM en sus tres formas y su contrato los declara; y `GLOBAL_SEARCH_LABELS.results` deja de
+  mezclar español. Ocho tests los fijan.
 
 - **P1 queda a medias por decisión del propietario (2026-08-11), y `noJsdoc` no es la medida buena.**
   Hecha la tanda 1: once contratos de la capa de composición —Box, Text, Flex, Center, Container,
