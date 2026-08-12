@@ -33,9 +33,9 @@ const NamingConvention = (global, local, extra = []) => [
 // `styleVariants` en vez de una variante de `recipe`; `Drawer` y `StatusBadge`
 // la reenvían a `Modal` y a `Badge`.
 //
-// Los otros cinco que declaran `radius` —EditorImage, Image, ImageGallery,
-// Progress, Skeleton— no entran: el suyo apunta a un elemento interior, así que
-// `r` no compite con él, redondea otra cosa.
+// Los otros cinco que lo declaraban —EditorImage, Image, ImageGallery, Progress
+// y Skeleton— ya no existen como caso: perdieron `radius` en la enmienda de
+// ADR-119, y lo que llegaba a un elemento interior va ahora por su ranura.
 const SHORT_LIST_RADIUS = [
   "Avatar",
   "Badge",
@@ -66,6 +66,21 @@ export default tseslint.config(
   },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+  {
+    // Los guiones de `scripts/` y `tools/` corren en Node, no en el navegador: sin esto
+    // `console`, `fetch` y `process` salen como `no-undef` y obligan a escribir un CLI mudo.
+    files: ["scripts/**/*.{mjs,js,ts}", "tools/**/*.{mjs,js,ts}", "**/scripts/**/*.{mjs,js,ts}"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
+        Buffer: "readonly",
+        __dirname: "readonly",
+      },
+    },
+  },
   {
     languageOptions: {
       parserOptions: {

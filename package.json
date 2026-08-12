@@ -9,7 +9,6 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "changeset": "changeset",
     "check:contrast": "turbo run check:contrast",
     "check:docs": "turbo run check:docs",
     "check:slots": "turbo run check:slots",
@@ -20,11 +19,11 @@
     "gen:docs": "turbo run gen:docs",
     "gen:palette": "turbo run gen:palette --",
     "lint": "turbo run lint",
-    "release": "changeset publish",
+    "release": "node scripts/release.mjs",
+    "release:dry": "node scripts/release.mjs --dry --bump=minor",
     "size": "turbo run size",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
-    "version:packages": "changeset version",
     "visual": "turbo run visual"
   },
   "devDependencies": {

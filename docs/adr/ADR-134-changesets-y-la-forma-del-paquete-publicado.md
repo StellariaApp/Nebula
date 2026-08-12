@@ -23,8 +23,19 @@ propósito: cada paquete lleva su propia línea, y las dependencias internas se 
 —los dos playgrounds, el theme creator, el sitio y `demos`—, porque changesets pediría versión para
 ellos si no.
 
-Tres guiones en la raíz: `changeset` para declarar el cambio, `version:packages` para aplicarlo y
-`release` para publicar. La publicación real es W5.2.
+**Un solo comando**, `pnpm release`, a petición del propietario. El flujo nativo de changesets son
+tres —declarar el cambio, versionar, publicar— porque están pensados para frecuencias distintas: lo
+primero por cada cambio, lo demás por release. Con un solo mantenedor esa separación es ceremonia, y
+lo que aporta —el changelog escrito por quien sabía qué hacía— se consigue igual redactándolo en el
+momento del release a partir de los commits.
+
+`scripts/release.mjs` pregunta el salto, saca el resumen, escribe el changeset, versiona, commitea y
+empuja. **No publica**: eso es del workflow, por la procedencia. `pnpm release:dry` enseña todo sin
+escribir nada, y `--bump=` salta la pregunta para lo que no tenga terminal.
+
+El resumen sale de Claude por tres vías, la misma cadena que usa fonicredito: `ANTHROPIC_API_KEY` si
+está, el CLI `claude` con la sesión ya iniciada si no, y un fallback determinista sobre los asuntos
+convencionales si tampoco. El release nunca depende de que haya red o clave.
 
 ### 2. El tarball no lleva mapas de fuente
 
@@ -84,4 +95,15 @@ quedan documentados donde un consumidor los busca.
   obligaría a un segundo pipeline y a duplicar los tipos para ganar compatibilidad con
   herramientas que Next 16 y React 19 ya no requieren. Si aparece un consumidor que lo necesite, se
   reabre.
-- El paquete paraguas `@stellaria/nebula` **sigue sin decidir** y es lo único que bloquea W5.2.
+- **Publica el CI, no el portátil.** `.github/workflows/release.yml` corre en cada push a `main` y
+  no hace nada hasta que una versión sube: `changeset publish` es idempotente y solo manda al
+  registro lo que todavía no está, así que no hay que orquestar tags ni condiciones. Los tags por
+  paquete los crea el propio changeset y el workflow los empuja.
+- La razón de que esto viva en CI es `--provenance`: firma el paquete con un enlace verificable al
+  commit y al workflow que lo construyó, y **solo funciona con el OIDC de un runner**. Desde una
+  máquina no se puede, y no se puede añadir después a una versión ya publicada.
+- El `NPM_TOKEN` vive como secreto del repositorio. En un `.env` estaría en disco y en el historial
+  del shell de quien publique.
+- **Corrección a [ADR-013](ADR-013-naming-de-paquetes.md)**: dice que `@stellaria/nebula` v0.0.2
+  existe desde hace tres años. **No existe** — npm devuelve 404, igual que los cinco `nebula-*`. Así
+  que no hay nada que deprecar: el nombre está libre, y la decisión pasa a ser si se reserva.

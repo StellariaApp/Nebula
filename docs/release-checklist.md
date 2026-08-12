@@ -18,8 +18,11 @@ changeset.
 
 ## Hecho en W5.1
 
-- [x] **Changesets** instalado y configurado: versionado independiente, `access: public`, los
-      workspaces no publicables en `ignore`. Guiones `changeset`, `version:packages` y `release`.
+- [x] **Un solo comando**: `pnpm release` pregunta el salto, redacta las notas con Claude a partir de
+      los commits, escribe el changeset, versiona, commitea y empuja. `pnpm release:dry` lo enseña
+      todo sin escribir nada.
+- [x] **Publica el CI**, no el portátil: `.github/workflows/release.yml` con `--provenance`, que solo
+      funciona desde un runner. Corre en cada push a `main` y no hace nada hasta que una versión sube.
 - [x] **`private: true` retirado** de los cinco y `publishConfig.access` puesto.
 - [x] **`engines`, `repository` (con `directory`), `homepage`, `bugs` y `author`** en los cinco. No
       estaban en ninguno.
@@ -37,7 +40,8 @@ changeset.
 
 ## Bloquea W5.2 — necesita tu respuesta
 
-- [ ] **El paquete paraguas `@stellaria/nebula`.** Existe una v0.0.2 publicada hace tres años.
+- [ ] **El paquete paraguas `@stellaria/nebula`.** **No existe**: npm devuelve 404, así que ADR-013
+      se equivocaba al darlo por publicado. El nombre está libre en tu propio scope.
       Las tres salidas, con lo que cuesta cada una:
       - **Meta-paquete que reexporta el core.** Un `pnpm add @stellaria/nebula` y ya. Cómodo, pero
         rompe el aislamiento de subpaths que ADR-014 construyó: si reexporta todo, el consumidor
@@ -47,21 +51,22 @@ changeset.
       - **Solo documentación**: un paquete con README y sin código, que explica el mapa de paquetes.
         Barato y sin trampa, pero es raro en npm.
 
-      **Recomendación: deprecarlo.** El valor del paraguas es la comodidad de un solo install, y en
-      esta librería eso choca de frente con el argumento de los subpaths, que es lo que hace que
-      importar un botón no cueste 130 kB de gráficas.
+      **Recomendación: reservarlo con un paquete de solo documentación.** Como no existe, deprecar no
+      aplica; y reexportar el core choca de frente con el argumento de los subpaths, que es lo que
+      hace que importar un botón no cueste 130 kB de gráficas. Un README que explique el mapa de
+      paquetes cuesta nada y evita que el nombre acabe apuntando a otra cosa.
 
-- [ ] **Quién publica.** Hace falta una cuenta con permiso en la org `stellaria` y un token. Si la
-      publicación va por CI, el token es un secreto del repositorio y conviene decidirlo antes de
-      generar la primera versión.
+- [ ] **`NPM_TOKEN` como secreto del repositorio.** Está en el `.env` local, que es lo correcto para
+      no publicar a mano, pero el workflow lo lee de `secrets.NPM_TOKEN`: hay que darlo de alta en
+      GitHub antes del primer release o la publicación fallará con un 401.
 
 ## Lo que W5.2 hace
 
-1. `pnpm changeset` para la primera versión de los cinco. Con `0.0.0` de partida, decidir si la
-   primera pública es `0.1.0` (API aún móvil) o `1.0.0` (contrato congelado). **Es una decisión, no
-   un trámite**: `1.0.0` compromete a semver desde el minuto uno.
-2. `pnpm version:packages` y revisar el changelog generado.
-3. `pnpm release`.
+1. Dar de alta `NPM_TOKEN` como secreto del repositorio.
+2. `pnpm release`. Con `0.0.0` de partida, `minor` da `0.1.0` y `major` da `1.0.0`. **Es una
+   decisión, no un trámite**: `1.0.0` compromete a semver desde el minuto uno, con el catálogo recién
+   congelado.
+3. Revisar el changelog que generó y ver el workflow publicar.
 4. **Verificación en un Next 16 virgen**: `pnpm create next-app`, instalar los paquetes desde npm
    —no desde el workspace—, montar el provider con un tema y un `Button`, y comprobar que la hoja de
    estilos llega y que no hay parpadeo de esquema.

@@ -1,0 +1,53 @@
+# Publica lo que `pnpm release` haya versionado.
+#
+# No hace falta orquestar tags: `changeset publish` es idempotente —solo sube al registro lo que
+# todavia no esta— asi que este workflow corre en cada push a main y no hace nada hasta que una
+# version cambia. Los tags por paquete los crea el propio changeset.
+#
+# Publica con `--provenance`, que es la razon de que esto viva en CI y no en un portatil: firma el
+# paquete con un enlace verificable al commit y al workflow que lo construyo, y eso solo lo puede
+# hacer un runner con OIDC (ADR-134).
+name: release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # `id-token` es lo que firma la procedencia; `contents` es para empujar los tags.
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      # El tarball sale de un checkout limpio, no del `dist` que hubiera en una maquina.
+      - run: pnpm turbo build --filter=@stellaria/nebula-web...
+
+      - name: publicar
+        run: pnpm exec changeset publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+
+      - name: empujar los tags que cree changeset
+        run: git push --follow-tags
