@@ -63,13 +63,26 @@ lo he empezado. Está escrito en el propio workflow, en docs/03 §4.1 y en la en
 > portada** —su escala, su ritmo, sus patrones— en vez de inventar de cero en cada una.
 > Lo de accesibilidad no espera: un bloqueante de a11y se arregla en cuanto se toca esa zona.
 
-1. **D-2**, arriba. Es una nota en un ADR, no código.
-2. **El gate visual en CI**, si decides que merece el contenedor. Hoy se corre a mano.
-3. Menudencias anotadas y sin tocar:
-   - `apps/playground-web/__snapshots__/visual/__diff__/` probablemente debería estar en
-     `.gitignore`: son las imágenes de diferencia de la última pasada fallida, no baseline.
-   - `pnpm format:check` no entró en el CI. Es un gate razonable, pero hoy fallaría por archivos que
-     tienes en curso, así que no lo he metido sin preguntarte.
+1. **W5.3 — verificar el paquete consumiendolo** en la landing de Rosette. Escrito y sin ejecutar:
+   [prompts/2-web/W5.3-verificacion-en-rosette.md](../prompts/2-web/W5.3-verificacion-en-rosette.md).
+   Es lo que cierra el gate de W5, y llega a tiempo de corregir contrato en `0.2.0`.
+2. **P1 — documentar el contrato**, en la sesion paralela. 27 % de props documentadas.
+3. **W6 — Premium web**: los cinco paquetes de dominio, el registry privado y la mecanica de
+   licencias. Es la ultima fase web del roadmap.
+4. **Deuda del sitio, sin tocar**:
+   - `site-background.tsx` va con `density="md"` y `translucency` 2/4; ADR-129 fija `sm` o menos y
+     `1`. **Verificado el 2026-08-12: sigue abierto.** Uno de los dos tiene que ceder.
+   - Los enlaces del carril no llevan icono, asi que en la barra inferior de movil y en el carril
+     mini de tablet se ven vacios.
+   - El `iframe` de las superficies no repinta al cambiar el tema desde el panel: hereda por
+     `localStorage` al cargar y ahi se queda.
+   - La cache de dev de Turbopack se corrompe y sirve codigo viejo. Se cura borrando
+     `apps/web/.next/dev` entero — no basta con `cache/`, que fue lo que fallo la primera vez.
+5. **Tus decisiones, ninguna bloqueante**:
+   - **El repositorio publico.** Bloquea la procedencia de npm, y ADR-113 ya daba el nucleo por
+     publico. Ver `docs/release-checklist.md`.
+   - **El entorno unico del gate visual** (ADR-037 §3), que es lo que lo mete en CI.
+   - **`pnpm format:check` en CI.**
 
 ---
 
