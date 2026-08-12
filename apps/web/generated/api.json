@@ -38,13 +38,8 @@
       "StatusMapProvider",
       "UnstyledButton"
     ],
-    "defaultUnknown": [
-      "VirtualizedSelect"
-    ],
+    "defaultUnknown": [],
     "noDestructuring": [
-      "AreaChart",
-      "BarChart",
-      "LineChart",
       "SearchableSelect"
     ]
   },
@@ -3379,8 +3374,8 @@
               "name": "curve",
               "type": "\"linear\" | \"monotone\" | \"step\"",
               "required": false,
-              "default": "\"linear\"",
-              "doc": "How the line joins its points. `\"monotone\"` smooths without inventing peaks between them;\n`\"step\"` is the honest one for a value that changes in jumps rather than continuously.",
+              "default": "\"monotone\"",
+              "doc": "How the line joins its points. It smooths by default, which reads well for a trend but implies\nvalues between the points that were never measured; `\"linear\"` claims nothing, and `\"step\"` is\nthe honest one for a value that changes in jumps.",
               "slot": false
             },
             {
@@ -3411,7 +3406,7 @@
               "name": "fillOpacity",
               "type": "number",
               "required": false,
-              "default": null,
+              "default": "0.2",
               "doc": "How solid the fill under the line is. It stays low on purpose: stacked areas at full opacity\nhide each other, and the point of the fill is volume, not colour.",
               "slot": false
             },
@@ -3451,7 +3446,7 @@
               "name": "withDataTable",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
@@ -3467,7 +3462,7 @@
               "name": "withGrid",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether the background grid is drawn.",
               "slot": false
             },
@@ -3475,7 +3470,7 @@
               "name": "withLegend",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Whether the series legend is drawn.",
               "slot": false
             },
@@ -3483,7 +3478,7 @@
               "name": "withTooltip",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
@@ -3651,7 +3646,7 @@
               "name": "withDataTable",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
@@ -3659,7 +3654,7 @@
               "name": "withGrid",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether the background grid is drawn.",
               "slot": false
             },
@@ -3667,7 +3662,7 @@
               "name": "withLegend",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Whether the series legend is drawn.",
               "slot": false
             },
@@ -3675,7 +3670,7 @@
               "name": "withTooltip",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
@@ -3995,8 +3990,8 @@
               "name": "curve",
               "type": "\"linear\" | \"monotone\" | \"step\"",
               "required": false,
-              "default": "\"linear\"",
-              "doc": "How the line joins its points. `\"monotone\"` smooths without inventing peaks between them;\n`\"step\"` is the honest one for a value that changes in jumps rather than continuously.",
+              "default": "\"monotone\"",
+              "doc": "How the line joins its points. It smooths by default, which reads well for a trend but implies\nvalues between the points that were never measured; `\"linear\"` claims nothing, and `\"step\"` is\nthe honest one for a value that changes in jumps.",
               "slot": false
             },
             {
@@ -4059,7 +4054,7 @@
               "name": "withDataTable",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Discloses the same data as a real table under the chart, which is what makes the figures\nreachable rather than merely described. Collapsed by default, so it costs no room.",
               "slot": false
             },
@@ -4067,7 +4062,7 @@
               "name": "withDots",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Whether each point is marked. Worth turning on when the points are few and read as readings,\nand worth leaving off past a few dozen, where the dots merge into the line anyway.",
               "slot": false
             },
@@ -4075,7 +4070,7 @@
               "name": "withGrid",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether the background grid is drawn.",
               "slot": false
             },
@@ -4083,7 +4078,7 @@
               "name": "withLegend",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "false",
               "doc": "Whether the series legend is drawn.",
               "slot": false
             },
@@ -4091,7 +4086,7 @@
               "name": "withTooltip",
               "type": "boolean",
               "required": false,
-              "default": null,
+              "default": "true",
               "doc": "Whether hovering a point opens the tooltip.",
               "slot": false
             },
@@ -7022,8 +7017,8 @@
               "name": "createLabel",
               "type": "((label: string) => ReactNode)",
               "required": false,
-              "default": "(label) => `Crear «${label}»`",
-              "doc": null,
+              "default": "(label) => `Create “${label}”`",
+              "doc": "Renders the description of the create entry from what has been typed. It lands as the entry's\ndescription, not its label — the label is always the raw text, so the option still matches what\nthe user believes they are creating. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -7822,8 +7817,8 @@
               "name": "virtualizeFrom",
               "type": "number",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "50",
+              "doc": "How many options it takes before the list starts virtualising. Below the threshold it renders\nevery row, which keeps the menu measurable and the scroll native; above it, only the visible\nwindow is in the DOM. This is the one thing that separates it from `SearchableSelect`.",
               "slot": false
             }
           ],
@@ -7883,9 +7878,7 @@
               "count": 127
             }
           ],
-          "gaps": [
-            "default"
-          ],
+          "gaps": [],
           "subComponents": []
         }
       ]

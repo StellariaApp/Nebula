@@ -17,7 +17,7 @@ export function CreatableSelect(props: CreatableSelectProps): ReactElement {
   const {
     data,
     onCreate,
-    createLabel = (label) => `Crear «${label}»`,
+    createLabel = (label) => `Create “${label}”`,
     shouldCreate = DefaultShouldCreate,
     onChange,
     onInputChange,

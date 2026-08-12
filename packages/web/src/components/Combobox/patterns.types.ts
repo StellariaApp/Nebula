@@ -21,7 +21,12 @@ export interface CreatableSelectProps extends Omit<ComboboxProps, "allowsCustomV
    * refuses the creation — the place to reject a name the server has already taken.
    */
   onCreate?: ((label: string) => SelectOption | string | null) | undefined;
-  /** @default (label) => `Crear «${label}»` */
+  /**
+   * Renders the description of the create entry from what has been typed. It lands as the entry's
+   * description, not its label — the label is always the raw text, so the option still matches what
+   * the user believes they are creating. English by default (ADR-120).
+   * @default (label) => `Create “${label}”`
+   */
   createLabel?: ((label: string) => ReactNode) | undefined;
   /**
    * Decides whether the create entry is offered for what has been typed. The default hides it for
@@ -63,4 +68,12 @@ export interface AsyncSelectProps extends Omit<
   initialData?: readonly SelectOption[] | undefined;
 }
 
-export type VirtualizedSelectProps = Omit<ComboboxProps, "allowsCustomValue">;
+export interface VirtualizedSelectProps extends Omit<ComboboxProps, "allowsCustomValue"> {
+  /**
+   * How many options it takes before the list starts virtualising. Below the threshold it renders
+   * every row, which keeps the menu measurable and the scroll native; above it, only the visible
+   * window is in the DOM. This is the one thing that separates it from `SearchableSelect`.
+   * @default 50
+   */
+  virtualizeFrom?: number | undefined;
+}

@@ -111,9 +111,10 @@ export interface BarChartProps extends ChartBaseProps {
 
 export interface LineChartProps extends ChartBaseProps {
   /**
-   * How the line joins its points. `"monotone"` smooths without inventing peaks between them;
-   * `"step"` is the honest one for a value that changes in jumps rather than continuously.
-   * @default "linear"
+   * How the line joins its points. It smooths by default, which reads well for a trend but implies
+   * values between the points that were never measured; `"linear"` claims nothing, and `"step"` is
+   * the honest one for a value that changes in jumps.
+   * @default "monotone"
    */
   curve?: "linear" | "monotone" | "step" | undefined;
   /**

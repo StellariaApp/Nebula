@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
-import { BarChart } from "../CartesianCharts.js";
+import { BarChart } from "../BarChart.js";
 import { Points, SparkLine } from "../SparkLine.js";
 import { Direction, TrendIndicator } from "../TrendIndicator.js";
 
