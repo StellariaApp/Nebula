@@ -26,18 +26,14 @@
       "ModalDelete",
       "HoverCard",
       "KanbanBoard",
-      "Loader",
       "NProgress",
       "NavDivider",
       "NavLogo",
-      "NoiseOverlay",
-      "Overlay",
       "PermissionGate",
       "Reveal",
       "SectionHeading",
       "SegmentContentItem",
       "SegmentControlItem",
-      "StarField",
       "StatusBadge",
       "StatusMapProvider",
       "UnstyledButton"
@@ -1451,7 +1447,7 @@
           "type": "BlurLevel",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "How far what is behind is blurred. `md` is the operational ceiling; anything above belongs to\nthe occasional full-screen overlay and nowhere else. `\"none\"` drops the effect and leaves the\ntint alone.",
           "slot": false
         },
         {
@@ -1459,7 +1455,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Centres the content. Passing `children` turns it on anyway, so this only decides anything for a\nlayer that carries none.",
           "slot": false
         },
         {
@@ -1467,7 +1463,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What rides on top of the blur. Passing anything also takes the layer out of `aria-hidden`:\nempty, it is invisible to assistive tech, which is what a bare blur should be.",
           "slot": false
         },
         {
@@ -1483,7 +1479,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"surface.base\"",
-          "doc": null,
+          "doc": "The tint laid over the blur. It defaults to the base surface so the layer reads as the page\nfading out rather than as a colour arriving.",
           "slot": false
         },
         {
@@ -1491,7 +1487,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Covers the viewport instead of the nearest positioned ancestor. Without it the layer only covers\na region that is already positioned — over a static parent it will spill.",
           "slot": false
         },
         {
@@ -1499,7 +1495,7 @@
           "type": "number",
           "required": false,
           "default": "0.35",
-          "doc": null,
+          "doc": "How much of the tint lands. It is deliberately low, because here the blur is what hides the\ncontent. When the blur cannot run — `blur=\"none\"`, or a theme with glass off — the veil is\nforced up to 0.94 instead, so the layer never stops concealing what is behind it.",
           "slot": false
         },
         {
@@ -13762,8 +13758,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -13771,7 +13767,7 @@
           "type": "GlassFallbackSurface",
           "required": false,
           "default": "\"overlay\"",
-          "doc": null,
+          "doc": "The solid surface painted when the theme has `effects.glass.enabled` off. Not a nicety: on those\nthemes it is the component's entire appearance, so pick the one that belongs where the pane sits\nrather than leaving the default to decide.",
           "slot": false
         },
         {
@@ -13779,7 +13775,7 @@
           "type": "GlassLevel",
           "required": false,
           "default": "\"default\"",
-          "doc": null,
+          "doc": "Which step of the theme's `effects.glass` to take: background, border tint and backdrop filter\ncome as a set, so this is one dial and not three. It is read only while the theme keeps glass\nenabled — with it off, `fallbackSurface` decides everything instead.",
           "slot": false
         },
         {
@@ -13787,7 +13783,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Adds the grain layer over the pane. It also needs the theme's glass enabled — with glass off it\npaints nothing at all, rather than falling back to grain over the solid surface.",
           "slot": false
         },
         {
@@ -13795,7 +13791,7 @@
           "type": "\"none\" | ShadowLevel",
           "required": false,
           "default": "\"none\"",
-          "doc": null,
+          "doc": "Depth of the drop shadow under the pane.",
           "slot": false
         },
         {
@@ -13803,7 +13799,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether the hairline is drawn. Glass leans on its edge to read as a pane at all: without one it\nblurs into whatever it sits on, which is why this starts on and rarely wants turning off.",
           "slot": false
         }
       ],
@@ -14122,7 +14118,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Sends an arc travelling around the ring. It needs the theme's `motion.tier` above `minimal` and\nat least one edge left in `edges`; failing either, the static gradient ring is what you get.",
           "slot": false
         },
         {
@@ -14145,8 +14141,8 @@
           "name": "component",
           "type": "(ElementType & C)",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints.",
           "slot": false
         },
         {
@@ -14154,7 +14150,7 @@
           "type": "readonly GradientBorderEdge[]",
           "required": false,
           "default": "[1, 2, 3, 4]",
-          "doc": null,
+          "doc": "Which sides the beam lights, clockwise from the top. Read only while `beam` runs — on a static\nring the gradient always goes all the way round.",
           "slot": false
         },
         {
@@ -14162,7 +14158,7 @@
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
           "default": "\"brand\"",
-          "doc": null,
+          "doc": "A theme gradient role, or a literal `{ from, to }` pair. With `beam` running it stops painting\nthe ring — the ring drops to the plain border colour and the gradient moves into the travelling\narc, which is the only way the arc is visible against it.",
           "slot": false
         },
         {
@@ -14170,7 +14166,7 @@
           "type": "GradientBorderSequence",
           "required": false,
           "default": "\"continuous\"",
-          "doc": null,
+          "doc": "How the arcs are spaced in time. `\"continuous\"` chains them back to back over the edges that are\nlit, so the beam never breaks; `\"spaced\"` keeps every edge in its own quarter of the cycle, so\ndropping one leaves a gap rather than closing it up.",
           "slot": false
         },
         {
@@ -14178,7 +14174,7 @@
           "type": "GradientBorderSurface",
           "required": false,
           "default": "\"none\"",
-          "doc": null,
+          "doc": "What fills the inside of the ring. `\"none\"` leaves it transparent, which is what keeps this a\nring drawn around existing content rather than a card with a gradient edge.",
           "slot": false
         },
         {
@@ -14186,7 +14182,7 @@
           "type": "number",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "Thickness of the ring, as a raw length.",
           "slot": false
         }
       ],
@@ -17492,7 +17488,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale it is drawn from, at the 600 step. Tint it to the surface it sits on, not to the\naction it belongs to — a loader is not a control.",
           "slot": false
         },
         {
@@ -17500,15 +17496,15 @@
           "type": "string",
           "required": false,
           "default": "\"Loading\"",
-          "doc": null,
+          "doc": "The accessible name. The loader is a live `status` region with no visible text, so this is the\nwhole of what is announced; say what is loading, not that something is. It is English by\ndefault (ADR-120); translate it at the call site.",
           "slot": false
         },
         {
           "name": "size",
           "type": "Size | Unit",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"md\"",
+          "doc": "The loader's square, as a control step or as any length. It takes a raw value so it can be\nmatched to the control it sits inside rather than to the nearest step.",
           "slot": false
         },
         {
@@ -17516,7 +17512,7 @@
           "type": "LoaderType",
           "required": false,
           "default": "\"spinner\"",
-          "doc": null,
+          "doc": "Which shape spins. They differ in feel, not in meaning: the spinner for a wait of unknown\nlength, the dots for one expected to be short, the bars where a row of them has to read as a\nplaceholder.",
           "slot": false
         }
       ],
@@ -20002,7 +19998,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Pins the grain to the viewport instead of the region around it, which is what a page-wide film\nneeds — one fixed layer rather than one per section.",
           "slot": false
         },
         {
@@ -20010,7 +20006,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "How strong the grain is. Left out it takes the theme's `effects.glass.noiseOpacity`; with the\ntheme's glass off it is forced to zero whatever you pass here, so this cannot bring the texture\nback on a theme that has turned effects down.",
           "slot": false
         },
         {
@@ -20018,7 +20014,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Where the layer sits in the stack. Left out it takes its turn among its siblings, which puts it\nover everything declared before it and under everything after.",
           "slot": false
         }
       ],
@@ -20311,7 +20307,7 @@
           "type": "OverlayBlur",
           "required": false,
           "default": "\"none\"",
-          "doc": null,
+          "doc": "Blurs what is behind, on top of the tint. This component tints first and blurs as an extra;\n`BlurOverlay` is the other way round, and is the one to reach for when the blur is the point.",
           "slot": false
         },
         {
@@ -20319,7 +20315,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Centres the content. Passing `children` turns it on anyway, so this only decides anything for\nan overlay that carries none.",
           "slot": false
         },
         {
@@ -20327,7 +20323,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What rides on top of the veil — a loader, a message. Passing anything also takes the layer out\nof `aria-hidden`: empty, the scrim is invisible to assistive tech, which is what a plain scrim\nshould be.",
           "slot": false
         },
         {
@@ -20343,7 +20339,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"black\"",
-          "doc": null,
+          "doc": "The tint. Naming one of the theme's scales takes its 600 step; a role path or a hex is used as\nwritten. Black is the neutral that does not push the content behind it towards a hue.",
           "slot": false
         },
         {
@@ -20351,7 +20347,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Covers the viewport instead of the nearest positioned ancestor. Without it the overlay only\ncovers a region that is already positioned — over a static parent it will spill.",
           "slot": false
         },
         {
@@ -20359,7 +20355,7 @@
           "type": "number",
           "required": false,
           "default": "0.6",
-          "doc": null,
+          "doc": "How much of the tint lands. It is the whole difference between a scrim that dismisses a modal\nand a veil that dims a card, so it moves with the job: past roughly 0.8 nothing behind is\nreadable any more.",
           "slot": false
         },
         {
@@ -24667,7 +24663,7 @@
           "type": "SkeletonAnimation",
           "required": false,
           "default": "\"shimmer\"",
-          "doc": null,
+          "doc": "How the block moves while it waits. `\"none\"` is not just a preference — it is what a long list\nof skeletons wants, since a screenful of shimmer reads as noise rather than as progress.",
           "slot": false
         },
         {
@@ -24675,7 +24671,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The real content, rendered bare once `loading` is false. It never shows underneath the\nplaceholder: the two are branches, not layers.",
           "slot": false
         },
         {
@@ -24699,7 +24695,7 @@
           "type": "Unit",
           "required": false,
           "default": "\"1em\"",
-          "doc": null,
+          "doc": "How tall the block is. In `em` on purpose, so a placeholder standing in for text keeps the\nheight of the line it replaces and the page does not jump when the content lands.",
           "slot": false
         },
         {
@@ -24707,7 +24703,7 @@
           "type": "string",
           "required": false,
           "default": "\"Loading content\"",
-          "doc": null,
+          "doc": "The accessible name of the `status` region. With more than one line the lines are `aria-hidden`\nand only the stack carries it, so the wait is announced once and not once per line. It is\nEnglish by default (ADR-120); translate it at the call site.",
           "slot": false
         },
         {
@@ -24723,7 +24719,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether the placeholder is showing. It starts ON, which is what lets the component wrap the real\ncontent and swap itself out — `loading={isPending}` and no ternary at the call site.",
           "slot": false
         },
         {
@@ -24731,7 +24727,7 @@
           "type": "Unit",
           "required": false,
           "default": "\"100%\"",
-          "doc": null,
+          "doc": "How wide the block is. It fills its container by default, so the width usually wants setting on\nwhatever holds it rather than here.",
           "slot": false
         }
       ],
@@ -25466,8 +25462,8 @@
           "name": "accentColor",
           "type": "ColorExtended",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"accent.400\"",
+          "doc": "The tint of the occasional accent star, which also carries a wider glow.",
           "slot": false
         },
         {
@@ -25475,7 +25471,7 @@
           "type": "number",
           "required": false,
           "default": "5",
-          "doc": null,
+          "doc": "One star in every this many takes `accentColor`. It feeds the generator, so changing it does not\nmerely recolour the accents — it picks a different set of them.",
           "slot": false
         },
         {
@@ -25483,7 +25479,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Adds the slow drifting colour blobs behind the field. It is a second effect on top of an effect,\nso it belongs only where the field is unquestionably the region's focus.",
           "slot": false
         },
         {
@@ -25499,7 +25495,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"text.primary\"",
-          "doc": null,
+          "doc": "The colour of grid and stars alike: the grid takes `translucency` of it, the stars 70 %. It is a\ntext role by default so the field follows the theme's ink rather than a fixed white.",
           "slot": false
         },
         {
@@ -25507,7 +25503,7 @@
           "type": "StarDensity",
           "required": false,
           "default": "\"md\"",
-          "doc": null,
+          "doc": "How many stars. The cost is paid once, in nodes and in a CSS animation the GPU composites — it\nis not a per-frame cost on the main thread, so density is a visual decision rather than a\nbudget one.",
           "slot": false
         },
         {
@@ -25515,7 +25511,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "The elliptical mask that dissolves both layers towards the edges. It is what stops the field\nending in a visible seam where its region does.",
           "slot": false
         },
         {
@@ -25523,7 +25519,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Pins the field to the viewport. `parallax` already does this, so the two rarely go together.",
           "slot": false
         },
         {
@@ -25531,7 +25527,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether the rule grid is drawn behind the stars.",
           "slot": false
         },
         {
@@ -25539,7 +25535,7 @@
           "type": "number",
           "required": false,
           "default": "56",
-          "doc": null,
+          "doc": "Side of a grid cell, in pixels. Read only with `grid`.",
           "slot": false
         },
         {
@@ -25547,7 +25543,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Drifts grid and stars at different rates as the page scrolls, and pins the field to the viewport\nto do it. It never subscribes on a coarse pointer or under reduced motion: on touch that is a\nperformance stop, not a preference one.",
           "slot": false
         },
         {
@@ -25555,7 +25551,7 @@
           "type": "RefObject<HTMLElement | null>",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Whose scroll drives the parallax. Left out it listens to the window, which is wrong whenever the\npage scrolls inside a container instead of the document — there the field would simply not move.",
           "slot": false
         },
         {
@@ -25563,7 +25559,7 @@
           "type": "number",
           "required": false,
           "default": "1",
-          "doc": null,
+          "doc": "Seeds the low-discrepancy sequence the star layout comes from. The layout is generated, never\nrandom, so server and client agree and hydration holds; change this for a different sky at the\nsame density.",
           "slot": false
         },
         {
@@ -25571,7 +25567,7 @@
           "type": "number",
           "required": false,
           "default": "4",
-          "doc": null,
+          "doc": "The grid's alpha, as a percentage of `color`. ADR-129 pins it at 1 for the page-wide ambient\nlayer; the default belongs to a hero, where the field is the region's one dominant effect.",
           "slot": false
         },
         {
@@ -25579,7 +25575,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether the stars pulse. It stops on its own under `prefers-reduced-motion` and under\n`motion.tier: \"minimal\"`, and the field is swapped for an even static one — not frozen wherever\neach star happened to be, which would leave some of them invisible.",
           "slot": false
         },
         {

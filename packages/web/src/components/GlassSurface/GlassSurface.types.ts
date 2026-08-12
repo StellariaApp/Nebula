@@ -15,11 +15,35 @@ export type GlassFallbackSurface = "base" | "raised" | "overlay" | "sunken";
  * nest: two chained `backdrop-filter` layers cost a repaint per scroll and stop reading as material.
  */
 export interface GlassSurfaceOwnProps extends Omit<BoxOwnProps, "component" | "shadow"> {
+  /** The element it paints. @default "div" */
   component?: ElementType | undefined;
+  /**
+   * Which step of the theme's `effects.glass` to take: background, border tint and backdrop filter
+   * come as a set, so this is one dial and not three. It is read only while the theme keeps glass
+   * enabled — with it off, `fallbackSurface` decides everything instead.
+   * @default "default"
+   */
   level?: GlassLevel | undefined;
+  /**
+   * Whether the hairline is drawn. Glass leans on its edge to read as a pane at all: without one it
+   * blurs into whatever it sits on, which is why this starts on and rarely wants turning off.
+   * @default true
+   */
   withBorder?: boolean | undefined;
+  /**
+   * Adds the grain layer over the pane. It also needs the theme's glass enabled — with glass off it
+   * paints nothing at all, rather than falling back to grain over the solid surface.
+   * @default false
+   */
   noise?: boolean | undefined;
+  /** Depth of the drop shadow under the pane. @default "none" */
   shadow?: ShadowLevel | "none" | undefined;
+  /**
+   * The solid surface painted when the theme has `effects.glass.enabled` off. Not a nicety: on those
+   * themes it is the component's entire appearance, so pick the one that belongs where the pane sits
+   * rather than leaving the default to decide.
+   * @default "overlay"
+   */
   fallbackSurface?: GlassFallbackSurface | undefined;
 }
 
