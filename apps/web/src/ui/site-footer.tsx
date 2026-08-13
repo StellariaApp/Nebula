@@ -28,6 +28,7 @@ export async function SiteFooter({
         component={Link}
         logo={<Logo id={id} height={24} />}
         href="/"
+        aria-label={dict["site.name"]}
         description={dict["site.tagline"]}
       />
       <Footer.Group title={dict["nav.section.learn"]}>
@@ -53,9 +54,7 @@ export async function SiteFooter({
         </Footer.Group.Link>
       </Footer.Group>
       <Footer.Group title="GitHub">
-        <Footer.Group.Link href={REPO_URL}>
-          {dict["home.cta.source"]}
-        </Footer.Group.Link>
+        <Footer.Group.Link href={REPO_URL}>{dict["home.cta.source"]}</Footer.Group.Link>
       </Footer.Group>
       <Footer.Legal>{dict["home.legal"]}</Footer.Legal>
     </Footer>
