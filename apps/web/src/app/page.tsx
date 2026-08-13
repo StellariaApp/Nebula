@@ -1,88 +1,22 @@
 import type { Metadata } from "next";
 
-import MotionLab from "@stellaria/nebula-demos/Patterns/MotionLab";
-import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
-import {
-  Badge,
-  Box,
-  Button,
-  Card,
-  Code,
-  Feature,
-  Flex,
-  GlassSurface,
-  GradientText,
-  Hero,
-  Main,
-  Reveal,
-  SimpleGrid,
-  Stat,
-  Text,
-} from "@stellaria/nebula-web";
+import { Badge, Box, Button, GradientText, Hero, Main } from "@stellaria/nebula-web";
 
+import { HeroPreview } from "../islands/hero-preview";
 import { CATALOG } from "../lib/catalog";
 import { GuidesHome } from "../lib/content";
-import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 import { Dict } from "../lib/dictionary";
 import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
-import { HeroPreview } from "../islands/hero-preview";
+import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
 import { SiteNav } from "../islands/site-nav";
 import { ThemePanel } from "../islands/theme-panel";
-import { Band } from "../ui/band";
+import type { Dictionary } from "../lib/dictionary";
 import { SiteBackground } from "../ui/site-background";
 import { SiteFooter } from "../ui/site-footer";
-import type { Dictionary } from "../lib/dictionary";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
-
-const PILLARS = ["theme", "a11y", "budget"] as const;
-
-const FRAMEWORKS = ["Next.js", "Vite", "React Router"];
-
-const INSTALL = "pnpm add @stellaria/nebula-web";
-
-const GLYPH = {
-  theme: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  a11y: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <circle cx="12" cy="4" r="2" />
-      <path d="M4 8h16M12 10v10M12 14l-4 6M12 14l4 6" />
-    </svg>
-  ),
-  budget: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path d="M3 17l5-6 4 4 5-8 4 5" />
-    </svg>
-  ),
-};
 
 function Bar({ dict, guides }: { dict: Dictionary; guides: string }) {
   return (
@@ -108,21 +42,6 @@ export default async function Home() {
   const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
   const guides = await GuidesHome(lang);
-
-  const NUMBERS = [
-    {
-      label: dict["home.stat.components"],
-      value: String(CATALOG.count),
-      description: dict["home.stat.components.diff"],
-    },
-    { label: dict["home.stat.gates"], value: "9", description: dict["home.stat.gates.note"] },
-    {
-      label: dict["home.stat.styleProps"],
-      value: "128",
-      description: dict["home.stat.styleProps.note"],
-    },
-    { label: dict["home.stat.themes"], value: "7", description: dict["home.stat.themes.note"] },
-  ];
 
   const LINKED_DATA = {
     "@context": "https://schema.org",
@@ -229,7 +148,7 @@ export default async function Home() {
             />
           }
         />
-
+        {/* 
         <Band
           glass
           level="major"
@@ -326,7 +245,7 @@ export default async function Home() {
               </Button>
             </Box>
           </Box>
-        </Band>
+        </Band> */}
       </Main>
     </>
   );
