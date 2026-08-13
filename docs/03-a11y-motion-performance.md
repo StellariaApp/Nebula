@@ -150,13 +150,25 @@ Reglas transversales:
 
 ### 4.1 Qué corre en CI y qué no
 
-`.github/workflows/gates.yml`, en cada PR y en cada push a `main`:
+`.github/workflows/gates.yml` se dispara en cada push a `main`, en cada PR y a mano
+(`workflow_dispatch`), pero **no corre lo mismo en cada caso** ([ADR-139](adr/ADR-139-los-gates-completos-se-atan-al-release.md)):
 
-| job     | gates                                                                                                       |
-| ------- | ----------------------------------------------------------------------------------------------------------- |
-| `gates` | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` · `check:budget` |
-| `a11y`  | axe sobre todas las stories (gate 1)                                                                        |
+| cuándo                                              | job       | gates                                                                                                       |
+| --------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| push corriente a `main`                             | `guardia` | typecheck · lint                                                                                            |
+| commit de release · PR · dispatch                   | `gates`   | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` · `check:budget` |
+| commit de release · PR · dispatch                   | `a11y`    | axe sobre todas las stories (gate 1)                                                                        |
+| commit de release, y solo si los dos anteriores van | `publish` | —                                                                                                           |
 
-`gates` corre con `turbo --continue`: un PR ve **todos** los fallos en la primera vuelta en vez de descubrirlos de uno en uno.
+La línea que separa las dos ramas es una sola condición sobre el asunto del commit
+(`chore(release):`, que solo escribe `scripts/release.mjs`), escrita una vez y una vez invertida: son
+complementarias, así que un commit de release no paga la guardia además de los gates.
 
-**El gate 8 —regresión visual— no corre en CI**, y es el único hueco. Su baseline está versionado por plataforma y hoy solo existe el de `win32`; un runner Linux no tendría contra qué comparar, y regenerarlo daría falsos positivos por encima del umbral del 0,1 %. El «entorno único» que pide ADR-037 §3 sigue sin candidato: cuando lo tenga será un contenedor con fuentes fijadas, y esa es una decisión aparte ([enmienda de ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md)). Mientras tanto se corre a mano con `pnpm visual`, y el workflow lleva un job que no hace otra cosa que recordarlo en cada PR.
+**Entre releases, `main` solo verifica typecheck y lint.** El resto sigue corriendo en local con
+`pnpm turbo <tarea>` y corre entero antes de publicar. El porqué —30 min de cómputo por commit para
+llegar a un `publish` que casi siempre no hacía nada, más las cancelaciones encadenadas— y el riesgo
+que esto acepta están en ADR-139.
+
+`gates` corre con `turbo --continue`: se ven **todos** los fallos en la primera vuelta en vez de descubrirlos de uno en uno.
+
+**El gate 8 —regresión visual— no corre en CI**, y es el único hueco. Su baseline está versionado por plataforma y hoy solo existe el de `win32`; un runner Linux no tendría contra qué comparar, y regenerarlo daría falsos positivos por encima del umbral del 0,1 %. El «entorno único» que pide ADR-037 §3 sigue sin candidato: cuando lo tenga será un contenedor con fuentes fijadas, y esa es una decisión aparte ([enmienda de ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md)). Mientras tanto se corre a mano con `pnpm visual`, y el workflow lleva un job que no hace otra cosa que recordarlo cada vez que corren los gates completos —PR, dispatch y, sobre todo, el commit de release, que es cuando importa.

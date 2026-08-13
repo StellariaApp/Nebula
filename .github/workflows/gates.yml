@@ -4,15 +4,67 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 # La concurrencia va POR JOB y no en el workflow: los gates se cancelan cuando
 # llega un push nuevo —lo viejo ya no interesa— pero una publicacion a medias no
 # se puede cancelar sin dejar la mitad de los paquetes en el registro.
+#
+# QUE CORRE CUANDO (ADR-139)
+#
+# El disparador sigue siendo cada push a main, pero el trabajo esta partido en
+# dos y la linea que los separa es una sola condicion, repetida invertida:
+#
+#   `github.event_name == 'push' && !startsWith(head_commit.message, 'chore(release):')`
+#
+#   - se cumple  → push corriente a main: corre SOLO `guardia` (typecheck + lint).
+#   - no se cumple → commit de release, PR o dispatch manual: corren los diez
+#     gates, axe y —si ademas es un push a main— la publicacion.
+#
+# Las dos ramas son complementarias y nunca coinciden, asi que un commit de
+# release no paga `guardia` ademas de `gates`: lo que uno cubre el otro lo cede.
+#
+# Por que el asunto del commit y no un filtro `paths`: con `paths` el run ni se
+# creaba, y entonces tampoco habria guardia en los pushes corrientes. El marcador
+# es fiable porque `scripts/release.mjs` exige el arbol limpio y main al dia antes
+# de commitear, asi que el commit de release siempre es la cabeza del push.
 
 env:
   TURBO_TELEMETRY_DISABLED: 1
 
 jobs:
+  # Lo barato en cada push: los dos gates que atrapan la mayoria de los errores
+  # —un tipo que no cierra, una regla de lint— sin pagar el resto.
+  #
+  # No es gratis: `typecheck` y `lint` dependen de `^build` (turbo.json), asi que
+  # construye los paquetes de los que cada workspace depende. Lo que se ahorra
+  # frente a la pasada completa es todo lo demas: el build de las apps, el
+  # prerenderizado de Next, storybook-static, Chromium, los tests, size-limit y
+  # los dos presupuestos.
+  guardia:
+    name: typecheck · lint
+    if: github.event_name == 'push' && !startsWith(github.event.head_commit.message, 'chore(release):')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: guardia-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Guardia
+        run: pnpm turbo typecheck lint --continue
+
   # Ocho de los nueve gates de docs/03 §4, en una sola pasada de turbo.
   #
   # `--continue` es deliberado: sin el, turbo para en el primer fallo y quien
@@ -20,6 +72,7 @@ jobs:
   # primera vuelta ya dice todo lo que hay que arreglar.
   gates:
     name: build · typecheck · lint · test · size · slots · contrast · docs · budget
+    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -51,6 +104,7 @@ jobs:
   # cuesta computo, no reloj.
   a11y:
     name: axe sobre las stories
+    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -95,9 +149,12 @@ jobs:
   #   - o delegar la captura en un servicio externo.
   #
   # Mientras tanto se corre a mano con `pnpm visual`. Este job existe para que
-  # el hueco se vea en cada PR en lugar de desaparecer.
+  # el hueco se vea en cada PR en lugar de desaparecer. Acompana a los gates:
+  # recordarlo en cada push corriente seria ruido, recordarlo antes de publicar
+  # es justo cuando importa.
   visual-a-mano:
     name: regresion visual — a mano, ver el porque
+    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
@@ -115,9 +172,15 @@ jobs:
   # `build`. Con `needs` no se publica nada que no haya pasado los ocho gates y
   # axe.
   #
-  # No hace falta orquestar tags ni condiciones de version: `changeset publish`
-  # es idempotente y solo manda al registro lo que todavia no esta, asi que este
-  # job corre en cada push a main y no hace nada hasta que una version sube.
+  # Sigue sin hacer falta orquestar tags ni condiciones de version: `changeset
+  # publish` es idempotente y solo manda al registro lo que todavia no esta. Lo
+  # que cambia con ADR-139 es que ya no llega hasta aqui en cada push: `needs` lo
+  # ata a `gates` y `a11y`, y un job cuya dependencia se salta se salta tambien.
+  # La idempotencia deja de ser el filtro y pasa a ser la red de seguridad.
+  #
+  # Su `if` tiene un efecto que conviene tener presente: un dispatch manual corre
+  # los diez gates y axe, pero NO publica —solo publica un push a main—, asi que
+  # se puede pedir una pasada completa a mitad de trabajo sin tocar el registro.
   publish:
     name: publicar en npm
     needs: [gates, a11y]

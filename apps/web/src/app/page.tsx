@@ -180,7 +180,10 @@ export default async function Home() {
 
         <Hero
           size="xl"
-          mih="720px"
+          mih={{
+            base: "100vh",
+            laptop: "80vh",
+          }}
           contentWidth={620}
           hiper={
             <Box display="flex">
@@ -212,6 +215,18 @@ export default async function Home() {
               </Button>
             </>
           }
+          bodyProps={{
+            justify: {
+              base: "center",
+              laptop: "flex-start",
+            },
+          }}
+          rightProps={{
+            display: {
+              base: "none",
+              laptop: "block",
+            },
+          }}
           right={
             <HeroPreview
               labels={{

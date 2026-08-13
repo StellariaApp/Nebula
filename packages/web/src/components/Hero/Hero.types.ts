@@ -16,10 +16,21 @@ export interface HeroSlotProps extends Omit<StyleProps, "color" | "left" | "righ
   className?: string | undefined;
 }
 
-export interface HeroProps extends Omit<
-  StyleProps,
-  "color" | "align" | "left" | "right" | "bottom"
-> {
+export interface HeroPartsProps {
+  titleProps?: HeroSlotProps | undefined;
+  subtitleProps?: HeroSlotProps | undefined;
+  headerProps?: HeroSlotProps | undefined;
+  hiperProps?: HeroSlotProps | undefined;
+  descriptionProps?: HeroSlotProps | undefined;
+  actionsProps?: HeroSlotProps | undefined;
+  leftProps?: HeroSlotProps | undefined;
+  rightProps?: HeroSlotProps | undefined;
+  bottomProps?: HeroSlotProps | undefined;
+  bodyProps?: HeroSlotProps | undefined;
+}
+
+export interface HeroProps
+  extends HeroPartsProps, Omit<StyleProps, "color" | "align" | "left" | "right" | "bottom"> {
   /**
    * Names the region through `aria-labelledby`. Without it, and without a `Hero.Title` among the
    * children, the band never becomes a named landmark.
@@ -53,6 +64,7 @@ export interface HeroProps extends Omit<
   right?: ReactNode | undefined;
   /** Region below the body, across the rail. Equivalent to `Hero.Bottom`. */
   bottom?: ReactNode | undefined;
+
   /**
    * Lands IN THE MIDDLE of the body, between the description and the actions, not at the end. If the
    * children include compound parts — `Hero.Header`, `Hero.Title`… — the body becomes entirely yours

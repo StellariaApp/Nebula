@@ -12,6 +12,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
 import { HeroActions } from "./components/Actions.js";
+import { HeroBody } from "./components/Body.js";
 import { HeroBottom } from "./components/Bottom.js";
 import { HeroDescription } from "./components/Description.js";
 import { HeroHeader } from "./components/Header.js";
@@ -84,6 +85,16 @@ export function Hero(props: HeroProps): ReactElement {
     bottom,
     children,
     className,
+    titleProps,
+    subtitleProps,
+    headerProps,
+    hiperProps,
+    descriptionProps,
+    actionsProps,
+    bodyProps,
+    leftProps,
+    rightProps,
+    bottomProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
@@ -134,41 +145,45 @@ export function Hero(props: HeroProps): ReactElement {
         {parts.left.length > 0 ? (
           parts.left
         ) : left === undefined ? null : (
-          <HeroLeft>{left}</HeroLeft>
+          <HeroLeft {...leftProps}>{left}</HeroLeft>
         )}
 
-        <div className={styles.body}>
+        <HeroBody {...bodyProps} data-has-body={owns_body}>
           {owns_body ? (
             parts.body
           ) : (
             <>
               {hiper === undefined ? null : typeof hiper === "string" ? (
-                <HeroHiper>{hiper}</HeroHiper>
+                <HeroHiper {...hiperProps}>{hiper}</HeroHiper>
               ) : (
                 hiper
               )}
-              <HeroHeader>
-                {has_title ? <HeroTitle>{title}</HeroTitle> : null}
-                {subtitle === undefined ? null : <HeroSubtitle>{subtitle}</HeroSubtitle>}
+              <HeroHeader {...headerProps}>
+                {has_title ? <HeroTitle {...titleProps}>{title}</HeroTitle> : null}
+                {subtitle === undefined ? null : (
+                  <HeroSubtitle {...subtitleProps}>{subtitle}</HeroSubtitle>
+                )}
                 {description === undefined ? null : (
-                  <HeroDescription>{description}</HeroDescription>
+                  <HeroDescription {...descriptionProps}>{description}</HeroDescription>
                 )}
               </HeroHeader>
               {parts.body}
-              {actions === undefined ? null : <HeroActions>{actions}</HeroActions>}
+              {actions === undefined ? null : (
+                <HeroActions {...actionsProps}>{actions}</HeroActions>
+              )}
             </>
           )}
-        </div>
+        </HeroBody>
 
         {parts.right.length > 0 ? (
           parts.right
         ) : right === undefined ? null : (
-          <HeroRight>{right}</HeroRight>
+          <HeroRight {...rightProps}>{right}</HeroRight>
         )}
         {parts.bottom.length > 0 ? (
           parts.bottom
         ) : bottom === undefined ? null : (
-          <HeroBottom>{bottom}</HeroBottom>
+          <HeroBottom {...bottomProps}>{bottom}</HeroBottom>
         )}
       </section>
     </HeroContext.Provider>
