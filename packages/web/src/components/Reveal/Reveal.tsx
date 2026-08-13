@@ -47,9 +47,7 @@ export function Reveal(props: RevealProps): ReactElement {
       className={cx(sprinkle_class, className)}
       {...(merged_style === undefined ? {} : { style: merged_style as MotionStyle })}
       data-reveal={reveal["data-reveal"]}
-      {...(reveal.armed
-        ? { initial: reveal.initial, animate: reveal.animate, transition: reveal.transition }
-        : {})}
+      {...(reveal.armed ? reveal.animated_props : {})}
       {...rest}
     >
       {children}

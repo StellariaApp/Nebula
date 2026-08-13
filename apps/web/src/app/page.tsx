@@ -248,7 +248,6 @@ export default async function Home() {
         <Band
           glass
           level="major"
-          deferHeight={2058}
           eyebrow={dict["home.proof.eyebrow"]}
           title={dict["home.proof.title"]}
           description={dict["home.proof.body"]}
@@ -259,7 +258,6 @@ export default async function Home() {
         <Band
           center
           level="major"
-          deferHeight={1360}
           eyebrow={dict["home.reach.eyebrow"]}
           title={dict["home.pillars.title"]}
           description={dict["home.reach.body"]}
@@ -298,7 +296,6 @@ export default async function Home() {
         <Band
           glass
           level="minor"
-          deferHeight={1859}
           eyebrow={dict["home.motion.eyebrow"]}
           title={dict["home.motion.title"]}
           description={dict["home.motion.body"]}
@@ -309,7 +306,6 @@ export default async function Home() {
         <Band
           center
           level="closing"
-          deferHeight={611}
           title={dict["home.closing.title"]}
           description={dict["home.closing.body"]}
         >

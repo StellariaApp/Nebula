@@ -26,7 +26,7 @@ export const REVEAL_PRESETS: Record<RevealPreset, Phase> = {
 
 export const REVEAL_SPRING = "gentle";
 export const REVEAL_AMOUNT = 0.2;
-export const REVEAL_ROOT_MARGIN = "0px 0px -10% 0px";
+export const REVEAL_ROOT_MARGIN = "0px 0px -8% 0px";
 
 export interface UseRevealOptions {
   preset?: RevealPreset | undefined;
@@ -36,15 +36,19 @@ export interface UseRevealOptions {
   amount?: number | undefined;
   rootMargin?: string | undefined;
   index?: number | undefined;
+  defer?: boolean | undefined;
 }
 
 export interface UseRevealResult {
   ref: RefObject<HTMLElement | null>;
   armed: boolean;
-  initial: TargetAndTransition | undefined;
-  animate: TargetAndTransition | undefined;
-  transition: Transition | undefined;
+  animated_props: {
+    initial: TargetAndTransition | undefined;
+    animate: TargetAndTransition | undefined;
+    transition: Transition | undefined;
+  };
   "data-reveal": "shown" | "hidden" | undefined;
+  shown?: boolean;
 }
 
 export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
@@ -99,9 +103,11 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
     return {
       ref,
       armed,
-      initial: undefined,
-      animate: undefined,
-      transition: undefined,
+      animated_props: {
+        initial: undefined,
+        animate: undefined,
+        transition: undefined,
+      },
       "data-reveal": undefined,
     };
   }
@@ -114,13 +120,17 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
         ? Spring(REVEAL_SPRING, motion_context)
         : Tween(duration, "decelerate", motion_context);
   const delay = index === undefined ? 0 : StaggerDelay(index, motion_context);
+  const animated_props = {
+    initial: phase.from,
+    animate: shown ? phase.to : phase.from,
+    transition: shown ? { ...enter, delay } : ExitTween(duration ?? "slow", motion_context),
+  };
 
   return {
     ref,
     armed,
-    initial: phase.from,
-    animate: shown ? phase.to : phase.from,
-    transition: shown ? { ...enter, delay } : ExitTween(duration ?? "slow", motion_context),
+    animated_props,
     "data-reveal": shown ? "shown" : "hidden",
+    shown,
   };
 }

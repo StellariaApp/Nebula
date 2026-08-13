@@ -20,7 +20,6 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
 import { LoadingOverlay } from "../LoadingOverlay/LoadingOverlay.js";
 import { useReveal } from "../Reveal/use-reveal.js";
-import { useDeferredBody } from "./use-deferred-body.js";
 
 import { SectionActions } from "./components/Actions.js";
 import { SectionAside } from "./components/Aside.js";
@@ -86,8 +85,6 @@ export function Section(props: SectionProps): ReactElement {
     divided = false,
     glass = false,
     reveal = false,
-    defer = false,
-    deferHeight,
     contentWidth = DEFAULT_WIDTH,
     className,
     "aria-label": aria_label,
@@ -129,7 +126,6 @@ export function Section(props: SectionProps): ReactElement {
 
   const rail_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
   const revealed = useReveal();
-  const deferred = useDeferredBody(defer);
   const animating = reveal && revealed.armed;
   const Root: ElementType = animating ? m.section : "section";
 
@@ -139,19 +135,16 @@ export function Section(props: SectionProps): ReactElement {
         {...(reveal ? { ref: revealed.ref } : {})}
         className={cx(styles.section, styles.size[size], sprinkle_class, className)}
         style={{ ...rail_vars, ...sprinkle_style }}
-        data-glass={glass ? "true" : undefined}
         data-reveal={reveal ? revealed["data-reveal"] : undefined}
-        {...(animating
-          ? {
-              initial: revealed.initial,
-              animate: revealed.animate,
-              transition: revealed.transition,
-            }
-          : {})}
+        data-glass={glass ? "true" : undefined}
         {...labelling}
         {...rest}
       >
-        <SectionRail size={size} data-divided={divided ? "true" : undefined}>
+        <SectionRail
+          {...(animating ? revealed.animated_props : {})}
+          size={size}
+          data-divided={divided ? "true" : undefined}
+        >
           {has_own_header ? (
             parts.header
           ) : has_title || description !== undefined || actions !== undefined ? (
@@ -171,13 +164,7 @@ export function Section(props: SectionProps): ReactElement {
             </SectionHeader>
           ) : null}
 
-          {defer && !deferred.mounted ? (
-            <div
-              ref={deferred.ref}
-              style={{ minHeight: LengthToCss(deferHeight ?? 0) }}
-              aria-hidden="true"
-            />
-          ) : own_body === undefined ? (
+          {own_body === undefined ? (
             <SectionBody>
               {replaced ? content : parts.body}
               {overlay}

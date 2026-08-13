@@ -4,28 +4,21 @@ import {
   Accordion,
   ActionIcon,
   Alert,
-  Anchor,
   Avatar,
   Badge,
   Box,
   Button,
   Card,
-  Checkbox,
   Code,
   Divider,
   FileInput,
   GradientText,
-  Indicator,
   Kbd,
   NavLink,
-  PasswordInput,
-  PinInput,
   Progress,
-  Rating,
   SearchInput,
   Segment,
   Select,
-  Slider,
   Stat,
   StatusBadge,
   Stepper,
@@ -42,6 +35,7 @@ import {
 import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 
 import { Deferred } from "../defer";
+import { ScenarioComponents } from "../Scenarios/Components";
 
 const AreaChart = Deferred(async () => (await import("@stellaria/nebula-web/charts")).AreaChart);
 const BarChart = Deferred(async () => (await import("@stellaria/nebula-web/charts")).BarChart);
@@ -377,138 +371,6 @@ function Dashboard(): ReactElement {
           </Table.Body>
         </Table>
       </Card>
-    </Shell>
-  );
-}
-
-function Components(): ReactElement {
-  return (
-    <Shell>
-      <Box
-        display="grid"
-        gap="md"
-        gridTemplateColumns={{
-          base: "1fr",
-          tablet: "repeat(2, minmax(0, 1fr))",
-          laptop: "repeat(3, minmax(0, 1fr))",
-        }}
-      >
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
-            <TextInput label="Your email" placeholder="ana@email.com" required />
-            <Select label="Country" placeholder="Select one" data={STATES} />
-            <PasswordInput label="Password" placeholder="••••••••" />
-          </Box>
-        </Card>
-
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
-            <Text fz="body2" fw="semibold">
-              Verify account
-            </Text>
-            <Text fz="caption" c="text.muted">
-              We sent a code to a****@email.com
-            </Text>
-            <PinInput length={4} defaultValue="43" aria-label="Verification code" />
-            <Box display="flex" gap="sm" align="center">
-              <Text fz="caption" c="text.muted">
-                Didn&apos;t get it?
-              </Text>
-              <Anchor href="#resend" fz="caption">
-                Resend
-              </Anchor>
-            </Box>
-          </Box>
-        </Card>
-
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
-            <Box display="flex" gap="sm" align="center" wrap="wrap">
-              <Button size="sm">Filled</Button>
-              <Button size="sm" variant="outline">
-                Outline
-              </Button>
-              <Button size="sm" variant="gradient">
-                Gradient
-              </Button>
-              <Button size="sm" variant="glass">
-                Glass
-              </Button>
-            </Box>
-            <Divider />
-            <Box display="flex" gap="md" align="center" wrap="wrap">
-              <Checkbox defaultChecked label="Checkbox" />
-              <Switch defaultChecked label="Switch" />
-            </Box>
-            <Rating defaultValue={4} aria-label="Rating" />
-          </Box>
-        </Card>
-
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
-            <Box display="flex" justify="space-between" align="baseline">
-              <Text fz="body2" fw="semibold">
-                Price
-              </Text>
-              <Text fz="body3" c="text.secondary">
-                USD 250.00
-              </Text>
-            </Box>
-            <Slider defaultValue={62} label="Price" />
-            <Divider />
-            <Box display="flex" gap="xs" align="center" wrap="wrap">
-              <Text fz="caption" c="text.muted">
-                Open the palette
-              </Text>
-              <Kbd>⌘</Kbd>
-              <Kbd>K</Kbd>
-            </Box>
-          </Box>
-        </Card>
-
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="sm">
-            <Box display="flex" align="center" gap="sm">
-              <Indicator processing>
-                <Avatar name="Ana Ruiz" color="primary" variant="light" />
-              </Indicator>
-              <Box display="flex" direction="column">
-                <Text fz="body3" fw="semibold">
-                  Ana Ruiz
-                </Text>
-                <Text fz="caption" c="text.muted">
-                  Reconciliation lead
-                </Text>
-              </Box>
-            </Box>
-            <Divider />
-            <Box display="flex" gap="xs" wrap="wrap">
-              <StatusBadge status="matched" size="sm" />
-              <Badge variant="light" size="sm" color="info">
-                Verified
-              </Badge>
-              <Badge variant="outline" size="sm">
-                Admin
-              </Badge>
-            </Box>
-            <Code>@stellaria/nebula-web</Code>
-          </Box>
-        </Card>
-
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
-            <Textarea label="Notes" placeholder="What happened?" autosize rows={3} />
-            <Box display="flex" gap="sm">
-              <Button size="sm" variant="gradient">
-                Save
-              </Button>
-              <Button size="sm" variant="ghost">
-                Discard
-              </Button>
-            </Box>
-          </Box>
-        </Card>
-      </Box>
     </Shell>
   );
 }
@@ -1008,7 +870,7 @@ function Settings(): ReactElement {
 }
 
 const VIEWS: [Scenario, ReactElement][] = [
-  ["components", <Components />],
+  ["components", <ScenarioComponents />],
   ["dashboard", <Dashboard />],
   ["mail", <Mail />],
   ["finances", <Finances />],
