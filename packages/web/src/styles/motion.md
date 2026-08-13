@@ -53,6 +53,28 @@ El ADR dice que «el `preset` de `OverlayMotion` deja de gobernar solo la transf
 
 **La salida es siempre un tween acelerado**, a dos tercios de la duración de referencia. El ADR lo fija explícitamente para Popover, Menu, Modal y Drawer, y lo deja implícito para Toast; se completa igual porque la regla 2 está escrita como invariante —«una salida nunca dura más que su entrada»— y un spring no tiene duración con la que cumplirla. Para las entradas por spring la referencia es `duration.base`; para Tooltip, su propia `duration.fast`, lo que deja la salida en 80 ms y estrena `duration.instant` en la escala.
 
+### La opacidad no viaja en el muelle (ADR-138)
+
+`Spring()` devuelve el muelle para la transformada y **un tween de `duration.slow` con curva `decelerate` para la opacidad**, como transición por valor. No es una preferencia estética: `motion` elige el umbral de parada según el tamaño del recorrido —`isGranularScale = |delta| < 5`— y la opacidad recorre exactamente 1.0, así que cae en el tramo granular con `restDelta: 0.005`, **el 0,5 % del recorrido**. Con la terna anterior eso dejaba colas de fundido de 545 a 851 ms sobre transformadas que habían terminado a los 270–430 ms, y entradas de 718 ms contra salidas de 120 ms.
+
+El peldaño del fundido se calibra **con** la frecuencia de la terna, no aparte: 280 ms acompaña a transformadas que se posan entre 290 y 525 ms. Un fundido más corto que la transformada que lo acompaña se lee seco, y uno más largo devuelve la cola que este apartado existe para quitar.
+
+**`inherit: true` es obligatorio, no decorativo.** `getValueTransition` resuelve `transition[key] ?? transition["default"] ?? transition` y **reemplaza** la transición padre por la del valor; solo con `inherit` hace la mezcla superficial. Sin esa bandera el `delay` que `Reveal` añade en la raíz para el stagger no llegaría a la opacidad, y una lista escalonada fundiría todos sus items a la vez mientras las transformadas sí esperan su turno. Lleva test propio por eso.
+
+### Qué significan los tres springs
+
+Un muelle no lo describen sus tres números sino dos magnitudes derivadas: ζ = c / (2·√(k·m)) decide **si rebota y cuánto**, y ω = √(k/m) decide **cuánto tarda**. La terna vigente (ADR-138) mueve las dos:
+
+| spring    |   k |   c |   m |     ζ | rebote | llega  | asienta | ancla             |
+| --------- | --: | --: | --: | ----: | -----: | ------ | ------- | ----------------- |
+| `gentle`  | 190 |  28 |   1 | 1.016 |   0,0% | 353 ms | 525 ms  | `expressive` 420  |
+| `default` | 280 |  28 |   1 | 0.837 |   0,8% | 216 ms | 318 ms  | `slow` 280        |
+| `snappy`  | 450 |  29 |   1 | 0.684 |   5,3% | 134 ms | 367 ms  | `base` 180        |
+
+Se lee como **un amortiguador y tres resortes**: la amortiguación queda casi constante y lo que sube es la rigidez. Que `snappy` asiente más tarde que `default` es la aritmética del rebote —hay que esperar a que el sobreimpulso se apague—; lo que el ojo lee como «rápido» es la llegada, y en los recorridos pequeños que son sus usos reales también asienta primero (194 ms contra 290 ms en un `scale` de .96 a 1).
+
+**ζ y ω se calibran por separado, y solo uno de los dos se puede derivar sobre el papel.** El carácter (ζ) sale de la tabla; la velocidad (ω) hay que verla correr. La terna vigente es el punto medio geométrico entre una primera calibración que se implementó y se rechazó por rápida y los valores originales — mismo ζ peldaño a peldaño, ω a la mitad del camino.
+
 ## `ease` no acepta la cadena del tema
 
 `motion/react` admite un nombre de curva, una tupla de cuatro números o una función, pero **no** una cadena `cubic-bezier(...)` de CSS. `ToBezier` la traduce a la tupla. Si un tema publica una curva no parseable —`ease-in-out`, por ejemplo— la función devuelve `undefined` y el tween sale con la curva por defecto de motion en vez de romper.

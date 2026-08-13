@@ -16,9 +16,9 @@ const easing = {
 } as const satisfies Record<EasingName, string>;
 
 const spring = {
-  gentle: { stiffness: 120, damping: 22, mass: 1 },
-  default: { stiffness: 170, damping: 26, mass: 1 },
-  snappy: { stiffness: 260, damping: 24, mass: 0.9 },
+  gentle: { stiffness: 190, damping: 28, mass: 1 },
+  default: { stiffness: 280, damping: 28, mass: 1 },
+  snappy: { stiffness: 450, damping: 29, mass: 1 },
 } as const satisfies Record<SpringName, SpringConfig>;
 
 const transforms = {

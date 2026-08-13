@@ -5,12 +5,14 @@ import type {
   SpringConfig,
   SpringName,
 } from "@stellaria/nebula-tokens";
-import type { Transition } from "motion/react";
+import type { Transition, ValueTransition } from "motion/react";
 
 const EXIT_RATIO = 2 / 3;
 const STAGGER_CAP = 8;
 const SCROLL_STIFFNESS = 0.25;
 const SCROLL_DAMPING = 0.5;
+const FADE_DURATION: DurationName = "slow";
+const FADE_EASING: EasingName = "decelerate";
 const BEZIER = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
 
 export type MotionSurface = "tooltip" | "popover" | "menu" | "modal" | "drawer" | "toast";
@@ -49,6 +51,24 @@ export function ToBezier(easing: string): [number, number, number, number] | und
   return [numbers[0] as number, numbers[1] as number, numbers[2] as number, numbers[3] as number];
 }
 
+function TweenValue(
+  duration: DurationName | number,
+  easing: EasingName,
+  context: MotionContext,
+): ValueTransition {
+  const ms = typeof duration === "number" ? duration : context.theme.motion.duration[duration];
+  const ease = ToBezier(context.theme.motion.easing[easing]);
+  return {
+    type: "tween",
+    duration: ms / 1000,
+    ...(ease === undefined ? {} : { ease }),
+  };
+}
+
+export function Fade(context: MotionContext): ValueTransition {
+  return { inherit: true, ...TweenValue(FADE_DURATION, FADE_EASING, context) };
+}
+
 export function Spring(name: SpringName, context: MotionContext): Transition {
   if (MotionOff(context)) return OFF;
   const config = context.theme.motion.spring[name];
@@ -57,6 +77,7 @@ export function Spring(name: SpringName, context: MotionContext): Transition {
     stiffness: config.stiffness,
     damping: config.damping,
     mass: config.mass,
+    opacity: Fade(context),
   };
 }
 
@@ -80,13 +101,7 @@ export function Tween(
   context: MotionContext,
 ): Transition {
   if (MotionOff(context)) return OFF;
-  const ms = typeof duration === "number" ? duration : context.theme.motion.duration[duration];
-  const ease = ToBezier(context.theme.motion.easing[easing]);
-  return {
-    type: "tween",
-    duration: ms / 1000,
-    ...(ease === undefined ? {} : { ease }),
-  };
+  return TweenValue(duration, easing, context);
 }
 
 export function ExitTween(reference: DurationName | number, context: MotionContext): Transition {

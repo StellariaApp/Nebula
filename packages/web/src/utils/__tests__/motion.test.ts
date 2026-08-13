@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import * as css from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import {
+  Fade,
   MotionOff,
   ScrollSpring,
   Spring,
@@ -20,8 +21,18 @@ const theme = officialThemes["dark"];
 const live: MotionContext = { theme, reduced: false };
 const off: MotionContext = { theme, reduced: true };
 
+const SPRING_NAMES = ["gentle", "default", "snappy"] as const;
+
 function WithTier(tier: NebulaTheme["motion"]["tier"]): MotionContext {
   return { theme: { ...theme, motion: { ...theme.motion, tier } }, reduced: false };
+}
+
+function Ratio(config: SpringConfig): number {
+  return config.damping / (2 * Math.sqrt(config.stiffness * config.mass));
+}
+
+function Frequency(config: SpringConfig): number {
+  return Math.sqrt(config.stiffness / config.mass);
 }
 
 describe("composiciones CSS", () => {
@@ -67,18 +78,52 @@ describe("ToBezier", () => {
 });
 
 describe("Spring", () => {
-  it("traduce el spring del tema", () => {
+  it("traduce el spring del tema y saca la opacidad del muelle", () => {
     expect(Spring("snappy", live)).toEqual({
       type: "spring",
       stiffness: theme.motion.spring.snappy.stiffness,
       damping: theme.motion.spring.snappy.damping,
       mass: theme.motion.spring.snappy.mass,
+      opacity: {
+        inherit: true,
+        type: "tween",
+        duration: theme.motion.duration.slow / 1000,
+        ease: ToBezier(theme.motion.easing.decelerate),
+      },
     });
+  });
+
+  it("el fade se mezcla sobre la transición padre en vez de reemplazarla", () => {
+    expect(Fade(live).inherit).toBe(true);
   });
 
   it("degrada a duración cero cuando el motion está apagado", () => {
     expect(Spring("default", off)).toEqual({ duration: 0 });
     expect(Spring("default", WithTier("minimal"))).toEqual({ duration: 0 });
+  });
+});
+
+describe("calibración de los tres springs", () => {
+  it("los tres pesan lo mismo: solo rigidez y amortiguación los separan", () => {
+    for (const name of SPRING_NAMES) expect(theme.motion.spring[name].mass).toBe(1);
+  });
+
+  it("el rebote crece de gentle a snappy, y gentle no rebota", () => {
+    const ratios = SPRING_NAMES.map((name) => Ratio(theme.motion.spring[name]));
+    const [gentle, base, snappy] = ratios as [number, number, number];
+
+    expect(gentle).toBeGreaterThanOrEqual(1);
+    expect(base).toBeLessThan(gentle);
+    expect(snappy).toBeLessThan(base);
+    expect(snappy).toBeGreaterThan(0.6);
+  });
+
+  it("la frecuencia crece de gentle a snappy", () => {
+    const frequencies = SPRING_NAMES.map((name) => Frequency(theme.motion.spring[name]));
+    const [gentle, base, snappy] = frequencies as [number, number, number];
+
+    expect(base).toBeGreaterThan(gentle);
+    expect(snappy).toBeGreaterThan(base);
   });
 });
 
@@ -165,13 +210,9 @@ describe("Stagger", () => {
 
 describe("ScrollSpring", () => {
   it("baja la frecuencia a la mitad y conserva el amortiguamiento del token", () => {
-    for (const name of ["gentle", "default", "snappy"] as const) {
+    for (const name of SPRING_NAMES) {
       const token = theme.motion.spring[name];
       const scroll = ScrollSpring(name, theme);
-
-      const Ratio = (config: SpringConfig): number =>
-        config.damping / (2 * Math.sqrt(config.stiffness * config.mass));
-      const Frequency = (config: SpringConfig): number => Math.sqrt(config.stiffness / config.mass);
 
       expect(Frequency(scroll)).toBeCloseTo(Frequency(token) / 2);
       expect(Ratio(scroll)).toBeCloseTo(Ratio(token));

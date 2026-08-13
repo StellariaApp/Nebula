@@ -76,6 +76,25 @@ nada que el prefijo de longitud no dé.
 son nombres de prop y de token, nunca datos de usuario, y el valor es una cadena de clases. Tiene
 tope de 4096 entradas: pasado ese punto se sigue resolviendo, solo que sin guardar.
 
+### El carril abierto no entra en la clave, y por eso `lh` sí
+
+Una prop que se va por el carril abierto no toca `cache_key`: escribe su var y sale. Es correcto
+mientras el carril abierto **no cambie la salida de sprinkles**, que es el caso de las 40 props.
+
+`lh` es la excepción, y viene del acoplamiento `fz → lh` de ADR-077: la presencia de un `lh` decide
+si `fz` arrastra o no su clase de interlineado. Con `lh` por token no hay problema —viaja por
+sprinkles y entra en la clave sola—, pero con un valor abierto (`inherit`, `1.3`, `revert-layer`)
+`{fz:"body1"}` y `{fz:"body1", lh:"inherit"}` producían **la misma clave** y clases que debían ser
+distintas. Ganaba el primero en renderizarse, para el resto del proceso: si el del `lh` abierto iba
+primero, todos los `fz="body1"` posteriores perdían su interlineado acoplado y ADR-077 dejaba de
+cumplirse en silencio; si iba después, arrastraba una clase muerta. Y como el orden de render no es
+el mismo en servidor que en cliente, la divergencia era observable en hidratación.
+
+La supresión se marca ahora en la clave con un token vacío (`lh:0:;`), que no colisiona con ningún
+`lh` de token porque el prefijo de longitud lo hace inyectivo. **La regla general**: si un carril
+distinto del de sprinkles puede cambiar lo que sale de `sprinkles()`, tiene que dejar rastro en la
+clave. Hoy `lh` es el único.
+
 ## El tipo público sale del registro, no de sprinkles (ADR-103)
 
 `StyleProps` se deriva de `style-registry.ts` con un tipo mapeado. Por eso **hay un solo nombre por

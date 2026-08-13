@@ -140,9 +140,9 @@ border-radius:      calc(var(--p) * <radius.lg>)
 `useSpring` anima **solo la progresión**; las tres propiedades salen de ella en CSS. Así la
 geometría está definida en un único sitio —el `.css.ts`— y el TSX no conoce ni un píxel.
 
-El muelle es **`snappy`** (`stiffness 260, damping 24, mass 0.9`), no `default`. Una barra que se
-recoge es un cambio de estado, no una entrada: con `default` el asentamiento se notaba lento para lo
-poco que recorre.
+El muelle es **`snappy`** (`stiffness 450, damping 29, mass 1` desde ADR-138), no `default`. Una
+barra que se recoge es un cambio de estado, no una entrada: con `default` el asentamiento se notaba
+lento para lo poco que recorre.
 
 Tres detalles que costaron una medición:
 

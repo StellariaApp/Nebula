@@ -3,10 +3,26 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-export const text = style({
+export const nomalize = style({
   "@layer": {
     [base_layer]: {
       margin: 0,
+      padding: 0,
+      border: 0,
+      fontFamily: "inherit",
+      fontSize: "inherit",
+      fontWeight: "inherit",
+      lineHeight: "inherit",
+      color: "inherit",
+      font: "inherit",
+      verticalAlign: "baseline",
+    },
+  },
+});
+
+export const text = style({
+  "@layer": {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
       fontWeight: vars.font.weight.regular,
@@ -33,18 +49,6 @@ export const clamp = style({
       display: "-webkit-box",
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
-    },
-  },
-});
-
-export const inherit_styles = style({
-  "@layer": {
-    [base_layer]: {
-      fontFamily: "inherit",
-      fontSize: "inherit",
-      fontWeight: "inherit",
-      lineHeight: "inherit",
-      color: "inherit",
     },
   },
 });

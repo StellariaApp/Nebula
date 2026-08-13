@@ -266,9 +266,12 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     return { className: undefined, style: undefined, rest: props };
   }
 
-  if (collected !== undefined && props.lh === undefined) {
+  if (collected !== undefined) {
     const fz = collected.fz;
-    if (typeof fz === "string" && LEADING.has(fz)) collected.lh = fz;
+    if (typeof fz === "string" && LEADING.has(fz)) {
+      if (props.lh === undefined) collected.lh = fz;
+      else if (collected.lh === undefined) cache_key += CacheToken("lh", "");
+    }
   }
 
   const sprinkle_class = collected !== undefined ? CachedClass(collected, cache_key) : undefined;

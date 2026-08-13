@@ -74,7 +74,7 @@ Se apaga entero con `prefers-reduced-motion` y con `motion.tier: "minimal"`: sin
 
 Los tres springs del tema están calibrados para gestos de UI: un press recorre 4 px y debe responder en 200 ms. Un scroll recorre cientos de píxeles, y con esos mismos números la parada es tan seca que la inercia no se percibe.
 
-`ScrollSpring` —en `utils/motion.ts`, con el resto de la física, porque ADR-034 regla 6 prohíbe que un componente escriba la suya y hay un test que lo comprueba— deriva el muelle del token **bajando la frecuencia a la mitad y conservando el amortiguamiento**: `stiffness × 0.25` y `damping × 0.5`. La relación ζ = c / (2·√(k·m)) queda igual, de modo que el tema sigue decidiendo _cómo_ frena y solo cambia _cuánto tarda_. Con `default` (170 · 26 · 1) el muelle del scroll es 42,5 · 13 · 1.
+`ScrollSpring` —en `utils/motion.ts`, con el resto de la física, porque ADR-034 regla 6 prohíbe que un componente escriba la suya y hay un test que lo comprueba— deriva el muelle del token **bajando la frecuencia a la mitad y conservando el amortiguamiento**: `stiffness × 0.25` y `damping × 0.5`. La relación ζ = c / (2·√(k·m)) queda igual, de modo que el tema sigue decidiendo _cómo_ frena y solo cambia _cuánto tarda_. Con `default` (280 · 28 · 1, ADR-138) el muelle del scroll es 70 · 14 · 1.
 
 ### Dos decisiones que sorprenden al leer el código
 

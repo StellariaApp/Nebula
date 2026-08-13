@@ -1,8 +1,8 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
@@ -100,19 +100,19 @@ export const indicator = recipe({
   variants: {
     size: {
       sm: {
-        height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.6)`,
+        height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.3)`,
         top: `calc(${vars.space.u2_5})`,
       },
       md: {
-        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 1.6)`,
+        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 1.3)`,
         top: `calc(${vars.space.u2_5})`,
       },
       lg: {
-        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 1.6)`,
+        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 1.3)`,
         top: `calc(${vars.space.u2_5})`,
       },
       xl: {
-        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 1.6)`,
+        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 1.3)`,
         top: `calc(${vars.space.u2_5})`,
       },
     },
@@ -139,7 +139,6 @@ export const tab = recipe({
         font: "inherit",
         fontWeight: vars.font.weight.semibold,
         lineHeight: 1.3,
-        fontSize: "inherit",
         cursor: "pointer",
         color: vars.color.text.secondary,
         whiteSpace: "nowrap",

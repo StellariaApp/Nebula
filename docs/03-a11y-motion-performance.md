@@ -39,8 +39,8 @@ Reglas transversales:
 
 - `duration`: instant(0) / fast(120ms) / base(200ms) / slow(320ms) / expressive(500ms) — valores finales se calibran en Etapa 2.
 - `easing`: standard / emphasized / decelerate / accelerate.
-- `spring`: gentle / default / snappy (`{stiffness, damping, mass}` — mismos números alimentan Reanimated y motion).
-- `motion.tier` del tema escala/desactiva efectos no esenciales.
+- `spring`: gentle / default / snappy (`{stiffness, damping, mass}` — mismos números alimentan Reanimated y motion). Recalibrados en [ADR-138](adr/ADR-138-recalibracion-de-los-springs-y-la-opacidad-sale-del-muelle.md) a **190/28/1 · 280/28/1 · 450/29/1**: masa 1 en los tres, amortiguación casi constante y rigidez creciente. Lo que separa un peldaño del siguiente es ζ = c / (2·√(k·m)) —**1.02 · 0.84 · 0.68**, es decir 0 %, 0,8 % y 5,3 % de rebote—, y cada uno se ancla a una duración que ya existía en la escala (`expressive` · `slow` · `base`).
+- `motion.tier` del tema escala/desactiva efectos no esenciales. **Hoy solo `minimal` hace algo**: `expressive` es idéntico a `standard`. Modular la terna de springs por tier es deuda declarada en ADR-138.
 
 ### Reglas de implementación
 
@@ -56,6 +56,7 @@ Reglas transversales:
 5. Entrada escalonada (patrón `animatedIndex/animatedDelay` de FC/TFV) se estandariza como `stagger` en los patterns de listas, alimentado por motion tokens. En web es `Stagger`/`StaggerDelay` (`utils/motion.ts`): paso derivado de `duration.instant` y **tope de ocho elementos**, para que una lista larga no encadene un retardo perceptible en su último item.
 6. **Asimetría entrada/salida** (ADR-034): la entrada decelera con su duración plena; la salida acelera a dos tercios. Una salida nunca dura más que su entrada. La física la elige la superficie —tooltip, popover/menu, modal/drawer, toast—, no la transformada; el detalle está en `docs/06` §6.1.
 7. **Ninguna transición se escribe a mano.** Las cinco composiciones de `styles/motion.css.ts` —`interaction`, `layout`, `overlay`, `confirm` y `value`— cubren el catálogo y se componen de `vars.motion.*`, de modo que siguen siendo tematizables. Punto obligatorio del checklist de `docs/patterns/web-component-template.md` §6.
+8. **La opacidad nunca viaja en un muelle** (ADR-138). `Spring()` reserva la física para la transformada y funde con un tween de `duration.slow` y curva `decelerate`. `motion` elige el umbral de parada por el tamaño del recorrido, y la opacidad recorre exactamente 1.0: dejarla en el muelle producía colas de fundido de 545 a 851 ms sobre transformadas ya terminadas. La transición por valor lleva `inherit: true` para que el `delay` del stagger alcance también al fundido.
 
 ## 3. Performance
 

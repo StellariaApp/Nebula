@@ -41,7 +41,7 @@ function Switcher(): ReactElement {
               label: (
                 <Flex align="center" gap={5}>
                   <ColorSwatch color={Brand(entry, choice.scheme)} size={12} withShadow={false} />
-                  <Text fz="body3" tt="capitalize">
+                  <Text tt="capitalize" inherit>
                     {entry}
                   </Text>
                 </Flex>
@@ -91,7 +91,7 @@ export default function ProductSurface(): ReactElement {
               data={SCENARIOS.map((entry) => ({
                 value: entry,
                 label: (
-                  <Text fz="body3" tt="capitalize">
+                  <Text tt="capitalize" inherit>
                     {entry}
                   </Text>
                 ),

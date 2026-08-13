@@ -140,6 +140,24 @@ describe("ExtractStyleProps - cache de la clase de sprinkles", () => {
     expect(first.className).toBe(second.className);
     expect(first.className).not.toBe(explicit.className);
   });
+
+  it("un lh de valor abierto suprime el acoplamiento sin envenenar la cache del fz", () => {
+    const open = ExtractStyleProps({ fz: "h5", lh: "inherit" });
+    const plain = ExtractStyleProps({ fz: "h5" });
+
+    expect(open.className).not.toMatch(/lineHeight/);
+    expect(open.style).toMatchObject({ "--nb-lh": "inherit" });
+    expect(plain.className).toMatch(/lineHeight_h5/);
+  });
+
+  it("el orden inverso da el mismo resultado: la clave distingue los dos casos", () => {
+    const plain = ExtractStyleProps({ fz: "h6" });
+    const open = ExtractStyleProps({ fz: "h6", lh: 1.3 });
+
+    expect(plain.className).toMatch(/lineHeight_h6/);
+    expect(open.className).not.toMatch(/lineHeight/);
+    expect(open.style).toMatchObject({ "--nb-lh": "1.3" });
+  });
 });
 
 describe("ExtractStyleProps - camino rapido sin style props", () => {

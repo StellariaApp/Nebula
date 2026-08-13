@@ -187,10 +187,10 @@ export default function MotionLab(): ReactElement {
       <Cell title="Animated gradient">
         <AnimatedGradient r="sm" p="md" h="100%">
           <Box display="flex" direction="column" gap="xs" justify="center" h="100%">
-            <Text fz="body2" fw="semibold" c="text.inverted">
+            <Text fz="body2" fw="semibold" c="text.primary">
               Brand in motion
             </Text>
-            <Text fz="caption" c="text.inverted">
+            <Text fz="caption" c="text.primary">
               The stops drift; the tier decides whether they move at all.
             </Text>
           </Box>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, type RefObject } from "react";
 
-import type { SpringConfig } from "@stellaria/nebula-tokens";
+import { animation, type SpringConfig } from "@stellaria/nebula-tokens";
 
 import { RubberOffset } from "./rubber.js";
 
@@ -15,7 +15,7 @@ export interface UseMomentumScrollOptions {
   onBounce?: ((offset: number) => void) | undefined;
 }
 
-const DEFAULT_SPRING: SpringConfig = { stiffness: 170, damping: 26, mass: 1 };
+const DEFAULT_SPRING: SpringConfig = animation.spring.default;
 const DEFAULT_MULTIPLIER = 1;
 const LINE_HEIGHT = 16;
 const MAX_STEP = 1 / 30;
