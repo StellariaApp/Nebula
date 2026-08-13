@@ -34,7 +34,6 @@ export const control = recipe({
         gap: vars.space.xxs,
         background: vars.color.surface.overlay,
         border: `1px solid ${vars.color.border.default}`,
-        borderRadius: vars.radius.full,
         fontFamily: vars.font.family.sans,
         alignSelf: "flex-start",
         selectors: {
@@ -46,10 +45,18 @@ export const control = recipe({
   },
   variants: {
     size: {
-      sm: { minHeight: vars.size.control.md, fontSize: vars.font.size.body3 },
-      md: { minHeight: vars.size.control.lg, fontSize: vars.font.size.body2 },
-      lg: { minHeight: vars.size.control.xl, fontSize: vars.font.size.button },
-      xl: { minHeight: vars.size.control.xxl, fontSize: vars.font.size.body1 },
+      sm: {
+        borderRadius: vars.radius.xl,
+      },
+      md: {
+        borderRadius: `calc(${vars.radius.xl} * 1.12)`,
+      },
+      lg: {
+        borderRadius: `calc(${vars.radius.xl} * 1.24)`,
+      },
+      xl: {
+        borderRadius: `calc(${vars.radius.xl} * 1.32)`,
+      },
     },
     fullWidth: {
       true: { display: "flex", width: "100%", alignSelf: "stretch" },
@@ -94,19 +101,19 @@ export const indicator = recipe({
     size: {
       sm: {
         height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.6)`,
-        top: `calc(${vars.space.u2_5} - 3px)`,
+        top: `calc(${vars.space.u2_5})`,
       },
       md: {
-        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)`,
-        top: `calc(${vars.space.u2_5} - 1px)`,
+        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 1.6)`,
+        top: `calc(${vars.space.u2_5})`,
       },
       lg: {
-        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 2.4)`,
-        top: `calc(${vars.space.u2_5} + 1px)`,
+        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 1.6)`,
+        top: `calc(${vars.space.u2_5})`,
       },
       xl: {
-        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 2.8)`,
-        top: `calc(${vars.space.u2_5} + 3px)`,
+        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 1.6)`,
+        top: `calc(${vars.space.u2_5})`,
       },
     },
     flow: {
@@ -127,7 +134,6 @@ export const tab = recipe({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        paddingInline: vars.space.md,
         border: "none",
         background: "transparent",
         font: "inherit",
@@ -141,6 +147,7 @@ export const tab = recipe({
         borderRadius: vars.radius.full,
         ...motion.interaction,
         outline: "none",
+
         selectors: {
           "&[data-active='true']": {
             color: fallbackVar(variables.indicatorFg, vars.color.text.primary),
@@ -157,6 +164,28 @@ export const tab = recipe({
     },
   },
   variants: {
+    size: {
+      sm: {
+        minHeight: vars.size.control.xs,
+        fontSize: vars.font.size.body3,
+        paddingInline: vars.space.sm,
+      },
+      md: {
+        minHeight: vars.size.control.sm,
+        fontSize: vars.font.size.body2,
+        paddingInline: vars.space.md,
+      },
+      lg: {
+        minHeight: vars.size.control.md,
+        fontSize: vars.font.size.button,
+        paddingInline: vars.space.lg,
+      },
+      xl: {
+        minHeight: vars.size.control.lg,
+        fontSize: vars.font.size.body1,
+        paddingInline: vars.space.xl,
+      },
+    },
     fullWidth: {
       true: { minWidth: 0, overflow: "hidden" },
       false: {},
@@ -167,7 +196,7 @@ export const tab = recipe({
       wrap: {},
     },
   },
-  defaultVariants: { fullWidth: false, overflowMode: "visible" },
+  defaultVariants: { size: "md", fullWidth: false, overflowMode: "visible" },
 });
 
 export const content = style({

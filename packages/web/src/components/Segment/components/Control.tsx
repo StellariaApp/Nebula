@@ -163,6 +163,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
             tabIndex={active ? 0 : -1}
             className={cx(
               styles.tab({
+                size: segment.size,
                 fullWidth: segment.fullWidth,
                 overflowMode: segment.overflowMode,
               }),

@@ -24,9 +24,10 @@ function Switcher(): ReactElement {
   const choice = ChoiceFromTheme(theme);
 
   return (
-    <Box display="flex" direction="column" gap="xs" align="flex-start">
-      <Box display="flex" gap="sm" align="center" wrap="wrap">
+    <Flex direction="column" gap="xs" align="flex-start">
+      <Flex maw="100%" gap="sm" align="center" wrap="wrap">
         <Segment
+          overflowMode="wrap"
           value={choice.name}
           size="sm"
           onChange={(value) => {
@@ -63,8 +64,8 @@ function Switcher(): ReactElement {
             ]}
           />
         </Segment>
-      </Box>
-    </Box>
+      </Flex>
+    </Flex>
   );
 }
 

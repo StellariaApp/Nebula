@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Card,
+  Flex,
   GradientText,
   NebulaProvider,
   Paper,
@@ -69,9 +70,10 @@ export default function ProductSwitch(): ReactElement {
   const theme = PRODUCTS[product][scheme];
 
   return (
-    <Box display="flex" direction="column" gap="md">
-      <Box display="flex" gap="sm" wrap="wrap" align="center">
+    <Flex direction="column" gap="md">
+      <Flex maw="100%" gap="sm" wrap="wrap" align="center">
         <Segment
+          overflowMode="wrap"
           value={product}
           onChange={(value) => {
             set_product(value as ProductName);
@@ -87,7 +89,7 @@ export default function ProductSwitch(): ReactElement {
         >
           <Segment.Control aria-label="Colour scheme" data={SCHEMES} />
         </Segment>
-      </Box>
+      </Flex>
 
       <Box bdw={1} bds="solid" bdc="border.subtle" r="lg" overflow="hidden">
         <NebulaProvider key={theme.meta.name} defaultTheme={theme} storage={null}>
@@ -96,6 +98,6 @@ export default function ProductSwitch(): ReactElement {
           </Box>
         </NebulaProvider>
       </Box>
-    </Box>
+    </Flex>
   );
 }
