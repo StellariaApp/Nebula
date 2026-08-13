@@ -128,7 +128,7 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
 
   useLayoutEffect(() => {
     Measure();
-  });
+  }, [Measure]);
 
   useLayoutEffect(() => {
     const root = container.current;
@@ -137,10 +137,11 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
       Measure();
     });
     observer.observe(root);
+    for (const node of items.current.slice(0, count)) if (node !== null) observer.observe(node);
     return () => {
       observer.disconnect();
     };
-  }, [Measure]);
+  }, [Measure, count]);
 
   useEffect(() => {
     const rect = rects[activeIndex];
