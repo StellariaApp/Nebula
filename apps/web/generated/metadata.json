@@ -1760,10 +1760,14 @@
         "motion.spring",
         "motion.tier",
         "radius.full",
+        "radius.xl",
         "shadow.xxs",
         "size.control",
+        "space.lg",
         "space.md",
+        "space.sm",
         "space.u2_5",
+        "space.xl",
         "space.xs",
         "space.xxs"
       ]
