@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, ColorSwatch, Divider, Segment, Text, useTheme } from "@stellaria/nebula-web";
+import { Box, ColorSwatch, Divider, Flex, Segment, Text, useTheme } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
 import {
@@ -38,12 +38,12 @@ function Switcher(): ReactElement {
             data={THEME_NAMES.map((entry) => ({
               value: entry,
               label: (
-                <Box display="flex" align="center" gap="xs">
+                <Flex align="center" gap={5}>
                   <ColorSwatch color={Brand(entry, choice.scheme)} size={12} withShadow={false} />
                   <Text fz="body3" tt="capitalize">
                     {entry}
                   </Text>
-                </Box>
+                </Flex>
               ),
             }))}
           />

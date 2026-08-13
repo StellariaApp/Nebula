@@ -132,7 +132,7 @@ export const tab = recipe({
         background: "transparent",
         font: "inherit",
         fontWeight: vars.font.weight.semibold,
-        lineHeight: 1,
+        lineHeight: 1.3,
         fontSize: "inherit",
         cursor: "pointer",
         color: vars.color.text.secondary,
