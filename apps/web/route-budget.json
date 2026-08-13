@@ -3,20 +3,20 @@
     {
       "label": "Portada",
       "match": ["/"],
-      "jsRaw": 1395.75,
-      "jsBr": 390.75,
-      "cssFiles": 69,
-      "cssBr": 61.25,
-      "htmlBr": 30
+      "jsRaw": 1396.75,
+      "jsBr": 391,
+      "cssFiles": 2,
+      "cssBr": 1,
+      "htmlBr": 75.25
     },
     {
       "label": "Fichas de componente",
       "match": ["/guides/components/*"],
-      "jsRaw": 1265.25,
+      "jsRaw": 1265.5,
       "jsBr": 353.25,
-      "cssFiles": 47,
-      "cssBr": 51.5,
-      "htmlBr": 24
+      "cssFiles": 2,
+      "cssBr": 1,
+      "htmlBr": 69
     },
     {
       "label": "Paginas de guia",
@@ -27,29 +27,29 @@
         "/guides/form/*",
         "/guides/theming-styles/*"
       ],
-      "jsRaw": 1265.25,
+      "jsRaw": 1265.5,
       "jsBr": 353.25,
-      "cssFiles": 47,
-      "cssBr": 51.5,
-      "htmlBr": 21.75
+      "cssFiles": 2,
+      "cssBr": 1,
+      "htmlBr": 67
     },
     {
       "label": "Indices de seccion",
       "match": ["/guides/*"],
-      "jsRaw": 1209.5,
+      "jsRaw": 1209.75,
       "jsBr": 339,
-      "cssFiles": 38,
-      "cssBr": 46,
-      "htmlBr": 27.75
+      "cssFiles": 2,
+      "cssBr": 1,
+      "htmlBr": 68
     },
     {
       "label": "Paginas sueltas",
       "match": ["/theme", "/changelog"],
-      "jsRaw": 1199.75,
-      "jsBr": 336.25,
-      "cssFiles": 34,
-      "cssBr": 44.25,
-      "htmlBr": 14.5
+      "jsRaw": 1200,
+      "jsBr": 336.5,
+      "cssFiles": 2,
+      "cssBr": 1,
+      "htmlBr": 55.25
     }
   ]
 }

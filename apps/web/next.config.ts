@@ -4,7 +4,7 @@ import type { NextConfig } from "next";
 
 const config: NextConfig = {
   turbopack: { root: resolve(import.meta.dirname, "../..") },
-  experimental: { useTypeScriptCli: true },
+  experimental: { useTypeScriptCli: true, inlineCss: true },
   redirects: async () => [
     { source: "/guides", destination: "/guides/getting-started", permanent: false },
     { source: "/docs", destination: "/guides/getting-started", permanent: false },

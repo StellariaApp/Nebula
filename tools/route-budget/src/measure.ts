@@ -19,7 +19,12 @@ export interface RouteMeasure {
  */
 const QUALITY = 5;
 
-const ASSET = /(?:href|src)="(\/_next\/static\/[^"]+)"/g;
+/**
+ * El `[\s"']` de delante importa: sin él casa tambien `data-href`, y con `inlineCss` el `<style>`
+ * lleva un `data-href` con las rutas de todas las hojas que sustituye, separadas por espacios. El
+ * gate intentaba abrir esa cadena entera como un fichero.
+ */
+const ASSET = /[\s"'](?:href|src)="(\/_next\/static\/[^"]+)"/g;
 
 function Brotli(buffer: Buffer): number {
   return brotliCompressSync(buffer, { params: { [constants.BROTLI_PARAM_QUALITY]: QUALITY } })
