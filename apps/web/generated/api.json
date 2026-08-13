@@ -8,36 +8,7 @@
   },
   "gaps": {
     "noContract": [],
-    "noJsdoc": [
-      "Affix",
-      "AvatarGroup",
-      "CardImage",
-      "CardSection",
-      "SparkLine",
-      "ColorSwatch",
-      "DateDisplay",
-      "DirectionProvider",
-      "DragDropContext",
-      "Droppable",
-      "FileButton",
-      "FooterLegal",
-      "FooterLink",
-      "FormDelete",
-      "ModalDelete",
-      "HoverCard",
-      "KanbanBoard",
-      "NProgress",
-      "NavDivider",
-      "NavLogo",
-      "PermissionGate",
-      "Reveal",
-      "SectionHeading",
-      "SegmentContentItem",
-      "SegmentControlItem",
-      "StatusBadge",
-      "StatusMapProvider",
-      "UnstyledButton"
-    ],
+    "noJsdoc": [],
     "defaultUnknown": [],
     "noDestructuring": [
       "SearchableSelect"
@@ -273,7 +244,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "What is pinned to the viewport — a scroll-to-top, a floating action, a cookie bar.",
           "slot": false
         },
         {
@@ -289,7 +260,7 @@
           "type": "AffixPosition",
           "required": false,
           "default": "{ bottom: 24, right: 24 }",
-          "doc": null,
+          "doc": "Which corner it sits in, as viewport insets. Setting `top` and `bottom` together stretches it\nrather than centring it, so pick one of each axis. Numbers are pixels; strings pass through.",
           "slot": false
         },
         {
@@ -297,7 +268,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Whether it renders at all. False unmounts it outright — there is no transition here, so wrap it\nin a `Transition` if it should fade rather than vanish.",
           "slot": false
         },
         {
@@ -305,7 +276,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Renders through a portal, out of the containing layout, which is what keeps an ancestor's\n`transform` or `overflow` from capturing a fixed position. Turn it off only when the affix must\nstay inside a region that manages its own stacking.",
           "slot": false
         },
         {
@@ -313,7 +284,7 @@
           "type": "number",
           "required": false,
           "default": "200",
-          "doc": null,
+          "doc": "Where it sits in the stack. It starts high enough to clear page content but below the overlay\nrange, so a modal covers it — which is the behaviour a floating action wants.",
           "slot": false
         }
       ],
@@ -1037,7 +1008,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Names the set, which also makes it a `group` for assistive tech. Without it the avatars are\nannounced one after another with nothing saying they belong together.",
               "slot": false
             },
             {
@@ -1045,7 +1016,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The avatars, overlapped in the order given: the first sits on top.",
               "slot": false
             },
             {
@@ -1061,7 +1032,7 @@
               "type": "number",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "How many avatars are shown before the rest become a count. The overflow avatar is added by this\ncomponent, so do not leave a `+N` of your own among the children.",
               "slot": false
             },
             {
@@ -1069,7 +1040,7 @@
               "type": "Size | Unit",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The square every avatar in the set takes, overriding their own. It also sets the overlap, which\nis derived from it.",
               "slot": false
             },
             {
@@ -1077,7 +1048,7 @@
               "type": "Unit",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "How far each avatar slides over the one before it. Left out it is 30 % of `size`, so the overlap\nscales with the set instead of needing a new value per size.",
               "slot": false
             },
             {
@@ -1085,7 +1056,7 @@
               "type": "number",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The true size of the set, when it is larger than the children you passed. This is what makes the\ncount honest for a list that was paginated before it got here — without it the count can only\ndescribe the avatars actually rendered.",
               "slot": false
             }
           ],
@@ -2762,7 +2733,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Required, unlike everywhere else: a card image is usually the only picture of what the card is\nabout. Pass an empty string deliberately when it truly is decoration the card's text repeats.",
               "slot": false
             },
             {
@@ -2770,15 +2741,15 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Lands on the image, not on the section that wraps it.",
               "slot": false
             },
             {
               "name": "height",
               "type": "Unit",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "180",
+              "doc": "How tall the band is. The image covers it, so the aspect is cropped rather than letterboxed —\nwhich is why this is a height and not a ratio.",
               "slot": false
             },
             {
@@ -2786,7 +2757,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The image source. Without it the band still reserves its height, so the card does not reflow.",
               "slot": false
             }
           ],
@@ -2804,7 +2775,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The band's content.",
               "slot": false
             },
             {
@@ -2820,7 +2791,7 @@
               "type": "boolean",
               "required": false,
               "default": "true",
-              "doc": null,
+              "doc": "Cancels the card's padding for this band so it reaches both edges — what an image, a table or a\ndivider needs. It is on by default because that is the reason a section exists at all.",
               "slot": false
             },
             {
@@ -2828,7 +2799,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Draws a rule separating this band from the one before it.",
               "slot": false
             }
           ],
@@ -4567,7 +4538,7 @@
               "type": "ColorExtended",
               "required": false,
               "default": "\"primary\"",
-              "doc": null,
+              "doc": "The scale it is drawn from.",
               "slot": false
             },
             {
@@ -4575,7 +4546,7 @@
               "type": "readonly number[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The values, in order. They are scaled to their own minimum and maximum, so the line always fills\nthe box — two sparklines side by side are NOT comparable unless their ranges already match.\nA single value draws a flat line, and an empty array draws nothing.",
               "slot": false
             },
             {
@@ -4583,7 +4554,7 @@
               "type": "number",
               "required": false,
               "default": "28",
-              "doc": null,
+              "doc": "Height of the drawing, in pixels.",
               "slot": false
             },
             {
@@ -4591,7 +4562,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The accessible name. A sparkline has no axes and no figures, so without this it says nothing at\nall — put the reading in words here, since the shape carries none.",
               "slot": false
             },
             {
@@ -4599,7 +4570,7 @@
               "type": "number",
               "required": false,
               "default": "2",
-              "doc": null,
+              "doc": "Thickness of the line.",
               "slot": false
             },
             {
@@ -4607,7 +4578,7 @@
               "type": "number",
               "required": false,
               "default": "96",
-              "doc": null,
+              "doc": "Width of the drawing, in pixels. Fixed, not responsive: it is sized to sit inline in a cell.",
               "slot": false
             },
             {
@@ -4615,7 +4586,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Fills underneath the line, which reads as volume rather than as rate.",
               "slot": false
             }
           ],
@@ -6020,7 +5991,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What sits on top of the colour — usually a check mark for the selected one.",
           "slot": false
         },
         {
@@ -6036,7 +6007,7 @@
           "type": "ColorExtended | (string & {})",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "What the swatch paints. Anything starting with `#` or containing a function call is used\nverbatim, which is what lets it show a raw value a user picked; anything else is resolved\nthrough the theme scales at their 600 step.",
           "slot": false
         },
         {
@@ -6044,7 +6015,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Names the colour for assistive tech. Without it a static swatch is `aria-hidden`, which is right\nbeside a written colour name and wrong when the swatch stands alone. A pressable swatch always\nhas a name: this, or the raw `color` as a last resort.",
           "slot": false
         },
         {
@@ -6052,7 +6023,7 @@
           "type": "(() => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Turns the swatch into a real button. It is what makes it selectable, and it also changes the\nelement: without it the swatch is a `span` and takes no focus.",
           "slot": false
         },
         {
@@ -6060,7 +6031,7 @@
           "type": "\"sm\" | \"md\" | \"full\"",
           "required": false,
           "default": "\"full\"",
-          "doc": null,
+          "doc": "How round it is.",
           "slot": false
         },
         {
@@ -6068,7 +6039,7 @@
           "type": "number",
           "required": false,
           "default": "24",
-          "doc": null,
+          "doc": "The swatch's square, as a raw pixel length rather than a step.",
           "slot": false
         },
         {
@@ -6076,7 +6047,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Keeps the inset shadow that stops a pale swatch from disappearing into a pale surface. It is\nthe only thing giving a near-white swatch an edge, so turning it off needs a border of your own.",
           "slot": false
         }
       ],
@@ -8903,7 +8874,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "\"—\"",
-          "doc": null,
+          "doc": "What renders when the value is missing or unparseable. An em dash by default, so an empty cell\nstill holds its line instead of collapsing.",
           "slot": false
         },
         {
@@ -8911,7 +8882,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the locale. Left out it takes the ambient one from the surrounding React Aria\nprovider, which is what keeps a whole screen formatting alike.",
           "slot": false
         },
         {
@@ -8919,7 +8890,7 @@
           "type": "DateDisplayMode",
           "required": false,
           "default": "\"absolute\"",
-          "doc": null,
+          "doc": "Absolute, relative, or relative only while recent. `\"auto\"` is the one that reads best in a\nfeed, and it is the only mode `relativeThreshold` affects.",
           "slot": false
         },
         {
@@ -8927,7 +8898,7 @@
           "type": "number | Date",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Pins what \"now\" means for the relative form. Passing it is what makes the output deterministic,\nwhich a snapshot test or a server render needs; left out, every render reads the clock.",
           "slot": false
         },
         {
@@ -8935,7 +8906,7 @@
           "type": "Intl.DateTimeFormatOptions",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Merged over the preset, so it wins field by field rather than replacing the format wholesale. It\nis applied after `timeZone` and can therefore override that too.",
           "slot": false
         },
         {
@@ -8943,7 +8914,7 @@
           "type": "DateDisplayPreset",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Which named format the absolute form takes. Left out it follows the value: a date-only value\ngets the date preset, anything carrying a time gets date and time.",
           "slot": false
         },
         {
@@ -8951,7 +8922,7 @@
           "type": "number",
           "required": false,
           "default": "604_800_000",
-          "doc": null,
+          "doc": "How near, in milliseconds, an instant has to be for `\"auto\"` to render it relatively. A week by\ndefault, past which \"5 weeks ago\" stops being more useful than the date itself.",
           "slot": false
         },
         {
@@ -8959,7 +8930,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Which zone the instant is rendered in. Left out it is the reader's own, so one timestamp shown\nin two places reads as two different clock times — set it when the wall clock is part of the\nfact being stated.",
           "slot": false
         },
         {
@@ -8967,7 +8938,7 @@
           "type": "string | number | Date | null",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The instant to show. A date-only string is detected as such and never gains a time it did not\nhave. Anything unparseable is not an error — it renders `fallback`.",
           "slot": false
         },
         {
@@ -8975,7 +8946,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Puts the absolute form in a `title` while the relative one is showing, so \"2 hours ago\" can be\nhovered for the real timestamp. It does nothing when the absolute form is already on screen.",
           "slot": false
         }
       ],
@@ -10631,7 +10602,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The subtree that inherits the direction. It is wrapped in a `div` carrying `dir`, so this\nprovider adds an element — placing it between a flex or grid container and its items breaks the\nlayout.",
           "slot": false
         },
         {
@@ -10639,7 +10610,7 @@
           "type": "Direction",
           "required": false,
           "default": "\"ltr\"",
-          "doc": null,
+          "doc": "Where the direction starts when nothing controls it. Ignored once `direction` is passed.",
           "slot": false
         },
         {
@@ -10647,7 +10618,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Reads `dir` off the document element once on mount and adopts it. For an app whose direction is\ndecided server-side on the `html` tag; it only ever reads, and never writes back.",
           "slot": false
         },
         {
@@ -10655,7 +10626,7 @@
           "type": "Direction",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The direction, controlled. Passing it pins the value: `detectFromDocument` and the context's own\n`setDirection` still fire `onDirectionChange`, but nothing moves until you change this.",
           "slot": false
         },
         {
@@ -10663,7 +10634,7 @@
           "type": "((direction: Direction) => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Fires with the direction being moved to, in both modes. In controlled mode it is the only signal\nyou get, since the provider will not move on its own.",
           "slot": false
         }
       ],
@@ -10793,7 +10764,7 @@
               "type": "DragAxis",
               "required": false,
               "default": "\"both\"",
-              "doc": null,
+              "doc": "Locks dragging to one axis. Constraining it is what stops a vertical list wandering sideways\nunder an imprecise pointer.",
               "slot": false
             },
             {
@@ -10801,7 +10772,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Everything that can drag or receive a drop. Draggables and droppables only find each other\ninside one of these, so a drag cannot cross from one context into another.",
               "slot": false
             },
             {
@@ -10809,7 +10780,7 @@
               "type": "Partial<DragDropLabels>",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Overrides the announcements a screen reader hears through the drag, key by key — what is unset\nkeeps its default. Drag and drop is invisible to assistive tech without them, so these are the\nwhole of the accessible experience. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -10817,7 +10788,7 @@
               "type": "((move: DragMove) => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Fires when the drag is abandoned — Escape, or a lost pointer. Nothing has moved.",
               "slot": false
             },
             {
@@ -10825,7 +10796,7 @@
               "type": "((move: DragMove) => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Fires on release, and is where the move is committed. `overId` is null when the item was\ndropped on nothing, which is a cancellation in everything but name.",
               "slot": false
             },
             {
@@ -10833,7 +10804,7 @@
               "type": "((move: DragMove) => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Fires continuously as the item passes over targets. For previewing a reorder — commit in\n`onDragEnd`, since `overId` here changes many times per drag.",
               "slot": false
             },
             {
@@ -10841,7 +10812,7 @@
               "type": "((move: DragMove) => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Fires when a drag begins, with the item that picked up.",
               "slot": false
             },
             {
@@ -10849,7 +10820,7 @@
               "type": "((activeId: string) => ReactNode)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Renders what follows the pointer during a drag. Without it the item moves in place, which is\nwhat makes a drag out of a scrolling or clipping container look broken.",
               "slot": false
             },
             {
@@ -10857,7 +10828,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Keeps the dragged item inside its container. It bounds the drag visually; it does not stop a\ndrop landing on a target elsewhere in the same context.",
               "slot": false
             }
           ],
@@ -10955,7 +10926,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "What the zone contains. The zone itself is only a target; it does not lay its contents out.",
               "slot": false
             },
             {
@@ -10971,7 +10942,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Stops the zone accepting drops. It still renders and still takes up space — it simply stops\nlighting up, and stops appearing as `overId`.",
               "slot": false
             },
             {
@@ -10979,7 +10950,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Identifies this target. It is what arrives as `overId` in the context's handlers, so it has to\nbe unique within the context and stable across renders.",
               "slot": false
             },
             {
@@ -10987,7 +10958,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Names the zone for assistive tech. A drop target has no text of its own, so without this the\nannouncements can only refer to it by its raw `id`.",
               "slot": false
             }
           ],
@@ -12335,7 +12306,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Which file types the dialog offers, in the `accept` syntax. It is a filter on the dialog and not\na guarantee — a determined user can still hand you anything, so validate what arrives.",
           "slot": false
         },
         {
@@ -12343,7 +12314,7 @@
           "type": "boolean | \"user\" | \"environment\"",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Asks a mobile device to capture from a camera instead of browsing. Ignored on desktop, so it\ncannot be relied on as the only route to a file.",
           "slot": false
         },
         {
@@ -12351,7 +12322,7 @@
           "type": "(props: { onClick: () => void; }) => ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "A render function, not nodes: it is handed the opener and has to wire it to whatever it renders.\nThe real `input` stays hidden, which is what lets the trigger be any control you like while the\npicker keeps working.",
           "slot": false
         },
         {
@@ -12359,7 +12330,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Blocks the picker from opening.",
           "slot": false
         },
         {
@@ -12367,7 +12338,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Whether more than one file can be picked. It also changes the shape of what `onChange` gets: an\narray here, a single file without it.",
           "slot": false
         },
         {
@@ -12375,7 +12346,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Name of the underlying input, for a plain form submission.",
           "slot": false
         },
         {
@@ -12383,7 +12354,7 @@
           "type": "(payload: FileButtonPayload) => void",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "Receives the picked files: one `File` on its own, or an array with `multiple`. It also fires\nwith `null` — or an empty array — when the dialog is dismissed, so guard before reading.",
           "slot": false
         },
         {
@@ -12391,7 +12362,7 @@
           "type": "((reset: () => void) => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "NOT IMPLEMENTED. The component never calls this, so no reset function is ever handed back. The\ninput does clear its own value after every pick, which is what makes re-picking the same file\nfire `onChange` again.",
           "slot": false
         }
       ],
@@ -13181,7 +13152,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The fine print — copyright, company details, the line that has to be there.",
               "slot": false
             },
             {
@@ -13212,7 +13183,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The link text.",
               "slot": false
             },
             {
@@ -13220,15 +13191,15 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Lands on the link itself, not on the list item that wraps it.",
               "slot": false
             },
             {
               "name": "component",
               "type": "ElementType",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"a\" with an `href`, \"button\" without one",
+              "doc": "The element it paints, and where a router link plugs in. Left alone it follows `href`, so this\nis only needed for a framework's own link component.",
               "slot": false
             },
             {
@@ -13236,7 +13207,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Where it goes. Its presence is what decides the element: with it the item is an anchor, without\nit a button — which is why a link that only runs a handler still gets the right semantics.",
               "slot": false
             },
             {
@@ -13244,7 +13215,7 @@
               "type": "(() => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Runs on click. It does not replace `href`: with both, the navigation still happens.",
               "slot": false
             }
           ],
@@ -13364,7 +13335,7 @@
               "type": "DeleteAlert",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The warning above the form, rendered as an error `Alert`. This is where the consequence goes:\nthe buttons only say \"Delete\", so if the deletion is irreversible, it has to be said here.",
               "slot": false
             },
             {
@@ -13372,7 +13343,7 @@
               "type": "ReactNode",
               "required": false,
               "default": "\"Cancel\"",
-              "doc": null,
+              "doc": "The cancel button's label. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -13380,7 +13351,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the user has to do before deleting — a confirmation field, a list of what goes with it.\nNothing renders in that slot without it, so a bare confirmation needs only `alert`.",
               "slot": false
             },
             {
@@ -13396,7 +13367,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Blocks submission while leaving cancel alive — the state for a confirmation that has not been\nsatisfied yet.",
               "slot": false
             },
             {
@@ -13404,7 +13375,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What failed, shown in the footer beside the buttons. It is for the error the submission came\nback with; the warning about what deletion means belongs in `alert`.",
               "slot": false
             },
             {
@@ -13412,7 +13383,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Whether the deletion is in flight. It puts the submit button in its loading state and disables\ncancel, so the user cannot walk away from a request that is already running.",
               "slot": false
             },
             {
@@ -13420,7 +13391,7 @@
               "type": "(() => void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Runs on cancel. Its absence is what removes the cancel button entirely, so leaving it out gives\na form with no way out — deliberate only when something around it already offers one.",
               "slot": false
             },
             {
@@ -13428,7 +13399,7 @@
               "type": "((event: FormEvent<HTMLFormElement>) => Promise<void> | void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Runs the deletion. It receives the raw form event, so preventing the default is yours to do; an\nasync handler is awaited by nothing here, which is why `isPending` is a separate prop.",
               "slot": false
             },
             {
@@ -13436,7 +13407,7 @@
               "type": "ReactNode",
               "required": false,
               "default": "\"Delete\"",
-              "doc": null,
+              "doc": "The submit button's label. Naming the object beats the verb alone: \"Delete invoice\" is\nconfirmable at a glance in a way \"Delete\" is not. English by default (ADR-120).",
               "slot": false
             }
           ],
@@ -13459,15 +13430,15 @@
               "type": "DeleteAlert",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The warning above the form, rendered as an error `Alert`. This is where the consequence goes:\nthe buttons only say \"Delete\", so if the deletion is irreversible, it has to be said here.",
               "slot": false
             },
             {
               "name": "cancelText",
               "type": "ReactNode",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"Cancel\"",
+              "doc": "The cancel button's label. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -13475,7 +13446,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What the user has to do before deleting — a confirmation field, a list of what goes with it.\nNothing renders in that slot without it, so a bare confirmation needs only `alert`.",
               "slot": false
             },
             {
@@ -13490,8 +13461,8 @@
               "name": "disabled",
               "type": "boolean",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "false",
+              "doc": "Blocks submission while leaving cancel alive — the state for a confirmation that has not been\nsatisfied yet.",
               "slot": false
             },
             {
@@ -13499,15 +13470,15 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "What failed, shown in the footer beside the buttons. It is for the error the submission came\nback with; the warning about what deletion means belongs in `alert`.",
               "slot": false
             },
             {
               "name": "isPending",
               "type": "boolean",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "false",
+              "doc": "Whether the deletion is in flight. It puts the submit button in its loading state and disables\ncancel, so the user cannot walk away from a request that is already running.",
               "slot": false
             },
             {
@@ -13515,7 +13486,7 @@
               "type": "() => void",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Closes the modal, and doubles as the form's cancel — which is why `onCancel` is not part of this\ncontract. While `isPending`, neither the backdrop nor Escape will call it, so an in-flight\ndeletion cannot be dismissed out from under itself.",
               "slot": false
             },
             {
@@ -13523,7 +13494,7 @@
               "type": "((event: FormEvent<HTMLFormElement>) => Promise<void> | void)",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Runs the deletion. It receives the raw form event, so preventing the default is yours to do; an\nasync handler is awaited by nothing here, which is why `isPending` is a separate prop.",
               "slot": false
             },
             {
@@ -13531,7 +13502,7 @@
               "type": "boolean",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Whether the modal is open. Fully controlled: it has no state of its own.",
               "slot": false
             },
             {
@@ -13539,15 +13510,15 @@
               "type": "SizeValue",
               "required": false,
               "default": "\"sm\"",
-              "doc": null,
+              "doc": "How wide the modal is. It stays small by default: a confirmation that fills the screen reads as\na page rather than as a question.",
               "slot": false
             },
             {
               "name": "submitText",
               "type": "ReactNode",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"Delete\"",
+              "doc": "The submit button's label. Naming the object beats the verb alone: \"Delete invoice\" is\nconfirmable at a glance in a way \"Delete\" is not. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -13555,7 +13526,7 @@
               "type": "ReactNode",
               "required": false,
               "default": "\"Confirm deletion\"",
-              "doc": null,
+              "doc": "The modal's heading. English by default (ADR-120).",
               "slot": false
             }
           ],
@@ -15053,7 +15024,7 @@
           "type": "ReactNode",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The card's content.",
           "slot": false
         },
         {
@@ -15069,7 +15040,7 @@
           "type": "number",
           "required": false,
           "default": "150",
-          "doc": null,
+          "doc": "How long it waits before closing once the pointer leaves, in milliseconds. This is the window\nthe pointer has to travel from the trigger into the card, so shortening it can make the card\nunreachable.",
           "slot": false
         },
         {
@@ -15077,7 +15048,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Shifts the card along the other axis, for aligning it against something wider than its trigger.",
           "slot": false
         },
         {
@@ -15085,7 +15056,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Where the state starts when nothing controls it. Ignored once `opened` is passed.",
           "slot": false
         },
         {
@@ -15093,7 +15064,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Stops it opening at all, without unmounting the trigger.",
           "slot": false
         },
         {
@@ -15101,7 +15072,7 @@
           "type": "number",
           "required": false,
           "default": "8",
-          "doc": null,
+          "doc": "Gap between trigger and card, along the placement axis. Keep it small enough that the pointer\ncan cross without the card closing under it.",
           "slot": false
         },
         {
@@ -15109,7 +15080,7 @@
           "type": "((opened: boolean) => void)",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Fires with the state being moved to, in both modes.",
           "slot": false
         },
         {
@@ -15117,7 +15088,7 @@
           "type": "number",
           "required": false,
           "default": "200",
-          "doc": null,
+          "doc": "How long the pointer has to rest before it opens, in milliseconds. It is what stops a card\nfiring on every pointer that merely crosses the trigger on its way somewhere else.",
           "slot": false
         },
         {
@@ -15125,7 +15096,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The open state, controlled. Passing it takes the state away from the component: the delays still\nrun, but they report through `onOpenChange` instead of moving anything.",
           "slot": false
         },
         {
@@ -15133,7 +15104,7 @@
           "type": "PopoverPlacement",
           "required": false,
           "default": "\"bottom\"",
-          "doc": null,
+          "doc": "Which side of the trigger the card prefers; it flips when there is no room.",
           "slot": false
         },
         {
@@ -15141,7 +15112,7 @@
           "type": "OverlayTriggerElement",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "What opens the card on hover. Hover is the only trigger, so whatever goes here has to be\nsupplementary: a touch user and a keyboard user never reach it, and nothing inside the card can\nbe the only route to a task.",
           "slot": false
         },
         {
@@ -15149,7 +15120,7 @@
           "type": "string | number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Fixes the card's width. Left out it sizes to its content.",
           "slot": false
         },
         {
@@ -15157,7 +15128,7 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "NOT IMPLEMENTED. The component reads no arrow prop and never draws one; setting this changes\nnothing today. It is kept only so the contract does not break for callers already passing it.",
           "slot": false
         }
       ],
@@ -16773,7 +16744,7 @@
               "type": "readonly KanbanColumnDef[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The columns, in order. Their ids are what `getColumn` has to return.",
               "slot": false
             },
             {
@@ -16781,7 +16752,7 @@
               "type": "number",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Fixed width of every column, in pixels. The board scrolls sideways past the viewport.",
               "slot": false
             },
             {
@@ -16789,7 +16760,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Freezes the board: cards still render, nothing drags.",
               "slot": false
             },
             {
@@ -16797,7 +16768,7 @@
               "type": "(item: T) => string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Which column a card belongs in, as one of the `columns` ids. This is what does the grouping.",
               "slot": false
             },
             {
@@ -16805,7 +16776,7 @@
               "type": "(item: T, index: number) => string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Identity of each card. It has to be stable across renders and unique board-wide — a key that\nchanges as the card moves makes the drag lose the item mid-flight.",
               "slot": false
             },
             {
@@ -16813,7 +16784,7 @@
               "type": "readonly T[]",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Every card on the board, flat and in one list. The board groups them itself, so passing them\npre-grouped per column is not the shape it wants.",
               "slot": false
             },
             {
@@ -16821,7 +16792,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Names the board as a whole. Without it the columns are announced with nothing tying them\ntogether.",
               "slot": false
             },
             {
@@ -16829,7 +16800,7 @@
               "type": "Partial<DragDropLabels>",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Overrides the drag announcements a screen reader hears, key by key — what is unset keeps its\ndefault. English by default (ADR-120).",
               "slot": false
             },
             {
@@ -16837,7 +16808,7 @@
               "type": "(move: KanbanMove) => void",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Commits a move. The board reorders optimistically as the card is dropped, so this has to\npersist the change — if it does not, the next render from your data snaps the card back.",
               "slot": false
             },
             {
@@ -16845,7 +16816,7 @@
               "type": "(item: T, columnId: string) => ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Renders a card. It is given the column so a card can read differently depending on where it sits.",
               "slot": false
             },
             {
@@ -16853,7 +16824,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Confines dragging to an explicit grip instead of the whole card. Turn it on whenever cards\ncontain their own controls, since otherwise a press meant for a button starts a drag.",
               "slot": false
             }
           ],
@@ -19134,7 +19105,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": "\"primary\"",
-          "doc": null,
+          "doc": "The scale the bar is drawn from, at the 500 step.",
           "slot": false
         },
         {
@@ -19142,7 +19113,7 @@
           "type": "number",
           "required": false,
           "default": "3",
-          "doc": null,
+          "doc": "How thick the bar is, in pixels.",
           "slot": false
         },
         {
@@ -19150,7 +19121,7 @@
           "type": "string",
           "required": false,
           "default": "\"Loading the page\"",
-          "doc": null,
+          "doc": "What is announced while the bar runs. The bar itself is a thin line with no text, so this is the\nwhole of what a screen reader gets. English by default (ADR-120).",
           "slot": false
         },
         {
@@ -19158,7 +19129,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Whether the bar is running. Without a `value` this is the whole control: turning it on starts\nthe bar creeping and turning it off unmounts it.",
           "slot": false
         },
         {
@@ -19166,7 +19137,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The percentage, controlled. Passing it takes over from the automatic creep entirely — and it\nalso keeps the bar mounted once `loading` goes false, so a controlled bar has to be unmounted\nby its parent when the work ends.",
           "slot": false
         },
         {
@@ -19174,7 +19145,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "doc": null,
+          "doc": "Renders through a portal, which is what keeps the bar pinned to the top of the viewport rather\nthan to whatever region happens to contain it.",
           "slot": false
         },
         {
@@ -19182,7 +19153,7 @@
           "type": "number",
           "required": false,
           "default": "400",
-          "doc": null,
+          "doc": "Where it sits in the stack. It starts above the affix range so a page-level bar stays visible\nover floating content.",
           "slot": false
         }
       ],
@@ -19543,7 +19514,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Lands on the rule. It is decorative and carries no role, so it separates the nav visually\nwithout adding a landmark or an announcement between the groups it splits.",
               "slot": false
             }
           ],
@@ -19710,7 +19681,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Names the logo link. A mark that is an image carries no text, so without this the link is\nannounced as its URL — set it whenever the children are not readable words.",
               "slot": false
             },
             {
@@ -19718,7 +19689,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The mark itself — an `svg`, an `img`, or wordmark text.",
               "slot": false
             },
             {
@@ -19733,8 +19704,8 @@
               "name": "component",
               "type": "ElementType",
               "required": false,
-              "default": null,
-              "doc": null,
+              "default": "\"a\" with an `href`, \"div\" without one",
+              "doc": "The element it paints, and where a router link plugs in. Left alone it follows `href`.",
               "slot": false
             },
             {
@@ -19742,7 +19713,7 @@
               "type": "Unit",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "How tall the mark is drawn; the width follows its aspect. Height is the one that matters here\nbecause the bar's height is what the logo has to sit inside.",
               "slot": false
             },
             {
@@ -19750,7 +19721,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Where the mark links to, conventionally the home page. Without it the logo is not a link at all,\nwhich is the right answer only when the page it sits on IS home.",
               "slot": false
             }
           ],
@@ -20914,7 +20885,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What the permission protects.",
           "slot": false
         },
         {
@@ -20922,7 +20893,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Lands on the wrapper the inert mode adds. There is no wrapper when the gate lets you through.",
           "slot": false
         },
         {
@@ -20930,7 +20901,7 @@
           "type": "string",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Text announced before the inert subtree, so a screen reader learns why nothing responds. Only\nread in the inert mode, and without it the denial is silent — which is the case worth avoiding.",
           "slot": false
         },
         {
@@ -20938,7 +20909,7 @@
           "type": "ReactNode",
           "required": false,
           "default": "null",
-          "doc": null,
+          "doc": "What renders in place of the subtree when it is hidden. Only used by `\"hide\"` — the inert mode\nshows the real children instead. Left out, denial renders nothing.",
           "slot": false
         },
         {
@@ -20946,7 +20917,7 @@
           "type": "PermissionDeniedMode",
           "required": false,
           "default": "\"hide\"",
-          "doc": null,
+          "doc": "What denial looks like. `\"hide\"` removes the subtree; the other mode keeps it on screen and\nmarks it `inert`, so it is visible but unreachable by pointer and by keyboard alike. Hiding is\nthe safer default: a control the user can see but not use needs a reason they can read.",
           "slot": false
         },
         {
@@ -20954,7 +20925,7 @@
           "type": "K",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The key this subtree is gated on. It is resolved by the app's own resolver, which is why the key\ntype is the app's and not the library's — the core never learns what the keys mean.",
           "slot": false
         }
       ],
@@ -22383,8 +22354,8 @@
           "name": "amount",
           "type": "number",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "0.2",
+          "doc": "How much of the element has to be visible before it fires, from 0 to 1. Keep it low for tall\nblocks: an element taller than the viewport can never reach a high threshold, and would never\nreveal at all.",
           "slot": false
         },
         {
@@ -22392,7 +22363,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "What is revealed. It is never hidden by the stylesheet: the hidden state is applied from the\nclient only once motion is known to be allowed, so with JS off, without an\n`IntersectionObserver`, or under reduced motion the content is simply there.",
           "slot": false
         },
         {
@@ -22407,8 +22378,8 @@
           "name": "component",
           "type": "ElementType",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"div\"",
+          "doc": "The element it paints. It swaps the root for its animated twin rather than wrapping it, so this\ncomponent adds no node — which is what lets it sit between a grid and its items.",
           "slot": false
         },
         {
@@ -22416,7 +22387,7 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Length of the entrance in milliseconds. Ignored when `spring` is set.",
           "slot": false
         },
         {
@@ -22424,39 +22395,39 @@
           "type": "number",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Position in a stagger, which delays this one relative to its siblings. Pass the map index over a\nlist; the delay is capped, so a long list does not end with an element waiting seconds.",
           "slot": false
         },
         {
           "name": "once",
           "type": "boolean",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "true",
+          "doc": "Whether it reveals once and stays. Turning it off makes content re-animate every time it\nre-enters the viewport, which reads as flicker on a page the user scrolls back up.",
           "slot": false
         },
         {
           "name": "preset",
           "type": "TransitionPreset",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"slide-up\"",
+          "doc": "Which way it enters. Same seven presets as `Transition`, with a different trigger: that one\nfires on `mounted`, this one on coming into view.",
           "slot": false
         },
         {
           "name": "rootMargin",
           "type": "string",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"0px 0px -10% 0px\"",
+          "doc": "The observer's root margin. The default pulls the trigger line 10 % up from the bottom edge, so\nthe entrance starts before the element is flush with the fold rather than after.",
           "slot": false
         },
         {
           "name": "spring",
           "type": "SpringName",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"gentle\"",
+          "doc": "Uses a theme spring instead of a tween, which leaves `duration` unread.",
           "slot": false
         },
         {
@@ -23712,7 +23683,7 @@
               "type": "ReactNode",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The part's content. Every part is a plain band inside the rail — it claims no region and no\nheading level of its own, so the structure comes from the `Section` around it.",
               "slot": false
             },
             {
@@ -23720,7 +23691,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Lands on the part's own element, after the classes the style props generate.",
               "slot": false
             }
           ],
@@ -23943,7 +23914,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The panel's content.",
               "slot": false
             },
             {
@@ -23951,7 +23922,7 @@
               "type": "string",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "Lands on this panel only, above whatever `panelProps` spreads over all of them.",
               "slot": false
             },
             {
@@ -23959,7 +23930,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Ties this panel to the tab carrying the same value. They have to match exactly.",
               "slot": false
             }
           ],
@@ -24033,7 +24004,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The tab label.",
               "slot": false
             },
             {
@@ -24041,7 +24012,7 @@
               "type": "boolean",
               "required": false,
               "default": "false",
-              "doc": null,
+              "doc": "Blocks selection of this tab. It stays visible and stays in the tab order, so the user can reach\nit and learn it exists — which is why its panel still has to be a sensible thing to be denied.",
               "slot": false
             },
             {
@@ -24049,7 +24020,7 @@
               "type": "string",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "Ties this tab to the content item carrying the same value. They have to match exactly.",
               "slot": false
             }
           ],
@@ -25763,7 +25734,7 @@
           "type": "ColorExtended",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the colour the map entry asks for. Colour is the status's main signal, so overriding\nit per call is how two badges end up saying the same word in different colours.",
           "slot": false
         },
         {
@@ -25771,15 +25742,15 @@
           "type": "boolean",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides whether the map entry shows its dot.",
           "slot": false
         },
         {
           "name": "fullWidth",
           "type": "boolean",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "false",
+          "doc": "Stretches the pill to its container instead of hugging the label.",
           "slot": false
         },
         {
@@ -25787,23 +25758,23 @@
           "type": "Readonly<Record<S, StatusDescriptor>>",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The lookup table, overriding the one from `StatusMapProvider`. Pass it here for a one-off set of\nstatuses; put it on the provider when a whole screen shares the same vocabulary.",
           "slot": false
         },
         {
           "name": "radius",
           "type": "\"sm\" | \"md\" | \"full\"",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"full\"",
+          "doc": "How round the pill is.",
           "slot": false
         },
         {
           "name": "size",
           "type": "Size",
           "required": false,
-          "default": null,
-          "doc": null,
+          "default": "\"md\"",
+          "doc": "Height, padding and type of the pill together.",
           "slot": false
         },
         {
@@ -25811,7 +25782,7 @@
           "type": "S",
           "required": true,
           "default": null,
-          "doc": null,
+          "doc": "The status key. It is looked up in the map to get the label, the colour and the rest — the key\nitself is never shown, so a key with no entry in the map has nothing to render.",
           "slot": false
         },
         {
@@ -25819,7 +25790,7 @@
           "type": "BadgeVariant",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "Overrides the variant the map entry asks for. The point of the map is that the status decides\nits own look, so reach for this only to make one badge sit differently in its surroundings.",
           "slot": false
         }
       ],
@@ -25841,7 +25812,7 @@
               "type": "ReactNode",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The subtree that inherits the map.",
               "slot": false
             },
             {
@@ -25849,7 +25820,7 @@
               "type": "Readonly<Record<S, StatusDescriptor>>",
               "required": true,
               "default": null,
-              "doc": null,
+              "doc": "The status vocabulary for everything below. It is what keeps one status looking and reading the\nsame across a screen; a `map` on an individual badge overrides it.",
               "slot": false
             }
           ],
@@ -28415,7 +28386,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": null,
+          "doc": "The whole of the button. The component strips the browser's appearance but keeps the keyboard,\nfocus ring and press semantics, so the children carry the entire look — including the visible\nfocus state, which is the one thing that must not be stripped with it.",
           "slot": false
         },
         {
@@ -28423,7 +28394,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": null,
+          "doc": "Blocks the press and stops the hover and focus state being reported. It is a real `button`, so\nthis also removes it from the tab order — for something that must stay reachable while inert,\nmark it `aria-disabled` and guard the handler instead.",
           "slot": false
         }
       ],

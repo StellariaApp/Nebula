@@ -10,7 +10,12 @@ export type SectionOrder = 2 | 3 | 4 | 5 | 6;
 
 /** Props of any `Section` part: children, `className` and the system style props. */
 export interface SectionSlotProps extends StyleProps {
+  /**
+   * The part's content. Every part is a plain band inside the rail — it claims no region and no
+   * heading level of its own, so the structure comes from the `Section` around it.
+   */
   children?: ReactNode | undefined;
+  /** Lands on the part's own element, after the classes the style props generate. */
   className?: string | undefined;
 }
 

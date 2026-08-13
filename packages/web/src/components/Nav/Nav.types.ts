@@ -44,11 +44,28 @@ export interface NavProps extends StyleProps {
 }
 
 export interface NavLogoProps extends StyleProps {
+  /** The mark itself — an `svg`, an `img`, or wordmark text. */
   children?: ReactNode | undefined;
+  /**
+   * The element it paints, and where a router link plugs in. Left alone it follows `href`.
+   * @default "a" with an `href`, "div" without one
+   */
   component?: ElementType | undefined;
+  /**
+   * Where the mark links to, conventionally the home page. Without it the logo is not a link at all,
+   * which is the right answer only when the page it sits on IS home.
+   */
   href?: string | undefined;
+  /**
+   * How tall the mark is drawn; the width follows its aspect. Height is the one that matters here
+   * because the bar's height is what the logo has to sit inside.
+   */
   height?: Unit | undefined;
   className?: string | undefined;
+  /**
+   * Names the logo link. A mark that is an image carries no text, so without this the link is
+   * announced as its URL — set it whenever the children are not readable words.
+   */
   "aria-label"?: string | undefined;
 }
 
@@ -117,5 +134,9 @@ export interface NavSlotProps extends StyleProps {
 }
 
 export interface NavDividerProps extends StyleProps {
+  /**
+   * Lands on the rule. It is decorative and carries no role, so it separates the nav visually
+   * without adding a landmark or an announcement between the groups it splits.
+   */
   className?: string | undefined;
 }

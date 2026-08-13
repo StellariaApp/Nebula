@@ -82,16 +82,34 @@ export type CardProps = CardOwnProps &
   Omit<ComponentPropsWithoutRef<"div">, keyof CardOwnProps | "color">;
 
 export interface CardSectionProps {
+  /** The band's content. */
   children: ReactNode;
+  /**
+   * Cancels the card's padding for this band so it reaches both edges — what an image, a table or a
+   * divider needs. It is on by default because that is the reason a section exists at all.
+   * @default true
+   */
   inset?: boolean | undefined;
+  /** Draws a rule separating this band from the one before it. @default false */
   withBorder?: boolean | undefined;
   className?: string | undefined;
 }
 
 export interface CardImageProps {
+  /** The image source. Without it the band still reserves its height, so the card does not reflow. */
   src?: string | undefined;
+  /**
+   * Required, unlike everywhere else: a card image is usually the only picture of what the card is
+   * about. Pass an empty string deliberately when it truly is decoration the card's text repeats.
+   */
   alt: string;
+  /**
+   * How tall the band is. The image covers it, so the aspect is cropped rather than letterboxed —
+   * which is why this is a height and not a ratio.
+   * @default 180
+   */
   height?: Unit | undefined;
+  /** Lands on the image, not on the section that wraps it. */
   className?: string | undefined;
 }
 

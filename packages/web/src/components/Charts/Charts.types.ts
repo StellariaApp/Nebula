@@ -157,12 +157,26 @@ export interface PieChartProps extends Omit<ChartBaseProps, "series" | "xAxis" |
 }
 
 export interface SparkLineProps extends StyleProps {
+  /**
+   * The values, in order. They are scaled to their own minimum and maximum, so the line always fills
+   * the box — two sparklines side by side are NOT comparable unless their ranges already match.
+   * A single value draws a flat line, and an empty array draws nothing.
+   */
   data: readonly number[];
+  /** The scale it is drawn from. @default "primary" */
   color?: ColorExtended | undefined;
+  /** Width of the drawing, in pixels. Fixed, not responsive: it is sized to sit inline in a cell. @default 96 */
   width?: number | undefined;
+  /** Height of the drawing, in pixels. @default 28 */
   height?: number | undefined;
+  /** Thickness of the line. @default 2 */
   strokeWidth?: number | undefined;
+  /** Fills underneath the line, which reads as volume rather than as rate. @default false */
   withArea?: boolean | undefined;
+  /**
+   * The accessible name. A sparkline has no axes and no figures, so without this it says nothing at
+   * all — put the reading in words here, since the shape carries none.
+   */
   label?: string | undefined;
   className?: string | undefined;
 }

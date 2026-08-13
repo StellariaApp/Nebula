@@ -53,14 +53,27 @@ export interface FooterGroupProps extends StyleProps {
 }
 
 export interface FooterLinkProps extends StyleProps {
+  /** The link text. */
   children?: ReactNode | undefined;
+  /**
+   * The element it paints, and where a router link plugs in. Left alone it follows `href`, so this
+   * is only needed for a framework's own link component.
+   * @default "a" with an `href`, "button" without one
+   */
   component?: ElementType | undefined;
+  /**
+   * Where it goes. Its presence is what decides the element: with it the item is an anchor, without
+   * it a button — which is why a link that only runs a handler still gets the right semantics.
+   */
   href?: string | undefined;
+  /** Runs on click. It does not replace `href`: with both, the navigation still happens. */
   onPress?: (() => void) | undefined;
+  /** Lands on the link itself, not on the list item that wraps it. */
   className?: string | undefined;
 }
 
 export interface FooterLegalProps extends StyleProps {
+  /** The fine print — copyright, company details, the line that has to be there. */
   children?: ReactNode | undefined;
   className?: string | undefined;
 }

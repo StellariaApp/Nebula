@@ -50,8 +50,14 @@ export interface SegmentControlProps extends StyleProps {
 }
 
 export interface SegmentControlItemProps {
+  /** Ties this tab to the content item carrying the same value. They have to match exactly. */
   value: string;
+  /** The tab label. */
   children: ReactNode;
+  /**
+   * Blocks selection of this tab. It stays visible and stays in the tab order, so the user can reach
+   * it and learn it exists — which is why its panel still has to be a sensible thing to be denied.
+   */
   disabled?: boolean | undefined;
 }
 
@@ -76,8 +82,11 @@ export interface SegmentContentProps extends StyleProps {
 }
 
 export interface SegmentContentItemProps {
+  /** Ties this panel to the tab carrying the same value. They have to match exactly. */
   value: string;
+  /** The panel's content. */
   children: ReactNode;
+  /** Lands on this panel only, above whatever `panelProps` spreads over all of them. */
   className?: string | undefined;
 }
 

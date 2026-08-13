@@ -53,11 +53,33 @@ export interface AvatarProps extends StyleProps {
 }
 
 export interface AvatarGroupProps extends StyleProps {
+  /** The avatars, overlapped in the order given: the first sits on top. */
   children: ReactNode;
+  /**
+   * How many avatars are shown before the rest become a count. The overflow avatar is added by this
+   * component, so do not leave a `+N` of your own among the children.
+   */
   max?: number | undefined;
+  /**
+   * The true size of the set, when it is larger than the children you passed. This is what makes the
+   * count honest for a list that was paginated before it got here — without it the count can only
+   * describe the avatars actually rendered.
+   */
   total?: number | undefined;
+  /**
+   * The square every avatar in the set takes, overriding their own. It also sets the overlap, which
+   * is derived from it.
+   */
   size?: Size | Unit | undefined;
+  /**
+   * How far each avatar slides over the one before it. Left out it is 30 % of `size`, so the overlap
+   * scales with the set instead of needing a new value per size.
+   */
   spacing?: Unit | undefined;
   className?: string | undefined;
+  /**
+   * Names the set, which also makes it a `group` for assistive tech. Without it the avatars are
+   * announced one after another with nothing saying they belong together.
+   */
   "aria-label"?: string | undefined;
 }
