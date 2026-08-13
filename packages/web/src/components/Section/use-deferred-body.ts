@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const DEFER_ROOT_MARGIN = "300px 0px";
 
 export interface UseDeferredBodyResult {
-  ref: RefObject<HTMLElement | null>;
+  ref: (node: HTMLElement | null) => void;
   mounted: boolean;
 }
 
@@ -17,35 +17,50 @@ export interface UseDeferredBodyResult {
  * es la mejora— y para montar sería un fallo: quien pide menos movimiento se quedaría con la página
  * vacía. Montar no es una mejora, es la página.
  *
- * Sin `IntersectionObserver` monta de entrada, por la misma razón.
+ * **El `ref` es una función y no un objeto, y eso no es estilo.** `Section` cambia su elemento raíz
+ * de `section` a `m.section` cuando `useReveal` se arma, y cambiar el tipo de un elemento hace que
+ * React desmonte y vuelva a montar todo el subárbol. Con un `RefObject` el observador se quedaba
+ * mirando el hueco original —ya huérfano— y no disparaba nunca: la banda no llegaba a montarse. Con
+ * ref de función, cada nodo nuevo vuelve a suscribirse.
+ *
+ * Sin `IntersectionObserver` monta de entrada, por la misma razón que arriba.
  */
 export function useDeferredBody(
   enabled: boolean,
   rootMargin: string = DEFER_ROOT_MARGIN,
 ): UseDeferredBodyResult {
-  const ref = useRef<HTMLElement | null>(null);
   const [mounted, set_mounted] = useState(false);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    if (!enabled) return;
-    const element = ref.current;
-    if (element === null || typeof IntersectionObserver === "undefined") {
-      set_mounted(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) set_mounted(true);
-      },
-      { rootMargin },
-    );
-    observer.observe(element);
-
     return () => {
-      observer.disconnect();
+      observer.current?.disconnect();
+      observer.current = null;
     };
-  }, [enabled, rootMargin]);
+  }, []);
 
-  return { ref, mounted: !enabled || mounted };
+  const Attach = useCallback(
+    (node: HTMLElement | null) => {
+      observer.current?.disconnect();
+      observer.current = null;
+      if (!enabled || node === null) return;
+
+      if (typeof IntersectionObserver === "undefined") {
+        set_mounted(true);
+        return;
+      }
+
+      const watcher = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) set_mounted(true);
+        },
+        { rootMargin },
+      );
+      watcher.observe(node);
+      observer.current = watcher;
+    },
+    [enabled, rootMargin],
+  );
+
+  return { ref: Attach, mounted: !enabled || mounted };
 }

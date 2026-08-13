@@ -7,7 +7,6 @@ import {
   useId,
   useMemo,
   type ElementType,
-  type RefObject,
   type ReactElement,
   type ReactNode,
 } from "react";
@@ -174,7 +173,7 @@ export function Section(props: SectionProps): ReactElement {
 
           {defer && !deferred.mounted ? (
             <div
-              ref={deferred.ref as RefObject<HTMLDivElement | null>}
+              ref={deferred.ref}
               style={{ minHeight: LengthToCss(deferHeight ?? 0) }}
               aria-hidden="true"
             />

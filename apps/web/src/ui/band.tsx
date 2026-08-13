@@ -19,6 +19,8 @@ export interface BandProps {
   glass?: boolean | undefined;
   center?: boolean | undefined;
   id?: string | undefined;
+  /** Alto reservado del cuerpo mientras espera a entrar en pantalla. Medido, no estimado. */
+  deferHeight?: number | undefined;
   children: ReactNode;
 }
 
@@ -31,6 +33,7 @@ export function Band({
   glass = false,
   center = false,
   id,
+  deferHeight,
   children,
 }: BandProps): ReactElement {
   const scale = SCALE[level];
@@ -38,6 +41,7 @@ export function Band({
   return (
     <Section
       reveal
+      {...(deferHeight === undefined ? {} : { defer: true, deferHeight })}
       size={scale.size}
       gap="lg"
       {...(glass ? { glass: true } : {})}

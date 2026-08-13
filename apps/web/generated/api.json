@@ -23561,6 +23561,22 @@
           "slot": false
         },
         {
+          "name": "defer",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Mounts the body on first intersection instead of on load. Header and footer always render, so\nthe heading stays in the served HTML for search and assistive tech. Unlike `reveal`, it does NOT\nturn off with reduced motion: mounting is not an enhancement, it is the page.",
+          "slot": false
+        },
+        {
+          "name": "deferHeight",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "doc": "Height held for the body while it waits, so deferring costs no layout shift.",
+          "slot": false
+        },
+        {
           "name": "description",
           "type": "ReactNode",
           "required": false,
