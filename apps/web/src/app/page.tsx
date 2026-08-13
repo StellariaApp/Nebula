@@ -28,7 +28,6 @@ import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
-import { SHELL_WIDTH } from "@/lib/layout";
 import { SiteNav } from "../islands/site-nav";
 import { ThemePanel } from "../islands/theme-panel";
 import type { Dictionary } from "../lib/dictionary";
@@ -161,7 +160,6 @@ export default async function Home() {
         header={<Bar dict={dict} guides={guides} />}
         footer={<SiteFooter dict={dict} />}
         background={<SiteBackground />}
-        contentWidth={SHELL_WIDTH}
       >
         <ThemePanel
           labels={{
