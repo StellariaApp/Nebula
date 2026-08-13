@@ -137,11 +137,10 @@ export function useSegmentIndicator(options: SegmentIndicatorOptions): SegmentIn
       Measure();
     });
     observer.observe(root);
-    for (const node of items.current.slice(0, count)) if (node !== null) observer.observe(node);
     return () => {
       observer.disconnect();
     };
-  }, [Measure, count]);
+  }, [Measure]);
 
   useEffect(() => {
     const rect = rects[activeIndex];
