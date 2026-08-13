@@ -39,7 +39,7 @@ import {
   Title,
   Segment,
 } from "@stellaria/nebula-web";
-import type { ReactElement, ReactNode } from "react";
+import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 
 import { Deferred } from "../defer";
 
@@ -1016,12 +1016,22 @@ const VIEWS: [Scenario, ReactElement][] = [
   ["settings", <Settings />],
 ];
 
-export default function Scenarios(): ReactElement {
+export default function Scenarios({ active }: { active: Scenario }): ReactElement {
+  const index = Math.max(
+    0,
+    VIEWS.findIndex(([name]) => name === active),
+  );
+  const [seen, set_seen] = useState<readonly Scenario[]>([]);
+
+  useEffect(() => {
+    set_seen((prev) => (prev.includes(active) ? prev : [...prev, active]));
+  }, [active]);
+
   return (
     <Segment.Content w="100%" gap="lg" auto>
-      {VIEWS.map(([name, view]) => (
+      {VIEWS.map(([name, view], position) => (
         <Segment.Content.Item key={name} value={name}>
-          {view}
+          {Math.abs(position - index) <= 1 || seen.includes(name) ? view : null}
         </Segment.Content.Item>
       ))}
     </Segment.Content>

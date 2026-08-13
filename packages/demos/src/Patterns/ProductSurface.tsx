@@ -101,7 +101,7 @@ export default function ProductSurface(): ReactElement {
             </Text>
           </Box>
         </Box>
-        <Scenarios />
+        <Scenarios active={scenario} />
       </Box>
     </Segment>
   );
