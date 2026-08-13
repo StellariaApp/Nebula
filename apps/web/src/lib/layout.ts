@@ -1,5 +1,5 @@
 /** El eje que comparten la barra y el grid del carril (ADR-126): si cambia uno, cambia el otro. */
-export const SHELL_WIDTH = 1440;
+export const SHELL_WIDTH = 1180;
 
 export const NAV_HEIGHT = 64;
 
