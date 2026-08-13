@@ -8,8 +8,8 @@ import { base_layer } from "../../theme/layers.css.js";
 import * as variables from "./Skeleton.vars.css.js";
 
 const SHIMMER = keyframes({
-  from: { backgroundPosition: "200% 0" },
-  to: { backgroundPosition: "-200% 0" },
+  from: { transform: "translateX(-100%)" },
+  to: { transform: "translateX(100%)" },
 });
 
 const PULSE = keyframes({
@@ -28,7 +28,7 @@ export const skeleton = recipe({
         borderRadius: variables.radius,
         background: vars.color.surface.sunken,
         "@media": {
-          "(prefers-reduced-motion: reduce)": { ...motion.still, backgroundImage: "none" },
+          "(prefers-reduced-motion: reduce)": motion.still,
         },
       },
     },
@@ -36,12 +36,25 @@ export const skeleton = recipe({
   variants: {
     animation: {
       shimmer: {
-        backgroundImage: `linear-gradient(90deg, transparent 20%, ${vars.color.surface.raised} 50%, transparent 80%)`,
-        backgroundSize: "200% 100%",
-        animationName: SHIMMER,
-        animationDuration: "1.4s",
-        animationTimingFunction: "linear",
-        animationIterationCount: "infinite",
+        position: "relative",
+        overflow: "hidden",
+        selectors: {
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            backgroundImage: `linear-gradient(90deg, transparent 20%, ${vars.color.surface.raised} 50%, transparent 80%)`,
+            animationName: SHIMMER,
+            animationDuration: "1.4s",
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+          },
+        },
+        "@media": {
+          "(prefers-reduced-motion: reduce)": {
+            selectors: { "&::after": { content: "none" } },
+          },
+        },
       },
       pulse: {
         animationName: PULSE,

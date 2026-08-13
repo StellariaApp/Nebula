@@ -1491,7 +1491,7 @@
       "parts": [],
       "boundary": "server",
       "budget": "22.25 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
