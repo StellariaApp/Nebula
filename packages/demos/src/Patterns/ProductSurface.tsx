@@ -74,6 +74,7 @@ export default function ProductSurface(): ReactElement {
 
   return (
     <Segment
+      overflowMode="wrap"
       value={scenario}
       size="sm"
       onChange={(value) => {
@@ -84,7 +85,7 @@ export default function ProductSurface(): ReactElement {
         <Switcher />
         <Divider />
         <Box display="flex" direction="column" gap="xs" align="flex-start">
-          <Box display="flex" justify="space-between" align="center" gap="md" wrap="wrap" w="100%">
+          <Flex maw="100%" justify="space-between" align="center" gap="md" w="100%" wrap="wrap">
             <Segment.Control
               aria-label="Situation"
               data={SCENARIOS.map((entry) => ({
@@ -99,7 +100,7 @@ export default function ProductSurface(): ReactElement {
             <Text fz="caption" c="text.muted">
               Six surfaces, one catalogue, zero forks
             </Text>
-          </Box>
+          </Flex>
         </Box>
         <Scenarios active={scenario} />
       </Box>
