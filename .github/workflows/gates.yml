@@ -19,7 +19,7 @@ jobs:
   # abre el PR descubre los gates de uno en uno, un push por gate. Con el, la
   # primera vuelta ya dice todo lo que hay que arreglar.
   gates:
-    name: build · typecheck · lint · test · size · slots · contrast · docs
+    name: build · typecheck · lint · test · size · slots · contrast · docs · budget
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -41,7 +41,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Gates
-        run: pnpm turbo build typecheck lint test size check:slots check:contrast check:docs --continue
+        run: pnpm turbo build typecheck lint test size check:slots check:contrast check:docs check:budget --continue
 
   # El noveno gate: axe sobre todas las stories. Va en su propio job porque
   # necesita el navegador de Playwright, y porque un fallo suyo no debe tapar un

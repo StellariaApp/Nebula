@@ -515,6 +515,15 @@ importers:
         specifier: ^1.61.1
         version: 1.61.1
 
+  tools/route-budget:
+    devDependencies:
+      '@types/node':
+        specifier: 26.1.1
+        version: 26.1.1
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+
 packages:
 
   '@adobe/css-tools@4.5.0':

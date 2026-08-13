@@ -32,6 +32,14 @@
     "check:contrast": {
       "dependsOn": ["^build"]
     },
+    "check:budget": {
+      "dependsOn": ["web#build"],
+      "inputs": [
+        "src/**",
+        "$TURBO_ROOT$/apps/web/.next/**",
+        "$TURBO_ROOT$/apps/web/route-budget.json"
+      ]
+    },
     "check:slots": {
       "inputs": ["src/**/*.tsx", "src/**/*.types.ts", "../../tools/check-slots.mjs"]
     },

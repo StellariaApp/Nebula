@@ -1,0 +1,55 @@
+{
+  "groups": [
+    {
+      "label": "Portada",
+      "match": ["/"],
+      "jsRaw": 1395.75,
+      "jsBr": 390.75,
+      "cssFiles": 69,
+      "cssBr": 61.25,
+      "htmlBr": 30
+    },
+    {
+      "label": "Fichas de componente",
+      "match": ["/guides/components/*"],
+      "jsRaw": 1265.25,
+      "jsBr": 353.25,
+      "cssFiles": 47,
+      "cssBr": 51.5,
+      "htmlBr": 24
+    },
+    {
+      "label": "Paginas de guia",
+      "match": [
+        "/guides/getting-started/*",
+        "/guides/native/*",
+        "/guides/hooks/*",
+        "/guides/form/*",
+        "/guides/theming-styles/*"
+      ],
+      "jsRaw": 1265.25,
+      "jsBr": 353.25,
+      "cssFiles": 47,
+      "cssBr": 51.5,
+      "htmlBr": 21.75
+    },
+    {
+      "label": "Indices de seccion",
+      "match": ["/guides/*"],
+      "jsRaw": 1209.5,
+      "jsBr": 339,
+      "cssFiles": 38,
+      "cssBr": 46,
+      "htmlBr": 27.75
+    },
+    {
+      "label": "Paginas sueltas",
+      "match": ["/theme", "/changelog"],
+      "jsRaw": 1199.75,
+      "jsBr": 336.25,
+      "cssFiles": 34,
+      "cssBr": 44.25,
+      "htmlBr": 14.5
+    }
+  ]
+}

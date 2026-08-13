@@ -142,16 +142,19 @@ Reglas transversales:
 
 9. **Frescura de la documentación generada** (`tools/docs-gen`, `pnpm check:docs`): regenera el catálogo, el API y las props de estilo y falla si lo comprometido no coincide con el código. Evita que `apps/web/generated/` describa una versión anterior del catálogo.
 
+10. **Presupuesto de bytes por ruta del sitio** (`tools/route-budget`, `pnpm turbo check:budget`, [ADR-137](adr/ADR-137-presupuesto-de-bytes-por-ruta-del-sitio.md)): pesa el HTML prerenderizado de `apps/web` y todos sus assets —JS bruto y brotli, número y peso de las hojas, HTML brotli— y los compara con `apps/web/route-budget.json`. El gate 5 mide **qué pesa un componente si lo importas suelto**; este mide **qué descarga quien abre una página**, que es otra pregunta y es la que ve el usuario. Se presupuesta por grupo de rutas y manda el peor miembro; una ruta sin grupo es un fallo. Los topes llevan la holgura de la regla de WN (`max(medido × 1,05, medido + 1 kB)`).
+    > Lo motiva lo que los otros nueve gates no vieron: la portada servía **424 kB** de la librería de gráficos entera por un import estático bajo el pliegue, y las 158 fichas servían **70 hojas** y ~580 kB de componentes ajenos porque un módulo de muestras importaba el catálogo. Todo con los ocho gates en verde.
+
 > **Nota (2026-08-08)**: el gate 8 se implementa en la revisión previa a W5. ADR-037 lo decidió el 2026-07-28 y quedó sin construir; el barrido de ranuras de WN convirtió ~95 nodos sin que ningún gate pudiera detectar un desplazamiento.
 
 ### 4.1 Qué corre en CI y qué no
 
 `.github/workflows/gates.yml`, en cada PR y en cada push a `main`:
 
-| job     | gates                                                                                      |
-| ------- | ------------------------------------------------------------------------------------------ |
-| `gates` | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` |
-| `a11y`  | axe sobre todas las stories (gate 1)                                                       |
+| job     | gates                                                                                                       |
+| ------- | ----------------------------------------------------------------------------------------------------------- |
+| `gates` | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` · `check:budget` |
+| `a11y`  | axe sobre todas las stories (gate 1)                                                                        |
 
 `gates` corre con `turbo --continue`: un PR ve **todos** los fallos en la primera vuelta en vez de descubrirlos de uno en uno.
 

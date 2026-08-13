@@ -1,0 +1,16 @@
+{
+  "name": "nebula-tools-route-budget",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Presupuesto de bytes por ruta del sitio (docs/03 §4 gate 10). Mide el HTML prerenderizado y sus assets. No publicable.",
+  "type": "module",
+  "scripts": {
+    "check:budget": "node src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "typescript": "7.0.2"
+  }
+}
