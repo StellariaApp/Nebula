@@ -5,8 +5,8 @@ import type { ReactElement } from "react";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { Title } from "../../Title/Title.js";
 
-import * as styles from "../Hero.css.js";
 import { useHero } from "../Hero.context.js";
+import * as styles from "../Hero.css.js";
 import type { HeroSlotProps } from "../Hero.types.js";
 
 export function HeroTitle(props: HeroSlotProps): ReactElement {
@@ -16,8 +16,8 @@ export function HeroTitle(props: HeroSlotProps): ReactElement {
 
   return (
     <Title
-      order={hero.order}
       id={hero.titleId}
+      order={hero.order}
       className={cx(styles.title, styles.title_size[hero.size], sprinkle_class, className)}
       style={style}
       {...rest}

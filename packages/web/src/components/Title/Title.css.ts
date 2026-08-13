@@ -3,10 +3,26 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../theme/contract.css.js";
 import { base_layer } from "../../theme/layers.css.js";
 
-export const heading = style({
+export const nomalize = style({
   "@layer": {
     [base_layer]: {
       margin: 0,
+      padding: 0,
+      border: 0,
+      fontFamily: "inherit",
+      fontSize: "inherit",
+      fontWeight: "inherit",
+      lineHeight: "inherit",
+      color: "inherit",
+      font: "inherit",
+      verticalAlign: "baseline",
+    },
+  },
+});
+
+export const heading = style({
+  "@layer": {
+    [base_layer]: {
       fontFamily: vars.font.family.sans,
       color: vars.color.text.primary,
     },

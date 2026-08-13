@@ -182,7 +182,7 @@ export default async function Home() {
           size="xl"
           mih={{
             base: "100vh",
-            laptop: "80vh",
+            laptop: "920px",
           }}
           contentWidth={620}
           hiper={

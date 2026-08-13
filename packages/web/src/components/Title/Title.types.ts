@@ -11,6 +11,7 @@ export interface TitleOwnProps extends Omit<BoxOwnProps, "component" | "order"> 
    * that matters is the hierarchical one, and exposing both under the same name would serve nobody.
    */
   order?: TitleOrder | undefined;
+  inherit?: boolean | undefined;
 }
 
 export type TitleProps<C extends ElementType = "h1"> = TitleOwnProps & {
