@@ -53,6 +53,14 @@ export interface SectionProps extends StyleProps {
   glass?: boolean | undefined;
   /** Reveal on entering the viewport. Swaps the root element for the motion one, it does not add a node (see `Reveal.md`). */
   reveal?: boolean | undefined;
+  /**
+   * Mounts the body on first intersection instead of on load. Header and footer always render, so
+   * the heading stays in the served HTML for search and assistive tech. Unlike `reveal`, it does NOT
+   * turn off with reduced motion: mounting is not an enhancement, it is the page.
+   */
+  defer?: boolean | undefined;
+  /** Height held for the body while it waits, so deferring costs no layout shift. */
+  deferHeight?: number | string | undefined;
   /** Maximum width of the inner rail; the band still spans the full width. @default 1180 */
   contentWidth?: Unit | undefined;
   id?: string | undefined;

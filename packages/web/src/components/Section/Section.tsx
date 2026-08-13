@@ -7,6 +7,7 @@ import {
   useId,
   useMemo,
   type ElementType,
+  type RefObject,
   type ReactElement,
   type ReactNode,
 } from "react";
@@ -20,6 +21,7 @@ import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
 import { LoadingOverlay } from "../LoadingOverlay/LoadingOverlay.js";
 import { useReveal } from "../Reveal/use-reveal.js";
+import { useDeferredBody } from "./use-deferred-body.js";
 
 import { SectionActions } from "./components/Actions.js";
 import { SectionAside } from "./components/Aside.js";
@@ -85,6 +87,8 @@ export function Section(props: SectionProps): ReactElement {
     divided = false,
     glass = false,
     reveal = false,
+    defer = false,
+    deferHeight,
     contentWidth = DEFAULT_WIDTH,
     className,
     "aria-label": aria_label,
@@ -126,6 +130,7 @@ export function Section(props: SectionProps): ReactElement {
 
   const rail_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
   const revealed = useReveal();
+  const deferred = useDeferredBody(defer);
   const animating = reveal && revealed.armed;
   const Root: ElementType = animating ? m.section : "section";
 
@@ -167,7 +172,13 @@ export function Section(props: SectionProps): ReactElement {
             </SectionHeader>
           ) : null}
 
-          {own_body === undefined ? (
+          {defer && !deferred.mounted ? (
+            <div
+              ref={deferred.ref as RefObject<HTMLDivElement | null>}
+              style={{ minHeight: LengthToCss(deferHeight ?? 0) }}
+              aria-hidden="true"
+            />
+          ) : own_body === undefined ? (
             <SectionBody>
               {replaced ? content : parts.body}
               {overlay}
