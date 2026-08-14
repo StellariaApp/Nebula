@@ -1,5 +1,10 @@
 # WN — Revisión y normalización del catálogo web
 
+> **FASE CERRADA el 2026-08-14.** Los seis tramos están aplicados y verificados: ver
+> [`docs/wn-closure.md`](../../docs/wn-closure.md), que trae los números de apertura y de cierre uno
+> al lado del otro. Este documento se conserva como registro del criterio, no como prompt de
+> arranque. Lo que toca ahora es `REVISION-final-antes-de-W5.md`.
+
 > Fase posterior a WB. No añade componentes ni cambia identidad visual: **iguala la forma** de los
 > 158 que ya existen. Es la última puerta antes de W5 (publicación web v1), porque lo que se publica
 > se congela: a partir de v1 cada uno de estos cambios es un _breaking change_.

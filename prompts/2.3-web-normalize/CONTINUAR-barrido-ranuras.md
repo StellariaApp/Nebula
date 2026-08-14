@@ -1,5 +1,11 @@
 # Continuar el barrido de ranuras (WN · N3)
 
+> **OBSOLETO — no usar como prompt de arranque.** El barrido cerró: 113 filas, 0 pendientes, y
+> `check:slots` lo sostiene (ADR-106). El estado que este documento describe —«tanda 18 de unas 40»,
+> 2026-08-07— quedó atrás; el cuaderno real es
+> [`docs/reviews/wn-n3-barrido-ranuras.md`](../../docs/reviews/wn-n3-barrido-ranuras.md). Se conserva
+> por el criterio que fija, no por su estado.
+
 > Prompt de arranque para una sesión limpia. El trabajo va por la tanda 18 de unas 40.
 > Estado al 2026-08-07, rama `main`, último commit `128ee0c`.
 

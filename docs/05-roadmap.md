@@ -41,6 +41,12 @@
 **Gate**: `docs/wr-closure.md`; los cuatro gates en verde tras cada tramo; los ADRs de las causas de contrato aprobados; **declaración explícita de que el aspecto está estable para capturar el baseline de ADR-037**.
 **Por qué antes de W5**: publicar un catálogo cuya calibración visual no se ha auditado convierte cada defecto en una incidencia de terceros, y los arreglos de calibración pasan de trabajo interno a breaking visual con versión. Prompts en `prompts/2.1-web-refine/`.
 
+### WN — Web Normalize: igualar la forma del catálogo _(entre WB y W5)_ ✅
+
+**Entregables**: seis tramos sobre los 158 componentes ya existentes —nombres de los símbolos de las hojas (N0), las vars locales en su propio archivo (N1), criterio de compound y dónde viven sus partes (N2), props de ranura (N3), reparto de `surface.hoverActive` (N4) y el cuaderno de hallazgos (N5)—. Prompts en `prompts/2.3-web-normalize/`.
+**Gate**: `docs/wn-closure.md` — **cerrada el 2026-08-14**, con los números de apertura y cierre uno al lado del otro y los siete gates verificados.
+**Por qué antes de W5**: cada una de estas convenciones decide si un consumidor puede ajustar un componente sin forkearlo. Aplicarlas después de publicar convierte cada una en un _breaking change_.
+
 ### W5 — Publicación web v1 🚀
 
 **Entregables**: changesets (mini-ADR); auditoría de exports/subpaths/sideEffects/peers; publicación npm bajo org `stellaria` de tokens/hooks/themes/icons/web (+ decisión del paquete paraguas `@stellaria/nebula` — ADR-013); READMEs de consumo; verificación de instalación en proyecto Next 16 virgen.

@@ -4,9 +4,9 @@
 
 Nebula es una librería UI universal **Web + React Native** (~213 componentes canónicos en v1) con API unificada por componente: los contratos viven en `@stellaria/nebula-tokens` y cada plataforma implementa solo la capa visual. La personalización entre productos radicalmente distintos se logra **exclusivamente vía temas** (`NebulaTheme`), nunca con forks. Se construye completa antes de migrar a sus consumidores (fonicredito, tfv); el código semilla es Stellaria (`C:\Users\Skr13\Documents\GitHub\Stellaria-Frontend`).
 
-**Estado**: F0, W1, W2, W3 y **W4 cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`). **El catálogo web está completo**: 158 componentes (`Header` en ADR-062, `Nav` en ADR-068, `Reveal` y `Footer` en ADR-070; `Banner` renombrado a `Hero`), siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`).
+**Estado**: F0, W1, W2, W3, W4 y **WN cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`, `wn-closure.md`). **El catálogo web está completo**: 158 componentes (`Header` en ADR-062, `Nav` en ADR-068, `Reveal` y `Footer` en ADR-070; `Banner` renombrado a `Hero`), siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`).
 
-**Ahora mismo estamos en WN** (`prompts/2.3-web-normalize/`), la normalización del catálogo antes de congelarlo. WR y WB están cerradas. **Lee el prompt de WN antes de tocar nada**: trae los tramos con sus números medidos sobre el repo y cuáles ya están cerrados. En paralelo está abierta **RP** (`prompts/2.4-rosette-product/`), la maqueta de Rosette. Después de WN viene **W5** (publicación web v1).
+**Ahora mismo toca la revisión previa a W5** (`prompts/2.3-web-normalize/REVISION-final-antes-de-W5.md`): la última pasada de calidad antes de publicar, que es el último momento en que corregir sale barato. **Léela antes de tocar nada** — trae dónde están enterrados los cuerpos, en orden de riesgo. WR, WB y WN están cerradas; `CONTINUAR-barrido-ranuras.md` quedó obsoleto al cerrar N3. En paralelo está abierta **RP** (`prompts/2.4-rosette-product/`), la maqueta de Rosette. Después viene **W5** (publicación web v1).
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
@@ -30,6 +30,7 @@ pnpm install                       # pnpm 11 (self-managed via packageManager)
 pnpm build | typecheck | lint      # turbo, todos los workspaces
 pnpm check:contrast                # gate WCAG AA sobre el tema de humo (o -- --theme x.json)
 pnpm check:slots                   # gate de props de ranura: orden del esparcido y ranuras muertas
+pnpm check:layers                  # gate de capas CSS: declaración alineada, nada fuera de capa, consumidores cableados
 pnpm gen:palette regen             # regenera las 16 paletas 50-950 (escribe en tokens)
 pnpm gen:palette from "#hex" --name x
 pnpm format                        # prettier

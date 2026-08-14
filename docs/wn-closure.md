@@ -1,0 +1,99 @@
+# Cierre de WN — Normalización del catálogo web
+
+> Verificación de los seis tramos de `prompts/2.3-web-normalize/README.md`. Fecha de cierre:
+> 2026-08-14. Fases previas: `docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`,
+> `w3-closure.md`, `w4-closure.md`.
+
+## Estado
+
+**WN cerrada.** Las cinco convenciones que W1–W4 habían adoptado a medias están aplicadas al
+catálogo entero —158 componentes— y **dos de ellas tienen ahora un gate propio que las sostiene**,
+que es la diferencia entre una convención aplicada y una convención que se mantiene. Los siete gates
+de CI están en verde.
+
+Los números de este documento están **medidos sobre el repo el 2026-08-14**, no estimados, y son
+comparables con los que abrieron la fase el 2026-08-05.
+
+## Los tramos contra su estado de apertura
+
+| Tramo  | Al abrir (2026-08-05)                               | Al cerrar (2026-08-14)                        | Estado |
+| ------ | --------------------------------------------------- | --------------------------------------------- | ------ |
+| **N0** | ~181 símbolos camelCase en 64 hojas; AppShell mixto | **0 violaciones** — ADR-094                   | ✅     |
+| **N1** | 18 componentes con `createVar()` en el `.css.ts`    | **0**; 75 `.vars.css.ts` — ADR-096            | ✅     |
+| **N2** | 9 compounds de 158, en **tres** idiomas             | **11 compounds**, un idioma — ADR-097/111     | ✅     |
+| **N3** | ningún componente con la forma canónica             | **113 filas, 0 pendientes** — ADR-098/103–106 | ✅     |
+| **N4** | `surface.hoverActive` sin repartir                  | cerrado el 2026-08-05 — ADR-095               | ✅     |
+| **N5** | —                                                   | cuaderno con sus causas convertidas en ADR    | ✅     |
+
+Sobre N0: las únicas siete constantes que no son `snake_case` en un `.css.ts` son `UPPER_CASE`
+(`ROLE_COLORS`, `TOKEN_VALUES`, `BREAKPOINT_ORDER`, `OPEN_CLASS`, `PROGRESS`…), que es exactamente lo
+que ADR-094 permite para tablas de constantes. No son deuda.
+
+## Gate verificable
+
+| Criterio                                   | Resultado                                                          |
+| ------------------------------------------ | ------------------------------------------------------------------ |
+| `pnpm turbo build typecheck lint`          | **34/34 tareas**                                                   |
+| `pnpm turbo test`                          | **1310 tests, 142 suites — 0 fallos**                              |
+| `pnpm --filter @stellaria/nebula-web size` | **192 entradas · 0 excedidas**                                     |
+| `pnpm check:contrast`                      | 3 temas · 165 pares cada uno · **0 FAIL**                          |
+| `pnpm check:slots`                         | 279 componentes · 158 contratos · **0 problemas**                  |
+| `pnpm check:layers`                        | declaración alineada · nada fuera de capa · consumidores cableados |
+| `pnpm --filter playground-web a11y` (axe)  | **96 suites / 617 tests · 0 violaciones**                          |
+| Catálogo                                   | 158 componentes · 96 stories · 141 previews · 7 subpaths           |
+
+## Lo que WN dejó que no estaba en su plan
+
+**Dos gates nuevos que antes no existían.** WN no solo aplicó convenciones: dejó puesto lo que impide
+que se deshagan.
+
+- `check:slots` (ADR-106) — orden del esparcido y ranuras muertas. Ninguna de las dos la ve `tsc` ni
+  el lint, porque en ambas **el tipo es correcto** y lo que está mal es dónde acaba el valor.
+- `check:layers` (ADR-142) — declaración de capas alineada, ninguna regla fuera de capa, y todo
+  consumidor importando `@stellaria/nebula-web/styles.css`.
+
+**El contrato de cascada, que WN no sabía que estaba roto.** ADR-119 cerró la relación
+Nebula↔consumidor con una sola capa y dejó sin resolver la relación Nebula↔Nebula: dentro de un único
+`@layer`, el desempate entre dos componentes lo decidía el orden del bundler. Se descubrió porque el
+`xl` de un `Hero` no se aplicaba. ADR-142 lo cierra con cinco capas ordenadas por composición, y el
+reparto —1 reset, 51 primitivas, 36 componentes, 45 composites, 2 utils— sale del grafo de imports,
+no de un juicio a mano.
+
+El dato que valida la taxonomía: de los **151 pares** en los que un componente resobrescribe a otro
+por `className`, **ninguno queda en la misma capa**.
+
+**Una duplicación que la falta de capas estaba causando.** `Section.Title` reimplementaba a mano la
+tipografía que `Title` ya sabía pintar, porque no había forma de sobrescribirla desde fuera. Hoy
+compone `Title` y declara solo lo que cambia.
+
+## Deuda declarada
+
+- **Dos números de ADR duplicados**: `ADR-124` (bloque de código / cuerpo de la sección) y `ADR-138`
+  (sección diferida / recalibración de springs). Tienen 6 y 7 referencias respectivamente, así que
+  renumerar exige decidir **cuál conserva el número** y repasar cada referencia una por una. No se
+  toca aquí. `ADR-087` es un hueco limpio, sin referencias ni archivo.
+
+- **`REVISION-final-antes-de-W5.md` no se ha ejecutado.** Es la pasada de calidad previa a publicar,
+  y su riesgo declarado nº 1 sigue sin medir: las ~95 conversiones a `Box`/`Text` que pudieron
+  cambiar la etiqueta HTML, de las que solo se cazó una (`Hero.Description`, `p` → `div`). `Box`
+  pinta `div` y `Text` pinta `p`, así que cualquier conversión sin `component="…"` cambió la
+  etiqueta.
+
+- **`CONTINUAR-barrido-ranuras.md` está obsoleto**: habla de «tanda 18 de unas 40» con fecha del
+  2026-08-07, y el cuaderno del barrido cerró sus 113 filas. No sirve como prompt de arranque.
+
+- **WR y WB están dadas por cerradas sin documento de cierre.** `CLAUDE.md` las da por cerradas y
+  `05-roadmap.md` §WR exige explícitamente `docs/wr-closure.md`, que no existe; WB (`2.2-brand-align`)
+  ni siquiera aparece en el roadmap. Este cierre añade la entrada de WN al roadmap, pero no inventa
+  las dos anteriores: cerrarlas exige medir lo que hicieron, y eso es trabajo, no trámite.
+
+## Lo que WN NO hizo
+
+No tocó color, ritmo, radio ni tipografía —eso lo cerró WB—. No añadió componentes al catálogo: sigue
+en 158. No migró a los consumidores. Los huecos de catálogo que aparecieron se anotaron en el
+cuaderno de N5 y se decidieron fuera de la fase.
+
+## Siguiente
+
+`REVISION-final-antes-de-W5.md` —última pasada de calidad, el momento en que corregir sale barato—, y
+después W5, la publicación de la v1 web.
