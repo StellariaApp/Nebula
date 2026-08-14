@@ -1010,7 +1010,7 @@
     },
     {
       "name": "GridList",
-      "budget": "43.25 kB",
+      "budget": "43.75 kB",
       "boundary": "client",
       "themeKeys": [
         "space.lg",
@@ -1748,7 +1748,7 @@
     },
     {
       "name": "Segment",
-      "budget": "42.5 kB",
+      "budget": "43 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",

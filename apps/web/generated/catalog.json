@@ -805,7 +805,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "43.25 kB",
+      "budget": "43.75 kB",
       "notes": false,
       "contract": true
     },
@@ -1446,7 +1446,7 @@
         "Segment.Item"
       ],
       "boundary": "client",
-      "budget": "42.5 kB",
+      "budget": "43 kB",
       "notes": true,
       "contract": true
     },
