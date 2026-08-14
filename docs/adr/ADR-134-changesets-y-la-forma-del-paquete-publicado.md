@@ -2,9 +2,9 @@
 
 - **Estado**: **aceptada** · 2026-08-12 — W5.1
 - **Cierra**: el supuesto #5 del roadmap (mecánica de versionado) y la parte de forma del paquete que
-  [ADR-014](ADR-014-politica-de-dependencias-y-subpaths.md) dejaba en «se define al montar CI»
+  [ADR-014](ADR-014-politica-dependencias.md) dejaba en «se define al montar CI»
 - **Añade**: `@changesets/cli` como dependencia de desarrollo de la raíz
-- **Depende de**: [ADR-013](ADR-013-naming-de-paquetes.md) (scope `@stellaria`) y
+- **Depende de**: [ADR-013](ADR-013-paquetes-dominios-premium.md) (scope `@stellaria`) y
   [ADR-113](ADR-113-el-nucleo-es-mit-y-los-dominios-se-venden.md) (MIT y público)
 
 ## Contexto
@@ -104,6 +104,6 @@ quedan documentados donde un consumidor los busca.
   máquina no se puede, y no se puede añadir después a una versión ya publicada.
 - El `NPM_TOKEN` vive como secreto del repositorio. En un `.env` estaría en disco y en el historial
   del shell de quien publique.
-- **Corrección a [ADR-013](ADR-013-naming-de-paquetes.md)**: dice que `@stellaria/nebula` v0.0.2
+- **Corrección a [ADR-013](ADR-013-paquetes-dominios-premium.md)**: dice que `@stellaria/nebula` v0.0.2
   existe desde hace tres años. **No existe** — npm devuelve 404, igual que los cinco `nebula-*`. Así
   que no hay nada que deprecar: el nombre está libre, y la decisión pasa a ser si se reserva.

@@ -68,10 +68,21 @@ compone `Title` y declara solo lo que cambia.
 
 ## Deuda declarada
 
-- **Dos números de ADR duplicados**: `ADR-124` (bloque de código / cuerpo de la sección) y `ADR-138`
-  (sección diferida / recalibración de springs). Tienen 6 y 7 referencias respectivamente, así que
-  renumerar exige decidir **cuál conserva el número** y repasar cada referencia una por una. No se
-  toca aquí. `ADR-087` es un hueco limpio, sin referencias ni archivo.
+- ~~**Dos números de ADR duplicados**~~ — **resuelto el 2026-08-14**. `ADR-124` y `ADR-138` estaban
+  cada uno en dos archivos. En ambos pares conserva el número el documento cuyas referencias son
+  **texto suelto**, porque son las que se quedan mal sin avisar; el otro se renumera y sus referencias
+  eran enlaces con nombre completo, que se ven al romperse. Así, «el bloque de código» mantiene 124 y
+  «el cuerpo de la sección» pasa a **ADR-143**; «recalibración de los springs» mantiene 138 —además se
+  creó antes, 11:30 frente a 12:59— y «la sección monta su cuerpo» pasa a **ADR-144**. Cada
+  renumerado lleva dentro de qué número viene, porque **los mensajes de commit son inmutables** y los
+  anteriores a esa fecha siguen citando el número viejo.
+
+  `ADR-087` es un hueco limpio, sin referencias ni archivo, y se deja como está: rellenarlo con un ADR
+  de otra época confunde más que el hueco.
+
+- **Un enlace muerto en los docs semilla**: `docs/stellaria-ui/README.md` §12 apunta a
+  `PROMPT-refine-ui-library.md`, que no existe ni ha existido nunca en el repo. Se deja por si es una
+  entrada pendiente de escribir y no un descuido.
 
 - **`CONTINUAR-barrido-ranuras.md` está obsoleto**: habla de «tanda 18 de unas 40» con fecha del
   2026-08-07, y el cuaderno del barrido cerró sus 113 filas. No sirve como prompt de arranque.

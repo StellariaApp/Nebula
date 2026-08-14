@@ -1,5 +1,11 @@
-# ADR-138 — La sección monta su cuerpo cuando se acerca, y su cabecera siempre
+# ADR-144 — La sección monta su cuerpo cuando se acerca, y su cabecera siempre
 
+- **Renumerado el 2026-08-14**: nació como `ADR-138` chocando con «recalibración de los springs y la
+  opacidad sale del muelle», que conserva el número por dos razones que apuntan igual: se creó antes
+  (`660ab07`, 11:30, frente a `9ffa6f9`, 12:59) y sus cinco referencias son casi todas texto suelto,
+  que se habría quedado mal sin avisar. **Los mensajes de commit anteriores a esta fecha que digan
+  «ADR-138» y hablen del cuerpo diferido o del cambio de raíz a `m.section` se refieren a este
+  documento**; son inmutables y no se pueden corregir.
 - **Estado**: **aceptada** · 2026-08-13 · **WN**
 - **Cambia API pública**: sí, y es **aditivo**: `defer` y `deferHeight` en `SectionProps`. Sin ellas
   el componente se comporta igual que antes.
@@ -63,6 +69,10 @@ medir cada banda en un navegador real a 412 px:
 | Pilares        | 1360 px |   683 px |
 | MotionLab      | 1859 px |   756 px |
 | Cierre         |  611 px |   311 px |
+
+> **Obsoleto en parte** — [ADR-141](ADR-141-la-portada-se-queda-en-tres-piezas-y-el-movimiento-entra-en-el-escenario.md)
+> elimina las bandas «Pilares» y «MotionLab» de la portada, así que esas dos filas ya no describen
+> nada. El resto de la decisión —diferir el cuerpo y nunca la cabecera— sigue vigente.
 
 Se reservan los de móvil, que es el caso que se optimiza. Verificado scrolleando: **CLS 0,0023 en
 móvil y 0,0057 en portátil, contra 0,0025 y 0,0055 sin diferir** — indistinguible.

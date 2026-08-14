@@ -33,7 +33,7 @@ De `sm` hacia arriba los saltos quedan entre **1.27 y 1.38**, frente al 2.00–1
 
 **Rejilla de 2, no de 4.** Redondear a múltiplos de 4 colapsaba `xxs` y `xs` en 8 px —salto 1.00, dos
 tokens con el mismo valor—. El sistema ya admite medios pasos desde
-[ADR-045](ADR-045-medios-pasos-de-espaciado.md), así que la escala usa los que hay.
+[ADR-045](ADR-045-peldanos-intermedios-de-spacing.md), así que la escala usa los que hay.
 
 **Por debajo de `sm` no se aplica la razón.** Un 1.33 desde 12 da 9 y 6.8 px: pasos demasiado juntos
 para distinguirse. Peor, `xxs` pasaría de 2 a 7 px y aflojaría todos los grupos apretados —icono con

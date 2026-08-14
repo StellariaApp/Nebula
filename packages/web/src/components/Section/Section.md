@@ -25,7 +25,7 @@ que significa una sección —una franja de la página—, pero conviene saberlo
 quieres pintar es el cuerpo, la vía es `Section.Body`.
 
 El carril es una pieza interna y no se expone como parte
-([ADR-124](../../../../../docs/adr/ADR-124-el-cuerpo-de-la-seccion-se-sustituye-y-el-carril-no.md)):
+([ADR-143](../../../../../docs/adr/ADR-143-el-cuerpo-de-la-seccion-se-sustituye-y-el-carril-no.md)):
 el carril público del catálogo es `Container`, y `Hero` tampoco expone el suyo.
 
 ## `Section.Body` sustituye el envoltorio, no el estado

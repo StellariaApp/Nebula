@@ -1,5 +1,11 @@
-# ADR-124 — El cuerpo de la sección se sustituye y el carril no
+# ADR-143 — El cuerpo de la sección se sustituye y el carril no
 
+- **Renumerado el 2026-08-14**: nació como `ADR-124` en el mismo commit (`0e8cc58`) que otro
+  `ADR-124`, «el bloque de código toma superficie y se pliega», que conserva el número porque sus dos
+  referencias son texto suelto —`CodeHighlight.md` y su test— y habrían quedado mal en silencio. Las
+  de este eran enlaces con nombre completo, que se ven al romperse. **Los mensajes de commit
+  anteriores a esta fecha que digan «ADR-124» y hablen de la sección se refieren a este documento**;
+  son inmutables y no se pueden corregir.
 - **Estado**: aceptada · 2026-08-10 (decisión del propietario) · **WN** · implementada
 - **Cambia API pública**: sí, y **solo añade**: `Section.Body` / `SectionBody`. Ninguna prop actual
   cambia de tipo ni de significado, y el DOM sin partes es idéntico al de hoy.

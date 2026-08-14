@@ -30,7 +30,7 @@ a 2, que es la que ya hay entre `body2` y `body3`.
 
 ### El `max()` del código se queda en 12 px
 
-[ADR-066](ADR-066-dimensionado-del-codigo.md) fija `max(0.875em, 12px)` para código inline. **No
+[ADR-066](ADR-066-escala-de-prosa-y-dimensionado-del-codigo.md) fija `max(0.875em, 12px)` para código inline. **No
 baja.** El código es más denso que la prosa —glifos estrechos, sin ligaduras, con símbolos que se
 distinguen por detalles finos— y a 11 px un `l` y un `1` empiezan a confundirse. Que el suelo general
 baje no obliga a que baje el del código: son dos legibilidades distintas.
