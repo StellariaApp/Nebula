@@ -37,6 +37,8 @@ export const column = style({
         "&[data-over='true']": {
           background: vars.color.surface.hover,
           borderColor: vars.color.border.strong,
+          outline: `1px dashed ${vars.color.border.strong}`,
+          outlineOffset: -1,
         },
       },
       "@media": { [reduced_media]: still },
@@ -75,7 +77,10 @@ export const column_count = style({
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
       selectors: {
-        "&[data-over-limit='true']": { color: vars.color.semantic.warning["700"] },
+        "&[data-over-limit='true']": {
+          color: vars.color.semantic.warning["700"],
+          fontWeight: vars.font.weight.semibold,
+        },
       },
     },
   },

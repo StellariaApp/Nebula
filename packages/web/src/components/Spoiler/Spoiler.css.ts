@@ -38,7 +38,8 @@ export const toggle = style({
       border: "none",
       padding: 0,
       cursor: "pointer",
-      fontSize: vars.font.size.body3,
+      fontSize: vars.font.size.button,
+      fontWeight: vars.font.weight.semibold,
     },
   },
 });

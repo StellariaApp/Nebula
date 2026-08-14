@@ -354,7 +354,20 @@ BLOQUEADO POR: nada.
 
 ---
 
-## T5 — Ritmos, labels y estados
+## T5 — Ritmos, labels y estados ✅ **ejecutado el 2026-08-14**
+
+> Los tres puntos de código se midieron abiertos sobre `main` trece días después de escribirse este
+> plan, y se cerraron entonces: `FormField.header` pasa de **0 px a 2 px** entre etiqueta y ayuda —y
+> alcanza a los 27 campos a la vez—, el disparador de `Spoiler` sube de `body3` sin peso a `button`
+> con `semibold`, y el destino de arrastre de `Kanban` gana el `outline: 1px dashed` de su hermano
+> `DragDrop` más un segundo canal de peso en `data-over-limit`.
+>
+> Los dos encargos de verificación salieron limpios: **control→error ya tenía ritmo uniforme** —lo
+> gobierna el `gap: sm` de `field.css.ts:14`, así que los controles altos no eran un caso aparte— y el
+> **punto 4 estaba resuelto por ADR-063**, con `surface.disabled` en seis componentes.
+>
+> Que el de `Kanban` sobreviviera trece días con axe en verde es el dato que justifica esta fase:
+> señalar solo con color no lo detecta ninguna herramienta automática.
 
 ```
 Actúa como ingeniero de UI en C:\Users\Skr13\Documents\GitHub\Nebula.

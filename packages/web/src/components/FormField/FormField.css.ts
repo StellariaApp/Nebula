@@ -10,6 +10,7 @@ export const header = style({
     [component_layer]: {
       display: "flex",
       flexDirection: "column",
+      gap: vars.space.xxs,
     },
   },
 });
