@@ -599,7 +599,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Segment/index.js",
     import: "{ Segment }",
     ignore: ["react", "react-dom"],
-    limit: "42.5 kB",
+    limit: "43 kB",
   },
   {
     name: "Popover (Aria overlays + posicionamiento, por módulo)",
@@ -879,7 +879,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/GridList/GridList.js",
     import: "{ GridList }",
     ignore: ["react", "react-dom"],
-    limit: "43.25 kB",
+    limit: "43.75 kB",
   },
   {
     name: "StatusBadge (Badge + mapa inyectado, por módulo)",
@@ -1274,7 +1274,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/CodeHighlight/CodeHighlightTabs.js",
     import: "{ CodeHighlightTabs }",
     ignore: ["react", "react-dom"],
-    limit: "56 kB",
+    limit: "56.75 kB",
   },
   {
     name: "TransferList (dos listbox + SearchInput, por módulo)",

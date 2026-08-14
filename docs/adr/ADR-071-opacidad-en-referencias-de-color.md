@@ -1,6 +1,8 @@
 # ADR-071 — Opacidad en las referencias de color
 
-- **Estado**: **aceptada** · 2026-08-02 — aprobada por el propietario en el arranque de WB
+- **Estado**: **aceptada** · 2026-08-02 — aprobada por el propietario en el arranque de WB ·
+  **§4 enmendado por [ADR-140](ADR-140-la-opacidad-alcanza-a-los-peldanos-de-escala.md)** (2026-08-13):
+  la opacidad sí alcanza a los peldaños de escala en `c`/`bg`. El resto sigue vigente.
 - **Resuelve**: el tramo **B5** de
   [`brand-alignment-plan-2026-08-02.md`](../reviews/brand-alignment-plan-2026-08-02.md). Un consumidor
   no puede pedir un rol de color a una fracción de opacidad; el sistema sí lo hace internamente.
@@ -52,7 +54,9 @@ compilar.
    La bifurcación va en `ExtractStyleProps`, que es donde ya se decide qué prop es sprinkle y qué prop
    es estilo (`utils/style-props.ts:63-91`).
 
-4. **Alcance en style props: los roles, no los peldaños de escala.** Las tres props —`c`/`color`,
+4. **Alcance en style props: los roles, no los peldaños de escala.** _(Enmendado por ADR-140: el
+   coste que motiva este recorte quedó pagado por ADR-103, y `c`/`bg` admiten hoy opacidad sobre las
+   escalas. `bdc` sí conserva el alcance de rol.)_ Las tres props —`c`/`color`,
    `bg`/`background`, `bdc`/`borderColor`— admiten opacidad sobre `surface.*`, `text.*` y `border.*`.
    Un peldaño de escala (`accent.500.12`) sigue resolviéndose **solo** por `ResolveAccent`, que es
    donde se usa hoy (`resolve-variant.ts:47-48`); como style prop no lo usa nadie en el repo.

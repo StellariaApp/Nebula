@@ -78,7 +78,7 @@ describe("ExtractStyleProps · opacidad en referencias de color (ADR-071)", () =
     expect(result.style?.background).toContain("60%");
   });
 
-  it("un peldaño de escala no admite opacidad: sigue por sprinkles", () => {
+  it("un peldaño de escala sin opacidad sigue por sprinkles", () => {
     expect(ExtractStyleProps({ bg: "accent.500" }).className).toBeDefined();
     expect(ExtractStyleProps({ bg: "accent.500" }).style).toBeUndefined();
   });
@@ -90,6 +90,62 @@ describe("ExtractStyleProps · opacidad en referencias de color (ADR-071)", () =
 
   it("no toca props que no son de color", () => {
     expect(ExtractStyleProps({ id: "a.b.40" }).rest).toEqual({ id: "a.b.40" });
+  });
+});
+
+describe("ExtractStyleProps · opacidad sobre peldaños de escala (ADR-140)", () => {
+  it("un peldaño de escala con opacidad sale por style", () => {
+    const result = ExtractStyleProps({ bg: "error.400.50" });
+
+    expect(result.className).toBeUndefined();
+    expect(result.style?.background).toContain("color-mix(in srgb,");
+    expect(result.style?.background).toContain("50%");
+    expect(result.style?.background).toContain("transparent");
+  });
+
+  it("c acepta opacidad sobre una escala", () => {
+    expect(ExtractStyleProps({ c: "primary.600.12" }).style?.color).toContain("12%");
+  });
+
+  it("las siete familias del contrato resuelven", () => {
+    const families = ["primary", "accent", "gray", "success", "warning", "error", "info"];
+
+    for (const family of families) {
+      const result = ExtractStyleProps({ bg: `${family}.500.40` });
+      expect(result.style?.background, family).toContain("40%");
+    }
+  });
+
+  it("un peldaño válido de dos segmentos no se lee como opacidad", () => {
+    const result = ExtractStyleProps({ bg: "gray.50" });
+
+    expect(result.className).toBeDefined();
+    expect(result.style).toBeUndefined();
+  });
+
+  it("una familia que no está en el contrato cae cruda al carril abierto", () => {
+    const result = ExtractStyleProps({ bg: "red.400.50" });
+
+    expect(result.style?.background).toBeUndefined();
+    expect(result.style).toMatchObject({ "--nb-bg": "red.400.50" });
+  });
+
+  it("los literales admiten opacidad", () => {
+    expect(ExtractStyleProps({ bg: "currentColor.20" }).style?.background).toContain(
+      "color-mix(in srgb, currentColor 20%, transparent)",
+    );
+  });
+
+  it("bdc conserva su alcance de rol: una escala no resuelve ni con alpha", () => {
+    expect(ExtractStyleProps({ bdc: "accent.500.40" }).style?.borderColor).toBeUndefined();
+    expect(ExtractStyleProps({ bdc: "border.subtle.40" }).style?.borderColor).toContain("40%");
+  });
+
+  it("una escala de espaciado nunca se lee como color", () => {
+    const result = ExtractStyleProps({ p: "md.50" });
+
+    expect(Object.values(result.style ?? {})).not.toContain(expect.stringContaining("color-mix"));
+    expect(result.style).toMatchObject({ "--nb-p": "md.50" });
   });
 });
 

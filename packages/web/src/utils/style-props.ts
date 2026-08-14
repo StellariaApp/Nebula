@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 import {
   FONT_LEADING,
   RESPONSIVE_PROPS,
-  ROLE_COLORS,
   sprinkles,
   TOKEN_VALUES,
 } from "../components/Box/Box.css.js";
@@ -28,8 +27,6 @@ const COLOR_PROPS = {
   borderColor: "borderColor",
   bdc: "borderColor",
 } as const satisfies Record<string, keyof CSSProperties>;
-
-const ROLE_TONES: Record<string, string | undefined> = ROLE_COLORS;
 
 const DIMENSION_PROPS = {
   w: "width",
@@ -105,8 +102,15 @@ function ToCssLength(value: number | string): string {
   return typeof value === "number" ? `${String(value)}px` : value;
 }
 
-function ResolveOpacity(value: unknown): string | undefined {
-  if (typeof value !== "string") return undefined;
+function AlphaTones(scale: TokenScale | undefined): Record<string, string> | undefined {
+  return scale === "color" || scale === "role" ? TOKEN_VALUES[scale] : undefined;
+}
+
+function ResolveOpacity(
+  tones: Record<string, string> | undefined,
+  value: unknown,
+): string | undefined {
+  if (tones === undefined || typeof value !== "string") return undefined;
 
   const cut = value.lastIndexOf(".");
   if (cut <= 0 || cut === value.length - 1) return undefined;
@@ -114,7 +118,7 @@ function ResolveOpacity(value: unknown): string | undefined {
   const percent = Number(value.slice(cut + 1));
   if (!Number.isFinite(percent)) return undefined;
 
-  const tone = ROLE_TONES[value.slice(0, cut)];
+  const tone = tones[value.slice(0, cut)];
   return tone === undefined
     ? undefined
     : `color-mix(in srgb, ${tone} ${String(percent)}%, transparent)`;
@@ -163,7 +167,7 @@ function IsKnown(spec: PropSpec, value: unknown): boolean {
 function OpenValue(spec: PropSpec, value: unknown): string | undefined {
   const token = TokenValue(spec, value);
   if (token !== undefined) return token;
-  const mixed = ResolveOpacity(value);
+  const mixed = ResolveOpacity(AlphaTones(spec.token), value);
   if (mixed !== undefined) return mixed;
   if (typeof value === "number") return spec.length === true ? `${String(value)}px` : String(value);
   if (typeof value === "string") return value;
@@ -179,7 +183,7 @@ function NeedsOpenLane(name: string, spec: PropSpec, value: unknown): boolean {
   if (!PROP_KIND.has(name)) return true;
   if (spec.keywords !== undefined) return false;
   if (spec.token === undefined) return false;
-  return !IsKnown(spec, value) && ResolveOpacity(value) === undefined;
+  return !IsKnown(spec, value) && ResolveOpacity(AlphaTones(spec.token), value) === undefined;
 }
 
 function CollectRest(props: Record<string, unknown>): Record<string, unknown> {
@@ -234,10 +238,14 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     if (kind === undefined) continue;
 
     if (kind === KIND_COLOR) {
-      const mixed = ResolveOpacity(value);
+      const css = COLOR_PROPS[key as ColorProp];
+      const mixed = ResolveOpacity(
+        css === "borderColor" ? TOKEN_VALUES.role : TOKEN_VALUES.color,
+        value,
+      );
       if (mixed !== undefined) {
         style ??= { ...own_style };
-        Object.assign(style, { [COLOR_PROPS[key as ColorProp]]: mixed });
+        Object.assign(style, { [css]: mixed });
         continue;
       }
     }
