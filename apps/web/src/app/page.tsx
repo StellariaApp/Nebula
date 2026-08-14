@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import MotionLab from "@stellaria/nebula-demos/Patterns/MotionLab";
 import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import {
   Badge,
@@ -8,15 +7,11 @@ import {
   Button,
   Card,
   Code,
-  Feature,
   Flex,
-  GlassSurface,
   GradientText,
   Hero,
   Main,
-  Reveal,
   SimpleGrid,
-  Stat,
   Text,
 } from "@stellaria/nebula-web";
 
@@ -37,52 +32,9 @@ import { SiteFooter } from "../ui/site-footer";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-const PILLARS = ["theme", "a11y", "budget"] as const;
-
 const FRAMEWORKS = ["Next.js", "Vite", "React Router"];
 
 const INSTALL = "pnpm add @stellaria/nebula-web";
-
-const GLYPH = {
-  theme: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  a11y: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <circle cx="12" cy="4" r="2" />
-      <path d="M4 8h16M12 10v10M12 14l-4 6M12 14l4 6" />
-    </svg>
-  ),
-  budget: (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path d="M3 17l5-6 4 4 5-8 4 5" />
-    </svg>
-  ),
-};
 
 function Bar({ dict, guides }: { dict: Dictionary; guides: string }) {
   return (
@@ -108,21 +60,6 @@ export default async function Home() {
   const lang = await CurrentLang();
   const dict = await Dict(lang, "chrome");
   const guides = await GuidesHome(lang);
-
-  const NUMBERS = [
-    {
-      label: dict["home.stat.components"],
-      value: String(CATALOG.count),
-      description: dict["home.stat.components.diff"],
-    },
-    { label: dict["home.stat.gates"], value: "9", description: dict["home.stat.gates.note"] },
-    {
-      label: dict["home.stat.styleProps"],
-      value: "128",
-      description: dict["home.stat.styleProps.note"],
-    },
-    { label: dict["home.stat.themes"], value: "7", description: dict["home.stat.themes.note"] },
-  ];
 
   const LINKED_DATA = {
     "@context": "https://schema.org",
@@ -184,11 +121,13 @@ export default async function Home() {
             base: "100vh",
             laptop: "920px",
           }}
+          ta="center"
+          align="center"
           contentWidth={620}
           hiper={
-            <Box display="flex">
+            <Flex justify="center">
               <Badge variant="light">{dict["home.eyebrow"]}</Badge>
-            </Box>
+            </Flex>
           }
           title={
             <>
@@ -215,92 +154,31 @@ export default async function Home() {
               </Button>
             </>
           }
-          bodyProps={{
-            justify: {
-              base: "center",
-              laptop: "flex-start",
-            },
-          }}
-          rightProps={{
-            display: {
-              base: "none",
-              laptop: "block",
-            },
-          }}
-          right={
-            <HeroPreview
-              labels={{
-                copy: dict["home.preview.copy"] ?? "",
-                copied: dict["home.preview.copied"] ?? "",
-                checks: dict["home.preview.checks"] ?? "",
-                filename: dict["home.preview.file"] ?? "",
-                snippetCopy: dict["home.preview.snippetCopy"] ?? "",
-                code: dict["home.preview.code"] ?? "",
-                component: dict["home.preview.component"] ?? "",
-                view: dict["home.preview.view"] ?? "",
-                tooltip: dict["home.preview.tooltip"] ?? "",
-                info: dict["home.preview.info"] ?? "",
-              }}
-            />
-          }
-        />
+        >
+          <HeroPreview
+            labels={{
+              copy: dict["home.preview.copy"] ?? "",
+              copied: dict["home.preview.copied"] ?? "",
+              checks: dict["home.preview.checks"] ?? "",
+              filename: dict["home.preview.file"] ?? "",
+              snippetCopy: dict["home.preview.snippetCopy"] ?? "",
+              code: dict["home.preview.code"] ?? "",
+              component: dict["home.preview.component"] ?? "",
+              view: dict["home.preview.view"] ?? "",
+              tooltip: dict["home.preview.tooltip"] ?? "",
+              info: dict["home.preview.info"] ?? "",
+            }}
+          />
+        </Hero>
 
         <Band
           glass
-          level="major"
+          level="minor"
           eyebrow={dict["home.proof.eyebrow"]}
           title={dict["home.proof.title"]}
           description={dict["home.proof.body"]}
         >
           <ProductSurface />
-        </Band>
-
-        <Band
-          center
-          level="major"
-          eyebrow={dict["home.reach.eyebrow"]}
-          title={dict["home.pillars.title"]}
-          description={dict["home.reach.body"]}
-        >
-          <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="xxl">
-            {PILLARS.map((key, index) => (
-              <Reveal key={key} component="article" index={index}>
-                <GlassSurface w="100%" h="100%" level="strong" p="lg" r="md">
-                  <Feature
-                    icon={GLYPH[key]}
-                    title={dict[`home.pillar.${key}.title`]}
-                    description={dict[`home.pillar.${key}.body`]}
-                  />
-                </GlassSurface>
-              </Reveal>
-            ))}
-          </SimpleGrid>
-          <Flex w="100%" gap="xxl" direction="column">
-            <Text fz="h4" fw="semibold" ta="center">
-              {dict["home.numbers.title"]}
-            </Text>
-            <SimpleGrid cols={{ base: 2, tablet: 4 }} gap="lg">
-              {NUMBERS.map((item) => (
-                <Stat
-                  key={String(item.label)}
-                  size="lg"
-                  label={item.label}
-                  value={item.value}
-                  description={item.description}
-                />
-              ))}
-            </SimpleGrid>
-          </Flex>
-        </Band>
-
-        <Band
-          glass
-          level="minor"
-          eyebrow={dict["home.motion.eyebrow"]}
-          title={dict["home.motion.title"]}
-          description={dict["home.motion.body"]}
-        >
-          <MotionLab />
         </Band>
 
         <Band

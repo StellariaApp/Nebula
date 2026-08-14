@@ -3,7 +3,6 @@
 import { Box, ColorSwatch, Divider, Flex, Segment, Text, useTheme } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { ScenarioComponents } from "../Scenarios/Components";
 import {
   ChoiceFromTheme,
   ResolveChoice,
@@ -11,7 +10,7 @@ import {
   THEME_NAMES,
   type ThemeName,
 } from "../themes/products";
-import { type Scenario } from "./Scenarios";
+import Scenarios, { SCENARIOS, type Scenario } from "./Scenarios";
 
 function Brand(name: ThemeName, scheme: "dark" | "light"): string {
   const stops = THEMES[name][scheme].effects.gradients.brand.stops;
@@ -85,7 +84,7 @@ export default function ProductSurface(): ReactElement {
       <Box display="flex" direction="column" gap="lg">
         <Switcher />
         <Divider />
-        {/* <Box display="flex" direction="column" gap="xs" align="flex-start">
+        <Box display="flex" direction="column" gap="xs" align="flex-start">
           <Flex maw="100%" justify="space-between" align="center" gap="md" w="100%" wrap="wrap">
             <Segment.Control
               aria-label="Situation"
@@ -102,9 +101,8 @@ export default function ProductSurface(): ReactElement {
               Six surfaces, one catalogue, zero forks
             </Text>
           </Flex>
-        </Box> */}
-        {/* <Scenarios active={scenario} /> */}
-        <ScenarioComponents />
+        </Box>
+        <Scenarios active={scenario} />
       </Box>
     </Segment>
   );
