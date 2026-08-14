@@ -10,7 +10,9 @@
     "noContract": [],
     "noJsdoc": [],
     "defaultUnknown": [],
-    "noDestructuring": ["SearchableSelect"]
+    "noDestructuring": [
+      "SearchableSelect"
+    ]
   },
   "components": [
     {
@@ -14765,7 +14767,7 @@
         },
         {
           "name": "align",
-          "type": "\"start\" | \"center\"",
+          "type": "\"start\" | \"end\" | \"center\" | \"stretch\"",
           "required": false,
           "default": "\"start\"",
           "doc": null,
@@ -14924,7 +14926,88 @@
           "slot": false
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "actionsProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "bodyProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "bottomProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "descriptionProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "headerProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "hiperProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "leftProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "rightProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "subtitleProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        },
+        {
+          "name": "titleProps",
+          "type": "HeroSlotProps",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": true
+        }
+      ],
       "inherited": [
         {
           "group": "styleProps",
@@ -27792,6 +27875,14 @@
         {
           "name": "component",
           "type": "(ElementType & C)",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "inherit",
+          "type": "boolean",
           "required": false,
           "default": null,
           "doc": null,

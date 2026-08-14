@@ -930,7 +930,8 @@
       "budget": "33.25 kB",
       "boundary": "client",
       "themeKeys": [
-        "space.xs"
+        "space.xs",
+        "space.xxs"
       ]
     },
     {
@@ -1853,6 +1854,7 @@
       "boundary": "client",
       "themeKeys": [
         "font.size",
+        "font.weight",
         "space.xs"
       ]
     },

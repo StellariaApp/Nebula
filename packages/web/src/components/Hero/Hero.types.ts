@@ -51,7 +51,10 @@ export interface HeroProps
   color?: ColorExtended | undefined;
   size?: HeroSize | undefined;
   align?: "start" | "center" | "end" | "stretch" | undefined;
-  /** Heading level of the title, 1 to 6. Structure, not size: the size comes from `size`. */
+  /**
+   * Heading level of the title, 1 to 6. Structure, not size: the size comes from `size`.
+   * @default 1
+   */
   order?: HeroOrder | undefined;
   /** Maximum width of the inner rail; the band still spans the full width. @default 1400 */
   contentWidth?: Unit | undefined;
