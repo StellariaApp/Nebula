@@ -87,10 +87,12 @@ compone `Title` y declara solo lo que cambia.
 - **`CONTINUAR-barrido-ranuras.md` está obsoleto**: habla de «tanda 18 de unas 40» con fecha del
   2026-08-07, y el cuaderno del barrido cerró sus 113 filas. No sirve como prompt de arranque.
 
-- **WR y WB están dadas por cerradas sin documento de cierre.** `CLAUDE.md` las da por cerradas y
-  `05-roadmap.md` §WR exige explícitamente `docs/wr-closure.md`, que no existe; WB (`2.2-brand-align`)
-  ni siquiera aparece en el roadmap. Este cierre añade la entrada de WN al roadmap, pero no inventa
-  las dos anteriores: cerrarlas exige medir lo que hicieron, y eso es trabajo, no trámite.
+- ~~**WR y WB dadas por cerradas sin documento de cierre**~~ — **resuelto el 2026-08-14**, y la
+  sospecha resultó fundada: al medir WR contra su plan, el tramo **T5 seguía abierto** —incluido un
+  destino de arrastre en `Kanban` señalado solo con color, que axe no detecta—. Se implementó y se
+  cerraron las dos fases: [`wr-closure.md`](wr-closure.md) y [`wb-closure.md`](wb-closure.md), ambas
+  con su entrada en el roadmap. Queda una decisión del propietario, que bloquea solo la captura del
+  baseline de ADR-037: declarar que el aspecto está estable.
 
 ## Lo que WN NO hizo
 
