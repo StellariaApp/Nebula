@@ -96,6 +96,13 @@ jobs:
       - name: Gates
         run: pnpm turbo build typecheck lint test size check:slots check:contrast check:docs check:budget --continue
 
+      # Fuera de turbo: cruza apps/ y packages/, asi que no es una tarea por
+      # paquete. Sin el, olvidar `styles.css` en un consumidor no da error —
+      # los estilos se pintan y el orden de las capas lo decide el bundler.
+      - name: Capas CSS
+        if: always()
+        run: pnpm check:layers
+
   # El noveno gate: axe sobre todas las stories. Va en su propio job porque
   # necesita el navegador de Playwright, y porque un fallo suyo no debe tapar un
   # lint roto: son senales distintas y conviene verlas a la vez.

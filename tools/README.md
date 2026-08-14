@@ -58,3 +58,24 @@ mal es dónde acaba el valor:
   reenvío como prop a una parte interna.
 
 Lee fuente, no `dist`: no depende de `build` y tarda ~1,5 s. Exit code 1 si encuentra algo.
+
+## check-layers — gate de capas CSS (ADR-142)
+
+```bash
+pnpm check:layers
+```
+
+Las tres formas de romper el orden de la cascada, y ninguna da error por su cuenta — los estilos se
+pintan igual y el orden lo decide el bundler:
+
+- **La declaración se desalinea**: alguien añade una capa en `theme/layers.css.ts` y no la lista en
+  `packages/web/styles.css`. La capa nueva queda sin ordenar y su posición pasa a depender de qué
+  componente cargue primero.
+- **Una hoja emite reglas fuera de capa**: un `.css.ts` nuevo que llama a `style()` sin envolverla.
+  Lo no encapado gana a todo lo encapado, así que esa regla pisa incluso al CSS del consumidor. Se
+  saltan los `.vars.css.ts`, `src/theme/` y las hojas que no emiten reglas (`focus`, `motion`).
+- **Un consumidor no importa `styles.css`**: cualquier app de `apps/` que dependa de
+  `@stellaria/nebula-web` y no traiga la hoja de declaración.
+
+Va fuera de turbo porque cruza `apps/` y `packages/`, así que no es una tarea por paquete. Lee
+fuente, no `dist`. Exit code 1 si encuentra algo.
