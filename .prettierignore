@@ -6,3 +6,4 @@ storybook-static
 .next
 spike
 pnpm-lock.yaml
+apps/web/generated
