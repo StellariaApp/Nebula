@@ -7,7 +7,7 @@ import * as styles from "./Title.css.js";
 import type { TitleOwnProps, TitleProps } from "./Title.types.js";
 
 const TitleComponent = forwardRef<HTMLElement, TitleOwnProps>(function Title(props, ref) {
-  const { component, order, className, inherit, ...rest } = props;
+  const { component, order = 1, className, inherit, ...rest } = props;
 
   return (
     <Box
@@ -16,7 +16,7 @@ const TitleComponent = forwardRef<HTMLElement, TitleOwnProps>(function Title(pro
       className={cx(
         styles.nomalize,
         inherit === true ? undefined : styles.heading,
-        order && styles.orders[order],
+        styles.orders[order],
         className,
       )}
       {...rest}

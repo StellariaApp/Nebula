@@ -6,7 +6,7 @@ import type { HeroOrder, HeroSize } from "./Hero.types.js";
 
 export interface HeroContextValue {
   titleId: string;
-  order: HeroOrder;
+  order: HeroOrder | undefined;
   size: HeroSize;
 }
 
