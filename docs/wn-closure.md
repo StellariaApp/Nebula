@@ -73,12 +73,6 @@ compone `Title` y declara solo lo que cambia.
   renumerar exige decidir **cuál conserva el número** y repasar cada referencia una por una. No se
   toca aquí. `ADR-087` es un hueco limpio, sin referencias ni archivo.
 
-- **`REVISION-final-antes-de-W5.md` no se ha ejecutado.** Es la pasada de calidad previa a publicar,
-  y su riesgo declarado nº 1 sigue sin medir: las ~95 conversiones a `Box`/`Text` que pudieron
-  cambiar la etiqueta HTML, de las que solo se cazó una (`Hero.Description`, `p` → `div`). `Box`
-  pinta `div` y `Text` pinta `p`, así que cualquier conversión sin `component="…"` cambió la
-  etiqueta.
-
 - **`CONTINUAR-barrido-ranuras.md` está obsoleto**: habla de «tanda 18 de unas 40» con fecha del
   2026-08-07, y el cuaderno del barrido cerró sus 113 filas. No sirve como prompt de arranque.
 
@@ -93,7 +87,24 @@ No tocó color, ritmo, radio ni tipografía —eso lo cerró WB—. No añadió 
 en 158. No migró a los consumidores. Los huecos de catálogo que aparecieron se anotaron en el
 cuaderno de N5 y se decidieron fuera de la fase.
 
+## La revisión previa a W5 ya está hecha
+
+`REVISION-final-antes-de-W5.md` se ejecutó el 2026-08-08 y su resultado vive en
+[`docs/reviews/revision-previa-w5-2026-08-08.md`](reviews/revision-previa-w5-2026-08-08.md): los nueve
+puntos de riesgo recorridos, con `check:docs` reparado —no podía fallar, hasheaba un conjunto vacío—,
+el generador pasando de 158 a 216 componentes documentados y axe corrido por primera vez.
+
+Su único punto diferido es deliberado: **el vocabulario de las ranuras se congela** con trece nombres
+incoherentes entre hermanos. Renombrar una ranura es breaking y esa era la última ventana; la decisión
+está tomada y anotada para que sea consciente, no un olvido.
+
+**Reverificado el 2026-08-14 sobre este HEAD**, unos cuarenta commits después: el riesgo nº 1 —las
+conversiones a `Box`/`Text` que pudieran haber cambiado la etiqueta— sigue limpio. Se midió con un
+método distinto al de agosto, censando la población de etiquetas por directorio de componente en vez
+de emparejar secuencias, para que la corroboración fuese independiente: **153 directorios, 0 etiquetas
+semánticas perdidas**. El detector se validó inyectando una regresión a mano y comprobando que
+dispara.
+
 ## Siguiente
 
-`REVISION-final-antes-de-W5.md` —última pasada de calidad, el momento en que corregir sale barato—, y
-después W5, la publicación de la v1 web.
+W5, la publicación de la v1 web.
