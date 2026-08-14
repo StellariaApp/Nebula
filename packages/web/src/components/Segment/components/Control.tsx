@@ -18,12 +18,12 @@ import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
 import { useSegment } from "../Segment.context.js";
 import * as styles from "../Segment.css.js";
-import * as variables from "../Segment.vars.css.js";
 import type {
   SegmentControlItemProps,
   SegmentControlProps,
   SegmentItemData,
 } from "../Segment.types.js";
+import * as variables from "../Segment.vars.css.js";
 import { useSegmentIndicator } from "../use-segment-indicator.js";
 
 export function SegmentControlItem(_props: SegmentControlItemProps): null {
@@ -167,6 +167,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
                 fullWidth: segment.fullWidth,
                 overflowMode: segment.overflowMode,
               }),
+              !indicator.ready && active ? styles.tab_active : undefined,
               tabProps?.className,
             )}
             data-active={active ? "true" : undefined}
