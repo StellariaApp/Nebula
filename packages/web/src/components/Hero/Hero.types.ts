@@ -50,7 +50,7 @@ export interface HeroProps
   /** With `transparent` — the default — the band paints no background of its own and inherits the page. */
   color?: ColorExtended | undefined;
   size?: HeroSize | undefined;
-  align?: "start" | "center" | undefined;
+  align?: "start" | "center" | "end" | "stretch" | undefined;
   /** Heading level of the title, 1 to 6. Structure, not size: the size comes from `size`. */
   order?: HeroOrder | undefined;
   /** Maximum width of the inner rail; the band still spans the full width. @default 1400 */
