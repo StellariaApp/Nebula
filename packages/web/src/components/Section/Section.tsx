@@ -137,14 +137,11 @@ export function Section(props: SectionProps): ReactElement {
         style={{ ...rail_vars, ...sprinkle_style }}
         data-reveal={reveal ? revealed["data-reveal"] : undefined}
         data-glass={glass ? "true" : undefined}
+        {...(animating ? revealed.animated_props : {})}
         {...labelling}
         {...rest}
       >
-        <SectionRail
-          {...(animating ? revealed.animated_props : {})}
-          size={size}
-          data-divided={divided ? "true" : undefined}
-        >
+        <SectionRail size={size} data-divided={divided ? "true" : undefined}>
           {has_own_header ? (
             parts.header
           ) : has_title || description !== undefined || actions !== undefined ? (

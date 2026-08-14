@@ -77,7 +77,7 @@ export function Hero(props: HeroProps): ReactElement {
     color = "transparent",
     size = "lg",
     align = "start",
-    order = 1,
+    order,
     contentWidth = DEFAULT_WIDTH,
     actions,
     left,
@@ -148,7 +148,7 @@ export function Hero(props: HeroProps): ReactElement {
           <HeroLeft {...leftProps}>{left}</HeroLeft>
         )}
 
-        <HeroBody {...bodyProps} data-has-body={owns_body}>
+        <HeroBody {...bodyProps}>
           {owns_body ? (
             parts.body
           ) : (
@@ -173,17 +173,17 @@ export function Hero(props: HeroProps): ReactElement {
               )}
             </>
           )}
+          {parts.bottom.length > 0 ? (
+            parts.bottom
+          ) : bottom === undefined ? null : (
+            <HeroBottom {...bottomProps}>{bottom}</HeroBottom>
+          )}
         </HeroBody>
 
         {parts.right.length > 0 ? (
           parts.right
         ) : right === undefined ? null : (
           <HeroRight {...rightProps}>{right}</HeroRight>
-        )}
-        {parts.bottom.length > 0 ? (
-          parts.bottom
-        ) : bottom === undefined ? null : (
-          <HeroBottom {...bottomProps}>{bottom}</HeroBottom>
         )}
       </section>
     </HeroContext.Provider>
