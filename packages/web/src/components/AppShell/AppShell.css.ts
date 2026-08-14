@@ -3,7 +3,7 @@ import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import * as glass_surface_vars from "../GlassSurface/GlassSurface.vars.css.js";
@@ -14,7 +14,7 @@ const GLASS_EDGE = fallbackVar(glass_surface_vars.borderColor, vars.color.border
 
 export const shell = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gridTemplateAreas: `"header header header" "nav main aside" "footer footer footer"`,
       gridTemplateColumns: `${variables.navWidth} 1fr ${variables.asideWidth}`,
@@ -29,7 +29,7 @@ export const shell = style({
 
 export const main = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "main",
       minWidth: 0,
       minHeight: 0,
@@ -44,7 +44,7 @@ export const main = style({
 
 export const skip = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "fixed",
       insetBlockStart: vars.space.xs,
       insetInlineStart: vars.space.xs,
@@ -70,7 +70,7 @@ const RAIL_BAR_SPACE = `calc(${RAIL_BAR_HEIGHT} + (2 * ${RAIL_BAR_GAP}))`;
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gridTemplateAreas: `"rail chrome" "rail main"`,
       gridTemplateColumns: `${variables.railWidth} 1fr`,
@@ -102,7 +102,7 @@ export const rail = style({
 
 export const bounded = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       maxInlineSize: variables.contentMax,
       marginInline: "auto",
       inlineSize: "100%",
@@ -113,7 +113,7 @@ export const bounded = style({
 
 export const sidebar = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "rail",
       display: "flex",
       flexDirection: "column",
@@ -136,7 +136,7 @@ export const sidebar = style({
 
 export const sidebar_container = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       blockSize: "100%",
@@ -173,7 +173,7 @@ export const sidebar_container = style({
 
 export const label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       minWidth: 0,
       selectors: {
         "[data-sidebar-collapsed='true'] &": { display: "none" },
@@ -187,7 +187,7 @@ export const label = style({
 
 export const label_flex = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
     },
   },
@@ -195,7 +195,7 @@ export const label_flex = style({
 
 export const toggle = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       top: variables.chromeHeight,
       right: 0,
@@ -214,7 +214,7 @@ export const toggle = style({
 
 export const sidebar_slot = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       zIndex: vars.zIndex.sticky,
       position: "sticky",
       boxSizing: "border-box",
@@ -264,7 +264,7 @@ export const sidebar_slot = style({
 
 export const sidebar_header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       top: 0,
       padding: 0,
       borderBlock: `1px solid ${GLASS_EDGE} !important`,
@@ -281,7 +281,7 @@ export const sidebar_header = style({
 
 export const sidebar_footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       bottom: 0,
       borderBlockStart: `1px solid ${GLASS_EDGE} !important`,
       justifyContent: "space-between",
@@ -298,7 +298,7 @@ export const sidebar_footer = style({
 
 export const sidebar_body = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minHeight: "max-content",
       overflow: "hidden",
@@ -324,7 +324,7 @@ export const sidebar_body = style({
 
 export const sidebar_bottom = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       marginBlockStart: "auto",
       borderBlockStart: `1px solid ${vars.color.border.default}`,
     },
@@ -333,7 +333,7 @@ export const sidebar_bottom = style({
 
 export const links = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -365,7 +365,7 @@ const EDGE_NONE = { paddingBlockStart: 0, paddingBlockEnd: 0 };
 
 globalStyle(links_first, {
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       "@media": {
         [SmallerThan("laptop")]: EDGE_NONE,
       },
@@ -375,7 +375,7 @@ globalStyle(links_first, {
 
 globalStyle(links_last, {
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       "@media": {
         [SmallerThan("laptop")]: EDGE_NONE,
       },
@@ -384,16 +384,16 @@ globalStyle(links_last, {
 });
 
 globalStyle(`[data-sidebar-collapsed='true'] ${links_first}`, {
-  "@layer": { [base_layer]: EDGE_NONE },
+  "@layer": { [composite_layer]: EDGE_NONE },
 });
 
 globalStyle(`[data-sidebar-collapsed='true'] ${links_last}`, {
-  "@layer": { [base_layer]: EDGE_NONE },
+  "@layer": { [composite_layer]: EDGE_NONE },
 });
 
 export const links_header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -410,7 +410,7 @@ export const links_header = style({
 
 export const links_content = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -453,7 +453,7 @@ export const links_content = style({
 
 export const links_deep = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       borderBlockEnd: "none !important",
       selectors: {
         "[data-sidebar-collapsed='true'] &": {
@@ -475,7 +475,7 @@ export const links_deep = style({
 
 export const link = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       paddingBlock: 0,
       minHeight: 44,
       selectors: {
@@ -511,7 +511,7 @@ globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.body}`, {
 
 export const chrome = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "chrome",
       minWidth: 0,
       zIndex: 2,
@@ -521,13 +521,13 @@ export const chrome = style({
 
 export const section = style({
   "@layer": {
-    [base_layer]: { display: "flex", flexDirection: "column", minWidth: 0 },
+    [composite_layer]: { display: "flex", flexDirection: "column", minWidth: 0 },
   },
 });
 
 export const section_content = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -542,7 +542,7 @@ export const section_content = style({
 
 export const section_header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       boxSizing: "border-box",
       display: "flex",
       alignItems: "center",
@@ -568,7 +568,7 @@ export const section_header = style({
 
 export const section_sub = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       paddingInline: vars.space.lg,
       paddingBlock: vars.space.sm,
       borderBlockEnd: `1px solid ${GLASS_EDGE}`,
@@ -581,14 +581,14 @@ export const section_sub = style({
 
 export const content = style({
   "@layer": {
-    [base_layer]: { padding: vars.space.lg, minWidth: 0 },
+    [composite_layer]: { padding: vars.space.lg, minWidth: 0 },
   },
 });
 
 /** Las regiones heredadas son partes: traen su semántica y su área de la rejilla. */
 export const navbar = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "nav",
       position: "sticky",
       insetBlockStart: variables.headHeight,
@@ -606,7 +606,7 @@ export const navbar = style({
 
 export const aside_region = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "aside",
       position: "sticky",
       insetBlockStart: variables.headHeight,
@@ -621,7 +621,7 @@ export const aside_region = style({
 
 export const footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       gridArea: "footer",
       boxSizing: "border-box",
       display: "flex",
@@ -638,7 +638,7 @@ export const footer = style({
 /** La cabecera vale en los dos montajes: como región de la rejilla o dentro de una sección. */
 export const header_sticky = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       top: 0,
       gridArea: "header",
       position: "sticky",
@@ -650,7 +650,7 @@ export const header_sticky = style({
 
 export const sticky_chrome = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       top: 0,
       position: "sticky",
       zIndex: vars.zIndex.sticky,
@@ -661,7 +661,7 @@ export const sticky_chrome = style({
 /** La subbarra se apila justo debajo de la cabecera, no encima de ella. */
 export const sticky_sub = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       top: 0,
       position: "sticky",
       insetBlockStart: variables.chromeHeight,
@@ -672,7 +672,7 @@ export const sticky_sub = style({
 
 export const scroll_shadow = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "sticky",
       insetBlockStart: variables.shadowOffset,
       zIndex: `calc(${vars.zIndex.sticky} - 2)`,

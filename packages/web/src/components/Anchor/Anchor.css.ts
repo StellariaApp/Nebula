@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 export const anchor = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       color: "inherit",
       cursor: "pointer",
       borderRadius: vars.radius.xs,
@@ -23,12 +23,12 @@ export const anchor = style({
 });
 
 export const underline_always = style({
-  "@layer": { [base_layer]: { textDecorationLine: "underline" } },
+  "@layer": { [component_layer]: { textDecorationLine: "underline" } },
 });
 
 export const underline_hover = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       textDecorationLine: "none",
       selectors: { "&:hover": { textDecorationLine: "underline" } },
     },
@@ -36,5 +36,5 @@ export const underline_hover = style({
 });
 
 export const underline_never = style({
-  "@layer": { [base_layer]: { textDecorationLine: "none" } },
+  "@layer": { [component_layer]: { textDecorationLine: "none" } },
 });

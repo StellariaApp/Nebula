@@ -1,3 +1,5 @@
+import "@stellaria/nebula-web/styles.css";
+
 import { useEffect } from "react";
 
 import "@fontsource-variable/geist";

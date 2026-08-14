@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Modal.vars.css.js";
 import { palettes } from "@stellaria/nebula-tokens";
@@ -15,7 +15,7 @@ const TOP_INSET = "10vh";
 export const dialog = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         boxSizing: "border-box",
         position: "fixed",
         inset: 0,
@@ -73,7 +73,7 @@ export const dialog = recipe({
 
 export const portal = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "contents",
     },
   },
@@ -82,7 +82,7 @@ export const portal = style({
 export const surface = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -141,7 +141,7 @@ export const surface = recipe({
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyItems: "center",
@@ -165,7 +165,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.h5,
@@ -178,7 +178,7 @@ export const title = style({
 
 export const subtitle = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,
@@ -188,7 +188,7 @@ export const subtitle = style({
 
 export const footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyItems: "center",

@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -17,7 +17,7 @@ export const header = style({
 
 export const heading = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -29,7 +29,7 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
@@ -42,7 +42,7 @@ export const title = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
@@ -55,13 +55,13 @@ export const description = style({
 
 export const media_wrap = style({
   "@layer": {
-    [base_layer]: { position: "relative" },
+    [composite_layer]: { position: "relative" },
   },
 });
 
 export const media_actions = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xs,
       insetInlineEnd: vars.space.xs,
@@ -73,7 +73,7 @@ export const media_actions = style({
 
 export const slot_row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -84,7 +84,7 @@ export const slot_row = style({
 
 export const badge_row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -98,13 +98,13 @@ export const badge_row = style({
 
 globalStyle(`${badge_row}[data-grow='true'] > *`, {
   "@layer": {
-    [base_layer]: { flex: 1 },
+    [composite_layer]: { flex: 1 },
   },
 });
 
 export const body = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -115,7 +115,7 @@ export const body = style({
 
 export const foot = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -128,7 +128,7 @@ export const foot = style({
 
 export const meta_row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -142,7 +142,7 @@ export const meta_row = style({
 
 export const person = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,

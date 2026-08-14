@@ -2,13 +2,13 @@ import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Panel.vars.css.js";
 
 export const panel = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "grid",
       minWidth: 0,
       minHeight: 0,
@@ -27,13 +27,13 @@ export const panel = style({
 
 export const pane = style({
   "@layer": {
-    [base_layer]: { minWidth: 0, minHeight: 0, overflow: "auto" },
+    [primitive_layer]: { minWidth: 0, minHeight: 0, overflow: "auto" },
   },
 });
 
 export const separator = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       appearance: "none",
       margin: 0,
       padding: 0,

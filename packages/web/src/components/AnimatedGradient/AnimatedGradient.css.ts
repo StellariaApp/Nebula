@@ -3,7 +3,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./AnimatedGradient.vars.css.js";
 
@@ -18,7 +18,7 @@ const DRIFT = keyframes({
 export const animated_gradient = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         isolation: "isolate",
         overflow: "hidden",
@@ -34,7 +34,7 @@ export const animated_gradient = recipe({
 
 export const drift = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: "-40%",
       zIndex: -1,
@@ -65,7 +65,7 @@ export const speed = styleVariants({
 
 export const scrim = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: -1,

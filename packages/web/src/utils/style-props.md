@@ -24,10 +24,11 @@ de escala, que multiplicarían esa cifra por tres sin que nadie los use como sty
 
 ## Por qué el inline gana donde la clase perdía
 
-Un recipe que declara sus variantes fuera de `baseLayer` —`Divider.css.ts` es el caso vivo— pisa a
-las clases de sprinkles, porque una regla sin capa gana a una regla en capa. La declaración inline no
-tiene ese problema. **No es un arreglo de ese defecto**, solo deja de depender de él: el patrón de
-variantes fuera de capa se corrige por su cuenta.
+Un recipe que declaraba sus variantes fuera de capa —`Divider.css.ts` era el caso vivo— pisaba a las
+clases de sprinkles, porque una regla sin capa gana a una regla en capa. La declaración inline no
+tiene ese problema. **No era un arreglo de ese defecto**, solo dejaba de depender de él. ADR-142
+cerró el patrón por su cuenta: hoy toda regla de componente está en capa y las sprinkles en
+`util_layer`, la última.
 
 ## El reparto no paga por nodo cuando no hay nada que repartir
 

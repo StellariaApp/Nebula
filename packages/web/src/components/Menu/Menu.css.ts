@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 export const menu = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       boxSizing: "border-box",
       listStyle: "none",
       margin: 0,
@@ -28,7 +28,7 @@ export const menu = style({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -78,7 +78,7 @@ export const labels = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.secondary,
     },
@@ -87,7 +87,7 @@ export const description = style({
 
 export const shortcut = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       marginInlineStart: "auto",
       paddingInlineStart: vars.space.md,
       fontFamily: vars.font.family.mono,
@@ -98,9 +98,9 @@ export const shortcut = style({
 });
 
 globalStyle(`${item}[data-focused='true'] ${description}`, {
-  "@layer": { [base_layer]: { color: "inherit" } },
+  "@layer": { [component_layer]: { color: "inherit" } },
 });
 
 globalStyle(`${item}[data-focused='true'] ${shortcut}`, {
-  "@layer": { [base_layer]: { color: "inherit" } },
+  "@layer": { [component_layer]: { color: "inherit" } },
 });

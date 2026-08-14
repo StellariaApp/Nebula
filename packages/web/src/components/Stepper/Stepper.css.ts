@@ -3,13 +3,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Stepper.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.lg,
@@ -21,7 +21,7 @@ export const root = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       listStyle: "none",
       margin: 0,
@@ -38,7 +38,7 @@ export const orientation = styleVariants({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -54,7 +54,7 @@ export const item = style({
 
 export const step = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -78,7 +78,7 @@ export const step = style({
 
 export const bullet = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -112,7 +112,7 @@ export const bullet = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -122,7 +122,7 @@ export const body = style({
 
 export const label = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
       color: vars.color.text.primary,
@@ -138,7 +138,7 @@ export const label = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
       overflow: "hidden",
@@ -150,7 +150,7 @@ export const description = style({
 
 export const track = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       flex: "1 1 auto",
       minWidth: vars.space.md,
       height: 2,
@@ -176,7 +176,7 @@ export const track = style({
 
 export const panel = style({
   "@layer": {
-    [base_layer]: { minWidth: 0 },
+    [component_layer]: { minWidth: 0 },
   },
 });
 

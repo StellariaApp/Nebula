@@ -111,13 +111,26 @@ alimenta.
 
 `ResolveVariant` (`src/theme/resolve-variant.ts`) traduce las referencias serializables (`scale.600`, `scale.500.12`, `surface.overlay`, `gradient.brand`) a **`var(...)` del contrato**, nunca a hex — así el cambio de tema oficial sigue repintando por CSS. Aplica además los guardrails del tema: `effects.glass.enabled` off degrada la variante glass, `motion.tier: "minimal"` desactiva la animación.
 
-**`@layer` es obligatorio en los estilos base** de cualquier componente que acepte style props:
+**`@layer` es obligatorio en toda regla de componente**, y la capa se elige por composición (ADR-142):
 
 ```ts
-export const base = style({ "@layer": { [baseLayer]: { color: vars.color.text.primary } } });
+import { primitive_layer } from "../../theme/layers.css.js";
+
+export const base = style({ "@layer": { [primitive_layer]: { color: vars.color.text.primary } } });
 ```
 
-Sin capa, la clase base gana a la clase atómica de sprinkles y **pisa silenciosamente la style prop del consumidor** (`c="text.onPrimary"` deja de aplicarse). El gate axe lo detectó como contraste insuficiente; es un fallo invisible en revisión de código.
+| capa              | cuándo                                                |
+| ----------------- | ----------------------------------------------------- |
+| `reset_layer`     | normalizaciones que deben perder con todo             |
+| `primitive_layer` | el componente no compone otro componente estilizado   |
+| `component_layer` | compone primitivas                                    |
+| `composite_layer` | compone componentes                                   |
+| `util_layer`      | sprinkles y style props — no lo usa ningún componente |
+
+**Si A renderiza a B y necesita sobrescribirlo, A va en una capa posterior a B.** El criterio es la
+composición, no lo elaborado que sea el componente. Ver `src/theme/layers.md`.
+
+Sin capa, la regla gana a la clase atómica de sprinkles y **pisa silenciosamente la style prop del consumidor** (`c="text.onPrimary"` deja de aplicarse). El gate axe lo detectó como contraste insuficiente; es un fallo invisible en revisión de código. Los `.vars.css.ts` son la excepción: declaran variables y no compiten en la cascada.
 
 ### Capa 3 — Motion: `motion` v12 con los springs del theme (ADR-004/018)
 
@@ -202,7 +215,7 @@ relación, una sola escalera de elevación y máximo un efecto dominante por reg
 - [ ] `pnpm turbo a11y --filter=playground-web` verde (0 violaciones).
 - [ ] Acepta `StyleProps` y las aplica con `ExtractStyleProps` (ADR-032), salvo que no renderice un elemento propio.
 - [ ] Las colisiones de nombre resueltas a favor de la prop del componente, con el `Omit` o el estrechamiento explícito en el tipo.
-- [ ] Estilos base dentro de `baseLayer` — **obligatorio**, no opcional: sin capa, la clase base pisa en silencio la style prop del consumidor.
+- [ ] Estilos dentro de la capa que le toca por composición (ADR-142) — **obligatorio**, no opcional: sin capa, la regla pisa en silencio la style prop del consumidor.
 - [ ] Cero transiciones, duraciones y curvas escritas a mano: se componen de `styles/motion.css.ts` y la física de `utils/motion.ts` (ADR-034). Reduced-motion declarado, con su sustituto estático si anima por keyframes.
 - [ ] Cero hex y cero paletas crudas en el componente: solo roles y `variantMap`.
 - [ ] Cero alturas en literales: `vars.size.control.*` si es interactivo, `vars.size.compact.*` si no (ADR-033).

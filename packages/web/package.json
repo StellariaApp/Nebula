@@ -22,6 +22,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./styles.css": {
+      "types": "./styles.css.d.ts",
+      "default": "./styles.css"
+    },
     "./command": {
       "types": "./dist/command/index.d.ts",
       "default": "./dist/command/index.js"
@@ -54,6 +58,8 @@
   "files": [
     "dist",
     "!dist/**/*.map",
+    "styles.css",
+    "styles.css.d.ts",
     "LICENSE"
   ],
   "engines": {

@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -31,7 +31,7 @@ export const trigger = style({
 
 export const shortcut = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       marginInlineStart: "auto",
       paddingInline: vars.space.xs,
       paddingTop: 1,
@@ -47,7 +47,7 @@ export const shortcut = style({
 
 export const search_row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -60,7 +60,7 @@ export const search_row = style({
 
 export const input = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minWidth: 0,
       border: "none",
@@ -78,7 +78,7 @@ export const input = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       padding: vars.space.xxs,
       background: vars.color.surface.sunken,
@@ -91,7 +91,7 @@ export const list = style({
 
 export const group_label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: `${vars.space.xs} ${vars.space.sm} ${vars.space.xxs}`,
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.semibold,
@@ -104,7 +104,7 @@ export const group_label = style({
 
 export const option = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -124,7 +124,7 @@ export const option = style({
 
 export const option_icon = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       color: vars.color.text.muted,
       flex: "0 0 auto",
@@ -134,13 +134,13 @@ export const option_icon = style({
 
 export const option_body = style({
   "@layer": {
-    [base_layer]: { display: "flex", flexDirection: "column", minWidth: 0, gap: 2 },
+    [composite_layer]: { display: "flex", flexDirection: "column", minWidth: 0, gap: 2 },
   },
 });
 
 export const option_title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontSize: vars.font.size.body2,
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -151,7 +151,7 @@ export const option_title = style({
 
 export const option_description = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontSize: vars.font.size.body3,
       color: vars.color.text.secondary,
       overflow: "hidden",
@@ -163,7 +163,7 @@ export const option_description = style({
 
 export const status = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.lg,
       textAlign: "center",
       fontSize: vars.font.size.body2,

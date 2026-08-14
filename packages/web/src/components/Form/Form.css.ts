@@ -1,13 +1,13 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Form.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "block",
       width: "100%",
       fontFamily: vars.font.family.sans,
@@ -17,7 +17,7 @@ export const root = style({
 
 export const fieldset = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.lg,
@@ -31,7 +31,7 @@ export const fieldset = style({
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -42,7 +42,7 @@ export const header = style({
 
 export const header_text = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -53,19 +53,19 @@ export const header_text = style({
 
 export const header_actions = style({
   "@layer": {
-    [base_layer]: { display: "flex", gap: vars.space.xs, flexShrink: 0 },
+    [composite_layer]: { display: "flex", gap: vars.space.xs, flexShrink: 0 },
   },
 });
 
 export const title = style({
   "@layer": {
-    [base_layer]: { margin: 0 },
+    [composite_layer]: { margin: 0 },
   },
 });
 
 export const banderole = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -88,7 +88,7 @@ export const banderole_side = styleVariants({
 
 export const content = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gap: vars.space.md,
       minWidth: 0,
@@ -108,7 +108,7 @@ export const columns = styleVariants({
 
 export const footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -118,7 +118,7 @@ export const footer = style({
 
 export const error = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.sm,
       borderRadius: vars.radius.sm,
       background: vars.color.semantic.error["50"],
@@ -130,7 +130,7 @@ export const error = style({
 
 export const actions = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,

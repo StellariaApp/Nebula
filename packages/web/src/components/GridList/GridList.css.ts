@@ -1,13 +1,13 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./GridList.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -18,13 +18,13 @@ export const root = style({
 
 export const toolbar = style({
   "@layer": {
-    [base_layer]: { display: "flex", justifyContent: "flex-end" },
+    [component_layer]: { display: "flex", justifyContent: "flex-end" },
   },
 });
 
 export const container = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       listStyle: "none",
       margin: 0,
       padding: 0,
@@ -35,7 +35,7 @@ export const container = style({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       minWidth: 0,
       selectors: {
         "[data-mode='carousel'] &": { scrollSnapAlign: "start" },

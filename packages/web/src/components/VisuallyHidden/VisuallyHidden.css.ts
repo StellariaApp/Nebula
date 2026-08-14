@@ -1,10 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 export const visually_hidden = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       width: 1,
       height: 1,

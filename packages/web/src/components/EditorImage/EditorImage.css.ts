@@ -3,13 +3,13 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./EditorImage.vars.css.js";
 
 export const trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       display: "block",
       width: "100%",
@@ -33,7 +33,7 @@ export const trigger = style({
 
 export const image = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       width: "100%",
       height: "100%",
       objectFit: "cover",
@@ -44,7 +44,7 @@ export const image = style({
 
 export const hint = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetInline: 0,
       insetBlockEnd: 0,
@@ -59,7 +59,7 @@ export const hint = style({
 
 export const missing = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.md,
       borderRadius: vars.radius.md,
       border: `1px dashed ${vars.color.semantic.warning["600"]}`,
@@ -70,4 +70,3 @@ export const missing = style({
     },
   },
 });
-

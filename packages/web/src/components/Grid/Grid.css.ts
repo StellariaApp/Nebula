@@ -1,7 +1,7 @@
 import { fallbackVar, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Grid.vars.css.js";
 
@@ -12,7 +12,7 @@ const offset_margin = `calc(${variables.colOffset} * ${unit} + ${variables.colOf
 export const grid = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         display: "flex",
         boxSizing: "border-box",
         gap: variables.gutter,
@@ -21,8 +21,8 @@ export const grid = recipe({
   },
   variants: {
     wrap: {
-      true: { "@layer": { [base_layer]: { flexWrap: "wrap" } } },
-      false: { "@layer": { [base_layer]: { flexWrap: "nowrap" } } },
+      true: { "@layer": { [primitive_layer]: { flexWrap: "wrap" } } },
+      false: { "@layer": { [primitive_layer]: { flexWrap: "nowrap" } } },
     },
   },
   defaultVariants: {
@@ -34,7 +34,7 @@ export type GridRecipeVariants = NonNullable<RecipeVariants<typeof grid>>;
 
 export const col_base = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       boxSizing: "border-box",
       minWidth: 0,
       marginInlineStart: offset_margin,
@@ -44,7 +44,7 @@ export const col_base = style({
 
 export const col_numeric = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       flexGrow: fallbackVar(variables.grow, "0"),
       flexShrink: 0,
       flexBasis: span_width,
@@ -55,7 +55,7 @@ export const col_numeric = style({
 
 export const col_auto = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       flexGrow: 1,
       flexShrink: 1,
       flexBasis: 0,
@@ -66,7 +66,7 @@ export const col_auto = style({
 
 export const col_content = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       flexGrow: 0,
       flexShrink: 0,
       flexBasis: "auto",

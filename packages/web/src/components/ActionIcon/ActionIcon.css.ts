@@ -4,14 +4,14 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ActionIcon.vars.css.js";
 
 export const action_icon = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
@@ -51,7 +51,7 @@ export const action_icon = recipe({
     size: {
       xs: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             width: vars.size.control.xs,
             height: vars.size.control.xs,
             fontSize: `calc(${vars.size.control.xs} / 2)`,
@@ -60,7 +60,7 @@ export const action_icon = recipe({
       },
       sm: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             width: vars.size.control.sm,
             height: vars.size.control.sm,
             fontSize: `calc(${vars.size.control.sm} / 2)`,
@@ -69,7 +69,7 @@ export const action_icon = recipe({
       },
       md: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             width: vars.size.control.md,
             height: vars.size.control.md,
             fontSize: `calc(${vars.size.control.md} / 2)`,
@@ -78,7 +78,7 @@ export const action_icon = recipe({
       },
       lg: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             width: vars.size.control.lg,
             height: vars.size.control.lg,
             fontSize: `calc(${vars.size.control.lg} / 2)`,
@@ -87,7 +87,7 @@ export const action_icon = recipe({
       },
       xl: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             width: vars.size.control.xl,
             height: vars.size.control.xl,
             fontSize: `calc(${vars.size.control.xl} / 2)`,
@@ -105,7 +105,7 @@ export type ActionIconRecipeVariants = NonNullable<RecipeVariants<typeof action_
 
 export const icon_wrap = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",

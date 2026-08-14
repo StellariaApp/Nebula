@@ -2,12 +2,12 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 export const root = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [component_layer]: {
         boxSizing: "border-box",
         margin: 0,
         minWidth: 0,
@@ -46,7 +46,7 @@ export const root = recipe({
 
 export const legend = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       paddingInline: vars.space.xs,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
@@ -58,7 +58,7 @@ export const legend = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       lineHeight: vars.font.lineHeight.normal,
       color: vars.color.text.muted,

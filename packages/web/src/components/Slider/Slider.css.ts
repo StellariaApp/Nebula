@@ -3,7 +3,7 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Slider.vars.css.js";
 
@@ -11,7 +11,7 @@ const TOUCH_TARGET = 24;
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -26,7 +26,7 @@ export const root = style({
 
 export const track = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       width: "100%",
       boxSizing: "border-box",
@@ -47,7 +47,7 @@ export const track = style({
 
 export const fill = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetBlock: 0,
       borderRadius: vars.radius.full,
@@ -61,7 +61,7 @@ export const fill = style({
 
 export const thumb = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       top: "50%",
       boxSizing: "border-box",
@@ -100,7 +100,7 @@ export const thumb = style({
 
 export const root_with_marks = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       marginBlockEnd: vars.space.lg,
     },
   },
@@ -108,7 +108,7 @@ export const root_with_marks = style({
 
 export const marks = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetInline: 0,
       top: "100%",
@@ -120,7 +120,7 @@ export const marks = style({
 
 export const mark = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       transform: "translateX(-50%)",
       fontFamily: vars.font.family.sans,
@@ -135,7 +135,7 @@ export const mark = style({
 
 export const output = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       fontVariantNumeric: "tabular-nums",
@@ -149,7 +149,7 @@ export const output = style({
 
 export const row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.md,

@@ -3,13 +3,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Dropzone.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.sm,
@@ -20,7 +20,7 @@ export const root = style({
 
 export const zone = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -65,13 +65,13 @@ export const zone = style({
 
 export const icon = style({
   "@layer": {
-    [base_layer]: { display: "inline-flex", lineHeight: 0, color: variables.dropColor },
+    [composite_layer]: { display: "inline-flex", lineHeight: 0, color: variables.dropColor },
   },
 });
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
     },
@@ -80,7 +80,7 @@ export const title = style({
 
 export const hint = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
     },
@@ -89,7 +89,7 @@ export const hint = style({
 
 export const native_input = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       width: 1,
       height: 1,
@@ -105,7 +105,7 @@ export const native_input = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -118,7 +118,7 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -134,7 +134,7 @@ export const item = style({
 
 export const file_name = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: "1 1 auto",
       minWidth: 0,
       overflow: "hidden",
@@ -146,7 +146,7 @@ export const file_name = style({
 
 export const preview = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flexShrink: 0,
       width: 36,
       height: 36,

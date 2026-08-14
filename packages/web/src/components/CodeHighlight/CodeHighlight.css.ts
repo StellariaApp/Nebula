@@ -2,14 +2,14 @@ import { fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./CodeHighlight.vars.css.js";
 
 export const root = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         position: "relative",
         boxSizing: "border-box",
         borderRadius: vars.radius.md,
@@ -24,7 +24,7 @@ export const root = recipe({
     dressed: {
       true: {
         "@layer": {
-          [base_layer]: { backdropFilter: variables.backdropFilter },
+          [composite_layer]: { backdropFilter: variables.backdropFilter },
         },
       },
       false: {},
@@ -36,7 +36,7 @@ export const root = recipe({
 export const header = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -50,10 +50,10 @@ export const header = recipe({
   },
   variants: {
     dressed: {
-      true: { "@layer": { [base_layer]: { background: "transparent", color: "inherit" } } },
+      true: { "@layer": { [composite_layer]: { background: "transparent", color: "inherit" } } },
       false: {
         "@layer": {
-          [base_layer]: { background: vars.color.surface.base, color: vars.color.text.muted },
+          [composite_layer]: { background: vars.color.surface.base, color: vars.color.text.muted },
         },
       },
     },
@@ -63,7 +63,7 @@ export const header = recipe({
 
 export const floating_copy = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetBlockStart: vars.space.xxs,
       insetInlineEnd: vars.space.xxs,
@@ -74,7 +74,7 @@ export const floating_copy = style({
 
 export const scroll = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       maxHeight: variables.scrollHeight,
       overflow: "auto",
     },
@@ -83,7 +83,7 @@ export const scroll = style({
 
 export const pre = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       margin: 0,
       padding: 0,
@@ -99,7 +99,7 @@ export const pre = style({
 
 export const gutter = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: "0 0 auto",
       padding: `${vars.space.sm} ${vars.space.xs}`,
       borderInlineEnd: `1px solid ${vars.color.border.subtle}`,
@@ -114,7 +114,7 @@ export const gutter = style({
 
 export const source = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minWidth: 0,
       padding: vars.space.sm,
@@ -128,7 +128,7 @@ export const source = style({
 
 export const tab_list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -142,13 +142,13 @@ export const tab_list = style({
 
 export const bare = style({
   "@layer": {
-    [base_layer]: { border: "none", borderRadius: 0, background: "transparent" },
+    [composite_layer]: { border: "none", borderRadius: 0, background: "transparent" },
   },
 });
 
 export const fold = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetInline: 0,
       insetBlockEnd: 0,
@@ -174,6 +174,6 @@ export const fold = style({
 
 export const fold_button = style({
   "@layer": {
-    [base_layer]: { pointerEvents: "auto" },
+    [composite_layer]: { pointerEvents: "auto" },
   },
 });

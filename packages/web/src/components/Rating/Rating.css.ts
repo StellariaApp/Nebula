@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Rating.vars.css.js";
 
@@ -11,7 +11,7 @@ const TOUCH_TARGET = 24;
 
 export const group = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -25,7 +25,7 @@ export const group = style({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
@@ -64,7 +64,7 @@ export const item = style({
 
 export const partial = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       inset: 0,
       display: "inline-flex",

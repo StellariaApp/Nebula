@@ -4,14 +4,14 @@ import { recipe } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Card.vars.css.js";
 
 export const card = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [component_layer]: {
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -31,7 +31,7 @@ export const card = recipe({
   },
   variants: {
     glowing: {
-      true: { "@layer": { [base_layer]: { boxShadow: variables.glow } } },
+      true: { "@layer": { [component_layer]: { boxShadow: variables.glow } } },
       false: {},
     },
     shadow: {
@@ -51,13 +51,13 @@ export const card = recipe({
       xl: { vars: { [variables.pad]: vars.space.xl }, padding: variables.pad, gap: vars.space.lg },
     },
     withBorder: {
-      true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
+      true: { "@layer": { [component_layer]: { borderWidth: 1 } } },
       false: {},
     },
     interactive: {
       true: {
         "@layer": {
-          [base_layer]: {
+          [component_layer]: {
             cursor: "pointer",
             ...motion.interaction,
             selectors: {
@@ -94,7 +94,7 @@ export const section_inset = style({
 
 export const section_border = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       borderBottomStyle: "solid",
       borderBottomWidth: 1,
       borderBottomColor: vars.color.border.subtle,
@@ -105,7 +105,7 @@ export const section_border = style({
 
 export const meta = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",

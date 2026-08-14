@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./NProgress.vars.css.js";
 
 export const track = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "fixed",
       insetBlockStart: 0,
       insetInline: 0,
@@ -19,7 +19,7 @@ export const track = style({
 
 export const bar = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       height: "100%",
       background: variables.accent,
       transformOrigin: "left center",

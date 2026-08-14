@@ -3,13 +3,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ImageGallery.vars.css.js";
 
 export const gallery = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gridTemplateColumns: variables.columns,
       margin: 0,
@@ -28,7 +28,7 @@ export const gap = styleVariants({
 
 export const tile = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "block",
       width: "100%",
       padding: 0,
@@ -50,13 +50,13 @@ export const tile = style({
 
 export const tile_static = style({
   "@layer": {
-    [base_layer]: { cursor: "default" },
+    [composite_layer]: { cursor: "default" },
   },
 });
 
 export const tile_image = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       width: "100%",
       height: "100%",
       objectFit: "cover",
@@ -67,7 +67,7 @@ export const tile_image = style({
 
 export const empty = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.lg,
       textAlign: "center",
       color: vars.color.text.muted,

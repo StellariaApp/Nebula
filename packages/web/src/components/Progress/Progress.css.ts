@@ -2,7 +2,7 @@ import { fallbackVar, keyframes, style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Progress.vars.css.js";
 
@@ -20,7 +20,7 @@ const SPIN = keyframes({ to: { transform: "rotate(360deg)" } });
 
 export const track = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "relative",
       display: "flex",
       overflow: "hidden",
@@ -38,7 +38,7 @@ export const track = style({
 
 export const fill = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       height: "100%",
       borderRadius: "inherit",
       ...motion.value,
@@ -61,7 +61,7 @@ export const striped = style({
 
 export const indeterminate = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "absolute",
       insetBlock: 0,
       insetInlineStart: 0,
@@ -78,7 +78,7 @@ export const indeterminate = style({
 
 export const ring = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
@@ -112,7 +112,7 @@ export const ring_arc = style({
 
 export const ring_label = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "absolute",
       display: "inline-flex",
       alignItems: "center",

@@ -2,14 +2,14 @@ import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Avatar.vars.css.js";
 
 export const avatar = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         display: "inline-flex",
         alignItems: "center",
@@ -51,7 +51,7 @@ export const image = style({
 
 export const group = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "inline-flex",
       alignItems: "center",
       flexDirection: "row",

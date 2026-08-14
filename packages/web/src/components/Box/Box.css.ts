@@ -3,6 +3,7 @@ import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { breakpoints } from "@stellaria/nebula-tokens";
 
 import { vars } from "../../theme/contract.css.js";
+import { util_layer } from "../../theme/layers.css.js";
 
 const CONDITIONS = {
   base: {},
@@ -72,6 +73,7 @@ const LAYOUT_SPACE = {
 };
 
 const RESPONSIVE = defineProperties({
+  "@layer": util_layer,
   conditions: CONDITIONS,
   defaultCondition: "base",
   properties: {
@@ -144,6 +146,7 @@ const RESPONSIVE = defineProperties({
 });
 
 const UNRESPONSIVE = defineProperties({
+  "@layer": util_layer,
   properties: {
     position: ["relative", "absolute", "fixed", "sticky", "static"],
     overflow: ["visible", "hidden", "scroll", "auto"],

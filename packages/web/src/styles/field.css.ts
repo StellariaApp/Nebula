@@ -5,19 +5,19 @@ import * as focus from "./focus.css.js";
 import * as focus_vars from "./focus.vars.css.js";
 import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
-import { base_layer } from "../theme/layers.css.js";
+import { primitive_layer } from "../theme/layers.css.js";
 
 import * as variables from "./field.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: { display: "flex", flexDirection: "column", gap: vars.space.sm },
+    [primitive_layer]: { display: "flex", flexDirection: "column", gap: vars.space.sm },
   },
 });
 
 export const label = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
@@ -29,13 +29,13 @@ export const label = style({
 
 export const required = style({
   "@layer": {
-    [base_layer]: { color: vars.color.semantic.error["600"], marginInlineStart: "0.15em" },
+    [primitive_layer]: { color: vars.color.semantic.error["600"], marginInlineStart: "0.15em" },
   },
 });
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       lineHeight: vars.font.lineHeight.normal,
@@ -46,7 +46,7 @@ export const description = style({
 
 export const error = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       lineHeight: vars.font.lineHeight.normal,
@@ -58,7 +58,7 @@ export const error = style({
 export const field = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         display: "flex",
         alignItems: "center",
         boxSizing: "border-box",
@@ -186,7 +186,7 @@ export type FieldRecipeVariants = NonNullable<RecipeVariants<typeof field>>;
 
 export const input = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       flex: 1,
       minWidth: 0,
       margin: 0,
@@ -209,7 +209,7 @@ export const input = style({
 
 export const textarea = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       resize: "vertical",
       minHeight: "4.5em",
     },

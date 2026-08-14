@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../styles/focus.css.js";
 import * as motion from "../styles/motion.css.js";
 import { vars } from "../theme/contract.css.js";
-import { base_layer } from "../theme/layers.css.js";
+import { component_layer } from "../theme/layers.css.js";
 
 export const group = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       flex: 1,
@@ -19,7 +19,7 @@ export const group = style({
 
 export const segment = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       boxSizing: "border-box",
       paddingInline: "0.12em",
       borderRadius: vars.radius.xs,

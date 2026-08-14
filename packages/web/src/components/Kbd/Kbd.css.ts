@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 export const kbd = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",

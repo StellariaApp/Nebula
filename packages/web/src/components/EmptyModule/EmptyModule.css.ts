@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -44,7 +44,7 @@ export const illustration = styleVariants({
 
 export const media = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -55,7 +55,7 @@ export const media = style({
 
 export const footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       marginBlockStart: vars.space.md,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
@@ -67,7 +67,7 @@ export const footer = style({
 
 export const actions = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",

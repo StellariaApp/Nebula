@@ -33,6 +33,6 @@ La plantilla (`docs/patterns/web-component-template.md` §3.1) sitúa el halo en
 `boxShadow` por la variante `glowing` del recipe, que gana a `shadow`. `docs/06` §6 lo respalda —«las
 sombras no animan»— y evita traer motion a un primitivo que no lo tenía.
 
-El fondo, color y borde base viven en `baseLayer` para que las style props de Box los puedan pisar (`<Paper bg="surface.sunken">`, `<Paper c="text.secondary">`): sin la capa, la clase base ganaría a la clase atómica de sprinkles y la style prop se ignoraría en silencio (misma trampa que documenta la plantilla en §2).
+El fondo, color y borde base viven en `primitive_layer` para que las style props de Box los puedan pisar (`<Paper bg="surface.sunken">`, `<Paper c="text.secondary">`): las sprinkles están en `util_layer`, que va después (ADR-142). Sin capa, la clase base ganaría a la clase atómica de sprinkles y la style prop se ignoraría en silencio (misma trampa que documenta la plantilla en §2).
 
 `radius` acepta un nombre de token o un número (px libre, resuelto a estilo inline que gana al recipe). `shadow`/`radius`/`withBorder` no colisionan con las shorthands de Box (`shadow` de Box es `boxShadow`, pero aquí se consume antes de llegar a Box; `r` y `bdc` usan otros nombres).

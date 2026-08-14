@@ -4,13 +4,13 @@ import { fallbackVar } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Section.vars.css.js";
 
 export const section = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       boxSizing: "border-box",
       width: "100%",
@@ -29,7 +29,7 @@ export const section = style({
 
 export const rail = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -49,7 +49,7 @@ export const rail = style({
 
 export const head = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -62,7 +62,7 @@ export const head = style({
 
 export const heading = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -73,19 +73,17 @@ export const heading = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
-      margin: 0,
+    [composite_layer]: {
       fontSize: vars.font.size.h5,
       fontWeight: vars.font.weight.semibold,
       lineHeight: vars.font.lineHeight.tight,
-      color: vars.color.text.primary,
     },
   },
 });
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       maxWidth: "62ch",
       fontSize: vars.font.size.body1,
@@ -97,7 +95,7 @@ export const description = style({
 
 export const actions = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -108,7 +106,7 @@ export const actions = style({
 
 export const aside = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -119,7 +117,7 @@ export const aside = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       minWidth: 0,
       flexDirection: "column",
@@ -131,14 +129,14 @@ export const body = style({
 
 export const foot = style({
   "@layer": {
-    [base_layer]: { minWidth: 0 },
+    [composite_layer]: { minWidth: 0 },
   },
 });
 
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingBlock: BAND_PADDING.xl,
         minHeight: BAND_MIN_HEIGHT.xl,
       },
@@ -146,7 +144,7 @@ export const size = styleVariants({
   },
   lg: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingBlock: BAND_PADDING.lg,
         minHeight: BAND_MIN_HEIGHT.lg,
       },
@@ -154,7 +152,7 @@ export const size = styleVariants({
   },
   md: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingBlock: BAND_PADDING.md,
         minHeight: BAND_MIN_HEIGHT.md,
       },
@@ -162,7 +160,7 @@ export const size = styleVariants({
   },
   sm: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingBlock: BAND_PADDING.sm,
         minHeight: BAND_MIN_HEIGHT.sm,
       },
@@ -171,8 +169,8 @@ export const size = styleVariants({
 });
 
 export const rail_size = styleVariants({
-  xl: { "@layer": { [base_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxxl } } },
-  lg: { "@layer": { [base_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxl } } },
-  md: { "@layer": { [base_layer]: { paddingInline: vars.space.lg, gap: vars.space.xl } } },
-  sm: { "@layer": { [base_layer]: { paddingInline: vars.space.md, gap: vars.space.lg } } },
+  xl: { "@layer": { [composite_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxxl } } },
+  lg: { "@layer": { [composite_layer]: { paddingInline: vars.space.xl, gap: vars.space.xxl } } },
+  md: { "@layer": { [composite_layer]: { paddingInline: vars.space.lg, gap: vars.space.xl } } },
+  sm: { "@layer": { [composite_layer]: { paddingInline: vars.space.md, gap: vars.space.lg } } },
 });

@@ -4,13 +4,13 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Segment.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -26,7 +26,7 @@ export const root = style({
 export const control = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         display: "inline-flex",
         boxSizing: "border-box",
@@ -84,10 +84,9 @@ export type SegmentControlVariants = NonNullable<RecipeVariants<typeof control>>
 export const indicator = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "absolute",
         bottom: vars.space.xs,
-        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 2)`,
         insetInlineStart: 0,
         background: variables.indicatorColor,
         borderRadius: vars.radius.full,
@@ -100,19 +99,19 @@ export const indicator = recipe({
   variants: {
     size: {
       sm: {
-        height: `calc(${vars.size.control.md} - ${vars.space.u2_5} * 1.3)`,
+        height: vars.size.control.xs,
         top: `calc(${vars.space.u2_5})`,
       },
       md: {
-        height: `calc(${vars.size.control.lg} - ${vars.space.u2_5} * 1.3)`,
+        height: vars.size.control.sm,
         top: `calc(${vars.space.u2_5})`,
       },
       lg: {
-        height: `calc(${vars.size.control.xl} - ${vars.space.u2_5} * 1.3)`,
+        height: vars.size.control.md,
         top: `calc(${vars.space.u2_5})`,
       },
       xl: {
-        height: `calc(${vars.size.control.xxl} - ${vars.space.u2_5} * 1.3)`,
+        height: vars.size.control.lg,
         top: `calc(${vars.space.u2_5})`,
       },
     },
@@ -127,7 +126,7 @@ export const indicator = recipe({
 export const tab = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         zIndex: 1,
         flex: 1,
@@ -198,9 +197,30 @@ export const tab = recipe({
   defaultVariants: { size: "md", fullWidth: false, overflowMode: "visible" },
 });
 
+export const tab_active = style({
+  "@layer": {
+    [primitive_layer]: {
+      "::before": {
+        content: '""',
+        width: "100%",
+        height: `100%`,
+        position: "absolute",
+        top: 0,
+        bottom: vars.space.xs,
+        insetInlineStart: 0,
+        background: variables.indicatorColor,
+        borderRadius: vars.radius.full,
+        boxShadow: vars.shadow.xxs,
+        touchAction: "none",
+        zIndex: 0,
+      },
+    },
+  },
+});
+
 export const content = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "relative",
       overflow: "hidden",
       contain: "inline-size",
@@ -253,7 +273,7 @@ export const panel = recipe({
 
 export const section = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,

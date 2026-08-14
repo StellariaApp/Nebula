@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import * as variables from "./Nav.vars.css.js";
@@ -16,7 +16,7 @@ export const root = recipe({
       [variables.linkFont]: vars.font.size.body3,
     },
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         display: "flex",
         alignItems: "center",
         width: "100%",
@@ -35,27 +35,27 @@ export const root = recipe({
           [variables.linkHeight]: vars.size.control.xs,
           [variables.linkFont]: vars.font.size.body3,
         },
-        "@layer": { [base_layer]: { minHeight: vars.size.control.md } },
+        "@layer": { [composite_layer]: { minHeight: vars.size.control.md } },
       },
       md: {
         vars: {
           [variables.linkHeight]: vars.size.control.sm,
           [variables.linkFont]: vars.font.size.body2,
         },
-        "@layer": { [base_layer]: { minHeight: vars.size.control.lg } },
+        "@layer": { [composite_layer]: { minHeight: vars.size.control.lg } },
       },
       lg: {
         vars: {
           [variables.linkHeight]: vars.size.control.md,
           [variables.linkFont]: vars.font.size.body2,
         },
-        "@layer": { [base_layer]: { minHeight: vars.size.control.xl } },
+        "@layer": { [composite_layer]: { minHeight: vars.size.control.xl } },
       },
     },
     withBorder: {
       true: {
         "@layer": {
-          [base_layer]: { borderBlockEnd: `1px solid ${vars.color.border.subtle}` },
+          [composite_layer]: { borderBlockEnd: `1px solid ${vars.color.border.subtle}` },
         },
       },
       false: {},
@@ -68,7 +68,7 @@ export type NavRootVariants = NonNullable<RecipeVariants<typeof root>>;
 
 export const inner = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -84,7 +84,7 @@ export const inner = style({
 
 export const solid = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       zIndex: vars.zIndex.sticky,
       backgroundColor: variables.surfaceBg,
@@ -96,7 +96,7 @@ export const solid = style({
 
 export const sticky = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "sticky",
       insetBlockStart: 0,
       flexShrink: 0,
@@ -137,7 +137,7 @@ const MATERIAL_TRANSITION = "border-color, background-color, box-shadow, backdro
 
 export const floating = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "fixed",
       insetBlockStart: `calc(${P} * ${variables.floatingGap})`,
       insetInlineStart: `calc(${P} * ${EDGE})`,
@@ -181,7 +181,7 @@ export const floating = style({
 
 export const logo = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -210,7 +210,7 @@ const HIDDEN = { display: "none" } as const;
 export const actions = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         display: "flex",
         alignItems: "center",
         gap: vars.space.sm,
@@ -221,9 +221,13 @@ export const actions = recipe({
   variants: {
     collapse: {
       none: {},
-      phone: { "@layer": { [base_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
-      tablet: { "@layer": { [base_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
-      laptop: { "@layer": { [base_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+      phone: { "@layer": { [composite_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: {
+        "@layer": { [composite_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } },
+      },
+      laptop: {
+        "@layer": { [composite_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } },
+      },
     },
   },
   defaultVariants: { collapse: "tablet" },
@@ -232,7 +236,7 @@ export const actions = recipe({
 export const links = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -245,23 +249,27 @@ export const links = recipe({
   },
   variants: {
     align: {
-      start: { "@layer": { [base_layer]: { marginInlineEnd: "auto" } } },
-      center: { "@layer": { [base_layer]: { marginInline: "auto" } } },
-      end: { "@layer": { [base_layer]: { marginInlineStart: "auto" } } },
+      start: { "@layer": { [composite_layer]: { marginInlineEnd: "auto" } } },
+      center: { "@layer": { [composite_layer]: { marginInline: "auto" } } },
+      end: { "@layer": { [composite_layer]: { marginInlineStart: "auto" } } },
     },
     overflowMenu: {
       true: {
         "@layer": {
-          [base_layer]: { flex: "1 1 auto", minWidth: 0, flexWrap: "nowrap" },
+          [composite_layer]: { flex: "1 1 auto", minWidth: 0, flexWrap: "nowrap" },
         },
       },
       false: {},
     },
     collapse: {
       none: {},
-      phone: { "@layer": { [base_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
-      tablet: { "@layer": { [base_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } } },
-      laptop: { "@layer": { [base_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } } },
+      phone: { "@layer": { [composite_layer]: { "@media": { [SmallerThan("phone")]: HIDDEN } } } },
+      tablet: {
+        "@layer": { [composite_layer]: { "@media": { [SmallerThan("tablet")]: HIDDEN } } },
+      },
+      laptop: {
+        "@layer": { [composite_layer]: { "@media": { [SmallerThan("laptop")]: HIDDEN } } },
+      },
     },
   },
   defaultVariants: { align: "center", collapse: "tablet", overflowMenu: false },
@@ -271,7 +279,7 @@ export type NavLinksVariants = NonNullable<RecipeVariants<typeof links>>;
 
 export const indicator = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetBlockStart: 0,
       insetInlineStart: 0,
@@ -289,7 +297,7 @@ export const indicator = style({
 
 export const link = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       zIndex: 1,
       display: "inline-flex",
@@ -346,7 +354,7 @@ export const link = style({
 
 export const section = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.md,
@@ -358,7 +366,7 @@ export const section = style({
 
 export const divider = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flexShrink: 0,
       alignSelf: "center",
       inlineSize: "1px",
@@ -372,7 +380,7 @@ export const divider = style({
 /** El cajón de la landing: cristal, borde de inicio y pie en columna. */
 export const sidebar_scrim = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "fixed",
       inset: 0,
       border: 0,
@@ -386,7 +394,7 @@ export const sidebar_scrim = style({
 
 export const sidebar = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "fixed",
       insetBlock: 0,
       insetInlineEnd: 0,
@@ -406,7 +414,7 @@ export const sidebar = style({
 
 export const sidebar_head = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       justifyContent: "flex-end",
       padding: vars.space.sm,
@@ -417,7 +425,7 @@ export const sidebar_head = style({
 
 export const sidebar_body = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -431,7 +439,7 @@ export const sidebar_body = style({
 
 export const sidebar_footer = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "stretch",
@@ -446,13 +454,13 @@ export const sidebar_footer = style({
 
 export const overflow = style({
   "@layer": {
-    [base_layer]: { position: "relative", flexShrink: 0 },
+    [composite_layer]: { position: "relative", flexShrink: 0 },
   },
 });
 
 export const overflow_trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -490,7 +498,7 @@ export const overflow_trigger = style({
 
 export const overflow_panel = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       insetBlockStart: "calc(100% + 4px)",
       insetInlineEnd: 0,

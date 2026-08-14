@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Timeline.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       listStyle: "none",
@@ -26,7 +26,7 @@ export const align = styleVariants({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "relative",
       display: "grid",
       gridTemplateColumns: `${variables.bulletSize} 1fr`,
@@ -41,7 +41,7 @@ export const item = style({
 
 export const bullet = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       gridColumn: 1,
       display: "inline-flex",
       alignItems: "center",
@@ -73,7 +73,7 @@ export const bullet = style({
 
 export const line = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "absolute",
       insetInlineStart: `calc((${variables.bulletSize} - ${variables.lineWidth}) / 2)`,
       top: variables.bulletSize,
@@ -90,7 +90,7 @@ export const line = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       gridColumn: 2,
       display: "flex",
       flexDirection: "column",
@@ -102,7 +102,7 @@ export const body = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.medium,
       color: vars.color.text.primary,
@@ -112,12 +112,12 @@ export const title = style({
 
 export const meta = style({
   "@layer": {
-    [base_layer]: { fontSize: vars.font.size.caption, color: vars.color.text.muted },
+    [component_layer]: { fontSize: vars.font.size.caption, color: vars.color.text.muted },
   },
 });
 
 export const description = style({
   "@layer": {
-    [base_layer]: { fontSize: vars.font.size.body3, color: vars.color.text.secondary },
+    [component_layer]: { fontSize: vars.font.size.body3, color: vars.color.text.secondary },
   },
 });

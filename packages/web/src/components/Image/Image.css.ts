@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Image.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "relative",
       display: "block",
       boxSizing: "border-box",
@@ -28,7 +28,7 @@ export const img = style({
 
 export const state = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       display: "flex",
@@ -45,7 +45,7 @@ export const state = style({
 
 export const background = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "relative",
       display: "block",
       boxSizing: "border-box",
@@ -60,7 +60,7 @@ export const background = style({
 
 export const overlay = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       background: `color-mix(in srgb, ${vars.color.gray["950"]} ${variables.overlayAlpha}, transparent)`,

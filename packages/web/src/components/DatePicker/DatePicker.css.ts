@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const group = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -19,7 +19,7 @@ export const group = style({
 
 export const trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -46,7 +46,7 @@ export const trigger = style({
 
 export const text_trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       appearance: "none",
       flex: 1,
       minWidth: 0,
@@ -71,7 +71,7 @@ export const text_trigger = style({
 
 export const dialog = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       boxSizing: "border-box",
       background: vars.color.surface.overlay,
       color: vars.color.text.primary,
@@ -89,6 +89,6 @@ export const dialog = style({
 
 export const range_separator = style({
   "@layer": {
-    [base_layer]: { color: vars.color.text.muted, flexShrink: 0 },
+    [composite_layer]: { color: vars.color.text.muted, flexShrink: 0 },
   },
 });

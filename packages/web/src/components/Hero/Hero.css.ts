@@ -2,13 +2,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 import * as variables from "./Hero.vars.css.js";
 
 export const hero = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -38,7 +38,7 @@ export const hero = style({
 
 export const media = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 0,
@@ -51,7 +51,7 @@ export const media = style({
 
 export const scrim = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 0,
@@ -62,7 +62,7 @@ export const scrim = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       zIndex: 1,
       display: "flex",
@@ -73,13 +73,18 @@ export const body = style({
       boxSizing: "border-box",
       maxWidth: fallbackVar(variables.contentMax, "none"),
       "@media": { [SmallerThan("laptop")]: { alignItems: "center", width: "100%" } },
+      selectors: {
+        "[data-align=center] &": { alignItems: "center", textAlign: "center" },
+        "[data-align=end] &": { alignItems: "flex-end", textAlign: "right" },
+        "[data-align=stretch] &": { alignItems: "stretch", textAlign: "left" },
+      },
     },
   },
 });
 
 export const slot = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "relative",
       zIndex: 1,
       flexShrink: 0,
@@ -96,7 +101,7 @@ export const slot = style({
 
 export const hiper = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       width: "fit-content",
       fontSize: vars.font.size.caption,
@@ -110,7 +115,7 @@ export const hiper = style({
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.md,
@@ -120,7 +125,7 @@ export const header = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontWeight: vars.font.weight.bold,
       lineHeight: vars.font.lineHeight.tight,
@@ -130,7 +135,7 @@ export const title = style({
 
 export const subtitle = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontSize: vars.font.size.body1,
     },
@@ -139,7 +144,7 @@ export const subtitle = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       maxWidth: "62ch",
       fontSize: vars.font.size.body1,
@@ -150,26 +155,31 @@ export const description = style({
 
 export const actions = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       gap: vars.space.md,
       flexWrap: "wrap",
       marginBlockStart: vars.space.xs,
       "@media": { [SmallerThan("laptop")]: { justifyContent: "center" } },
+      selectors: {
+        "[data-align=center] &": { alignItems: "center", textAlign: "center" },
+        "[data-align=end] &": { alignItems: "flex-end", textAlign: "right" },
+        "[data-align=stretch] &": { alignItems: "stretch", textAlign: "left" },
+      },
     },
   },
 });
 
 export const bottom = style({
   "@layer": {
-    [base_layer]: { position: "relative", zIndex: 1, width: "100%" },
+    [composite_layer]: { position: "relative", zIndex: 1, width: "100%" },
   },
 });
 
 export const size = styleVariants({
   xl: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingInline: vars.space.xl,
         paddingBlock: BAND_PADDING.xl,
         minHeight: BAND_MIN_HEIGHT.xl,
@@ -178,7 +188,7 @@ export const size = styleVariants({
   },
   lg: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingInline: vars.space.xl,
         paddingBlock: BAND_PADDING.lg,
         minHeight: BAND_MIN_HEIGHT.lg,
@@ -187,7 +197,7 @@ export const size = styleVariants({
   },
   md: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingInline: vars.space.lg,
         paddingBlock: BAND_PADDING.md,
         minHeight: BAND_MIN_HEIGHT.md,
@@ -196,7 +206,7 @@ export const size = styleVariants({
   },
   sm: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         paddingInline: vars.space.md,
         paddingBlock: BAND_PADDING.sm,
         minHeight: BAND_MIN_HEIGHT.sm,
@@ -206,18 +216,18 @@ export const size = styleVariants({
 });
 
 export const title_size = styleVariants({
-  sm: { "@layer": { [base_layer]: { fontSize: vars.font.size.h5 } } },
-  md: { "@layer": { [base_layer]: { fontSize: vars.font.size.h4 } } },
-  lg: { "@layer": { [base_layer]: { fontSize: vars.font.size.h3 } } },
+  sm: { "@layer": { [composite_layer]: { fontSize: vars.font.size.h5 } } },
+  md: { "@layer": { [composite_layer]: { fontSize: vars.font.size.h4 } } },
+  lg: { "@layer": { [composite_layer]: { fontSize: vars.font.size.h3 } } },
   xl: {
     "@layer": {
-      [base_layer]: {
+      [composite_layer]: {
         fontSize: vars.font.display.size,
         lineHeight: vars.font.display.lineHeight,
         letterSpacing: vars.font.display.letterSpacing,
         "@media": {
-          [SmallerThan("tablet")]: { fontSize: vars.font.size.h2 },
-          [SmallerThan("phone")]: { fontSize: vars.font.size.h3 },
+          [SmallerThan("tablet")]: { fontSize: vars.font.size.h1 },
+          [SmallerThan("phone")]: { fontSize: vars.font.size.h2 },
         },
       },
     },

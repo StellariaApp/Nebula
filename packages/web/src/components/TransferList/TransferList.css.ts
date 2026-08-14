@@ -3,13 +3,13 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./TransferList.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gridTemplateColumns: "1fr auto 1fr",
       alignItems: "stretch",
@@ -23,7 +23,7 @@ export const root = style({
 
 export const pane = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -37,7 +37,7 @@ export const pane = style({
 
 export const pane_head = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -51,7 +51,7 @@ export const pane_head = style({
 
 export const pane_title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       fontWeight: vars.font.weight.semibold,
@@ -62,7 +62,7 @@ export const pane_title = style({
 
 export const pane_count = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontSize: vars.font.size.caption,
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
@@ -72,7 +72,7 @@ export const pane_count = style({
 
 export const search = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.xs,
       borderBottom: `1px solid ${vars.color.border.subtle}`,
     },
@@ -81,7 +81,7 @@ export const search = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: 2,
@@ -94,7 +94,7 @@ export const list = style({
 
 export const item = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,
@@ -124,7 +124,7 @@ export const item = style({
 
 export const empty = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.md,
       textAlign: "center",
       fontSize: vars.font.size.body3,
@@ -135,7 +135,7 @@ export const empty = style({
 
 export const controls = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",

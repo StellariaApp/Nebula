@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Badge.vars.css.js";
 
 export const badge = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
@@ -76,7 +76,7 @@ export const section = style({
 
 export const dot = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       width: "0.5em",
       height: "0.5em",
       borderRadius: vars.radius.full,

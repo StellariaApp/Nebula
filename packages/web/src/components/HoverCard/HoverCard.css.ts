@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 export const card = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       boxSizing: "border-box",
       padding: vars.space.md,
       borderRadius: vars.radius.md,

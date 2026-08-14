@@ -2,14 +2,14 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./MeshGradientBg.vars.css.js";
 
 export const mesh_gradient_bg = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
@@ -31,7 +31,7 @@ export const mesh_gradient_bg = recipe({
 
 export const scrim = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: -1,
@@ -47,7 +47,7 @@ export const scrim = style({
 
 export const grain_layer = style({
   "@layer": {
-    [base_layer]: { zIndex: -1 },
+    [primitive_layer]: { zIndex: -1 },
   },
 });
 

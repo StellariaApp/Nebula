@@ -1,7 +1,7 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./GradientBorder.vars.css.js";
 
@@ -18,7 +18,7 @@ const RING_MASK = {
 export const gradient_border = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         isolation: "isolate",
         boxSizing: "border-box",
@@ -100,7 +100,7 @@ export const gate = Object.fromEntries(
 
 export const beam = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       zIndex: 1,
@@ -120,7 +120,7 @@ export const beam = style({
 
 export const arc = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: "-100%",
       opacity: 0,

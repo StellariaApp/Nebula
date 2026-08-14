@@ -2,11 +2,11 @@ import { style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const trigger = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       appearance: "none",
       width: "100%",
       background: "transparent",
@@ -29,7 +29,7 @@ export const trigger = style({
 
 export const value = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minWidth: 0,
       overflow: "hidden",
@@ -40,12 +40,12 @@ export const value = style({
 });
 
 export const placeholder = style({
-  "@layer": { [base_layer]: { color: vars.color.text.muted } },
+  "@layer": { [composite_layer]: { color: vars.color.text.muted } },
 });
 
 export const chevron = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       flexShrink: 0,
       color: vars.color.text.secondary,
@@ -62,7 +62,7 @@ export const chevron = style({
 
 export const dropdown = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       boxSizing: "border-box",
       background: vars.color.surface.base,
       color: vars.color.text.primary,

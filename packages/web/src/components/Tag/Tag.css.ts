@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Tag.vars.css.js";
 
 export const tag = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -37,7 +37,7 @@ export const tag = style({
 
 export const label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       minWidth: 0,
       overflow: "hidden",
       textOverflow: "ellipsis",
@@ -48,13 +48,13 @@ export const label = style({
 
 export const section = style({
   "@layer": {
-    [base_layer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
+    [composite_layer]: { display: "inline-flex", flexShrink: 0, lineHeight: 0 },
   },
 });
 
 export const remove = style({
   "@layer": {
-    [base_layer]: { flexShrink: 0, marginInlineEnd: `calc(-1 * ${vars.space.xxs})` },
+    [composite_layer]: { flexShrink: 0, marginInlineEnd: `calc(-1 * ${vars.space.xxs})` },
   },
 });
 

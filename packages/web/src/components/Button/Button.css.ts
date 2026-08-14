@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Button.vars.css.js";
 
@@ -135,7 +135,7 @@ export type ButtonRecipeVariants = NonNullable<RecipeVariants<typeof button>>;
 
 export const section = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",

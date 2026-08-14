@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./GlassSurface.vars.css.js";
 
@@ -11,7 +11,7 @@ const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filt
 export const glass_surface = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         isolation: "isolate",
         boxSizing: "border-box",
         background: variables.bg,
@@ -45,7 +45,7 @@ export const glass_surface = recipe({
     withBorder: {
       true: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             borderColor: variables.borderColor,
             borderStyle: "solid",
             borderWidth: 1,
@@ -55,7 +55,7 @@ export const glass_surface = recipe({
           },
         },
       },
-      false: { "@layer": { [base_layer]: { borderWidth: 0 } } },
+      false: { "@layer": { [primitive_layer]: { borderWidth: 0 } } },
     },
   },
   defaultVariants: {
@@ -66,7 +66,7 @@ export const glass_surface = recipe({
 
 export const grain_layer = style({
   "@layer": {
-    [base_layer]: { zIndex: -1 },
+    [primitive_layer]: { zIndex: -1 },
   },
 });
 

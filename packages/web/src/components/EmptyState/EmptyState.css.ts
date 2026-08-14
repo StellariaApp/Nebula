@@ -2,12 +2,12 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 export const root = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [component_layer]: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -31,7 +31,7 @@ export const root = recipe({
 
 export const icon = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -44,7 +44,7 @@ export const icon = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       margin: 0,
       fontSize: vars.font.size.h6,
       fontWeight: vars.font.weight.semibold,
@@ -56,7 +56,7 @@ export const title = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       margin: 0,
       maxWidth: "42ch",
       fontSize: vars.font.size.body2,

@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./BlurOverlay.vars.css.js";
 
@@ -8,7 +8,7 @@ const NO_BACKDROP = "not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filt
 
 export const blur_overlay = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       backdropFilter: variables.backdrop,
@@ -33,7 +33,7 @@ export const blur_overlay = style({
 
 export const veil = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       background: variables.tint,
@@ -51,6 +51,6 @@ export const veil = style({
 
 export const content = style({
   "@layer": {
-    [base_layer]: { position: "relative" },
+    [primitive_layer]: { position: "relative" },
   },
 });

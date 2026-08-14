@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./GradientText.vars.css.js";
 
@@ -14,7 +14,7 @@ const INK_BLEED = "0.06em";
 
 export const gradient_text = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       backgroundImage: variables.image,
       backgroundClip: "text",
       WebkitBackgroundClip: "text",
@@ -39,7 +39,7 @@ export const gradient_text = style({
 
 export const inherit_styles = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontFamily: "inherit",
       fontSize: "inherit",
       fontWeight: "inherit",

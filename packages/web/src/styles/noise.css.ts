@@ -1,7 +1,7 @@
 import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { vars } from "../theme/contract.css.js";
-import { base_layer } from "../theme/layers.css.js";
+import { primitive_layer } from "../theme/layers.css.js";
 
 import * as variables from "./noise.vars.css.js";
 
@@ -10,7 +10,7 @@ const GRAIN_SVG =
 
 export const grain = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       pointerEvents: "none",

@@ -3,13 +3,13 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Switch.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -36,7 +36,7 @@ export const input = style({
 
 export const track = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "relative",
       flexShrink: 0,
       boxSizing: "border-box",
@@ -63,7 +63,7 @@ export const thumb = style({
 
 export const label_text = style({
   userSelect: "none",
-  "@layer": { [base_layer]: { lineHeight: vars.font.lineHeight.tight } },
+  "@layer": { [component_layer]: { lineHeight: vars.font.lineHeight.tight } },
 });
 
 export const list = style({ display: "flex", flexDirection: "column", gap: vars.space.xs });

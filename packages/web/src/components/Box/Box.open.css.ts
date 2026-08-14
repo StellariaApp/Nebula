@@ -2,6 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 import { breakpoints } from "@stellaria/nebula-tokens";
 
+import { util_layer } from "../../theme/layers.css.js";
 import { OpenVarName, STYLE_PROPS, type PropSpec } from "../../utils/style-registry.js";
 
 export const BREAKPOINT_ORDER = ["base", "phone", "tablet", "laptop", "desktop", "wide"] as const;
@@ -35,7 +36,9 @@ function OpenClass(name: string, spec: PropSpec): string {
     );
   }
 
-  return style({ ...Declare(spec, Chain(name, 0)), "@media": media });
+  return style({
+    "@layer": { [util_layer]: { ...Declare(spec, Chain(name, 0)), "@media": media } },
+  });
 }
 
 const class_by_prop: Record<string, string> = {};

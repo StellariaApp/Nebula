@@ -2,7 +2,7 @@ import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Loader.vars.css.js";
 
@@ -18,7 +18,7 @@ const STRETCH = keyframes({
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -31,7 +31,7 @@ export const root = style({
 
 export const spinner = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       width: variables.size,
       height: variables.size,
       borderRadius: vars.radius.full,
@@ -56,7 +56,7 @@ export const spinner = style({
 
 const dot_base = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       width: `calc(${variables.size} / 3.2)`,
       height: `calc(${variables.size} / 3.2)`,
       borderRadius: vars.radius.full,
@@ -74,7 +74,7 @@ const dot_base = style({
 
 const bar_base = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       width: `calc(${variables.size} / 5)`,
       height: variables.size,
       borderRadius: vars.radius.xs,

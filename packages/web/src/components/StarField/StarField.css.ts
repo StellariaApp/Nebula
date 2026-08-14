@@ -2,7 +2,7 @@ import { keyframes, style } from "@vanilla-extract/css";
 
 import { reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./StarField.vars.css.js";
 
@@ -16,7 +16,7 @@ const TWINKLE = keyframes({
 
 export const star_field = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       overflow: "hidden",
@@ -33,7 +33,7 @@ export const star_field = style({
 
 export const layer = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: "-8%",
       willChange: "transform",
@@ -43,7 +43,7 @@ export const layer = style({
 
 export const grid = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       backgroundImage: `linear-gradient(${variables.gridColor} 1px, transparent 1px), linear-gradient(90deg, ${variables.gridColor} 1px, transparent 1px)`,
       backgroundSize: `${variables.gridCell} ${variables.gridCell}`,
     },
@@ -52,7 +52,7 @@ export const grid = style({
 
 export const faded = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       WebkitMaskImage: FADE_MASK,
       maskImage: FADE_MASK,
     },
@@ -61,7 +61,7 @@ export const faded = style({
 
 export const star = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       borderRadius: vars.radius.full,
       background: variables.starColor,
@@ -119,14 +119,14 @@ function Drift(peak: number, dx: number, dy: number): string {
 
 export const aurora = style({
   "@layer": {
-    [base_layer]: { position: "absolute", inset: 0, overflow: "hidden" },
+    [primitive_layer]: { position: "absolute", inset: 0, overflow: "hidden" },
   },
 });
 
 export const aurora_blob = AURORAS.map((a, i) =>
   style({
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "absolute",
         top: a.top,
         ...(a.left === "auto" ? { right: a.right } : { left: a.left }),

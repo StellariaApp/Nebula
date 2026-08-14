@@ -1,13 +1,13 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./List.vars.css.js";
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       margin: 0,
       paddingInlineStart: 0,
       color: vars.color.text.primary,
@@ -19,7 +19,7 @@ export const list = style({
 
 export const with_padding = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       paddingInlineStart: vars.space.lg,
       listStylePosition: "outside",
     },
@@ -27,14 +27,14 @@ export const with_padding = style({
 });
 
 export const unstyled = style({
-  "@layer": { [base_layer]: { listStyleType: "none", paddingInlineStart: 0 } },
+  "@layer": { [primitive_layer]: { listStyleType: "none", paddingInlineStart: 0 } },
 });
 
 export const item = style({});
 
 export const item_with_icon = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "flex",
       alignItems: "flex-start",
       gap: vars.space.xs,

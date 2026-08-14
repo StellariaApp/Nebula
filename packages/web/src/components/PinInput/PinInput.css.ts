@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const group = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -15,7 +15,7 @@ export const group = style({
 
 export const cell = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       textAlign: "center",
       fontVariantNumeric: "tabular-nums",
       fontFeatureSettings: '"tnum"',

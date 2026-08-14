@@ -1,13 +1,13 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Overlay.vars.css.js";
 
 export const overlay = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       background: variables.tint,
@@ -34,7 +34,7 @@ export const blur = styleVariants({
 
 export const veil = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       background: variables.tint,
@@ -46,6 +46,6 @@ export const veil = style({
 
 export const content = style({
   "@layer": {
-    [base_layer]: { position: "relative" },
+    [primitive_layer]: { position: "relative" },
   },
 });

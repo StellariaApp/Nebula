@@ -3,7 +3,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { reduced_media } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Scroll.vars.css.js";
 
@@ -107,7 +107,7 @@ function BandsRtl(bands: Band[]): Record<string, string> {
 export const scroll = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         boxSizing: "border-box",
         scrollbarWidth: "thin",
         scrollbarColor: `${vars.color.border.strong} transparent`,
@@ -127,18 +127,18 @@ export const scroll = recipe({
   },
   variants: {
     axis: {
-      x: { "@layer": { [base_layer]: { overflowX: "auto", overflowY: "hidden" } } },
-      y: { "@layer": { [base_layer]: { overflowX: "hidden", overflowY: "auto" } } },
-      xy: { "@layer": { [base_layer]: { overflow: "auto" } } },
+      x: { "@layer": { [primitive_layer]: { overflowX: "auto", overflowY: "hidden" } } },
+      y: { "@layer": { [primitive_layer]: { overflowX: "hidden", overflowY: "auto" } } },
+      xy: { "@layer": { [primitive_layer]: { overflow: "auto" } } },
     },
     gutter: {
-      true: { "@layer": { [base_layer]: { scrollbarGutter: "stable" } } },
+      true: { "@layer": { [primitive_layer]: { scrollbarGutter: "stable" } } },
       false: {},
     },
     smooth: {
       true: {
         "@layer": {
-          [base_layer]: {
+          [primitive_layer]: {
             scrollBehavior: "smooth",
             "@media": { [reduced_media]: { scrollBehavior: "auto" } },
           },
@@ -157,12 +157,12 @@ export const scroll = recipe({
 export type ScrollRecipeVariants = NonNullable<RecipeVariants<typeof scroll>>;
 
 export const block_shadows = style({
-  "@layer": { [base_layer]: { "@supports": { [SUPPORTS]: Bands(BLOCK) } } },
+  "@layer": { [primitive_layer]: { "@supports": { [SUPPORTS]: Bands(BLOCK) } } },
 });
 
 export const inline_shadows = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       "@supports": {
         [SUPPORTS]: { ...Bands(INLINE), selectors: { "&:dir(rtl)": BandsRtl(INLINE) } },
       },
@@ -172,7 +172,7 @@ export const inline_shadows = style({
 
 export const both_shadows = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       "@supports": {
         [SUPPORTS]: {
           ...Bands([...BLOCK, ...INLINE]),
@@ -187,7 +187,7 @@ export const bouncing = style({});
 
 globalStyle(`${bouncing} > *`, {
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       transform: `translate3d(0, ${fallbackVar(variables.bounceOffset, "0px")}, 0)`,
       willChange: "transform",
       "@media": {

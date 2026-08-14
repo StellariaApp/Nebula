@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const dialog = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "fixed",
       boxSizing: "border-box",
       display: "flex",
@@ -26,7 +26,7 @@ export const dialog = style({
 
 export const head = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -37,7 +37,7 @@ export const head = style({
 
 export const title = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,

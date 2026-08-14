@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 export const typography = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       color: vars.color.text.primary,
       fontSize: vars.font.size.body2,
       lineHeight: vars.font.lineHeight.relaxed,
@@ -23,7 +23,7 @@ const HEADING = {
 } as const;
 
 const Layered = (rules: Record<string, unknown>): Record<string, unknown> => ({
-  "@layer": { [base_layer]: rules },
+  "@layer": { [primitive_layer]: rules },
 });
 
 globalStyle(`${typography} > :first-child`, Layered({ marginBlockStart: 0 }));

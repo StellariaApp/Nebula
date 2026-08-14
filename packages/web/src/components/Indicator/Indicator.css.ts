@@ -2,7 +2,7 @@ import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Indicator.vars.css.js";
 
@@ -14,13 +14,13 @@ const pulse = keyframes({
 
 export const root = style({
   "@layer": {
-    [base_layer]: { position: "relative", display: "inline-flex" },
+    [component_layer]: { position: "relative", display: "inline-flex" },
   },
 });
 
 export const dot = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       position: "absolute",
       display: "inline-flex",
       alignItems: "center",
@@ -41,7 +41,7 @@ export const dot = style({
 
 export const bordered = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       borderWidth: 2,
       borderStyle: "solid",
       borderColor: vars.color.surface.base,
@@ -53,13 +53,13 @@ export const bare = style({});
 
 export const badge = style({
   "@layer": {
-    [base_layer]: { paddingInline: vars.space.xxs },
+    [component_layer]: { paddingInline: vars.space.xxs },
   },
 });
 
 export const processing = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       selectors: {
         "&::after": {
           content: "",

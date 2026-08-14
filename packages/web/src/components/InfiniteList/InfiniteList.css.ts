@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -15,7 +15,7 @@ export const root = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       listStyle: "none",
@@ -36,13 +36,13 @@ export const gap = styleVariants({
 
 export const item = style({
   "@layer": {
-    [base_layer]: { minWidth: 0 },
+    [composite_layer]: { minWidth: 0 },
   },
 });
 
 export const foot = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -54,7 +54,7 @@ export const foot = style({
 
 export const end = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body3,
       color: vars.color.text.muted,
@@ -64,7 +64,7 @@ export const end = style({
 
 export const live = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       position: "absolute",
       width: 1,
       height: 1,
@@ -80,6 +80,6 @@ export const live = style({
 
 export const sentinel = style({
   "@layer": {
-    [base_layer]: { height: 1, width: "100%", flexShrink: 0 },
+    [composite_layer]: { height: 1, width: "100%", flexShrink: 0 },
   },
 });

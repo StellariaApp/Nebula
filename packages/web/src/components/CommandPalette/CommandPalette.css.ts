@@ -2,11 +2,11 @@ import { style } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
@@ -16,7 +16,7 @@ export const root = style({
 
 export const input_row = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -29,7 +29,7 @@ export const input_row = style({
 
 export const icon = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       flexShrink: 0,
       color: vars.color.text.muted,
@@ -40,7 +40,7 @@ export const icon = style({
 
 export const input = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minWidth: 0,
       margin: 0,
@@ -58,7 +58,7 @@ export const input = style({
 
 export const list = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       listStyle: "none",
       margin: 0,
       padding: vars.space.xs,
@@ -71,13 +71,13 @@ export const list = style({
 
 export const group = style({
   "@layer": {
-    [base_layer]: { listStyle: "none", margin: 0, padding: 0 },
+    [composite_layer]: { listStyle: "none", margin: 0, padding: 0 },
   },
 });
 
 export const group_label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       padding: vars.space.sm,
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
@@ -91,7 +91,7 @@ export const group_label = style({
 
 export const option = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -115,13 +115,13 @@ export const option = style({
 
 export const body = style({
   "@layer": {
-    [base_layer]: { display: "flex", flexDirection: "column", minWidth: 0, flex: 1 },
+    [composite_layer]: { display: "flex", flexDirection: "column", minWidth: 0, flex: 1 },
   },
 });
 
 export const label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body2,
       lineHeight: vars.font.lineHeight.tight,
@@ -134,7 +134,7 @@ export const label = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
@@ -144,7 +144,7 @@ export const description = style({
 
 export const empty = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       margin: 0,
       padding: vars.space.xl,
       textAlign: "center",

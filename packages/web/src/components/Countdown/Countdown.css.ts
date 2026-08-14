@@ -1,11 +1,11 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "baseline",
       gap: vars.space.xs,
@@ -17,7 +17,7 @@ export const root = style({
 
 export const unit = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       flexDirection: "column",
       alignItems: "center",
@@ -28,7 +28,7 @@ export const unit = style({
 
 export const value = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontWeight: vars.font.weight.semibold,
       lineHeight: vars.font.lineHeight.tight,
     },
@@ -37,7 +37,7 @@ export const value = style({
 
 export const caption = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.muted,
     },

@@ -20,7 +20,7 @@ Aplica los guardrails del tema: con `effects.glass.enabled` en false la variante
 
 ## layers.css.ts
 
-`baseLayer` existe para que los estilos base de los componentes cedan siempre ante las style props del consumidor, que sprinkles emite fuera de capas. Ver `components/Text/docs.md`.
+Las cinco capas de Nebula y el criterio para elegir la de cada componente están en `layers.md`. En corto: ordenan Nebula contra sí mismo por composición, las sprinkles van en la última (`util`) para que la style prop del consumidor gane siempre, y todas anidan bajo `nebula` para que el CSS del consumidor gane al bloque entero (ADR-142).
 
 ## Alcance del tema y contenido portalizado
 

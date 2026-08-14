@@ -85,3 +85,10 @@ importa está en `Reveal.md`: sin armar se rinde el tag liso y al armar el de mo
 
 `title` nombra la región por `aria-labelledby`; sin título, `aria-label`. `order` elige el nivel del
 encabezado (`h2` por defecto) sin tocar su tamaño: el nivel es estructura y el tamaño es `fz`.
+
+Esa independencia entre nivel y tamaño es lo que hace que `Section.Title` **componga `Title`** en vez
+de pintar un `<h#>` crudo. `Title` aporta el reset, la familia y el color; `Section.css.ts` solo
+declara lo que cambia —tamaño fijo `h5`, peso `semibold`, interlineado `tight`— y gana porque
+`Section` vive en `composite` y `Title` en `primitive` (ADR-142). Antes de las capas no había forma de
+sobrescribir a `Title` desde fuera, así que este componente reimplementaba su tipografía entera a
+mano.

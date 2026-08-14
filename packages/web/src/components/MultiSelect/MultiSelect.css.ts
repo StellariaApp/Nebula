@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const control = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -19,7 +19,7 @@ export const control = style({
 
 export const chip = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -38,7 +38,7 @@ export const chip = style({
 
 globalStyle(`[data-disabled="true"] ${chip}`, {
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       background: vars.color.surface.raised,
       color: vars.color.text.secondary,
     },
@@ -53,7 +53,7 @@ export const chip_label = style({
 
 export const chip_remove = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -71,7 +71,7 @@ export const chip_remove = style({
 
 export const search = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: 1,
       minWidth: "6ch",
       appearance: "none",
@@ -89,5 +89,5 @@ export const search = style({
 });
 
 export const placeholder = style({
-  "@layer": { [base_layer]: { color: vars.color.text.muted } },
+  "@layer": { [composite_layer]: { color: vars.color.text.muted } },
 });

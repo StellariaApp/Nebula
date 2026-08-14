@@ -62,6 +62,7 @@ export default tseslint.config(
       "**/.next/**",
       "**/public/pagefind/**",
       "spike/**",
+      "packages/web/styles.css.d.ts",
     ],
   },
   js.configs.recommended,

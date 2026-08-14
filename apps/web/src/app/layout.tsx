@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import "@stellaria/nebula-web/styles.css";
+
 import { ColorSchemeScript, NebulaProvider, vars } from "@stellaria/nebula-web";
 
 import { CurrentLang } from "../lib/lang";

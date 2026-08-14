@@ -2,14 +2,14 @@ import { fallbackVar } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Paper.vars.css.js";
 
 export const paper = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         boxSizing: "border-box",
         background: fallbackVar(variables.bg, vars.color.surface.raised),
         color: fallbackVar(variables.fg, vars.color.text.primary),
@@ -22,7 +22,7 @@ export const paper = recipe({
   },
   variants: {
     glowing: {
-      true: { "@layer": { [base_layer]: { boxShadow: variables.glow } } },
+      true: { "@layer": { [primitive_layer]: { boxShadow: variables.glow } } },
       false: {},
     },
     shadow: {
@@ -36,7 +36,7 @@ export const paper = recipe({
       xxl: { boxShadow: vars.shadow.xxl },
     },
     withBorder: {
-      true: { "@layer": { [base_layer]: { borderWidth: 1 } } },
+      true: { "@layer": { [primitive_layer]: { borderWidth: 1 } } },
       false: {},
     },
   },

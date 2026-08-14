@@ -28,6 +28,6 @@ Sirve para lo que la región necesita de verdad — `maw` para acotar el ancho d
 
 `ToastProvider` no expone `className`: las style props son hoy la única vía de ajuste desde fuera.
 
-## `region` va en `baseLayer`
+## `region` va en `composite_layer`
 
 Sin capa, `position: fixed`, `zIndex` y el `maxWidth` de la región ganarían a la clase atómica y las style props de la pila no se aplicarían. Con capa, la style prop del consumidor manda, que es el contrato de `docs/patterns/web-component-template.md` §2.

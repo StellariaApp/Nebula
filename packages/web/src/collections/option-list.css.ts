@@ -1,11 +1,11 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "../theme/contract.css.js";
-import { base_layer } from "../theme/layers.css.js";
+import { primitive_layer } from "../theme/layers.css.js";
 
 export const listbox = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       boxSizing: "border-box",
       listStyle: "none",
       margin: 0,
@@ -19,7 +19,7 @@ export const listbox = style({
 
 export const option = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -61,7 +61,7 @@ export const labels = style({
 
 export const description = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontSize: vars.font.size.caption,
       color: vars.color.text.secondary,
     },
@@ -70,7 +70,7 @@ export const description = style({
 
 export const check = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       marginInlineStart: "auto",
       flexShrink: 0,
       color: vars.color.primary["600"],
@@ -81,7 +81,7 @@ export const check = style({
 
 export const empty = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       paddingInline: vars.space.sm,
       paddingBlock: vars.space.sm,
       fontFamily: vars.font.family.sans,
@@ -92,9 +92,9 @@ export const empty = style({
 });
 
 globalStyle(`${option}[data-focused='true'] ${description}`, {
-  "@layer": { [base_layer]: { color: "inherit" } },
+  "@layer": { [primitive_layer]: { color: "inherit" } },
 });
 
 globalStyle(`${option}[data-focused='true'] ${check}`, {
-  "@layer": { [base_layer]: { color: "inherit" } },
+  "@layer": { [primitive_layer]: { color: "inherit" } },
 });

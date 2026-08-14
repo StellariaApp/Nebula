@@ -3,6 +3,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import { Title } from "../../Title/Title.js";
 
 import * as styles from "../Section.css.js";
 import { useSection } from "../Section.context.js";
@@ -12,17 +13,17 @@ export function SectionTitle(props: SectionSlotProps): ReactElement {
   const { children, className, ...style_rest } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   const section = useSection();
-  const Heading = `h${String(section.order)}` as "h2";
 
   return (
-    <Heading
+    <Title
       id={section.titleId}
+      order={section.order}
       className={cx(styles.title, sprinkle_class, className)}
       style={style}
       {...rest}
     >
       {children}
-    </Heading>
+    </Title>
   );
 }
 

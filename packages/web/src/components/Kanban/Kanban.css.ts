@@ -2,13 +2,13 @@ import { style } from "@vanilla-extract/css";
 
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Kanban.vars.css.js";
 
 export const board = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "flex-start",
       gap: vars.space.md,
@@ -22,7 +22,7 @@ export const board = style({
 
 export const column = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       flex: "0 0 auto",
@@ -46,7 +46,7 @@ export const column = style({
 
 export const column_header = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -59,7 +59,7 @@ export const column_header = style({
 
 export const column_title = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.semibold,
@@ -70,7 +70,7 @@ export const column_title = style({
 
 export const column_count = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       fontVariantNumeric: "tabular-nums",
       color: vars.color.text.muted,
@@ -83,7 +83,7 @@ export const column_count = style({
 
 export const column_body = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xs,
@@ -97,7 +97,7 @@ export const column_body = style({
 
 export const column_empty = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       padding: vars.space.md,
       textAlign: "center",
       fontSize: vars.font.size.body3,
@@ -108,7 +108,7 @@ export const column_empty = style({
 
 export const card = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       flexDirection: "column",
       gap: vars.space.xxs,
@@ -124,7 +124,7 @@ export const card = style({
 
 export const card_head = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "space-between",
@@ -135,7 +135,7 @@ export const card_head = style({
 
 export const card_title = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       margin: 0,
       fontSize: vars.font.size.body2,
       fontWeight: vars.font.weight.medium,
@@ -146,7 +146,7 @@ export const card_title = style({
 
 export const card_description = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       margin: 0,
       fontSize: vars.font.size.body3,
       lineHeight: vars.font.lineHeight.relaxed,
@@ -157,7 +157,7 @@ export const card_description = style({
 
 export const card_meta = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xs,

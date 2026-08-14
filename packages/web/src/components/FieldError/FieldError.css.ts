@@ -1,7 +1,7 @@
 import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./FieldError.vars.css.js";
 
@@ -15,7 +15,7 @@ export const wrapper = style({
 
 export const bubble = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       maxWidth: "100%",
       width: "max-content",

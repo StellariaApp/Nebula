@@ -1,11 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 export const nomalize = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       margin: 0,
       padding: 0,
       border: 0,
@@ -22,7 +22,7 @@ export const nomalize = style({
 
 export const text = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       fontFamily: vars.font.family.sans,
       fontSize: vars.font.size.body1,
       fontWeight: vars.font.weight.regular,
@@ -35,7 +35,7 @@ export const text = style({
 
 export const truncate = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -45,7 +45,7 @@ export const truncate = style({
 
 export const clamp = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "-webkit-box",
       WebkitBoxOrient: "vertical",
       overflow: "hidden",

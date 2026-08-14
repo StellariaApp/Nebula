@@ -2,13 +2,13 @@ import { fallbackVar, style } from "@vanilla-extract/css";
 
 import { breakpoints } from "@stellaria/nebula-tokens";
 
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./SimpleGrid.vars.css.js";
 
 export const simple_grid = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "grid",
       boxSizing: "border-box",
       gridTemplateColumns: `repeat(${variables.cols}, minmax(0, 1fr))`,

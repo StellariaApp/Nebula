@@ -3,13 +3,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 import * as calendar_vars from "../Calendar/Calendar.vars.css.js";
 
 export const grid = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "grid",
       gap: vars.space.xs,
       fontFamily: vars.font.family.sans,
@@ -20,7 +20,7 @@ export const grid = style({
 
 export const cell = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       boxSizing: "border-box",
       display: "inline-flex",
       alignItems: "center",
@@ -62,7 +62,7 @@ export const cell_size = styleVariants({
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -74,7 +74,7 @@ export const header = style({
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexDirection: "column",
       fontFamily: vars.font.family.sans,

@@ -3,13 +3,13 @@ import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Calendar.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       boxSizing: "border-box",
       display: "flex",
       flexDirection: "column",
@@ -22,7 +22,7 @@ export const root = style({
 
 export const header = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -33,7 +33,7 @@ export const header = style({
 
 export const heading = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       flex: 1,
       textAlign: "center",
       fontSize: vars.font.size.body2,
@@ -46,7 +46,7 @@ export const heading = style({
 
 export const nav = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -75,7 +75,7 @@ export const nav = style({
 
 export const months = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "flex",
       gap: vars.space.lg,
       alignItems: "flex-start",
@@ -85,7 +85,7 @@ export const months = style({
 
 export const grid = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       borderCollapse: "collapse",
       borderSpacing: 0,
       width: "100%",
@@ -95,7 +95,7 @@ export const grid = style({
 
 export const weekday = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.medium,
       lineHeight: vars.font.lineHeight.tight,
@@ -109,7 +109,7 @@ export const weekday = style({
 
 export const cell_wrapper = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       padding: 0,
       textAlign: "center",
       selectors: {
@@ -131,7 +131,7 @@ export const cell_wrapper = style({
 
 export const cell = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       boxSizing: "border-box",
       display: "inline-flex",
       alignItems: "center",

@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import { reduced_media, still, value as valueMotion } from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ScrollProgress.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       width: "100%",
       height: variables.barHeight,
       overflow: "hidden",
@@ -33,7 +33,7 @@ export const root = style({
 
 export const bar = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       height: "100%",
       width: variables.progress,
       background: variables.barColor,

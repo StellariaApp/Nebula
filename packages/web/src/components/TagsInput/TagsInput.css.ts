@@ -3,11 +3,11 @@ import { style } from "@vanilla-extract/css";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { composite_layer } from "../../theme/layers.css.js";
 
 export const wrapper = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
@@ -21,7 +21,7 @@ export const wrapper = style({
 
 export const tag = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -45,7 +45,7 @@ export const tag = style({
 
 export const tag_label = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -55,7 +55,7 @@ export const tag_label = style({
 
 export const remove = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -84,7 +84,7 @@ export const remove = style({
 
 export const input = style({
   "@layer": {
-    [base_layer]: {
+    [composite_layer]: {
       flex: "1 1 6ch",
       minWidth: "6ch",
     },

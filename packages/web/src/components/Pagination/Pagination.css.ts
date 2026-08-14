@@ -4,13 +4,13 @@ import { recipe } from "@vanilla-extract/recipes";
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Pagination.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "flex",
       alignItems: "center",
       gap: vars.space.xxs,
@@ -25,7 +25,7 @@ export const root = style({
 export const control = recipe({
   base: {
     "@layer": {
-      [base_layer]: {
+      [primitive_layer]: {
         position: "relative",
         display: "inline-flex",
         alignItems: "center",
@@ -84,7 +84,7 @@ export const control = recipe({
 
 export const pill = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       position: "absolute",
       inset: 0,
       borderRadius: vars.radius.sm,
@@ -101,7 +101,7 @@ export const value = style({ position: "relative", zIndex: 1 });
 
 export const dots = style({
   "@layer": {
-    [base_layer]: {
+    [primitive_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",

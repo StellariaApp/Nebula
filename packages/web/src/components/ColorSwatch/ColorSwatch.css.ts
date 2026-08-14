@@ -2,13 +2,13 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import { vars } from "../../theme/contract.css.js";
-import { base_layer } from "../../theme/layers.css.js";
+import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ColorSwatch.vars.css.js";
 
 export const root = style({
   "@layer": {
-    [base_layer]: {
+    [component_layer]: {
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -32,7 +32,7 @@ export const root = style({
 
 export const shadow = style({
   "@layer": {
-    [base_layer]: { boxShadow: vars.shadow.xs },
+    [component_layer]: { boxShadow: vars.shadow.xs },
   },
 });
 
