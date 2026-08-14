@@ -59,7 +59,7 @@ export const letterSpacing = {
 } as const;
 
 export const display = {
-  size: "clamp(3.25rem, 5.2vw, 4.25rem)",
+  size: "clamp(3.75rem, 5.7vw, 4.75rem)",
   lineHeight: 0.95,
   letterSpacing: -0.055,
 } as const;
