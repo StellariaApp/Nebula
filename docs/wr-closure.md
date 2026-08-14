@@ -56,20 +56,29 @@ Los dos encargos de verificación de T5 salieron limpios y no hizo falta tocar n
 
 ## Gate verificable
 
-| Criterio                                   | Resultado                                 |
-| ------------------------------------------ | ----------------------------------------- |
-| `pnpm turbo build typecheck lint`          | **34/34 tareas**                          |
-| `pnpm turbo test`                          | **1310 tests, 142 suites — 0 fallos**     |
-| `pnpm --filter @stellaria/nebula-web size` | **192 entradas · 0 excedidas**            |
-| `pnpm check:contrast`                      | 165 pares · **0 FAIL**                    |
-| `pnpm --filter playground-web a11y` (axe)  | **96 suites / 617 tests · 0 violaciones** |
+| Criterio                                   | Resultado                                           |
+| ------------------------------------------ | --------------------------------------------------- |
+| `pnpm turbo build typecheck lint`          | **34/34 tareas**                                    |
+| `pnpm turbo test`                          | **1310 tests, 142 suites — 0 fallos**               |
+| `pnpm --filter @stellaria/nebula-web size` | **192 entradas · 0 excedidas**                      |
+| `pnpm check:contrast`                      | 165 pares · **0 FAIL**                              |
+| `pnpm --filter playground-web a11y` (axe)  | **96 suites / 617 tests · 0 violaciones**           |
+| `pnpm --filter playground-web visual`      | **96 suites / 617 tests · 75 capturas** — ver abajo |
 
 ## Lo que el gate del roadmap pide y este documento NO puede dar
 
 `05-roadmap.md` §WR cierra con «**declaración explícita de que el aspecto está estable para capturar
 el baseline de ADR-037**». Esa declaración es del propietario, no de una verificación: nadie puede
-afirmar desde el código que un catálogo «se ve bien». Queda pendiente y **bloquea la captura del
-baseline**, no el resto de W5.
+afirmar desde el código que un catálogo «se ve bien». **Sigue sin tomarse, y el baseline se capturó
+igual**: las 75 láminas existen desde el 2026-08-08. Lo que quedó sin cumplirse no fue la captura
+sino su condición, así que hoy hay un baseline que guarda un aspecto que nadie declaró estable.
+
+Y ese baseline **se desfasó dos veces sin que nadie lo notara**, porque el gate no corre en CI —el
+baseline es por plataforma y solo existe `win32`, de modo que va a mano con `pnpm visual`—:
+`ADR-136` cambió el cristal de los accionables el 08-12, un día después de la última recaptura, y la
+recaptura de `b980a14` había cubierto solo «las seis láminas que derivaron», dejando una con el texto
+en español que `ADR-120` ya había pasado al inglés. Las dos se arreglaron el 2026-08-14 junto a las
+once que movió T5.
 
 Conviene tomarla sabiendo lo que la auditoría no cubrió, que es lo mismo que el plan dejó escrito:
 

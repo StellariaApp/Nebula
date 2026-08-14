@@ -38,7 +38,7 @@
 ### WR — Web Refine: auditoría visual del catálogo _(entre W4 y W5)_ ✅
 
 **Entregables**: censo de cobertura contra `00-inventory`; baseline del archivo de diseño en disco; auditoría visual de los 144 componentes con superficie repartida en 8 familias (estructura, jerarquía, peso visual, espaciado, tipografía, en los 4 temas); consolidado por causa; plan de alineación ejecutado.
-**Gate**: `docs/wr-closure.md` — **cerrada el 2026-08-14**, con T5 medido abierto trece días después del plan y resuelto entonces. Los cuatro gates en verde más axe. ⚠️ **La declaración de que el aspecto está estable para capturar el baseline de ADR-037 sigue pendiente**: es del propietario, no de una verificación, y bloquea solo esa captura. El cierre lista lo que la auditoría no cubrió, que es lo que conviene saber antes de tomarla.
+**Gate**: `docs/wr-closure.md` — **cerrada el 2026-08-14**, con T5 medido abierto trece días después del plan y resuelto entonces. Los cuatro gates en verde más axe. ⚠️ **La declaración de que el aspecto está estable sigue sin tomarse, y el baseline de ADR-037 se capturó igual**: las 75 láminas existen desde el 2026-08-08, así que hoy hay un baseline que guarda un aspecto que nadie declaró estable. Es del propietario, no de una verificación. El cierre lista lo que la auditoría no cubrió, que es lo que conviene saber antes de tomarla.
 **Por qué antes de W5**: publicar un catálogo cuya calibración visual no se ha auditado convierte cada defecto en una incidencia de terceros, y los arreglos de calibración pasan de trabajo interno a breaking visual con versión. Prompts en `prompts/2.1-web-refine/`.
 
 ### WB — Brand Align: Nebula como base de las landings _(entre WR y WN)_ ✅
