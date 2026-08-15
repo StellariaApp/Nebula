@@ -166,6 +166,14 @@ jobs:
     timeout-minutes: 30
     container:
       image: mcr.microsoft.com/playwright:v1.61.1-noble@sha256:5b8f294aff9041b7191c34a4bab3ac270157a28774d4b0660e9743297b697e48
+      # La imagen deja los navegadores en /ms-playwright, pero Actions fija
+      # HOME=/github/home en los jobs con contenedor y Playwright cae a su camino
+      # por defecto —$HOME/.cache/ms-playwright—, que esta vacio. El primer
+      # intento fallo justo asi, buscando chromium_headless_shell-1228 ahi.
+      # Decirlo explicito quita la ambiguedad en vez de confiar en que el ENV de
+      # la imagen sobreviva al runner.
+      env:
+        PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
     concurrency:
       group: visual-${{ github.ref }}
       cancel-in-progress: true
