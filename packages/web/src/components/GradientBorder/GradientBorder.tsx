@@ -32,17 +32,16 @@ import * as variables from "./GradientBorder.vars.css.js";
 
 const ALL_EDGES: readonly GradientBorderEdge[] = [1, 2, 3, 4];
 const SLOT_BEATS = 3.25;
-const ARC_SPAN = 90;
-const ARC_RISE = 32;
-const ARC_FALL = 58;
+const ARC_RISE = 36;
+const ARC_FALL = 64;
 
 function BeamArc(from: string, to: string): string {
   return [
-    `conic-gradient(from ${String(-ARC_SPAN / 2)}deg`,
-    "transparent 0deg",
-    `${from} ${String(ARC_RISE)}deg`,
-    `${to} ${String(ARC_FALL)}deg`,
-    `transparent ${String(ARC_SPAN)}deg)`,
+    "linear-gradient(90deg",
+    "transparent 0%",
+    `${from} ${String(ARC_RISE)}%`,
+    `${to} ${String(ARC_FALL)}%`,
+    "transparent 100%)",
   ].join(", ");
 }
 

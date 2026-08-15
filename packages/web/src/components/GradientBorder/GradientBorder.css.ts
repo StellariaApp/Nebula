@@ -63,20 +63,28 @@ export const gradient_border = recipe({
 export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gradient_border>>;
 
 const EDGES = [1, 2, 3, 4] as const;
-const SWEEP_ARC = 90;
-const SWEEP_HALF = SWEEP_ARC / 2;
+
+const CQ_W = "100cqw";
+const CQ_H = "100cqh";
+
+const RUN = {
+  1: ["0px", CQ_W],
+  2: [CQ_W, `calc(${CQ_W} + ${CQ_H})`],
+  3: [`calc(${CQ_W} + ${CQ_H})`, `calc((2 * ${CQ_W}) + ${CQ_H})`],
+  4: [`calc((2 * ${CQ_W}) + ${CQ_H})`, `calc((2 * ${CQ_W}) + (2 * ${CQ_H}))`],
+} as const satisfies Record<(typeof EDGES)[number], readonly [string, string]>;
+
+const STREAK_LENGTH = `calc((${CQ_W} + ${CQ_H}) * 0.22)`;
+const STREAK_DEPTH = `calc(${variables.ringWidth} * 3)`;
 
 export const sweep = Object.fromEntries(
-  EDGES.map((edge) => {
-    const center = (edge - 1) * SWEEP_ARC;
-    return [
-      edge,
-      keyframes({
-        from: { transform: `rotate(${String(center - SWEEP_HALF)}deg)` },
-        to: { transform: `rotate(${String(center + SWEEP_HALF)}deg)` },
-      }),
-    ];
-  }),
+  EDGES.map((edge) => [
+    edge,
+    keyframes({
+      from: { offsetDistance: RUN[edge][0] },
+      to: { offsetDistance: RUN[edge][1] },
+    }),
+  ]),
 ) as Record<(typeof EDGES)[number], string>;
 
 export const gate = Object.fromEntries(
@@ -107,6 +115,7 @@ export const beam = style({
       borderRadius: "inherit",
       padding: variables.ringWidth,
       ...RING_MASK,
+      containerType: "size",
       pointerEvents: "none",
       "@supports": {
         [NO_MASK_COMPOSITE]: { display: "none" },
@@ -122,11 +131,16 @@ export const arc = style({
   "@layer": {
     [primitive_layer]: {
       position: "absolute",
-      inset: "-100%",
+      insetBlockStart: 0,
+      insetInlineStart: 0,
+      inlineSize: STREAK_LENGTH,
+      blockSize: STREAK_DEPTH,
       opacity: 0,
       background: variables.beamArc,
       filter: `drop-shadow(0 0 4px ${variables.beamGlow})`,
-      willChange: "transform, opacity",
+      offsetPath: "border-box",
+      offsetRotate: "auto",
+      willChange: "offset-distance, opacity",
       animationName: `${variables.beamSweep}, ${variables.beamGate}`,
       animationDuration: `${variables.beamSlot}, ${variables.beamCycle}`,
       animationDelay: `0s, ${variables.beamDelay}`,

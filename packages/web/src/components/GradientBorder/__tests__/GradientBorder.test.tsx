@@ -162,9 +162,9 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(style).not.toMatch(/--gradientImage[^;]*linear-gradient/);
   });
 
-  it("el arco sí lleva el color de marca, en cónico", () => {
+  it("el arco sí lleva el color de marca, en una estela lineal", () => {
     render(<GradientBorder beam data-testid="gb" />);
-    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/conic-gradient\(/);
+    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/linear-gradient\(90deg/);
   });
 
   it("un tier minimal no anima: el marco queda estático", () => {

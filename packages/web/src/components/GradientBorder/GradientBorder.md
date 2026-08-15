@@ -77,22 +77,46 @@ La forma directa sería animar el ángulo de un `conic-gradient` con `@property 
 hace la referencia. No se usa: vanilla-extract no emite `@property`, y registrarlo desde JS con
 `CSS.registerProperty` dejaría el primer pintado sin animación hasta que corriera el cliente.
 
-En su lugar cada lado es un `<span>` sobredimensionado (`inset: -100%`) con el arco en cónico, que
-**gira**. Una rotación es interpolable en cualquier navegador sin registrar nada. El contenedor lleva
-la misma máscara de anillo que el `::before`, así que el arco solo se ve en la banda del borde y sigue
-la curva del radio.
+En su lugar cada lado es un `<span>` que **recorre el marco** con `offset-path: border-box`, animando
+`offset-distance`. El contenedor lleva la misma máscara de anillo que el `::before`, así que la estela
+solo se ve en la banda del borde; `offset-rotate: auto` la orienta con la tangente, de modo que sigue
+la curva del radio en las esquinas en vez de cortarse en seco.
 
-Cada `<span>` corre dos animaciones a la vez: el **barrido**, que gira 90° dentro del cuadrante de su
-lado y dura `slot`; y la **compuerta**, que lo enciende durante su turno y dura el ciclo. Los dos ejes
+Cada `<span>` corre dos animaciones a la vez: el **barrido**, que va del principio al final de su lado
+y dura `slot`; y la **compuerta**, que lo enciende durante su turno y dura el ciclo. Los dos ejes
 viajan como nombre de keyframe en una var en línea en vez de como clases combinadas: las 16
 combinaciones de lado × turno eran 16 módulos de vanilla-extract, y esos tienen efecto, así que no se
 sacuden del barrel y engordaban el presupuesto de cualquiera que importara del índice.
 
-### El reparto en cuadrantes es exacto en un cuadrado
+`offset-distance` no es `transform` ni `opacity`, y `docs/03` §2 solo admite esos dos. Cumple igual:
+el navegador lo resuelve **a una transformada** sobre la estela ya rasterizada —es la misma traslación
+más rotación que escribiríamos a mano— y no refluye ni repinta nada del marco. Lo que `docs/03`
+prohíbe es animar propiedades que disparan layout o paint por frame; esta no es una de ellas.
 
-Cada lado ocupa 90° del cónico. En un marco cuadrado eso cae justo en las esquinas; en uno muy
-apaisado la luz cambia de lado un poco antes o después del vértice. Para la maqueta de producto —de
-1:1 a 16:9— no se aprecia. El `inset: -100%` cubre la rotación hasta proporciones de 1:3.
+### Por qué ya no es una rotación cónica
+
+La primera versión daba a cada lado un `<span>` sobredimensionado con un arco en cónico que **giraba**
+90° dentro de su cuadrante. Esa geometría solo es correcta en un cuadrado, y no por un margen
+pequeño: la luz recorre el borde superior de `x = -h/2` a `x = +h/2`, o sea **una fracción `h/w` del
+lado**. A 16:9 ilumina el 56% del borde y jamás llega a los vértices; en una card de 8:1 —las tiras
+de la landing— ilumina el 12% y cruza el resto de golpe, que en pantalla se lee como un pegote quieto
+en el centro y un fogonazo después. El barrido angular no es el barrido del perímetro salvo en 1:1.
+
+`offset-distance` recorre longitud, no ángulo, así que el problema desaparece en cualquier
+proporción, y de paso la velocidad de la luz deja de depender de en qué punto del lado esté.
+
+### Los tramos se miden en unidades de contenedor
+
+El contenedor del haz lleva `container-type: size`, y los cuatro tramos se escriben sumando `100cqw` y
+`100cqh`: el lado 1 va de `0` a `100cqw`, el 2 de `100cqw` a `100cqw + 100cqh`, y así. Sin eso no hay
+forma de decir «hasta el final del borde superior» en CSS, porque `offset-distance` en porcentaje se
+mide contra el recorrido completo y las cuatro fracciones dependen de la proporción de la caja.
+
+La suma trata el marco como un rectángulo recto e **ignora el radio**: el perímetro real de un
+rectángulo redondeado es algo más corto —unos `0.86r` por esquina— así que el reparto se pasa de
+largo en esa cantidad y cada lado empieza unos píxeles después del vértice. Con los radios del
+contrato sobre cajas de tamaño normal es un desfase de un dígito porcentual, y el recorrido es
+cerrado, así que el sobrante da la vuelta en lugar de acumularse.
 
 ### Las tres paradas
 
