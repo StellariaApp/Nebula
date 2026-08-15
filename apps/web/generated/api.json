@@ -766,6 +766,14 @@
           "slot": false
         },
         {
+          "name": "railCollapse",
+          "type": "AppShellRailCollapse",
+          "required": false,
+          "default": "\"mini\"",
+          "doc": "What the rail does when the viewport stops fitting it (ADR-150). `\"mini\"` shrinks it to icons\nbelow `laptop` and lays it out as a bottom bar below `tablet`. `\"hidden\"` withdraws it below\n`laptop` and reserves no space for it — the shell cannot know its links are reachable, so pass\nthis only when another surface below that point carries them. Rail layout only.",
+          "slot": false
+        },
+        {
           "name": "scrollShadow",
           "type": "boolean",
           "required": false,
