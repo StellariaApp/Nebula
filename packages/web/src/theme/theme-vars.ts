@@ -1,6 +1,7 @@
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "./ink.js";
+import { ResolveVariant } from "./resolve-variant.js";
 
 function MapValues<K extends string, V, R>(
   record: Record<K, V>,
@@ -61,9 +62,62 @@ function Inks(theme: NebulaTheme): Record<InkScale, string> {
   return out;
 }
 
+const MATRIX_VARIANTS = [
+  "filled",
+  "outline",
+  "light",
+  "glass",
+  "ghost",
+  "glow",
+  "gradient",
+] as const;
+
+type MatrixVariant = (typeof MATRIX_VARIANTS)[number];
+
+/**
+ * La matriz de ADR-150. Se resuelve `ResolveVariant` una vez por combinacion al crear el tema —49 en
+ * total— en lugar de una vez por componente y por render. El calculo es el mismo: no se reescribe,
+ * se mueve. `animated` y `gradientAnimated` se descartan porque son booleanos de JavaScript.
+ */
+interface VariantFieldValues {
+  background: string;
+  backgroundHover: string;
+  backgroundActive: string;
+  foreground: string;
+  borderColor: string;
+  borderWidth: string;
+  backdropFilter: string;
+  glow: string;
+}
+
+function VariantMatrix(
+  theme: NebulaTheme,
+): Record<MatrixVariant, Record<InkScale, VariantFieldValues>> {
+  const out = {} as Record<MatrixVariant, Record<InkScale, VariantFieldValues>>;
+  for (const variant of MATRIX_VARIANTS) {
+    const scales = {} as Record<InkScale, VariantFieldValues>;
+    for (const scale of INK_SCALES) {
+      const r = ResolveVariant(variant, scale, theme);
+      scales[scale] = {
+        background: r.background,
+        backgroundHover: r.backgroundHover,
+        backgroundActive: r.backgroundActive,
+        foreground: r.foreground,
+        borderColor: r.borderColor,
+        borderWidth: r.borderWidth,
+        backdropFilter: r.backdropFilter,
+        glow: r.glow,
+      };
+    }
+    out[variant] = scales;
+  }
+  return out;
+}
+
 export function ThemeToVars(theme: NebulaTheme) {
   const { colors, font, radius, spacing, sizes, motion, effects, zIndex } = theme;
   return {
+    variant: VariantMatrix(theme),
     color: {
       primary: colors.primary,
       accent: colors.accent,

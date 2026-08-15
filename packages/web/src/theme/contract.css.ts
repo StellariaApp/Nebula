@@ -17,7 +17,61 @@ const Scale = (): Record<
   "950": null,
 });
 
+/**
+ * Los ocho valores CSS que ADR-150 saca del render. `animated` y `gradientAnimated` no entran: son
+ * booleanos que gobiernan JavaScript, no propiedades que pintar.
+ */
+const VariantFields = (): Record<
+  | "background"
+  | "backgroundHover"
+  | "backgroundActive"
+  | "foreground"
+  | "borderColor"
+  | "borderWidth"
+  | "backdropFilter"
+  | "glow",
+  null
+> => ({
+  background: null,
+  backgroundHover: null,
+  backgroundActive: null,
+  foreground: null,
+  borderColor: null,
+  borderWidth: null,
+  backdropFilter: null,
+  glow: null,
+});
+
+type VariantScaleShape = Record<
+  "primary" | "accent" | "gray" | "success" | "warning" | "error" | "info",
+  ReturnType<typeof VariantFields>
+>;
+
+const VariantScales = (): VariantScaleShape => ({
+  primary: VariantFields(),
+  accent: VariantFields(),
+  gray: VariantFields(),
+  success: VariantFields(),
+  warning: VariantFields(),
+  error: VariantFields(),
+  info: VariantFields(),
+});
+
 export const vars = createThemeContract({
+  /**
+   * La matriz de ADR-150: 7 variantes x 7 escalas x 8 valores. Se resuelve una vez al crear el tema
+   * en vez de una vez por componente y por render, que es lo que ataba el catalogo al cliente.
+   * `unstyled` no entra: es constante y no depende del tema.
+   */
+  variant: {
+    filled: VariantScales(),
+    outline: VariantScales(),
+    light: VariantScales(),
+    glass: VariantScales(),
+    ghost: VariantScales(),
+    glow: VariantScales(),
+    gradient: VariantScales(),
+  },
   color: {
     primary: Scale(),
     accent: Scale(),

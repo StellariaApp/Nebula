@@ -1,8 +1,8 @@
 # ADR-150 — Las variantes se resuelven una vez por tema, no una vez por render
 
-- **Estado**: **propuesta** · 2026-08-15 — **pendiente de decisión del propietario**
-- **Toca**: `docs/02` §2, contrato `NebulaTheme`, que es decisión cerrada. Por eso es propuesta y no
-  aceptada.
+- **Estado**: **aceptada** · 2026-08-15 — aprobada por el propietario tras verificar `glass` y el
+  `gradient` por props
+- **Toca**: `docs/02` §2, contrato `NebulaTheme`, que era decisión cerrada.
 - **Es**: la decisión C de la [auditoría de componentes de servidor](../reviews/auditoria-server-components-2026-08-14.md)
   y el núcleo de P5 del [plan de performance](../reviews/plan-performance-web-2026-08-14.md).
 
