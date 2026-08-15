@@ -12,6 +12,32 @@ export type GradientBorderEdge = 1 | 2 | 3 | 4;
 export type GradientBorderSequence = "continuous" | "spaced";
 
 /**
+ * Los tres ejes de la cola del haz. Son independientes a propósito: `parts` es resolución y `gap` es
+ * longitud, y confundirlos —alargar subiendo el tamaño de las piezas— es lo que la vuelve tosca.
+ */
+export interface GradientBorderTrail {
+  /**
+   * Cuántas piezas la forman. Cada una es una muestra del gradiente, así que subirlo afina la rampa
+   * de color sin alargar nada; también es lo que cuesta nodos.
+   * @default 32
+   */
+  parts?: number | undefined;
+  /**
+   * Separación entre piezas, en fracción de vuelta. La cola mide `parts * gap` del perímetro, de modo
+   * que crece con el marco en vez de quedarse corta en los grandes. Subirlo sin subir `parts` la
+   * alarga y la deja rala.
+   * @default 0.00385
+   */
+  gap?: number | undefined;
+  /**
+   * Desenfoque del conjunto, en px. Funde las piezas entre sí; su trabajo es tapar el troceado, no
+   * crear halo. Pasado el grosor del anillo empieza a deslavar la luz en vez de suavizarla.
+   * @default 0.5
+   */
+  bloom?: number | undefined;
+}
+
+/**
  * A gradient ring around the content, without tinting its inside.
  *
  * GUARDRAIL: it is a brand accent (docs/06 §6). One ring per region, not one per row of a list.
@@ -26,7 +52,7 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
    * @default "brand"
    */
   gradient?: GradientRole | GradientProp | undefined;
-  /** Thickness of the ring, as a raw length. @default 1 */
+  /** Thickness of the ring, as a raw length. @default 2 */
   width?: number | undefined;
   /**
    * What fills the inside of the ring. `"none"` leaves it transparent, which is what keeps this a
@@ -53,6 +79,13 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
    * @default "continuous"
    */
   sequence?: GradientBorderSequence | undefined;
+  /**
+   * Afina la cola. Se lee **solo** cuando el haz da la vuelta entera —`continuous` con los cuatro
+   * lados—, que es el único caso montado con piezas; un subconjunto de `edges` o `spaced` usa una
+   * estela por lado y no tiene cola que ajustar.
+   * @default { parts: 32, gap: 0.00385, bloom: 0.5 }
+   */
+  trail?: GradientBorderTrail | undefined;
 }
 
 export type GradientBorderProps<C extends ElementType = "div"> = GradientBorderOwnProps & {

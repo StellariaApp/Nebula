@@ -123,14 +123,78 @@ vértice en vez de en él.
 ### Los tramos siguen existiendo para los subconjuntos
 
 `edges` con menos de cuatro lados, o `sequence="spaced"`, sí necesitan saber dónde acaba cada lado, y
-eso en CSS solo se puede escribir sumando `100cqw` y `100cqh` sobre un contenedor con
-`container-type: size` —en porcentaje no, porque las cuatro fracciones dependen de la proporción de
-la caja y `offset-distance` los mide contra el recorrido entero—.
+eso en CSS solo se puede escribir en unidades de contenedor —en porcentaje no, porque las cuatro
+fracciones dependen de la proporción de la caja y `offset-distance` las mide contra el recorrido
+entero—. Ahí hay dos trampas que el reparto ingenuo no ve:
 
-Esos tramos **arrastran las dos limitaciones de arriba**: ignoran el radio y dan el mismo tiempo a
-lados de distinta longitud. En un marco cuadrado no se aprecia; en uno muy apaisado, sí. Es el precio
-de poder elegir lados, y por eso el camino de una sola vuelta se reserva al caso en que no hay nada
-que elegir.
+**Las unidades `cq` miden la caja de contenido y el trazado recorre la de borde.** El contenedor del
+haz lleva `padding: ringWidth` para recortar el anillo, así que `100cqw` se queda corto en
+`2 · ringWidth`. Hay que devolvérselo.
+
+**El radio acorta el recorrido.** Un rectángulo redondeado mide `2w + 2h − (8 − 2π)r`, y cada esquina
+se come `(2 − π/2)r` del vértice recto. Sin descontarlo, cada lado entra ya empezado y el desfase se
+acumula vuelta a vuelta.
+
+Lo que los tramos **no** pueden arreglar es el tiempo: cada lado dura lo mismo recorriendo longitudes
+distintas, así que la velocidad salta en las esquinas. Es el precio de poder elegir lados, y por eso
+el camino de una sola vuelta se reserva al caso en que no hay nada que elegir.
+
+### Por qué la cola son piezas y no una estela (ADR-152)
+
+`offset-rotate` orienta el **ancla**, no deforma la caja. Una estela larga es un rectángulo rígido, y
+donde el trazado curva sus extremos siguen rectos: en una esquina de radio `r`, un segmento de largo
+`L` se desvía `r − sqrt(r² − (L/2)²)` de la banda, y lo que se salga lo recorta la máscara. Con
+`r: 20`, por encima de unos 13px el recorte ya se ve — la luz se acorta en los lados cortos y parece
+saltar al doblar.
+
+Acortarla hasta que quepa la deja demasiado tenue para leerse como luz. Así que la cola no es un
+objeto largo: son `parts` piezas cortas escalonadas sobre el mismo trazado. Cada una cabe en la
+curva, y la longitud la da la **separación** entre ellas, no el tamaño de ninguna.
+
+El escalón va en fracción de vuelta y no en píxeles porque en CSS una duración no se deriva de una
+longitud. La cola mide entonces `parts · gap` del perímetro y crece con el marco.
+
+### `ARC_RISE` y `ARC_FALL` son el perfil de la luz, y lo comparten los dos montajes
+
+`transparent 0% → from 36% → to 64% → transparent 100%`. Marcan dónde la luz alcanza opacidad plena
+entrando y dónde empieza a apagarse saliendo, y el color solo manda en ese cuerpo central.
+
+`BeamArc` los pinta como gradiente dentro de la estela única —el camino de `edges` parcial y de
+`spaced`—, y `TrailStop` reparte **ese mismo perfil** entre las piezas de la cola: la opacidad sube
+hasta el 36%, se mantiene hasta el 64% y baja desde ahí, que es de donde salen las dos puntas
+difuminadas. Son una sola definición a propósito: con números propios en cada camino, un
+`edges={[1, 3]}` se vería como otro componente en vez de como el mismo con menos lados.
+
+### El desenfoque va en el contenedor, no en cada pieza
+
+`filter` se aplica **antes** que `mask`, así que un blur en el contenedor funde las piezas entre sí y
+la máscara recorta después. Pieza a pieza cada una se difuminaría por su cuenta y el troceado
+seguiría leyéndose. Es bajo a propósito: hay animación en la misma capa y `effects-guardrails`
+prohíbe encadenar blur alto con movimiento.
+
+### La banda del haz es la del anillo, y no puede ser otra
+
+La máscara solo pinta dentro de la caja, así que ensanchar la banda del haz **solo puede crecer hacia
+dentro**: un haz más grueso que su borde es, por construcción, un haz metido en el relleno. Para una
+luz más gruesa se sube `width`, que engorda el borde entero.
+
+De ahí que **no haya halo posible aquí**: todo lo que pinta el haz, incluido el `drop-shadow` de las
+piezas, está recortado a la banda. Un derrame hacia fuera exigiría una segunda capa sin máscara, o
+sea duplicar las piezas.
+
+### `trail` afina los tres ejes, y por eso son tres
+
+```tsx
+<GradientBorder beam trail={{ parts: 32, gap: 0.00385, bloom: 0.5 }} />
+```
+
+`parts` es **resolución** —más muestras del gradiente, misma longitud— y `gap` es **longitud** —mismo
+detalle, más recorrido—. Confundirlos es el error a evitar: alargar la cola agrandando las piezas la
+vuelve tosca, y alargarla subiendo `gap` sin subir `parts` la deja rala. Un solo peldaño no dejaría
+corregir un eje sin mover los otros.
+
+`parts` lleva suelo de 2: por debajo no hay rampa que repartir, y en `0` o negativo el haz
+desaparecería sin dar error.
 
 ### Las tres paradas
 

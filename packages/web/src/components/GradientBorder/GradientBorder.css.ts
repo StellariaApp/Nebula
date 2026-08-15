@@ -64,22 +64,54 @@ export type GradientBorderRecipeVariants = NonNullable<RecipeVariants<typeof gra
 
 const EDGES = [1, 2, 3, 4] as const;
 
-const CQ_W = "100cqw";
-const CQ_H = "100cqh";
+/**
+ * La banda por la que se ve el haz: la misma que el anillo, para que la luz caiga **sobre** el borde.
+ * Ensancharla no lo engorda de forma simétrica, porque la máscara solo puede pintar dentro de la caja
+ * y el excedente crece hacia dentro. Un haz más grueso que su borde es, por construcción, un haz
+ * metido en el relleno.
+ */
+const BEAM_BAND = variables.ringWidth;
+
+/**
+ * Las unidades de contenedor miden la caja de **contenido**, y `offset-path: border-box` recorre la de
+ * **borde**. El contenedor del haz lleva `padding: BEAM_BAND`, así que hay que devolverle ese grosor
+ * por los dos lados o el reparto se queda corto y cada tramo entra desplazado.
+ */
+const CQ_W = `(100cqw + (2 * ${BEAM_BAND}))`;
+const CQ_H = `(100cqh + (2 * ${BEAM_BAND}))`;
+
+/** El radio efectivo: el navegador recorta el declarado a la mitad del lado más corto. */
+const R = `min(${variables.beamRadius}, ${CQ_W} * 0.5, ${CQ_H} * 0.5)`;
+
+/**
+ * Fin de cada lado sobre el recorrido real, contando su esquina. Un rectángulo redondeado mide
+ * `2w + 2h - (8 - 2pi)r`, y cada esquina se come `(2 - pi/2)r` del vértice recto: por eso los
+ * coeficientes son multiplos de 0.4292037 y no hay ninguno redondo.
+ */
+const BOUND = {
+  0: "0px",
+  1: `calc(${CQ_W} - (0.4292037 * ${R}))`,
+  2: `calc(${CQ_W} + ${CQ_H} - (0.8584073 * ${R}))`,
+  3: `calc((2 * ${CQ_W}) + ${CQ_H} - (1.2876110 * ${R}))`,
+  4: `calc((2 * ${CQ_W}) + (2 * ${CQ_H}) - (1.7168147 * ${R}))`,
+} as const;
 
 const RUN = {
-  1: ["0px", CQ_W],
-  2: [CQ_W, `calc(${CQ_W} + ${CQ_H})`],
-  3: [`calc(${CQ_W} + ${CQ_H})`, `calc((2 * ${CQ_W}) + ${CQ_H})`],
-  4: [`calc((2 * ${CQ_W}) + ${CQ_H})`, `calc((2 * ${CQ_W}) + (2 * ${CQ_H}))`],
+  1: [BOUND[0], BOUND[1]],
+  2: [BOUND[1], BOUND[2]],
+  3: [BOUND[2], BOUND[3]],
+  4: [BOUND[3], BOUND[4]],
 } as const satisfies Record<(typeof EDGES)[number], readonly [string, string]>;
 
 const STREAK_LENGTH = `calc((${CQ_W} + ${CQ_H}) * 0.22)`;
 const STREAK_DEPTH = `calc(${variables.ringWidth} * 3)`;
+const TRAIL_LENGTH = `clamp(6px, (${CQ_W} + ${CQ_H}) * 0.022, 13px)`;
+const TRAIL_DEPTH = `calc(${BEAM_BAND} * 2)`;
 
 /**
- * El recorrido entero en una sola animación. El porcentaje lo resuelve el navegador contra la
- * longitud real del trazado, así que respeta el radio y la velocidad no cambia en las esquinas.
+ * La vuelta entera en una sola animación, para el caso en que no hay lados que elegir. El porcentaje
+ * lo resuelve el navegador contra la longitud real del trazado: velocidad constante, radio contado y
+ * ninguna entrega entre arcos que sincronizar.
  */
 export const loop = keyframes({
   from: { offsetDistance: "0%" },
@@ -106,8 +138,8 @@ export const gate = Object.fromEntries(
           ? { "0%": { opacity: 1 }, "100%": { opacity: 1 } }
           : {
               "0%": { opacity: 1 },
-              [`${String(open)}%`]: { opacity: 1 },
-              [`${String(open + 0.01)}%`]: { opacity: 0 },
+              [`${String(open - 0.01)}%`]: { opacity: 1 },
+              [`${String(open)}%`]: { opacity: 0 },
               "100%": { opacity: 0 },
             },
       ),
@@ -122,7 +154,7 @@ export const beam = style({
       inset: 0,
       zIndex: 1,
       borderRadius: "inherit",
-      padding: variables.ringWidth,
+      padding: BEAM_BAND,
       ...RING_MASK,
       containerType: "size",
       pointerEvents: "none",
@@ -131,6 +163,38 @@ export const beam = style({
       },
       "@media": {
         "(forced-colors: active)": { display: "none" },
+      },
+    },
+  },
+});
+
+/**
+ * Una pieza de la cola. Es corta para que quepa en la curva: un rectángulo rígido se desvía
+ * `r - sqrt(r^2 - (L/2)^2)` de la banda en una esquina de radio `r`, y por debajo de ~13px eso queda
+ * en el orden del propio grosor del anillo. La cola larga la hacen muchas de estas escalonadas en el
+ * recorrido, no una sola estirada, que es lo que no podía doblar.
+ */
+export const trail = style({
+  "@layer": {
+    [primitive_layer]: {
+      position: "absolute",
+      insetBlockStart: 0,
+      insetInlineStart: 0,
+      inlineSize: TRAIL_LENGTH,
+      blockSize: TRAIL_DEPTH,
+      opacity: variables.beamFade,
+      background: variables.beamCore,
+      filter: `drop-shadow(0 0 4px ${variables.beamGlow})`,
+      offsetPath: "border-box",
+      offsetRotate: "auto",
+      willChange: "offset-distance",
+      animationName: loop,
+      animationDuration: variables.beamCycle,
+      animationDelay: variables.beamDelay,
+      animationTimingFunction: "linear",
+      animationIterationCount: "infinite",
+      "@media": {
+        [REDUCED]: { animationName: "none" },
       },
     },
   },

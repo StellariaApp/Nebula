@@ -609,6 +609,7 @@ export type {
   GradientBorderOwnProps,
   GradientBorderProps,
   GradientBorderSurface,
+  GradientBorderTrail,
 } from "./components/GradientBorder/index.js";
 export { GradientBackground } from "./components/GradientBackground/index.js";
 export type {

@@ -3,4 +3,5 @@ export type {
   GradientBorderOwnProps,
   GradientBorderProps,
   GradientBorderSurface,
+  GradientBorderTrail,
 } from "./GradientBorder.types.js";

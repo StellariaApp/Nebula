@@ -122,12 +122,16 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(node.querySelectorAll("span")).toHaveLength(0);
   });
 
-  it("con los cuatro lados y continua monta un solo arco que da la vuelta entera", () => {
+  it("con los cuatro lados y continua monta una cola que da la vuelta entera", () => {
     render(<GradientBorder beam data-testid="gb" />);
     const node = screen.getByTestId("gb");
+    const parts = [...node.querySelectorAll("span > span")];
 
     expect(node.getAttribute("data-beam")).toBe("continuous");
-    expect(node.querySelectorAll("span > span")).toHaveLength(1);
+    expect(parts.length).toBeGreaterThan(1);
+
+    const fades = parts.map((part) => part.getAttribute("style") ?? "");
+    expect(new Set(fades).size).toBe(parts.length);
   });
 
   it("espaciada sí reparte un arco por lado, aunque estén los cuatro", () => {

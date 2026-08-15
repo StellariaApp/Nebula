@@ -14138,10 +14138,18 @@
           "slot": false
         },
         {
+          "name": "trail",
+          "type": "GradientBorderTrail",
+          "required": false,
+          "default": "{ parts: 32, gap: 0.00385, bloom: 0.5 }",
+          "doc": "Afina la cola. Se lee **solo** cuando el haz da la vuelta entera —`continuous` con los cuatro\nlados—, que es el único caso montado con piezas; un subconjunto de `edges` o `spaced` usa una\nestela por lado y no tiene cola que ajustar.",
+          "slot": false
+        },
+        {
           "name": "width",
           "type": "number",
           "required": false,
-          "default": "1",
+          "default": "2",
           "doc": "Thickness of the ring, as a raw length.",
           "slot": false
         }

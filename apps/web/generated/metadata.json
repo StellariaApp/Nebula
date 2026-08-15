@@ -173,7 +173,7 @@
     {
       "name": "Badge",
       "budget": "25.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "font.family",
         "font.size",
@@ -186,7 +186,8 @@
         "space.md",
         "space.sm",
         "space.xl",
-        "space.xxs"
+        "space.xxs",
+        "variant"
       ]
     },
     {
@@ -994,7 +995,8 @@
         "color.border",
         "color.surface",
         "motion.duration",
-        "motion.tier"
+        "motion.tier",
+        "radius"
       ]
     },
     {

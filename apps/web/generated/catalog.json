@@ -118,7 +118,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25.5 kB",
       "notes": true,
       "contract": true
