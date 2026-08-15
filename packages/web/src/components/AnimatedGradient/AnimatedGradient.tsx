@@ -52,11 +52,12 @@ const AnimatedGradientComponent = forwardRef<HTMLElement, AnimatedGradientOwnPro
         data-animated={animated ? "true" : "false"}
         {...rest}
       >
-        <span
-          className={cx(styles.drift, styles.speed[speed])}
-          data-animated={animated ? "true" : "false"}
-          aria-hidden="true"
-        />
+        <span className={styles.drift_frame} aria-hidden="true">
+          <span
+            className={cx(styles.drift, styles.speed[speed])}
+            data-animated={animated ? "true" : "false"}
+          />
+        </span>
         {scrim > 0 ? (
           <Box
             component="span"

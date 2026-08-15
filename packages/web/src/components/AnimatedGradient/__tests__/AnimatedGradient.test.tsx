@@ -19,6 +19,10 @@ function RenderIn(ui: ReactNode, theme: OfficialThemeName | NebulaTheme) {
   );
 }
 
+function DriftIn(node: HTMLElement) {
+  return node.querySelector("span[aria-hidden='true'] > span");
+}
+
 describe("AnimatedGradient", () => {
   it("renderiza un div y conserva el contenido", () => {
     render(<AnimatedGradient>Ambiente</AnimatedGradient>);
@@ -27,8 +31,9 @@ describe("AnimatedGradient", () => {
 
   it("monta la capa que deriva, marcada como decorativa", () => {
     render(<AnimatedGradient data-testid="ag" />);
-    const layers = screen.getByTestId("ag").querySelectorAll("span[aria-hidden='true']");
-    expect(layers).toHaveLength(1);
+    const node = screen.getByTestId("ag");
+    expect(node.querySelectorAll("span[aria-hidden='true']")).toHaveLength(1);
+    expect(DriftIn(node)).not.toBeNull();
   });
 
   it("anima cuando el tier del tema lo permite", () => {
@@ -40,16 +45,14 @@ describe("AnimatedGradient", () => {
     RenderIn(<AnimatedGradient data-testid="ag" />, MotionAt("minimal"));
     const node = screen.getByTestId("ag");
     expect(node.getAttribute("data-animated")).toBe("false");
-    const layer = node.querySelector("span[aria-hidden='true']");
-    expect(layer?.getAttribute("data-animated")).toBe("false");
+    expect(DriftIn(node)?.getAttribute("data-animated")).toBe("false");
   });
 
   it("las tres velocidades resuelven clases distintas", () => {
     const seen = new Set<string>();
     for (const speed of ["slow", "base", "fast"] as const) {
       const view = render(<AnimatedGradient speed={speed} data-testid="ag" />);
-      const layer = screen.getByTestId("ag").querySelector("span[aria-hidden='true']");
-      seen.add(layer?.className ?? "");
+      seen.add(DriftIn(screen.getByTestId("ag"))?.className ?? "");
       view.unmount();
     }
     expect(seen.size).toBe(3);
@@ -58,8 +61,7 @@ describe("AnimatedGradient", () => {
   it("no escribe duraciones ni transformadas en el estilo inline", () => {
     render(<AnimatedGradient data-testid="ag" />);
     const node = screen.getByTestId("ag");
-    const layer = node.querySelector("span[aria-hidden='true']");
-    expect(layer?.getAttribute("style")).toBeNull();
+    expect(DriftIn(node)?.getAttribute("style")).toBeNull();
     expect(node.getAttribute("style") ?? "").not.toMatch(/animation|transform/);
   });
 

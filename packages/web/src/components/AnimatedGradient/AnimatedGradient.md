@@ -8,13 +8,28 @@ afirmación es cierta **para el texto**, donde el gradiente está recortado sobr
 forma de moverlo es desplazar el fondo.
 
 Aquí no. El gradiente no se anima: se anima **una capa que lo lleva pintado**. La capa `drift` es un
-absoluto sobredimensionado (`inset: -40%`) que gira y se traslada con `transform`, y la raíz la recorta
-con `overflow: hidden`. El resultado en pantalla es un gradiente que deriva; el trabajo del compositor
-es una transformada sobre una textura ya rasterizada. `background-position` no se toca en ningún
-frame.
+absoluto sobredimensionado que gira y se traslada con `transform`, y la raíz la recorta con
+`overflow: hidden`. El resultado en pantalla es un gradiente que deriva; el trabajo del compositor es
+una transformada sobre una textura ya rasterizada. `background-position` no se toca en ningún frame.
 
-El sobredimensionado no es decorativo: con `scale(1.4)` mínimo y `inset: -40%`, la rotación de 360°
-nunca deja ver una esquina vacía dentro del recorte.
+## Por qué la capa es cuadrada y no un `inset` negativo
+
+La primera versión sobredimensionaba con `inset: -40%`, que da una capa de `1.8w × 1.8h` — **con la
+misma proporción que la raíz**. Eso sobrevive en una caja casi cuadrada y se rompe en cuanto se
+aplasta: al girar 90°, el semiancho de la capa pasa a valer `1.26h`, y tiene que cubrir `0.5w` de
+raíz más el `0.144w` que la aleja el `translate`. Sale `h ≥ 0.51w`. Por debajo de esa proporción la
+rotación descubre el borde de la capa y se ve un corte diagonal cruzando la card — que es justo lo
+que el sobredimensionado pretendía evitar.
+
+La capa es ahora **un cuadrado de lado `100cqw + 100cqh`** centrado en la raíz, y la raíz expone las
+unidades de contenedor desde `drift_frame`, un absoluto `inset: 0` con `container-type: size` (la
+raíz no puede llevarlo: su alto sale del contenido, y contener el tamaño lo colapsaría).
+
+El lado sale de una desigualdad, no de un tanteo: un cuadrado de semilado `r` girado mantiene `r`
+como distancia del centro a sus lados, así que basta con que `r` supere la circunradio de la raíz más
+el desplazamiento. Con `scale(1.4)` mínimo, `r = 0.7(w + h)`; la circunradio es `0.5√(w² + h²) ≤
+0.5(w + h)` y el `translate` de 8%/6% aporta `0.1(w + h)`. `0.6(w + h) ≤ 0.7(w + h)` se cumple
+**para cualquier proporción**, y con `scale(1.62)` sobra más. Ninguna caja descubre ya una esquina.
 
 ## Duración derivada de tokens
 

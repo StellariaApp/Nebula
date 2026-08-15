@@ -7,6 +7,9 @@ import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./AnimatedGradient.vars.css.js";
 
+const SQUARE = "calc(100cqw + 100cqh)";
+const SQUARE_HALF = "calc((100cqw + 100cqh) * -0.5)";
+
 const REST = "translate3d(-8%, -6%, 0) rotate(0deg) scale(1.4)";
 
 const DRIFT = keyframes({
@@ -32,13 +35,31 @@ export const animated_gradient = recipe({
   defaultVariants: {},
 });
 
+export const drift_frame = style({
+  "@layer": {
+    [primitive_layer]: {
+      position: "absolute",
+      inset: 0,
+      zIndex: -1,
+      pointerEvents: "none",
+      containerType: "size",
+      "@media": {
+        "(forced-colors: active)": { display: "none" },
+      },
+    },
+  },
+});
+
 export const drift = style({
   "@layer": {
     [primitive_layer]: {
       position: "absolute",
-      inset: "-40%",
-      zIndex: -1,
-      pointerEvents: "none",
+      insetBlockStart: "50%",
+      insetInlineStart: "50%",
+      inlineSize: SQUARE,
+      blockSize: SQUARE,
+      marginBlockStart: SQUARE_HALF,
+      marginInlineStart: SQUARE_HALF,
       backgroundImage: variables.gradientImage,
       transform: REST,
       transformOrigin: "50% 50%",
@@ -51,7 +72,6 @@ export const drift = style({
       },
       "@media": {
         [reduced_media]: { ...still, transform: REST },
-        "(forced-colors: active)": { display: "none" },
       },
     },
   },
