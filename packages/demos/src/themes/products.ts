@@ -7,7 +7,15 @@ import {
 } from "@stellaria/nebula-tokens";
 
 export type ProductName =
-  "rosette" | "stellaria" | "lagrange" | "polaris" | "aurora" | "nova" | "eclipse" | "cosmos";
+  | "rosette"
+  | "stellaria"
+  | "lagrange"
+  | "polaris"
+  | "aurora"
+  | "nova"
+  | "eclipse"
+  | "cosmos"
+  | "star";
 
 interface ProductSeed {
   primary: Scale11;
@@ -57,11 +65,11 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
     lift: 6,
   },
   aurora: {
-    primary: palettes.grape,
-    accent: palettes.pink,
-    from: palettes.grape["500"],
-    to: palettes.pink["400"],
-    tint: palettes.grape["800"],
+    primary: palettes.pink,
+    accent: palettes.cyan,
+    from: palettes.pink["500"],
+    to: palettes.cyan["400"],
+    tint: palettes.pink["800"],
     wash: 0.05,
     lift: -6,
   },
@@ -89,6 +97,15 @@ const PRODUCT_SEEDS: Record<ProductName, ProductSeed> = {
     from: palettes.brown["500"],
     to: palettes.orange["400"],
     tint: palettes.brown["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  star: {
+    primary: palettes.gold,
+    accent: palettes.yellow,
+    from: palettes.gold["500"],
+    to: palettes.gold["400"],
+    tint: palettes.gold["600"],
     wash: 0.05,
     lift: -6,
   },
@@ -170,6 +187,7 @@ export const PRODUCTS: Record<ProductName, Record<"dark" | "light", NebulaTheme>
   nova: { dark: BuildProduct("nova", "dark"), light: BuildProduct("nova", "light") },
   eclipse: { dark: BuildProduct("eclipse", "dark"), light: BuildProduct("eclipse", "light") },
   cosmos: { dark: BuildProduct("cosmos", "dark"), light: BuildProduct("cosmos", "light") },
+  star: { dark: BuildProduct("star", "dark"), light: BuildProduct("star", "light") },
 };
 
 export type ThemeName = "nebula" | ProductName;
@@ -188,6 +206,7 @@ export const PRODUCT_NAMES: readonly ProductName[] = [
   "nova",
   "eclipse",
   "cosmos",
+  "star",
 ];
 
 export const THEME_NAMES: readonly ThemeName[] = ["nebula", ...PRODUCT_NAMES];
