@@ -84,7 +84,7 @@ reenviar el estado a mano.
 
 ## `railCollapse` decide si el carril se estrecha o se retira
 
-ADR-150. Con `"mini"` —el default, y lo que el modo carril hizo siempre— el carril se estrecha a
+ADR-153. Con `"mini"` —el default, y lo que el modo carril hizo siempre— el carril se estrecha a
 iconos por debajo de `laptop` y se tiende como barra inferior por debajo de `tablet`. Con `"hidden"`
 se retira por debajo de `laptop`.
 

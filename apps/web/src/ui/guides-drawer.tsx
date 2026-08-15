@@ -68,7 +68,7 @@ async function DrawerSection({
 }
 
 /**
- * El carril de guides en idioma de cajón (ADR-150). No reutiliza `AppShell.Links` a propósito: sus
+ * El carril de guides en idioma de cajón (ADR-153). No reutiliza `AppShell.Links` a propósito: sus
  * reglas por debajo de `laptop` lo tienden en fila para la barra inferior, que es justo el modo que
  * el sitio retira.
  */

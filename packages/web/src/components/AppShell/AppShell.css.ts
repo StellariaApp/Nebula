@@ -101,7 +101,7 @@ export const rail = style({
   },
 });
 
-/** ADR-150: retirar el carril es retirar también su hueco, que lo reserva la raíz y no él. */
+/** ADR-153: retirar el carril es retirar también su hueco, que lo reserva la raíz y no él. */
 export const rail_hidden = style({
   "@layer": {
     [composite_layer]: {

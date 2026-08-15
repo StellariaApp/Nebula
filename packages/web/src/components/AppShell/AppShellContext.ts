@@ -8,7 +8,7 @@ export interface AppShellState {
   collapsed: boolean;
   navigationLabel: string;
   complementaryLabel: string;
-  /** ADR-150: la raíz retira su hueco y el carril se retira él; las dos reglas van juntas o sobra una. */
+  /** ADR-153: la raíz retira su hueco y el carril se retira él; las dos reglas van juntas o sobra una. */
   railCollapse: AppShellRailCollapse;
 }
 

@@ -1,5 +1,13 @@
-# ADR-150 — El carril declara qué hace cuando no cabe
+# ADR-153 — El carril declara qué hace cuando no cabe
 
+- **Renumerado el 2026-08-15**: nació como `ADR-150` a las 03:04 y cinco minutos después nació otro
+  `ADR-150` en paralelo, «las variantes se resuelven una vez por tema», que conserva el número. El
+  desempate no fue la antigüedad —este llegó antes— sino el número de mensajes de commit que quedan
+  ambiguos: tres los de este, cinco los del otro, y **los mensajes son inmutables**. Ninguno de los
+  dos tenía enlaces con nombre, que es el criterio que zanjó el caso de
+  [ADR-143](ADR-143-el-cuerpo-de-la-seccion-se-sustituye-y-el-carril-no.md). **Los mensajes de commit
+  anteriores a esta fecha que digan «ADR-150» y hablen del carril o de `railCollapse` se refieren a
+  este documento.**
 - **Estado**: aceptada · 2026-08-15 (decisión del propietario) · **W5** · implementada
 - **Cambia API pública**: sí, y **solo añade**: `railCollapse` en `AppShell`, con default `"mini"` —
   que es exactamente lo que hace hoy—. Ninguna prop actual cambia de tipo ni de significado, y el DOM
