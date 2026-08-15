@@ -82,18 +82,45 @@ valor.
 `Badge.css.ts` pasa a leer `var(--nebula-v-{variant}-{color}-bg)` desde su receta. Sin `useTheme`, sin
 `assignInlineVars`, sin `"use client"`.
 
-### 3. El color arbitrario se queda en JavaScript, y eso estrecha el contrato
+### 3. Solo el hex literal se queda fuera — corregido el 2026-08-15
 
-`ColorExtended` admite `#hex`, las 19 paletas semilla con peldaño y sufijo de alpha
-([ADR-147](ADR-147-las-style-props-de-color-cumplen-colorextended.md)). Eso **no se puede
-precalcular**: es un espacio abierto.
+> La primera redacción decía que las paletas semilla tampoco se podían precalcular. **Era falso**, y
+> la corrección estrecha muchísimo lo que este ADR toca del contrato. Se deja el error a la vista
+> porque cambia la decisión.
 
-Propuesta: los componentes que reciben un color arbitrario **siguen por la vía de JavaScript y siguen
-siendo de cliente**. La vía rápida cubre las siete escalas semánticas; el resto es escotilla de
-escape, igual que ADR-021 ya la declara para el modo plano.
+Las paletas **no son un espacio abierto**: son 19 semillas × 11 peldaños = **209 valores cerrados**,
+generados por `pnpm gen:palette` y estáticos en `packages/tokens`. Se pueden precalcular igual de bien
+que las escalas.
 
-**Esto es lo que hay que decidir**, y es lo que toca el contrato: hoy `docs/02` §2 no distingue entre
-un color que el tema conoce y uno arbitrario. A partir de aquí, sí — y el segundo cuesta hidratación.
+Lo que de verdad no se puede saber por adelantado es un `#ff0066` que el consumidor escriba en una
+prop. Eso, y solo eso, es infinito.
+
+**El motivo real de que la resolución sea de cliente tampoco era el que escribí arriba.** No es que
+`useContext` no exista en el servidor —que no existe—, es algo más de fondo: **el servidor no sabe qué
+tema está activo**. Lo elige el navegador a partir de la preferencia del usuario (`ColorSchemeScript`,
+`docs/02` §3). Así que la respuesta no puede venir resuelta del servidor: tiene que venir en una forma
+que el navegador resuelva, y esa forma es una propiedad CSS con el ámbito del tema.
+
+Eso no cambia la propuesta, la explica mejor y la refuerza.
+
+Lo que hay que publicar, entonces:
+
+| Qué                                        | Cuántas          | Depende del tema          |
+| ------------------------------------------ | ---------------- | ------------------------- |
+| Variantes sobre escalas semánticas         | 49 × 8 = **392** | sí                        |
+| Hex de las 19 paletas semilla              | **209**          | no — estáticas, una vez   |
+| Tinta legible sobre cada peldaño de paleta | **209**          | sí, vía `theme.ink.floor` |
+
+Unas **810 propiedades**, muy repetitivas, que comprimen a casi nada. El resto del modo plano —el
+alpha de `light`, el borde de `outline`, el oscurecido del hover— es `color-mix()` sobre el hex base,
+sin JavaScript.
+
+**Lo que queda fuera es el hex literal en una prop**, y para eso ADR-021 ya declara que el modo plano
+es una escotilla de escape que no se adapta entre temas. Aquí además costaría hidratación.
+
+**Lo que hay que decidir**: hoy `docs/02` §2 trata igual un color que el tema conoce y un `#hex`
+suelto. A partir de aquí no — el segundo obligaría a su componente a ser de cliente. Es un caso raro,
+pero deja de ser gratis y hay que documentarlo.
 
 ### 4. Los temas dinámicos siguen funcionando, y mejor
 
@@ -122,8 +149,9 @@ seguiría heredando el coste. Publicar v1 así lo hornea en cada consumidor.
   van juntas o no van.
 - **Se cambia JavaScript por CSS**: entran ~392 propiedades por tema —muy repetitivas, comprimen
   bien— y sale la resolución por render más, en parte, la tabla de sprinkles de 129 kB.
-- **El contrato se estrecha**: el color arbitrario deja de ser equivalente al semántico en coste. Hay
-  que documentarlo en `docs/02` §2 y decirlo en la ficha de las props.
+- **El contrato se estrecha, pero mucho menos de lo escrito al principio**: solo el `#hex` literal
+  en una prop deja de ser equivalente en coste. Las 19 paletas semilla se precalculan igual que las
+  escalas (ver §3, corregido). Hay que documentarlo en `docs/02` §2 y en la ficha de las props.
 - **Queda sin resolver en esta propuesta**: `glass` tiene rama propia con `glassClass`, y el
   `gradient` por props (`{from, to}`) es por instancia y no se puede precalcular. Ambos parecen caber
   en la escotilla del punto 3, pero **no está verificado** y hay que mirarlo antes de aceptar.
