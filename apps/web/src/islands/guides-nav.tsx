@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
 
-import { AppShell, Segment } from "@stellaria/nebula-web";
+import { AppShell, Nav, Segment } from "@stellaria/nebula-web";
 
 import { DEFAULT_SECTION, GUIDES } from "../lib/sections";
 
@@ -67,7 +67,33 @@ export function GuidesRail({
   return Active(segment) === section ? children : null;
 }
 
+/**
+ * El mismo filtro que `GuidesRail`, pero leyendo la ruta en vez del segmento: el cajón cuelga de la
+ * barra del sitio, que vive un layout más arriba, y ahí `useSelectedLayoutSegment` devuelve `guides`
+ * y no la sección.
+ */
+export function DrawerRail({
+  section,
+  children,
+}: {
+  section: string;
+  children: ReactNode;
+}): ReactNode {
+  const pathname = usePathname();
+  if (pathname !== GUIDES && !pathname.startsWith(`${GUIDES}/`)) return null;
+  return (pathname.split("/")[2] ?? DEFAULT_SECTION) === section ? children : null;
+}
+
 export function RailLink({ href, label }: { href: string; label: string }): ReactElement {
   const pathname = usePathname();
   return <AppShell.Link component={Link} href={href} label={label} active={pathname === href} />;
+}
+
+/** `Link` es una referencia de cliente: quien la ata al componente tiene que estar de este lado. */
+export function DrawerLink({ href, label }: { href: string; label: string }): ReactElement {
+  return (
+    <Nav.Links.Link component={Link} href={href}>
+      {label}
+    </Nav.Links.Link>
+  );
 }

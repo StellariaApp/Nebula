@@ -104,7 +104,7 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
         right={0}
         z="sticky"
         display="flex"
-        px="lg"
+        px="u5"
         bdbw={1}
         bdbs="solid"
         bdc="border.subtle"
@@ -128,13 +128,19 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
         miw={0}
         mih={0}
         h="auto"
+        sidebarWidth={280}
         contentWidth={SHELL_WIDTH}
         contentId={MAIN_ID}
         scrollShadow={false}
+        railCollapse="hidden"
         mainProps={{ pt: CHROME_HEIGHT }}
         labels={{ skipToContent: dict["skip.content"] ?? "" }}
         sidebar={
-          <AppShell.Sidebar h={{ tablet: "100%" }} pt={{ tablet: CHROME_HEIGHT }}>
+          <AppShell.Sidebar
+            h={`calc(100% - ${String(CHROME_HEIGHT)}px)`}
+            level="band"
+            pt={CHROME_HEIGHT}
+          >
             <AppShell.Sidebar.Body grow={1}>
               {SECTIONS.map((section) => (
                 <GuidesRail key={section.slug} section={section.slug}>
@@ -145,8 +151,8 @@ export default async function GuidesLayout({ children }: { children: ReactNode }
           </AppShell.Sidebar>
         }
       >
-        <AppShell.Section mih={`calc(100% - ${String(CHROME_HEIGHT)}px)`}>
-          <AppShell.Content grow={1}>{children}</AppShell.Content>
+        <AppShell.Section>
+          <AppShell.Content>{children}</AppShell.Content>
         </AppShell.Section>
         <Momentum target={`#${MAIN_ID}`} />
         <Momentum target={RAIL} />

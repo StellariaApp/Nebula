@@ -11,6 +11,7 @@ import { LangSwitch } from "../islands/lang-switch";
 import { Search } from "../islands/search";
 import { SiteNav } from "../islands/site-nav";
 import { ThemePanel } from "../islands/theme-panel";
+import { GuidesDrawer } from "./guides-drawer";
 import { SiteBackground } from "./site-background";
 
 interface ChromeProps {
@@ -44,8 +45,10 @@ export async function Chrome({ lang, dict, children }: ChromeProps): Promise<Rea
       <Box position="fixed" top={0} left={0} right={0} z="sticky">
         <SiteNav
           floating={false}
+          collapse="laptop"
           contentWidth={SHELL_WIDTH}
           height={NAV_HEIGHT}
+          drawer={<GuidesDrawer lang={lang} dict={dict} />}
           links={[
             { href: guides, label: dict["nav.docs"] ?? "" },
             { href: SectionHref("components"), label: dict["section.components"] ?? "" },

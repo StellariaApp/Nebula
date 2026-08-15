@@ -41,7 +41,7 @@ function Section({
       fz={size}
       c="text.primary"
       ls="tight"
-      mt={order === 2 ? "xxl" : "xl"}
+      mt={order === 2 ? "xl" : "lg"}
       mb="xs"
       style={{ scrollMarginTop: `${String(CHROME_HEIGHT + 24)}px` }}
     >
@@ -77,7 +77,7 @@ export const MDX_COMPONENTS = {
   h1: (props: Wrap) => <Section order={2} size="h3" {...props} />,
   h2: (props: Wrap) => <Section order={2} size="h3" {...props} />,
   h3: (props: Wrap) => <Section order={3} size="h5" {...props} />,
-  h4: (props: object) => <Title order={4} fz="h6" c="text.primary" mt="lg" {...props} />,
+  h4: (props: object) => <Title order={4} fz="h6" c="text.primary" mt="md" {...props} />,
   p: (props: object) => <Text c="text.secondary" lh="relaxed" maw={MEASURE} {...props} />,
   a: (props: object) => <Anchor {...props} />,
   code: (props: object) => <Code {...props} />,
@@ -86,7 +86,7 @@ export const MDX_COMPONENTS = {
   ol: (props: object) => <List type="ordered" c="text.secondary" maw={MEASURE} {...props} />,
   li: (props: object) => <List.Item {...props} />,
   blockquote: (props: object) => <Blockquote my="md" {...props} />,
-  hr: () => <Divider my="lg" />,
+  hr: () => <Divider my="md" />,
   table: (props: Wrap) => (
     <Table.ScrollContainer minWidth={520} my="md">
       <Table {...props} />
