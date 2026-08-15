@@ -10,7 +10,7 @@ storybook-static/
 .next/
 out/
 *.tsbuildinfo
-test/
+tests/
 
 # turbo
 .turbo/
