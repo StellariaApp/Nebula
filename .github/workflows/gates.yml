@@ -140,37 +140,62 @@ jobs:
       - name: a11y
         run: pnpm turbo a11y
 
-  # El gate de regresion visual NO corre aqui, y no por olvido.
+  # El gate 8 — regresion visual. Corre aqui desde ADR-149.
   #
-  # Compara pixeles contra un baseline versionado POR PLATAFORMA
-  # (apps/playground-web/__snapshots__/visual/<plataforma>/), y hoy solo existe
-  # el de win32: en un runner Linux no habria contra que comparar. Y generar uno
-  # tampoco lo cierra — el antialiasing y la sintesis de fuentes difieren entre
-  # maquinas mas que el umbral del 0,1 % que fija ADR-112, asi que el gate
-  # empezaria a dar falsos positivos y en dos semanas nadie lo miraria.
+  # Lo que lo tenia parado era que el aspecto dependia de la maquina: el baseline
+  # solo existia para win32 y regenerarlo en otra parte daba falsos positivos por
+  # encima del umbral del 0,1 %. La causa concreta eran las fuentes del host, y
+  # ADR-148 la quito de en medio — el playground sirve su propia Geist.
   #
-  # Cerrarlo pide una de dos, y las dos son decision aparte (ADR-037 §3 pide un
-  # «entorno unico» y no dice cual):
-  #   - generar el baseline DENTRO de un contenedor fijo, que pasa a SER ese
-  #     entorno unico y sustituye a la maquina de quien lo genera;
-  #   - o delegar la captura en un servicio externo.
+  # Lo que quedaba por fijar era el navegador, y eso lo hace la imagen oficial de
+  # Playwright usada como contenedor del job. Anclada POR DIGEST: la etiqueta se
+  # mueve y el digest no, y una actualizacion silenciosa repintaria las 78
+  # laminas sin que nadie supiera por que.
   #
-  # Mientras tanto se corre a mano con `pnpm visual`. Este job existe para que
-  # el hueco se vea en cada PR en lugar de desaparecer. Acompana a los gates:
-  # recordarlo en cada push corriente seria ruido, recordarlo antes de publicar
-  # es justo cuando importa.
-  visual-a-mano:
-    name: regresion visual — a mano, ver el porque
+  # La version no es libre: playground-web resuelve playwright@1.61.1 y la imagen
+  # trae ese Chromium. Subir uno obliga a subir el otro EN EL MISMO PR, y a
+  # regenerar el baseline.
+  #
+  # OJO en la primera pasada: no existe __snapshots__/visual/linux/, asi que esta
+  # genera las 78 laminas en vez de compararlas. Se descargan del artefacto y se
+  # comprometen; hasta entonces el gate esta armado pero vacio.
+  visual:
+    name: regresion visual (contenedor anclado)
     if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 30
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-noble@sha256:5b8f294aff9041b7191c34a4bab3ac270157a28774d4b0660e9743297b697e48
+    concurrency:
+      group: visual-${{ github.ref }}
+      cancel-in-progress: true
     steps:
-      - name: Por que este gate no corre en CI
-        run: |
-          echo "Baseline visual versionado por plataforma; hoy solo existe win32."
-          echo "Un runner Linux no tiene contra que comparar, y regenerarlo daria"
-          echo "falsos positivos sobre el umbral del 0,1 % (ADR-037 §3, ADR-112)."
-          echo "Se corre a mano: pnpm visual"
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # La imagen ya trae el navegador; `playwright install` aqui solo lo
+      # volveria a descargar y a desanclar lo que el digest fija.
+      - name: visual
+        run: pnpm turbo visual
+
+      # `always()` es lo que importa: cuando el gate falla, las capturas nuevas y
+      # los diffs son justamente lo que hay que mirar.
+      - name: laminas y diffs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-linux
+          path: apps/playground-web/__snapshots__/visual/
+          if-no-files-found: error
 
   # Publica lo que `pnpm release` haya versionado, y SOLO si los gates pasaron.
   #

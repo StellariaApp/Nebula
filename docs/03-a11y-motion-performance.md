@@ -158,6 +158,7 @@ Reglas transversales:
 | push corriente a `main`                             | `guardia` | typecheck · lint                                                                                            |
 | commit de release · PR · dispatch                   | `gates`   | build · typecheck · lint · test · `size` · `check:slots` · `check:contrast` · `check:docs` · `check:budget` |
 | commit de release · PR · dispatch                   | `a11y`    | axe sobre todas las stories (gate 1)                                                                        |
+| commit de release · PR · dispatch                   | `visual`  | regresión visual (gate 8), en contenedor anclado por digest                                                 |
 | commit de release, y solo si los dos anteriores van | `publish` | —                                                                                                           |
 
 La línea que separa las dos ramas es una sola condición sobre el asunto del commit
@@ -171,4 +172,8 @@ que esto acepta están en ADR-139.
 
 `gates` corre con `turbo --continue`: se ven **todos** los fallos en la primera vuelta en vez de descubrirlos de uno en uno.
 
-**El gate 8 —regresión visual— no corre en CI**, y es el único hueco. Su baseline está versionado por plataforma y hoy solo existe el de `win32`; un runner Linux no tendría contra qué comparar, y regenerarlo daría falsos positivos por encima del umbral del 0,1 %. El «entorno único» que pide ADR-037 §3 sigue sin candidato: cuando lo tenga será un contenedor con fuentes fijadas, y esa es una decisión aparte ([enmienda de ADR-112](adr/ADR-112-el-comparador-de-capturas-del-gate-visual.md)). Mientras tanto se corre a mano con `pnpm visual`, y el workflow lleva un job que no hace otra cosa que recordarlo cada vez que corren los gates completos —PR, dispatch y, sobre todo, el commit de release, que es cuando importa.
+**El gate 8 —regresión visual— ya corre en CI** desde [ADR-149](adr/ADR-149-el-entorno-unico-es-la-imagen-de-playwright.md), que resuelve el «entorno único» que ADR-037 §3 dejó sin nombrar: la imagen oficial `mcr.microsoft.com/playwright:v1.61.1-noble` **anclada por digest**, usada como contenedor del job. Lo que lo tenía parado era que el aspecto dependía de las fuentes del host; [ADR-148](adr/ADR-148-el-sitio-sirve-la-fuente-que-pide.md) lo quitó de en medio al hacer que el playground sirva su propia Geist, y el contenedor fija lo que quedaba, que era el navegador. La versión de la imagen y la de `playwright` en `playground-web` van casadas: subir una obliga a subir la otra en el mismo PR y a regenerar el baseline.
+
+> **Estado a 2026-08-14**: el gate está armado pero **vacío**. No existe `__snapshots__/visual/linux/`, así que la primera pasada genera las 78 láminas y las sube como artefacto en vez de comparar. Hay que descargarlas, mirarlas —el aspecto cambia respecto al baseline de `win32`, porque cambian el rasterizado y la síntesis de fuentes— y comprometerlas. Hasta entonces no verifica nada. El baseline de `win32` se queda para correr `pnpm visual` en local.
+
+**Ningún gate mide tiempo de CPU, y sigue sin medirlo.** `tools/hydration-measure` existe desde P0 del [plan de performance](reviews/plan-performance-web-2026-08-14.md), pero no entra como gate: los runners compartidos tienen la misma varianza que midió P0 §4 (~30 % de suelo de detección), y un gate que falla al azar acaba ignorado. Es la deuda declarada de esta sección.
