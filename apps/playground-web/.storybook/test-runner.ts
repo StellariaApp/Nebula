@@ -53,17 +53,21 @@ const MOTION_SETTLE_MS = 2500;
  * —la misma vía que unifica ADR-034—, y `animations: "disabled"` en la captura, que congela las
  * decorativas infinitas que el gate de axe ya no puede esperar.
  *
- * El baseline lleva la plataforma en su ruta (ADR-112) porque el «entorno único» del §3 es hoy la
- * máquina de quien lo genera. `.github/workflows/gates.yml` corre los otros ocho gates y deja este
- * fuera a propósito, con el motivo escrito ahí: en Linux no hay baseline contra el que comparar, y
- * regenerarlo daría falsos positivos por encima del umbral del 0,1 %. Se corre a mano.
+ * El baseline lleva la plataforma en su ruta (ADR-112). Desde ADR-149 el «entorno único» del §3 es la
+ * imagen de Playwright anclada por digest, así que `linux` es el baseline que manda y `win32` queda
+ * para correrlo en local antes de abrir un PR.
  *
  * Se enciende por el nombre del script que arranca la cadena y no por un `VAR=valor` en línea, que en
  * Windows no es sintaxis válida. `npm_lifecycle_event` lo hereda todo el árbol de procesos, así que
  * llega igual a través de `concurrently`.
+ *
+ * El prefijo importa: `visual:update` regenera el baseline y es tan «visual» como `visual`. Con una
+ * comparación exacta se iba por la rama de axe —14 minutos de accesibilidad, cero capturas y el job
+ * en verde—, que es la peor forma de fallar que hay.
  */
 const VISUAL =
-  process.env["NEBULA_GATE"] === "visual" || process.env["npm_lifecycle_event"] === "visual";
+  process.env["NEBULA_GATE"] === "visual" ||
+  process.env["npm_lifecycle_event"]?.startsWith("visual") === true;
 const VIEWPORT = { width: 1280, height: 900 };
 
 /**
