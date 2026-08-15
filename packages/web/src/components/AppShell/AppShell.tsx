@@ -9,12 +9,13 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
-import * as variables from "./AppShell.vars.css.js";
 import * as styles from "./AppShell.css.js";
+import * as variables from "./AppShell.vars.css.js";
 import { AppShellContext } from "./AppShellContext.js";
 
-import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./constants.js";
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
+import { AppShellMain } from "./components/Main.js";
+import { CHROME_HEIGHT, SIDEBAR_WIDTH } from "./constants.js";
 
 const DEFAULT_LABELS: AppShellLabels = {
   skipToContent: "Skip to content",
@@ -46,6 +47,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     collapsedWidth = 0,
     sidebarCollapsed = false,
     sidebarMiniWidth = 76,
+    railCollapse = "mini",
     collapsible = true,
     padded = true,
     labels,
@@ -74,6 +76,7 @@ export function AppShell(props: AppShellProps): ReactElement {
     collapsed,
     navigationLabel: text.navigation,
     complementaryLabel: text.complementary,
+    railCollapse,
   };
 
   const css_vars = assignInlineVars({
@@ -95,12 +98,14 @@ export function AppShell(props: AppShellProps): ReactElement {
         <div
           className={cx(
             styles.rail,
+            railCollapse === "hidden" ? styles.rail_hidden : undefined,
             contentWidth === undefined ? undefined : styles.bounded,
             sprinkle_class,
             className,
           )}
           style={{ ...css_vars, ...sprinkle_style }}
           data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
+          data-rail-collapse={railCollapse}
         >
           <a
             href={`#${content_id}`}
@@ -116,14 +121,11 @@ export function AppShell(props: AppShellProps): ReactElement {
             </Box>
           )}
           {sidebar}
-          <Box
-            component="main"
+          <AppShellMain
+            id={content_id}
             {...(mainRef === undefined ? {} : { ref: mainRef })}
-
             tabIndex={-1}
             {...mainProps}
-            id={content_id}
-            className={cx(styles.main, mainProps?.className)}
           >
             {scrollShadow ? (
               <Box
@@ -133,7 +135,7 @@ export function AppShell(props: AppShellProps): ReactElement {
               />
             ) : null}
             {children}
-          </Box>
+          </AppShellMain>
         </div>
       </AppShellContext.Provider>
     );
@@ -153,17 +155,14 @@ export function AppShell(props: AppShellProps): ReactElement {
         {header}
         {navbar}
 
-        <Box
-          component="main"
-
+        <AppShellMain
+          id={content_id}
           tabIndex={-1}
           data-padded={padded ? "true" : undefined}
           {...mainProps}
-          id={content_id}
-          className={cx(styles.main, mainProps?.className)}
         >
           {children}
-        </Box>
+        </AppShellMain>
 
         {aside}
         {footer}

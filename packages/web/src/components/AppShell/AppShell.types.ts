@@ -14,6 +14,8 @@ export interface AppShellLabels {
   complementary: string;
 }
 
+export type AppShellRailCollapse = "mini" | "hidden";
+
 export interface AppShellProps extends StyleProps {
   /** The skip-to-content link, visible only when focused. It exists in both layouts. */
   skipProps?: ComponentPropsWithoutRef<"a"> | undefined;
@@ -54,6 +56,14 @@ export interface AppShellProps extends StyleProps {
   /** Third rail state: the bar shrinks to `sidebarMiniWidth` and its labels are hidden. */
   sidebarCollapsed?: boolean | undefined;
   sidebarMiniWidth?: number | undefined;
+  /**
+   * What the rail does when the viewport stops fitting it (ADR-150). `"mini"` shrinks it to icons
+   * below `laptop` and lays it out as a bottom bar below `tablet`. `"hidden"` withdraws it below
+   * `laptop` and reserves no space for it — the shell cannot know its links are reachable, so pass
+   * this only when another surface below that point carries them. Rail layout only.
+   * @default "mini"
+   */
+  railCollapse?: AppShellRailCollapse | undefined;
   chromeHeight?: number | undefined;
   /** The `main` is what scrolls in the rail layout; it is exposed so you can hook a parallax background to it. */
   mainRef?: RefObject<HTMLElement | null> | undefined;

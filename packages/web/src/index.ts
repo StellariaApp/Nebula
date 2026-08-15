@@ -466,6 +466,7 @@ export type {
   AppShellProps,
   AppShellFooterProps,
   AppShellNavProps,
+  AppShellRailCollapse,
   AppShellSectionProps,
   AppShellSidebarProps,
   AppShellSubbarProps,

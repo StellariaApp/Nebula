@@ -78,8 +78,27 @@ no produce un `<nav>`. Es explícito a propósito.
 ## El estado colapsado viaja por contexto
 
 `inert` no es CSS, así que el `Nav` tiene que saber si la barra está colapsada. El root publica
-`{ collapsed, navigationLabel, complementaryLabel }` por contexto y `Nav` y `Aside` los leen. Es lo
-que permite que la parte sea autónoma sin que el consumidor tenga que reenviar el estado a mano.
+`{ collapsed, navigationLabel, complementaryLabel, railCollapse }` por contexto y `Nav`, `Aside` y
+`Sidebar` los leen. Es lo que permite que la parte sea autónoma sin que el consumidor tenga que
+reenviar el estado a mano.
+
+## `railCollapse` decide si el carril se estrecha o se retira
+
+ADR-150. Con `"mini"` —el default, y lo que el modo carril hizo siempre— el carril se estrecha a
+iconos por debajo de `laptop` y se tiende como barra inferior por debajo de `tablet`. Con `"hidden"`
+se retira por debajo de `laptop`.
+
+Va por contexto y no como prop del `Sidebar` porque **son dos reglas que tienen que dispararse a la
+vez**: el hueco del carril no lo reserva el carril, lo reserva el grid de la raíz —la columna mini y,
+bajo `tablet`, el `margin-block-end` de la barra inferior—. Esconder el `<aside>` por fuera deja las
+reservas puestas y el resultado es una columna vacía, que es un fallo que no rompe nada y por eso no
+se ve.
+
+`"hidden"` no reduce la navegación, la muda de sitio: los enlaces del carril tienen que estar en otra
+superficie por debajo del corte. `AppShell` no puede comprobarlo y ningún gate lo detecta —el
+contrato de `docs/03` mide lo que hay en el DOM, no lo que falta—, así que es responsabilidad de
+quien pasa la prop. En `apps/web` esa superficie es el cajón del hamburger, que por eso se pliega en
+`laptop` y no en `tablet`.
 
 ## `chromeHeight` alinea el cromado por construcción
 

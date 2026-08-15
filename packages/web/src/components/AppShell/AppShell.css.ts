@@ -7,8 +7,8 @@ import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import * as glass_surface_vars from "../GlassSurface/GlassSurface.vars.css.js";
-import * as variables from "./AppShell.vars.css.js";
 import * as NavLinkStyles from "../NavLink/NavLink.css.js";
+import * as variables from "./AppShell.vars.css.js";
 
 const GLASS_EDGE = fallbackVar(glass_surface_vars.borderColor, vars.color.border.default);
 
@@ -30,6 +30,7 @@ export const shell = style({
 export const main = style({
   "@layer": {
     [composite_layer]: {
+      display: "flex",
       gridArea: "main",
       minWidth: 0,
       minHeight: 0,
@@ -95,6 +96,34 @@ export const rail = style({
           blockSize: `calc(100dvh - ${RAIL_BAR_SPACE})`,
           marginBlockEnd: RAIL_BAR_SPACE,
         },
+      },
+    },
+  },
+});
+
+/** ADR-150: retirar el carril es retirar también su hueco, que lo reserva la raíz y no él. */
+export const rail_hidden = style({
+  "@layer": {
+    [composite_layer]: {
+      "@media": {
+        [SmallerThan("laptop")]: {
+          gridTemplateAreas: `"chrome" "main"`,
+          gridTemplateColumns: "1fr",
+        },
+        [SmallerThan("tablet")]: {
+          blockSize: "100dvh",
+          marginBlockEnd: 0,
+        },
+      },
+    },
+  },
+});
+
+export const sidebar_hidden = style({
+  "@layer": {
+    [composite_layer]: {
+      "@media": {
+        [SmallerThan("laptop")]: { display: "none" },
       },
     },
   },
@@ -521,7 +550,11 @@ export const chrome = style({
 
 export const section = style({
   "@layer": {
-    [composite_layer]: { display: "flex", flexDirection: "column", minWidth: 0 },
+    [composite_layer]: {
+      display: "flex",
+      flexDirection: "column",
+      width: "stretch",
+    },
   },
 });
 
@@ -581,7 +614,12 @@ export const section_sub = style({
 
 export const content = style({
   "@layer": {
-    [composite_layer]: { padding: vars.space.lg, minWidth: 0 },
+    [composite_layer]: {
+      display: "flex",
+      flexDirection: "column",
+      width: "stretch",
+      padding: vars.space.lg,
+    },
   },
 });
 

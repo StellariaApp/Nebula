@@ -12,6 +12,7 @@ import { GlassSurface } from "../../GlassSurface/GlassSurface.js";
 
 import * as styles from "../AppShell.css.js";
 import type { AppShellSidebarProps, AppShellSlotProps } from "../AppShell.types.js";
+import { useAppShell } from "../AppShellContext.js";
 import { ChevronRight } from "../../../glyphs/index.js";
 
 const ACTIVE = "[data-active='true']";
@@ -62,9 +63,19 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
     ...style_rest
   } = props;
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
+  const { railCollapse } = useAppShell();
 
   return (
-    <aside className={cx(styles.sidebar, sprinkle_class, className)} style={style} {...rest}>
+    <aside
+      className={cx(
+        styles.sidebar,
+        railCollapse === "hidden" ? styles.sidebar_hidden : undefined,
+        sprinkle_class,
+        className,
+      )}
+      style={style}
+      {...rest}
+    >
       {onCollapse === undefined ? null : (
         <Box {...toggleProps} className={cx(styles.toggle, toggleProps?.className)}>
           <ActionIcon
