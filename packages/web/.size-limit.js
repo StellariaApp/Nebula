@@ -25,7 +25,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Text/Text.js",
     import: "{ Text }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "20.5 kB",
   },
   {
     name: "Button (compuesto: Aria + motion, por módulo)",
@@ -46,7 +46,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Center/Center.js",
     import: "{ Center }",
     ignore: ["react", "react-dom"],
-    limit: "19.75 kB",
+    limit: "20.25 kB",
   },
   {
     name: "Group (primitivo temable en runtime, por módulo)",
@@ -81,14 +81,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Container/Container.js",
     import: "{ Container }",
     ignore: ["react", "react-dom"],
-    limit: "21.5 kB",
+    limit: "22 kB",
   },
   {
     name: "Scroll (budget propio: arrastra el subcomponente de momentum, por módulo)",
     path: "dist/components/Scroll/Scroll.js",
     import: "{ Scroll }",
     ignore: ["react", "react-dom"],
-    limit: "24.5 kB",
+    limit: "25.25 kB",
   },
   {
     name: "Divider (primitivo temable en runtime, por módulo)",
@@ -109,7 +109,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/AspectRatio/AspectRatio.js",
     import: "{ AspectRatio }",
     ignore: ["react", "react-dom"],
-    limit: "20.25 kB",
+    limit: "20.75 kB",
   },
   {
     name: "Paper (primitivo temable con variantes en runtime, por módulo)",
@@ -123,7 +123,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/VisuallyHidden/VisuallyHidden.js",
     import: "{ VisuallyHidden }",
     ignore: ["react", "react-dom"],
-    limit: "19.75 kB",
+    limit: "20.25 kB",
   },
   {
     name: "Portal (utilidad, por módulo)",
@@ -179,7 +179,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Anchor/Anchor.js",
     import: "{ Anchor }",
     ignore: ["react", "react-dom"],
-    limit: "20.5 kB",
+    limit: "21 kB",
   },
   {
     name: "GradientText (primitivo temable en runtime, por módulo)",
@@ -207,7 +207,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Code/Code.js",
     import: "{ Code }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "20.5 kB",
   },
   {
     name: "Blockquote (primitivo con color extendido, por módulo)",
@@ -221,7 +221,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/List/List.js",
     import: "{ List }",
     ignore: ["react", "react-dom"],
-    limit: "21.75 kB",
+    limit: "22.25 kB",
   },
   {
     name: "UnstyledButton (comportamiento React Aria, por módulo)",
@@ -690,7 +690,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Skeleton/Skeleton.js",
     import: "{ Skeleton }",
     ignore: ["react", "react-dom"],
-    limit: "22.25 kB",
+    limit: "22.75 kB",
   },
   {
     name: "Progress (bar + ring con variantes, por módulo)",
@@ -809,7 +809,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Kbd/Kbd.js",
     import: "{ Kbd }",
     ignore: ["react", "react-dom"],
-    limit: "20 kB",
+    limit: "20.5 kB",
   },
   {
     name: "Stat (primitivo temable en runtime, por módulo)",
@@ -942,14 +942,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/AppShell/AppShell.js",
     import: "{ AppShell }",
     ignore: ["react", "react-dom"],
-    limit: "23.75 kB",
+    limit: "25.25 kB",
   },
   {
     name: "Panel (master-detail con separador operable, por módulo)",
     path: "dist/components/Panel/Panel.js",
     import: "{ Panel }",
     ignore: ["react", "react-dom"],
-    limit: "21 kB",
+    limit: "21.5 kB",
   },
   {
     name: "Section (patrón con estados de carga y error, por módulo)",
@@ -963,7 +963,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Main/Main.js",
     import: "{ Main }",
     ignore: ["react", "react-dom"],
-    limit: "24.5 kB",
+    limit: "25.25 kB",
   },
   {
     name: "Header (cabecera de pantalla: ActionIcon de vuelta, por módulo)",
@@ -1260,7 +1260,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Charts/ChartPanel.js",
     import: "{ ChartPanel }",
     ignore: ["react", "react-dom"],
-    limit: "21.75 kB",
+    limit: "22.25 kB",
   },
   {
     name: "CodeHighlight (sin resaltador, por módulo)",

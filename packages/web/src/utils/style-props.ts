@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { palettes, type ColorExtended } from "@stellaria/nebula-tokens";
+
 import {
   FONT_LEADING,
   RESPONSIVE_PROPS,
@@ -76,9 +78,13 @@ type LooseString = string & Record<never, never>;
 
 type TokenKey<S extends TokenScale> = keyof (typeof TOKEN_VALUES)[S] & string;
 
+type ScaleKey<S extends TokenScale> = S extends "color" | "role"
+  ? ColorExtended | TokenKey<S>
+  : TokenKey<S>;
+
 type Primitive<Spec> = Spec extends { keywords: readonly (infer K)[] }
   ? K
-  : | (Spec extends { token: infer T extends TokenScale } ? TokenKey<T> : never)
+  : | (Spec extends { token: infer T extends TokenScale } ? ScaleKey<T> : never)
     | (Spec extends { open: true }
         ? Spec extends { length: true }
           ? number | LooseString
@@ -102,15 +108,28 @@ function ToCssLength(value: number | string): string {
   return typeof value === "number" ? `${String(value)}px` : value;
 }
 
-function AlphaTones(scale: TokenScale | undefined): Record<string, string> | undefined {
-  return scale === "color" || scale === "role" ? TOKEN_VALUES[scale] : undefined;
+const SEEDS: Record<string, Record<string, string> | undefined> = palettes;
+
+const DEFAULT_SHADE = "600";
+
+function IsColorScale(scale: TokenScale | undefined): boolean {
+  return scale === "color" || scale === "role";
 }
 
-function ResolveOpacity(
-  tones: Record<string, string> | undefined,
-  value: unknown,
-): string | undefined {
-  if (tones === undefined || typeof value !== "string") return undefined;
+function ColorTone(key: string): string | undefined {
+  const themed: Record<string, string | undefined> = TOKEN_VALUES.color;
+  const direct = themed[key];
+  if (direct !== undefined) return direct;
+
+  const cut = key.indexOf(".");
+  if (cut === -1) return themed[`${key}.${DEFAULT_SHADE}`] ?? SEEDS[key]?.[DEFAULT_SHADE];
+
+  return SEEDS[key.slice(0, cut)]?.[key.slice(cut + 1)];
+}
+
+function ResolveOpacity(scale: TokenScale | undefined, value: unknown): string | undefined {
+  if (!IsColorScale(scale) || typeof value !== "string") return undefined;
+  if (ColorTone(value) !== undefined) return undefined;
 
   const cut = value.lastIndexOf(".");
   if (cut <= 0 || cut === value.length - 1) return undefined;
@@ -118,7 +137,7 @@ function ResolveOpacity(
   const percent = Number(value.slice(cut + 1));
   if (!Number.isFinite(percent)) return undefined;
 
-  const tone = tones[value.slice(0, cut)];
+  const tone = ColorTone(value.slice(0, cut));
   return tone === undefined
     ? undefined
     : `color-mix(in srgb, ${tone} ${String(percent)}%, transparent)`;
@@ -167,8 +186,12 @@ function IsKnown(spec: PropSpec, value: unknown): boolean {
 function OpenValue(spec: PropSpec, value: unknown): string | undefined {
   const token = TokenValue(spec, value);
   if (token !== undefined) return token;
-  const mixed = ResolveOpacity(AlphaTones(spec.token), value);
+  const mixed = ResolveOpacity(spec.token, value);
   if (mixed !== undefined) return mixed;
+  if (IsColorScale(spec.token) && typeof value === "string") {
+    const tone = ColorTone(value);
+    if (tone !== undefined) return tone;
+  }
   if (typeof value === "number") return spec.length === true ? `${String(value)}px` : String(value);
   if (typeof value === "string") return value;
   return undefined;
@@ -183,7 +206,7 @@ function NeedsOpenLane(name: string, spec: PropSpec, value: unknown): boolean {
   if (!PROP_KIND.has(name)) return true;
   if (spec.keywords !== undefined) return false;
   if (spec.token === undefined) return false;
-  return !IsKnown(spec, value) && ResolveOpacity(AlphaTones(spec.token), value) === undefined;
+  return !IsKnown(spec, value) && ResolveOpacity(spec.token, value) === undefined;
 }
 
 function CollectRest(props: Record<string, unknown>): Record<string, unknown> {
@@ -239,13 +262,18 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
 
     if (kind === KIND_COLOR) {
       const css = COLOR_PROPS[key as ColorProp];
-      const mixed = ResolveOpacity(
-        css === "borderColor" ? TOKEN_VALUES.role : TOKEN_VALUES.color,
-        value,
-      );
+      const mixed = ResolveOpacity("color", value);
       if (mixed !== undefined) {
         style ??= { ...own_style };
         Object.assign(style, { [css]: mixed });
+        continue;
+      }
+
+      const atomic: Record<string, string | undefined> =
+        css === "borderColor" ? TOKEN_VALUES.role : TOKEN_VALUES.color;
+      if (typeof value === "string" && atomic[value] === undefined) {
+        style ??= { ...own_style };
+        Object.assign(style, { [css]: ColorTone(value) ?? value });
         continue;
       }
     }

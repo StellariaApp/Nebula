@@ -107,7 +107,7 @@
     },
     {
       "name": "Anchor",
-      "budget": "20.5 kB",
+      "budget": "21 kB",
       "boundary": "server",
       "themeKeys": [
         "radius.xs"
@@ -127,7 +127,7 @@
     },
     {
       "name": "AppShell",
-      "budget": "23.75 kB",
+      "budget": "25.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -152,7 +152,7 @@
     },
     {
       "name": "AspectRatio",
-      "budget": "20.25 kB",
+      "budget": "20.75 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -407,7 +407,7 @@
     },
     {
       "name": "Center",
-      "budget": "19.75 kB",
+      "budget": "20.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -477,7 +477,7 @@
     },
     {
       "name": "Code",
-      "budget": "20 kB",
+      "budget": "20.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -582,7 +582,7 @@
     },
     {
       "name": "Container",
-      "budget": "21.5 kB",
+      "budget": "22 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1195,7 +1195,7 @@
     },
     {
       "name": "Kbd",
-      "budget": "20 kB",
+      "budget": "20.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -1230,7 +1230,7 @@
     },
     {
       "name": "List",
-      "budget": "21.75 kB",
+      "budget": "22.25 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -1262,7 +1262,7 @@
     },
     {
       "name": "Main",
-      "budget": "24.5 kB",
+      "budget": "25.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -1512,7 +1512,7 @@
     },
     {
       "name": "Panel",
-      "budget": "21 kB",
+      "budget": "21.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border"
@@ -1681,7 +1681,7 @@
     },
     {
       "name": "Scroll",
-      "budget": "24.5 kB",
+      "budget": "25.25 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -1812,7 +1812,7 @@
     },
     {
       "name": "Skeleton",
-      "budget": "22.25 kB",
+      "budget": "22.75 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -1992,7 +1992,7 @@
     },
     {
       "name": "Text",
-      "budget": "20 kB",
+      "budget": "20.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -2163,7 +2163,7 @@
     },
     {
       "name": "VisuallyHidden",
-      "budget": "19.75 kB",
+      "budget": "20.25 kB",
       "boundary": "server",
       "themeKeys": []
     }

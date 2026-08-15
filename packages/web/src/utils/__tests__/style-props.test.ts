@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { palettes } from "@stellaria/nebula-tokens";
+
 import { ExtractStyleProps } from "../style-props.js";
 
 describe("ExtractStyleProps", () => {
@@ -123,11 +125,19 @@ describe("ExtractStyleProps · opacidad sobre peldaños de escala (ADR-140)", ()
     expect(result.style).toBeUndefined();
   });
 
-  it("una familia que no está en el contrato cae cruda al carril abierto", () => {
+  it("una familia semilla resuelve a su hex, no cae cruda", () => {
     const result = ExtractStyleProps({ bg: "red.400.50" });
 
+    expect(result.style?.background).toBe(
+      `color-mix(in srgb, ${palettes.red["400"]} 50%, transparent)`,
+    );
+  });
+
+  it("un nombre que no es color ni semilla sigue cayendo crudo", () => {
+    const result = ExtractStyleProps({ bg: "nosuchfamily.400.50" });
+
     expect(result.style?.background).toBeUndefined();
-    expect(result.style).toMatchObject({ "--nb-bg": "red.400.50" });
+    expect(result.style).toMatchObject({ "--nb-bg": "nosuchfamily.400.50" });
   });
 
   it("los literales admiten opacidad", () => {
@@ -136,9 +146,88 @@ describe("ExtractStyleProps · opacidad sobre peldaños de escala (ADR-140)", ()
     );
   });
 
-  it("bdc conserva su alcance de rol: una escala no resuelve ni con alpha", () => {
-    expect(ExtractStyleProps({ bdc: "accent.500.40" }).style?.borderColor).toBeUndefined();
+  it("bdc alcanza escalas y roles, ambos con alpha", () => {
+    expect(ExtractStyleProps({ bdc: "accent.500.40" }).style?.borderColor).toContain("40%");
     expect(ExtractStyleProps({ bdc: "border.subtle.40" }).style?.borderColor).toContain("40%");
+  });
+
+  it("un rol de bdc sin alpha sigue saliendo por sprinkles", () => {
+    const result = ExtractStyleProps({ bdc: "border.subtle" });
+
+    expect(result.className).toBeDefined();
+    expect(result.style).toBeUndefined();
+  });
+
+  it("una paleta cruda resuelve a su hex de tokens", () => {
+    const result = ExtractStyleProps({ c: "pink.300" });
+
+    expect(palettes.pink["300"]).toMatch(/^#[0-9a-f]{6}$/i);
+    expect(result.style).toMatchObject({ "--nb-c": palettes.pink["300"] });
+  });
+
+  it("una paleta cruda admite opacidad", () => {
+    const result = ExtractStyleProps({ bg: "teal.400.30" });
+
+    expect(result.style?.background).toBe(
+      `color-mix(in srgb, ${palettes.teal["400"]} 30%, transparent)`,
+    );
+  });
+
+  it("un peldaño de paleta cruda no se confunde con una opacidad", () => {
+    const result = ExtractStyleProps({ bg: "pink.300" });
+
+    expect(result.style?.background).toBeUndefined();
+    expect(result.style).toMatchObject({ "--nb-bg": palettes.pink["300"] });
+  });
+
+  it("una familia sin peldaño cae al 600, como ResolveAccent", () => {
+    expect(ExtractStyleProps({ c: "teal" }).style).toMatchObject({
+      "--nb-c": palettes.teal["600"],
+    });
+    expect(Object.values(ExtractStyleProps({ c: "primary" }).style ?? {})[0]).toMatch(
+      /^var\(--color-primary-600/,
+    );
+  });
+
+  it("bdc alcanza lo mismo que c: escalas del tema y paletas crudas", () => {
+    expect(Object.values(ExtractStyleProps({ bdc: "accent.500" }).style ?? {})[0]).toMatch(
+      /^var\(--color-accent-500/,
+    );
+    expect(ExtractStyleProps({ bdc: "pink.300" }).style).toMatchObject({
+      "--nb-bdc": palettes.pink["300"],
+    });
+    expect(ExtractStyleProps({ bdc: "pink.300.40" }).style?.borderColor).toContain("40%");
+  });
+
+  it("los alias largos resuelven sin llegar a sprinkles", () => {
+    expect(() => ExtractStyleProps({ borderColor: "pink.300" })).not.toThrow();
+    expect(ExtractStyleProps({ borderColor: "pink.300" }).style?.borderColor).toBe(
+      palettes.pink["300"],
+    );
+    expect(ExtractStyleProps({ background: "#3F37C9" }).style?.background).toBe("#3F37C9");
+  });
+
+  it("semilla plana y semilla con alpha conviven en la misma etiqueta", () => {
+    const result = ExtractStyleProps({
+      fz: "body2",
+      c: "pink.300",
+      bg: "teal.400.30",
+      maw: "52ch",
+    });
+
+    expect(result.className).toBeDefined();
+    expect(result.style).toMatchObject({
+      "--nb-c": palettes.pink["300"],
+      background: `color-mix(in srgb, ${palettes.teal["400"]} 30%, transparent)`,
+      maxWidth: "52ch",
+    });
+  });
+
+  it("un rol sigue ganando a una semilla con el mismo nombre de peldaño", () => {
+    const result = ExtractStyleProps({ bg: "gray.50" });
+
+    expect(result.className).toBeDefined();
+    expect(result.style).toBeUndefined();
   });
 
   it("una escala de espaciado nunca se lee como color", () => {
