@@ -1,0 +1,13 @@
+{
+  "name": "nebula-tools-hydration-measure",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mide el coste de arranque de una ruta del sitio: TBT, tareas largas, FCP y LCP bajo throttling de CPU — el instrumento de P0 del plan de performance",
+  "scripts": {
+    "measure": "node measure.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}
