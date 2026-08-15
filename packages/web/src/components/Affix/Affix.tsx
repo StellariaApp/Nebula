@@ -1,5 +1,3 @@
-"use client";
-
 import type { CSSProperties, ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
