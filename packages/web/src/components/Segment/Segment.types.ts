@@ -11,7 +11,7 @@ export interface SegmentItemData {
   disabled?: boolean | undefined;
 }
 
-export type SegmentSize = "sm" | "md" | "lg" | "xl";
+export type SegmentSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type SegmentVariant = Extract<Variant, "filled" | "light">;
 

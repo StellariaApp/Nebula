@@ -222,16 +222,37 @@ información de estado de un componente de UI, que WCAG 2.2 exige que sea percep
 1.4.11), y dos labels que solo difieren en tono no lo garantizan. `Tabs`, que es un atajo sobre este
 compound, hereda el mismo subconjunto.
 
-## Por qué `size` empieza en `sm` y no en `xs` (ADR-047)
+## La escala está desplazada un peldaño (ADR-047)
 
 `docs/06` §4.1 fija que lo interactivo usa `sizes.control` **desplazada un peldaño**, y que por debajo
 de `control.xs` no hay peldaño al que desplazarse. Un `radiogroup` o un `tablist` son objetivos
 táctiles, así que la otra escala —`sizes.compact`— está vedada aquí: la propia sección dice que lo que
 la consuma no puede ser interactivo, aunque sus valores (20–36) aterricen casi exactos sobre el diseño.
 
-De ahí que `md` sea `control.sm` (32) y no `control.md` (40), y que `SegmentSize` no ofrezca `xs`. Es la
-misma decisión que ya tomó `Pagination`, y por el mismo motivo: **un `Segment md` alinea con un input
-`sm`**. `Tabs` lo hereda porque es un atajo sobre este compound.
+De ahí que `md` sea `control.sm` (32) y no `control.md` (40). Es la misma decisión que ya tomó
+`Pagination`, y por el mismo motivo: **un `Segment md` alinea con un input `sm`**. `Tabs` lo hereda
+porque es un atajo sobre este compound.
+
+## `xs` encoge el cromado, no el objetivo (ADR-151)
+
+Esta sección decía que `SegmentSize` no ofrecía `xs`, y la razón que daba —no hay peldaño de
+`control` por debajo de `xs`— sigue siendo cierta. Lo que estaba mal era la conclusión: en un
+`Segment sm` de 48 px, **solo 28 son el tab**; los otros 20 son el `padding` del contenedor. Lo que
+sobra cuando el control se ve grande es el aire, no el objetivo.
+
+```
+             tab      padding    alto total    fuente
+  xs         28         6          40 px       caption (12)
+  sm         28        10          48 px       body3   (13)
+```
+
+`xs` comparte `minHeight` con `sm` a propósito. Bajarlo a `control.xxs` (20) daba el tamaño que se
+pedía e incumplía **WCAG 2.2 SC 2.5.8 «Target Size (Minimum)», que es AA** y exige 24×24: la
+excepción de espaciado no aplica porque los tabs de un segmento se tocan. El suelo táctil no se
+negocia peldaño a peldaño, así que por debajo de `sm` la escala da menos aire y el mismo objetivo.
+
+Cualquier peldaño futuro por debajo de `xs` sigue esa regla. Si hace falta un control realmente
+diminuto, no es un `Segment`.
 
 ## Los dos `4px` del contenedor son el mismo valor
 

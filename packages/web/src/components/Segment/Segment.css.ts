@@ -45,17 +45,21 @@ export const control = recipe({
   },
   variants: {
     size: {
+      xs: {
+        padding: vars.space.u1_5,
+        borderRadius: `calc(${vars.size.control.xs} + ${vars.space.u1_5} * 2)`,
+      },
       sm: {
-        borderRadius: vars.radius.xl,
+        borderRadius: `calc(${vars.size.control.xs} + ${vars.space.u2_5} * 2)`,
       },
       md: {
-        borderRadius: `calc(${vars.radius.xl} * 1.12)`,
+        borderRadius: `calc(${vars.size.control.sm} + ${vars.space.u2_5} * 2)`,
       },
       lg: {
-        borderRadius: `calc(${vars.radius.xl} * 1.24)`,
+        borderRadius: `calc(${vars.size.control.md} + ${vars.space.u2_5} * 2)`,
       },
       xl: {
-        borderRadius: `calc(${vars.radius.xl} * 1.32)`,
+        borderRadius: `calc(${vars.size.control.lg} + ${vars.space.u2_5} * 2)`,
       },
     },
     fullWidth: {
@@ -87,6 +91,7 @@ export const indicator = recipe({
       [primitive_layer]: {
         position: "absolute",
         bottom: vars.space.xs,
+        top: vars.space.u2_5,
         insetInlineStart: 0,
         background: variables.indicatorColor,
         borderRadius: vars.radius.full,
@@ -98,21 +103,21 @@ export const indicator = recipe({
   },
   variants: {
     size: {
+      xs: {
+        height: vars.size.control.xs,
+        top: vars.space.u1_5,
+      },
       sm: {
         height: vars.size.control.xs,
-        top: `calc(${vars.space.u2_5})`,
       },
       md: {
         height: vars.size.control.sm,
-        top: `calc(${vars.space.u2_5})`,
       },
       lg: {
         height: vars.size.control.md,
-        top: `calc(${vars.space.u2_5})`,
       },
       xl: {
         height: vars.size.control.lg,
-        top: `calc(${vars.space.u2_5})`,
       },
     },
     flow: {
@@ -163,6 +168,11 @@ export const tab = recipe({
   },
   variants: {
     size: {
+      xs: {
+        minHeight: vars.size.control.xs,
+        fontSize: vars.font.size.caption,
+        paddingInline: vars.space.sm,
+      },
       sm: {
         minHeight: vars.size.control.xs,
         fontSize: vars.font.size.body3,

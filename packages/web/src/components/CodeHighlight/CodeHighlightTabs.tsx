@@ -43,7 +43,7 @@ export function CodeHighlightTabs(props: CodeHighlightTabsProps): ReactElement {
       {...rest}
     >
       <Box {...tabListProps} className={cx(styles.tab_list, tabListProps?.className)}>
-        <Segment value={active} onChange={set_active} size="sm">
+        <Segment value={active} onChange={set_active} size="xs">
           <Segment.Control data={data} {...(label === undefined ? {} : { "aria-label": label })} />
         </Segment>
       </Box>
