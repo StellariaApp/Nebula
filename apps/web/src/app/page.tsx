@@ -117,10 +117,7 @@ export default async function Home() {
 
         <Hero
           size="xl"
-          mih={{
-            base: "720px",
-            laptop: "920px",
-          }}
+          mih="920px"
           ta="center"
           align="center"
           contentWidth={620}

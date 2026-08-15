@@ -69,7 +69,6 @@ export const body = style({
       flexDirection: "column",
       gap: vars.space.md,
       minWidth: 0,
-      flex: 1,
       boxSizing: "border-box",
       maxWidth: fallbackVar(variables.contentMax, "none"),
       "@media": { [SmallerThan("laptop")]: { alignItems: "center", width: "100%" } },

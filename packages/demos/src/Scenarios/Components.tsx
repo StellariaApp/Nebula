@@ -181,7 +181,7 @@ export function ScenarioComponents(): ReactElement {
       </Cell>
 
       <GradientBorder beam r="md" width={2} h="100%">
-        <Card r="inherit" p="md" h="100%">
+        <Card p="md" h="100%">
           <Box display="flex" direction="column" gap="sm" h="100%">
             <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
               The beam

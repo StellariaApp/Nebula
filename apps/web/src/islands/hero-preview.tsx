@@ -21,8 +21,19 @@ const INSTALL = "pnpm add @stellaria/nebula-web";
 export function HeroPreview({ labels }: { labels: HeroPreviewLabels }): ReactElement {
   return (
     <GradientBorder beam r="xl" width={2}>
-      <GlassSurface level="default" p="lg" r="xl" display="flex" direction="column" gap="md">
-        <Flex justify="space-between" align="center" gap="sm" wrap="wrap">
+      <GlassSurface level="default" p="lg" r="md" display="flex" direction="column" gap="md">
+        <Flex
+          direction={{
+            base: "column",
+            laptop: "row",
+          }}
+          justify={{
+            base: "center",
+            laptop: "space-between",
+          }}
+          align="center"
+          gap="sm"
+        >
           <Flex justify="center" align="center" gap="xs">
             <Code>{INSTALL}</Code>
             <ButtonCopy
