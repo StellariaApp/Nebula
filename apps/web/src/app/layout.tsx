@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+
 import "@stellaria/nebula-web/styles.css";
 
 import { ColorSchemeScript, NebulaProvider, vars } from "@stellaria/nebula-web";

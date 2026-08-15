@@ -132,6 +132,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@fontsource-variable/geist':
+        specifier: 5.3.0
+        version: 5.3.0
+      '@fontsource-variable/geist-mono':
+        specifier: 5.3.0
+        version: 5.3.0
       '@stellaria/nebula-demos':
         specifier: workspace:*
         version: link:../../packages/demos

@@ -12,6 +12,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
     "@stellaria/nebula-demos": "workspace:*",
     "@stellaria/nebula-hooks": "workspace:*",
     "@stellaria/nebula-icons": "workspace:*",
