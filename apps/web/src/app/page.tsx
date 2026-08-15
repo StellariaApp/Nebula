@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import {
   Badge,
   Box,
@@ -15,6 +14,11 @@ import {
   Text,
 } from "@stellaria/nebula-web";
 
+import {
+  DeferredBackground,
+  DeferredProductSurface,
+  DeferredThemePanel,
+} from "../islands/deferred";
 import { HeroPreview } from "../islands/hero-preview";
 import { CATALOG } from "../lib/catalog";
 import { GuidesHome } from "../lib/content";
@@ -24,10 +28,8 @@ import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
 import { SiteNav } from "../islands/site-nav";
-import { ThemePanel } from "../islands/theme-panel";
 import type { Dictionary } from "../lib/dictionary";
 import { Band } from "../ui/band";
-import { SiteBackground } from "../ui/site-background";
 import { SiteFooter } from "../ui/site-footer";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -96,9 +98,9 @@ export default async function Home() {
         skipLabel={dict["skip.content"]}
         header={<Bar dict={dict} guides={guides} />}
         footer={<SiteFooter dict={dict} />}
-        background={<SiteBackground />}
+        background={<DeferredBackground />}
       >
-        <ThemePanel
+        <DeferredThemePanel
           labels={{
             open: dict["panel.open"] ?? "",
             close: dict["panel.close"] ?? "",
@@ -175,7 +177,7 @@ export default async function Home() {
           title={dict["home.proof.title"]}
           description={dict["home.proof.body"]}
         >
-          <ProductSurface />
+          <DeferredProductSurface />
         </Band>
 
         <Band
