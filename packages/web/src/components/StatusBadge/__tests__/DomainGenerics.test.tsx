@@ -45,11 +45,11 @@ describe("StatusBadge", () => {
 
   it("las props del punto de uso ganan al descriptor", () => {
     const mapped = render(<StatusBadge<Shipment> status="shipped" map={SHIPMENT_MAP} />);
-    const with_descriptor = screen.getByText("En ruta").getAttribute("style");
+    const with_descriptor = screen.getByText("En ruta").getAttribute("class");
     mapped.unmount();
 
     render(<StatusBadge<Shipment> status="shipped" map={SHIPMENT_MAP} color="success" />);
-    expect(screen.getByText("En ruta").getAttribute("style")).not.toBe(with_descriptor);
+    expect(screen.getByText("En ruta").getAttribute("class")).not.toBe(with_descriptor);
   });
 
   it("un estado sin mapear pinta la clave cruda, no un gris silencioso", () => {

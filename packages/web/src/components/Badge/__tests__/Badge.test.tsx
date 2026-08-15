@@ -43,9 +43,19 @@ describe("Badge", () => {
 
   it("resuelve el color por var del tema, nunca por hex horneado", () => {
     const { container } = render(<Badge color="success">Pagado</Badge>);
-    const style = container.querySelector("[data-variant]")?.getAttribute("style") ?? "";
-    expect(style).toContain("var(");
-    expect(style).not.toMatch(/#[0-9a-f]{6}/i);
+    const node = container.querySelector("[data-variant]");
+    expect(node?.getAttribute("class") ?? "").toMatch(/tone_/);
+    expect(node?.getAttribute("style") ?? "").not.toMatch(/#[0-9a-f]{6}/i);
+  });
+
+  it("cada escala del tema elige una clase distinta de la matriz", () => {
+    const ClassOf = (color: "success" | "error"): string => {
+      const { container, unmount } = render(<Badge color={color}>Estado</Badge>);
+      const cls = container.querySelector("[data-variant]")?.getAttribute("class") ?? "";
+      unmount();
+      return cls;
+    };
+    expect(ClassOf("success")).not.toBe(ClassOf("error"));
   });
 
   it("acepta los cinco tamaños sin perder el contenido", () => {

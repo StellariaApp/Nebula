@@ -99,7 +99,7 @@ function IsShade(value: string): value is Shade {
   return (SHADES as readonly string[]).includes(value);
 }
 
-function IsSemanticScale(value: string): value is SemanticScaleName {
+export function IsSemanticScale(value: string): value is SemanticScaleName {
   return (SEMANTIC_SCALES as readonly string[]).includes(value);
 }
 
