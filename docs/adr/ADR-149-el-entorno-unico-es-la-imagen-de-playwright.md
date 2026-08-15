@@ -73,8 +73,28 @@ antes de abrir un PR. Lo que deja de ser es la referencia.
 - **Correrlo en local exige Docker**, que hoy no está en la máquina del propietario (ni Docker
   Desktop, ni WSL, ni Podman). No es un requisito nuevo para el día a día —`pnpm visual` sigue
   funcionando contra el baseline `win32`—, pero reproducir un fallo de CI sí lo pide.
-- **`publish` NO depende todavía de `visual`**, a propósito. Sigue con `needs: [gates, a11y]`. Atar
-  la publicación a un gate cuyo baseline aún no existe convertiría el primer release en un fallo
-  garantizado, y atarla a un baseline sin revisar es peor: bloquearía por un aspecto que nadie
-  declaró bueno. Se añade a `needs` cuando las 78 láminas de `linux` estén miradas y comprometidas —
-  y esa línea es la que convierte el gate 8 en bloqueante de verdad.
+- **`publish` depende de `visual`** desde el 2026-08-15. No lo hizo desde el principio a propósito:
+  atar la publicación a un gate cuyo baseline no existe garantiza el fallo, y atarla a uno sin
+  revisar es peor, porque bloquea por un aspecto que nadie declaró bueno. Se ató cuando las 75
+  láminas de `linux` estuvieron generadas en el contenedor y **revisadas por el propietario**. Esa
+  línea es la que convierte el gate 8 en bloqueante de verdad.
+
+## Lo que costó ponerlo en marcha — 2026-08-15
+
+Cuatro fallos encadenados, todos entre la primera corrida y el baseline comprometido. Se dejan
+escritos porque tres de los cuatro salían **en verde**, y ésos son los que cuestan de encontrar.
+
+1. **El navegador no aparecía.** La imagen lo deja en `/ms-playwright`, pero Actions fija
+   `HOME=/github/home` y Playwright lo buscaba en `$HOME/.cache`. Se fija `PLAYWRIGHT_BROWSERS_PATH`.
+2. **Y aun fijado, no llegaba.** Turbo 2 corre en `envMode: strict` y filtra lo que no esté
+   declarado. Va como `passThroughEnv` en `turbo.json`, no como `env`, porque la ruta del navegador
+   no debe entrar en el hash.
+3. **El baseline no se generaba solo.** `jest-image-snapshot` no escribe capturas nuevas en CI, así
+   que la primera pasada daba 75 «New snapshot was not written». Entra `visual:update` y el input
+   `regenerar_baseline`; generar es deliberado y se pide.
+4. **Y `visual:update` no capturaba nada.** El runner decidía por `npm_lifecycle_event === "visual"`,
+   comparación exacta, así que con `visual:update` se iba por la rama de axe: 14 minutos de
+   accesibilidad, cero capturas, **job en verde**. Pasa a comprobar el prefijo.
+
+Lo que acortó el cuarto fue instrumentar en vez de deducir: un paso que comprueba si la carpeta
+existe y lo dice en una línea, en lugar de 75 errores idénticos que no nombran la causa.

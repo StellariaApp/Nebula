@@ -273,7 +273,7 @@ jobs:
   # se puede pedir una pasada completa a mitad de trabajo sin tocar el registro.
   publish:
     name: publicar en npm
-    needs: [gates, a11y]
+    needs: [gates, a11y, visual]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
