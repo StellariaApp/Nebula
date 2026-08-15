@@ -122,12 +122,17 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(node.querySelectorAll("span")).toHaveLength(0);
   });
 
-  it("con beam enciende los cuatro lados por defecto", () => {
+  it("con los cuatro lados y continua monta un solo arco que da la vuelta entera", () => {
     render(<GradientBorder beam data-testid="gb" />);
     const node = screen.getByTestId("gb");
 
     expect(node.getAttribute("data-beam")).toBe("continuous");
-    expect(node.querySelectorAll("span > span")).toHaveLength(4);
+    expect(node.querySelectorAll("span > span")).toHaveLength(1);
+  });
+
+  it("espaciada sí reparte un arco por lado, aunque estén los cuatro", () => {
+    render(<GradientBorder beam sequence="spaced" data-testid="gb" />);
+    expect(screen.getByTestId("gb").querySelectorAll("span > span")).toHaveLength(4);
   });
 
   it("edges elige los lados y respeta el orden del marco, no el de la prop", () => {

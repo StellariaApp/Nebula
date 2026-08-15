@@ -77,6 +77,15 @@ const RUN = {
 const STREAK_LENGTH = `calc((${CQ_W} + ${CQ_H}) * 0.22)`;
 const STREAK_DEPTH = `calc(${variables.ringWidth} * 3)`;
 
+/**
+ * El recorrido entero en una sola animación. El porcentaje lo resuelve el navegador contra la
+ * longitud real del trazado, así que respeta el radio y la velocidad no cambia en las esquinas.
+ */
+export const loop = keyframes({
+  from: { offsetDistance: "0%" },
+  to: { offsetDistance: "100%" },
+});
+
 export const sweep = Object.fromEntries(
   EDGES.map((edge) => [
     edge,

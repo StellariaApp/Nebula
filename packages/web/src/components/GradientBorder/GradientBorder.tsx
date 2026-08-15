@@ -66,6 +66,7 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
 
     const lit = ALL_EDGES.filter((edge) => edges.includes(edge));
     const animated = beam && lit.length > 0 && theme.motion.tier !== "minimal";
+    const seamless = sequence === "continuous" && lit.length === ALL_EDGES.length;
     const share = (sequence === "spaced" ? ALL_EDGES.length : lit.length) as GradientBorderEdge;
     const edge_color = ResolveGradientEdge(gradient, theme);
     const tip_color = ResolveGradientTip(gradient, theme);
@@ -96,17 +97,29 @@ const GradientBorderComponent = forwardRef<HTMLElement, GradientBorderOwnProps>(
       >
         {animated ? (
           <span className={styles.beam} aria-hidden="true">
-            {lit.map((edge, index) => (
+            {seamless ? (
               <span
-                key={edge}
                 className={styles.arc}
                 style={assignInlineVars({
-                  [variables.beamSweep]: styles.sweep[edge],
-                  [variables.beamGate]: styles.gate[share],
-                  [variables.beamDelay]: `calc(${variables.beamSlot} * ${String(sequence === "spaced" ? edge - 1 : index)})`,
+                  [variables.beamSweep]: styles.loop,
+                  [variables.beamGate]: styles.gate[1],
+                  [variables.beamSlot]: variables.beamCycle,
+                  [variables.beamDelay]: "0s",
                 })}
               />
-            ))}
+            ) : (
+              lit.map((edge, index) => (
+                <span
+                  key={edge}
+                  className={styles.arc}
+                  style={assignInlineVars({
+                    [variables.beamSweep]: styles.sweep[edge],
+                    [variables.beamGate]: styles.gate[share],
+                    [variables.beamDelay]: `calc(${variables.beamSlot} * ${String(sequence === "spaced" ? edge - 1 : index)})`,
+                  })}
+                />
+              ))
+            )}
           </span>
         ) : null}
         {children}

@@ -105,18 +105,32 @@ en el centro y un fogonazo después. El barrido angular no es el barrido del per
 `offset-distance` recorre longitud, no ángulo, así que el problema desaparece en cualquier
 proporción, y de paso la velocidad de la luz deja de depender de en qué punto del lado esté.
 
-### Los tramos se miden en unidades de contenedor
+### Con los cuatro lados no hay tramos: hay una vuelta
 
-El contenedor del haz lleva `container-type: size`, y los cuatro tramos se escriben sumando `100cqw` y
-`100cqh`: el lado 1 va de `0` a `100cqw`, el 2 de `100cqw` a `100cqw + 100cqh`, y así. Sin eso no hay
-forma de decir «hasta el final del borde superior» en CSS, porque `offset-distance` en porcentaje se
-mide contra el recorrido completo y las cuatro fracciones dependen de la proporción de la caja.
+El caso por defecto —`continuous` y los cuatro lados— monta **un solo arco** que va de `0%` a `100%`
+del recorrido en un ciclo. El porcentaje lo resuelve el navegador contra la longitud real del
+trazado, así que sale gratis lo que en tramos cuesta: la velocidad es constante y el radio está
+contado.
 
-La suma trata el marco como un rectángulo recto e **ignora el radio**: el perímetro real de un
-rectángulo redondeado es algo más corto —unos `0.86r` por esquina— así que el reparto se pasa de
-largo en esa cantidad y cada lado empieza unos píxeles después del vértice. Con los radios del
-contrato sobre cajas de tamaño normal es un desfase de un dígito porcentual, y el recorrido es
-cerrado, así que el sobrante da la vuelta en lugar de acumularse.
+No es una optimización, es el arreglo de un fallo medido. Repartir el ciclo en cuatro tramos de
+`slot` cada uno da **la misma duración a longitudes distintas**: en una card de 476×82 el lado
+superior corría a 348 px/s y el derecho a 60, un salto de 5.8× en cada esquina. Y como los tramos se
+escribían sumando `100cqw` y `100cqh`, trataban el marco como un rectángulo recto: el perímetro real
+de uno redondeado es más corto —`(8 − 2π)r ≈ 1.72r` en la vuelta—, así que el reparto se pasaba de
+largo y cada lado entraba ya empezado. Con `r: 20` el lado derecho arrancaba 24.8 px por debajo del
+vértice en vez de en él.
+
+### Los tramos siguen existiendo para los subconjuntos
+
+`edges` con menos de cuatro lados, o `sequence="spaced"`, sí necesitan saber dónde acaba cada lado, y
+eso en CSS solo se puede escribir sumando `100cqw` y `100cqh` sobre un contenedor con
+`container-type: size` —en porcentaje no, porque las cuatro fracciones dependen de la proporción de
+la caja y `offset-distance` los mide contra el recorrido entero—.
+
+Esos tramos **arrastran las dos limitaciones de arriba**: ignoran el radio y dan el mismo tiempo a
+lados de distinta longitud. En un marco cuadrado no se aprecia; en uno muy apaisado, sí. Es el precio
+de poder elegir lados, y por eso el camino de una sola vuelta se reserva al caso en que no hay nada
+que elegir.
 
 ### Las tres paradas
 
