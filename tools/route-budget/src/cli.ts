@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { GroupRoutes, IN_FILES, LoadBudgets, METRICS, type Metric } from "./budgets.ts";
-import { MeasureRoutes } from "./measure.ts";
+import { MeasureRoutes, type RouteMeasure } from "./measure.ts";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 const NEXT = resolve(ROOT, "apps", "web", ".next");
@@ -23,6 +23,11 @@ function Show(metric: Metric, value: number): string {
     ? String(Math.round(value))
     : `${(value / KB).toFixed(1).padStart(6)} kB`;
 }
+
+const Kb = (value: number): string => `${(value / KB).toFixed(1)} kB`;
+
+const Peak = (routes: readonly RouteMeasure[], key: keyof RouteMeasure): number =>
+  routes.reduce((top, row) => Math.max(top, row[key] as number), 0);
 
 function Main(): void {
   if (!existsSync(NEXT)) {
@@ -56,6 +61,19 @@ function Main(): void {
           `${pass ? `holgura ${slack.toFixed(1)}%` : "EXCEDE"}  ${routes.length > 1 ? route : ""}`,
       );
     }
+
+    console.log(
+      `  ${"servido hoy (gzip)".padEnd(17)} JS ${Kb(Peak(routes, "jsGz"))} · HTML ${Kb(Peak(routes, "htmlGz"))}`,
+    );
+
+    const files = Peak(routes, "skipFiles");
+    if (files > 0) {
+      console.log(
+        `  ${"fuera (noModule)".padEnd(17)} ${String(Math.round(files))} ficheros · ` +
+          `${Kb(Peak(routes, "skipRaw"))} que un navegador con módulos no pide`,
+      );
+    }
+
     console.log("");
   }
 
