@@ -24,6 +24,7 @@ export const root = recipe({
         minHeight: vars.size.control.lg,
         boxSizing: "border-box",
         paddingBlock: vars.space.u3,
+        paddingInline: vars.space.u5,
         fontFamily: vars.font.family.sans,
       },
     },
@@ -71,7 +72,7 @@ export const inner = style({
     [composite_layer]: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: "flex-start",
       gap: vars.space.md,
       flex: 1,
       minWidth: 0,
@@ -145,7 +146,6 @@ export const floating = style({
       borderRadius: `calc(${P} * ${vars.radius.lg})`,
       width: "auto",
       zIndex: vars.zIndex.sticky,
-      paddingInline: vars.space.u5,
       borderStyle: "solid",
       borderWidth: "1px",
       borderColor: "transparent",
@@ -215,6 +215,7 @@ export const actions = recipe({
         alignItems: "center",
         gap: vars.space.sm,
         flexShrink: 0,
+        marginInlineStart: "auto",
       },
     },
   },
@@ -397,7 +398,7 @@ export const sidebar = style({
     [composite_layer]: {
       position: "fixed",
       insetBlock: 0,
-      insetInlineEnd: 0,
+      insetInlineStart: 0,
       zIndex: vars.zIndex.modal,
       boxSizing: "border-box",
       display: "flex",
@@ -405,7 +406,7 @@ export const sidebar = style({
       inlineSize: "min(320px, 100vw)",
       background: vars.glass.strong.background,
       backdropFilter: vars.glass.strong.backdropFilter,
-      borderInlineStart: `1px solid ${vars.glass.strong.borderColor}`,
+      borderInlineEnd: `1px solid ${vars.glass.strong.borderColor}`,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
     },
@@ -416,7 +417,7 @@ export const sidebar_head = style({
   "@layer": {
     [composite_layer]: {
       display: "flex",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
       padding: vars.space.sm,
       flexShrink: 0,
     },
@@ -435,6 +436,11 @@ export const sidebar_body = style({
       overflowY: "auto",
     },
   },
+});
+
+globalStyle(`${sidebar_body} ${link}`, {
+  justifyContent: "flex-start",
+  textAlign: "start",
 });
 
 export const sidebar_footer = style({
