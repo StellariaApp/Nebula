@@ -221,7 +221,29 @@ jobs:
       # el baseline sin que nadie la mirara, y el gate dejaria de significar
       # nada.
       - name: visual
-        run: pnpm turbo ${{ inputs.regenerar_baseline && 'visual:update' || 'visual' }}
+        run: |
+          echo "regenerar_baseline = '${{ inputs.regenerar_baseline }}'"
+          echo "tarea               = ${{ inputs.regenerar_baseline && 'visual:update' || 'visual' }}"
+          echo "process.platform    = $(node -p process.platform)"
+          pnpm turbo ${{ inputs.regenerar_baseline && 'visual:update' || 'visual' }}
+
+      # Regenerar y no dejar carpeta es un fallo silencioso: el job sale verde,
+      # el artefacto viaja con lo que ya habia y uno cree tener baseline. Paso
+      # cuando `visual:update` no escribio nada y nadie se entero hasta abrir el
+      # zip. Se comprueba y se dice.
+      - name: se escribio el baseline?
+        if: ${{ always() && inputs.regenerar_baseline }}
+        run: |
+          echo "Contenido de __snapshots__/visual:"
+          ls -la apps/playground-web/__snapshots__/visual/ || true
+          plat=$(node -p process.platform)
+          dir="apps/playground-web/__snapshots__/visual/$plat"
+          if [ ! -d "$dir" ]; then
+            echo "::error::Se pidio regenerar y no existe $dir."
+            echo "::error::La tarea no escribio capturas. Revisa el log de test-storybook."
+            exit 1
+          fi
+          echo "::notice::Baseline escrito en $dir: $(ls "$dir" | wc -l) laminas."
 
       # `always()` es lo que importa: cuando el gate falla, las capturas nuevas y
       # los diffs son justamente lo que hay que mirar.
