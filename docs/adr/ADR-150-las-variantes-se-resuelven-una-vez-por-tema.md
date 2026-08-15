@@ -128,6 +128,49 @@ Cargar un tema en runtime recalcula las 392 propiedades **una vez** y las republ
 tema propaga por contexto y **re-renderiza cada componente que lo lee**. La propuesta cambia N
 re-renders por una escritura de variables.
 
+## Verificación de los cabos sueltos — 2026-08-15
+
+Quedaban dos por comprobar antes de poder aceptar esto. Los dos salen a favor, y de paso aparece que
+la resolución **factoriza limpiamente**.
+
+El tema se lee en **cinco sitios** en todo `resolve-variant.ts`, y los cinco son constantes del tema,
+no de la instancia:
+
+| Lectura                       | Para qué                           |
+| ----------------------------- | ---------------------------------- |
+| `theme.variantMap[variant]`   | la receta de la variante           |
+| `theme.ink.floor`             | el suelo de contraste de `OnColor` |
+| `theme.meta.scheme`           | hacia dónde oscurecer el hover     |
+| `theme.effects.glass.enabled` | si el cristal está activo          |
+| `theme.motion.tier`           | si la variante anima               |
+
+**`ResolveColorExtended` no recibe el tema.** Hex, `white`, `black`, paletas semilla y alpha se
+resuelven sin él. Por eso las style props ya funcionan hoy sin contexto, y por eso el alpha ya sale
+como `color-mix()` desde [ADR-147](ADR-147-las-style-props-de-color-cumplen-colorextended.md).
+
+**`glass` cabe.** `vars.glass[…]` viene del contrato CSS, así que sus valores **ya son referencias
+`var(--…)`**, no cálculos. Lo único del tema es el booleano de activación, que se hornea al
+precalcular la matriz.
+
+**El `gradient` por props también cabe.** `GradientFromProp` no recibe el tema: compone
+`linear-gradient(deg, from, to)` con colores resueltos sin él. Es por instancia, sí, pero se puede
+emitir como estilo en línea desde un componente de servidor.
+
+### Lo que queda fuera, ya en concreto
+
+Solo un caso: **`#hex` literal con `variant="filled"`**, donde hay que elegir tinta legible por
+luminancia contra `theme.ink.floor`. El resto de un hex literal —fondo, borde, hover por
+`color-mix()`— es theme-free.
+
+Y hasta ese caso tiene salida sin romper nada: ADR-021 ya declara que «para bases que son CSS var cae
+a blanco». Extender esa misma regla al camino de servidor es un cambio de comportamiento acotado y
+documentado, no una excepción nueva.
+
+**El contrato, entonces, casi no se estrecha.** La primera redacción de este ADR decía que el color
+arbitrario entero se quedaba fuera; la segunda lo redujo a `#hex`; esta lo reduce a `#hex` **y**
+`filled`. Conviene decir que el análisis se movió tres veces, porque el precio de la decisión bajó
+cada vez.
+
 ## Alternativas descartadas
 
 **Expresar la resolución entera en CSS.** `color-mix()` cubre el oscurecido, pero elegir tinta por
@@ -152,9 +195,9 @@ seguiría heredando el coste. Publicar v1 así lo hornea en cada consumidor.
 - **El contrato se estrecha, pero mucho menos de lo escrito al principio**: solo el `#hex` literal
   en una prop deja de ser equivalente en coste. Las 19 paletas semilla se precalculan igual que las
   escalas (ver §3, corregido). Hay que documentarlo en `docs/02` §2 y en la ficha de las props.
-- **Queda sin resolver en esta propuesta**: `glass` tiene rama propia con `glassClass`, y el
-  `gradient` por props (`{from, to}`) es por instancia y no se puede precalcular. Ambos parecen caber
-  en la escotilla del punto 3, pero **no está verificado** y hay que mirarlo antes de aceptar.
+- **Los dos cabos sueltos quedaron verificados** el 2026-08-15, y los dos a favor: `glass` ya son
+  referencias `var(--…)` del contrato CSS, y el `gradient` por props no toca el tema. Ver la sección
+  de verificación.
 - **Es el cambio más invasivo del plan**: toca cómo pintan ~119 componentes, y no rompe de forma
   ruidosa —mueve un padding, cambia un tono un peldaño—. Por eso el gate visual de
   [ADR-149](ADR-149-el-entorno-unico-es-la-imagen-de-playwright.md) tenía que ir antes, y va antes.
