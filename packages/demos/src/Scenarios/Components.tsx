@@ -180,7 +180,7 @@ export function ScenarioComponents(): ReactElement {
         <Working />
       </Cell>
 
-      <GradientBorder beam r="md" width={2} h="100%">
+      <GradientBorder beam r="md" h="100%">
         <Card p="md" h="100%">
           <Box display="flex" direction="column" gap="sm" h="100%">
             <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">

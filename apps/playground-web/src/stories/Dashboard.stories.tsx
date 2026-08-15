@@ -6,31 +6,31 @@ import { CommonPack } from "@stellaria/nebula-icons/packs";
 import { palettes } from "@stellaria/nebula-tokens";
 import {
   ActionIcon,
+  AppShell,
   Avatar,
   Badge,
-  AppShell,
   Box,
   Breadcrumbs,
   Button,
   Card,
   Divider,
+  Flex,
   GlassSurface,
+  GradientBorder,
   GradientText,
   Indicator,
   Menu,
+  Progress,
   SimpleGrid,
+  StarField,
   Table,
   Tabs,
-  Progress,
-  StarField,
   Text,
   Title,
   Tooltip,
   VisuallyHidden,
   type BreadcrumbItem,
   type MenuItemData,
-  Flex,
-  GradientBorder,
 } from "@stellaria/nebula-web";
 
 const Stroke = (path: ReactNode) => {
@@ -370,7 +370,7 @@ function SideBarBody(): ReactElement {
   return (
     <AppShell.Sidebar.Body>
       <Box p="sm" display="flex" align="center" justify="center" bg="surface.base">
-        <GradientBorder beam width={2} surface="overlay" r="md" p="xs" w="100%">
+        <GradientBorder beam surface="overlay" r="md" p="xs" w="100%">
           <AppShell.Links title="Super Administrador" deep>
             <AppShell.Link
               label={<AppShell.Label>Super Administrador</AppShell.Label>}

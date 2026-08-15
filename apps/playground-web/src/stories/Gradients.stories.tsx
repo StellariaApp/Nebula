@@ -86,7 +86,7 @@ export const Anillos: Story = {
           </Text>
         </GradientBorder>
       ))}
-      <GradientBorder gradient="accent" width={2} p="md" w={190} r="lg">
+      <GradientBorder gradient="accent" p="md" w={190} r="lg">
         <Text component="p" fz="caption" ff="mono" c="text.muted" mb="xxs">
           interior transparente
         </Text>
@@ -114,7 +114,6 @@ export const AnillosAnimados: Story = {
           beam
           {...(item.edges === undefined ? {} : { edges: item.edges })}
           {...(item.sequence === undefined ? {} : { sequence: item.sequence })}
-          width={2}
           surface="raised"
           p="md"
           w={190}
@@ -223,7 +222,7 @@ export const AllThemes: Story = {
     <ThemeMatrix>
       <Box display="flex" direction="column" gap="sm">
         <GradientBackground h={56} r="md" />
-        <GradientBorder width={2} surface="raised" p="sm" r="md">
+        <GradientBorder surface="raised" p="sm" r="md">
           <Text component="p" fz="caption">
             anillo
           </Text>
