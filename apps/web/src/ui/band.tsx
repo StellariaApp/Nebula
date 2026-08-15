@@ -38,7 +38,6 @@ export function Band({
 
   return (
     <Section
-      reveal
       size={scale.size}
       gap="lg"
       {...(glass ? { glass: true } : {})}
