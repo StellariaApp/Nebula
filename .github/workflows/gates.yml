@@ -195,6 +195,20 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # Sin baseline, `jest-image-snapshot` falla una vez por lamina ausente: 75
+      # errores identicos que dicen «New snapshot was not written» y ni uno que
+      # diga que falta la carpeta. Se comprueba antes y se dice en una linea.
+      - name: hay baseline?
+        if: ${{ !inputs.regenerar_baseline }}
+        run: |
+          if [ ! -d apps/playground-web/__snapshots__/visual/linux ]; then
+            echo "::error::No hay baseline en apps/playground-web/__snapshots__/visual/linux."
+            echo "::error::Lanza este workflow con «Regenerar el baseline visual» marcado,"
+            echo "::error::baja el artefacto visual-linux y comprometelo en esa ruta."
+            exit 1
+          fi
+          echo "Baseline presente: $(ls apps/playground-web/__snapshots__/visual/linux | wc -l) laminas."
+
       # La imagen ya trae el navegador; `playwright install` aqui solo lo
       # volveria a descargar y a desanclar lo que el digest fija.
       #
