@@ -118,7 +118,7 @@ export default async function Home() {
         <Hero
           size="xl"
           mih={{
-            base: "100vh",
+            base: "720px",
             laptop: "920px",
           }}
           ta="center"
