@@ -93,6 +93,25 @@ Puntos clave:
 2. **`motion.tier` y `effects.glass.enabled`** son interruptores de tema: un tema "enterprise sobrio" apagaría glass y bajaría motion; un tema "vibrant" los subiría. Los componentes consultan el tier, no hardcodean intensidades. **Alcance de `glass.enabled` ([ADR-059](adr/ADR-059-alcance-de-glass-enabled-y-degradacion-de-gradientes.md))**: gobierna solo los materiales de compositor —glass, blur y ruido—. Los gradientes no lo consultan: se neutralizan por sus propios tokens (un tema sobrio define `brand`/`accent` monocromos) y su animación la gobierna `motion.tier`.
 3. **`variantMap`** hace que hasta el significado visual de `variant="filled"` sea temable (p.ej. un tema puede hacer que `filled` use `gradient.brand`). Esta afirmación fue **falsa entre W2 y el tramo V2**: solo Button y ActionIcon leían el mapa, mientras Alert y Badge reimplementaban las recetas a mano y divergían del contrato y entre sí. ADR-038 la restablece; el censo está en `docs/reviews/variantes-cobertura-2026-07-28.md` §0.
 4. Escala **50–950** (C2-Q4): regenerar las 16 paletas de Stellaria es mecánico; `tools/palette-gen` (OKLCH) lo automatiza y el Theme Creator lo expone.
+5. **Las variantes se resuelven una vez por tema, no una vez por render** ([ADR-150](adr/ADR-150-las-variantes-se-resuelven-una-vez-por-tema.md)). El tema publica su matriz —7 variantes × 7 escalas × 8 valores, unas 392 propiedades CSS— al crearse, y los componentes la referencian en vez de calcularla. Lo que antes obligaba a leer el tema por contexto de React en cada render, y con ello a declararse de cliente, pasa a ser una clase.
+
+### 2.1 El color arbitrario cuesta hidratación, el semántico no
+
+Consecuencia de ADR-150 que **estrecha este contrato**, y por eso se dice aquí y no solo en el ADR.
+
+Hasta ahora `ColorExtended` era uniforme en coste: daba igual pasar `color="primary"`, `color="pink.300"` o `color="#ff0066"`. Deja de serlo:
+
+| Lo que se pasa                                  | Cómo se resuelve                            | Coste                            |
+| ----------------------------------------------- | ------------------------------------------- | -------------------------------- |
+| Las **7 escalas semánticas** del contrato       | matriz precalculada, una clase              | ninguno — componente de servidor |
+| Las **19 paletas semilla**, con peldaño y alpha | valores cerrados, precalculables igual      | ninguno                          |
+| **`#hex` literal** con `variant="filled"`       | luminancia contra `ink.floor`, en el render | **obliga a cliente**             |
+
+El caso lento es solo el último, y solo con `filled`, que es donde hay que elegir tinta legible. El resto de un hex —fondo, borde, hover— se resuelve sin el tema.
+
+**Por qué existe ese caso**: el servidor no sabe qué tema está activo —lo elige el navegador según la preferencia del usuario (§4)—, así que la respuesta tiene que viajar en una forma que resuelva el navegador. Un hex arbitrario no se puede precalcular, y su tinta legible depende del tema.
+
+Sigue siendo una escotilla de escape declarada, en la línea de lo que [ADR-021](adr/ADR-021-button-color-extended-gradient-prop.md) ya decía del modo plano: no se adapta entre temas. Lo nuevo es que además cuesta.
 
 ## 3. Temas oficiales (`@stellaria/nebula-themes`)
 
