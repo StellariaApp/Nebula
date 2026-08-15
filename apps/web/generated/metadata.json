@@ -85,7 +85,7 @@
     {
       "name": "Affix",
       "budget": "20.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": []
     },
     {
@@ -538,7 +538,7 @@
     {
       "name": "ColorSwatch",
       "budget": "32.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.text",
@@ -655,7 +655,7 @@
     {
       "name": "DateTimePicker",
       "budget": "102.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": []
     },
     {
@@ -717,7 +717,7 @@
     {
       "name": "Drawer",
       "budget": "48.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": []
     },
     {
@@ -761,7 +761,7 @@
     {
       "name": "EmptyModule",
       "budget": "48 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",
@@ -796,7 +796,7 @@
     {
       "name": "Feature",
       "budget": "25.75 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.text",
         "font.family",
@@ -1117,7 +1117,7 @@
     {
       "name": "Indicator",
       "budget": "23.75 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.surface",
         "color.text",
@@ -1487,7 +1487,7 @@
     {
       "name": "Overlay",
       "budget": "23 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "blur.lg",
         "blur.md",
@@ -1703,7 +1703,7 @@
     {
       "name": "Search",
       "budget": "93.75 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "space.sm",
         "space.xs"
@@ -1872,7 +1872,7 @@
     {
       "name": "Stat",
       "budget": "21.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.semantic",
         "color.text",

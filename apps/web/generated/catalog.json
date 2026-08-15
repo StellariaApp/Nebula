@@ -37,7 +37,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "20.25 kB",
       "notes": false,
       "contract": true
@@ -377,7 +377,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "32.5 kB",
       "notes": false,
       "contract": true
@@ -498,7 +498,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "102.5 kB",
       "notes": false,
       "contract": false
@@ -553,7 +553,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "48.5 kB",
       "notes": false,
       "contract": true
@@ -586,7 +586,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "48 kB",
       "notes": false,
       "contract": true
@@ -608,7 +608,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25.75 kB",
       "notes": false,
       "contract": true
@@ -902,7 +902,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "23.75 kB",
       "notes": false,
       "contract": true
@@ -1192,7 +1192,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "23 kB",
       "notes": false,
       "contract": true
@@ -1390,7 +1390,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "93.75 kB",
       "notes": true,
       "contract": true
@@ -1544,7 +1544,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "21.25 kB",
       "notes": false,
       "contract": true
