@@ -9,8 +9,6 @@ export interface TocProps {
   headings: readonly Heading[];
   title: string;
   edit: { href: string; label: string };
-  /** Lo que tapa el cromado fijo: el índice se pega por debajo, no detrás. */
-  offset: number;
 }
 
 const PENCIL = (
@@ -19,7 +17,7 @@ const PENCIL = (
   </svg>
 );
 
-export function Toc({ headings, title, edit, offset }: TocProps): ReactElement | null {
+export function Toc({ headings, title, edit }: TocProps): ReactElement | null {
   const [active, set_active] = useState(headings[0]?.id ?? "");
 
   useEffect(() => {
@@ -35,14 +33,14 @@ export function Toc({ headings, title, edit, offset }: TocProps): ReactElement |
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0] !== undefined) set_active(visible[0].target.id);
       },
-      { rootMargin: `-${String(offset + 24)}px 0px -70% 0px`, threshold: 0 },
+      { rootMargin: `-${String(24)}px 0px -70% 0px`, threshold: 0 },
     );
 
     for (const node of nodes) observer.observe(node);
     return () => {
       observer.disconnect();
     };
-  }, [headings, offset]);
+  }, [headings]);
 
   if (headings.length < 2) return null;
 
@@ -51,13 +49,13 @@ export function Toc({ headings, title, edit, offset }: TocProps): ReactElement |
       component="nav"
       aria-label={title}
       position="sticky"
-      top={offset + 32}
+      top={32}
       display={{ base: "none", laptop: "flex" }}
       direction="column"
       gap="sm"
       w={240}
       shrink={0}
-      mah={`calc(100dvh - ${String(offset + 76)}px)`}
+      mah={`calc(100dvh - ${String(76)}px)`}
       overflowY="auto"
     >
       <Text fz="caption" fw="semibold" c="text.muted" tt="uppercase" ls="wide">
@@ -73,9 +71,10 @@ export function Toc({ headings, title, edit, offset }: TocProps): ReactElement |
             lh="snug"
             py="xs"
             ps={heading.level === 3 ? "md" : "sm"}
-            borderInlineStartWidth={2}
-            borderInlineStartStyle="solid"
-            borderInlineStartColor={heading.id === active ? "primary.500" : "border.subtle"}
+            bdlw={2}
+            bdls="solid"
+            r={0}
+            bdlc={heading.id === active ? "primary.500" : "border.subtle"}
             c={heading.id === active ? "text.primary" : "text.secondary"}
             fw={heading.id === active ? "semibold" : "regular"}
           >
