@@ -19,6 +19,11 @@
       "cache": false,
       "passThroughEnv": ["PLAYWRIGHT_BROWSERS_PATH"]
     },
+    "visual:update": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "passThroughEnv": ["PLAYWRIGHT_BROWSERS_PATH"]
+    },
     "typecheck": {
       "dependsOn": ["^build"]
     },

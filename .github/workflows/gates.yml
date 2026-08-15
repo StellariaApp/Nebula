@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      regenerar_baseline:
+        description: "Regenerar el baseline visual en vez de compararlo"
+        type: boolean
+        default: false
 
 # La concurrencia va POR JOB y no en el workflow: los gates se cancelan cuando
 # llega un push nuevo —lo viejo ya no interesa— pero una publicacion a medias no
@@ -192,8 +197,17 @@ jobs:
 
       # La imagen ya trae el navegador; `playwright install` aqui solo lo
       # volveria a descargar y a desanclar lo que el digest fija.
+      #
+      # `jest-image-snapshot` NO escribe capturas nuevas en CI —jest pone
+      # `ci: true` al detectar el entorno y eso vuelve 'none' el modo de
+      # actualizacion—, asi que la primera pasada fallaba con 75 «New snapshot
+      # was not written» en vez de generar el baseline. Regenerar es una accion
+      # deliberada y se pide por su interruptor, no un efecto secundario de que
+      # falte un fichero: si se generara solo, cualquier story nueva entraria en
+      # el baseline sin que nadie la mirara, y el gate dejaria de significar
+      # nada.
       - name: visual
-        run: pnpm turbo visual
+        run: pnpm turbo ${{ inputs.regenerar_baseline && 'visual:update' || 'visual' }}
 
       # `always()` es lo que importa: cuando el gate falla, las capturas nuevas y
       # los diffs son justamente lo que hay que mirar.
