@@ -14,6 +14,10 @@ export interface RouteMeasure {
   cssBr: number;
   cssGz: number;
   cssFiles: number;
+  fontRaw: number;
+  fontBr: number;
+  fontGz: number;
+  fontFiles: number;
   /** Lo que se descartó por ir con `noModule`: se cuenta aparte para que la exclusión se vea. */
   skipRaw: number;
   skipFiles: number;
@@ -42,6 +46,21 @@ const ASSET = /[\s"'](?:href|src)="(\/_next\/static\/[^"]+)"/g;
 const NOMODULE = /<script\b[^>]*\bnomodule\b[^>]*>/gi;
 
 const SRC = /\bsrc="([^"]+)"/i;
+
+/**
+ * Tres cubos y no dos: hasta ADR-148 todo lo que no acababa en `.css` contaba como JavaScript, asi
+ * que un `.woff2` precargado —que aparece en el HTML como `<link rel="preload">`— habria entrado en
+ * el presupuesto de JS y lo habria inflado ~29 kB con algo que no es JS.
+ */
+const FONTS = new Set([".woff2", ".woff", ".ttf", ".otf", ".eot"]);
+
+function Bucket(asset: string): "css" | "font" | "js" {
+  const path = asset.split("?")[0] ?? "";
+  const dot = path.lastIndexOf(".");
+  const ext = dot < 0 ? "" : path.slice(dot).toLowerCase();
+  if (ext === ".css") return "css";
+  return FONTS.has(ext) ? "font" : "js";
+}
 
 function Brotli(buffer: Buffer): number {
   return brotliCompressSync(buffer, { params: { [constants.BROTLI_PARAM_QUALITY]: QUALITY } })
@@ -113,6 +132,10 @@ export function MeasureRoutes(next: string): RouteMeasure[] {
         cssBr: 0,
         cssGz: 0,
         cssFiles: 0,
+        fontRaw: 0,
+        fontBr: 0,
+        fontGz: 0,
+        fontFiles: 0,
         skipRaw: 0,
         skipFiles: 0,
       };
@@ -122,17 +145,13 @@ export function MeasureRoutes(next: string): RouteMeasure[] {
         if (skipped.has(asset)) {
           measure.skipRaw += raw;
           measure.skipFiles += 1;
-        } else if (asset.split("?")[0]?.endsWith(".css") === true) {
-          measure.cssRaw += raw;
-          measure.cssBr += br;
-          measure.cssGz += gz;
-          measure.cssFiles += 1;
-        } else {
-          measure.jsRaw += raw;
-          measure.jsBr += br;
-          measure.jsGz += gz;
-          measure.jsFiles += 1;
+          continue;
         }
+        const bucket = Bucket(asset);
+        measure[`${bucket}Raw`] += raw;
+        measure[`${bucket}Br`] += br;
+        measure[`${bucket}Gz`] += gz;
+        measure[`${bucket}Files`] += 1;
       }
 
       return measure;

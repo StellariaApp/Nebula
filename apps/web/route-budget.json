@@ -7,6 +7,7 @@
       "jsBr": 310.75,
       "cssFiles": 2,
       "cssBr": 1,
+      "fontBr": 1,
       "htmlBr": 64.5
     },
     {
@@ -16,6 +17,7 @@
       "jsBr": 314,
       "cssFiles": 2,
       "cssBr": 1,
+      "fontBr": 1,
       "htmlBr": 69.25
     },
     {
@@ -31,6 +33,7 @@
       "jsBr": 314,
       "cssFiles": 2,
       "cssBr": 1,
+      "fontBr": 1,
       "htmlBr": 67.25
     },
     {
@@ -40,6 +43,7 @@
       "jsBr": 300,
       "cssFiles": 2,
       "cssBr": 1,
+      "fontBr": 1,
       "htmlBr": 68
     },
     {
@@ -49,6 +53,7 @@
       "jsBr": 297.25,
       "cssFiles": 2,
       "cssBr": 1,
+      "fontBr": 1,
       "htmlBr": 55.25
     }
   ]

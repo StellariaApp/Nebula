@@ -15,6 +15,7 @@ const LABEL: Record<Metric, string> = {
   jsBr: "JS brotli",
   cssFiles: "hojas CSS",
   cssBr: "CSS brotli",
+  fontBr: "fuentes brotli",
   htmlBr: "HTML brotli",
 };
 

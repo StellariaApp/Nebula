@@ -2,9 +2,16 @@ import { readFileSync } from "node:fs";
 
 import type { RouteMeasure } from "./measure.ts";
 
-export type Metric = "jsRaw" | "jsBr" | "cssFiles" | "cssBr" | "htmlBr";
+export type Metric = "jsRaw" | "jsBr" | "cssFiles" | "cssBr" | "fontBr" | "htmlBr";
 
-export const METRICS: readonly Metric[] = ["jsRaw", "jsBr", "cssFiles", "cssBr", "htmlBr"];
+export const METRICS: readonly Metric[] = [
+  "jsRaw",
+  "jsBr",
+  "cssFiles",
+  "cssBr",
+  "fontBr",
+  "htmlBr",
+];
 
 /** `cssFiles` cuenta ficheros; el resto son kB. La unidad decide cómo se lee y cómo se holga. */
 export const IN_FILES: Metric = "cssFiles";
@@ -16,6 +23,7 @@ export interface Group {
   jsBr: number;
   cssFiles: number;
   cssBr: number;
+  fontBr: number;
   htmlBr: number;
 }
 
