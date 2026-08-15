@@ -5,6 +5,27 @@
 > ata al cliente. Se leen todos los `.tsx`/`.ts` del componente, incluidas las partes de compound en
 > `components/`, y manda la señal más fuerte.
 
+> ## ⚠️ Corrección de método — 2026-08-15
+>
+> **La lista de candidatos de este documento no es de fiar, y el recuento de abajo tampoco.** Al
+> afinar el analizador salieron **20, luego 12, luego 2** candidatos según detalles de las
+> expresiones regulares: no detectaba hooks con genérico (`useState<Foo>(…)`) ni los hooks propios de
+> `@stellaria/nebula-hooks`, que fuerzan cliente igual. Corregido eso, `hook-propio` pasa a ser el
+> bloqueante mayoritario con 88.
+>
+> **El oráculo bueno es el build.** Next falla la compilación si un componente de servidor usa algo de
+> cliente, así que el procedimiento fiable es: quitar la directiva, construir, y ver qué protesta. Es
+> más simple que el análisis estático y no se equivoca.
+>
+> Los **10 componentes convertidos en `b49843a` están validados por el build**, así que ese trabajo es
+> sólido aunque saliera de una lista imperfecta.
+>
+> **Lo que sí sostiene este documento** es lo estructural: que los contenedores mandan, qué bloquea a
+> `Hero` y a `Section`, y que P5 son tres decisiones y no una. Eso se verificó leyendo código, no
+> contando coincidencias.
+>
+> **Estado tras `b49843a`**: 158 componentes · **39 de servidor** · **119 de cliente**.
+
 ## El número
 
 |                                            |         |
