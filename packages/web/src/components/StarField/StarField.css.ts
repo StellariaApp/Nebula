@@ -88,8 +88,8 @@ export const star = style({
 const AURORA_BLUR = "50px";
 
 const AURORAS = [
-  { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.24, s: 18 },
-  { top: "30%", left: "-15%", h: "60vh", w: "60vw", shift: false, peak: 0.18, s: 22 },
+  { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.3, s: 18 },
+  { top: "30%", left: "-15%", h: "60vh", w: "60vw", shift: false, peak: 0.24, s: 22 },
   {
     top: "55%",
     left: "auto",
@@ -100,7 +100,7 @@ const AURORAS = [
     peak: 0.15,
     s: 26,
   },
-  { top: "15%", left: "60%", h: "30vh", w: "30vw", shift: false, peak: 0.12, s: 20 },
+  { top: "15%", left: "60%", h: "30vh", w: "30vw", shift: false, peak: 0.24, s: 20 },
 ] as const;
 
 function Drift(peak: number, dx: number, dy: number): string {
