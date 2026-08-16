@@ -107,11 +107,12 @@ function Same(previous: SegmentMetrics, next: SegmentMetrics): boolean {
 export function SegmentContent(props: SegmentContentProps): ReactElement {
   const {
     children,
-    swipeable = true,
-    fill = false,
-    auto = false,
-    autoWidth = false,
-    loop = false,
+    swipeable,
+    fill,
+    auto,
+    autoWidth,
+    loop,
+    lazy,
     className,
     panelProps,
     gap,
@@ -123,13 +124,22 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   const { theme } = useTheme();
   const prefers_reduced = useReducedMotion();
 
+  const inherited = segment.layout;
+  const is_lazy = lazy ?? inherited.lazy ?? false;
+  const wants_swipe = is_lazy ? false : (swipeable ?? inherited.swipeable ?? true);
+  const fills = fill ?? inherited.fill ?? false;
+  const autos = auto ?? inherited.auto ?? false;
+  const fits_width = autoWidth ?? inherited.autoWidth ?? false;
+  const loops = loop ?? inherited.loop ?? false;
+  const flow = wants_swipe ? "rail" : "stack";
+
   const items = Children.toArray(children).filter(
     (child): child is ReactElement<SegmentContentItemProps> => isValidElement(child),
   );
   const values = items.map((child) => child.props.value);
   const total = values.length;
   const index = Math.max(0, values.indexOf(segment.value));
-  const mode = HeightMode(fill, auto);
+  const mode = HeightMode(fills, autos);
 
   const { RegisterPanels } = segment;
   const signature = values.join(" ");
@@ -143,7 +153,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   const [measured, set_measured] = useState(false);
 
   const is_animated = !MotionOff({ theme, reduced: prefers_reduced === true });
-  const can_loop = loop && total > 1;
+  const can_loop = wants_swipe && loops && total > 1;
 
   const target = useMotionValue(0);
   const x = useSpring(target, theme.motion.spring.default);
@@ -223,7 +233,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   }, [mode, index, signature, is_animated, height_target, height]);
 
   useEffect(() => {
-    if (!autoWidth) return;
+    if (!fits_width) return;
     const next = metrics.widths[index];
     if (next === undefined || next <= 0) return;
     if (first_width.current || !is_animated) {
@@ -233,9 +243,14 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
       return;
     }
     width_target.set(next);
-  }, [autoWidth, index, metrics, is_animated, width_target, width_spring]);
+  }, [fits_width, index, metrics, is_animated, width_target, width_spring]);
 
   useEffect(() => {
+    if (flow === "stack") {
+      target.jump(0);
+      x.jump(0);
+      return;
+    }
     const next = -PageOffset(metrics, total, aligned);
     if (first.current || !is_animated) {
       target.jump(next);
@@ -244,7 +259,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
       return;
     }
     target.set(next);
-  }, [aligned, metrics, total, is_animated, target, x]);
+  }, [flow, aligned, metrics, total, is_animated, target, x]);
 
   const Go = useCallback(
     (next: number): void => {
@@ -256,7 +271,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   );
 
   const can_swipe =
-    swipeable && is_animated && !segment.disabled && total > 1 && metrics.period > 0;
+    wants_swipe && is_animated && !segment.disabled && total > 1 && metrics.period > 0;
 
   const HandlePanStart = (): void => {
     origin.current = target.get();
@@ -290,7 +305,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
     Go(can_loop ? Wrap(next, total) : next);
   };
 
-  const fits = autoWidth && (metrics.widths[index] ?? 0) > 0;
+  const fits = fits_width && (metrics.widths[index] ?? 0) > 0;
 
   return (
     <m.div
@@ -308,8 +323,10 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
     >
       <m.div
         ref={rail}
-        className={cx(styles.viewport({ mode }), rail_style.className)}
-        style={{ ...rail_style.style, x: position } as MotionStyle}
+        className={cx(styles.viewport({ mode, flow }), rail_style.className)}
+        style={
+          { ...rail_style.style, ...(flow === "rail" ? { x: position } : {}) } as MotionStyle
+        }
         {...(can_swipe
           ? { onPanStart: HandlePanStart, onPan: HandlePan, onPanEnd: HandlePanEnd }
           : {})}
@@ -324,12 +341,14 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
             loop={can_loop}
             active={slot === index}
             mode={mode}
-            fit={autoWidth}
+            fit={fits_width}
+            flow={flow}
+            animated={is_animated}
             id={`${segment.baseId}-panel-${child.props.value}`}
             labelledBy={`${segment.baseId}-tab-${child.props.value}`}
             className={child.props.className}
           >
-            {child.props.children}
+            {is_lazy && slot !== index ? null : child.props.children}
           </SegmentPanel>
         ))}
       </m.div>

@@ -17,7 +17,7 @@ export type SegmentVariant = Extract<Variant, "filled" | "light">;
 
 export type SegmentOverflowMode = "visible" | "scroll" | "wrap";
 
-export interface SegmentProps extends StyleProps {
+export interface SegmentProps extends StyleProps, SegmentLayoutProps {
   children: ReactNode;
   value?: string | undefined;
   padded?: boolean | undefined;
@@ -36,6 +36,39 @@ export interface SegmentProps extends StyleProps {
    */
   overflowMode?: SegmentOverflowMode | undefined;
   className?: string | undefined;
+}
+
+/**
+ * How the panels lay out. Declarable on `<Segment>` and inherited by every `Segment.Content` under
+ * it; what a content passes for itself wins (ADR-154).
+ */
+export interface SegmentLayoutProps {
+  /**
+   * The swipe across the panels. With it off the transition is a fade, not a slide: the sideways
+   * travel only exists to follow the finger, and there is no finger.
+   */
+  swipeable?: boolean | undefined;
+  /** Stretches the viewport and every panel to the height of the box. Takes precedence over `auto`. */
+  fill?: boolean | undefined;
+  /** Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set. */
+  auto?: boolean | undefined;
+  /**
+   * Same on the horizontal axis: every panel takes its own width and the box springs to the active
+   * one, capped at the room it has. Panels without a width of their own collapse, so it does not
+   * suit text that is meant to wrap.
+   */
+  autoWidth?: boolean | undefined;
+  /** Wraps the swipe around, so the first panel follows the last one. Needs two panels or more. */
+  loop?: boolean | undefined;
+  /**
+   * Mounts ONLY the active panel and unmounts the one it leaves. Turns a segment whose panels are
+   * whole screens from six live trees into one. It forces `swipeable` off — swiping needs the
+   * neighbour mounted, which is the cost this removes — so the transition is a fade.
+   *
+   * Returning to a panel mounts it again: the chunk is cached, so it costs render, not network.
+   * State that has to survive the trip lives above the panel.
+   */
+  lazy?: boolean | undefined;
 }
 
 export type SegmentControlData = ReadonlyArray<string | SegmentItemData>;
@@ -61,23 +94,10 @@ export interface SegmentControlItemProps {
   disabled?: boolean | undefined;
 }
 
-export interface SegmentContentProps extends StyleProps {
+export interface SegmentContentProps extends StyleProps, SegmentLayoutProps {
   /** Every panel. It spreads over ALL of them, and composes above the item own `className`. */
   panelProps?: BoxSlotProps | undefined;
   children: ReactNode;
-  swipeable?: boolean | undefined;
-  /** Stretches the viewport and every panel to the height of the box. Takes precedence over `auto`. */
-  fill?: boolean | undefined;
-  /** Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set. */
-  auto?: boolean | undefined;
-  /**
-   * Same on the horizontal axis: every panel takes its own width and the box springs to the active
-   * one, capped at the room it has. Panels without a width of their own collapse, so it does not
-   * suit text that is meant to wrap.
-   */
-  autoWidth?: boolean | undefined;
-  /** Wraps the swipe around, so the first panel follows the last one. Needs two panels or more. */
-  loop?: boolean | undefined;
   className?: string | undefined;
 }
 

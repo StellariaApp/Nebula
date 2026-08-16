@@ -14,6 +14,7 @@ import * as styles from "../Segment.css.js";
 const MotionBox = /* @__PURE__ */ m.create(Box);
 
 export type SegmentPanelMode = "max" | "auto" | "fill";
+export type SegmentPanelFlow = "rail" | "stack";
 
 export interface SegmentPanelProps {
   panelProps?: BoxSlotProps | undefined;
@@ -24,6 +25,8 @@ export interface SegmentPanelProps {
   active: boolean;
   mode: SegmentPanelMode;
   fit: boolean;
+  flow: SegmentPanelFlow;
+  animated: boolean;
   id: string;
   labelledBy: string;
   className?: string | undefined;
@@ -32,7 +35,8 @@ export interface SegmentPanelProps {
 }
 
 export function SegmentPanel(props: SegmentPanelProps): ReactElement {
-  const { panelProps, rail, offset, period, loop, active, mode, fit } = props;
+  const { panelProps, rail, offset, period, loop, active, mode, fit, flow, animated } = props;
+  const stacked = flow === "stack";
 
   const x = useTransform(rail, (value) => {
     if (!loop || period <= 0) return 0;
@@ -49,8 +53,18 @@ export function SegmentPanel(props: SegmentPanelProps): ReactElement {
       aria-hidden={active ? undefined : true}
       {...(active ? {} : { inert: true })}
       tabIndex={active ? 0 : -1}
-      className={cx(styles.panel({ mode, fit }), props.className, panelProps?.className)}
-      style={{ ...panelProps?.style, x }}
+      className={cx(styles.panel({ mode, fit, flow }), props.className, panelProps?.className)}
+      style={{
+        ...panelProps?.style,
+        ...(stacked ? { pointerEvents: active ? "auto" : "none" } : { x }),
+      }}
+      {...(stacked
+        ? {
+            animate: { opacity: active ? 1 : 0 },
+            initial: false,
+            transition: animated ? undefined : { duration: 0 },
+          }
+        : {})}
     >
       {props.children}
     </MotionBox>

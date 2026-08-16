@@ -8,7 +8,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
 import { SegmentContext, type SegmentContextValue } from "./Segment.context.js";
 import * as styles from "./Segment.css.js";
-import type { SegmentProps } from "./Segment.types.js";
+import type { SegmentLayoutProps, SegmentProps } from "./Segment.types.js";
 
 export function Segment(props: SegmentProps): ReactElement {
   const {
@@ -25,6 +25,12 @@ export function Segment(props: SegmentProps): ReactElement {
     overflowMode = "visible",
     className,
     padded = false,
+    swipeable,
+    fill,
+    auto,
+    autoWidth,
+    loop,
+    lazy,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -41,6 +47,11 @@ export function Segment(props: SegmentProps): ReactElement {
     );
   }, []);
 
+  const layout = useMemo<SegmentLayoutProps>(
+    () => ({ swipeable, fill, auto, autoWidth, loop, lazy }),
+    [swipeable, fill, auto, autoWidth, loop, lazy],
+  );
+
   const context = useMemo<SegmentContextValue>(
     () => ({
       value: selected,
@@ -56,6 +67,7 @@ export function Segment(props: SegmentProps): ReactElement {
       hasPanels: panels.length > 0,
       RegisterPanels,
       panels,
+      layout,
     }),
     [
       selected,
@@ -70,6 +82,7 @@ export function Segment(props: SegmentProps): ReactElement {
       base_id,
       panels,
       RegisterPanels,
+      layout,
     ],
   );
 

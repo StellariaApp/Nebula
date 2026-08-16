@@ -243,8 +243,6 @@ export const content = style({
 
 export const viewport = recipe({
   base: {
-    display: "flex",
-    flexDirection: "row",
     touchAction: "pan-y",
   },
   variants: {
@@ -253,8 +251,12 @@ export const viewport = recipe({
       auto: { alignItems: "flex-start" },
       fill: { height: "100%" },
     },
+    flow: {
+      rail: { display: "flex", flexDirection: "row" },
+      stack: { display: "grid", gridTemplateAreas: '"stack"' },
+    },
   },
-  defaultVariants: { mode: "max" },
+  defaultVariants: { mode: "max", flow: "rail" },
 });
 
 export const panel = recipe({
@@ -277,8 +279,12 @@ export const panel = recipe({
       true: { width: "max-content" },
       false: { width: "100%", minWidth: 0 },
     },
+    flow: {
+      rail: {},
+      stack: { gridArea: "stack" },
+    },
   },
-  defaultVariants: { mode: "max", fit: false },
+  defaultVariants: { mode: "max", fit: false, flow: "rail" },
 });
 
 export const section = style({

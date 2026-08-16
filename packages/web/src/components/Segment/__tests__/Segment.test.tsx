@@ -131,6 +131,70 @@ function RailX(): number {
   return found === null ? Number.NaN : Number(found[1]);
 }
 
+describe("Segment · disposición del contenido (ADR-154)", () => {
+  function Lazy(props: { lazy?: boolean; swipeable?: boolean }): React.ReactElement {
+    return (
+      <Segment defaultValue="resumen" {...props}>
+        <Segment.Control data={DATA} aria-label="Secciones" />
+        <Segment.Content>
+          {DATA.map((item) => (
+            <Segment.Content.Item key={item.value} value={item.value}>
+              <p>Contenido de {item.label}</p>
+            </Segment.Content.Item>
+          ))}
+        </Segment.Content>
+      </Segment>
+    );
+  }
+
+  it("sin lazy monta todos los paneles, que es lo publicado en 0.1.0", () => {
+    render(<Lazy />);
+    expect(screen.getByText("Contenido de Resumen")).toBeDefined();
+    expect(screen.getByText("Contenido de Detalle")).toBeDefined();
+    expect(screen.getByText("Contenido de Notas")).toBeDefined();
+  });
+
+  it("con lazy solo el activo tiene contenido, y el resto sigue siendo caja", () => {
+    render(<Lazy lazy />);
+    expect(screen.getByText("Contenido de Resumen")).toBeDefined();
+    expect(screen.queryByText("Contenido de Detalle")).toBeNull();
+    expect(screen.getAllByRole("tabpanel", { hidden: true })).toHaveLength(DATA.length);
+  });
+
+  it("lazy desmonta el anterior al cambiar de pestaña", async () => {
+    render(<Lazy lazy />);
+    await userEvent.click(screen.getByRole("tab", { name: "Detalle" }));
+    await waitFor(() => {
+      expect(screen.getByText("Contenido de Detalle")).toBeDefined();
+    });
+    expect(screen.queryByText("Contenido de Resumen")).toBeNull();
+  });
+
+  it("las props de disposición se declaran en la raíz y bajan por contexto", () => {
+    render(<Lazy lazy />);
+    expect(screen.queryByText("Contenido de Detalle")).toBeNull();
+  });
+
+  it("sin swipe el carril nunca traslada, ni al cambiar de pestaña", async () => {
+    StubRects(240);
+    render(<Lazy swipeable={false} />);
+    await userEvent.click(screen.getByRole("tab", { name: "Detalle" }));
+    await waitFor(() => {
+      expect(screen.getByText("Contenido de Detalle")).toBeDefined();
+    });
+    expect(Rail().style.transform).not.toMatch(/translateX\(-[1-9]/);
+  });
+
+  it("con swipe el carril traslada al cambiar de pestaña", async () => {
+    StubRects(240);
+    render(<Lazy />);
+    await userEvent.click(screen.getByRole("tab", { name: "Detalle" }));
+    await waitFor(() => {
+      expect(Rail().style.transform).toMatch(/translateX\(-[1-9]/);
+    });
+  });
+});
+
 describe("Segment", () => {
   it("con paneles emite tablist y vincula cada tab con su panel", async () => {
     render(<WithPanels />);
