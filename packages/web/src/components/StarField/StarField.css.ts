@@ -85,7 +85,7 @@ export const star = style({
   },
 });
 
-const AURORA_BLUR = "10px";
+const AURORA_BLUR = "50px";
 
 const AURORAS = [
   { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.24, s: 18 },
