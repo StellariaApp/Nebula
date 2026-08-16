@@ -48,7 +48,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "43 kB",
       "notes": true,
       "contract": true
@@ -129,7 +129,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "42.25 kB",
       "notes": false,
       "contract": true
@@ -826,7 +826,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "43 kB",
       "notes": true,
       "contract": true
@@ -1302,7 +1302,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "26.5 kB",
       "notes": true,
       "contract": true
@@ -1566,7 +1566,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "26.5 kB",
       "notes": false,
       "contract": true
@@ -1596,7 +1596,7 @@
         "Table.ScrollContainer",
         "Table.Title"
       ],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "22 kB",
       "notes": false,
       "contract": true
@@ -1618,7 +1618,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "43 kB",
       "notes": false,
       "contract": true
@@ -1673,7 +1673,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "24.5 kB",
       "notes": false,
       "contract": true
@@ -1695,7 +1695,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25.75 kB",
       "notes": true,
       "contract": true

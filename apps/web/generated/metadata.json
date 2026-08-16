@@ -91,7 +91,7 @@
     {
       "name": "Alert",
       "budget": "43 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.text",
         "font.family",
@@ -102,7 +102,8 @@
         "space.md",
         "space.sm",
         "space.xs",
-        "space.xxs"
+        "space.xxs",
+        "variant"
       ]
     },
     {
@@ -193,13 +194,14 @@
     {
       "name": "Banderole",
       "budget": "42.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "font.family",
         "font.size",
         "space.md",
         "space.sm",
         "space.xs",
+        "variant",
         "zIndex.sticky"
       ]
     },
@@ -1031,7 +1033,7 @@
     {
       "name": "Header",
       "budget": "43 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.text",
         "font.family",
@@ -1593,7 +1595,7 @@
     {
       "name": "Progress",
       "budget": "26.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.surface",
         "color.text",
@@ -1601,7 +1603,7 @@
         "font.size",
         "font.weight",
         "motion.easing",
-        "radius.full"
+        "variant"
       ]
     },
     {
@@ -1895,7 +1897,7 @@
     {
       "name": "Stepper",
       "budget": "26.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.semantic",
@@ -1908,7 +1910,8 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "variant"
       ]
     },
     {
@@ -1934,7 +1937,7 @@
     {
       "name": "Table",
       "budget": "22 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",
@@ -1957,7 +1960,7 @@
     {
       "name": "Tag",
       "budget": "43 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",
@@ -1973,7 +1976,8 @@
         "space.md",
         "space.sm",
         "space.xs",
-        "space.xxs"
+        "space.xxs",
+        "variant"
       ]
     },
     {
@@ -2020,11 +2024,12 @@
     {
       "name": "ThemeIcon",
       "budget": "24.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "radius.full",
         "radius.md",
-        "radius.sm"
+        "radius.sm",
+        "variant"
       ]
     },
     {
@@ -2036,7 +2041,7 @@
     {
       "name": "Timeline",
       "budget": "25.75 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",
@@ -2047,7 +2052,8 @@
         "radius.full",
         "space.lg",
         "space.sm",
-        "space.xxs"
+        "space.xxs",
+        "variant"
       ]
     },
     {
