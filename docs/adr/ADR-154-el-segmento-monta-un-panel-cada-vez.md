@@ -1,6 +1,7 @@
 # ADR-154 — El segmento puede montar un panel cada vez
 
-- **Estado**: **propuesta** · 2026-08-15 — diseño dictado por el propietario, pendiente de su aceptación
+- **Estado**: **aceptada** · 2026-08-16 — aprobada por el propietario, que además corrigió el punto 2:
+  el fundido lo trae `lazy`, no `swipeable`, y con eso la decisión quedó enteramente aditiva
 - **Toca**: `SegmentProps` y `SegmentContentProps` de `@stellaria/nebula-web`, API pública en `0.1.0`.
 - **Motiva**: el tirón de 3-4 s de la portada al montar `ProductSurface`, medido en móvil.
 

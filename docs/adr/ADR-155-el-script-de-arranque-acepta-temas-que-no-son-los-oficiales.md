@@ -1,6 +1,6 @@
 # ADR-155 — El script de arranque acepta temas que no son los oficiales
 
-- **Estado**: **propuesta** · 2026-08-16
+- **Estado**: **aceptada** · 2026-08-16 — aprobada por el propietario e implementada en el mismo día
 - **Toca**: `ColorSchemeScriptProps` de `@stellaria/nebula-web`, API pública en `0.1.0`.
 - **Motiva**: el panel de tema de `apps/web` persiste siete ejes y ninguno sobrevive al refresco sin
   parpadeo.
