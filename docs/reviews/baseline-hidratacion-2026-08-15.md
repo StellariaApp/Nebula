@@ -9,68 +9,86 @@
 ```bash
 pnpm --filter web build
 pnpm --filter web exec next start -p 3100
-NEBULA_URL=http://127.0.0.1:3100 NEBULA_ROUTES=/,/changelog node tools/hydration-measure/measure.mjs
+NEBULA_URL=http://127.0.0.1:3100 NEBULA_ROUTES=/,/changelog NEBULA_RUNS=11 \
+  node tools/hydration-measure/measure.mjs
 ```
 
-7 pasadas medidas + 3 de calentamiento por ruta, throttling de CPU ×4.
+11 pasadas medidas + 3 de calentamiento por ruta, throttling de CPU ×4, con la máquina en reposo.
 
-**Entorno**: Windows 11 local, build de producción de Next 16.2.12, con el resto de la sesión de
-trabajo en la misma máquina. **No es el «entorno único»** que piden ADR-037 §3 y ADR-149; hasta que
-lo sea, esta captura vale para comparar contra sí misma, no como número absoluto.
+**Entorno**: Windows 11 local, build de producción de Next 16.2.12. **No es el «entorno único»** que
+piden ADR-037 §3 y ADR-149; hasta que lo sea, esta captura vale para comparar contra sí misma, no
+como número absoluto.
 
 **Estado del árbol**: incluye las nueve conversiones a componente de servidor del 2026-08-15
 (catálogo en 50 de servidor / 108 de cliente).
 
 ## Portada `/`
 
-| Métrica            | Mediana | Rango       | Dispersión |
-| ------------------ | ------- | ----------- | ---------- |
-| CPU script         | 1879 ms | 1391–2770   | **11 %**   |
-| CPU tareas         | 5704 ms | 3733–7013   | 29 %       |
-| CPU recalc estilo  | 839 ms  | 459–1166    | 50 %       |
-| CPU layout         | 822 ms  | 535–951     | 17 %       |
-| TBT                | 2077 ms | 1445–2310   | 22 %       |
-| tareas largas (ms) | 3164 ms | 2652–3602   | **12 %**   |
-| tareas largas (n)  | 14      | 12–17       | 21 %       |
-| FCP                | 760 ms  | 504–876     | 23 %       |
-| LCP                | 760 ms  | 504–876     | 23 %       |
-| CLS (×1000)        | 23      | 0–34        | 92 %       |
-| load               | 1634 ms | 1242–2985   | 24 %       |
+| Métrica            | Mediana | Rango     | Dispersión |
+| ------------------ | ------- | --------- | ---------- |
+| CPU script         | 2093 ms | 1794–2658 | 28 %       |
+| CPU tareas         | 5964 ms | 5018–6665 | **13 %**   |
+| CPU recalc estilo  | 801 ms  | 568–925   | 16 %       |
+| CPU layout         | 768 ms  | 681–1075  | 18 %       |
+| TBT                | 2279 ms | 1759–2799 | 32 %       |
+| tareas largas (ms) | 3487 ms | 2810–4115 | 23 %       |
+| tareas largas (n)  | 15      | 12–18     | **13 %**   |
+| FCP                | 652 ms  | 560–1016  | 23 %       |
+| LCP                | 652 ms  | 560–1016  | 23 %       |
+| CLS (×1000)        | 23      | 0–35      | 111 %      |
+| load               | 1522 ms | 1227–2325 | 19 %       |
 
 ## `/changelog`
 
-| Métrica            | Mediana | Rango       | Dispersión |
-| ------------------ | ------- | ----------- | ---------- |
-| CPU script         | 2178 ms | 947–2426    | 44 %       |
-| CPU tareas         | 5005 ms | 2263–5367   | 37 %       |
-| CPU recalc estilo  | 247 ms  | 216–357     | 41 %       |
-| CPU layout         | 449 ms  | 336–595     | 46 %       |
-| TBT                | 1622 ms | 561–1994    | 62 %       |
-| tareas largas (ms) | 3070 ms | 1490–3211   | 35 %       |
-| tareas largas (n)  | 12      | 9–16        | 42 %       |
-| FCP                | 1024 ms | 848–1180    | 30 %       |
-| LCP                | 5208 ms | 3208–5672   | 37 %       |
-| CLS (×1000)        | 0       | 0–0         | 100 %      |
-| load               | 2189 ms | 831–2615    | 40 %       |
+| Métrica            | Mediana | Rango     | Dispersión |
+| ------------------ | ------- | --------- | ---------- |
+| CPU script         | 1247 ms | 691–2796  | 31 %       |
+| CPU tareas         | 3057 ms | 2302–5669 | 38 %       |
+| CPU recalc estilo  | 187 ms  | 179–356   | 37 %       |
+| CPU layout         | 337 ms  | 245–736   | 45 %       |
+| TBT                | 722 ms  | 397–3087  | 46 %       |
+| tareas largas (ms) | 1697 ms | 1287–4127 | 50 %       |
+| tareas largas (n)  | 10      | 7–26      | **20 %**   |
+| FCP                | 776 ms  | 692–1372  | 27 %       |
+| LCP                | 3408 ms | 2828–5516 | 37 %       |
+| CLS (×1000)        | 0       | 0–0       | 100 %      |
+| load               | 1394 ms | 819–2083  | 28 %       |
 
-## De qué te puedes fiar
+## La dispersión intra-sesión NO es el error del instrumento
 
-Solo dos columnas están lo bastante apretadas para comparar entre sesiones: **`CPU script` de la
-portada (11 %)** y **`tareas largas (ms)` (12 %)**. Ésas son las que hay que mirar cuando entren
-`Hero` y `Section`.
+Esto se aprendió capturando, y es lo más útil de la primera toma. Se hicieron **tres** pasadas antes
+de fijar la de arriba:
 
-El resto es ruido de esta máquina. `CPU recalc estilo` al 50 % y `CLS` al 92 % no dicen nada todavía.
+| Pasada                              | `/changelog` LCP | Portada `CPU script` |
+| ----------------------------------- | ---------------- | -------------------- |
+| 7 runs, con builds de la sesión     | 5208 ms          | 1879 ms              |
+| 11 runs, en reposo, solo /changelog | 2976 ms          | —                    |
+| 11 runs, en reposo, ambas rutas     | 3408 ms          | 2093 ms              |
 
-**El gate de P0 NO está cumplido**: pide dos pasadas consecutivas dentro del ±5 % y esto es una sola
-captura con dispersiones de 11 % a 92 %. Queda como punto de partida, no como gate en verde.
+`CPU script` de la portada dio **11 % de dispersión intra-sesión** en la primera pasada y aun así
+cambió un **11 % de mediana entre sesiones** (1879 → 2093). La dispersión que imprime el medidor
+describe el ruido *dentro* de una tanda; el error real entre tandas es mayor. Coincide con lo que su
+README ya avisaba (2595 vs 3132 ms, +21 %).
+
+**Consecuencia**: no dar por bueno un cambio por debajo del ~30 % aunque la dispersión parezca
+pequeña, y **medir siempre con la máquina en reposo** — con builds en paralelo el número se dobla.
 
 ## Dos cosas que esto destapa y el plan no contemplaba
 
-**`/changelog` tiene el LCP peor, por un factor de 7.** 5208 ms contra 760 de la portada. El plan
-asume lo contrario —«`/changelog` es texto plano y sirve el 96 % del JS de la portada»— y lo usa para
-argumentar que el margen está en el cromado común. Con 37 % de dispersión no es veredicto, pero pide
-una segunda pasada antes de seguir optimizando la portada.
+**El LCP de `/changelog` es ~5× el de la portada** — 3408 ms contra 652. El plan asume lo contrario:
+usa que «`/changelog` es texto plano y sirve el 96 % del JS de la portada» para argumentar que el
+margen está en el cromado común y no en la portada. En LCP no se comporta así.
 
-**La portada tiene CLS medible y muy inestable**: 0.023 de mediana con 92 % de dispersión, entre 0 y
-0.034. Sigue dentro de «bueno» (<0.1). Es sospechoso de P2: `StarField` y `ProductSurface` pasaron a
-montarse diferidos y pueden estar empujando el layout al entrar.
+Reproducido en las tres pasadas (5208 / 2976 / 3408), así que la dirección es firme aunque la
+magnitud baile. La primera pasada lo infló a un factor de 7 por contención; el número bueno es ~5×.
+
+**La portada tiene CLS medible**: 0.023 de mediana, idéntico en dos sesiones independientes, con
+rango 0–35. Sigue dentro de «bueno» (<0.1), pero que la mediana se repita clavada mientras el rango
+va de 0 a 0.035 dice que hay cargas que sí desplazan y otras que no. Es sospechoso de P2: `StarField`
+y `ProductSurface` pasaron a montarse diferidos y pueden estar empujando el layout al entrar.
+
+## El gate de P0 sigue sin cumplirse
+
+Pide **dos pasadas consecutivas dentro del ±5 %**. Las dos de 11 runs sobre `/changelog` dieron 2976
+y 3408 ms de LCP — un 14 % de diferencia. Esto queda como punto de partida, no como gate en verde, y
+cerrarlo pide el entorno fijo de ADR-149.
