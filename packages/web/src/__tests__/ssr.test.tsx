@@ -23,4 +23,17 @@ describe("SSR (sin window)", () => {
     expect(html).toContain("data-nebula-theme");
     expect(html).toContain("colorScheme");
   });
+
+  it("sin mapa propio conoce los oficiales, que es lo publicado", () => {
+    const html = renderToStaticMarkup(<ColorSchemeScript storageKey="k" />);
+    expect(html).toContain(themeClass["dark"]);
+  });
+
+  it("con mapa propio reconoce un tema que la libreria no conoce (ADR-155)", () => {
+    const html = renderToStaticMarkup(
+      <ColorSchemeScript storageKey="k" themes={{ "rosette-dark": "rosette_abc" }} />,
+    );
+    expect(html).toContain("rosette_abc");
+    expect(html).not.toContain(themeClass["dark"]);
+  });
 });
