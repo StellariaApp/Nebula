@@ -10,7 +10,7 @@ import {
   THEME_NAMES,
   type ThemeName,
 } from "../themes/products";
-import Scenarios, { SCENARIOS, type Scenario } from "./Scenarios";
+import { SCENARIOS, type Scenario } from "./Scenarios";
 
 function Brand(name: ThemeName): string {
   const [from, to] = BRAND_STOPS[name];
@@ -102,7 +102,7 @@ export default function ProductSurface(): ReactElement {
             </Text>
           </Flex>
         </Box>
-        <Scenarios />
+        {/* <Scenarios /> */}
       </Box>
     </Segment>
   );
