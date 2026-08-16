@@ -23,6 +23,7 @@ import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
+import { SiteBackground } from "@/ui/site-background";
 import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import { SiteNav } from "../islands/site-nav";
 import type { Dictionary } from "../lib/dictionary";
@@ -95,7 +96,7 @@ export default async function Home() {
         skipLabel={dict["skip.content"]}
         header={<Bar dict={dict} guides={guides} />}
         footer={<SiteFooter dict={dict} />}
-        // background={<SiteBackground />}
+        background={<SiteBackground />}
       >
         <DeferredThemePanel
           labels={{
