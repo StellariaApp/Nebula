@@ -23,6 +23,7 @@ import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
+import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import { SiteNav } from "../islands/site-nav";
 import type { Dictionary } from "../lib/dictionary";
 import { Band } from "../ui/band";
@@ -166,15 +167,15 @@ export default async function Home() {
           />
         </Hero>
 
-        {/* <Band
+        <Band
           glass
           level="minor"
           eyebrow={dict["home.proof.eyebrow"]}
           title={dict["home.proof.title"]}
           description={dict["home.proof.body"]}
         >
-          <DeferredProductSurface />
-        </Band> */}
+          <ProductSurface />
+        </Band>
 
         <Band
           center

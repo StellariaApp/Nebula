@@ -23,8 +23,3 @@ export const DeferredThemePanel = dynamic(
   async () => ({ default: (await import("./theme-panel")).ThemePanel }),
   { ssr: false },
 );
-
-export const DeferredProductSurface = dynamic(
-  async () => (await import("@stellaria/nebula-demos/Patterns/ProductSurface")).default,
-  { ssr: false },
-);
