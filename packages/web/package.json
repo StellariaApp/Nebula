@@ -13,7 +13,8 @@
   "bugs": "https://github.com/StellariaApp/Nebula/issues",
   "type": "module",
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "*.css.js"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
