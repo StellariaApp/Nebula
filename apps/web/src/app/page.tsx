@@ -16,7 +16,7 @@ import {
 
 import { SiteBackground } from "../ui/site-background";
 
-import { DeferredThemePanel } from "../islands/deferred";
+import { DeferredProductSurface, DeferredThemePanel } from "../islands/deferred";
 import { HeroPreview } from "../islands/hero-preview";
 import { CATALOG } from "../lib/catalog";
 import { GuidesHome } from "../lib/content";
@@ -25,7 +25,6 @@ import { CurrentLang } from "../lib/lang";
 import { DEFAULT_SECTION, SectionHref } from "../lib/sections";
 import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "../lib/site";
 
-import ProductSurface from "@stellaria/nebula-demos/Patterns/ProductSurface";
 import { SiteNav } from "../islands/site-nav";
 import type { Dictionary } from "../lib/dictionary";
 import { Band } from "../ui/band";
@@ -176,7 +175,7 @@ export default async function Home() {
           title={dict["home.proof.title"]}
           description={dict["home.proof.body"]}
         >
-          <ProductSurface />
+          <DeferredProductSurface />
         </Band>
 
         <Band
