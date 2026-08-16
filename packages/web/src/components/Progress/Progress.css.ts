@@ -1,4 +1,4 @@
-import { fallbackVar, keyframes, style } from "@vanilla-extract/css";
+import { fallbackVar, keyframes, style, styleVariants } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
@@ -17,6 +17,36 @@ const STRIPES = keyframes({
 });
 
 const SPIN = keyframes({ to: { transform: "rotate(360deg)" } });
+
+const MATRIX_VARIANTS = [
+  "filled",
+  "outline",
+  "light",
+  "glass",
+  "ghost",
+  "glow",
+  "gradient",
+] as const;
+
+const MATRIX_SCALES = ["primary", "accent", "gray", "success", "warning", "error", "info"] as const;
+
+const MATRIX = Object.fromEntries(
+  MATRIX_VARIANTS.flatMap((variant) =>
+    MATRIX_SCALES.map((scale) => [`${variant}-${scale}`, vars.variant[variant][scale]] as const),
+  ),
+) as Record<string, (typeof vars.variant)["filled"]["primary"]>;
+
+export const tone = styleVariants(MATRIX, (slot) => ({
+  "@layer": {
+    [component_layer]: {
+      vars: {
+        [variables.trackBg]: slot.background,
+        [variables.trackBorder]: slot.borderColor,
+        [variables.trackBorderWidth]: slot.borderWidth,
+      },
+    },
+  },
+}));
 
 export const track = style({
   "@layer": {
@@ -103,6 +133,12 @@ export const ring_spin = style({
   animationIterationCount: "infinite",
   transformOrigin: "center",
   ...motion.reduced_motion,
+});
+
+export const ring_track = style({
+  "@layer": {
+    [component_layer]: { stroke: fallbackVar(variables.trackBg, vars.color.surface.raised) },
+  },
 });
 
 export const ring_arc = style({

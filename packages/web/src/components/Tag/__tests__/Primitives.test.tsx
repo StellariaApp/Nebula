@@ -30,7 +30,7 @@ describe("Tag", () => {
     const seen = new Set<string>();
     for (const variant of ["filled", "outline", "light", "ghost"] as const) {
       const view = render(<Tag variant={variant}>X</Tag>);
-      seen.add(screen.getByText("X").parentElement?.getAttribute("style") ?? "");
+      seen.add(screen.getByText("X").parentElement?.getAttribute("class") ?? "");
       view.unmount();
     }
     expect(seen.size).toBe(4);

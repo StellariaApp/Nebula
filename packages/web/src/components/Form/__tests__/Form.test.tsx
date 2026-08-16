@@ -152,7 +152,7 @@ describe("Stepper", () => {
     const seen = new Set<string>();
     for (const variant of ["filled", "light", "outline"] as const) {
       const view = render(<Stepper steps={PASOS} active={1} variant={variant} />);
-      seen.add(screen.getByRole("list").parentElement?.getAttribute("style") ?? "");
+      seen.add(screen.getByRole("list").parentElement?.getAttribute("class") ?? "");
       view.unmount();
     }
     expect(seen.size).toBe(3);

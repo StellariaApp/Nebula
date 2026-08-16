@@ -5,6 +5,37 @@ import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ThemeIcon.vars.css.js";
 
+const MATRIX_VARIANTS = [
+  "filled",
+  "outline",
+  "light",
+  "glass",
+  "ghost",
+  "glow",
+  "gradient",
+] as const;
+
+const MATRIX_SCALES = ["primary", "accent", "gray", "success", "warning", "error", "info"] as const;
+
+const MATRIX = Object.fromEntries(
+  MATRIX_VARIANTS.flatMap((variant) =>
+    MATRIX_SCALES.map((scale) => [`${variant}-${scale}`, vars.variant[variant][scale]] as const),
+  ),
+) as Record<string, (typeof vars.variant)["filled"]["primary"]>;
+
+export const tone = styleVariants(MATRIX, (slot) => ({
+  "@layer": {
+    [primitive_layer]: {
+      vars: {
+        [variables.bg]: slot.background,
+        [variables.fg]: slot.foreground,
+        [variables.borderColor]: slot.borderColor,
+        [variables.borderWidth]: slot.borderWidth,
+      },
+    },
+  },
+}));
+
 export const icon = style({
   "@layer": {
     [primitive_layer]: {
