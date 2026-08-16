@@ -121,6 +121,7 @@ export function Dashboard(): ReactElement {
                 diffLabel={item.trend === "up" ? "increase" : "decrease"}
               />
               <SparkLine
+                w="100%"
                 data={item.spark}
                 color={item.color as "primary"}
                 height={34}
