@@ -16,7 +16,7 @@ import {
 
 import { SiteBackground } from "../ui/site-background";
 
-import { DeferredProductSurface, DeferredThemePanel } from "../islands/deferred";
+import { DeferredThemePanel } from "../islands/deferred";
 import { HeroPreview } from "../islands/hero-preview";
 import { CATALOG } from "../lib/catalog";
 import { GuidesHome } from "../lib/content";
@@ -168,7 +168,7 @@ export default async function Home() {
           />
         </Hero>
 
-        <Band
+        {/* <Band
           glass
           level="minor"
           eyebrow={dict["home.proof.eyebrow"]}
@@ -176,7 +176,7 @@ export default async function Home() {
           description={dict["home.proof.body"]}
         >
           <DeferredProductSurface />
-        </Band>
+        </Band> */}
 
         <Band
           center
