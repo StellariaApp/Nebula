@@ -175,9 +175,9 @@ describe("Segment · disposición del contenido (ADR-154)", () => {
     expect(screen.queryByText("Contenido de Detalle")).toBeNull();
   });
 
-  it("sin swipe el carril nunca traslada, ni al cambiar de pestaña", async () => {
+  it("con lazy el carril nunca traslada: apila y funde", async () => {
     StubRects(240);
-    render(<Lazy swipeable={false} />);
+    render(<Lazy lazy />);
     await userEvent.click(screen.getByRole("tab", { name: "Detalle" }));
     await waitFor(() => {
       expect(screen.getByText("Contenido de Detalle")).toBeDefined();
@@ -185,9 +185,9 @@ describe("Segment · disposición del contenido (ADR-154)", () => {
     expect(Rail().style.transform).not.toMatch(/translateX\(-[1-9]/);
   });
 
-  it("con swipe el carril traslada al cambiar de pestaña", async () => {
+  it("quitar el gesto NO quita el deslizamiento: swipeable gobierna el arrastre", async () => {
     StubRects(240);
-    render(<Lazy />);
+    render(<Lazy swipeable={false} />);
     await userEvent.click(screen.getByRole("tab", { name: "Detalle" }));
     await waitFor(() => {
       expect(Rail().style.transform).toMatch(/translateX\(-[1-9]/);

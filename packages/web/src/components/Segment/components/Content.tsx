@@ -131,7 +131,7 @@ export function SegmentContent(props: SegmentContentProps): ReactElement {
   const autos = auto ?? inherited.auto ?? false;
   const fits_width = autoWidth ?? inherited.autoWidth ?? false;
   const loops = loop ?? inherited.loop ?? false;
-  const flow = wants_swipe ? "rail" : "stack";
+  const flow = is_lazy ? "stack" : "rail";
 
   const items = Children.toArray(children).filter(
     (child): child is ReactElement<SegmentContentItemProps> => isValidElement(child),

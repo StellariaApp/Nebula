@@ -43,10 +43,7 @@ export interface SegmentProps extends StyleProps, SegmentLayoutProps {
  * it; what a content passes for itself wins (ADR-154).
  */
 export interface SegmentLayoutProps {
-  /**
-   * The swipe across the panels. With it off the transition is a fade, not a slide: the sideways
-   * travel only exists to follow the finger, and there is no finger.
-   */
+  /** The drag gesture across the panels. It governs the gesture only: the slide stays either way. */
   swipeable?: boolean | undefined;
   /** Stretches the viewport and every panel to the height of the box. Takes precedence over `auto`. */
   fill?: boolean | undefined;
@@ -62,8 +59,10 @@ export interface SegmentLayoutProps {
   loop?: boolean | undefined;
   /**
    * Mounts ONLY the active panel and unmounts the one it leaves. Turns a segment whose panels are
-   * whole screens from six live trees into one. It forces `swipeable` off — swiping needs the
-   * neighbour mounted, which is the cost this removes — so the transition is a fade.
+   * whole screens from six live trees into one.
+   *
+   * It stacks the panels and fades between them instead of sliding, because with no neighbour
+   * mounted there is nothing to slide to. For the same reason it turns `swipeable` off.
    *
    * Returning to a panel mounts it again: the chunk is cached, so it costs render, not network.
    * State that has to survive the trip lives above the panel.
