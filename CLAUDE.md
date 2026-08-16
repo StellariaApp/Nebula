@@ -6,7 +6,11 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 
 **Estado**: F0, W1, W2, W3, W4, **WR, WB y WN cerradas** (`docs/f0-closure.md`, `w1-closure.md`, `w2-closure.md`, `w3-closure.md`, `w4-closure.md`, `wr-closure.md`, `wb-closure.md`, `wn-closure.md`). **El catálogo web está completo**: 158 componentes (`Header` en ADR-062, `Nav` en ADR-068, `Reveal` y `Footer` en ADR-070; `Banner` renombrado a `Hero`), siete subpaths (`/command`, `/charts`, `/datagrid`, `/dnd`, `/carousel`, `/media`, `/editor`).
 
-**Ahora mismo toca W5** (publicación web v1): changesets, auditoría de exports/subpaths/sideEffects/peers, publicación npm bajo la org `stellaria`, READMEs de consumo y verificación en un Next 16 virgen. ADR-113 (licencia MIT) y ADR-134 (forma del paquete) ya están cerrados. La revisión previa se ejecutó el 2026-08-08 (`docs/reviews/revision-previa-w5-2026-08-08.md`) y se reverificó el 08-14. **Queda una decisión tuya que bloquea solo el baseline de ADR-037**: declarar que el aspecto está estable — ver `docs/wr-closure.md`, que lista lo que la auditoría visual no llegó a cubrir. En paralelo está abierta **RP** (`prompts/2.4-rosette-product/`), la maqueta de Rosette.
+**W5.1 y W5.2 están cerradas y los seis paquetes YA ESTÁN PUBLICADOS** en npm en `0.1.0` desde el 2026-08-12 (`docs/release-checklist.md`). `private: true` se retiró; publica el CI con `pnpm release`, que redacta las notas desde los commits. **Del gate de W5 solo falta la verificación de consumo** en la landing de Rosette (`prompts/2-web/W5.3-verificacion-en-rosette.md`). No se consiguió la procedencia npm: la exige sobre repositorio público y éste es privado — decisión pendiente, ver el checklist.
+
+**En marcha está P5** del plan de performance (`docs/reviews/plan-performance-web-2026-08-14.md`): el tema fuera del camino de render (ADR-150). 50 componentes de servidor de 158. Lo que mueve el LCP es `Hero` y `Section`, que siguen de cliente y necesitan su propio ADR (decisión B). **El gate de P0 no está cumplido** y no lo estará sin el entorno único de ADR-149 — el mismo que reconciliaría los dos baselines visuales (`win32` y `linux` derivan por separado; CI puede estar rojo con local en verde).
+
+**Dos decisiones tuyas pendientes**: declarar el aspecto estable, que bloquea el baseline de ADR-037 (`docs/wr-closure.md` lista lo no cubierto; `prompts/3-visual-audit/` es el encargo que lo cerraría), y `Hero`/`Section`. En paralelo sigue abierta **RP** (`prompts/2.4-rosette-product/`), la maqueta de Rosette.
 
 ## Fuente de verdad: `docs/` (decisiones CERRADAS — no reabrir sin ADR)
 
@@ -56,7 +60,8 @@ Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `dark` 
 - **ESM estricto**: imports relativos con extensión (`./x.js`, `./dir/index.js`) — el dist se ejecuta directo en Node (los CLIs de tools/ lo consumen).
 - `packages/tokens/src/tokens/palettes.ts` es **generado** por `pnpm gen:palette regen` — no editarlo a mano.
 - `packages/tokens` tiene **cero dependencias de runtime** y presupuesto de `any` = 0; checks de contrato en `src/__checks__/contract.test-d.ts` (excluidos del build vía `tsconfig.build.json`).
-- Los paquetes están `private: true` hasta definir publicación (changesets, Etapa 2).
+- **Los seis paquetes publicables ya no son `private`** y están en npm; `demos` y `native` sí siguen privados.
+- **El gate de bytes no ve peticiones bloqueantes.** `apps/web` usa `inlineCss: true`, así que el CSS viaja dentro del HTML y `hojas CSS` debe quedarse en 0: en cuanto Next no puede incrustarlo salen `<link>` que **bloquean el primer pintado**. Costó 29 puntos de PageSpeed (100 → 71) con el presupuesto en verde. Si ese número sube, mira ahí antes que nada.
 - Grafo de deps de una sola dirección: tokens → hooks/themes/icons → web/native → dominios premium → apps. `web` y `native` jamás se importan entre sí.
 
 ## Política de trabajo con el propietario
