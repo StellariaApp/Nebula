@@ -5,7 +5,14 @@ import { type ComponentType, type ReactElement } from "react";
 
 import { Deferred } from "../defer";
 
-export const SCENARIOS = ["dashboard", "mail", "finances", "onboarding", "settings"] as const;
+export const SCENARIOS = [
+  "components",
+  "dashboard",
+  "mail",
+  "finances",
+  "onboarding",
+  "settings",
+] as const;
 
 export type Scenario = (typeof SCENARIOS)[number];
 
@@ -13,6 +20,7 @@ const HOLD = 620;
 
 const VIEWS: Record<Scenario, ComponentType<{ height?: number | undefined }>> = {
   dashboard: Deferred(async () => (await import("../Scenarios/Dashboard")).Dashboard),
+  components: Deferred(async () => (await import("../Scenarios/Components")).ScenarioComponents),
   mail: Deferred(async () => (await import("../Scenarios/Mail")).Mail),
   finances: Deferred(async () => (await import("../Scenarios/Finances")).Finances),
   onboarding: Deferred(async () => (await import("../Scenarios/Onboarding")).Onboarding),

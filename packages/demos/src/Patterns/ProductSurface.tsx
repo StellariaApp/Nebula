@@ -68,7 +68,7 @@ function Switcher(): ReactElement {
 }
 
 export default function ProductSurface(): ReactElement {
-  const [scenario, set_scenario] = useState<Scenario>("dashboard");
+  const [scenario, set_scenario] = useState<Scenario>("components");
 
   return (
     <Segment
