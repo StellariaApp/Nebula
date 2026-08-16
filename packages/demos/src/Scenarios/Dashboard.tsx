@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   Divider,
+  GradientBorder,
   GradientText,
   Progress,
   Stat,
@@ -136,21 +137,23 @@ export function Dashboard(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 3fr) minmax(0, 2fr)" }}
       >
-        <Card withBorder r="md" p="md">
-          <AreaChart
-            data={FLOW}
-            series={[...SERIES]}
-            xAxis={{ key: "month" }}
-            height={196}
-            withLegend
-            withTooltip
-            withGrid
-            fillOpacity={0.22}
-            curve="monotone"
-            title="Matched against pending"
-            summary="Matched rose from 812 in February to 1,248 in July while pending fell from 96 to 36."
-          />
-        </Card>
+        <GradientBorder beam r="md" h="100%">
+          <Card p="md" h="100%">
+            <AreaChart
+              data={FLOW}
+              series={[...SERIES]}
+              xAxis={{ key: "month" }}
+              height={196}
+              withLegend
+              withTooltip
+              withGrid
+              fillOpacity={0.22}
+              curve="monotone"
+              title="Matched against pending"
+              summary="Matched rose from 812 in February to 1,248 in July while pending fell from 96 to 36."
+            />
+          </Card>
+        </GradientBorder>
         <Card withBorder r="md" p="md">
           <Box display="flex" direction="column" gap="md">
             <Text fz="body2" fw="semibold">

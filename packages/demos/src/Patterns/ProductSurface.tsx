@@ -4,18 +4,16 @@ import { Box, ColorSwatch, Divider, Flex, Segment, Text, useTheme } from "@stell
 import { useState, type ReactElement } from "react";
 
 import {
+  BRAND_STOPS,
   ChoiceFromTheme,
   ResolveChoice,
-  THEMES,
   THEME_NAMES,
   type ThemeName,
 } from "../themes/products";
 import Scenarios, { SCENARIOS, type Scenario } from "./Scenarios";
 
-function Brand(name: ThemeName, scheme: "dark" | "light"): string {
-  const stops = THEMES[name][scheme].effects.gradients.brand.stops;
-  const from = stops[0]?.color ?? "#000";
-  const to = stops.at(-1)?.color ?? from;
+function Brand(name: ThemeName): string {
+  const [from, to] = BRAND_STOPS[name];
   return `linear-gradient(120deg, ${from}, ${to})`;
 }
 
@@ -40,7 +38,7 @@ function Switcher(): ReactElement {
               value: entry,
               label: (
                 <Flex align="center" gap={5}>
-                  <ColorSwatch color={Brand(entry, choice.scheme)} size={12} withShadow={false} />
+                  <ColorSwatch color={Brand(entry)} size={12} withShadow={false} />
                   <Text tt="capitalize" inherit>
                     {entry}
                   </Text>
@@ -70,13 +68,15 @@ function Switcher(): ReactElement {
 }
 
 export default function ProductSurface(): ReactElement {
-  const [scenario, set_scenario] = useState<Scenario>("components");
+  const [scenario, set_scenario] = useState<Scenario>("dashboard");
 
   return (
     <Segment
       overflowMode="wrap"
       value={scenario}
       size="sm"
+      auto
+      lazy
       onChange={(value) => {
         set_scenario(value as Scenario);
       }}
@@ -102,7 +102,7 @@ export default function ProductSurface(): ReactElement {
             </Text>
           </Flex>
         </Box>
-        <Scenarios active={scenario} />
+        <Scenarios />
       </Box>
     </Segment>
   );
