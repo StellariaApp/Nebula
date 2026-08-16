@@ -23809,6 +23809,22 @@
       "contract": "SegmentProps",
       "own": [
         {
+          "name": "auto",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Sizes the box to the active panel and springs to the next one. Ignored when `fill` is set.",
+          "slot": false
+        },
+        {
+          "name": "autoWidth",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Same on the horizontal axis: every panel takes its own width and the box springs to the active\none, capped at the room it has. Panels without a width of their own collapse, so it does not\nsuit text that is meant to wrap.",
+          "slot": false
+        },
+        {
           "name": "children",
           "type": "ReactNode",
           "required": true,
@@ -23857,11 +23873,35 @@
           "slot": false
         },
         {
+          "name": "fill",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Stretches the viewport and every panel to the height of the box. Takes precedence over `auto`.",
+          "slot": false
+        },
+        {
           "name": "fullWidth",
           "type": "boolean",
           "required": false,
           "default": "false",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "lazy",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Mounts ONLY the active panel and unmounts the one it leaves. Turns a segment whose panels are\nwhole screens from six live trees into one.\n\nIt stacks the panels and fades between them instead of sliding, because with no neighbour\nmounted there is nothing to slide to. For the same reason it turns `swipeable` off.\n\nReturning to a panel mounts it again: the chunk is cached, so it costs render, not network.\nState that has to survive the trip lives above the panel.",
+          "slot": false
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Wraps the swipe around, so the first panel follows the last one. Needs two panels or more.",
           "slot": false
         },
         {
@@ -23894,6 +23934,14 @@
           "required": false,
           "default": "\"md\"",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "swipeable",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "The drag gesture across the panels. It governs the gesture only: the slide stays either way.",
           "slot": false
         },
         {
@@ -23967,6 +24015,14 @@
               "slot": false
             },
             {
+              "name": "lazy",
+              "type": "boolean",
+              "required": false,
+              "default": null,
+              "doc": "Mounts ONLY the active panel and unmounts the one it leaves. Turns a segment whose panels are\nwhole screens from six live trees into one.\n\nIt stacks the panels and fades between them instead of sliding, because with no neighbour\nmounted there is nothing to slide to. For the same reason it turns `swipeable` off.\n\nReturning to a panel mounts it again: the chunk is cached, so it costs render, not network.\nState that has to survive the trip lives above the panel.",
+              "slot": false
+            },
+            {
               "name": "loop",
               "type": "boolean",
               "required": false,
@@ -23979,7 +24035,7 @@
               "type": "boolean",
               "required": false,
               "default": null,
-              "doc": null,
+              "doc": "The drag gesture across the panels. It governs the gesture only: the slide stays either way.",
               "slot": false
             }
           ],
