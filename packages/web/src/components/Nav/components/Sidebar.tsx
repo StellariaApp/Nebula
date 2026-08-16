@@ -68,9 +68,9 @@ export function NavSidebar(props: NavSidebarProps): ReactElement {
             <m.aside
               aria-label={label}
               className={cx(styles.sidebar, className)}
-              initial={is_off ? false : { x: "-100%" }}
+              initial={is_off ? false : { x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={Spring("snappy", motion_context)}
             >
               <Box {...headProps} className={cx(styles.sidebar_head, headProps?.className)}>

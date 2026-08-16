@@ -72,7 +72,7 @@ export const inner = style({
     [composite_layer]: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
       gap: vars.space.md,
       flex: 1,
       minWidth: 0,
@@ -215,7 +215,6 @@ export const actions = recipe({
         alignItems: "center",
         gap: vars.space.sm,
         flexShrink: 0,
-        marginInlineStart: "auto",
       },
     },
   },
@@ -398,7 +397,7 @@ export const sidebar = style({
     [composite_layer]: {
       position: "fixed",
       insetBlock: 0,
-      insetInlineStart: 0,
+      insetInlineEnd: 0,
       zIndex: vars.zIndex.modal,
       boxSizing: "border-box",
       display: "flex",
@@ -406,7 +405,7 @@ export const sidebar = style({
       inlineSize: "min(320px, 100vw)",
       background: vars.glass.strong.background,
       backdropFilter: vars.glass.strong.backdropFilter,
-      borderInlineEnd: `1px solid ${vars.glass.strong.borderColor}`,
+      borderInlineStart: `1px solid ${vars.glass.strong.borderColor}`,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
     },
@@ -417,7 +416,7 @@ export const sidebar_head = style({
   "@layer": {
     [composite_layer]: {
       display: "flex",
-      justifyContent: "flex-start",
+      justifyContent: "flex-end",
       padding: vars.space.sm,
       flexShrink: 0,
     },

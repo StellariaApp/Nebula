@@ -247,25 +247,23 @@ para el contenido está `contentWidth`—. Y `px` sobre un `Nav` con `floating` 
 
 ## Dónde se centran los enlaces
 
-El contenedor interno es un flex con `flex-start`, `Nav.Links` se coloca con márgenes automáticos
-según `align` (`center` por defecto) y `Nav.Actions` se ancla al final con `margin-inline-start:
-auto`. Con logo + enlaces + acciones eso da el reparto de tres columnas; sin acciones, los enlaces
-quedan centrados entre el logo y el borde. Es una aproximación: el centrado es respecto al **hueco
-libre**, no al ancho de la barra, así que con un logo muy ancho y nada a la derecha el grupo no cae
-en el centro geométrico. Para eso, `align="end"` y una `Nav.Actions` vacía no son la respuesta — lo
-es una grid en el consumidor.
+El contenedor interno es un flex con `space-between` y `Nav.Links` se coloca con márgenes
+automáticos según `align` (`center` por defecto). Con logo + enlaces + acciones eso da el reparto de
+tres columnas; sin acciones, los enlaces quedan centrados entre el logo y el borde. Es una
+aproximación: el centrado es respecto al **hueco libre**, no al ancho de la barra, así que con un
+logo muy ancho y nada a la derecha el grupo no cae en el centro geométrico. Para eso, `align="end"` y
+una `Nav.Actions` vacía no son la respuesta — lo es una grid en el consumidor.
 
-El reparto no lo hace `space-between` porque la barra plegada tiene **dos** hijos visibles, el botón
-y el logo, y separarlos a los extremos es justo lo que no se quiere: el hamburger va delante del
-logo y los dos juntos al inicio. Los márgenes automáticos dan el reparto de tres columnas igual, y
-sin decidir nada cuando faltan piezas.
+`space-between` es también lo que coloca el `Burger` cuando la barra se pliega: con los enlaces y las
+acciones ocultos quedan dos hijos visibles —el logo y el botón— y el reparto los manda a cada
+extremo sin que ninguno necesite margen propio.
 
-## El cajón entra por el inicio
+## El cajón entra por el final
 
-`Nav.Sidebar` se ancla a `inset-inline-start` y desliza desde ahí, del mismo lado que el `Burger` que
+`Nav.Sidebar` se ancla a `inset-inline-end` y desliza desde ahí, del mismo lado que el `Burger` que
 lo abre: el puntero no cruza la pantalla para abrir y volver a cerrar. Por eso el borde del panel es
-`border-inline-end` y el botón de cierre va a `flex-start` — queda sobre el hamburger, que es donde
-está la mano. Todo en propiedades lógicas, así que en RTL el cajón entra por la derecha sin tocar
+`border-inline-start` y el botón de cierre va a `flex-end` — queda sobre el hamburger, que es donde
+está la mano. Todo en propiedades lógicas, así que en RTL el cajón entra por la izquierda sin tocar
 nada.
 
 ## Lo que este componente no es

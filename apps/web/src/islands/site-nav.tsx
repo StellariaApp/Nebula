@@ -69,15 +69,6 @@ export function SiteNav({
       {...(contentWidth === undefined ? {} : { contentWidth })}
       {...(height === undefined ? {} : { mih: height })}
     >
-      <Burger
-        size="sm"
-        showBelow={collapse}
-        opened={menu}
-        onChange={set_menu}
-        openLabel={labels.menuOpen}
-        closeLabel={labels.menuClose}
-      />
-
       <Nav.Logo href="/" aria-label={labels.site}>
         <Logo id="nav-logo" height={26} />
       </Nav.Logo>
@@ -98,6 +89,15 @@ export function SiteNav({
           </>
         )}
       </Nav.Actions>
+
+      <Burger
+        size="sm"
+        showBelow={collapse}
+        opened={menu}
+        onChange={set_menu}
+        openLabel={labels.menuOpen}
+        closeLabel={labels.menuClose}
+      />
 
       <Nav.Sidebar
         opened={menu}
