@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import {
   BuildProduct,
-  PRODUCTS,
+  ThemeOf,
   type ProductName,
 } from "@stellaria/nebula-demos/themes/products";
 import { officialThemes } from "@stellaria/nebula-themes";
@@ -15,7 +15,7 @@ import {
   type OfficialThemeName,
 } from "@stellaria/nebula-web";
 
-export { BuildProduct, PRODUCTS };
+export { BuildProduct, ThemeOf };
 export type { ProductName };
 
 export const MATRIX_A11Y = {
@@ -27,9 +27,9 @@ export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
   { name: "light", label: "light" },
 ];
 
-export const rosette = PRODUCTS.rosette.dark;
-export const stellaria = PRODUCTS.stellaria.dark;
-export const lagrange = PRODUCTS.lagrange.dark;
+export const rosette = ThemeOf("rosette", "dark");
+export const stellaria = ThemeOf("stellaria", "dark");
+export const lagrange = ThemeOf("lagrange", "dark");
 
 export function ProductStage(props: {
   name: ProductName;
@@ -39,7 +39,7 @@ export function ProductStage(props: {
   const { name, global, children } = props;
   const official = officialThemes[(global ?? "dark") as OfficialThemeName] as
     NebulaTheme | undefined;
-  const theme = PRODUCTS[name][official?.meta.scheme === "light" ? "light" : "dark"];
+  const theme = ThemeOf(name, official?.meta.scheme === "light" ? "light" : "dark");
 
   return (
     <NebulaProvider key={theme.meta.name} defaultTheme={theme} storage={null}>

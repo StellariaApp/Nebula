@@ -18,7 +18,7 @@ import {
 } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { PRODUCTS, PRODUCT_NAMES, type ProductName } from "../themes/products";
+import { ThemeOf, PRODUCT_NAMES, type ProductName } from "../themes/products";
 
 const SCHEMES = [
   { value: "dark", label: "Dark" },
@@ -67,7 +67,7 @@ function Surface(): ReactElement {
 export default function ProductSwitch(): ReactElement {
   const [product, set_product] = useState<ProductName>("rosette");
   const [scheme, set_scheme] = useState<"dark" | "light">("dark");
-  const theme = PRODUCTS[product][scheme];
+  const theme = ThemeOf(product, scheme);
 
   return (
     <Flex direction="column" gap="md">

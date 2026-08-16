@@ -4,7 +4,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import {
   ChoiceFromTheme,
   ResolveChoice,
-  THEMES,
+  BRAND_STOPS,
   THEME_NAMES,
   type Corner,
   type Density,
@@ -63,10 +63,8 @@ const CLOSE = (
   </svg>
 );
 
-function Brand(name: ThemeName, scheme: "dark" | "light"): string {
-  const stops = THEMES[name][scheme].effects.gradients.brand.stops;
-  const from = stops[0]?.color ?? "#000";
-  const to = stops.at(-1)?.color ?? from;
+function Brand(name: ThemeName): string {
+  const [from, to] = BRAND_STOPS[name];
   return `linear-gradient(120deg, ${from}, ${to})`;
 }
 
@@ -163,7 +161,7 @@ export function ThemePanel({
             value={entry}
             label={
               <Box display="flex" align="center" gap="sm">
-                <ColorSwatch color={Brand(entry, scheme)} size={16} />
+                <ColorSwatch color={Brand(entry)} size={16} />
                 <Text fz="body3" tt="capitalize">
                   {entry}
                 </Text>

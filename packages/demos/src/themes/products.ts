@@ -178,23 +178,38 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
   };
 }
 
-export const PRODUCTS: Record<ProductName, Record<"dark" | "light", NebulaTheme>> = {
-  rosette: { dark: BuildProduct("rosette", "dark"), light: BuildProduct("rosette", "light") },
-  stellaria: { dark: BuildProduct("stellaria", "dark"), light: BuildProduct("stellaria", "light") },
-  polaris: { dark: BuildProduct("polaris", "dark"), light: BuildProduct("polaris", "light") },
-  lagrange: { dark: BuildProduct("lagrange", "dark"), light: BuildProduct("lagrange", "light") },
-  aurora: { dark: BuildProduct("aurora", "dark"), light: BuildProduct("aurora", "light") },
-  nova: { dark: BuildProduct("nova", "dark"), light: BuildProduct("nova", "light") },
-  eclipse: { dark: BuildProduct("eclipse", "dark"), light: BuildProduct("eclipse", "light") },
-  cosmos: { dark: BuildProduct("cosmos", "dark"), light: BuildProduct("cosmos", "light") },
-  star: { dark: BuildProduct("star", "dark"), light: BuildProduct("star", "light") },
-};
-
 export type ThemeName = "nebula" | ProductName;
 
-export const THEMES: Record<ThemeName, Record<"dark" | "light", NebulaTheme>> = {
-  nebula: { dark: nebulaDark, light: nebulaLight },
-  ...PRODUCTS,
+const BUILT = new Map<string, NebulaTheme>();
+
+/**
+ * Un tema concreto, construido la primera vez que se pide y memorizado. Antes existía una tabla
+ * `THEMES` de módulo, y eso construía los VEINTE al importar este archivo — aunque quien importara
+ * solo quisiera un hex para pintar un punto de color.
+ */
+export function ThemeOf(name: ThemeName, scheme: "dark" | "light"): NebulaTheme {
+  if (name === "nebula") return scheme === "dark" ? nebulaDark : nebulaLight;
+  const key = `${name}-${scheme}`;
+  const hit = BUILT.get(key);
+  if (hit !== undefined) return hit;
+  const built = BuildProduct(name, scheme);
+  BUILT.set(key, built);
+  return built;
+}
+
+/**
+ * Los dos extremos del gradiente de marca de cada tema, que es lo único que hace falta para el
+ * swatch del selector. Salen de la semilla y NO dependen del esquema: `BuildProduct` los copia tal
+ * cual a `effects.gradients.brand`. Leerlos de aquí evita construir el tema para pintar un punto.
+ */
+export const BRAND_STOPS: Record<ThemeName, readonly [string, string]> = {
+  nebula: [
+    nebulaDark.effects.gradients.brand.stops[0]?.color ?? "#000",
+    nebulaDark.effects.gradients.brand.stops.at(-1)?.color ?? "#000",
+  ],
+  ...(Object.fromEntries(
+    Object.entries(PRODUCT_SEEDS).map(([name, seed]) => [name, [seed.from, seed.to]]),
+  ) as unknown as Record<ProductName, readonly [string, string]>),
 };
 
 export const PRODUCT_NAMES: readonly ProductName[] = [
@@ -260,7 +275,7 @@ const LIGHT_SUFFIX = /-light$/;
 
 export function NameFromTheme(theme: NebulaTheme): ThemeName {
   const stem = theme.meta.name.replace(LIGHT_SUFFIX, "");
-  return stem in PRODUCTS ? (stem as ThemeName) : "nebula";
+  return stem in PRODUCT_SEEDS ? (stem as ThemeName) : "nebula";
 }
 
 function CornerFromTheme(theme: NebulaTheme): Corner {
@@ -288,7 +303,7 @@ export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
 }
 
 export function ResolveChoice(choice: ThemeChoice): string | NebulaTheme {
-  const base = THEMES[choice.name][choice.scheme];
+  const base = ThemeOf(choice.name, choice.scheme);
   const pristine = ChoiceFromTheme(base);
   const untouched =
     choice.motion === pristine.motion &&
