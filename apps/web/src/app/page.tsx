@@ -14,8 +14,9 @@ import {
   Text,
 } from "@stellaria/nebula-web";
 
+import { SiteBackground } from "../ui/site-background";
+
 import {
-  DeferredBackground,
   DeferredProductSurface,
   DeferredThemePanel,
 } from "../islands/deferred";
@@ -98,7 +99,7 @@ export default async function Home() {
         skipLabel={dict["skip.content"]}
         header={<Bar dict={dict} guides={guides} />}
         footer={<SiteFooter dict={dict} />}
-        background={<DeferredBackground />}
+        background={<SiteBackground />}
       >
         <DeferredThemePanel
           labels={{

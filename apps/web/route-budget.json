@@ -5,10 +5,10 @@
       "match": ["/"],
       "jsRaw": 1032,
       "jsBr": 270.5,
-      "cssFiles": 2,
-      "cssBr": 1,
+      "cssFiles": 6,
+      "cssBr": 3,
       "fontBr": 1,
-      "htmlBr": 57
+      "htmlBr": 61.5
     },
     {
       "label": "Fichas de componente",

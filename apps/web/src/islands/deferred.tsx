@@ -5,19 +5,19 @@ import dynamic from "next/dynamic";
 /**
  * Lo que la portada monta para ENSEÑAR el catálogo, fuera del arranque (P2 del plan de performance).
  *
- * Ninguna de las tres hace falta para pintar el Hero, que es el elemento que marca el LCP, y las tres
- * pesan: `ThemePanel` arrastra los temas de producto enteros, `ProductSurface` monta un escenario
- * completo bajo el pliegue y `StarField` pinta un canvas con parallax y aurora.
+ * Los tres siguen partiendo su chunk, que es lo que quita peso del arranque. Lo que cambia entre
+ * ellos es si además se les quita el marcado del HTML, y eso ya no se decide igual para los tres.
  *
- * `ssr: false` es deliberado y no solo aplaza el JavaScript: saca también su marcado del HTML, que es
- * donde el presupuesto de la portada iba más apretado. Son decorado y demostración — nada que un
- * buscador necesite indexar ni que el usuario vea en el primer pintado.
+ * `ssr: true` en el fondo y en la superficie: sin marcado servido, el usuario ve aparecer el fondo y
+ * el segmento DESPUÉS del primer pintado, y ese salto se nota más de lo que costaban. El resto del
+ * sitio ya sirve el fondo sin diferir (`ui/chrome.tsx`), así que la portada era la excepción.
+ *
+ * En `ProductSurface` la cuenta cambió con `lazy` (ADR-154): antes servir su marcado eran los seis
+ * escenarios, ahora es uno.
+ *
+ * `ThemePanel` se queda en `ssr: false`: no existe hasta que se abre, así que su marcado no le sirve
+ * a nadie en el primer pintado.
  */
-
-export const DeferredBackground = dynamic(
-  async () => ({ default: (await import("../ui/site-background")).SiteBackground }),
-  { ssr: false },
-);
 
 export const DeferredThemePanel = dynamic(
   async () => ({ default: (await import("./theme-panel")).ThemePanel }),
@@ -26,5 +26,5 @@ export const DeferredThemePanel = dynamic(
 
 export const DeferredProductSurface = dynamic(
   async () => (await import("@stellaria/nebula-demos/Patterns/ProductSurface")).default,
-  { ssr: false },
+  { ssr: true },
 );
