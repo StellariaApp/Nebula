@@ -1,4 +1,4 @@
-# ADR-154 — El segmento sin swipe no es un carril
+# ADR-154 — El segmento puede montar un panel cada vez
 
 - **Estado**: **propuesta** · 2026-08-15 — diseño dictado por el propietario, pendiente de su aceptación
 - **Toca**: `SegmentProps` y `SegmentContentProps` de `@stellaria/nebula-web`, API pública en `0.1.0`.
@@ -41,21 +41,19 @@ la configuración viviera dos niveles más abajo.
 indicador sobre las pestañas; el segundo, el barrido sobre los paneles. Comparten sitio, no
 significado.
 
-### 2. `swipeable={false}` cambia la transición a fundido
+### 2. El fundido lo trae `lazy`, no `swipeable`
 
-Si no hay gesto, no hay carril: el desplazamiento lateral solo existe para dar continuidad al dedo.
-Sin dedo es una animación que mueve contenido de lado sin que nadie lo haya empujado.
+Una primera redacción ató el fundido a `swipeable={false}`, con el argumento de que sin gesto no hay
+carril. **Se descartó**: `swipeable` gobierna **el arrastre y solo el arrastre**. Quitar el gesto no
+es decir que la transición deba cambiar, y hacerlo habría cambiado el comportamiento de una prop ya
+publicada en `0.1.0` sin ganar nada a cambio.
 
-Con `swipeable={false}` la entrada del panel pasa a ser un fundido. Sigue respetando `motion.tier` y
+El fundido va con `lazy`, donde no es una preferencia sino una consecuencia: **sin el vecino montado
+no hay a dónde deslizar**. Ahí el carril pasa de `flex row` a `grid` con los paneles en la misma
+celda, y la entrada del panel es un fundido que sigue respetando `motion.tier` y
 `prefers-reduced-motion` como el resto del catálogo.
 
-**Es un cambio de comportamiento sobre una prop publicada**, no una prop nueva: quien hoy pase
-`swipeable={false}` y espere el deslizamiento verá un fundido. Se acepta porque el deslizamiento sin
-gesto era el comportamiento difícil de justificar, no al revés.
-
-**Lo que se pierde y no tiene escotilla**: «sin gesto pero con deslizamiento» deja de ser
-expresable. Si aparece un caso real, pide una prop de transición propia y otro ADR — no se inventa
-por adelantado.
+Con esto el ADR queda **enteramente aditivo**: sin `lazy`, todo se comporta como lo publicado.
 
 ### 3. `lazy` monta un panel cada vez
 
@@ -65,8 +63,8 @@ intacto, así que es aditivo.
 Con `lazy`, **solo el panel activo tiene hijos**. Los demás siguen existiendo como cajas —el carril
 las necesita para medir— pero su árbol se desmonta al dejar de ser activos.
 
-`lazy` **implica `swipeable={false}`**, y por tanto fundido: barrer hacia un panel exige que el
-vecino esté montado, que es justo el coste que `lazy` quita.
+`lazy` **apaga el gesto**, por el mismo motivo que trae el fundido: barrer hacia un panel exige que
+el vecino esté montado, que es justo el coste que `lazy` quita.
 
 Se descartó «`lazy` guarda ±1 vecino»: es lo que hacía la portada, y era la mitad del problema
 medido.
@@ -84,9 +82,8 @@ el primer frame como hoy. Sostenerla siempre convertiría un cambio legítimo en
 
 ## Consecuencias
 
-- **Aditivo salvo el punto 2.** `lazy` por defecto `false` y las props en la raíz no rompen nada. La
-  transición bajo `swipeable={false}` sí cambia lo que ve quien ya usaba esa prop, y por eso se
-  documenta en `Segment.md` y en la ficha.
+- **Enteramente aditivo.** `lazy` por defecto `false` y las props en la raíz no rompen nada: sin
+  `lazy`, el componente se comporta exactamente como lo publicado en `0.1.0`. Entra como minor.
 - **Dos modos de disposición, no una prop.** Es lo que hace que esto merezca ADR: `lazy` cambia lo
   que el componente *puede hacer* —sin barrido, sin deslizamiento—, no solo cuándo monta.
 - **Coste para quien use `lazy`**: volver a una pestaña vuelve a montar su árbol. El chunk ya está en
