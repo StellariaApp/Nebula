@@ -1,6 +1,6 @@
 # ADR-163 — El provider acepta un tema ya materializado como clase
 
-- **Estado**: **propuesta** · 2026-08-17
+- **Estado**: **aceptada** · 2026-08-17 — aprobada por el propietario para desarrollarse
 - **Cambia API pública**: sí, y **solo ensancha**. `defaultTheme` y `setTheme` ganan una tercera
   forma; las dos que hoy compilan siguen compilando y siguen haciendo lo mismo.
 - **Toca**: `NebulaProviderProps`, `ThemeContextValue.setTheme`, `ColorSchemeScriptProps.themes`, `docs/02` §4.
@@ -102,13 +102,21 @@ export interface MaterializedTheme {
   className: string;
 }
 
-defaultTheme?: OfficialThemeName | NebulaTheme | MaterializedTheme;
-setTheme: (next: string | NebulaTheme | MaterializedTheme) => void;
+defaultTheme?: OfficialThemeName | (string & {}) | NebulaTheme | MaterializedTheme;
 ```
 
 `Resolve()` gana una rama: con esta forma devuelve `className` del consumidor y `style: undefined`.
 No inyecta nada. El provider queda como lo que es en este caso — el portador del objeto para el lado
 de JavaScript.
+
+**`setTheme` no cambia de firma.** Era lo primero que parecía hacer falta y con el registro de §3 no
+hace falta: un tema registrado se conmuta **por su nombre**, que ya es una cadena. Eso deja intacto
+`ThemeContextValue` en `@stellaria/nebula-hooks`, que es tipo compartido con native — y native no
+tiene clases CSS que materializar. Lo único que cambia allí es la documentación de la prop: un nombre
+resuelve ahora contra los oficiales **y** los registrados.
+
+La consecuencia práctica es la regla: **para conmutar por nombre hay que registrar**. Un
+`MaterializedTheme` suelto en `defaultTheme` monta bien y no es alcanzable por `setTheme`.
 
 ### 2. Esta forma sí se persiste
 
@@ -123,12 +131,30 @@ y no se valida en runtime — el provider no puede saber qué script montó el c
 
 ### 3. La restauración deja de mirar sólo la lista oficial
 
-Persistir el nombre no sirve de nada si el guardia de arriba lo descarta. El provider gana un
-registro de los temas materializados que le pasa el consumidor, y `IsOfficialName` se ensancha a
-«¿lo conozco?» — oficial o registrado. Un nombre que no esté en ninguna de las dos listas sigue
-cayendo al defecto, como hoy.
+Persistir el nombre no sirve de nada si el guardia de arriba lo descarta. El provider gana el
+registro que el consumidor declara una vez:
 
-### 4. El scheme se declara, no se adivina
+```ts
+themes?: Record<string, MaterializedTheme>;
+```
+
+y `IsOfficialName` se ensancha a «¿lo conozco?» — oficial o registrado. Un nombre que no esté en
+ninguna de las dos listas sigue cayendo al defecto, como hoy. `setTheme` acepta también esos
+nombres, así que un conmutador de producto se escribe con cadenas y no arrastrando objetos.
+
+Y para que el mapa del script no se escriba dos veces, se deriva del mismo registro:
+
+```ts
+<ColorSchemeScript themes={ThemeScriptMap(themes)} />
+```
+
+### 4. El scheme se declara, no se adivina — resuelto por ADR-166, y de otra forma
+
+> Esta sección se conserva porque el problema que describe era real, pero **no se implementó como
+> aquí se propone**. [ADR-166](ADR-166-la-identidad-del-tema-y-su-esquema-son-ejes-distintos.md) lo
+> resuelve de raíz: al separar identidad de esquema, el mapa del script pasa a ser
+> `Record<identidad, { dark: clase; light: clase }>` y el esquema **es la clave en la que se
+> encontró la clase**. No hay que declararlo aparte porque ya no hay dónde adivinarlo.
 
 `ColorSchemeScript` deduce hoy el scheme del **nombre**:
 
@@ -163,10 +189,15 @@ una incoherencia que el consumidor paga sin verla.
 es una decisión distinta y va en [ADR-164](ADR-164-compile-theme-materializa-en-caliente.md), que
 produce exactamente esta misma tercera forma.
 
-**Un registro de temas en el provider** (`themes={{ rosette: claseRosette }}`, como el script).
-Simétrico con `ColorSchemeScript` y tentador por eso. Se descarta porque duplica el mapa en dos
-sitios que pueden discrepar, y porque el provider necesita **el objeto** además de la clase — el
-mapa del script sólo lleva clases. La forma emparejada no admite esa discrepancia por construcción.
+**Un registro de sólo clases en el provider** (`themes={{ rosette: claseRosette }}`, igual que el
+mapa del script). Simétrico y tentador por eso. Se descarta porque al provider la clase sola no le
+sirve: necesita **el objeto** para los 61 componentes que leen `useTheme`. Un mapa de clases lo
+dejaría sabiendo pintar y sin nada que contar.
+
+Lo que sí se adopta es el registro **de temas materializados** —clase y objeto juntos—, que es lo
+que §3 necesita para restaurar por nombre. Y como lleva las dos mitades, el mapa del script se
+**deriva** de él en vez de escribirse aparte: el consumidor declara sus temas una vez y no hay dos
+listas que puedan discrepar.
 
 ## Consecuencias
 

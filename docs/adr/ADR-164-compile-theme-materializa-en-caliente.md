@@ -1,6 +1,6 @@
 # ADR-164 — `CompileTheme` materializa en caliente lo que no se pudo materializar en build
 
-- **Estado**: **propuesta** · 2026-08-17
+- **Estado**: **aceptada** · 2026-08-17 — aprobada por el propietario para desarrollarse
 - **Cambia API pública**: sí. Añade un subpath `@stellaria/nebula-web/theme-runtime` con una función.
 - **Depende de**: [ADR-163](ADR-163-el-provider-acepta-un-tema-ya-materializado-como-clase.md), cuya
   tercera forma es lo que esta función produce. Sin ella, `CompileTheme` no tendría a quién dárselo.
