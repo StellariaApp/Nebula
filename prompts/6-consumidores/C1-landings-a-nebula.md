@@ -107,9 +107,16 @@ Sabe esto antes de cablearlo, porque es la arista real del diseño actual:
   tema oficial de ese scheme. Si la landing tiene selector de tema, el selector lo guarda el
   producto, no Nebula.
 
-COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL GUSTO
-Si <PRODUCTO> tiene varios temas y quiere que el elegido llegue ya resuelto desde el servidor, la
-tentacion es leer una cookie en el layout raiz y poner la clase en <html>. Decide asi:
+COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL NUMERO DE TEMAS
+Primero deshaz la confusion habitual: TENER VARIOS TEMAS NO PIDE COOKIE. El ColorSchemeScript acepta
+un mapa de N temas desde ADR-155, todos precompilados como clase, y elige antes del primer pintado
+sin sacar ninguna ruta de estatico. Nueve temas por script es un caso resuelto, no un apano.
+
+Lo unico que compra la cookie es que EL SERVIDOR SEPA el tema. Eso importa si el HTML varia por tema
+mas alla del CSS —otro arbol, otra imagen, analitica— y no importa si el tema es solo CSS, porque
+los bytes "correctos" del HTML no los ve nadie: el script ya pinto.
+
+Si aun asi la necesitas, decide asi:
 
   - Landing ESTATICA (prerenderizada): NO leas la cookie. Tocar cookies() en el layout raiz saca la
     ruta de prerenderizado estatico ENTERA, aunque solo leas una letra — el coste no es proporcional
@@ -122,6 +129,11 @@ tentacion es leer una cookie en el layout raiz y poner la clase en <html>. Decid
     ahorras el script en linea.
 
 Si dudas, mira si la ruta esta en el prerender-manifest. Eso responde la pregunta sin opinar.
+
+Dos limites del camino del script, que son reales y hay que saberlos:
+  - Vive en localStorage, asi que el servidor no puede saber el tema aunque quiera.
+  - El scheme se deduce del NOMBRE: la clave que contenga "dark" se toma como oscura y el resto como
+    clara. Un tema llamado "<producto>-noche" saca el color-scheme al reves.
 
 FASE 3 — LA PÁGINA, COMPONENTE A COMPONENTE
 Reconstruye la landing con el catálogo. No traduzcas el marcado actual: eso produce Nebula pintada
