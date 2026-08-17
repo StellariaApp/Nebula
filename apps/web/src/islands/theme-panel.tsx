@@ -28,8 +28,6 @@ import {
 import type { MotionTier } from "@stellaria/nebula-tokens";
 import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 
-import { LoadChoice, SaveChoice } from "../lib/theme-choice";
-
 const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
 
 const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
@@ -102,21 +100,11 @@ export function ThemePanel({
     };
   }, [open, anchored]);
 
-  const restored = useRef(false);
-  useEffect(() => {
-    if (restored.current) return;
-    restored.current = true;
-    const saved = LoadChoice();
-    if (saved !== null) setTheme(ResolveChoice(saved));
-  }, [setTheme]);
-
   const choice = ChoiceFromTheme(theme);
   const { name, scheme } = choice;
 
   function Apply(patch: Partial<ThemeChoice>): void {
-    const next = { ...choice, ...patch };
-    SaveChoice(next);
-    setTheme(ResolveChoice(next));
+    setTheme(ResolveChoice({ ...choice, ...patch }));
   }
 
   const panel = (
