@@ -33,17 +33,32 @@ Si un efecto compite con el contenido, el efecto pierde.
 | `body1`   | 16 px | cuerpo por defecto, formularios y lectura    |
 | `body2`   | 14 px | cuerpo secundario y UI compacta              |
 | `body3`   | 13 px | apoyo denso; no para párrafos largos         |
-| `button`  | 14 px | label de controles                           |
+| `button`  | 14 px | label de controles — **ver la nota de §2.1** |
 | `caption` | 12 px | metadata, ayuda y estados secundarios        |
 
 Reglas:
 
-- Ningún texto informativo o interactivo baja de 12 px.
+- Ningún texto informativo o interactivo baja de 12 px. Lo garantiza el CSS y no la memoria: el código
+  inline resuelve `max(0.875em, 12px)` (§2.3). Sin ese `max()`, un `Code` dentro de `caption` caía a
+  **10.5 px** — medido y corregido el 2026-08-17.
+- **`button` (14) coincide en valor con `body2` y no es lo mismo.** Nombra la etiqueta de un control, y
+  por eso existe aparte: el día que las etiquetas quieran otro tamaño, se mueve una clave y no 45
+  llamadas. Hoy lo usa **solo `Button md`** —`xs`/`sm` bajan a `body3` y `lg`/`xl` suben a `body1`—, y
+  esa dispersión es deuda anotada, no diseño.
 - `Text` sin props usa `body1` + `lineHeight.normal`; no hereda el default del navegador.
-- **El interlineado lo trae el tamaño** (`font.leading`, ADR-077): decrece de 1.00 en `h1` a 1.25 en
-  `h6`, y sube a 1.45-1.60 en el cuerpo. `tight`/`normal`/`relaxed` quedan para overrides
-  deliberados, y `fz` arrastra el interlineado de su peldaño. `h1–h2` son `bold`, `h3–h6` son
-  `semibold`.
+- **El interlineado lo trae el tamaño** (`font.leading`, ADR-077): decrece de **1.10** en `h1` a 1.25 en
+  `h6`, y sube a 1.45-1.60 en el cuerpo.
+
+  > **Por qué el suelo es 1.10 y no 1.00** (2026-08-17). Medida la tinta real de Geist a peso 700: un
+  > caso normal —«Hp», ascendente sobre descendente— ocupa **0.86 em** y con interlineado 1.00 tiene
+  > 14 % de holgura. Pero **«Ág» —tilde sobre descendente— ocupa 1.080 em**, y a 1.00 las dos líneas
+  > **se solapan un 8 % del em**. En español ese par llega solo. `h1` valía 1.00 y `h2` 1.05, los dos
+  > por debajo del umbral de 1.08; `h3` sube a 1.14 solo para que la rampa no se invierta. Medido
+  > además que **siete historias tienen titulares que envuelven a 360 px**, así que el caso no es
+  > hipotético. `tight`/`normal`/`relaxed` quedan para overrides
+  > deliberados, y `fz` arrastra el interlineado de su peldaño. `h1–h2` son `bold`, `h3–h6` son
+  > `semibold`.
+
 - `letterSpacing.tight` se reserva a `h1–h3`; headings compactos y cuerpo usan `normal`.
 - Labels de controles usan `button` o el tamaño denso correspondiente, `semibold` y
   `lineHeight.normal`; no se corrige su presencia agregando padding local.
@@ -157,8 +172,12 @@ Reglas de composición:
 distancia constante entre peldaños para que un tema pueda recalibrarla sin recalcular a mano
 (ADR-072), y se ancla en `md` (ADR-099):
 
-- `xxs` (20) **no es alcanzable desde ninguna prop** — está por debajo del mínimo táctil y existe
-  para composición interna y alturas no interactivas;
+- `xxs` (**24**) es **el suelo táctil del sistema** ([ADR-162](adr/ADR-162-el-peldano-mas-pequeno-de-control-sube-al-minimo-tactil.md)):
+  el peldaño más pequeño que un control puede medir sin bajar del mínimo de WCAG 2.2 (docs/03 §1
+  regla 3). No se expone en la prop `size` —`Size` sigue siendo `xs`…`xl`— y se consume **desde la
+  hoja del componente, en composición interna**: el cierre de un `Tag`, el hijo de una celda de
+  `DataGrid`. Valía 20 hasta el 2026-08-17, y por estar bajo el mínimo este documento tenía que
+  desaconsejarlo;
 - `xs` (28) solo para toolbars densas y acciones auxiliares; supera el mínimo AA con 4 px de colchón;
 - `sm` (36) para data-dense;
 - `md` (44) es el default de producto, y es la medida de acción de la marca;
@@ -193,9 +212,17 @@ muestra metadata o navegación compacta y **no es un objetivo táctil**:
 
 Reglas:
 
+- **El inset de un campo y el de un botón no tienen por qué coincidir a la misma talla.** Medido: un
+  `md` da 16 px en el campo y 22 en el botón. No es un descuido — el contenido de un campo es texto
+  **editable**, que necesita el cursor pegado al borde para no perder ancho útil, y el de un botón es
+  una etiqueta centrada, que respira. Los dos salen de la escala; lo que faltaba era decirlo.
 - **Ningún componente declara alturas en literales.** Si una altura no cabe en ninguna de las dos
   escalas, la discusión es qué peldaño falta, no qué `rem` escribir.
-- **Un control declara `minHeight`, nunca `height`.** Su render de **una línea** cae exacto en el
+- **Un control con texto declara `minHeight`, nunca `height`.** La excepción son los controles
+  **cuadrados** —`ActionIcon` y las celdas de `Calendar`, que fijan `width` **y** `height` al mismo
+  peldaño—: ahí no hay contenido que pueda crecer, y la forma es el punto. Verificado el 2026-08-17,
+  el catálogo estaba partido en dos mitades por esta regla; los cuatro que llevan texto —`Button`,
+  `GlobalSearch`, `GridPicker`, `Pagination`— pasaron a `minHeight`. Su render de **una línea** cae exacto en el
   peldaño; puede excederlo cuando su contenido es multilínea. Un control con descripción —la variante
   de `NavLink`— es legítimo que mida más que su peldaño: lo que no es legítimo es que lo mida sin
   motivo. `height` fija está prohibida porque recorta el contenido en vez de responder a él.
@@ -226,8 +253,18 @@ diferencia está declarada en el contrato y un tema puede recalibrar las dos.
 
 Reglas:
 
-- **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065), **implementado en B3**. La
-  asignación vigente, verificada sobre el render:
+- **El escalón mínimo entre dos niveles adyacentes es 1.08** (ADR-065).
+
+  > **DEUDA DECLARADA — el código no lo cumple** ([ADR-161](adr/ADR-161-el-aspecto-queda-declarado-estable.md) §2.2).
+  > Medido el 2026-08-16: `light` falla **los tres** escalones —1.026 · 1.035 · 1.045— y `dark` dos de
+  > tres. Lo implementó `051aa65` y **lo revirtió ADR-088 sin decirlo**, sin que ningún gate pudiera
+  > verlo. La regla **se mantiene en 1.08 a propósito**: ajustarla a lo que el código da sería la
+  > salida cómoda y la peor, porque una regla calibrada sobre código roto ya no puede detectar que se
+  > rompa más. Se reabre el día que el color vuelva a estar en alcance (ADR-158, rechazada).
+  >
+  > La tabla de abajo describe la asignación que ADR-065 pedía, **no la que el código tiene**.
+
+  La asignación que la regla pide:
 
   | Tema    | `sunken`    | `base`      | `raised`    | `overlay`  |
   | ------- | ----------- | ----------- | ----------- | ---------- |

@@ -52,12 +52,12 @@ type NebulaTheme = {
           weight; lineHeight; letterSpacing }
 
   // 3. GEOMETRÍA Y DENSIDAD
-  radius:  { xxs:0, xs:4, sm:8, md:12, lg:16, xl:20, xxl:28, full }  // múltiplos de 4 (ADR-046)
+  radius:  { none:0, xxs:0, xs:4, sm:9, md:12, lg:16, xl:20, xxl:32, full }  // ADR-046, re-fasado por ADR-072
   spacing: { unit: number; scale: {...} }        // densidad: compact (unit 3) ↔ comfortable (unit 5)
            // tallas para layout: none xxs xs sm md lg xl xxl xxxl
            // múltiplos para densidad de control: u1_5 u2_5 u3 u3_5 u5 (ADR-045)
            // los u* NO se exponen como style props — ver ADR-045 §5
-  sizes:   { control: { xxs:16, xs:24, sm:32, md:40, lg:48, xl:56, xxl:64 },  // heights W/N
+  sizes:   { control: { xxs:24, xs:28, sm:36, md:44, lg:52, xl:60, xxl:68 },  // ADR-099; xxs por ADR-162
              compact: { xxs:16, xs:20, sm:24, md:28, lg:32, xl:36, xxl:40 } } // metadata compacta
            // llaveadas por SizeName (xxs…xxl), NO por Size (xs…xl) — ancla en md (ADR-099)
 
@@ -73,7 +73,7 @@ type NebulaTheme = {
   effects: {
     blur:  { none…xxl }
     glass: { surface: Record<GlassLevel, { background; backdropFilter; borderColor }>; noiseOpacity; enabled: boolean }
-            // 5 niveles (ADR-078). El filo es del material, y va plano porque el velo es opaco
+            // 6 niveles (ADR-078 + `veil`). El filo es del material, y va plano porque el velo es opaco
             // —0.78 a 0.90— (ADR-118). Lo que separa un nivel de otro es el desenfoque, no el velo.
     shadows: { xxs…xxl }                          // por plataforma: box-shadow vs elevation map
     gradients: { brand; accent; surface }         // ⚠️ NUEVOS — hoy no existen en Stellaria (gap detectado)
@@ -120,7 +120,7 @@ Sigue siendo una escotilla de escape declarada, en la línea de lo que [ADR-021]
 | `light` / `dark`                           | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
 | (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                              |
 
-**v1 publica estos dos y solo estos dos** ([ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md)). Los ocho temas de producto de `packages/demos` —`rosette`, `stellaria`, `polaris`, `lagrange`, `aurora`, `nova`, `eclipse`, `cosmos`, cada uno en dark y light— son la demostración del argumento de la librería, no contrato: viven en un paquete no publicable y no pasan por `check:contrast`. Promover uno después de v1 es una minor; quitar o renombrar uno publicado sería breaking, y por eso la lista se cierra corta.
+**v1 publica estos dos y solo estos dos** ([ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md)). Los nueve temas de producto de `packages/demos` —`rosette`, `stellaria`, `polaris`, `lagrange`, `aurora`, `nova`, `eclipse`, `cosmos`, `star`, cada uno en dark y light— son la demostración del argumento de la librería, no contrato: viven en un paquete no publicable y no pasan por `check:contrast`. Promover uno después de v1 es una minor; quitar o renombrar uno publicado sería breaking, y por eso la lista se cierra corta.
 
 Los temas de producto son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
 

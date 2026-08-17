@@ -29,7 +29,17 @@ Reglas transversales:
 
    **Por qué `outline` y no `box-shadow`**: el hueco de un anillo de foco **no debe pintarse**, tiene que dejar ver la superficie que haya detrás, y `box-shadow` no puede expresar eso —con spread es una forma maciza, y el hueco solo existe si una capa interior opaca lo tapa, lo que obliga a elegir un color que será el equivocado sobre alguna superficie—. `outline` respeta además el `border-radius` real del elemento en todos los navegadores objetivo, y en modo de alto contraste el sistema lo repinta por sí solo, sin fallback adicional.
 
-3. **Touch targets** ≥44×44pt native / 24px CSS mínimo AA (WCAG 2.2 — criterio 2.5.8).
+3. **Touch targets** ≥44×44pt native / 24px CSS mínimo AA (WCAG 2.2 — criterio 2.5.8). Desde
+   [ADR-162](adr/ADR-162-el-peldano-mas-pequeno-de-control-sube-al-minimo-tactil.md), **ningún peldaño
+   de `sizes.control` queda por debajo de ese suelo**: `xxs` vale 24 y es el mínimo de la escala.
+
+   > **Excepción declarada al AA estricto** ([ADR-161](adr/ADR-161-el-aspecto-queda-declarado-estable.md) §2.1).
+   > El **borde en reposo del campo `outline`** no llega al 3:1 de SC 1.4.11: medido, **1.00** en
+   > `dark` —el mismo hex que la superficie que lo sostiene— y **1.083** en `light`. Se aceptó a
+   > sabiendas el 2026-08-17 porque la única salida es de color y, construida y medida, **arruinaba el
+   > diseño** (ADR-159, rechazada). El campo **sí** se identifica al interactuar: `border.strong` en
+   > hover da 3.48 y `border.focus` 6.04. La excepción alcanza a ese borde y a nada más.
+
 4. **Textos**: contraste 4.5:1 (3:1 para large text y componentes UI) — validado por tokens, no por auditoría manual (ver §4).
 5. `VisuallyHidden` y `aria-label` en todo control solo-icono (lint rule propia).
 
@@ -37,7 +47,7 @@ Reglas transversales:
 
 ### Tokens (en el theme — ver 02 §2.4)
 
-- `duration`: instant(0) / fast(120ms) / base(200ms) / slow(320ms) / expressive(500ms) — valores finales se calibran en Etapa 2.
+- `duration`: instant(**80ms**) / fast(120ms) / base(**180ms**) / slow(**280ms**) / expressive(**420ms**) — razón ×1.5 constante. `Stagger` deriva su paso de `instant` con tope de ocho, así que el octavo elemento arranca **640 ms** después del primero.
 - `easing`: standard / emphasized / decelerate / accelerate.
 - `spring`: gentle / default / snappy (`{stiffness, damping, mass}` — mismos números alimentan Reanimated y motion). Recalibrados en [ADR-138](adr/ADR-138-recalibracion-de-los-springs-y-la-opacidad-sale-del-muelle.md) a **190/28/1 · 280/28/1 · 450/29/1**: masa 1 en los tres, amortiguación casi constante y rigidez creciente. Lo que separa un peldaño del siguiente es ζ = c / (2·√(k·m)) —**1.02 · 0.84 · 0.68**, es decir 0 %, 0,8 % y 5,3 % de rebote—, y cada uno se ancla a una duración que ya existía en la escala (`expressive` · `slow` · `base`).
 - `motion.tier` del tema escala/desactiva efectos no esenciales. **Hoy solo `minimal` hace algo**: `expressive` es idéntico a `standard`. Modular la terna de springs por tier es deuda declarada en ADR-138.
@@ -134,6 +144,13 @@ Reglas transversales:
 
 1. **axe sobre stories**: `@storybook/addon-a11y` 10.5 + test-runner ejecuta axe en TODAS las stories (web) en cada PR; fallo = bloqueo. Native: chequeos de props a11y por lint + RNTL (`toHaveAccessibilityValue` etc.).
 2. **Contrast check de tokens** (`tools/contrast-check`): valida cada par texto/superficie y estado (hover/focus/disabled) de cada tema oficial contra AA; corre en PRs que toquen `@stellaria/nebula-themes` o el contrato. Es el mismo motor que usa el Theme Creator en vivo.
+
+   > **Ampliado el 2026-08-17** ([auditoría del sistema](reviews/auditoria-sistema-2026-08-16.md) §2.1–§2.2). El gate medía `border.strong` y `border.focus` pero **no** `border.default`, `border.subtle` ni la distancia entre dos superficies adyacentes — que eran justo los tres que fallaban. Se añaden **21 pares por tema**: los dos bordes contra las 7 superficies, y los escalones de **elevación** (ADR-065 §1) y de **interacción** (`docs/06` §5.1) a **1.08**.
+   >
+   > **Un par puede declararse `deuda`**, y entonces se mide, se imprime y **no tumba el gate**. El valor del campo es la referencia del ADR que la acepta, de modo que nadie puede declarar deuda sin decir dónde. Hoy son **53 pares**, todos apuntando a [ADR-161](adr/ADR-161-el-aspecto-queda-declarado-estable.md) §2.1 y §2.2.
+   >
+   > Existe porque las dos alternativas eran peores: **quitar el par** deja el defecto sin nadie mirándolo —que es lo que pasó hasta ese día— y **dejarlo en rojo** por un incumplimiento ya decidido enseña a ignorar el gate entero. El CLI avisa además cuando un par con `deuda` **pasa en todos los temas**: la deuda está pagada y el marcador sobra.
+
 3. **Keyboard tests**: interaction tests de Storybook (play functions) cubren Tab/flechas/Esc/Enter en overlays, menús, combobox y tabs.
 4. **Reduced motion tests**: stories parametrizadas con `prefers-reduced-motion: reduce` (web) y mocks de `ReduceMotion` (native) verifican fallbacks.
 5. **Bundle budget**: size-limit por entry point, tabla publicada en el PR.
