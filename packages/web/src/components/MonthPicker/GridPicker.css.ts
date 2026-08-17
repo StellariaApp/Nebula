@@ -53,11 +53,11 @@ export const cell = style({
 });
 
 export const cell_size = styleVariants({
-  xs: { height: vars.size.control.xs, fontSize: vars.font.size.body3 },
-  sm: { height: vars.size.control.sm, fontSize: vars.font.size.body3 },
-  md: { height: vars.size.control.md, fontSize: vars.font.size.body2 },
-  lg: { height: vars.size.control.lg, fontSize: vars.font.size.body1 },
-  xl: { height: vars.size.control.xl, fontSize: vars.font.size.body1 },
+  xs: { minHeight: vars.size.control.xs, fontSize: vars.font.size.body3 },
+  sm: { minHeight: vars.size.control.sm, fontSize: vars.font.size.body3 },
+  md: { minHeight: vars.size.control.md, fontSize: vars.font.size.body2 },
+  lg: { minHeight: vars.size.control.lg, fontSize: vars.font.size.body1 },
+  xl: { minHeight: vars.size.control.xl, fontSize: vars.font.size.body1 },
 });
 
 export const header = style({

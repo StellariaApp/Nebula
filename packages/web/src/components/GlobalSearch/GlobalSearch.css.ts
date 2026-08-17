@@ -11,7 +11,7 @@ export const trigger = style({
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
-      height: vars.size.control.lg,
+      minHeight: vars.size.control.lg,
       paddingInline: vars.space.md,
       borderRadius: vars.radius.md,
       border: `1px solid ${vars.color.border.default}`,

@@ -13,6 +13,8 @@ export const root = style({
     [primitive_layer]: {
       display: "flex",
       alignItems: "center",
+      flexWrap: "wrap",
+      rowGap: vars.space.xxs,
       gap: vars.space.xxs,
       listStyle: "none",
       margin: 0,
@@ -59,22 +61,22 @@ export const control = recipe({
     size: {
       sm: {
         minWidth: vars.size.control.xs,
-        height: vars.size.control.xs,
+        minHeight: vars.size.control.xs,
         fontSize: vars.font.size.body3,
       },
       md: {
         minWidth: vars.size.control.sm,
-        height: vars.size.control.sm,
+        minHeight: vars.size.control.sm,
         fontSize: vars.font.size.body2,
       },
       lg: {
         minWidth: vars.size.control.md,
-        height: vars.size.control.md,
+        minHeight: vars.size.control.md,
         fontSize: vars.font.size.body1,
       },
       xl: {
         minWidth: vars.size.control.lg,
-        height: vars.size.control.lg,
+        minHeight: vars.size.control.lg,
         fontSize: vars.font.size.body1,
       },
     },
