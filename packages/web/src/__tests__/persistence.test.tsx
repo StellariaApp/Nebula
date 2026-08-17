@@ -43,7 +43,7 @@ describe("persistencia inyectable", () => {
   it("setTheme escribe el tema en el storage inyectado", () => {
     const storage = MakeMemoryStorage();
     const { getByTestId } = render(
-      <NebulaProvider storage={storage} storageKey="k">
+      <NebulaProvider storage={storage} storageKeys={{ theme: "k-theme", scheme: "k-scheme" }}>
         <Switcher />
       </NebulaProvider>,
     );
@@ -59,7 +59,7 @@ describe("persistencia inyectable", () => {
   it("aplica el tema persistido al montar", () => {
     const storage = MakeMemoryStorage({ "k-scheme": "dark" });
     const { container } = render(
-      <NebulaProvider storage={storage} storageKey="k" defaultTheme="light">
+      <NebulaProvider storage={storage} storageKeys={{ theme: "k-theme", scheme: "k-scheme" }} defaultTheme="light">
         <span>x</span>
       </NebulaProvider>,
     );

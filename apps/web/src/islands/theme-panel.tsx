@@ -69,8 +69,15 @@ function Save(next: ThemeChoice): void {
 /**
  * Reconstruye la eleccion guardada sobre la que viene del tema activo. Cada eje se valida contra su
  * vocabulario por separado: uno corrupto se ignora y los demas siguen valiendo.
+ *
+ * La identidad tambien se lee aqui, y no es redundante con lo que hace el provider: el provider
+ * guarda el nombre pero no puede reconstruir un producto que no esta registrado como clase, asi que
+ * cae a `nebula`. Este panel SI sabe reconstruirlo —`ThemeOf` lo construye desde sus semillas—, y
+ * por eso es quien tiene que leerlo de vuelta.
  */
 function Restore(current: ThemeChoice): ThemeChoice {
+  const identity = Read("theme");
+  const scheme = Read("scheme");
   const corner = Read("corner");
   const density = Read("density");
   const motion = Read("motion");
@@ -78,6 +85,8 @@ function Restore(current: ThemeChoice): ThemeChoice {
   const face = Read("face");
   return {
     ...current,
+    theme: THEME_NAMES.includes(identity as ThemeName) ? (identity as ThemeName) : current.theme,
+    scheme: scheme === "dark" || scheme === "light" ? scheme : current.scheme,
     corner: CORNERS.includes(corner as Corner) ? (corner as Corner) : current.corner,
     density: DENSITIES.includes(density as Density) ? (density as Density) : current.density,
     motion: TIERS.includes(motion as MotionTier) ? (motion as MotionTier) : current.motion,

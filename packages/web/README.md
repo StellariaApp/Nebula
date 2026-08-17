@@ -22,14 +22,14 @@ Two things the library cannot do for you, and the reason your first render may l
 
 ```tsx
 // app/layout.tsx
-import { ColorSchemeScript, NebulaProvider } from "@stellaria/nebula-web";
+import { ThemeScript, NebulaProvider } from "@stellaria/nebula-web";
 import "@stellaria/nebula-web/dist/index.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript />
+        <ThemeScript />
       </head>
       <body>
         <NebulaProvider defaultTheme="dark">{children}</NebulaProvider>
@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 1. **Import the stylesheet.** The CSS is compiled at build time and shipped as a file; nothing
    injects it at runtime.
-2. **Put `<ColorSchemeScript />` in the `<head>`.** It sets `color-scheme` before hydration, which is
+2. **Put `<ThemeScript />` in the `<head>`.** It puts the theme class and `color-scheme` on `<html>` before hydration, which is
    what stops a light flash on a dark theme.
 
 Then:

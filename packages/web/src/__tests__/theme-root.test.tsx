@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 
-import { ColorSchemeScript } from "../provider/color-scheme-script.js";
+import { ThemeScript } from "../provider/theme-script.js";
 import { NebulaProvider } from "../provider/nebula-provider.js";
 import { themeClass } from "../theme/themes.css.js";
 
@@ -85,8 +85,8 @@ describe("applyTheme='root' — el tema vive en <html> (ADR-117)", () => {
     expect(document.documentElement.getAttribute("data-theme")).toBeNull();
   });
 
-  it("ColorSchemeScript serializa el mapa de clases para pintar antes del primer frame", () => {
-    const html = renderToStaticMarkup(<ColorSchemeScript defaultTheme="dark" />);
+  it("ThemeScript serializa el mapa de clases para pintar antes del primer frame", () => {
+    const html = renderToStaticMarkup(<ThemeScript defaultTheme="dark" />);
     expect(html).toContain(themeClass["dark"]);
     expect(html).toContain(themeClass["light"]);
     expect(html).toContain("classList.add");

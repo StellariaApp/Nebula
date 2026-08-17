@@ -196,6 +196,7 @@ export {
   ThemeScriptMap,
   type MaterializedTheme,
   type ThemeClassMap,
+  type ThemeStorageKeys,
   type ThemeVariants,
 } from "./theme/identity.js";
 export { ResolveVariant, type ResolvedVariant } from "./theme/resolve-variant.js";
@@ -204,7 +205,7 @@ export {
   type NebulaProviderProps,
   type ThemeStorage,
 } from "./provider/nebula-provider.js";
-export { ColorSchemeScript, type ColorSchemeScriptProps } from "./provider/color-scheme-script.js";
+export { ThemeScript, type ThemeScriptProps } from "./provider/theme-script.js";
 
 export { useTheme } from "@stellaria/nebula-hooks";
 

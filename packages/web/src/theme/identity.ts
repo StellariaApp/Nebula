@@ -41,3 +41,14 @@ export function ThemeScriptMap(themes: Record<string, ThemeVariants>): ThemeClas
   }
   return out;
 }
+
+/** Una clave por eje (ADR-167). `ThemeScript` y `NebulaProvider` tienen que recibir las mismas. */
+export interface ThemeStorageKeys {
+  theme?: string;
+  scheme?: string;
+}
+
+export const DEFAULT_STORAGE_KEYS = {
+  theme: "nebula-theme",
+  scheme: "nebula-scheme",
+} as const;

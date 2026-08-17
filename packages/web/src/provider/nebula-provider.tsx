@@ -20,8 +20,10 @@ import { UNSAFE_PortalProvider } from "react-aria";
 import { vars } from "../theme/contract.css.js";
 import { ThemeToVars } from "../theme/theme-vars.js";
 import {
+  DEFAULT_STORAGE_KEYS,
   OFFICIAL_THEME,
   type MaterializedTheme,
+  type ThemeStorageKeys,
   type ThemeVariants,
 } from "../theme/identity.js";
 import { themeClass } from "../theme/themes.css.js";
@@ -48,19 +50,20 @@ export interface NebulaProviderProps {
    * The consumer's own themes, keyed by identity (ADR-163, ADR-166).
    *
    * Registering is what makes `setTheme({ theme, scheme })` reach them and what makes the choice
-   * survive a reload. Derive `ColorSchemeScript`'s map from this same object with `ThemeScriptMap`
+   * survive a reload. Derive `ThemeScript`'s map from this same object with `ThemeScriptMap`
    * so the two cannot drift apart.
    */
   themes?: Record<string, ThemeVariants>;
   storage?: ThemeStorage | null;
-  storageKey?: string;
+  /** Un nombre por eje (ADR-167). `ThemeScript` tiene que recibir los mismos. */
+  storageKeys?: ThemeStorageKeys;
   /**
    * Where the theme is declared (ADR-117).
    *
    * - `"wrapper"` (default) declares it on the provider's own element, so the server-rendered HTML
    *   already carries it. This is what a nested provider needs — a demo with its own theme, a theme
-   *   matrix — and the only mode that works without `ColorSchemeScript`.
-   * - `"root"` declares it on `<html>`. **It requires `ColorSchemeScript` in `<head>`**: that script
+   *   matrix — and the only mode that works without `ThemeScript`.
+   * - `"root"` declares it on `<html>`. **It requires `ThemeScript` in `<head>`**: that script
    *   is what paints the theme before the first frame, and without it the page stays unstyled until
    *   hydration. In exchange there is no flash when the stored theme differs from `defaultTheme`.
    */
@@ -154,10 +157,6 @@ function Resolve(
  * One key per axis (`nebula-theme`, `nebula-scheme`), not one key with a separator. Each axis is
  * read and written on its own, so adding one later does not reopen a format.
  */
-export function AxisKey(prefix: string, axis: string): string {
-  return `${prefix}-${axis}`;
-}
-
 /**
  * Writes both axes, always — including the identity of a theme applied as inline vars.
  *
@@ -166,9 +165,9 @@ export function AxisKey(prefix: string, axis: string): string {
  * consumer needed to rebuild it themselves, which is exactly what a theme panel does. Restoring
  * guards the name instead, so an identity nobody recognises falls back without taking the scheme.
  */
-function Persist(store: ThemeStorage, prefix: string, active: ActiveTheme): void {
-  store.setItem(AxisKey(prefix, "scheme"), active.scheme);
-  store.setItem(AxisKey(prefix, "theme"), active.name);
+function Persist(store: ThemeStorage, keys: Required<ThemeStorageKeys>, active: ActiveTheme): void {
+  store.setItem(keys.scheme, active.scheme);
+  store.setItem(keys.theme, active.name);
 }
 
 /**
@@ -177,12 +176,12 @@ function Persist(store: ThemeStorage, prefix: string, active: ActiveTheme): void
  */
 function Restore(
   store: ThemeStorage,
-  prefix: string,
+  keys: Required<ThemeStorageKeys>,
   registry: Record<string, ThemeVariants>,
 ): ThemeChoice | undefined {
-  const scheme = store.getItem(AxisKey(prefix, "scheme"));
+  const scheme = store.getItem(keys.scheme);
   if (scheme === null || !IsScheme(scheme)) return undefined;
-  const theme = store.getItem(AxisKey(prefix, "theme"));
+  const theme = store.getItem(keys.theme);
   if (theme === null || theme === "" || theme === OFFICIAL_THEME) {
     return { theme: OFFICIAL_THEME, scheme };
   }
@@ -210,7 +209,7 @@ export function NebulaProvider({
   defaultTheme = "dark",
   themes = NO_THEMES,
   storage,
-  storageKey = "nebula",
+  storageKeys,
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
   const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme, themes, undefined));
@@ -225,6 +224,8 @@ export function NebulaProvider({
     active_ref.current = active;
   }, [active]);
 
+  const keys = useMemo(() => ({ ...DEFAULT_STORAGE_KEYS, ...storageKeys }), [storageKeys]);
+
   const store = useMemo<ThemeStorage | null>(
     () => (storage === undefined ? DefaultStorage() : storage),
     [storage],
@@ -234,17 +235,17 @@ export function NebulaProvider({
     (next: ColorScheme | ThemeChoice | NebulaTheme): void => {
       const resolved = Resolve(next, themes, active_ref.current);
       set_active(resolved);
-      if (store) Persist(store, storageKey, resolved);
+      if (store) Persist(store, keys, resolved);
     },
-    [store, storageKey, themes],
+    [store, keys, themes],
   );
 
   useEffect(() => {
     if (restored.current || !store) return;
     restored.current = true;
-    const choice = Restore(store, storageKey, themes);
+    const choice = Restore(store, keys, themes);
     if (choice !== undefined) set_active((current) => Resolve(choice, themes, current));
-  }, [store, storageKey, themes]);
+  }, [store, keys, themes]);
 
   useEffect(() => {
     if (!on_root || typeof document === "undefined") return;

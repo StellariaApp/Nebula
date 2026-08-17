@@ -51,7 +51,7 @@ function Wrap(children: ReactNode, storage: ThemeStorage | null, seed?: string) 
   return (
     <NebulaProvider
       storage={storage}
-      storageKey="k"
+      storageKeys={{ theme: "k-theme", scheme: "k-scheme" }}
       themes={PRODUCTS}
       defaultTheme={seed === undefined ? { theme: "rosette", scheme: "dark" } : "dark"}
     >
@@ -142,7 +142,7 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
       return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
     }
     const { getByTestId } = render(
-      <NebulaProvider storage={storage} storageKey="k" defaultTheme="dark">
+      <NebulaProvider storage={storage} storageKeys={{ theme: "k-theme", scheme: "k-scheme" }} defaultTheme="dark">
         <Probe />
       </NebulaProvider>,
     );
@@ -157,7 +157,7 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
       return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
     }
     const { getByTestId } = render(
-      <NebulaProvider storage={storage} storageKey="k" defaultTheme="dark">
+      <NebulaProvider storage={storage} storageKeys={{ theme: "k-theme", scheme: "k-scheme" }} defaultTheme="dark">
         <Probe />
       </NebulaProvider>,
     );

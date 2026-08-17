@@ -6,7 +6,7 @@ import "@fontsource-variable/geist-mono";
 
 import "@stellaria/nebula-web/styles.css";
 
-import { ColorSchemeScript, NebulaProvider, vars } from "@stellaria/nebula-web";
+import { NebulaProvider, ThemeScript, vars } from "@stellaria/nebula-web";
 
 import { CurrentLang } from "../lib/lang";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
@@ -50,7 +50,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        <ColorSchemeScript defaultTheme="dark" />
+        <ThemeScript defaultTheme="aurora" defaultScheme="dark" />
       </head>
       <body
         style={{

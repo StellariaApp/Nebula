@@ -2,17 +2,19 @@ import type { ColorScheme } from "@stellaria/nebula-tokens";
 import type { ReactElement } from "react";
 
 import {
+  DEFAULT_STORAGE_KEYS,
   OFFICIAL_CLASSES,
   OFFICIAL_THEME,
   type ThemeClassMap,
 } from "../theme/identity.js";
 
-export interface ColorSchemeScriptProps {
+export interface ThemeScriptProps {
   /** The identity to fall back to when nothing is stored, or what is stored is not recognised. */
   defaultTheme?: string;
   /** The scheme to fall back to, under that identity. */
   defaultScheme?: ColorScheme;
-  storageKey?: string;
+  /** Un nombre por eje (ADR-167). El provider tiene que recibir los mismos. */
+  storageKeys?: { theme?: string; scheme?: string };
   nonce?: string;
   /**
    * Which themes this script knows, and the class each scheme of each one puts on `<html>`
@@ -28,13 +30,13 @@ export interface ColorSchemeScriptProps {
   themes?: ThemeClassMap;
 }
 
-export function ColorSchemeScript({
+export function ThemeScript({
   defaultTheme = OFFICIAL_THEME,
   defaultScheme,
-  storageKey = "nebula",
+  storageKeys,
   nonce,
   themes,
-}: ColorSchemeScriptProps): ReactElement {
+}: ThemeScriptProps): ReactElement {
   /**
    * `defaultTheme="dark"` is how this was called before ADR-166, when the name of a theme WAS its
    * scheme. Reading it as an identity leaves `<html>` with no class at all and the page unstyled,
@@ -47,13 +49,15 @@ export function ColorSchemeScript({
   /** The official pair is always in the map: it is the floor that keeps the page from going bare. */
   const map = themes === undefined ? OFFICIAL_CLASSES : { ...OFFICIAL_CLASSES, ...themes };
 
+  const keys = { ...DEFAULT_STORAGE_KEYS, ...storageKeys };
+
   const script =
     `(function(){try{` +
     `var d=document.documentElement;` +
     `var c=${JSON.stringify(map)},o=${JSON.stringify(OFFICIAL_THEME)};` +
     `var dt=${JSON.stringify(identity)},ds=${JSON.stringify(scheme)};` +
-    `var g=function(n){try{return window.localStorage.getItem(${JSON.stringify(storageKey)}+"-"+n)}catch(e){return null}};` +
-    `var t=g("theme")||dt,s=g("scheme")||ds;` +
+    `var g=function(k){try{return window.localStorage.getItem(k)}catch(e){return null}};` +
+    `var t=g(${JSON.stringify(keys.theme)})||dt,s=g(${JSON.stringify(keys.scheme)})||ds;` +
     `if(s!=="dark"&&s!=="light")s=ds;` +
     `if(!c[t]||!c[t][s])t=dt;` +
     `if(!c[t]||!c[t][s])t=o;` +

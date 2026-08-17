@@ -96,7 +96,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
   it("persiste los dos ejes de un tema custom, aunque no pueda reconstruirlo", () => {
     const storage = MakeMemoryStorage();
     const { getByTestId } = render(
-      <NebulaProvider storage={storage} storageKey="k">
+      <NebulaProvider storage={storage} storageKeys={{ theme: "k-theme", scheme: "k-scheme" }}>
         <Switcher to={rosette_light} />
       </NebulaProvider>,
     );
