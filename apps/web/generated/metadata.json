@@ -354,7 +354,7 @@
     {
       "name": "Card",
       "budget": "34.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",

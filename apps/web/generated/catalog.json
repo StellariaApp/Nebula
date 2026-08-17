@@ -256,7 +256,7 @@
         "Card.Meta",
         "Card.Section"
       ],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "34.25 kB",
       "notes": true,
       "contract": true
