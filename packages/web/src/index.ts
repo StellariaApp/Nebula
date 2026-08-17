@@ -191,6 +191,13 @@ export type { OmitProps } from "./components/Omit/index.js";
 export { vars } from "./theme/contract.css.js";
 export { themeClass, type OfficialThemeName } from "./theme/themes.css.js";
 export { ThemeToVars } from "./theme/theme-vars.js";
+export {
+  OFFICIAL_THEME,
+  ThemeScriptMap,
+  type MaterializedTheme,
+  type ThemeClassMap,
+  type ThemeVariants,
+} from "./theme/identity.js";
 export { ResolveVariant, type ResolvedVariant } from "./theme/resolve-variant.js";
 export {
   NebulaProvider,

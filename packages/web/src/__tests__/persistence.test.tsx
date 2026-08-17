@@ -52,8 +52,8 @@ describe("persistencia inyectable", () => {
       getByTestId("s").click();
     });
 
-    expect(storage.data.k).toBe("light");
-    expect(getByTestId("s").getAttribute("data-name")).toBe("light");
+    expect(storage.data.k).toBe("nebula:light");
+    expect(getByTestId("s").getAttribute("data-name")).toBe("nebula");
   });
 
   it("aplica el tema persistido al montar", () => {

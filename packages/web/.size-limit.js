@@ -4,7 +4,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom"],
-    limit: "92.5 kB",
+    limit: "93.25 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
@@ -1065,6 +1065,13 @@ const MODULE_BUDGETS = [
     ignore: ["react", "react-dom"],
     deferred: ["DatePicker.js", "DateRangePicker.js"],
     limit: "93.75 kB",
+  },
+  {
+    name: "CompileTheme (subpath /theme-runtime: materializar un tema en caliente)",
+    path: "dist/theme-runtime/index.js",
+    import: "{ CompileTheme }",
+    ignore: ["react", "react-dom"],
+    limit: "12 kB",
   },
   {
     name: "CommandPalette (subpath /command: Aria combobox + Modal)",

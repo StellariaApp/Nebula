@@ -20,7 +20,7 @@ describe("SSR (sin window)", () => {
   it("ColorSchemeScript se serializa a un <script> inline anti-flash", () => {
     const html = renderToStaticMarkup(<ColorSchemeScript storageKey="k" />);
     expect(html).toContain("<script");
-    expect(html).toContain("data-nebula-theme");
+    expect(html).toContain("data-theme");
     expect(html).toContain("colorScheme");
   });
 
@@ -31,7 +31,11 @@ describe("SSR (sin window)", () => {
 
   it("con mapa propio reconoce un tema que la libreria no conoce (ADR-155)", () => {
     const html = renderToStaticMarkup(
-      <ColorSchemeScript storageKey="k" themes={{ "rosette-dark": "rosette_abc" }} />,
+      <ColorSchemeScript
+        storageKey="k"
+        defaultTheme="rosette"
+        themes={{ rosette: { dark: "rosette_abc", light: "rosette_def" } }}
+      />,
     );
     expect(html).toContain("rosette_abc");
     expect(html).not.toContain(themeClass["dark"]);

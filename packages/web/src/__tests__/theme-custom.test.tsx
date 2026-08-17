@@ -4,7 +4,12 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { nebulaDark } from "@stellaria/nebula-themes";
-import { palettes, type NebulaTheme } from "@stellaria/nebula-tokens";
+import {
+  palettes,
+  type ColorScheme,
+  type NebulaTheme,
+  type ThemeChoice,
+} from "@stellaria/nebula-tokens";
 
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
 import { vars } from "../theme/contract.css.js";
@@ -15,7 +20,7 @@ afterEach(() => {
   const root = document.documentElement;
   for (const name of Object.values(themeClass)) root.classList.remove(name);
   root.removeAttribute("style");
-  root.removeAttribute("data-nebula-theme");
+  root.removeAttribute("data-theme");
   root.removeAttribute("data-scheme");
 });
 
@@ -50,7 +55,7 @@ function MakeMemoryStorage(): MemoryStorage {
   };
 }
 
-function Switcher({ to }: { to: string | NebulaTheme }) {
+function Switcher({ to }: { to: ColorScheme | ThemeChoice | NebulaTheme }) {
   const { setTheme, themeName, scheme } = useTheme();
   return (
     <button
@@ -81,7 +86,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     });
 
     expect(getByTestId("probe").getAttribute("data-name")).toBe("rosette");
-    expect(wrapper.getAttribute("data-nebula-theme")).toBe("rosette");
+    expect(wrapper.getAttribute("data-theme")).toBe("rosette");
     expect(wrapper.className).toBe("");
     expect(wrapper.style.getPropertyValue(VarName(vars.color.primary["500"]))).toBe(
       palettes.rose["500"],
@@ -145,7 +150,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
 
     expect(root.style.getPropertyValue(primary)).toBe(palettes.rose["500"]);
     expect(root.classList.contains(themeClass["dark"])).toBe(false);
-    expect(root.getAttribute("data-nebula-theme")).toBe("rosette");
+    expect(root.getAttribute("data-theme")).toBe("rosette");
 
     act(() => {
       getByTestId("to-official").click();
@@ -161,7 +166,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     }
     const { result } = renderHook(() => useTheme(), { wrapper: Wrapper });
     expect(() => {
-      result.current.setTheme("rosette");
+      result.current.setTheme({ theme: "rosette", scheme: "dark" });
     }).toThrow(/Tema desconocido/);
   });
 });

@@ -12,23 +12,46 @@ import {
 
 import { ThemeContext, type ThemeContextValue } from "@stellaria/nebula-hooks";
 import { officialThemes } from "@stellaria/nebula-themes";
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { ColorScheme, NebulaTheme, ThemeChoice } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { domMax, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
 import { vars } from "../theme/contract.css.js";
 import { ThemeToVars } from "../theme/theme-vars.js";
-import { themeClass, type OfficialThemeName } from "../theme/themes.css.js";
+import {
+  OFFICIAL_THEME,
+  type MaterializedTheme,
+  type ThemeVariants,
+} from "../theme/identity.js";
+import { themeClass } from "../theme/themes.css.js";
 
 export interface ThemeStorage {
   getItem: (key: string) => string | null;
   setItem: (key: string, value: string) => void;
 }
 
+/**
+ * What can be asked for (ADR-166):
+ *
+ * - a scheme — `"dark"` / `"light"` — which keeps the identity and swaps only the scheme;
+ * - a `ThemeChoice`, which names both axes;
+ * - a whole `NebulaTheme`, applied as inline vars (ADR-121);
+ * - a `MaterializedTheme`, whose CSS already exists as a class (ADR-163).
+ */
+export type ThemeInput = ColorScheme | ThemeChoice | NebulaTheme | MaterializedTheme;
+
 export interface NebulaProviderProps {
   children: ReactNode;
-  defaultTheme?: OfficialThemeName | NebulaTheme;
+  defaultTheme?: ThemeInput;
+  /**
+   * The consumer's own themes, keyed by identity (ADR-163, ADR-166).
+   *
+   * Registering is what makes `setTheme({ theme, scheme })` reach them and what makes the choice
+   * survive a reload. Derive `ColorSchemeScript`'s map from this same object with `ThemeScriptMap`
+   * so the two cannot drift apart.
+   */
+  themes?: Record<string, ThemeVariants>;
   storage?: ThemeStorage | null;
   storageKey?: string;
   /**
@@ -46,30 +69,111 @@ export interface NebulaProviderProps {
 
 interface ActiveTheme {
   name: string;
+  scheme: ColorScheme;
   theme: NebulaTheme;
   className: string | undefined;
   style: CSSProperties | undefined;
 }
 
-function IsOfficialName(value: string): value is OfficialThemeName {
-  return value in themeClass;
+const NO_THEMES: Record<string, ThemeVariants> = {};
+
+function IsScheme(value: unknown): value is ColorScheme {
+  return value === "dark" || value === "light";
 }
 
-function Resolve(input: OfficialThemeName | NebulaTheme): ActiveTheme {
-  if (typeof input === "string") {
+function IsChoice(input: ThemeChoice | NebulaTheme | MaterializedTheme): input is ThemeChoice {
+  return typeof (input as ThemeChoice).theme === "string";
+}
+
+function IsMaterialized(input: NebulaTheme | MaterializedTheme): input is MaterializedTheme {
+  return "className" in input;
+}
+
+function FromOfficial(scheme: ColorScheme): ActiveTheme {
+  return {
+    name: OFFICIAL_THEME,
+    scheme,
+    theme: officialThemes[scheme],
+    className: themeClass[scheme],
+    style: undefined,
+  };
+}
+
+function Resolve(
+  input: ThemeInput,
+  registry: Record<string, ThemeVariants>,
+  current: ActiveTheme | undefined,
+): ActiveTheme {
+  if (IsScheme(input)) {
+    const identity = current?.name ?? OFFICIAL_THEME;
+    const registered = registry[identity]?.[input];
+    if (registered === undefined) return FromOfficial(input);
     return {
-      name: input,
-      theme: officialThemes[input],
-      className: themeClass[input],
+      name: identity,
+      scheme: input,
+      theme: registered.theme,
+      className: registered.className,
+      style: undefined,
+    };
+  }
+  if (IsChoice(input)) {
+    if (input.theme === OFFICIAL_THEME) return FromOfficial(input.scheme);
+    const registered = registry[input.theme]?.[input.scheme];
+    if (registered === undefined) {
+      throw new Error(
+        `Tema desconocido: "${input.theme}" en esquema "${input.scheme}". Registrados: ${Object.keys(registry).join(", ") || "ninguno"}. La identidad oficial es "${OFFICIAL_THEME}".`,
+      );
+    }
+    return {
+      name: input.theme,
+      scheme: input.scheme,
+      theme: registered.theme,
+      className: registered.className,
+      style: undefined,
+    };
+  }
+  if (IsMaterialized(input)) {
+    return {
+      name: input.theme.meta.name,
+      scheme: input.theme.meta.scheme,
+      theme: input.theme,
+      className: input.className,
       style: undefined,
     };
   }
   return {
     name: input.meta.name,
+    scheme: input.meta.scheme,
     theme: input,
     className: undefined,
     style: assignInlineVars(vars, ThemeToVars(input)),
   };
+}
+
+const STORED = /^([^:]+):(dark|light)$/;
+
+/**
+ * What goes to storage. Both axes, so a reload can rebuild the choice (ADR-166). A theme applied as
+ * inline vars keeps ADR-121's behaviour and stores only its scheme: it has no class to come back to,
+ * and `style` is exactly what tells the two apart.
+ */
+function Persisted(active: ActiveTheme): string {
+  if (active.style !== undefined) return active.scheme;
+  return `${active.name}:${active.scheme}`;
+}
+
+/**
+ * Reads back what `Persisted` wrote. A bare `"dark"` — the format before ADR-166 — still reads as a
+ * scheme over the official identity, so nothing stored needs migrating.
+ */
+function Stored(value: string, registry: Record<string, ThemeVariants>): ThemeInput | undefined {
+  if (IsScheme(value)) return value;
+  const parsed = STORED.exec(value);
+  if (parsed === null) return undefined;
+  const [, theme, scheme] = parsed;
+  if (theme === undefined || !IsScheme(scheme)) return undefined;
+  if (theme !== OFFICIAL_THEME && registry[theme]?.[scheme] === undefined) return undefined;
+  return { theme, scheme };
 }
 
 function DefaultStorage(): ThemeStorage | null {
@@ -90,15 +194,22 @@ function DefaultStorage(): ThemeStorage | null {
 export function NebulaProvider({
   children,
   defaultTheme = "dark",
+  themes = NO_THEMES,
   storage,
   storageKey = "nebula-theme",
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
-  const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme));
+  const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme, themes, undefined));
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
   const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
   const applied_vars = useRef<string[]>([]);
+  const restored = useRef(false);
+  const active_ref = useRef(active);
   const on_root = applyTheme === "root";
+
+  useEffect(() => {
+    active_ref.current = active;
+  }, [active]);
 
   const store = useMemo<ThemeStorage | null>(
     () => (storage === undefined ? DefaultStorage() : storage),
@@ -106,44 +217,39 @@ export function NebulaProvider({
   );
 
   const set_theme = useCallback(
-    (next: string | NebulaTheme): void => {
-      if (typeof next !== "string") {
-        set_active(Resolve(next));
-        store?.setItem(storageKey, next.meta.scheme);
-        return;
-      }
-      if (!IsOfficialName(next)) {
-        throw new Error(
-          `Tema desconocido: "${next}". Temas oficiales: ${Object.keys(themeClass).join(", ")}.`,
-        );
-      }
-      set_active(Resolve(next));
-      store?.setItem(storageKey, next);
+    (next: ColorScheme | ThemeChoice | NebulaTheme): void => {
+      const resolved = Resolve(next, themes, active_ref.current);
+      set_active(resolved);
+      store?.setItem(storageKey, Persisted(resolved));
     },
-    [store, storageKey],
+    [store, storageKey, themes],
   );
 
   useEffect(() => {
-    if (!store) return;
+    if (restored.current || !store) return;
+    restored.current = true;
     const saved = store.getItem(storageKey);
-    if (saved !== null && IsOfficialName(saved)) {
-      set_active(Resolve(saved));
-    }
-  }, [store, storageKey]);
+    if (saved === null) return;
+    const choice = Stored(saved, themes);
+    if (choice !== undefined) set_active((current) => Resolve(choice, themes, current));
+  }, [store, storageKey, themes]);
 
   useEffect(() => {
     if (!on_root || typeof document === "undefined") return;
     const root = document.documentElement;
     for (const name of Object.values(themeClass)) root.classList.remove(name);
+    for (const variants of Object.values(themes)) {
+      for (const entry of Object.values(variants)) root.classList.remove(entry.className);
+    }
     if (active.className !== undefined) root.classList.add(active.className);
     for (const name of applied_vars.current) root.style.removeProperty(name);
     applied_vars.current = Object.keys(active.style ?? {});
     for (const [name, value] of Object.entries(active.style ?? {})) {
       root.style.setProperty(name, String(value));
     }
-    root.setAttribute("data-nebula-theme", active.name);
-    root.setAttribute("data-scheme", active.theme.meta.scheme);
-    root.style.colorScheme = active.theme.meta.scheme;
+    root.setAttribute("data-theme", active.name);
+    root.setAttribute("data-scheme", active.scheme);
+    root.style.colorScheme = active.scheme;
   }, [on_root, active]);
 
   useEffect(() => {
@@ -166,7 +272,7 @@ export function NebulaProvider({
       theme: active.theme,
       themeName: active.name,
       setTheme: set_theme,
-      scheme: active.theme.meta.scheme,
+      scheme: active.scheme,
       systemScheme: system_scheme,
     }),
     [active, set_theme, system_scheme],
@@ -177,8 +283,8 @@ export function NebulaProvider({
       <div
         className={on_root ? undefined : active.className}
         style={on_root ? undefined : active.style}
-        data-nebula-theme={on_root ? undefined : active.name}
-        data-scheme={on_root ? undefined : active.theme.meta.scheme}
+        data-theme={on_root ? undefined : active.name}
+        data-scheme={on_root ? undefined : active.scheme}
       >
         <UNSAFE_PortalProvider getContainer={GetPortalContainer}>
           <LazyMotion features={domMax} strict>

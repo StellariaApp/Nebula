@@ -12,7 +12,7 @@ afterEach(() => {
   cleanup();
   const root = document.documentElement;
   for (const name of Object.values(themeClass)) root.classList.remove(name);
-  root.removeAttribute("data-nebula-theme");
+  root.removeAttribute("data-theme");
   root.removeAttribute("data-scheme");
 });
 
@@ -40,7 +40,7 @@ describe("applyTheme='root' — el tema vive en <html> (ADR-117)", () => {
     );
     const wrapper = container.firstElementChild as HTMLElement;
     expect(wrapper.className).toBe("");
-    expect(wrapper.getAttribute("data-nebula-theme")).toBeNull();
+    expect(wrapper.getAttribute("data-theme")).toBeNull();
     expect(wrapper.getAttribute("data-scheme")).toBeNull();
   });
 
@@ -52,7 +52,7 @@ describe("applyTheme='root' — el tema vive en <html> (ADR-117)", () => {
     );
     const root = document.documentElement;
     expect(root.classList.contains(themeClass["dark"])).toBe(true);
-    expect(root.getAttribute("data-nebula-theme")).toBe("dark");
+    expect(root.getAttribute("data-theme")).toBe("nebula");
     expect(root.getAttribute("data-scheme")).toBe("dark");
     expect(root.style.colorScheme).toBe("dark");
   });
@@ -82,7 +82,7 @@ describe("applyTheme='root' — el tema vive en <html> (ADR-117)", () => {
     );
     const wrapper = container.firstElementChild as HTMLElement;
     expect(wrapper.className).toBe(themeClass["dark"]);
-    expect(document.documentElement.getAttribute("data-nebula-theme")).toBeNull();
+    expect(document.documentElement.getAttribute("data-theme")).toBeNull();
   });
 
   it("ColorSchemeScript serializa el mapa de clases para pintar antes del primer frame", () => {

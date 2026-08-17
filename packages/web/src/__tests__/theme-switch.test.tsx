@@ -36,7 +36,7 @@ describe("NebulaProvider — switch de tema por clase", () => {
     const wrapper = container.firstElementChild as HTMLElement;
     expect(wrapper.className).toBe(themeClass["dark"]);
     expect(wrapper.getAttribute("data-scheme")).toBe("dark");
-    expect(getByTestId("probe").getAttribute("data-name")).toBe("dark");
+    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula");
   });
 
   it("setTheme reconfigura el subárbol cambiando SOLO la clase", () => {
@@ -54,7 +54,7 @@ describe("NebulaProvider — switch de tema por clase", () => {
 
     expect(wrapper.className).toBe(themeClass["light"]);
     expect(wrapper.getAttribute("data-scheme")).toBe("light");
-    expect(getByTestId("probe").getAttribute("data-name")).toBe("light");
+    expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula");
     expect(themeClass["light"]).not.toBe(themeClass["dark"]);
   });
 
@@ -91,7 +91,8 @@ describe("NebulaProvider — switch de tema por clase", () => {
         getByTestId(n).click();
       });
       expect(wrapper.className).toBe(themeClass[n]);
-      expect(wrapper.getAttribute("data-nebula-theme")).toBe(n);
+      expect(wrapper.getAttribute("data-theme")).toBe("nebula");
+      expect(wrapper.getAttribute("data-scheme")).toBe(n);
     }
   });
 
@@ -101,7 +102,7 @@ describe("NebulaProvider — switch de tema por clase", () => {
     }
     const { result } = renderHook(() => useTheme(), { wrapper: Wrapper });
     expect(() => {
-      result.current.setTheme("no-existe");
+      result.current.setTheme({ theme: "no-existe", scheme: "dark" });
     }).toThrow(/Tema desconocido/);
   });
 });
