@@ -1,15 +1,7 @@
-"use client";
-
 import { Children, isValidElement, useId, useMemo, type ReactElement, type ReactNode } from "react";
 
-import { useTheme } from "@stellaria/nebula-hooks";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
-
-import { vars } from "../../theme/contract.css.js";
-import { ResolveVariant } from "../../theme/resolve-variant.js";
 import { ContainsPart, InjectPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
-import { LengthToCss } from "../../utils/token-css.js";
 
 import { HeroActions } from "./components/Actions.js";
 import { HeroBody } from "./components/Body.js";
@@ -20,10 +12,10 @@ import { HeroHiper } from "./components/Hiper.js";
 import { HeroLeft } from "./components/Left.js";
 import { HeroRight } from "./components/Right.js";
 import { HeroSubtitle } from "./components/Subtitle.js";
+import { HeroSurface } from "./components/Surface.js";
 import { HeroTitle } from "./components/Title.js";
 import * as styles from "./Hero.css.js";
 import type { HeroProps } from "./Hero.types.js";
-import * as variables from "./Hero.vars.css.js";
 
 interface Split {
   left: ReactNode[];
@@ -98,8 +90,6 @@ export function Hero(props: HeroProps): ReactElement {
   } = props;
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
-  const { theme } = useTheme();
-  const resolved = ResolveVariant(variant, color, theme);
   const has_image = image !== undefined;
 
   const title_id = useId();
@@ -114,23 +104,15 @@ export function Hero(props: HeroProps): ReactElement {
     [has_title, children],
   );
 
-  const css_vars = assignInlineVars({
-    [variables.contentMax]: LengthToCss(contentWidth),
-    [variables.bg]: resolved.background,
-    [variables.fg]: color === "transparent" ? vars.color.text.primary : resolved.foreground,
-    [variables.borderColor]: resolved.borderColor,
-    [variables.borderWidth]: resolved.borderWidth,
-    [variables.backdropFilter]: resolved.backdropFilter,
-    [variables.veil]: has_image
-      ? `color-mix(in srgb, ${resolved.background} ${String(Math.round(overlayOpacity * 100))}%, transparent)`
-      : "transparent",
-  });
-
   return (
-          <section
+          <HeroSurface
+        variant={variant}
+        color={color}
+        overlayOpacity={overlayOpacity}
+        contentWidth={contentWidth}
+        hasImage={has_image}
         className={cx(styles.hero, styles.size[size], sprinkle_class, className)}
-        style={{ ...css_vars, ...sprinkle_style }}
-        data-variant={variant}
+        style={sprinkle_style}        data-variant={variant}
         data-align={align}
         data-hero-size={size}
         {...(names_region ? { "aria-labelledby": title_id } : {})}
@@ -186,7 +168,7 @@ export function Hero(props: HeroProps): ReactElement {
         ) : right === undefined ? null : (
           <HeroRight {...rightProps}>{right}</HeroRight>
         )}
-      </section>
+      </HeroSurface>
   );
 }
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "count": 158,
-  "documented": 216,
+  "documented": 218,
   "styleProps": {
     "count": 128,
     "page": "/docs/style-props"
@@ -15009,7 +15009,7 @@
         },
         {
           "name": "subtitleProps",
-          "type": "HeroSlotProps",
+          "type": "Omit<HeroSlotProps, \"order\">",
           "required": false,
           "default": null,
           "doc": null,
@@ -15017,7 +15017,7 @@
         },
         {
           "name": "titleProps",
-          "type": "HeroSlotProps",
+          "type": "Omit<HeroSlotProps, \"order\">",
           "required": false,
           "default": null,
           "doc": null,
@@ -15031,7 +15031,55 @@
         }
       ],
       "gaps": [],
-      "subComponents": []
+      "subComponents": [
+        {
+          "name": "HeroTitle",
+          "contract": "HeroTitleProps",
+          "own": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": null,
+              "slot": false
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": null,
+              "slot": false
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": "What `aria-labelledby` on the root points at. Same rule as `order`.",
+              "slot": false
+            },
+            {
+              "name": "order",
+              "type": "HeroOrder",
+              "required": false,
+              "default": null,
+              "doc": "The heading level. `<Hero title>` passes it for you; writing the title by hand means passing it\nyourself, because the root cannot reach an element it did not create (ADR-156).",
+              "slot": false
+            }
+          ],
+          "slots": [],
+          "inherited": [
+            {
+              "group": "styleProps",
+              "count": 124
+            }
+          ],
+          "gaps": [],
+          "subComponents": []
+        }
+      ]
     },
     {
       "name": "Highlight",
@@ -23797,6 +23845,53 @@
             {
               "group": "styleProps",
               "count": 128
+            }
+          ],
+          "gaps": [],
+          "subComponents": []
+        },
+        {
+          "name": "SectionTitle",
+          "contract": "SectionTitleProps",
+          "own": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": "The part's content. Every part is a plain band inside the rail — it claims no region and no\nheading level of its own, so the structure comes from the `Section` around it.",
+              "slot": false
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": "Lands on the part's own element, after the classes the style props generate.",
+              "slot": false
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": "What `aria-labelledby` on the root points at. Same rule as `order`.",
+              "slot": false
+            },
+            {
+              "name": "order",
+              "type": "SectionOrder",
+              "required": false,
+              "default": "2",
+              "doc": "The heading level. `<Section title>` passes it for you; writing the title by hand means passing\nit yourself, because the root cannot reach an element it did not create (ADR-156).",
+              "slot": false
+            }
+          ],
+          "slots": [],
+          "inherited": [
+            {
+              "group": "styleProps",
+              "count": 127
             }
           ],
           "gaps": [],

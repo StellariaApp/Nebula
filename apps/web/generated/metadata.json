@@ -72,7 +72,7 @@
     },
     {
       "name": "ActionIcon",
-      "budget": "41.5 kB",
+      "budget": "42 kB",
       "boundary": "client",
       "themeKeys": [
         "motion.duration",
@@ -90,7 +90,7 @@
     },
     {
       "name": "Alert",
-      "budget": "43 kB",
+      "budget": "44.75 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -116,7 +116,7 @@
     },
     {
       "name": "AnimatedGradient",
-      "budget": "24.25 kB",
+      "budget": "25.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -128,7 +128,7 @@
     },
     {
       "name": "AppShell",
-      "budget": "25.25 kB",
+      "budget": "27 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -159,7 +159,7 @@
     },
     {
       "name": "Avatar",
-      "budget": "25.25 kB",
+      "budget": "26.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -173,7 +173,7 @@
     },
     {
       "name": "Badge",
-      "budget": "25.5 kB",
+      "budget": "27.75 kB",
       "boundary": "server",
       "themeKeys": [
         "font.family",
@@ -193,7 +193,7 @@
     },
     {
       "name": "Banderole",
-      "budget": "42.25 kB",
+      "budget": "44.25 kB",
       "boundary": "server",
       "themeKeys": [
         "font.family",
@@ -207,7 +207,7 @@
     },
     {
       "name": "Blockquote",
-      "budget": "23.25 kB",
+      "budget": "24.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -223,7 +223,7 @@
     },
     {
       "name": "BlurOverlay",
-      "budget": "23.25 kB",
+      "budget": "24.25 kB",
       "boundary": "client",
       "themeKeys": [
         "blur",
@@ -264,7 +264,7 @@
     },
     {
       "name": "Breadcrumbs",
-      "budget": "21 kB",
+      "budget": "21.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.primary",
@@ -278,7 +278,7 @@
     },
     {
       "name": "Burger",
-      "budget": "39.5 kB",
+      "budget": "40.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -289,7 +289,7 @@
     },
     {
       "name": "Button",
-      "budget": "42.25 kB",
+      "budget": "43 kB",
       "boundary": "client",
       "themeKeys": [
         "font.family",
@@ -313,13 +313,13 @@
     },
     {
       "name": "ButtonClose",
-      "budget": "41.75 kB",
+      "budget": "42.5 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "ButtonCopy",
-      "budget": "42 kB",
+      "budget": "42.5 kB",
       "boundary": "client",
       "themeKeys": []
     },
@@ -353,7 +353,7 @@
     },
     {
       "name": "Card",
-      "budget": "33.5 kB",
+      "budget": "34.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -416,7 +416,7 @@
     },
     {
       "name": "Charts",
-      "budget": "23.5 kB",
+      "budget": "24.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -439,7 +439,7 @@
     },
     {
       "name": "Checkbox",
-      "budget": "24.5 kB",
+      "budget": "25.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -457,7 +457,7 @@
     },
     {
       "name": "Chip",
-      "budget": "26 kB",
+      "budget": "26.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -494,7 +494,7 @@
     },
     {
       "name": "CodeHighlight",
-      "budget": "44.5 kB",
+      "budget": "45.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -540,7 +540,7 @@
     },
     {
       "name": "ColorSwatch",
-      "budget": "32.5 kB",
+      "budget": "33.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -585,7 +585,7 @@
     },
     {
       "name": "Container",
-      "budget": "22 kB",
+      "budget": "23.5 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -687,7 +687,7 @@
     },
     {
       "name": "Divider",
-      "budget": "23 kB",
+      "budget": "25 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -798,7 +798,7 @@
     },
     {
       "name": "Feature",
-      "budget": "25.75 kB",
+      "budget": "28.25 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -811,7 +811,7 @@
     },
     {
       "name": "FieldError",
-      "budget": "31.25 kB",
+      "budget": "33 kB",
       "boundary": "client",
       "themeKeys": [
         "color.text",
@@ -886,7 +886,7 @@
     },
     {
       "name": "Footer",
-      "budget": "23.25 kB",
+      "budget": "25.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -912,7 +912,7 @@
     },
     {
       "name": "Form",
-      "budget": "45.5 kB",
+      "budget": "47 kB",
       "boundary": "client",
       "themeKeys": [
         "color.semantic",
@@ -930,7 +930,7 @@
     },
     {
       "name": "FormField",
-      "budget": "33.25 kB",
+      "budget": "34.75 kB",
       "boundary": "client",
       "themeKeys": [
         "space.xs",
@@ -939,7 +939,7 @@
     },
     {
       "name": "GlassSurface",
-      "budget": "23 kB",
+      "budget": "25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -981,7 +981,7 @@
     },
     {
       "name": "GradientBackground",
-      "budget": "24.25 kB",
+      "budget": "25.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -991,7 +991,7 @@
     },
     {
       "name": "GradientBorder",
-      "budget": "25 kB",
+      "budget": "26.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1003,19 +1003,19 @@
     },
     {
       "name": "GradientText",
-      "budget": "23.5 kB",
+      "budget": "24.75 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "Grid",
-      "budget": "22.25 kB",
+      "budget": "24.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
     {
       "name": "GridList",
-      "budget": "43.75 kB",
+      "budget": "45.75 kB",
       "boundary": "client",
       "themeKeys": [
         "space.lg",
@@ -1026,7 +1026,7 @@
     },
     {
       "name": "Group",
-      "budget": "21.75 kB",
+      "budget": "23.75 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1048,11 +1048,10 @@
     },
     {
       "name": "Hero",
-      "budget": "26.75 kB",
-      "boundary": "client",
+      "budget": "28 kB",
+      "boundary": "server",
       "themeKeys": [
         "color.accent",
-        "color.text",
         "font.display",
         "font.family",
         "font.letterSpacing",
@@ -1068,7 +1067,7 @@
     },
     {
       "name": "Highlight",
-      "budget": "23.25 kB",
+      "budget": "24.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1089,7 +1088,7 @@
     },
     {
       "name": "Image",
-      "budget": "29 kB",
+      "budget": "30.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.gray",
@@ -1120,7 +1119,7 @@
     },
     {
       "name": "Indicator",
-      "budget": "23.75 kB",
+      "budget": "24.75 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -1150,7 +1149,7 @@
     },
     {
       "name": "InputCurrency",
-      "budget": "35.5 kB",
+      "budget": "37 kB",
       "boundary": "client",
       "themeKeys": []
     },
@@ -1168,7 +1167,7 @@
     },
     {
       "name": "JsonInput",
-      "budget": "34.5 kB",
+      "budget": "36 kB",
       "boundary": "client",
       "themeKeys": [
         "font.family",
@@ -1234,7 +1233,7 @@
     },
     {
       "name": "List",
-      "budget": "22.25 kB",
+      "budget": "24 kB",
       "boundary": "server",
       "themeKeys": [
         "color.text",
@@ -1245,7 +1244,7 @@
     },
     {
       "name": "Loader",
-      "budget": "23.25 kB",
+      "budget": "24.5 kB",
       "boundary": "server",
       "themeKeys": [
         "motion.easing",
@@ -1266,7 +1265,7 @@
     },
     {
       "name": "Main",
-      "budget": "25.25 kB",
+      "budget": "27 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -1283,7 +1282,7 @@
     },
     {
       "name": "Mark",
-      "budget": "22.5 kB",
+      "budget": "23.75 kB",
       "boundary": "server",
       "themeKeys": [
         "radius.xs"
@@ -1388,13 +1387,13 @@
     },
     {
       "name": "NProgress",
-      "budget": "23.75 kB",
+      "budget": "24.75 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "NativeSelect",
-      "budget": "34.5 kB",
+      "budget": "36 kB",
       "boundary": "client",
       "themeKeys": [
         "color.text",
@@ -1443,7 +1442,7 @@
     },
     {
       "name": "NavLink",
-      "budget": "33.25 kB",
+      "budget": "33.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1474,7 +1473,7 @@
     },
     {
       "name": "NumberInput",
-      "budget": "43.75 kB",
+      "budget": "45.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1490,7 +1489,7 @@
     },
     {
       "name": "Overlay",
-      "budget": "23 kB",
+      "budget": "24 kB",
       "boundary": "server",
       "themeKeys": [
         "blur.lg",
@@ -1500,7 +1499,7 @@
     },
     {
       "name": "Pagination",
-      "budget": "32.75 kB",
+      "budget": "33.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -1524,7 +1523,7 @@
     },
     {
       "name": "Paper",
-      "budget": "25.25 kB",
+      "budget": "26.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1541,7 +1540,7 @@
     },
     {
       "name": "PasswordInput",
-      "budget": "43.75 kB",
+      "budget": "44.75 kB",
       "boundary": "client",
       "themeKeys": []
     },
@@ -1553,7 +1552,7 @@
     },
     {
       "name": "PinInput",
-      "budget": "35 kB",
+      "budget": "36.5 kB",
       "boundary": "client",
       "themeKeys": [
         "size.control",
@@ -1594,7 +1593,7 @@
     },
     {
       "name": "Progress",
-      "budget": "26.5 kB",
+      "budget": "28.75 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -1629,7 +1628,7 @@
     },
     {
       "name": "Radio",
-      "budget": "23.75 kB",
+      "budget": "25.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1647,7 +1646,7 @@
     },
     {
       "name": "Rating",
-      "budget": "36 kB",
+      "budget": "36.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.text",
@@ -1685,7 +1684,7 @@
     },
     {
       "name": "Scroll",
-      "budget": "25.25 kB",
+      "budget": "27 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -1695,7 +1694,7 @@
     },
     {
       "name": "ScrollProgress",
-      "budget": "23.25 kB",
+      "budget": "24.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -1715,7 +1714,7 @@
     },
     {
       "name": "SearchInput",
-      "budget": "43.75 kB",
+      "budget": "44.75 kB",
       "boundary": "client",
       "themeKeys": []
     },
@@ -1732,7 +1731,7 @@
     },
     {
       "name": "Section",
-      "budget": "48.5 kB",
+      "budget": "50.5 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1753,7 +1752,7 @@
     },
     {
       "name": "Segment",
-      "budget": "43 kB",
+      "budget": "44.75 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1810,13 +1809,13 @@
     },
     {
       "name": "SimpleGrid",
-      "budget": "22 kB",
+      "budget": "24 kB",
       "boundary": "server",
       "themeKeys": []
     },
     {
       "name": "Skeleton",
-      "budget": "22.75 kB",
+      "budget": "24.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",
@@ -1848,7 +1847,7 @@
     },
     {
       "name": "Space",
-      "budget": "21 kB",
+      "budget": "23.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1864,7 +1863,7 @@
     },
     {
       "name": "StarField",
-      "budget": "24.5 kB",
+      "budget": "25.75 kB",
       "boundary": "client",
       "themeKeys": [
         "motion.duration",
@@ -1890,13 +1889,13 @@
     },
     {
       "name": "StatusBadge",
-      "budget": "25.75 kB",
+      "budget": "28 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "Stepper",
-      "budget": "26.5 kB",
+      "budget": "29 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -1916,7 +1915,7 @@
     },
     {
       "name": "Switch",
-      "budget": "38.5 kB",
+      "budget": "39.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.border",
@@ -1953,13 +1952,13 @@
     },
     {
       "name": "Tabs",
-      "budget": "43 kB",
+      "budget": "45.25 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "Tag",
-      "budget": "43 kB",
+      "budget": "44.75 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
@@ -2011,19 +2010,19 @@
     },
     {
       "name": "TextInput",
-      "budget": "34 kB",
+      "budget": "35.75 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "Textarea",
-      "budget": "34.25 kB",
+      "budget": "36 kB",
       "boundary": "client",
       "themeKeys": []
     },
     {
       "name": "ThemeIcon",
-      "budget": "24.5 kB",
+      "budget": "27 kB",
       "boundary": "server",
       "themeKeys": [
         "radius.full",
@@ -2040,7 +2039,7 @@
     },
     {
       "name": "Timeline",
-      "budget": "25.75 kB",
+      "budget": "28 kB",
       "boundary": "server",
       "themeKeys": [
         "color.border",
