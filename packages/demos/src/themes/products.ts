@@ -1,6 +1,7 @@
 import { FlipScale, nebulaDark, nebulaLight } from "@stellaria/nebula-themes";
 import {
   palettes,
+  type ColorScheme,
   type MotionTier,
   type NebulaTheme,
   type Scale11,
@@ -152,7 +153,7 @@ export function BuildProduct(name: ProductName, scheme: "dark" | "light"): Nebul
 
   return {
     ...base,
-    meta: { name: dark ? name : `${name}-light`, scheme, version: "0.1.0" },
+    meta: { name, scheme, version: "0.1.0" },
     ink: { floor: PRODUCT_INK_FLOOR },
     colors: {
       ...base.colors,
@@ -271,11 +272,9 @@ export const BASE_CHOICE: ThemeChoice = {
   face: "sans",
 };
 
-const LIGHT_SUFFIX = /-light$/;
-
 export function NameFromTheme(theme: NebulaTheme): ThemeName {
-  const stem = theme.meta.name.replace(LIGHT_SUFFIX, "");
-  return stem in PRODUCT_SEEDS ? (stem as ThemeName) : "nebula";
+  const name = theme.meta.name;
+  return name in PRODUCT_SEEDS || name === "nebula" ? (name as ThemeName) : "nebula";
 }
 
 function CornerFromTheme(theme: NebulaTheme): Corner {
@@ -302,7 +301,7 @@ export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
   };
 }
 
-export function ResolveChoice(choice: ThemeChoice): string | NebulaTheme {
+export function ResolveChoice(choice: ThemeChoice): ColorScheme | NebulaTheme {
   const base = ThemeOf(choice.name, choice.scheme);
   const pristine = ChoiceFromTheme(base);
   const untouched =
