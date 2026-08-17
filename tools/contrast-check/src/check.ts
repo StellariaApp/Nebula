@@ -15,6 +15,8 @@ export interface PairResult {
   min: number;
   pass: boolean;
   suggestion?: string | undefined;
+  /** Copiada del par: si esta presente y el par falla, es deuda aceptada y no tumba el gate. */
+  deuda?: string | undefined;
 }
 
 /**
@@ -62,6 +64,7 @@ export function CheckTheme(theme: NebulaTheme, pairs: readonly ContrastPair[]): 
       min: pair.min,
       pass,
       suggestion: pass ? undefined : SuggestFix(fg, bg, pair.min),
+      deuda: pair.deuda,
     };
   });
 }

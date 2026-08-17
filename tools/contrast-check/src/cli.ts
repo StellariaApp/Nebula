@@ -36,15 +36,19 @@ function LoadThemes(): ThemeUnderTest[] {
 function PrintTable(results: readonly PairResult[]): void {
   const label_width = Math.max(...results.map((r) => r.label.length));
   console.log(
-    `${"PAR".padEnd(label_width)}  ${"FG".padEnd(9)} ${"BG".padEnd(9)} ${"RATIO".padStart(6)}  ${"MIN".padStart(4)}  RESULTADO`,
+    `${"PAR".padEnd(label_width)}  ${"FG".padEnd(9)} ${"BG".padEnd(9)} ${"RATIO".padStart(6)}  ${"MIN".padStart(5)}  RESULTADO`,
   );
   console.log("-".repeat(label_width + 45));
   for (const r of results) {
     const verdict = r.pass
-      ? "PASS"
-      : `FAIL${r.suggestion === undefined ? "" : ` → sugerido ${r.suggestion}`}`;
+      ? r.deuda === undefined
+        ? "PASS"
+        : `PASS · deuda pagada, retirar el marcador (${r.deuda})`
+      : r.deuda === undefined
+        ? `FAIL${r.suggestion === undefined ? "" : ` → sugerido ${r.suggestion}`}`
+        : `DEUDA · ${r.deuda}`;
     console.log(
-      `${r.label.padEnd(label_width)}  ${r.fg.padEnd(9)} ${r.bg.padEnd(9)} ${r.ratio.toFixed(2).padStart(6)}  ${r.min.toFixed(1).padStart(4)}  ${verdict}`,
+      `${r.label.padEnd(label_width)}  ${r.fg.padEnd(9)} ${r.bg.padEnd(9)} ${r.ratio.toFixed(2).padStart(6)}  ${r.min.toFixed(2).padStart(5)}  ${verdict}`,
     );
   }
 }
@@ -52,6 +56,13 @@ function PrintTable(results: readonly PairResult[]): void {
 function Main(): void {
   const themes = LoadThemes();
   let total_failures = 0;
+  let total_debt = 0;
+  /**
+   * Una deuda solo esta pagada si el par pasa en **todos** los temas. Contarla por tema diria
+   * «retira el marcador» de un par que sigue haciendo falta en otro esquema.
+   */
+  const debt_fails_somewhere = new Set<string>();
+  const debt_labels = new Set<string>();
 
   for (const { theme, source } of themes) {
     console.log(`Contrast-check WCAG 2.2 AA — ${theme.meta.name} (${source})\n`);
@@ -59,13 +70,35 @@ function Main(): void {
     const results = CheckTheme(theme, BuildPairs());
     PrintTable(results);
 
-    const failures = results.filter((r) => !r.pass);
+    const failures = results.filter((r) => !r.pass && r.deuda === undefined);
+    const deuda = results.filter((r) => !r.pass && r.deuda !== undefined);
+    for (const r of results) {
+      if (r.deuda === undefined) continue;
+      debt_labels.add(r.label);
+      if (!r.pass) debt_fails_somewhere.add(r.label);
+    }
     total_failures += failures.length;
+    total_debt += deuda.length;
     console.log(
-      `\n${results.length} pares · ${results.length - failures.length} PASS · ${failures.length} FAIL\n`,
+      `\n${results.length} pares · ${results.length - failures.length - deuda.length} PASS · ` +
+        `${failures.length} FAIL · ${deuda.length} DEUDA\n`,
     );
   }
 
+  const pagadas = [...debt_labels].filter((l) => !debt_fails_somewhere.has(l));
+
+  if (total_debt > 0) {
+    console.log(
+      `⚠ ${String(total_debt)} pares en deuda aceptada por ADR-161. Se miden y no bloquean:\n` +
+        "  el defecto sigue ahí y a la vista. Se cierran el día que el color vuelva a estar en alcance.",
+    );
+  }
+  if (pagadas.length > 0) {
+    console.log(
+      `✔ ${String(pagadas.length)} pares marcados como deuda pasan en TODOS los temas — retira su \`deuda\`:`,
+    );
+    for (const l of pagadas) console.log(`    ${l}`);
+  }
   if (total_failures > 0) {
     console.error("✖ Gate de contraste en rojo (disabled está exento por WCAG 1.4.3).");
     process.exit(1);

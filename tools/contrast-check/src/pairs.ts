@@ -1,4 +1,10 @@
-import type { GlassLevel, NebulaTheme, SemanticScaleName, Variant } from "@stellaria/nebula-tokens";
+import type {
+  GlassLevel,
+  NebulaTheme,
+  SemanticScaleName,
+  SurfaceRole,
+  Variant,
+} from "@stellaria/nebula-tokens";
 
 import {
   Composite,
@@ -17,6 +23,17 @@ export interface ContrastPair {
   min: number;
   /** El par no aplica a este tema concreto: no se evalúa ni cuenta como PASS. */
   skip?: (theme: NebulaTheme) => boolean;
+  /**
+   * El par se mide, y si falla **no tumba el gate**: es una deuda que un ADR acepta por escrito. El
+   * valor es la referencia de esa aceptacion, para que nadie pueda declarar deuda sin decir donde.
+   *
+   * Existe porque la alternativa era peor: un gate permanentemente rojo por un incumplimiento ya
+   * decidido ensena a ignorar el gate entero. Y quitar el par —lo que se hizo hasta ahora— deja el
+   * defecto sin nadie mirandolo. Asi se mide, se ve y no bloquea.
+   *
+   * Cuando un par con deuda **pasa**, el CLI lo avisa: la deuda esta pagada y el marcador sobra.
+   */
+  deuda?: string;
 }
 
 const SURFACES = ["base", "raised", "overlay", "sunken", "hover", "active", "hoverActive"] as const;
@@ -41,6 +58,32 @@ const GLASS_LEVELS = EnumValues<GlassLevel>()([
 ]);
 const FIELD_SURFACES = ["sunken", "base", "raised", "overlay"] as const;
 const STATUSES = ["success", "warning", "error", "info"] as const;
+
+/**
+ * La cadena de elevacion tal y como ADR-100 la dejo consecutiva en los dos esquemas. Lo que cambia
+ * entre esquemas es la direccion, no el orden.
+ */
+const ELEVATION_LADDER = ["overlay", "base", "raised", "sunken"] as const;
+
+/** ADR-065 §1 para la elevacion y docs/06 §5.1 para la interaccion: la misma magnitud. */
+const ELEVATION_STEP = 1.08;
+
+const INTERACTION_STEPS = [
+  ["hover", "base"],
+  ["hover", "raised"],
+  ["active", "base"],
+  ["hoverActive", "active"],
+] as const satisfies readonly (readonly [SurfaceRole, SurfaceRole])[];
+
+/**
+ * SC 1.4.11 pide 3:1 a lo que identifica un componente, y el borde en reposo de un campo lo es
+ * (`styles/field.css.ts`, variante por defecto). `subtle` solo separa superficies, asi que se le pide
+ * ser perceptible — el mismo 1.15 que ya se exige al filo del cristal.
+ */
+const BORDER_MINIMA = { default: 3, subtle: 1.15 } as const;
+
+const DEUDA_BORDE = "ADR-161 §2.1 — excepcion aceptada el 2026-08-17";
+const DEUDA_ESCALON = "ADR-161 §2.2 — deuda declarada el 2026-08-17";
 
 const VARIANTS: readonly Variant[] = [
   "filled",
@@ -196,6 +239,40 @@ export function BuildPairs(): ContrastPair[] {
       },
     );
   }
+  for (const [role, min] of Object.entries(BORDER_MINIMA)) {
+    for (const surface of SURFACES) {
+      pairs.push({
+        label: `border.${role} / surface.${surface}`,
+        fg: (t) => t.colors.border[role as "default" | "subtle"],
+        bg: (t) => t.colors.surface[surface],
+        min,
+        deuda: DEUDA_BORDE,
+      });
+    }
+  }
+
+  for (let i = 1; i < ELEVATION_LADDER.length; i++) {
+    const under = ELEVATION_LADDER[i - 1] as SurfaceRole;
+    const over = ELEVATION_LADDER[i] as SurfaceRole;
+    pairs.push({
+      label: `surface.${under} ↔ surface.${over} (escalon de elevacion)`,
+      fg: (t) => t.colors.surface[under],
+      bg: (t) => t.colors.surface[over],
+      min: ELEVATION_STEP,
+      deuda: DEUDA_ESCALON,
+    });
+  }
+
+  for (const [state, under] of INTERACTION_STEPS) {
+    pairs.push({
+      label: `surface.${state} ↔ surface.${under} (escalon de interaccion)`,
+      fg: (t) => t.colors.surface[state],
+      bg: (t) => t.colors.surface[under],
+      min: ELEVATION_STEP,
+      deuda: DEUDA_ESCALON,
+    });
+  }
+
   pairs.push({
     label: "primary.600 (UI filled) / surface.base",
     fg: (t) => t.colors.primary["600"],
