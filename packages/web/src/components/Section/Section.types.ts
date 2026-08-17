@@ -21,7 +21,7 @@ export interface SectionSlotProps extends StyleProps {
 
 export type SectionHeadingProps = SectionSlotProps;
 
-export interface SectionProps extends StyleProps {
+export interface SectionProps extends Omit<StyleProps, "order"> {
   /**
    * The body. A `Section.Header` among the children replaces the header built from `title`,
    * `description`, `aside` and `actions`; a `Section.Footer` replaces `footer` (ADR-111).

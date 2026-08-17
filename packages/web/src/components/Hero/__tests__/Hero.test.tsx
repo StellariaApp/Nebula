@@ -84,8 +84,10 @@ describe("Hero compound", () => {
     expect(screen.getByRole("heading", { name: "Nebula" })).toBeDefined();
   });
 
-  it("una parte fuera de su Hero avisa en vez de fallar en silencio", () => {
-    expect(() => render(<Hero.Title>huerfano</Hero.Title>)).toThrow(/must be used inside <Hero>/);
+  it("una parte fuera de su Hero se pinta sola, sin el id que nadie le dio", () => {
+    render(<Hero.Title>huerfano</Hero.Title>);
+    const heading = screen.getByRole("heading", { name: "huerfano" });
+    expect(heading.getAttribute("id")).toBeNull();
   });
 
   it("un cuerpo por partes sin titulo no deja el aria-labelledby colgando", () => {

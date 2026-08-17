@@ -128,6 +128,24 @@ export const title = style({
       margin: 0,
       fontWeight: vars.font.weight.bold,
       lineHeight: vars.font.lineHeight.tight,
+      selectors: {
+        "[data-hero-size='sm'] &": { fontSize: vars.font.size.h5 },
+        "[data-hero-size='md'] &": { fontSize: vars.font.size.h4 },
+        "[data-hero-size='lg'] &": { fontSize: vars.font.size.h3 },
+        "[data-hero-size='xl'] &": {
+          fontSize: vars.font.display.size,
+          lineHeight: vars.font.display.lineHeight,
+          letterSpacing: vars.font.display.letterSpacing,
+        },
+      },
+      "@media": {
+        [SmallerThan("tablet")]: {
+          selectors: { "[data-hero-size='xl'] &": { fontSize: vars.font.size.h1 } },
+        },
+        [SmallerThan("phone")]: {
+          selectors: { "[data-hero-size='xl'] &": { fontSize: vars.font.size.h2 } },
+        },
+      },
     },
   },
 });

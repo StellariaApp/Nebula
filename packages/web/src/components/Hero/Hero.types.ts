@@ -17,8 +17,8 @@ export interface HeroSlotProps extends Omit<StyleProps, "color" | "left" | "righ
 }
 
 export interface HeroPartsProps {
-  titleProps?: HeroSlotProps | undefined;
-  subtitleProps?: HeroSlotProps | undefined;
+  titleProps?: Omit<HeroSlotProps, "order"> | undefined;
+  subtitleProps?: Omit<HeroSlotProps, "order"> | undefined;
   headerProps?: HeroSlotProps | undefined;
   hiperProps?: HeroSlotProps | undefined;
   descriptionProps?: HeroSlotProps | undefined;
@@ -30,7 +30,7 @@ export interface HeroPartsProps {
 }
 
 export interface HeroProps
-  extends HeroPartsProps, Omit<StyleProps, "color" | "align" | "left" | "right" | "bottom"> {
+  extends HeroPartsProps, Omit<StyleProps, "color" | "align" | "left" | "right" | "bottom" | "order"> {
   /**
    * Names the region through `aria-labelledby`. Without it, and without a `Hero.Title` among the
    * children, the band never becomes a named landmark.

@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { vars } from "../../theme/contract.css.js";
 import { ResolveVariant } from "../../theme/resolve-variant.js";
-import { ContainsPart } from "../../utils/children.js";
+import { ContainsPart, InjectPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 
@@ -21,7 +21,6 @@ import { HeroLeft } from "./components/Left.js";
 import { HeroRight } from "./components/Right.js";
 import { HeroSubtitle } from "./components/Subtitle.js";
 import { HeroTitle } from "./components/Title.js";
-import { HeroContext } from "./Hero.context.js";
 import * as styles from "./Hero.css.js";
 import type { HeroProps } from "./Hero.types.js";
 import * as variables from "./Hero.vars.css.js";
@@ -104,14 +103,16 @@ export function Hero(props: HeroProps): ReactElement {
   const has_image = image !== undefined;
 
   const title_id = useId();
-  const parts = useMemo(() => SplitChildren(children), [children]);
+  const parts = useMemo(
+    () => SplitChildren(InjectPart(children, HeroTitle, { id: title_id, order })),
+    [children, title_id, order],
+  );
   const owns_body = HasBodyPart(parts.body);
   const has_title = title !== undefined;
   const names_region = useMemo(
     () => has_title || ContainsPart(children, HeroTitle),
     [has_title, children],
   );
-  const context = useMemo(() => ({ titleId: title_id, order, size }), [title_id, order, size]);
 
   const css_vars = assignInlineVars({
     [variables.contentMax]: LengthToCss(contentWidth),
@@ -126,12 +127,12 @@ export function Hero(props: HeroProps): ReactElement {
   });
 
   return (
-    <HeroContext.Provider value={context}>
-      <section
+          <section
         className={cx(styles.hero, styles.size[size], sprinkle_class, className)}
         style={{ ...css_vars, ...sprinkle_style }}
         data-variant={variant}
         data-align={align}
+        data-hero-size={size}
         {...(names_region ? { "aria-labelledby": title_id } : {})}
         {...rest}
       >
@@ -159,7 +160,7 @@ export function Hero(props: HeroProps): ReactElement {
                 hiper
               )}
               <HeroHeader {...headerProps}>
-                {has_title ? <HeroTitle {...titleProps}>{title}</HeroTitle> : null}
+                {has_title ? <HeroTitle order={order} id={title_id} {...titleProps}>{title}</HeroTitle> : null}
                 {subtitle === undefined ? null : (
                   <HeroSubtitle {...subtitleProps}>{subtitle}</HeroSubtitle>
                 )}
@@ -186,7 +187,6 @@ export function Hero(props: HeroProps): ReactElement {
           <HeroRight {...rightProps}>{right}</HeroRight>
         )}
       </section>
-    </HeroContext.Provider>
   );
 }
 

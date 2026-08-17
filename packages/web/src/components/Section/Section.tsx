@@ -14,7 +14,7 @@ import {
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { ContainsPart } from "../../utils/children.js";
+import { ContainsPart, InjectPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
@@ -29,7 +29,6 @@ import { SectionFooter } from "./components/Footer.js";
 import { SectionHeader, SectionHeading } from "./components/Header.js";
 import { SectionRail } from "./components/Rail.js";
 import { SectionTitle } from "./components/Title.js";
-import { SectionContext } from "./Section.context.js";
 import * as styles from "./Section.css.js";
 import type { SectionProps, SectionSlotProps } from "./Section.types.js";
 import * as variables from "./Section.vars.css.js";
@@ -93,10 +92,12 @@ export function Section(props: SectionProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style, rest } = ExtractStyleProps(style_rest);
 
   const title_id = useId();
-  const parts = useMemo(() => SplitChildren(children), [children]);
+  const parts = useMemo(
+    () => SplitChildren(InjectPart(children, SectionTitle, { id: title_id, order })),
+    [children, title_id, order],
+  );
   const has_title = title !== undefined;
   const has_own_header = parts.header.length > 0;
-  const context = useMemo(() => ({ titleId: title_id, order }), [title_id, order]);
   const names_region = useMemo(
     () => has_title || ContainsPart(children, SectionTitle),
     [has_title, children],
@@ -130,8 +131,7 @@ export function Section(props: SectionProps): ReactElement {
   const Root: ElementType = animating ? m.section : "section";
 
   return (
-    <SectionContext.Provider value={context}>
-      <Root
+          <Root
         {...(reveal ? { ref: revealed.ref } : {})}
         className={cx(styles.section, styles.size[size], sprinkle_class, className)}
         style={{ ...rail_vars, ...sprinkle_style }}
@@ -147,7 +147,7 @@ export function Section(props: SectionProps): ReactElement {
           ) : has_title || description !== undefined || actions !== undefined ? (
             <SectionHeader>
               <SectionHeading>
-                {has_title ? <SectionTitle>{title}</SectionTitle> : null}
+                {has_title ? <SectionTitle order={order} id={title_id}>{title}</SectionTitle> : null}
                 {description === undefined ? null : (
                   <SectionDescription>{description}</SectionDescription>
                 )}
@@ -189,7 +189,6 @@ export function Section(props: SectionProps): ReactElement {
           )}
         </SectionRail>
       </Root>
-    </SectionContext.Provider>
   );
 }
 

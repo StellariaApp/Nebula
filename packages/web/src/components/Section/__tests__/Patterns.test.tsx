@@ -279,10 +279,10 @@ describe("Section compound", () => {
     expect(screen.getByText("pie")).toBeDefined();
   });
 
-  it("una parte fuera de su Section avisa en vez de fallar en silencio", () => {
-    expect(() => render(<Section.Title>huerfano</Section.Title>)).toThrow(
-      /must be used inside <Section>/,
-    );
+  it("una parte fuera de su Section se pinta sola, sin el id que nadie le dio", () => {
+    render(<Section.Title>huerfano</Section.Title>);
+    const heading = screen.getByRole("heading", { name: "huerfano" });
+    expect(heading.getAttribute("id")).toBeNull();
   });
 
   it("Section.Aside llega al DOM, igual que la prop aside", () => {
