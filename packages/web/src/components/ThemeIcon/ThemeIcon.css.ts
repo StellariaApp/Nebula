@@ -55,11 +55,31 @@ export const icon = style({
 });
 
 export const size = styleVariants({
-  xs: { width: 20, height: 20, fontSize: 12 },
-  sm: { width: 26, height: 26, fontSize: 14 },
-  md: { width: 32, height: 32, fontSize: 17 },
-  lg: { width: 40, height: 40, fontSize: 21 },
-  xl: { width: 52, height: 52, fontSize: 27 },
+  xs: {
+    width: vars.size.compact.xs,
+    height: vars.size.compact.xs,
+    fontSize: vars.font.size.caption,
+  },
+  sm: {
+    width: vars.size.control.xxs,
+    height: vars.size.control.xxs,
+    fontSize: vars.font.size.body2,
+  },
+  md: {
+    width: vars.size.compact.lg,
+    height: vars.size.compact.lg,
+    fontSize: vars.font.size.body1,
+  },
+  lg: {
+    width: vars.size.compact.xxl,
+    height: vars.size.compact.xxl,
+    fontSize: vars.font.size.h6,
+  },
+  xl: {
+    width: vars.size.control.lg,
+    height: vars.size.control.lg,
+    fontSize: vars.font.size.h5,
+  },
 });
 
 export const radius = styleVariants({
