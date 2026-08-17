@@ -986,7 +986,7 @@
     },
     {
       "name": "GradientBorder",
-      "budget": "26.5 kB",
+      "budget": "28.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1116,6 +1116,7 @@
         "font.family",
         "font.size",
         "font.weight",
+        "motion.duration",
         "radius.full",
         "size.compact",
         "space.xxs"
@@ -1236,6 +1237,7 @@
       "budget": "24.5 kB",
       "boundary": "server",
       "themeKeys": [
+        "motion.duration",
         "motion.easing",
         "radius.full",
         "radius.xs"
@@ -1589,6 +1591,7 @@
         "font.family",
         "font.size",
         "font.weight",
+        "motion.duration",
         "motion.easing",
         "variant"
       ]
@@ -1806,6 +1809,7 @@
       "boundary": "server",
       "themeKeys": [
         "color.surface",
+        "motion.duration",
         "motion.easing",
         "radius.full",
         "radius.sm",
@@ -1853,6 +1857,7 @@
       "budget": "25.75 kB",
       "boundary": "client",
       "themeKeys": [
+        "blur.xxl",
         "motion.duration",
         "motion.easing",
         "motion.tier",
@@ -1959,6 +1964,7 @@
         "radius.md",
         "radius.sm",
         "size.compact",
+        "size.control",
         "space.md",
         "space.sm",
         "space.xs",
@@ -2012,9 +2018,12 @@
       "budget": "27 kB",
       "boundary": "server",
       "themeKeys": [
+        "font.size",
         "radius.full",
         "radius.md",
         "radius.sm",
+        "size.compact",
+        "size.control",
         "variant"
       ]
     },
