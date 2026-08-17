@@ -1,8 +1,8 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { component_layer } from "../../theme/layers.css.js";
 
@@ -157,13 +157,19 @@ export const spinner = style({
   width: "1em",
   height: "1em",
   borderRadius: vars.radius.full,
-  border: "2px solid currentColor",
+  borderStyle: "solid",
+  borderWidth: `calc(1em / 8)`,
+  borderColor: "currentColor",
   borderTopColor: "transparent",
   animationName: SPIN,
-  animationDuration: vars.motion.duration.expressive,
-  animationTimingFunction: vars.motion.easing.standard,
+  animationDuration: `calc(${vars.motion.duration.fast} * 6)`,
+  animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   "@media": {
-    "(prefers-reduced-motion: reduce)": motion.still,
+    "(prefers-reduced-motion: reduce)": {
+      ...motion.still,
+      borderTopColor: "currentColor",
+      opacity: 0.5,
+    },
   },
 });

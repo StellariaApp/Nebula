@@ -40,7 +40,7 @@ export const spinner = style({
       borderColor: "currentColor",
       borderTopColor: "transparent",
       animationName: SPIN,
-      animationDuration: "0.7s",
+      animationDuration: `calc(${vars.motion.duration.fast} * 6)`,
       animationTimingFunction: "linear",
       animationIterationCount: "infinite",
       "@media": {
@@ -62,7 +62,7 @@ const dot_base = style({
       borderRadius: vars.radius.full,
       background: "currentColor",
       animationName: PULSE,
-      animationDuration: "1.1s",
+      animationDuration: `calc(${vars.motion.duration.fast} * 9)`,
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       "@media": {
@@ -80,7 +80,7 @@ const bar_base = style({
       borderRadius: vars.radius.xs,
       background: "currentColor",
       animationName: STRETCH,
-      animationDuration: "1s",
+      animationDuration: `calc(${vars.motion.duration.fast} * 8)`,
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       "@media": {

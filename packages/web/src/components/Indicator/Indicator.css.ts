@@ -68,7 +68,7 @@ export const processing = style({
           borderRadius: vars.radius.full,
           background: variables.dotColor,
           animationName: pulse,
-          animationDuration: "1.6s",
+          animationDuration: `calc(${vars.motion.duration.base} * 9)`,
           animationIterationCount: "infinite",
           animationTimingFunction: "ease-out",
         },

@@ -85,11 +85,11 @@ export const star = style({
   },
 });
 
-const AURORA_BLUR = "50px";
+const AURORA_BLUR = vars.blur.xxl;
 
 const AURORAS = [
-  { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.3, s: 18 },
-  { top: "30%", left: "-15%", h: "60vh", w: "60vw", shift: false, peak: 0.24, s: 22 },
+  { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.3, cycle: 43 },
+  { top: "30%", left: "-15%", h: "60vh", w: "60vw", shift: false, peak: 0.24, cycle: 52 },
   {
     top: "55%",
     left: "auto",
@@ -98,9 +98,9 @@ const AURORAS = [
     w: "55vw",
     shift: false,
     peak: 0.15,
-    s: 26,
+    cycle: 62,
   },
-  { top: "15%", left: "60%", h: "30vh", w: "30vw", shift: false, peak: 0.24, s: 20 },
+  { top: "15%", left: "60%", h: "30vh", w: "30vw", shift: false, peak: 0.24, cycle: 48 },
 ] as const;
 
 function Drift(peak: number, dx: number, dy: number): string {
@@ -139,7 +139,7 @@ export const aurora_blob = AURORAS.map((a, i) =>
         willChange: "transform, opacity",
         ...(a.shift ? { translate: "-50% 0" } : {}),
         animationName: Drift(a.peak, 8 - i * 1.5, 6 - i),
-        animationDuration: `${String(a.s)}s`,
+        animationDuration: `calc(${vars.motion.duration.expressive} * ${String(a.cycle)})`,
         animationTimingFunction: "ease-in-out",
         animationIterationCount: "infinite",
         selectors: {

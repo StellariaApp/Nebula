@@ -83,7 +83,7 @@ export const striped = style({
   backgroundImage: `linear-gradient(45deg, ${STRIPE_TINT} 25%, transparent 25%, transparent 50%, ${STRIPE_TINT} 50%, ${STRIPE_TINT} 75%, transparent 75%, transparent)`,
   backgroundSize: "1rem 1rem",
   animationName: STRIPES,
-  animationDuration: "0.8s",
+  animationDuration: `calc(${vars.motion.duration.fast} * 7)`,
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   ...motion.reduced_motion,
@@ -98,7 +98,7 @@ export const indeterminate = style({
       width: "25%",
       borderRadius: "inherit",
       animationName: SLIDE,
-      animationDuration: "1.2s",
+      animationDuration: `calc(${vars.motion.duration.fast} * 10)`,
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       "@media": { "(prefers-reduced-motion: reduce)": { ...motion.still, width: "100%" } },
@@ -128,7 +128,7 @@ export const ring_svg = style({
 
 export const ring_spin = style({
   animationName: SPIN,
-  animationDuration: "1.1s",
+  animationDuration: `calc(${vars.motion.duration.fast} * 9)`,
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   transformOrigin: "center",

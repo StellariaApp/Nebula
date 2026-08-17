@@ -45,7 +45,7 @@ export const skeleton = recipe({
             inset: 0,
             backgroundImage: `linear-gradient(90deg, transparent 20%, ${vars.color.surface.raised} 50%, transparent 80%)`,
             animationName: SHIMMER,
-            animationDuration: "1.4s",
+            animationDuration: `calc(${vars.motion.duration.slow} * 5)`,
             animationTimingFunction: "linear",
             animationIterationCount: "infinite",
           },
@@ -58,7 +58,7 @@ export const skeleton = recipe({
       },
       pulse: {
         animationName: PULSE,
-        animationDuration: "1.4s",
+        animationDuration: `calc(${vars.motion.duration.slow} * 5)`,
         animationTimingFunction: vars.motion.easing.standard,
         animationIterationCount: "infinite",
       },
