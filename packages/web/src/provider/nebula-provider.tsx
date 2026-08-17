@@ -159,12 +159,16 @@ export function AxisKey(prefix: string, axis: string): string {
 }
 
 /**
- * Writes both axes. A theme applied as inline vars has no class to come back to, so only its scheme
- * is stored (ADR-121) and the identity is cleared — `style` is what tells the two apart.
+ * Writes both axes, always — including the identity of a theme applied as inline vars.
+ *
+ * The library cannot REBUILD that one from its name (ADR-121), which is a different thing from not
+ * knowing it: `meta.name` says `lagrange` perfectly well. Blanking it destroyed the one piece the
+ * consumer needed to rebuild it themselves, which is exactly what a theme panel does. Restoring
+ * guards the name instead, so an identity nobody recognises falls back without taking the scheme.
  */
 function Persist(store: ThemeStorage, prefix: string, active: ActiveTheme): void {
   store.setItem(AxisKey(prefix, "scheme"), active.scheme);
-  store.setItem(AxisKey(prefix, "theme"), active.style === undefined ? active.name : "");
+  store.setItem(AxisKey(prefix, "theme"), active.name);
 }
 
 /**

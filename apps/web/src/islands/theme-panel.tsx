@@ -8,6 +8,7 @@ import {
   THEME_NAMES,
   type Corner,
   type Density,
+  type Face,
   type ThemeChoice,
   type ThemeName,
 } from "@stellaria/nebula-demos/themes/products";
@@ -33,6 +34,57 @@ const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
 const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
 
 const DENSITIES: readonly Density[] = ["compact", "cosy", "roomy"];
+
+const FACES: readonly Face[] = ["sans", "serif"];
+
+/**
+ * Los cinco ejes que la libreria no conoce (ADR-155 §2). `theme` y `scheme` los guarda el propio
+ * provider, asi que aqui solo van los que son eleccion de este panel.
+ */
+const OWN_AXES = ["corner", "density", "motion", "glass", "face"] as const;
+
+function Key(axis: string): string {
+  return `nebula-${axis}`;
+}
+
+function Read(axis: string): string | null {
+  try {
+    return window.localStorage.getItem(Key(axis));
+  } catch {
+    return null;
+  }
+}
+
+function Save(next: ThemeChoice): void {
+  try {
+    const store = window.localStorage;
+    for (const axis of OWN_AXES) {
+      store.setItem(Key(axis), String(next[axis]));
+    }
+  } catch {
+    return;
+  }
+}
+
+/**
+ * Reconstruye la eleccion guardada sobre la que viene del tema activo. Cada eje se valida contra su
+ * vocabulario por separado: uno corrupto se ignora y los demas siguen valiendo.
+ */
+function Restore(current: ThemeChoice): ThemeChoice {
+  const corner = Read("corner");
+  const density = Read("density");
+  const motion = Read("motion");
+  const glass = Read("glass");
+  const face = Read("face");
+  return {
+    ...current,
+    corner: CORNERS.includes(corner as Corner) ? (corner as Corner) : current.corner,
+    density: DENSITIES.includes(density as Density) ? (density as Density) : current.density,
+    motion: TIERS.includes(motion as MotionTier) ? (motion as MotionTier) : current.motion,
+    glass: glass === "true" || glass === "false" ? glass === "true" : current.glass,
+    face: FACES.includes(face as Face) ? (face as Face) : current.face,
+  };
+}
 
 export interface ThemePanelLabels {
   open: string;
@@ -103,8 +155,18 @@ export function ThemePanel({
   const choice = ChoiceFromTheme(theme);
   const { theme: identity, scheme } = choice;
 
+  const restored = useRef(false);
+
+  useEffect(() => {
+    if (restored.current) return;
+    restored.current = true;
+    setTheme(ResolveChoice(Restore(ChoiceFromTheme(theme))));
+  }, [theme, setTheme]);
+
   function Apply(patch: Partial<ThemeChoice>): void {
-    setTheme(ResolveChoice({ ...choice, ...patch }));
+    const next = { ...choice, ...patch };
+    Save(next);
+    setTheme(ResolveChoice(next));
   }
 
   const panel = (

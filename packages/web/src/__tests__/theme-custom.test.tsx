@@ -32,7 +32,7 @@ const rosette: NebulaTheme = {
 
 const rosette_light: NebulaTheme = {
   ...nebulaDark,
-  meta: { name: "rosette-light", scheme: "light", version: "0.1.0" },
+  meta: { name: "rosette", scheme: "light", version: "0.1.0" },
   colors: { ...nebulaDark.colors, primary: palettes.rose },
 };
 
@@ -93,7 +93,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     );
   });
 
-  it("persiste el scheme del tema custom, no su nombre", () => {
+  it("persiste los dos ejes de un tema custom, aunque no pueda reconstruirlo", () => {
     const storage = MakeMemoryStorage();
     const { getByTestId } = render(
       <NebulaProvider storage={storage} storageKey="k">
@@ -107,7 +107,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
 
     expect(getByTestId("probe").getAttribute("data-scheme")).toBe("light");
     expect(storage.data["k-scheme"]).toBe("light");
-    expect(storage.data["k-theme"]).toBe("");
+    expect(storage.data["k-theme"]).toBe("rosette");
   });
 
   it("en applyTheme='root' escribe las vars en <html> y las limpia al volver a un tema oficial", () => {
