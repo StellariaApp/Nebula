@@ -21,9 +21,9 @@ export const size = {
 } as const;
 
 export const leading = {
-  h1: 1.0,
-  h2: 1.05,
-  h3: 1.1,
+  h1: 1.1,
+  h2: 1.12,
+  h3: 1.14,
   h4: 1.15,
   h5: 1.2,
   h6: 1.25,
