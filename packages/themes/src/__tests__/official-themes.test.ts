@@ -12,8 +12,12 @@ describe.each(officialThemeNames)("tema oficial %s", (name) => {
     expect(LoadTheme(round_tripped)).toEqual(theme);
   });
 
-  it("meta.name coincide con la clave del registro", () => {
-    expect(theme.meta.name).toBe(name);
+  it("la clave del registro es el esquema, no el nombre (ADR-166)", () => {
+    expect(theme.meta.scheme).toBe(name);
+  });
+
+  it("los dos oficiales comparten identidad", () => {
+    expect(theme.meta.name).toBe("nebula");
   });
 
   it("incluye las 19 paletas de identidad sin invertir", () => {

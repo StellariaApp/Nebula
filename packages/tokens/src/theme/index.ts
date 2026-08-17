@@ -28,6 +28,7 @@ export type {
   SurfaceRole,
   TextRole,
   TextSizeName,
+  ThemeChoice,
   ZIndexName,
 } from "./primitives.js";
 export type {

@@ -1,5 +1,14 @@
 export type ColorScheme = "light" | "dark";
 
+/**
+ * The two axes of a theme (ADR-166): which theme, and which of its two schemes. `theme` is a
+ * `meta.name` — `"nebula"` for the official pair, whatever the consumer registered for its own.
+ */
+export interface ThemeChoice {
+  theme: string;
+  scheme: ColorScheme;
+}
+
 export type ColorShade =
   "50" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "950";
 
