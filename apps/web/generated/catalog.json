@@ -736,7 +736,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25 kB",
       "notes": true,
       "contract": true
@@ -1225,7 +1225,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "26.25 kB",
       "notes": true,
       "contract": true

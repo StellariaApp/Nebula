@@ -13,9 +13,11 @@
     "noDestructuring": [
       "AnimatedGradient",
       "SearchableSelect",
+      "GlassSurface",
       "GradientBackground",
       "GradientBorder",
-      "MeshGradientBg"
+      "MeshGradientBg",
+      "Paper"
     ]
   },
   "components": [
@@ -20790,7 +20792,7 @@
           "name": "color",
           "type": "ColorExtended",
           "required": false,
-          "default": "\"primary\"",
+          "default": null,
           "doc": "Which scale the `variant` paints with. Does nothing without a `variant`.",
           "slot": false
         },

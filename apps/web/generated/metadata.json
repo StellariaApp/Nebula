@@ -940,13 +940,9 @@
     {
       "name": "GlassSurface",
       "budget": "25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
-        "color.border",
-        "color.surface",
         "color.text",
-        "effects.glass",
-        "glass",
         "shadow.lg",
         "shadow.md",
         "shadow.sm",
@@ -1516,7 +1512,7 @@
     {
       "name": "Paper",
       "budget": "26.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.surface",
@@ -1756,7 +1752,6 @@
         "motion.spring",
         "motion.tier",
         "radius.full",
-        "shadow.xxs",
         "size.control",
         "space.lg",
         "space.md",
