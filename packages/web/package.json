@@ -23,6 +23,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./theme-runtime": {
+      "types": "./dist/theme-runtime/index.d.ts",
+      "default": "./dist/theme-runtime/index.js"
+    },
     "./styles.css": {
       "types": "./styles.css.d.ts",
       "default": "./styles.css"
