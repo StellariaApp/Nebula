@@ -70,7 +70,7 @@ export function TagBody(props: TagBodyProps): ReactElement {
       </Text>
       {onRemove === undefined ? null : (
         <ButtonClose
-          size={size === "xs" || size === "sm" ? "xs" : "sm"}
+          size="xs"
           aria-label={
             typeof children === "string" || typeof children === "number"
               ? `${removeLabel}: ${String(children)}`

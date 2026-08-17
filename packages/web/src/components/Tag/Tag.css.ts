@@ -84,7 +84,13 @@ export const section = style({
 
 export const remove = style({
   "@layer": {
-    [composite_layer]: { flexShrink: 0, marginInlineEnd: `calc(-1 * ${vars.space.xxs})` },
+    [composite_layer]: {
+      flexShrink: 0,
+      marginInlineEnd: `calc(-1 * ${vars.space.xxs})`,
+      minWidth: vars.size.control.xxs,
+      width: vars.size.control.xxs,
+      height: vars.size.control.xxs,
+    },
   },
 });
 
