@@ -11,7 +11,11 @@
     "noJsdoc": [],
     "defaultUnknown": [],
     "noDestructuring": [
-      "SearchableSelect"
+      "AnimatedGradient",
+      "SearchableSelect",
+      "GradientBackground",
+      "GradientBorder",
+      "MeshGradientBg"
     ]
   },
   "components": [
@@ -553,7 +557,7 @@
           "name": "gradient",
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
-          "default": "\"brand\"",
+          "default": null,
           "doc": null,
           "slot": false
         },
@@ -561,7 +565,7 @@
           "name": "scrim",
           "type": "number",
           "required": false,
-          "default": "0",
+          "default": null,
           "doc": null,
           "slot": false
         },
@@ -569,7 +573,7 @@
           "name": "speed",
           "type": "AnimatedGradientSpeed",
           "required": false,
-          "default": "\"base\"",
+          "default": null,
           "doc": null,
           "slot": false
         }
@@ -14029,7 +14033,7 @@
           "name": "gradient",
           "type": "{ from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole",
           "required": false,
-          "default": "\"brand\"",
+          "default": null,
           "doc": null,
           "slot": false
         },
@@ -14045,7 +14049,7 @@
           "name": "scrim",
           "type": "number",
           "required": false,
-          "default": "0",
+          "default": null,
           "doc": null,
           "slot": false
         }
@@ -18376,7 +18380,7 @@
           "name": "gradient",
           "type": "GradientRole",
           "required": false,
-          "default": "\"brand\"",
+          "default": null,
           "doc": null,
           "slot": false
         },
@@ -18392,7 +18396,7 @@
           "name": "scrim",
           "type": "number",
           "required": false,
-          "default": "0",
+          "default": null,
           "doc": null,
           "slot": false
         }

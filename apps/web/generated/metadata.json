@@ -25,6 +25,7 @@
       "FileButton",
       "Flex",
       "FocusTrap",
+      "GradientBorder",
       "GradientText",
       "Grid",
       "Group",
@@ -117,13 +118,12 @@
     {
       "name": "AnimatedGradient",
       "budget": "25.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.surface",
         "color.text",
         "motion.duration",
-        "motion.easing",
-        "motion.tier"
+        "motion.easing"
       ]
     },
     {
@@ -982,24 +982,17 @@
     {
       "name": "GradientBackground",
       "budget": "25.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.surface",
-        "color.text",
-        "effects.glass"
+        "color.text"
       ]
     },
     {
       "name": "GradientBorder",
       "budget": "26.5 kB",
-      "boundary": "client",
-      "themeKeys": [
-        "color.border",
-        "color.surface",
-        "motion.duration",
-        "motion.tier",
-        "radius"
-      ]
+      "boundary": "server",
+      "themeKeys": []
     },
     {
       "name": "GradientText",
@@ -1316,11 +1309,10 @@
     {
       "name": "MeshGradientBg",
       "budget": "23.25 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.surface",
-        "color.text",
-        "effects.glass"
+        "color.text"
       ]
     },
     {

@@ -70,7 +70,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25.25 kB",
       "notes": true,
       "contract": true
@@ -758,7 +758,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "25.25 kB",
       "notes": true,
       "contract": true
@@ -769,7 +769,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "26.5 kB",
       "notes": true,
       "contract": true
@@ -1069,7 +1069,7 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "23.25 kB",
       "notes": true,
       "contract": true
