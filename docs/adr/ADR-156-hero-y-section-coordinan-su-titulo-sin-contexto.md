@@ -1,6 +1,8 @@
 # ADR-156 — `Hero` y `Section` coordinan su título sin contexto
 
-- **Estado**: **propuesta** · 2026-08-16
+- **Estado**: **aceptada** · 2026-08-16 — implementada el mismo día. Los tests obligaron a reponer el
+  clonado que esta redacción había descartado: sin él se rompía el invariante «el camino de props y
+  el de partes producen el mismo DOM», y `cloneElement` no cuesta SSR
 - **Toca**: la implementación de dos compounds de `@stellaria/nebula-web`. **No cambia API pública.**
 - **Es**: la decisión **B** de la [auditoría de componentes de servidor](../reviews/auditoria-server-components-2026-08-14.md),
   la mitad que falta de P5.
