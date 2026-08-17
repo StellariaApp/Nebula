@@ -41,7 +41,7 @@ export const radius = {
 
 export const sizes = {
   control: {
-    xxs: 20,
+    xxs: 24,
     xs: 28,
     sm: 36,
     md: 44,
