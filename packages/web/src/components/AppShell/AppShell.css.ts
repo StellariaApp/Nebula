@@ -23,6 +23,13 @@ export const shell = style({
       minWidth: 0,
       color: vars.color.text.primary,
       fontFamily: vars.font.family.sans,
+      "@media": {
+        [SmallerThan("tablet")]: {
+          gridTemplateAreas: `"header" "nav" "main" "aside" "footer"`,
+          gridTemplateColumns: "minmax(0, 1fr)",
+          gridTemplateRows: `${variables.headHeight} auto 1fr auto auto`,
+        },
+      },
     },
   },
 });
@@ -637,7 +644,10 @@ export const navbar = style({
       minWidth: 0,
       borderInlineEnd: `1px solid ${GLASS_EDGE}`,
       ...motion.layout,
-      "@media": { "(prefers-reduced-motion: reduce)": motion.still },
+      "@media": {
+        "(prefers-reduced-motion: reduce)": motion.still,
+        [SmallerThan("tablet")]: { position: "static", blockSize: "auto", alignSelf: "stretch" },
+      },
     },
   },
 });
@@ -653,6 +663,9 @@ export const aside_region = style({
       overflowY: "auto",
       minWidth: 0,
       borderInlineStart: `1px solid ${GLASS_EDGE}`,
+      "@media": {
+        [SmallerThan("tablet")]: { position: "static", blockSize: "auto", alignSelf: "stretch" },
+      },
     },
   },
 });
