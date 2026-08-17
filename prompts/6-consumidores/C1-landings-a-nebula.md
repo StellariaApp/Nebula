@@ -76,12 +76,22 @@ copia de packages/themes/src/themes/nebula-dark.ts (o light) y se editan los val
    producto tenga vanilla-extract en su build. Si no lo tiene, ese es el primer hallazgo del
    encargo y hay que decirlo antes de seguir, porque cambia el coste de todo lo demás.
 
-4. Regístralo en el script de arranque para que sobreviva al refresco sin parpadeo (ADR-155):
+4. Regístralo UNA vez en el provider y deriva de ahí el mapa del script (ADR-163, ADR-166), para
+   que las dos listas no puedan discrepar:
 
-     <ColorSchemeScript themes={{ "<producto>-dark": producto_class }} defaultTheme="<producto>-dark" />
+     const PRODUCTO = {
+       "<producto>": {
+         dark:  { theme: tema_dark,  className: producto_dark_class },
+         light: { theme: tema_light, className: producto_light_class },
+       },
+     };
 
-   El nombre importa: el script deduce el scheme buscando "dark" en la clave. Nómbralo como los
-   oficiales o `color-scheme` saldrá al revés.
+     <ColorSchemeScript themes={ThemeScriptMap(PRODUCTO)} defaultTheme="<producto>" />
+     <NebulaProvider themes={PRODUCTO} defaultTheme={{ theme: "<producto>", scheme: "dark" }}
+                     applyTheme="root">
+
+   Registrar es lo que hace que el tema sobreviva al refresco. El nombre YA NO decide el scheme
+   (ADR-166): el scheme es la clave donde está la clase, así que llama a tus temas como quieras.
 
 CHECKPOINT 1 — para y enseña el tema validado antes de tocar una sola página.
 
@@ -94,18 +104,20 @@ Sabe esto antes de cablearlo, porque es la arista real del diseño actual:
   que pinta antes del primer frame es el ColorSchemeScript. Por eso el paso 3 de la fase 1 no es
   opcional: sin la clase registrada, la landing se ve con el tema por defecto hasta que hidrata.
 
-- El provider NO sabe que tu tema ya existe como clase. Si le pasas el objeto NebulaTheme como
-  defaultTheme, va a inyectar las 627 vars igualmente. Hoy no hay forma de decirle «la CSS ya está
-  puesta, tú sólo lleva el objeto». Mídelo en tu caso: si el HTML de la landing crece ~40 KB, es
-  esto. Anótalo como hallazgo con ese número medido, no estimado.
+- Pásale el tema MATERIALIZADO, no el objeto pelado. Con `{ theme, className }` el provider no
+  inyecta nada; con un NebulaTheme suelto escribe las 627 vars en el style (~40 KB en crudo, 4,5 KB
+  brotli) aunque la clase ya esté puesta.
 
 - Necesitas el provider de todas formas: 61 de los 158 componentes leen useTheme, y la data no-CSS
   del contrato (variantMap, spring, motion.tier, effects.glass.enabled, gradients, palettes) sólo
   vive en el objeto. No es opcional ni se puede sustituir por la clase.
 
-- Un tema propio NO se persiste por nombre: setTheme guarda su meta.scheme y al recargar cae al
-  tema oficial de ese scheme. Si la landing tiene selector de tema, el selector lo guarda el
-  producto, no Nebula.
+- Un tema REGISTRADO sí se persiste entero: se guardan sus dos ejes («<producto>:dark») y vuelve
+  como estaba. El que no se persiste es el aplicado por vars inline, que no se puede reconstruir
+  desde un nombre; ése guarda sólo su scheme y al recargar cae al oficial.
+
+- El conmutador claro/oscuro se escribe setTheme("light"), sin nombrar el producto: conserva la
+  identidad. La landing no necesita saber cómo se llaman sus propios temas.
 
 COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL NUMERO DE TEMAS
 Primero deshaz la confusion habitual: TENER VARIOS TEMAS NO PIDE COOKIE. El ColorSchemeScript acepta
