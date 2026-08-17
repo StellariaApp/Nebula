@@ -19,7 +19,7 @@ export const inline = style({
     [primitive_layer]: {
       paddingInline: "0.35em",
       paddingBlock: "0.12em",
-      fontSize: "0.875em",
+      fontSize: "max(0.875em, 12px)",
       whiteSpace: "nowrap",
     },
   },
