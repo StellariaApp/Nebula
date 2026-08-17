@@ -26,6 +26,7 @@ import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 
 const PRESS_SCALE = 0.98;
+const HOVER_LIFT = -2;
 
 export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
   function QuickAction(props, forwardedRef) {
@@ -144,6 +145,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     );
 
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const lifts_on_hover = resolved.background === resolved.backgroundHover;
     const glow_idle =
       variant === "glow" &&
       resolved.glow !== "none" &&
@@ -168,7 +170,10 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       "data-variant": variant,
       "data-glow-idle": glow_idle ? "true" : undefined,
       "aria-busy": loading || undefined,
-      animate: { scale: is_animated && is_pressed ? PRESS_SCALE : 1 },
+      animate: {
+        scale: is_animated && is_pressed ? PRESS_SCALE : 1,
+        y: is_animated && isHovered && !is_pressed && lifts_on_hover ? HOVER_LIFT : 0,
+      },
       transition: Spring("default", { theme, reduced: !is_animated }),
     };
 

@@ -24,6 +24,7 @@ import type { ActionIconProps } from "./ActionIcon.types.js";
 import * as variables from "./ActionIcon.vars.css.js";
 
 const PRESS_SCALE = 0.94;
+const HOVER_LIFT = -2;
 
 export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
   function ActionIcon(props, forwardedRef) {
@@ -115,6 +116,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     );
 
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const lifts_on_hover = resolved.background === resolved.backgroundHover;
     const press_transition = Spring("default", { theme, reduced: !is_animated });
 
     const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
@@ -137,7 +139,10 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         data-loading={loading ? "true" : undefined}
         data-variant={variant}
         aria-busy={loading || undefined}
-        animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
+        animate={{
+          scale: is_animated && isPressed ? PRESS_SCALE : 1,
+          y: is_animated && isHovered && !isPressed && lifts_on_hover ? HOVER_LIFT : 0,
+        }}
         transition={press_transition}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}

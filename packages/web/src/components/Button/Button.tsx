@@ -25,6 +25,7 @@ import type { ButtonProps } from "./Button.types.js";
 import * as variables from "./Button.vars.css.js";
 
 const PRESS_SCALE = 0.98;
+const HOVER_LIFT = -2;
 
 /**
  * Lo que `useButton` anade para emular un boton y que en un ancla con `href` sobra: el rol prestado,
@@ -144,6 +145,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const lifts_on_hover = resolved.background === resolved.backgroundHover;
     const press_transition = Spring("default", { theme, reduced: !is_animated });
     const glow_idle =
       variant === "glow" &&
@@ -177,7 +179,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           resolved.gradientAnimated && prefers_reduced !== true ? "true" : undefined
         }
         aria-busy={loading || undefined}
-        animate={{ scale: is_animated && isPressed ? PRESS_SCALE : 1 }}
+        animate={{
+          scale: is_animated && isPressed ? PRESS_SCALE : 1,
+          y: is_animated && isHovered && !isPressed && lifts_on_hover ? HOVER_LIFT : 0,
+        }}
         transition={press_transition}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
