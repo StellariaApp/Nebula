@@ -3,7 +3,7 @@
 - **Estado**: **propuesta** · 2026-08-17
 - **Cambia API pública**: sí, y **solo ensancha**. `defaultTheme` y `setTheme` ganan una tercera
   forma; las dos que hoy compilan siguen compilando y siguen haciendo lo mismo.
-- **Toca**: `NebulaProviderProps`, `ThemeContextValue.setTheme`, `docs/02` §4.
+- **Toca**: `NebulaProviderProps`, `ThemeContextValue.setTheme`, `ColorSchemeScriptProps.themes`, `docs/02` §4.
 - **Lo destapó**: la comprobación previa a [C1](../../prompts/6-consumidores/C1-landings-a-nebula.md),
   el encargo de pasar las landings de producto a Nebula.
 
@@ -34,6 +34,32 @@ Así que quien sigue ADR-155 al pie de la letra **paga las dos cosas**: el scrip
 del primer frame, y acto seguido el provider escribe encima las 627 propiedades del contrato. El
 resultado es correcto y es un desperdicio, y además invierte la precedencia — lo inline gana sobre la
 clase, así que si las dos fuentes discrepan manda la que el consumidor creía secundaria.
+
+### Y no es sólo un desperdicio: el tema del producto se pierde al recargar
+
+Esto se midió ejecutándolo, no leyéndolo. Montando el provider con un tema de producto como
+`defaultTheme`:
+
+| Qué hay en el storage | Con qué se monta  | Dónde acaba el provider   |
+| --------------------- | ----------------- | ------------------------- |
+| `"light"`             | `rosette-dark`    | **`light`** — el oficial  |
+| `"rosette-dark"`      | `dark`            | **`dark`** — lo ignora    |
+
+Las dos filas salen del mismo guardia:
+
+```ts
+const saved = store.getItem(storageKey);
+if (saved !== null && IsOfficialName(saved)) set_active(Resolve(saved));
+```
+
+Sólo se restaura lo que es un nombre oficial. Y como ADR-121 persiste `meta.scheme` de un tema
+custom —`"light"`, que **sí** es un nombre oficial— la restauración se dispara y tira el tema del
+producto. El visitante ve `rosette` pintado por el script antes del primer frame, y al hidratar se
+queda en el `light` de Nebula.
+
+Es el peor de los dos mundos: no es que el tema custom no se persista, es que se persiste algo que
+**sí se restaura y no es el suyo**. ADR-121 lo describe como caída elegante al scheme equivalente, y
+para una demo lo es. Para un producto es su identidad desapareciendo un segundo después de cargar.
 
 ### Por qué el provider no puede resolverlo solo
 
@@ -95,7 +121,33 @@ Con una condición que el tipo no puede exigir: el nombre tiene que estar regist
 script. Si no lo está, el script cae al defecto y vuelve el parpadeo. Va documentado en `docs/02` §4
 y no se valida en runtime — el provider no puede saber qué script montó el consumidor.
 
-### 3. El núcleo sigue sin aprender dominio
+### 3. La restauración deja de mirar sólo la lista oficial
+
+Persistir el nombre no sirve de nada si el guardia de arriba lo descarta. El provider gana un
+registro de los temas materializados que le pasa el consumidor, y `IsOfficialName` se ensancha a
+«¿lo conozco?» — oficial o registrado. Un nombre que no esté en ninguna de las dos listas sigue
+cayendo al defecto, como hoy.
+
+### 4. El scheme se declara, no se adivina
+
+`ColorSchemeScript` deduce hoy el scheme del **nombre**:
+
+```js
+var s = t.indexOf("dark") > -1 ? "dark" : "light";
+```
+
+Funciona para `light`/`dark` y para quien copie ese patrón. Un tema llamado `rosette-noche` saca
+`color-scheme` al revés, y con él los scrollbars y los controles nativos del navegador. Es una
+trampa silenciosa que sólo se ve en producción.
+
+Así que la identidad de un tema materializado son cuatro cosas, no dos: **nombre, clase, scheme y el
+objeto**. El mapa de `ColorSchemeScript` pasa a poder llevar `{ className, scheme }` además de la
+cadena suelta, que se conserva por compatibilidad y sigue adivinando como hoy.
+
+Esto es lo que cierra el círculo: el script sabe qué clase poner y con qué `color-scheme`; el
+provider sabe qué objeto llevar; y el nombre guardado los reconcilia a los dos.
+
+### 5. El núcleo sigue sin aprender dominio
 
 Es la regla dura de ADR-155 y no se toca. La clase la trae el consumidor; `packages/web` no conoce
 `rosette` ni `polaris` ni ninguna otra. La diferencia con hoy es que ahora hay por dónde entregarla.
