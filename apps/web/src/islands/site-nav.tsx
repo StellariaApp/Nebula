@@ -23,6 +23,8 @@ export interface SiteNavLabels {
 
 const CTA_HREF = "/guides/getting-started/installation";
 
+const VERSION = process.env.NEXT_PUBLIC_NEBULA_VERSION ?? "";
+
 export type SiteNavCollapse = "tablet" | "laptop";
 
 export function SiteNav({
@@ -81,7 +83,7 @@ export function SiteNav({
         {actions ?? (
           <>
             <Badge variant="light" color="primary">
-              v0
+              v{VERSION}
             </Badge>
             <Button component={Link} href={CTA_HREF} size="sm" variant="gradient">
               {labels.cta}

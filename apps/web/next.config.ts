@@ -1,8 +1,14 @@
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import type { NextConfig } from "next";
 
+const MANIFEST = JSON.parse(
+  readFileSync(resolve(import.meta.dirname, "../../packages/web/package.json"), "utf8"),
+) as { version: string };
+
 const config: NextConfig = {
+  env: { NEXT_PUBLIC_NEBULA_VERSION: MANIFEST.version },
   turbopack: { root: resolve(import.meta.dirname, "../..") },
   experimental: { useTypeScriptCli: true, inlineCss: true },
   redirects: async () => [
