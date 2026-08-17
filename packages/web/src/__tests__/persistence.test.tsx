@@ -52,12 +52,12 @@ describe("persistencia inyectable", () => {
       getByTestId("s").click();
     });
 
-    expect(storage.data.k).toBe("nebula:light");
+    expect(storage.data["k-theme"]).toBe("nebula");
     expect(getByTestId("s").getAttribute("data-name")).toBe("nebula");
   });
 
   it("aplica el tema persistido al montar", () => {
-    const storage = MakeMemoryStorage({ k: "dark" });
+    const storage = MakeMemoryStorage({ "k-scheme": "dark" });
     const { container } = render(
       <NebulaProvider storage={storage} storageKey="k" defaultTheme="light">
         <span>x</span>

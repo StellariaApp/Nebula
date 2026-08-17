@@ -106,8 +106,8 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     });
 
     expect(getByTestId("probe").getAttribute("data-scheme")).toBe("light");
-    expect(storage.data.k).toBe("light");
-    expect(storage.data.k).not.toBe("rosette-light");
+    expect(storage.data["k-scheme"]).toBe("light");
+    expect(storage.data["k-theme"]).toBe("");
   });
 
   it("en applyTheme='root' escribe las vars en <html> y las limpia al volver a un tema oficial", () => {

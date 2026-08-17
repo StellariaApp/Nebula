@@ -31,7 +31,7 @@ export interface ColorSchemeScriptProps {
 export function ColorSchemeScript({
   defaultTheme = OFFICIAL_THEME,
   defaultScheme,
-  storageKey = "nebula-theme",
+  storageKey = "nebula",
   nonce,
   themes,
 }: ColorSchemeScriptProps): ReactElement {
@@ -52,9 +52,8 @@ export function ColorSchemeScript({
     `var d=document.documentElement;` +
     `var c=${JSON.stringify(map)},o=${JSON.stringify(OFFICIAL_THEME)};` +
     `var dt=${JSON.stringify(identity)},ds=${JSON.stringify(scheme)};` +
-    `var v=window.localStorage.getItem(${JSON.stringify(storageKey)})||"";` +
-    `var i=v.indexOf(":");` +
-    `var t=i>-1?v.slice(0,i):dt,s=i>-1?v.slice(i+1):(v==="dark"||v==="light"?v:ds);` +
+    `var g=function(n){try{return window.localStorage.getItem(${JSON.stringify(storageKey)}+"-"+n)}catch(e){return null}};` +
+    `var t=g("theme")||dt,s=g("scheme")||ds;` +
     `if(s!=="dark"&&s!=="light")s=ds;` +
     `if(!c[t]||!c[t][s])t=dt;` +
     `if(!c[t]||!c[t][s])t=o;` +

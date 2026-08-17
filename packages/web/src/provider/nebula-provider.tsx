@@ -150,29 +150,39 @@ function Resolve(
   };
 }
 
-const STORED = /^([^:]+):(dark|light)$/;
-
 /**
- * What goes to storage. Both axes, so a reload can rebuild the choice (ADR-166). A theme applied as
- * inline vars keeps ADR-121's behaviour and stores only its scheme: it has no class to come back to,
- * and `style` is exactly what tells the two apart.
+ * One key per axis (`nebula-theme`, `nebula-scheme`), not one key with a separator. Each axis is
+ * read and written on its own, so adding one later does not reopen a format.
  */
-function Persisted(active: ActiveTheme): string {
-  if (active.style !== undefined) return active.scheme;
-  return `${active.name}:${active.scheme}`;
+export function AxisKey(prefix: string, axis: string): string {
+  return `${prefix}-${axis}`;
 }
 
 /**
- * Reads back what `Persisted` wrote. A bare `"dark"` — the format before ADR-166 — still reads as a
- * scheme over the official identity, so nothing stored needs migrating.
+ * Writes both axes. A theme applied as inline vars has no class to come back to, so only its scheme
+ * is stored (ADR-121) and the identity is cleared — `style` is what tells the two apart.
  */
-function Stored(value: string, registry: Record<string, ThemeVariants>): ThemeInput | undefined {
-  if (IsScheme(value)) return value;
-  const parsed = STORED.exec(value);
-  if (parsed === null) return undefined;
-  const [, theme, scheme] = parsed;
-  if (theme === undefined || !IsScheme(scheme)) return undefined;
-  if (theme !== OFFICIAL_THEME && registry[theme]?.[scheme] === undefined) return undefined;
+function Persist(store: ThemeStorage, prefix: string, active: ActiveTheme): void {
+  store.setItem(AxisKey(prefix, "scheme"), active.scheme);
+  store.setItem(AxisKey(prefix, "theme"), active.style === undefined ? active.name : "");
+}
+
+/**
+ * Reads the axes back, guarding each one on its own: an unknown identity falls back to the official
+ * pair instead of losing the scheme too, and an unreadable scheme is simply not restored.
+ */
+function Restore(
+  store: ThemeStorage,
+  prefix: string,
+  registry: Record<string, ThemeVariants>,
+): ThemeChoice | undefined {
+  const scheme = store.getItem(AxisKey(prefix, "scheme"));
+  if (scheme === null || !IsScheme(scheme)) return undefined;
+  const theme = store.getItem(AxisKey(prefix, "theme"));
+  if (theme === null || theme === "" || theme === OFFICIAL_THEME) {
+    return { theme: OFFICIAL_THEME, scheme };
+  }
+  if (registry[theme]?.[scheme] === undefined) return { theme: OFFICIAL_THEME, scheme };
   return { theme, scheme };
 }
 
@@ -196,7 +206,7 @@ export function NebulaProvider({
   defaultTheme = "dark",
   themes = NO_THEMES,
   storage,
-  storageKey = "nebula-theme",
+  storageKey = "nebula",
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
   const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme, themes, undefined));
@@ -220,7 +230,7 @@ export function NebulaProvider({
     (next: ColorScheme | ThemeChoice | NebulaTheme): void => {
       const resolved = Resolve(next, themes, active_ref.current);
       set_active(resolved);
-      store?.setItem(storageKey, Persisted(resolved));
+      if (store) Persist(store, storageKey, resolved);
     },
     [store, storageKey, themes],
   );
@@ -228,9 +238,7 @@ export function NebulaProvider({
   useEffect(() => {
     if (restored.current || !store) return;
     restored.current = true;
-    const saved = store.getItem(storageKey);
-    if (saved === null) return;
-    const choice = Stored(saved, themes);
+    const choice = Restore(store, storageKey, themes);
     if (choice !== undefined) set_active((current) => Resolve(choice, themes, current));
   }, [store, storageKey, themes]);
 

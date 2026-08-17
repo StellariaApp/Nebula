@@ -234,7 +234,7 @@ export type Density = "compact" | "cosy" | "roomy";
 export type Face = "sans" | "serif";
 
 export interface ThemeChoice {
-  name: ThemeName;
+  theme: ThemeName;
   scheme: "dark" | "light";
   motion: MotionTier;
   glass: boolean;
@@ -263,7 +263,7 @@ const SERIF =
   'Iowan Old Style, Palatino Linotype, Palatino, "Book Antiqua", Georgia, Cambria, "Times New Roman", ui-serif, serif';
 
 export const BASE_CHOICE: ThemeChoice = {
-  name: "nebula",
+  theme: "nebula",
   scheme: "dark",
   motion: nebulaDark.motion.tier,
   glass: nebulaDark.effects.glass.enabled,
@@ -291,7 +291,7 @@ function DensityFromTheme(theme: NebulaTheme): Density {
 
 export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
   return {
-    name: NameFromTheme(theme),
+    theme: NameFromTheme(theme),
     scheme: theme.meta.scheme,
     motion: theme.motion.tier,
     glass: theme.effects.glass.enabled,
@@ -302,7 +302,7 @@ export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
 }
 
 export function ResolveChoice(choice: ThemeChoice): ColorScheme | NebulaTheme {
-  const base = ThemeOf(choice.name, choice.scheme);
+  const base = ThemeOf(choice.theme, choice.scheme);
   const pristine = ChoiceFromTheme(base);
   const untouched =
     choice.motion === pristine.motion &&
@@ -311,7 +311,7 @@ export function ResolveChoice(choice: ThemeChoice): ColorScheme | NebulaTheme {
     choice.density === pristine.density &&
     choice.face === pristine.face;
 
-  if (untouched) return choice.name === "nebula" ? choice.scheme : base;
+  if (untouched) return choice.theme === "nebula" ? choice.scheme : base;
 
   return {
     ...base,

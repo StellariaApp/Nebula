@@ -32,8 +32,12 @@ const rosette: ThemeVariants = {
 
 const PRODUCTS = { rosette };
 
-function MakeStorage(seed?: string): ThemeStorage & { data: Record<string, string> } {
-  const data: Record<string, string> = seed === undefined ? {} : { k: seed };
+function MakeStorage(theme?: string, scheme?: string): ThemeStorage & {
+  data: Record<string, string>;
+} {
+  const data: Record<string, string> = {};
+  if (theme !== undefined) data["k-theme"] = theme;
+  if (scheme !== undefined) data["k-scheme"] = scheme;
   return {
     data,
     getItem: (key) => data[key] ?? null,
@@ -97,7 +101,7 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
   });
 
   it("un tema de producto registrado sobrevive a la recarga", () => {
-    const storage = MakeStorage("rosette:light");
+    const storage = MakeStorage("rosette", "light");
     function Probe() {
       const { themeName, scheme } = useTheme();
       return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
@@ -128,11 +132,11 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
     act(() => {
       document.querySelector<HTMLButtonElement>('[data-testid="p"]')?.click();
     });
-    expect(storage.data.k).toBe("rosette:light");
+    expect(storage.data["k-theme"]).toBe("rosette");
   });
 
-  it("lo guardado antes de ADR-166 se sigue leyendo como esquema", () => {
-    const storage = MakeStorage("light");
+  it("el esquema solo, sin identidad guardada, cae en los oficiales", () => {
+    const storage = MakeStorage(undefined, "light");
     function Probe() {
       const { themeName, scheme } = useTheme();
       return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
@@ -146,11 +150,11 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
     expect(getByTestId("p").getAttribute("data-scheme")).toBe("light");
   });
 
-  it("una identidad sin registrar no se restaura y no rompe", () => {
-    const storage = MakeStorage("fantasma:dark");
+  it("una identidad sin registrar cae en los oficiales SIN perder el esquema", () => {
+    const storage = MakeStorage("fantasma", "dark");
     function Probe() {
-      const { themeName } = useTheme();
-      return <span data-testid="p" data-name={themeName} />;
+      const { themeName, scheme } = useTheme();
+      return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
     }
     const { getByTestId } = render(
       <NebulaProvider storage={storage} storageKey="k" defaultTheme="dark">
@@ -158,6 +162,7 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
       </NebulaProvider>,
     );
     expect(getByTestId("p").getAttribute("data-name")).toBe("nebula");
+    expect(getByTestId("p").getAttribute("data-scheme")).toBe("dark");
   });
 
   it("un tema materializado no inyecta vars en linea", () => {

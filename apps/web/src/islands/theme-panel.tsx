@@ -101,7 +101,7 @@ export function ThemePanel({
   }, [open, anchored]);
 
   const choice = ChoiceFromTheme(theme);
-  const { name, scheme } = choice;
+  const { theme: identity, scheme } = choice;
 
   function Apply(patch: Partial<ThemeChoice>): void {
     setTheme(ResolveChoice({ ...choice, ...patch }));
@@ -149,10 +149,10 @@ export function ThemePanel({
 
       <RadioGroup
         label={labels.product}
-        value={name}
+        value={identity}
         size="sm"
         onChange={(value) => {
-          Apply({ name: value as ThemeName });
+          Apply({ theme: value as ThemeName });
         }}
       >
         {THEME_NAMES.map((entry) => (

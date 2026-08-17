@@ -26,10 +26,10 @@ function Switcher(): ReactElement {
       <Flex maw="100%" gap="sm" align="center" wrap="wrap">
         <Segment
           overflowMode="wrap"
-          value={choice.name}
+          value={choice.theme}
           size="sm"
           onChange={(value) => {
-            setTheme(ResolveChoice({ ...choice, name: value as ThemeName }));
+            setTheme(ResolveChoice({ ...choice, theme: value as ThemeName }));
           }}
         >
           <Segment.Control
