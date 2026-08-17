@@ -1,8 +1,9 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { globalStyle, keyframes, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 import { primitive_layer } from "../../theme/layers.css.js";
 
+import { card_base } from "../Card/Card.css.js";
 import * as variables from "./GradientBorder.vars.css.js";
 
 const SOLID_MASK = "linear-gradient(#000 0 0)";
@@ -14,6 +15,12 @@ const RING_MASK = {
   mask: `${SOLID_MASK} content-box, ${SOLID_MASK}`,
   maskComposite: "exclude",
 } as const;
+
+export const gradient_base = style({});
+
+globalStyle(`${gradient_base} > ${card_base}`, {
+  borderRadius: "inherit",
+});
 
 export const gradient_border = recipe({
   base: {

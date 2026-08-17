@@ -145,7 +145,7 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
     <Box
       component={component ?? "div"}
       r={r}
-      className={cx(styles.gradient_border(), className)}
+      className={cx(styles.gradient_base, styles.gradient_border(), className)}
       style={{ ...css_vars, ...style }}
       data-surface={surface}
       data-beam={animated ? sequence : undefined}

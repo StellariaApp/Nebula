@@ -61,6 +61,7 @@ export function CardSurface(props: CardProps): ReactElement {
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, glass);
 
   const class_name = cx(
+    styles.card_base,
     styles.card({
       shadow,
       padding,

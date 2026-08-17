@@ -1,12 +1,14 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
+import * as motion from "../../styles/motion.css.js";
 import { vars } from "../../theme/contract.css.js";
 import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Card.vars.css.js";
+
+export const card_base = style({});
 
 export const card = recipe({
   base: {

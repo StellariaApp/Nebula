@@ -1141,7 +1141,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/GradientBorder/GradientBorder.js",
     import: "{ GradientBorder }",
     ignore: ["react", "react-dom"],
-    limit: "26.5 kB",
+    limit: "28.25 kB",
   },
   {
     name: "GradientBackground (primitivo temable con variantes en runtime, por módulo)",
