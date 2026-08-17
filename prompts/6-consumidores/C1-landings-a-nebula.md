@@ -107,6 +107,22 @@ Sabe esto antes de cablearlo, porque es la arista real del diseño actual:
   tema oficial de ese scheme. Si la landing tiene selector de tema, el selector lo guarda el
   producto, no Nebula.
 
+COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL GUSTO
+Si <PRODUCTO> tiene varios temas y quiere que el elegido llegue ya resuelto desde el servidor, la
+tentacion es leer una cookie en el layout raiz y poner la clase en <html>. Decide asi:
+
+  - Landing ESTATICA (prerenderizada): NO leas la cookie. Tocar cookies() en el layout raiz saca la
+    ruta de prerenderizado estatico ENTERA, aunque solo leas una letra — el coste no es proporcional
+    al trabajo, es binario, y cambias HTML servido desde el borde por render por peticion. Usa el
+    ColorSchemeScript: corre antes del primer pintado y no cuesta TTFB. Es lo que ADR-155 midio y
+    decidio para apps/web, que hoy son 177 rutas estaticas.
+
+  - App YA DINAMICA (autenticada, render por peticion): lee la cookie. Esa ruta ya se renderiza por
+    peticion, asi que no pagas nada nuevo, y es mejor que el script: el HTML sale correcto y te
+    ahorras el script en linea.
+
+Si dudas, mira si la ruta esta en el prerender-manifest. Eso responde la pregunta sin opinar.
+
 FASE 3 — LA PÁGINA, COMPONENTE A COMPONENTE
 Reconstruye la landing con el catálogo. No traduzcas el marcado actual: eso produce Nebula pintada
 por encima de la estructura vieja. Empieza por la composición (Section, Hero, Nav, Footer) y baja.
