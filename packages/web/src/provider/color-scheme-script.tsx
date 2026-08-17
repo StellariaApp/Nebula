@@ -30,21 +30,35 @@ export interface ColorSchemeScriptProps {
 
 export function ColorSchemeScript({
   defaultTheme = OFFICIAL_THEME,
-  defaultScheme = "light",
+  defaultScheme,
   storageKey = "nebula-theme",
   nonce,
-  themes = OFFICIAL_CLASSES,
+  themes,
 }: ColorSchemeScriptProps): ReactElement {
+  /**
+   * `defaultTheme="dark"` is how this was called before ADR-166, when the name of a theme WAS its
+   * scheme. Reading it as an identity leaves `<html>` with no class at all and the page unstyled,
+   * so a scheme here still means a scheme.
+   */
+  const named_scheme = defaultTheme === "dark" || defaultTheme === "light" ? defaultTheme : undefined;
+  const identity = named_scheme === undefined ? defaultTheme : OFFICIAL_THEME;
+  const scheme = defaultScheme ?? named_scheme ?? "dark";
+
+  /** The official pair is always in the map: it is the floor that keeps the page from going bare. */
+  const map = themes === undefined ? OFFICIAL_CLASSES : { ...OFFICIAL_CLASSES, ...themes };
+
   const script =
     `(function(){try{` +
     `var d=document.documentElement;` +
-    `var c=${JSON.stringify(themes)};` +
-    `var dt=${JSON.stringify(defaultTheme)},ds=${JSON.stringify(defaultScheme)};` +
+    `var c=${JSON.stringify(map)},o=${JSON.stringify(OFFICIAL_THEME)};` +
+    `var dt=${JSON.stringify(identity)},ds=${JSON.stringify(scheme)};` +
     `var v=window.localStorage.getItem(${JSON.stringify(storageKey)})||"";` +
     `var i=v.indexOf(":");` +
-    `var t=i>-1?v.slice(0,i):dt,s=i>-1?v.slice(i+1):(v||ds);` +
+    `var t=i>-1?v.slice(0,i):dt,s=i>-1?v.slice(i+1):(v==="dark"||v==="light"?v:ds);` +
     `if(s!=="dark"&&s!=="light")s=ds;` +
-    `if(!c[t]||!c[t][s]){t=dt;if(!c[t]||!c[t][s])s=ds;}` +
+    `if(!c[t]||!c[t][s])t=dt;` +
+    `if(!c[t]||!c[t][s])t=o;` +
+    `if(!c[t]||!c[t][s])s=ds;` +
     `for(var k in c)for(var m in c[k])d.classList.remove(c[k][m]);` +
     `if(c[t]&&c[t][s])d.classList.add(c[t][s]);` +
     `d.setAttribute("data-theme",t);` +

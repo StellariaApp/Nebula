@@ -29,6 +29,23 @@ describe("SSR (sin window)", () => {
     expect(html).toContain(themeClass["dark"]);
   });
 
+  it("defaultTheme='dark' sigue pintando: un esquema ahi no es una identidad", () => {
+    const html = renderToStaticMarkup(<ColorSchemeScript storageKey="k" defaultTheme="dark" />);
+    expect(html).toContain(themeClass["dark"]);
+  });
+
+  it("nunca deja <html> sin clase: los oficiales son el suelo del mapa", () => {
+    const html = renderToStaticMarkup(
+      <ColorSchemeScript
+        storageKey="k"
+        defaultTheme="fantasma"
+        themes={{ otro: { dark: "otro_d", light: "otro_l" } }}
+      />,
+    );
+    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain("otro_d");
+  });
+
   it("con mapa propio reconoce un tema que la libreria no conoce (ADR-155)", () => {
     const html = renderToStaticMarkup(
       <ColorSchemeScript
@@ -38,6 +55,6 @@ describe("SSR (sin window)", () => {
       />,
     );
     expect(html).toContain("rosette_abc");
-    expect(html).not.toContain(themeClass["dark"]);
+    expect(html).toContain('"rosette"');
   });
 });
