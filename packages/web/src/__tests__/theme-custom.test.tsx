@@ -12,12 +12,12 @@ import {
 } from "@stellaria/nebula-tokens";
 
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
-import { themeClass, vars } from "@stellaria/nebula-themes/web";
+import { THEME_CLASSES, vars } from "@stellaria/nebula-themes/web";
 
 afterEach(() => {
   cleanup();
   const root = document.documentElement;
-  for (const name of Object.values(themeClass)) root.classList.remove(name);
+  for (const name of Object.values(THEME_CLASSES)) root.classList.remove(name);
   root.removeAttribute("style");
   root.removeAttribute("data-theme");
   root.removeAttribute("data-scheme");
@@ -148,7 +148,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     });
 
     expect(root.style.getPropertyValue(primary)).toBe(palettes.rose["500"]);
-    expect(root.classList.contains(themeClass["dark"])).toBe(false);
+    expect(root.classList.contains(THEME_CLASSES["dark"])).toBe(false);
     expect(root.getAttribute("data-theme")).toBe("rosette");
 
     act(() => {
@@ -156,7 +156,7 @@ describe("setTheme con un tema entero (ADR-121)", () => {
     });
 
     expect(root.style.getPropertyValue(primary)).toBe("");
-    expect(root.classList.contains(themeClass["light"])).toBe(true);
+    expect(root.classList.contains(THEME_CLASSES["light"])).toBe(true);
   });
 
   it("un nombre desconocido sigue lanzando: ensanchar el tipo no relaja la validación", () => {

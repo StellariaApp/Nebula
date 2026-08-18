@@ -10,6 +10,8 @@ const CHANNEL_MAX = 255;
 
 const PRODUCT_INK_FLOOR = 2;
 
+const PRODUCT_ANGLE = 100;
+
 function Channels(hex: string): [number, number, number] {
   const raw = hex.replace("#", "");
   return [
@@ -60,7 +62,7 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
         ...base.effects.gradients,
         brand: {
           type: "linear",
-          angle: 100,
+          angle: seed.angle ?? PRODUCT_ANGLE,
           stops: [
             { color: seed.from, position: 0 },
             { color: seed.to, position: 100 },

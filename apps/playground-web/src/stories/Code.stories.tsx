@@ -24,9 +24,7 @@ export const Inline: Story = {
 
 export const Block: Story = {
   render: () => (
-    <Code block>{`import {
-  Button,
-} from "@stellaria/nebula-web";
+    <Code block>{`import { Button } from "@stellaria/nebula-web";
 
 export function App() {
   return <Button>Hola</Button>;

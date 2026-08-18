@@ -22,6 +22,8 @@ export interface ThemeSeed {
   wash: number;
   lift: number;
   inkFloor?: number;
+  /** Inclinacion del degradado de marca. Sin declararla, la de producto. */
+  angle?: number;
 }
 
 export const THEMES_SEEDS = {
@@ -35,6 +37,7 @@ export const THEMES_SEEDS = {
     wash: 0,
     lift: 0,
     inkFloor: 2,
+    angle: 135,
   },
   rosette: {
     name: "rosette",

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useTheme } from "@stellaria/nebula-hooks";
 
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
-import { themeClass } from "@stellaria/nebula-themes/web";
+import { THEME_CLASSES } from "@stellaria/nebula-themes/web";
 
 afterEach(cleanup);
 
@@ -64,6 +64,6 @@ describe("persistencia inyectable", () => {
       </NebulaProvider>,
     );
     const wrapper = container.firstElementChild as HTMLElement;
-    expect(wrapper.className).toBe(themeClass["dark"]);
+    expect(wrapper.className).toBe(THEME_CLASSES["dark"]);
   });
 });

@@ -30,9 +30,7 @@ export default meta;
 
 type Story = StoryObj<typeof CodeHighlight>;
 
-const SNIPPET = `import {
-  Button,
-} from "@stellaria/nebula-web";
+const SNIPPET = `import { Button } from "@stellaria/nebula-web";
 
 export function Save() {
   return <Button variant="filled">Guardar</Button>;

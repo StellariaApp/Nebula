@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useTheme } from "@stellaria/nebula-hooks";
 
 import { NebulaProvider } from "../provider/nebula-provider.js";
-import { themeClass } from "@stellaria/nebula-themes/web";
+import { THEME_CLASSES } from "@stellaria/nebula-themes/web";
 
 afterEach(cleanup);
 
@@ -34,7 +34,7 @@ describe("NebulaProvider — switch de tema por clase", () => {
       </NebulaProvider>,
     );
     const wrapper = container.firstElementChild as HTMLElement;
-    expect(wrapper.className).toBe(themeClass["dark"]);
+    expect(wrapper.className).toBe(THEME_CLASSES["dark"]);
     expect(wrapper.getAttribute("data-scheme")).toBe("dark");
     expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula");
   });
@@ -46,16 +46,16 @@ describe("NebulaProvider — switch de tema por clase", () => {
       </NebulaProvider>,
     );
     const wrapper = container.firstElementChild as HTMLElement;
-    expect(wrapper.className).toBe(themeClass["dark"]);
+    expect(wrapper.className).toBe(THEME_CLASSES["dark"]);
 
     act(() => {
       getByTestId("probe").click();
     });
 
-    expect(wrapper.className).toBe(themeClass["light"]);
+    expect(wrapper.className).toBe(THEME_CLASSES["light"]);
     expect(wrapper.getAttribute("data-scheme")).toBe("light");
     expect(getByTestId("probe").getAttribute("data-name")).toBe("nebula");
-    expect(themeClass["light"]).not.toBe(themeClass["dark"]);
+    expect(THEME_CLASSES["light"]).not.toBe(THEME_CLASSES["dark"]);
   });
 
   it("demo: cicla los temas oficiales reconfigurando SOLO la clase del contenedor", () => {
@@ -90,7 +90,7 @@ describe("NebulaProvider — switch de tema por clase", () => {
       act(() => {
         getByTestId(n).click();
       });
-      expect(wrapper.className).toBe(themeClass[n]);
+      expect(wrapper.className).toBe(THEME_CLASSES[n]);
       expect(wrapper.getAttribute("data-theme")).toBe("nebula");
       expect(wrapper.getAttribute("data-scheme")).toBe(n);
     }

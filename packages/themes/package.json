@@ -144,7 +144,8 @@
     "@vanilla-extract/vite-plugin": "^5.2.5",
     "vite": "^8.1.5",
     "@size-limit/preset-small-lib": "^12.1.0",
-    "size-limit": "^12.1.0"
+    "size-limit": "^12.1.0",
+    "vite-plugin-lib-inject-css": "^2.2.2"
   },
   "peerDependencies": {
     "@vanilla-extract/dynamic": "^2.1.5"

@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { Dark as nebulaDark, Light as nebulaLight } from "@stellaria/nebula-themes";
 import { palettes, type NebulaTheme } from "@stellaria/nebula-tokens";
 
-import { CompileTheme, ThemeScriptMap, themeClass, type ThemeVariants } from "@stellaria/nebula-themes/web";
+import { CompileTheme, ThemeScriptMap, THEME_CLASSES, type ThemeVariants } from "@stellaria/nebula-themes/web";
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
 
 afterEach(cleanup);
@@ -180,7 +180,7 @@ describe("identidad y esquema son ejes distintos (ADR-166)", () => {
   it("el mapa del script se deriva del registro y lleva siempre a los oficiales", () => {
     const map = ThemeScriptMap(PRODUCTS);
     expect(map["rosette"]).toEqual({ dark: "rosette_d", light: "rosette_l" });
-    expect(map["nebula"]).toEqual({ dark: themeClass.dark, light: themeClass.light });
+    expect(map["nebula"]).toEqual({ dark: THEME_CLASSES.dark, light: THEME_CLASSES.light });
   });
 
   it("una identidad desconocida en setTheme lanza y nombra las registradas", () => {

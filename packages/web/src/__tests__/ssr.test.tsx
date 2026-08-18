@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { ThemeScript } from "../provider/theme-script.js";
 import { NebulaProvider } from "../provider/nebula-provider.js";
-import { themeClass } from "@stellaria/nebula-themes/web";
+import { THEME_CLASSES } from "@stellaria/nebula-themes/web";
 
 describe("SSR (sin window)", () => {
   it("NebulaProvider renderiza a HTML con el tema por defecto sin reventar", () => {
@@ -12,7 +12,7 @@ describe("SSR (sin window)", () => {
         <span>hola</span>
       </NebulaProvider>,
     );
-    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain(THEME_CLASSES["dark"]);
     expect(html).toContain('data-scheme="dark"');
     expect(html).toContain("hola");
   });
@@ -26,12 +26,12 @@ describe("SSR (sin window)", () => {
 
   it("sin mapa propio conoce los oficiales, que es lo publicado", () => {
     const html = renderToStaticMarkup(<ThemeScript storageKeys={{ theme: "k-theme", scheme: "k-scheme" }} />);
-    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain(THEME_CLASSES["dark"]);
   });
 
   it("defaultTheme='dark' sigue pintando: un esquema ahi no es una identidad", () => {
     const html = renderToStaticMarkup(<ThemeScript storageKeys={{ theme: "k-theme", scheme: "k-scheme" }} defaultTheme="dark" />);
-    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain(THEME_CLASSES["dark"]);
   });
 
   it("nunca deja <html> sin clase: los oficiales son el suelo del mapa", () => {
@@ -42,7 +42,7 @@ describe("SSR (sin window)", () => {
         themesClasses={{ otro: { dark: "otro_d", light: "otro_l" } }}
       />,
     );
-    expect(html).toContain(themeClass["dark"]);
+    expect(html).toContain(THEME_CLASSES["dark"]);
     expect(html).toContain("otro_d");
   });
 

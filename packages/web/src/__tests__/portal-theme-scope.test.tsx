@@ -9,13 +9,13 @@ import { MultiSelect } from "../components/MultiSelect/MultiSelect.js";
 import { Popover } from "../components/Popover/Popover.js";
 import { Select } from "../components/Select/Select.js";
 import { Tooltip } from "../components/Tooltip/Tooltip.js";
-import { themeClass } from "@stellaria/nebula-themes/web";
+import { THEME_CLASSES } from "@stellaria/nebula-themes/web";
 
 import { cleanup, render, screen, waitFor } from "./render.js";
 
 afterEach(cleanup);
 
-const dark = themeClass["dark"];
+const dark = THEME_CLASSES["dark"];
 
 const options = [
   { value: "mx", label: "México" },

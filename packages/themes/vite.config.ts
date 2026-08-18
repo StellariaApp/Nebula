@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import { defineConfig } from "vite";
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 
 /**
  * `@stellaria/nebula-themes` deja de construirse con `tsc` plano porque desde ADR-168 declara el
@@ -12,7 +13,10 @@ import { defineConfig } from "vite";
  * `packages/native` importa, así que Vanilla Extract nunca entra en su árbol.
  */
 export default defineConfig({
-  plugins: [vanillaExtractPlugin({ identifiers: "debug" })],
+  // libInjectCss reinyecta `import "./x.css"` en cada chunk (Vite en modo libreria no lo hace).
+  // Sin el, el .vanilla.css se queda en el dist sin que nadie lo importe: la clase del tema acaba
+  // puesta en <html> y ninguna regla la define, asi que todas las vars caen a su valor inicial.
+  plugins: [vanillaExtractPlugin({ identifiers: "debug" }), libInjectCss()],
   build: {
     lib: {
       entry: {

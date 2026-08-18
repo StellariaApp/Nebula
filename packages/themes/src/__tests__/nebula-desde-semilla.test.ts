@@ -31,7 +31,14 @@ describe("nebula sale de su semilla sin cambiar nada (ADR-168)", () => {
     expect(nebulaLight.colors.accent).toEqual(palettes.violet);
   });
 
-  it("el degradado de marca sigue siendo el eje indigo → violet", () => {
+  it("los degradados salen ENTEROS como los de la base, no solo sus colores", () => {
+    // Comprobar solo los extremos dejo pasar que el angulo cambiara de 135 a 100, y eso se vio
+    // en el gate visual y no aqui. Se comparan los objetos completos.
+    expect(nebulaDark.effects.gradients).toEqual(baseDark.effects.gradients);
+    expect(nebulaLight.effects.gradients).toEqual(baseLight.effects.gradients);
+  });
+
+  it("el eje de marca sigue siendo indigo a violet (ADR-020)", () => {
     const stops = nebulaDark.effects.gradients.brand.stops;
     expect(stops[0]?.color).toBe(palettes.indigo["500"]);
     expect(stops.at(-1)?.color).toBe(palettes.violet["500"]);
