@@ -1,9 +1,9 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
+import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
-import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Segment.vars.css.js";
@@ -141,7 +141,7 @@ export const tab = recipe({
         background: "transparent",
         font: "inherit",
         fontWeight: vars.font.weight.semibold,
-        lineHeight: 1.3,
+        lineHeight: 1,
         cursor: "pointer",
         color: vars.color.text.secondary,
         whiteSpace: "nowrap",
