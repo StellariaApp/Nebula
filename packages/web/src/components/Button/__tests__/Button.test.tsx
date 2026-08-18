@@ -138,15 +138,21 @@ describe("Button — interacción y contrato a11y (docs/03 §1)", () => {
 });
 
 describe("Button — theming (gate de W1)", () => {
-  it("reconfigura el mismo componente en los temas oficiales sin cambiar props", () => {
+  it("es agnostico del tema: el mismo style en los dos, y decide la clase", () => {
+    // Este gate afirmaba que el `style` CAMBIABA entre temas, porque el color se resolvia en
+    // JavaScript y se horneaba en linea. Desde que el color sale de la matriz (ADR-150 §2) es al
+    // reves, y el invariante nuevo es mas fuerte: el componente emite la MISMA referencia en los
+    // dos y quien la resuelve es el navegador contra la clase activa. Por eso el color correcto
+    // aparece en el primer pintado, sin esperar a que el provider adopte el tema.
     const rendered = new Set<string>();
     for (const theme of ["light", "dark"] as const) {
       const { unmount } = RenderButton(<Button variant="filled">Tema</Button>, theme);
       const style = screen.getByRole("button").getAttribute("style") ?? "";
+      expect(style).toContain("var(--variant-filled-primary-background");
       rendered.add(style);
       unmount();
     }
-    expect(rendered.size).toBeGreaterThan(1);
+    expect(rendered.size).toBe(1);
   });
 
   it("desactiva la animación cuando el tema usa motion.tier minimal", () => {

@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -70,6 +71,12 @@ interface ActiveTheme {
 }
 
 const NO_THEMES: Record<string, ThemeVariants> = {};
+
+/**
+ * `useLayoutEffect` en el cliente y `useEffect` en el servidor, donde el primero avisa por consola
+ * y no corre. Es el unico punto donde la diferencia importa: hay que llegar antes del pintado.
+ */
+const UseBeforePaint = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 function IsScheme(value: unknown): value is ColorScheme {
   return value === "dark" || value === "light";
@@ -190,8 +197,11 @@ function Restore(
  * En el servidor no hay `document` y se cae a `defaultTheme`, que es correcto: con
  * `applyTheme="root"` el provider no marca su propio elemento, asi que no hay nada que hidratar mal.
  */
-function FromDocument(registry: Record<string, ThemeVariants>): ThemeChoice | undefined {
-  if (typeof document === "undefined") return undefined;
+function FromDocument(
+  registry: Record<string, ThemeVariants>,
+  on_root: boolean,
+): ThemeChoice | undefined {
+  if (!on_root || typeof document === "undefined") return undefined;
   const root = document.documentElement;
   const theme = root.getAttribute("data-theme");
   const scheme = root.getAttribute("data-scheme");
@@ -223,10 +233,9 @@ export function NebulaProvider({
   storageKeys,
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
-  const [active, set_active] = useState<ActiveTheme>(() => {
-    const painted = applyTheme === "root" ? FromDocument(themes) : undefined;
-    return Resolve(painted ?? defaultTheme, themes, undefined);
-  });
+  const [active, set_active] = useState<ActiveTheme>(() =>
+    Resolve(defaultTheme, themes, undefined),
+  );
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
   const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
   const applied_vars = useRef<string[]>([]);
@@ -254,12 +263,24 @@ export function NebulaProvider({
     [store, keys, themes],
   );
 
-  useEffect(() => {
-    if (restored.current || !store) return;
+  /**
+   * Antes de pintar, no despues.
+   *
+   * Un `useEffect` normal corre cuando el navegador YA pinto el arbol hidratado, asi que el
+   * visitante veia un fotograma del tema por defecto. Adoptarlo en el estado inicial tampoco vale:
+   * el servidor renderiza con `defaultTheme` y los componentes que resuelven color en JS
+   * —`ResolveVariant`, los 41 que aun no son de CSS puro— saldrian distintos en cada lado y React
+   * avisa de discrepancia de hidratacion.
+   *
+   * Un layout effect corre entre las dos cosas: el HTML hidrata igual que el del servidor y la
+   * correccion entra antes del primer pintado.
+   */
+  UseBeforePaint(() => {
+    if (restored.current) return;
     restored.current = true;
-    const choice = Restore(store, keys, themes);
+    const choice = (store === null ? undefined : Restore(store, keys, themes)) ?? FromDocument(themes, on_root);
     if (choice !== undefined) set_active((current) => Resolve(choice, themes, current));
-  }, [store, keys, themes]);
+  }, [store, keys, themes, on_root]);
 
   useEffect(() => {
     if (!on_root || typeof document === "undefined") return;

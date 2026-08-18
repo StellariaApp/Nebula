@@ -114,7 +114,7 @@ export const THEMES_SEEDS = {
     tint: palettes.red["800"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
+    inkFloor: 1,
   },
   cosmos: {
     name: "cosmos",
@@ -125,7 +125,7 @@ export const THEMES_SEEDS = {
     tint: palettes.brown["800"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
+    inkFloor: 1,
   },
   sun: {
     name: "sun",
@@ -136,7 +136,7 @@ export const THEMES_SEEDS = {
     tint: palettes.gold["600"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
+    inkFloor: 1,
   },
 } as const satisfies Record<SeedName, ThemeSeed>;
 

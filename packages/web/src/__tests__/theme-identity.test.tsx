@@ -240,7 +240,7 @@ describe("el provider adopta lo que el script ya pinto (ADR-169)", () => {
     root.removeAttribute("data-scheme");
   });
 
-  it("arranca en el tema pintado, no en defaultTheme", () => {
+  it("acaba en el tema pintado, y sin discrepancia de hidratacion", () => {
     const root = document.documentElement;
     root.setAttribute("data-theme", "rosette");
     root.setAttribute("data-scheme", "light");
@@ -251,7 +251,9 @@ describe("el provider adopta lo que el script ya pinto (ADR-169)", () => {
       </NebulaProvider>,
     );
 
-    // Sin esto nacia en nebula dark y solo se corregia en un efecto: el fotograma que se veia.
+    // El estado inicial es defaultTheme —tiene que coincidir con el servidor— y un layout effect
+    // lo adopta antes del primer pintado. Nacer ya en el pintado provocaba discrepancia: los
+    // componentes que resuelven color en JS salian distintos en servidor y cliente.
     expect(getByTestId("p").getAttribute("data-name")).toBe("rosette");
     expect(getByTestId("p").getAttribute("data-scheme")).toBe("light");
   });

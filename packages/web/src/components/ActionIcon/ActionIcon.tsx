@@ -13,7 +13,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -100,19 +100,32 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       [variant, color, theme, gradient, glass],
     );
 
+    /**
+     * El color sale de la matriz que el tema publica, no de resolverlo aqui (ADR-150 §2).
+     *
+     * Con refs, lo que viaja al `style` es `var(--variant-…)` y quien lo resuelve es el navegador
+     * contra la clase activa. Sin ellas el servidor horneaba el color del tema por defecto y el
+     * cliente lo recalculaba al adoptar el suyo, que es por lo que los degradados tardaban en
+     * mostrar su color real.
+     *
+     * `resolved` sigue haciendo falta para lo que no es color —si anima, si el degradado anima, si
+     * el resplandor existe—, y eso no se ve hasta despues de hidratar.
+     */
+    const refs = VariantRefs(variant, color, theme, gradient, glass);
+
     const css_vars = useMemo<CSSProperties>(
       () =>
         assignInlineVars({
-          [variables.bg]: resolved.background,
-          [variables.bgHover]: resolved.backgroundHover,
-          [variables.bgActive]: resolved.backgroundActive,
-          [variables.fg]: resolved.foreground,
-          [variables.borderColor]: resolved.borderColor,
-          [variables.borderWidth]: resolved.borderWidth,
-          [variables.backdropFilter]: resolved.backdropFilter,
-          [variables.glow]: resolved.glow,
+          [variables.bg]: refs?.background ?? resolved.background,
+          [variables.bgHover]: refs?.backgroundHover ?? resolved.backgroundHover,
+          [variables.bgActive]: refs?.backgroundActive ?? resolved.backgroundActive,
+          [variables.fg]: refs?.foreground ?? resolved.foreground,
+          [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
+          [variables.borderWidth]: refs?.borderWidth ?? resolved.borderWidth,
+          [variables.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
+          [variables.glow]: refs?.glow ?? resolved.glow,
         }),
-      [resolved],
+      [refs, resolved],
     );
 
     const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
