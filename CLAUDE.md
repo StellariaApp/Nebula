@@ -18,7 +18,7 @@ Nebula es una librería UI universal **Web + React Native** (~213 componentes ca
 | ----------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `docs/00-inventory.md`                    | Matriz de alcance: catálogos + componentes por app consumidora                           |
 | `docs/01-architecture.md`                 | Monorepo, grafo de deps, stack verificado, anatomía de componente, política de deps (§8) |
-| `docs/02-theming.md`                      | Contrato `NebulaTheme` (§2), temas oficiales, runtime dual, spec del Theme Creator       |
+| `docs/02-theming.md`                      | Contrato `NebulaTheme` (§2), los dos ejes de ADR-166, las tres vías de materializar (§4) |
 | `docs/03-a11y-motion-performance.md`      | Contrato a11y por componente, reglas de motion, budgets, gates de CI (§4)                |
 | `docs/04-migration-map.md`                | Mapa archivo-por-archivo Stellaria→Nebula y estrategia para las apps                     |
 | `docs/05-roadmap.md`                      | Fases F0–F7 con gates verificables; riesgos; supuestos pendientes                        |
@@ -61,8 +61,9 @@ Eje `#3F37C9 → #9D4EDD` (semillas de `indigo` y `violet`), dark-first: `dark` 
 - `packages/tokens/src/tokens/palettes.ts` es **generado** por `pnpm gen:palette regen` — no editarlo a mano.
 - `packages/tokens` tiene **cero dependencias de runtime** y presupuesto de `any` = 0; checks de contrato en `src/__checks__/contract.test-d.ts` (excluidos del build vía `tsconfig.build.json`).
 - **Los seis paquetes publicables ya no son `private`** y están en npm; `demos` y `native` sí siguen privados.
+- **`@stellaria/nebula-themes` declara el contrato CSS** desde ADR-168, así que construye con Vite + el plugin de Vanilla Extract (no `tsc` plano) y su `tsconfig.build.json` **necesita `emitDeclarationOnly`**: sin él, `tsc` pisa el JS que Vite compiló y el `createTheme` llega sin compilar al consumidor. Lleva 10 temas (`nebula` + 9 de producto) en `themes/<tema>/<esquema>.ts`, todos desde `_seed` sobre una `_base` independiente. Los subpaths se parten por plataforma: lo que lleva `/web` toca CSS y `native` no lo importa nunca.
 - **El gate de bytes no ve peticiones bloqueantes.** `apps/web` usa `inlineCss: true`, así que el CSS viaja dentro del HTML y `hojas CSS` debe quedarse en 0: en cuanto Next no puede incrustarlo salen `<link>` que **bloquean el primer pintado**. Costó 29 puntos de PageSpeed (100 → 71) con el presupuesto en verde. Si ese número sube, mira ahí antes que nada.
-- Grafo de deps de una sola dirección: tokens → hooks/themes/icons → web/native → dominios premium → apps. `web` y `native` jamás se importan entre sí.
+- Grafo de deps de una sola dirección: tokens → hooks/themes/icons → web/native → dominios premium → apps. `web` y `native` jamás se importan entre sí. **`web` importa `vars`, `ResolveVariant` y `CompileTheme` de `@stellaria/nebula-themes/web`** — va a favor del grafo, no lo invierte.
 
 ## Política de trabajo con el propietario
 

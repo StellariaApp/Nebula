@@ -2,7 +2,7 @@
 
 - **Estado**: **aceptada** · 2026-08-17 — decidida por el propietario
 - **Cambia API pública**: sí. Añade `CompileThemes` y una capa de cascada, `nebula.theme`.
-- **Toca**: `docs/02` §4, `docs/03` (orden de capas), `packages/web/styles.css`.
+- **Toca**: `docs/02` §4, `packages/web/src/theme/layers.md` (el orden vive junto al código, no en `docs/03`), `packages/web/styles.css`.
 - **Continúa**: [ADR-164](ADR-164-compile-theme-materializa-en-caliente.md) y
   [ADR-168](ADR-168-el-contrato-css-se-muda-con-los-temas.md).
 

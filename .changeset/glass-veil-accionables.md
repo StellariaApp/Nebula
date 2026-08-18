@@ -11,9 +11,10 @@ En dark el velo **aclara** —`rgba(255, 255, 255, 0.05)`, la receta que ADR-078
 oscurecer, que sobre un canvas oscuro no separaba nada; en light es `rgba(255, 255, 255, 0.30)`.
 
 El borde es lo que separa un control de 48 px de su fondo, así que subirlo deja bajar el velo y el
-filo **mejora**: de 1,18 con `control` a 1,25–1,60. `check:contrast`: 165 pares, 165 PASS.
+filo **mejora**: de 1,18 con `control` a 1,25–1,60. `check:contrast`: 186 pares por tema, 0 FAIL y la deuda declarada de ADR-161.
 
-`Button`, `ActionIcon` y `QuickAction` lo toman por defecto. Son los únicos accionables del catálogo
+El `variantMap` lo declara como nivel por defecto de la variante `glass` (ADR-170): el nivel lo
+decide el **tema**, no el componente. Son los únicos accionables del catálogo
 que admiten `variant="glass"`; el resto estrecha `Variant` sin incluirlo. `QuickAction` estrena la
 prop `glass`, que los otros dos ya tenían.
 

@@ -12,16 +12,16 @@ pnpm add @stellaria/nebula-themes @stellaria/nebula-tokens
 ## What you get
 
 ```ts
-import { officialThemes, LoadTheme } from "@stellaria/nebula-themes";
+import { Themes, LoadTheme } from "@stellaria/nebula-themes";
 
 // Ship one of the two…
-const dark = officialThemes.dark;
+const dark = Themes.nebula.dark;
 
 // …or validate your own before handing it to the provider.
 const mine = LoadTheme(await (await fetch("/tenant-theme.json")).json());
 ```
 
-- **`officialThemes`** with `light` and `dark`, and `officialThemeNames` to iterate them.
+- **`Themes`** keyed by identity, each with its `dark` and `light` (ADR-166), plus `THEME_NAMES` to iterate them and `Dark` / `Light` for the default pair.
 - **`LoadTheme`** — parses and validates against `themeSchema`, and throws a `ThemeValidationError`
   that names the offending path. Use it on anything that did not come from your own build.
 - **`themeSchema`** if you want to validate without loading.

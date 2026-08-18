@@ -5,9 +5,19 @@ que caen las reglas en la hoja, y la cascada evalúa la capa **antes** que la es
 el desempate entre dos componentes está declarado y no emerge del grafo de módulos del bundler.
 
 ```
-@layer nebula.reset, nebula.primitive, nebula.component, nebula.composite, nebula.util;
-   más débil ────────────────────────────────────────────────────────────► más fuerte
+@layer nebula.theme, nebula.reset, nebula.primitive, nebula.component, nebula.composite, nebula.util;
+   más débil ───────────────────────────────────────────────────────────────────────────► más fuerte
 ```
+
+`nebula.theme` va la primera —la que menos manda— y es donde `CompileThemes` pone las reglas de tema
+([ADR-169](../../../../docs/adr/ADR-169-los-temas-comparten-su-base-y-viven-en-una-capa.md)). Es lo
+correcto para un tema: define valores por defecto que cualquier cosa más específica debe poder
+pisar, empezando por el propio catálogo.
+
+Las dos clases del par por defecto se quedan **fuera** de la capa a propósito: las genera
+`createTheme` en build y llevan las 627 variables completas, así que al no estar capadas ganan sobre
+una base compilada. Es la dirección segura — quien mezcle las dos vías acaba con el tema entero y no
+con medio.
 
 El peso de una capa es su posición en la lista. Una clase pelada en `nebula.composite` gana a
 cualquier selector de `nebula.primitive`, por retorcido que sea.

@@ -8,9 +8,9 @@
 ```
 @stellaria/nebula-tokens                      @stellaria/nebula-themes                 consumo
 ┌──────────────────────┐   valida   ┌──────────────────┐   build/runtime
-│ contrato NebulaTheme │◄───Zod─────│ temas oficiales  │──┬─► web: CSS vars (VE)
-│ (types TS + schema)  │            │ (JSON) + presets │  └─► native: Unistyles themes
-│ tokens base (TS)     │            └──────────────────┘
+│ contrato NebulaTheme │◄───Zod─────│ 10 temas + su      │──┬─► /web: contrato VE, clases y CSS
+│ (types TS + schema)  │            │ contrato CSS       │  └─► native: Unistyles themes
+│ tokens base (TS)     │            └────────────────────┘
 └──────────────────────┘                    ▲
                                             │ export JSON
                                     apps/theme-creator
@@ -19,7 +19,7 @@
 - **El contrato es TS** (type-safety total, cero runtime): `NebulaTheme` define la forma exacta de un tema en `@stellaria/nebula-tokens` (que mantiene **cero dependencias**). El **Zod schema** derivado (`themeSchema`) vive en `@stellaria/nebula-themes`, que sí depende de zod, y valida los temas cargados en runtime.
 - **Los temas son datos (JSON)**: un objeto serializable que cumple `NebulaTheme`. Esto permite que el Theme Creator exporte temas, que un tenant cargue el suyo sin recompilar, y que web y native consuman EXACTAMENTE el mismo artefacto.
 - **Un solo tema alimenta ambas plataformas**:
-  - **Web**: `createThemeContract` de Vanilla Extract define el contrato de CSS vars una sola vez; cada tema se materializa con `createTheme(contract, themeJson)` en build (temas oficiales) o con `assignInlineVars`/inyección de vars en runtime (temas dinámicos del Theme Creator). Cambiar tema = cambiar una clase en `<html>` — cero recomputación JS.
+  - **Web**: `createThemeContract` de Vanilla Extract define el contrato de CSS vars una sola vez; cada tema se materializa con `createTheme` en build, con `CompileThemes` en caliente, o con `assignInlineVars` para un árbol pequeño — las tres vías están en §4. **El contrato vive en `@stellaria/nebula-themes`** desde [ADR-168](adr/ADR-168-el-contrato-css-se-muda-con-los-temas.md), aislado en subpaths `/web` para que `native` no lo vea. Cambiar tema = cambiar una clase en `<html>` — cero recomputación JS.
   - **Native**: los temas se registran en `StyleSheet.configure({ themes })` de Unistyles 3; cambiar tema = `UnistylesRuntime.setTheme(name)` — el core C++ re-resuelve estilos sin re-render masivo. Temas dinámicos: `updateTheme(name, themeJson)`.
 
 ## 2. Contrato `NebulaTheme`
@@ -29,6 +29,8 @@ Secciones del tema (todas obligatorias — un tema incompleto no valida):
 ```ts
 type NebulaTheme = {
   meta: { name: string; scheme: "light" | "dark"; version: string }
+  // name es la IDENTIDAD y scheme el ESQUEMA: son ejes distintos (ADR-166).
+  // Los dos temas por defecto se llaman los dos `nebula`.
 
   // 0. TINTA — hasta dónde aguanta la letra clara antes de ceder a la oscura (ADR-132)
   ink: { floor: number }         // 0 = clara siempre · 2 = el de los oficiales · 4.5 = AA estricto
@@ -127,14 +129,14 @@ Los temas de producto son parte del criterio de aceptación del theming: si un c
 ## 4. Runtime
 
 - **Web** (implementado en W1.2, ADR-016): `<NebulaProvider defaultTheme="dark">` aplica la clase del tema oficial a un contenedor (`createTheme` → una clase por tema) y marca `data-theme`/`data-scheme`; `<ThemeScript>` en el `<head>` evita el flash SSR fijando `color-scheme` en `<html>` pre-hidratación. Persistencia inyectable (`storage`/`storageKey`, `localStorage` por defecto). Temas custom/tenant: se pasa el `NebulaTheme` (ya validado por `loadTheme`) como `defaultTheme` y se inyecta con `assignInlineVars` sobre el contract. La proyección CSS del contract cubre solo las hojas materializables como var; la data no-CSS (variantMap, spring, tier, glass.enabled, gradients, palettes) se lee del objeto `theme` vía contexto.
-- **Los dos ejes** ([ADR-166](adr/ADR-166-la-identidad-del-tema-y-su-esquema-son-ejes-distintos.md)): `meta.name` es **la identidad** y `meta.scheme` es **el esquema**. Los dos temas oficiales se llaman los dos `nebula`; su clave en `officialThemes` y en `themeClass` es el esquema. Por eso `setTheme("light")` conserva la identidad y sólo cambia el esquema —lo que un conmutador claro/oscuro de producto necesita— y `setTheme({ theme, scheme })` cambia las dos. En el DOM salen separados: `data-theme="nebula" data-scheme="dark"`. Cada eje se guarda en su propia clave —`nebula-theme` y `nebula-scheme` por defecto, renombrables una a una con `storageKeys` (ADR-167)— y se restaura con su propia guarda: una identidad que nadie reconoce cae en los oficiales **sin llevarse el esquema por delante**.
+- **Los dos ejes** ([ADR-166](adr/ADR-166-la-identidad-del-tema-y-su-esquema-son-ejes-distintos.md)): `meta.name` es **la identidad** y `meta.scheme` es **el esquema**. Los dos temas oficiales se llaman los dos `nebula`; su clave en `Themes.nebula` y en `THEME_CLASSES` es el esquema. Por eso `setTheme("light")` conserva la identidad y sólo cambia el esquema —lo que un conmutador claro/oscuro de producto necesita— y `setTheme({ theme, scheme })` cambia las dos. En el DOM salen separados: `data-theme="nebula" data-scheme="dark"`. Cada eje se guarda en su propia clave —`nebula-theme` y `nebula-scheme` por defecto, renombrables una a una con `storageKeys` (ADR-167)— y se restaura con su propia guarda: una identidad que nadie reconoce cae en los oficiales **sin llevarse el esquema por delante**.
 
 - **Las tres vías para materializar un tema**, de menos a más runtime:
 
   | Vía                                                            | Cuándo                                               | Coste                     |
   | -------------------------------------------------------------- | ---------------------------------------------------- | ------------------------- |
   | `createTheme(vars, ThemeToVars(t))` en el build del consumidor  | el tema se conoce al compilar — un producto           | un nombre de clase        |
-  | `CompileTheme(t)` en `@stellaria/nebula-web/theme-runtime`      | el tema llega de un backend, por tenant, o se edita   | una regla en un `<style>` |
+  | `CompileTheme(t)` en `@stellaria/nebula-themes/web`      | el tema llega de un backend, por tenant, o se edita   | una regla en un `<style>` |
   | `assignInlineVars` (lo que hace el provider con un `NebulaTheme`) | un árbol pequeño, un tema que no cambia            | 627 vars en el `style`    |
 
   `CompileThemes(themes)` compila un conjunto entero y **reparte lo que comparten** ([ADR-169](adr/ADR-169-los-temas-comparten-su-base-y-viven-en-una-capa.md)): de las 627 variables del contrato, 445 valen lo mismo en las veinte combinaciones del paquete, así que van una sola vez a `:root` y cada clase lleva sus 182. Montar un tema sigue siendo añadir **una** clase. La base se calcula sobre el conjunto que se compile, de modo que el CSS de `/all/web` y el de `/<tema>/web` **no son intercambiables**. Todo va dentro de `@layer nebula.theme`, la capa más baja: un tema define valores por defecto y cualquier cosa más específica debe poder pisarlos.

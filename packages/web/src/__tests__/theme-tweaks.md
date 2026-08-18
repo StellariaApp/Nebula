@@ -6,7 +6,7 @@ de tres stops — pero el código que responde a esas tres cosas sigue en el cat
 
 Antes lo probaban `sober-light` y `playful`. Al retirarlos, la alternativa era borrar la cobertura del
 camino de degradación, que es código vivo. Estas funciones devuelven un `NebulaTheme` derivado de
-`nebulaLight` con **una** propiedad cambiada, y se pasan a `NebulaProvider defaultTheme={...}`, que
+`Light` con **una** propiedad cambiada, y se pasan a `NebulaProvider defaultTheme={...}`, que
 acepta un objeto de tema además de un nombre oficial.
 
 No se exportan desde el barrel del paquete y no tienen `meta.name` propio: no son candidatos a tema
