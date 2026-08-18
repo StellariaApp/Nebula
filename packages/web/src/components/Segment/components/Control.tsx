@@ -14,10 +14,34 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
+import type { BreakpointName } from "@stellaria/nebula-tokens";
+
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import type { SimpleGridCols } from "../../SimpleGrid/SimpleGrid.types.js";
 
 import { useSegment } from "../Segment.context.js";
 import * as styles from "../Segment.css.js";
+
+const COLS_VARS: Record<BreakpointName, string> = {
+  phone: variables.colsPhone,
+  tablet: variables.colsTablet,
+  laptop: variables.colsLaptop,
+  desktop: variables.colsDesktop,
+  wide: variables.colsWide,
+};
+
+/** Mismo reparto que `SimpleGrid`: una var por breakpoint y la hoja resuelve con `fallbackVar`. */
+function ColsVars(cols: SimpleGridCols | undefined): Record<string, string> {
+  if (cols === undefined) return {};
+  if (typeof cols === "number") return { [variables.colsBase]: String(cols) };
+
+  const out: Record<string, string> = { [variables.colsBase]: String(cols.base ?? 1) };
+  for (const name of Object.keys(COLS_VARS) as BreakpointName[]) {
+    const value = cols[name];
+    if (value !== undefined) out[COLS_VARS[name]] = String(value);
+  }
+  return out;
+}
 import type {
   SegmentControlItemProps,
   SegmentControlProps,
@@ -43,7 +67,15 @@ function FromChildren(children: ReactNode): SegmentItemData[] {
 }
 
 export function SegmentControl(props: SegmentControlProps): ReactElement {
-  const { data, children, className, tabProps, "aria-label": aria_label, ...style_rest } = props;
+  const {
+    data,
+    children,
+    className,
+    tabProps,
+    cols,
+    "aria-label": aria_label,
+    ...style_rest
+  } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
   const segment = useSegment();
 
@@ -109,9 +141,13 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
   const css_vars = assignInlineVars({
     [variables.indicatorColor]: refs?.background ?? resolved.background,
     [variables.indicatorFg]: refs?.foreground ?? resolved.foreground,
+    ...ColsVars(cols),
   });
 
-  const wrapped = segment.overflowMode === "wrap";
+  // El indicador solo sigue el eje Y cuando hay varias filas. Con `cols` las hay por definicion,
+  // asi que no depende de que ademas se pida `overflowMode="wrap"`: sin esto se queda plantado en
+  // la primera fila en cuanto seleccionas algo de la segunda.
+  const wrapped = segment.overflowMode === "wrap" || cols !== undefined;
 
   return (
     <div
@@ -121,6 +157,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
       aria-orientation={segment.hasPanels ? "horizontal" : undefined}
       className={cx(
         styles.control({
+          grid: cols !== undefined,
           size: segment.size,
           fullWidth: segment.fullWidth,
           overflowMode: segment.overflowMode,

@@ -1,6 +1,7 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
+import { breakpoints } from "@stellaria/nebula-tokens";
 import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
@@ -79,8 +80,65 @@ export const control = recipe({
       },
       wrap: { flexWrap: "wrap" },
     },
+    // Con muchos tramos una fila que envuelve deja las filas descuadradas; una rejilla no. El
+    // numero de columnas llega por var, igual que en SimpleGrid, para que sea responsivo.
+    grid: {
+      true: {
+        display: "grid",
+        gridTemplateColumns: `repeat(${variables.cols}, minmax(0, 1fr))`,
+        vars: { [variables.cols]: variables.colsBase },
+        "@media": {
+          [`screen and (min-width: ${String(breakpoints.phone)}px)`]: {
+            vars: { [variables.cols]: fallbackVar(variables.colsPhone, variables.colsBase) },
+          },
+          [`screen and (min-width: ${String(breakpoints.tablet)}px)`]: {
+            vars: {
+              [variables.cols]: fallbackVar(
+                variables.colsTablet,
+                variables.colsPhone,
+                variables.colsBase,
+              ),
+            },
+          },
+          [`screen and (min-width: ${String(breakpoints.laptop)}px)`]: {
+            vars: {
+              [variables.cols]: fallbackVar(
+                variables.colsLaptop,
+                variables.colsTablet,
+                variables.colsPhone,
+                variables.colsBase,
+              ),
+            },
+          },
+          [`screen and (min-width: ${String(breakpoints.desktop)}px)`]: {
+            vars: {
+              [variables.cols]: fallbackVar(
+                variables.colsDesktop,
+                variables.colsLaptop,
+                variables.colsTablet,
+                variables.colsPhone,
+                variables.colsBase,
+              ),
+            },
+          },
+          [`screen and (min-width: ${String(breakpoints.wide)}px)`]: {
+            vars: {
+              [variables.cols]: fallbackVar(
+                variables.colsWide,
+                variables.colsDesktop,
+                variables.colsLaptop,
+                variables.colsTablet,
+                variables.colsPhone,
+                variables.colsBase,
+              ),
+            },
+          },
+        },
+      },
+      false: {},
+    },
   },
-  defaultVariants: { size: "md", fullWidth: false, overflowMode: "visible" },
+  defaultVariants: { size: "md", fullWidth: false, overflowMode: "visible", grid: false },
 });
 
 export type SegmentControlVariants = NonNullable<RecipeVariants<typeof control>>;

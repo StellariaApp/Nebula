@@ -4,6 +4,7 @@ import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
+import type { SimpleGridCols } from "../SimpleGrid/SimpleGrid.types.js";
 
 export interface SegmentItemData {
   value: string;
@@ -75,6 +76,14 @@ export type SegmentControlData = ReadonlyArray<string | SegmentItemData>;
 export interface SegmentControlProps extends StyleProps {
   /** Every tab. It spreads over ALL of them. The indicator is NOT exposed: motion moves it. */
   tabProps?: ComponentPropsWithoutRef<"button"> | undefined;
+  /**
+   * Reparte los tramos en rejilla en vez de en fila (ADR-173).
+   *
+   * Mismo nombre, mismo tipo y mismo comportamiento que en `SimpleGrid`: un numero, o uno por
+   * breakpoint. Con muchos tramos —una paleta de temas, por ejemplo— una fila que envuelve deja
+   * las filas descuadradas y una rejilla no.
+   */
+  cols?: SimpleGridCols | undefined;
   data?: SegmentControlData | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;

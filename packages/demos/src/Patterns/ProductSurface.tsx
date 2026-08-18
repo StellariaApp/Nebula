@@ -48,6 +48,7 @@ function Switcher(): ReactElement {
         }}
       >
         <Segment.Control
+          cols={{ base: 2, tablet: 4, laptop: 6, desktop: 8 }}
           aria-label="Product theme"
           data={THEME_NAMES.map((entry) => ({
             value: entry,

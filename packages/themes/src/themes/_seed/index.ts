@@ -175,11 +175,7 @@ export const THEMES_SEEDS = {
     tint: palettes.slate["800"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
-    // El unico que apaga los materiales y baja el motion. Es lo que motion.tier y glass.enabled
-    // existen para hacer, y ningun otro tema del paquete lo demuestra.
-    motion: "minimal",
-    glass: false,
+    inkFloor: 1,
   },
   corona: {
     name: "corona",
@@ -190,7 +186,7 @@ export const THEMES_SEEDS = {
     tint: palettes.sand["800"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
+    inkFloor: 1,
   },
 } as const satisfies Record<SeedName, ThemeSeed>;
 

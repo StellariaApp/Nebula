@@ -118,8 +118,14 @@ function Resolve(
     };
   }
   if (IsChoice(input)) {
-    if (input.theme === DEFAULT_THEME) return FromOfficial(input.scheme);
+    // El registro manda TAMBIEN sobre nebula. Antes habia un atajo que devolvia siempre la clase
+    // de Vanilla Extract para la identidad por defecto, asi que una app que compilara sus catorce
+    // temas —nebula incluido— veia como el provider le cambiaba la clase por la de la libreria.
+    // Y esa clase va sin capa y con las 627 vars completas, de modo que ganaba sobre las demas.
     const registered = registry[input.theme]?.[input.scheme];
+    if (registered === undefined && input.theme === DEFAULT_THEME) {
+      return FromOfficial(input.scheme);
+    }
     if (registered === undefined) {
       throw new Error(
         `Tema desconocido: "${input.theme}" en esquema "${input.scheme}". Registrados: ${Object.keys(registry).join(", ") || "ninguno"}. La identidad oficial es "${DEFAULT_THEME}".`,
