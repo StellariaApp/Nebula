@@ -1,17 +1,17 @@
 import type { ColorScheme } from "@stellaria/nebula-tokens";
 
-import { CompileTheme } from "../../web/compile-theme.js";
-import { nebulaDark } from "./dark.js";
-import { nebulaLight } from "./light.js";
+import { CompileThemes } from "../../web/compile-theme.js";
+import { nebula } from "./index.js";
 
-const dark = CompileTheme(nebulaDark);
-const light = CompileTheme(nebulaLight);
+/**
+ * Solo este tema, con su base repartida entre sus dos esquemas (ADR-169). Su CSS NO es
+ * intercambiable con el de `/all/web`: alli la base se calcula sobre los diez.
+ */
+const COMPILED = CompileThemes({ nebula });
 
-/** La clase de cada esquema, que es lo que el script de arranque necesita para pintar sin parpadeo. */
-export const CLASSES: Record<ColorScheme, string> = {
-  dark: dark.className,
-  light: light.className,
-};
+export const CLASSES: Record<ColorScheme, string> = COMPILED.classes["nebula"] as Record<
+  ColorScheme,
+  string
+>;
 
-/** Las dos reglas. Van a un `<style>`; la libreria no inyecta nada (ADR-164). */
-export const CSS = `${dark.css}${light.css}`;
+export const CSS = COMPILED.css;

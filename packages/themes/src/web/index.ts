@@ -1,7 +1,13 @@
 export { vars } from "./contract.css.js";
 export { ThemeToVars } from "./theme-vars.js";
 export { THEME_CLASSES } from "./themes.css.js";
-export { CompileTheme, type CompiledTheme } from "./compile-theme.js";
+export {
+  CompileTheme,
+  CompileThemes,
+  THEME_LAYER,
+  type CompiledSet,
+  type CompiledTheme,
+} from "./compile-theme.js";
 export {
   DEFAULT_CLASSES,
   DEFAULT_STORAGE_KEYS,

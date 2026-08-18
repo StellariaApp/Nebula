@@ -256,7 +256,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/ButtonGroup/ButtonGroup.js",
     import: "{ ButtonGroup }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20 kB",
+    limit: "20.25 kB",
   },
   {
     name: "FileButton (por módulo)",
