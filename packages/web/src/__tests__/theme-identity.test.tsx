@@ -227,3 +227,61 @@ describe("CompileTheme materializa en caliente (ADR-164)", () => {
     expect(wrapper.getAttribute("style")).toBeNull();
   });
 });
+
+describe("el provider adopta lo que el script ya pinto (ADR-169)", () => {
+  function Probe() {
+    const { themeName, scheme } = useTheme();
+    return <span data-testid="p" data-name={themeName} data-scheme={scheme} />;
+  }
+
+  afterEach(() => {
+    const root = document.documentElement;
+    root.removeAttribute("data-theme");
+    root.removeAttribute("data-scheme");
+  });
+
+  it("arranca en el tema pintado, no en defaultTheme", () => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", "rosette");
+    root.setAttribute("data-scheme", "light");
+
+    const { getByTestId } = render(
+      <NebulaProvider storage={null} themes={PRODUCTS} defaultTheme="dark" applyTheme="root">
+        <Probe />
+      </NebulaProvider>,
+    );
+
+    // Sin esto nacia en nebula dark y solo se corregia en un efecto: el fotograma que se veia.
+    expect(getByTestId("p").getAttribute("data-name")).toBe("rosette");
+    expect(getByTestId("p").getAttribute("data-scheme")).toBe("light");
+  });
+
+  it("no adopta una identidad que no esta registrada", () => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", "fantasma");
+    root.setAttribute("data-scheme", "light");
+
+    const { getByTestId } = render(
+      <NebulaProvider storage={null} themes={PRODUCTS} defaultTheme="dark" applyTheme="root">
+        <Probe />
+      </NebulaProvider>,
+    );
+
+    expect(getByTestId("p").getAttribute("data-name")).toBe("nebula");
+  });
+
+  it("en applyTheme=wrapper no mira el documento: ese <html> no es suyo", () => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", "rosette");
+    root.setAttribute("data-scheme", "light");
+
+    const { getByTestId } = render(
+      <NebulaProvider storage={null} themes={PRODUCTS} defaultTheme="dark">
+        <Probe />
+      </NebulaProvider>,
+    );
+
+    expect(getByTestId("p").getAttribute("data-name")).toBe("nebula");
+    expect(getByTestId("p").getAttribute("data-scheme")).toBe("dark");
+  });
+});

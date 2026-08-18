@@ -180,6 +180,26 @@ function Restore(
   return { theme, scheme };
 }
 
+/**
+ * Lo que el script de arranque ya dejo en `<html>` (ADR-155, ADR-166).
+ *
+ * Adoptarlo en el estado INICIAL es lo que quita el fotograma del tema por defecto: sin esto el
+ * provider nace en `defaultTheme` y solo se corrige en el efecto de restauracion, o sea despues de
+ * pintar. El visitante veia nebula y un instante despues su tema.
+ *
+ * En el servidor no hay `document` y se cae a `defaultTheme`, que es correcto: con
+ * `applyTheme="root"` el provider no marca su propio elemento, asi que no hay nada que hidratar mal.
+ */
+function FromDocument(registry: Record<string, ThemeVariants>): ThemeChoice | undefined {
+  if (typeof document === "undefined") return undefined;
+  const root = document.documentElement;
+  const theme = root.getAttribute("data-theme");
+  const scheme = root.getAttribute("data-scheme");
+  if (theme === null || theme === "" || !IsScheme(scheme)) return undefined;
+  if (theme !== DEFAULT_THEME && registry[theme]?.[scheme] === undefined) return undefined;
+  return { theme, scheme };
+}
+
 function DefaultStorage(): ThemeStorage | null {
   if (typeof window === "undefined") return null;
   try {
@@ -203,9 +223,10 @@ export function NebulaProvider({
   storageKeys,
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
-  const [active, set_active] = useState<ActiveTheme>(() =>
-    Resolve(defaultTheme, themes, undefined),
-  );
+  const [active, set_active] = useState<ActiveTheme>(() => {
+    const painted = applyTheme === "root" ? FromDocument(themes) : undefined;
+    return Resolve(painted ?? defaultTheme, themes, undefined);
+  });
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
   const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
   const applied_vars = useRef<string[]>([]);
