@@ -1,7 +1,7 @@
 # ADR-172 — Los temas se llaman por su color, y el repertorio cubre la rueda
 
-- **Estado**: **aceptada** · 2026-08-17 — decidida por el propietario
-- **Cambia API pública**: sí, y **rompe**. Siete temas cambian de nombre y con ellos sus subpaths.
+- **Estado**: **aceptada** · 2026-08-17, ampliada el 2026-08-18 — decidida por el propietario
+- **Cambia API pública**: sí, y **rompe**. Doce temas cambian de nombre y con ellos sus subpaths.
 - **Toca**: `packages/themes`, `docs/02` §3.
 
 ## Contexto
@@ -28,44 +28,54 @@ Cinco de diez apiñados en el arco cálido, y **un hueco de 100°** donde viven 
 
 ## Decisión
 
-### 1. El nombre dice el color, en registro estelar
+### 1. El nombre dice el color, en registro estelar y comercial
+
+Nombre corto, pronunciable en castellano y reconocible sin carta astronómica. Un catálogo de estrellas
+—`rigel`, `arcturus`, `antares`— es preciso y no lo lee nadie.
 
 | Tono | Paleta | Antes | Ahora | Por qué |
 | ---- | ------ | ----- | ----- | ------- |
-| 6°   | rose   | `rosette` | **`roseta`** | La Nebulosa Roseta es rosa-roja; la grafía castellana la separa del producto |
-| 25°  | red    | `eclipse` | **`antares`** | Supergigante roja: «rival de Marte» |
-| 49°  | brown  | `cosmos`  | **`titan`** | La luna de Saturno, bruma naranja-parda |
-| 52°  | orange | `lagrange`| **`arcturus`** | Gigante naranja |
-| 180° | teal   | `nova`    | **`helix`** | La Nebulosa de la Hélice es turquesa |
-| 220° | cyan   | `polaris` | **`vega`** | Azul-blanca |
-| 252° | blue   | `stellaria`| **`rigel`** | Supergigante azul |
+| 6°   | rose   | `rosette`  | **`roseta`**  | La Nebulosa Roseta es rosa-roja; la grafía castellana la separa del producto |
+| 25°  | red    | `antares`  | **`marte`**   | El rojo más reconocible del cielo, y el único que no hay que explicar |
+| 49°  | brown  | `cosmos`   | **`titan`**   | La luna de Saturno, bruma naranja-parda |
+| 52°  | orange | `arcturus` | **`apolo`**   | Ámbar solar; el nombre lo lleva medio siglo de misiones |
+| 128° | lime   | `halley`   | **`cometa`**  | Conserva el linaje del cometa sin chocar de oído con `helix` |
+| 180° | teal   | `nova`     | **`helix`**   | La Nebulosa de la Hélice es turquesa |
+| 220° | cyan   | `vega`     | **`halo`**    | Azul pálido y difuso, como el anillo que lo nombra |
+| 252° | blue   | `rigel`    | **`zenit`**   | El azul del cielo en su punto más alto |
 
-`nebula`, `aurora` y `sun` se quedan: ya decían su color.
+`nebula`, `aurora`, `sun`, `vela`, `grafito`, `nova`, `quasar` y `eclipse` se quedan: ya decían su color.
 
-### 2. Cuatro temas nuevos, sin paletas nuevas
+### 2. Seis temas nuevos, sin paletas nuevas
 
-Las siete paletas libres cubrían exactamente los dos huecos, así que **no hizo falta generar
-ninguna**:
+Las paletas libres cubrían los huecos, así que **no hizo falta generar ninguna**:
 
 | Tono | Paleta | Tema | Qué aporta |
 | ---- | ------ | ---- | ---------- |
-| 128° | lime   | **`halley`** | Llena el hueco de 100°. Los cometas brillan verdes |
-| 306° | violet | **`vela`** | El resto de supernova de Vela, magenta-violeta |
-| 251° | slate  | **`eclipse`** | El nombre liberado, y ahora sí dice lo que es: el momento apagado |
-| 69°  | sand   | **`corona`** | La corona solar: pálida, cálida, difusa |
+| 128° | lime   | **`cometa`**  | Llena el hueco de 100°. Los cometas brillan verdes |
+| 306° | violet | **`vela`**    | El resto de supernova de Vela, magenta-violeta |
+| 330° | grape  | **`quasar`**  | Magenta profundo, el escalón entre `vela` y `roseta` |
+| 251° | slate  | **`grafito`** | El neutro frío |
+| 98°  | yellow | **`nova`**    | El destello |
+| 25°  | red    | **`eclipse`** | Rojo sobre negro |
 
-### 3. `eclipse` es la prueba de que el tema manda
+Los cuatro últimos **no se distinguen por el tono sino por el carácter**, que es lo que quedaba por
+demostrar del contrato: un tema puede cambiar el lienzo, el suelo de tinta, el motion y los
+materiales, no sólo la marca.
 
-Es el único que **apaga los materiales y baja el motion**. `motion.tier` y `effects.glass.enabled`
-son interruptores de tema desde `docs/02` §2 y ningún tema del paquete los usaba, así que la
-afirmación no tenía quien la demostrara.
+- **`grafito`** apaga los materiales y baja el motion. `motion.tier` y `effects.glass.enabled` son
+  interruptores de tema desde `docs/02` §2 y ningún tema del paquete los usaba, así que la afirmación
+  no tenía quien la demostrara. Para eso `ThemeSeed` gana `motion` y `glass`; sin declararlos manda la
+  base, así que los otros quince no cambian.
+- **`nova`** lleva el suelo de tinta a 4.5 y el degradado de amarillo a blanco. Al ser claro de punta a
+  punta, `WorstInk` pone tinta oscura encima: sale el único tema de alto contraste del catálogo.
+- **`eclipse`** comparte el rojo con `marte` —el primario es el mismo— y se separa por dónde acaba: el
+  degradado de `marte` sube al oro y el de `eclipse` cae al negro, con el lienzo hundido a 0,125 de
+  luminancia contra 0,212. Es además el único con **acento neutro**: rojo y negro, sin tercer color.
 
-Para eso `ThemeSeed` gana `motion` y `glass`. Sin declararlos manda la base, así que los otros trece
-no cambian.
+### 3. El contraste sigue siendo asunto de `nebula`
 
-### 4. El contraste sigue siendo asunto de `nebula`
-
-Medido: los trece de producto fallan entre 7 y 16 pares, **todos por lo mismo** — texto blanco sobre
+Medido: los quince de producto fallan entre 7 y 16 pares, **todos por lo mismo** — texto blanco sobre
 el degradado de marca. `WorstInk` elige el menos malo de los dos y no el que pasa, así que cuando
 ninguno llega al suelo se queda el claro.
 
@@ -75,20 +85,24 @@ certifica. Quien lleve uno a producción lo valida con `pnpm check:contrast --th
 
 ## Alternativas
 
-**Generar paletas nuevas.** Se evaluó y no hizo falta: las siete libres —`sand`, `yellow`, `lime`,
-`green`, `slate`, `violet`, `grape`— caían justo en los huecos.
+**Generar paletas nuevas.** Se evaluó y no hizo falta: las libres caían justo en los huecos. Siguen
+sin liderar ningún tema `green` —a 24° de `cometa`—, `sand`, `light` y `dark`.
 
-**Mantener los nombres y añadir sólo los cuatro.** Cero rotura. Se descarta porque tres nombres de
+**Mantener los nombres y añadir sólo los nuevos.** Cero rotura. Se descarta porque tres nombres de
 producto en el catálogo son deuda que sólo encarece: cada consumidor nuevo los ve y los copia.
 
 **Traducir los nombres al inglés** (`rosette` en vez de `roseta`). Se descarta a propósito: es
 justamente la grafía lo que separa el tema del producto.
 
+**Diferenciar los cuatro últimos por tono.** No quedaba sitio: el arco cálido ya tenía cinco. Se
+diferencian por lienzo, suelo y materiales, que es lo que el contrato promete y nadie ejercía.
+
 ## Consecuencias
 
-- **Rompe**: siete nombres y sus subpaths `/<tema>` y `/<tema>/web`. Quien tenga uno guardado en
+- **Rompe**: doce nombres y sus subpaths `/<tema>` y `/<tema>/web`. Quien tenga uno guardado en
   `localStorage` cae al de por defecto — la guarda de ADR-166 ya lo cubre, pero pierde su elección.
-- Catorce temas. El CSS de `/all/web` crece de 262 a ~360 kB en crudo; comprimido apenas se mueve.
-- **`yellow` sigue sin liderar** ningún tema, a propósito: 98° está a 18° de `sun`.
-- El par más justo por tono es `eclipse` (251°) y `rigel` (252°), pero el croma los separa —0,049
-  contra 0,17—: uno se lee gris y el otro azul. Es la diferencia que un neutro busca.
+- Dieciséis temas. El CSS de `/all/web` crece de 262 a ~400 kB en crudo; comprimido apenas se mueve,
+  porque ADR-169 manda a `:root` lo que comparten y sólo baja la diferencia de cada uno.
+- El par más justo del catálogo es `vela` (306°) y `quasar` (330°): 0,089 de distancia en el primario
+  y 0,071 en el degradado, que es lo que enseña el selector. Se ven distintos en una pastilla grande
+  pero son vecinos, y el rincón magenta —`vela`, `quasar`, `aurora`, `roseta`— es el más poblado.

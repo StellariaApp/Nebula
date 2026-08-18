@@ -3,18 +3,20 @@ import { palettes, type MotionTier, type Scale11 } from "@stellaria/nebula-token
 export type SeedName =
   | "nebula"
   | "roseta"
-  | "rigel"
-  | "arcturus"
-  | "vega"
+  | "zenit"
+  | "apolo"
+  | "halo"
   | "aurora"
   | "helix"
-  | "antares"
+  | "marte"
   | "titan"
   | "sun"
-  | "halley"
+  | "cometa"
   | "vela"
-  | "eclipse"
-  | "corona";
+  | "grafito"
+  | "nova"
+  | "quasar"
+  | "eclipse";
 
 export interface ThemeSeed {
   name: SeedName;
@@ -58,8 +60,8 @@ export const THEMES_SEEDS = {
     lift: -12,
     inkFloor: 2,
   },
-  rigel: {
-    name: "rigel",
+  zenit: {
+    name: "zenit",
     primary: palettes.blue,
     accent: palettes.cyan,
     from: palettes.blue["500"],
@@ -69,8 +71,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  vega: {
-    name: "vega",
+  halo: {
+    name: "halo",
     primary: palettes.cyan,
     accent: palettes.slate,
     from: palettes.cyan["400"],
@@ -80,8 +82,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  arcturus: {
-    name: "arcturus",
+  apolo: {
+    name: "apolo",
     primary: palettes.orange,
     accent: palettes.rose,
     from: palettes.rose["500"],
@@ -113,8 +115,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 2,
   },
-  antares: {
-    name: "antares",
+  marte: {
+    name: "marte",
     primary: palettes.red,
     accent: palettes.gold,
     from: palettes.red["500"],
@@ -146,8 +148,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  halley: {
-    name: "halley",
+  cometa: {
+    name: "cometa",
     primary: palettes.lime,
     accent: palettes.green,
     from: palettes.lime["500"],
@@ -168,6 +170,20 @@ export const THEMES_SEEDS = {
   },
   eclipse: {
     name: "eclipse",
+    primary: palettes.red,
+    // Lo que lo separa de `marte` no es el tono —comparten el rojo— sino a donde va: el degradado
+    // de marte sube hacia el oro y el de eclipse cae al negro, y el lienzo se hunde con el. Es el
+    // unico tema donde el acento es neutro: rojo y negro, sin tercer color.
+    accent: palettes.dark,
+    from: palettes.red["600"],
+    to: palettes.dark["800"],
+    tint: palettes.red["950"],
+    wash: 0.12,
+    lift: -22,
+    inkFloor: 1,
+  },
+  grafito: {
+    name: "grafito",
     primary: palettes.slate,
     accent: palettes.blue,
     from: palettes.slate["500"],
@@ -175,15 +191,28 @@ export const THEMES_SEEDS = {
     tint: palettes.slate["800"],
     wash: 0.05,
     lift: -6,
+    inkFloor: 2,
+    motion: "minimal",
+    glass: false,
+  },
+  nova: {
+    name: "nova",
+    primary: palettes.yellow,
+    accent: palettes.red,
+    from: palettes.yellow["500"],
+    to: palettes.red["400"],
+    tint: palettes.yellow["800"],
+    wash: 0.2,
+    lift: -26,
     inkFloor: 1,
   },
-  corona: {
-    name: "corona",
-    primary: palettes.sand,
-    accent: palettes.gold,
-    from: palettes.sand["500"],
-    to: palettes.gold["400"],
-    tint: palettes.sand["800"],
+  quasar: {
+    name: "quasar",
+    primary: palettes.grape,
+    accent: palettes.pink,
+    from: palettes.grape["500"],
+    to: palettes.pink["400"],
+    tint: palettes.grape["800"],
     wash: 0.05,
     lift: -6,
     inkFloor: 1,

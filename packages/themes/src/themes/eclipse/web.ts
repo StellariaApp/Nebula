@@ -4,8 +4,9 @@ import { CompileThemes } from "../../web/compile-theme.js";
 import { eclipse } from "./index.js";
 
 /**
- * Solo este tema, con su base repartida entre sus dos esquemas (ADR-169). Su CSS NO es
- * intercambiable con el de `/all/web`: alli la base se calcula sobre los catorce.
+ * Solo este tema, con su base repartida entre sus dos esquemas (ADR-169). Su CSS **no** es
+ * intercambiable con el de `/all/web` ni se puede mezclar con el: alli la base se calcula sobre
+ * los dieciseis y aqui sobre dos.
  */
 const COMPILED = CompileThemes({ eclipse });
 

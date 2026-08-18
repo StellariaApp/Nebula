@@ -19,8 +19,8 @@ export const DEFAULT_THEMES: { name: ColorScheme; label: string }[] = [
 ];
 
 export const roseta = ThemeScheme("roseta", "dark");
-export const rigel = ThemeScheme("rigel", "dark");
-export const arcturus = ThemeScheme("arcturus", "dark");
+export const zenit = ThemeScheme("zenit", "dark");
+export const apolo = ThemeScheme("apolo", "dark");
 
 export function ProductStage(props: {
   name: SeedName;

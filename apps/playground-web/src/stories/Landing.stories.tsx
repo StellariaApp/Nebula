@@ -387,7 +387,7 @@ export const Rosette: Story = {
 
 export const Polaris: Story = {
   render: (_args, context) => (
-    <ProductStage name="vega" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="halo" global={context.globals["theme"] as string | undefined}>
       <Page name="Polaris" />
     </ProductStage>
   ),
@@ -395,7 +395,7 @@ export const Polaris: Story = {
 
 export const Stellaria: Story = {
   render: (_args, context) => (
-    <ProductStage name="rigel" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="zenit" global={context.globals["theme"] as string | undefined}>
       <Page name="Stellaria" />
     </ProductStage>
   ),
@@ -403,7 +403,7 @@ export const Stellaria: Story = {
 
 export const Lagrange: Story = {
   render: (_args, context) => (
-    <ProductStage name="arcturus" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="apolo" global={context.globals["theme"] as string | undefined}>
       <Page name="Lagrange" />
     </ProductStage>
   ),
@@ -427,7 +427,7 @@ export const Nova: Story = {
 
 export const Eclipse: Story = {
   render: (_args, context) => (
-    <ProductStage name="antares" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="marte" global={context.globals["theme"] as string | undefined}>
       <Page name="Eclipse" />
     </ProductStage>
   ),

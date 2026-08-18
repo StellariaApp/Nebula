@@ -8,7 +8,7 @@
 ```
 @stellaria/nebula-tokens                      @stellaria/nebula-themes                 consumo
 ┌──────────────────────┐   valida   ┌──────────────────┐   build/runtime
-│ contrato NebulaTheme │◄───Zod─────│ 10 temas + su      │──┬─► /web: contrato VE, clases y CSS
+│ contrato NebulaTheme │◄───Zod─────│ 16 temas + su      │──┬─► /web: contrato VE, clases y CSS
 │ (types TS + schema)  │            │ contrato CSS       │  └─► native: Unistyles themes
 │ tokens base (TS)     │            └────────────────────┘
 └──────────────────────┘                    ▲
@@ -119,10 +119,10 @@ Sigue siendo una escotilla de escape declarada, en la línea de lo que [ADR-021]
 
 | Tema                                       | Propósito                                                                                                                                                                      |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `light` / `dark`                           | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
+| `nebula` (`dark` / `light`)                | Default: enterprise vibrante, indigo/violet, Geist, motion standard, glass on. **`dark` es el tema por defecto** y la identidad son las semillas `#3F37C9`/`#9D4EDD` (ADR-020) |
 | (por consumidor) `fonicredito`, `tfv-gold` | Se crean en la migración con el Theme Creator (no portar valores legacy 1:1 — decisión Stellaria)                                                                              |
 
-**v1 publica estos dos y solo estos dos** ([ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md)). Los nueve temas de producto de `packages/demos` —`rosette`, `stellaria`, `polaris`, `lagrange`, `aurora`, `nova`, `eclipse`, `cosmos`, `star`, cada uno en dark y light— son la demostración del argumento de la librería, no contrato: viven en un paquete no publicable y no pasan por `check:contrast`. Promover uno después de v1 es una minor; quitar o renombrar uno publicado sería breaking, y por eso la lista se cierra corta.
+**`nebula` es el único que Nebula certifica** ([ADR-132](adr/ADR-132-los-temas-de-v1-y-el-suelo-de-la-tinta.md)). Los otros quince —`roseta`, `zenit`, `apolo`, `halo`, `aurora`, `helix`, `marte`, `titan`, `sun`, `cometa`, `vela`, `grafito`, `nova`, `quasar`, `eclipse`, cada uno en dark y light— viven en el mismo paquete desde [ADR-171](adr/ADR-171-los-temas-viven-en-el-paquete-de-temas.md) y se llaman por su color desde [ADR-172](adr/ADR-172-los-temas-se-llaman-por-su-color.md). Son la demostración del argumento de la librería, no contrato: **no pasan por `check:contrast`** y son variantes a gusto del consumidor. Quitar o renombrar uno es breaking, y por eso cada uno tiene su subpath —`@stellaria/nebula-themes/<tema>` y `/<tema>/web`— además de `/all`.
 
 Los temas de producto son parte del criterio de aceptación del theming: si un componente se ve "roto" en alguno, está leyendo algo fuera del theme.
 

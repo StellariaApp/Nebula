@@ -4,30 +4,35 @@ import { nebulaDark } from "./nebula/dark.js";
 import { nebulaLight } from "./nebula/light.js";
 import { rosetaDark } from "./roseta/dark.js";
 import { rosetaLight } from "./roseta/light.js";
-import { rigelDark } from "./rigel/dark.js";
-import { rigelLight } from "./rigel/light.js";
-import { arcturusDark } from "./arcturus/dark.js";
-import { arcturusLight } from "./arcturus/light.js";
-import { vegaDark } from "./vega/dark.js";
-import { vegaLight } from "./vega/light.js";
+import { rigelDark } from "./zenit/dark.js";
+import { rigelLight } from "./zenit/light.js";
+import { arcturusDark } from "./apolo/dark.js";
+import { arcturusLight } from "./apolo/light.js";
+import { vegaDark } from "./halo/dark.js";
+import { vegaLight } from "./halo/light.js";
 import { auroraDark } from "./aurora/dark.js";
 import { auroraLight } from "./aurora/light.js";
 import { helixDark } from "./helix/dark.js";
 import { helixLight } from "./helix/light.js";
-import { antaresDark } from "./antares/dark.js";
-import { antaresLight } from "./antares/light.js";
+import { antaresDark } from "./marte/dark.js";
+import { antaresLight } from "./marte/light.js";
 import { titanDark } from "./titan/dark.js";
 import { titanLight } from "./titan/light.js";
 import { sunDark } from "./sun/dark.js";
 import { sunLight } from "./sun/light.js";
-import { halleyDark } from "./halley/dark.js";
-import { halleyLight } from "./halley/light.js";
+import { limaDark } from "./cometa/dark.js";
+import { limaLight } from "./cometa/light.js";
 import { velaDark } from "./vela/dark.js";
 import { velaLight } from "./vela/light.js";
+import { grafitoDark } from "./grafito/dark.js";
+import { grafitoLight } from "./grafito/light.js";
+import { novaDark } from "./nova/dark.js";
+import { novaLight } from "./nova/light.js";
+import { quasarDark } from "./quasar/dark.js";
+import { quasarLight } from "./quasar/light.js";
 import { eclipseDark } from "./eclipse/dark.js";
 import { eclipseLight } from "./eclipse/light.js";
-import { coronaDark } from "./corona/dark.js";
-import { coronaLight } from "./corona/light.js";
+
 
 
 /** Un tema con sus dos esquemas (ADR-166). La clave de dentro es el esquema; la de fuera, la identidad. */
@@ -43,18 +48,20 @@ export type ThemeSchemes = Record<ColorScheme, NebulaTheme>;
 export const Themes = {
   nebula: { dark: nebulaDark, light: nebulaLight },
   roseta: { dark: rosetaDark, light: rosetaLight },
-  rigel: { dark: rigelDark, light: rigelLight },
-  arcturus: { dark: arcturusDark, light: arcturusLight },
-  vega: { dark: vegaDark, light: vegaLight },
+  zenit: { dark: rigelDark, light: rigelLight },
+  apolo: { dark: arcturusDark, light: arcturusLight },
+  halo: { dark: vegaDark, light: vegaLight },
   aurora: { dark: auroraDark, light: auroraLight },
   helix: { dark: helixDark, light: helixLight },
-  antares: { dark: antaresDark, light: antaresLight },
+  marte: { dark: antaresDark, light: antaresLight },
   titan: { dark: titanDark, light: titanLight },
   sun: { dark: sunDark, light: sunLight },
-  halley: { dark: halleyDark, light: halleyLight },
+  cometa: { dark: limaDark, light: limaLight },
   vela: { dark: velaDark, light: velaLight },
+  grafito: { dark: grafitoDark, light: grafitoLight },
+  nova: { dark: novaDark, light: novaLight },
+  quasar: { dark: quasarDark, light: quasarLight },
   eclipse: { dark: eclipseDark, light: eclipseLight },
-  corona: { dark: coronaDark, light: coronaLight },
 } as const satisfies Record<string, ThemeSchemes>;
 
 export type ThemeName = keyof typeof Themes;

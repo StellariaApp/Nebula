@@ -40,29 +40,29 @@
       "types": "./dist/themes/roseta/web.d.ts",
       "default": "./dist/themes/roseta/web.js"
     },
-    "./rigel": {
-      "types": "./dist/themes/rigel/index.d.ts",
-      "default": "./dist/themes/rigel/index.js"
+    "./zenit": {
+      "types": "./dist/themes/zenit/index.d.ts",
+      "default": "./dist/themes/zenit/index.js"
     },
-    "./rigel/web": {
-      "types": "./dist/themes/rigel/web.d.ts",
-      "default": "./dist/themes/rigel/web.js"
+    "./zenit/web": {
+      "types": "./dist/themes/zenit/web.d.ts",
+      "default": "./dist/themes/zenit/web.js"
     },
-    "./arcturus": {
-      "types": "./dist/themes/arcturus/index.d.ts",
-      "default": "./dist/themes/arcturus/index.js"
+    "./apolo": {
+      "types": "./dist/themes/apolo/index.d.ts",
+      "default": "./dist/themes/apolo/index.js"
     },
-    "./arcturus/web": {
-      "types": "./dist/themes/arcturus/web.d.ts",
-      "default": "./dist/themes/arcturus/web.js"
+    "./apolo/web": {
+      "types": "./dist/themes/apolo/web.d.ts",
+      "default": "./dist/themes/apolo/web.js"
     },
-    "./vega": {
-      "types": "./dist/themes/vega/index.d.ts",
-      "default": "./dist/themes/vega/index.js"
+    "./halo": {
+      "types": "./dist/themes/halo/index.d.ts",
+      "default": "./dist/themes/halo/index.js"
     },
-    "./vega/web": {
-      "types": "./dist/themes/vega/web.d.ts",
-      "default": "./dist/themes/vega/web.js"
+    "./halo/web": {
+      "types": "./dist/themes/halo/web.d.ts",
+      "default": "./dist/themes/halo/web.js"
     },
     "./aurora": {
       "types": "./dist/themes/aurora/index.d.ts",
@@ -80,13 +80,13 @@
       "types": "./dist/themes/helix/web.d.ts",
       "default": "./dist/themes/helix/web.js"
     },
-    "./antares": {
-      "types": "./dist/themes/antares/index.d.ts",
-      "default": "./dist/themes/antares/index.js"
+    "./marte": {
+      "types": "./dist/themes/marte/index.d.ts",
+      "default": "./dist/themes/marte/index.js"
     },
-    "./antares/web": {
-      "types": "./dist/themes/antares/web.d.ts",
-      "default": "./dist/themes/antares/web.js"
+    "./marte/web": {
+      "types": "./dist/themes/marte/web.d.ts",
+      "default": "./dist/themes/marte/web.js"
     },
     "./titan": {
       "types": "./dist/themes/titan/index.d.ts",
@@ -104,13 +104,13 @@
       "types": "./dist/themes/sun/web.d.ts",
       "default": "./dist/themes/sun/web.js"
     },
-    "./halley": {
-      "types": "./dist/themes/halley/index.d.ts",
-      "default": "./dist/themes/halley/index.js"
+    "./cometa": {
+      "types": "./dist/themes/cometa/index.d.ts",
+      "default": "./dist/themes/cometa/index.js"
     },
-    "./halley/web": {
-      "types": "./dist/themes/halley/web.d.ts",
-      "default": "./dist/themes/halley/web.js"
+    "./cometa/web": {
+      "types": "./dist/themes/cometa/web.d.ts",
+      "default": "./dist/themes/cometa/web.js"
     },
     "./vela": {
       "types": "./dist/themes/vela/index.d.ts",
@@ -120,6 +120,30 @@
       "types": "./dist/themes/vela/web.d.ts",
       "default": "./dist/themes/vela/web.js"
     },
+    "./grafito": {
+      "types": "./dist/themes/grafito/index.d.ts",
+      "default": "./dist/themes/grafito/index.js"
+    },
+    "./grafito/web": {
+      "types": "./dist/themes/grafito/web.d.ts",
+      "default": "./dist/themes/grafito/web.js"
+    },
+    "./nova": {
+      "types": "./dist/themes/nova/index.d.ts",
+      "default": "./dist/themes/nova/index.js"
+    },
+    "./nova/web": {
+      "types": "./dist/themes/nova/web.d.ts",
+      "default": "./dist/themes/nova/web.js"
+    },
+    "./quasar": {
+      "types": "./dist/themes/quasar/index.d.ts",
+      "default": "./dist/themes/quasar/index.js"
+    },
+    "./quasar/web": {
+      "types": "./dist/themes/quasar/web.d.ts",
+      "default": "./dist/themes/quasar/web.js"
+    },
     "./eclipse": {
       "types": "./dist/themes/eclipse/index.d.ts",
       "default": "./dist/themes/eclipse/index.js"
@@ -127,14 +151,6 @@
     "./eclipse/web": {
       "types": "./dist/themes/eclipse/web.d.ts",
       "default": "./dist/themes/eclipse/web.js"
-    },
-    "./corona": {
-      "types": "./dist/themes/corona/index.d.ts",
-      "default": "./dist/themes/corona/index.js"
-    },
-    "./corona/web": {
-      "types": "./dist/themes/corona/web.d.ts",
-      "default": "./dist/themes/corona/web.js"
     },
     "./all": {
       "types": "./dist/themes/registry.d.ts",
