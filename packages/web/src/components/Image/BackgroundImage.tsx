@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
 

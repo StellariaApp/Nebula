@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Flex } from "@stellaria/nebula-web";
+import {
+  Box,
+  Flex,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Flex> = {
   title: "Layout/Flex",

@@ -6,8 +6,11 @@ import "@fontsource-variable/geist-mono";
 
 import "@stellaria/nebula-web/styles.css";
 
-import { NebulaProvider, ThemeScript, vars } from "@stellaria/nebula-web";
+import { CLASSES, CSS } from "@stellaria/nebula-themes/all/web";
+import { vars } from "@stellaria/nebula-themes/web";
+import { ThemeScript } from "@stellaria/nebula-web";
 
+import { ProductProvider } from "../islands/product-provider";
 import { CurrentLang } from "../lib/lang";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 
@@ -50,7 +53,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        <ThemeScript defaultTheme="aurora" defaultScheme="dark" />
+        <ThemeScript defaultScheme="dark" themesClasses={CLASSES} themesCSS={CSS} />
       </head>
       <body
         style={{
@@ -61,9 +64,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           fontFamily: vars.font.family.sans,
         }}
       >
-        <NebulaProvider defaultTheme="dark" applyTheme="root">
-          {children}
-        </NebulaProvider>
+        <ProductProvider classes={CLASSES}>{children}</ProductProvider>
       </body>
     </html>
   );

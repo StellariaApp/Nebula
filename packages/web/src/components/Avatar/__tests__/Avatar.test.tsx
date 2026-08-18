@@ -2,7 +2,7 @@ import { fireEvent } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
-import { vars } from "../../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { Avatar, Initials, ResolveAvatarSize } from "../Avatar.js";
 import { AvatarGroup } from "../Group.js";
 

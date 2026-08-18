@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Container, Paper, Text } from "@stellaria/nebula-web";
+import {
+  Container,
+  Paper,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Container> = {
   title: "Layout/Container",

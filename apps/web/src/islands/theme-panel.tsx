@@ -12,20 +12,7 @@ import {
   type ThemeChoice,
   type ThemeName,
 } from "@stellaria/nebula-demos/themes/products";
-import {
-  ActionIcon,
-  Affix,
-  Box,
-  Popover,
-  ColorSwatch,
-  Divider,
-  GlassSurface,
-  Radio,
-  RadioGroup,
-  Segment,
-  Switch,
-  Text,
-} from "@stellaria/nebula-web";
+import { ActionIcon, Affix, Box, Popover, ColorSwatch, Divider, GlassSurface, Radio, RadioGroup, Segment, Switch, Text } from "@stellaria/nebula-web";
 import type { MotionTier } from "@stellaria/nebula-tokens";
 import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 

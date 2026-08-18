@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { Badge, Box, Paper, Text, Title } from "@stellaria/nebula-web";
+import {
+  Badge,
+  Box,
+  Paper,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import {
   DragDropContext,
   Draggable,

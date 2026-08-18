@@ -1,7 +1,7 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Badge.vars.css.js";

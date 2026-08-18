@@ -1,4 +1,4 @@
-import { nebulaLight } from "@stellaria/nebula-themes";
+import { Light as nebulaLight } from "@stellaria/nebula-themes";
 import type { GradientToken, MotionTier, NebulaTheme } from "@stellaria/nebula-tokens";
 
 const BASE = nebulaLight;

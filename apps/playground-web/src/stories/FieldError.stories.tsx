@@ -2,7 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import type { NebulaField } from "@stellaria/nebula-tokens";
 import type { FieldErrorPosition } from "@stellaria/nebula-web";
-import { Box, FieldError, NumberInput, Text, TextInput } from "@stellaria/nebula-web";
+import {
+  Box,
+  FieldError,
+  NumberInput,
+  Text,
+  TextInput,
+} from "@stellaria/nebula-web";
 
 const POSITIONS: FieldErrorPosition[] = [
   "top-left",

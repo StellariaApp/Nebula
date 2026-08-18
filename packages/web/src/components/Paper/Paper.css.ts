@@ -1,7 +1,7 @@
 import { fallbackVar } from "@vanilla-extract/css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Paper.vars.css.js";

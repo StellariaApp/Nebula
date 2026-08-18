@@ -22,8 +22,8 @@ import {
   Text,
   StarField,
   Paper,
-  vars,
 } from "@stellaria/nebula-web";
+import { vars } from "@stellaria/nebula-themes/web";
 
 import { MATRIX_A11Y, ProductStage, rosette, ThemeMatrix } from "../fixtures/themes.js";
 

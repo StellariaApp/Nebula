@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Mark, Text } from "@stellaria/nebula-web";
+import {
+  Box,
+  Mark,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Mark> = {
   title: "Typography/Mark",

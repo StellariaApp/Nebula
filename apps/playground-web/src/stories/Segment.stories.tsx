@@ -3,7 +3,15 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-import { Box, Button, Paper, Segment, Text, TextInput, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Paper,
+  Segment,
+  Text,
+  TextInput,
+  Title,
+} from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 

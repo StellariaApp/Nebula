@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Divider, Flex, Text, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  Divider,
+  Flex,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 

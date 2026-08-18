@@ -13,11 +13,11 @@ import {
   type NebulaTheme,
 } from "@stellaria/nebula-tokens";
 
-import { FlipScale } from "./scales.js";
-import { darkShadows } from "./shadows.js";
+import { FlipScale } from "../scales.js";
+import { darkShadows } from "../shadows.js";
 
-export const nebulaDark = {
-  meta: { name: "nebula", scheme: "dark", version: "0.1.0" },
+export const baseDark = {
+  meta: { name: "base", scheme: "dark", version: "0.1.0" },
   palettes,
   colors: {
     ...palettes,

@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 
 import { ThemeScript } from "../provider/theme-script.js";
 import { NebulaProvider } from "../provider/nebula-provider.js";
-import { themeClass } from "../theme/themes.css.js";
+import { themeClass } from "@stellaria/nebula-themes/web";
 
 afterEach(() => {
   cleanup();

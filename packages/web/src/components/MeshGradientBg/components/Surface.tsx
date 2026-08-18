@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../../styles/noise.css.js";
 import * as noise_vars from "../../../styles/noise.vars.css.js";
-import { ResolveGradientToken } from "../../../theme/resolve-variant.js";
+import { ResolveGradientToken } from "@stellaria/nebula-themes/web";
 import { MeshBase, MeshCss } from "../../../utils/effects.js";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";

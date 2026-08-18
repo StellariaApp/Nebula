@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { officialThemes } from "@stellaria/nebula-themes";
+import { Themes } from "../../index.js";
 
 import { vars } from "../contract.css.js";
 import { ResolveVariant } from "../resolve-variant.js";
 
-const theme = officialThemes["dark"];
+const theme = Themes.nebula.dark;
 
 describe("el cristal es una receta por clase de superficie (ADR-078)", () => {
   it("un control usa la receta de control", () => {

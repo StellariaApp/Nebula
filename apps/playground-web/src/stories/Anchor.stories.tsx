@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Anchor, Box, Text } from "@stellaria/nebula-web";
+import {
+  Anchor,
+  Box,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Anchor> = {
   title: "Typography/Anchor",

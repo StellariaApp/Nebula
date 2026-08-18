@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { ColorExtended, GradientRole } from "@stellaria/nebula-tokens";
 
 import type { BoxOwnProps } from "../Box/Box.types.js";
-import type { GradientProp } from "../../theme/resolve-variant.js";
+import { type GradientProp } from "@stellaria/nebula-themes/web";
 
 export interface GradientTextOwnProps extends Omit<BoxOwnProps, "component"> {
   /**

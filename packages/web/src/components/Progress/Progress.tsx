@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { IsSemanticScale } from "../../theme/resolve-variant.js";
+import { IsSemanticScale } from "@stellaria/nebula-themes/web";
 
 import * as styles from "./Progress.css.js";
 import type { ProgressProps } from "./Progress.types.js";

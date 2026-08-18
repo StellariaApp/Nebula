@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ScaleShade } from "../../utils/scale.js";
 import { Transition } from "../Transition/Transition.js";

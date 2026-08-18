@@ -1,7 +1,7 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 
 const CHECKER = `linear-gradient(45deg, ${vars.color.border.subtle} 25%, transparent 25%),

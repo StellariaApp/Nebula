@@ -13,7 +13,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";

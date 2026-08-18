@@ -11,22 +11,13 @@ import {
 } from "react";
 
 import { ThemeContext, type ThemeContextValue } from "@stellaria/nebula-hooks";
-import { officialThemes } from "@stellaria/nebula-themes";
+import { Themes } from "@stellaria/nebula-themes";
 import type { ColorScheme, NebulaTheme, ThemeChoice } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { domMax, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
-import { vars } from "../theme/contract.css.js";
-import { ThemeToVars } from "../theme/theme-vars.js";
-import {
-  DEFAULT_STORAGE_KEYS,
-  OFFICIAL_THEME,
-  type MaterializedTheme,
-  type ThemeStorageKeys,
-  type ThemeVariants,
-} from "../theme/identity.js";
-import { themeClass } from "../theme/themes.css.js";
+import { DEFAULT_STORAGE_KEYS, DEFAULT_THEME, ThemeToVars, themeClass, vars, type MaterializedTheme, type ThemeStorageKeys, type ThemeVariants } from "@stellaria/nebula-themes/web";
 
 export interface ThemeStorage {
   getItem: (key: string) => string | null;
@@ -94,9 +85,9 @@ function IsMaterialized(input: NebulaTheme | MaterializedTheme): input is Materi
 
 function FromOfficial(scheme: ColorScheme): ActiveTheme {
   return {
-    name: OFFICIAL_THEME,
+    name: DEFAULT_THEME,
     scheme,
-    theme: officialThemes[scheme],
+    theme: Themes.nebula[scheme],
     className: themeClass[scheme],
     style: undefined,
   };
@@ -108,7 +99,7 @@ function Resolve(
   current: ActiveTheme | undefined,
 ): ActiveTheme {
   if (IsScheme(input)) {
-    const identity = current?.name ?? OFFICIAL_THEME;
+    const identity = current?.name ?? DEFAULT_THEME;
     const registered = registry[identity]?.[input];
     if (registered === undefined) return FromOfficial(input);
     return {
@@ -120,11 +111,11 @@ function Resolve(
     };
   }
   if (IsChoice(input)) {
-    if (input.theme === OFFICIAL_THEME) return FromOfficial(input.scheme);
+    if (input.theme === DEFAULT_THEME) return FromOfficial(input.scheme);
     const registered = registry[input.theme]?.[input.scheme];
     if (registered === undefined) {
       throw new Error(
-        `Tema desconocido: "${input.theme}" en esquema "${input.scheme}". Registrados: ${Object.keys(registry).join(", ") || "ninguno"}. La identidad oficial es "${OFFICIAL_THEME}".`,
+        `Tema desconocido: "${input.theme}" en esquema "${input.scheme}". Registrados: ${Object.keys(registry).join(", ") || "ninguno"}. La identidad oficial es "${DEFAULT_THEME}".`,
       );
     }
     return {
@@ -182,10 +173,10 @@ function Restore(
   const scheme = store.getItem(keys.scheme);
   if (scheme === null || !IsScheme(scheme)) return undefined;
   const theme = store.getItem(keys.theme);
-  if (theme === null || theme === "" || theme === OFFICIAL_THEME) {
-    return { theme: OFFICIAL_THEME, scheme };
+  if (theme === null || theme === "" || theme === DEFAULT_THEME) {
+    return { theme: DEFAULT_THEME, scheme };
   }
-  if (registry[theme]?.[scheme] === undefined) return { theme: OFFICIAL_THEME, scheme };
+  if (registry[theme]?.[scheme] === undefined) return { theme: DEFAULT_THEME, scheme };
   return { theme, scheme };
 }
 
@@ -212,7 +203,9 @@ export function NebulaProvider({
   storageKeys,
   applyTheme = "wrapper",
 }: NebulaProviderProps): ReactNode {
-  const [active, set_active] = useState<ActiveTheme>(() => Resolve(defaultTheme, themes, undefined));
+  const [active, set_active] = useState<ActiveTheme>(() =>
+    Resolve(defaultTheme, themes, undefined),
+  );
   const [system_scheme, set_system_scheme] = useState<"light" | "dark" | undefined>(undefined);
   const [portal_node, set_portal_node] = useState<HTMLDivElement | null>(null);
   const applied_vars = useRef<string[]>([]);

@@ -18,7 +18,7 @@ import {
 } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-import { ThemeOf, PRODUCT_NAMES, type ProductName } from "../themes/products";
+import { ThemeScheme, SEED_NAMES, type SeedName } from "../themes/products";
 
 const SCHEMES = [
   { value: "dark", label: "Dark" },
@@ -65,9 +65,9 @@ function Surface(): ReactElement {
 }
 
 export default function ProductSwitch(): ReactElement {
-  const [product, set_product] = useState<ProductName>("rosette");
+  const [product, set_product] = useState<SeedName>("rosette");
   const [scheme, set_scheme] = useState<"dark" | "light">("dark");
-  const theme = ThemeOf(product, scheme);
+  const theme = ThemeScheme(product, scheme);
 
   return (
     <Flex direction="column" gap="md">
@@ -76,10 +76,10 @@ export default function ProductSwitch(): ReactElement {
           overflowMode="wrap"
           value={product}
           onChange={(value) => {
-            set_product(value as ProductName);
+            set_product(value as SeedName);
           }}
         >
-          <Segment.Control aria-label="Product theme" data={[...PRODUCT_NAMES]} />
+          <Segment.Control aria-label="Product theme" data={[...SEED_NAMES]} />
         </Segment>
         <Segment
           value={scheme}

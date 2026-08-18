@@ -3,7 +3,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { fallbackVar } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Section.vars.css.js";

@@ -1,6 +1,6 @@
 import { palettes, type ColorExtended, type SemanticScaleName } from "@stellaria/nebula-tokens";
 
-import { vars } from "../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 
 export const SEMANTIC_SCALES: Record<SemanticScaleName, Record<string, string>> = {
   primary: vars.color.primary,

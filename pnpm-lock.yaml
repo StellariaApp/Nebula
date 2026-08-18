@@ -319,9 +319,21 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
     devDependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.21.1
+        version: 1.21.1
+      '@vanilla-extract/dynamic':
+        specifier: ^2.1.5
+        version: 2.1.5
+      '@vanilla-extract/vite-plugin':
+        specifier: ^5.2.5
+        version: 5.2.5(@types/node@26.1.1)(esbuild@0.28.1)(terser@5.49.2)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(terser@5.49.2)(yaml@2.9.0))(yaml@2.9.0)
       typescript:
         specifier: 7.0.2
         version: 7.0.2
+      vite:
+        specifier: ^8.1.5
+        version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(terser@5.49.2)(yaml@2.9.0)
       vitest:
         specifier: 4.1.10
         version: 4.1.10(@types/node@26.1.1)(jsdom@29.1.1)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(terser@5.49.2)(yaml@2.9.0))

@@ -3,11 +3,10 @@ import { userEvent } from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { NebulaTheme, Variant } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, Variant, ColorScheme as OfficialThemeName } from "@stellaria/nebula-tokens";
 
 import { MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
-import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { Button } from "../Button.js";
 
 afterEach(cleanup);

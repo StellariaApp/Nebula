@@ -1,7 +1,7 @@
 import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
 import { BAND_MIN_HEIGHT, BAND_PADDING } from "../../styles/band.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 import * as variables from "./Hero.vars.css.js";

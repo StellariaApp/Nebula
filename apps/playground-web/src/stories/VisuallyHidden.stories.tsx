@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Text, VisuallyHidden } from "@stellaria/nebula-web";
+import {
+  Box,
+  Text,
+  VisuallyHidden,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof VisuallyHidden> = {
   title: "Utilities/VisuallyHidden",

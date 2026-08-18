@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { IsSemanticScale } from "../../theme/resolve-variant.js";
+import { IsSemanticScale } from "@stellaria/nebula-themes/web";
 
 import * as styles from "./Tag.css.js";
 import type { TagProps } from "./Tag.types.js";

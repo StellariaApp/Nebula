@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Code, Text } from "@stellaria/nebula-web";
+import {
+  Code,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Code> = {
   title: "Typography/Code",
@@ -21,7 +24,9 @@ export const Inline: Story = {
 
 export const Block: Story = {
   render: () => (
-    <Code block>{`import { Button } from "@stellaria/nebula-web";
+    <Code block>{`import {
+  Button,
+} from "@stellaria/nebula-web";
 
 export function App() {
   return <Button>Hola</Button>;

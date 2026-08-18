@@ -1,6 +1,6 @@
 import type { ColorExtended } from "@stellaria/nebula-tokens";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 
 const FALLBACK: readonly ColorExtended[] = [

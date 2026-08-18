@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Highlight } from "@stellaria/nebula-web";
+import {
+  Box,
+  Highlight,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Highlight> = {
   title: "Typography/Highlight",

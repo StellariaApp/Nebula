@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, SimpleGrid } from "@stellaria/nebula-web";
+import {
+  Box,
+  SimpleGrid,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof SimpleGrid> = {
   title: "Layout/SimpleGrid",

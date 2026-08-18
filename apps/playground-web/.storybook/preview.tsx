@@ -7,8 +7,10 @@ import "@fontsource-variable/geist-mono";
 
 import type { Decorator, Preview } from "@storybook/react-vite";
 
-import { officialThemes } from "@stellaria/nebula-themes";
-import { NebulaProvider, type OfficialThemeName } from "@stellaria/nebula-web";
+import { Themes } from "@stellaria/nebula-themes";
+import {NebulaProvider,
+  } from "@stellaria/nebula-web";
+import type { ColorScheme as OfficialThemeName } from "@stellaria/nebula-tokens";
 
 const THEME_ITEMS: { value: OfficialThemeName; title: string }[] = [
   { value: "light", title: "Light" },
@@ -26,7 +28,7 @@ const withTheme: Decorator = (Story, context) => {
 
   useEffect(() => {
     const { body } = document;
-    const colors = officialThemes[theme].colors;
+    const colors = Themes.nebula[theme].colors;
     const prev_bg = body.style.background;
     const prev_color = body.style.color;
     body.style.background = colors.surface.base;

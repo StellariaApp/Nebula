@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 
 import type { StepperProps } from "../Stepper.types.js";
 import * as variables from "../Stepper.vars.css.js";

@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Box, MonthPicker, Paper, Text, Title, YearPicker } from "@stellaria/nebula-web";
+import {
+  Box,
+  MonthPicker,
+  Paper,
+  Text,
+  Title,
+  YearPicker,
+} from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 

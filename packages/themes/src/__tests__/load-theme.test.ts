@@ -2,7 +2,7 @@ import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { describe, expect, it } from "vitest";
 
 import { LoadTheme, ThemeValidationError } from "../load-theme.js";
-import { nebulaLight } from "../themes/nebula-light.js";
+import { nebulaLight } from "../themes/nebula/light.js";
 
 function BaseTheme(): NebulaTheme {
   return JSON.parse(JSON.stringify(nebulaLight)) as NebulaTheme;

@@ -1,6 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
-import { vars } from "../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../theme/layers.css.js";
 
 export const listbox = style({

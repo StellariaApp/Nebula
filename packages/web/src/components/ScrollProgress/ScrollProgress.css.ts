@@ -1,7 +1,7 @@
 import { style, styleVariants } from "@vanilla-extract/css";
 
 import { reduced_media, still, value as valueMotion } from "../../styles/motion.css.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./ScrollProgress.vars.css.js";

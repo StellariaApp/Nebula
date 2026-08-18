@@ -1,14 +1,4 @@
-import {
-  Anchor,
-  Blockquote,
-  Code,
-  CodeHighlight,
-  Divider,
-  List,
-  Table,
-  Text,
-  Title,
-} from "@stellaria/nebula-web";
+import { Anchor, Blockquote, Code, CodeHighlight, Divider, List, Table, Text, Title } from "@stellaria/nebula-web";
 import type { ReactElement, ReactNode } from "react";
 
 import { Plain, Slug } from "../lib/headings";

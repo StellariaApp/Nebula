@@ -6,7 +6,7 @@ import { themeClass } from "./themes.css.js";
  * The identity the two official themes share (ADR-166). Their key in `officialThemes` and in
  * `themeClass` is the scheme, not the name — `nebula` is what both of them are.
  */
-export const OFFICIAL_THEME = "nebula";
+export const DEFAULT_THEME = "nebula";
 
 /**
  * A theme whose CSS already exists as a class (ADR-163), because the consumer built it with
@@ -26,8 +26,8 @@ export type ThemeVariants = Record<ColorScheme, MaterializedTheme>;
 /** What the boot script needs: the class for each scheme of each identity, and nothing else. */
 export type ThemeClassMap = Record<string, Record<ColorScheme, string>>;
 
-export const OFFICIAL_CLASSES: ThemeClassMap = {
-  [OFFICIAL_THEME]: { dark: themeClass.dark, light: themeClass.light },
+export const DEFAULT_CLASSES: ThemeClassMap = {
+  [DEFAULT_THEME]: { dark: themeClass.dark, light: themeClass.light },
 };
 
 /**
@@ -35,7 +35,7 @@ export const OFFICIAL_CLASSES: ThemeClassMap = {
  * official pair is always in it: a product adds identities, it does not replace Nebula's.
  */
 export function ThemeScriptMap(themes: Record<string, ThemeVariants>): ThemeClassMap {
-  const out: ThemeClassMap = { ...OFFICIAL_CLASSES };
+  const out: ThemeClassMap = { ...DEFAULT_CLASSES };
   for (const [name, variants] of Object.entries(themes)) {
     out[name] = { dark: variants.dark.className, light: variants.light.className };
   }
@@ -49,6 +49,6 @@ export interface ThemeStorageKeys {
 }
 
 export const DEFAULT_STORAGE_KEYS = {
-  theme: "nebula-theme",
-  scheme: "nebula-scheme",
+  theme: "data-theme",
+  scheme: "data-scheme",
 } as const;

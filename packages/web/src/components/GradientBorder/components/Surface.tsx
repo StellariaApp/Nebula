@@ -6,12 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import type { RadiusName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../../theme/contract.css.js";
-import {
-  ResolveGradient,
-  ResolveGradientEdge,
-  ResolveGradientTip,
-} from "../../../theme/resolve-variant.js";
+import { ResolveGradient, ResolveGradientEdge, ResolveGradientTip, vars } from "@stellaria/nebula-themes/web";
 import { WithAlpha } from "../../../utils/effects.js";
 import { cx } from "../../../utils/style-props.js";
 import { LengthToCss } from "../../../utils/token-css.js";

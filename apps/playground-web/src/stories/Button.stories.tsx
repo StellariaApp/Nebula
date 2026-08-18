@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Box, Button } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+} from "@stellaria/nebula-web";
 
 import ButtonColors from "@stellaria/nebula-demos/Button/Colors";
 import ButtonComposition from "@stellaria/nebula-demos/Button/Composition";

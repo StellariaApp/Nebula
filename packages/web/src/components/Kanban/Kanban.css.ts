@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Kanban.vars.css.js";

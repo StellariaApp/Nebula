@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../../styles/noise.css.js";
-import { vars } from "../../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 

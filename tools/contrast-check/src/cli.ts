@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-import { LoadTheme, officialThemes } from "@stellaria/nebula-themes";
+import { LoadTheme, Themes } from "@stellaria/nebula-themes";
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { CheckTheme, type PairResult } from "./check.ts";
@@ -26,10 +26,13 @@ function LoadThemes(): ThemeUnderTest[] {
   }
   return [
     { theme: smokeTheme, source: "tema de humo F0 (paletas generadas + roles default)" },
-    ...Object.values(officialThemes).map((theme) => ({
-      theme,
-      source: "tema oficial de @stellaria/nebula-themes",
-    })),
+    /**
+     * Solo el par por defecto. Los nueve temas de producto que `Themes` trae desde ADR-168 son
+     * variantes —la prueba de que el catalogo se retine— y NO se certifican aqui: quien lleve uno a
+     * produccion lo valida con `--theme <suyo>.json`, que es este mismo motor.
+     */
+    { theme: Themes.nebula.dark, source: "tema por defecto de @stellaria/nebula-themes (dark)" },
+    { theme: Themes.nebula.light, source: "tema por defecto de @stellaria/nebula-themes (light)" },
   ];
 }
 

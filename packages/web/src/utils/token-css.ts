@@ -1,6 +1,6 @@
 import type { SpacingValue } from "@stellaria/nebula-tokens";
 
-import { vars } from "../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 
 const SPACE = vars.space as Record<string, string>;
 

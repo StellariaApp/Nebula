@@ -3,7 +3,13 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-import { Box, Button, Modal, Text, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Modal,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import type { ModalProps } from "@stellaria/nebula-web";
 
 import ModalAsDrawer from "@stellaria/nebula-demos/Modal/AsDrawer";

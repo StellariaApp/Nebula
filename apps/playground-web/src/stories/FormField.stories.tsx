@@ -10,8 +10,8 @@ import {
   Text,
   TextInput,
   Title,
-  vars,
 } from "@stellaria/nebula-web";
+import { vars } from "@stellaria/nebula-themes/web";
 
 const meta: Meta<typeof FormField> = {
   title: "Forms/FormField",

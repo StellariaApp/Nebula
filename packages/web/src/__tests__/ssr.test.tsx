@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { ThemeScript } from "../provider/theme-script.js";
 import { NebulaProvider } from "../provider/nebula-provider.js";
-import { themeClass } from "../theme/themes.css.js";
+import { themeClass } from "@stellaria/nebula-themes/web";
 
 describe("SSR (sin window)", () => {
   it("NebulaProvider renderiza a HTML con el tema por defecto sin reventar", () => {
@@ -39,7 +39,7 @@ describe("SSR (sin window)", () => {
       <ThemeScript
         storageKeys={{ theme: "k-theme", scheme: "k-scheme" }}
         defaultTheme="fantasma"
-        themes={{ otro: { dark: "otro_d", light: "otro_l" } }}
+        themesClasses={{ otro: { dark: "otro_d", light: "otro_l" } }}
       />,
     );
     expect(html).toContain(themeClass["dark"]);
@@ -51,7 +51,7 @@ describe("SSR (sin window)", () => {
       <ThemeScript
         storageKeys={{ theme: "k-theme", scheme: "k-scheme" }}
         defaultTheme="rosette"
-        themes={{ rosette: { dark: "rosette_abc", light: "rosette_def" } }}
+        themesClasses={{ rosette: { dark: "rosette_abc", light: "rosette_def" } }}
       />,
     );
     expect(html).toContain("rosette_abc");

@@ -9,7 +9,7 @@ import { MultiSelect } from "../components/MultiSelect/MultiSelect.js";
 import { Popover } from "../components/Popover/Popover.js";
 import { Select } from "../components/Select/Select.js";
 import { Tooltip } from "../components/Tooltip/Tooltip.js";
-import { themeClass } from "../theme/themes.css.js";
+import { themeClass } from "@stellaria/nebula-themes/web";
 
 import { cleanup, render, screen, waitFor } from "./render.js";
 

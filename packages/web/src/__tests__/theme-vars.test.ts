@@ -1,10 +1,9 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { describe, expect, it } from "vitest";
 
-import { nebulaLight } from "@stellaria/nebula-themes";
+import { Light as nebulaLight } from "@stellaria/nebula-themes";
 
-import { vars } from "../theme/contract.css.js";
-import { ThemeToVars } from "../theme/theme-vars.js";
+import { ThemeToVars, vars } from "@stellaria/nebula-themes/web";
 
 describe("ThemeToVars", () => {
   it("proyecta roles de color tal cual y aplica las unidades correctas", () => {

@@ -4,7 +4,7 @@ import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 import * as focus from "./focus.css.js";
 import * as focus_vars from "./focus.vars.css.js";
 import * as motion from "../styles/motion.css.js";
-import { vars } from "../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../theme/layers.css.js";
 
 import * as variables from "./field.vars.css.js";

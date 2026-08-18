@@ -3,7 +3,12 @@ import { expect, userEvent, within } from "storybook/test";
 
 import { CreateIcons } from "@stellaria/nebula-icons";
 import { CommonPack } from "@stellaria/nebula-icons/packs";
-import { ActionIcon, Box, Paper, Text } from "@stellaria/nebula-web";
+import {
+  ActionIcon,
+  Box,
+  Paper,
+  Text,
+} from "@stellaria/nebula-web";
 
 const { Icon } = CreateIcons({ ...CommonPack });
 

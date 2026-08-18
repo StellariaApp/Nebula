@@ -2,7 +2,15 @@ import { expect, userEvent, within } from "storybook/test";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactElement } from "react";
 
-import { Badge, Box, Button, Card, Nav, Text, Title } from "@stellaria/nebula-web";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Nav,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, rosette, ThemeMatrix } from "../fixtures/themes.js";
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { officialThemes } from "@stellaria/nebula-themes";
+import { Themes } from "../../index.js";
 import type { NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "../ink.js";
@@ -10,7 +10,7 @@ const YELLOW = "#dbbd00";
 const INDIGO = "#5e63f8";
 
 const WithFloor = (name: "light" | "dark", floor: number): NebulaTheme => ({
-  ...officialThemes[name],
+  ...Themes.nebula[name],
   ink: { floor },
 });
 
@@ -54,7 +54,7 @@ describe("el suelo llega a las vars que pinta el provider", () => {
 
   it("el degradado de marca de los oficiales va en tinta clara", () => {
     for (const name of ["light", "dark"] as const) {
-      expect(ThemeToVars(officialThemes[name]).color.text.onGradient).toBe(INK_LIGHT);
+      expect(ThemeToVars(Themes.nebula[name]).color.text.onGradient).toBe(INK_LIGHT);
     }
   });
 });

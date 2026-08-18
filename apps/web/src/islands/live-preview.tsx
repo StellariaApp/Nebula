@@ -1,21 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Card,
-  Dialog,
-  Drawer,
-  FileButton,
-  Filters,
-  GlobalSearch,
-  GridList,
-  InfiniteList,
-  Lightbox,
-  Modal,
-  SearchableList,
-  Text,
-} from "@stellaria/nebula-web";
+import { Box, Button, Card, Dialog, Drawer, FileButton, Filters, GlobalSearch, GridList, InfiniteList, Lightbox, Modal, SearchableList, Text } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
 /**

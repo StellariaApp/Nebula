@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { SurfaceTransition } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";

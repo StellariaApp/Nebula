@@ -6,7 +6,7 @@ import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as calendar_vars from "../Calendar/Calendar.vars.css.js";
 import { CalendarHeader } from "../Calendar/CalendarHeader.js";

@@ -1,6 +1,7 @@
 import { createTheme } from "@vanilla-extract/css";
 
-import { nebulaDark, nebulaLight } from "@stellaria/nebula-themes";
+import { nebulaDark } from "../themes/nebula/dark.js";
+import { nebulaLight } from "../themes/nebula/light.js";
 
 import { vars } from "./contract.css.js";
 import { ThemeToVars } from "./theme-vars.js";

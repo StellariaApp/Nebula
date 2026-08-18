@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Group } from "@stellaria/nebula-web";
+import {
+  Box,
+  Group,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Group> = {
   title: "Layout/Group",

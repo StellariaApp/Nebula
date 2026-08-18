@@ -1,8 +1,8 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 
-import { breakpoints } from "@stellaria/nebula-tokens";
+import { breakpoints, type ColorShade } from "@stellaria/nebula-tokens";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { util_layer } from "../../theme/layers.css.js";
 
 const CONDITIONS = {
@@ -14,7 +14,7 @@ const CONDITIONS = {
   wide: { "@media": `screen and (min-width: ${String(breakpoints.wide)}px)` },
 } as const;
 
-type Shade = keyof typeof vars.color.primary;
+type Shade = ColorShade;
 
 function ScaleEntries<P extends string>(
   prefix: P,

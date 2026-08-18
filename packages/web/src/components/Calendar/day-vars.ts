@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import type { ColorExtended, NebulaTheme } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 
 import type { CalendarVariant } from "./Calendar.types.js";
 import * as variables from "./Calendar.vars.css.js";

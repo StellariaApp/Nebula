@@ -6,8 +6,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../../theme/contract.css.js";
-import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { ResolveVariant, vars } from "@stellaria/nebula-themes/web";
 import { LengthToCss } from "../../../utils/token-css.js";
 
 import type { HeroProps, HeroVariant } from "../Hero.types.js";

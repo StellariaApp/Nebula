@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Paper, Portal, Text } from "@stellaria/nebula-web";
+import {
+  Box,
+  Paper,
+  Portal,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Portal> = {
   title: "Utilities/Portal",

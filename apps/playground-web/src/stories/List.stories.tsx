@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, List } from "@stellaria/nebula-web";
+import {
+  Box,
+  List,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof List> = {
   title: "Typography/List",

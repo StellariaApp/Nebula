@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useMemo, useState, type ReactElement } from "react";
 
-import { Badge, Box, Text, Title } from "@stellaria/nebula-web";
+import {
+  Badge,
+  Box,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import { DataGrid, type ColumnDef } from "@stellaria/nebula-web/datagrid";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";

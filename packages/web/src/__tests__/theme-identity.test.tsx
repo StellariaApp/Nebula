@@ -3,13 +3,11 @@ import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { nebulaDark, nebulaLight } from "@stellaria/nebula-themes";
+import { Dark as nebulaDark, Light as nebulaLight } from "@stellaria/nebula-themes";
 import { palettes, type NebulaTheme } from "@stellaria/nebula-tokens";
 
-import { CompileTheme } from "../theme/compile-theme.js";
-import { ThemeScriptMap, type ThemeVariants } from "../theme/identity.js";
+import { CompileTheme, ThemeScriptMap, themeClass, type ThemeVariants } from "@stellaria/nebula-themes/web";
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
-import { themeClass } from "../theme/themes.css.js";
 
 afterEach(cleanup);
 

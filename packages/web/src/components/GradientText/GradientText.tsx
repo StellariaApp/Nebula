@@ -11,7 +11,7 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveGradient } from "../../theme/resolve-variant.js";
+import { ResolveGradient } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";

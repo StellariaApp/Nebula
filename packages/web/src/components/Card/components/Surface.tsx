@@ -7,7 +7,7 @@ import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { MotionOff, Spring } from "../../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 

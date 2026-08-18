@@ -29,7 +29,6 @@ export default defineConfig({
         "carousel/index": resolve(import.meta.dirname, "src/carousel/index.ts"),
         "media/index": resolve(import.meta.dirname, "src/media/index.ts"),
         "editor/index": resolve(import.meta.dirname, "src/editor/index.ts"),
-        "theme-runtime/index": resolve(import.meta.dirname, "src/theme-runtime/index.ts"),
       },
       formats: ["es"],
     },

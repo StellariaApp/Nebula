@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 import * as motion from "../../styles/motion.css.js";
 import * as focus from "../../styles/focus.css.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { component_layer } from "../../theme/layers.css.js";
 
 export const root = style({

@@ -1,4 +1,4 @@
-import { vars } from "@stellaria/nebula-web";
+import { vars } from "@stellaria/nebula-themes/web";
 import type { ReactElement } from "react";
 
 const BRAND_FROM = vars.color.primary["500"];

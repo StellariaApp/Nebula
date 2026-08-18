@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { useTheme, vars } from "@stellaria/nebula-web";
+import {
+  useTheme,
+} from "@stellaria/nebula-web";
+import { vars } from "@stellaria/nebula-themes/web";
 import { palettes, type Scale11 } from "@stellaria/nebula-tokens";
 
 const PALETTE_NAMES = Object.keys(palettes) as (keyof typeof palettes)[];

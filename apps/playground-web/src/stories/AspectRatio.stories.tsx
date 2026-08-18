@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { AspectRatio, Center, Text } from "@stellaria/nebula-web";
+import {
+  AspectRatio,
+  Center,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof AspectRatio> = {
   title: "Layout/AspectRatio",

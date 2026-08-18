@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Box, MultiSelect, Text, Title } from "@stellaria/nebula-web";
+import {
+  Box,
+  MultiSelect,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import type { SelectOption } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";

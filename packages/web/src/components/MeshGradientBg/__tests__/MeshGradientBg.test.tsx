@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { NebulaTheme, ColorScheme as OfficialThemeName } from "@stellaria/nebula-tokens";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { BrandGradient, GlassOff } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
-import type { OfficialThemeName } from "../../../theme/themes.css.js";
 import { MeshGradientBg } from "../MeshGradientBg.js";
 
 afterEach(cleanup);

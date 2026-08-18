@@ -6,7 +6,7 @@ import { usePermissionGranted, useTheme, useUncontrolled } from "@stellaria/nebu
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";

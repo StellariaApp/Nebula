@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Divider, Text } from "@stellaria/nebula-web";
+import {
+  Box,
+  Divider,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Divider> = {
   title: "Layout/Divider",

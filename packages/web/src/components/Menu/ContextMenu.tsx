@@ -5,7 +5,7 @@ import { useRef, useState, type KeyboardEvent, type MouseEvent, type ReactElemen
 import { DismissButton, Overlay, useOverlay } from "react-aria";
 
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 
 import { MenuList } from "./MenuList.js";
 import type { ContextMenuProps } from "./Menu.types.js";

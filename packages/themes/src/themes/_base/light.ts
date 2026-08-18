@@ -15,8 +15,8 @@ import {
   type NebulaTheme,
 } from "@stellaria/nebula-tokens";
 
-export const nebulaLight = {
-  meta: { name: "nebula", scheme: "light", version: "0.1.0" },
+export const baseLight = {
+  meta: { name: "base", scheme: "light", version: "0.1.0" },
   palettes,
   colors: {
     ...palettes,

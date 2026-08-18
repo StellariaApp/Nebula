@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { useTheme } from "@stellaria/nebula-hooks";
 
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
-import { themeClass } from "../theme/themes.css.js";
+import { themeClass } from "@stellaria/nebula-themes/web";
 
 afterEach(cleanup);
 

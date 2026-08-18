@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import type { GradientRole } from "@stellaria/nebula-tokens";
 
-import type { GradientProp } from "../../theme/resolve-variant.js";
+import { type GradientProp } from "@stellaria/nebula-themes/web";
 import type { BoxOwnProps, BoxSlotProps } from "../Box/Box.types.js";
 
 export type AnimatedGradientSpeed = "slow" | "base" | "fast";

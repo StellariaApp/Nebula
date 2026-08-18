@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { nebulaDark } from "@stellaria/nebula-themes";
+import { Dark as nebulaDark } from "@stellaria/nebula-themes";
 import {
   palettes,
   type ColorScheme,
@@ -12,8 +12,7 @@ import {
 } from "@stellaria/nebula-tokens";
 
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
-import { vars } from "../theme/contract.css.js";
-import { themeClass } from "../theme/themes.css.js";
+import { themeClass, vars } from "@stellaria/nebula-themes/web";
 
 afterEach(() => {
   cleanup();

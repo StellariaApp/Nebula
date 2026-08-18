@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  Badge,
-  Box,
-  Button,
-  Card,
-  Code,
-  Flex,
-  GradientText,
-  Hero,
-  Main,
-  SimpleGrid,
-  Text,
-} from "@stellaria/nebula-web";
+import { Badge, Box, Button, Card, Code, Flex, GradientText, Hero, Main, SimpleGrid, Text } from "@stellaria/nebula-web";
 
 import { DeferredThemePanel } from "../islands/deferred";
 import { HeroPreview } from "../islands/hero-preview";

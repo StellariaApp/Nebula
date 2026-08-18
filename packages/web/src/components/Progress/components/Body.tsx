@@ -3,7 +3,7 @@ import type { CSSProperties, ReactElement } from "react";
 import type { Size } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { LengthToCss } from "../../../utils/token-css.js";

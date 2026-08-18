@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { CreateIcons } from "@stellaria/nebula-icons";
 import { CommonPack, DashboardPack } from "@stellaria/nebula-icons/packs";
-import { Box, Text, vars } from "@stellaria/nebula-web";
+import {
+  Box,
+  Text,
+} from "@stellaria/nebula-web";
+import { vars } from "@stellaria/nebula-themes/web";
 
 const { Icon, names } = CreateIcons({ ...CommonPack, ...DashboardPack });
 

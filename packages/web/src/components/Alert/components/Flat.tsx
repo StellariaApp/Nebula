@@ -5,8 +5,7 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { vars } from "../../../theme/contract.css.js";
-import { ResolveVariant } from "../../../theme/resolve-variant.js";
+import { ResolveVariant, vars } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../../utils/scale.js";
 
 import type { AlertProps } from "../Alert.types.js";

@@ -1,9 +1,9 @@
-import { officialThemes } from "@stellaria/nebula-themes";
+import { Themes } from "@stellaria/nebula-themes";
 import type { NebulaTheme, SpringConfig } from "@stellaria/nebula-tokens";
 import { describe, expect, it } from "vitest";
 
 import * as css from "../../styles/motion.css.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import {
   Fade,
   MotionOff,
@@ -17,7 +17,7 @@ import {
   type MotionContext,
 } from "../motion.js";
 
-const theme = officialThemes["dark"];
+const theme = Themes.nebula.dark;
 const live: MotionContext = { theme, reduced: false };
 const off: MotionContext = { theme, reduced: true };
 
@@ -221,7 +221,7 @@ describe("ScrollSpring", () => {
   });
 
   it("cada tema decide su propia física de scroll", () => {
-    const light = officialThemes.light;
+    const light = Themes.nebula.light;
     expect(ScrollSpring("default", light).stiffness).toBe(
       light.motion.spring.default.stiffness * 0.25,
     );

@@ -16,7 +16,7 @@ import { useSliderState } from "react-stately";
 
 import type { ColorExtended, NebulaTheme, Size } from "@stellaria/nebula-tokens";
 
-import { ResolveVariant } from "../../theme/resolve-variant.js";
+import { ResolveVariant } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 

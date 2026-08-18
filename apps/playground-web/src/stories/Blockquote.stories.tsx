@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Blockquote, Box } from "@stellaria/nebula-web";
+import {
+  Blockquote,
+  Box,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Blockquote> = {
   title: "Typography/Blockquote",

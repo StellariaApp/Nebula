@@ -19,6 +19,98 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./web": {
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
+    },
+    "./nebula": {
+      "types": "./dist/themes/nebula/index.d.ts",
+      "default": "./dist/themes/nebula/index.js"
+    },
+    "./rosette": {
+      "types": "./dist/themes/rosette/index.d.ts",
+      "default": "./dist/themes/rosette/index.js"
+    },
+    "./stellaria": {
+      "types": "./dist/themes/stellaria/index.d.ts",
+      "default": "./dist/themes/stellaria/index.js"
+    },
+    "./lagrange": {
+      "types": "./dist/themes/lagrange/index.d.ts",
+      "default": "./dist/themes/lagrange/index.js"
+    },
+    "./polaris": {
+      "types": "./dist/themes/polaris/index.d.ts",
+      "default": "./dist/themes/polaris/index.js"
+    },
+    "./aurora": {
+      "types": "./dist/themes/aurora/index.d.ts",
+      "default": "./dist/themes/aurora/index.js"
+    },
+    "./nova": {
+      "types": "./dist/themes/nova/index.d.ts",
+      "default": "./dist/themes/nova/index.js"
+    },
+    "./eclipse": {
+      "types": "./dist/themes/eclipse/index.d.ts",
+      "default": "./dist/themes/eclipse/index.js"
+    },
+    "./cosmos": {
+      "types": "./dist/themes/cosmos/index.d.ts",
+      "default": "./dist/themes/cosmos/index.js"
+    },
+    "./sun": {
+      "types": "./dist/themes/sun/index.d.ts",
+      "default": "./dist/themes/sun/index.js"
+    },
+    "./all": {
+      "types": "./dist/themes/registry.d.ts",
+      "default": "./dist/themes/registry.js"
+    },
+    "./nebula/web": {
+      "types": "./dist/themes/nebula/web.d.ts",
+      "default": "./dist/themes/nebula/web.js"
+    },
+    "./rosette/web": {
+      "types": "./dist/themes/rosette/web.d.ts",
+      "default": "./dist/themes/rosette/web.js"
+    },
+    "./stellaria/web": {
+      "types": "./dist/themes/stellaria/web.d.ts",
+      "default": "./dist/themes/stellaria/web.js"
+    },
+    "./lagrange/web": {
+      "types": "./dist/themes/lagrange/web.d.ts",
+      "default": "./dist/themes/lagrange/web.js"
+    },
+    "./polaris/web": {
+      "types": "./dist/themes/polaris/web.d.ts",
+      "default": "./dist/themes/polaris/web.js"
+    },
+    "./aurora/web": {
+      "types": "./dist/themes/aurora/web.d.ts",
+      "default": "./dist/themes/aurora/web.js"
+    },
+    "./nova/web": {
+      "types": "./dist/themes/nova/web.d.ts",
+      "default": "./dist/themes/nova/web.js"
+    },
+    "./eclipse/web": {
+      "types": "./dist/themes/eclipse/web.d.ts",
+      "default": "./dist/themes/eclipse/web.js"
+    },
+    "./cosmos/web": {
+      "types": "./dist/themes/cosmos/web.d.ts",
+      "default": "./dist/themes/cosmos/web.js"
+    },
+    "./sun/web": {
+      "types": "./dist/themes/sun/web.d.ts",
+      "default": "./dist/themes/sun/web.js"
+    },
+    "./all/web": {
+      "types": "./dist/themes/all-web.d.ts",
+      "default": "./dist/themes/all-web.js"
     }
   },
   "files": [
@@ -33,7 +125,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -45,6 +137,18 @@
   },
   "devDependencies": {
     "typescript": "7.0.2",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "@vanilla-extract/css": "^1.21.1",
+    "@vanilla-extract/dynamic": "^2.1.5",
+    "@vanilla-extract/vite-plugin": "^5.2.5",
+    "vite": "^8.1.5"
+  },
+  "peerDependencies": {
+    "@vanilla-extract/dynamic": "^2.1.5"
+  },
+  "peerDependenciesMeta": {
+    "@vanilla-extract/dynamic": {
+      "optional": true
+    }
   }
 }

@@ -1067,13 +1067,6 @@ const MODULE_BUDGETS = [
     limit: "93.75 kB",
   },
   {
-    name: "CompileTheme (subpath /theme-runtime: materializar un tema en caliente)",
-    path: "dist/theme-runtime/index.js",
-    import: "{ CompileTheme }",
-    ignore: ["react", "react-dom"],
-    limit: "12 kB",
-  },
-  {
     name: "CommandPalette (subpath /command: Aria combobox + Modal)",
     path: "dist/command/index.js",
     import: "{ CommandPalette }",

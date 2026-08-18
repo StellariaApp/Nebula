@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Space, Text } from "@stellaria/nebula-web";
+import {
+  Box,
+  Space,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Space> = {
   title: "Layout/Space",

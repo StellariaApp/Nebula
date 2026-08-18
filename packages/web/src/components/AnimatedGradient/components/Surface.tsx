@@ -5,7 +5,7 @@ import type { CSSProperties, ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveGradient } from "../../../theme/resolve-variant.js";
+import { ResolveGradient } from "@stellaria/nebula-themes/web";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 

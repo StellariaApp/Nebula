@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Omit, Text, Valid } from "@stellaria/nebula-web";
+import {
+  Box,
+  Omit,
+  Text,
+  Valid,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Valid> = {
   title: "Utilities/Valid & Omit",

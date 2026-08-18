@@ -2,7 +2,14 @@ import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Box, Button, Paper, Text, Transition, type TransitionPreset } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Paper,
+  Text,
+  Transition,
+  type TransitionPreset,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Transition> = {
   title: "Utilities/Transition",

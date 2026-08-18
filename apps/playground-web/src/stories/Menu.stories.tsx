@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-import { ActionIcon, Box, Button, Menu, Text, Title } from "@stellaria/nebula-web";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Menu,
+  Text,
+  Title,
+} from "@stellaria/nebula-web";
 import type { MenuItemData } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";

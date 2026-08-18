@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { IsSemanticScale } from "../../theme/resolve-variant.js";
+import { IsSemanticScale } from "@stellaria/nebula-themes/web";
 
 import * as styles from "./Banderole.css.js";
 import type { BanderoleProps } from "./Banderole.types.js";

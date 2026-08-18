@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Conditional, Text } from "@stellaria/nebula-web";
+import {
+  Conditional,
+  Text,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof Conditional> = {
   title: "Utilities/Conditional",

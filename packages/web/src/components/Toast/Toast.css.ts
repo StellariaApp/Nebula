@@ -1,6 +1,6 @@
 import { fallbackVar, style, styleVariants } from "@vanilla-extract/css";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Toast.vars.css.js";

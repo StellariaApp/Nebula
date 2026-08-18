@@ -1,6 +1,6 @@
 import { fallbackVar } from "@vanilla-extract/css";
 
-import { vars } from "../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 
 import * as variables from "./focus.vars.css.js";
 

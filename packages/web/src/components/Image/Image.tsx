@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Tween } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";

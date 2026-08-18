@@ -1,21 +1,4 @@
-import {
-  Affix,
-  AppShell,
-  Badge,
-  Box,
-  Button,
-  Card,
-  Footer,
-  GradientText,
-  Header,
-  Hero,
-  Main,
-  Nav,
-  Panel,
-  ScrollProgress,
-  Text,
-  Title,
-} from "@stellaria/nebula-web";
+import { Affix, AppShell, Badge, Box, Button, Card, Footer, GradientText, Header, Hero, Main, Nav, Panel, ScrollProgress, Text, Title } from "@stellaria/nebula-web";
 import type { ReactElement, ReactNode } from "react";
 
 import { Logo } from "./ui/logo";

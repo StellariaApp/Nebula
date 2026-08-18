@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
-import { Button, FocusTrap, Group, Paper } from "@stellaria/nebula-web";
+import {
+  Button,
+  FocusTrap,
+  Group,
+  Paper,
+} from "@stellaria/nebula-web";
 
 const meta: Meta<typeof FocusTrap> = {
   title: "Utilities/FocusTrap",

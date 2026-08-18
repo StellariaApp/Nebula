@@ -15,7 +15,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { UNSAFE_PortalProvider, useDialog, usePreventScroll } from "react-aria";
 
 import { OverlayMotion, type OverlayMotionPreset } from "../../overlays/overlay-motion.js";
-import { vars } from "../../theme/contract.css.js";
+import { vars } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 

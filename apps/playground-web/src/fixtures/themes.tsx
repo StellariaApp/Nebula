@@ -1,48 +1,38 @@
 import type { ReactNode } from "react";
 
-import {
-  BuildProduct,
-  ThemeOf,
-  type ProductName,
-} from "@stellaria/nebula-demos/themes/products";
-import { officialThemes } from "@stellaria/nebula-themes";
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import { ThemeScheme, type SeedName } from "@stellaria/nebula-themes";
+import type { ColorScheme, NebulaTheme } from "@stellaria/nebula-tokens";
 import {
   Box,
   NebulaProvider,
   SimpleGrid,
   Text,
-  type OfficialThemeName,
 } from "@stellaria/nebula-web";
-
-export { BuildProduct, ThemeOf };
-export type { ProductName };
 
 export const MATRIX_A11Y = {
   a11y: { rules: { "landmark-unique": { enabled: false } } },
 };
 
-export const OFFICIAL_THEMES: { name: OfficialThemeName; label: string }[] = [
+export const DEFAULT_THEMES: { name: ColorScheme; label: string }[] = [
   { name: "dark", label: "dark" },
   { name: "light", label: "light" },
 ];
 
-export const rosette = ThemeOf("rosette", "dark");
-export const stellaria = ThemeOf("stellaria", "dark");
-export const lagrange = ThemeOf("lagrange", "dark");
+export const rosette = ThemeScheme("rosette", "dark");
+export const stellaria = ThemeScheme("stellaria", "dark");
+export const lagrange = ThemeScheme("lagrange", "dark");
 
 export function ProductStage(props: {
-  name: ProductName;
+  name: SeedName;
   global: string | undefined;
   children: ReactNode;
 }): ReactNode {
   const { name, global, children } = props;
-  const official = officialThemes[(global ?? "dark") as OfficialThemeName] as
-    NebulaTheme | undefined;
-  const theme = ThemeOf(name, official?.meta.scheme === "light" ? "light" : "dark");
+  const scheme: ColorScheme = global === "light" ? "light" : "dark";
+  const theme = ThemeScheme(name, scheme);
 
   return (
-    <NebulaProvider key={theme.meta.name} defaultTheme={theme} storage={null}>
+    <NebulaProvider key={`${theme.meta.name}-${scheme}`} defaultTheme={theme} storage={null}>
       <Box bg="surface.base" c="text.primary">
         {children}
       </Box>
@@ -51,7 +41,7 @@ export function ProductStage(props: {
 }
 
 export function ThemePanel(props: {
-  theme: OfficialThemeName | NebulaTheme;
+  theme: ColorScheme | NebulaTheme;
   label: string;
   children: ReactNode;
 }): ReactNode {
@@ -86,7 +76,7 @@ export function ThemeMatrix(props: {
   const { children, extra = [] } = props;
   return (
     <SimpleGrid cols={{ base: 1, tablet: 2, desktop: 4 }} spacing="md">
-      {OFFICIAL_THEMES.map((t) => (
+      {DEFAULT_THEMES.map((t) => (
         <ThemePanel key={t.name} theme={t.name} label={t.label}>
           {children}
         </ThemePanel>
