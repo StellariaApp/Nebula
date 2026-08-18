@@ -17,7 +17,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { domMax, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
-import { DEFAULT_STORAGE_KEYS, DEFAULT_THEME, ThemeToVars, themeClass, vars, type MaterializedTheme, type ThemeStorageKeys, type ThemeVariants } from "@stellaria/nebula-themes/web";
+import { DEFAULT_STORAGE_KEYS, DEFAULT_THEME, ThemeToVars, THEME_CLASSES, vars, type MaterializedTheme, type ThemeStorageKeys, type ThemeVariants } from "@stellaria/nebula-themes/web";
 
 export interface ThemeStorage {
   getItem: (key: string) => string | null;
@@ -88,7 +88,7 @@ function FromOfficial(scheme: ColorScheme): ActiveTheme {
     name: DEFAULT_THEME,
     scheme,
     theme: Themes.nebula[scheme],
-    className: themeClass[scheme],
+    className: THEME_CLASSES[scheme],
     style: undefined,
   };
 }
@@ -243,7 +243,7 @@ export function NebulaProvider({
   useEffect(() => {
     if (!on_root || typeof document === "undefined") return;
     const root = document.documentElement;
-    for (const name of Object.values(themeClass)) root.classList.remove(name);
+    for (const name of Object.values(THEME_CLASSES)) root.classList.remove(name);
     for (const variants of Object.values(themes)) {
       for (const entry of Object.values(variants)) root.classList.remove(entry.className);
     }

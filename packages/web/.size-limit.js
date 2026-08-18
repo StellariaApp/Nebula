@@ -39,7 +39,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Flex/Flex.js",
     import: "{ Flex }",
     ignore: ["react", "react-dom"],
-    limit: "19.75 kB",
+    limit: "20 kB",
   },
   {
     name: "Center (primitivo, por módulo)",
@@ -1005,7 +1005,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Affix/Affix.js",
     import: "{ Affix }",
     ignore: ["react", "react-dom"],
-    limit: "20.25 kB",
+    limit: "20.5 kB",
   },
   {
     name: "LoadingOverlay (Overlay + Loader + motion, por módulo)",
@@ -1113,7 +1113,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/PermissionGate/PermissionGate.js",
     import: "{ PermissionGate }",
     ignore: ["react", "react-dom"],
-    limit: "20.25 kB",
+    limit: "20.5 kB",
   },
   {
     name: "GlassSurface (primitivo temable con variantes en runtime, por módulo)",

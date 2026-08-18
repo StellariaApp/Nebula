@@ -1,10 +1,10 @@
 import type { ColorScheme, NebulaTheme } from "@stellaria/nebula-tokens";
 
-import { themeClass } from "./themes.css.js";
+import { THEME_CLASSES } from "./themes.css.js";
 
 /**
  * The identity the two official themes share (ADR-166). Their key in `officialThemes` and in
- * `themeClass` is the scheme, not the name — `nebula` is what both of them are.
+ * `THEME_CLASSES` is the scheme, not the name — `nebula` is what both of them are.
  */
 export const DEFAULT_THEME = "nebula";
 
@@ -27,7 +27,7 @@ export type ThemeVariants = Record<ColorScheme, MaterializedTheme>;
 export type ThemeClassMap = Record<string, Record<ColorScheme, string>>;
 
 export const DEFAULT_CLASSES: ThemeClassMap = {
-  [DEFAULT_THEME]: { dark: themeClass.dark, light: themeClass.light },
+  [DEFAULT_THEME]: { dark: THEME_CLASSES.dark, light: THEME_CLASSES.light },
 };
 
 /**
