@@ -24,7 +24,7 @@ describe("GradientText", () => {
   it("resuelve el gradiente del tema en una var local", () => {
     render(<GradientText data-testid="gt">Marca</GradientText>);
     const style = screen.getByTestId("gt").getAttribute("style") ?? "";
-    expect(style).toMatch(/linear-gradient\(/);
+    expect(style).toContain("var(--gradient-brand-image");
   });
 
   it("acepta los tres roles de gradiente del contrato", () => {
@@ -68,11 +68,11 @@ describe("GradientText", () => {
     expect(style).not.toMatch(/(^|;)\s*color:/);
   });
 
-  it("resuelve un gradiente distinto por tema", () => {
+  it("emite la misma referencia sea cual sea el tema: decide la clase", () => {
     const dark = render(<GradientText data-testid="gt">T</GradientText>);
     const dark_style = screen.getByTestId("gt").getAttribute("style") ?? "";
     dark.unmount();
-    expect(dark_style).toMatch(/linear-gradient\(/);
+    expect(dark_style).toContain("var(--gradient-brand-image");
   });
 
   it("acepta style props y las compone con las vars", () => {

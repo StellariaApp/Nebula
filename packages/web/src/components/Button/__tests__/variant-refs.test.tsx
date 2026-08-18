@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { Button } from "../Button.js";
+import { GradientText } from "../../GradientText/GradientText.js";
 
 function Paint(node: React.ReactElement) {
   return render(<NebulaProvider storage={null}>{node}</NebulaProvider>);
@@ -71,5 +72,25 @@ describe("el color sale de la matriz, no de JavaScript (ADR-150)", () => {
 
     expect(style).toContain("linear-gradient(");
     expect(style).not.toContain("var(--variant-gradient");
+  });
+});
+
+describe("los degradados por rol tambien salen del tema (ADR-170)", () => {
+  it("GradientText emite la referencia del rol, no el degradado construido", () => {
+    const { container } = Paint(<GradientText gradient="brand">x</GradientText>);
+    const style = (container.querySelector("span") as HTMLElement)?.getAttribute("style") ?? "";
+
+    expect(style).toContain("var(--gradient-brand-image");
+    expect(style).not.toContain("linear-gradient(");
+  });
+
+  it("un degradado escrito en la prop se sigue construyendo aqui", () => {
+    const { container } = Paint(
+      <GradientText gradient={{ from: "#000", to: "#fff" }}>x</GradientText>,
+    );
+    const style = (container.querySelector("span") as HTMLElement)?.getAttribute("style") ?? "";
+
+    expect(style).toContain("linear-gradient(");
+    expect(style).not.toContain("var(--gradient-brand");
   });
 });

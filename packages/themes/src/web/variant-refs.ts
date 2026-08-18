@@ -60,3 +60,24 @@ export function VariantRefs(
   const matrix = vars.variant[variant as keyof typeof vars.variant];
   return matrix[color];
 }
+
+const GRADIENT_ROLES = new Set(["brand", "accent", "surface"]);
+
+export interface GradientRefs {
+  image: string;
+  edge: string;
+  tip: string;
+}
+
+/**
+ * Las tres referencias que el tema publica para un rol de degradado, o `undefined` si lo que se pide
+ * no es un rol (ADR-170).
+ *
+ * Es el mismo reparto que `VariantRefs`: si el degradado tiene nombre, el tema ya lo publico y lo
+ * resuelve el navegador contra la clase activa. Un degradado escrito en la prop es el caso infinito
+ * de ADR-150 §3 y se sigue construyendo en JavaScript.
+ */
+export function GradientRefsOf(gradient: unknown): GradientRefs | undefined {
+  if (typeof gradient !== "string" || !GRADIENT_ROLES.has(gradient)) return undefined;
+  return vars.gradient[gradient as keyof typeof vars.gradient];
+}

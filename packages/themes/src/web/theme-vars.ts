@@ -1,4 +1,4 @@
-import type { NebulaTheme } from "@stellaria/nebula-tokens";
+import type { GradientToken, NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "./ink.js";
 import { ResolveVariant } from "./resolve-variant.js";
@@ -90,6 +90,23 @@ interface VariantFieldValues {
   glow: string;
 }
 
+/**
+ * Las tres formas en las que un degradado se consume (ADR-170): la imagen entera, y los colores de
+ * sus dos extremos, que es lo que un borde necesita para su filo y su punta.
+ */
+function GradientTriple(token: GradientToken): { image: string; edge: string; tip: string } {
+  const stops = token.stops;
+  const list = stops.map((stop) => `${stop.color} ${String(stop.position)}%`).join(", ");
+  return {
+    image:
+      token.type === "linear"
+        ? `linear-gradient(${String(token.angle)}deg, ${list})`
+        : `radial-gradient(circle at 50% 50%, ${list})`,
+    edge: stops[0]?.color ?? "transparent",
+    tip: stops[stops.length - 1]?.color ?? "transparent",
+  };
+}
+
 function VariantMatrix(
   theme: NebulaTheme,
 ): Record<MatrixVariant, Record<InkScale, VariantFieldValues>> {
@@ -172,6 +189,7 @@ export function ThemeToVars(theme: NebulaTheme) {
       strong: effects.glass.surface.strong,
       noiseOpacity: Num(effects.glass.noiseOpacity),
     },
+    gradient: MapValues(effects.gradients, GradientTriple),
     zIndex: MapValues(zIndex, Num),
   };
 }

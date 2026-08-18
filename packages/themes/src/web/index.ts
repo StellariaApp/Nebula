@@ -31,4 +31,9 @@ export {
   type ResolvedVariant,
 } from "./resolve-variant.js";
 export { INK_DARK, INK_LIGHT, OnColor, WorstInk } from "./ink.js";
-export { VariantRefs, type VariantColorRefs } from "./variant-refs.js";
+export {
+  GradientRefsOf,
+  VariantRefs,
+  type GradientRefs,
+  type VariantColorRefs,
+} from "./variant-refs.js";

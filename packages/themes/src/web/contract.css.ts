@@ -202,6 +202,11 @@ export const vars = createThemeContract({
     strong: { background: null, backdropFilter: null, borderColor: null },
     noiseOpacity: null,
   },
+  gradient: {
+    brand: { image: null, edge: null, tip: null },
+    accent: { image: null, edge: null, tip: null },
+    surface: { image: null, edge: null, tip: null },
+  },
   zIndex: {
     base: null,
     dropdown: null,

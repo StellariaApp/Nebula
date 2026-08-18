@@ -11,7 +11,7 @@ import {
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveGradient } from "@stellaria/nebula-themes/web";
+import { GradientRefsOf, ResolveGradient } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
@@ -36,7 +36,7 @@ const GradientTextComponent = forwardRef<HTMLElement, GradientTextOwnProps>(
     const fallback = ResolveAccent(fallbackColor, "600");
 
     const css_vars = assignInlineVars({
-      [variables.image]: ResolveGradient(gradient, theme),
+      [variables.image]: GradientRefsOf(gradient)?.image ?? ResolveGradient(gradient, theme),
       [variables.fallbackFg]: fallback,
     });
 

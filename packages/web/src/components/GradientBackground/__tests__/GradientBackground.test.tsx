@@ -33,9 +33,11 @@ describe("GradientBackground", () => {
     expect(screen.getByTestId("gbg").tagName).toBe("HEADER");
   });
 
-  it("resuelve el gradiente del tema en una var local", () => {
+  it("apunta al degradado del tema, que es quien lo define", () => {
     render(<GradientBackground data-testid="gbg" />);
-    expect(screen.getByTestId("gbg").getAttribute("style") ?? "").toMatch(/linear-gradient\(/);
+    expect(screen.getByTestId("gbg").getAttribute("style") ?? "").toContain(
+      "var(--gradient-brand-image",
+    );
   });
 
   it("no pinta scrim por defecto", () => {
@@ -56,7 +58,7 @@ describe("GradientBackground", () => {
     RenderIn(<GradientBackground grain data-testid="gbg" />, GlassOff());
     const node = screen.getByTestId("gbg");
     expect(node.querySelectorAll("span[aria-hidden='true']")).toHaveLength(0);
-    expect(node.getAttribute("style") ?? "").toMatch(/linear-gradient\(/);
+    expect(node.getAttribute("style") ?? "").toContain("var(--gradient-brand-image");
   });
 
   it("pinta el grano en los temas con glass activo", () => {
@@ -82,7 +84,11 @@ describe("GradientBackground", () => {
     );
     seen.add(screen.getByTestId("gbg").getAttribute("style") ?? "");
     view.unmount();
-    expect(seen.size).toBe(2);
+    // El style del componente ya NO cambia con el tema: lleva la referencia (ADR-170).
+
+    // Que el tema mande se comprueba en el envoltorio, que es donde van sus vars.
+
+    expect(seen.size).toBe(1);
   });
 
   it("acepta un gradiente propio y style props", () => {

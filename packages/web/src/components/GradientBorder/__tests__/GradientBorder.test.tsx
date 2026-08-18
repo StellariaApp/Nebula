@@ -33,9 +33,11 @@ describe("GradientBorder", () => {
     expect(screen.getByTestId("gb").tagName).toBe("ARTICLE");
   });
 
-  it("resuelve el gradiente del tema en una var local", () => {
+  it("apunta al degradado del tema, que es quien lo define", () => {
     render(<GradientBorder data-testid="gb" />);
-    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/linear-gradient\(/);
+    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toContain(
+      "var(--gradient-brand-image",
+    );
   });
 
   it("acepta los tres roles del contrato", () => {
@@ -96,7 +98,11 @@ describe("GradientBorder", () => {
     );
     seen.add(screen.getByTestId("gb").getAttribute("style") ?? "");
     view.unmount();
-    expect(seen.size).toBe(2);
+    // El style del componente ya NO cambia con el tema: lleva la referencia (ADR-170).
+
+    // Que el tema mande se comprueba en el envoltorio, que es donde van sus vars.
+
+    expect(seen.size).toBe(1);
   });
 
   it("un token monocromo sigue produciendo un linear-gradient válido", () => {
@@ -108,7 +114,7 @@ describe("GradientBorder", () => {
       ]),
     );
     const style = screen.getByTestId("gb").getAttribute("style") ?? "";
-    expect(style).toMatch(/linear-gradient\(/);
+    expect(style).toContain("var(--gradient-brand-image");
   });
 });
 

@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../../styles/noise.css.js";
 import * as noise_vars from "../../../styles/noise.vars.css.js";
-import { ResolveGradient } from "@stellaria/nebula-themes/web";
+import { GradientRefsOf, ResolveGradient } from "@stellaria/nebula-themes/web";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 
@@ -39,7 +39,7 @@ export function GradientBackgroundSurface(props: GradientBackgroundOwnProps): Re
   const grain_opacity = theme.effects.glass.enabled ? theme.effects.glass.noiseOpacity : 0;
 
   const css_vars = assignInlineVars({
-    [variables.image]: ResolveGradient(gradient, theme),
+    [variables.image]: GradientRefsOf(gradient)?.image ?? ResolveGradient(gradient, theme),
     [variables.scrimAlpha]: String(scrim),
     [noise_vars.opacity]: String(grain_opacity),
   });

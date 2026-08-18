@@ -87,6 +87,10 @@ describe("AnimatedGradient", () => {
     );
     seen.add(screen.getByTestId("ag").getAttribute("style") ?? "");
     view.unmount();
-    expect(seen.size).toBe(2);
+    // El style del componente ya NO cambia con el tema: lleva la referencia (ADR-170).
+
+    // Que el tema mande se comprueba en el envoltorio, que es donde van sus vars.
+
+    expect(seen.size).toBe(1);
   });
 });

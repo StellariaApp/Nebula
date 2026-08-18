@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import type { RadiusName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveGradient, ResolveGradientEdge, ResolveGradientTip, vars } from "@stellaria/nebula-themes/web";
+import { GradientRefsOf, ResolveGradient, ResolveGradientEdge, ResolveGradientTip, vars } from "@stellaria/nebula-themes/web";
 import { WithAlpha } from "../../../utils/effects.js";
 import { cx } from "../../../utils/style-props.js";
 import { LengthToCss } from "../../../utils/token-css.js";
@@ -118,10 +118,11 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
   const parts = Math.max(MIN_PARTS, Math.round(tail.parts));
   const pieces = Array.from({ length: parts }, (_, index) => index);
   const share = (sequence === "spaced" ? ALL_EDGES.length : lit.length) as GradientBorderEdge;
-  const edge_color = ResolveGradientEdge(gradient, theme);
-  const tip_color = ResolveGradientTip(gradient, theme);
+  const grad = GradientRefsOf(gradient);
+  const edge_color = grad?.edge ?? ResolveGradientEdge(gradient, theme);
+  const tip_color = grad?.tip ?? ResolveGradientTip(gradient, theme);
 
-  const ring = animated ? vars.color.border.default : ResolveGradient(gradient, theme);
+  const ring = animated ? vars.color.border.default : (grad?.image ?? ResolveGradient(gradient, theme));
 
   const css_vars = assignInlineVars({
     [variables.image]: ring,

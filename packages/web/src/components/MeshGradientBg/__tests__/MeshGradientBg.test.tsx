@@ -95,6 +95,9 @@ describe("MeshGradientBg", () => {
     );
     seen.add(screen.getByTestId("mg").getAttribute("style") ?? "");
     view.unmount();
+    // Este SI cambia con el tema, y es correcto: MeshGradientBg compone cinco radiales en anclas
+    // fijas a partir del token, y publicar esa forma seria que el tema aprendiera la composicion de
+    // un componente concreto (ADR-170 §3). Es el unico que queda resolviendo en JavaScript.
     expect(seen.size).toBe(2);
   });
 
