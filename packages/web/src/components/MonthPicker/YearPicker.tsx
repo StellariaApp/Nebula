@@ -6,7 +6,7 @@ import { useFieldProps, useTheme } from "@stellaria/nebula-hooks";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import * as calendar_vars from "../Calendar/Calendar.vars.css.js";
 import { CalendarHeader } from "../Calendar/CalendarHeader.js";
@@ -74,11 +74,12 @@ export function YearPicker(props: YearPickerProps): ReactElement {
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
   const day_vars = assignInlineVars({
-    [calendar_vars.dayBg]: resolved.background,
-    [calendar_vars.dayBgHover]: resolved.backgroundHover,
-    [calendar_vars.dayFg]: resolved.foreground,
-    [calendar_vars.dayBorder]: resolved.borderColor,
+    [calendar_vars.dayBg]: refs?.background ?? resolved.background,
+    [calendar_vars.dayBgHover]: refs?.backgroundHover ?? resolved.backgroundHover,
+    [calendar_vars.dayFg]: refs?.foreground ?? resolved.foreground,
+    [calendar_vars.dayBorder]: refs?.borderColor ?? resolved.borderColor,
   });
 
   return (

@@ -6,7 +6,7 @@ import { usePermissionGranted, useTheme, useUncontrolled } from "@stellaria/nebu
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { MotionOff, Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
@@ -67,10 +67,12 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
 
   const resolved = ResolveVariant(variant, color, theme);
 
+  const refs = VariantRefs(variant, color, theme);
+
   const css_vars = assignInlineVars({
-    [variables.accent]: resolved.foreground,
-    [variables.activeBg]: resolved.background,
-    [variables.activeBgHover]: resolved.backgroundHover,
+    [variables.accent]: refs?.foreground ?? resolved.foreground,
+    [variables.activeBg]: refs?.background ?? resolved.background,
+    [variables.activeBgHover]: refs?.backgroundHover ?? resolved.backgroundHover,
   });
 
   const inner = (

@@ -16,7 +16,7 @@ import { useSliderState } from "react-stately";
 
 import type { ColorExtended, NebulaTheme, Size } from "@stellaria/nebula-tokens";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx } from "../../utils/style-props.js";
 
@@ -90,10 +90,11 @@ function TrackVars(
 ): Record<string, string> {
   if (variant === undefined) return {};
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
   return {
-    [variables.trackBg]: resolved.background,
-    [variables.trackBorder]: resolved.borderColor,
-    [variables.trackBorderWidth]: resolved.borderWidth,
+    [variables.trackBg]: refs?.background ?? resolved.background,
+    [variables.trackBorder]: refs?.borderColor ?? resolved.borderColor,
+    [variables.trackBorderWidth]: refs?.borderWidth ?? resolved.borderWidth,
   };
 }
 

@@ -5,7 +5,7 @@ import type { CSSProperties, ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 
@@ -36,16 +36,18 @@ export function PaperRoot(props: PaperOwnProps): ReactElement {
   const { theme } = useTheme();
   const resolved =
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, "subtle");
+  const refs =
+    variant === undefined ? undefined : VariantRefs(variant, color, theme, undefined, "subtle");
 
   const css_vars =
     resolved === null
       ? {}
       : assignInlineVars({
-          [variables.bg]: resolved.background,
-          [variables.fg]: resolved.foreground,
-          [variables.borderColor]: resolved.borderColor,
-          [variables.backdropFilter]: resolved.backdropFilter,
-          [variables.glow]: resolved.glow,
+          [variables.bg]: refs?.background ?? resolved.background,
+          [variables.fg]: refs?.foreground ?? resolved.foreground,
+          [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
+          [variables.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
+          [variables.glow]: refs?.glow ?? resolved.glow,
         });
 
   return (

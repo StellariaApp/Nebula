@@ -27,21 +27,25 @@ describe("el color sale de la matriz, no de JavaScript (ADR-150)", () => {
   });
 
   it("cada variante apunta a su propia fila de la matriz", () => {
-    for (const variant of ["filled", "outline", "light", "ghost", "glow"] as const) {
+    for (const variant of ["filled", "outline", "light", "ghost", "glow", "glass"] as const) {
       const { container } = Paint(<Button variant={variant}>x</Button>);
       const style = (container.querySelector("button") as HTMLElement).getAttribute("style") ?? "";
       expect(style).toContain(`var(--variant-${variant}-primary-background`);
     }
   });
 
-  it("el cristal cae a JavaScript porque el accionable pide un nivel distinto al de la receta", () => {
-    // La matriz se construye con el nivel que declara la receta —"control"—, y los tres accionables
-    // traen "veil" por defecto. Son distintos, asi que ese caso NO esta precalculado. Solo pasa con
-    // `glass`: es la unica de las ocho recetas que consume cristal.
-    const { container } = Paint(<Button variant="glass">x</Button>);
+  it("pedir un nivel de cristal distinto al de la receta si cae a JavaScript", () => {
+    // El nivel por defecto lo pone el TEMA (`variantMap.glass.glass`), no el componente, asi que el
+    // caso normal esta en la matriz. Pedir otro a mano es salirse de lo precalculado, y entonces se
+    // resuelve aqui. Es la unica de las ocho recetas que consume cristal.
+    const { container } = Paint(
+      <Button variant="glass" glass="strong">
+        x
+      </Button>,
+    );
     const style = (container.querySelector("button") as HTMLElement).getAttribute("style") ?? "";
 
-    expect(style).toContain("var(--glass-veil-background");
+    expect(style).toContain("var(--glass-strong-background");
     expect(style).not.toContain("var(--variant-glass-primary-background");
   });
 

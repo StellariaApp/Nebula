@@ -5,7 +5,7 @@ import { forwardRef, useState } from "react";
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -55,11 +55,12 @@ export const Chip = forwardRef<HTMLInputElement, ChipProps>(function Chip(props,
   const [focus_visible, set_focus_visible] = useState(false);
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [variables.bg]: is_checked ? resolved.background : "transparent",
-    [variables.fg]: is_checked ? resolved.foreground : ResolveAccent("text.primary"),
-    [variables.border]: is_checked ? resolved.borderColor : ResolveAccent("border.default"),
+    [variables.bg]: is_checked ? (refs?.background ?? resolved.background) : "transparent",
+    [variables.fg]: is_checked ? (refs?.foreground ?? resolved.foreground) : ResolveAccent("text.primary"),
+    [variables.border]: is_checked ? (refs?.borderColor ?? resolved.borderColor) : ResolveAccent("border.default"),
   });
 
   const Toggle = (): void => {

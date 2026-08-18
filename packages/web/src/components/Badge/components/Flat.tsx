@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 
 import type { BadgeProps } from "../Badge.types.js";
 import * as variables from "../Badge.vars.css.js";
@@ -15,14 +15,15 @@ export function BadgeFlat(props: BadgeProps): ReactElement {
   const { variant = "light", color = "primary" } = props;
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
 
   return (
     <BadgeBody
       {...props}
       toneStyle={assignInlineVars({
-        [variables.bg]: resolved.background,
-        [variables.fg]: resolved.foreground,
-        [variables.borderColor]: resolved.borderColor,
+        [variables.bg]: refs?.background ?? resolved.background,
+        [variables.fg]: refs?.foreground ?? resolved.foreground,
+        [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
       })}
     />
   );

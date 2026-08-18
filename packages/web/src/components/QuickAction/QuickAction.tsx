@@ -37,7 +37,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       variant = "light",
       color = "primary",
       gradient,
-      glass = "veil",
+      glass,
       size = "md",
       r = "lg",
       orientation = "vertical",

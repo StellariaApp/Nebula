@@ -6,7 +6,7 @@ import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m, useReducedMotion } from "motion/react";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { Spring } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -65,10 +65,12 @@ export function Pagination(props: PaginationProps): ReactElement {
 
   const resolved = ResolveVariant(variant, color, theme);
 
+  const refs = VariantRefs(variant, color, theme);
+
   const css_vars = assignInlineVars({
-    [variables.accent]: resolved.background,
-    [variables.accentHover]: resolved.backgroundHover,
-    [variables.activeFg]: resolved.foreground,
+    [variables.accent]: refs?.background ?? resolved.background,
+    [variables.accentHover]: refs?.backgroundHover ?? resolved.backgroundHover,
+    [variables.activeFg]: refs?.foreground ?? resolved.foreground,
   });
 
   const Go = (next: number): void => {

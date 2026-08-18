@@ -15,7 +15,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 
@@ -150,11 +150,12 @@ export function NavLinks(props: NavLinksProps): ReactElement {
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
 
   const css_vars = assignInlineVars({
-    [variables.indicatorBg]: resolved.background,
-    [variables.indicatorBorder]: resolved.borderColor,
-    [variables.indicatorFg]: resolved.foreground,
+    [variables.indicatorBg]: refs?.background ?? resolved.background,
+    [variables.indicatorBorder]: refs?.borderColor ?? resolved.borderColor,
+    [variables.indicatorFg]: refs?.foreground ?? resolved.foreground,
   });
 
   const text = useMemo(

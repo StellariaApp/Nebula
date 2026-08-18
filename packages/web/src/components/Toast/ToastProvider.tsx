@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
 import { SurfaceTransition } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -47,16 +47,18 @@ function ToastItem(props: ItemProps): ReactElement {
   const { theme } = useTheme();
   const resolved =
     toast.variant === undefined ? null : ResolveVariant(toast.variant, toast.color, theme);
+  const refs =
+    toast.variant === undefined ? undefined : VariantRefs(toast.variant, toast.color, theme);
 
   const css_vars = assignInlineVars({
     [variables.accent]: ResolveAccent(toast.color, "600"),
     ...(resolved === null
       ? {}
       : {
-          [variables.bg]: resolved.background,
-          [variables.fg]: resolved.foreground,
-          [variables.border]: resolved.borderColor,
-          [variables.backdrop]: resolved.backdropFilter,
+          [variables.bg]: refs?.background ?? resolved.background,
+          [variables.fg]: refs?.foreground ?? resolved.foreground,
+          [variables.border]: refs?.borderColor ?? resolved.borderColor,
+          [variables.backdrop]: refs?.backdropFilter ?? resolved.backdropFilter,
         }),
   });
 

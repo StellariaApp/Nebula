@@ -143,7 +143,7 @@ export const baseDark = {
       background: "surface.overlay",
       foreground: "text.primary",
       border: "border.subtle",
-      glass: "control",
+      glass: "veil",
     },
     ghost: { background: "transparent", foreground: "scale.700", border: "none" },
     glow: { background: "scale.500", foreground: "text.onPrimary", border: "none", glow: "lg" },

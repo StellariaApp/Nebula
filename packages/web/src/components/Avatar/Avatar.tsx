@@ -6,7 +6,7 @@ import type { Size } from "@stellaria/nebula-tokens";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant, vars } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs, vars } from "@stellaria/nebula-themes/web";
 import { LengthToCss } from "../../utils/token-css.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -57,13 +57,14 @@ export function Avatar(props: AvatarProps): ReactElement {
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
 
   const css_vars = assignInlineVars({
     [variables.size]: ResolveAvatarSize(size),
-    [variables.bg]: resolved.background,
-    [variables.fg]: resolved.foreground,
-    [variables.border]: resolved.borderColor,
-    [variables.borderWidth]: resolved.borderWidth,
+    [variables.bg]: refs?.background ?? resolved.background,
+    [variables.fg]: refs?.foreground ?? resolved.foreground,
+    [variables.border]: refs?.borderColor ?? resolved.borderColor,
+    [variables.borderWidth]: refs?.borderWidth ?? resolved.borderWidth,
   });
 
   const initials = name === undefined ? "" : Initials(name);

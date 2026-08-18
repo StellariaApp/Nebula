@@ -6,7 +6,7 @@ import type { ColorExtended } from "@stellaria/nebula-tokens";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant, vars } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs, vars } from "@stellaria/nebula-themes/web";
 import { LengthToCss } from "../../../utils/token-css.js";
 
 import type { HeroProps, HeroVariant } from "../Hero.types.js";
@@ -38,14 +38,15 @@ export function HeroSurface(props: HeroSurfaceProps): ReactElement {
     props;
   const { theme } = useTheme();
   const resolved = ResolveVariant(variant, color, theme);
+  const refs = VariantRefs(variant, color, theme);
 
   const css_vars = assignInlineVars({
     [variables.contentMax]: LengthToCss(contentWidth),
-    [variables.bg]: resolved.background,
+    [variables.bg]: refs?.background ?? resolved.background,
     [variables.fg]: color === "transparent" ? vars.color.text.primary : resolved.foreground,
-    [variables.borderColor]: resolved.borderColor,
-    [variables.borderWidth]: resolved.borderWidth,
-    [variables.backdropFilter]: resolved.backdropFilter,
+    [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
+    [variables.borderWidth]: refs?.borderWidth ?? resolved.borderWidth,
+    [variables.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
     [variables.veil]: hasImage
       ? `color-mix(in srgb, ${resolved.background} ${String(Math.round(overlayOpacity * PERCENT))}%, transparent)`
       : "transparent",

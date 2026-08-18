@@ -13,7 +13,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { m } from "motion/react";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
 import { useSegment } from "../Segment.context.js";
@@ -104,10 +104,11 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
 
   const { theme } = useTheme();
   const resolved = ResolveVariant(segment.variant ?? "light", segment.color, theme);
+  const refs = VariantRefs(segment.variant ?? "light", segment.color, theme);
 
   const css_vars = assignInlineVars({
-    [variables.indicatorColor]: resolved.background,
-    [variables.indicatorFg]: resolved.foreground,
+    [variables.indicatorColor]: refs?.background ?? resolved.background,
+    [variables.indicatorFg]: refs?.foreground ?? resolved.foreground,
   });
 
   const wrapped = segment.overflowMode === "wrap";

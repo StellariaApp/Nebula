@@ -7,7 +7,7 @@ import { m, useReducedMotion, type MotionStyle } from "motion/react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { MotionOff, Spring } from "../../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 
@@ -59,6 +59,7 @@ export function CardSurface(props: CardProps): ReactElement {
 
   const resolved =
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, glass);
+  const refs = variant === undefined ? undefined : VariantRefs(variant, color, theme, undefined, glass);
 
   const class_name = cx(
     styles.card_base,
@@ -77,11 +78,11 @@ export function CardSurface(props: CardProps): ReactElement {
     resolved === null
       ? {}
       : assignInlineVars({
-          [variables.bg]: resolved.background,
-          [variables.fg]: resolved.foreground,
-          [variables.borderColor]: resolved.borderColor,
-          [variables.backdropFilter]: resolved.backdropFilter,
-          [variables.glow]: resolved.glow,
+          [variables.bg]: refs?.background ?? resolved.background,
+          [variables.fg]: refs?.foreground ?? resolved.foreground,
+          [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
+          [variables.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
+          [variables.glow]: refs?.glow ?? resolved.glow,
         });
 
   const root_style = { ...variant_vars, ...sprinkle_style } as MotionStyle;

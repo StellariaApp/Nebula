@@ -5,7 +5,7 @@ import { useMemo, useState, type ReactElement } from "react";
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ResolveVariant } from "@stellaria/nebula-themes/web";
+import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
@@ -64,6 +64,7 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
   const plain = code ?? "";
   const resolved =
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, glass);
+  const refs = variant === undefined ? undefined : VariantRefs(variant, color, theme, undefined, glass);
 
   const folded = expandable && !open;
   const ceiling = folded ? collapsedHeight : maxHeight;
@@ -73,10 +74,10 @@ export function CodeHighlight(props: CodeHighlightProps): ReactElement {
     ...(resolved === null
       ? {}
       : {
-          [code_highlight_vars.bg]: resolved.background,
-          [code_highlight_vars.fg]: resolved.foreground,
-          [code_highlight_vars.borderColor]: resolved.borderColor,
-          [code_highlight_vars.backdropFilter]: resolved.backdropFilter,
+          [code_highlight_vars.bg]: refs?.background ?? resolved.background,
+          [code_highlight_vars.fg]: refs?.foreground ?? resolved.foreground,
+          [code_highlight_vars.borderColor]: refs?.borderColor ?? resolved.borderColor,
+          [code_highlight_vars.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
         }),
   });
 

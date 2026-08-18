@@ -8,11 +8,11 @@ import { ResolveVariant } from "../resolve-variant.js";
 const theme = Themes.nebula.dark;
 
 describe("el cristal es una receta por clase de superficie (ADR-078)", () => {
-  it("un control usa la receta de control", () => {
+  it("sin pedir nivel manda el que declara el variantMap", () => {
     const resolved = ResolveVariant("glass", "primary", theme);
 
-    expect(resolved.backdropFilter).toBe(vars.glass.control.backdropFilter);
-    expect(resolved.background).toBe(vars.glass.control.background);
+    expect(resolved.backdropFilter).toBe(vars.glass.veil.backdropFilter);
+    expect(resolved.background).toBe(vars.glass.veil.background);
   });
 
   it("una superficie usa la de superficie, aunque la variante sea la misma", () => {
@@ -31,10 +31,13 @@ describe("el cristal es una receta por clase de superficie (ADR-078)", () => {
     expect(new Set(filters).size).toBe(3);
   });
 
-  it("la clase la decide el componente, no el variantMap", () => {
-    expect(theme.variantMap.glass.glass).toBe("control");
+  it("el componente puede pedir otra, y entonces gana la suya", () => {
+    // El nivel POR DEFECTO lo declara el tema: los tres accionables lo traian a mano y pisaban al
+    // variantMap, que existe justamente para que el tema decida como se pinta una variante. Lo que
+    // este test sigue probando es que pedir uno distinto sigue siendo posible.
+    expect(theme.variantMap.glass.glass).toBe("veil");
 
     const surface = ResolveVariant("glass", "primary", theme, undefined, "subtle");
-    expect(surface.backdropFilter).not.toBe(vars.glass.control.backdropFilter);
+    expect(surface.backdropFilter).not.toBe(vars.glass.veil.backdropFilter);
   });
 });
