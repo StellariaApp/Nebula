@@ -11,7 +11,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, roseta } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Surfaces",
@@ -183,7 +183,7 @@ export const Composition: Story = {
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Flex direction="column" gapy="md">
         {levels.slice(0, 4).map((step) => (
           <Paper

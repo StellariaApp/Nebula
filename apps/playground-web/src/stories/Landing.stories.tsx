@@ -25,7 +25,7 @@ import {
 } from "@stellaria/nebula-web";
 import { vars } from "@stellaria/nebula-themes/web";
 
-import { MATRIX_A11Y, ProductStage, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ProductStage, roseta, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Patterns/Landing",
@@ -379,7 +379,7 @@ export const Nebula: Story = {
 
 export const Rosette: Story = {
   render: (_args, context) => (
-    <ProductStage name="rosette" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="roseta" global={context.globals["theme"] as string | undefined}>
       <Page name="Rosette" />
     </ProductStage>
   ),
@@ -387,7 +387,7 @@ export const Rosette: Story = {
 
 export const Polaris: Story = {
   render: (_args, context) => (
-    <ProductStage name="polaris" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="vega" global={context.globals["theme"] as string | undefined}>
       <Page name="Polaris" />
     </ProductStage>
   ),
@@ -395,7 +395,7 @@ export const Polaris: Story = {
 
 export const Stellaria: Story = {
   render: (_args, context) => (
-    <ProductStage name="stellaria" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="rigel" global={context.globals["theme"] as string | undefined}>
       <Page name="Stellaria" />
     </ProductStage>
   ),
@@ -403,7 +403,7 @@ export const Stellaria: Story = {
 
 export const Lagrange: Story = {
   render: (_args, context) => (
-    <ProductStage name="lagrange" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="arcturus" global={context.globals["theme"] as string | undefined}>
       <Page name="Lagrange" />
     </ProductStage>
   ),
@@ -419,7 +419,7 @@ export const Aurora: Story = {
 
 export const Nova: Story = {
   render: (_args, context) => (
-    <ProductStage name="nova" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="helix" global={context.globals["theme"] as string | undefined}>
       <Page name="Nova" />
     </ProductStage>
   ),
@@ -427,7 +427,7 @@ export const Nova: Story = {
 
 export const Eclipse: Story = {
   render: (_args, context) => (
-    <ProductStage name="eclipse" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="antares" global={context.globals["theme"] as string | undefined}>
       <Page name="Eclipse" />
     </ProductStage>
   ),
@@ -435,7 +435,7 @@ export const Eclipse: Story = {
 
 export const Cosmos: Story = {
   render: (_args, context) => (
-    <ProductStage name="cosmos" global={context.globals["theme"] as string | undefined}>
+    <ProductStage name="titan" global={context.globals["theme"] as string | undefined}>
       <Page name="Cosmos" />
     </ProductStage>
   ),
@@ -449,7 +449,7 @@ export const ReducedMotion: Story = {
 export const AllThemes: Story = {
   parameters: { ...MATRIX_A11Y, layout: "padded" },
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Box display="flex" direction="column" gap="md">
         <Hero
           order={2}

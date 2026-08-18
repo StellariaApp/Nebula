@@ -15,7 +15,7 @@ import {
   Text,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, roseta, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta<typeof Header> = {
   title: "Layout/Header",
@@ -169,7 +169,7 @@ export const Standalone: Story = {
 export const AllThemes: Story = {
   parameters: { ...MATRIX_A11Y, layout: "padded" },
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Header title="Cartera" subtitle="118 expedientes" withBack rightSection={<Badge>4</Badge>} />
     </ThemeMatrix>
   ),

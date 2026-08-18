@@ -1,16 +1,20 @@
-import { palettes, type Scale11 } from "@stellaria/nebula-tokens";
+import { palettes, type MotionTier, type Scale11 } from "@stellaria/nebula-tokens";
 
 export type SeedName =
   | "nebula"
-  | "rosette"
-  | "stellaria"
-  | "lagrange"
-  | "polaris"
+  | "roseta"
+  | "rigel"
+  | "arcturus"
+  | "vega"
   | "aurora"
-  | "nova"
+  | "helix"
+  | "antares"
+  | "titan"
+  | "sun"
+  | "halley"
+  | "vela"
   | "eclipse"
-  | "cosmos"
-  | "sun";
+  | "corona";
 
 export interface ThemeSeed {
   name: SeedName;
@@ -24,6 +28,10 @@ export interface ThemeSeed {
   inkFloor?: number;
   /** Inclinacion del degradado de marca. Sin declararla, la de producto. */
   angle?: number;
+  /** Intensidad del motion. Sin declararla, la de la base. */
+  motion?: MotionTier;
+  /** Materiales de compositor —cristal, blur, ruido—. Sin declararlo, lo de la base (ADR-059). */
+  glass?: boolean;
 }
 
 export const THEMES_SEEDS = {
@@ -39,8 +47,8 @@ export const THEMES_SEEDS = {
     inkFloor: 2,
     angle: 135,
   },
-  rosette: {
-    name: "rosette",
+  roseta: {
+    name: "roseta",
     primary: palettes.rose,
     accent: palettes.pink,
     from: palettes.rose["500"],
@@ -50,8 +58,8 @@ export const THEMES_SEEDS = {
     lift: -12,
     inkFloor: 2,
   },
-  stellaria: {
-    name: "stellaria",
+  rigel: {
+    name: "rigel",
     primary: palettes.blue,
     accent: palettes.cyan,
     from: palettes.blue["500"],
@@ -61,8 +69,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  polaris: {
-    name: "polaris",
+  vega: {
+    name: "vega",
     primary: palettes.cyan,
     accent: palettes.slate,
     from: palettes.cyan["400"],
@@ -72,8 +80,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  lagrange: {
-    name: "lagrange",
+  arcturus: {
+    name: "arcturus",
     primary: palettes.orange,
     accent: palettes.rose,
     from: palettes.rose["500"],
@@ -94,8 +102,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 2,
   },
-  nova: {
-    name: "nova",
+  helix: {
+    name: "helix",
     primary: palettes.teal,
     accent: palettes.green,
     from: palettes.teal["500"],
@@ -105,8 +113,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 2,
   },
-  eclipse: {
-    name: "eclipse",
+  antares: {
+    name: "antares",
     primary: palettes.red,
     accent: palettes.gold,
     from: palettes.red["500"],
@@ -116,8 +124,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  cosmos: {
-    name: "cosmos",
+  titan: {
+    name: "titan",
     primary: palettes.brown,
     accent: palettes.orange,
     from: palettes.brown["500"],
@@ -137,6 +145,52 @@ export const THEMES_SEEDS = {
     wash: 0.05,
     lift: -6,
     inkFloor: 1,
+  },
+  halley: {
+    name: "halley",
+    primary: palettes.lime,
+    accent: palettes.green,
+    from: palettes.lime["500"],
+    to: palettes.green["400"],
+    tint: palettes.lime["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  vela: {
+    name: "vela",
+    primary: palettes.violet,
+    accent: palettes.grape,
+    from: palettes.violet["500"],
+    to: palettes.grape["400"],
+    tint: palettes.violet["800"],
+    wash: 0.05,
+    lift: -6,
+  },
+  eclipse: {
+    name: "eclipse",
+    primary: palettes.slate,
+    accent: palettes.blue,
+    from: palettes.slate["500"],
+    to: palettes.blue["400"],
+    tint: palettes.slate["800"],
+    wash: 0.05,
+    lift: -6,
+    inkFloor: 2,
+    // El unico que apaga los materiales y baja el motion. Es lo que motion.tier y glass.enabled
+    // existen para hacer, y ningun otro tema del paquete lo demuestra.
+    motion: "minimal",
+    glass: false,
+  },
+  corona: {
+    name: "corona",
+    primary: palettes.sand,
+    accent: palettes.gold,
+    from: palettes.sand["500"],
+    to: palettes.gold["400"],
+    tint: palettes.sand["800"],
+    wash: 0.05,
+    lift: -6,
+    inkFloor: 2,
   },
 } as const satisfies Record<SeedName, ThemeSeed>;
 

@@ -12,7 +12,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, roseta, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta<typeof Nav> = {
   title: "Navigation/Nav",
@@ -341,7 +341,7 @@ export const ReducedMotion: Story = {
 export const AllThemes: Story = {
   parameters: { ...MATRIX_A11Y, layout: "padded" },
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Nav size="sm" withBorder>
         <Nav.Logo href="#inicio" aria-label="Inicio">
           {MARK}

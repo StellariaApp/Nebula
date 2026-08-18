@@ -14,7 +14,7 @@ import ButtonStates from "@stellaria/nebula-demos/Button/States";
 import ButtonVariants from "@stellaria/nebula-demos/Button/Variants";
 import ButtonWithSections from "@stellaria/nebula-demos/Button/WithSections";
 
-import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, roseta } from "../fixtures/themes.js";
 
 const VARIANTS = [
   "filled",
@@ -92,7 +92,7 @@ export const ReducedMotion: Story = {
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,
   render: (args) => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Box display="flex" gap="sm" wrap="wrap">
         {VARIANTS.map((variant) => (
           <Button key={variant} {...args} variant={variant}>

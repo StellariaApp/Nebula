@@ -9,7 +9,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, rosette, ThemeMatrix } from "../fixtures/themes.js";
+import { MATRIX_A11Y, roseta, ThemeMatrix } from "../fixtures/themes.js";
 
 const meta: Meta<typeof Reveal> = {
   title: "Motion/Reveal",
@@ -167,7 +167,7 @@ export const Dark: Story = {
 export const AllThemes: Story = {
   parameters: { ...MATRIX_A11Y, layout: "padded" },
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Reveal>
         <Card p="md" withBorder r="md">
           <Text fz="body3">Bloque revelado</Text>

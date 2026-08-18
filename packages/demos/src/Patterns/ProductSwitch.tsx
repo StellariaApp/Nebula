@@ -65,7 +65,7 @@ function Surface(): ReactElement {
 }
 
 export default function ProductSwitch(): ReactElement {
-  const [product, set_product] = useState<SeedName>("rosette");
+  const [product, set_product] = useState<SeedName>("roseta");
   const [scheme, set_scheme] = useState<"dark" | "light">("dark");
   const theme = ThemeScheme(product, scheme);
 

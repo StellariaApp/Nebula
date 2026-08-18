@@ -22,47 +22,46 @@ function Switcher(): ReactElement {
   const choice = ChoiceFromTheme(theme);
 
   return (
-    <Flex direction="column" gap="xs" align="flex-start">
-      <Flex maw="100%" gap="sm" align="center" wrap="wrap">
-        <Segment
-          overflowMode="wrap"
-          value={choice.theme}
-          size="sm"
-          onChange={(value) => {
-            setTheme(ResolveChoice({ ...choice, theme: value as ThemeName }));
-          }}
-        >
-          <Segment.Control
-            aria-label="Product theme"
-            data={THEME_NAMES.map((entry) => ({
-              value: entry,
-              label: (
-                <Flex align="center" gap={5}>
-                  <ColorSwatch color={Brand(entry)} size={12} withShadow={false} />
-                  <Text tt="capitalize" inherit>
-                    {entry}
-                  </Text>
-                </Flex>
-              ),
-            }))}
-          />
-        </Segment>
-        <Segment
-          value={choice.scheme}
-          size="sm"
-          onChange={(value) => {
-            setTheme(ResolveChoice({ ...choice, scheme: value === "light" ? "light" : "dark" }));
-          }}
-        >
-          <Segment.Control
-            aria-label="Colour scheme"
-            data={[
-              { value: "dark", label: "Dark" },
-              { value: "light", label: "Light" },
-            ]}
-          />
-        </Segment>
-      </Flex>
+    <Flex direction="column" gap="sm" align="flex-start">
+      <Segment
+        value={choice.scheme}
+        size="sm"
+        r="xxs"
+        onChange={(value) => {
+          setTheme(ResolveChoice({ ...choice, scheme: value === "light" ? "light" : "dark" }));
+        }}
+      >
+        <Segment.Control
+          aria-label="Colour scheme"
+          data={[
+            { value: "dark", label: "Dark" },
+            { value: "light", label: "Light" },
+          ]}
+        />
+      </Segment>
+      <Segment
+        overflowMode="wrap"
+        value={choice.theme}
+        size="sm"
+        onChange={(value) => {
+          setTheme(ResolveChoice({ ...choice, theme: value as ThemeName }));
+        }}
+      >
+        <Segment.Control
+          aria-label="Product theme"
+          data={THEME_NAMES.map((entry) => ({
+            value: entry,
+            label: (
+              <Flex align="center" gap={5}>
+                <ColorSwatch color={Brand(entry)} size={12} withShadow={false} />
+                <Text tt="capitalize" inherit>
+                  {entry}
+                </Text>
+              </Flex>
+            ),
+          }))}
+        />
+      </Segment>
     </Flex>
   );
 }

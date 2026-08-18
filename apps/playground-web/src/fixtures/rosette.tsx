@@ -676,7 +676,7 @@ export function Shell(props: {
 
 export function Escena(props: { children: ReactNode }): ReactElement {
   return (
-    <ProductStage name="rosette" global="dark">
+    <ProductStage name="roseta" global="dark">
       {props.children}
     </ProductStage>
   );

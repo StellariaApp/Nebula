@@ -16,7 +16,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, roseta } from "../fixtures/themes.js";
 
 const meta: Meta = {
   title: "Foundations/Visual QA/Forms",
@@ -128,7 +128,7 @@ export const Composition: Story = { ...Groups };
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Flex direction="column" gapy="md">
         <TextInput label="Correo" defaultValue="ana@stellaria.app" />
         <TextInput label="RFC" error="Formato inválido." defaultValue="STE24" />

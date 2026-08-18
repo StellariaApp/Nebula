@@ -15,7 +15,7 @@ import {
   Title,
 } from "@stellaria/nebula-web";
 
-import { MATRIX_A11Y, ThemeMatrix, rosette } from "../fixtures/themes.js";
+import { MATRIX_A11Y, ThemeMatrix, roseta } from "../fixtures/themes.js";
 
 const { Icon } = CreateIcons({ ...CommonPack });
 
@@ -144,7 +144,7 @@ export const Composition: Story = {
 export const AllThemes: Story = {
   parameters: MATRIX_A11Y,
   render: () => (
-    <ThemeMatrix extra={[{ theme: rosette, label: "rosette (producto)" }]}>
+    <ThemeMatrix extra={[{ theme: roseta, label: "roseta" }]}>
       <Flex direction="column" gapy="sm" align="flex-start">
         <Button>Confirmar pago</Button>
         <Button variant="outline">Ver detalle</Button>

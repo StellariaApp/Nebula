@@ -49,6 +49,7 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
     ...base,
     meta: { name: seed.name, scheme, version: "0.1.0" },
     ink: { floor: seed.inkFloor ?? PRODUCT_INK_FLOOR },
+    motion: { ...base.motion, tier: seed.motion ?? base.motion.tier },
     colors: {
       ...base.colors,
       primary: dark ? FlipScale(seed.primary) : seed.primary,
@@ -58,6 +59,7 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
     },
     effects: {
       ...base.effects,
+      glass: { ...base.effects.glass, enabled: seed.glass ?? base.effects.glass.enabled },
       gradients: {
         ...base.effects.gradients,
         brand: {

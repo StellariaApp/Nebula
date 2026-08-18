@@ -28,85 +28,117 @@
       "types": "./dist/themes/nebula/index.d.ts",
       "default": "./dist/themes/nebula/index.js"
     },
-    "./rosette": {
-      "types": "./dist/themes/rosette/index.d.ts",
-      "default": "./dist/themes/rosette/index.js"
+    "./nebula/web": {
+      "types": "./dist/themes/nebula/web.d.ts",
+      "default": "./dist/themes/nebula/web.js"
     },
-    "./stellaria": {
-      "types": "./dist/themes/stellaria/index.d.ts",
-      "default": "./dist/themes/stellaria/index.js"
+    "./roseta": {
+      "types": "./dist/themes/roseta/index.d.ts",
+      "default": "./dist/themes/roseta/index.js"
     },
-    "./lagrange": {
-      "types": "./dist/themes/lagrange/index.d.ts",
-      "default": "./dist/themes/lagrange/index.js"
+    "./roseta/web": {
+      "types": "./dist/themes/roseta/web.d.ts",
+      "default": "./dist/themes/roseta/web.js"
     },
-    "./polaris": {
-      "types": "./dist/themes/polaris/index.d.ts",
-      "default": "./dist/themes/polaris/index.js"
+    "./rigel": {
+      "types": "./dist/themes/rigel/index.d.ts",
+      "default": "./dist/themes/rigel/index.js"
+    },
+    "./rigel/web": {
+      "types": "./dist/themes/rigel/web.d.ts",
+      "default": "./dist/themes/rigel/web.js"
+    },
+    "./arcturus": {
+      "types": "./dist/themes/arcturus/index.d.ts",
+      "default": "./dist/themes/arcturus/index.js"
+    },
+    "./arcturus/web": {
+      "types": "./dist/themes/arcturus/web.d.ts",
+      "default": "./dist/themes/arcturus/web.js"
+    },
+    "./vega": {
+      "types": "./dist/themes/vega/index.d.ts",
+      "default": "./dist/themes/vega/index.js"
+    },
+    "./vega/web": {
+      "types": "./dist/themes/vega/web.d.ts",
+      "default": "./dist/themes/vega/web.js"
     },
     "./aurora": {
       "types": "./dist/themes/aurora/index.d.ts",
       "default": "./dist/themes/aurora/index.js"
     },
-    "./nova": {
-      "types": "./dist/themes/nova/index.d.ts",
-      "default": "./dist/themes/nova/index.js"
+    "./aurora/web": {
+      "types": "./dist/themes/aurora/web.d.ts",
+      "default": "./dist/themes/aurora/web.js"
     },
-    "./eclipse": {
-      "types": "./dist/themes/eclipse/index.d.ts",
-      "default": "./dist/themes/eclipse/index.js"
+    "./helix": {
+      "types": "./dist/themes/helix/index.d.ts",
+      "default": "./dist/themes/helix/index.js"
     },
-    "./cosmos": {
-      "types": "./dist/themes/cosmos/index.d.ts",
-      "default": "./dist/themes/cosmos/index.js"
+    "./helix/web": {
+      "types": "./dist/themes/helix/web.d.ts",
+      "default": "./dist/themes/helix/web.js"
+    },
+    "./antares": {
+      "types": "./dist/themes/antares/index.d.ts",
+      "default": "./dist/themes/antares/index.js"
+    },
+    "./antares/web": {
+      "types": "./dist/themes/antares/web.d.ts",
+      "default": "./dist/themes/antares/web.js"
+    },
+    "./titan": {
+      "types": "./dist/themes/titan/index.d.ts",
+      "default": "./dist/themes/titan/index.js"
+    },
+    "./titan/web": {
+      "types": "./dist/themes/titan/web.d.ts",
+      "default": "./dist/themes/titan/web.js"
     },
     "./sun": {
       "types": "./dist/themes/sun/index.d.ts",
       "default": "./dist/themes/sun/index.js"
     },
-    "./all": {
-      "types": "./dist/themes/registry.d.ts",
-      "default": "./dist/themes/registry.js"
+    "./sun/web": {
+      "types": "./dist/themes/sun/web.d.ts",
+      "default": "./dist/themes/sun/web.js"
     },
-    "./nebula/web": {
-      "types": "./dist/themes/nebula/web.d.ts",
-      "default": "./dist/themes/nebula/web.js"
+    "./halley": {
+      "types": "./dist/themes/halley/index.d.ts",
+      "default": "./dist/themes/halley/index.js"
     },
-    "./rosette/web": {
-      "types": "./dist/themes/rosette/web.d.ts",
-      "default": "./dist/themes/rosette/web.js"
+    "./halley/web": {
+      "types": "./dist/themes/halley/web.d.ts",
+      "default": "./dist/themes/halley/web.js"
     },
-    "./stellaria/web": {
-      "types": "./dist/themes/stellaria/web.d.ts",
-      "default": "./dist/themes/stellaria/web.js"
+    "./vela": {
+      "types": "./dist/themes/vela/index.d.ts",
+      "default": "./dist/themes/vela/index.js"
     },
-    "./lagrange/web": {
-      "types": "./dist/themes/lagrange/web.d.ts",
-      "default": "./dist/themes/lagrange/web.js"
+    "./vela/web": {
+      "types": "./dist/themes/vela/web.d.ts",
+      "default": "./dist/themes/vela/web.js"
     },
-    "./polaris/web": {
-      "types": "./dist/themes/polaris/web.d.ts",
-      "default": "./dist/themes/polaris/web.js"
-    },
-    "./aurora/web": {
-      "types": "./dist/themes/aurora/web.d.ts",
-      "default": "./dist/themes/aurora/web.js"
-    },
-    "./nova/web": {
-      "types": "./dist/themes/nova/web.d.ts",
-      "default": "./dist/themes/nova/web.js"
+    "./eclipse": {
+      "types": "./dist/themes/eclipse/index.d.ts",
+      "default": "./dist/themes/eclipse/index.js"
     },
     "./eclipse/web": {
       "types": "./dist/themes/eclipse/web.d.ts",
       "default": "./dist/themes/eclipse/web.js"
     },
-    "./cosmos/web": {
-      "types": "./dist/themes/cosmos/web.d.ts",
-      "default": "./dist/themes/cosmos/web.js"
+    "./corona": {
+      "types": "./dist/themes/corona/index.d.ts",
+      "default": "./dist/themes/corona/index.js"
     },
-    "./sun/web": {
-      "types": "./dist/themes/sun/web.d.ts",
-      "default": "./dist/themes/sun/web.js"
+    "./corona/web": {
+      "types": "./dist/themes/corona/web.d.ts",
+      "default": "./dist/themes/corona/web.js"
+    },
+    "./all": {
+      "types": "./dist/themes/registry.d.ts",
+      "default": "./dist/themes/registry.js"
     },
     "./all/web": {
       "types": "./dist/themes/all-web.d.ts",
