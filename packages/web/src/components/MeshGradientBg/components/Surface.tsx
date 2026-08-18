@@ -7,8 +7,8 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../../styles/noise.css.js";
 import * as noise_vars from "../../../styles/noise.vars.css.js";
-import { ResolveGradientToken } from "@stellaria/nebula-themes/web";
-import { MeshBase, MeshCss } from "../../../utils/effects.js";
+import { GradientRefsOf, ResolveGradientToken } from "@stellaria/nebula-themes/web";
+import { MeshBase, MeshBaseFromRef, MeshCss, MeshCssFromRefs } from "../../../utils/effects.js";
 import { cx } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 
@@ -38,11 +38,24 @@ export function MeshGradientBgSurface(props: MeshGradientBgOwnProps): ReactEleme
 
   const { theme } = useTheme();
   const token = ResolveGradientToken(gradient, theme);
+  // Dos paradas es lo que ciclar necesita para alternar edge y tip (ADR-171). Con otro numero, la
+  // malla se construye aqui, como todas las demas escotillas.
+  const refs = token?.stops.length === 2 ? GradientRefsOf(gradient) : undefined;
   const grain_opacity = theme.effects.glass.enabled ? theme.effects.glass.noiseOpacity : 0;
 
   const css_vars = assignInlineVars({
-    [variables.image]: token === undefined ? "none" : MeshCss(token),
-    [variables.base]: token === undefined ? "transparent" : MeshBase(token),
+    [variables.image]:
+      refs !== undefined
+        ? MeshCssFromRefs(refs.edge, refs.tip)
+        : token === undefined
+          ? "none"
+          : MeshCss(token),
+    [variables.base]:
+      refs !== undefined
+        ? MeshBaseFromRef(refs.tip)
+        : token === undefined
+          ? "transparent"
+          : MeshBase(token),
     [variables.scrimAlpha]: String(scrim),
     [noise_vars.opacity]: String(grain_opacity),
   });

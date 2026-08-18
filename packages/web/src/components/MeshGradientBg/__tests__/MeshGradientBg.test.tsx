@@ -95,10 +95,10 @@ describe("MeshGradientBg", () => {
     );
     seen.add(screen.getByTestId("mg").getAttribute("style") ?? "");
     view.unmount();
-    // Este SI cambia con el tema, y es correcto: MeshGradientBg compone cinco radiales en anclas
-    // fijas a partir del token, y publicar esa forma seria que el tema aprendiera la composicion de
-    // un componente concreto (ADR-170 §3). Es el unico que queda resolviendo en JavaScript.
-    expect(seen.size).toBe(2);
+    // Desde ADR-171 la malla se compone con las referencias que el tema publica —edge y tip—, asi
+    // que el style es el MISMO en todos los temas y quien lo resuelve es la clase. La composicion
+    // de los cinco radiales sigue siendo del componente; del tema solo vienen sus dos colores.
+    expect(seen.size).toBe(1);
   });
 
   it("es determinista: el mismo tema produce la misma malla", () => {

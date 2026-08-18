@@ -37,3 +37,24 @@ export function MeshBase(token: GradientToken): string {
   const last = token.stops.at(-1);
   return last === undefined ? "transparent" : WithAlpha(last.color, 24);
 }
+
+/**
+ * La misma malla, pero con los dos colores que el tema publica en vez de los hex del token
+ * (ADR-171).
+ *
+ * `MeshCss` cicla por las paradas, y los 60 degradados del paquete tienen exactamente dos, asi que
+ * ciclar es alternar entre la primera y la ultima — `edge` y `tip` de ADR-170. Con eso la malla la
+ * resuelve el navegador contra la clase activa y deja de repintarse al adoptar el tema.
+ *
+ * La composicion sigue siendo del componente: del tema solo vienen sus dos colores.
+ */
+export function MeshCssFromRefs(edge: string, tip: string): string {
+  return MESH_LAYERS.map((layer, index) => {
+    const tint = WithAlpha(index % 2 === 0 ? edge : tip, layer.alpha);
+    return `radial-gradient(circle at ${String(layer.x)}% ${String(layer.y)}%, ${tint} 0%, transparent ${String(layer.reach)}%)`;
+  }).join(", ");
+}
+
+export function MeshBaseFromRef(tip: string): string {
+  return WithAlpha(tip, 24);
+}
