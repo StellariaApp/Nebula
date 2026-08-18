@@ -1,4 +1,4 @@
-import type { ColorScheme, MotionTier, NebulaTheme } from "@stellaria/nebula-tokens";
+import type { MotionTier, NebulaTheme, ThemeChoice as CoreChoice } from "@stellaria/nebula-tokens";
 import {
   BRAND_STOPS,
   SEED_NAMES,
@@ -89,7 +89,7 @@ export function ChoiceFromTheme(theme: NebulaTheme): ThemeChoice {
   };
 }
 
-export function ResolveChoice(choice: ThemeChoice): ColorScheme | NebulaTheme {
+export function ResolveChoice(choice: ThemeChoice): CoreChoice | NebulaTheme {
   const base = ThemeScheme(choice.theme, choice.scheme);
   const pristine = ChoiceFromTheme(base);
   const untouched =
@@ -99,7 +99,10 @@ export function ResolveChoice(choice: ThemeChoice): ColorScheme | NebulaTheme {
     choice.density === pristine.density &&
     choice.face === pristine.face;
 
-  if (untouched) return choice.theme === "nebula" ? choice.scheme : base;
+  // Sin ejes tocados, el tema es uno REGISTRADO: se devuelve por sus dos nombres para que el
+  // provider lo aplique como clase (ADR-163). Devolver el objeto lo mandaba a vars inline, que es
+  // lo que borraba la clase que el script acababa de poner y producia el parpadeo.
+  if (untouched) return { theme: choice.theme, scheme: choice.scheme };
 
   return {
     ...base,

@@ -1,7 +1,12 @@
 import type { ColorScheme } from "@stellaria/nebula-tokens";
 import type { ReactElement } from "react";
 
-import { DEFAULT_CLASSES, DEFAULT_STORAGE_KEYS, DEFAULT_THEME, type ThemeClassMap } from "@stellaria/nebula-themes/web";
+import {
+  DEFAULT_CLASSES,
+  DEFAULT_STORAGE_KEYS,
+  DEFAULT_THEME,
+  type ThemeClassMap,
+} from "@stellaria/nebula-themes/web";
 
 export interface ThemeScriptProps {
   /** The identity to fall back to when nothing is stored, or what is stored is not recognised. */

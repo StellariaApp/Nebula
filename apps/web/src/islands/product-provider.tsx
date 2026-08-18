@@ -1,8 +1,8 @@
 "use client";
 
-import { NebulaProvider } from "@stellaria/nebula-web";
-import type { ThemeClassMap, ThemeVariants } from "@stellaria/nebula-themes/web";
 import { THEME_NAMES, ThemeScheme } from "@stellaria/nebula-themes";
+import type { ThemeClassMap, ThemeVariants } from "@stellaria/nebula-themes/web";
+import { NebulaProvider } from "@stellaria/nebula-web";
 import type { ReactNode } from "react";
 
 /**
@@ -26,14 +26,14 @@ function Registry(classes: ThemeClassMap): Record<string, ThemeVariants> {
 }
 
 export function ProductProvider({
-  classes,
+  themesClasses,
   children,
 }: {
-  classes: ThemeClassMap;
+  themesClasses: ThemeClassMap;
   children: ReactNode;
 }) {
   return (
-    <NebulaProvider themes={Registry(classes)} defaultTheme="dark" applyTheme="root">
+    <NebulaProvider themes={Registry(themesClasses)} defaultTheme="dark" applyTheme="root">
       {children}
     </NebulaProvider>
   );

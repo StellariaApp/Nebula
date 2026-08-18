@@ -64,7 +64,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           fontFamily: vars.font.family.sans,
         }}
       >
-        <ProductProvider classes={CLASSES}>{children}</ProductProvider>
+        <ProductProvider themesClasses={CLASSES}>{children}</ProductProvider>
       </body>
     </html>
   );
