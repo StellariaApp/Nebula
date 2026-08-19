@@ -5,6 +5,9 @@
 - **Toca**: `docs/02` §4, `packages/web/src/theme/layers.md` (el orden vive junto al código, no en `docs/03`), `packages/web/styles.css`.
 - **Continúa**: [ADR-164](ADR-164-compile-theme-materializa-en-caliente.md) y
   [ADR-168](ADR-168-el-contrato-css-se-muda-con-los-temas.md).
+- **Revisada por** [ADR-175](ADR-175-la-base-del-conjunto-es-un-tema-entero.md): la base ya no es la
+  intersección de los temas sino el primero entero. El reparto sigue siendo el de aquí; lo que cambia
+  es dónde se corta.
 
 ## Contexto
 
