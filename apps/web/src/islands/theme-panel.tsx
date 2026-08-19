@@ -16,6 +16,8 @@ import { ActionIcon, Affix, Box, Popover, ColorSwatch, Divider, GlassSurface, Ra
 import type { MotionTier } from "@stellaria/nebula-tokens";
 import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 
+import { EnsureThemeRest } from "../lib/theme-rest";
+
 const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
 
 const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
@@ -128,6 +130,12 @@ export function ThemePanel({
   const [open, set_open] = useState(false);
   const panel_id = useId();
   const shell = useRef<HTMLDivElement | null>(null);
+
+  // Las pastillas de los quince temas que el HTML no incrusta necesitan su CSS, y este es el primer
+  // momento en que se sabe que hacen falta (ADR-175).
+  useEffect(() => {
+    if (open) EnsureThemeRest();
+  }, [open]);
 
   useEffect(() => {
     if (!open || anchored) return;

@@ -142,7 +142,7 @@ export const THEMES_SEEDS = {
     primary: palettes.gold,
     accent: palettes.yellow,
     from: palettes.gold["500"],
-    to: palettes.yellow["500"],
+    to: palettes.gold["400"],
     tint: palettes.gold["600"],
     wash: 0.05,
     lift: -6,

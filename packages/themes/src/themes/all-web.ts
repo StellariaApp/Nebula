@@ -2,12 +2,12 @@ import { CompileThemes } from "../web/compile-theme.js";
 import { Themes } from "./registry.js";
 
 /**
- * Los catorce temas materializados: sus clases y su CSS (ADR-168, ADR-169).
+ * Los dieciséis temas materializados: sus clases y su CSS (ADR-168, ADR-169, ADR-175).
  *
- * **Una sola llamada, no catorce.** Cada `CompileThemes` emite su propia regla `:root` con lo que
- * comparten los temas que recibe, asi que concatenar catorce compilaciones sueltas deja catorce
- * `:root` y gana el ultimo: todos los temas acaban pintando el degradado del que cerraba la lista.
- * Con una sola llamada la base es lo que comparten LOS CATORCE y cada clase lleva lo suyo.
+ * **Una sola llamada, no dieciséis.** Cada `CompileThemes` emite su propia regla `:root`, así que
+ * concatenar dieciséis compilaciones sueltas deja dieciséis `:root` y gana el último: todos los temas
+ * acaban pintando el degradado del que cerraba la lista. Con una sola llamada la base es una y cada
+ * clase lleva lo suyo.
  *
  * Todo va dentro de `@layer nebula.theme`, la capa mas baja: un tema define valores por defecto y
  * cualquier cosa mas especifica —empezando por el catalogo— debe poder pisarlos.
@@ -20,3 +20,14 @@ const COMPILED = CompileThemes(Themes);
 export const CLASSES = COMPILED.classes;
 
 export const CSS = COMPILED.css;
+
+/**
+ * La base, y la rebanada de cada tema.
+ *
+ * `BASE` lleva `nebula` entero, así que ya es un tema completo por sí sola: quien incruste
+ * `BASE + SLICES[x]` pinta `x` bien y cualquier otro tema degrada a `nebula` en vez de quedarse sin
+ * color. Eso es lo que permite mandar uno en el HTML y traer el resto cuando hagan falta.
+ */
+export const BASE = COMPILED.base;
+
+export const SLICES = COMPILED.slices;

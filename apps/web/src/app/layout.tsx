@@ -6,12 +6,13 @@ import "@fontsource-variable/geist-mono";
 
 import "@stellaria/nebula-web/styles.css";
 
-import { CLASSES, CSS } from "@stellaria/nebula-themes/all/web";
-import { vars } from "@stellaria/nebula-themes/web";
+import { BASE, CLASSES, SLICES } from "@stellaria/nebula-themes/all/web";
+import { DEFAULT_THEME, vars } from "@stellaria/nebula-themes/web";
 import { ThemeScript } from "@stellaria/nebula-web";
 
 import { ProductProvider } from "../islands/product-provider";
 import { CurrentLang } from "../lib/lang";
+import { THEME_REST_SCRIPT } from "../lib/theme-rest";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = {
@@ -53,7 +54,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        <ThemeScript defaultScheme="dark" themesClasses={CLASSES} themesCSS={CSS} />
+        <ThemeScript
+          defaultScheme="dark"
+          themesClasses={CLASSES}
+          themesCSS={BASE + (SLICES[DEFAULT_THEME] ?? "")}
+        />
+        <script dangerouslySetInnerHTML={{ __html: THEME_REST_SCRIPT }} />
       </head>
       <body
         style={{

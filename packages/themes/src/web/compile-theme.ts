@@ -48,9 +48,18 @@ export function CompileTheme(theme: NebulaTheme): CompiledTheme {
 /** La capa donde viven las reglas de tema (ADR-169). La declara `packages/web/styles.css`. */
 export const THEME_LAYER = "nebula.theme";
 
+function Layer(rules: string): string {
+  return `@layer ${THEME_LAYER}{${rules}}`;
+}
+
 export interface CompiledSet {
   classes: ThemeClassMap;
+  /** Todo junto: la base y los dieciseis. Es lo que se incrusta cuando no se reparte. */
   css: string;
+  /** Solo la regla de `:root`. Sin ella ningun tema esta completo. */
+  base: string;
+  /** La regla de cada tema por separado, con sus dos esquemas. Sirve para incrustar solo uno. */
+  slices: Record<string, string>;
 }
 
 function Declarations(theme: NebulaTheme): Record<string, string> {
@@ -69,12 +78,15 @@ function Body(entries: readonly (readonly [string, string])[]): string {
  * cambian los colores. Emitir cada tema completo repite ese 67% una vez por tema, y eso es lo que
  * el navegador acaba parseando antes de pintar.
  *
- * Lo común va a una regla en `:root` y cada clase lleva sólo lo suyo, así que montar un tema sigue
- * siendo anadir UNA clase.
+ * **La base es el PRIMER tema del conjunto, entero** —no la interseccion de los treinta y dos— y
+ * cada clase lleva solo aquello en lo que difiere de el. Eso compra dos cosas a la vez: la diferencia
+ * de un tema contra uno concreto es mas pequena que contra la interseccion de todos, y sobre todo
+ * `:root` queda COMPLETO. Un tema al que le falte su regla degrada al primero en vez de quedarse sin
+ * color, que es lo que hace posible incrustar uno solo y traer el resto despues (ver `slices`).
  *
- * **La base se calcula sobre el conjunto que se le pase.** Dos temas comparten mas que diez, asi que
- * el CSS de un conjunto NO es intercambiable con el de otro: cada uno es coherente consigo mismo.
- * Para un tema suelto y autonomo esta `CompileTheme`.
+ * **La base se calcula sobre el conjunto que se le pase.** El CSS de un conjunto NO es
+ * intercambiable con el de otro: cada uno es coherente consigo mismo. Para un tema suelto y autonomo
+ * esta `CompileTheme`.
  */
 export function CompileThemes(themes: Record<string, ThemeSchemes>): CompiledSet {
   const flat: { name: string; scheme: ColorScheme; declarations: Record<string, string> }[] = [];
@@ -83,30 +95,31 @@ export function CompileThemes(themes: Record<string, ThemeSchemes>): CompiledSet
       flat.push({ name, scheme, declarations: Declarations(schemes[scheme]) });
     }
   }
-  if (flat.length === 0) return { classes: {}, css: "" };
+  if (flat.length === 0) return { classes: {}, css: "", base: "", slices: {} };
 
   const first = flat[0] as (typeof flat)[number];
   const names = Object.keys(first.declarations);
-  const shared = names.filter((k) =>
-    flat.every((entry) => entry.declarations[k] === first.declarations[k]),
-  );
-  const shared_set = new Set(shared);
 
-  const rules: string[] = [
-    `:root{${Body(shared.map((k) => [k, first.declarations[k] as string] as const))}}`,
-  ];
+  const base = Layer(
+    `:root{${Body(names.map((k) => [k, first.declarations[k] as string] as const))}}`,
+  );
   const classes: ThemeClassMap = {};
+  const rules: Record<string, string[]> = {};
 
   for (const entry of flat) {
     const own = names
-      .filter((k) => !shared_set.has(k))
+      .filter((k) => entry.declarations[k] !== first.declarations[k])
       .map((k) => [k, entry.declarations[k] as string] as const);
     const class_name = `nebula-t-${Hash(`${entry.name}:${entry.scheme}:${Body(own)}`)}`;
-    rules.push(`.${class_name}{${Body(own)}}`);
+    (rules[entry.name] ??= []).push(`.${class_name}{${Body(own)}}`);
     const pair = classes[entry.name] ?? ({} as Record<ColorScheme, string>);
     pair[entry.scheme] = class_name;
     classes[entry.name] = pair;
   }
 
-  return { classes, css: `@layer ${THEME_LAYER}{${rules.join("")}}` };
+  const slices = Object.fromEntries(
+    Object.entries(rules).map(([name, own]) => [name, Layer(own.join(""))]),
+  );
+
+  return { classes, css: base + Object.values(slices).join(""), base, slices };
 }
