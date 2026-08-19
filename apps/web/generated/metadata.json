@@ -85,7 +85,7 @@
     },
     {
       "name": "Affix",
-      "budget": "20.25 kB",
+      "budget": "20.5 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -325,7 +325,7 @@
     },
     {
       "name": "ButtonGroup",
-      "budget": "20 kB",
+      "budget": "20.25 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -874,7 +874,7 @@
     },
     {
       "name": "Flex",
-      "budget": "19.75 kB",
+      "budget": "20 kB",
       "boundary": "server",
       "themeKeys": []
     },
@@ -1536,7 +1536,7 @@
     },
     {
       "name": "PermissionGate",
-      "budget": "20.25 kB",
+      "budget": "20.5 kB",
       "boundary": "client",
       "themeKeys": []
     },
@@ -1723,7 +1723,7 @@
     {
       "name": "Section",
       "budget": "50.5 kB",
-      "boundary": "client",
+      "boundary": "server",
       "themeKeys": [
         "color.border",
         "color.text",

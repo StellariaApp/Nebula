@@ -38,7 +38,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.25 kB",
+      "budget": "20.5 kB",
       "notes": false,
       "contract": true
     },
@@ -229,7 +229,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20 kB",
+      "budget": "20.25 kB",
       "notes": false,
       "contract": true
     },
@@ -675,7 +675,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "19.75 kB",
+      "budget": "20 kB",
       "notes": false,
       "contract": true
     },
@@ -1248,7 +1248,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "20.25 kB",
+      "budget": "20.5 kB",
       "notes": true,
       "contract": true
     },
@@ -1432,7 +1432,7 @@
         "Section.Heading",
         "Section.Title"
       ],
-      "boundary": "client",
+      "boundary": "server",
       "budget": "50.5 kB",
       "notes": true,
       "contract": true

@@ -173,7 +173,7 @@
           "name": "glass",
           "type": "GlassLevel",
           "required": false,
-          "default": "\"veil\"",
+          "default": null,
           "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
@@ -1796,7 +1796,7 @@
           "name": "glass",
           "type": "GlassLevel",
           "required": false,
-          "default": "\"veil\"",
+          "default": null,
           "doc": "Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are\nnot errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and\na `color` that is not one of the theme's scales — a hex or a role path never takes glass.",
           "slot": false
         },
@@ -21870,7 +21870,7 @@
           "name": "glass",
           "type": "GlassLevel",
           "required": false,
-          "default": "\"veil\"",
+          "default": null,
           "doc": "Clase de cristal de la variante `glass`. Por defecto `veil`, la de los accionables (ADR-136).",
           "slot": false
         },
@@ -24219,6 +24219,14 @@
               "required": false,
               "default": null,
               "doc": null,
+              "slot": false
+            },
+            {
+              "name": "cols",
+              "type": "SimpleGridCols",
+              "required": false,
+              "default": null,
+              "doc": "Reparte los tramos en rejilla en vez de en fila (ADR-173).\n\nMismo nombre, mismo tipo y mismo comportamiento que en `SimpleGrid`: un numero, o uno por\nbreakpoint. Con muchos tramos —una paleta de temas, por ejemplo— una fila que envuelve deja\nlas filas descuadradas y una rejilla no.",
               "slot": false
             },
             {
