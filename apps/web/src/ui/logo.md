@@ -1,19 +1,31 @@
-# `logo` — por qué el logotipo se tiñe con vars y no con el degradado del tema
+# `logo` — por qué el logotipo se tiñe con vars y no con JavaScript
 
 El logotipo se repinta al cambiar de producto, como el resto de la página. Lo hace **solo con CSS
-vars**, sin `useTheme()` y sin `"use client"`, y eso condiciona de dónde salen sus colores.
+vars**, sin `useTheme()` y sin `"use client"`, y eso condiciona de dónde salen sus colores: se monta
+en `site-footer` y en `surfaces`, que son componentes de servidor.
 
-## Por qué no lee `effects.gradients.brand`
+## De dónde sale el eje
 
-Sería lo obvio —es el degradado que el tema declara como su marca— pero `docs/02` §4 deja los
-gradientes fuera de la proyección CSS: son data no-CSS que se lee del objeto `theme` por contexto.
-Leerlos obligaría a `useTheme()`, y el logo se monta en `site-footer` y `surfaces`, que son
-componentes de servidor. Volverlos cliente por el logotipo es caro y trae parpadeo en la primera
-pintura.
+De `gradient.brand.edge → gradient.brand.tip`: **las dos paradas que el tema publica**, la primera y
+la última de su degradado de marca.
 
-Así que el eje sale de `primary.500 → accent.500`, que **sí** son vars. En los temas oficiales es
-exactamente el mismo par que `gradients.brand` (indigo 500 → violet 500), y en un producto sigue su
-identidad de color aunque no sean los mismos peldaños que su degradado declarado.
+Esto es nuevo. Hasta [ADR-170](../../../../docs/adr/ADR-170-el-tema-publica-sus-degradados.md) los
+degradados eran data no-CSS que había que leer del objeto `theme` por contexto, así que usarlos
+habría obligado a `useTheme()` y a volver cliente el pie de página entero. Mientras duró esa
+restricción el eje se reconstruía con `primary.500 → accent.500`, que sí eran vars.
+
+**Reconstruirlo no era equivalente, y la diferencia se midió.** De los dieciséis temas, **quince
+salían mal**:
+
+| tema | lo que pintaba | lo que declara |
+| ---- | -------------- | -------------- |
+| `nebula` | indigo 500 → violet 500 | igual — de ahí que no se notara |
+| `apolo` | orange 500 → rose 500 | rose 500 → orange 400 — **invertido** |
+| `halo` | cyan 500 → slate 500 | cyan 400 → slate 300 |
+| `eclipse` | red 500 → rose 500 | red 600 → rose 500 |
+
+El caso de `apolo` es el que enseña el problema: su primario es el naranja pero su degradado **sale**
+del rosa, así que el logotipo pintaba el eje al revés que cualquier botón de la misma página.
 
 ## La tinta de las estrellas
 

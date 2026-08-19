@@ -1,8 +1,18 @@
 import { vars } from "@stellaria/nebula-themes/web";
 import type { ReactElement } from "react";
 
-const BRAND_FROM = vars.color.primary["500"];
-const BRAND_TO = vars.color.accent["500"];
+/**
+ * Las dos paradas del degradado de marca tal cual las publica el tema (ADR-170), no `primary` y
+ * `accent` reconstruidos aquí.
+ *
+ * Medido sobre los dieciséis: **quince cambian**. Sólo `nebula` coincidía —de ahí que no se notara—
+ * porque su degradado va justo de `indigo` 500 a `violet` 500. En el resto no: `apolo` sale de rose
+ * y termina en orange mientras su primario es el naranja, así que el logo lo pintaba **al revés**, y
+ * los demás usan peldaños que no son el 500 —`halo` va de cyan 400 a slate 300, `eclipse` arranca en
+ * red 600—.
+ */
+const BRAND_FROM = vars.gradient.brand.edge;
+const BRAND_TO = vars.gradient.brand.tip;
 
 const STARS = (
   <g fill={vars.color.ink.primary}>
