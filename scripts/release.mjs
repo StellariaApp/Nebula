@@ -336,6 +336,22 @@ async function Main() {
 ${String(error.message)}`);
   }
 
+  /**
+   * Los temas declaran su version en `meta.version`, y esa cadena vive en una constante que
+   * `changeset version` no conoce. Se sincroniza aqui —no a mano— porque ya se quedo una vez en
+   * `0.1.0` con el paquete publicado en `1.0.0`, y los dieciseis temas mintieron sobre su version.
+   */
+  const themes_version = Version("themes");
+  const version_file = join("packages", "themes", "src", "version.ts");
+  writeFileSync(
+    version_file,
+    readFileSync(version_file, "utf8").replace(
+      /export const THEME_VERSION = "[^"]*";/,
+      `export const THEME_VERSION = "${themes_version}";`,
+    ),
+    "utf8",
+  );
+
   const versions = PACKAGES.map((pkg) => `${pkg.name}@${Version(pkg.dir)}`);
 
   /**

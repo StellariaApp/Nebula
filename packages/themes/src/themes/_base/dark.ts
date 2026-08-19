@@ -14,9 +14,10 @@ import {
 
 import { FlipScale } from "../scales.js";
 import { darkShadows } from "../shadows.js";
+import { THEME_VERSION } from "../../version.js";
 
 export const baseDark = {
-  meta: { name: "base", scheme: "dark", version: "0.1.0" },
+  meta: { name: "base", scheme: "dark", version: THEME_VERSION },
   palettes,
   colors: {
     ...palettes,

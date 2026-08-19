@@ -4,6 +4,7 @@ import { baseDark } from "../themes/_base/dark.js";
 import { baseLight } from "../themes/_base/light.js";
 import type { ThemeSeed } from "../themes/_seed/index.js";
 import { FlipScale } from "../themes/scales.js";
+import { THEME_VERSION } from "../version.js";
 
 const FOCUS_STEP = { dark: "400", light: "600" } as const;
 const CHANNEL_MAX = 255;
@@ -47,7 +48,7 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
 
   return {
     ...base,
-    meta: { name: seed.name, scheme, version: "0.1.0" },
+    meta: { name: seed.name, scheme, version: THEME_VERSION },
     ink: { floor: seed.inkFloor ?? PRODUCT_INK_FLOOR },
     motion: { ...base.motion, tier: seed.motion ?? base.motion.tier },
     colors: {

@@ -13,9 +13,10 @@ import {
   zIndex,
   type NebulaTheme,
 } from "@stellaria/nebula-tokens";
+import { THEME_VERSION } from "../../version.js";
 
 export const baseLight = {
-  meta: { name: "base", scheme: "light", version: "0.1.0" },
+  meta: { name: "base", scheme: "light", version: THEME_VERSION },
   palettes,
   colors: {
     ...palettes,
