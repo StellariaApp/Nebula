@@ -12,7 +12,7 @@ import { ThemeScript } from "@stellaria/nebula-web";
 
 import { ProductProvider } from "../islands/product-provider";
 import { CurrentLang } from "../lib/lang";
-import { THEME_REST_SCRIPT } from "../lib/theme-rest";
+import { THEMES_HREF, THEME_REST_SCRIPT } from "../lib/theme-rest.server";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const lang = await CurrentLang();
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang} data-themes-href={THEMES_HREF} suppressHydrationWarning>
       <head>
         <ThemeScript
           defaultScheme="dark"
