@@ -32,6 +32,15 @@ const DRY = ARGS.some((a) => ["--dry", "--dry-run"].includes(a));
 const FIXED = ARGS.find((a) => a.startsWith("--bump="))?.slice("--bump=".length);
 
 const Git = (args) => execFileSync("git", args, { encoding: "utf8" }).trim();
+
+/**
+ * Como `Git` pero SIN recortar, que en el porcelain no es un detalle: la columna 1 es un espacio
+ * cuando el cambio no esta indexado —que es como deja `changeset version` todo lo que toca— y
+ * recortar la salida entera se lo come a la primera linea. Entonces `slice(3)` se lleva un
+ * caracter de mas y el primer fichero llega mutilado: `changeset/x.md` por `.changeset/x.md`.
+ */
+const GitRaw = (args) => execFileSync("git", args, { encoding: "utf8" });
+
 /**
  * La salida se captura para no romper el spinner, pero si falla se ensena: con `stdio: "pipe"` a
  * secas el error llegaba como un volcado de Buffer en vez de como el mensaje que changesets
@@ -334,7 +343,7 @@ ${String(error.message)}`);
    * limpio antes (lo exige `Guard`), asi que todo lo que este sucio ahora lo escribio el. Con una
    * lista fija se quedaron fuera los `tools/` que changesets subio por ser dependientes.
    */
-  const touched = Git(["status", "--porcelain"])
+  const touched = GitRaw(["status", "--porcelain"])
     .split("\n")
     .map((line) => line.slice(3).trim())
     .filter((line) => line.length > 0);
