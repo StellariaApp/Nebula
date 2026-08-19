@@ -20,19 +20,30 @@ on:
 # El disparador sigue siendo cada push a main, pero el trabajo esta partido en
 # dos y la linea que los separa es una sola condicion, repetida invertida:
 #
-#   `github.event_name == 'push' && !startsWith(head_commit.message, 'chore(release):')`
+#   `push && contains(join(commits.*.message, '|'), 'chore(release):')`
 #
-#   - se cumple  → push corriente a main: corre SOLO `guardia` (typecheck + lint).
-#   - no se cumple → commit de release, PR o dispatch manual: corren los diez
-#     gates, axe y —si ademas es un push a main— la publicacion.
+#   - no se cumple → push corriente a main: corre SOLO `guardia` (typecheck + lint).
+#   - se cumple    → hay un commit de release en el push, o es PR o dispatch
+#     manual: corren los diez gates, axe y —si ademas es un push a main— la
+#     publicacion.
 #
 # Las dos ramas son complementarias y nunca coinciden, asi que un commit de
 # release no paga `guardia` ademas de `gates`: lo que uno cubre el otro lo cede.
 #
 # Por que el asunto del commit y no un filtro `paths`: con `paths` el run ni se
-# creaba, y entonces tampoco habria guardia en los pushes corrientes. El marcador
-# es fiable porque `scripts/release.mjs` exige el arbol limpio y main al dia antes
-# de commitear, asi que el commit de release siempre es la cabeza del push.
+# creaba, y entonces tampoco habria guardia en los pushes corrientes.
+#
+# MIRA TODOS LOS COMMITS DEL PUSH, no solo la cabeza. Antes era
+# `startsWith(head_commit.message, ...)` apoyandose en que `scripts/release.mjs`
+# empuja acto seguido, asi que el commit de release seria la cabeza. Esa premisa
+# se rompio el 2026-08-19: el script murio antes de empujar, se reconstruyo a
+# mano y encima entro un arreglo mas. La cabeza dejo de ser el release, se
+# saltaron `gates`, `a11y` y `visual`, y con ellos `publish` —el run salio VERDE
+# porque un job saltado no falla—. La 1.0.0 se quedo sin publicar sin que nada
+# se pusiera rojo.
+#
+# Limite conocido: el payload de push trae como mucho 20 commits. Un push mas
+# largo que eso puede dejar el commit de release fuera de la lista.
 
 env:
   TURBO_TELEMETRY_DISABLED: 1
@@ -48,7 +59,7 @@ jobs:
   # los dos presupuestos.
   guardia:
     name: typecheck · lint
-    if: github.event_name == 'push' && !startsWith(github.event.head_commit.message, 'chore(release):')
+    if: github.event_name == 'push' && !contains(join(github.event.commits.*.message, '|'), 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     concurrency:
@@ -77,7 +88,7 @@ jobs:
   # primera vuelta ya dice todo lo que hay que arreglar.
   gates:
     name: build · typecheck · lint · test · size · slots · contrast · docs · budget
-    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
+    if: github.event_name != 'push' || contains(join(github.event.commits.*.message, '|'), 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -116,7 +127,7 @@ jobs:
   # cuesta computo, no reloj.
   a11y:
     name: axe sobre las stories
-    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
+    if: github.event_name != 'push' || contains(join(github.event.commits.*.message, '|'), 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -166,7 +177,7 @@ jobs:
   # comprometen; hasta entonces el gate esta armado pero vacio.
   visual:
     name: regresion visual (contenedor anclado)
-    if: github.event_name != 'push' || startsWith(github.event.head_commit.message, 'chore(release):')
+    if: github.event_name != 'push' || contains(join(github.event.commits.*.message, '|'), 'chore(release):')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     container:
