@@ -369,9 +369,33 @@ ${String(error.message)}`);
   Git(["add", "--", ...touched]);
   Git(["commit", "-m", `chore(release): ${versions.join(" · ")}`]);
 
+  /**
+   * Los tags salen de aqui, no de CI, y son el disparador de la publicacion (ADR-176).
+   *
+   * `changeset tag` pone uno por paquete —`@stellaria/nebula-web@1.0.0`—, que es lo que `Range()`
+   * lee para saber desde donde redactar el siguiente changelog. La 1.0.0 salio sin ellos y el
+   * release siguiente habria vuelto a recorrer el historial entero.
+   *
+   * Encima va uno anotado, `v<version>`, que es el que dispara el workflow. Anotado a proposito:
+   * `git push --follow-tags` empuja SOLO los anotados, y los de changeset son ligeros. Por eso el
+   * paso que CI tenia para empujarlos no empujaba nada y salia verde igual.
+   */
+  const distinct = new Set(PACKAGES.map((pkg) => Version(pkg.dir)));
+  if (distinct.size !== 1) {
+    Stop(`Los seis paquetes no comparten version: ${[...distinct].join(", ")}.
+
+El tag que dispara la publicacion nombra una sola version, asi que con versiones
+distintas mentiria. Revisa la configuracion de changesets.`);
+  }
+  const tag = `v${[...distinct][0]}`;
+
+  Run("pnpm exec changeset tag");
+  Git(["tag", "-a", tag, "-m", `Nebula ${tag}`]);
+
   working.message("Empujando");
   Run("git push");
-  working.stop("Empujado");
+  Run("git push --tags");
+  working.stop(`Empujado, con el tag ${tag}`);
 
   note(versions.join("\n"), "Publicando");
   outro("El workflow construye desde un checkout limpio y publica con procedencia.");
