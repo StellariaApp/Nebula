@@ -1,16 +1,16 @@
 import type { ColorScheme } from "@stellaria/nebula-tokens";
 
 import { CompileThemes } from "../../web/compile-theme.js";
-import { sun } from "./index.js";
+import { sol } from "./index.js";
 
 /**
  * Solo este tema, con su base repartida entre sus dos esquemas (ADR-169). Su CSS **no** es
  * intercambiable con el de `/all/web` ni se puede mezclar con el: alli la base se calcula sobre
  * los dieciseis y aqui sobre dos.
  */
-const COMPILED = CompileThemes({ sun });
+const COMPILED = CompileThemes({ sol });
 
-export const CLASSES: Record<ColorScheme, string> = COMPILED.classes["sun"] as Record<
+export const CLASSES: Record<ColorScheme, string> = COMPILED.classes["sol"] as Record<
   ColorScheme,
   string
 >;

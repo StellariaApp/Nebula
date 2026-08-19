@@ -3,4 +3,4 @@ import type { NebulaTheme } from "@stellaria/nebula-tokens";
 import { BuildProduct } from "../../utils/build-product.js";
 import { THEMES_SEEDS } from "../_seed/index.js";
 
-export const sunLight: NebulaTheme = BuildProduct(THEMES_SEEDS.sun, "light");
+export const sunLight: NebulaTheme = BuildProduct(THEMES_SEEDS.sol, "light");

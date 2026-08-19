@@ -5,4 +5,4 @@ import { sunLight } from "./light.js";
 
 export { sunDark, sunLight };
 
-export const sun: ThemeSchemes = { dark: sunDark, light: sunLight };
+export const sol: ThemeSchemes = { dark: sunDark, light: sunLight };

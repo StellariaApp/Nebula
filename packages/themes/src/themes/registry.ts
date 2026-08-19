@@ -18,8 +18,8 @@ import { antaresDark } from "./marte/dark.js";
 import { antaresLight } from "./marte/light.js";
 import { titanDark } from "./titan/dark.js";
 import { titanLight } from "./titan/light.js";
-import { sunDark } from "./sun/dark.js";
-import { sunLight } from "./sun/light.js";
+import { sunDark } from "./sol/dark.js";
+import { sunLight } from "./sol/light.js";
 import { limaDark } from "./cometa/dark.js";
 import { limaLight } from "./cometa/light.js";
 import { velaDark } from "./vela/dark.js";
@@ -55,7 +55,7 @@ export const Themes = {
   helix: { dark: helixDark, light: helixLight },
   marte: { dark: antaresDark, light: antaresLight },
   titan: { dark: titanDark, light: titanLight },
-  sun: { dark: sunDark, light: sunLight },
+  sol: { dark: sunDark, light: sunLight },
   cometa: { dark: limaDark, light: limaLight },
   vela: { dark: velaDark, light: velaLight },
   grafito: { dark: grafitoDark, light: grafitoLight },

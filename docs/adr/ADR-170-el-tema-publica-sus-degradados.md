@@ -8,7 +8,7 @@
 ## Contexto
 
 Cableada la matriz de variantes en los 26 componentes, quedó un síntoma a la vista: en la landing,
-con el tema `sun` activo, el botón salía amarillo al instante mientras **«Zero forks.» seguía
+con el tema `sol` activo, el botón salía amarillo al instante mientras **«Zero forks.» seguía
 violeta** y el borde del bloque de código también. Los dos son degradados de la marca de `nebula`.
 
 La causa es que el contrato publica muchas cosas y **los degradados no**:

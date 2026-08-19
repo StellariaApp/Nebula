@@ -10,7 +10,7 @@ export type SeedName =
   | "helix"
   | "marte"
   | "titan"
-  | "sun"
+  | "sol"
   | "cometa"
   | "vela"
   | "grafito"
@@ -137,8 +137,8 @@ export const THEMES_SEEDS = {
     lift: -6,
     inkFloor: 1,
   },
-  sun: {
-    name: "sun",
+  sol: {
+    name: "sol",
     primary: palettes.gold,
     accent: palettes.yellow,
     from: palettes.gold["500"],
@@ -160,23 +160,20 @@ export const THEMES_SEEDS = {
   },
   vela: {
     name: "vela",
-    primary: palettes.violet,
-    accent: palettes.grape,
-    from: palettes.violet["500"],
-    to: palettes.grape["400"],
-    tint: palettes.violet["800"],
+    primary: palettes.lime,
+    accent: palettes.rose,
+    from: palettes.lime["500"],
+    to: palettes.rose["400"],
+    tint: palettes.lime["800"],
     wash: 0.05,
     lift: -6,
   },
   eclipse: {
     name: "eclipse",
     primary: palettes.red,
-    // Lo que lo separa de `marte` no es el tono —comparten el rojo— sino a donde va: el degradado
-    // de marte sube hacia el oro y el de eclipse cae al negro, y el lienzo se hunde con el. Es el
-    // unico tema donde el acento es neutro: rojo y negro, sin tercer color.
-    accent: palettes.dark,
+    accent: palettes.rose,
     from: palettes.red["600"],
-    to: palettes.dark["800"],
+    to: palettes.rose["500"],
     tint: palettes.red["950"],
     wash: 0.12,
     lift: -22,
@@ -185,22 +182,22 @@ export const THEMES_SEEDS = {
   grafito: {
     name: "grafito",
     primary: palettes.slate,
-    accent: palettes.blue,
-    from: palettes.slate["500"],
-    to: palettes.blue["400"],
+    accent: palettes.cyan,
+    from: palettes.slate["400"],
+    to: palettes.cyan["300"],
     tint: palettes.slate["800"],
     wash: 0.05,
     lift: -6,
-    inkFloor: 2,
+    inkFloor: 1,
     motion: "minimal",
     glass: false,
   },
   nova: {
     name: "nova",
     primary: palettes.yellow,
-    accent: palettes.red,
+    accent: palettes.pink,
     from: palettes.yellow["500"],
-    to: palettes.red["400"],
+    to: palettes.pink["400"],
     tint: palettes.yellow["800"],
     wash: 0.2,
     lift: -26,
@@ -208,11 +205,11 @@ export const THEMES_SEEDS = {
   },
   quasar: {
     name: "quasar",
-    primary: palettes.grape,
-    accent: palettes.pink,
-    from: palettes.grape["500"],
-    to: palettes.pink["400"],
-    tint: palettes.grape["800"],
+    primary: palettes.slate,
+    accent: palettes.sand,
+    from: palettes.slate["500"],
+    to: palettes.sand["400"],
+    tint: palettes.slate["800"],
     wash: 0.05,
     lift: -6,
     inkFloor: 1,

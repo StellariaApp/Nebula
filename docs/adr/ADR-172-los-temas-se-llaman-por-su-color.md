@@ -1,7 +1,7 @@
 # ADR-172 — Los temas se llaman por su color, y el repertorio cubre la rueda
 
 - **Estado**: **aceptada** · 2026-08-17, ampliada el 2026-08-18 — decidida por el propietario
-- **Cambia API pública**: sí, y **rompe**. Doce temas cambian de nombre y con ellos sus subpaths.
+- **Cambia API pública**: sí, y **rompe**. Trece temas cambian de nombre y con ellos sus subpaths.
 - **Toca**: `packages/themes`, `docs/02` §3.
 
 ## Contexto
@@ -42,9 +42,10 @@ Nombre corto, pronunciable en castellano y reconocible sin carta astronómica. U
 | 128° | lime   | `halley`   | **`cometa`**  | Conserva el linaje del cometa sin chocar de oído con `helix` |
 | 180° | teal   | `nova`     | **`helix`**   | La Nebulosa de la Hélice es turquesa |
 | 220° | cyan   | `vega`     | **`halo`**    | Azul pálido y difuso, como el anillo que lo nombra |
+| 80°  | gold   | `sun`      | **`sol`**     | El único que quedaba en inglés; el registro es castellano |
 | 252° | blue   | `rigel`    | **`zenit`**   | El azul del cielo en su punto más alto |
 
-`nebula`, `aurora`, `sun`, `vela`, `grafito`, `nova`, `quasar` y `eclipse` se quedan: ya decían su color.
+`nebula`, `aurora`, `vela`, `grafito`, `nova`, `quasar` y `eclipse` se quedan: ya decían su color.
 
 ### 2. Seis temas nuevos, sin paletas nuevas
 
@@ -99,7 +100,7 @@ diferencian por lienzo, suelo y materiales, que es lo que el contrato promete y 
 
 ## Consecuencias
 
-- **Rompe**: doce nombres y sus subpaths `/<tema>` y `/<tema>/web`. Quien tenga uno guardado en
+- **Rompe**: trece nombres y sus subpaths `/<tema>` y `/<tema>/web`. Quien tenga uno guardado en
   `localStorage` cae al de por defecto — la guarda de ADR-166 ya lo cubre, pero pierde su elección.
 - Dieciséis temas. El CSS de `/all/web` crece de 262 a ~400 kB en crudo; comprimido apenas se mueve,
   porque ADR-169 manda a `:root` lo que comparten y sólo baja la diferencia de cada uno.

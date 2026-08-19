@@ -96,13 +96,13 @@
       "types": "./dist/themes/titan/web.d.ts",
       "default": "./dist/themes/titan/web.js"
     },
-    "./sun": {
-      "types": "./dist/themes/sun/index.d.ts",
-      "default": "./dist/themes/sun/index.js"
+    "./sol": {
+      "types": "./dist/themes/sol/index.d.ts",
+      "default": "./dist/themes/sol/index.js"
     },
-    "./sun/web": {
-      "types": "./dist/themes/sun/web.d.ts",
-      "default": "./dist/themes/sun/web.js"
+    "./sol/web": {
+      "types": "./dist/themes/sol/web.d.ts",
+      "default": "./dist/themes/sol/web.js"
     },
     "./cometa": {
       "types": "./dist/themes/cometa/index.d.ts",
@@ -174,11 +174,12 @@
   },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
-    "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
+    "dev": "vite build --watch --no-emptyOutDir",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "size": "size-limit"
+    "size": "size-limit",
+    "dev:types": "tsc -p tsconfig.build.json --watch --preserveWatchOutput"
   },
   "dependencies": {
     "@stellaria/nebula-tokens": "workspace:*",
