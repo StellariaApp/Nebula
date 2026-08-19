@@ -51,9 +51,21 @@ changeset.
       y esa fase existe para validar que el mismo `NebulaTheme` sirve en las dos plataformas. En 0.x
       una correccion de contrato se arregla; en 1.x costaria un 2.0.0 a las pocas semanas.
 
-## W5.2 · PUBLICADO el 2026-08-12
+## W5.2 · PUBLICADO el 2026-08-12 en `0.1.0`, y el 2026-08-19 en `1.0.0`
 
-Los seis en npm en `0.1.0`, publicados por el CI tras pasar los ocho gates y axe.
+Los seis en npm, publicados por el CI tras pasar los ocho gates, axe y —desde ADR-149— la regresion
+visual sobre el contenedor anclado.
+
+**La 1.0.0 no dejo tags.** `changeset publish` deberia crear un `<paquete>@1.0.0` por paquete y el
+paso «empujar los tags que cree changeset» subirlos, y no hay ninguno ni en local ni en el remoto.
+Sin ellos no queda marcador en git de que arbol produjo cada version. Pendiente de mirar el log del
+job de publicacion.
+
+**Y estuvo a punto de no publicarse en silencio.** El workflow decide la pasada completa por el
+asunto del commit de release, y hasta el 2026-08-19 miraba solo la cabeza del push. Aquel push
+llevaba un `fix(themes)` encima, asi que se saltaron `gates`, `a11y`, `visual` y `publish` — y el run
+salio VERDE, porque un job saltado no falla. Se arreglo en 716d29df para que mire todos los commits
+del push. Si un dia una version no aparece en npm y CI esta verde, mira eso primero.
 
 | Paquete | Sin empaquetar |
 | ------- | -------------: |
