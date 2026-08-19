@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Children,
   cloneElement,
@@ -12,14 +10,12 @@ import {
 } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m } from "motion/react";
 
 import { ContainsPart, InjectPart } from "../../utils/children.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
 import { Alert } from "../Alert/Alert.js";
 import { LoadingOverlay } from "../LoadingOverlay/LoadingOverlay.js";
-import { useReveal } from "../Reveal/use-reveal.js";
 
 import { SectionActions } from "./components/Actions.js";
 import { SectionAside } from "./components/Aside.js";
@@ -28,6 +24,7 @@ import { SectionDescription } from "./components/Description.js";
 import { SectionFooter } from "./components/Footer.js";
 import { SectionHeader, SectionHeading } from "./components/Header.js";
 import { SectionRail } from "./components/Rail.js";
+import { SectionSurface } from "./components/Surface.js";
 import { SectionTitle } from "./components/Title.js";
 import * as styles from "./Section.css.js";
 import type { SectionProps, SectionSlotProps } from "./Section.types.js";
@@ -126,18 +123,16 @@ export function Section(props: SectionProps): ReactElement {
   const overlay = <LoadingOverlay visible={loading} />;
 
   const rail_vars = assignInlineVars({ [variables.contentMax]: LengthToCss(contentWidth) });
-  const revealed = useReveal();
-  const animating = reveal && revealed.armed;
-  const Root: ElementType = animating ? m.section : "section";
+
+  // Sin `reveal` no hay nada que animar, asi que el raiz es un `<section>` de servidor. Con el, la
+  // cascara de cliente lo sustituye y el rail sigue llegando como children, o sea de servidor.
+  const Root: ElementType = reveal ? SectionSurface : "section";
 
   return (
-          <Root
-        {...(reveal ? { ref: revealed.ref } : {})}
+      <Root
         className={cx(styles.section, styles.size[size], sprinkle_class, className)}
         style={{ ...rail_vars, ...sprinkle_style }}
-        data-reveal={reveal ? revealed["data-reveal"] : undefined}
         data-glass={glass ? "true" : undefined}
-        {...(animating ? revealed.animated_props : {})}
         {...labelling}
         {...rest}
       >
