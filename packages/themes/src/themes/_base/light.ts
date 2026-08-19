@@ -1,7 +1,6 @@
 import {
   animation,
   blur,
-  breakpoints,
   font,
   glass,
   gray,
@@ -115,5 +114,4 @@ export const baseLight = {
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
   },
   zIndex,
-  breakpoints,
 } satisfies NebulaTheme;

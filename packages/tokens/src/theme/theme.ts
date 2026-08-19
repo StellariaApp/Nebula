@@ -2,7 +2,6 @@ import type { Variant, VariantRecipe } from "../types/variants.js";
 import type {
   BlurLevel,
   BorderRole,
-  BreakpointName,
   ColorScheme,
   DurationName,
   EasingName,
@@ -129,8 +128,6 @@ export interface ThemeEffects {
 }
 
 export type ThemeZIndex = Record<ZIndexName, number>;
-export type ThemeBreakpoints = Record<BreakpointName, number>;
-
 export interface ThemeInk {
   /**
    * Contrast ratio below which light ink gives way to dark over a fill or a gradient.
@@ -159,5 +156,4 @@ export interface NebulaTheme {
   effects: ThemeEffects;
   variantMap: Record<Variant, VariantRecipe>;
   zIndex: ThemeZIndex;
-  breakpoints: ThemeBreakpoints;
 }

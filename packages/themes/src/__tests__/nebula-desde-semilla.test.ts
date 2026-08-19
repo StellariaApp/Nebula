@@ -56,6 +56,5 @@ describe("nebula sale de su semilla sin cambiar nada (ADR-168)", () => {
     expect(nebulaDark.motion).toEqual(baseDark.motion);
     expect(nebulaDark.font).toEqual(baseDark.font);
     expect(nebulaDark.variantMap).toEqual(baseDark.variantMap);
-    expect(nebulaDark.breakpoints).toEqual(baseDark.breakpoints);
   });
 });

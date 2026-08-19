@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
-import type { BreakpointName } from "@stellaria/nebula-tokens";
-
-import { useTheme } from "./theme/use-theme.js";
+import { breakpoints, type BreakpointName } from "@stellaria/nebula-tokens";
 
 /**
  * `initial` es lo que se devuelve en servidor y en el primer render del cliente. React 19 avisa de
@@ -28,12 +26,15 @@ export function useMediaQuery(query: string, initial = false): boolean {
   return matches;
 }
 
+/**
+ * Los puntos de ruptura salen del token, no del tema (ADR-174). Es lo unico que hace que estos dos
+ * hooks midan lo mismo que las `@media` de las hojas, que no pueden leer una var y por tanto no
+ * pueden seguir a un tema.
+ */
 export function useBreakpointUp(name: BreakpointName, initial = false): boolean {
-  const { theme } = useTheme();
-  return useMediaQuery(`(min-width: ${String(theme.breakpoints[name])}px)`, initial);
+  return useMediaQuery(`(min-width: ${String(breakpoints[name])}px)`, initial);
 }
 
 export function useBreakpointDown(name: BreakpointName, initial = false): boolean {
-  const { theme } = useTheme();
-  return useMediaQuery(`(max-width: ${String(theme.breakpoints[name] - 1)}px)`, initial);
+  return useMediaQuery(`(max-width: ${String(breakpoints[name] - 1)}px)`, initial);
 }

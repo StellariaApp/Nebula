@@ -1,7 +1,6 @@
 import {
   animation,
   blur,
-  breakpoints,
   glass,
   gray,
   ink,
@@ -116,5 +115,4 @@ export const smokeTheme = {
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
   },
   zIndex,
-  breakpoints,
 } satisfies NebulaTheme;

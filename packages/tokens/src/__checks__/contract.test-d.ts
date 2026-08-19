@@ -2,7 +2,6 @@ import type { NebulaTheme, PaletteName, Scale11 } from "../theme/index.js";
 import {
   animation,
   blur,
-  breakpoints,
   font,
   glass,
   ink,
@@ -184,5 +183,4 @@ export const smokeTheme = {
     unstyled: { background: "transparent", foreground: "currentColor", border: "none" },
   },
   zIndex,
-  breakpoints,
 } satisfies NebulaTheme;

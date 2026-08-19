@@ -20,9 +20,6 @@ export type CheckSizes = Expect<Extends<SchemaTheme["sizes"], NebulaTheme["sizes
 export type CheckMotion = Expect<Extends<SchemaTheme["motion"], NebulaTheme["motion"]>>;
 export type CheckInk = Expect<Extends<SchemaTheme["ink"], NebulaTheme["ink"]>>;
 export type CheckZIndex = Expect<Extends<SchemaTheme["zIndex"], NebulaTheme["zIndex"]>>;
-export type CheckBreakpoints = Expect<
-  Extends<SchemaTheme["breakpoints"], NebulaTheme["breakpoints"]>
->;
 
 type SchemaEffects = SchemaTheme["effects"];
 type SchemaGradient = SchemaEffects["gradients"]["brand"];

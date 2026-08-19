@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
   blurLevels,
   borderRoles,
-  breakpointNames,
   colorSchemes,
   colorShades,
   durationNames,
@@ -208,5 +207,4 @@ export const themeSchema = z.strictObject({
   effects,
   variantMap: z.record(z.enum(variants), variantRecipe),
   zIndex: z.record(z.enum(zIndexNames), z.number()),
-  breakpoints: z.record(z.enum(breakpointNames), z.number().positive()),
 });

@@ -37,7 +37,6 @@ export type {
   GradientStop,
   GradientToken,
   NebulaTheme,
-  ThemeBreakpoints,
   ThemeColors,
   ThemeEffects,
   ThemeDisplay,
