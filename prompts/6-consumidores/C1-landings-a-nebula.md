@@ -7,22 +7,28 @@
 > demuestra que un producto se retiñe entero sin tocar Nebula. Si la landing no sale limpia, la app
 > tampoco va a salir.
 
+> **Revisado el 2026-08-18.** La versión anterior de este encargo era del 17 y quedó desfasada en
+> cuatro puntos que costaban horas cada uno: citaba `ColorSchemeScript`, importaba `vars` del paquete
+> equivocado, decía que el esquema se deduce del nombre del tema, y mandaba escribir el tema
+> copiando un fichero de 627 valores. Todo eso cambió. Si encuentras una instrucción que contradice
+> al código, gana el código y se anota.
+
 ---
 
 ## Lo que ya está comprobado (no lo vuelvas a averiguar)
 
-Medido sobre el repo el 2026-08-17. Estos números son el punto de partida del encargo:
+Medido sobre el repo el 2026-08-18:
 
-| Hecho                                                              | Valor                                                          |
-| ------------------------------------------------------------------ | -------------------------------------------------------------- |
-| Variables del contrato CSS                                          | **627**                                                         |
-| Peso de un tema propio inyectado en línea (`assignInlineVars`)      | **≈40 KB** de atributo `style`                                  |
-| Peso de un tema materializado como clase (`createTheme`)            | un nombre de clase                                              |
-| Matriz de variantes resuelta una vez por tema (ADR-150)             | 49 combinaciones × 8 valores                                    |
-| Componentes que leen `useTheme`                                     | **61 de 158**                                                   |
-| Componentes de servidor                                             | **38 de 158**                                                   |
-| Secciones de `NebulaTheme` que **no** llegan al CSS                 | `breakpoints`                                                   |
-| Componentes con breakpoint en px crudo                              | 4 (`Charts`, `Form`, `TransferList` ×2)                         |
+| Hecho                                                          | Valor                                                   |
+| -------------------------------------------------------------- | -------------------------------------------------------- |
+| Variables del contrato CSS                                      | **627**                                                   |
+| Un tema inyectado en línea (`assignInlineVars`)                 | **≈40 kB** de atributo `style` · 4,5 kB brotli            |
+| Un tema materializado como clase                                | un nombre de clase                                        |
+| Los dieciséis temas del catálogo, compilados juntos             | 285,7 kB en crudo · **10,6 kB brotli**                    |
+| Componentes cuya raíz es de servidor                            | **59 de 154**                                             |
+| Ficheros de componente que llaman `useTheme()`                  | 61                                                        |
+| Componentes con el breakpoint en px crudo                       | 3 — `Charts`, `Form`, `TransferList`                      |
+| Temas listos para usar sin escribir ninguno                     | **16**, cada uno con subpath propio                       |
 
 ---
 
@@ -31,9 +37,10 @@ Actúa como ingeniero de migración en C:\Users\Skr13\Documents\GitHub\Nebula y 
 <PRODUCTO>. El objetivo es que la landing de <PRODUCTO> se construya al 100% con Nebula y con su
 propio tema, sin un solo estilo de producto que dependa de conocer Nebula por dentro.
 
-LEE ANTES: CLAUDE.md, docs/02-theming.md (§2 el contrato, §4 el runtime), docs/04-migration-map.md
-§5 (la decisión C3 y su gate), ADR-150 (la matriz de variantes), ADR-155 (el script de arranque
-acepta temas propios), ADR-121 (setTheme acepta un tema entero), y .claude/skills/project-guardrails.
+LEE ANTES: CLAUDE.md, docs/02-theming.md (§2 el contrato, §4 las tres vías de materializar),
+docs/04-migration-map.md §5, y .claude/skills/project-guardrails. De los ADR, estos seis y en este
+orden: ADR-166 (los dos ejes), ADR-167 (ThemeScript), ADR-168 (dónde vive el contrato CSS), ADR-169
+y ADR-175 (la base compartida y su reparto), ADR-150 (la matriz de variantes).
 
 REGLA QUE NO SE ROMPE
 No modificas Nebula para que <PRODUCTO> encaje. Si algo no se puede expresar con el tema, NO lo
@@ -42,110 +49,180 @@ el nombre del token que falta, y sigue. El valor de este encargo está justament
 que no se pudo hacer sin tocar el núcleo. Un override de CSS en el producto es un fracaso
 silencioso: funciona hoy y se rompe en la siguiente versión.
 
+DE DÓNDE SE IMPORTA CADA COSA — comprueba esto antes de escribir una línea
+Cambió el 2026-08-17 con ADR-168 y es el error más caro de esta migración, porque el import viejo
+compila hasta que no compila.
+
+  @stellaria/nebula-themes         LoadTheme · BuildProduct · Themes · ThemeScheme · THEME_NAMES
+                                   THEMES_SEEDS · type ThemeSeed · Dark · Light · BRAND_STOPS
+  @stellaria/nebula-themes/web     vars · ThemeToVars · CompileTheme · CompileThemes
+                                   ThemeScriptMap · DEFAULT_THEME · ResolveVariant · VariantRefs
+  @stellaria/nebula-themes/<tema>       ese tema, los dos esquemas
+  @stellaria/nebula-themes/<tema>/web   sus clases y su CSS ya compilado
+  @stellaria/nebula-themes/all/web      los dieciséis: CLASSES · CSS · BASE · SLICES
+  @stellaria/nebula-web            los componentes, NebulaProvider y ThemeScript
+
+`vars` y `ThemeToVars` YA NO salen de @stellaria/nebula-web. Si un ejemplo viejo dice lo contrario,
+está desfasado.
+
+FASE 0 — ¿HACE FALTA UN TEMA PROPIO?
+Pregunta primero, porque la respuesta ahorra la fase entera. El paquete trae DIECISÉIS temas
+terminados, cada uno en dark y light y con su subpath. Si la marca de <PRODUCTO> cae cerca de uno
+—hay azul, cian, verde, lima, teal, ámbar, oro, naranja, marrón, rojo, rosa, magenta, violeta,
+amarillo y un neutro frío—, adoptarlo es una línea:
+
+  import { CLASSES } from "@stellaria/nebula-themes/<tema>/web";
+
+Deja escrito por qué sí o por qué no. «La marca es #XXXXXX y el más cercano del catálogo está a N de
+distancia» es una respuesta; «queríamos el nuestro» no lo es.
+
 FASE 1 — EL TEMA ANTES QUE LA PÁGINA
 No empieces por los componentes. Un tema a medias hace que juzgues mal cada pieza.
 
-El tema de producto es un NebulaTheme COMPLETO. LoadTheme no acepta parciales ni tiene defaults:
-o está entero o no valida. No existe helper para derivar un tema de otro, así que se parte de una
-copia de packages/themes/src/themes/nebula-dark.ts (o light) y se editan los valores.
+Un NebulaTheme es un objeto COMPLETO: LoadTheme no acepta parciales ni tiene defaults. Pero YA NO se
+escribe a mano. `BuildProduct` es API pública y construye el tema entero desde una semilla de diez
+campos, que es exactamente como se construyen los dieciséis del catálogo:
+
+  import { BuildProduct, type ThemeSeed } from "@stellaria/nebula-themes";
+  import { palettes } from "@stellaria/nebula-tokens";
+
+  const semilla = {
+    name: "<producto>",
+    primary: palettes.<x>,      // o tu escala propia de gen:palette
+    accent:  palettes.<y>,
+    from:    "#...",            // primera parada del degradado de marca
+    to:      "#...",            // última
+    tint:    "#...",            // el tinte del lienzo
+    wash:    0.05,              // cuánto tiñe
+    lift:    -6,                // cuánto lo sube o lo baja
+    inkFloor: 2,                // opcional · el suelo de contraste de la tinta
+    angle:   100,               // opcional · inclinación del degradado
+    motion:  "standard",        // opcional · "minimal" apaga el movimiento
+    glass:   true,              // opcional · false apaga cristal, blur y ruido
+  } satisfies ThemeSeed;
+
+  export const producto_dark  = BuildProduct(semilla, "dark");
+  export const producto_light = BuildProduct(semilla, "light");
+
+  FRICCIÓN CONOCIDA, no la investigues: `ThemeSeed.name` está tipado como `SeedName`, la unión
+  cerrada de los dieciséis nombres del catálogo, así que un nombre de producto no compila sin un
+  cast. Usa `name: "<producto>" as SeedName` y ANÓTALO COMO HALLAZGO Nº1: el tipo debería abrirse a
+  `string` para que un consumidor pueda usar `BuildProduct` sin trampa. Es el primer candidato a ADR
+  que sale de este encargo.
 
 1. Saca las paletas del color de marca, no las escribas a mano:
      pnpm gen:palette from "#<hex de marca>" --name <producto> --json
    Da la escala 50-950 en OKLCH. Repite por cada semilla que el producto necesite.
 
-2. Escribe el tema como JSON y valídalo con el MISMO motor que el gate de CI:
+2. Valida con el MISMO motor que el gate de CI:
      pnpm check:contrast -- --theme <ruta>.json
-   Tiene que salir 0 FAIL. Las deudas declaradas de ADR-161 saldrán como DEUDA y no cuentan como
-   fallo; cualquier otra cosa en rojo es tuya y se arregla antes de seguir.
+   Son 186 pares por tema. Las deudas declaradas de ADR-161 salen como DEUDA y no cuentan como
+   fallo; cualquier otra cosa en rojo es tuya.
 
-   OJO: el gate por defecto recorre tres temas (el de humo, light y dark). Con --theme recorre sólo
-   el tuyo. Son 186 pares por tema.
+   DECIDE Y DÉJALO ESCRITO: Nebula sólo certifica AA para `nebula` (ADR-172 §3). Los quince temas de
+   producto del catálogo fallan entre 7 y 16 pares —todos texto claro sobre el degradado de marca— y
+   se aceptó a sabiendas. Si <PRODUCTO> quiere AA, exige 0 FAIL aquí y ajusta `inkFloor` hasta
+   conseguirlo. Si no lo quiere, dilo explícitamente en el veredicto en vez de dejarlo en silencio.
 
-3. Materialízalo como CLASE, no como vars en línea. Esto no es una optimización, es la diferencia
-   entre 40 KB de atributo style en el HTML y un nombre de clase:
+3. Materialízalo como CLASE, no como vars en línea. Hay TRES vías y no son intercambiables
+   (docs/02 §4). Elige a conciencia:
 
-     // <producto>/src/theme.css.ts
-     import { createTheme } from "@vanilla-extract/css";
-     import { vars, ThemeToVars } from "@stellaria/nebula-web";
-     import { LoadTheme } from "@stellaria/nebula-themes";
-     import theme_json from "./tema.json";
+   a) EN BUILD, con `createTheme` — la de una landing con un tema fijo. Cuesta un nombre de clase.
 
-     export const producto_class = createTheme(vars, ThemeToVars(LoadTheme(theme_json)));
+        // <producto>/src/theme.css.ts
+        import { createTheme } from "@vanilla-extract/css";
+        import { vars, ThemeToVars } from "@stellaria/nebula-themes/web";
+        import { producto_dark } from "./tema.js";
 
-   `vars`, `ThemeToVars` y `themeClass` son API pública de @stellaria/nebula-web. Esto exige que el
-   producto tenga vanilla-extract en su build. Si no lo tiene, ese es el primer hallazgo del
-   encargo y hay que decirlo antes de seguir, porque cambia el coste de todo lo demás.
+        export const producto_dark_class = createTheme(vars, ThemeToVars(producto_dark));
 
-4. Regístralo UNA vez en el provider y deriva de ahí el mapa del script (ADR-163, ADR-166), para
-   que las dos listas no puedan discrepar:
+      Exige vanilla-extract en el build del producto. Si no lo tiene, ese es el primer hallazgo del
+      encargo y hay que decirlo ANTES de seguir, porque cambia el coste de todo lo demás.
+
+   b) EN CALIENTE, con `CompileTheme(theme)` — la de un tema que llega de un backend, uno por
+      inquilino, o uno que se está editando en vivo. Devuelve `{ theme, className, css }` y no
+      inyecta nada: tú decides dónde va el `<style>`, con qué nonce y en qué orden de capa.
+
+   c) `assignInlineVars` — sólo para un árbol pequeño. En la raíz son 40 kB de atributo `style` en
+      el HTML, y además BORRA la clase que el script acababa de pintar.
+
+   SI EL PRODUCTO LLEVA VARIOS TEMAS, usa `CompileThemes(conjunto)`, no `CompileTheme` en bucle: la
+   segunda emite una regla `:root` por tema y gana la última, así que todos acaban pintando el
+   degradado del que cierra la lista. `CompileThemes` devuelve además `base` y `slices` (ADR-175),
+   con lo que puedes incrustar en el HTML sólo el tema activo y servir el resto aparte. Regla dura:
+   el CSS de un conjunto NO se mezcla con el de otro, porque cada uno calcula su base sobre lo que
+   contiene.
+
+   SI SIRVES EL RESTO POR UNA RUTA, firma la URL con el contenido. Marcarla `immutable` con URL fija
+   deja la hoja clavada y tocar un tema no se ve nunca, ni en desarrollo. Mira
+   `apps/web/src/lib/theme-rest.server.ts`: es exactamente ese patrón, resuelto.
+
+4. Regístralo UNA vez y deriva de ahí el mapa del script, para que las dos listas no discrepen:
 
      const PRODUCTO = {
        "<producto>": {
-         dark:  { theme: tema_dark,  className: producto_dark_class },
-         light: { theme: tema_light, className: producto_light_class },
+         dark:  { theme: producto_dark,  className: producto_dark_class },
+         light: { theme: producto_light, className: producto_light_class },
        },
      };
 
-     <ColorSchemeScript themes={ThemeScriptMap(PRODUCTO)} defaultTheme="<producto>" />
+     <ThemeScript defaultTheme="<producto>" defaultScheme="dark"
+                  themesClasses={ThemeScriptMap(PRODUCTO)} />
      <NebulaProvider themes={PRODUCTO} defaultTheme={{ theme: "<producto>", scheme: "dark" }}
                      applyTheme="root">
 
-   Registrar es lo que hace que el tema sobreviva al refresco. El nombre YA NO decide el scheme
-   (ADR-166): el scheme es la clave donde está la clase, así que llama a tus temas como quieras.
+   Registrar es lo que hace que el tema sobreviva al refresco.
 
 CHECKPOINT 1 — para y enseña el tema validado antes de tocar una sola página.
 
 FASE 2 — LA RAÍZ
-NebulaProvider en el layout raíz, con applyTheme="root" y el ColorSchemeScript en el <head>.
+NebulaProvider en el layout raíz con applyTheme="root", y ThemeScript en el <head>.
 
-Sabe esto antes de cablearlo, porque es la arista real del diseño actual:
+LOS DOS EJES SON INDEPENDIENTES (ADR-166). Esto es lo que más cambió y lo que más código viejo
+rompe:
 
-- Con applyTheme="root" el provider aplica el tema en un useEffect, o sea DESPUÉS de hidratar. Lo
-  que pinta antes del primer frame es el ColorSchemeScript. Por eso el paso 3 de la fase 1 no es
-  opcional: sin la clase registrada, la landing se ve con el tema por defecto hasta que hidrata.
+  - `meta.name` es la IDENTIDAD y `meta.scheme` es el ESQUEMA. Son cosas distintas.
+  - El esquema NO se deduce del nombre. Si leíste que «la clave que contenga dark se toma como
+    oscura», eso era verdad hasta ADR-166 y hoy es falso. Llama a tus temas como quieras.
+  - `setTheme("light")` cambia sólo el esquema y CONSERVA la identidad — es lo que un conmutador
+    claro/oscuro necesita, y la landing no tiene que saber cómo se llaman sus propios temas.
+    `setTheme({ theme, scheme })` cambia los dos.
+  - En el DOM salen separados: `data-theme="<producto>" data-scheme="dark"`.
+  - Cada eje se guarda en su clave, renombrables una a una con `storageKeys` (ADR-167). Una
+    identidad que nadie reconoce cae a la oficial SIN llevarse el esquema por delante.
 
-- Pásale el tema MATERIALIZADO, no el objeto pelado. Con `{ theme, className }` el provider no
-  inyecta nada; con un NebulaTheme suelto escribe las 627 vars en el style (~40 KB en crudo, 4,5 KB
-  brotli) aunque la clase ya esté puesta.
+Y sobre el primer pintado:
 
-- Necesitas el provider de todas formas: 61 de los 158 componentes leen useTheme, y la data no-CSS
-  del contrato (variantMap, spring, motion.tier, effects.glass.enabled, gradients, palettes) sólo
-  vive en el objeto. No es opcional ni se puede sustituir por la clase.
+  - Lo que pinta antes del primer frame es el ThemeScript, no el provider. Por eso el paso 3 no es
+    opcional: sin clase registrada, la landing se ve con el tema por defecto hasta que hidrata.
+  - El provider ADOPTA lo que el script pintó en un layout effect, o sea antes del pintado y no
+    después de hidratar (ADR-169). Nacer ya en el tema pintado provocaba discrepancia de hidratación
+    y por eso no se hace así.
+  - Pásale el tema MATERIALIZADO, no el objeto pelado. Con `{ theme, className }` el provider no
+    inyecta nada.
+  - Necesitas el provider igual: 61 ficheros de componente leen `useTheme()`, y la data no-CSS del
+    contrato —variantMap, spring, motion.tier, effects.glass.enabled, palettes— sólo vive en el
+    objeto.
 
-- Un tema REGISTRADO sí se persiste entero: se guardan sus dos ejes («<producto>:dark») y vuelve
-  como estaba. El que no se persiste es el aplicado por vars inline, que no se puede reconstruir
-  desde un nombre; ése guarda sólo su scheme y al recargar cae al oficial.
+COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL NÚMERO DE TEMAS
+Deshaz primero la confusión habitual: TENER VARIOS TEMAS NO PIDE COOKIE. El ThemeScript acepta un
+mapa de N temas, todos precompilados como clase, y elige antes del primer pintado sin sacar ninguna
+ruta de estático. Dieciséis temas por script es un caso resuelto, no un apaño.
 
-- El conmutador claro/oscuro se escribe setTheme("light"), sin nombrar el producto: conserva la
-  identidad. La landing no necesita saber cómo se llaman sus propios temas.
+Lo único que compra la cookie es que EL SERVIDOR SEPA el tema. Importa si el HTML varía por tema más
+allá del CSS —otro árbol, otra imagen, analítica— y no importa si el tema es sólo CSS, porque los
+bytes «correctos» del HTML no los ve nadie: el script ya pintó.
 
-COOKIE O SCRIPT: LA REGLA ES EL MODO DE RENDER, NO EL NUMERO DE TEMAS
-Primero deshaz la confusion habitual: TENER VARIOS TEMAS NO PIDE COOKIE. El ColorSchemeScript acepta
-un mapa de N temas desde ADR-155, todos precompilados como clase, y elige antes del primer pintado
-sin sacar ninguna ruta de estatico. Nueve temas por script es un caso resuelto, no un apano.
+  - Landing ESTÁTICA (prerenderizada): NO leas la cookie. Tocar `cookies()` en el layout raíz saca
+    la ruta ENTERA de prerenderizado, aunque leas una letra: el coste no es proporcional al trabajo,
+    es binario. Hay dos precedentes medidos en este repo, `apps/web/src/lib/lang.ts` y ADR-175.
+  - App YA DINÁMICA (autenticada, render por petición): lee la cookie. Esa ruta ya se renderiza por
+    petición, así que no pagas nada nuevo y el HTML sale correcto.
 
-Lo unico que compra la cookie es que EL SERVIDOR SEPA el tema. Eso importa si el HTML varia por tema
-mas alla del CSS —otro arbol, otra imagen, analitica— y no importa si el tema es solo CSS, porque
-los bytes "correctos" del HTML no los ve nadie: el script ya pinto.
+Si dudas, mira si la ruta está en el prerender-manifest. Eso responde sin opinar.
 
-Si aun asi la necesitas, decide asi:
-
-  - Landing ESTATICA (prerenderizada): NO leas la cookie. Tocar cookies() en el layout raiz saca la
-    ruta de prerenderizado estatico ENTERA, aunque solo leas una letra — el coste no es proporcional
-    al trabajo, es binario, y cambias HTML servido desde el borde por render por peticion. Usa el
-    ColorSchemeScript: corre antes del primer pintado y no cuesta TTFB. Es lo que ADR-155 midio y
-    decidio para apps/web, que hoy son 177 rutas estaticas.
-
-  - App YA DINAMICA (autenticada, render por peticion): lee la cookie. Esa ruta ya se renderiza por
-    peticion, asi que no pagas nada nuevo, y es mejor que el script: el HTML sale correcto y te
-    ahorras el script en linea.
-
-Si dudas, mira si la ruta esta en el prerender-manifest. Eso responde la pregunta sin opinar.
-
-Dos limites del camino del script, que son reales y hay que saberlos:
-  - Vive en localStorage, asi que el servidor no puede saber el tema aunque quiera.
-  - El scheme se deduce del NOMBRE: la clave que contenga "dark" se toma como oscura y el resto como
-    clara. Un tema llamado "<producto>-noche" saca el color-scheme al reves.
+Un límite real del camino del script: vive en localStorage, así que el servidor no puede saber el
+tema aunque quiera.
 
 FASE 3 — LA PÁGINA, COMPONENTE A COMPONENTE
 Reconstruye la landing con el catálogo. No traduzcas el marcado actual: eso produce Nebula pintada
@@ -157,11 +234,28 @@ Por cada pieza, tres preguntas y las tres se responden por escrito:
      exactamente qué propiedad no era alcanzable.
   3. ¿Quedó de servidor? Un componente de cliente arrastra al cliente todo lo que renderiza.
 
+PARA LO DE MARCA QUE NO ES UN COMPONENTE —un logotipo en SVG, un fondo, un canvas— el tema publica
+sus degradados como vars desde ADR-170:
+
+    vars.gradient.brand.edge   // primera parada
+    vars.gradient.brand.tip    // última
+    vars.gradient.brand.image  // el linear-gradient entero
+
+NO reconstruyas el eje con `primary.500 → accent.500`. Se hizo en la landing de Nebula y salía mal en
+quince de los dieciséis temas: los degradados usan peldaños que no son el 500, y en uno el eje salía
+literalmente invertido. Con las vars el SVG se retiñe solo, sin `useTheme()` y sin volverlo cliente.
+
+SI UN CONTENEDOR TIENE QUE SER DE SERVIDOR y algo dentro necesita cliente, el patrón es una cáscara
+de cliente que recibe children: lo que un componente de servidor pasa como children a uno de cliente
+SIGUE SIENDO DE SERVIDOR. Está resuelto dos veces en el repo, `Hero/components/Surface.tsx` y
+`Section/components/Surface.tsx`, y es lo que sacó del cliente a los dos dueños del elemento que
+marca el LCP.
+
 LO QUE YA SE SABE QUE NO ES ALCANZABLE POR TEMA — no lo investigues, verifica si te afecta:
-  - breakpoints: están en el contrato NebulaTheme y los leen los hooks de JS, pero NO llegan al CSS.
-    Las media queries de los componentes salen del token estático de @stellaria/nebula-tokens. Un
-    producto no puede mover los puntos de corte del layout desde su tema. Además Charts, Form y
-    TransferList llevan el px crudo y ni siquiera pasan por el helper.
+  - Los puntos de ruptura. Ya NO están en `NebulaTheme`: ADR-174 los sacó del contrato porque una
+    `@media` no puede leer una custom property, así que la promesa no se podía cumplir. Salen del
+    token estático de @stellaria/nebula-tokens y son estructura de la librería. Además Charts, Form
+    y TransferList llevan el px crudo y ni siquiera pasan por el helper.
   - Los delays de escalonado del Loader (0/140/280 ms y 0/110/220/330 ms) son literales.
   - El negro del letterbox del Player y la máscara del StarField son literales.
 
@@ -169,7 +263,10 @@ FASE 4 — EL VEREDICTO
 Entrega docs/reviews/adopcion-<producto>-<fecha>.md con:
   - Qué porcentaje de la landing es Nebula sin override, contado en componentes y no a ojo.
   - La lista de overrides que quedaron, cada uno con el token que habría hecho falta.
-  - El peso: HTML de la landing antes y después, y cuánto de eso es el tema.
+  - El peso: HTML de la landing antes y después, y cuánto de eso es el tema. Mide el HTML en brotli
+    a calidad 5, que es lo que mide el gate de rutas de este repo, no a la calidad por defecto: la
+    diferencia entre las dos es de kilobytes y te hará sacar la conclusión contraria.
+  - Cuántos componentes quedaron de servidor y cuáles no, con el motivo.
   - Los huecos del catálogo, si los hubo.
   - Si el producto NO pudo usar vanilla-extract, el coste que eso impuso.
 
@@ -179,22 +276,31 @@ propietario.
 
 ---
 
+## Los gates que corre CI, para que no te sorprendan
+
+`pnpm turbo build typecheck lint test size check:slots check:contrast check:docs check:budget`
+
+Los dos últimos no están en la lista de comandos de `CLAUDE.md` y son los que más veces se olvidan:
+`check:docs` falla si tocaste una prop pública y no corriste `pnpm gen:docs`, y `check:budget` mide
+el peso por ruta contra `apps/web/route-budget.json`. Súbelos cuando un cambio legítimo los rompa —
+eso no es un checkpoint— pero deja escrito en el commit qué lo movió.
+
 ## El gate de C3 y en qué estado está
 
-`docs/04` §5.3 fija cuatro criterios de «librería lista para migrar». Antes de lanzar este encargo,
-sabe dónde estás:
+`docs/04` §5.3 fija cuatro criterios de «librería lista para migrar»:
 
-| Criterio                                            | Estado                                                                                                                                 |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. Canónicos implementados con contract testing      | **cumplido** — 158 componentes, WN cerrada                                                                                              |
-| 2. Temas de la app creados y validados AA **en el Theme Creator** | **bloqueado por la letra, no por el fondo** — `apps/theme-creator` es un stub con `package.json` y `README.md` y nada más |
-| 3. Playgrounds con todos los componentes             | cumplido en web                                                                                                                         |
-| 4. Bundle budgets en verde                           | cumplido                                                                                                                                |
+| Criterio                                                          | Estado                                                                    |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| 1. Canónicos implementados con contract testing                    | **cumplido** — 158 contratos, WN cerrada                                   |
+| 2. Temas de la app creados y validados AA **en el Theme Creator**  | **bloqueado por la letra, no por el fondo** — `apps/theme-creator` sigue siendo `package.json` + `README.md` |
+| 3. Playgrounds con todos los componentes                           | cumplido en web                                                            |
+| 4. Bundle budgets en verde                                         | cumplido                                                                   |
 
 El criterio 2 pide el Theme Creator, que no existe. Pero lo que el criterio quiere es **su salida**:
-un `NebulaTheme` validado contra AA. Eso se consigue hoy sin GUI, y es lo que la fase 1 de arriba
-encarga: `gen:palette from` para las escalas y `check:contrast --theme` para la validación — el
-mismo motor que usaría el Creator, según `docs/02` §5.3.
+un `NebulaTheme` validado contra AA. Eso se consigue hoy sin GUI y con menos trabajo que cuando se
+escribió el criterio: `BuildProduct` construye el tema entero desde diez campos, `gen:palette from`
+saca las escalas y `check:contrast --theme` valida con el mismo motor que usaría el Creator
+(`docs/02` §5.3).
 
 Si prefieres respetar el gate a la letra, el encargo que falta es construir el Theme Creator
 (`prompts/3-theme-creator/`) antes que éste. Es una decisión tuya, no un impedimento técnico.
