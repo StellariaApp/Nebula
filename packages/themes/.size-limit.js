@@ -4,8 +4,9 @@
  * Los que NO llevan `/web` son datos puros y es lo unico que `packages/native` importa: si alguno
  * empieza a crecer de golpe, lo mas probable es que Vanilla Extract se haya colado donde no debe.
  *
- * `/all/web` compila los 10 temas al importarse. Pesa mas que uno solo pero mucho menos que diez:
- * comparten los 627 nombres de propiedad y se deduplican entre si.
+ * `/all/web` compila los 16 temas al importarse. Pesa mas que uno solo pero mucho menos que dieciseis:
+ * comparten los 627 nombres de propiedad, y desde ADR-175 la base es `nebula` entero y cada tema solo
+ * baja aquello en lo que difiere de el.
  */
 export default [
   {
@@ -33,7 +34,7 @@ export default [
     limit: "40 kB",
   },
   {
-    name: "web: los diez materializados (subpath /all/web)",
+    name: "web: los dieciseis materializados (subpath /all/web)",
     path: "dist/themes/all-web.js",
     import: "{ CLASSES, CSS }",
     limit: "120 kB",
