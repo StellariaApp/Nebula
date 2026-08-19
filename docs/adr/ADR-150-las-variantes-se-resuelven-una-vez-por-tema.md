@@ -171,6 +171,36 @@ arbitrario entero se quedaba fuera; la segunda lo redujo a `#hex`; esta lo reduc
 `filled`. Conviene decir que el análisis se movió tres veces, porque el precio de la decisión bajó
 cada vez.
 
+## Cierre del despliegue — 2026-08-18
+
+Medido sobre `packages/web/src/components`, con el cableado ya hecho:
+
+| | |
+| --- | --- |
+| Ficheros que referencian la matriz con `VariantRefs` | **26** |
+| De esos, cuántos siguen llamando también a `ResolveVariant` | **26** |
+| Lecturas de `theme.colors` en código de componente | **0** |
+| Lecturas de `theme.motion` / `theme.effects` | 13 / 9 |
+
+**Que los 26 llamen a las dos vías es el estado final, no un despliegue a medias**, y conviene
+dejarlo escrito porque a simple vista parece deuda. `ResolveVariant` se queda por dos razones que la
+matriz no puede cubrir:
+
+1. **El respaldo.** `VariantRefs` devuelve `null` cuando la combinación no está en la matriz —un
+   `gradient` por props, un `#hex` literal—. La expresión `refs?.background ?? resolved.background`
+   es lo que hace que esos casos sigan pintando.
+2. **Lo que no es color.** `resolved.animated`, `resolved.glow !== "none"` y la comparación que
+   decide si el botón se eleva al pasar por encima son hechos booleanos que gobiernan JavaScript
+   —`framer-motion`, en concreto—, no propiedades que el navegador pueda resolver contra una clase.
+
+Lo que sí desapareció es lo que el ADR perseguía: **ningún componente lee un color del tema en
+JavaScript durante el render**. Ese era el objetivo y está cumplido.
+
+Queda una diferencia conocida y benigna: en servidor `resolved` se calcula contra el tema por
+defecto, así que bajo otro tema los booleanos podrían diferir hasta hidratar. No se ve, porque los
+tres gobiernan comportamiento que necesita interacción —hover, animación— y la interacción llega
+después de la hidratación.
+
 ## Alternativas descartadas
 
 **Expresar la resolución entera en CSS.** `color-mix()` cubre el oscurecido, pero elegir tinta por
