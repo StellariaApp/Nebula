@@ -1,6 +1,6 @@
 {
   "name": "@stellaria/nebula",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Mapa de los paquetes de Nebula. No exporta codigo: instala el que necesites.",
   "keywords": [
     "nebula",

@@ -1,5 +1,44 @@
 # @stellaria/nebula-themes
 
+## 1.0.0
+
+### Major Changes
+
+- - BREAKING: los temas y su contrato CSS se mudan a `@stellaria/nebula-themes`; ahora son dieciséis, se nombran por su color y `sun` pasa a `sol` (ADR-168, ADR-172) — actualiza de dónde importas los temas y con qué nombre los pides.
+  - BREAKING: nuevo runtime de tema — `ColorSchemeScript` pasa a `ThemeScript`, la identidad (`meta.name`) y el esquema (`meta.scheme`) van en claves separadas, el provider acepta temas ya materializados y `CompileTheme` los materializa en caliente; la elección de tema ya sobrevive al refresco (ADR-164/166/167).
+  - BREAKING: los puntos de ruptura salen del contrato del tema (ADR-174) y `Paper`, `GlassSurface` y los decoradores puros dejan de exponer `ref` (ADR-157).
+  - `Hero`, `Section`, `Card` y una veintena más de componentes dejan de ser de cliente: el color de variante se resuelve por clase CSS desde la matriz que publica el tema, sacando el tema del camino de render (ADR-150).
+  - El peldaño de control más pequeño sube al mínimo táctil (ADR-162), las style props de color aceptan `ColorExtended` (ADR-147) y las superficies glass y gradient acusan el hover con `liftHover`.
+
+### Minor Changes
+
+- fbf7fae: El cristal de los accionables es un velo, no una superficie (ADR-136)
+
+  `GlassLevel` gana `veil`, el escalón más transparente de la escala: `blur(1px)` con el borde subido.
+  En dark el velo **aclara** —`rgba(255, 255, 255, 0.05)`, la receta que ADR-078 describía— en vez de
+  oscurecer, que sobre un canvas oscuro no separaba nada; en light es `rgba(255, 255, 255, 0.30)`.
+
+  El borde es lo que separa un control de 48 px de su fondo, así que subirlo deja bajar el velo y el
+  filo **mejora**: de 1,18 con `control` a 1,25–1,60. `check:contrast`: 186 pares por tema, 0 FAIL y la deuda declarada de ADR-161.
+
+  El `variantMap` lo declara como nivel por defecto de la variante `glass` (ADR-170): el nivel lo
+  decide el **tema**, no el componente. Son los únicos accionables del catálogo
+  que admiten `variant="glass"`; el resto estrecha `Variant` sin incluirlo. `QuickAction` estrena la
+  prop `glass`, que los otros dos ya tenían.
+
+  **Rompedor para temas propios.** El contrato es `Record<GlassLevel, GlassSurfaceRecipe>`, así que un
+  tema que no defina `veil` deja de compilar. Añade la entrada con la receta que quieras; si omites
+  `borderColor`, el schema pone `rgba(128, 128, 128, 0.24)`.
+
+  Consumir componentes no rompe: quien no escriba temas propios solo ve el material nuevo en los tres
+  accionables.
+
+### Patch Changes
+
+- Updated dependencies [fbf7fae]
+- Updated dependencies
+  - @stellaria/nebula-tokens@1.0.0
+
 ## 0.1.0
 
 ### Minor Changes
