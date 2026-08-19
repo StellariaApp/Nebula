@@ -55,7 +55,7 @@ Las paletas libres cubrían los huecos, así que **no hizo falta generar ninguna
 | ---- | ------ | ---- | ---------- |
 | 128° | lime   | **`cometa`**  | Llena el hueco de 100°. Los cometas brillan verdes |
 | 306° | violet | **`vela`**    | El resto de supernova de Vela, magenta-violeta |
-| 330° | grape  | **`quasar`**  | Magenta profundo, el escalón entre `vela` y `roseta` |
+| 152° | green  | **`quasar`**  | El verde que faltaba entre `cometa` y `helix` |
 | 251° | slate  | **`grafito`** | El neutro frío |
 | 98°  | yellow | **`nova`**    | El destello |
 | 25°  | red    | **`eclipse`** | Rojo sobre negro |
@@ -104,6 +104,11 @@ diferencian por lienzo, suelo y materiales, que es lo que el contrato promete y 
   `localStorage` cae al de por defecto — la guarda de ADR-166 ya lo cubre, pero pierde su elección.
 - Dieciséis temas. El CSS de `/all/web` crece de 262 a ~400 kB en crudo; comprimido apenas se mueve,
   porque ADR-169 manda a `:root` lo que comparten y sólo baja la diferencia de cada uno.
-- El par más justo del catálogo es `vela` (306°) y `quasar` (330°): 0,089 de distancia en el primario
-  y 0,071 en el degradado, que es lo que enseña el selector. Se ven distintos en una pastilla grande
-  pero son vecinos, y el rincón magenta —`vela`, `quasar`, `aurora`, `roseta`— es el más poblado.
+- **`quasar` es verde y no azul-blanco**, que es lo que un cuásar es de verdad. Se acepta la
+  licencia: el hueco que quedaba en la rueda era el verde profundo y el nombre ya estaba puesto.
+- El par más justo del catálogo pasa a ser `zenit` y `grafito` —0,121 en el primario, 0,105 en el
+  degradado—, muy por encima del 0,050 por el que se borró `corona`. `quasar` en `grape` habría
+  dejado el rincón magenta con cuatro temas y un par a 0,089; en `green` queda a 0,215 de `cometa` y
+  0,146 de `helix`, más separado de sus vecinos de lo que estaba en su sitio anterior.
+- **`sand` se evaluó y se descartó**: está a 0,050 de `titan`, exactamente la distancia por la que se
+  borró `corona`. Queda como la única paleta cromática sin tema, junto a `light` y `dark`.
