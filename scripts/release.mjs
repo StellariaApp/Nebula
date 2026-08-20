@@ -375,6 +375,29 @@ ${String(error.message)}`);
    * `changeset version` no conoce. Se sincroniza aqui —no a mano— porque ya se quedo una vez en
    * `0.1.0` con el paquete publicado en `1.0.0`, y los dieciseis temas mintieron sobre su version.
    */
+  /**
+   * SE COMPRUEBA ANTES DE COMMITEAR, y ese orden es el arreglo.
+   *
+   * Estaba despues, asi que un release incoherente dejaba un `chore(release)` escrito en la rama
+   * y luego se paraba — habia que deshacerlo a mano para volver a intentarlo. Aqui todavia no se
+   * ha tocado git: lo unico sucio es el arbol, y `git checkout -- .` lo devuelve entero.
+   *
+   * Con `fixed` en la configuracion de changesets esto no deberia dispararse nunca; queda como
+   * asercion, porque el tag nombra UNA version y publicar seis distintas bajo ese nombre miente.
+   */
+  const distinct = new Set(PACKAGES.map((pkg) => Version(pkg.dir)));
+  if (distinct.size !== 1) {
+    working.stop("Versiones incoherentes");
+    Stop(`Los seis paquetes no comparten version: ${[...distinct].join(", ")}.
+
+El tag que dispara la publicacion nombra una sola version, asi que con versiones
+distintas mentiria. Revisa el grupo 'fixed' de .changeset/config.json: los seis
+tienen que ir en el mismo.
+
+No se ha commiteado nada: "git checkout -- ." deja el arbol como estaba.`);
+  }
+  const tag = `${FORCE ? "force/" : ""}v${[...distinct][0]}`;
+
   const themes_version = Version("themes");
   const version_file = join("packages", "themes", "src", "version.ts");
   writeFileSync(
@@ -414,14 +437,6 @@ ${String(error.message)}`);
    * `git push --follow-tags` empuja SOLO los anotados, y los de changeset son ligeros. Por eso el
    * paso que CI tenia para empujarlos no empujaba nada y salia verde igual.
    */
-  const distinct = new Set(PACKAGES.map((pkg) => Version(pkg.dir)));
-  if (distinct.size !== 1) {
-    Stop(`Los seis paquetes no comparten version: ${[...distinct].join(", ")}.
-
-El tag que dispara la publicacion nombra una sola version, asi que con versiones
-distintas mentiria. Revisa la configuracion de changesets.`);
-  }
-  const tag = `${FORCE ? "force/" : ""}v${[...distinct][0]}`;
 
   /*
    * EL TAG DISPARADOR VIAJA SOLO, Y ESTO NO ES ESTILO.
