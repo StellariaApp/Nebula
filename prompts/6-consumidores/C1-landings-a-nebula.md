@@ -318,7 +318,7 @@ Si prefieres respetar el gate a la letra, el encargo que falta es construir el T
 Rosette pasó por este encargo entero el 2026-08-19. Esto es lo que se supo al hacerlo, y que la
 versión anterior del prompt no podía decir.
 
-### Cuatro correcciones al propio encargo
+### Cinco correcciones al propio encargo
 
 **1 · vanilla-extract SÍ funciona bajo Turbopack, y la Fase 1 vía (a) está disponible.** El encargo
 lo daba por un coste probable y la primera lectura fue que era imposible. Falso: el plugin lo
@@ -357,6 +357,21 @@ referencia a componente desde un componente de servidor revienta en tiempo de re
 «Functions cannot be passed directly to Client Components». **Compila y falla en producción.** Usa
 `component="a"` y asume que pierdes el prefetch de `next/link`.
 
+**5 · Para probar una versión de Nebula que aún no está en npm, empaqueta.** `pnpm pack` en cada
+paquete y `overrides` apuntando a los `.tgz`. Enlazar el repo vecino con `link:` **no sirve**:
+`tsc` sigue el symlink y `pnpm typecheck` pasa, pero `next build` cae con una veintena de
+`Module not found` que señalan tus ficheros y no el enlace —Turbopack no resuelve paquetes
+enlazados fuera de la raíz del proyecto—. Y si lanzas ese `pnpm install` desde Git Bash, los
+symlinks salen con ruta MSYS (`/c/Users/…`) que Windows no sigue, con el mismo error.
+
+Dos avisos sobre `minimumReleaseAge`, porque muerde dos veces:
+
+- **Pinear la versión no basta.** El gate valida el **lockfile**, no lo que pides. Hay que listar
+  cada paquete y versión en `minimumReleaseAgeExclude` de `pnpm-workspace.yaml`.
+- **Mientras convivan dos versiones, lista las dos.** Si dejas sólo la nueva y el lockfile todavía
+  dice la vieja, *cualquier* orden de pnpm muere en la comprobación de políticas antes de llegar al
+  script — `pnpm start` incluido.
+
 ### Lo que el catálogo ganó desde entonces, y que ya puedes usar
 
 - **`reveal`** en `Box`, `Card`, `Paper`, `GradientBorder`, `Alert`, `EmptyState`, `Stat`, `Feature`
@@ -366,6 +381,14 @@ referencia a componente desde un componente de servidor revienta en tiempo de re
   envolverlo — que es la única vía cuando un envoltorio rompe el marcado, como en una fila de tabla.
 - **`gradientBorder`** en `Card`, que reemplaza el patrón `<GradientBorder><Card/></GradientBorder>`
   y además hereda el radio de la tarjeta en vez de cuadrarlo a mano.
+- **`momentum` en `Main`**, que es opcional y cambia cómo se siente la página entera. La rueda ya
+  no mueve el scroll directamente: alimenta un resto que se consume con amortiguación exponencial,
+  así que un golpe fuerte sigue corriendo y uno suave avanza igual sin quedarse clavado. Al llegar
+  al borde frena del todo, estira hasta 280 px y **no vuelve a moverse hasta que la rueda para**:
+  cada evento que llega mientras está bloqueado renueva el plazo en vez de saltárselo.
+  **La trampa**: escribe la posición unas sesenta veces por segundo, así que no pongas
+  `scroll-behavior: smooth` sobre el mismo elemento — se pelean y el resultado es un scroll que
+  tirita sin que nada en la consola lo diga.
 - **La entrada es CSS, no JavaScript.** `Reveal` no monta ningún componente de motion: el muelle del
   tema se muestrea a `linear()`. Sirve el estado oculto desde el servidor y sólo lo declara bajo
   `(scripting: enabled) and (prefers-reduced-motion: no-preference)`, así que sin scripts el
@@ -377,6 +400,11 @@ La landing de Rosette con Nebula pesa **115 kB brotli más** que la escrita a ma
 CSS, +17 de HTML. A una página pequeña un sistema de diseño le cobra su coste fijo entero. **Dilo en
 el veredicto y no lo maquilles**: lo que se compra a cambio no aparece en esa tabla, y la decisión
 de si compensa es del propietario, no del que migra.
+
+**Y no esperes que las optimizaciones del catálogo te lo bajen.** La misma landing medida con la
+versión que sacó dieciséis componentes de `motion` pesa **139 B más**, no menos: el JS baja 2.547 B
+y el reveal los devuelve en marcado y hoja. Lo que se ahorra en el catálogo se ahorra en las páginas
+que usaban esos componentes, y una landing usa media docena. La cifra de arriba sigue en pie.
 
 Dos renglones concretos que conviene esperar:
 
