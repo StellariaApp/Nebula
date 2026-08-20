@@ -1,9 +1,9 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
-import { vars } from "@stellaria/nebula-themes/web";
 import { component_layer } from "../../theme/layers.css.js";
 
 import * as variables from "./Card.vars.css.js";
@@ -48,6 +48,7 @@ export const card = recipe({
     },
     padding: {
       none: { vars: { [variables.pad]: "0px" }, padding: variables.pad, gap: 0 },
+      xs: { vars: { [variables.pad]: vars.space.xs }, padding: variables.pad, gap: vars.space.xxs },
       md: { vars: { [variables.pad]: vars.space.md }, padding: variables.pad, gap: vars.space.sm },
       lg: { vars: { [variables.pad]: vars.space.lg }, padding: variables.pad, gap: vars.space.md },
       xl: { vars: { [variables.pad]: vars.space.xl }, padding: variables.pad, gap: vars.space.lg },
