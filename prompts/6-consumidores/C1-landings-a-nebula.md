@@ -7,6 +7,12 @@
 > demuestra que un producto se retiñe entero sin tocar Nebula. Si la landing no sale limpia, la app
 > tampoco va a salir.
 
+> **Revisado el 2026-08-19, después de ejecutarlo entero sobre Rosette.** Lo que sigue son hechos
+> medidos, no previsiones: el encargo se hizo de verdad y el veredicto está en
+> `Rosettee/docs/reviews/adopcion-rosette-2026-08-19.md`. Cuatro cosas cambiaron y una de ellas
+> invalida un párrafo entero de la versión del 18. Están todas en la sección **«Lo que la primera
+> ejecución dejó aprendido»**, al final. Léela ANTES de la Fase 0.
+>
 > **Revisado el 2026-08-18.** La versión anterior de este encargo era del 17 y quedó desfasada en
 > cuatro puntos que costaban horas cada uno: citaba `ColorSchemeScript`, importaba `vars` del paquete
 > equivocado, decía que el esquema se deduce del nombre del tema, y mandaba escribir el tema
@@ -304,3 +310,96 @@ saca las escalas y `check:contrast --theme` valida con el mismo motor que usarí
 
 Si prefieres respetar el gate a la letra, el encargo que falta es construir el Theme Creator
 (`prompts/3-theme-creator/`) antes que éste. Es una decisión tuya, no un impedimento técnico.
+
+---
+
+## Lo que la primera ejecución dejó aprendido
+
+Rosette pasó por este encargo entero el 2026-08-19. Esto es lo que se supo al hacerlo, y que la
+versión anterior del prompt no podía decir.
+
+### Cuatro correcciones al propio encargo
+
+**1 · vanilla-extract SÍ funciona bajo Turbopack, y la Fase 1 vía (a) está disponible.** El encargo
+lo daba por un coste probable y la primera lectura fue que era imposible. Falso: el plugin lo
+soporta, pero detrás de dos opciones que **no fallan al compilar**, que es lo que lo hace caro de
+descubrir.
+
+```ts
+createVanillaExtractPlugin({
+  unstable_turbopack: {
+    mode: "auto",                     // sin esto arranca en "off" — la via de webpack — y bajo
+                                      // Turbopack queda INERTE: el .css.ts se empaqueta como TS,
+                                      // style() corre en runtime y revienta AL SERVIR con
+                                      // «Styles were unable to be assigned to a file».
+    glob: ["./src/**/*.css.ts"],      // el de fabrica se mete en node_modules e intenta RECOMPILAR
+                                      // los .css.js ya compilados de Nebula; el build muere en
+                                      // field.css.js con «Invalid exports», porque esos modulos
+                                      // exportan funciones y el serializador solo escribe datos.
+  },
+});
+```
+
+El soporte está marcado experimental aguas arriba: clava la versión del plugin, no la dejes en rango.
+
+**2 · pnpm 11 puede instalar una versión vieja sin avisar.** `pnpm add @stellaria/nebula-web` puede
+traer la anterior aunque `latest` apunte a la nueva: el gate de `minimumReleaseAge` retiene lo
+recién publicado. No hay error, sólo la pista `+ pkg 0.1.0 (1.0.0 is available)` entre el ruido.
+Instala con la versión pineada.
+
+**3 · `@stellaria/nebula-themes/web` sólo carga desde un bundler.** Reexporta un módulo que importa
+un `.vanilla.css`; en Node puro suelta `ERR_UNKNOWN_FILE_EXTENSION`. Para validar o medir un tema
+desde un script suelto hace falta un `registerHooks` de `node:module` que devuelva un módulo vacío
+para todo lo que acabe en `.css`.
+
+**4 · `component={Link}` NO cruza la frontera RSC.** `Button` lleva `"use client"`, y pasarle una
+referencia a componente desde un componente de servidor revienta en tiempo de render con
+«Functions cannot be passed directly to Client Components». **Compila y falla en producción.** Usa
+`component="a"` y asume que pierdes el prefetch de `next/link`.
+
+### Lo que el catálogo ganó desde entonces, y que ya puedes usar
+
+- **`reveal`** en `Box`, `Card`, `Paper`, `GradientBorder`, `Alert`, `EmptyState`, `Stat`, `Feature`
+  y `Table.Row`. `true` toma la entrada del catálogo; un objeto la afina, e `index` escalona una
+  lista. **No está en los de formulario a propósito**: un campo que aparece animado estorba a quien
+  va a rellenarlo. Para cualquier otro componente, `<Reveal component={X}>` lo renderiza sin
+  envolverlo — que es la única vía cuando un envoltorio rompe el marcado, como en una fila de tabla.
+- **`gradientBorder`** en `Card`, que reemplaza el patrón `<GradientBorder><Card/></GradientBorder>`
+  y además hereda el radio de la tarjeta en vez de cuadrarlo a mano.
+- **La entrada es CSS, no JavaScript.** `Reveal` no monta ningún componente de motion: el muelle del
+  tema se muestrea a `linear()`. Sirve el estado oculto desde el servidor y sólo lo declara bajo
+  `(scripting: enabled) and (prefers-reduced-motion: no-preference)`, así que sin scripts el
+  contenido está.
+
+### Lo que el encargo cuesta, medido
+
+La landing de Rosette con Nebula pesa **115 kB brotli más** que la escrita a mano: +72 de JS, +25 de
+CSS, +17 de HTML. A una página pequeña un sistema de diseño le cobra su coste fijo entero. **Dilo en
+el veredicto y no lo maquilles**: lo que se compra a cambio no aparece en esa tabla, y la decisión
+de si compensa es del propietario, no del que migra.
+
+Dos renglones concretos que conviene esperar:
+
+- El marcado triplica de tamaño. La causa es el sistema de clases atómicas: un `Box` con `display`,
+  `direction`, `gap` y `align` emite cuatro clases con nombre hasheado largo, repetidas en cada
+  celda de cada rejilla.
+- `ThemeScript` y `NebulaProvider` arrastran los dos temas oficiales de Nebula por un import de CSS
+  —efecto secundario, no se sacude en el árbol—: 6,2 kB brotli que el producto no usa, en todas sus
+  rutas.
+
+### El error que ninguna herramienta caza
+
+`tsc` limpio, `next build` verde, HTTP 200, cero errores de consola y las secciones en el HTML
+inicial **no significan que se vea bien**. En Rosette el hero salía cortado por la izquierda en
+escritorio —la ranura lateral de `Hero` es `flex-shrink: 0; max-width: max-content`, así que una
+imagen ancha empuja el cuerpo fuera del viewport— y era **invisible en móvil**, donde apila.
+
+**Abre la página y mírala, en los dos esquemas.** Es un paso del encargo, no un extra.
+
+### El CSS del producto sin migrar te pisará a Nebula
+
+Si el producto trae una hoja global sin `@layer` que toque `*`, `html`, `body`, `a` o
+`button, input`, se comerá a Nebula en silencio: **el CSS sin capa gana SIEMPRE al CSS en capa**, sin
+importar especificidad ni orden. Baja esa hoja a layouts de las rutas que aún no migran, y deja en
+la raíz sólo un reset mínimo dentro de una capa declarada **antes** que las de Nebula. Nebula no trae
+reset global — su capa `nebula.reset` sólo normaliza clases de componente.
