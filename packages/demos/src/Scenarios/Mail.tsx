@@ -10,6 +10,7 @@ import {
   Divider,
   Kbd,
   NavLink,
+  Reveal,
   SearchInput,
   Text,
   Textarea,
@@ -109,6 +110,7 @@ export function Mail(): ReactElement {
           base: "1fr",
           laptop: "minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr)",
         }}
+        reveal={{ index: 0 }}
       >
         <Card withBorder r="md" p="sm">
           <Box display="flex" direction="column" gap="xxs">
@@ -117,27 +119,37 @@ export function Mail(): ReactElement {
             </Button>
             <Divider my="xs" />
             {MAILBOXES.map((box, index) => (
-              <NavLink
-                key={box.label}
-                label={box.label}
-                active={index === 0}
-                {...(box.count === undefined
-                  ? {}
-                  : {
-                      rightSection: (
-                        <Badge variant="light" size="xs">
-                          {box.count}
-                        </Badge>
-                      ),
-                    })}
-              />
+              <Reveal key={box.label} index={index + 1}>
+                <NavLink
+                  key={box.label}
+                  label={box.label}
+                  active={index === 0}
+                  {...(box.count === undefined
+                    ? {}
+                    : {
+                        rightSection: (
+                          <Badge variant="light" size="xs">
+                            {box.count}
+                          </Badge>
+                        ),
+                      })}
+                />
+              </Reveal>
             ))}
             <Divider my="xs" />
             <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide" px="xs">
               Labels
             </Text>
-            {LABELS.map((tag) => (
-              <Box key={tag.label} display="flex" align="center" gap="sm" px="xs" py="xxs">
+            {LABELS.map((tag, index) => (
+              <Box
+                key={tag.label}
+                display="flex"
+                align="center"
+                gap="sm"
+                px="xs"
+                py="xxs"
+                reveal={{ index: index + 1 }}
+              >
                 <Box w={8} h={8} r="full" bg={tag.color} />
                 <Text fz="body3" c="text.secondary">
                   {tag.label}
@@ -147,7 +159,7 @@ export function Mail(): ReactElement {
           </Box>
         </Card>
 
-        <Card withBorder r="md" padding="none">
+        <Card withBorder r="md" padding="none" reveal={{ index: 1 }}>
           <Box display="flex" direction="column">
             <Box p="sm" bdbw={1} bdbs="solid" bdc="border.subtle">
               <SearchInput size="sm" placeholder="Search mail" aria-label="Search mail" />
@@ -163,6 +175,7 @@ export function Mail(): ReactElement {
                 display="flex"
                 gap="sm"
                 align="flex-start"
+                reveal={{ index }}
               >
                 <Avatar name={thread.who} size="sm" variant="light" color="accent" />
                 <Box display="flex" direction="column" gap="xxs" style={{ minWidth: 0, flex: 1 }}>
@@ -191,7 +204,7 @@ export function Mail(): ReactElement {
           </Box>
         </Card>
 
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 2 }}>
           <Box display="flex" direction="column" gap="sm">
             <Box display="flex" justify="space-between" align="center" gap="sm">
               <Title order={4} fz="h6">

@@ -58,6 +58,7 @@ export function TimelineBody(props: TimelineBodyProps): ReactElement {
             key={index}
             data-reached={reached ? "true" : undefined}
             {...itemProps}
+            reveal={{ index }}
             className={cx(styles.item, itemProps?.className)}
           >
             <Box

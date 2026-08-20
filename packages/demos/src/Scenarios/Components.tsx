@@ -11,7 +11,6 @@ import {
   Checkbox,
   Code,
   Divider,
-  GradientBorder,
   GradientText,
   Indicator,
   Kbd,
@@ -27,20 +26,7 @@ import {
   Text,
   TextInput,
 } from "@stellaria/nebula-web";
-import { useState, type ReactElement, type ReactNode } from "react";
-
-function Cell({ title, children }: { title: string; children: ReactNode }): ReactElement {
-  return (
-    <Card withBorder r="md" p="md" h="100%">
-      <Box display="flex" direction="column" gap="sm" h="100%">
-        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-          {title}
-        </Text>
-        {children}
-      </Box>
-    </Card>
-  );
-}
+import { useState, type ReactElement } from "react";
 
 function Working(): ReactElement {
   const [busy, set_busy] = useState(false);
@@ -75,14 +61,14 @@ export function ScenarioComponents(): ReactElement {
         laptop: "repeat(3, minmax(0, 1fr))",
       }}
     >
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 0 }}>
         <Box display="flex" direction="column" gap="md">
           <TextInput label="Your email" placeholder="ana@email.com" required />
           <PasswordInput label="Password" placeholder="••••••••" />
         </Box>
       </Card>
 
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 1 }}>
         <Box display="flex" direction="column" gap="md">
           <Text fz="body2" fw="semibold">
             Verify account
@@ -102,7 +88,7 @@ export function ScenarioComponents(): ReactElement {
         </Box>
       </Card>
 
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 2 }}>
         <Box display="flex" direction="column" gap="md">
           <Box display="flex" gap="sm" align="center" wrap="wrap">
             <Button size="sm">Filled</Button>
@@ -125,7 +111,7 @@ export function ScenarioComponents(): ReactElement {
         </Box>
       </Card>
 
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 3 }}>
         <Box display="flex" direction="column" gap="md">
           <Box display="flex" justify="space-between" align="baseline">
             <Text fz="body2" fw="semibold">
@@ -147,7 +133,7 @@ export function ScenarioComponents(): ReactElement {
         </Box>
       </Card>
 
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 4 }}>
         <Box display="flex" direction="column" gap="sm">
           <Box display="flex" align="center" gap="sm">
             <Indicator processing>
@@ -176,27 +162,38 @@ export function ScenarioComponents(): ReactElement {
         </Box>
       </Card>
 
-      <Cell title="Indeterminate work">
+      <Card withBorder r="md" p="md" reveal={{ index: 5 }}>
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          Indeterminate work
+        </Text>
         <Working />
-      </Cell>
+      </Card>
 
-      <GradientBorder beam r="md" h="100%">
-        <Card p="md" h="100%">
-          <Box display="flex" direction="column" gap="sm" h="100%">
-            <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
-              The beam
-            </Text>
-            <Text fz="caption" c="text.muted" lh="normal">
-              A lit border that sweeps the perimeter. It stops flat at <Code>minimal</Code>.
-            </Text>
-            <Box display="flex" align="center" gap="sm" mt="auto">
-              <Loader size="sm" />
-            </Box>
+      <Card
+        p="md"
+        h="100%"
+        reveal={{ index: 6 }}
+        gradientBorder={{
+          beam: true,
+        }}
+      >
+        <Box display="flex" direction="column" gap="sm" h="100%">
+          <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+            The beam
+          </Text>
+          <Text fz="caption" c="text.muted" lh="normal">
+            A lit border that sweeps the perimeter. It stops flat at <Code>minimal</Code>.
+          </Text>
+          <Box display="flex" align="center" gap="sm" mt="auto">
+            <Loader size="sm" />
           </Box>
-        </Card>
-      </GradientBorder>
+        </Box>
+      </Card>
 
-      <Cell title="Animated gradient">
+      <Card p="md" h="100%" reveal={{ index: 7 }}>
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          Animated gradient
+        </Text>
         <AnimatedGradient r="sm" p="md" h="100%">
           <Box display="flex" direction="column" gap="xs" justify="center" h="100%">
             <Text fz="body2" fw="semibold" c="text.onGradient">
@@ -207,9 +204,12 @@ export function ScenarioComponents(): ReactElement {
             </Text>
           </Box>
         </AnimatedGradient>
-      </Cell>
+      </Card>
 
-      <Cell title="Gradient text">
+      <Card p="md" h="100%" reveal={{ index: 8 }}>
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          Graditent text
+        </Text>
         <Box display="flex" direction="column" gap="xs" justify="center" h="100%">
           <Text fz="h4" fw="bold">
             <GradientText>Same switch</GradientText>
@@ -218,7 +218,7 @@ export function ScenarioComponents(): ReactElement {
             One switch retunes colour, type, motion and glass at once.
           </Text>
         </Box>
-      </Cell>
+      </Card>
     </Box>
   );
 }

@@ -181,7 +181,6 @@ export function Search({ labels }: { labels: SearchLabels }): ReactElement {
 
   return (
     <GlobalSearch
-      h="40px"
       miw="200px"
       withTrigger
       withShortcut

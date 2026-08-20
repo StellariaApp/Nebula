@@ -23,7 +23,7 @@ export async function DocsIndex({ section }: { section: Section }): Promise<Reac
         gridTemplateColumns="repeat(auto-fill, minmax(280px, 1fr))"
         w="100%"
       >
-        {docs.map((doc) => (
+        {docs.map((doc, index) => (
           <Anchor
             key={doc.slug.join("/")}
             component={Link}
@@ -31,7 +31,7 @@ export async function DocsIndex({ section }: { section: Section }): Promise<Reac
             td="none"
             h="100%"
           >
-            <Card withBorder r="lg" padding="md" h="100%">
+            <Card withBorder r="lg" padding="md" h="100%" reveal={{ index }}>
               <Box display="flex" direction="column" gap="xs">
                 <Title order={2} fz="h6" c="text.primary">
                   {doc.title}

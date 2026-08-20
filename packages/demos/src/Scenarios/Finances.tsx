@@ -50,8 +50,8 @@ export function Finances(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", tablet: "repeat(4, minmax(0, 1fr))" }}
       >
-        {TOTALS.map((item) => (
-          <Card key={item.label} withBorder r="md" p="md">
+        {TOTALS.map((item, index) => (
+          <Card key={item.label} withBorder r="md" p="md" reveal={{ index }}>
             <Stat
               label={item.label}
               value={item.value}
@@ -72,7 +72,7 @@ export function Finances(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 3fr) minmax(0, 2fr)" }}
       >
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 4 }} gradientBorder={{ beam: true }}>
           <BarChart
             data={WEEK}
             series={[{ key: "volume", label: "Volume", color: "primary" }]}
@@ -86,7 +86,7 @@ export function Finances(): ReactElement {
           />
         </Card>
 
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 5 }}>
           <Box display="flex" direction="column" gap="sm">
             <Box display="flex" justify="space-between" align="baseline">
               <Text fz="body2" fw="semibold">
@@ -96,8 +96,15 @@ export function Finances(): ReactElement {
                 8
               </Badge>
             </Box>
-            {HOLDINGS.map((row) => (
-              <Box key={row.asset} display="flex" align="center" justify="space-between" gap="sm">
+            {HOLDINGS.map((row, index) => (
+              <Box
+                key={row.asset}
+                display="flex"
+                align="center"
+                justify="space-between"
+                gap="sm"
+                reveal={{ index: index + 1 }}
+              >
                 <Box display="flex" align="center" gap="sm">
                   <Avatar name={row.asset} size="sm" variant="light" radius="full" />
                   <Box display="flex" direction="column">
@@ -130,7 +137,7 @@ export function Finances(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 2fr) minmax(0, 3fr)" }}
       >
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 6 }}>
           <PieChart
             data={SPEND}
             valueKey="value"
@@ -144,13 +151,8 @@ export function Finances(): ReactElement {
           />
         </Card>
 
-        <Card withBorder r="md" padding="none">
-          <Table
-            highlightOnHover
-            density="compact"
-            caption="Recent activity"
-            captionVisible={false}
-          >
+        <Card withBorder r="md" padding="none" reveal={{ index: 7 }}>
+          <Table highlightOnHover caption="Recent activity" captionVisible={false}>
             <Table.Head>
               <Table.Row>
                 <Table.Title>Txn</Table.Title>
@@ -161,8 +163,8 @@ export function Finances(): ReactElement {
               </Table.Row>
             </Table.Head>
             <Table.Body>
-              {TXN.map((row) => (
-                <Table.Row key={row.id}>
+              {TXN.map((row, index) => (
+                <Table.Row key={row.id} reveal={{ index: index + 1 }}>
                   <Table.Cell>
                     <Code>{row.id}</Code>
                   </Table.Cell>

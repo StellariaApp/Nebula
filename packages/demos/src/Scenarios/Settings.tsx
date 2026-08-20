@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   Divider,
+  Reveal,
   StatusBadge,
   Switch,
   Text,
@@ -48,7 +49,7 @@ export function Settings(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 2fr) minmax(0, 3fr)" }}
       >
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 0 }}>
           <Box display="flex" direction="column" gap="md">
             <Box display="flex" align="center" gap="sm">
               <Avatar name="Ana Ruiz" size="lg" variant="light" color="primary" />
@@ -63,10 +64,16 @@ export function Settings(): ReactElement {
             </Box>
             <Divider />
             <Box display="flex" direction="column" gap="sm">
-              <Switch defaultChecked label="Email digests" />
-              <Switch defaultChecked label="Drift alerts" />
-              <Switch label="Weekly export" />
-              <Switch label="Beta features" />
+              {[
+                "Email notifications",
+                "SMS notifications",
+                "Push notifications",
+                "In-app notifications",
+              ].map((label, index) => (
+                <Reveal key={label} index={index}>
+                  <Switch key={label} defaultChecked={index < 2} label={label} />
+                </Reveal>
+              ))}
             </Box>
             <Divider />
             <Alert variant="light" color="warning" title="Danger zone">
@@ -78,7 +85,7 @@ export function Settings(): ReactElement {
           </Box>
         </Card>
 
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 1 }}>
           <Box display="flex" direction="column" gap="md">
             <Text fz="body2" fw="semibold">
               Frequently asked
@@ -88,8 +95,15 @@ export function Settings(): ReactElement {
             <Text fz="body2" fw="semibold">
               Members
             </Text>
-            {MEMBERS.map((row) => (
-              <Box key={row.who} display="flex" align="center" justify="space-between" gap="sm">
+            {MEMBERS.map((row, index) => (
+              <Box
+                key={row.who}
+                display="flex"
+                align="center"
+                justify="space-between"
+                gap="sm"
+                reveal={{ index: index + 1 }}
+              >
                 <Box display="flex" align="center" gap="sm">
                   <Avatar name={row.who} size="sm" variant="light" />
                   <Box display="flex" direction="column">

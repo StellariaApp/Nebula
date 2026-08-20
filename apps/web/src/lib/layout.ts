@@ -6,7 +6,7 @@ export const SHELL_WIDTH = 1180;
  * en ese peldaño; guides lo fija porque la banda cuelga de él, así que tiene que valer lo mismo o
  * las dos barras del sitio no miden igual.
  */
-export const NAV_HEIGHT = 64;
+export const NAV_HEIGHT = 72;
 
 /** Alto de la banda de pestañas, el segundo peldaño bajo la barra. */
 export const BAND_HEIGHT = 48;

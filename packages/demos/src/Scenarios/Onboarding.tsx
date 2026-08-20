@@ -41,7 +41,7 @@ const PROMISES = [
 export function Onboarding(): ReactElement {
   return (
     <Box display="flex" direction="column" gap="md">
-      <Card withBorder r="md" p="md">
+      <Card withBorder r="md" p="md" reveal={{ index: 0 }}>
         <Stepper steps={STEPS} active={2} variant="light" />
       </Card>
 
@@ -49,6 +49,7 @@ export function Onboarding(): ReactElement {
         display="grid"
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 3fr) minmax(0, 2fr)" }}
+        reveal={{ index: 1 }}
       >
         <Card withBorder r="md" p="md">
           <Box display="flex" direction="column" gap="md">
@@ -89,7 +90,7 @@ export function Onboarding(): ReactElement {
           </Box>
         </Card>
 
-        <Card withBorder r="md" p="md">
+        <Card withBorder r="md" p="md" reveal={{ index: 2 }}>
           <Box display="flex" direction="column" gap="md">
             <Text fz="body2" fw="semibold">
               What you get

@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 
-import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { Check } from "../../../glyphs/index.js";
+import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
 import { Text } from "../../Text/Text.js";
 import { VisuallyHidden } from "../../VisuallyHidden/VisuallyHidden.js";
@@ -136,6 +136,8 @@ export function StepperBody(props: StepperBodyProps): ReactElement {
                 <Box
                   component="button"
                   type="button"
+                  reveal={{ index }}
+
                   {...stepProps}
                   className={cx(styles.step, stepProps?.className)}
                   onClick={() => {
@@ -148,6 +150,7 @@ export function StepperBody(props: StepperBodyProps): ReactElement {
                 <Box
                   component="span"
                   data-static="true"
+                  reveal={{ index }}
                   {...stepProps}
                   className={cx(styles.step, stepProps?.className)}
                 >

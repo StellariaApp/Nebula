@@ -114,10 +114,12 @@ export function CardSurface(props: CardProps): ReactElement {
 
   const element = href !== undefined ? "a" : onPress !== undefined ? "button" : "div";
 
-  const surface = (
+  return (
     <Box
       {...rest}
-      component={element}
+      component={
+        gradientBorder === undefined || gradientBorder === false ? element : GradientBorder
+      }
       className={class_name}
       style={{ ...variant_vars, ...sprinkle_style }}
       data-motion={motion_off ? "off" : undefined}
@@ -125,18 +127,12 @@ export function CardSurface(props: CardProps): ReactElement {
       {...(href === undefined ? {} : { href })}
       {...(element === "button" ? { type: "button" as const, onClick: onPress } : {})}
       {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
+      {...(gradientBorder === undefined || gradientBorder === false
+        ? {}
+        : RingProps(gradientBorder))}
     >
       {children}
     </Box>
-  );
-
-  if (gradientBorder === undefined || gradientBorder === false) return surface;
-
-  // El anillo hereda el radio de la tarjeta: es lo que el patron a mano tenia que cuadrar aparte.
-  return (
-    <GradientBorder r={r} {...RingProps(gradientBorder)}>
-      {surface}
-    </GradientBorder>
   );
 }
 

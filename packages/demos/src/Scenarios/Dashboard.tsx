@@ -6,7 +6,7 @@ import {
   Button,
   Card,
   Divider,
-  GradientBorder,
+  Flex,
   GradientText,
   Progress,
   Stat,
@@ -79,8 +79,8 @@ const CARDS = [
 
 function Head(): ReactElement {
   return (
-    <Box display="flex" align="flex-end" justify="space-between" gap="md" wrap="wrap">
-      <Box display="flex" direction="column" gap="xs" align="flex-start">
+    <Flex align="flex-end" justify="space-between" gap="md" wrap="wrap">
+      <Flex direction="column" gap="md" align="flex-start">
         <Badge variant="light">Reconciliation</Badge>
         <Title order={3} fz="h3">
           <GradientText>Every movement, matched</GradientText>
@@ -88,31 +88,31 @@ function Head(): ReactElement {
         <Text fz="body2" c="text.secondary" maw="52ch">
           One catalogue, one set of props. Everything you see is retinted by the theme alone.
         </Text>
-      </Box>
-      <Box display="flex" gap="sm" align="center" wrap="wrap">
+      </Flex>
+      <Flex gap="sm" align="center" wrap="wrap">
         <Button size="sm" variant="gradient">
           Close period
         </Button>
         <Button size="sm" variant="outline">
           Export
         </Button>
-      </Box>
-    </Box>
+      </Flex>
+    </Flex>
   );
 }
 
 export function Dashboard(): ReactElement {
   return (
-    <Box display="flex" direction="column" gap="md">
+    <Flex direction="column" gap="xl">
       <Head />
       <Box
         display="grid"
         gap="md"
         gridTemplateColumns={{ base: "1fr", tablet: "repeat(3, minmax(0, 1fr))" }}
       >
-        {CARDS.map((item) => (
-          <Card key={item.label} withBorder r="md" p="md">
-            <Box display="flex" direction="column" gap="sm">
+        {CARDS.map((item, index) => (
+          <Card key={item.label} withBorder r="md" p="md" reveal={{ index }}>
+            <Flex direction="column" gap="sm">
               <Stat
                 label={item.label}
                 value={item.value}
@@ -128,7 +128,7 @@ export function Dashboard(): ReactElement {
                 withArea
                 label={`${item.label} trend`}
               />
-            </Box>
+            </Flex>
           </Card>
         ))}
       </Box>
@@ -138,46 +138,44 @@ export function Dashboard(): ReactElement {
         gap="md"
         gridTemplateColumns={{ base: "1fr", laptop: "minmax(0, 3fr) minmax(0, 2fr)" }}
       >
-        <GradientBorder beam r="md" h="100%">
-          <Card p="md" h="100%">
-            <AreaChart
-              data={FLOW}
-              series={[...SERIES]}
-              xAxis={{ key: "month" }}
-              height={196}
-              withLegend
-              withTooltip
-              withGrid
-              fillOpacity={0.22}
-              curve="monotone"
-              title="Matched against pending"
-              summary="Matched rose from 812 in February to 1,248 in July while pending fell from 96 to 36."
-            />
-          </Card>
-        </GradientBorder>
-        <Card withBorder r="md" p="md">
-          <Box display="flex" direction="column" gap="md">
+        <Card p="md" h="100%" gradientBorder={{ beam: true }} reveal={{ index: 4 }}>
+          <AreaChart
+            data={FLOW}
+            series={[...SERIES]}
+            xAxis={{ key: "month" }}
+            height={196}
+            withLegend
+            withTooltip
+            withGrid
+            fillOpacity={0.22}
+            curve="monotone"
+            title="Matched against pending"
+            summary="Matched rose from 812 in February to 1,248 in July while pending fell from 96 to 36."
+          />
+        </Card>
+        <Card withBorder r="md" p="md" reveal={{ index: 5 }}>
+          <Flex direction="column" gap="md">
             <Text fz="body2" fw="semibold">
               Today
             </Text>
             <Timeline items={[...ACTIVITY]} active={2} variant="light" />
             <Divider />
-            <Box display="flex" direction="column" gap="xs">
-              <Box display="flex" justify="space-between" align="baseline">
+            <Flex direction="column" gap="xs">
+              <Flex justify="space-between" align="baseline">
                 <Text fz="caption" c="text.muted">
                   Auto-match rate
                 </Text>
                 <Text fz="caption" fw="semibold">
                   97.2%
                 </Text>
-              </Box>
+              </Flex>
               <Progress value={97.2} color="success" size="sm" label="Auto-match rate" />
-            </Box>
-          </Box>
+            </Flex>
+          </Flex>
         </Card>
       </Box>
 
-      <Card withBorder r="md" padding="none">
+      <Card withBorder r="md" padding="none" reveal={{ index: 6 }}>
         <Table highlightOnHover density="compact" caption="Latest movements" captionVisible={false}>
           <Table.Head>
             <Table.Row>
@@ -188,8 +186,8 @@ export function Dashboard(): ReactElement {
             </Table.Row>
           </Table.Head>
           <Table.Body>
-            {LEDGER.map((row) => (
-              <Table.Row key={row.id}>
+            {LEDGER.map((row, index) => (
+              <Table.Row key={row.id} reveal={{ index: index + 1 }}>
                 <Table.Cell>
                   <Text fz="body3" fw="medium">
                     {row.id}
@@ -209,6 +207,6 @@ export function Dashboard(): ReactElement {
           </Table.Body>
         </Table>
       </Card>
-    </Box>
+    </Flex>
   );
 }
