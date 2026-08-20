@@ -1,5 +1,7 @@
 import {
   Activity,
+  Anchor,
+  Archive,
   AlertCircle,
   AlertTriangle,
   ArrowLeft,
@@ -7,9 +9,11 @@ import {
   ArrowUpDown,
   BarChart3,
   Bell,
+  Ban,
   Bookmark,
   Calendar,
   Camera,
+  CircleX,
   Check,
   CheckCircle2,
   CheckSquare,
@@ -19,6 +23,8 @@ import {
   ChevronUp,
   Circle,
   Clock,
+  Coins,
+  Compass,
   Copy,
   CreditCard,
   DollarSign,
@@ -30,21 +36,36 @@ import {
   FileText,
   Filter,
   Folder,
+  Globe,
   Heart,
   HelpCircle,
   Home,
   Image,
   Info,
+  Key,
+  Keyboard,
+  Languages,
+  Layers,
+  LayoutGrid,
   LayoutDashboard,
   LineChart,
+  Link2,
+  List,
+  LockOpen,
+  LogIn,
   Loader2,
   Lock,
   LogOut,
   Mail,
+  MapPin,
+  Maximize2,
   Menu,
   MessageSquare,
   Mic,
+  Minimize2,
   Minus,
+  Monitor,
+  Moon,
   MoreHorizontal,
   MoreVertical,
   Paperclip,
@@ -54,12 +75,24 @@ import {
   PieChart,
   Play,
   Plus,
+  Receipt,
   RefreshCw,
+  Repeat,
+  RotateCcw,
+  Rss,
   Save,
+  Scissors,
   Search,
   Send,
   Settings,
   Share2,
+  Shield,
+  Shirt,
+  SkipBack,
+  SkipForward,
+  SlidersHorizontal,
+  Sparkles,
+  Sun,
   Star,
   ThumbsUp,
   Trash2,
@@ -67,11 +100,15 @@ import {
   TrendingUp,
   Upload,
   User,
+  UserPlus,
   Users,
   Video,
   Volume2,
+  VolumeX,
+  WandSparkles,
   Wallet,
   X,
+  Zap,
 } from "lucide-react";
 
 import type { IconComponent } from "../types.js";
@@ -81,6 +118,10 @@ export const NavigationPack = {
   menu: Menu,
   search: Search,
   settings: Settings,
+  compass: Compass,
+  "map-pin": MapPin,
+  grid: LayoutGrid,
+  list: List,
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   "chevron-up": ChevronUp,
@@ -110,6 +151,14 @@ export const ActionsPack = {
   sort: ArrowUpDown,
   eye: Eye,
   "eye-off": EyeOff,
+  archive: Archive,
+  link: Link2,
+  maximize: Maximize2,
+  minimize: Minimize2,
+  sliders: SlidersHorizontal,
+  repeat: Repeat,
+  undo: RotateCcw,
+  "x-circle": CircleX,
 } as const satisfies Record<string, IconComponent>;
 
 export const StatusPack = {
@@ -120,6 +169,10 @@ export const StatusPack = {
   help: HelpCircle,
   loader: Loader2,
   bell: Bell,
+  shield: Shield,
+  key: Key,
+  unlock: LockOpen,
+  ban: Ban,
 } as const satisfies Record<string, IconComponent>;
 
 export const DashboardPack = {
@@ -137,6 +190,9 @@ export const DashboardPack = {
   wallet: Wallet,
   "credit-card": CreditCard,
   dollar: DollarSign,
+  coins: Coins,
+  receipt: Receipt,
+  layers: Layers,
 } as const satisfies Record<string, IconComponent>;
 
 export const FormsPack = {
@@ -151,6 +207,11 @@ export const FormsPack = {
   check: Check,
   "check-square": CheckSquare,
   circle: Circle,
+  "user-plus": UserPlus,
+  login: LogIn,
+  globe: Globe,
+  languages: Languages,
+  keyboard: Keyboard,
 } as const satisfies Record<string, IconComponent>;
 
 export const MediaPack = {
@@ -159,6 +220,9 @@ export const MediaPack = {
   play: Play,
   pause: Pause,
   volume: Volume2,
+  "volume-off": VolumeX,
+  "skip-forward": SkipForward,
+  "skip-back": SkipBack,
   mic: Mic,
   camera: Camera,
 } as const satisfies Record<string, IconComponent>;
@@ -182,6 +246,36 @@ export const CommunicationPack = {
   bookmark: Bookmark,
   "thumbs-up": ThumbsUp,
   share: Share2,
+  rss: Rss,
+} as const satisfies Record<string, IconComponent>;
+
+/**
+ * El tema.
+ *
+ * Nebula sirve el theming y no traía con qué dibujarlo: cualquier producto con un
+ * conmutador de claro y oscuro acababa poniendo una estrella o un círculo, que es lo
+ * que hacía Rosette. `monitor` es la tercera opción de verdad — seguir al sistema.
+ */
+export const ThemePack = {
+  sun: Sun,
+  moon: Moon,
+  monitor: Monitor,
+} as const satisfies Record<string, IconComponent>;
+
+/**
+ * Crear cosas.
+ *
+ * La familia que falta en un catálogo pensado para paneles: un producto que genera
+ * —imágenes, escenas, vestuario— necesita nombrar el destello, la referencia que
+ * sostiene una identidad y las capas de un montaje.
+ */
+export const CreativePack = {
+  sparkles: Sparkles,
+  wand: WandSparkles,
+  zap: Zap,
+  anchor: Anchor,
+  shirt: Shirt,
+  scissors: Scissors,
 } as const satisfies Record<string, IconComponent>;
 
 export const CommonPack = {
@@ -211,5 +305,7 @@ export const AllIconsPack = {
   ...MediaPack,
   ...FilesPack,
   ...CommunicationPack,
+  ...ThemePack,
+  ...CreativePack,
   ...CommonPack,
 } as const satisfies Record<string, IconComponent>;
