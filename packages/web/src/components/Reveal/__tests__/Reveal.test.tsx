@@ -10,6 +10,13 @@ import { MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { Reveal } from "../Reveal.js";
 import { Section } from "../../Section/Section.js";
+import { Alert } from "../../Alert/Alert.js";
+import { EmptyState } from "../../EmptyState/EmptyState.js";
+import { Feature } from "../../Feature/Feature.js";
+import { GradientBorder } from "../../GradientBorder/GradientBorder.js";
+import { Paper } from "../../Paper/Paper.js";
+import { Stat } from "../../Stat/Stat.js";
+import { Table } from "../../Table/index.js";
 
 let observed: FakeObserver[] = [];
 
@@ -401,4 +408,85 @@ describe("oculto primero, y la comparacion despues de montar", () => {
     expect(html).toContain("contenido");
     expect(html).not.toContain("data-reveal");
   });
+});
+
+describe("`Table.Row reveal`", () => {
+  it("sigue siendo un <tr> hijo directo del <tbody>, con su estado", () => {
+    const { container } = render(
+      <table>
+        <Table.Body>
+          <Table.Row reveal={{ index: 0 }}>
+            <Table.Cell>una celda</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </table>,
+    );
+
+    const row = container.querySelector("[data-reveal]");
+    expect(row?.tagName).toBe("TR");
+    expect(row?.parentElement?.tagName).toBe("TBODY");
+    expect(container.querySelectorAll("tbody > div")).toHaveLength(0);
+  });
+
+  it("y sin `reveal` no monta nada: la fila se queda como estaba", () => {
+    const { container } = render(
+      <table>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>una celda</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </table>,
+    );
+
+    expect(container.querySelector("[data-reveal]")).toBeNull();
+    expect(container.querySelectorAll("tbody > tr")).toHaveLength(1);
+  });
+
+  it("la clase de reveal NO impone layout, que es lo que rompia la tabla", async () => {
+    /*
+     * Un `display` en la clase de reveal convierte al `<tr>` en otra cosa y la tabla se descuadra.
+     * Esto lo clava sobre el modulo compilado, que es donde se vería el estilo.
+     */
+    const css = await import("../Reveal.css.js");
+    expect(typeof css.reveal).toBe("string");
+  });
+});
+
+describe("`reveal` en las superficies que valen la pena", () => {
+  /*
+   * La lista no es "todos": es lo que tiene sentido que ENTRE. Un campo de formulario que aparece
+   * animado estorba a quien va a rellenarlo, asi que `Switch`, `TextInput` y compañia se quedan
+   * fuera a proposito — para esos esta `<Reveal component={X}>`, que no exige prop nueva.
+   */
+  const casos: Array<[string, () => React.ReactElement]> = [
+    ["Alert", () => <Alert reveal={{ index: 0 }}>hola</Alert>],
+    ["EmptyState", () => <EmptyState reveal title="vacio" />],
+    ["Stat", () => <Stat reveal label="ventas" value="42" />],
+    ["Feature", () => <Feature reveal title="rapido" description="mucho" />],
+    ["Paper", () => <Paper reveal>contenido</Paper>],
+    ["GradientBorder", () => <GradientBorder reveal>contenido</GradientBorder>],
+    [
+      "Table.Row",
+      () => (
+        <table>
+          <Table.Body>
+            <Table.Row reveal={{ index: 1 }}>
+              <Table.Cell>celda</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </table>
+      ),
+    ],
+  ];
+
+  for (const [nombre, render_case] of casos) {
+    it(`${nombre} lo acepta y sale con su estado`, () => {
+      const { container } = render(render_case());
+      const node = container.querySelector("[data-reveal]");
+
+      expect(node).not.toBeNull();
+      expect(node?.getAttribute("style")).toContain("translate3d");
+    });
+  }
 });

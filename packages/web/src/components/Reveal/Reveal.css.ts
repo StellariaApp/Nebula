@@ -55,6 +55,12 @@ const HIDDEN_WHEN = "(scripting: enabled) and (prefers-reduced-motion: no-prefer
 export const reveal = style({
   "@layer": {
     [composite_layer]: {
+      /*
+       * AQUI NO SE DECIDE EL LAYOUT. Esta clase la puede llevar cualquier cosa —una banda, una
+       * tarjeta, una fila de tabla, un `<span>`— y forzar un `display` la convierte en otra cosa:
+       * un `<tr>` con `display: flex` deja de ser fila y la tabla se descuadra. Lo unico que toca
+       * aqui es de donde viene el elemento y cuanto tarda en llegar.
+       */
       transition: [
         `opacity ${fade_duration} ${fade_easing} ${delay}`,
         `transform ${duration} ${easing} ${delay}`,

@@ -38,13 +38,21 @@ export const BoxReveal = forwardRef<HTMLElement, BoxRevealProps>(function BoxRev
     else ref.current = element;
   };
 
+  /*
+   * `rest` va PRIMERO, y el orden no es cosmetico.
+   *
+   * `ExtractStyleProps` deja `style` tambien en `rest`, asi que esparcirlo al final pisaba el estilo
+   * calculado — y cuando el consumidor pasaba `style={undefined}`, lo pisaba con nada: el elemento
+   * salia con su `data-reveal` pero SIN las variables que lo hacen moverse. Reveal a medias, que es
+   * peor que no tenerlo, porque no falla: simplemente no se anima.
+   */
   return (
     <Component
+      {...rest}
       ref={SetRef}
       className={cx(reveal.className, sprinkle_class, className)}
-      style={{ ...reveal.style, ...style }}
+      style={{ ...style, ...reveal.style }}
       data-reveal={reveal["data-reveal"]}
-      {...rest}
     />
   );
 });

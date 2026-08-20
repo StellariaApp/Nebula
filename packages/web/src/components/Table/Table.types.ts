@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { StyleProps } from "../../utils/style-props.js";
+import type { UseRevealOptions } from "../Reveal/use-reveal.js";
 
 import type { TextSlotProps } from "../Text/Text.types.js";
 
@@ -33,6 +34,15 @@ export interface TableRowProps extends StyleProps {
   selected?: boolean | undefined;
   onPress?: (() => void) | undefined;
   className?: string | undefined;
+  /**
+   * Animates the row in when it first scrolls into view. `true` takes the catalogue entrance; an
+   * object tunes it — `index` staggers a list of rows.
+   *
+   * The row declares it rather than the consumer wrapping it, because a wrapper is not an option
+   * here: between `<tbody>` and `<tr>` nothing else may sit, so a `<div>` around the row breaks the
+   * table outright.
+   */
+  reveal?: boolean | UseRevealOptions | undefined;
 }
 
 export interface TableCellProps extends Omit<StyleProps, "align"> {

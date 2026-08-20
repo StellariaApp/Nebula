@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
@@ -87,12 +88,24 @@ export function TableFoot(props: TableSectionProps): ReactElement {
   );
 }
 
+/**
+ * Una fila.
+ *
+ * Su raiz es un `Box component="tr"` y no un `<tr>` suelto, y es lo que le da `reveal` sin
+ * reimplementarlo: el observador y la transicion viven en la cascara de `Box`, que solo se monta
+ * cuando alguien pide la entrada.
+ *
+ * Aqui la prop no es una comodidad: envolver la fila NO es una opcion, porque entre `<tbody>` y
+ * `<tr>` no cabe ningun otro elemento. O lo declara la fila, o no hay forma de animarla.
+ */
 export function TableRow(props: TableRowProps): ReactElement {
-  const { children, selected = false, onPress, className, ...style_rest } = props;
+  const { children, selected = false, onPress, className, reveal, ...style_rest } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   return (
-    <tr
+    <Box
+      component="tr"
+      {...(reveal === undefined ? {} : { reveal })}
       className={cx(
         styles.row,
         onPress === undefined ? undefined : styles.pressable,
@@ -116,7 +129,7 @@ export function TableRow(props: TableRowProps): ReactElement {
           })}
     >
       {children}
-    </tr>
+    </Box>
   );
 }
 

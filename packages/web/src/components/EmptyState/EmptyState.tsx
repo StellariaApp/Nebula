@@ -20,6 +20,7 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
     actions,
     size = "md",
     className,
+    reveal,
     titleProps,
     descriptionProps,
     iconProps,
@@ -34,9 +35,10 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
   const is_off = MotionOff(motion_context);
 
   return (
-    <div
+    <Box
       className={cx(styles.root({ size }), sprinkle_class, className)}
-      {...(sprinkle_style === undefined ? {} : { style: sprinkle_style  })}
+      {...(sprinkle_style === undefined ? {} : { style: sprinkle_style })}
+      {...(reveal === undefined ? {} : { reveal })}
       data-motion={is_off ? "off" : undefined}
     >
       {icon === undefined || icon === null ? null : (
@@ -62,7 +64,7 @@ export function EmptyState(props: EmptyStateProps): ReactElement {
           {actions}
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

@@ -33,6 +33,7 @@ export function AlertBody(props: AlertBodyProps): ReactElement {
     live,
     actions,
     className,
+    reveal,
     titleProps,
     iconProps,
     bodyProps,
@@ -48,9 +49,10 @@ export function AlertBody(props: AlertBodyProps): ReactElement {
   const role = live ?? DEFAULT_LIVE[color] ?? "status";
 
   return (
-    <div
+    <Box
       className={cx(styles.root, tone, sprinkle_class, className)}
       style={{ ...toneStyle, ...sprinkle_style }}
+      {...(reveal === undefined ? {} : { reveal })}
       data-variant={variant}
       {...(role === "off" ? {} : { role })}
       {...(title === undefined ? {} : { "aria-labelledby": title_id })}
@@ -85,7 +87,7 @@ export function AlertBody(props: AlertBodyProps): ReactElement {
       {withCloseButton ? (
         <ButtonClose aria-label={closeLabel} size="sm" variant="ghost" onPress={onClose} />
       ) : null}
-    </div>
+    </Box>
   );
 }
 

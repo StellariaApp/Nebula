@@ -5,6 +5,7 @@ import type { ColorExtended, Variant } from "@stellaria/nebula-tokens";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
 import type { StyleProps } from "../../utils/style-props.js";
+import type { UseRevealOptions } from "../Reveal/use-reveal.js";
 
 export type AlertVariant = Extract<Variant, "filled" | "outline" | "light" | "glass">;
 
@@ -20,6 +21,11 @@ export interface AlertProps extends StyleProps {
   live?: "status" | "alert" | "off" | undefined;
   actions?: ReactNode | undefined;
   className?: string | undefined;
+  /**
+   * Animates the alert in when it first scrolls into view. `true` takes the catalogue entrance; an
+   * object tunes it.
+   */
+  reveal?: boolean | UseRevealOptions | undefined;
   /** The title. Its `id` is what names the alert through `aria-labelledby`, and it is written AFTER the slot. Only rendered with `title`. */
   titleProps?: TextSlotProps | undefined;
   /** The glyph. Only rendered with `icon`, and it is `aria-hidden`: the text is what informs. */

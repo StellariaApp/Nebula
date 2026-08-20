@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
+import { Box } from "../Box/Box.js";
 import { Anchor } from "../Anchor/Anchor.js";
 import { Text } from "../Text/Text.js";
 import { ThemeIcon } from "../ThemeIcon/ThemeIcon.js";
@@ -19,6 +20,7 @@ export function Feature(props: FeatureProps): ReactElement {
     align = "start",
     children,
     className,
+    reveal,
     titleProps,
     descriptionProps,
     iconProps,
@@ -28,9 +30,10 @@ export function Feature(props: FeatureProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   return (
-    <div
+    <Box
       className={cx(styles.feature, sprinkle_class, className)}
       style={sprinkle_style}
+      {...(reveal === undefined ? {} : { reveal })}
       data-align={align}
     >
       {icon === undefined || icon === null ? null : (
@@ -52,7 +55,7 @@ export function Feature(props: FeatureProps): ReactElement {
           {linkText}
         </Anchor>
       )}
-    </div>
+    </Box>
   );
 }
 

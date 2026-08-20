@@ -19,7 +19,18 @@ export const REVEAL_DISTANCE = 24;
 
 export const REVEAL_SPRING: SpringName = "gentle";
 export const REVEAL_AMOUNT = 0.2;
-export const REVEAL_ROOT_MARGIN = "0px 0px -8% 0px";
+
+/** Que parte del recorrido tarda la opacidad. Ver donde se usa. */
+const FADE_RATIO = 0.65;
+/**
+ * Cuanto se ADELANTA el disparo respecto al borde del viewport.
+ *
+ * Era `-8%`, que ENCOGE la caja de observacion por abajo y por tanto dispara TARDE: el elemento ya
+ * estaba dentro y a la vista cuando empezaba a entrar, asi que se veia aparecer en vez de llegar.
+ * En positivo la caja se agranda hacia abajo y la entrada arranca mientras el elemento todavia
+ * asoma, que es cuando no se nota el mecanismo y solo se nota el movimiento.
+ */
+export const REVEAL_ROOT_MARGIN = "0px 0px 12% 0px";
 
 /**
  * De donde entra cada preset, como `transform` de CSS.
@@ -174,7 +185,18 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
         [styles.duration]: `${String(timing.ms)}ms`,
         [styles.easing]: timing.easing,
         [styles.delay]: `${String(Math.round(delay * 1000))}ms`,
-        [styles.fade_duration]: `${String(theme.motion.duration.slow)}ms`,
+        /*
+         * EL DESVANECIDO TERMINA ANTES QUE EL MOVIMIENTO, Y ESE DESFASE ES EL EFECTO.
+         *
+         * Con los dos igualados el elemento seguia translucido mientras se colocaba, y eso se lee
+         * como que APARECE. Acabando la opacidad al 65 % del recorrido, el ultimo tercio del viaje
+         * pasa ya opaco: lo que se ve entonces no es algo materializandose, es algo que LLEGA.
+         *
+         * Con `duration.slow` fijo —lo que habia— el desfase dependia de que muelle tocara: con uno
+         * lento la opacidad acababa a mitad de camino y con uno rapido despues del final. Como
+         * fraccion, la proporcion se mantiene sea cual sea la curva.
+         */
+        [styles.fade_duration]: `${String(Math.round(timing.ms * FADE_RATIO))}ms`,
         [styles.fade_easing]: theme.motion.easing.decelerate,
       }) as Record<string, string>,
     [preset, distance, timing, delay, theme],

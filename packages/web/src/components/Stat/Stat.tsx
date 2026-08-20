@@ -27,6 +27,7 @@ export function Stat(props: StatProps): ReactElement {
     size = "md",
     align = "start",
     className,
+    reveal,
     labelProps,
     valueProps,
     descriptionProps,
@@ -39,9 +40,10 @@ export function Stat(props: StatProps): ReactElement {
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
   return (
-    <div
+    <Box
       className={cx(styles.root, styles.align[align], sprinkle_class, className)}
       style={sprinkle_style}
+      {...(reveal === undefined ? {} : { reveal })}
     >
       <Box {...headProps} className={cx(styles.head, headProps?.className)}>
         <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
@@ -92,7 +94,7 @@ export function Stat(props: StatProps): ReactElement {
           )}
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

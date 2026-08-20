@@ -4,6 +4,7 @@ import type { ColorExtended, Size } from "@stellaria/nebula-tokens";
 
 import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
+import type { UseRevealOptions } from "../Reveal/use-reveal.js";
 import type { StyleProps } from "../../utils/style-props.js";
 
 export type StatTrend = "up" | "down" | "flat";
@@ -34,4 +35,13 @@ export interface StatProps extends Omit<StyleProps, "align"> {
   size?: Size | undefined;
   align?: "start" | "center" | "end" | undefined;
   className?: string | undefined;
+  /**
+   * Animates it in when it first scrolls into view. `true` takes the catalogue entrance; an object
+   * tunes it — `index` staggers a list.
+   *
+   * It is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on
+   * `BoxOwnProps`, and most of the catalogue types its props over `StyleProps`, so nothing arrives
+   * on its own.
+   */
+  reveal?: boolean | UseRevealOptions | undefined;
 }
