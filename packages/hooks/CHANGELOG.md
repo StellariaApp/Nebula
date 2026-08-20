@@ -1,5 +1,25 @@
 # @stellaria/nebula-hooks
 
+## 1.1.0
+
+### Minor Changes
+
+- a2c1e72: Detalle técnico, para quien mantenga: la auditoría de qué anima con CSS y qué con motion —y por qué
+  los seis que quedan no pueden salir— está en `docs/03-a11y-motion-performance.md` §2. El modelo del
+  scroll y el porqué de cada constante, en `packages/hooks/src/use-momentum-scroll.ts`.
+
+  Los seis paquetes suben juntos aunque sólo dos tengan cambios: el tag que dispara la publicación
+  nombra una sola versión, así que versiones distintas lo harían mentir.
+
+- - La animación de entrada de `Reveal` pasa a CSS: entra más afinada, deja de rebotar al hacer scroll y ahora alcanza más superficies del catálogo.
+  - El scroll suave adopta el modelo de smooth-scrollbar, con momentum y un borde que cede de verdad al llegar al final.
+  - El bundle adelgaza: once componentes dejan de depender de motion y el provider baja 12 kB.
+
+### Patch Changes
+
+- Updated dependencies [a2c1e72]
+  - @stellaria/nebula-tokens@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

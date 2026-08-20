@@ -1,5 +1,21 @@
 # @stellaria/nebula-themes
 
+## 1.1.0
+
+### Minor Changes
+
+- a2c1e72: Detalle técnico, para quien mantenga: la auditoría de qué anima con CSS y qué con motion —y por qué
+  los seis que quedan no pueden salir— está en `docs/03-a11y-motion-performance.md` §2. El modelo del
+  scroll y el porqué de cada constante, en `packages/hooks/src/use-momentum-scroll.ts`.
+
+  Los seis paquetes suben juntos aunque sólo dos tengan cambios: el tag que dispara la publicación
+  nombra una sola versión, así que versiones distintas lo harían mentir.
+
+### Patch Changes
+
+- Updated dependencies [a2c1e72]
+  - @stellaria/nebula-tokens@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
