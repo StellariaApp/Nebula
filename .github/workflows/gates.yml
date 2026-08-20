@@ -67,9 +67,22 @@ jobs:
   # los dos presupuestos.
   guardia:
     name: typecheck · lint
+    # El commit de release genera DOS runs: uno por el push de `main` y otro por el del tag, que
+    # viaja aparte a proposito. Los dos corrian `guardia` sobre el mismo SHA, o sea el mismo lint
+    # dos veces. Aqui se descarta el de la rama.
+    #
+    # Si, esto vuelve a mirar el asunto del commit, que es lo que ADR-176 quito. La diferencia es
+    # la direccion del fallo: alli el mensaje decidia SI SE PUBLICABA, y no casar significaba no
+    # publicar en silencio. Aqui solo decide si se ahorra un lint redundante, y no casar significa
+    # correrlo igual. Lo que dispara y lo que bloquea la publicacion sigue siendo el ref, nunca
+    # una cadena.
     if: >-
       github.event_name == 'push'
-      && (startsWith(github.ref, 'refs/heads/') || startsWith(github.ref, 'refs/tags/force/'))
+      && (
+        (startsWith(github.ref, 'refs/heads/')
+          && !startsWith(github.event.head_commit.message, 'chore(release):'))
+        || startsWith(github.ref, 'refs/tags/force/')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 20
     concurrency:
