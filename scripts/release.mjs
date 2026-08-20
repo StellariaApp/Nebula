@@ -28,6 +28,17 @@ const MODEL = "claude-haiku-4-5-20251001";
 const ARGS = process.argv.slice(2);
 const DRY = ARGS.some((a) => ["--dry", "--dry-run"].includes(a));
 
+/**
+ * `--force` publica saltandose los gates: CI corre `typecheck` y `lint` y va directo al registro.
+ *
+ * No es un atajo de comodidad, es una salida de emergencia —una correccion que no puede esperar
+ * treinta minutos de axe y regresion visual—. Se nota en TODAS partes a proposito: el tag se llama
+ * `force/v<version>` y no `v<version>`, asi que en el listado de tags se ve cual se publico por la
+ * via corta sin abrir nada. Los gates no se saltan por configuracion escondida: se saltan porque
+ * el ref no casa con `refs/tags/v*`, que es la condicion que ya tenian.
+ */
+const FORCE = ARGS.includes("--force");
+
 /** `--bump=minor` salta las preguntas: lo usa el ensayo y cualquier cosa sin terminal interactiva. */
 const FIXED = ARGS.find((a) => a.startsWith("--bump="))?.slice("--bump=".length);
 
@@ -249,10 +260,31 @@ async function Summary(subjects, packages) {
 }
 
 async function Main() {
-  intro(DRY ? "  Nebula · release (ensayo)  " : "  Nebula · release  ");
+  intro(
+    DRY
+      ? "  Nebula · release (ensayo)  "
+      : FORCE
+        ? "  Nebula · release (FORCE · sin gates)  "
+        : "  Nebula · release  ",
+  );
 
   if (!DRY) Guard();
   CheckConfig();
+
+  if (FORCE) {
+    note(
+      [
+        "CI correra typecheck y lint, y publicara.",
+        "",
+        "NO correran: build, test, size, slots, contrast, docs, budget,",
+        "              axe sobre las stories, regresion visual.",
+        "",
+        "El tag se llamara force/v<version>, para que en el listado se vea",
+        "cual salio por aqui sin tener que abrir Actions.",
+      ].join("\n"),
+      "Via rapida",
+    );
+  }
 
   const range = Range();
   const packages = Changed(range);
@@ -313,7 +345,9 @@ async function Main() {
     FIXED !== undefined ||
     Bail(
       await confirm({
-        message: `Versionar ${String(packages.length)} paquetes a ${Next(current, bump)} y empujar?`,
+        message: FORCE
+          ? `FORCE — publicar ${Next(current, bump)} sin gates, sin axe y sin regresion visual?`
+          : `Versionar ${String(packages.length)} paquetes a ${Next(current, bump)} y empujar?`,
         initialValue: false,
       }),
     );
@@ -387,15 +421,30 @@ ${String(error.message)}`);
 El tag que dispara la publicacion nombra una sola version, asi que con versiones
 distintas mentiria. Revisa la configuracion de changesets.`);
   }
-  const tag = `v${[...distinct][0]}`;
+  const tag = `${FORCE ? "force/" : ""}v${[...distinct][0]}`;
 
+  /*
+   * EL TAG DISPARADOR VIAJA SOLO, Y ESTO NO ES ESTILO.
+   *
+   * GitHub lo dice con todas las letras: «An event will not be created when you create more than
+   * three tags at once». `git push --tags` subia los seis de changeset MAS `v<version>` en una
+   * sola operacion —siete—, asi que no se creaba evento, no nacia ningun run y la publicacion no
+   * ocurria. Sin nada en rojo: el tag quedaba en el remoto, el workflow era correcto, y en Actions
+   * no habia run que mirar. La 1.1.0 se quedo sin publicar exactamente asi.
+   *
+   * El orden importa. Los de changeset van primero —son los que `Range()` lee y no disparan nada—
+   * y el anotado se crea DESPUES, para que `--tags` no se lo lleve por delante, y viaja en su
+   * propio empuje: uno es uno, y uno si crea evento.
+   */
   Run("pnpm exec changeset tag");
-  Git(["tag", "-a", tag, "-m", `Nebula ${tag}`]);
 
   working.message("Empujando");
   Run("git push");
   Run("git push --tags");
-  working.stop(`Empujado, con el tag ${tag}`);
+
+  Git(["tag", "-a", tag, "-m", `Nebula ${tag}`]);
+  Git(["push", "origin", tag]);
+  working.stop(`Empujado, con el tag ${tag} en su propio empuje`);
 
   note(versions.join("\n"), "Publicando");
   outro("El workflow construye desde un checkout limpio y publica con procedencia.");

@@ -3,7 +3,7 @@ name: Gates y publicacion
 on:
   push:
     branches: [main]
-    tags: ["v*"]
+    tags: ["v*", "force/v*"]
   pull_request:
   workflow_dispatch:
     inputs:
@@ -39,10 +39,19 @@ on:
 #      empuja solo los anotados. Sin tags, `Range()` del script de release no
 #      sabe desde donde redactar y recorre el historial entero.
 #
-# Con el tag como disparador las dos desaparecen. Un tag `v*` o llega o no llega:
-# si llega, los jobs de gates NO tienen condicion que evaluar y no se pueden
-# saltar; si no llega, no hay run que interpretar. El marcador deja de ser una
-# cadena en un mensaje y pasa a ser un objeto de git que alguien creo a proposito.
+#   3. Y con el tag ya como disparador aparecio una tercera, que es la que hay que vigilar:
+#      el tag LLEGO y no nacio ningun run. GitHub no crea evento cuando se suben mas de tres
+#      tags a la vez, y `git push --tags` subia los seis de changeset mas el `v*` de golpe
+#      —siete—. Nada se puso rojo: el tag estaba en el remoto, este fichero era correcto, y en
+#      Actions no habia absolutamente nada que mirar. La 1.1.0 se quedo sin publicar asi.
+#
+# Las dos primeras las cierra el tag: o llega o no llega, y si llega, los jobs de gates no
+# tienen condicion que evaluar y no se pueden saltar. El marcador deja de ser una cadena en un
+# mensaje y pasa a ser un objeto de git que alguien creo a proposito.
+#
+# La tercera la cierra `scripts/release.mjs`, empujando el tag disparador SOLO. Y deja una
+# regla de diagnostico: si una version no se publica, mira PRIMERO si el run existe, antes de
+# buscar un gate en rojo que no esta.
 
 env:
   TURBO_TELEMETRY_DISABLED: 1
@@ -58,7 +67,9 @@ jobs:
   # los dos presupuestos.
   guardia:
     name: typecheck · lint
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
+    if: >-
+      github.event_name == 'push'
+      && (startsWith(github.ref, 'refs/heads/') || startsWith(github.ref, 'refs/tags/force/'))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     concurrency:
@@ -287,8 +298,23 @@ jobs:
   # ligeros y los empujaba con `--follow-tags`, que solo empuja anotados.
   publish:
     name: publicar en npm
-    needs: [gates, a11y, visual]
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [guardia, gates, a11y, visual]
+    # Un job SALTADO no falla, y por ahi se colo el incidente 1: `needs` por si solo deja pasar
+    # lo que no llego a correr. Aqui se exige `success` explicito en la via normal, asi que un
+    # gate que se salte —por la razon que sea— bloquea la publicacion en vez de bendecirla.
+    #
+    # La via de force es la excepcion DECLARADA: la pide el tag `force/v*`, que alguien escribe a
+    # proposito, y a cambio solo tiene `guardia` detras. No hay forma de llegar aqui por accidente.
+    if: >-
+      !cancelled()
+      && (
+        (startsWith(github.ref, 'refs/tags/v')
+          && needs.gates.result == 'success'
+          && needs.a11y.result == 'success'
+          && needs.visual.result == 'success')
+        || (startsWith(github.ref, 'refs/tags/force/v')
+          && needs.guardia.result == 'success')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 20
     concurrency:
