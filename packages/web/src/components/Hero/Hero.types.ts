@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from "react";
 
 import type { ColorExtended, Unit, Variant } from "@stellaria/nebula-tokens";
 
@@ -10,11 +10,23 @@ export type HeroSize = "sm" | "md" | "lg" | "xl";
 
 export type HeroOrder = 1 | 2 | 3 | 4 | 5 | 6;
 
-/** Props of any `Hero` part: children, `className` and the system style props. */
-export interface HeroSlotProps extends Omit<StyleProps, "color" | "left" | "right" | "bottom"> {
+/**
+ * Props of any `Hero` part: children, `className`, the system style props — and the
+ * native attributes of the element it renders.
+ *
+ * **The native ones matter and were missing.** Every other slot in the catalogue
+ * forwards them through `ComponentPropsWithoutRef`, so a consumer can hang an `id`, an
+ * `aria-*` or a one-off `style` on a part. `Hero` was the only one that could not:
+ * balancing the wrap of its own title —`style={{ textWrap: "balance" }}`— did not
+ * typecheck, and a hero title is exactly where balancing is worth it.
+ */
+export type HeroSlotProps = Omit<StyleProps, "color" | "left" | "right" | "bottom"> & {
   children?: ReactNode | undefined;
   className?: string | undefined;
-}
+} & Omit<
+    ComponentPropsWithoutRef<"div">,
+    keyof StyleProps | "children" | "className" | "color"
+  >;
 
 export interface HeroPartsProps {
   titleProps?: Omit<HeroSlotProps, "order"> | undefined;
