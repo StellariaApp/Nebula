@@ -12,8 +12,12 @@ const STAGGER_CAP = 8;
 /**
  * Cuanto se ablanda un muelle del tema al llevarlo al scroll. Un scroll con la rigidez de un boton
  * se siente agarrado, asi que baja; es el UNICO mando de velocidad de {@link ScrollSpring}.
+ *
+ * `0.8` y no `0.5`: con la mitad, `default` tardaba 423 ms en asentar y se leia como que la pagina
+ * llegaba tarde. Aqui son 334 ms, un quinto menos, sin que aparezca ningun rebote — la
+ * amortiguacion se recalcula y sigue siendo critica.
  */
-const SCROLL_STIFFNESS = 0.5;
+const SCROLL_STIFFNESS = 0.8;
 
 /**
  * La amortiguacion relativa del scroll, y no un multiplicador sobre la del tema.

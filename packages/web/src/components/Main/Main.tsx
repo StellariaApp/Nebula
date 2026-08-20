@@ -15,7 +15,14 @@ import * as variables from "./Main.vars.css.js";
 import { Box } from "../Box/Box.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
-const BOUNCE_DISTANCE = 120;
+/**
+ * Cuanto puede llegar a ceder el borde, en pixeles.
+ *
+ * Exagerado a proposito: el estiron es asintotico, asi que estos 180 no se alcanzan de un tick —
+ * se ganan empujando, y cuanto mas estirado esta menos suma cada muesca. Un tope que apenas cede no
+ * comunica que se acabo el recorrido; uno que cede de verdad, si.
+ */
+const BOUNCE_DISTANCE = 280;
 const STUCK = new Set(["sticky", "fixed"]);
 
 export function Main(props: MainProps): ReactElement {

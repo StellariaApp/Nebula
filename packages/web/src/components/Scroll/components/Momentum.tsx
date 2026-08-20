@@ -10,7 +10,14 @@ import * as scroll_vars from "../Scroll.vars.css.js";
 import type { MomentumProps } from "../Scroll.types.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
-const BOUNCE_DISTANCE = 80;
+/**
+ * Cuanto puede llegar a ceder el borde, en pixeles.
+ *
+ * Exagerado a proposito: el estiron es asintotico, asi que estos 180 no se alcanzan de un tick —
+ * se ganan empujando, y cuanto mas estirado esta menos suma cada muesca. Un tope que apenas cede no
+ * comunica que se acabo el recorrido; uno que cede de verdad, si.
+ */
+const BOUNCE_DISTANCE = 280;
 
 export function Momentum(props: MomentumProps): ReactElement {
   const { component, axis, spring, multiplier, bounce, forwardedRef, children, ...rest } = props;

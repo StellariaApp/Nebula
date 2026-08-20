@@ -242,7 +242,7 @@ describe("useMomentumScroll · rebote en el límite", () => {
     expect(Position()).toBe(0);
   });
 
-  it("mientras siguen llegando muescas, el borde se queda estirado", () => {
+  it("el borde cede UNA VEZ por gesto: insistir ya no lo estira mas", () => {
     const { node } = Scroller();
     const seen: number[] = [];
     renderHook(() => {
@@ -270,7 +270,12 @@ describe("useMomentumScroll · rebote en el límite", () => {
     });
     const second = seen.at(-1) ?? 0;
 
-    expect(second).toBeLessThan(first);
+    /*
+     * Antes cada muesca estiraba un poco mas mientras el usuario insistiera. Ahora el cerrojo se
+     * echa en cuanto el borde cede y solo lo suelta el silencio de la rueda: seguir girando contra
+     * el tope deja la pagina quieta en vez de haciendo temblar la goma.
+     */
+    expect(second).toBeCloseTo(first, 5);
     expect(seen.every((value) => value <= 0)).toBe(true);
 
     act(Release);
@@ -460,5 +465,138 @@ describe("useMomentumPage", () => {
 
     expect(on_window.mock.calls.some(([type]) => type === "wheel")).toBe(false);
     on_window.mockRestore();
+  });
+});
+
+describe("la inercia depende del gesto, no de un numero fijo", () => {
+  /*
+   * El ritmo se mide sobre `timeStamp`, asi que hay que ponerlo a mano: dos eventos creados en el
+   * mismo bloque sincrono comparten instante y el gesto pareceria infinitamente rapido.
+   */
+  function WheelAt(node: HTMLElement, at: number, init: WheelEventInit = {}): void {
+    const event = new WheelEvent("wheel", { bubbles: true, cancelable: true, ...init });
+    Object.defineProperty(event, "timeStamp", { value: at, configurable: true });
+    node.dispatchEvent(event);
+  }
+
+  it("un giro suelto no gana ni un pixel", () => {
+    const { node, Position } = Scroller();
+    renderHook(() => {
+      useMomentumScroll({ current: node }, { multiplier: 1 });
+    });
+
+    WheelAt(node, 1000, { deltaY: 100 });
+    Run();
+
+    /*
+     * Esto es lo que protege el caso lento. Si el impulso se aplicara siempre, una muesca suelta se
+     * pasaria de largo y la pagina dejaria de ir donde el usuario la manda — que es peor que no
+     * tener inercia.
+     */
+    expect(Position()).toBeCloseTo(100, 0);
+  });
+
+  it("y varios giros espaciados tampoco: son pasos, no un gesto", () => {
+    const { node, Position } = Scroller();
+    renderHook(() => {
+      useMomentumScroll({ current: node }, { multiplier: 1 });
+    });
+
+    for (let i = 0; i < 4; i += 1) {
+      WheelAt(node, 1000 + i * 500, { deltaY: 100 });
+      Run();
+    }
+
+    expect(Position()).toBeCloseTo(400, 0);
+  });
+
+  it("una rafaga seguida si termina mas alla de lo que suman sus ticks", () => {
+    const { node, Position } = Scroller();
+    renderHook(() => {
+      useMomentumScroll({ current: node }, { multiplier: 1 });
+    });
+
+    for (let i = 0; i < 6; i += 1) {
+      WheelAt(node, 1000 + i * 30, { deltaY: 100 });
+      Run(2);
+    }
+    Run();
+
+    expect(Position()).toBeGreaterThan(600);
+  });
+});
+
+describe("el borde cede una vez, y con la fuerza con que se llega", () => {
+  function WheelAt(node: HTMLElement, at: number, init: WheelEventInit = {}): void {
+    const event = new WheelEvent("wheel", { bubbles: true, cancelable: true, ...init });
+    Object.defineProperty(event, "timeStamp", { value: at, configurable: true });
+    node.dispatchEvent(event);
+  }
+
+  /** El mayor estiron que se llego a reportar. */
+  function Stretch(build: (node: HTMLElement, at: number) => void): number {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        { multiplier: 1, bounce: 280, onBounce: (o) => seen.push(Math.abs(o)) },
+      );
+    });
+    build(node, 1000);
+    Run();
+    const peak = Math.max(...seen, 0);
+    cleanup();
+    return peak;
+  }
+
+  it("el estiron es mayor que el exceso: la inercia se transfiere a la goma", () => {
+    /*
+     * Rafaga de seis muescas de 250 sobre un recorrido de 800: al cruzar, lo que sobra son
+     * exactamente 200 px. Si el estiron se quedara en eso, `RubberOffset(200, 280)` daria 116.7.
+     *
+     * Que salga por encima significa que lo que quedaba por recorrer al chocar TAMBIEN se
+     * transfirio. Antes se descartaba en el `Clamp` y el borde no se enteraba de con cuanta fuerza
+     * se habia llegado: frenar en seco y apoyarse estiraban lo mismo.
+     */
+    const solo_exceso = (280 * 200) / (280 + 200);
+
+    const peak = Stretch((node, at) => {
+      for (let i = 0; i < 6; i += 1) {
+        WheelAt(node, at + i * 25, { deltaY: 250 });
+        Run(2);
+      }
+    });
+
+    expect(peak).toBeGreaterThan(solo_exceso);
+  });
+
+  it("insistir contra el tope no lo estira mas, y soltar lo devuelve", () => {
+    const { node } = Scroller();
+    const seen: number[] = [];
+    renderHook(() => {
+      useMomentumScroll(
+        { current: node },
+        { multiplier: 1, bounce: 280, onBounce: (o) => seen.push(Math.abs(o)) },
+      );
+    });
+
+    WheelAt(node, 1000, { deltaY: 900 });
+    Run();
+    const primero = Math.max(...seen, 0);
+
+    // Veinte muescas mas sin soltar: el cerrojo esta echado y el borde ya no cede.
+    for (let i = 1; i <= 20; i += 1) {
+      WheelAt(node, 1000 + i * 25, { deltaY: 900 });
+      Run(2);
+    }
+    expect(Math.max(...seen, 0)).toBeCloseTo(primero, 5);
+
+    // Y al parar del todo, la goma vuelve.
+    act(() => {
+      vi.advanceTimersByTime(400);
+    });
+    Run();
+    expect(Math.abs(seen.at(-1) ?? 0)).toBeLessThan(1);
   });
 });

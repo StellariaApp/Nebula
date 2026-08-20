@@ -214,7 +214,7 @@ describe("ScrollSpring", () => {
       const token = theme.motion.spring[name];
       const scroll = ScrollSpring(name, theme);
 
-      expect(Frequency(scroll)).toBeCloseTo(Frequency(token) / Math.SQRT2);
+      expect(Frequency(scroll)).toBeCloseTo(Frequency(token) * Math.sqrt(0.8));
       expect(Ratio(scroll)).toBeCloseTo(1);
       expect(scroll.mass).toBe(token.mass);
     }
@@ -237,7 +237,7 @@ describe("ScrollSpring", () => {
   it("cada tema decide su propia física de scroll", () => {
     const light = Themes.nebula.light;
     expect(ScrollSpring("default", light).stiffness).toBe(
-      light.motion.spring.default.stiffness * 0.5,
+      light.motion.spring.default.stiffness * 0.8,
     );
   });
 });

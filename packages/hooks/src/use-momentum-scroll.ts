@@ -22,9 +22,101 @@ const MAX_STEP = 1 / 30;
 const FIRST_STEP = 1 / 60;
 const REST_DISTANCE = 0.5;
 const REST_VELOCITY = 5;
+
+/*
+ * EL MODELO DE `smooth-scrollbar`, CORREGIDO POR TASA DE REFRESCO.
+ *
+ * Alli el estado no es una posicion persiguiendo un objetivo, es un RESTO: lo que queda por
+ * recorrer. Cada muesca lo aumenta y cada fotograma se consume una fraccion:
+ *
+ *   nextMomentum = remain * (1 - damping)
+ *   position     = position + remain - nextMomentum
+ *
+ * Tiene dos propiedades que un muelle no da. Es de PRIMER orden, asi que se mueve lo maximo en el
+ * primer fotograma en vez de tener que acelerar desde cero — un muelle con una muesca pequeña mueve
+ * sub-pixeles durante varios fotogramas y parece que no responde. Y la inercia sale sola: mientras
+ * se gira, el resto se acumula; cuando se para, se drena.
+ *
+ * Su `damping` es por FOTOGRAMA, asi que a 144 Hz el scroll iria mas del doble de rapido que a 60.
+ * Aqui se convierte a una constante por segundo, que es lo que lo hace independiente del refresco:
+ *
+ *   avance = resto * (1 - exp(-lambda * dt))     con  lambda = -ln(1 - damping) * 60
+ */
+
+/**
+ * La fraccion del resto que se consume por fotograma a 60 Hz.
+ *
+ * `0.22` y no el `0.1` de la libreria: con una decima la pagina va tan por detras del gesto que se
+ * siente como estar terminando el movimiento anterior en vez de acompañar al dedo. Con esto la cola
+ * sigue siendo suave y el scroll no se retrasa.
+ */
+const WHEEL_DAMPING = 0.22;
+
+/** La constante por segundo equivalente, que es la que se usa de verdad. */
+const WHEEL_LAMBDA = -Math.log(1 - WHEEL_DAMPING) * 60;
 const BOUNCE_EPSILON = 0.05;
 const HOLD_MS = 120;
-const BOUNCE_RATE = 4;
+
+/**
+ * Cuanto mas duro es el muelle que devuelve la goma del borde, comparado con el del scroll.
+ *
+ * `1` y no `4`: con cuatro veces la rigidez la goma volvia de un tiron, y el estiron se perdia
+ * antes de haberse visto. Al mismo peldaño que el scroll la vuelta se siente como algo que cede,
+ * que es lo que un borde elastico tiene que comunicar.
+ */
+const BOUNCE_RATE = 1;
+
+/**
+ * Cuanto se frena la vuelta, sobre la amortiguacion del scroll.
+ *
+ * Por encima de uno el retorno es sobreamortiguado: llega sin pasarse y sin temblar. Un rebote que
+ * oscila en el borde de una pagina no se lee como elasticidad, se lee como un fallo.
+ */
+const BOUNCE_DRAG = 1.6;
+
+/**
+ * Que parte de la inercia que quedaba se transfiere a la goma al chocar con el borde.
+ *
+ * Sin esto, llegar al tope lanzado y llegar despacio estiran lo mismo: la velocidad se descartaba
+ * en el `Clamp` y el borde no se enteraba de con cuanta fuerza se llego. Es lo que hace que un
+ * frenazo fuerte estire mucho mas que un roce.
+ */
+const BOUNCE_ABSORB = 0.14;
+
+/**
+ * Cuanto silencio de rueda hace falta para volver a poder estirar el borde, en milisegundos.
+ *
+ * MIENTRAS LA RUEDA SIGUE GIRANDO, EL BORDE NO CEDE OTRA VEZ. En cuanto la goma termina de volver,
+ * la rueda queda bloqueada para el sobrerrecorrido y solo se libera cuando el usuario para del
+ * todo. Sin esto, seguir girando contra el tope reengancha la goma una y otra vez y el borde
+ * tiembla en vez de quedarse quieto.
+ *
+ * Es el mismo mecanismo que `smooth-scrollbar` resuelve con `_lockWheel` y un debounce de 30 ms;
+ * aqui se da mas margen porque una rueda de raton entrega muescas mas espaciadas que un trackpad.
+ */
+const EDGE_LOCK_MS = 90;
+
+/**
+ * Cuanto mas lejos manda un tick cuando el gesto ya venia lanzado.
+ *
+ * El muelle por si solo llega EXACTAMENTE a lo que se pidio, asi que un empujon fuerte recorre lo
+ * mismo que la suma de sus muescas, solo que mas suave. Esto es lo unico que lo separa: un gesto
+ * rapido termina un poco mas alla, que es lo que se siente como lanzar.
+ *
+ * `0.2` esta elegido bajo a proposito. Un giro suelto no gana NI UN PIXEL —la velocidad se
+ * construye con ticks seguidos, y con uno solo no hay ninguna— y un empujon de ocho muescas termina
+ * unos 330 px mas alla. Subirlo hace que la pagina deje de ir donde se le manda.
+ */
+const FLING_GAIN = 0.2;
+
+/** A que ritmo de rueda, en px/s, se considera que va lanzado del todo. */
+const FLING_SPEED = 2600;
+
+/** Cuanto puede tardar el siguiente tick y seguir contando como el mismo gesto, en segundos. */
+const FLING_GAP = 0.2;
+
+/** En cuanto tiempo se olvida el ritmo, en segundos. Sin esto quedaria lanzado para siempre. */
+const FLING_MEMORY = 0.22;
 
 interface Scroller {
   node: HTMLElement;
@@ -125,6 +217,12 @@ function Subscribe(
     let reported = 0;
     let holding = false;
     let release = 0;
+    let rate = 0;
+    let tick = 0;
+    /** La rueda no puede volver a estirar el borde hasta que el usuario pare. */
+    let locked = false;
+    let unlock = 0;
+
 
     const Report = (): void => {
       const offset = bounce <= 0 ? 0 : RubberOffset(strain, bounce);
@@ -144,19 +242,45 @@ function Subscribe(
       const step = stamp === 0 ? FIRST_STEP : Math.min(Math.max(elapsed, 0), MAX_STEP);
       stamp = time;
 
+      rate *= Math.exp(-step / FLING_MEMORY);
+
+      // El resto que queda por recorrer se consume por fracciones. Sin estado de velocidad: por eso
+      // responde en el primer fotograma.
       const distance = target - position;
-      velocity += ((stiffness * distance - damping * velocity) / mass) * step;
-      position += velocity * step;
+      const advance = distance * (1 - Math.exp(-WHEEL_LAMBDA * step));
+      velocity = step > 0 ? advance / step : 0;
+      position += advance;
+
+      /*
+       * CHOCAR CON EL BORDE TRANSFIERE LA INERCIA A LA GOMA.
+       *
+       * El `Clamp` de la rueda impide que el objetivo pase del tope, pero la velocidad que el muelle
+       * ya llevaba se descartaba ahi: llegar lanzado y llegar rozando estiraban lo mismo. Aqui esa
+       * velocidad se convierte en estiron y el muelle se para, que es lo que hace que un frenazo
+       * fuerte se sienta como un frenazo.
+       *
+       * `Rubber` se encarga de que un choque brutal no salga disparado: el estiron es asintotico.
+       */
+      if (bounce > 0 && !holding && !locked && strain === 0 && Math.abs(velocity) > REST_VELOCITY) {
+        const room = Limit(node, horizontal);
+        const outward = (target <= 0 && velocity < 0) || (target >= room && velocity > 0);
+        if (outward) {
+          strain = velocity * BOUNCE_ABSORB;
+          recoil = 0;
+          velocity = 0;
+          Lock();
+        }
+      }
 
       if (!holding) {
         const back = stiffness * BOUNCE_RATE;
-        const drag = damping * Math.sqrt(BOUNCE_RATE);
+        const drag = damping * BOUNCE_DRAG;
         recoil += ((-back * strain - drag * recoil) / mass) * step;
         strain += recoil * step;
       }
 
-      const settled =
-        Math.abs(target - position) < REST_DISTANCE && Math.abs(velocity) < REST_VELOCITY;
+      // El resto no se pasa de largo, asi que basta con que quede menos de medio pixel.
+      const settled = Math.abs(target - position) < REST_DISTANCE;
       const slack =
         holding || (Math.abs(strain) < REST_DISTANCE && Math.abs(recoil) < REST_VELOCITY);
 
@@ -180,15 +304,37 @@ function Subscribe(
     const OnWheel = (event: WheelEvent): void => {
       if (event.ctrlKey || event.defaultPrevented) return;
 
-      const delta = Delta(event, node, horizontal) * multiplier;
-      if (delta === 0) return;
+      const raw = Delta(event, node, horizontal) * multiplier;
+      if (raw === 0) return;
+
+      /*
+       * El ritmo del gesto se CONSTRUYE con ticks seguidos: un giro aislado no es velocidad, es un
+       * paso. Si contara, cualquier muesca suelta saldria disparada.
+       */
+      const now = event.timeStamp;
+      const gap = (now - tick) / 1000;
+      tick = now;
+      if (gap > 0 && gap < FLING_GAP) rate = Math.max(rate, Math.abs(raw) / Math.max(gap, 1 / 120));
+
+      const delta = raw * (1 + FLING_GAIN * Math.min(rate / FLING_SPEED, 1));
 
       const room = Limit(node, horizontal);
       if (room <= 0) return;
       if (OwnedByNested(event, node, horizontal, delta)) return;
 
       const next = Clamp(target + delta, room);
-      const excess = target + delta - next;
+      let excess = target + delta - next;
+
+      /*
+       * Con el cerrojo echado la rueda sigue contando para el scroll, pero NO para el borde: el
+       * sobrerrecorrido se descarta y cada tick renueva el plazo. Asi, girar sin parar contra el
+       * tope deja la pagina quieta en vez de haciendo temblar la goma.
+       */
+      if (locked && excess !== 0) {
+        excess = 0;
+        window.clearTimeout(unlock);
+        unlock = window.setTimeout(Unlock, EDGE_LOCK_MS);
+      }
 
       if (next === target && (bounce <= 0 || excess === 0)) return;
 
@@ -196,11 +342,25 @@ function Subscribe(
       target = next;
 
       if (bounce > 0 && excess !== 0) {
-        strain += excess;
+        /*
+         * El estiron sale de las dos cosas: lo que la muesca pedia de mas Y la inercia que el
+         * muelle ya llevaba. Sin el segundo sumando, frenar en seco desde arriba estira igual que
+         * apoyarse en el tope estando parado.
+         */
+        strain += excess + velocity * BOUNCE_ABSORB;
         recoil = 0;
         holding = true;
         window.clearTimeout(release);
         release = window.setTimeout(Release, HOLD_MS);
+
+        /*
+         * EL BORDE CEDE UNA VEZ POR GESTO.
+         *
+         * En cuanto la goma se estira, la rueda queda bloqueada para el sobrerrecorrido y solo la
+         * suelta el silencio. Seguir girando contra el tope ya no vuelve a estirarla: la pagina se
+         * frena del todo y se queda quieta, en vez de temblar mientras el usuario insiste.
+         */
+        Lock();
       }
 
       Start();
@@ -211,6 +371,18 @@ function Subscribe(
       Start();
     };
 
+    /** El borde acaba de ceder: no vuelve a hacerlo hasta que la rueda calle. */
+    const Lock = (): void => {
+      locked = true;
+      window.clearTimeout(unlock);
+      unlock = window.setTimeout(Unlock, EDGE_LOCK_MS);
+    };
+
+    /** La rueda paro el tiempo suficiente: el borde vuelve a poder ceder. */
+    const Unlock = (): void => {
+      locked = false;
+    };
+
     const OnScroll = (): void => {
       const current = Offset(node, horizontal);
       if (Math.abs(current - applied) < 1) return;
@@ -219,10 +391,14 @@ function Subscribe(
       target = current;
       position = current;
       velocity = 0;
+      rate = 0;
+      tick = 0;
       strain = 0;
       recoil = 0;
       holding = false;
+      locked = false;
       window.clearTimeout(release);
+      window.clearTimeout(unlock);
       applied = current;
       Report();
     };
@@ -235,6 +411,7 @@ function Subscribe(
       scroller.scroll.removeEventListener("scroll", OnScroll);
       if (frame !== 0) window.cancelAnimationFrame(frame);
       window.clearTimeout(release);
+      window.clearTimeout(unlock);
     };
   }
 }
