@@ -3,11 +3,12 @@
 import { useRef, type ReactElement, type RefObject } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { useListBox, useOption } from "react-aria";
 import type { ListState, Node } from "react-stately";
 
-import { MotionOff, StaggerDelay, Tween, type MotionContext } from "../utils/motion.js";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+
+import { MotionOff, StaggerDelay, type MotionContext } from "../utils/motion.js";
 import { cx } from "../utils/style-props.js";
 
 import * as styles from "./option-list.css.js";
@@ -54,19 +55,18 @@ function OptionRow(props: RowProps): ReactElement {
       : renderOption(data, { isSelected, isFocused, isDisabled });
 
   return (
-    <m.li
-      {...(optionProps as unknown as HTMLMotionProps<"li">)}
+    <li
+      {...optionProps}
       ref={ref}
       className={styles.option}
       data-focused={isFocused ? "true" : undefined}
       data-selected={isSelected ? "true" : undefined}
       data-disabled={isDisabled ? "true" : undefined}
-      initial={is_off ? false : { opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        ...Tween("fast", "decelerate", motionContext),
-        delay: StaggerDelay(index, motionContext),
-      }}
+      data-motion={is_off ? "off" : undefined}
+      // El escalonado se conserva: era `StaggerDelay` sobre el indice, ahora es un retardo de CSS.
+      style={assignInlineVars({
+        [styles.option_delay]: `${String(Math.round(StaggerDelay(index, motionContext) * 1000))}ms`,
+      })}
     >
       {custom === undefined ? (
         <>
@@ -92,7 +92,7 @@ function OptionRow(props: RowProps): ReactElement {
       ) : (
         custom
       )}
-    </m.li>
+    </li>
   );
 }
 
@@ -131,8 +131,7 @@ export function OptionList(props: OptionListProps): ReactElement {
   const nodes = [...state.collection];
 
   const { theme } = useTheme();
-  const prefers_reduced = useReducedMotion();
-  const motion_context = { theme, reduced: prefers_reduced === true };
+  const motion_context = { theme, reduced: false };
 
   const windowed = virtualizeFrom !== undefined && nodes.length >= virtualizeFrom;
   const focused_key = state.selectionManager.focusedKey;

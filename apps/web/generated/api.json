@@ -373,6 +373,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the alert in when it first scrolls into view. `true` takes the catalogue entrance; an\nobject tunes it.",
+          "slot": false
+        },
+        {
           "name": "title",
           "type": "ReactNode",
           "required": false,
@@ -12065,6 +12073,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates it in when it first scrolls into view. `true` takes the catalogue entrance; an object\ntunes it — `index` staggers a list.\n\nIt is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on\n`BoxOwnProps`, and most of the catalogue types its props over `StyleProps`, so nothing arrives\non its own.",
+          "slot": false
+        },
+        {
           "name": "size",
           "type": "\"sm\" | \"md\" | \"lg\"",
           "required": false,
@@ -12190,6 +12206,14 @@
           "required": false,
           "default": "\"Learn more\"",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates it in when it first scrolls into view. `true` takes the catalogue entrance; an object\ntunes it — `index` staggers a list.\n\nIt is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on\n`BoxOwnProps`, and most of the catalogue types its props over `StyleProps`, so nothing arrives\non its own.",
           "slot": false
         },
         {
@@ -26157,6 +26181,14 @@
           "required": true,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates it in when it first scrolls into view. `true` takes the catalogue entrance; an object\ntunes it — `index` staggers a list.\n\nIt is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on\n`BoxOwnProps`, and most of the catalogue types its props over `StyleProps`, so nothing arrives\non its own.",
           "slot": false
         },
         {

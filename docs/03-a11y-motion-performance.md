@@ -68,6 +68,38 @@ Reglas transversales:
 7. **Ninguna transición se escribe a mano.** Las cinco composiciones de `styles/motion.css.ts` —`interaction`, `layout`, `overlay`, `confirm` y `value`— cubren el catálogo y se componen de `vars.motion.*`, de modo que siguen siendo tematizables. Punto obligatorio del checklist de `docs/patterns/web-component-template.md` §6.
 8. **La opacidad nunca viaja en un muelle** (ADR-138). `Spring()` reserva la física para la transformada y funde con un tween de `duration.slow` y curva `decelerate`. `motion` elige el umbral de parada por el tamaño del recorrido, y la opacidad recorre exactamente 1.0: dejarla en el muelle producía colas de fundido de 545 a 851 ms sobre transformadas ya terminadas. La transición por valor lleva `inherit: true` para que el `delay` del stagger alcance también al fundido.
 
+### 2.x Qué anima con CSS y qué con motion, y por qué
+
+La regla, y no es "lo que se pueda":
+
+> **CSS** para lo que se dispara por scroll o por puntero: frecuente, interrumpible, sin desmontaje.
+> **Motion** para lo que entra **y sale**. Animar el desmontaje es lo único que CSS no puede hacer.
+
+De veintidós componentes que montaban `motion/react`, quedan estos. Ninguno por inercia: cada uno
+tiene una razón que se puede comprobar.
+
+| Componente | Qué usa | Por qué no sale |
+| --- | --- | --- |
+| `Transition` · `Dialog` · `Toast` · `LoadingOverlay` · `overlay-motion` | `AnimatePresence` | Animan el **desmontaje**. Una transición de CSS no puede retener un elemento que React ya quitó del árbol. |
+| `Nav` | `useScroll` · `useSpring` · `AnimatePresence` | La barra reacciona a la posición de scroll de forma continua, no a dos estados. |
+| `Segment` | `useMotionValue` · `useSpring` · `useTransform` | El indicador se **arrastra**: hay que poder interrumpirlo a mitad y devolverlo con la velocidad que llevaba. |
+| `Switch` | `useMotionValue` · `useSpring` | Igual: el pulgar sigue al dedo antes de decidir el estado. |
+| `Collapse` | `m.<tag>` | Anima `height` hacia un alto **intrínseco**, que es exactamente lo que una transición no interpola. Las salidas son `grid-template-rows: 0fr→1fr` —que exige un envoltorio dentro, o sea cambiar el DOM del consumidor— o `interpolate-size`, que donde no está soportado no degrada a más lento sino a **instantáneo**. |
+| `NebulaProvider` | `LazyMotion` | Monta el juego de features para los de arriba. |
+
+Y el juego es **`domAnimation`, no `domMax`**. La diferencia son `drag` y `layout`: 34,32 kB brotli
+contra 22,30, o sea **12 kB en toda página**, porque `LazyMotion` no carga a la carta. Ninguno de
+los dos se usa —el arrastre de `Segment` es suyo con `useMotionValue`, el de `Dropzone` es DnD
+nativo— y el único `layoutId` que había, la píldora de `Pagination`, se sustituyó por una medida y
+un `transform`. Si algún día hace falta, no se sube este juego: se envuelve ese subárbol en su
+propio `LazyMotion` para que lo pague quien lo usa. `motion-provider.test.tsx` lo vigila.
+
+Lo que salió —`Reveal`, `Section`, `Pagination`, `Card`, `Button`, `ActionIcon`, `QuickAction`,
+`Accordion`, `Burger`, `NavLink`, `Image`, `EmptyState`, `Menu`, `Carousel`, `option-list`— no era
+física: eran giros, desvanecidos y desplazamientos entre dos estados conocidos. El hover y el press
+ya estaban **declarados en los tokens** (`liftHover`, `scalePress`) y `styles/motion.css.ts` ya
+tenía la receta escrita.
+
 ## 3. Performance
 
 ### Budgets (gates de CI)

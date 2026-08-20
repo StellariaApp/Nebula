@@ -1660,7 +1660,6 @@
       "budget": "22.25 kB",
       "boundary": "client",
       "themeKeys": [
-        "motion.duration",
         "motion.easing",
         "motion.spring"
       ]

@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { createVar, globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "@stellaria/nebula-themes/web";
 import { primitive_layer } from "../theme/layers.css.js";
@@ -17,8 +17,12 @@ export const listbox = style({
   },
 });
 
+/** El retardo de cada opcion en la cascada. Lo pone la fila desde su indice. */
+export const option_delay = createVar();
+
 export const option = style({
   "@layer": {
+
     [primitive_layer]: {
       display: "flex",
       alignItems: "center",
@@ -34,6 +38,7 @@ export const option = style({
       outline: "none",
       minHeight: vars.size.compact.lg,
       selectors: {
+        "&[data-motion='off']": { transitionProperty: "none" },
         "&[data-focused='true']": {
           background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,
