@@ -33,6 +33,7 @@ export const tile = recipe({
     color: variables.fg,
     backdropFilter: variables.backdropFilter,
     ...motion.interaction,
+    transitionProperty: `${motion.interaction.transitionProperty}, transform`,
     "::after": {
       content: '""',
       position: "absolute",
@@ -47,6 +48,19 @@ export const tile = recipe({
     selectors: {
       "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
       "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
+
+      /*
+       * El hundido al pulsar y el realce al pasar por encima. Eran `animate={{ scale, y }}` con un
+       * muelle de motion; ahora son dos reglas sobre los atributos que el componente YA emitia.
+       *
+       * `data-animated` y `data-lifts` los decide el componente porque el CSS no puede: el primero
+       * sale de la variante resuelta contra el tema, y el segundo de si el fondo cambia al pasar
+       * por encima —cuando cambia, el color ya es la respuesta y levantar seria decirlo dos veces.
+       */
+      "&[data-animated='true'][data-pressed='true']": { transform: motion.scale_press },
+      "&[data-animated='true'][data-lifts='true'][data-hovered='true']:not([data-pressed='true'])": {
+        transform: motion.lift_hover,
+      },
       "&[data-focus-visible='true']": { ...focus.ring },
       "&[data-disabled='true']": { cursor: "not-allowed", opacity: 0.55 },
       "&[data-loading='true']": { cursor: "progress" },
@@ -63,7 +77,19 @@ export const tile = recipe({
       },
     },
     "@media": {
-      "(prefers-reduced-motion: reduce)": motion.still,
+      /*
+       * `motion.still` va sobre el elemento, y el resplandor en reposo se anima en un `::after`:
+       * sin esta linea el `animation` del pseudo seguia corriendo. Antes no se notaba porque el
+       * componente ni siquiera ponia el atributo cuando el usuario pedia menos movimiento; ahora
+       * que la decision es de la hoja, la hoja tiene que apagarlo entero.
+       */
+      "(prefers-reduced-motion: reduce)": {
+        ...motion.still,
+        selectors: {
+          "&::after": { animationName: "none" },
+          "&[data-hovered='true'], &[data-pressed='true']": { transform: "none" },
+        },
+      },
     },
   },
   variants: {

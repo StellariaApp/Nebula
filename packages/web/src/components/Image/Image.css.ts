@@ -20,10 +20,29 @@ export const root = style({
   },
 });
 
+/**
+ * La imagen aparece cuando termina de cargar.
+ *
+ * Era `initial={{ opacity: 0 }}` con `animate` atado al estado: un componente animado por imagen
+ * para un desvanecido de una propiedad. El estado ya viajaba como `data-loaded`.
+ */
 export const img = style({
   display: "block",
   width: "100%",
   height: "100%",
+  opacity: 0,
+  transitionProperty: "opacity",
+  transitionDuration: vars.motion.duration.base,
+  transitionTimingFunction: vars.motion.easing.decelerate,
+
+  selectors: {
+    "&[data-loaded='true']": { opacity: 1 },
+  },
+
+  "@media": {
+    // Sin transicion, pero visible igual: lo que no se puede es dejarla en cero.
+    "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
+  },
 });
 
 export const state = style({

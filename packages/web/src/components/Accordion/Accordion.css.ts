@@ -69,12 +69,31 @@ export const label = style({ flex: 1, minWidth: 0 });
 
 export const icon = style({ display: "inline-flex", flexShrink: 0 });
 
+/**
+ * El chevron, que gira media vuelta al abrir.
+ *
+ * Era un `m.span` con `animate={{ rotate }}` y un muelle. Un giro entre dos estados fijos es lo que
+ * una transicion de CSS hace mejor: sin componente animado, sin bucle y sin nada que suscribir.
+ */
 export const chevron = style({
   "@layer": {
     [component_layer]: {
       display: "inline-flex",
       flexShrink: 0,
       color: vars.color.text.secondary,
+      transitionProperty: "transform",
+      transitionDuration: vars.motion.duration.base,
+      transitionTimingFunction: vars.motion.easing.standard,
+
+      selectors: {
+        "&[data-open='true']": { transform: "rotate(180deg)" },
+        // El escalon de movimiento del tema no lo puede leer una hoja; llega como atributo.
+        "&[data-motion='off']": { transitionProperty: "none" },
+      },
+
+      "@media": {
+        "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
+      },
     },
   },
 });

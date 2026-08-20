@@ -65,6 +65,21 @@ export const indicator = style({
       width: "3px",
       borderRadius: vars.radius.full,
       background: variables.accent,
+
+      /*
+       * La barra del activo entra creciendo. Era `initial` + `animate` de motion; ahora lo declara
+       * `@starting-style`, que le dice al navegador de donde parte la PRIMERA vez que resuelve el
+       * elemento. El estado de reposo es visible, asi que sin JavaScript la barra esta ahi: lo que
+       * se declara es el origen, no un escondite.
+       */
+      transitionProperty: "transform, opacity",
+      transitionDuration: vars.motion.duration.base,
+      transitionTimingFunction: vars.motion.easing.decelerate,
+      transformOrigin: "center",
+      "@starting-style": {
+        transform: "scaleY(0)",
+        opacity: 0,
+      },
       "@media": {
         [SmallerThan("tablet")]: {
           insetInline: "20%",
@@ -117,7 +132,25 @@ export const description = style({
 });
 
 export const chevron = style({
-  "@layer": { [component_layer]: { display: "inline-flex", flexShrink: 0, color: "inherit" } },
+  "@layer": {
+    [component_layer]: {
+      display: "inline-flex",
+      flexShrink: 0,
+      color: "inherit",
+      transitionProperty: "transform",
+      transitionDuration: vars.motion.duration.base,
+      transitionTimingFunction: vars.motion.easing.standard,
+
+      selectors: {
+        "&[data-open='true']": { transform: "rotate(180deg)" },
+        "&[data-motion='off']": { transitionProperty: "none" },
+      },
+
+      "@media": {
+        "(prefers-reduced-motion: reduce)": { transitionProperty: "none" },
+      },
+    },
+  },
 });
 
 export const children = style({

@@ -4,10 +4,9 @@ import { useId, type ReactElement } from "react";
 
 import { usePermissionGranted, useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion } from "motion/react";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { MotionOff, Spring } from "../../utils/motion.js";
+import { MotionOff } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
@@ -56,10 +55,9 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
   const granted = usePermissionGranted(permission);
   const denied = !granted;
   const is_disabled = disabled || (denied && permissionMode === "disable");
-  const prefers_reduced = useReducedMotion();
-  const motion_context = { theme, reduced: prefers_reduced === true };
+  // Solo el escalon del tema: `prefers-reduced-motion` lo lleva la hoja con su consulta.
+  const motion_context = { theme, reduced: false };
   const is_off = MotionOff(motion_context);
-  const transition = Spring("default", motion_context);
 
   const panel_id = useId();
   const has_children = children !== undefined && children !== null;
@@ -78,11 +76,9 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
   const inner = (
     <>
       {active ? (
-        <m.span
+        <span
           className={styles.indicator}
-          initial={is_off ? false : { scaleY: 0, opacity: 0 }}
-          animate={{ scaleY: 1, opacity: 1 }}
-          transition={transition}
+          data-motion={is_off ? "off" : undefined}
           aria-hidden="true"
         />
       ) : null}
@@ -125,13 +121,13 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
         </Box>
       )}
       {has_children ? (
-        <m.span
+        <span
           className={styles.chevron}
-          animate={{ rotate: is_open ? 180 : 0 }}
-          transition={transition}
+          data-open={is_open ? "true" : undefined}
+          data-motion={is_off ? "off" : undefined}
         >
           {CHEVRON}
-        </m.span>
+        </span>
       ) : null}
     </>
   );

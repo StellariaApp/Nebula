@@ -3,26 +3,47 @@
 import type { ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
-import { m, useReducedMotion, type MotionStyle } from "motion/react";
-
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { MotionOff, Spring } from "../../../utils/motion.js";
+import { MotionOff } from "../../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
+import { Box } from "../../Box/Box.js";
+import { GradientBorder } from "../../GradientBorder/GradientBorder.js";
 
 import * as styles from "../Card.css.js";
-import type { CardProps } from "../Card.types.js";
+import type { CardGradientBorder, CardProps } from "../Card.types.js";
 import * as variables from "../Card.vars.css.js";
 
-const HOVER_LIFT = -2;
+/**
+ * Normaliza lo que llega en `gradientBorder`.
+ *
+ * `true` es el anillo por defecto, una cadena es el nombre de un degradado del tema, un objeto con
+ * `from` es un par literal, y cualquier otro objeto es configuracion del anillo. Se distingue por
+ * la clave y no por el tipo porque en ejecucion los dos ultimos son objetos.
+ */
+type Ring = Exclude<NonNullable<CardProps["gradientBorder"]>, false>;
+
+function RingProps(value: Ring): CardGradientBorder {
+  if (value === true) return {};
+  if (typeof value === "string") return { gradient: value };
+  if ("from" in value) return { gradient: value };
+  return value;
+}
 
 /**
- * El nodo raíz de la tarjeta, y lo único que necesita el tema y motion en runtime.
+ * El nodo raíz de la tarjeta, y lo único que necesita el tema en runtime.
  *
  * Existe para que `Card` pueda ser de servidor: lo que un componente de servidor pasa como
  * `children` a uno de cliente SIGUE SIENDO DE SERVIDOR, así que todo lo que el consumidor mete
  * dentro de una tarjeta se queda fuera del cliente. Solo hidrata esta cáscara.
+ *
+ * Su raíz es un `Box` y no un elemento suelto, y eso no es cosmético: es lo que le da `reveal` sin
+ * reimplementarlo, porque el observador y la transición viven en la cáscara de `Box`.
+ *
+ * El realce al pasar por encima y el hundido al pulsar eran `whileHover` y `whileTap` de motion, o
+ * sea un componente animado por instancia para mover dos píxeles. Ahora son dos reglas de CSS sobre
+ * `:hover` y `:active`, con la receta `press` que ya estaba escrita en `styles/motion.css.ts`.
  */
 export function CardSurface(props: CardProps): ReactElement {
   const {
@@ -38,6 +59,8 @@ export function CardSurface(props: CardProps): ReactElement {
     onPress,
     href,
     className,
+    reveal,
+    gradientBorder,
     "aria-label": aria_label,
     ...style_rest
   } = props;
@@ -51,15 +74,19 @@ export function CardSurface(props: CardProps): ReactElement {
   });
 
   const { theme } = useTheme();
-  const prefers_reduced = useReducedMotion();
-  const motion_context = { theme, reduced: prefers_reduced === true };
-  const is_off = MotionOff(motion_context);
+
+  /*
+   * Solo el escalon del tema, no `prefers-reduced-motion`: eso lo lleva la hoja con su consulta de
+   * medios, que ademas no necesita un listener por tarjeta. Aqui queda lo que el CSS no puede leer.
+   */
+  const motion_off = MotionOff({ theme, reduced: false });
 
   const interactive = interactive_prop ?? (onPress !== undefined || href !== undefined);
 
   const resolved =
     variant === undefined ? null : ResolveVariant(variant, color, theme, undefined, glass);
-  const refs = variant === undefined ? undefined : VariantRefs(variant, color, theme, undefined, glass);
+  const refs =
+    variant === undefined ? undefined : VariantRefs(variant, color, theme, undefined, glass);
 
   const class_name = cx(
     styles.card_base,
@@ -85,49 +112,31 @@ export function CardSurface(props: CardProps): ReactElement {
           [variables.glow]: refs?.glow ?? resolved.glow,
         });
 
-  const root_style = { ...variant_vars, ...sprinkle_style } as MotionStyle;
+  const element = href !== undefined ? "a" : onPress !== undefined ? "button" : "div";
 
-  const motion_props = {
-    style: root_style,
-    ...(is_off || !interactive
-      ? {}
-      : {
-          whileHover: { y: HOVER_LIFT },
-          whileTap: { scale: 0.995 },
-          transition: Spring("gentle", motion_context),
-        }),
-  };
+  const surface = (
+    <Box
+      {...rest}
+      component={element}
+      className={class_name}
+      style={{ ...variant_vars, ...sprinkle_style }}
+      data-motion={motion_off ? "off" : undefined}
+      {...(reveal === undefined ? {} : { reveal })}
+      {...(href === undefined ? {} : { href })}
+      {...(element === "button" ? { type: "button" as const, onClick: onPress } : {})}
+      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
+    >
+      {children}
+    </Box>
+  );
 
-  return href !== undefined ? (
-    <m.a
-      {...rest}
-      {...motion_props}
-      href={href}
-      className={class_name}
-      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-    >
-      {children}
-    </m.a>
-  ) : onPress !== undefined ? (
-    <m.button
-      {...rest}
-      {...motion_props}
-      type="button"
-      className={class_name}
-      onClick={onPress}
-      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-    >
-      {children}
-    </m.button>
-  ) : (
-    <m.div
-      {...rest}
-      {...motion_props}
-      className={class_name}
-      {...(aria_label === undefined ? {} : { "aria-label": aria_label })}
-    >
-      {children}
-    </m.div>
+  if (gradientBorder === undefined || gradientBorder === false) return surface;
+
+  // El anillo hereda el radio de la tarjeta: es lo que el patron a mano tenia que cuadrar aparte.
+  return (
+    <GradientBorder r={r} {...RingProps(gradientBorder)}>
+      {surface}
+    </GradientBorder>
   );
 }
 

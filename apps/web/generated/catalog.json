@@ -1204,7 +1204,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "33.75 kB",
+      "budget": "26.25 kB",
       "notes": true,
       "contract": true
     },

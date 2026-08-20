@@ -24,6 +24,21 @@ export function Collapse(props: CollapseProps): ReactElement {
       ? Spring("default", motion_context)
       : Tween(duration, "decelerate", motion_context);
 
+  /*
+   * ESTE SE QUEDA CON MOTION, Y NO POR PEREZA.
+   *
+   * Anima `height` entre `0` y `auto`, o sea hacia un alto INTRINSECO, que es justo lo que una
+   * transicion de CSS no interpola: sin saber a cuanto llega, no hay nada entre medias. Las dos
+   * salidas conocidas tienen un pero cada una y ninguno compensa todavia:
+   *
+   *  - `grid-template-rows: 0fr -> 1fr` funciona en todos lados, pero exige un envoltorio dentro,
+   *    o sea cambiar el DOM que el consumidor ya estiliza.
+   *  - `interpolate-size: allow-keywords` lo resuelve en una linea y sin tocar el marcado, pero
+   *    donde no esta soportado la transicion no degrada a mas lenta: degrada a instantanea.
+   *
+   * El resto del catalogo si salio: lo que quedaba eran giros, desvanecidos y desplazamientos entre
+   * dos estados conocidos, y eso el compositor lo hace mejor y sin un bucle por instancia.
+   */
   return (
     <m.div
       className={cx(sprinkle_class, className)}

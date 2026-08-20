@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { createVar, globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "@stellaria/nebula-themes/web";
 import { component_layer } from "../../theme/layers.css.js";
@@ -26,9 +26,25 @@ export const menu = style({
   },
 });
 
+/** El retardo de cada fila en la cascada. Lo pone `MenuRow` desde su indice. */
+export const item_delay = createVar();
+
 export const item = style({
   "@layer": {
     [component_layer]: {
+      /*
+       * Cada fila entra en cascada. Eran `initial` + `animate` con un retardo por indice, o sea un
+       * componente animado por opcion de menu. `@starting-style` declara de donde viene y el
+       * retardo llega en una variable: el reposo es visible, asi que sin JavaScript el menu esta.
+       */
+      transitionProperty: "opacity, transform",
+      transitionDuration: vars.motion.duration.fast,
+      transitionTimingFunction: vars.motion.easing.decelerate,
+      transitionDelay: item_delay,
+      "@starting-style": {
+        opacity: 0,
+        transform: "translateY(-4px)",
+      },
       display: "flex",
       alignItems: "center",
       gap: vars.space.sm,
@@ -44,6 +60,7 @@ export const item = style({
       outline: "none",
       minHeight: vars.size.compact.lg,
       selectors: {
+        "&[data-motion='off']": { transitionProperty: "none" },
         "&[data-focused='true']": {
           background: vars.color.primary["500"],
           color: vars.color.text.onPrimary,

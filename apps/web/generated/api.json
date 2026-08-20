@@ -2717,6 +2717,14 @@
           "slot": false
         },
         {
+          "name": "gradientBorder",
+          "type": "boolean | { from: ColorExtended; to: ColorExtended; deg?: number; animate?: boolean; } | GradientRole | CardGradientBorder",
+          "required": false,
+          "default": null,
+          "doc": "Draws a gradient ring around the card, without a wrapper in the consumer's markup.\n\n`<GradientBorder><Card /></GradientBorder>` is the pattern this replaces, and the wrapper had a\ntrap in it: the ring's corner radius and the card's had to be kept in step by hand, and they\ndrift the moment one of the two changes. Here the ring takes the card's `r`.\n\n`true` takes the brand gradient. A role name or a literal `{ from, to }` picks the gradient. An\nobject configures the ring — `beam` sends the travelling arc round it.",
+          "slot": false
+        },
+        {
           "name": "href",
           "type": "string",
           "required": false,
@@ -2746,6 +2754,14 @@
           "required": false,
           "default": "\"lg\"",
           "doc": "Inner padding. `\"none\"` is for a card whose parts bring their own — an edge-to-edge image, a\nsection with its own inset.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the card in when it first scrolls into view. `true` takes the catalogue entrance; an\nobject tunes it.\n\nIt is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on\n`BoxOwnProps`, and `Card` — like most of the catalogue — types its props over `StyleProps`, so\nnothing arrives on its own.",
           "slot": false
         },
         {

@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useState, type ReactElement } from "re
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import useEmblaCarousel from "embla-carousel-react";
-import { useReducedMotion } from "motion/react";
+
+import { useMediaQuery } from "@stellaria/nebula-hooks";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { LengthToCss } from "../../utils/token-css.js";
@@ -58,7 +59,8 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     () => (labels === undefined ? CAROUSEL_LABELS : { ...CAROUSEL_LABELS, ...labels }),
     [labels],
   );
-  const reduced = useReducedMotion() === true;
+  // La consulta, sin motion: es lo unico que se usaba de la libreria en este fichero.
+  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   const [viewport_ref, embla] = useEmblaCarousel({
     axis,

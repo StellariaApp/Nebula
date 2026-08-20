@@ -15,7 +15,7 @@ import { ThemeContext, type ThemeContextValue } from "@stellaria/nebula-hooks";
 import { Themes } from "@stellaria/nebula-themes";
 import type { ColorScheme, NebulaTheme, ThemeChoice } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { domMax, LazyMotion } from "motion/react";
+import { domAnimation, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
 import { DEFAULT_STORAGE_KEYS, DEFAULT_THEME, ThemeToVars, THEME_CLASSES, vars, type MaterializedTheme, type ThemeStorageKeys, type ThemeVariants } from "@stellaria/nebula-themes/web";
@@ -341,7 +341,22 @@ export function NebulaProvider({
         data-scheme={on_root ? undefined : active.scheme}
       >
         <UNSAFE_PortalProvider getContainer={GetPortalContainer}>
-          <LazyMotion features={domMax} strict>
+          {/*
+           * `domAnimation`, y no el juego maximo que habia antes.
+           *
+           * El juego maximo es este mas arrastre y animacion de layout. Medido: 34,32 kB brotli contra 22,30,
+           * o sea **12 kB en TODA pagina** por esos dos extras. Y `LazyMotion` no carga a la carta:
+           * el juego se elige entero aqui.
+           *
+           * De los dos, el arrastre no lo usaba nadie —el arrastre de `Segment` es suyo con
+           * `useMotionValue`, y el de `Dropzone` es DnD nativo del navegador— y el de layout lo usaba un
+           * solo sitio: la pildora de `Pagination`, que ahora se mide y se mueve
+           * con `transform`. Los gestos (hover, tap, focus) siguen aqui: van en `domAnimation`.
+           *
+           * Si algun dia hace falta alguna de las dos, no se sube este juego: se envuelve ese
+           * subarbol en su propio `LazyMotion` para que lo pague quien lo usa.
+           */}
+          <LazyMotion features={domAnimation} strict>
             {children}
             <div ref={set_portal_node} data-nebula-portal="" />
           </LazyMotion>

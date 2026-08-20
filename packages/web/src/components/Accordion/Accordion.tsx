@@ -3,9 +3,8 @@
 import { useId, useMemo, useRef, type KeyboardEvent, type ReactElement } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
-import { m, useReducedMotion } from "motion/react";
 
-import { Spring } from "../../utils/motion.js";
+import { MotionOff } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
@@ -47,8 +46,8 @@ export function Accordion<Multiple extends boolean = false>(
 
   const base_id = useId();
   const { theme } = useTheme();
-  const prefers_reduced = useReducedMotion();
-  const chevron_transition = Spring("default", { theme, reduced: prefers_reduced === true });
+  // Solo el escalon del tema: `prefers-reduced-motion` lo lleva la hoja.
+  const motion_off = MotionOff({ theme, reduced: false });
 
   const controlled = useMemo(() => (value === undefined ? undefined : ToList(value)), [value]);
   const initial = useMemo(() => ToList(defaultValue), [defaultValue]);
@@ -134,13 +133,13 @@ export function Accordion<Multiple extends boolean = false>(
                 className={cx(styles.trigger, triggerProps?.className)}
               >
                 {chevronPosition === "start" ? (
-                  <m.span
+                  <span
                     className={styles.chevron}
-                    animate={{ rotate: is_open ? 180 : 0 }}
-                    transition={chevron_transition}
+                    data-open={is_open ? "true" : undefined}
+                    data-motion={motion_off ? "off" : undefined}
                   >
                     {CHEVRON}
-                  </m.span>
+                  </span>
                 ) : null}
                 {item.icon === undefined || item.icon === null ? null : (
                   <Box
@@ -160,13 +159,13 @@ export function Accordion<Multiple extends boolean = false>(
                   {item.label}
                 </Text>
                 {chevronPosition === "end" ? (
-                  <m.span
+                  <span
                     className={styles.chevron}
-                    animate={{ rotate: is_open ? 180 : 0 }}
-                    transition={chevron_transition}
+                    data-open={is_open ? "true" : undefined}
+                    data-motion={motion_off ? "off" : undefined}
                   >
                     {CHEVRON}
-                  </m.span>
+                  </span>
                 ) : null}
               </button>
             </h3>

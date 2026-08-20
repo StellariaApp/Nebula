@@ -45,6 +45,7 @@ export const button = recipe({
     color: variables.fg,
     backdropFilter: variables.backdropFilter,
     ...motion.interaction,
+    transitionProperty: `${motion.interaction.transitionProperty}, transform`,
     "::after": {
       content: '""',
       position: "absolute",
@@ -59,6 +60,19 @@ export const button = recipe({
     selectors: {
       "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
       "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
+      /*
+       * El hundido al pulsar y el realce al pasar por encima. Eran `animate={{ scale, y }}` con un
+       * muelle de motion, o sea un componente animado por instancia — y esta es de las que se
+       * instancian decenas de veces por pagina.
+       *
+       * `data-animated` y `data-lifts` los decide el componente porque la hoja no puede: el primero
+       * sale de la variante resuelta contra el tema, el segundo de si el fondo ya cambia al pasar
+       * por encima, en cuyo caso el color es la respuesta y levantar seria decirlo dos veces.
+       */
+      "&[data-animated='true'][data-pressed='true']": { transform: motion.scale_press },
+      "&[data-animated='true'][data-lifts='true'][data-hovered='true']:not([data-pressed='true'])": {
+        transform: motion.lift_hover,
+      },
       "&[data-focus-visible='true']": {
         ...focus.ring,
       },

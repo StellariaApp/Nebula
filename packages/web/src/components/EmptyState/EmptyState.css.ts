@@ -16,6 +16,23 @@ export const root = recipe({
         boxSizing: "border-box",
         fontFamily: vars.font.family.sans,
         color: vars.color.text.primary,
+
+        /*
+         * Entra al montar. Era `initial={{ opacity: 0, y: 8 }}` con un muelle de motion, para un
+         * componente que aparece una vez y no se vuelve a mover. `@starting-style` declara de donde
+         * viene y el reposo sigue siendo visible: sin JavaScript el vacio se ve, que es justo lo
+         * que un estado vacio tiene que hacer.
+         */
+        transitionProperty: "opacity, transform",
+        transitionDuration: vars.motion.duration.base,
+        transitionTimingFunction: vars.motion.easing.decelerate,
+        "@starting-style": {
+          opacity: 0,
+          transform: "translateY(8px)",
+        },
+        selectors: {
+          "&[data-motion='off']": { transitionProperty: "none" },
+        },
       },
     },
   },

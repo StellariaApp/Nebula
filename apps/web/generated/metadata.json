@@ -64,6 +64,8 @@
         "font.lineHeight",
         "font.size",
         "font.weight",
+        "motion.duration",
+        "motion.easing",
         "radius.md",
         "size.control",
         "space.md",
@@ -786,6 +788,8 @@
         "font.lineHeight",
         "font.size",
         "font.weight",
+        "motion.duration",
+        "motion.easing",
         "space.lg",
         "space.md",
         "space.sm",
@@ -1084,6 +1088,8 @@
         "color.text",
         "font.family",
         "font.size",
+        "motion.duration",
+        "motion.easing",
         "radius.md",
         "space.sm"
       ]
@@ -1292,6 +1298,8 @@
         "font.lineHeight",
         "font.size",
         "font.weight",
+        "motion.duration",
+        "motion.easing",
         "radius.md",
         "radius.sm",
         "shadow.md",
@@ -1442,6 +1450,8 @@
         "font.size",
         "font.weight",
         "glass.control",
+        "motion.duration",
+        "motion.easing",
         "radius.full",
         "radius.sm",
         "size.control",
@@ -1488,7 +1498,7 @@
     },
     {
       "name": "Pagination",
-      "budget": "33.75 kB",
+      "budget": "26.25 kB",
       "boundary": "client",
       "themeKeys": [
         "color.surface",
@@ -1497,6 +1507,7 @@
         "font.lineHeight",
         "font.size",
         "font.weight",
+        "motion.spring",
         "radius.sm",
         "size.control",
         "space.xxs"

@@ -11,11 +11,9 @@ import {
 
 import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useLink, useObjectRef } from "react-aria";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { Spring } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 
@@ -25,8 +23,6 @@ import * as variables from "./QuickAction.vars.css.js";
 import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 
-const PRESS_SCALE = 0.98;
-const HOVER_LIFT = -2;
 
 export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
   function QuickAction(props, forwardedRef) {
@@ -63,7 +59,6 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     const { theme } = useTheme();
     const local_ref = useRef<HTMLElement>(null);
     const ref = useObjectRef<HTMLElement>(forwardedRef ?? local_ref);
-    const prefers_reduced = useReducedMotion();
     const granted = usePermissionGranted(permission);
     const denied = !granted;
     const is_disabled = disabled || loading || (denied && permissionMode === "disable");
@@ -157,13 +152,14 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       [refs, resolved],
     );
 
-    const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    // `prefers-reduced-motion` ya no se consulta aqui: lo lleva la hoja, que ademas no necesita
+    // un listener por baldosa. Aqui queda lo que el CSS no puede saber.
+    const is_animated = resolved.animated && !is_disabled;
     const lifts_on_hover = resolved.background === resolved.backgroundHover;
     const glow_idle =
       variant === "glow" &&
       resolved.glow !== "none" &&
-      resolved.animated &&
-      prefers_reduced !== true;
+      resolved.animated;
 
     const dom_props = mergeProps(
       is_link ? linkProps : buttonProps,
@@ -174,7 +170,7 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
 
     const shared = {
       className: cx(styles.tile({ orientation, size, fullWidth }), sprinkle_class, className),
-      style: { ...css_vars, ...sprinkle_style, ...style } as MotionStyle,
+      style: { ...css_vars, ...sprinkle_style, ...style },
       "data-hovered": isHovered ? "true" : undefined,
       "data-pressed": is_pressed ? "true" : undefined,
       "data-focus-visible": isFocusVisible ? "true" : undefined,
@@ -182,12 +178,9 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
       "data-loading": loading ? "true" : undefined,
       "data-variant": variant,
       "data-glow-idle": glow_idle ? "true" : undefined,
+      "data-animated": is_animated ? "true" : undefined,
+      "data-lifts": lifts_on_hover ? "true" : undefined,
       "aria-busy": loading || undefined,
-      animate: {
-        scale: is_animated && is_pressed ? PRESS_SCALE : 1,
-        y: is_animated && isHovered && !is_pressed && lifts_on_hover ? HOVER_LIFT : 0,
-      },
-      transition: Spring("default", { theme, reduced: !is_animated }),
     };
 
     const content = (
@@ -231,21 +224,21 @@ export const QuickAction = forwardRef<HTMLElement, QuickActionProps>(
     if (denied && permissionMode === "hide") return null;
 
     return is_link ? (
-      <m.a
-        {...(dom_props as unknown as Omit<HTMLMotionProps<"a">, "style">)}
+      <a
+        {...(dom_props)}
         {...shared}
         ref={ref as Ref<HTMLAnchorElement>}
       >
         {content}
-      </m.a>
+      </a>
     ) : (
-      <m.button
-        {...(dom_props as unknown as Omit<HTMLMotionProps<"button">, "style">)}
+      <button
+        {...(dom_props)}
         {...shared}
         ref={ref as Ref<HTMLButtonElement>}
       >
         {content}
-      </m.button>
+      </button>
     );
   },
 );

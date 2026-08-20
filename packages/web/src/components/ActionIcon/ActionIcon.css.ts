@@ -32,9 +32,26 @@ export const action_icon = recipe({
         backdropFilter: variables.backdropFilter,
         boxShadow: variables.glow,
         ...motion.interaction,
+        transitionProperty: `${motion.interaction.transitionProperty}, transform`,
         selectors: {
           "&[data-hovered='true']:not([data-disabled='true'])": { background: variables.bgHover },
           "&[data-pressed='true']:not([data-disabled='true'])": { background: variables.bgActive },
+        /*
+         * El hundido al pulsar y el realce al pasar por encima. Eran `animate={{ scale, y }}` con un
+         * muelle de motion, o sea un componente animado por instancia — y esta es de las que se
+         * instancian decenas de veces por pagina.
+         *
+         * `data-animated` y `data-lifts` los decide el componente porque la hoja no puede: el primero
+         * sale de la variante resuelta contra el tema, el segundo de si el fondo ya cambia al pasar
+         * por encima, en cuyo caso el color es la respuesta y levantar seria decirlo dos veces.
+         */
+  
+      // 0.94 y no el `scalePress` del token: un icono es pequeño y necesita hundirse más
+      // para que el gesto se lea.
+      "&[data-animated='true'][data-pressed='true']": { transform: "scale(0.94)" },
+        "&[data-animated='true'][data-lifts='true'][data-hovered='true']:not([data-pressed='true'])": {
+          transform: motion.lift_hover,
+        },
           "&[data-focus-visible='true']": {
             ...focus.ring,
           },

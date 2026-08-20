@@ -3,13 +3,14 @@
 import { useMemo, useRef, type ReactElement } from "react";
 
 import { usePermissionResolver, useTheme } from "@stellaria/nebula-hooks";
-import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { useMenu, useMenuItem } from "react-aria";
 import { Item, useTreeState, type Node, type TreeState } from "react-stately";
 
-import { MotionOff, StaggerDelay, Tween, type MotionContext } from "../../utils/motion.js";
+import { MotionOff, StaggerDelay, type MotionContext } from "../../utils/motion.js";
 import { ApplyPermissions } from "../../utils/permission.js";
 import { cx } from "../../utils/style-props.js";
+
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import * as styles from "./Menu.css.js";
 import type { MenuItemData, MenuListOwnProps, MenuSlotProps } from "./Menu.types.js";
@@ -48,19 +49,16 @@ function MenuRow(props: RowProps): ReactElement {
   );
 
   return (
-    <m.li
-      {...(menuItemProps as unknown as HTMLMotionProps<"li">)}
+    <li
+      {...menuItemProps}
       ref={ref}
       className={styles.item}
       data-focused={isFocused ? "true" : undefined}
       data-disabled={isDisabled ? "true" : undefined}
       data-danger={data?.danger === true ? "true" : undefined}
-      initial={is_off ? false : { opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        ...Tween("fast", "decelerate", motionContext),
-        delay: StaggerDelay(index, motionContext),
-      }}
+      data-motion={is_off ? "off" : undefined}
+      // El escalonado se conserva: era `StaggerDelay` sobre el indice y ahora es un retardo de CSS.
+      style={assignInlineVars({ [styles.item_delay]: `${String(Math.round(StaggerDelay(index, motionContext) * 1000))}ms` })}
     >
       {data?.icon === undefined || data.icon === null ? null : (
         <Box
@@ -101,7 +99,7 @@ function MenuRow(props: RowProps): ReactElement {
           {data.shortcut}
         </Box>
       )}
-    </m.li>
+    </li>
   );
 }
 
@@ -155,8 +153,8 @@ export function MenuList(props: MenuListProps): ReactElement {
   );
 
   const { theme } = useTheme();
-  const prefers_reduced = useReducedMotion();
-  const motion_context = { theme, reduced: prefers_reduced === true };
+  // Solo el escalon del tema: `prefers-reduced-motion` lo lleva la hoja.
+  const motion_context = { theme, reduced: false };
 
   const slots: MenuSlotProps = {
     iconProps,

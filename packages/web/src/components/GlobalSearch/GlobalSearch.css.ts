@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css";
 
+import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import { interaction, reduced_media, still } from "../../styles/motion.css.js";
-import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 
 export const trigger = style({
@@ -11,7 +11,7 @@ export const trigger = style({
       display: "inline-flex",
       alignItems: "center",
       gap: vars.space.sm,
-      minHeight: vars.size.control.lg,
+      minHeight: vars.size.control.md,
       paddingInline: vars.space.md,
       borderRadius: vars.radius.md,
       border: `1px solid ${vars.color.border.default}`,

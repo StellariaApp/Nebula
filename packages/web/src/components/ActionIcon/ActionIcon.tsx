@@ -5,16 +5,16 @@ import {
   useMemo,
   useRef,
   type CSSProperties,
+  type ComponentPropsWithoutRef,
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
 import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion, type HTMLMotionProps, type MotionStyle } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { Spring } from "../../utils/motion.js";
+
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
@@ -23,8 +23,6 @@ import * as styles from "./ActionIcon.css.js";
 import type { ActionIconProps } from "./ActionIcon.types.js";
 import * as variables from "./ActionIcon.vars.css.js";
 
-const PRESS_SCALE = 0.94;
-const HOVER_LIFT = -2;
 
 export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
   function ActionIcon(props, forwardedRef) {
@@ -48,7 +46,6 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const { theme } = useTheme();
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
-    const prefers_reduced = useReducedMotion();
     const granted = usePermissionGranted(permission);
     const denied = !granted;
     const is_disabled = disabled || loading || (denied && permissionMode === "disable");
@@ -128,23 +125,19 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       [refs, resolved],
     );
 
-    const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const is_animated = resolved.animated && !is_disabled;
     const lifts_on_hover = resolved.background === resolved.backgroundHover;
-    const press_transition = Spring("default", { theme, reduced: !is_animated });
 
-    const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
-      HTMLMotionProps<"button">,
-      "style"
-    >;
+    const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<ComponentPropsWithoutRef<"button">, "style">;
 
     if (denied && permissionMode === "hide") return null;
 
     return (
-      <m.button
+      <button
         {...dom_props}
         ref={ref}
         className={cx(styles.action_icon({ size }), sprinkle_class, className)}
-        style={{ ...css_vars, ...sprinkle_style, ...style } as MotionStyle}
+        style={{ ...css_vars, ...sprinkle_style, ...style }}
         data-hovered={isHovered ? "true" : undefined}
         data-pressed={isPressed ? "true" : undefined}
         data-focus-visible={isFocusVisible ? "true" : undefined}
@@ -152,11 +145,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         data-loading={loading ? "true" : undefined}
         data-variant={variant}
         aria-busy={loading || undefined}
-        animate={{
-          scale: is_animated && isPressed ? PRESS_SCALE : 1,
-          y: is_animated && isHovered && !isPressed && lifts_on_hover ? HOVER_LIFT : 0,
-        }}
-        transition={press_transition}
+        data-animated={is_animated ? "true" : undefined}
+        data-lifts={lifts_on_hover ? "true" : undefined}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
         <Box
@@ -167,7 +157,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         >
           {children}
         </Box>
-      </m.button>
+      </button>
     );
   },
 );

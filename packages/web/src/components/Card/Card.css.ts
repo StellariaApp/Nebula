@@ -62,14 +62,37 @@ export const card = recipe({
           [component_layer]: {
             cursor: "pointer",
             ...motion.interaction,
+            /*
+             * `motion.interaction` deja `transform` fuera —es para color, borde y sombra— asi que
+             * la propiedad se rescribe entera aqui para sumarlo. El realce y el hundido eran
+             * `whileHover` y `whileTap` de motion, o sea un componente animado por instancia para
+             * mover dos pixeles.
+             */
+            transitionProperty: `${motion.interaction.transitionProperty}, transform`,
             selectors: {
-              "&:hover": { borderColor: vars.color.border.strong },
+              "&:hover": {
+                borderColor: vars.color.border.strong,
+                transform: motion.lift_hover,
+              },
+              // Mas sutil que el `scalePress` del token a proposito: una superficie grande hundida
+              // un 2 % se lee como un salto, y una tarjeta ocupa media rejilla.
+              "&:active": { transform: "scale(0.995)" },
               "&:focus-visible": {
                 ...focus.ring,
               },
+              /*
+               * El escalon de movimiento del tema no lo puede leer una hoja, asi que llega como
+               * atributo desde `CardSurface`. `prefers-reduced-motion` si lo lee, y va abajo.
+               */
+              "&[data-motion='off']:hover, &[data-motion='off']:active": { transform: "none" },
             },
             "@media": {
-              "(prefers-reduced-motion: reduce)": motion.still,
+              "(prefers-reduced-motion: reduce)": {
+                ...motion.still,
+                selectors: {
+                  "&:hover, &:active": { transform: "none" },
+                },
+              },
             },
           },
         },

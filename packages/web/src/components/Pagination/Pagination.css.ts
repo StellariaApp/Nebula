@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import * as motion from "../../styles/motion.css.js";
@@ -20,6 +20,8 @@ export const root = style({
       margin: 0,
       padding: 0,
       fontFamily: vars.font.family.sans,
+      // La pildora se posiciona contra la lista, asi que la lista tiene que ser su antecesor.
+      position: "relative",
     },
   },
 });
@@ -84,21 +86,68 @@ export const control = recipe({
   defaultVariants: { size: "md" },
 });
 
+/** Donde esta y cuanto mide el activo. Lo escribe `usePaginationPill` tras medirlo. */
+export const pill_x = createVar();
+export const pill_y = createVar();
+export const pill_width = createVar();
+export const pill_height = createVar();
+
+/** La curva del muelle del tema, ya muestreada a `linear()`, y lo que dura. */
+export const pill_duration = createVar();
+export const pill_easing = createVar();
+
+/**
+ * La pildora del activo.
+ *
+ * Vive en la LISTA y no dentro del boton activo. Dentro del boton solo podia moverse entre uno y
+ * otro con la animacion de layout de motion, que obligaba al provider a cargar su juego maximo
+ * en toda pagina: 12 kB
+ * brotli por este unico uso. Fuera, se mueve con un `transform` y una transicion de CSS.
+ */
 export const pill = style({
   "@layer": {
     [primitive_layer]: {
       position: "absolute",
-      inset: 0,
+      top: 0,
+      left: 0,
+      width: pill_width,
+      height: pill_height,
+      transform: `translate3d(${pill_x}, ${pill_y}, 0)`,
       borderRadius: vars.radius.sm,
       background: variables.accent,
       zIndex: 0,
+      pointerEvents: "none",
+      transition: [
+        `transform ${pill_duration} ${pill_easing}`,
+        `width ${pill_duration} ${pill_easing}`,
+        `height ${pill_duration} ${pill_easing}`,
+      ].join(", "),
+
       selectors: {
-        "[data-active='true']:hover:not(:disabled) &": { background: variables.accentHover },
+        // Antes de la primera medida no se sabe donde va, asi que no se pinta ni se anima desde
+        // la esquina: aparecer en 0,0 y deslizarse hasta su sitio seria peor que no estar.
+        "&[data-ready='false']": {
+          opacity: 0,
+          transition: "none",
+        },
+        /*
+         * El realce al pasar por encima antes salia de `[data-active='true']:hover &`, que
+         * funcionaba porque la pildora era hija del boton. Ahora es su tia, asi que la condicion se
+         * evalua desde la lista con `:has()`.
+         */
+        [`.${root}:has([data-active='true']:hover:not(:disabled)) &`]: {
+          background: variables.accentHover,
+        },
+      },
+
+      "@media": {
+        "(prefers-reduced-motion: reduce)": {
+          transition: "none",
+        },
       },
     },
   },
 });
-
 export const value = style({ position: "relative", zIndex: 1 });
 
 export const dots = style({

@@ -1,4 +1,4 @@
-import { style, styleVariants } from "@vanilla-extract/css";
+import { createVar, style, styleVariants } from "@vanilla-extract/css";
 
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
@@ -34,6 +34,20 @@ export const burger = style({
   },
 });
 
+/** Cuanto sube y baja cada barra al cerrarse en aspa. Depende del tamaño, asi que lo pone el TSX. */
+export const shift = createVar();
+
+/**
+ * Las tres barras.
+ *
+ * Eran tres `m.span` con `animate` y un muelle `snappy`: tres componentes animados con su bucle
+ * para una figura que solo tiene dos estados. El boton ya publicaba `data-opened`, asi que la hoja
+ * tenia toda la informacion desde el principio.
+ *
+ * El orden de las funciones del `transform` importa y no es intercambiable: primero se traslada y
+ * despues se gira, que es como lo componia motion. Al reves, el giro mueve el eje de la traslacion
+ * y las barras cruzan por otro sitio.
+ */
 export const line = style({
   "@layer": {
     [primitive_layer]: {
@@ -44,6 +58,19 @@ export const line = style({
       background: "currentColor",
       transformOrigin: "center",
       ...motion.interaction,
+      transitionProperty: `${motion.interaction.transitionProperty}, transform`,
+
+      selectors: {
+        "[data-opened='true'] > &:nth-of-type(1)": {
+          transform: `translateY(${shift}) rotate(45deg)`,
+        },
+        "[data-opened='true'] > &:nth-of-type(2)": { opacity: 0 },
+        "[data-opened='true'] > &:nth-of-type(3)": {
+          transform: `translateY(calc(${shift} * -1)) rotate(-45deg)`,
+        },
+        "[data-motion='off'] > &": { transitionProperty: "none" },
+      },
+
       "@media": {
         "(prefers-reduced-motion: reduce)": motion.still,
       },

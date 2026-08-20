@@ -8,7 +8,23 @@ import type {
   Variant,
 } from "@stellaria/nebula-tokens";
 
+import type { GradientProp } from "@stellaria/nebula-themes/web";
+
 import type { StyleProps } from "../../utils/style-props.js";
+import type { UseRevealOptions } from "../Reveal/use-reveal.js";
+import type { GradientBorderOwnProps } from "../GradientBorder/GradientBorder.types.js";
+
+/**
+ * Lo que `Card` deja configurar del anillo cuando se lo pide por `gradientBorder`.
+ *
+ * Es un recorte de `GradientBorder` y no toda su superficie: el radio, el relleno y el elemento los
+ * decide la tarjeta, y dejarlos aqui abriria la puerta a un anillo con otras esquinas que la carta
+ * que envuelve.
+ */
+export type CardGradientBorder = Pick<
+  GradientBorderOwnProps,
+  "gradient" | "beam" | "width" | "edges"
+>;
 
 export type CardVariant = Extract<
   Variant,
@@ -18,6 +34,26 @@ export type CardVariant = Extract<
 interface CardOwnProps extends Omit<StyleProps, "shadow"> {
   /** The card's content, usually assembled from its parts. */
   children: ReactNode;
+  /**
+   * Animates the card in when it first scrolls into view. `true` takes the catalogue entrance; an
+   * object tunes it.
+   *
+   * It is declared here and forwarded to the root `Box` rather than inherited: `reveal` lives on
+   * `BoxOwnProps`, and `Card` — like most of the catalogue — types its props over `StyleProps`, so
+   * nothing arrives on its own.
+   */
+  reveal?: boolean | UseRevealOptions | undefined;
+  /**
+   * Draws a gradient ring around the card, without a wrapper in the consumer's markup.
+   *
+   * `<GradientBorder><Card /></GradientBorder>` is the pattern this replaces, and the wrapper had a
+   * trap in it: the ring's corner radius and the card's had to be kept in step by hand, and they
+   * drift the moment one of the two changes. Here the ring takes the card's `r`.
+   *
+   * `true` takes the brand gradient. A role name or a literal `{ from, to }` picks the gradient. An
+   * object configures the ring — `beam` sends the travelling arc round it.
+   */
+  gradientBorder?: boolean | CardGradientBorder["gradient"] | GradientProp | CardGradientBorder | undefined;
   /**
    * How the surface is filled. Leaving it out is a real choice, not a missing one: the card then
    * resolves no variant at all and keeps the plain surface, which is what most cards want. With it

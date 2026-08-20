@@ -5,16 +5,16 @@ import {
   useMemo,
   useRef,
   type CSSProperties,
+  type ComponentPropsWithoutRef,
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
 import { usePermissionGranted, useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion, type HTMLMotionProps } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { Spring } from "../../utils/motion.js";
+
 import { PressProps } from "../../utils/press-props.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Box } from "../Box/Box.js";
@@ -24,8 +24,6 @@ import * as styles from "./Button.css.js";
 import type { ButtonProps } from "./Button.types.js";
 import * as variables from "./Button.vars.css.js";
 
-const PRESS_SCALE = 0.98;
-const HOVER_LIFT = -2;
 
 /**
  * Lo que `useButton` anade para emular un boton y que en un ancla con `href` sobra: el rol prestado,
@@ -67,7 +65,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { theme } = useTheme();
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
-    const prefers_reduced = useReducedMotion();
     const granted = usePermissionGranted(permission);
     const denied = !granted;
     const is_disabled = disabled || loading || (denied && permissionMode === "disable");
@@ -96,7 +93,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
      * por el navegador, asi que `onPress` tampoco se pierde.
      */
     const is_link = element === "a" && typeof style_and_rest["href"] === "string";
-    const Root = useMemo(() => m.create(element), [element]);
+    // Ya no hay que fabricar un componente animado por elemento: es la etiqueta y ya.
+    const Root = element;
 
     const { buttonProps, isPressed } = useButton(
       {
@@ -157,21 +155,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [refs, resolved],
     );
 
-    const is_animated = resolved.animated && prefers_reduced !== true && !is_disabled;
+    const is_animated = resolved.animated && !is_disabled;
     const lifts_on_hover = resolved.background === resolved.backgroundHover;
-    const press_transition = Spring("default", { theme, reduced: !is_animated });
     const glow_idle =
       variant === "glow" &&
       resolved.glow !== "none" &&
-      resolved.animated &&
-      prefers_reduced !== true;
+      resolved.animated;
 
     const dom_props = mergeProps(
       is_link ? WithoutButtonSemantics(buttonProps) : buttonProps,
       hoverProps,
       focusProps,
       dom_rest,
-    ) as unknown as Omit<HTMLMotionProps<"button">, "style">;
+    ) as unknown as Omit<ComponentPropsWithoutRef<"button">, "style">;
 
     if (denied && permissionMode === "hide") return null;
 
@@ -189,14 +185,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         data-variant={variant}
         data-glow-idle={glow_idle ? "true" : undefined}
         data-gradient-animated={
-          resolved.gradientAnimated && prefers_reduced !== true ? "true" : undefined
+          resolved.gradientAnimated ? "true" : undefined
         }
         aria-busy={loading || undefined}
-        animate={{
-          scale: is_animated && isPressed ? PRESS_SCALE : 1,
-          y: is_animated && isHovered && !isPressed && lifts_on_hover ? HOVER_LIFT : 0,
-        }}
-        transition={press_transition}
+        data-animated={is_animated ? "true" : undefined}
+        data-lifts={lifts_on_hover ? "true" : undefined}
       >
         {loading ? <span className={styles.spinner} aria-hidden="true" /> : null}
         {leftSection === undefined ? null : (

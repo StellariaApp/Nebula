@@ -18,7 +18,7 @@ const MODULE_BUDGETS = [
     path: "dist/index.js",
     import: "{ NebulaProvider }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "93.25 kB",
+    limit: "69 kB",
   },
   {
     name: "useTheme (sin CSS, desde el barrel)",
@@ -784,11 +784,11 @@ const MODULE_BUDGETS = [
     limit: "57.75 kB",
   },
   {
-    name: "Pagination (motion, por módulo)",
+    name: "Pagination (medida + transición CSS, por módulo)",
     path: "dist/components/Pagination/Pagination.js",
     import: "{ Pagination }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "33.75 kB",
+    limit: "26.25 kB",
   },
   {
     name: "PaginationRange (lógica pura, por módulo)",

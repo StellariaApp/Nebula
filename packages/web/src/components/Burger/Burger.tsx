@@ -4,10 +4,9 @@ import { forwardRef, useRef, type MouseEvent as ReactMouseEvent } from "react";
 
 import { useTheme, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { m, useReducedMotion } from "motion/react";
 import { mergeProps, useButton, useFocusRing, useHover, useObjectRef } from "react-aria";
 
-import { MotionOff, Spring } from "../../utils/motion.js";
+import { MotionOff } from "../../utils/motion.js";
 import { PressProps } from "../../utils/press-props.js";
 import { ResolveAccent } from "../../utils/scale.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -15,6 +14,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import {
   burger,
   line,
+  shift as line_shift,
   size as size_variants,
   show_below as showBelowVariants,
 } from "./Burger.css.js";
@@ -43,7 +43,6 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
     const { theme } = useTheme();
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
-    const prefers_reduced = useReducedMotion();
     const [is_open, set_open] = useUncontrolled(opened, defaultOpened, onChange);
 
     const {
@@ -92,9 +91,9 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
     const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
     const { focusProps, isFocusVisible } = useFocusRing();
 
-    const motion_context = { theme, reduced: prefers_reduced === true };
+    // Solo el escalon del tema: `prefers-reduced-motion` lo lleva la hoja.
+    const motion_context = { theme, reduced: false };
     const is_off = MotionOff(motion_context);
-    const transition = Spring("snappy", motion_context);
     const shift = SHIFT[size] ?? 7;
 
     const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest);
@@ -111,7 +110,12 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
           className,
         )}
         style={{
-          ...assignInlineVars({ [variables.bar]: ResolveAccent(color, "600") }),
+          ...assignInlineVars({
+            [variables.bar]: ResolveAccent(color, "600"),
+            // Cuanto se separan las barras al cerrarse en aspa. Depende del tamaño, asi que no
+            // puede vivir en la hoja: la hoja no sabe que tamaño le han pedido.
+            [line_shift]: `${String(shift)}px`,
+          }),
           ...sprinkle_style,
           ...style,
         }}
@@ -119,24 +123,13 @@ export const Burger = forwardRef<HTMLButtonElement, BurgerProps>(
         data-focus-visible={isFocusVisible ? "true" : undefined}
         data-disabled={disabled ? "true" : undefined}
         data-opened={is_open ? "true" : undefined}
+        data-motion={is_off ? "off" : undefined}
         aria-expanded={is_open}
         aria-label={is_open ? closeLabel : openLabel}
       >
-        <m.span
-          className={line}
-          animate={is_off ? {} : { y: is_open ? shift : 0, rotate: is_open ? 45 : 0 }}
-          transition={transition}
-        />
-        <m.span
-          className={line}
-          animate={is_off ? {} : { opacity: is_open ? 0 : 1 }}
-          transition={transition}
-        />
-        <m.span
-          className={line}
-          animate={is_off ? {} : { y: is_open ? -shift : 0, rotate: is_open ? -45 : 0 }}
-          transition={transition}
-        />
+        <span className={line} />
+        <span className={line} />
+        <span className={line} />
       </button>
     );
   },
