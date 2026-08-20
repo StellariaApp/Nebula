@@ -1,5 +1,13 @@
 # @stellaria/nebula-icons
 
+## 1.1.2
+
+### Patch Changes
+
+- - El registro de iconos crece de 73 a 110 y suma las categorías de tema y creativo, con más piezas disponibles para `Icon`.
+  - `Card` acepta el valor `xs` en su relleno, para tarjetas más compactas.
+  - Las ranuras de `Hero` reenvían los atributos HTML nativos igual que el resto de slots, así que ya puedes pasarles `id`, `data-*`, `aria-*` y demás.
+
 ## 1.1.1
 
 ## 1.1.0
