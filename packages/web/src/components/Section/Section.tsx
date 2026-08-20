@@ -81,6 +81,7 @@ export function Section(props: SectionProps): ReactElement {
     divided = false,
     glass = false,
     reveal = false,
+    revealTarget = "surface",
     contentWidth = DEFAULT_WIDTH,
     className,
     "aria-label": aria_label,
@@ -126,17 +127,27 @@ export function Section(props: SectionProps): ReactElement {
 
   // Sin `reveal` no hay nada que animar, asi que el raiz es un `<section>` de servidor. Con el, la
   // cascara de cliente lo sustituye y el rail sigue llegando como children, o sea de servidor.
-  const Root: ElementType = reveal ? SectionSurface : "section";
+  // Con `reveal` la banda entera pasa a la cascara de cliente; con `revealTarget="content"` la banda
+  // se queda quieta y quien entra es el rail, que ya es un `Box` y por tanto sabe revelarse solo.
+  const reveal_options = typeof reveal === "object" ? reveal : {};
+  const animates_surface = reveal !== false && revealTarget === "surface";
+  const animates_content = reveal !== false && revealTarget === "content";
+  const Root: ElementType = animates_surface ? SectionSurface : "section";
 
   return (
       <Root
+        {...(animates_surface ? { reveal: reveal_options } : {})}
         className={cx(styles.section, styles.size[size], sprinkle_class, className)}
         style={{ ...rail_vars, ...sprinkle_style }}
         data-glass={glass ? "true" : undefined}
         {...labelling}
         {...rest}
       >
-        <SectionRail size={size} data-divided={divided ? "true" : undefined}>
+        <SectionRail
+          size={size}
+          data-divided={divided ? "true" : undefined}
+          {...(animates_content ? { reveal: reveal_options } : {})}
+        >
           {has_own_header ? (
             parts.header
           ) : has_title || description !== undefined || actions !== undefined ? (

@@ -1,4 +1,5 @@
 import { act } from "@testing-library/react";
+import { renderToStaticMarkup } from "react-dom/server";
 import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -85,7 +86,12 @@ describe("Reveal — la regla de visibilidad", () => {
     );
 
     expect(screen.getByText("contenido")).toBeDefined();
-    expect(container.querySelector("[data-reveal]")).toBeNull();
+    /*
+     * Desde que el estado oculto vive en la hoja, "no armar" ya no puede ser "no emitir nada": el
+     * servidor sirvio el elemento oculto, asi que sin observador hay que DESTAPARLO explicitamente.
+     * `shown` es justo eso, y la regla `[data-reveal='shown']` lo devuelve a opacidad uno.
+     */
+    expect(container.querySelector("[data-reveal='hidden']")).toBeNull();
   });
 
   it("con reduced-motion no arma el mecanismo ni suscribe nada", () => {
@@ -262,7 +268,14 @@ describe("Section reveal", () => {
 });
 
 describe("el estado oculto se pinta, no solo se anuncia", () => {
-  it("Reveal armado deja el nodo en opacidad cero antes de entrar", () => {
+  /*
+   * La opacidad ya no se escribe en linea: la pone una regla de clase sobre `[data-reveal]`, porque
+   * la entrada dejo de ser una animacion de JavaScript y paso a ser una transicion de CSS. jsdom no
+   * carga esa hoja, asi que lo que se comprueba es que el nodo lleve LAS TRES cosas que la hacen
+   * pintar — la clase, el atributo de estado y la variable con el transform de partida—, que es lo
+   * mismo que decia la prueba anterior expresado donde ahora vive.
+   */
+  it("Reveal armado sale con clase, estado oculto y el transform de partida", () => {
     const { container } = render(
       <Reveal>
         <p>contenido</p>
@@ -271,10 +284,11 @@ describe("el estado oculto se pinta, no solo se anuncia", () => {
     const node = container.querySelector<HTMLElement>("[data-reveal]");
 
     expect(node?.getAttribute("data-reveal")).toBe("hidden");
-    expect(node?.style.opacity).toBe("0");
+    expect(node?.className).not.toBe("");
+    expect(node?.getAttribute("style")).toContain("translate3d");
   });
 
-  it("y sube hasta opacidad uno al entrar", async () => {
+  it("y pasa a mostrado al entrar", async () => {
     const { container } = render(
       <Reveal>
         <p>contenido</p>
@@ -285,8 +299,34 @@ describe("el estado oculto se pinta, no solo se anuncia", () => {
       observed[0]?.Enter();
     });
     await waitFor(() => {
-      expect(container.querySelector<HTMLElement>("[data-reveal]")?.style.opacity).toBe("1");
+      expect(container.querySelector<HTMLElement>("[data-reveal]")?.getAttribute("data-reveal")).toBe(
+        "shown",
+      );
     });
+  });
+
+  it("no anima con JavaScript: la curva del muelle viaja como easing de CSS", () => {
+    const { container } = render(
+      <Reveal>
+        <p>contenido</p>
+      </Reveal>,
+    );
+    const style = container.querySelector<HTMLElement>("[data-reveal]")?.getAttribute("style");
+
+    expect(style).toContain("linear(");
+    expect(style).toContain("ms");
+  });
+
+  it("`distance` mueve el recorrido, que antes estaba clavado en el preset", () => {
+    const { container } = render(
+      <Reveal distance={34}>
+        <p>contenido</p>
+      </Reveal>,
+    );
+
+    expect(container.querySelector<HTMLElement>("[data-reveal]")?.getAttribute("style")).toContain(
+      "34px",
+    );
   });
 
   it("Section reveal pinta el mismo estado oculto sobre su propio section", () => {
@@ -299,6 +339,66 @@ describe("el estado oculto se pinta, no solo se anuncia", () => {
 
     expect(node?.tagName).toBe("SECTION");
     expect(node?.getAttribute("data-reveal")).toBe("hidden");
-    expect(node?.style.opacity).toBe("0");
+    expect(node?.getAttribute("style")).toContain("translate3d");
+  });
+
+  it("con `revealTarget=\"content\"` la banda se queda quieta y entra el rail", () => {
+    render(
+      <Section id="capacidades" reveal revealTarget="content" title="Capacidades">
+        cuerpo
+      </Section>,
+    );
+    const band = document.getElementById("capacidades");
+
+    expect(band?.tagName).toBe("SECTION");
+    expect(band?.hasAttribute("data-reveal")).toBe(false);
+    expect(band?.querySelector("[data-reveal]")).not.toBeNull();
+  });
+});
+
+describe("oculto primero, y la comparacion despues de montar", () => {
+  it("el HTML del servidor sale ya oculto, este donde este el elemento", () => {
+    const html = renderToStaticMarkup(
+      <NebulaProvider>
+        <Reveal>
+          <p>contenido</p>
+        </Reveal>
+      </NebulaProvider>,
+    );
+
+    // La clase y el transform de partida tienen que venir del servidor: si llegaran al hidratar,
+    // habria un fotograma con el contenido en su sitio antes de esconderse.
+    expect(html).toContain('data-reveal="hidden"');
+    expect(html).toContain("translate3d");
+  });
+
+  it("pasa a mostrado cuando el observador dice que entro, no antes", async () => {
+    const { container } = render(
+      <Reveal>
+        <p>contenido</p>
+      </Reveal>,
+    );
+
+    expect(container.querySelector("[data-reveal]")?.getAttribute("data-reveal")).toBe("hidden");
+
+    act(() => {
+      observed[0]?.Enter();
+    });
+    await waitFor(() => {
+      expect(container.querySelector("[data-reveal]")?.getAttribute("data-reveal")).toBe("shown");
+    });
+  });
+
+  it("con `settled` nace visible y solo se anima lo que entra despues", () => {
+    const html = renderToStaticMarkup(
+      <NebulaProvider>
+        <Reveal initial="settled">
+          <p>contenido</p>
+        </Reveal>
+      </NebulaProvider>,
+    );
+
+    expect(html).toContain("contenido");
+    expect(html).not.toContain("data-reveal");
   });
 });

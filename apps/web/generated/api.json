@@ -501,6 +501,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "truncate",
           "type": "boolean",
           "required": false,
@@ -561,6 +569,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -905,6 +921,14 @@
           "required": false,
           "default": "1",
           "doc": "Width divided by height — `16 / 9` for video, `1` for a square. It reserves the height from the\nwidth before the content loads, which is what keeps an image or an iframe from shifting the\npage as it arrives.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -1377,6 +1401,14 @@
           "default": null,
           "doc": "An opening glyph. Its presence is what switches the layout to two columns, and it is rendered\n`aria-hidden`, so it can only ever decorate the quote — never carry part of it.",
           "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
         }
       ],
       "slots": [
@@ -1528,6 +1560,14 @@
           "required": false,
           "default": "\"div\"",
           "doc": "The element it paints. Everything else about `Box` is style, so this is what decides its\nsemantics: without it you get a `div`, which is right for a wrapper and wrong for anything a\nscreen reader should announce. The DOM props it accepts follow from this.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -2178,6 +2218,14 @@
           "required": false,
           "default": "\"horizontal\"",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -3322,6 +3370,14 @@
           "required": false,
           "default": "false",
           "doc": "Centres as `inline-flex`, so the box flows inside a line instead of taking the full width.\nUnlike `Flex`, `display` does not override it: centring is what this component is.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -5238,6 +5294,14 @@
           "required": false,
           "default": "\"code\"",
           "doc": "The element it paints. Left alone it follows `block`, so setting it by hand is how you keep the\nblock styling on a different tag — and how you lose the whitespace preservation that only `pre`\ngives you.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -8110,6 +8174,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "size",
           "type": "Size | Unit",
           "required": false,
@@ -8346,6 +8418,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -10726,6 +10806,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "size",
           "type": "number | DividerSize",
           "required": false,
@@ -12864,6 +12952,14 @@
           "default": "false",
           "doc": "Lays out as `inline-flex`, so the box flows inside a line of text instead of breaking it. An\nexplicit `display` beats this.",
           "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
         }
       ],
       "slots": [],
@@ -13633,6 +13729,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "status",
           "type": "FieldStatus",
           "required": false,
@@ -13750,6 +13854,14 @@
           "required": false,
           "default": "false",
           "doc": "Adds the grain layer over the pane. It also needs the theme's glass enabled — with glass off it\npaints nothing at all, rather than falling back to grain over the solid surface.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -14048,6 +14160,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "scrim",
           "type": "number",
           "required": false,
@@ -14125,6 +14245,14 @@
           "required": false,
           "default": "\"brand\"",
           "doc": "A theme gradient role, or a literal `{ from, to }` pair. With `beam` running it stops painting\nthe ring — the ring drops to the plain border colour and the gradient moves into the travelling\narc, which is the only way the arc is visible against it.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -14221,6 +14349,14 @@
           "default": null,
           "doc": "Takes family, size, weight, line height and tracking from the parent instead of the component's\nown. What you want for a gradient word inside a heading, so it does not resize the line.",
           "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
         }
       ],
       "slots": [],
@@ -14286,6 +14422,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "wrap",
           "type": "boolean",
           "required": false,
@@ -14337,6 +14481,14 @@
               "required": false,
               "default": "0",
               "doc": "Empty columns left before it, to push it right without an empty `Grid.Col`.",
+              "slot": false
+            },
+            {
+              "name": "reveal",
+              "type": "boolean | UseRevealOptions",
+              "required": false,
+              "default": null,
+              "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
               "slot": false
             },
             {
@@ -14570,6 +14722,14 @@
           "required": false,
           "default": "true",
           "doc": "With `grow`, caps each child so a long one cannot push the row past its container. Turn it off\nonly when you want the row to overflow on purpose. Does nothing without `grow`.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -15145,6 +15305,14 @@
           "required": false,
           "default": null,
           "doc": "Clamps the text to this many lines with an ellipsis. Beats `truncate`, and only applies above\nzero. Needs a width to work against: inside a flex child, that usually means `miw={0}`.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -17483,6 +17651,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "spacing",
           "type": "SpacingValue",
           "required": false,
@@ -17550,6 +17726,14 @@
               "required": false,
               "default": null,
               "doc": "This item's own glyph, which beats the one the parent `List` hands down. It is `aria-hidden`\nand it replaces the marker, so whatever it stands for has to be in the item's text as well.",
+              "slot": false
+            },
+            {
+              "name": "reveal",
+              "type": "boolean | UseRevealOptions",
+              "required": false,
+              "default": null,
+              "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
               "slot": false
             }
           ],
@@ -17943,6 +18127,14 @@
           "required": false,
           "default": "\"mark\"",
           "doc": "The element it paints. A real `mark` is what tells assistive tech this run is called out, so\nchanging it turns the highlight into decoration the reader never hears about.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],
@@ -18392,6 +18584,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -20805,6 +21005,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "shadow",
           "type": "\"none\" | ShadowLevel",
           "required": false,
@@ -22534,6 +22742,14 @@
           "slot": false
         },
         {
+          "name": "distance",
+          "type": "number",
+          "required": false,
+          "default": "24",
+          "doc": "How far a `slide-*` travels, in pixels. Ignored by `fade`, `scale` and `pop`, which do not move.\n\nIt is the knob that changes most between one product and another — the entrance reads bigger or\nsmaller by distance far more than by duration — and it used to be fixed in the preset, so moving\nit meant a `className` over the component.",
+          "slot": false
+        },
+        {
           "name": "duration",
           "type": "number",
           "required": false,
@@ -22547,6 +22763,14 @@
           "required": false,
           "default": null,
           "doc": "Position in a stagger, which delays this one relative to its siblings. Pass the map index over a\nlist; the delay is capped, so a long list does not end with an element waiting seconds.",
+          "slot": false
+        },
+        {
+          "name": "initial",
+          "type": "RevealInitial",
+          "required": false,
+          "default": "\"hidden\"",
+          "doc": "What the element looks like before the client has decided anything.\n\n- `\"hidden\"` — the default — ships it hidden from the very first paint, in or out of the\n  viewport. Once mounted, the observer compares it against the viewport and whatever is visible\n  animates in. This is what makes the entrance actually *play* instead of the content simply\n  being there.\n\n  The stylesheet only declares that hidden state under `(scripting: enabled) and\n  (prefers-reduced-motion: no-preference)`, so a page with scripting off — or a reader who asked\n  for less motion — never has anything to un-hide. That is the difference from the usual\n  `opacity: 0`, which leaves the page blank forever when the script fails to arrive.\n\n- `\"settled\"` ships it visible and only animates what scrolls in later. It costs the entrance\n  of everything above the fold and buys back the paint: nothing that marks LCP starts invisible.",
           "slot": false
         },
         {
@@ -22898,6 +23122,14 @@
           "required": false,
           "default": "1.5",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -23793,10 +24025,18 @@
         },
         {
           "name": "reveal",
-          "type": "boolean",
+          "type": "boolean | SectionRevealProps",
           "required": false,
           "default": "false",
-          "doc": "Reveal on entering the viewport. Swaps the root element for the motion one, it does not add a node (see `Reveal.md`).",
+          "doc": "Animates the band in when it first scrolls into view. `true` takes the catalogue entrance —\n`slide-up` over 24 px on the `gentle` spring — and an object tunes it.\n\nIt takes an object rather than a sibling `revealProps` for two reasons: it is the same shape\n`Box` accepts, so a band and a card are configured alike; and a name ending in `Props` promises\na slot that gets spread onto an element, which this is not — it is read by a hook.",
+          "slot": false
+        },
+        {
+          "name": "revealTarget",
+          "type": "SectionRevealTarget",
+          "required": false,
+          "default": "\"surface\"",
+          "doc": "What actually moves when `reveal` is on.\n\n- `\"surface\"` animates the whole band, its background and its glass included, so the strip\n  slides in as one piece.\n- `\"content\"` leaves the band where it is and lifts only the rail — the header, the body and\n  the footer — into it. On a band with `glass` this is usually what you want: the band is the\n  page's structure and the content is what should arrive.",
           "slot": false
         },
         {
@@ -24850,6 +25090,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "spacing",
           "type": "SpacingValue",
           "required": false,
@@ -25559,6 +25807,14 @@
           "required": false,
           "default": null,
           "doc": "Vertical gap. Reach for it when the gap belongs to one spot and not to the layout — a container\nwith `gap` says the rhythm once and does not leave empty nodes in the DOM.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         },
         {
@@ -27200,6 +27456,14 @@
           "slot": false
         },
         {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
+        },
+        {
           "name": "truncate",
           "type": "boolean",
           "required": false,
@@ -28076,6 +28340,14 @@
           "default": "1",
           "doc": "Heading level, 1 to 6. It deliberately shadows the flex `order` style prop: on a title the order\nthat matters is the hierarchical one, and exposing both under the same name would serve nobody.",
           "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
         }
       ],
       "slots": [],
@@ -28635,6 +28907,14 @@
           "default": null,
           "doc": null,
           "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+          "slot": false
         }
       ],
       "slots": [],
@@ -28746,6 +29026,14 @@
           "required": false,
           "default": "\"span\"",
           "doc": "The element it paints. An inline `span` by default, so the text can sit inside a sentence\nwithout splitting it; switch to `\"div\"` when the hidden content is block-level, since the\nbrowser silently breaks a block element nested in a paragraph.",
+          "slot": false
+        },
+        {
+          "name": "reveal",
+          "type": "boolean | UseRevealOptions",
+          "required": false,
+          "default": null,
+          "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
           "slot": false
         }
       ],

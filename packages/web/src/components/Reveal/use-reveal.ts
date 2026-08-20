@@ -1,54 +1,76 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from "react";
 
-import { useTheme } from "@stellaria/nebula-hooks";
-import { useReducedMotion, type TargetAndTransition, type Transition } from "motion/react";
+import { useMediaQuery, useTheme } from "@stellaria/nebula-hooks";
+import type { SpringName } from "@stellaria/nebula-tokens";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { ExitTween, MotionOff, Spring, StaggerDelay, Tween } from "../../utils/motion.js";
+import { MotionOff, StaggerDelay } from "../../utils/motion.js";
+import { SpringToEasing } from "../../utils/spring-easing.js";
 
-import type { RevealPreset } from "./Reveal.types.js";
+import * as styles from "./Reveal.css.js";
+import type { RevealInitial, RevealPreset } from "./Reveal.types.js";
 
-interface Phase {
-  from: TargetAndTransition;
-  to: TargetAndTransition;
-}
+const REDUCED = "(prefers-reduced-motion: reduce)";
 
-export const REVEAL_PRESETS: Record<RevealPreset, Phase> = {
-  fade: { from: { opacity: 0 }, to: { opacity: 1 } },
-  scale: { from: { opacity: 0, scale: 0.96 }, to: { opacity: 1, scale: 1 } },
-  pop: { from: { opacity: 0, scale: 0.86 }, to: { opacity: 1, scale: 1 } },
-  "slide-up": { from: { opacity: 0, y: 24 }, to: { opacity: 1, y: 0 } },
-  "slide-down": { from: { opacity: 0, y: -24 }, to: { opacity: 1, y: 0 } },
-  "slide-left": { from: { opacity: 0, x: 24 }, to: { opacity: 1, x: 0 } },
-  "slide-right": { from: { opacity: 0, x: -24 }, to: { opacity: 1, x: 0 } },
-};
+/** Lo que recorre un `slide-*` cuando nadie dice otra cosa. */
+export const REVEAL_DISTANCE = 24;
 
-export const REVEAL_SPRING = "gentle";
+export const REVEAL_SPRING: SpringName = "gentle";
 export const REVEAL_AMOUNT = 0.2;
 export const REVEAL_ROOT_MARGIN = "0px 0px -8% 0px";
 
+/**
+ * De donde entra cada preset, como `transform` de CSS.
+ *
+ * La distancia no vive aqui: llega aparte, porque es el mando que mas cambia entre un producto y
+ * otro, y tenerla clavada obligaba a un `className` por encima del componente para moverla.
+ *
+ * `translate3d` y no `translateY`: fuerza la capa propia y deja el desplazamiento en el compositor.
+ */
+export function RevealTransform(preset: RevealPreset, distance: number): string {
+  switch (preset) {
+    case "scale":
+      return "scale(0.96)";
+    case "pop":
+      return "scale(0.86)";
+    case "slide-up":
+      return `translate3d(0, ${String(distance)}px, 0)`;
+    case "slide-down":
+      return `translate3d(0, ${String(-distance)}px, 0)`;
+    case "slide-left":
+      return `translate3d(${String(distance)}px, 0, 0)`;
+    case "slide-right":
+      return `translate3d(${String(-distance)}px, 0, 0)`;
+    default:
+      return "none";
+  }
+}
+
 export interface UseRevealOptions {
   preset?: RevealPreset | undefined;
-  spring?: Parameters<typeof Spring>[0] | undefined;
+  spring?: SpringName | undefined;
   duration?: number | undefined;
   once?: boolean | undefined;
   amount?: number | undefined;
   rootMargin?: string | undefined;
   index?: number | undefined;
-  defer?: boolean | undefined;
+  distance?: number | undefined;
+  initial?: RevealInitial | undefined;
 }
 
 export interface UseRevealResult {
   ref: RefObject<HTMLElement | null>;
+  /**
+   * Si la entrada esta montada. Con el movimiento apagado, sin `IntersectionObserver` o antes del
+   * primer efecto vale `false`, y entonces el elemento no lleva ni clase ni atributo: esta ahi.
+   */
   armed: boolean;
-  animated_props: {
-    initial: TargetAndTransition | undefined;
-    animate: TargetAndTransition | undefined;
-    transition: Transition | undefined;
-  };
+  shown: boolean;
+  className: string | undefined;
+  style: Record<string, string> | undefined;
   "data-reveal": "shown" | "hidden" | undefined;
-  shown?: boolean;
 }
 
 export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
@@ -60,28 +82,44 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
     amount = REVEAL_AMOUNT,
     rootMargin = REVEAL_ROOT_MARGIN,
     index,
+    distance = REVEAL_DISTANCE,
+    initial = "hidden",
   } = options;
 
   const { theme } = useTheme();
-  const prefers_reduced = useReducedMotion();
-  const motion_context = { theme, reduced: prefers_reduced === true };
-  const is_off = MotionOff(motion_context);
+  const reduced = useMediaQuery(REDUCED);
+
+  /*
+   * El escalon de movimiento del tema se conoce en el SERVIDOR, asi que decide ahi mismo si esta
+   * pieza se anima o no. `prefers-reduced-motion` no: eso solo lo sabe el navegador, y por eso
+   * viaja en la consulta de medios de la hoja en vez de aqui.
+   */
+  const tier_animates = !MotionOff({ theme, reduced: false });
+  const is_off = MotionOff({ theme, reduced });
 
   const ref = useRef<HTMLElement | null>(null);
-  const [armed, set_armed] = useState(false);
   const [shown, set_shown] = useState(false);
 
   useLayoutEffect(() => {
-    if (is_off || typeof IntersectionObserver === "undefined") {
-      set_armed(false);
-      return;
-    }
-    set_armed(true);
+    /*
+     * Nada de comprobar aqui si el elemento cae dentro del viewport.
+     *
+     * El contrato es: OCULTO desde el primer pintado, este dentro o fuera, y cuando ya esta todo
+     * montado se compara y se anima. Adelantar la comparacion a este efecto haria que lo que ya
+     * estaba en pantalla apareciera sin animarse, que es justo lo que no se quiere.
+     *
+     * Lo unico que se resuelve aqui es la salida de emergencia: sin escalon de movimiento o sin
+     * `IntersectionObserver` no hay nada que esperar, asi que se muestra y se acabo.
+     */
+    if (is_off || typeof IntersectionObserver === "undefined") set_shown(true);
   }, [is_off]);
 
   useEffect(() => {
     const element = ref.current;
-    if (!armed || element === null) return;
+    // La guarda de `IntersectionObserver` va AQUI y no solo en el efecto de layout: sin ella el
+    // constructor lanza en un entorno que no lo tiene y se lleva por delante el efecto entero.
+    if (!tier_animates || is_off || element === null) return;
+    if (typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -94,43 +132,86 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
     );
 
     observer.observe(element);
+
+    /*
+     * PRIMERA COMPROBACION AL MONTAR, sin esperar a que el usuario haga scroll.
+     *
+     * `observe()` programa una primera llamada con el estado actual, pero llega en otra tarea y
+     * depende del observador. Esto la adelanta y la hace determinista: lo que ya esta en pantalla
+     * cuando termina el montaje entra ahora, no cuando alguien mueva la rueda.
+     *
+     * Va en un `useEffect` y no en el de layout a proposito: para cuando corre, el elemento ya se
+     * pinto oculto, asi que el cambio a mostrado dispara la transicion. Adelantarlo antes del
+     * pintado lo dejaria visible de golpe y sin animar.
+     */
+    const rect = element.getBoundingClientRect();
+    const view = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.bottom > 0 && rect.top < view) set_shown(true);
+
     return () => {
       observer.disconnect();
     };
-  }, [armed, once, amount, rootMargin]);
+  }, [tier_animates, is_off, once, amount, rootMargin]);
 
-  if (!armed) {
+  /*
+   * Muestrear un muelle recorre ~960 pasos para encontrar donde asienta. Es barato una vez y caro
+   * en cada render, asi que se memoriza por curva.
+   */
+  const timing = useMemo(() => {
+    if (duration !== undefined) {
+      return { ms: duration, easing: theme.motion.easing.decelerate };
+    }
+    const sampled = SpringToEasing(theme.motion.spring[spring_name ?? REVEAL_SPRING]);
+    return { ms: sampled.duration, easing: sampled.easing };
+  }, [duration, spring_name, theme]);
+
+  const delay = StaggerDelay(index ?? 0, { theme, reduced });
+
+  const style = useMemo(
+    () =>
+      assignInlineVars({
+        [styles.from]: RevealTransform(preset, distance),
+        [styles.duration]: `${String(timing.ms)}ms`,
+        [styles.easing]: timing.easing,
+        [styles.delay]: `${String(Math.round(delay * 1000))}ms`,
+        [styles.fade_duration]: `${String(theme.motion.duration.slow)}ms`,
+        [styles.fade_easing]: theme.motion.easing.decelerate,
+      }) as Record<string, string>,
+    [preset, distance, timing, delay, theme],
+  );
+
+  /*
+   * La clase y las variables viajan YA en el HTML del servidor: son las que la hoja necesita para
+   * esconder el elemento en su primer pintado. Sin ellas habria un fotograma en el que el contenido
+   * se ve en su sitio antes de ocultarse, que es el parpadeo que esto viene a quitar.
+   *
+   * Con `initial="settled"` no se emite nada hasta que el observador dice que si: el contenido nace
+   * visible y solo se anima lo que entra despues. Cuesta la animacion de lo que ya estaba en
+   * pantalla y a cambio no retrasa el pintado de lo que marca el LCP.
+   */
+  const hides_first = initial !== "settled";
+
+  if (!tier_animates) {
     return {
       ref,
-      armed,
-      animated_props: {
-        initial: undefined,
-        animate: undefined,
-        transition: undefined,
-      },
+      armed: false,
+      shown: true,
+      className: undefined,
+      style: undefined,
       "data-reveal": undefined,
     };
   }
 
-  const phase = REVEAL_PRESETS[preset];
-  const enter =
-    spring_name !== undefined
-      ? Spring(spring_name, motion_context)
-      : duration === undefined
-        ? Spring(REVEAL_SPRING, motion_context)
-        : Tween(duration, "decelerate", motion_context);
-  const delay = index === undefined ? 0 : StaggerDelay(index, motion_context);
-  const animated_props = {
-    initial: phase.from,
-    animate: shown ? phase.to : phase.from,
-    transition: shown ? { ...enter, delay } : ExitTween(duration ?? "slow", motion_context),
-  };
+  if (!hides_first && !shown) {
+    return { ref, armed: true, shown, className: undefined, style: undefined, "data-reveal": undefined };
+  }
 
   return {
     ref,
-    armed,
-    animated_props,
-    "data-reveal": shown ? "shown" : "hidden",
+    armed: true,
     shown,
+    className: styles.reveal,
+    style,
+    "data-reveal": shown ? "shown" : "hidden",
   };
 }

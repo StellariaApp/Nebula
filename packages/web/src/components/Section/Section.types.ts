@@ -4,6 +4,20 @@ import type { Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { RevealProps } from "../Reveal/Reveal.types.js";
+
+/**
+ * Los mandos de la entrada de una banda: los de `Reveal` menos lo que `Section` ya decide por su
+ * cuenta —el elemento, los hijos, la clase y el estilo—, que no tendria sentido duplicar aqui.
+ */
+/** Que elemento se anima con `reveal`: la banda entera o solo su rail. */
+export type SectionRevealTarget = "surface" | "content";
+
+export type SectionRevealProps = Pick<
+  RevealProps,
+  "preset" | "spring" | "duration" | "once" | "amount" | "rootMargin" | "index" | "distance" | "initial"
+>;
+
 export type SectionSize = "sm" | "md" | "lg" | "xl";
 
 export type SectionOrder = 2 | 3 | 4 | 5 | 6;
@@ -52,7 +66,27 @@ export interface SectionProps extends Omit<StyleProps, "order"> {
   /** The glass band of ADR-082, the lowest step. Use it ALTERNATING sections: turning it on everywhere gives you a uniform background, which is the opposite of the effect. */
   glass?: boolean | undefined;
   /** Reveal on entering the viewport. Swaps the root element for the motion one, it does not add a node (see `Reveal.md`). */
-  reveal?: boolean | undefined;
+  /**
+   * Animates the band in when it first scrolls into view. `true` takes the catalogue entrance —
+   * `slide-up` over 24 px on the `gentle` spring — and an object tunes it.
+   *
+   * It takes an object rather than a sibling `revealProps` for two reasons: it is the same shape
+   * `Box` accepts, so a band and a card are configured alike; and a name ending in `Props` promises
+   * a slot that gets spread onto an element, which this is not — it is read by a hook.
+   */
+  reveal?: boolean | SectionRevealProps | undefined;
+  /**
+   * What actually moves when `reveal` is on.
+   *
+   * - `"surface"` animates the whole band, its background and its glass included, so the strip
+   *   slides in as one piece.
+   * - `"content"` leaves the band where it is and lifts only the rail — the header, the body and
+   *   the footer — into it. On a band with `glass` this is usually what you want: the band is the
+   *   page's structure and the content is what should arrive.
+   *
+   * @default "surface"
+   */
+  revealTarget?: SectionRevealTarget | undefined;
   /**
    * Mounts the body on first intersection instead of on load. Header and footer always render, so
    * the heading stays in the served HTML for search and assistive tech. Unlike `reveal`, it does NOT

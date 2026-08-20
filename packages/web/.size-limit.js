@@ -1,3 +1,17 @@
+/*
+ * 2026-08-19 — 27 presupuestos por modulo suben entre 1.1 y 1.9 kB.
+ *
+ * Lo movio poner `reveal` en `Box`: la cascara de cliente que lo implementa —observador, muestreo
+ * del muelle a `linear()` y `assignInlineVars`— entra en la cadena de todo lo que monta sobre `Box`,
+ * asi que la pagan tambien `Text`, `Flex`, `Center`, `Title`, `Code` y `VisuallyHidden`, que no
+ * revelan nada.
+ *
+ * Se acepto a sabiendas y con el numero delante: la alternativa era declarar `reveal` solo en las
+ * superficies, y se prefirio que cualquier `Box` sepa entrar. Lo que devuelve el margen es lo
+ * contrario de subir limites: pasar a CSS las animaciones de interaccion —hover y press de
+ * `Button`, `ActionIcon`, `Switch`, `NavLink`— que hoy montan motion y para las que el token
+ * `animation.transition.interaction` ya tiene la receta escrita.
+ */
 const MODULE_BUDGETS = [
   {
     name: "NebulaProvider (runtime + CSS de temas, desde el barrel)",
@@ -18,14 +32,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Box/Box.js",
     import: "{ Box }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "19.75 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Text (primitivo, por módulo)",
     path: "dist/components/Text/Text.js",
     import: "{ Text }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.5 kB",
+    limit: "22.75 kB",
   },
   {
     name: "Button (compuesto: Aria + motion, por módulo)",
@@ -39,14 +53,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Flex/Flex.js",
     import: "{ Flex }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20 kB",
+    limit: "22.25 kB",
   },
   {
     name: "Center (primitivo, por módulo)",
     path: "dist/components/Center/Center.js",
     import: "{ Center }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.25 kB",
+    limit: "22.25 kB",
   },
   {
     name: "Group (primitivo temable en runtime, por módulo)",
@@ -67,7 +81,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Grid/components/Col.js",
     import: "{ GridCol }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21 kB",
+    limit: "23 kB",
   },
   {
     name: "SimpleGrid (primitivo temable en runtime, por módulo)",
@@ -109,7 +123,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/AspectRatio/AspectRatio.js",
     import: "{ AspectRatio }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.75 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Paper (primitivo temable con variantes en runtime, por módulo)",
@@ -123,7 +137,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/VisuallyHidden/VisuallyHidden.js",
     import: "{ VisuallyHidden }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.25 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Portal (utilidad, por módulo)",
@@ -154,11 +168,11 @@ const MODULE_BUDGETS = [
     limit: "25.5 kB",
   },
   {
-    name: "Reveal (motion + IntersectionObserver, por módulo)",
+    name: "Reveal (IntersectionObserver + transición CSS, por módulo)",
     path: "dist/components/Reveal/Reveal.js",
     import: "{ Reveal }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "27.25 kB",
+    limit: "22.25 kB",
   },
   {
     name: "Collapse (compuesto: motion, por módulo)",
@@ -172,14 +186,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Title/Title.js",
     import: "{ Title }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.25 kB",
+    limit: "22.75 kB",
   },
   {
     name: "Anchor (primitivo compuesto sobre Text, por módulo)",
     path: "dist/components/Anchor/Anchor.js",
     import: "{ Anchor }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21 kB",
+    limit: "23 kB",
   },
   {
     name: "GradientText (primitivo temable en runtime, por módulo)",
@@ -207,7 +221,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Code/Code.js",
     import: "{ Code }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.5 kB",
+    limit: "22.5 kB",
   },
   {
     name: "Blockquote (primitivo con color extendido, por módulo)",
@@ -256,7 +270,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/ButtonGroup/ButtonGroup.js",
     import: "{ ButtonGroup }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.25 kB",
+    limit: "22.5 kB",
   },
   {
     name: "FileButton (por módulo)",
@@ -340,7 +354,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Chip/ChipGroup.js",
     import: "{ ChipGroup }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.25 kB",
+    limit: "23.75 kB",
   },
   {
     name: "NativeSelect (select nativo + forms, por módulo)",
@@ -452,7 +466,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Fieldset/Fieldset.js",
     import: "{ Fieldset }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.25 kB",
+    limit: "23.5 kB",
   },
   {
     name: "Rating (color extendido + forms, por módulo)",
@@ -494,7 +508,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/ColorPicker/ColorPicker.js",
     import: "{ ColorPicker }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "48.75 kB",
+    limit: "49.75 kB",
   },
   {
     name: "ColorInput (campo + picker en popover, por módulo)",
@@ -739,7 +753,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Accordion/Accordion.js",
     import: "{ Accordion }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "28.75 kB",
+    limit: "30.75 kB",
   },
   {
     name: "Card (compound + motion, por módulo)",
@@ -753,7 +767,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/EmptyState/EmptyState.js",
     import: "{ EmptyState }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "27.75 kB",
+    limit: "30 kB",
   },
   {
     name: "NavLink (motion + Collapse, por módulo)",
@@ -816,21 +830,21 @@ const MODULE_BUDGETS = [
     path: "dist/components/Stat/Stat.js",
     import: "{ Stat }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.25 kB",
+    limit: "23.75 kB",
   },
   {
     name: "Spoiler (primitivo temable en runtime, por módulo)",
     path: "dist/components/Spoiler/Spoiler.js",
     import: "{ Spoiler }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.25 kB",
+    limit: "23.75 kB",
   },
   {
     name: "Table (compound de tabla sin Aria, por módulo)",
     path: "dist/components/Table/index.js",
     import: "{ Table }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "22 kB",
+    limit: "24.25 kB",
   },
   {
     name: "Indicator (primitivo con color extendido, por módulo)",
@@ -949,7 +963,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Panel/Panel.js",
     import: "{ Panel }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.5 kB",
+    limit: "23.25 kB",
   },
   {
     name: "Section (patrón con estados de carga y error, por módulo)",
@@ -1092,7 +1106,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Charts/TrendIndicator.js",
     import: "{ TrendIndicator }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.25 kB",
+    limit: "23.75 kB",
   },
   {
     name: "DataGrid avanzado (subpath /datagrid: table + virtual + toolbar + menús)",
@@ -1113,7 +1127,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/PermissionGate/PermissionGate.js",
     import: "{ PermissionGate }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.5 kB",
+    limit: "22.75 kB",
   },
   {
     name: "GlassSurface (primitivo temable con variantes en runtime, por módulo)",
@@ -1218,14 +1232,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Breadcrumbs/Breadcrumbs.js",
     import: "{ Breadcrumbs }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.5 kB",
+    limit: "23.5 kB",
   },
   {
     name: "Countdown (temporizador, por módulo)",
     path: "dist/components/Countdown/Countdown.js",
     import: "{ Countdown }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.5 kB",
+    limit: "23.75 kB",
   },
   {
     name: "ScrollProgress (primitivo con color extendido, por módulo)",
@@ -1253,14 +1267,14 @@ const MODULE_BUDGETS = [
     path: "dist/components/Charts/ChartTooltip.js",
     import: "{ ChartTooltip }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "21.75 kB",
+    limit: "23.75 kB",
   },
   {
     name: "ChartPanel (retícula, SIN Recharts)",
     path: "dist/components/Charts/ChartPanel.js",
     import: "{ ChartPanel }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "22.25 kB",
+    limit: "24 kB",
   },
   {
     name: "CodeHighlight (sin resaltador, por módulo)",
@@ -1302,7 +1316,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/TypographyStylesProvider/TypographyStylesProvider.js",
     import: "{ TypographyStylesProvider }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "20.5 kB",
+    limit: "23 kB",
   },
   {
     name: "DirectionProvider (contexto + I18nProvider de Aria, por módulo)",

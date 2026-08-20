@@ -9,8 +9,30 @@ import type { Transition, ValueTransition } from "motion/react";
 
 const EXIT_RATIO = 2 / 3;
 const STAGGER_CAP = 8;
-const SCROLL_STIFFNESS = 0.25;
-const SCROLL_DAMPING = 0.5;
+/**
+ * Cuanto se ablanda un muelle del tema al llevarlo al scroll. Un scroll con la rigidez de un boton
+ * se siente agarrado, asi que baja; es el UNICO mando de velocidad de {@link ScrollSpring}.
+ */
+const SCROLL_STIFFNESS = 0.5;
+
+/**
+ * La amortiguacion relativa del scroll, y no un multiplicador sobre la del tema.
+ *
+ * Antes se escalaba con un factor plano —`x0.5` contra un `x0.25` de rigidez— y eso CONSERVABA la
+ * amortiguacion relativa del token, porque `zeta' = zeta * D / sqrt(S)` y `0.5 / sqrt(0.25) = 1`.
+ * El problema no era el factor: eran los muelles del tema, que no comparten `zeta`. Medido sobre el
+ * catalogo, `gentle` daba 1.016, `default` 0.837 y `snappy` 0.684, asi que el scroll heredaba un
+ * rebote de 0.0 %, 0.8 % y 5.3 %. Y como `zeta*w` sale de `c / 2m`, y `c` quedaba en ~14 para los
+ * tres, los tres asentaban en ~700 ms: `snappy` no era mas rapido, era mas boton.
+ *
+ * En una superficie que se scrollea, pasarse y volver se lee como un temblor, no como vida. Fijando
+ * `zeta`, la rigidez vuelve a ser lo unico que decide la velocidad y los tres nombres significan lo
+ * que dicen: `gentle` 513 ms, `default` 423 ms, `snappy` 333 ms, ninguno con rebote.
+ *
+ * `1` es amortiguacion critica: lo mas rapido que se puede llegar SIN pasarse. Por debajo de 1 el
+ * contenido se pasa de largo y vuelve, que en una pagina que se scrollea se lee como un temblor.
+ */
+const SCROLL_DAMPING_RATIO = 1;
 const FADE_DURATION: DurationName = "slow";
 const FADE_EASING: EasingName = "decelerate";
 const BEZIER = /^cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)$/;
@@ -86,11 +108,18 @@ export function SpringOptions(name: SpringName, theme: NebulaTheme): SpringConfi
   return { stiffness: config.stiffness, damping: config.damping, mass: config.mass };
 }
 
+/**
+ * El muelle del tema, llevado al scroll: mas blando y criticamente amortiguado.
+ *
+ * La amortiguacion NO sale de la del tema, se deriva de la rigidez ya ablandada para que
+ * {@link SCROLL_DAMPING_RATIO} se cumpla en los tres nombres por igual.
+ */
 export function ScrollSpring(name: SpringName, theme: NebulaTheme): SpringConfig {
   const config = theme.motion.spring[name];
+  const stiffness = config.stiffness * SCROLL_STIFFNESS;
   return {
-    stiffness: config.stiffness * SCROLL_STIFFNESS,
-    damping: config.damping * SCROLL_DAMPING,
+    stiffness,
+    damping: 2 * SCROLL_DAMPING_RATIO * Math.sqrt(stiffness * config.mass),
     mass: config.mass,
   };
 }

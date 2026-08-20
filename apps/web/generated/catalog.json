@@ -16,7 +16,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "28.75 kB",
+      "budget": "30.75 kB",
       "notes": true,
       "contract": true
     },
@@ -60,7 +60,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "21 kB",
+      "budget": "23 kB",
       "notes": true,
       "contract": true
     },
@@ -97,7 +97,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.75 kB",
+      "budget": "22.5 kB",
       "notes": false,
       "contract": true
     },
@@ -162,8 +162,8 @@
       "subpath": ".",
       "compound": false,
       "parts": [],
-      "boundary": "server",
-      "budget": "19.75 kB",
+      "boundary": "client",
+      "budget": "22.5 kB",
       "notes": true,
       "contract": true
     },
@@ -174,7 +174,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "21.5 kB",
+      "budget": "23.5 kB",
       "notes": true,
       "contract": true
     },
@@ -229,7 +229,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.25 kB",
+      "budget": "22.5 kB",
       "notes": false,
       "contract": true
     },
@@ -290,7 +290,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.25 kB",
+      "budget": "22.25 kB",
       "notes": false,
       "contract": true
     },
@@ -334,7 +334,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.5 kB",
+      "budget": "22.5 kB",
       "notes": true,
       "contract": true
     },
@@ -367,7 +367,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "48.75 kB",
+      "budget": "49.75 kB",
       "notes": false,
       "contract": true
     },
@@ -433,7 +433,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "21.5 kB",
+      "budget": "23.75 kB",
       "notes": false,
       "contract": true
     },
@@ -598,7 +598,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "27.75 kB",
+      "budget": "30 kB",
       "notes": false,
       "contract": true
     },
@@ -631,7 +631,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "21.25 kB",
+      "budget": "23.5 kB",
       "notes": true,
       "contract": true
     },
@@ -675,7 +675,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20 kB",
+      "budget": "22.25 kB",
       "notes": false,
       "contract": true
     },
@@ -1215,7 +1215,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "21.5 kB",
+      "budget": "23.25 kB",
       "notes": false,
       "contract": true
     },
@@ -1248,7 +1248,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "20.5 kB",
+      "budget": "22.75 kB",
       "notes": true,
       "contract": true
     },
@@ -1347,7 +1347,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "27.25 kB",
+      "budget": "22.25 kB",
       "notes": true,
       "contract": true
     },
@@ -1523,7 +1523,7 @@
       "compound": false,
       "parts": [],
       "boundary": "client",
-      "budget": "21.25 kB",
+      "budget": "23.75 kB",
       "notes": false,
       "contract": true
     },
@@ -1545,7 +1545,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "21.25 kB",
+      "budget": "23.75 kB",
       "notes": false,
       "contract": true
     },
@@ -1597,7 +1597,7 @@
         "Table.Title"
       ],
       "boundary": "server",
-      "budget": "22 kB",
+      "budget": "24.25 kB",
       "notes": false,
       "contract": true
     },
@@ -1641,7 +1641,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.5 kB",
+      "budget": "22.75 kB",
       "notes": true,
       "contract": true
     },
@@ -1707,7 +1707,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.25 kB",
+      "budget": "22.75 kB",
       "notes": false,
       "contract": true
     },
@@ -1762,7 +1762,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.5 kB",
+      "budget": "23 kB",
       "notes": false,
       "contract": true
     },
@@ -1795,7 +1795,7 @@
       "compound": false,
       "parts": [],
       "boundary": "server",
-      "budget": "20.25 kB",
+      "budget": "22.5 kB",
       "notes": false,
       "contract": true
     }

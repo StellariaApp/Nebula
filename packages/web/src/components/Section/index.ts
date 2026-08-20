@@ -32,6 +32,8 @@ export type {
   SectionHeadingProps,
   SectionOrder,
   SectionProps,
+  SectionRevealProps,
+  SectionRevealTarget,
   SectionSize,
   SectionSlotProps,
 } from "./Section.types.js";

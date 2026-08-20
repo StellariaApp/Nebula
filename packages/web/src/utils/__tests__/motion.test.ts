@@ -209,21 +209,35 @@ describe("Stagger", () => {
 });
 
 describe("ScrollSpring", () => {
-  it("baja la frecuencia a la mitad y conserva el amortiguamiento del token", () => {
+  it("ablanda la frecuencia y amortigua críticamente, venga de donde venga el token", () => {
     for (const name of SPRING_NAMES) {
       const token = theme.motion.spring[name];
       const scroll = ScrollSpring(name, theme);
 
-      expect(Frequency(scroll)).toBeCloseTo(Frequency(token) / 2);
-      expect(Ratio(scroll)).toBeCloseTo(Ratio(token));
+      expect(Frequency(scroll)).toBeCloseTo(Frequency(token) / Math.SQRT2);
+      expect(Ratio(scroll)).toBeCloseTo(1);
       expect(scroll.mass).toBe(token.mass);
     }
+  });
+
+  it("ninguno de los tres se pasa de largo, que en una superficie que se scrollea se lee como un temblor", () => {
+    for (const name of SPRING_NAMES) {
+      expect(Ratio(ScrollSpring(name, theme))).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it("la rigidez es el único mando de velocidad: el orden de los nombres se respeta", () => {
+    const [gentle, standard, snappy] = SPRING_NAMES.map((name) => ScrollSpring(name, theme));
+
+    // `zeta*w` es lo que fija el tiempo de asentamiento, y con zeta=1 es la frecuencia sin más.
+    expect(Frequency(gentle!)).toBeLessThan(Frequency(standard!));
+    expect(Frequency(standard!)).toBeLessThan(Frequency(snappy!));
   });
 
   it("cada tema decide su propia física de scroll", () => {
     const light = Themes.nebula.light;
     expect(ScrollSpring("default", light).stiffness).toBe(
-      light.motion.spring.default.stiffness * 0.25,
+      light.motion.spring.default.stiffness * 0.5,
     );
   });
 });
