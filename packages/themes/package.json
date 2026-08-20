@@ -1,6 +1,6 @@
 {
   "name": "@stellaria/nebula-themes",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Temas oficiales, Zod schema del theme y presets del design system Nebula",
   "license": "MIT",
   "author": "Stellaria",

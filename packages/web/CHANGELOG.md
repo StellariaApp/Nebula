@@ -1,5 +1,16 @@
 # @stellaria/nebula-web
 
+## 1.1.1
+
+### Patch Changes
+
+- - Los componentes web de Nebula incorporan funcionalidad de reveal para mostrar contenido de forma progresiva.
+  - Se ajustan las propiedades de layout de los componentes afectados.
+  - @stellaria/nebula-tokens@1.1.1
+  - @stellaria/nebula-hooks@1.1.1
+  - @stellaria/nebula-themes@1.1.1
+  - @stellaria/nebula-icons@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
