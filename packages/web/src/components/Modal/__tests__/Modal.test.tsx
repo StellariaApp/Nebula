@@ -205,4 +205,58 @@ describe("Modal", () => {
     );
     expect(screen.queryByRole("dialog")).toBeNull();
   });
+
+  describe("con `content`, el panel lo trae el consumidor", () => {
+    it("lo pinta tal cual y no monta cabecera, cuerpo ni pie propios", () => {
+      render(
+        <Modal
+          aria-label="Puerta"
+          content={<article data-testid="panel">mi panel</article>}
+          footer={<span>pie que no sale</span>}
+          onClose={() => undefined}
+          opened
+          title="titulo que no sale"
+        />,
+      );
+
+      const panel = screen.getByTestId("panel");
+      expect(panel.textContent).toBe("mi panel");
+
+      // Lo que el modal habría dibujado por su cuenta no está.
+      expect(screen.queryByText("titulo que no sale")).toBeNull();
+      expect(screen.queryByText("pie que no sale")).toBeNull();
+    });
+
+    it("y la superficie suelta lo que se ve para no quedar debajo de la del consumidor", () => {
+      render(
+        <Modal
+          aria-label="Puerta"
+          content={<article data-testid="panel">mi panel</article>}
+          onClose={() => undefined}
+          opened
+        />,
+      );
+
+      const surface = screen.getByTestId("panel").parentElement;
+      expect(surface?.className).toMatch(/bare_true/);
+    });
+
+    it("el diálogo sigue siendo diálogo y conserva su nombre", () => {
+      render(
+        <Modal
+          aria-label="Puerta"
+          content={<span>mi panel</span>}
+          onClose={() => undefined}
+          opened
+        />,
+      );
+      expect(screen.getByRole("dialog", { name: "Puerta" })).toBeDefined();
+    });
+  });
+
+  it("`children` es opcional: sin cuerpo no revienta", () => {
+    render(<Modal onClose={() => undefined} opened title="Sin cuerpo" />);
+    expect(screen.getByRole("dialog")).toBeDefined();
+    expect(screen.getByText("Sin cuerpo")).toBeDefined();
+  });
 });

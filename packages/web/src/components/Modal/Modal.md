@@ -45,6 +45,32 @@ El backdrop no puede animarse con motion (es un pseudo-elemento), así que entra
 
 **Al escribir tests o play functions**: tras cerrar, el diálogo permanece en el DOM mientras dura la salida. Las aserciones de desmontaje van dentro de `waitFor`.
 
+## `content`: el panel lo trae el consumidor
+
+El modal dibuja su superficie —fondo, sombra, radio— y dentro monta cabecera, cuerpo y pie. Cuando
+la ventana **ya tiene una forma propia en el producto**, eso estorba: meter una `Card` con su anillo
+de degradado dentro del panel deja una superficie encima de otra, con dos fondos y dos radios que no
+coinciden. Y no había forma de quitarlo: `className` cae en el `<dialog>` y `bodyProps` en el cuerpo,
+por dentro; a la superficie no llegaba nada.
+
+`content` la deja en blanco. El modal se queda con lo que nadie quiere reescribir —el `<dialog>` en
+el top layer, el foco atrapado, el bloqueo del scroll, el velo desenfocado, la entrada y la salida
+animadas, el cierre por fuera y por `Esc`— y suelta lo que se ve. Lo que se pase ocupa ese sitio tal
+cual, sin envoltorio.
+
+```tsx
+<Modal aria-label="Confirmar" content={<Card gradientBorder={{ beam: true }}>…</Card>} opened onClose={Close} />
+```
+
+Manda sobre `children`, `title`, `subtitle`, `footer`, `padding` y `withCloseButton`: con panel
+propio, esas piezas las pone quien lo trae.
+
+**El nombre accesible pasa a ser cosa tuya.** El diálogo lo saca de `title` a través de
+`aria-labelledby`, y sin cabecera no hay de dónde: sin `aria-label`, el diálogo se queda sin nombre.
+
+`children` es opcional desde que existe `content` —un modal con `content` no tiene cuerpo que
+pasar—, y también sirve para el diálogo que es sólo cabecera y pie.
+
 ## Los overlays de los hijos se portalean dentro del diálogo
 
 El top layer que aporta `showModal()` tiene una contrapartida: **nada que quede fuera del `<dialog>` puede pintarse encima**, por muchísimo `z-index` que lleve, y el navegador además vuelve inerte el resto del documento. Los overlays del catálogo (`Select`, `Combobox`, `MultiSelect`, `Menu`, `Popover`, `Tooltip`, `HoverCard`, `DatePicker`, `ColorInput`) montan su capa flotante con el `Overlay` de React Aria, que portalea a `document.body`. Dentro de un `Modal` o un `Drawer` eso los dejaba invisibles e inertes: el trigger abría, el chevron giraba y no aparecía nada.

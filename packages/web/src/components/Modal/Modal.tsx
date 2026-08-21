@@ -67,6 +67,7 @@ export function Modal(props: ModalProps): ReactElement {
     opened,
     onClose,
     children,
+    content,
     title,
     subtitle,
     footer,
@@ -185,47 +186,55 @@ export function Modal(props: ModalProps): ReactElement {
           onExitComplete={HandleExitComplete}
           preset={MOTION_PRESET[layout]}
           ref={surface_ref}
-          className={styles.surface({ layout, ...(radius === undefined ? {} : { radius }) })}
+          className={styles.surface({
+            layout,
+            bare: content !== undefined,
+            ...(radius === undefined ? {} : { radius }),
+          })}
         >
-          {has_header ? (
-            <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
-              <Box {...headingProps} className={cx(styles.heading, headingProps?.className)}>
-                {title === undefined ? null : (
-                  <Text
-                    component="h2"
-                    {...aria_title}
-                    {...titleProps}
-                    id={title_id}
-                    className={cx(styles.title, titleProps?.className)}
-                  >
-                    {title}
-                  </Text>
-                )}
-                {subtitle === undefined ? null : (
-                  <Text
-                    component="span"
-                    {...subtitleProps}
-                    className={cx(styles.subtitle, subtitleProps?.className)}
-                  >
-                    {subtitle}
-                  </Text>
-                )}
-              </Box>
-              {withCloseButton ? (
-                <ButtonClose aria-label={closeLabel} size="sm" onPress={onClose} />
+          {content ?? (
+            <>
+              {has_header ? (
+                <Box {...headerProps} className={cx(styles.header, headerProps?.className)}>
+                  <Box {...headingProps} className={cx(styles.heading, headingProps?.className)}>
+                    {title === undefined ? null : (
+                      <Text
+                        component="h2"
+                        {...aria_title}
+                        {...titleProps}
+                        id={title_id}
+                        className={cx(styles.title, titleProps?.className)}
+                      >
+                        {title}
+                      </Text>
+                    )}
+                    {subtitle === undefined ? null : (
+                      <Text
+                        component="span"
+                        {...subtitleProps}
+                        className={cx(styles.subtitle, subtitleProps?.className)}
+                      >
+                        {subtitle}
+                      </Text>
+                    )}
+                  </Box>
+                  {withCloseButton ? (
+                    <ButtonClose aria-label={closeLabel} size="sm" onPress={onClose} />
+                  ) : null}
+                </Box>
               ) : null}
-            </Box>
-          ) : null}
-          <Box
-            {...bodyProps}
-            className={cx(styles.body({ padding }), bodyClassName, bodyProps?.className)}
-          >
-            {children}
-          </Box>
-          {footer === undefined ? null : (
-            <Box {...footerProps} className={cx(styles.footer, footerProps?.className)}>
-              {footer}
-            </Box>
+              <Box
+                {...bodyProps}
+                className={cx(styles.body({ padding }), bodyClassName, bodyProps?.className)}
+              >
+                {children}
+              </Box>
+              {footer === undefined ? null : (
+                <Box {...footerProps} className={cx(styles.footer, footerProps?.className)}>
+                  {footer}
+                </Box>
+              )}
+            </>
           )}
         </OverlayMotion>
       </UNSAFE_PortalProvider>

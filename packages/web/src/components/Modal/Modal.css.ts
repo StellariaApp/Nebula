@@ -135,8 +135,25 @@ export const surface = recipe({
       md: { borderRadius: vars.radius.md },
       lg: { borderRadius: vars.radius.lg },
     },
+    /*
+     * Lo que enciende `content`: la superficie conserva el sitio, el ancho y el movimiento, y suelta
+     * todo lo que se ve, para que el panel lo dibuje quien lo trae. Va declarada la ultima a
+     * proposito, para pisar el redondeo que ponen `layout` y `radius`.
+     */
+    bare: {
+      true: {
+        "@layer": {
+          [composite_layer]: {
+            background: "transparent",
+            boxShadow: "none",
+            borderRadius: 0,
+          },
+        },
+      },
+      false: {},
+    },
   },
-  defaultVariants: { layout: "centered" },
+  defaultVariants: { layout: "centered", bare: false },
 });
 
 export const header = style({
