@@ -1,5 +1,13 @@
 # @stellaria/nebula-hooks
 
+## 1.1.4
+
+### Patch Changes
+
+- - Esta versión no trae cambios funcionales: revierte por completo el 1.2.0, que se canceló antes de publicarse, y deja los paquetes iguales a la última versión disponible.
+- Updated dependencies
+  - @stellaria/nebula-tokens@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes
