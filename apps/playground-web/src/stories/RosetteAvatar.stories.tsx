@@ -79,7 +79,7 @@ const PREAJUSTES: Preajuste[] = [
 function PreajusteTile({ preajuste }: { preajuste: Preajuste }): ReactElement {
   const puesto = preajuste.valor !== undefined;
   return (
-    <Card withBorder r="md" padding="none">
+    <Card withBorder r="md" p="none">
       <Box p="sm">
         <Flex align="center" gap="xs" c={puesto ? "primary.600" : "text.muted"}>
           <Icon name={preajuste.icon} size={14} />
@@ -109,7 +109,7 @@ const ACCION = {
 
 function SelectorDeAccion(): ReactElement {
   return (
-    <Card withBorder r="md" padding="none">
+    <Card withBorder r="md" p="none">
       <Box p="sm">
         <Flex align="center" justify="space-between" gap="xs">
           <Text fz="caption" tt="uppercase" ls="wide" fw="semibold" c="text.muted">
@@ -290,7 +290,7 @@ function CandidataTile({
   progreso?: number | undefined;
 }): ReactElement {
   return (
-    <Card withBorder r="md" padding="none" overflow="hidden">
+    <Card withBorder r="md" p="none" overflow="hidden">
       <Placeholder ratio={3 / 4} icon={estado === "fallida" ? "warning" : "image"}>
         {progreso === undefined ? null : (
           <Progress value={progreso} size="xs" w="70%" label="Progreso de la generación" />
@@ -486,7 +486,7 @@ function Galeria(): ReactElement {
           {MEDIOS.map((medio) => {
             const es_publico = publicos.has(medio.id);
             return (
-              <Card key={medio.id} withBorder r="md" padding="none" overflow="hidden">
+              <Card key={medio.id} withBorder r="md" p="none" overflow="hidden">
                 <Placeholder
                   ratio={3 / 4}
                   icon={TIPO_MEDIO[medio.tipo]}
@@ -556,7 +556,7 @@ function Capa({
   children: ReactNode;
 }): ReactElement {
   return (
-    <Card withBorder r="md" padding="none">
+    <Card withBorder r="md" p="none">
       <Box p="sm">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Text fz="body3" fw="semibold">
@@ -619,7 +619,7 @@ function Chat(): ReactElement {
                   <Card
                     withBorder
                     r="md"
-                    padding="none"
+                    p="none"
                     variant={turno.de === "usuario" ? "light" : "outline"}
                   >
                     <Box p="sm">
@@ -792,7 +792,7 @@ function Identidad(): ReactElement {
         </Flex>
         <SimpleGrid cols={Cols({ base: 3, tablet: 3, laptop: 3 })} spacing="sm">
           {ANCLAS.map((ancla) => (
-            <Card key={ancla.n} withBorder r="md" padding="none" overflow="hidden">
+            <Card key={ancla.n} withBorder r="md" p="none" overflow="hidden">
               <Placeholder ratio={1} icon="anchor" />
               <Box p="xs">
                 <Text fz="caption" fw="semibold" truncate>
@@ -838,7 +838,7 @@ function Assets(): ReactElement {
       </Flex>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 3 })} spacing="md">
         {UBICACIONES.map((ubicacion) => (
-          <Card key={ubicacion.nombre} withBorder r="lg" padding="none" overflow="hidden">
+          <Card key={ubicacion.nombre} withBorder r="lg" p="none" overflow="hidden">
             <Placeholder
               ratio={16 / 9}
               icon="pin"

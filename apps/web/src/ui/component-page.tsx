@@ -57,7 +57,7 @@ function Anchored({
 function Props({ rows, dict }: { rows: readonly ApiProp[]; dict: Dictionary }): ReactElement {
   return (
     <Box data-pagefind-ignore="all">
-      <Card withBorder r="lg" padding="none">
+      <Card withBorder r="lg" p="none">
         <Table.ScrollContainer minWidth={640}>
           <Table>
             <Table.Head>
@@ -156,7 +156,7 @@ export async function ComponentPage({ entry }: { entry: CatalogEntry }): Promise
 
       {surface === undefined ? null : (
         <Anchored id="preview" title={dict["api.preview"] ?? ""}>
-          <Card withBorder r="lg" padding="none" overflow="hidden">
+          <Card withBorder r="lg" p="none" overflow="hidden">
             <Box
               component="iframe"
               src={`/preview/${ComponentSlug(entry.name)}`}

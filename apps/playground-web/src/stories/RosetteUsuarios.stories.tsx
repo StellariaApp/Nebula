@@ -311,7 +311,7 @@ function Papeles(): ReactElement {
       <Rotulo mt="lg">Qué puede cada papel</Rotulo>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 4 })} spacing="md">
         {PAPELES.map((fila) => (
-          <Card key={fila.papel} withBorder r="md" padding="none">
+          <Card key={fila.papel} withBorder r="md" p="none">
             <Box p="md">
               <Badge variant="light" color={PAPEL_TONO[fila.papel]} size="sm">
                 {fila.papel}

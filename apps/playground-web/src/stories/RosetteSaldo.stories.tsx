@@ -177,7 +177,7 @@ function Planes(): ReactElement {
               key={plan.nombre}
               withBorder
               r="lg"
-              padding="none"
+              p="none"
               variant={actual ? "light" : "outline"}
             >
               <Box p="md">
@@ -340,12 +340,12 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
           ) : null}
 
           <SimpleGrid cols={Cols({ base: 1, tablet: 2, laptop: 4 })} spacing="md">
-            <Card withBorder r="lg" padding="none">
+            <Card withBorder r="lg" p="none">
               <Box p="md">
                 <Stat label="Saldo" value={Rosets(SALDO.rosets)} description="disponible ahora" />
               </Box>
             </Card>
-            <Card withBorder r="lg" padding="none">
+            <Card withBorder r="lg" p="none">
               <Box p="md">
                 <Stat
                   label="Consumido"
@@ -355,7 +355,7 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
                 <Progress value={pct} size="xs" mt="xs" label="Consumo del ciclo" />
               </Box>
             </Card>
-            <Card withBorder r="lg" padding="none">
+            <Card withBorder r="lg" p="none">
               <Box p="md">
                 <Tooltip
                   label="Rosets de trabajos ya admitidos. Se convierten en consumo o vuelven"
@@ -371,7 +371,7 @@ function SaldoYGasto({ consumido }: { consumido: number }): ReactElement {
                 />
               </Box>
             </Card>
-            <Card withBorder r="lg" padding="none">
+            <Card withBorder r="lg" p="none">
               <Box p="md">
                 <Stat
                   label="Trabajos a la vez"

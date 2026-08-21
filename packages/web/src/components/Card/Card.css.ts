@@ -2,6 +2,7 @@ import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "@stellaria/nebula-themes/web";
+import { PAD_VAR } from "../../utils/style-registry.js";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { component_layer } from "../../theme/layers.css.js";
@@ -28,6 +29,19 @@ export const card = recipe({
         overflow: "hidden",
         textAlign: "start",
         textDecoration: "none",
+        /*
+         * El relleno por defecto, y nada mas: lo pisa `p` como en cualquier otro componente, porque
+         * los sprinkles viven en `util_layer` y esto en `component_layer`. La tarjeta tuvo su propia
+         * prop `padding` mientras la variante era el unico sitio capaz de publicar `--nb-pad`; ahora
+         * lo publica `p`, y tener dos nombres para el relleno solo servia para elegir mal.
+         *
+         * El hueco entre las partes va aqui por la misma razon y lo reata `GapForPad` en la cascara,
+         * un escalon por debajo del relleno: una tarjeta apretada no debe conservar el aire de una
+         * holgada.
+         */
+        padding: vars.space.lg,
+        gap: vars.space.md,
+        vars: { [PAD_VAR]: vars.space.lg },
       },
     },
   },
@@ -45,13 +59,6 @@ export const card = recipe({
       lg: { boxShadow: vars.shadow.lg },
       xl: { boxShadow: vars.shadow.xl },
       xxl: { boxShadow: vars.shadow.xxl },
-    },
-    padding: {
-      none: { vars: { [variables.pad]: "0px" }, padding: variables.pad, gap: 0 },
-      xs: { vars: { [variables.pad]: vars.space.xs }, padding: variables.pad, gap: vars.space.xxs },
-      md: { vars: { [variables.pad]: vars.space.md }, padding: variables.pad, gap: vars.space.sm },
-      lg: { vars: { [variables.pad]: vars.space.lg }, padding: variables.pad, gap: vars.space.md },
-      xl: { vars: { [variables.pad]: vars.space.xl }, padding: variables.pad, gap: vars.space.lg },
     },
     withBorder: {
       true: { "@layer": { [component_layer]: { borderWidth: 1 } } },
@@ -103,18 +110,24 @@ export const card = recipe({
   },
   defaultVariants: {
     shadow: "none",
-    padding: "lg",
     withBorder: true,
     interactive: false,
     glowing: false,
   },
 });
 
+/*
+ * El relleno lo escribe `p`, que no es de la tarjeta sino de todo el catalogo, asi que la banda no
+ * puede saber cuanto es: lo lee de la variable que `p` publica. El `0px` de reserva es para la
+ * tarjeta sin relleno, donde no hay nada que cancelar.
+ */
+const PAD = `var(${PAD_VAR}, 0px)`;
+
 export const section_inset = style({
-  marginInline: `calc(${variables.pad} * -1)`,
+  marginInline: `calc(${PAD} * -1)`,
   selectors: {
-    "&:first-child": { marginBlockStart: `calc(${variables.pad} * -1)` },
-    "&:last-child": { marginBlockEnd: `calc(${variables.pad} * -1)` },
+    "&:first-child": { marginBlockStart: `calc(${PAD} * -1)` },
+    "&:last-child": { marginBlockEnd: `calc(${PAD} * -1)` },
   },
 });
 

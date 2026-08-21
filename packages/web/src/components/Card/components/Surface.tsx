@@ -31,6 +31,35 @@ function RingProps(value: Ring): CardGradientBorder {
   return value;
 }
 
+const SPACE_ORDER = ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl", "xxxl"] as const;
+
+function StepDown(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const index = SPACE_ORDER.indexOf(value as (typeof SPACE_ORDER)[number]);
+  return index === -1 ? undefined : SPACE_ORDER[Math.max(index - 1, 0)];
+}
+
+/**
+ * El hueco entre las partes, un escalon por debajo del relleno.
+ *
+ * Iba pegado a la variante `padding` de la receta, y al pasar el relleno a `p` la pareja se habria
+ * roto sin ruido: un `p="none"` habria dejado el aire de una tarjeta de veinticuatro. Se vuelve a
+ * atar aqui, y solo cuando el consumidor no trajo `gap` suyo — un relleno que no sale de la escala
+ * (`p={20}`) tampoco mueve el hueco, que se queda en el de la base.
+ */
+function GapForPad(pad: unknown): unknown {
+  if (typeof pad === "object" && pad !== null && !Array.isArray(pad)) {
+    const levels = pad as Record<string, unknown>;
+    const out: Record<string, string> = {};
+    for (const level in levels) {
+      const step = StepDown(levels[level]);
+      if (step !== undefined) out[level] = step;
+    }
+    return Object.keys(out).length === 0 ? undefined : out;
+  }
+  return StepDown(pad);
+}
+
 /**
  * El nodo raíz de la tarjeta, y lo único que necesita el tema en runtime.
  *
@@ -52,7 +81,6 @@ export function CardSurface(props: CardProps): ReactElement {
     color = "primary",
     r = "lg",
     shadow = "none",
-    padding = "lg",
     withBorder = true,
     glass = "subtle",
     interactive: interactive_prop,
@@ -64,12 +92,15 @@ export function CardSurface(props: CardProps): ReactElement {
     "aria-label": aria_label,
     ...style_rest
   } = props;
+  const derived_gap = style_rest.gap === undefined ? GapForPad(style_rest.p) : undefined;
+
   const {
     className: sprinkle_class,
     style: sprinkle_style,
     rest,
   } = ExtractStyleProps({
     r,
+    ...(derived_gap === undefined ? {} : { gap: derived_gap }),
     ...style_rest,
   });
 
@@ -92,7 +123,6 @@ export function CardSurface(props: CardProps): ReactElement {
     styles.card_base,
     styles.card({
       shadow,
-      padding,
       withBorder: withBorder || resolved?.borderWidth === "1px",
       interactive,
       glowing: resolved !== null && resolved.glow !== "none",

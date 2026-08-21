@@ -159,7 +159,7 @@ export function Mail(): ReactElement {
           </Box>
         </Card>
 
-        <Card withBorder r="md" padding="none" reveal={{ index: 1 }}>
+        <Card withBorder r="md" p="none" reveal={{ index: 1 }}>
           <Box display="flex" direction="column">
             <Box p="sm" bdbw={1} bdbs="solid" bdc="border.subtle">
               <SearchInput size="sm" placeholder="Search mail" aria-label="Search mail" />

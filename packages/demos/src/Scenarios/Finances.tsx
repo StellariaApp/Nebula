@@ -151,7 +151,7 @@ export function Finances(): ReactElement {
           />
         </Card>
 
-        <Card withBorder r="md" padding="none" reveal={{ index: 7 }}>
+        <Card withBorder r="md" p="none" reveal={{ index: 7 }}>
           <Table highlightOnHover caption="Recent activity" captionVisible={false}>
             <Table.Head>
               <Table.Row>

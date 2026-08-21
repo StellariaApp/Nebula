@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  Box,
-  Card,
-  Reveal,
-  SimpleGrid,
-  Text,
-  Title,
-} from "@stellaria/nebula-web";
+import { Box, Card, Reveal, SimpleGrid, Text, Title } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, roseta, ThemeMatrix } from "../fixtures/themes.js";
 

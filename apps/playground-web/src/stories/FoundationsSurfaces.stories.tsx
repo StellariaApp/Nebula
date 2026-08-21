@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import type { ShadowLevel } from "@stellaria/nebula-tokens";
-import {
-  Box,
-  Card,
-  Flex,
-  Paper,
-  Section,
-  Text,
-  Title,
-} from "@stellaria/nebula-web";
+import { Box, Card, Flex, Paper, Section, Text, Title } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, ThemeMatrix, roseta } from "../fixtures/themes.js";
 

@@ -48,7 +48,7 @@ function Anchored({
 
 function Stage({ children }: { children: ReactNode }): ReactElement {
   return (
-    <Card withBorder r="lg" padding="lg">
+    <Card withBorder r="lg" p="lg">
       <Box display="flex" gap="lg" wrap="wrap" align="flex-end">
         {children}
       </Box>

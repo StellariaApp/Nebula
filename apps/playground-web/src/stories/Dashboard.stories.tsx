@@ -252,7 +252,7 @@ const SERVICE_LABEL = {
 
 function CompanyCard({ company }: { company: Company }): ReactElement {
   return (
-    <Card withBorder r="lg" padding="none">
+    <Card withBorder r="lg" p="none">
       <Card.Section>
         <Cover company={company} />
       </Card.Section>

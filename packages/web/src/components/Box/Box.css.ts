@@ -3,6 +3,7 @@ import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { breakpoints, type ColorShade } from "@stellaria/nebula-tokens";
 
 import { vars } from "@stellaria/nebula-themes/web";
+import { PAD_VAR } from "../../utils/style-registry.js";
 import { util_layer } from "../../theme/layers.css.js";
 
 const CONDITIONS = {
@@ -72,6 +73,27 @@ const LAYOUT_SPACE = {
   xxxl: vars.space.xxxl,
 };
 
+/**
+ * El relleno uniforme, que ademas de escribir `padding` publica su valor en `--nb-pad`.
+ *
+ * No son clases nuevas: es una declaracion mas dentro de las que ya se generaban, asi que la
+ * variable sigue al relleno tambien por breakpoint. Solo `p` la publica —no `px` ni `pt`—, porque
+ * la sangria cancela el relleno de los cuatro lados y solo el uniforme dice cuanto es.
+ */
+const Pad = (value: string) => ({ padding: value, vars: { [PAD_VAR]: value } });
+
+const PADDING_SPACE = {
+  none: Pad(LAYOUT_SPACE.none),
+  xxs: Pad(LAYOUT_SPACE.xxs),
+  xs: Pad(LAYOUT_SPACE.xs),
+  sm: Pad(LAYOUT_SPACE.sm),
+  md: Pad(LAYOUT_SPACE.md),
+  lg: Pad(LAYOUT_SPACE.lg),
+  xl: Pad(LAYOUT_SPACE.xl),
+  xxl: Pad(LAYOUT_SPACE.xxl),
+  xxxl: Pad(LAYOUT_SPACE.xxxl),
+};
+
 const RESPONSIVE = defineProperties({
   "@layer": util_layer,
   conditions: CONDITIONS,
@@ -92,7 +114,7 @@ const RESPONSIVE = defineProperties({
     ],
     textAlign: ["left", "center", "right", "justify", "start", "end"],
     fontSize: vars.font.size,
-    padding: LAYOUT_SPACE,
+    padding: PADDING_SPACE,
     paddingInline: LAYOUT_SPACE,
     paddingBlock: LAYOUT_SPACE,
     paddingTop: LAYOUT_SPACE,

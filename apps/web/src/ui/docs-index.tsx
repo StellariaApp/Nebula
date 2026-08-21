@@ -31,7 +31,7 @@ export async function DocsIndex({ section }: { section: Section }): Promise<Reac
             td="none"
             h="100%"
           >
-            <Card withBorder r="lg" padding="md" h="100%" reveal={{ index }}>
+            <Card withBorder r="lg" p="md" h="100%" reveal={{ index }}>
               <Box display="flex" direction="column" gap="xs">
                 <Title order={2} fz="h6" c="text.primary">
                   {doc.title}

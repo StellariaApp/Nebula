@@ -76,7 +76,7 @@ const ROWS = [
 
 function Slide(item: string): ReactElement {
   return (
-    <Card withBorder r="lg" padding="lg">
+    <Card withBorder r="lg" p="lg">
       <Text fz="body2" fw="semibold">
         {item}
       </Text>
@@ -171,7 +171,7 @@ export function DragDropPreview(): ReactElement {
         items={items}
         getKey={(item) => item}
         renderItem={(item) => (
-          <Card withBorder r="md" padding="md">
+          <Card withBorder r="md" p="md">
             <Text fz="body3">{item}</Text>
           </Card>
         )}

@@ -81,7 +81,7 @@ function BarraInferior({
   etiqueta: string;
 }): ReactElement {
   return (
-    <Card withBorder r="md" padding="none">
+    <Card withBorder r="md" p="none">
       <Flex
         component="nav"
         aria-label={etiqueta}
@@ -286,7 +286,7 @@ function Contenido(): ReactElement {
             { nombre: "Casa Rosette", papel: "Propietario · plan Pro", activo: true },
             { nombre: "Estudio Lumen", papel: "Operador · plan Starter", activo: false },
           ].map((estudio) => (
-            <Card key={estudio.nombre} withBorder r="md" padding="none" mb="xs">
+            <Card key={estudio.nombre} withBorder r="md" p="none" mb="xs">
               <Flex align="center" gap="sm" p="sm">
                 <Box c={estudio.activo ? "primary.600" : "text.muted"} display="flex">
                   <Icon name="studio" size={18} />
@@ -424,7 +424,7 @@ function CarrilPorAvatares(): ReactElement {
 
           <SimpleGrid cols={Cols({ base: 2, tablet: 3, laptop: 4 })} spacing="md">
             {AVATARES.map((avatar) => (
-              <Card key={avatar.id} withBorder r="md" padding="none" overflow="hidden">
+              <Card key={avatar.id} withBorder r="md" p="none" overflow="hidden">
                 <Placeholder ratio={4 / 3} />
                 <Box p="sm">
                   <Text fz="body3" fw="semibold" truncate>

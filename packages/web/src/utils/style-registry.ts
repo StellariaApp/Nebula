@@ -13,8 +13,19 @@ export type TokenScale =
   | "shadow"
   | "zIndex";
 
+/**
+ * Donde `p` publica su valor, ademas de escribirlo en `padding`.
+ *
+ * `Card.Section` con `bleed` cancela el relleno de la tarjeta con `calc(var(--nb-pad) * -1)` para
+ * llegar a los dos bordes, y sin esta variable no habria de donde sacar cuanto. La tarjeta tenia
+ * por eso un `padding` propio, distinto del `p` de todos los demas componentes; ahora `p` basta.
+ */
+export const PAD_VAR = "--nb-pad";
+
+type CustomProperty = `--${string}`;
+
 export interface PropSpec {
-  css: readonly (keyof CSSProperties)[];
+  css: readonly (keyof CSSProperties | CustomProperty)[];
   token?: TokenScale | undefined;
   keywords?: readonly string[] | undefined;
   open?: boolean | undefined;
@@ -85,7 +96,7 @@ const VISIBILITY = ["visible", "hidden", "collapse"] as const;
 const VERTICAL_ALIGN = ["baseline", "top", "middle", "bottom", "sub", "super"] as const;
 const AUTO_FLOW = ["row", "column", "dense", "row dense", "column dense"] as const;
 
-type Css = keyof CSSProperties;
+type Css = keyof CSSProperties | CustomProperty;
 
 const space = (...css: Css[]) => ({ css, token: "space", open: true, length: true }) as const;
 const radius = (...css: Css[]) => ({ css, token: "radius", open: true, length: true }) as const;
@@ -101,7 +112,7 @@ const scale = <const S extends TokenScale>(css: Css, token: S, is_length = false
   ({ css: [css], token, open: true, length: is_length }) as const;
 
 export const STYLE_PROPS = {
-  p: space("padding"),
+  p: space("padding", PAD_VAR),
   px: space("paddingInline"),
   py: space("paddingBlock"),
   pt: space("paddingTop"),

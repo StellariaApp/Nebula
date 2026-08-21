@@ -19,25 +19,39 @@ El glow va a `boxShadow` por la variante `glowing` del recipe, no al `::after` a
 (§3.1). Ese patrón es para controles; una card ya tiene su propio motion de hover y `docs/06` §6 fija
 que las sombras no animan.
 
-## El padding vive en una var, no en el recipe
+## El relleno se pone con `p`, y la sangría lo lee de `--nb-pad`
 
 `CardSection` sangra hasta el borde de la card restando el padding con margen negativo. Mientras ese
-margen fue `-space.md` fijo, el sangrado solo era correcto con `padding="md"`: con cualquier otro valor
+margen fue `-space.md` fijo, el sangrado solo era correcto con 16 de relleno: con cualquier otro valor
 la imagen o el separador dejaban un residuo de aire a cada lado (8 px con `lg`).
 
-La variante `padding` publica ahora su valor en la var `pad` (`Card.vars.css.ts`) y lo aplica desde ahí.
-`sectionInset` consume `calc(pad * -1)`, así que el sangrado se deriva del padding real sin que la
-sección tenga que conocerlo. La var cascadea a los descendientes, que es justo lo que necesita un
-compound.
+Que la sección necesite el número tuvo durante un tiempo un precio raro: Card llevaba una prop
+`padding` propia —una variante de la receta— porque era el único sitio capaz de publicar el valor en
+una var, y el `p` que gasta el resto del catálogo escribía `padding` y dejaba la var atrás. Dos nombres
+para lo mismo, y el bueno era el que ningún otro componente usaba.
 
-## Escala de padding
+Ya no. **`p` publica `--nb-pad`**, y lo hace desde los sprinkles (`Box.css.ts`), no desde Card: es una
+declaración más dentro de las clases de `padding` que ya se generaban, así que la variable sigue al
+relleno también por breakpoint. El carril abierto hace lo mismo con su cadena de fallbacks, de modo que
+un `p={20}` la deja igual que un `p="md"`. `section_inset` consume `calc(var(--nb-pad, 0px) * -1)` y no
+tiene que conocer nada; el `0px` de reserva es para la card sin relleno, donde no hay qué cancelar.
 
-`md` (16) compacto · `lg` (24) default · `xl` (32) prominente, según `docs/06-visual-language.md` §3 y
-ADR-029. `sm` (8) se retiró: quedaba por debajo del rango que el lenguaje visual asigna a una card y
-producía composiciones sin aire. Para agrupaciones más densas que `md`, `docs/06` §5 pide usar espacio o
-divisor en vez de una card.
+Solo `p` la publica, no `px` ni `pt`: la sangría cancela los cuatro lados a la vez y únicamente el
+relleno uniforme dice cuánto es. Y como la var cascadea, una banda a sangre funciona dentro de
+cualquier contenedor con relleno, no solo dentro de una Card.
 
-No mezclar los tres paddings dentro de una misma colección.
+## Escala de relleno
+
+`md` (16) compacto · `lg` (24) por defecto · `xl` (32) prominente, según `docs/06-visual-language.md`
+§3 y ADR-029. `sm` (8) se retiró: quedaba por debajo del rango que el lenguaje visual asigna a una card
+y producía composiciones sin aire. Para agrupaciones más densas que `md`, `docs/06` §5 pide usar espacio
+o divisor en vez de una card.
+
+Con `p` la escala entera es tipable —`xxs`, `sm`, `xxl`— porque es la del catálogo y no la de este
+componente. Eso es una guía que el tipo ya no vigila, no un permiso: la de arriba sigue siendo la
+recomendación, y `sm` en una card sigue siendo lo que ADR-029 quitó.
+
+No mezclar los tres rellenos dentro de una misma colección.
 
 ## Hover interactivo
 
@@ -49,7 +63,7 @@ siendo legible sin ninguna de las dos.
 El lift se mantiene deliberadamente en 2 px: `docs/06` §5 pide que el hover no salte más de un nivel de
 la escalera de elevación.
 
-## El `gap` deriva del `padding` (G1.5)
+## El `gap` deriva del relleno (G1.5)
 
 La raíz era `flex` en columna **sin `gap`**: el ritmo vertical entre título, cuerpo y acciones lo ponía
 el consumidor, y dos cards del mismo producto podían quedar distintos sin que nada lo detectara. Los
@@ -57,20 +71,26 @@ cards del archivo de referencia sí lo declaran —`Metric Card` con padding 16 
 padding 24 y gap 16—.
 
 La regla no se eligió, se dedujo de `docs/06` §3: **dentro < entre**. El hueco interno de un card es un
-peldaño por debajo de su propio padding, que reproduce exactamente los dos cards medidos:
+peldaño por debajo de su propio relleno, que reproduce exactamente los dos cards medidos:
 
-| `padding` | valor |     `gap` |
-| --------- | ----: | --------: |
-| `none`    |     0 |         0 |
-| `md`      |    16 |  8 (`sm`) |
-| `lg`      |    24 | 16 (`md`) |
-| `xl`      |    32 | 24 (`lg`) |
+| `p`    | valor |     `gap` |
+| ------ | ----: | --------: |
+| `none` |     0 |         0 |
+| `md`   |    16 |  8 (`sm`) |
+| `lg`   |    24 | 16 (`md`) |
+| `xl`   |    32 | 24 (`lg`) |
 
-`padding="none"` lleva `gap: 0` a propósito: es el modo que usan los cards seccionados —los que
-combinan `sectionInset` con `sectionBorder`—, donde un hueco separaría el borde de una sección de la
-siguiente y rompería la lectura de lista continua.
+La pareja la ata `GapForPad` en la cáscara y no la receta, que es donde vivía cuando el relleno era una
+variante: al pasar a `p` se habría roto sin ruido, y un `p="none"` habría conservado el aire de una card
+de 24. La regla es literalmente «un escalón por debajo en la escala del tema», así que vale también para
+los valores que la tabla no lista, y cede en dos casos —cuando el consumidor trae su propio `gap`, y
+cuando el relleno no sale de la escala (`p={20}`), donde el hueco se queda en el de la base—.
 
-**Pendiente de comprobación visual**: un card con `padding` distinto de `none` _y_ secciones con borde
+`p="none"` lleva `gap: 0` a propósito: es el modo que usan los cards seccionados —los que combinan
+`sectionInset` con `sectionBorder`—, donde un hueco separaría el borde de una sección de la siguiente y
+rompería la lectura de lista continua.
+
+**Pendiente de comprobación visual**: un card con relleno distinto de `none` _y_ secciones con borde
 recibe ahora hueco entre ellas. No hay caso así en el archivo de referencia ni en las láminas, pero
 conviene mirarlo cuando se capture el baseline de ADR-037.
 
@@ -78,9 +98,9 @@ conviene mirarlo cuando se capture el baseline de ADR-037.
 
 **Padding asimétrico** (16 vertical / 20 horizontal, de `Metric Card`): el informe de geometría lo dio
 por ganador del archivo de diseño, y al ir a aplicarlo no se sostiene. Solo **uno** de los tres cards
-medidos lo usa —`Plan Card` es 24 uniforme y `Address Card` no tiene padding de raíz—, y `pad` es una
-sola variable que `sectionInset` **niega** con `calc(pad * -1)`: partirla en dos ejes obliga a
-duplicar esa negación. Coste alto, evidencia de una sola instancia.
+medidos lo usa —`Plan Card` es 24 uniforme y `Address Card` no tiene padding de raíz—, y `--nb-pad` es
+una sola variable que `sectionInset` **niega** con `calc(var(--nb-pad) * -1)`: partirla en dos ejes
+obliga a duplicar esa negación. Coste alto, evidencia de una sola instancia.
 
 **Borde de 2 px como marca de selección** (`Plan Card` en `Variant=Current`): requiere un prop
 `selected` que Card no tiene, y la evidencia es una variante de un card. Es ampliación de API, no

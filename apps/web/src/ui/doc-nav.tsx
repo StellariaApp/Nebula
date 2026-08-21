@@ -26,7 +26,7 @@ function Step({
 }): ReactElement {
   return (
     <Anchor component={Link} href={`${base}/${entry.slug.join("/")}`} td="none" w="100%">
-      <Card withBorder r="lg" padding="md">
+      <Card withBorder r="lg" p="md">
         <Box display="flex" direction="column" gap="xxs" align={align}>
           <Text fz="caption" c="text.muted">
             {label}

@@ -53,7 +53,8 @@ interface CardOwnProps extends Omit<StyleProps, "shadow"> {
    * `true` takes the brand gradient. A role name or a literal `{ from, to }` picks the gradient. An
    * object configures the ring — `beam` sends the travelling arc round it.
    */
-  gradientBorder?: boolean | CardGradientBorder["gradient"] | GradientProp | CardGradientBorder | undefined;
+  gradientBorder?:
+    boolean | CardGradientBorder["gradient"] | GradientProp | CardGradientBorder | undefined;
   /**
    * How the surface is filled. Leaving it out is a real choice, not a missing one: the card then
    * resolves no variant at all and keeps the plain surface, which is what most cards want. With it
@@ -71,12 +72,6 @@ interface CardOwnProps extends Omit<StyleProps, "shadow"> {
    * @default "none"
    */
   shadow?: ShadowLevel | "none" | undefined;
-  /**
-   * Inner padding. `"none"` is for a card whose parts bring their own — an edge-to-edge image, a
-   * section with its own inset.
-   * @default "lg"
-   */
-  padding?: "none" | "md" | "lg" | "xl" | undefined;
   /**
    * Whether the hairline is drawn. Turning it off is not always enough: a variant that resolves a
    * border of its own puts it back, because the fill needs the edge to sit against.

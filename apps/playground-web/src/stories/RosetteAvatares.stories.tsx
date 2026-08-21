@@ -172,7 +172,7 @@ function Pendiente({
   tono: "accent" | "info" | "warning";
 }): ReactElement {
   return (
-    <Card withBorder r="lg" padding="none">
+    <Card withBorder r="lg" p="none">
       <Box p="md">
         <Flex align="center" gap="sm" mb="xs">
           <Box c={`${tono}.600`} display="flex">
@@ -211,7 +211,7 @@ function FichaGrande({ avatar }: { avatar: AvatarFicha }): ReactElement {
   const completo = puestas === total;
 
   return (
-    <Card withBorder r="lg" padding="none" overflow="hidden" interactive href="#avatar">
+    <Card withBorder r="lg" p="none" overflow="hidden" interactive href="#avatar">
       <Box position="relative">
         <Placeholder ratio={4 / 3} label={avatar.estado === "borrador" ? "Sin base" : undefined} />
         <Box position="absolute" style={{ top: 10, left: 10 }}>
@@ -307,7 +307,7 @@ function FichaGrande({ avatar }: { avatar: AvatarFicha }): ReactElement {
 function FichaLista({ avatar }: { avatar: AvatarFicha }): ReactElement {
   const [puestas, total] = avatar.anclas;
   return (
-    <Card withBorder r="md" padding="none">
+    <Card withBorder r="md" p="none">
       <Flex align="center" gap="md" p="sm" wrap="wrap">
         <Avatar name={avatar.nombre} size="md" radius="md" />
         <Box miw={160} style={{ flex: 1 }}>
@@ -365,7 +365,7 @@ function Saldo(): ReactElement {
   const asignado = PLAN.rosetsMes;
   const usado = asignado - SALDO.rosets;
   return (
-    <Card withBorder r="lg" padding="none">
+    <Card withBorder r="lg" p="none">
       <Box p="md">
         <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
           <Flex align="center" gap="xs" c="primary.600">

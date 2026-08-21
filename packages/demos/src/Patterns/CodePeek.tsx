@@ -17,7 +17,7 @@ import {
 } from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
-const SNIPPET = `<Card padding="none" r="xl" withBorder>
+const SNIPPET = `<Card p="none" r="xl" withBorder>
   <Box h={168} style={{ background: SCENE }}>
     <NoiseOverlay />
   </Box>
@@ -73,7 +73,7 @@ const FALLBACK: CodePeekLabels = {
 function Rendered({ labels }: { labels: CodePeekLabels }): ReactElement {
   return (
     <Flex w="100%" align="center" justify="center">
-      <Card padding="none" shadow="none" w={320}>
+      <Card p="none" shadow="none" w={320}>
         <Tooltip
           label={labels.tooltip}
           withArrow

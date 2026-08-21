@@ -2,6 +2,7 @@ import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { sprinkles } from "../../Box/Box.css.js";
 import { Avatar } from "../../Avatar/Avatar.js";
 import { AvatarGroup } from "../../Avatar/Group.js";
 import { Badge } from "../../Badge/Badge.js";
@@ -142,6 +143,49 @@ describe("Card", () => {
     expect(screen.getByText("Nuevo")).toBeDefined();
     expect(screen.getByText("Hace 2 días")).toBeDefined();
     expect(screen.getByRole("button", { name: "Ver" })).toBeDefined();
+  });
+});
+
+describe("el relleno de Card sale de `p`", () => {
+  it("lo escribe con la clase del catalogo, no con una variante propia", () => {
+    render(
+      <Card p="md" data-testid="tarjeta">
+        Contenido
+      </Card>,
+    );
+    const root = screen.getByTestId("tarjeta");
+    expect(root.className.split(" ")).toContain(sprinkles({ padding: "md" }));
+  });
+
+  it("el hueco cae un escalon por debajo del relleno", () => {
+    render(
+      <Card p="md" data-testid="tarjeta">
+        Contenido
+      </Card>,
+    );
+    const root = screen.getByTestId("tarjeta");
+    expect(root.className.split(" ")).toContain(sprinkles({ gap: "sm" }));
+  });
+
+  it("y sin relleno no queda hueco, que es lo que piden las tarjetas seccionadas", () => {
+    render(
+      <Card p="none" data-testid="tarjeta">
+        Contenido
+      </Card>,
+    );
+    const root = screen.getByTestId("tarjeta");
+    expect(root.className.split(" ")).toContain(sprinkles({ gap: "none" }));
+  });
+
+  it("un `gap` del consumidor gana al derivado", () => {
+    render(
+      <Card p="md" gap="xl" data-testid="tarjeta">
+        Contenido
+      </Card>,
+    );
+    const classes = screen.getByTestId("tarjeta").className.split(" ");
+    expect(classes).toContain(sprinkles({ gap: "xl" }));
+    expect(classes).not.toContain(sprinkles({ gap: "sm" }));
   });
 });
 

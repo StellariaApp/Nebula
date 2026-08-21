@@ -1,6 +1,21 @@
 "use client";
 
-import { Box, Button, Card, Dialog, Drawer, FileButton, Filters, GlobalSearch, GridList, InfiniteList, Lightbox, Modal, SearchableList, Text } from "@stellaria/nebula-web";
+import {
+  Box,
+  Button,
+  Card,
+  Dialog,
+  Drawer,
+  FileButton,
+  Filters,
+  GlobalSearch,
+  GridList,
+  InfiniteList,
+  Lightbox,
+  Modal,
+  SearchableList,
+  Text,
+} from "@stellaria/nebula-web";
 import { useState, type ReactElement } from "react";
 
 /**
@@ -106,7 +121,7 @@ export function GridListPreview(): ReactElement {
       items={["Button", "Badge", "Card", "Table"]}
       getKey={(item) => item}
       renderItem={(item) => (
-        <Card withBorder r="md" padding="md">
+        <Card withBorder r="md" p="md">
           <Text fz="body3">{item}</Text>
         </Card>
       )}
@@ -118,7 +133,7 @@ const ITEMS = ["Button", "Badge", "Card", "Table", "Alert", "Chip"];
 
 function Row(item: string): ReactElement {
   return (
-    <Card withBorder r="md" padding="md">
+    <Card withBorder r="md" p="md">
       <Text fz="body3">{item}</Text>
     </Card>
   );

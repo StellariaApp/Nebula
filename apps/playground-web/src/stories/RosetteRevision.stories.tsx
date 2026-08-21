@@ -278,7 +278,7 @@ function Estacion(): ReactElement {
             gap="sm"
             style={{ gridTemplateColumns: comparando ? "1fr 1fr" : "1fr" }}
           >
-            <Card withBorder r="lg" padding="none" overflow="hidden">
+            <Card withBorder r="lg" p="none" overflow="hidden">
               <Placeholder
                 alto={420}
                 label={`Candidata ${String(actual.id)} · ${actual.encuadre}`}
@@ -301,7 +301,7 @@ function Estacion(): ReactElement {
             </Card>
 
             {comparando ? (
-              <Card withBorder r="lg" padding="none" overflow="hidden">
+              <Card withBorder r="lg" p="none" overflow="hidden">
                 <Placeholder
                   alto={420}
                   icon="anchor"
@@ -516,7 +516,7 @@ function Estacion(): ReactElement {
                     <Card
                       withBorder
                       r="sm"
-                      padding="none"
+                      p="none"
                       overflow="hidden"
                       variant={cubre ? "light" : "outline"}
                     >

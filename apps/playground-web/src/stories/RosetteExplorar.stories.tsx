@@ -164,7 +164,7 @@ function TarjetaAvatar({
   onClonar: (avatar: AvatarPublico) => void;
 }): ReactElement {
   return (
-    <Card withBorder r="lg" padding="none" overflow="hidden">
+    <Card withBorder r="lg" p="none" overflow="hidden">
       <Placeholder ratio={4 / 3} />
       <Box p="sm">
         <Flex align="center" gap="sm" miw={0}>
@@ -221,7 +221,7 @@ function TarjetaAvatar({
 function TarjetaAccion({ accion }: { accion: AccionPublica }): ReactElement {
   const coste = 3 * TARIFA.imagen;
   return (
-    <Card withBorder r="lg" padding="none" overflow="hidden">
+    <Card withBorder r="lg" p="none" overflow="hidden">
       <Placeholder ratio={3 / 4} label="Ejemplo curado" />
       <Box p="sm">
         <Flex align="center" gap="xs" wrap="wrap" mb="xxs">

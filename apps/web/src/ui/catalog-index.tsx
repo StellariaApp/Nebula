@@ -33,7 +33,7 @@ export async function CatalogIndex(): Promise<ReactElement> {
           const slug = FamilySlug(family);
           return (
             <Box key={family} component="section" id={slug} aria-labelledby={`${slug}-title`}>
-              <Card withBorder r="lg" padding="none">
+              <Card withBorder r="lg" p="none">
                 <Box
                   display="flex"
                   align="center"

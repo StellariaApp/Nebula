@@ -1176,7 +1176,10 @@ const MODULE_BUDGETS = [
     path: "dist/components/MeshGradientBg/MeshGradientBg.js",
     import: "{ MeshGradientBg }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "23.25 kB",
+    // Sube de 23.25: `p` publica `--nb-pad` y eso son 130 B brotli mas en la hoja atomica, que
+    // este modulo arrastra entera. Iba al 99,9 % del tope y habria saltado con la siguiente
+    // propiedad que se anadiera a los sprinkles, viniera de donde viniera.
+    limit: "23.5 kB",
   },
   {
     name: "StarField (primitivo con color extendido, por módulo)",

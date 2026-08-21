@@ -223,7 +223,7 @@ const ESCALON_TONO = { A: "success", B: "info", C: "warning", D: "error" } as co
 
 function AssetCard({ asset }: { asset: Asset }): ReactElement {
   return (
-    <Card withBorder r="md" padding="none" overflow="hidden">
+    <Card withBorder r="md" p="none" overflow="hidden">
       {asset.icono ? (
         <Placeholder ratio={4 / 3} icon={TIPO_ICONO[asset.tipo]} />
       ) : (
@@ -337,7 +337,7 @@ function PanelAcciones(): ReactElement {
         {ACCIONES.map((accion) => {
           const desalineada = accion.observado !== null && accion.observado !== accion.declarado;
           return (
-            <Card key={accion.id} withBorder r="md" padding="none">
+            <Card key={accion.id} withBorder r="md" p="none">
               <Box p="md">
                 <Flex align="center" justify="space-between" gap="sm" wrap="wrap">
                   <Text fz="body3" fw="semibold" miw={0}>
@@ -499,7 +499,7 @@ function TallerConSelector(): ReactElement {
                 { label: "Outfit", valor: "eligiendo…", icon: "wardrobe" as IconName },
                 { label: "Peinado", valor: "Suelto con ondas", icon: "scissors" as IconName },
               ].map((linea) => (
-                <Card key={linea.label} withBorder r="md" padding="none" mb="xs">
+                <Card key={linea.label} withBorder r="md" p="none" mb="xs">
                   <Box p="sm">
                     <Flex align="center" gap="xs" c="text.muted">
                       <Icon name={linea.icon} size={14} />
@@ -529,7 +529,7 @@ function TallerConSelector(): ReactElement {
               <Rotulo>Cola</Rotulo>
               <SimpleGrid cols={Cols({ base: 2 })} spacing="md">
                 {[0, 1].map((clave) => (
-                  <Card key={clave} withBorder r="md" padding="none" overflow="hidden">
+                  <Card key={clave} withBorder r="md" p="none" overflow="hidden">
                     <Placeholder ratio={3 / 4} />
                   </Card>
                 ))}

@@ -183,7 +183,7 @@ function PasoOrigen({
           />
           <SimpleGrid cols={Cols({ base: 3, tablet: 6 })} spacing="sm" mt="md">
             {FOTOS.map((foto) => (
-              <Card key={foto.nombre} withBorder r="sm" padding="none" overflow="hidden">
+              <Card key={foto.nombre} withBorder r="sm" p="none" overflow="hidden">
                 <Placeholder ratio={1} />
                 <Box p="xxs">
                   <Text fz="caption" c="text.muted" truncate>
@@ -255,7 +255,7 @@ function PasoTecho({
       </Text>
 
       <SimpleGrid cols={Cols({ base: 1, tablet: 2 })} spacing="md" mt="md">
-        <Card withBorder r="md" padding="none">
+        <Card withBorder r="md" p="none">
           <Box p="md">
             <Rotulo>Qué cambia en la extracción</Rotulo>
             <Text fz="body3" c="text.secondary">
@@ -288,7 +288,7 @@ function PasoTecho({
           </Box>
         </Card>
 
-        <Card withBorder r="md" padding="none">
+        <Card withBorder r="md" p="none">
           <Box p="md">
             <Rotulo>Qué cambia en el juego de anclas</Rotulo>
             <Flex align="baseline" gap="sm">
@@ -340,7 +340,7 @@ function PasoExtraccion(): ReactElement {
           { titulo: "13 paths", nota: "los que el techo A permite preguntar" },
           { titulo: Rosets(TARIFA.extraccion), nota: "se cobra al lanzarla" },
         ].map((dato) => (
-          <Card key={dato.titulo} withBorder r="md" padding="none">
+          <Card key={dato.titulo} withBorder r="md" p="none">
             <Box p="md">
               <Text fz="h5" fw="bold">
                 {dato.titulo}
@@ -537,7 +537,7 @@ function PasoBase(): ReactElement {
     <Box>
       <SimpleGrid cols={Cols({ base: 1, tablet: 2 })} spacing="md" maw={720}>
         {["De frente", "De espaldas"].map((vista) => (
-          <Card key={vista} withBorder r="lg" padding="none" overflow="hidden">
+          <Card key={vista} withBorder r="lg" p="none" overflow="hidden">
             <Placeholder ratio={3 / 4} label={vista} />
           </Card>
         ))}
@@ -601,7 +601,7 @@ function PasoAnclas({ techo }: { techo: string }): ReactElement {
 
       <SimpleGrid cols={Cols({ base: 2, tablet: 3, laptop: 5 })} spacing="md">
         {papeles.map((papel) => (
-          <Card key={papel.n} withBorder r="md" padding="none" overflow="hidden">
+          <Card key={papel.n} withBorder r="md" p="none" overflow="hidden">
             <Placeholder ratio={1} icon="anchor" />
             <Box p="xs">
               <Text fz="caption" fw="semibold" truncate>
