@@ -1,5 +1,7 @@
 # @stellaria/nebula-icons
 
+## 1.1.3
+
 ## 1.1.2
 
 ### Patch Changes
