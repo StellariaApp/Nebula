@@ -2,7 +2,7 @@
  * El origen público. Sale del entorno porque las URL absolutas de las etiquetas sociales y del
  * sitemap no pueden deducirse de la petición en build.
  */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nebula.stellaria.app";
+export const SITE_URL = process.env.SITE_URL ?? "https://nebula.stellaria.app";
 
 export const SITE_NAME = "Nebula";
 
