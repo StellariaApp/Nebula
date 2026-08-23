@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [vanillaExtractPlugin()],
   test: {
     environment: "jsdom",
+    // El script de arranque del tema es un `<script>` inline: sin esto el DOM de las pruebas no lo
+    // ejecuta y su degradación —pintar aunque no haya almacén— no se podría comprobar corriendo.
+    environmentOptions: { jsdom: { runScripts: "dangerously" } },
     include: ["src/**/*.test.{ts,tsx}"],
     setupFiles: ["src/__tests__/setup.ts"],
     // El default de 5 s se quedó corto al pasar la suite de 578 a ~700 tests: los

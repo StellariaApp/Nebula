@@ -16,6 +16,12 @@ export interface ThemeScriptProps {
   /** Un nombre por eje (ADR-167). El provider tiene que recibir los mismos. */
   storageKeys?: { theme?: string; scheme?: string };
   nonce?: string;
+  /**
+   * The identities this page can paint, and the only ones it will honour. What is stored under a name
+   * this map does not have is not just ignored: the script **overwrites it** with the fallback, so the
+   * store stops holding a name nothing here can resolve — which is what happens when two products
+   * share an origin, `localhost` being the usual one.
+   */
   themesClasses?: ThemeClassMap;
   /**
    * El CSS de esos temas, que sale de `@stellaria/nebula-themes/all/web` o de `CompileTheme`.
@@ -65,8 +71,6 @@ export function ThemeScript({
 
   var storedTheme = read(keys.theme);
   var storedScheme = read(keys.scheme);
-  if (!storedTheme) write(keys.theme, "${theme}");
-  if (!storedScheme) write(keys.scheme, "${scheme}");
 
   var scheme = storedScheme === "dark" || storedScheme === "light" ? storedScheme : "${scheme}";
   // Se resuelve la identidad ANTES de anunciarla: si lo guardado no esta en el mapa, data-theme
@@ -74,6 +78,11 @@ export function ThemeScript({
   var theme = storedTheme && map[storedTheme] ? storedTheme : "${theme}";
   if (!map[theme]) theme = "${DEFAULT_THEME}";
   if (!map[theme][scheme]) scheme = "${scheme}";
+
+  // Y lo guardado se corrige con lo que se pinto, no solo cuando falta: un nombre que este mapa no
+  // conoce se queda ahi para siempre si no, y lo lee todo el que mire el almacen por su cuenta.
+  if (storedTheme !== theme) write(keys.theme, theme);
+  if (storedScheme !== scheme) write(keys.scheme, scheme);
 
   // Se retiran TODAS las clases del mapa, no solo el otro esquema de la identidad elegida: al
   // cambiar de identidad entre recargas, la anterior se quedaba puesta y se apilaban.

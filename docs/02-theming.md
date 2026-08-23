@@ -75,8 +75,10 @@ type NebulaTheme = {
   effects: {
     blur:  { none…xxl }
     glass: { surface: Record<GlassLevel, { background; backdropFilter; borderColor }>; noiseOpacity; enabled: boolean }
-            // 6 niveles (ADR-078 + `veil`). El filo es del material, y va plano porque el velo es opaco
-            // —0.78 a 0.90— (ADR-118). Lo que separa un nivel de otro es el desenfoque, no el velo.
+            // 6 niveles (ADR-078 + `veil`). El filo es del material y lleva alfa, porque el velo
+            // es fino —0.05 a 0.90 en ascenso exponencial— (ADR-178, sustituye a ADR-118 §1-§3).
+            // Un nivel se elige por las dos cosas: cuánto velo y cuánto desenfoque, un peldaño de
+            // `blur` cada uno. La intensidad del velo es un eje de producto, no una constante.
     shadows: { xxs…xxl }                          // por plataforma: box-shadow vs elevation map
     gradients: { brand; accent; surface }         // ⚠️ NUEVOS — hoy no existen en Stellaria (gap detectado)
   }
@@ -141,7 +143,7 @@ Los temas de producto son parte del criterio de aceptación del theming: si un c
 
   `CompileThemes(themes)` compila un conjunto entero y **reparte lo que comparten** ([ADR-169](adr/ADR-169-los-temas-comparten-su-base-y-viven-en-una-capa.md)): de las 627 variables del contrato, 445 valen lo mismo en las veinte combinaciones del paquete, así que van una sola vez a `:root` y cada clase lleva sus 182. Montar un tema sigue siendo añadir **una** clase. La base se calcula sobre el conjunto que se compile, de modo que el CSS de `/all/web` y el de `/<tema>/web` **no son intercambiables**. Todo va dentro de `@layer nebula.theme`, la capa más baja: un tema define valores por defecto y cualquier cosa más específica debe poder pisarlos.
 
-  Las dos primeras producen un `MaterializedTheme` (`{ theme, className }`), que entra en `defaultTheme` o en el registro `themes` del provider ([ADR-163](adr/ADR-163-el-provider-acepta-un-tema-ya-materializado-como-clase.md), [ADR-164](adr/ADR-164-compile-theme-materializa-en-caliente.md)). El provider **no inyecta nada** para ellas: sólo lleva el objeto para los componentes que leen `useTheme`. Registrar es lo que hace que el tema sobreviva al refresco; deriva el mapa del script con `ThemeScriptMap(themes)` para que las dos listas no puedan discrepar.
+  Las dos primeras producen un `MaterializedTheme` (`{ theme, className }`), que entra en `defaultTheme` o en el registro `themes` del provider ([ADR-163](adr/ADR-163-el-provider-acepta-un-tema-ya-materializado-como-clase.md), [ADR-164](adr/ADR-164-compile-theme-materializa-en-caliente.md)). El provider **no inyecta nada** para ellas: sólo lleva el objeto para los componentes que leen `useTheme`. Registrar es lo que hace que el tema sobreviva al refresco; deriva el mapa del script con `ThemeScriptMap(themes)` para que las dos listas no puedan discrepar. **Lo guardado bajo un nombre que ese mapa no tiene no se ignora: el script lo sobrescribe** con el de reserva, porque si no se queda ahí para siempre y lo lee todo el que mire el almacén por su cuenta —el caso corriente son dos productos compartiendo `localhost`—.
 
 - **Cambiar de tema en caliente** ([ADR-121](adr/ADR-121-set-theme-acepta-un-tema-entero.md)): `setTheme` acepta un esquema, un `ThemeChoice` o un `NebulaTheme` completo, así que un tenant o un producto se retiñe entero sin remontar nada. Con un objeto se aplica por vars inline y cambian las dos mitades a la vez: las vars CSS y la data no-CSS del contexto, que es lo que hace de `motion.tier` y `effects.glass.enabled` interruptores en caliente. **Un tema aplicado por vars inline no se persiste**, porque no se puede reconstruir desde un nombre guardado; se persiste su `meta.scheme` y al recargar se cae al tema oficial del mismo esquema. Uno registrado sí: se guardan sus dos ejes y vuelve entero.
 - **Native**: `NebulaProvider` configura Unistyles (`themes` + `settings.initialTheme`/`adaptiveThemes`); persistencia del tema elegido vía storage inyectable (MMKV recomendado, no impuesto).

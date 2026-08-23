@@ -7,7 +7,10 @@ import { Dark as nebulaDark, Light as nebulaLight } from "@stellaria/nebula-them
 import { palettes, type NebulaTheme } from "@stellaria/nebula-tokens";
 
 import { CompileTheme, ThemeScriptMap, THEME_CLASSES, type ThemeVariants } from "@stellaria/nebula-themes/web";
+import { renderToStaticMarkup } from "react-dom/server";
+
 import { NebulaProvider, type ThemeStorage } from "../provider/nebula-provider.js";
+import { ThemeScript } from "../provider/theme-script.js";
 
 afterEach(cleanup);
 
@@ -285,5 +288,51 @@ describe("el provider adopta lo que el script ya pinto (ADR-169)", () => {
 
     expect(getByTestId("p").getAttribute("data-name")).toBe("nebula");
     expect(getByTestId("p").getAttribute("data-scheme")).toBe("dark");
+  });
+});
+
+describe("El script de arranque y lo que ya estaba guardado", () => {
+  const KEYS = { theme: "k-theme", scheme: "k-scheme" };
+  const OTHER = { otro: { dark: "otro_d", light: "otro_l" } };
+
+  const Source = (classes: Record<string, { dark: string; light: string }>): string =>
+    renderToStaticMarkup(<ThemeScript storageKeys={KEYS} themesClasses={classes} />);
+
+  afterEach(() => {
+    const root = document.documentElement;
+    root.className = "";
+    root.removeAttribute("data-theme");
+    root.removeAttribute("data-scheme");
+  });
+
+  it("escribe de vuelta el eje que no pudo respetar, no solo el que faltaba", () => {
+    const html = Source(OTHER);
+
+    expect(html).toContain("if (storedTheme !== theme) write(keys.theme, theme);");
+    expect(html).toContain("if (storedScheme !== scheme) write(keys.scheme, scheme);");
+    expect(html).not.toContain("if (!storedTheme) write");
+  });
+
+  it("resuelve la identidad contra el mapa que se le pasa, y solo contra ese", () => {
+    const html = Source(OTHER);
+
+    expect(html).toContain("map[storedTheme] ? storedTheme");
+    expect(html).toContain("otro_d");
+    expect(html).not.toContain("marte");
+  });
+
+  /**
+   * Sin almacen —Safari privado, cookies bloqueadas, y este mismo jsdom— el script tiene que pintar
+   * igual. Aqui si se ejecuta de verdad, que es lo unico que este entorno deja comprobar corriendo.
+   */
+  it("sin almacen ninguno sigue dejando el marco pintado", () => {
+    const node = document.createElement("script");
+    node.textContent = /<script[^>]*>([\s\S]*?)<\/script>/.exec(Source(OTHER))?.[1] ?? "";
+    document.head.append(node);
+    node.remove();
+
+    expect(document.documentElement.getAttribute("data-theme")).toBe("nebula");
+    expect(document.documentElement.getAttribute("data-scheme")).toBe("dark");
+    expect(document.documentElement.className).not.toBe("");
   });
 });
