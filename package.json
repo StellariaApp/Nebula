@@ -11,6 +11,7 @@
     "build": "turbo run build",
     "check:contrast": "turbo run check:contrast",
     "check:docs": "turbo run check:docs",
+    "check:glass": "node tools/check-glass.mjs",
     "check:layers": "node tools/check-layers.mjs",
     "check:slots": "turbo run check:slots",
     "dev": "turbo run dev --filter=web...",

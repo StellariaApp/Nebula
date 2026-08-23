@@ -35,6 +35,7 @@ pnpm build | typecheck | lint      # turbo, todos los workspaces
 pnpm check:contrast                # gate WCAG AA sobre el tema de humo (o -- --theme x.json)
 pnpm check:slots                   # gate de props de ranura: orden del esparcido y ranuras muertas
 pnpm check:layers                  # gate de capas CSS: declaración alineada, nada fuera de capa, consumidores cableados
+pnpm check:glass                   # gate de cristal: nadie escribe el alias -webkit-, y todo cristal declara su backdrop-filter
 pnpm gen:palette regen             # regenera las 16 paletas 50-950 (escribe en tokens)
 pnpm gen:palette from "#hex" --name x
 pnpm format                        # prettier

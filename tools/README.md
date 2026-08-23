@@ -79,3 +79,23 @@ pintan igual y el orden lo decide el bundler:
 
 Va fuera de turbo porque cruza `apps/` y `packages/`, así que no es una tarea por paquete. Lee
 fuente, no `dist`. Exit code 1 si encuentra algo.
+
+## check-glass — gate de cristal
+
+```bash
+pnpm check:glass
+```
+
+Las dos formas de tener cristal a medias. Ninguna da error: el panel pinta su fondo translúcido y
+parece que funciona hasta que lo pones al lado de uno que sí desenfoca.
+
+- **El alias `-webkit-backdrop-filter` escrito a mano**: de él y de la propiedad estándar en la misma
+  regla sobrevive **una**, la última, y el alias no lo entienden Chrome ni Firefox. Lo añade el build;
+  escribirlo borra la estándar. Pasó en `Nav` (ADR-070 §19) y otra vez en `GlassSurface` y
+  `BlurOverlay`, a los que ese mismo ADR daba por a salvo — la colisión no depende de la anidación.
+- **Cristal en la API sin `backdrop-filter` en la hoja**: un componente cuyo `.types.ts` ofrece
+  `variant="glass"`, `glass?:` o un `GlassLevel`, y cuya hoja solo pinta el fondo. Le pasaba a
+  `Alert`. Se exime a quien delega el cristal en `GlassSurface`, como hace `AppShell`.
+
+Va fuera de turbo por lo mismo que `check-layers`. Lee fuente, no `dist`. Exit code 1 si encuentra
+algo.

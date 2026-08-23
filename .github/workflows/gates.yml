@@ -142,6 +142,14 @@ jobs:
         if: always()
         run: pnpm check:layers
 
+      # Tambien fuera de turbo, y por lo mismo: lee la fuente del catalogo entera
+      # de una vez. Sin el, un cristal sin `backdrop-filter` se ve casi bien —
+      # pinta su fondo translucido— y nadie lo nota hasta mirarlo al lado de uno
+      # que si desenfoca.
+      - name: Cristal
+        if: always()
+        run: pnpm check:glass
+
   # El noveno gate: axe sobre todas las stories. Va en su propio job porque
   # necesita el navegador de Playwright, y porque un fallo suyo no debe tapar un
   # lint roto: son senales distintas y conviene verlas a la vez.
