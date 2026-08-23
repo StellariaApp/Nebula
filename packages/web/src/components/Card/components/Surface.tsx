@@ -126,6 +126,7 @@ export function CardSurface(props: CardProps): ReactElement {
       withBorder: withBorder || resolved?.borderWidth === "1px",
       interactive,
       glowing: resolved !== null && resolved.glow !== "none",
+      gradientBorder: gradientBorder !== undefined && gradientBorder !== false,
     }),
     sprinkle_class,
     className,

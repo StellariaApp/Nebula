@@ -2,10 +2,10 @@ import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "@stellaria/nebula-themes/web";
-import { PAD_VAR } from "../../utils/style-registry.js";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { component_layer } from "../../theme/layers.css.js";
+import { PAD_VAR } from "../../utils/style-registry.js";
 
 import * as variables from "./Card.vars.css.js";
 
@@ -29,16 +29,6 @@ export const card = recipe({
         overflow: "hidden",
         textAlign: "start",
         textDecoration: "none",
-        /*
-         * El relleno por defecto, y nada mas: lo pisa `p` como en cualquier otro componente, porque
-         * los sprinkles viven en `util_layer` y esto en `component_layer`. La tarjeta tuvo su propia
-         * prop `padding` mientras la variante era el unico sitio capaz de publicar `--nb-pad`; ahora
-         * lo publica `p`, y tener dos nombres para el relleno solo servia para elegir mal.
-         *
-         * El hueco entre las partes va aqui por la misma razon y lo reata `GapForPad` en la cascara,
-         * un escalon por debajo del relleno: una tarjeta apretada no debe conservar el aire de una
-         * holgada.
-         */
         padding: vars.space.lg,
         gap: vars.space.md,
         vars: { [PAD_VAR]: vars.space.lg },
@@ -107,12 +97,19 @@ export const card = recipe({
       },
       false: {},
     },
+    gradientBorder: {
+      true: {
+        borderWidth: 0,
+      },
+      false: {},
+    },
   },
   defaultVariants: {
     shadow: "none",
     withBorder: true,
     interactive: false,
     glowing: false,
+    gradientBorder: false,
   },
 });
 
