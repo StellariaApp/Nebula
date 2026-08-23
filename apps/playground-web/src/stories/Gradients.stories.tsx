@@ -103,17 +103,16 @@ export const AnillosAnimados: Story = {
     <Box display="flex" gap="md" wrap="wrap">
       {(
         [
-          { label: "los cuatro", edges: undefined, sequence: undefined },
-          { label: "solo el 1", edges: [1] as const, sequence: undefined },
-          { label: "1 y 3 continua", edges: [1, 3] as const, sequence: undefined },
-          { label: "1 y 3 espaciada", edges: [1, 3] as const, sequence: "spaced" as const },
+          { label: "los cuatro", edges: undefined },
+          { label: "solo el 1", edges: [1] as const },
+          { label: "1 y 2", edges: [1, 2] as const },
+          { label: "1 y 3", edges: [1, 3] as const },
         ] as const
       ).map((item) => (
         <GradientBorder
           key={item.label}
           beam
           {...(item.edges === undefined ? {} : { edges: item.edges })}
-          {...(item.sequence === undefined ? {} : { sequence: item.sequence })}
           surface="raised"
           p="md"
           w={190}

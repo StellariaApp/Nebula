@@ -19,18 +19,30 @@ import type {
   GradientBorderTrail,
 } from "../GradientBorder.types.js";
 import * as variables from "../GradientBorder.vars.css.js";
+import { UseBeamRun } from "../use-beam-run.js";
 
 const ALL_EDGES: readonly GradientBorderEdge[] = [1, 2, 3, 4];
-const SLOT_BEATS = 3.25;
+
+/**
+ * El lado que sigue a cada uno en el recorrido. Decide qué esquinas llevan parche: las que tienen
+ * encendidos sus dos lados, que son por las que la luz pasa de largo.
+ */
+const NEXT_EDGE = { 1: 2, 2: 3, 3: 4, 4: 1 } as const satisfies Record<
+  GradientBorderEdge,
+  GradientBorderEdge
+>;
+
+/**
+ * Los compases de una vuelta. Son los 5.5 s de la referencia con `duration.expressive` de fábrica, y
+ * no dependen de cuántos lados se enciendan: la luz siempre recorre el marco entero, así que su
+ * velocidad es la misma se vea donde se vea.
+ */
+const TURN_BEATS = 13;
 
 /**
  * La cola: piezas cortas escalonadas en el recorrido. El escalón va en fracción de vuelta y no en
  * píxeles porque en CSS la duración no se deriva de una longitud — la cola mide entonces
  * `parts * gap` de perímetro, que es proporcional al marco como lo era la estela.
- *
- * El desenfoque va en el contenedor y no en cada pieza: `filter` se aplica antes que `mask`, así que
- * funde las piezas entre sí y la máscara recorta después. Es bajo a propósito —hay animación en la
- * misma capa y `effects-guardrails` prohíbe encadenar blur alto con movimiento—.
  */
 const TRAIL_DEFAULTS = {
   parts: 32,
@@ -43,9 +55,9 @@ const ARC_RISE = 36;
 const ARC_FALL = 64;
 
 /**
- * El radio como longitud, que los tramos necesitan para descontar las esquinas. Un valor responsive
- * no se puede resolver aquí, así que manda su peldaño `base`: el recorrido queda exacto en el ancho
- * de partida y con el desfase de siempre en los demás.
+ * El radio como longitud, que las franjas de la ventana necesitan para saber dónde acaba cada lado.
+ * Un valor responsive no se puede resolver aquí, así que manda su peldaño `base`: la ventana queda
+ * exacta en el ancho de partida y con el desfase de siempre en los demás.
  */
 function BeamRadius(r: GradientBorderOwnProps["r"]): string {
   const value = typeof r === "object" && r !== null ? r.base : r;
@@ -55,9 +67,9 @@ function BeamRadius(r: GradientBorderOwnProps["r"]): string {
 }
 
 /**
- * El mismo perfil que tenía la estela dentro de sí —`transparent 0%, from 36%, to 64%, transparent
- * 100%`— repartido **entre** las piezas de la cola. `p` es la posición en la cola medida desde el
- * final (0) hasta la cabeza (1), así que las dos puntas se apagan y el color solo manda en el cuerpo.
+ * El perfil de la luz —`transparent 0%, from 36%, to 64%, transparent 100%`— repartido **entre** las
+ * piezas de la cola. `p` es la posición en la cola medida desde el final (0) hasta la cabeza (1), así
+ * que las dos puntas se apagan y el color solo manda en el cuerpo.
  */
 function TrailStop(p: number): { alpha: number; ratio: number } {
   const rise = ARC_RISE / 100;
@@ -69,16 +81,6 @@ function TrailStop(p: number): { alpha: number; ratio: number } {
 
 function TrailTint(from: string, to: string, ratio: number): string {
   return `color-mix(in srgb, ${to} ${String(Math.round(ratio * 100))}%, ${from})`;
-}
-
-function BeamArc(from: string, to: string): string {
-  return [
-    "linear-gradient(90deg",
-    "transparent 0%",
-    `${from} ${String(ARC_RISE)}%`,
-    `${to} ${String(ARC_FALL)}%`,
-    "transparent 100%)",
-  ].join(", ");
 }
 
 /**
@@ -96,7 +98,7 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
     surface = "none",
     beam = false,
     edges = ALL_EDGES,
-    sequence = "continuous",
+    sequence,
     trail,
     className,
     style,
@@ -108,7 +110,11 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
 
   const lit = ALL_EDGES.filter((edge) => edges.includes(edge));
   const animated = beam && lit.length > 0 && theme.motion.tier !== "minimal";
-  const seamless = sequence === "continuous" && lit.length === ALL_EDGES.length;
+  const windowed = lit.length < ALL_EDGES.length;
+  const window_mask = [
+    ...lit.map((edge) => styles.EDGE_WINDOW[edge]),
+    ...lit.filter((edge) => lit.includes(NEXT_EDGE[edge])).map((edge) => styles.CORNER_PATCH[edge]),
+  ].join(", ");
 
   const tail = {
     parts: trail?.parts ?? TRAIL_DEFAULTS.parts,
@@ -117,7 +123,12 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
   };
   const parts = Math.max(MIN_PARTS, Math.round(tail.parts));
   const pieces = Array.from({ length: parts }, (_, index) => index);
-  const share = (sequence === "spaced" ? ALL_EDGES.length : lit.length) as GradientBorderEdge;
+  const { Track, run } = UseBeamRun(
+    lit,
+    tail.gap,
+    parts,
+    animated && windowed && sequence !== "spaced",
+  );
   const grad = GradientRefsOf(gradient);
   const edge_color = grad?.edge ?? ResolveGradientEdge(gradient, theme);
   const tip_color = grad?.tip ?? ResolveGradientTip(gradient, theme);
@@ -130,11 +141,13 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
     [variables.innerBg]: surface === "none" ? "transparent" : vars.color.surface[surface],
     [variables.fallbackBorder]: animated ? vars.color.border.default : edge_color,
     [variables.beamRadius]: BeamRadius(r),
-    [variables.beamArc]: BeamArc(edge_color, tip_color),
-    [variables.beamBloom]: seamless ? LengthToCss(tail.bloom) : "0px",
+    [variables.beamBloom]: LengthToCss(tail.bloom),
     [variables.beamGlow]: WithAlpha(tip_color, 20),
-    [variables.beamSlot]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS)})`,
-    [variables.beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(SLOT_BEATS * share)})`,
+    [variables.beamFrom]: run?.from ?? "0%",
+    [variables.beamTo]: run?.to ?? "100%",
+    [variables.beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(
+      Math.round(TURN_BEATS * (run?.beats ?? 1) * 1000) / 1000,
+    )})`,
   });
 
   return (
@@ -144,39 +157,32 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
       className={cx(styles.gradient_base, styles.gradient_border(), className)}
       style={{ ...css_vars, ...style }}
       data-surface={surface}
-      data-beam={animated ? sequence : undefined}
+      data-beam={animated ? String(lit.length) : undefined}
       {...rest}
     >
       {animated ? (
-        <span className={styles.beam} aria-hidden="true">
-          {seamless
-            ? pieces.map((part) => {
-                const stop = TrailStop(1 - (part + 0.5) / parts);
-                return (
-                  <span
-                    key={part}
-                    className={styles.trail}
-                    style={assignInlineVars({
-                      [variables.beamCore]: TrailTint(edge_color, tip_color, stop.ratio),
-                      [variables.beamFade]: String(stop.alpha),
-                      [variables.beamDelay]: `calc(${variables.beamCycle} * ${String(
-                        Math.round((part * tail.gap - 1) * 10000) / 10000,
-                      )})`,
-                    })}
-                  />
-                );
-              })
-            : lit.map((edge, index) => (
+        <span className={styles.beam} ref={Track} aria-hidden="true">
+          <span
+            className={styles.edge_window}
+            style={windowed ? assignInlineVars({ [variables.beamWindow]: window_mask }) : undefined}
+          >
+            {pieces.map((part) => {
+              const stop = TrailStop(1 - (part + 0.5) / parts);
+              return (
                 <span
-                  key={edge}
-                  className={styles.arc}
+                  key={part}
+                  className={styles.trail}
                   style={assignInlineVars({
-                    [variables.beamSweep]: styles.sweep[edge],
-                    [variables.beamGate]: styles.gate[share],
-                    [variables.beamDelay]: `calc(${variables.beamSlot} * ${String(sequence === "spaced" ? edge - 1 : index)})`,
+                    [variables.beamCore]: TrailTint(edge_color, tip_color, stop.ratio),
+                    [variables.beamFade]: String(stop.alpha),
+                    [variables.beamDelay]: `calc(${variables.beamCycle} * ${String(
+                      Math.round((part * (run?.gap ?? tail.gap) - 1) * 10000) / 10000,
+                    )})`,
                   })}
                 />
-              ))}
+              );
+            })}
+          </span>
         </span>
       ) : null}
       {children}

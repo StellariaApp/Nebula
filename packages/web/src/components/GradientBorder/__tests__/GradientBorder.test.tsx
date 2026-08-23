@@ -7,6 +7,7 @@ import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { BrandGradient, MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { GradientBorder } from "../GradientBorder.js";
+import { ResolveBeamRun } from "../use-beam-run.js";
 
 afterEach(cleanup);
 
@@ -127,45 +128,72 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(node.querySelectorAll("span")).toHaveLength(0);
   });
 
-  it("con los cuatro lados y continua monta una cola que da la vuelta entera", () => {
+  it("monta la cola por piezas dentro de la ventana", () => {
     render(<GradientBorder beam data-testid="gb" />);
     const node = screen.getByTestId("gb");
-    const parts = [...node.querySelectorAll("span > span")];
+    const pieces = [...node.querySelectorAll("span > span > span")];
 
-    expect(node.getAttribute("data-beam")).toBe("continuous");
-    expect(parts.length).toBeGreaterThan(1);
+    expect(node.getAttribute("data-beam")).toBe("4");
+    expect(pieces.length).toBeGreaterThan(1);
 
-    const fades = parts.map((part) => part.getAttribute("style") ?? "");
-    expect(new Set(fades).size).toBe(parts.length);
+    const fades = pieces.map((piece) => piece.getAttribute("style") ?? "");
+    expect(new Set(fades).size).toBe(pieces.length);
   });
 
-  it("espaciada sí reparte un arco por lado, aunque estén los cuatro", () => {
-    render(<GradientBorder beam sequence="spaced" data-testid="gb" />);
-    expect(screen.getByTestId("gb").querySelectorAll("span > span")).toHaveLength(4);
+  it("la cola es la misma se enciendan los lados que se enciendan", () => {
+    const seen = new Set<number>();
+    for (const edges of [[1], [1, 3], [1, 2, 3, 4]] as const) {
+      const view = render(<GradientBorder beam edges={edges} data-testid="gb" />);
+      seen.add(screen.getByTestId("gb").querySelectorAll("span > span > span").length);
+      view.unmount();
+    }
+    expect(seen.size).toBe(1);
   });
 
-  it("edges elige los lados y respeta el orden del marco, no el de la prop", () => {
-    render(<GradientBorder beam edges={[3, 1]} data-testid="gb" />);
-    expect(screen.getByTestId("gb").querySelectorAll("span > span")).toHaveLength(2);
-  });
-
-  it("continua reparte el ciclo entre los lados elegidos y no deja hueco", () => {
+  it("edges es una ventana: una franja de máscara por lado encendido", () => {
     render(<GradientBorder beam edges={[1, 3]} data-testid="gb" />);
-    const arcs = [...screen.getByTestId("gb").querySelectorAll("span > span")];
-    const delays = arcs.map((arc) => arc.getAttribute("style") ?? "");
+    const window_box = screen.getByTestId("gb").querySelector("span > span");
+    const style = window_box?.getAttribute("style") ?? "";
 
-    expect(delays[0]).toMatch(/\* 0\)/);
-    expect(delays[1]).toMatch(/\* 1\)/);
+    expect(style).toMatch(/--beamWindow/);
+    expect(style.match(/linear-gradient/g) ?? []).toHaveLength(2);
   });
 
-  it("espaciada deja a cada lado su turno del marco completo", () => {
-    render(<GradientBorder beam edges={[1, 3]} sequence="spaced" data-testid="gb" />);
-    const arcs = [...screen.getByTestId("gb").querySelectorAll("span > span")];
-    const delays = arcs.map((arc) => arc.getAttribute("style") ?? "");
+  it("dos lados contiguos añaden el parche que tapa la entrega en la esquina", () => {
+    render(<GradientBorder beam edges={[1, 2]} data-testid="gb" />);
+    const style =
+      screen.getByTestId("gb").querySelector("span > span")?.getAttribute("style") ?? "";
 
-    expect(screen.getByTestId("gb").getAttribute("data-beam")).toBe("spaced");
-    expect(delays[0]).toMatch(/\* 0\)/);
-    expect(delays[1]).toMatch(/\* 2\)/);
+    expect(style.match(/linear-gradient/g) ?? []).toHaveLength(3);
+  });
+
+  it("con los cuatro no hay ventana que recortar y no se escribe ninguna", () => {
+    render(<GradientBorder beam data-testid="gb" />);
+    const style =
+      screen.getByTestId("gb").querySelector("span > span")?.getAttribute("style") ?? "";
+
+    expect(style).not.toMatch(/--beamWindow/);
+  });
+
+  it("el orden lo marca el marco, no el de la prop", () => {
+    const seen = new Set<string>();
+    for (const edges of [[1, 3], [3, 1]] as const) {
+      const view = render(<GradientBorder beam edges={edges} data-testid="gb" />);
+      seen.add(screen.getByTestId("gb").querySelector("span > span")?.getAttribute("style") ?? "");
+      view.unmount();
+    }
+    expect(seen.size).toBe(1);
+  });
+
+  it("la vuelta dura lo mismo con un lado que con cuatro: la velocidad no cambia", () => {
+    const seen = new Set<string>();
+    for (const edges of [[1], [1, 2], [1, 2, 3, 4]] as const) {
+      const view = render(<GradientBorder beam edges={edges} data-testid="gb" />);
+      const style = screen.getByTestId("gb").getAttribute("style") ?? "";
+      seen.add(/--beamCycle[^:]*:([^;]+)/.exec(style)?.[1]?.trim() ?? "");
+      view.unmount();
+    }
+    expect(seen.size).toBe(1);
   });
 
   it("con haz el anillo estático deja de ser el gradiente y pasa al borde normal", () => {
@@ -176,9 +204,11 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(style).not.toMatch(/--gradientImage[^;]*linear-gradient/);
   });
 
-  it("el arco sí lleva el color de marca, en una estela lineal", () => {
+  it("las piezas sí llevan el color de marca, mezclado a lo largo de la cola", () => {
     render(<GradientBorder beam data-testid="gb" />);
-    expect(screen.getByTestId("gb").getAttribute("style") ?? "").toMatch(/linear-gradient\(90deg/);
+    const pieces = [...screen.getByTestId("gb").querySelectorAll("span > span > span")];
+
+    expect(pieces[0]?.getAttribute("style") ?? "").toMatch(/color-mix\(in srgb/);
   });
 
   it("un tier minimal no anima: el marco queda estático", () => {
@@ -196,8 +226,59 @@ describe("GradientBorder — el haz que orbita", () => {
 
   it("las capas decorativas quedan fuera del árbol de accesibilidad", () => {
     render(<GradientBorder beam data-testid="gb" />);
-    expect(screen.getByTestId("gb").querySelector("span")?.getAttribute("aria-hidden")).toBe(
-      "true",
-    );
+    expect(screen.getByTestId("gb").querySelector("span")?.getAttribute("aria-hidden")).toBe("true");
+  });
+});
+
+describe("GradientBorder — el tramo medido", () => {
+  const FRAME = { w: 500, h: 300, r: 20 };
+  const TOTAL = 2 * (500 - 40) + 2 * (300 - 40) + 2 * Math.PI * 20;
+  const Span = (run: { from: string; to: string } | null) =>
+    run === null ? null : Number.parseFloat(run.to) - Number.parseFloat(run.from);
+
+  it("un tramo contiguo acorta el ciclo en su misma proporción", () => {
+    const run = ResolveBeamRun([1, 2], FRAME, 0.00385, 32);
+
+    expect(run).not.toBeNull();
+    expect(run?.beats).toBeCloseTo((Span(run) ?? 0) / 100, 5);
+    expect(run?.beats).toBeGreaterThan(0);
+    expect(run?.beats).toBeLessThan(1);
+  });
+
+  it("dos lados sueltos no son un tramo: se queda la vuelta entera", () => {
+    expect(ResolveBeamRun([1, 3], FRAME, 0.00385, 32)).toBeNull();
+  });
+
+  it("los cuatro lados tampoco recortan nada", () => {
+    expect(ResolveBeamRun([1, 2, 3, 4], FRAME, 0.00385, 32)).toBeNull();
+  });
+
+  it("el tramo que cruza el origen del trazado sigue siendo uno", () => {
+    const run = ResolveBeamRun([4, 1], FRAME, 0.00385, 32);
+
+    expect(run).not.toBeNull();
+    expect(Number.parseFloat(run?.to ?? "0")).toBeGreaterThan(100);
+    expect(run?.beats).toBeLessThan(1);
+  });
+
+  it("la boca cae a mitad de curva, no al final del lado", () => {
+    const run = ResolveBeamRun([1], FRAME, 0.00385, 32);
+    const arc = (Math.PI / 2) * 20;
+    const top = 500 - 40 + arc;
+
+    expect(Number.parseFloat(run?.to ?? "0")).toBeCloseTo(((top - arc / 2 + 13) / TOTAL) * 100, 1);
+  });
+
+  it("la cola conserva su longitud aunque el recorrido se acorte", () => {
+    const run = ResolveBeamRun([1, 2], FRAME, 0.00385, 32);
+
+    expect(run?.gap).toBeCloseTo(0.00385 / (run?.beats ?? 1), 6);
+  });
+
+  it("la velocidad no depende de cuánto se encienda: el ciclo sigue al recorrido", () => {
+    for (const lit of [[1], [1, 2], [1, 2, 3], [3, 4]] as const) {
+      const run = ResolveBeamRun(lit, FRAME, 0.00385, 32);
+      expect(run?.beats).toBeCloseTo((Span(run) ?? 0) / 100, 5);
+    }
   });
 });

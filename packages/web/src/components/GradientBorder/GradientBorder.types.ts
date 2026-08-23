@@ -61,28 +61,33 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
    */
   surface?: GradientBorderSurface | undefined;
   /**
-   * Sends an arc travelling around the ring. It needs the theme's `motion.tier` above `minimal` and
-   * at least one edge left in `edges`; failing either, the static gradient ring is what you get.
+   * Sends a tail of light orbiting the ring. It needs the theme's `motion.tier` above `minimal` and
+   * at least one side left in `edges`; failing either, the static gradient ring is what you get.
    * @default false
    */
   beam?: boolean | undefined;
   /**
-   * Which sides the beam lights, clockwise from the top. Read only while `beam` runs — on a static
-   * ring the gradient always goes all the way round.
+   * Which sides the light is seen on, clockwise from the top. It is a window, not a route: the light
+   * always orbits the whole frame at one speed, and the sides left out only hide it — so it slides in
+   * and out of the corners instead of appearing already there, and dropping sides never makes it
+   * faster. Read only while `beam` runs.
    * @default [1, 2, 3, 4]
    */
   edges?: readonly GradientBorderEdge[] | undefined;
   /**
-   * How the arcs are spaced in time. `"continuous"` chains them back to back over the edges that are
-   * lit, so the beam never breaks; `"spaced"` keeps every edge in its own quarter of the cycle, so
-   * dropping one leaves a gap rather than closing it up.
+   * What the light does with the sides that are off. `"continuous"` skips them: the cycle is only as
+   * long as the run that is lit, so the light comes straight back round instead of waiting out the
+   * dark stretch — at the same speed either way. `"spaced"` keeps the whole turn, so every side that
+   * is off costs its share of the cycle in darkness.
+   *
+   * Skipping needs the frame measured, so it lands on the client and only when the lit sides form one
+   * unbroken run; a broken one — `edges={[1, 3]}` — takes the whole turn whatever this says.
    * @default "continuous"
    */
   sequence?: GradientBorderSequence | undefined;
   /**
-   * Afina la cola. Se lee **solo** cuando el haz da la vuelta entera —`continuous` con los cuatro
-   * lados—, que es el único caso montado con piezas; un subconjunto de `edges` o `spaced` usa una
-   * estela por lado y no tiene cola que ajustar.
+   * Tunes the tail. Read in every configuration — `edges` only decides where the tail is seen, never
+   * how it is built.
    * @default { parts: 32, gap: 0.00385, bloom: 0.5 }
    */
   trail?: GradientBorderTrail | undefined;
