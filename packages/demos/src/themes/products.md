@@ -70,3 +70,23 @@ cambiados— no hay nombre que la represente y devuelve el objeto.
 componentes leen del contexto (`docs/02` §4). Cambiarlos por aquí alcanza a `GlassSurface`, `Nav`,
 `StarField`, `GradientBorder`, `AnimatedGradient`, `NoiseOverlay`, las recetas de variante que
 resuelven cristal y **todo** el motion, que pasa por `utils/motion.ts`.
+
+## `glass` no es un booleano: es cuánto cristal
+
+Cuatro posiciones —`off · sheer · frosted · milky`— y solo la primera apaga el material
+([ADR-178](../../../../docs/adr/ADR-178-el-velo-vuelve-a-ser-cristal-y-la-intensidad-es-un-eje.md)
+§3). Las otras tres sustituyen la tabla `effects.glass.surface`, que es la misma forma que tienen
+`corner` sobre `radius` y `density` sobre `spacing.unit`: un preset que reemplaza algo que el
+contrato **ya** tiene, no una extensión del contrato.
+
+**`frosted` no lleva tabla, y eso importa.** Es el valor del tema, así que se devuelve la del propio
+tema y la elección sigue contando como intacta en `ResolveChoice` — con eso el tema viaja como clase
+y no como vars en línea (ADR-163). Si `frosted` tuviera tabla propia, el defecto entraría siempre por
+la vía del objeto y todo el mundo pagaría el parpadeo desde el primer render.
+
+Lo que se mueve es el **suelo** de la rampa: `sheer` arranca en 0.32, `frosted` en 0.46 y `milky` en
+0.60, y las tres rematan en el 0.90 de `strong`. `veil` queda fuera de las tres —es el escalón del
+material, no de la superficie— y el desenfoque tampoco se toca: el eje dosifica velo, no blur.
+
+El suelo se sustituye por nivel construyendo el `rgba()` desde la tinta del esquema, nunca parseando
+el valor del tema. Ese parseo es lo que ADR-102 borró y ADR-118 §4 dejó prohibido.

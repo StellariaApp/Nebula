@@ -187,7 +187,7 @@ export default async function Home() {
           <Box display="flex" direction="column" gap="lg" align="center">
             <SimpleGrid cols={{ base: 1, tablet: 3 }} gap="md" w="100%">
               {FRAMEWORKS.map((name) => (
-                <Card key={name} withBorder r="md" p="md">
+                <Card key={name} withBorder r="md" p="md" variant="glass" glass="default">
                   <Box display="flex" direction="column" gap="xs" align="flex-start">
                     <Text fz="body2" fw="semibold">
                       {name}

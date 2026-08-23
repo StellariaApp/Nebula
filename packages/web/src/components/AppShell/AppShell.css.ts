@@ -1,8 +1,8 @@
 import { fallbackVar, globalStyle, style } from "@vanilla-extract/css";
 
+import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
-import { vars } from "@stellaria/nebula-themes/web";
 import { composite_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
@@ -543,6 +543,24 @@ globalStyle(`${link} > ${NavLinkStyles.body}`, {
 
 globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.body}`, {
   display: "none",
+});
+
+globalStyle(`${link} > ${NavLinkStyles.section_right}`, {
+  "@media": {
+    [SmallerThan("laptop")]: {
+      position: "absolute",
+      top: vars.space.u2_5,
+      right: vars.space.xs,
+      transform: "translateY(-50%)",
+    },
+  },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.section_right}`, {
+  position: "absolute",
+  top: vars.space.u2_5,
+  right: vars.space.xs,
+  transform: "translateY(-50%)",
 });
 
 export const chrome = style({

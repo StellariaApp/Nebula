@@ -32,6 +32,12 @@ marca la región de detrás con `inert`:
 El componente no lo hace por su cuenta porque no es dueño de esa región: se monta como hermano, no
 como padre.
 
+## El alias `-webkit-` NO se escribe a mano
+
+La hoja declara **solo `backdropFilter`**; el alias lo añade el build. Escribir las dos en la misma
+regla borra la estándar y deja el velo sin desenfoque en Chrome, Edge y Firefox — está medido y
+explicado en `GlassSurface.md`, que arrastraba el mismo defecto.
+
 ## El velo siempre se renderiza
 
 `Overlay` solo pinta su `veil` cuando hay contenido (sin contenido, la propia raíz es el velo). Aquí la

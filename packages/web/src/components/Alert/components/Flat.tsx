@@ -27,6 +27,7 @@ export function AlertFlat(props: AlertProps): ReactElement {
         [variables.accent]:
           variant === "filled" ? vars.color.text.onPrimary : ResolveAccent(color, "600"),
         [variables.borderColor]: refs?.borderColor ?? resolved.borderColor,
+        [variables.backdropFilter]: refs?.backdropFilter ?? resolved.backdropFilter,
       })}
     />
   );

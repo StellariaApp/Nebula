@@ -4,3 +4,4 @@ export const bg = createVar();
 export const fg = createVar();
 export const accent = createVar();
 export const borderColor = createVar();
+export const backdropFilter = createVar();

@@ -9,10 +9,11 @@ import {
   type Corner,
   type Density,
   type Face,
+  type Glass,
   type ThemeChoice,
   type ThemeName,
 } from "@stellaria/nebula-demos/themes/products";
-import { ActionIcon, Affix, Box, Popover, ColorSwatch, Divider, GlassSurface, Radio, RadioGroup, Segment, Switch, Text } from "@stellaria/nebula-web";
+import { ActionIcon, Affix, Box, Popover, ColorSwatch, Divider, GlassSurface, Radio, RadioGroup, Segment, Text } from "@stellaria/nebula-web";
 import type { MotionTier } from "@stellaria/nebula-tokens";
 import { useEffect, useId, useRef, useState, type ReactElement } from "react";
 
@@ -25,6 +26,8 @@ const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
 const DENSITIES: readonly Density[] = ["compact", "cosy", "roomy"];
 
 const FACES: readonly Face[] = ["sans", "serif"];
+
+const GLASSES: readonly Glass[] = ["off", "sheer", "frosted", "milky"];
 
 /**
  * Los cinco ejes que la libreria no conoce (ADR-155 §2). `theme` y `scheme` los guarda el propio
@@ -79,7 +82,7 @@ function Restore(current: ThemeChoice): ThemeChoice {
     corner: CORNERS.includes(corner as Corner) ? (corner as Corner) : current.corner,
     density: DENSITIES.includes(density as Density) ? (density as Density) : current.density,
     motion: TIERS.includes(motion as MotionTier) ? (motion as MotionTier) : current.motion,
-    glass: glass === "true" || glass === "false" ? glass === "true" : current.glass,
+    glass: GLASSES.includes(glass as Glass) ? (glass as Glass) : current.glass,
     face: FACES.includes(face as Face) ? (face as Face) : current.face,
   };
 }
@@ -309,14 +312,21 @@ export function ThemePanel({
         </Segment>
       </Box>
 
-      <Switch
-        size="sm"
-        label={labels.glass}
-        checked={theme.effects.glass.enabled}
-        onChange={(checked) => {
-          Apply({ glass: checked });
-        }}
-      />
+      <Box display="flex" direction="column" gap="xs">
+        <Text fz="caption" c="text.muted" fw="semibold" tt="uppercase" ls="wide">
+          {labels.glass}
+        </Text>
+        <Segment
+          value={choice.glass}
+          size="sm"
+          fullWidth
+          onChange={(value) => {
+            Apply({ glass: value as Glass });
+          }}
+        >
+          <Segment.Control aria-label={labels.glass} data={[...GLASSES]} />
+        </Segment>
+      </Box>
     </GlassSurface>
   );
 

@@ -31,6 +31,11 @@ más cara del sistema (auditoría WV §3.1).
 primaria o selección. Un Alert sostiene párrafo, así que ninguno de los dos le corresponde. `glass` sí,
 porque el aviso es raíz de su región y el efecto no se anida.
 
+Y como es cristal de verdad, la raíz declara `backdrop-filter` con el `backdropFilter` de la ranura
+del tema, no solo su fondo. Faltaba: la matriz ya publicaba el filtro —es uno de los ocho valores de
+la ranura— y `Alert` leía los otros cuatro, así que `variant="glass"` daba un panel translúcido y
+**nítido**, que es peor que no ofrecerlo. Fuera de `glass` la ranura trae `none` y no cuesta nada.
+
 ## Props de ranura
 
 `titleProps`, `iconProps`, `bodyProps`, `messageProps` y `actionsProps` alcanzan los nodos que Alert

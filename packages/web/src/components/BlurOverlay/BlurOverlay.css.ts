@@ -12,7 +12,6 @@ export const blur_overlay = style({
       position: "absolute",
       inset: 0,
       backdropFilter: variables.backdrop,
-      WebkitBackdropFilter: variables.backdrop,
       selectors: {
         "&[data-fixed='true']": { position: "fixed" },
         "&[data-center='true']": {
@@ -24,7 +23,6 @@ export const blur_overlay = style({
       "@media": {
         "(forced-colors: active)": {
           backdropFilter: "none",
-          WebkitBackdropFilter: "none",
         },
       },
     },

@@ -51,17 +51,17 @@ y si escribes dos `Section.Body` manda el primero y el segundo pasa a ser conten
 
 ## `glass` — la banda intercalada
 
-Enciende la receta `band`, el peldaño más bajo del cristal (ADR-082): velo al 78 %, filo arriba y
-abajo, y 1 px de desenfoque. Está por debajo del botón y del chrome a propósito.
+Enciende la receta `band`, el peldaño más bajo del cristal por encima de `veil` (ADR-082): velo al
+46 %, filo arriba y abajo, y 2 px de desenfoque. Está por debajo del botón y del chrome a propósito.
 
-Lo que hace legible una franja de 1400 px es **el velo**, no el desenfoque ni el filo. Desde
-[ADR-118](../../../../../docs/adr/ADR-118-el-cristal-recupera-su-filo-y-el-velo-se-vuelve-opaco.md)
-los cinco niveles tienen velos casi iguales —0.78 a 0.90— y el mismo filo plano, así que lo único
-que separa a `band` de `strong` es cuánto difumina: 1 px contra 16. Elegir `band` es pedir que lo de
-debajo **se siga leyendo**, no que se transparente.
+Un nivel se elige por las dos cosas a la vez, y en `band` las dos tiran hacia lo mismo: es el velo
+más fino de los que sostienen texto y el desenfoque más corto, así que una franja de 1400 px
+**deja ver lo que tiene debajo** en vez de taparlo. Contra `strong` la distancia es de 0.46 a 0.90 de
+velo y de 2 px a 16 de desenfoque.
 
-Ojo con eso al alternarlas sobre un fondo decorativo: una `Section glass` ya no deja ver el
-`StarField`, lo difumina. La franja se distingue por color, no por transparencia.
+Eso la vuelve a hacer útil sobre un fondo decorativo: una `Section glass` sobre `StarField` enseña
+las estrellas suavizadas, no un bloque de color. Fue así, dejó de serlo con ADR-118 y vuelve a serlo
+con [ADR-178](../../../../../docs/adr/ADR-178-el-velo-vuelve-a-ser-cristal-y-la-intensidad-es-un-eje.md).
 
 Se usa **alternando**, no en todas las secciones:
 

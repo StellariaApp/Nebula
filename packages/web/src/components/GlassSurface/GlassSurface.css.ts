@@ -17,7 +17,6 @@ export const glass_surface = recipe({
         background: variables.bg,
         color: vars.color.text.primary,
         backdropFilter: variables.backdrop,
-        WebkitBackdropFilter: variables.backdrop,
         "@supports": {
           [NO_BACKDROP]: { background: variables.solidBg },
         },
@@ -25,7 +24,6 @@ export const glass_surface = recipe({
           "(forced-colors: active)": {
             background: "Canvas",
             backdropFilter: "none",
-            WebkitBackdropFilter: "none",
           },
         },
       },
