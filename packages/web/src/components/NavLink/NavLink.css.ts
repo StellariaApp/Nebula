@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css";
 
-import * as motion from "../../styles/motion.css.js";
-import * as focus from "../../styles/focus.css.js";
 import { vars } from "@stellaria/nebula-themes/web";
+import * as focus from "../../styles/focus.css.js";
+import * as motion from "../../styles/motion.css.js";
 import { component_layer } from "../../theme/layers.css.js";
 import { SmallerThan } from "../../theme/media.js";
 
@@ -65,13 +65,6 @@ export const indicator = style({
       width: "3px",
       borderRadius: vars.radius.full,
       background: variables.accent,
-
-      /*
-       * La barra del activo entra creciendo. Era `initial` + `animate` de motion; ahora lo declara
-       * `@starting-style`, que le dice al navegador de donde parte la PRIMERA vez que resuelve el
-       * elemento. El estado de reposo es visible, asi que sin JavaScript la barra esta ahi: lo que
-       * se declara es el origen, no un escondite.
-       */
       transitionProperty: "transform, opacity",
       transitionDuration: vars.motion.duration.base,
       transitionTimingFunction: vars.motion.easing.decelerate,
@@ -93,7 +86,13 @@ export const indicator = style({
   },
 });
 
-export const section = style({
+export const section_left = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+});
+
+export const section_right = style({
   display: "inline-flex",
   alignItems: "center",
   flexShrink: 0,

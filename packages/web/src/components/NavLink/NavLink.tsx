@@ -10,12 +10,12 @@ import { MotionOff } from "../../utils/motion.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { Collapse } from "../Collapse/Collapse.js";
 
-import * as styles from "./NavLink.css.js";
-import type { NavLinkProps } from "./NavLink.types.js";
-import * as variables from "./NavLink.vars.css.js";
 import { ChevronDown } from "../../glyphs/index.js";
 import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
+import * as styles from "./NavLink.css.js";
+import type { NavLinkProps } from "./NavLink.types.js";
+import * as variables from "./NavLink.vars.css.js";
 
 const CHEVRON = <ChevronDown />;
 
@@ -87,7 +87,7 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
           component="span"
           aria-hidden="true"
           {...leftSectionProps}
-          className={cx(styles.section, leftSectionProps?.className)}
+          className={cx(styles.section_left, leftSectionProps?.className)}
         >
           {leftSection}
         </Box>
@@ -115,7 +115,7 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
         <Box
           component="span"
           {...rightSectionProps}
-          className={cx(styles.section, rightSectionProps?.className)}
+          className={cx(styles.section_right, rightSectionProps?.className)}
         >
           {rightSection}
         </Box>

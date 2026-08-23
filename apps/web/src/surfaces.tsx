@@ -18,6 +18,7 @@ import {
 } from "@stellaria/nebula-web";
 import type { ReactElement, ReactNode } from "react";
 
+import { STAR } from "./previews/kit";
 import { Logo } from "./ui/logo";
 
 /**
@@ -56,8 +57,17 @@ export const SURFACES: Record<string, Surface> = {
             </AppShell.Sidebar.Header>
             <AppShell.Sidebar.Body grow={1}>
               <AppShell.Links title="Learn">
-                <AppShell.Link href="#shell" label="Getting started" active />
-                <AppShell.Link href="#shell" label="Components" />
+                <AppShell.Link href="#shell" label="Getting started" active leftSection={STAR} />
+                <AppShell.Link
+                  href="#shell"
+                  label="Components"
+                  leftSection={STAR}
+                  rightSection={
+                    <Text fz="caption" c="text.muted" fw="bold">
+                      v0
+                    </Text>
+                  }
+                />
               </AppShell.Links>
             </AppShell.Sidebar.Body>
             <AppShell.Sidebar.Footer>
