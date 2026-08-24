@@ -13,10 +13,10 @@ function Flush(): void {
   });
 }
 
-function Section(id: string, top: number): void {
+function Section(id: string, top: number, height = 400): void {
   const node = document.createElement("section");
   node.id = id;
-  node.getBoundingClientRect = () => ({ top: top - window.scrollY, height: 400 }) as DOMRect;
+  node.getBoundingClientRect = () => ({ top: top - window.scrollY, height }) as DOMRect;
   document.body.append(node);
 }
 
@@ -162,5 +162,34 @@ describe("useScrollSpy", () => {
     act(Flush);
 
     expect(result.current).toBeUndefined();
+  });
+
+  it("el recorte frena al marcador dentro de una sección corta", () => {
+    // Para esto existe el recorte: si la que va en cabeza acaba antes que el marcador, el activo
+    // NO debe adelantarse a la siguiente. Sin recorte el marcador cae en 340 y gana "dos".
+    Section("uno", 0, 200);
+    Section("dos", 300);
+    const { result } = renderHook(() => useScrollSpy(["uno", "dos"]));
+    act(Flush);
+
+    expect(result.current).toBe("uno");
+  });
+
+  it("una astilla de subpíxel bajo el borde no se lleva el marcador", () => {
+    // El aterrizaje de un ancla con barra fija: `Main` fija `scroll-padding-top` al alto de la
+    // barra y ese mismo alto llega como `chrome`, así que el borde cae CLAVADO en la frontera
+    // entre dos secciones pegadas. El redondeo del layout deja la anterior asomando 0,188 px y
+    // esa astilla se llevaba el marcador. Cifras medidas en Iris.
+    Object.defineProperty(window, "innerHeight", { value: 900, configurable: true, writable: true });
+    Section("entrega", 820, 399.188);
+    Section("como", 1219.188, 463.531);
+    Section("planes", 1994.281, 558.282);
+    const { result } = renderHook(() => useScrollSpy(["entrega", "como", "planes"], { chrome: 70 }));
+
+    act(() => {
+      Scroll(1149);
+      Flush();
+    });
+    expect(result.current).toBe("como");
   });
 });
