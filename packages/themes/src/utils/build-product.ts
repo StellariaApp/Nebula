@@ -1,4 +1,10 @@
-import type { ColorScheme, NebulaTheme } from "@stellaria/nebula-tokens";
+import {
+  palettes,
+  type ColorScheme,
+  type GradientRole,
+  type GradientToken,
+  type NebulaTheme,
+} from "@stellaria/nebula-tokens";
 
 import { baseDark } from "../themes/_base/dark.js";
 import { baseLight } from "../themes/_base/light.js";
@@ -39,6 +45,41 @@ function Canvas<T extends Record<string, string>>(surface: T, seed: ThemeSeed, s
 }
 
 /**
+ * Los degradados que salen de la semilla. `brand` es el eje del producto —y tiene que ser `brand`,
+ * porque es el rol que el catalogo pide por defecto: escribirlo en `accent` deja a los dieciseis
+ * pintando el de la base—. `surface` es el fondo de la pagina, y por eso no lo toca `lift`.
+ */
+function GenerateGradients(
+  seed: ThemeSeed,
+  scheme: ColorScheme,
+): Partial<Record<GradientRole, GradientToken>> {
+  return {
+    brand: {
+      type: "linear",
+      angle: seed.angle ?? PRODUCT_ANGLE,
+      stops: [
+        { color: seed.from, position: 0 },
+        { color: seed.to, position: 100 },
+      ],
+    },
+    surface: {
+      type: "radial",
+      angle: 0,
+      stops:
+        scheme === "dark"
+          ? [
+              { color: seed.primary["950"], position: 0 },
+              { color: palettes.dark["100"], position: 100 },
+            ]
+          : [
+              { color: seed.primary["50"], position: 0 },
+              { color: palettes.light["50"], position: 100 },
+            ],
+    },
+  };
+}
+
+/**
  * Un tema de producto entero a partir de dos semillas de paleta. Es la prueba del argumento de
  * Nebula: lo único que cambia entre dos productos es esto, y el catálogo no se entera.
  */
@@ -63,14 +104,7 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
       glass: { ...base.effects.glass, enabled: seed.glass ?? base.effects.glass.enabled },
       gradients: {
         ...base.effects.gradients,
-        brand: {
-          type: "linear",
-          angle: seed.angle ?? PRODUCT_ANGLE,
-          stops: [
-            { color: seed.from, position: 0 },
-            { color: seed.to, position: 100 },
-          ],
-        },
+        ...GenerateGradients(seed, scheme),
       },
     },
   };
