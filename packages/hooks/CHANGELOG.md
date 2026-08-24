@@ -1,5 +1,12 @@
 # @stellaria/nebula-hooks
 
+## 1.1.6
+
+### Patch Changes
+
+- - El hook de marcador ya no lo pierde cuando queda una astilla de subpíxel bajo el borde: el marcador se mantiene estable en esos casos límite.
+  - @stellaria/nebula-tokens@1.1.6
+
 ## 1.1.5
 
 ### Patch Changes

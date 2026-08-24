@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @stellaria/nebula-hooks@1.1.6
+  - @stellaria/nebula-tokens@1.1.6
+  - @stellaria/nebula-themes@1.1.6
+  - @stellaria/nebula-icons@1.1.6
+
 ## 1.1.5
 
 ### Patch Changes
