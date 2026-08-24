@@ -11,6 +11,9 @@ import { baseLight } from "../themes/_base/light.js";
 import type { ThemeSeed } from "../themes/_seed/index.js";
 import { FlipScale } from "../themes/scales.js";
 import { THEME_VERSION } from "../version.js";
+import { DENSITY_UNIT, GlassFor, RadiusOf } from "./axes.js";
+import { BorderLiftOf, LiftOf } from "./lift.js";
+import { BASE_RAMP } from "./ramp.js";
 
 const FOCUS_STEP = { dark: "400", light: "600" } as const;
 const CHANNEL_MAX = 255;
@@ -28,19 +31,37 @@ function Channels(hex: string): [number, number, number] {
   ];
 }
 
-function Shade(hex: string, seed: ThemeSeed, sign: number): string {
+function Shade(hex: string, seed: ThemeSeed, sign: number, lift: number): string {
   const base = Channels(hex);
   const tint = Channels(seed.tint);
   const mixed = base.map((value, index) => {
     const blended = value * (1 - seed.wash) + (tint[index] as number) * seed.wash;
-    return Math.max(0, Math.min(CHANNEL_MAX, Math.round(blended + seed.lift * sign)));
+    return Math.max(0, Math.min(CHANNEL_MAX, Math.round(blended + lift * sign)));
   });
   return `#${mixed.map((value) => value.toString(16).padStart(2, "0")).join("")}`;
 }
 
+/**
+ * Los filos, con el mismo lavado y el mismo desplazamiento que la superficie que bordean. Sin esto el
+ * borde se queda quieto mientras su superficie se mueve y acaba invirtiendose: filo mas oscuro que su
+ * fondo en dark, y en light directamente invisible. `focus` no entra —sale de `primary`— y se
+ * sobreescribe despues.
+ */
+function Edges<T extends Record<string, string>>(border: T, seed: ThemeSeed, sign: number): T {
+  return Object.fromEntries(
+    Object.entries(border).map(([role, hex]) => [
+      role,
+      role === "focus" ? hex : Shade(hex, seed, sign, BorderLiftOf(seed.lift, role)),
+    ]),
+  ) as T;
+}
+
 function Canvas<T extends Record<string, string>>(surface: T, seed: ThemeSeed, sign: number): T {
   return Object.fromEntries(
-    Object.entries(surface).map(([role, hex]) => [role, Shade(hex, seed, sign)]),
+    Object.entries(surface).map(([role, hex]) => [
+      role,
+      Shade(hex, seed, sign, LiftOf(seed.lift, role)),
+    ]),
   ) as T;
 }
 
@@ -79,10 +100,6 @@ function GenerateGradients(
   };
 }
 
-/**
- * Un tema de producto entero a partir de dos semillas de paleta. Es la prueba del argumento de
- * Nebula: lo único que cambia entre dos productos es esto, y el catálogo no se entera.
- */
 export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme {
   const base = scheme === "dark" ? baseDark : baseLight;
   const dark = scheme === "dark";
@@ -92,16 +109,28 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
     meta: { name: seed.name, scheme, version: THEME_VERSION },
     ink: { floor: seed.inkFloor ?? PRODUCT_INK_FLOOR },
     motion: { ...base.motion, tier: seed.motion ?? base.motion.tier },
+    radius: seed.corner === undefined ? base.radius : RadiusOf(base.radius, seed.corner),
+    spacing: {
+      ...base.spacing,
+      unit: seed.density === undefined ? base.spacing.unit : DENSITY_UNIT[seed.density],
+    },
     colors: {
       ...base.colors,
       primary: dark ? FlipScale(seed.primary) : seed.primary,
       accent: dark ? FlipScale(seed.accent) : seed.accent,
       surface: Canvas(base.colors.surface, seed, dark ? 1 : -1),
-      border: { ...base.colors.border, focus: seed.primary[FOCUS_STEP[scheme]] },
+      border: { ...Edges(base.colors.border, seed, dark ? 1 : -1), focus: seed.primary[FOCUS_STEP[scheme]] },
     },
     effects: {
       ...base.effects,
-      glass: { ...base.effects.glass, enabled: seed.glass ?? base.effects.glass.enabled },
+      glass: {
+        ...base.effects.glass,
+        surface:
+          seed.ramp === undefined && seed.glass === undefined
+            ? base.effects.glass.surface
+            : GlassFor(seed.ramp ?? BASE_RAMP, seed.glass ?? "frosted", scheme),
+        enabled: seed.glass === undefined ? base.effects.glass.enabled : seed.glass !== "off",
+      },
       gradients: {
         ...base.effects.gradients,
         ...GenerateGradients(seed, scheme),

@@ -1,5 +1,9 @@
 import { palettes, type MotionTier, type Scale11 } from "@stellaria/nebula-tokens";
 
+import type { Corner, Density, Glass } from "../../utils/axes.js";
+import type { Lift } from "../../utils/lift.js";
+import type { Ramp } from "../../utils/ramp.js";
+
 export type SeedName =
   | "nebula"
   | "roseta"
@@ -19,21 +23,42 @@ export type SeedName =
   | "eclipse";
 
 export interface ThemeSeed {
-  name: SeedName;
+  /**
+   * La identidad del tema. **No es `SeedName`**, y no por descuido: los dieciseis del catalogo son
+   * los que hay aqui, pero un producto que construye el suyo con `BuildProduct` tiene su propio
+   * nombre y tenia que colarlo con un cast. El tipo cerrado no protegia nada —`meta.name` es
+   * `string`— y obligaba a mentir en los cuatro consumidores.
+   */
+  name: string;
   primary: Scale11;
   accent: Scale11;
   from: string;
   to: string;
   tint: string;
   wash: number;
-  lift: number;
+  lift: Lift;
   inkFloor?: number;
   /** Inclinacion del degradado de marca. Sin declararla, la de producto. */
   angle?: number;
-  /** Intensidad del motion. Sin declararla, la de la base. */
+  /**
+   * El reparto del material, en porcentaje: `[velo, suelo, techo]` (ADR-179).
+   *
+   * Los numeros SON las alfas del cristal, asi que 0-100 es el rango y fuera de el se sujeta. Sin
+   * declararla, el cristal es el de la base. Las superficies no la usan: esas van por `lift`.
+   */
+  ramp?: Ramp;
+  /**
+   * Los cuatro ejes que el producto elige y el catalogo no conoce. No son contrato nuevo: son
+   * presets sobre `motion.tier`, `effects.glass`, `radius` y `spacing.unit`, que `BuildProduct`
+   * materializa en el tema. Sin declararlos, lo de la base.
+   *
+   * Declararlos es lo que hace que un producto **traiga sus valores puestos**: el panel deriva la
+   * eleccion del tema, asi que los ensena solos sin que nadie los seleccione.
+   */
   motion?: MotionTier;
-  /** Materiales de compositor —cristal, blur, ruido—. Sin declararlo, lo de la base (ADR-059). */
-  glass?: boolean;
+  glass?: Glass;
+  corner?: Corner;
+  density?: Density;
 }
 
 export const THEMES_SEEDS = {
@@ -54,10 +79,11 @@ export const THEMES_SEEDS = {
     primary: palettes.rose,
     accent: palettes.pink,
     from: palettes.rose["500"],
-    to: palettes.pink["400"],
+    to: palettes.rose["400"],
     tint: palettes.rose["900"],
     wash: 0.009,
-    lift: -12,
+    glass: "sheer",
+    lift: { base: -14, raised: -4, overlay: -8 },
     inkFloor: 2,
   },
   zenit: {
@@ -67,19 +93,9 @@ export const THEMES_SEEDS = {
     from: palettes.blue["500"],
     to: palettes.cyan["400"],
     tint: palettes.blue["800"],
-    wash: 0.05,
-    lift: -6,
-    inkFloor: 1,
-  },
-  halo: {
-    name: "halo",
-    primary: palettes.cyan,
-    accent: palettes.slate,
-    from: palettes.cyan["400"],
-    to: palettes.slate["300"],
-    tint: palettes.slate["800"],
-    wash: 0.05,
-    lift: -6,
+    wash: 0.08,
+    lift: { base: -6, raised: -6, overlay: -8 },
+    ramp: [10, 20, 60],
     inkFloor: 1,
   },
   apolo: {
@@ -90,8 +106,24 @@ export const THEMES_SEEDS = {
     to: palettes.orange["400"],
     tint: palettes.orange["200"],
     wash: 0.009,
-    lift: 6,
+    lift: { base: 4, raised: 2, overlay: 5 },
+    ramp: [10, 20, 60],
+    glass: "sheer",
     inkFloor: 1,
+  },
+  halo: {
+    name: "halo",
+    primary: palettes.cyan,
+    accent: palettes.blue,
+    from: palettes.cyan["500"],
+    to: palettes.blue["300"],
+    tint: palettes.cyan["900"],
+    wash: 0.09,
+    glass: "sheer",
+    lift: { base: 12, raised: 4, overlay: 0 },
+    ramp: [10, 20, 80],
+    inkFloor: 1,
+    angle: 135,
   },
   aurora: {
     name: "aurora",
@@ -101,7 +133,9 @@ export const THEMES_SEEDS = {
     to: palettes.cyan["400"],
     tint: palettes.pink["800"],
     wash: 0.05,
-    lift: -6,
+    glass: "sheer",
+    lift: { base: 6, raised: 0, overlay: 4 },
+    ramp: [10, 20, 70],
     inkFloor: 2,
   },
   helix: {
@@ -112,7 +146,8 @@ export const THEMES_SEEDS = {
     to: palettes.green["400"],
     tint: palettes.teal["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: 6, raised: 0, overlay: 4 },
+    ramp: [10, 20, 70],
     inkFloor: 2,
   },
   marte: {
@@ -123,7 +158,8 @@ export const THEMES_SEEDS = {
     to: palettes.gold["400"],
     tint: palettes.red["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
   titan: {
@@ -134,7 +170,8 @@ export const THEMES_SEEDS = {
     to: palettes.orange["400"],
     tint: palettes.brown["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
   sol: {
@@ -145,7 +182,8 @@ export const THEMES_SEEDS = {
     to: palettes.gold["400"],
     tint: palettes.gold["600"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
   cometa: {
@@ -156,7 +194,8 @@ export const THEMES_SEEDS = {
     to: palettes.green["400"],
     tint: palettes.lime["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
   },
   vela: {
     name: "vela",
@@ -166,7 +205,8 @@ export const THEMES_SEEDS = {
     to: palettes.rose["400"],
     tint: palettes.lime["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
   },
   eclipse: {
     name: "eclipse",
@@ -176,7 +216,8 @@ export const THEMES_SEEDS = {
     to: palettes.rose["500"],
     tint: palettes.red["950"],
     wash: 0.12,
-    lift: -22,
+    lift: { base: -22, raised: 0, overlay: -15 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
   grafito: {
@@ -187,10 +228,11 @@ export const THEMES_SEEDS = {
     to: palettes.cyan["300"],
     tint: palettes.slate["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
     motion: "minimal",
-    glass: false,
+    glass: "off",
   },
   nova: {
     name: "nova",
@@ -200,7 +242,8 @@ export const THEMES_SEEDS = {
     to: palettes.cyan["400"],
     tint: palettes.yellow["800"],
     wash: 0.2,
-    lift: -26,
+    lift: { base: -26, raised: 0, overlay: -17 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
   quasar: {
@@ -211,7 +254,8 @@ export const THEMES_SEEDS = {
     to: palettes.violet["400"],
     tint: palettes.yellow["800"],
     wash: 0.05,
-    lift: -6,
+    lift: { base: -6, raised: 0, overlay: -4 },
+    ramp: [10, 20, 70],
     inkFloor: 1,
   },
 } as const satisfies Record<SeedName, ThemeSeed>;
