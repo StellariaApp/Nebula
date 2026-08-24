@@ -3,6 +3,9 @@
 import { useTheme } from "@stellaria/nebula-hooks";
 import {
   ChoiceFromTheme,
+  CORNERS,
+  DENSITIES,
+  GLASSES,
   ResolveChoice,
   BRAND_STOPS,
   THEME_NAMES,
@@ -21,13 +24,7 @@ import { EnsureThemeRest } from "../lib/theme-rest";
 
 const TIERS: readonly MotionTier[] = ["minimal", "standard", "expressive"];
 
-const CORNERS: readonly Corner[] = ["sharp", "soft", "round"];
-
-const DENSITIES: readonly Density[] = ["compact", "cosy", "roomy"];
-
 const FACES: readonly Face[] = ["sans", "serif"];
-
-const GLASSES: readonly Glass[] = ["off", "sheer", "frosted", "milky"];
 
 /**
  * Los cinco ejes que la libreria no conoce (ADR-155 §2). `theme` y `scheme` los guarda el propio

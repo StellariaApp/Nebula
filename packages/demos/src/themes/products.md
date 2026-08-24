@@ -84,9 +84,23 @@ tema y la elección sigue contando como intacta en `ResolveChoice` — con eso e
 y no como vars en línea (ADR-163). Si `frosted` tuviera tabla propia, el defecto entraría siempre por
 la vía del objeto y todo el mundo pagaría el parpadeo desde el primer render.
 
-Lo que se mueve es el **suelo** de la rampa: `sheer` arranca en 0.32, `frosted` en 0.46 y `milky` en
-0.60, y las tres rematan en el 0.90 de `strong`. `veil` queda fuera de las tres —es el escalón del
-material, no de la superficie— y el desenfoque tampoco se toca: el eje dosifica velo, no blur.
+Lo que se mueve son **los dos extremos** de la rampa del tema, en puntos: `sheer` baja `−10 / −20`,
+`frosted` no toca nada y `milky` sube `+10 / +10` ([ADR-179](../../../../docs/adr/ADR-179-la-rampa-reparte-el-cristal-y-el-lift-va-por-rol.md)).
+Sobre la rampa de fábrica salen así:
 
-El suelo se sustituye por nivel construyendo el `rgba()` desde la tinta del esquema, nunca parseando
-el valor del tema. Ese parseo es lo que ADR-102 borró y ADR-118 §4 dejó prohibido.
+```
+sheer    .20  .22  .29  .41  .60
+frosted  .30  .32  .41  .57  .80
+milky    .40  .42  .51  .67  .90
+```
+
+**Son deltas y no una tabla, y esa es la diferencia que importa.** La tabla era absoluta: un producto
+con otro cristal seguía teniendo el `sheer` de todos los demás. Sobre la rampa, cada producto baja y
+sube desde el suyo. Y el tope deja de ser 0.90 en las tres — `strong` es ahora el techo de cada
+opción, que es lo que hacía que `sheer` saltara de 0.63 a 0.90 de un escalón.
+
+`veil` queda fuera de las tres —es el escalón del material, no de la superficie, y va en blanco en los
+dos esquemas— y el desenfoque tampoco se toca: el eje dosifica velo, no blur.
+
+Los niveles se construyen con `GlassOf`, la misma función que usa el tema, desde la tinta del esquema
+y nunca parseando el valor del tema. Ese parseo es lo que ADR-102 borró y ADR-118 §4 dejó prohibido.

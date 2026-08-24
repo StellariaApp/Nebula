@@ -6,28 +6,34 @@ import type {
   ThemeChoice as CoreChoice,
 } from "@stellaria/nebula-tokens";
 import {
+  BASE_RAMP,
   BRAND_STOPS,
+  CORNERS,
+  DENSITIES,
+  DENSITY_UNIT,
+  GLASSES,
+  GlassFor,
+  RadiusOf,
   SEED_NAMES,
   THEMES_SEEDS,
   THEME_NAMES,
   Themes,
   ThemeScheme,
+  type Corner,
+  type Density,
+  type Glass,
+  type Ramp,
   type SeedName,
   type ThemeName,
+  type ThemeSeed,
 } from "@stellaria/nebula-themes";
 
-export { BRAND_STOPS, SEED_NAMES, THEMES_SEEDS, THEME_NAMES, ThemeScheme };
-export type { SeedName, ThemeName };
+export { BRAND_STOPS, CORNERS, DENSITIES, GLASSES, SEED_NAMES, THEMES_SEEDS, THEME_NAMES, ThemeScheme };
+export type { Corner, Density, Glass, SeedName, ThemeName };
 
 const nebulaDark = Themes.nebula.dark;
 
-export type Corner = "sharp" | "soft" | "round";
-
-export type Density = "compact" | "cosy" | "roomy";
-
 export type Face = "sans" | "serif";
-
-export type Glass = "off" | "sheer" | "frosted" | "milky";
 
 export interface ThemeChoice {
   theme: ThemeName;
@@ -39,56 +45,15 @@ export interface ThemeChoice {
   face: Face;
 }
 
-const SHARP = { none: 0, xxs: 0, xs: 0, sm: 0, md: 0, lg: 0, xl: 0, xxl: 0, full: 0 } as const;
+/** La rampa de la que parte cada tema: la suya si la declara, la de fábrica si no. */
+function RampOf(name: ThemeName): Ramp {
+  const seeds: Record<string, ThemeSeed> = THEMES_SEEDS;
+  return seeds[name]?.ramp ?? BASE_RAMP;
+}
 
-const ROUND = {
-  none: 0,
-  xxs: 10,
-  xs: 14,
-  sm: 20,
-  md: 26,
-  lg: 32,
-  xl: 40,
-  xxl: 48,
-  full: 9999,
-} as const;
-
-const UNIT: Record<Density, number> = { compact: 3, cosy: 4, roomy: 5 };
-
-/**
- * Cuánto velo lleva cada nivel, sin contar `veil` — ese es el escalón más fino del material y no se
- * mueve. `frosted` es el del tema, así que no tiene tabla: se devuelve la del propio tema y la
- * elección sigue contando como intacta, que es lo que la deja viajar como clase (ADR-163).
- *
- * El ascenso es exponencial y no lineal a propósito: los tres de abajo se agrupan como cristal de
- * verdad y `strong` se despega como material macizo, en vez de cinco tonos del mismo gris.
- */
-const VEILS = {
-  sheer: { band: 0.32, control: 0.35, subtle: 0.45, default: 0.63, strong: 0.9 },
-  milky: { band: 0.6, control: 0.61, subtle: 0.67, default: 0.76, strong: 0.9 },
-} as const satisfies Record<"sheer" | "milky", Record<Exclude<GlassLevel, "veil">, number>>;
-
-/** La tinta del velo por esquema. `veil` va en blanco en los dos, y por eso queda fuera. */
-const TINT: Record<"dark" | "light", string> = {
-  dark: "15, 17, 25",
-  light: "255, 255, 255",
-};
-
-function GlassSurfaces(
-  base: NebulaTheme,
-  glass: Glass,
-): Record<GlassLevel, GlassSurfaceRecipe> {
-  const surface = base.effects.glass.surface;
-  if (glass === "off" || glass === "frosted") return surface;
-
-  const tint = TINT[base.meta.scheme];
-  const veils = VEILS[glass];
-  const next = { ...surface };
-  for (const level in veils) {
-    const key = level as keyof typeof veils;
-    next[key] = { ...surface[key], background: `rgba(${tint}, ${String(veils[key])})` };
-  }
-  return next;
+function GlassSurfaces(base: NebulaTheme, glass: Glass): Record<GlassLevel, GlassSurfaceRecipe> {
+  if (glass === "off" || glass === "frosted") return base.effects.glass.surface;
+  return GlassFor(RampOf(NameFromTheme(base)), glass, base.meta.scheme);
 }
 
 const SERIF =
@@ -109,18 +74,30 @@ export function NameFromTheme(theme: NebulaTheme): ThemeName {
   return name in THEMES_SEEDS || name === "nebula" ? (name as ThemeName) : "nebula";
 }
 
+/**
+ * El peldaño se deduce comparando el radio contra lo que `RadiusOf` produciría, no contra umbrales
+ * escritos: con cinco peldaños —y dos de ellos calculados— un umbral se queda desfasado en cuanto
+ * cambie cualquiera de las tres tablas de las que salen.
+ */
 function CornerFromTheme(theme: NebulaTheme): Corner {
-  if (theme.radius.md === 0) return "sharp";
-  if (theme.radius.md >= 24) return "round";
-  return "soft";
+  const soft = ThemeScheme(NameFromTheme(theme), theme.meta.scheme).radius;
+  return (
+    CORNERS.find((corner) => RadiusOf(soft, corner).md === theme.radius.md) ?? "soft"
+  );
 }
 
+/**
+ * El inverso, y por eso compara contra lo que `GlassOf` produciria: la opcion no se guarda en el
+ * tema, se deduce de su banda. Derivarla en vez de tabularla es lo que hace que siga acertando
+ * cuando el producto parte de otra rampa.
+ */
 function GlassFromTheme(theme: NebulaTheme): Glass {
   if (!theme.effects.glass.enabled) return "off";
   const band = theme.effects.glass.surface.band.background;
-  const tint = TINT[theme.meta.scheme];
-  if (band === `rgba(${tint}, ${String(VEILS.sheer.band)})`) return "sheer";
-  if (band === `rgba(${tint}, ${String(VEILS.milky.band)})`) return "milky";
+  const ramp = RampOf(NameFromTheme(theme));
+  for (const option of ["sheer", "milky"] as const) {
+    if (band === GlassFor(ramp, option, theme.meta.scheme).band.background) return option;
+  }
   return "frosted";
 }
 
@@ -160,8 +137,8 @@ export function ResolveChoice(choice: ThemeChoice): CoreChoice | NebulaTheme {
   return {
     ...base,
     motion: { ...base.motion, tier: choice.motion },
-    radius: choice.corner === "sharp" ? SHARP : choice.corner === "round" ? ROUND : base.radius,
-    spacing: { ...base.spacing, unit: UNIT[choice.density] },
+    radius: RadiusOf(base.radius, choice.corner),
+    spacing: { ...base.spacing, unit: DENSITY_UNIT[choice.density] },
     font: {
       ...base.font,
       family: {
