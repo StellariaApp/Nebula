@@ -1,5 +1,12 @@
 # @stellaria/nebula-hooks
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @stellaria/nebula-tokens@1.1.5
+
 ## 1.1.4
 
 ### Patch Changes

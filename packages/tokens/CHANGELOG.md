@@ -1,5 +1,14 @@
 # @stellaria/nebula-tokens
 
+## 1.1.5
+
+### Patch Changes
+
+- - BREAKING: la semilla del tema ahora declara el material completo del sistema (cristal, degradados y superficies), por lo que los temas escritos contra el contrato anterior deben regenerarse (ADR-179, ADR-180).
+  - Cada tema de producto genera su propio degradado de fondo y conserva su color de identidad en `brand`.
+  - El material de cristal recupera su aspecto y expone su intensidad como un eje configurable del tema (ADR-178).
+  - `CardSurface` admite `gradientBorder` para dibujar su borde con degradado, y el `gap` del botón deja de variar con su tamaño.
+
 ## 1.1.4
 
 ### Patch Changes
