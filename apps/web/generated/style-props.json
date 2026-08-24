@@ -1173,7 +1173,8 @@
     {
       "name": "p",
       "css": [
-        "padding"
+        "padding",
+        "--nb-pad"
       ],
       "token": "space",
       "keywords": null,

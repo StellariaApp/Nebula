@@ -145,6 +145,7 @@
         "space.lg",
         "space.md",
         "space.sm",
+        "space.u2_5",
         "space.xs",
         "space.xxs",
         "zIndex.overlay",
@@ -307,9 +308,7 @@
         "space.md",
         "space.sm",
         "space.xl",
-        "space.xs",
-        "space.xxl",
-        "space.xxs"
+        "space.xxl"
       ]
     },
     {
@@ -371,8 +370,6 @@
         "shadow.xxs",
         "space.lg",
         "space.md",
-        "space.sm",
-        "space.xl",
         "space.xs",
         "space.xxs"
       ]
@@ -1313,7 +1310,7 @@
     },
     {
       "name": "MeshGradientBg",
-      "budget": "23.25 kB",
+      "budget": "23.5 kB",
       "boundary": "server",
       "themeKeys": [
         "color.surface",

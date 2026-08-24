@@ -2757,14 +2757,6 @@
           "slot": false
         },
         {
-          "name": "padding",
-          "type": "\"md\" | \"lg\" | \"xl\" | \"none\"",
-          "required": false,
-          "default": "\"lg\"",
-          "doc": "Inner padding. `\"none\"` is for a card whose parts bring their own — an edge-to-edge image, a\nsection with its own inset.",
-          "slot": false
-        },
-        {
           "name": "reveal",
           "type": "boolean | UseRevealOptions",
           "required": false,
@@ -11259,9 +11251,9 @@
         {
           "name": "children",
           "type": "ReactNode",
-          "required": true,
+          "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El cuerpo, dentro del panel que dibuja el propio modal. Sobra cuando se pasa `content`.",
           "slot": false
         },
         {
@@ -11294,6 +11286,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "El panel entero, traido por el consumidor.\n\nCon esto el modal **no dibuja panel**: se queda con lo que nadie quiere reescribir —el\n`<dialog>` nativo, el foco atrapado, el bloqueo del scroll, el velo desenfocado, la entrada y\nla salida animadas y el cierre por fuera— y suelta su superficie, su cabecera, su cuerpo y su\npie. Lo que se pase ocupa ese sitio tal cual, sin envoltorio.\n\nEs para cuando la ventana ya tiene una forma propia en el producto —una `Card` con su anillo de\ndegradado, por ejemplo— y meterla dentro del panel del modal dejaria una superficie sobre otra.\n\nManda sobre `children`, `title`, `subtitle`, `footer`, `padding` y `withCloseButton`: con panel\npropio, esas piezas las pone quien lo trae. **Y el nombre accesible tambien**: sin `title` no\nhay de donde sacarlo, asi que pasa a hacer falta un `aria-label`.",
           "slot": false
         },
         {
@@ -14244,7 +14244,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": "Sends an arc travelling around the ring. It needs the theme's `motion.tier` above `minimal` and\nat least one edge left in `edges`; failing either, the static gradient ring is what you get.",
+          "doc": "Sends a tail of light orbiting the ring. It needs the theme's `motion.tier` above `minimal` and\nat least one side left in `edges`; failing either, the static gradient ring is what you get.",
           "slot": false
         },
         {
@@ -14276,7 +14276,7 @@
           "type": "readonly GradientBorderEdge[]",
           "required": false,
           "default": "[1, 2, 3, 4]",
-          "doc": "Which sides the beam lights, clockwise from the top. Read only while `beam` runs — on a static\nring the gradient always goes all the way round.",
+          "doc": "Which sides the light is seen on, clockwise from the top. It is a window, not a route: the light\nalways orbits the whole frame at one speed, and the sides left out only hide it — so it slides in\nand out of the corners instead of appearing already there, and dropping sides never makes it\nfaster. Read only while `beam` runs.",
           "slot": false
         },
         {
@@ -14300,7 +14300,7 @@
           "type": "GradientBorderSequence",
           "required": false,
           "default": "\"continuous\"",
-          "doc": "How the arcs are spaced in time. `\"continuous\"` chains them back to back over the edges that are\nlit, so the beam never breaks; `\"spaced\"` keeps every edge in its own quarter of the cycle, so\ndropping one leaves a gap rather than closing it up.",
+          "doc": "What the light does with the sides that are off. `\"continuous\"` skips them: the cycle is only as\nlong as the run that is lit, so the light comes straight back round instead of waiting out the\ndark stretch — at the same speed either way. `\"spaced\"` keeps the whole turn, so every side that\nis off costs its share of the cycle in darkness.\n\nSkipping needs the frame measured, so it lands on the client and only when the lit sides form one\nunbroken run; a broken one — `edges={[1, 3]}` — takes the whole turn whatever this says.",
           "slot": false
         },
         {
@@ -14316,7 +14316,7 @@
           "type": "GradientBorderTrail",
           "required": false,
           "default": "{ parts: 32, gap: 0.00385, bloom: 0.5 }",
-          "doc": "Afina la cola. Se lee **solo** cuando el haz da la vuelta entera —`continuous` con los cuatro\nlados—, que es el único caso montado con piezas; un subconjunto de `edges` o `spaced` usa una\nestela por lado y no tiene cola que ajustar.",
+          "doc": "Tunes the tail. Read in every configuration — `edges` only decides where the tail is seen, never\nhow it is built.",
           "slot": false
         },
         {
@@ -15277,6 +15277,10 @@
           ],
           "slots": [],
           "inherited": [
+            {
+              "group": "html",
+              "count": 275
+            },
             {
               "group": "styleProps",
               "count": 124
@@ -18701,9 +18705,9 @@
         {
           "name": "children",
           "type": "ReactNode",
-          "required": true,
+          "required": false,
           "default": null,
-          "doc": null,
+          "doc": "El cuerpo, dentro del panel que dibuja el propio modal. Sobra cuando se pasa `content`.",
           "slot": false
         },
         {
@@ -18736,6 +18740,14 @@
           "required": false,
           "default": "true",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "El panel entero, traido por el consumidor.\n\nCon esto el modal **no dibuja panel**: se queda con lo que nadie quiere reescribir —el\n`<dialog>` nativo, el foco atrapado, el bloqueo del scroll, el velo desenfocado, la entrada y\nla salida animadas y el cierre por fuera— y suelta su superficie, su cabecera, su cuerpo y su\npie. Lo que se pase ocupa ese sitio tal cual, sin envoltorio.\n\nEs para cuando la ventana ya tiene una forma propia en el producto —una `Card` con su anillo de\ndegradado, por ejemplo— y meterla dentro del panel del modal dejaria una superficie sobre otra.\n\nManda sobre `children`, `title`, `subtitle`, `footer`, `padding` y `withCloseButton`: con panel\npropio, esas piezas las pone quien lo trae. **Y el nombre accesible tambien**: sin `title` no\nhay de donde sacarlo, asi que pasa a hacer falta un `aria-label`.",
           "slot": false
         },
         {
