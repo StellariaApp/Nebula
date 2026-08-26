@@ -1,7 +1,7 @@
 import { AppShell as AppShellRoot } from "./AppShell.js";
 import { AppShellAside } from "./components/Aside.js";
 import { AppShellContent } from "./components/Content.js";
-import { AppShellFooter } from "./components/Footer.js";
+import { AppShellFooter, AppShellFooterContent } from "./components/Footer.js";
 import { AppShellHeader } from "./components/Header.js";
 import { AppShellLink, AppShellLinks, AppShellLabel } from "./components/Links.js";
 import { AppShellNav } from "./components/Nav.js";
@@ -20,6 +20,10 @@ const Sidebar = /* @__PURE__ */ Object.assign(AppShellSidebar, {
   Footer: AppShellSidebarFooter,
 });
 
+const Footer = /* @__PURE__ */ Object.assign(AppShellFooter, {
+  Content: AppShellFooterContent,
+});
+
 export const AppShell = /* @__PURE__ */ Object.assign(AppShellRoot, {
   Sidebar,
   Label: AppShellLabel,
@@ -31,13 +35,14 @@ export const AppShell = /* @__PURE__ */ Object.assign(AppShellRoot, {
   Header: AppShellHeader,
   Subbar: AppShellSubbar,
   Content: AppShellContent,
-  Footer: AppShellFooter,
+  Footer,
 });
 
 export {
   AppShellAside,
   AppShellContent,
   AppShellFooter,
+  AppShellFooterContent,
   AppShellHeader,
   AppShellNav,
   AppShellSection,
@@ -55,6 +60,7 @@ export type {
   AppShellHeaderProps,
   AppShellLabels,
   AppShellProps,
+  AppShellFooterContentProps,
   AppShellFooterProps,
   AppShellNavProps,
   AppShellRailCollapse,

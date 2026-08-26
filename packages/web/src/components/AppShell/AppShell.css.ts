@@ -704,6 +704,22 @@ export const footer = style({
   },
 });
 
+const FOOTER_CONTENT_HIDDEN = { display: "none !important" };
+
+export const footer_content = style({
+  "@layer": {
+    [composite_layer]: {
+      minWidth: 0,
+      selectors: {
+        "[data-sidebar-collapsed='true'] &": FOOTER_CONTENT_HIDDEN,
+      },
+      "@media": {
+        [SmallerThan("laptop")]: FOOTER_CONTENT_HIDDEN,
+      },
+    },
+  },
+});
+
 /** La cabecera vale en los dos montajes: como región de la rejilla o dentro de una sección. */
 export const header_sticky = style({
   "@layer": {

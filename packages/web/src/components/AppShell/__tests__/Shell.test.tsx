@@ -35,6 +35,26 @@ describe("AppShell", () => {
     expect(screen.getByRole("main")).toBeDefined();
   });
 
+  it("Footer.Content es un div que compone className y props de Box", () => {
+    render(
+      <AppShell
+        footer={
+          <AppShell.Footer>
+            <AppShell.Footer.Content className="propio" p="sm" data-testid="pie">
+              bloque
+            </AppShell.Footer.Content>
+          </AppShell.Footer>
+        }
+      >
+        contenido
+      </AppShell>,
+    );
+    const node = screen.getByTestId("pie");
+    expect(node.tagName).toBe("DIV");
+    expect(node.className).toContain("propio");
+    expect(node.className.split(" ").length).toBeGreaterThan(2);
+  });
+
   it("el skip-link apunta al main y el main puede recibir el foco", () => {
     render(
       <AppShell contentId="principal" header={<span>c</span>}>

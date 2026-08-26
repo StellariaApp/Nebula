@@ -169,6 +169,12 @@ export interface AppShellFooterProps extends StyleProps {
   className?: string | undefined;
 }
 
+/**
+ * The block of a footer that goes away when the rail shrinks: the rule of `Label` on a `div`, for
+ * everything that is not a run of text. It takes the `Box` style props, `component` included.
+ */
+export type AppShellFooterContentProps = BoxSlotProps;
+
 export interface AppShellSubbarProps extends StyleProps {
   children: ReactNode;
   level?: GlassLevel | undefined;

@@ -53,6 +53,7 @@ es lo que un panel necesita. Son dos anatomías distintas y por eso no se mezcla
 | `Nav`                                  | `<nav>`     | región                                          |
 | `Aside`                                | `<aside>`   | región                                          |
 | `Footer`                               | `<footer>`  | región                                          |
+| `Footer.Content`                       | `<div>`     | como `Label`, para lo que no es texto           |
 | `Sidebar`                              | `<aside>`   | carril, altura completa                         |
 | `Sidebar.Header` / `.Body` / `.Footer` | —           | las tres franjas de la barra                    |
 | `Links`                                | —           | grupo de enlaces con rótulo y acción            |
@@ -61,6 +62,17 @@ es lo que un panel necesita. Son dos anatomías distintas y por eso no se mezcla
 | `Section`                              | `<section>` | dentro del carril, **sin padding**              |
 | `Subbar`                               | —           | bajo una cabecera                               |
 | `Content`                              | —           | el único que pone padding                       |
+
+## `Label` y `Footer.Content` son la misma regla en dos elementos
+
+Las dos desaparecen igual —bajo `laptop` y con el carril encogido—, y se diferencian en el elemento:
+`<span>` para el rótulo de un enlace, `<div>` para el bloque que no es texto —un avatar con su saldo
+en el pie de la barra—. Un `<div>` dentro de un `<span>` es marcado inválido y el navegador lo parte,
+así que la elección no es de estilo.
+
+`Footer.Content` acepta además los props de estilo de `Box`, y por eso esconde con `!important`: esos
+props viven en la capa `util`, la última, y sin él un `display="flex"` del consumidor le ganaría a la
+regla que lo oculta.
 
 ## Por qué el root no envuelve
 

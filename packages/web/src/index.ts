@@ -425,6 +425,7 @@ export type { RenderFlag } from "./fields/dial-select.js";
 export { AppShell } from "./components/AppShell/index.js";
 export type {
   AppShellContentProps,
+  AppShellFooterContentProps,
   AppShellFooterProps,
   AppShellHeaderProps,
   AppShellLabels,
