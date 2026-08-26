@@ -1,5 +1,17 @@
 # @stellaria/nebula-web
 
+## 1.1.7
+
+### Patch Changes
+
+- - Nuevo `AppShell.Footer.Content` para componer el contenido del pie dentro del AppShell.
+  - `Label` ahora aplica su estilo también cuando envuelve un `div`, no solo texto.
+  - `Button` deja de envolver en un `<span>` el contenido que no es texto, así que íconos y elementos pasados como hijos llegan sin ese wrapper extra.
+  - @stellaria/nebula-tokens@1.1.7
+  - @stellaria/nebula-hooks@1.1.7
+  - @stellaria/nebula-themes@1.1.7
+  - @stellaria/nebula-icons@1.1.7
+
 ## 1.1.6
 
 ### Patch Changes

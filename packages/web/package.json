@@ -1,6 +1,6 @@
 {
   "name": "@stellaria/nebula-web",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Componentes web del design system Nebula (Vanilla Extract + React Aria + motion)",
   "license": "MIT",
   "author": "Stellaria",
