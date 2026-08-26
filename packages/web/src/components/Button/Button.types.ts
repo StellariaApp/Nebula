@@ -46,8 +46,8 @@ export interface ButtonProps
   /** Envoltorio de `rightSection`. */
   rightSectionProps?: BoxSlotProps | undefined;
   /**
-   * The label, which wraps `children`. With `loading` it dims alongside the sections, which is how
-   * the button makes room for the spinner without changing size.
+   * The label element. It only exists when `children` is text; passing these props brings it back
+   * over a node, which is the way to style a label the button would otherwise render bare.
    */
   labelProps?: TextSlotProps | undefined;
   /**
@@ -103,8 +103,10 @@ export interface ButtonProps
   /** The same after the label, and `aria-hidden` for the same reason. */
   rightSection?: ReactNode | undefined;
   /**
-   * The label. It is wrapped in a `Text` that inherits, so it takes the button's own type instead of
-   * imposing paragraph type on it.
+   * The label. Text — a string, a number, or a run of them — is wrapped in a `Text` that inherits, so
+   * it takes the button's own type instead of imposing paragraph type on it. A node goes in bare:
+   * a `<div>` inside a `<span>` is invalid markup, and the wrapper flattened whatever layout the
+   * node brought with it.
    */
   children?: ReactNode | undefined;
 }

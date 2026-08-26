@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Children,
   forwardRef,
   useMemo,
   useRef,
@@ -162,6 +163,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       resolved.glow !== "none" &&
       resolved.animated;
 
+    const label_nodes = Children.toArray(children);
+    const label_wraps =
+      labelProps !== undefined ||
+      (label_nodes.length > 0 &&
+        label_nodes.every((node) => typeof node === "string" || typeof node === "number"));
+
     const dom_props = mergeProps(
       is_link ? WithoutButtonSemantics(buttonProps) : buttonProps,
       hoverProps,
@@ -197,33 +204,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             component="span"
             aria-hidden="true"
             {...leftSectionProps}
-            className={cx(
-              styles.section,
-              loading && styles.label_loading,
-              leftSectionProps?.className,
-            )}
+            className={cx(styles.section, leftSectionProps?.className)}
           >
             {leftSection}
           </Box>
         )}
-        <Text
-          component="span"
-          inherit
-          {...labelProps}
-          className={cx(loading && styles.label_loading, labelProps?.className)}
-        >
-          {children}
-        </Text>
+        {label_wraps ? (
+          <Text component="span" inherit {...labelProps}>
+            {children}
+          </Text>
+        ) : (
+          children
+        )}
         {rightSection === undefined ? null : (
           <Box
             component="span"
             aria-hidden="true"
             {...rightSectionProps}
-            className={cx(
-              styles.section,
-              loading && styles.label_loading,
-              rightSectionProps?.className,
-            )}
+            className={cx(styles.section, rightSectionProps?.className)}
           >
             {rightSection}
           </Box>

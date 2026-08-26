@@ -1805,7 +1805,7 @@
           "type": "ReactNode",
           "required": false,
           "default": null,
-          "doc": "The label. It is wrapped in a `Text` that inherits, so it takes the button's own type instead of\nimposing paragraph type on it.",
+          "doc": "The label. Text — a string, a number, or a run of them — is wrapped in a `Text` that inherits, so\nit takes the button's own type instead of imposing paragraph type on it. A node goes in bare:\na `<div>` inside a `<span>` is invalid markup, and the wrapper flattened whatever layout the\nnode brought with it.",
           "slot": false
         },
         {
@@ -1911,7 +1911,7 @@
           "type": "TextSlotProps",
           "required": false,
           "default": null,
-          "doc": "The label, which wraps `children`. With `loading` it dims alongside the sections, which is how\nthe button makes room for the spinner without changing size.",
+          "doc": "The label element. It only exists when `children` is text; passing these props brings it back\nover a node, which is the way to style a label the button would otherwise render bare.",
           "slot": true
         },
         {

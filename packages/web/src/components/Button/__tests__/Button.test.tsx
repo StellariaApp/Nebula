@@ -41,6 +41,38 @@ describe("Button — render y variantes", () => {
     expect(screen.getByRole("button").getAttribute("type")).toBe("button");
   });
 
+  it("envuelve el label en un span solo cuando es texto", () => {
+    RenderButton(<Button>Guardar</Button>);
+    const label = screen.getByRole("button").querySelector("span");
+    expect(label?.textContent).toBe("Guardar");
+  });
+
+  it("un nodo entra crudo, sin span de por medio", () => {
+    RenderButton(
+      <Button>
+        <div data-testid="bloque">Guardar</div>
+      </Button>,
+    );
+    expect(screen.getByTestId("bloque").parentElement?.tagName).toBe("BUTTON");
+  });
+
+  it("con labelProps el envoltorio vuelve sobre un nodo", () => {
+    RenderButton(
+      <Button labelProps={{ className: "mi-label" }}>
+        <div data-testid="bloque">Guardar</div>
+      </Button>,
+    );
+    const parent = screen.getByTestId("bloque").parentElement;
+    expect(parent?.tagName).toBe("SPAN");
+    expect(parent?.className).toContain("mi-label");
+  });
+
+  it("sin children no monta un label vacío", () => {
+    RenderButton(<Button aria-label="Cerrar" leftSection={<span data-testid="icono">×</span>} />);
+    expect(screen.getByRole("button").children).toHaveLength(1);
+    expect(screen.getByTestId("icono")).toBeDefined();
+  });
+
   it("renderiza las 8 variantes del variantMap", () => {
     for (const variant of ALL_VARIANTS) {
       const { unmount } = RenderButton(<Button variant={variant}>v</Button>);

@@ -8,6 +8,17 @@ Plantilla canónica de las tres capas (docs/01 §4, ADR-018): React Aria para co
 
 **El label en `loading` usa `opacity: 0`**, no `visibility: hidden` ni `display: none`. Esos dos sacan el texto del árbol de accesibilidad y dejan al botón sin nombre discernible — violación `button-name` (crítica) que detectó el gate axe. Con `opacity` el lector de pantalla sigue anunciando la acción y `aria-busy` comunica la carga.
 
+**El envoltorio del label solo existe si el label es texto.** Un `ReactNode` —un `Flex`, un `Box`—
+entra crudo. Envolverlo metía un `<div>` dentro de un `<span>`, que es marcado inválido y el navegador
+parte, y además convertía al hijo del botón en hijo de un inline: la caja que el nodo traía se perdía
+contra el `inline-flex` del botón. Con `labelProps` el envoltorio vuelve, que es la salida para quien
+quiera estilar el label de un nodo.
+
+**El velo de `loading` es una regla global sobre los hijos directos**, no una clase por ranura. Con el
+label crudo no hay dónde colgarla, así que la hoja atenúa `> *:not(spinner)` desde fuera de toda capa:
+los props de estilo viven en `util`, la última, y una regla en capa perdería contra un `opacity` del
+consumidor.
+
 **El cast de `mergeProps` a `HTMLMotionProps` es una frontera real**: React Aria tipa sus handlers como eventos DOM (`DOMAttributes`) y `motion` redefine `onAnimationStart` y `onDrag*` con su propia firma. Los dos tipos son estructuralmente incompatibles por diseño; el objeto resultante es válido en runtime para un `<button>`. Por eso las props en conflicto se excluyen del contrato público en `Button.types.ts`.
 
 ## `size` mueve la caja, no la separación
