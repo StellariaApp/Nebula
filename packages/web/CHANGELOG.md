@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.8
+
+### Patch Changes
+
+- - El carrusel controlado ya respeta el índice que le pasas: al cambiarlo se desplaza a esa lámina y deja de reiniciarse al inicio.
+  - @stellaria/nebula-tokens@1.1.8
+  - @stellaria/nebula-hooks@1.1.8
+  - @stellaria/nebula-themes@1.1.8
+  - @stellaria/nebula-icons@1.1.8
+
 ## 1.1.7
 
 ### Patch Changes
