@@ -46,6 +46,16 @@ export interface CarouselProps<T> extends Omit<StyleProps, "align"> {
   withControls?: boolean | undefined;
   withIndicators?: boolean | undefined;
   slidesToScroll?: number | undefined;
+  /**
+   * Cuánto dura el recorrido, en las unidades de Embla — que no son milisegundos. Sube para un
+   * gesto más largo; `prefers-reduced-motion` lo lleva a cero pase lo que pase aquí.
+   */
+  duration?: number | undefined;
+  /**
+   * Si el desplazamiento se queda dentro del contenido. Con `false` cualquier slide puede llegar al
+   * centro; con `"trimSnaps"` —el defecto— la primera y la última se quedan pegadas a su borde.
+   */
+  containScroll?: false | "trimSnaps" | "keepSnaps" | undefined;
   index?: number | undefined;
   defaultIndex?: number | undefined;
   onIndexChange?: ((index: number) => void) | undefined;

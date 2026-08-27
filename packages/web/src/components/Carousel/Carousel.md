@@ -39,3 +39,25 @@ pausa tiene sentido.
 El ancho de slide es un número o una longitud CSS (`"100%"`, `"33.333%"`, `280`), no una escala. Una
 escala de tallas no sirve aquí: el número de slides visibles depende del contenedor y del contenido, y
 cada consumidor lo calcula distinto. Va por `assignInlineVars` para que el recipe siga siendo estático.
+
+## El índice controlado mueve, no reinicia
+
+`startIndex` se lee **una sola vez**, al montar. Antes recibía `index ?? defaultIndex`, o sea la
+posición viva del modo controlado, y ahí estaba el fallo: el envoltorio de React de Embla compara sus
+opciones **por valor** y llama a `reInit` en cuanto una cambia, así que cada cambio de `index`
+replantaba el carrusel en ese slide **de un salto** — y se comía el `scrollTo` que hay justo debajo,
+que es el que lo recorre. Medido en un consumidor: `330 → −930` en un fotograma con `index` puesto, y
+la deceleración entera (`−22 → −35 → −43 → −49 → −54 → −60…` en muestras de 25 ms) sin él.
+
+El modo controlado se mueve por el efecto y sólo por él. `defaultIndex` sigue siendo de dónde arranca.
+
+## `duration` y `containScroll` se dejan pasar
+
+Los dos gobiernan cosas que no se pueden imitar desde fuera, y por eso son props y no valores fijos:
+
+- **`duration`** son las unidades de Embla, no milisegundos; 25 es lo de siempre. `prefers-reduced-motion`
+  sigue mandando por encima y lo lleva a cero.
+- **`containScroll`** decide si el carrusel puede desplazarse más allá de su contenido. Con el defecto
+  —`"trimSnaps"`— **la primera y la última nunca llegan al centro** aunque `align` sea `center`: no hay
+  contenido detrás que las empuje. Con `false` sí, que es lo que quiere un selector donde la lámina
+  elegida se queda en medio.

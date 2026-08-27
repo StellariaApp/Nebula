@@ -37,6 +37,8 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
     withControls = true,
     withIndicators = false,
     slidesToScroll = 1,
+    duration = 25,
+    containScroll = "trimSnaps",
     index,
     defaultIndex = 0,
     onIndexChange,
@@ -62,17 +64,20 @@ export function Carousel<T>(props: CarouselProps<T>): ReactElement {
   // La consulta, sin motion: es lo unico que se usaba de la libreria en este fichero.
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 
+  const [start_index] = useState(index ?? defaultIndex);
+
   const [viewport_ref, embla] = useEmblaCarousel({
     axis,
     align,
     loop,
     dragFree,
     slidesToScroll,
-    startIndex: index ?? defaultIndex,
-    duration: reduced ? 0 : 25,
+    containScroll,
+    startIndex: start_index,
+    duration: reduced ? 0 : duration,
   });
 
-  const [selected, set_selected] = useState(index ?? defaultIndex);
+  const [selected, set_selected] = useState(start_index);
   const [can_prev, set_can_prev] = useState(false);
   const [can_next, set_can_next] = useState(false);
 
