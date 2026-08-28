@@ -283,13 +283,20 @@ export const sidebar_slot = style({
           paddingInline: vars.space.xxs,
           paddingBlock: vars.space.md,
         },
+        /**
+         * **Las dos ranuras miden lo suyo y nada más.**
+         *
+         * En la barra inferior el ancho es el recurso escaso: la marca y el bloque de usuario son
+         * fijos a los extremos y lo que sobra es lo único por donde se navega. Con `min-width: 64`
+         * y relleno `md` se llevaban 135 px de 366 —el 37 %— para un sello de 30 y un avatar de 38.
+         */
         [SmallerThan("tablet")]: {
-          minWidth: 64,
+          minWidth: 0,
           flexDirection: "row",
           inlineSize: "max-content",
           blockSize: "100%",
           minBlockSize: 0,
-          paddingInline: vars.space.md,
+          paddingInline: vars.space.xs,
           paddingBlock: 0,
           borderBlock: "none !important",
         },
