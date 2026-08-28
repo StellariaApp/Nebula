@@ -296,8 +296,12 @@ export const sidebar_slot = style({
           inlineSize: "max-content",
           blockSize: "100%",
           minBlockSize: 0,
-          paddingInline: vars.space.xs,
-          paddingBlock: 0,
+          /**
+           * **El mismo hueco por los cuatro lados.** Con relleno lateral y cero arriba y abajo, la
+           * marca y el avatar quedaban centrados en una caja que llegaba al filo, y al lado de una
+           * pestaña —que sí tiene aire por dentro— se leían como pegados.
+           */
+          padding: vars.space.xs,
           borderBlock: "none !important",
         },
       },

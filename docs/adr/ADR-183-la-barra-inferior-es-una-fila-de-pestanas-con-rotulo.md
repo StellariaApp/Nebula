@@ -61,8 +61,9 @@ Por debajo de `tablet`, y sólo ahí:
 7. **Las dos ranuras de los extremos miden lo suyo y nada más.** La marca y el bloque de usuario
    son fijos a los lados y lo que sobra es lo único por donde se navega; con `min-width: 64` y
    relleno `md` se llevaban 135 px de 366 —el 37 %— para un sello de 30 y un avatar de 38. Sin
-   mínimo y con relleno `xs` son 82, y las pestañas pasan de 229 a 282: **un 23 % más de barra
-   dedicada a navegar**, que es una pestaña más a la vista.
+   mínimo y con relleno `xs` —el mismo por los cuatro lados, que con cero arriba y abajo la marca
+   quedaba pegada al filo mientras la pestaña de al lado sí tenía aire— las pestañas ganan sitio:
+   **una pestaña más a la vista**.
 8. **El contenedor suelta relleno lateral y gana vertical**: `paddingInline` de `md` a `xs`, hueco
    entre destinos de `sm` a `xxs`, y `paddingBlock` de `0` a `xxs` para que la fila no vaya pegada
    al filo de la barra. Lo que se ahorra a los lados se lo quedan los enlaces.
