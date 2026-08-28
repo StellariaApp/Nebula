@@ -473,10 +473,10 @@ export const links_content = style({
         },
         [SmallerThan("tablet")]: {
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: "stretch",
           paddingBlock: 0,
-          paddingInline: vars.space.md,
-          gap: vars.space.sm,
+          paddingInline: vars.space.xs,
+          gap: vars.space.xxs,
           height: "100%",
           inlineSize: "max-content",
           borderBlock: "none !important",
@@ -526,9 +526,14 @@ export const link = style({
           width: "100%",
         },
         [SmallerThan("tablet")]: {
+          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
+          gap: 2,
           width: "100%",
-          paddingBlock: vars.space.xs,
+          minWidth: 64,
+          paddingBlock: vars.space.xxs,
+          paddingInline: vars.space.xs,
         },
       },
     },
@@ -538,6 +543,56 @@ export const link = style({
 globalStyle(`${link} > ${NavLinkStyles.body}`, {
   "@media": {
     [SmallerThan("laptop")]: { display: "none" },
+    [SmallerThan("tablet")]: {
+      display: "block",
+      /**
+       * El tope es lo que hace que sea una fila de pestañas y no una de frases. Sin el, cada
+       * destino mide lo que mida su rotulo —«Volver al inicio» vale por tres iconos— y la barra
+       * deja de leerse como una rejilla. El recorte por elipsis ya lo trae `NavLink`.
+       */
+      maxInlineSize: 84,
+      minInlineSize: 0,
+      fontSize: vars.font.size.caption,
+      lineHeight: vars.font.lineHeight.tight,
+      textAlign: "center",
+      inlineSize: "100%",
+    },
+  },
+});
+
+/**
+ * **El rótulo vuelve en la barra inferior**, y sólo ahí.
+ *
+ * `AppShell.Label` se apaga por debajo de `laptop` porque el carril mini es una columna de iconos y
+ * no cabe. La barra de `tablet` no es esa columna: es una fila de destinos, y un destino sin nombre
+ * obliga a adivinar el icono. La regla se ata al enlace —tres clases— para que las otras dos
+ * `AppShell.Label` de la barra, la de la cabecera y la del pie, sigan apagadas: ésas sí desbordan.
+ */
+globalStyle(`${link} ${NavLinkStyles.body} ${label}`, {
+  "@media": {
+    [SmallerThan("tablet")]: { display: "inline" },
+  },
+});
+
+/**
+ * **Dos renglones, y lo que no quepa se corta ahí y no a media palabra.**
+ *
+ * `NavLink` escribe su rótulo en una línea con elipsis, que es lo que quiere una fila vertical: ahí
+ * el enlace tiene todo el ancho de la barra. Debajo de un icono no lo tiene, y «Volver al inicio»
+ * en una línea de 84 px sale «Volver al i…». Envolviendo a dos cabe entero, y el recorte queda para
+ * los rótulos que de verdad no caben en dos.
+ */
+globalStyle(`${link} ${NavLinkStyles.body} ${NavLinkStyles.label}`, {
+  "@media": {
+    [SmallerThan("tablet")]: {
+      display: "-webkit-box",
+      WebkitBoxOrient: "vertical",
+      WebkitLineClamp: 2,
+      whiteSpace: "normal",
+      overflowWrap: "anywhere",
+      overflow: "hidden",
+      inlineSize: "100%",
+    },
   },
 });
 
