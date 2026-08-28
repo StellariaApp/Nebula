@@ -179,14 +179,15 @@ function OwnedByNested(
 
   while (current !== null && current !== node) {
     if (current instanceof HTMLElement) {
-      const overflow = horizontal
-        ? getComputedStyle(current).overflowX
-        : getComputedStyle(current).overflowY;
       const room = Limit(current, horizontal);
       const at = Offset(current, horizontal);
-      const scrollable = overflow === "auto" || overflow === "scroll";
-      if (scrollable && room > 0 && ((delta < 0 && at > 0) || (delta > 0 && at < room)))
-        return true;
+      const travels = (delta < 0 && at > 0) || (delta > 0 && at < room);
+      if (room > 0 && travels) {
+        const overflow = horizontal
+          ? getComputedStyle(current).overflowX
+          : getComputedStyle(current).overflowY;
+        if (overflow === "auto" || overflow === "scroll") return true;
+      }
     }
     current = current.parentElement;
   }
