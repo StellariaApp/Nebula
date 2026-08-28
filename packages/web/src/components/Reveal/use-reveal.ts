@@ -136,8 +136,12 @@ export function useReveal(options: UseRevealOptions = {}): UseRevealResult {
       (entries) => {
         const entry = entries[0];
         if (entry === undefined) return;
-        if (entry.isIntersecting) set_shown(true);
-        else if (!once) set_shown(false);
+        if (entry.isIntersecting) {
+          set_shown(true);
+          if (once) observer.disconnect();
+          return;
+        }
+        if (!once) set_shown(false);
       },
       { threshold: amount, rootMargin },
     );

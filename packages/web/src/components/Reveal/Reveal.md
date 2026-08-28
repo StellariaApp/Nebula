@@ -166,3 +166,14 @@ los tres porque en una landing la entrada acompaña al scroll en vez de competir
 
 `duration` sigue funcionando y, cuando se pasa, vuelve a elegir el tween: es la vía para una entrada
 de duración exacta. `spring` gana a `duration` si se pasan los dos.
+
+## El observador se suelta al entrar
+
+Con `once` —que es el default— el elemento ya no puede volver a esconderse, así que el observador no
+tiene nada más que mirar. Antes seguía enganchado hasta que se desmontaba el componente: en una
+landing eran **34 `IntersectionObserver` vivos** haciendo cuentas en cada scroll para decidir algo que
+ya estaba decidido.
+
+No es una fuga —no crece, se libera al desmontar— y no aparecía en el perfilado como coste medible.
+Se suelta porque el trabajo sobra, no porque doliera: `disconnect()` en cuanto entra, que con un solo
+elemento observado equivale a `unobserve` y no depende de que la entrada traiga `target`.
