@@ -125,6 +125,13 @@ quedar fuera de vista. `Sidebar.Body` observa `data-active` en su subárbol y, s
 mueve **solo su propio contenedor** —el que scrollea de verdad— hasta el borde más cercano, en los dos
 ejes: sirve igual para el carril vertical que para la barra horizontal de `tablet`.
 
+**Quién scrollea cambia con el ancho, así que se pregunta desde el propio cuerpo hacia arriba.** En el
+carril vertical el que se desplaza es el contenedor —el cuerpo es `overflow: hidden`—; al tenderse
+como barra inferior bajo `tablet` los papeles se cambian: el cuerpo pasa a `overflow-x: auto` y el
+contenedor, ya fijo y del ancho de la pantalla, se queda sin recorrido. Buscar empezando en el padre
+daba siempre el contenedor, y en la barra horizontal eso es un `scrollTo` contra un elemento que no
+tiene adónde ir: un no-op que no rompe nada y no ve ningún gate. ADR-182.
+
 **No usa `scrollIntoView` a propósito.** Esa API arrastra a todos los ancestros scrollables, y el grid
 del carril es `overflow: hidden`: llevarlo ahí desplaza la página entera y nadie puede devolverla.
 Medido en el sitio de docs con un enlace activo al final de la lista: el grid se iba 120 px y el

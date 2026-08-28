@@ -23,13 +23,19 @@ const SCROLLS = new Set(["auto", "scroll", "overlay"]);
  * El contenedor que scrollea la barra. Se busca a mano porque `scrollIntoView` arrastra a TODOS los
  * ancestros: el grid del carril es `overflow: hidden` y llevarlo ahí desplaza la página entera sin
  * que nadie pueda devolverla.
+ *
+ * **La búsqueda empieza en el propio nodo**, no en su padre, porque quién scrollea cambia con el
+ * ancho. En el carril vertical el cuerpo es `overflow: hidden` y el que se desplaza es el
+ * contenedor; al tenderse como barra inferior bajo `tablet` los papeles se cambian —el cuerpo pasa
+ * a `overflow-x: auto` y el contenedor deja de tener nada que desplazar—. Arrancando en el padre,
+ * la barra horizontal encontraba siempre el contenedor y le pedía un `scrollTo` que no movía nada.
  */
 function Scroller(node: HTMLElement): HTMLElement | null {
-  let parent = node.parentElement;
-  while (parent !== null) {
-    const style = getComputedStyle(parent);
-    if (SCROLLS.has(style.overflowY) || SCROLLS.has(style.overflowX)) return parent;
-    parent = parent.parentElement;
+  let element: HTMLElement | null = node;
+  while (element !== null) {
+    const style = getComputedStyle(element);
+    if (SCROLLS.has(style.overflowY) || SCROLLS.has(style.overflowX)) return element;
+    element = element.parentElement;
   }
   return null;
 }
