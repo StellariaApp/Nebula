@@ -557,7 +557,7 @@ globalStyle(`${link} > ${NavLinkStyles.body}`, {
        * para un sitio no vale la pena** — sería el único consumidor de una escala nueva.
        */
       fontSize: 11,
-      lineHeight: 1.15,
+      lineHeight: 1.1,
       maxInlineSize: 64,
       minInlineSize: 0,
       textAlign: "center",
@@ -598,6 +598,12 @@ globalStyle(`${link} ${NavLinkStyles.body} ${NavLinkStyles.label}`, {
       overflowWrap: "break-word",
       overflow: "hidden",
       inlineSize: "100%",
+      /**
+       * **La interlínea va aquí y no en el cuerpo.** `NavLink` fija la suya —`normal`, 1,45— en el
+       * rótulo, así que heredarla desde arriba no vale: gana la del componente y los dos renglones
+       * salían de 16 px cada uno con letra de 11.
+       */
+      lineHeight: 1.1,
     },
   },
 });

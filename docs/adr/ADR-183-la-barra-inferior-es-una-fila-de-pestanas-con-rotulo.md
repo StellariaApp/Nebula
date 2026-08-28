@@ -45,9 +45,13 @@ Por debajo de `tablet`, y sólo ahí:
 4. **El rótulo tope 64 px y la pestaña 80.** Sin tope, cada destino mide lo que mida su nombre y la
    barra deja de leerse como una rejilla; con uno holgado la pestaña sale rectangular. Con estos
    dos, un destino mide 60×64 o 72×64 según su nombre.
-5. **El rótulo baja a 11 px con interlínea 1,15.** Por debajo del `caption` de los tokens, que es 12
+5. **El rótulo baja a 11 px con interlínea 1,1.** Por debajo del `caption` de los tokens, que es 12
    y aquí queda grande: el rótulo de una pestaña acompaña al icono, no compite con él. No hay token
    más pequeño y no se añade uno: sería una escala nueva con un solo consumidor.
+
+   **La interlínea va en la regla del rótulo, no en la del cuerpo.** `NavLink` fija la suya —`normal`,
+   1,45— en el propio rótulo, así que heredarla desde arriba no vale: gana la del componente, y con
+   letra de 11 el renglón seguía midiendo 16 px en vez de 12.
 6. **El contenedor suelta relleno lateral y gana vertical**: `paddingInline` de `md` a `xs`, hueco
    entre destinos de `sm` a `xxs`, y `paddingBlock` de `0` a `xxs` para que la fila no vaya pegada
    al filo de la barra. Lo que se ahorra a los lados se lo quedan los enlaces.
