@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.10
+
+### Patch Changes
+
+- - La barra inferior se asienta como una fila más del grid, sin flotar sobre un hueco vacío ni dejar espacio muerto debajo.
+  - @stellaria/nebula-tokens@1.1.10
+  - @stellaria/nebula-hooks@1.1.10
+  - @stellaria/nebula-themes@1.1.10
+  - @stellaria/nebula-icons@1.1.10
+
 ## 1.1.9
 
 ### Patch Changes

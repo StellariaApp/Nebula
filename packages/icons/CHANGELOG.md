@@ -1,5 +1,7 @@
 # @stellaria/nebula-icons
 
+## 1.1.10
+
 ## 1.1.9
 
 ## 1.1.8
