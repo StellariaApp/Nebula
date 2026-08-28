@@ -474,7 +474,7 @@ export const links_content = style({
         [SmallerThan("tablet")]: {
           flexDirection: "row",
           alignItems: "stretch",
-          paddingBlock: 0,
+          paddingBlock: vars.space.xxs,
           paddingInline: vars.space.xs,
           gap: vars.space.xxs,
           height: "100%",
@@ -531,7 +531,8 @@ export const link = style({
           justifyContent: "center",
           gap: 2,
           width: "100%",
-          minWidth: 64,
+          minWidth: 60,
+          maxWidth: 80,
           paddingBlock: vars.space.xxs,
           paddingInline: vars.space.xs,
         },
@@ -550,10 +551,15 @@ globalStyle(`${link} > ${NavLinkStyles.body}`, {
        * destino mide lo que mida su rotulo —«Volver al inicio» vale por tres iconos— y la barra
        * deja de leerse como una rejilla. El recorte por elipsis ya lo trae `NavLink`.
        */
-      maxInlineSize: 84,
+      /**
+       * Por debajo del `caption` de los tokens, que es 12 y aquí queda grande: el rótulo de una
+       * pestaña acompaña al icono, no compite con él. No hay token más pequeño, y **inventar uno
+       * para un sitio no vale la pena** — sería el único consumidor de una escala nueva.
+       */
+      fontSize: 11,
+      lineHeight: 1.15,
+      maxInlineSize: 64,
       minInlineSize: 0,
-      fontSize: vars.font.size.caption,
-      lineHeight: vars.font.lineHeight.tight,
       textAlign: "center",
       inlineSize: "100%",
     },
@@ -589,7 +595,7 @@ globalStyle(`${link} ${NavLinkStyles.body} ${NavLinkStyles.label}`, {
       WebkitBoxOrient: "vertical",
       WebkitLineClamp: 2,
       whiteSpace: "normal",
-      overflowWrap: "anywhere",
+      overflowWrap: "break-word",
       overflow: "hidden",
       inlineSize: "100%",
     },

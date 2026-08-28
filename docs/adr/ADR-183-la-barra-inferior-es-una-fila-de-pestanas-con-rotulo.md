@@ -35,23 +35,33 @@ Por debajo de `tablet`, y sólo ahí:
    ésas sí desbordan.
 3. **Dos renglones, no uno.** `NavLink` escribe su rótulo en una línea con elipsis, que es lo que
    quiere una fila vertical porque ahí el enlace tiene todo el ancho. Debajo de un icono no lo
-   tiene: «Volver al inicio» en una línea de 84 px sale «Volver al i…». Con
-   `-webkit-line-clamp: 2` y `overflow-wrap: anywhere` cabe entero, y el recorte queda para lo que
-   de verdad no entra en dos — con su elipsis, que la hereda de `NavLink`.
-4. **El tope son 84 px.** Sin él, cada destino mide lo que mida su nombre y la barra deja de leerse
-   como una rejilla.
-5. **El contenedor suelta relleno**: `paddingInline` de `md` a `xs` y el hueco entre destinos de
-   `sm` a `xxs`. Lo que se ahorra se lo quedan los enlaces.
+   tiene: «Volver al inicio» en una línea sale «Volver al i…». Con `-webkit-line-clamp: 2` y
+   `overflow-wrap: break-word` cabe entero, y el recorte queda para lo que de verdad no entra en
+   dos — con su elipsis, que la hereda de `NavLink`.
+
+   `break-word` y no `anywhere`: los dos evitan que una palabra larga desborde la caja, pero
+   `anywhere` parte también cuando **sí** había un espacio donde cortar, y «Volver al inicio» salía
+   «Volver a / l inicio».
+4. **El rótulo tope 64 px y la pestaña 80.** Sin tope, cada destino mide lo que mida su nombre y la
+   barra deja de leerse como una rejilla; con uno holgado la pestaña sale rectangular. Con estos
+   dos, un destino mide 60×64 o 72×64 según su nombre.
+5. **El rótulo baja a 11 px con interlínea 1,15.** Por debajo del `caption` de los tokens, que es 12
+   y aquí queda grande: el rótulo de una pestaña acompaña al icono, no compite con él. No hay token
+   más pequeño y no se añade uno: sería una escala nueva con un solo consumidor.
+6. **El contenedor suelta relleno lateral y gana vertical**: `paddingInline` de `md` a `xs`, hueco
+   entre destinos de `sm` a `xxs`, y `paddingBlock` de `0` a `xxs` para que la fila no vaya pegada
+   al filo de la barra. Lo que se ahorra a los lados se lo quedan los enlaces.
 
 ## Consecuencias
 
-- Un destino ocupa más ancho que antes, así que caben menos a la vez y la barra desplaza más. Es un
-  intercambio deliberado: con ADR-182 el activo siempre se ve, y saber qué es cada icono vale más
-  que ver dos iconos más sin nombre.
-- Medido en Rosette con WebKit a 390, los diez destinos: todos los rótulos reales caben en **una**
-  línea sin recorte y con el icono centrado —el más largo, «Volver al inicio», mide 81 de los 84—.
-  Metiendo a mano un rótulo de 34 caracteres sale a dos líneas y se recorta con elipsis; una palabra
-  larga sin espacios —«Internacionalizacion»— se parte y **no** se corta.
+- Un destino ocupa más ancho que un icono suelto, así que caben menos a la vez y la barra desplaza
+  más. Es un intercambio deliberado: con ADR-182 el activo siempre se ve, y saber qué es cada icono
+  vale más que ver dos iconos más sin nombre.
+- Medido en Rosette con WebKit a 390, los diez destinos: siete caben en una línea y tres —«Volver al
+  inicio», «Mis Avatares», «Saldo y gasto»— pasan a dos por su espacio. **Ninguno se recorta**, y el
+  icono queda centrado en los diez. Metiendo a mano un rótulo de 34 caracteres sale a dos líneas y
+  se recorta con elipsis; una palabra larga sin espacios —«Internacionalizacion»— se parte y **no**
+  desborda.
 - El carril vertical y el mini de `laptop` no cambian: todas las reglas viven dentro de
   `SmallerThan("tablet")`.
 - El tamaño del icono lo sigue poniendo el consumidor. `AppShell` no lo toca, porque el icono llega
