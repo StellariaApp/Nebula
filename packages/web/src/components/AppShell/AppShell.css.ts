@@ -73,7 +73,6 @@ export const skip = style({
 
 const RAIL_BAR_HEIGHT = "70px";
 const RAIL_BAR_GAP = "12px";
-const RAIL_BAR_SPACE = `calc(${RAIL_BAR_HEIGHT} + (2 * ${RAIL_BAR_GAP}))`;
 
 /** Modo carril: la barra ocupa la altura completa y cada sección lleva su propia cabecera. */
 export const rail = style({
@@ -97,11 +96,24 @@ export const rail = style({
       overflow: "hidden",
       "@media": {
         [SmallerThan("laptop")]: { gridTemplateColumns: `${variables.railMiniWidth} 1fr` },
+        /**
+         * **La barra es una fila, no algo flotando sobre un hueco reservado.**
+         *
+         * Antes la raiz media `100dvh - 94px` y dejaba 94 de `margin-block-end` para que la barra
+         * se posara encima en `fixed`. Medido en un iPhone contra Chrome: **los ultimos ~100 px de
+         * la ventana no se pintan** —una regla dibujada a 120 px del borde se ve y una a 40 no—, y
+         * la barra caia entera ahi dentro. Ningun API lo dice: `innerHeight`, `clientHeight` y
+         * `visualViewport.height` daban los tres 717 con solo ~620 visibles.
+         *
+         * Con `auto 1fr auto` la barra ocupa una fila de verdad, dentro de lo que la raiz pinta, y
+         * no hay borde de ventana con el que discutir. Y cuando el carril se retira, la fila `auto`
+         * se cierra sola: el hueco deja de necesitar que alguien lo reserve.
+         */
         [SmallerThan("tablet")]: {
-          gridTemplateAreas: `"chrome" "main"`,
+          gridTemplateAreas: `"chrome" "main" "rail"`,
           gridTemplateColumns: "1fr",
-          blockSize: `calc(100dvh - ${RAIL_BAR_SPACE})`,
-          marginBlockEnd: RAIL_BAR_SPACE,
+          gridTemplateRows: "auto 1fr auto",
+          blockSize: "100dvh",
         },
       },
     },
@@ -160,9 +172,9 @@ export const sidebar = style({
       position: "relative",
       "@media": {
         [SmallerThan("tablet")]: {
-          gridArea: "auto",
-          position: "static",
-          blockSize: 0,
+          gridArea: "rail",
+          position: "relative",
+          blockSize: "auto",
           minBlockSize: 0,
         },
       },
@@ -185,10 +197,11 @@ export const sidebar_container = style({
       borderBlock: "none !important",
       "@media": {
         [SmallerThan("tablet")]: {
-          position: "fixed",
+          position: "relative",
           insetBlockStart: "auto",
-          insetBlockEnd: RAIL_BAR_GAP,
-          insetInline: RAIL_BAR_GAP,
+          insetBlockEnd: "auto",
+          insetInline: "auto",
+          margin: RAIL_BAR_GAP,
           inlineSize: "auto",
           blockSize: RAIL_BAR_HEIGHT,
           maxBlockSize: RAIL_BAR_HEIGHT,
