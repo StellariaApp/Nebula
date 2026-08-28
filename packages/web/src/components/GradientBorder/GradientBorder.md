@@ -52,20 +52,25 @@ más se nota si se omite: con el anillo entero teñido de marca, la luz no se le
 sino como un neón con halo alrededor de todo el marco. El gradiente sigue mandando, pero solo en la
 cola.
 
-### Una sola animación, y la velocidad no cambia nunca (ADR-177)
+### Una sola animación, y la velocidad no cambia nunca (ADR-177, ADR-186)
 
-Hay **una sola animación**: `offset-distance` de una punta a otra del recorrido. Por defecto son la
-vuelta entera —`0%` a `100%` en `duration.expressive × 13` ≈ 5.5 s, la órbita de la referencia— y el
-porcentaje lo resuelve el navegador contra la longitud real del trazado, así que la velocidad es
-constante y el radio está contado sin escribir geometría ninguna.
+Hay **una sola animación**: `rotate` de `0deg` a `360deg` sobre un cuadrado con el gradiente cónico
+de la luz, en `duration.expressive × 13` ≈ 5.5 s, la órbita de la referencia. El ciclo dura lo mismo
+se enciendan los lados que se enciendan.
 
-No es una preferencia, es el arreglo de un fallo medido. La versión anterior repartía el ciclo en
+No es una preferencia, es el arreglo de un fallo medido. La versión más antigua repartía el ciclo en
 cuatro tramos de igual duración, y eso da **la misma duración a longitudes distintas**: en una card de
 476×82 el lado superior corría a 348 px/s y el derecho a 60, un salto de 5.8× en cada esquina.
 
-Cuando `continuous` recorta el recorrido a los lados encendidos, **el ciclo se acorta en la misma
-proporción**, así que la luz sigue yendo a la misma velocidad: lo único que cambia es cuánto camino
-hace.
+Un giro uniforme tiene el mismo vicio en pequeño, y por eso la curva no es `linear`. El punto donde el
+rayo corta el borde avanza como `sec²θ`: se arrastra en mitad de cada lado y se dispara en las
+esquinas. Medido sobre una tarjeta de 410×307, con giro uniforme el avance por paso iba de 41 a 87 px
+—**2.12×**— y en una tira de 16:5 llegaba a **6.06×**. Se lee exactamente como un ease por lado.
+
+Lo que lo corrige es una **`linear()` de 192 paradas generada a medida del marco**: se muestrea la
+longitud de arco recorrida a cada ángulo y se reparte el tiempo por perímetro en vez de por ángulo. Es
+el mismo recurso que `SpringToEasing` usa para muestrear un muelle. Con ella el avance queda plano
+—razón **1.00** en 4:3 y en 16:5— y la luz nunca se aparta más de **0.14 px** de donde tocaría.
 
 ### Los lados se eligen, y son una ventana
 
@@ -131,108 +136,91 @@ elegidas. La unión de las del 1 y el 3 son dos rectángulos sueltos, y eso no e
 
 ### `sequence`: qué pasa con los lados apagados
 
-|                            | recorrido                                                        | ciclo                       |
-| -------------------------- | ---------------------------------------------------------------- | --------------------------- |
-| `continuous` (por defecto) | se salta lo apagado: al acabar el tramo vuelve a su principio    | proporcional al tramo       |
-| `spaced`                   | la vuelta entera; lo apagado cuesta su parte del ciclo a oscuras | siempre la vuelta completa  |
+|                            | qué hace                                                          | ciclo                      |
+| -------------------------- | ----------------------------------------------------------------- | -------------------------- |
+| `continuous` (por defecto) | reparte varias cuñas: al salir una por una boca, entra otra       | la vuelta entera, siempre  |
+| `spaced`                   | una sola cuña; lo apagado cuesta su parte del ciclo a oscuras      | la vuelta entera, siempre  |
 
 La diferencia solo existe con lados apagados, y **en las dos la luz va igual de rápida**: `continuous`
-no acelera, acorta.
+no acelera, sino que no deja hueco. El ciclo no cambia nunca — lo que cambia es cada cuánto pasa una
+cuña por la ventana.
 
 `continuous` necesita que los lados encendidos formen **un tramo seguido**. Con `edges={[1, 3]}` hay
-dos tramos sueltos y una sola animación no puede recorrer los dos saltándose lo de en medio, así que
-ahí sale la vuelta entera aunque se pida `continuous`.
+dos tramos sueltos y no hay un reparto que sirva a los dos, así que ahí sale una sola cuña aunque se
+pida `continuous`.
 
 ### Por qué hay que medir el marco
 
-Para acortar el ciclo «lo mismo» que el recorrido hay que saber cuánto mide el recorrido, y **en CSS
-una duración no se deriva de una longitud**. Esa es la pared con la que chocaron los dos montajes
-anteriores: el de tramos mantenía el ciclo y cambiaba la velocidad; el de la vuelta entera mantiene la
-velocidad y cobra el tiempo de lo que no se ve.
+La curva de arco **es** el marco: sin ancho, alto y radio no se sabe cuánto perímetro hay por grado, y
+en CSS eso no se deriva de nada. Así que se mide —`getBoundingClientRect` y `getComputedStyle` sobre
+la capa del haz, que es del tamaño del marco— y con eso se calculan dos cosas: la `linear()` y cuántas
+cuñas hacen falta.
 
-Así que `continuous` mide: ancho, alto y el radio ya resuelto a píxeles (`getBoundingClientRect` y
-`getComputedStyle` sobre la capa del haz, que es del tamaño del marco), y con eso calcula el perímetro
-real —`2w + 2h − (8 − 2π)r`—, dónde empieza y acaba el tramo encendido, y escribe tres cosas: las dos
-puntas en porcentaje (`beamFrom`, `beamTo`) y el ciclo ya escalado.
+**Y la esquina hay que modelarla redonda.** Con el marco tratado como rectángulo en pico la curva
+converge malísimo, porque una esquina en pico es un pliegue: subiendo paradas de 48 a 768 la razón se
+estancaba en 1.07 y no bajaba. Modelando rectas más cuartos de círculo —perímetro
+`2w + 2h − (8 − 2π)r`— la función es suave y 192 paradas bastan.
 
-Tres detalles que hacen que se vea bien:
+Sin medida —servidor o primer pintado— sale `linear` y una sola cuña: la vuelta entera, a giro
+uniforme. Es el mismo HTML que hidrata; la medida solo refina lo que ya se está viendo.
 
-- **El trazado es cerrado**, así que un valor negativo o mayor que `100%` da la vuelta en vez de
-  recortarse. De eso vive el tramo que cruza el origen del trazado —`edges={[4, 1]}`—, que va de
-  `79.55%` a `131.21%`.
-- **El salto de vuelta se esconde.** Las dos puntas se meten una pieza de cola más allá de las bocas
-  de la ventana, donde la máscara ya no deja ver nada: la cola desaparece por una boca y reaparece por
-  la otra sin que se vea saltar.
-- **La cola conserva su longitud.** Su escalón va en fracción del recorrido, así que al acortarse el
-  recorrido la cola encogería; el escalón se reescala por el mismo factor para que mida lo mismo en
-  píxeles.
+### Por qué ahora sí es una rotación cónica (ADR-186)
 
-Sin medida —servidor, primer pintado, `spaced`, o lados que no forman un tramo— sale la vuelta entera.
-Es el mismo HTML que hidrata: la medida solo refina lo que ya se está viendo.
+Hubo una versión con un `<span>` por lado que giraba 90° dentro de su cuadrante, y se descartó con
+razón: esa geometría solo es correcta en un cuadrado. La luz recorría el borde superior de `x = -h/2`
+a `x = +h/2`, o sea **una fracción `h/w` del lado** — a 16:9 iluminaba el 56% y jamás llegaba a los
+vértices.
 
-### Por qué `offset-path` y no `@property`
+Lo que la rescata no es la cónica, es **la curva de arco**. Aquella versión rotaba a ángulo uniforme y
+por cuadrantes; ésta gira los 360° enteros sobre el marco completo y reparte el tiempo por perímetro,
+que es justo lo que le faltaba. El barrido angular sigue sin ser el barrido del perímetro — pero la
+`linear()` traduce uno en el otro, y el resultado se mide plano en cualquier proporción.
 
-La forma directa sería animar el ángulo de un `conic-gradient` con `@property --angle`, que es como lo
-hace la referencia. No se usa: vanilla-extract no emite `@property`, y registrarlo desde JS con
-`CSS.registerProperty` dejaría el primer pintado sin animación hasta que corriera el cliente.
+Tampoco hace falta `@property`. La referencia anima `--angle` de un cónico, que vanilla-extract no
+emite y que registrado desde JS dejaría el primer pintado sin animación; aquí lo que se anima es
+`rotate`, propiedad nativa y de las que el compositor acelera.
 
-En su lugar la cola **recorre el marco** con `offset-path: border-box`, animando `offset-distance`. El
-contenedor lleva la misma máscara de anillo que el `::before`, así que solo se ve en la banda del
-borde; `offset-rotate: auto` la orienta con la tangente, de modo que sigue la curva del radio en las
-esquinas en vez de cortarse en seco.
+### Por qué un solo elemento y no piezas (ADR-186, deroga ADR-152)
 
-`offset-distance` no es `transform` ni `opacity`, y `docs/03` §2 solo admite esos dos. Cumple igual:
-el navegador lo resuelve **a una transformada** sobre la pieza ya rasterizada —es la misma traslación
-más rotación que escribiríamos a mano— y no refluye ni repinta nada del marco. Lo que `docs/03`
-prohíbe es animar propiedades que disparan layout o paint por frame; esta no es una de ellas.
+El montaje anterior recorría el marco con `offset-path: border-box` animando `offset-distance`, y
+como `offset-rotate` orienta el ancla pero no deforma la caja, una estela larga no cabía en la curva:
+había que partirla en `parts` piezas cortas escalonadas. Treinta y dos por haz.
 
-### Por qué no es una rotación cónica
+**`offset-distance` no se anima en el compositor.** Chrome solo acelera `transform`, `opacity`,
+`filter`, `backdrop-filter`, `rotate`, `scale` y `translate`; lo demás recalcula estilo y repinta en
+el hilo principal, una vez por fotograma y por elemento. Medido sobre una landing con seis haces
+—Edge, 1440×900, `Performance.getMetrics`—: 230 animaciones vivas, **192 de ellas piezas de cola**, el
+22% de los nodos de la página. El recálculo de estilo se comía el **37%** del tiempo de reloj con la
+página quieta y la CPU no bajaba del 91%.
 
-La primera versión daba a cada lado un `<span>` sobredimensionado con un arco en cónico que **giraba**
-90° dentro de su cuadrante. Esa geometría solo es correcta en un cuadrado, y no por un margen
-pequeño: la luz recorre el borde superior de `x = -h/2` a `x = +h/2`, o sea **una fracción `h/w` del
-lado**. A 16:9 ilumina el 56% del borde y jamás llega a los vértices; en una card de 8:1 —las tiras
-de la landing— ilumina el 12% y cruza el resto de golpe, que en pantalla se lee como un pegote quieto
-en el centro y un fogonazo después. El barrido angular no es el barrido del perímetro salvo en 1:1.
+Prueba de que el mecanismo era ése y no otro: apagar el desenfoque, el `drop-shadow` de la pieza o el
+`backdrop-filter` de los cristales no movía el recálculo ni un punto, y apagar 33 estrellas que animan
+`transform` y `opacity` tampoco. Ésas van en el compositor; la cola no.
 
-`offset-distance` recorre longitud, no ángulo, así que el problema desaparece en cualquier proporción,
-y de paso la velocidad de la luz deja de depender de en qué punto del lado esté.
+Con el barrido cónico son **ocho animaciones en vez de 256** para ocho haces a la vista, y **144 fps
+frente a 22**, con el recálculo en el 3%.
 
-### Por qué la cola son piezas y no una estela (ADR-152)
+### Las cuñas repartidas, y por qué más de una
 
-`offset-rotate` orienta el **ancla**, no deforma la caja. Una estela larga es un rectángulo rígido, y
-donde el trazado curva sus extremos siguen rectos: en una esquina de radio `r`, un segmento de largo
-`L` se desvía `r − sqrt(r² − (L/2)²)` de la banda, y lo que se salga lo recorta la máscara. Con
-`r: 20`, por encima de unos 13px el recorte ya se ve — la luz se acorta en los lados cortos y parece
-saltar al doblar.
+Con la ventana recortada a un tramo, un solo cometa entra por una boca y sale por la otra dejando
+hueco: se apaga hasta que vuelve. La cola de piezas no lo hacía porque su banda de fases **envuelve el
+punto de vuelta** — unas piezas salen por el final mientras otras entran por el principio.
 
-Acortarla hasta que quepa la deja demasiado tenue para leerse como luz. Así que la cola no es un
-objeto largo: son `parts` piezas cortas escalonadas sobre el mismo trazado. Cada una cabe en la
-curva, y la longitud la da la **separación** entre ellas, no el tamaño de ninguna.
+Se reproduce repartiendo varias cuñas por el giro, separadas `360° / n` con `n = ceil(360° / (ventana
++ cuña))`. Así, cuando una sale por la boca de arriba la siguiente ya entra por la de abajo, y como el
+giro es de 360° enteros no hay punto de vuelta que romper. Medido sobre un ciclo completo con `[1, 2]`
+encendidos, el mínimo de píxeles encendidos sube de 26 a 92 y el salto máximo entre instantes
+—incluida la vuelta— baja de 101 a 23.
 
-El escalón va en fracción de vuelta y no en píxeles porque en CSS una duración no se deriva de una
-longitud. La cola mide entonces `parts · gap` del perímetro y crece con el marco.
+`n` está topado para que las cuñas no se pisen entre sí: nunca hay menos de `cuña × 1.15` grados de
+separación. Con los cuatro lados, con `spaced` o con un tramo roto sale **una sola cuña**, que es la
+vuelta entera de siempre.
 
-### `ARC_RISE` y `ARC_FALL` son el perfil de la luz
+### El desenfoque va en la pieza que gira
 
-`transparent 0% → from 36% → to 64% → transparent 100%`. Marcan dónde la luz alcanza opacidad plena
-entrando y dónde empieza a apagarse saliendo, y el color solo manda en ese cuerpo central.
-
-`TrailStop` reparte ese perfil entre las piezas de la cola: la opacidad sube hasta el 36%, se mantiene
-hasta el 64% y baja desde ahí, que es de donde salen las dos puntas difuminadas. Antes había una
-segunda definición —un gradiente dentro de la estela única de los subconjuntos— y desapareció con
-ella: con una sola cola no hay dos perfiles que mantener a juego.
-
-### El desenfoque va arriba del todo, no en cada pieza
-
-`filter` se aplica **antes** que la máscara del elemento que lo lleva y **después** que las de sus
-hijos. Puesto en el contenedor del haz —encima de la ventana— hace las dos cosas que hacen falta:
-funde las piezas entre sí y **ablanda la boca de la franja**, que sin él sería un corte recto. En la
-ventana fundiría igual pero dejaría la boca dura; pieza a pieza cada una se difuminaría por su cuenta
-y el troceado seguiría leyéndose.
-
-Es bajo a propósito: hay animación en la misma capa y `effects-guardrails` prohíbe encadenar blur alto
-con movimiento. Y hasta ADR-177 no hacía nada — `beamBloom` se asignaba y ninguna hoja lo leía.
+`bloom` es `filter: blur()` sobre el propio barrido, no sobre su contenedor. Puesto arriba obligaría a
+volver a desenfocar la capa entera en cada fotograma, porque su contenido se mueve; puesto en la pieza
+se rasteriza una vez y lo que se anima después es solo la transformada.
 
 ### La banda del haz es la del anillo, y no puede ser otra
 
@@ -244,19 +232,23 @@ De ahí que **no haya halo posible aquí**: todo lo que pinta el haz, incluido e
 piezas, está recortado a la banda. Un derrame hacia fuera exigiría una segunda capa sin máscara, o
 sea duplicar las piezas.
 
-### `trail` afina los tres ejes, y por eso son tres
+### `trail`: la cola mide `parts · gap`, y ese producto es lo que manda
 
 ```tsx
 <GradientBorder beam trail={{ parts: 32, gap: 0.00385, bloom: 0.5 }} />
 ```
 
-`parts` es **resolución** —más muestras del gradiente, misma longitud— y `gap` es **longitud** —mismo
-detalle, más recorrido—. Confundirlos es el error a evitar: alargar la cola agrandando las piezas la
-vuelve tosca, y alargarla subiendo `gap` sin subir `parts` la deja rala. Un solo peldaño no dejaría
-corregir un eje sin mover los otros.
+La cola mide **`parts · gap` del perímetro** —de fábrica el 12.32%, que sobre un marco de 410×307 son
+172 px— y eso es exactamente lo que medía la cola de piezas con los mismos valores. Los montajes que
+consumen `trail` no notan el cambio de motor.
 
-`parts` lleva suelo de 2: por debajo no hay rampa que repartir, y en `0` o negativo el haz
-desaparecería sin dar error.
+Lo que sí cambió es que **`parts` ya no es resolución**. Con la cola partida en piezas, `parts` decidía
+cuántas muestras del gradiente había y `gap` cuánto se separaban; con un gradiente cónico la rampa es
+continua y no hay nada que muestrear. Los dos peldaños siguen ahí porque el producto es el mando real y
+romperlos habría cambiado la API, pero mover cualquiera de los dos hace lo mismo: alargar o acortar.
+
+`parts` conserva su suelo de 2, y la cuña se topa a la vuelta entera: una cola más larga que el marco
+no significa nada.
 
 Los tres se leen **siempre**, se enciendan los lados que se enciendan: `edges` decide dónde se ve la
 cola, nunca cómo está hecha.
@@ -269,3 +261,17 @@ decide en JS y el media query en CSS.
 
 Las capas son `aria-hidden` y `pointer-events: none`, y las dos degradaciones del anillo —sin
 `mask-composite` y en `forced-colors`— también las apagan.
+
+## El haz sólo corre mientras se ve
+
+Aunque el barrido vaya en el compositor, un haz fuera de pantalla sigue costando: el compositor lo
+sigue transformando y rasterizando cada fotograma.
+
+De ahí `data-onscreen`. Un `IntersectionObserver` **compartido** (`utils/visibility.ts`, uno por
+`rootMargin` para todo el catálogo, no uno por instancia) marca el contenedor del haz cuando sale de
+pantalla y la hoja le pone `animation-play-state: paused`. Con la cola de piezas bajaba el recálculo
+del 37% al 22% sobre la landing de Rosette; con el barrido lo que ahorra es trabajo de compositor, y
+sigue valiendo lo mismo: en una landing hay seis haces y sólo uno o dos caben a la vez.
+
+Arranca en `true` a propósito. Con `false` el haz nace congelado y se destapa cuando el observador
+contesta, un fotograma después: se leía como un tirón justo en la pieza que marca el LCP.

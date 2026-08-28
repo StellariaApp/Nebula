@@ -138,29 +138,6 @@ export const CORNER_PATCH = {
   4: `${SOLID_MASK} 0 0 / ${DEPTH} ${DEPTH} no-repeat`,
 } as const;
 
-/**
- * La pieza de la cola, en un solo sitio: la hoja la escribe como `clamp()` y el cálculo del tramo la
- * necesita en números para saber cuánto tiene que esconderse el salto.
- */
-export const TRAIL_SPAN = { min: 6, ratio: 0.022, max: 13 } as const;
-
-const TRAIL_LENGTH = `clamp(${String(TRAIL_SPAN.min)}px, (${CQ_W} + ${CQ_H}) * ${String(TRAIL_SPAN.ratio)}, ${String(TRAIL_SPAN.max)}px)`;
-const TRAIL_DEPTH = `calc(${BEAM_BAND} * 2)`;
-
-/**
- * La única animación del componente: del principio al final del recorrido que le toque. Por defecto
- —sin nadie que escriba las vars— es la vuelta entera, `0%` a `100%`, y el porcentaje lo resuelve el
- * navegador contra la longitud real del trazado: velocidad constante y radio contado sin escribir
- * geometría. Cuando `continuous` recorta el tramo, las dos puntas llegan medidas desde JS.
- *
- * `offset-path: border-box` es un trazado **cerrado**, así que un valor negativo o mayor que `100%`
- * da la vuelta en vez de recortarse. De eso vive el tramo que cruza el origen del trazado.
- */
-export const loop = keyframes({
-  from: { offsetDistance: fallbackVar(variables.beamFrom, "0%") },
-  to: { offsetDistance: fallbackVar(variables.beamTo, "100%") },
-});
-
 export const beam = style({
   "@layer": {
     [primitive_layer]: {
@@ -171,7 +148,6 @@ export const beam = style({
       padding: BEAM_BAND,
       ...RING_MASK,
       containerType: "size",
-      filter: `blur(${fallbackVar(variables.beamBloom, "0px")})`,
       pointerEvents: "none",
       "@supports": {
         [NO_MASK_COMPOSITE]: { display: "none" },
@@ -211,31 +187,26 @@ export const edge_window = style({
   },
 });
 
-/**
- * Una pieza de la cola. Es corta para que quepa en la curva: un rectángulo rígido se desvía
- * `r - sqrt(r^2 - (L/2)^2)` de la banda en una esquina de radio `r`, y por debajo de ~13px eso queda
- * en el orden del propio grosor del anillo. La cola larga la hacen muchas de estas escalonadas en el
- * recorrido, no una sola estirada, que es lo que no podía doblar.
- */
-export const trail = style({
+export const spin = keyframes({ to: { rotate: "360deg" } });
+
+export const sweep = style({
   "@layer": {
     [primitive_layer]: {
       position: "absolute",
-      insetBlockStart: 0,
-      insetInlineStart: 0,
-      inlineSize: TRAIL_LENGTH,
-      blockSize: TRAIL_DEPTH,
-      opacity: variables.beamFade,
-      background: variables.beamCore,
-      filter: `drop-shadow(0 0 4px ${variables.beamGlow})`,
-      offsetPath: "border-box",
-      offsetRotate: "auto",
-      willChange: "offset-distance",
-      animationName: loop,
+      insetBlockStart: "50%",
+      insetInlineStart: "50%",
+      inlineSize: `hypot(${CQ_W}, ${CQ_H})`,
+      aspectRatio: "1",
+      translate: "-50% -50%",
+      filter: `blur(${fallbackVar(variables.beamBloom, "0px")})`,
+      animationName: spin,
       animationDuration: variables.beamCycle,
-      animationDelay: variables.beamDelay,
-      animationTimingFunction: "linear",
+      animationTimingFunction: fallbackVar(variables.beamEasing, "linear"),
       animationIterationCount: "infinite",
+      willChange: "rotate",
+      selectors: {
+        '[data-onscreen="false"] &': { animationPlayState: "paused" },
+      },
       "@media": {
         [REDUCED]: { animationName: "none" },
       },

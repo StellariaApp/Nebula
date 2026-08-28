@@ -7,7 +7,7 @@ import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { BrandGradient, MotionAt } from "../../../__tests__/theme-tweaks.js";
 import { NebulaProvider } from "../../../provider/nebula-provider.js";
 import { GradientBorder } from "../GradientBorder.js";
-import { ResolveBeamRun } from "../use-beam-run.js";
+import { ArcAt, ArcEasing, Perimeter, ResolveWedges } from "../use-sweep-run.js";
 
 afterEach(cleanup);
 
@@ -128,16 +128,12 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(node.querySelectorAll("span")).toHaveLength(0);
   });
 
-  it("monta la cola por piezas dentro de la ventana", () => {
+  it("monta un solo barrido dentro de la ventana", () => {
     render(<GradientBorder beam data-testid="gb" />);
     const node = screen.getByTestId("gb");
-    const pieces = [...node.querySelectorAll("span > span > span")];
 
     expect(node.getAttribute("data-beam")).toBe("4");
-    expect(pieces.length).toBeGreaterThan(1);
-
-    const fades = pieces.map((piece) => piece.getAttribute("style") ?? "");
-    expect(new Set(fades).size).toBe(pieces.length);
+    expect(node.querySelectorAll("span > span > span")).toHaveLength(1);
   });
 
   it("la cola es la misma se enciendan los lados que se enciendan", () => {
@@ -204,11 +200,11 @@ describe("GradientBorder — el haz que orbita", () => {
     expect(style).not.toMatch(/--gradientImage[^;]*linear-gradient/);
   });
 
-  it("las piezas sí llevan el color de marca, mezclado a lo largo de la cola", () => {
+  it("el barrido lleva el color de marca en un gradiente cónico", () => {
     render(<GradientBorder beam data-testid="gb" />);
-    const pieces = [...screen.getByTestId("gb").querySelectorAll("span > span > span")];
+    const sweep = screen.getByTestId("gb").querySelector("span > span > span");
 
-    expect(pieces[0]?.getAttribute("style") ?? "").toMatch(/color-mix\(in srgb/);
+    expect(sweep?.getAttribute("style") ?? "").toMatch(/conic-gradient\(from 0deg/);
   });
 
   it("un tier minimal no anima: el marco queda estático", () => {
@@ -230,55 +226,79 @@ describe("GradientBorder — el haz que orbita", () => {
   });
 });
 
-describe("GradientBorder — el tramo medido", () => {
+describe("GradientBorder — el barrido medido", () => {
   const FRAME = { w: 500, h: 300, r: 20 };
-  const TOTAL = 2 * (500 - 40) + 2 * (300 - 40) + 2 * Math.PI * 20;
-  const Span = (run: { from: string; to: string } | null) =>
-    run === null ? null : Number.parseFloat(run.to) - Number.parseFloat(run.from);
+  const HEAD = 32 * 0.00385 * 360;
 
-  it("un tramo contiguo acorta el ciclo en su misma proporción", () => {
-    const run = ResolveBeamRun([1, 2], FRAME, 0.00385, 32);
-
-    expect(run).not.toBeNull();
-    expect(run?.beats).toBeCloseTo((Span(run) ?? 0) / 100, 5);
-    expect(run?.beats).toBeGreaterThan(0);
-    expect(run?.beats).toBeLessThan(1);
+  it("el perímetro cuenta las curvas, no las esquinas en pico", () => {
+    expect(Perimeter(FRAME)).toBeCloseTo(2 * 460 + 2 * 260 + 2 * Math.PI * 20, 6);
   });
 
-  it("dos lados sueltos no son un tramo: se queda la vuelta entera", () => {
-    expect(ResolveBeamRun([1, 3], FRAME, 0.00385, 32)).toBeNull();
-  });
-
-  it("los cuatro lados tampoco recortan nada", () => {
-    expect(ResolveBeamRun([1, 2, 3, 4], FRAME, 0.00385, 32)).toBeNull();
+  it("un tramo contiguo reparte varias cuñas para que una entre mientras otra sale", () => {
+    expect(ResolveWedges([1, 2], FRAME, HEAD)).toBeGreaterThan(1);
+    expect(ResolveWedges([1], FRAME, HEAD)).toBeGreaterThan(1);
   });
 
   it("el tramo que cruza el origen del trazado sigue siendo uno", () => {
-    const run = ResolveBeamRun([4, 1], FRAME, 0.00385, 32);
-
-    expect(run).not.toBeNull();
-    expect(Number.parseFloat(run?.to ?? "0")).toBeGreaterThan(100);
-    expect(run?.beats).toBeLessThan(1);
+    expect(ResolveWedges([4, 1], FRAME, HEAD)).toBeGreaterThan(1);
   });
 
-  it("la boca cae a mitad de curva, no al final del lado", () => {
-    const run = ResolveBeamRun([1], FRAME, 0.00385, 32);
-    const arc = (Math.PI / 2) * 20;
-    const top = 500 - 40 + arc;
-
-    expect(Number.parseFloat(run?.to ?? "0")).toBeCloseTo(((top - arc / 2 + 13) / TOTAL) * 100, 1);
+  it("dos lados sueltos no son un tramo: una sola cuña y la vuelta entera", () => {
+    expect(ResolveWedges([1, 3], FRAME, HEAD)).toBe(1);
   });
 
-  it("la cola conserva su longitud aunque el recorrido se acorte", () => {
-    const run = ResolveBeamRun([1, 2], FRAME, 0.00385, 32);
-
-    expect(run?.gap).toBeCloseTo(0.00385 / (run?.beats ?? 1), 6);
+  it("los cuatro lados tampoco reparten nada", () => {
+    expect(ResolveWedges([1, 2, 3, 4], FRAME, HEAD)).toBe(1);
   });
 
-  it("la velocidad no depende de cuánto se encienda: el ciclo sigue al recorrido", () => {
+  it("las cuñas nunca se pisan entre sí", () => {
     for (const lit of [[1], [1, 2], [1, 2, 3], [3, 4]] as const) {
-      const run = ResolveBeamRun(lit, FRAME, 0.00385, 32);
-      expect(run?.beats).toBeCloseTo((Span(run) ?? 0) / 100, 5);
+      const wedges = ResolveWedges(lit, FRAME, HEAD);
+      expect(360 / wedges).toBeGreaterThanOrEqual(HEAD);
     }
+  });
+
+  it("la curva es un linear() que va de 0 a 1 sin retroceder", () => {
+    const easing = ArcEasing(FRAME);
+    expect(easing).toMatch(/^linear\(/);
+
+    const marks = (easing ?? "").slice(7, -1).split(", ").map(Number);
+    expect(marks[0]).toBe(0);
+    expect(marks[marks.length - 1]).toBe(1);
+    for (let index = 1; index < marks.length; index += 1) {
+      expect(marks[index] ?? 0).toBeGreaterThanOrEqual(marks[index - 1] ?? 0);
+    }
+  });
+
+  it("a tiempos iguales, arcos iguales: la luz no acelera en las esquinas", () => {
+    const marks = (ArcEasing(FRAME) ?? "").slice(7, -1).split(", ").map(Number);
+    const total = Perimeter(FRAME);
+    const steps: number[] = [];
+
+    for (let index = 1; index < marks.length; index += 1) {
+      const before = ArcAt((marks[index - 1] ?? 0) * 360, FRAME);
+      const after = ArcAt((marks[index] ?? 0) * 360, FRAME);
+      steps.push(after - before < 0 ? after - before + total : after - before);
+    }
+
+    const drift = steps.map((_, index) => {
+      const walked = steps.slice(0, index + 1).reduce((sum, one) => sum + one, 0);
+      return Math.abs(walked - (total * (index + 1)) / steps.length);
+    });
+
+    expect(Math.max(...drift)).toBeLessThan(1);
+  });
+
+  it("sin curva, un giro uniforme sí acelera: es lo que la curva corrige", () => {
+    const total = Perimeter(FRAME);
+    const steps: number[] = [];
+
+    for (let index = 1; index <= 192; index += 1) {
+      const before = ArcAt(((index - 1) * 360) / 192, FRAME);
+      const after = ArcAt((index * 360) / 192, FRAME);
+      steps.push(after - before < 0 ? after - before + total : after - before);
+    }
+
+    expect(Math.max(...steps) / Math.min(...steps)).toBeGreaterThan(2);
   });
 });
