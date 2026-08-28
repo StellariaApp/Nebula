@@ -30,10 +30,16 @@ Por debajo de `tablet`, y sólo ahí:
 1. **El enlace se apila.** `flex-direction: column`, icono arriba y rótulo debajo, los dos
    centrados, con `min-width: 64` para que un destino de nombre corto no se estreche por debajo de
    la diana táctil.
-2. **El rótulo vuelve.** La regla se ata al enlace —`${link} ${body} ${label}`, tres clases— para
+2. **Y el rótulo deja de crecer.** `NavLink` le pone `flex: 1` al cuerpo para que en su fila se
+   quede con el ancho sobrante. Apilado, ese mismo `1` se queda con el **alto** sobrante —38 px de
+   los 64— y el rótulo se pega al borde de arriba con el hueco muerto debajo, así que la pestaña se
+   veía descentrada aunque el enlace pidiera `justify-content: center`. Con `flex: 0 0 auto` el
+   cuerpo mide lo que mide su texto y los dos quedan centrados: medido, `9/9` arriba y abajo en las
+   de dos líneas y `15/15` en las de una.
+3. **El rótulo vuelve.** La regla se ata al enlace —`${link} ${body} ${label}`, tres clases— para
    que las otras dos `AppShell.Label` de la barra, la de la cabecera y la del pie, sigan apagadas:
    ésas sí desbordan.
-3. **Dos renglones, no uno.** `NavLink` escribe su rótulo en una línea con elipsis, que es lo que
+4. **Dos renglones, no uno.** `NavLink` escribe su rótulo en una línea con elipsis, que es lo que
    quiere una fila vertical porque ahí el enlace tiene todo el ancho. Debajo de un icono no lo
    tiene: «Volver al inicio» en una línea sale «Volver al i…». Con `-webkit-line-clamp: 2` y
    `overflow-wrap: break-word` cabe entero, y el recorte queda para lo que de verdad no entra en
@@ -42,17 +48,17 @@ Por debajo de `tablet`, y sólo ahí:
    `break-word` y no `anywhere`: los dos evitan que una palabra larga desborde la caja, pero
    `anywhere` parte también cuando **sí** había un espacio donde cortar, y «Volver al inicio» salía
    «Volver a / l inicio».
-4. **El rótulo tope 64 px y la pestaña 80.** Sin tope, cada destino mide lo que mida su nombre y la
+5. **El rótulo tope 64 px y la pestaña 80.** Sin tope, cada destino mide lo que mida su nombre y la
    barra deja de leerse como una rejilla; con uno holgado la pestaña sale rectangular. Con estos
    dos, un destino mide 60×64 o 72×64 según su nombre.
-5. **El rótulo baja a 11 px con interlínea 1,1.** Por debajo del `caption` de los tokens, que es 12
+6. **El rótulo baja a 11 px con interlínea 1,1.** Por debajo del `caption` de los tokens, que es 12
    y aquí queda grande: el rótulo de una pestaña acompaña al icono, no compite con él. No hay token
    más pequeño y no se añade uno: sería una escala nueva con un solo consumidor.
 
    **La interlínea va en la regla del rótulo, no en la del cuerpo.** `NavLink` fija la suya —`normal`,
    1,45— en el propio rótulo, así que heredarla desde arriba no vale: gana la del componente, y con
    letra de 11 el renglón seguía midiendo 16 px en vez de 12.
-6. **El contenedor suelta relleno lateral y gana vertical**: `paddingInline` de `md` a `xs`, hueco
+7. **El contenedor suelta relleno lateral y gana vertical**: `paddingInline` de `md` a `xs`, hueco
    entre destinos de `sm` a `xxs`, y `paddingBlock` de `0` a `xxs` para que la fila no vaya pegada
    al filo de la barra. Lo que se ahorra a los lados se lo quedan los enlaces.
 

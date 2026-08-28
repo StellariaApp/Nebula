@@ -547,6 +547,13 @@ globalStyle(`${link} > ${NavLinkStyles.body}`, {
     [SmallerThan("tablet")]: {
       display: "block",
       /**
+       * **Y deja de crecer.** `NavLink` le pone `flex: 1` para que en su fila se quede con el ancho
+       * sobrante; apilado, ese mismo `1` se queda con el ALTO sobrante —38 px de los 64— y el
+       * rótulo se pega al borde de arriba con el hueco muerto debajo. Sin crecer, el enlace centra
+       * icono y rótulo juntos, que es lo que su `justify-content` ya pedía.
+       */
+      flex: "0 0 auto",
+      /**
        * El tope es lo que hace que sea una fila de pestañas y no una de frases. Sin el, cada
        * destino mide lo que mida su rotulo —«Volver al inicio» vale por tres iconos— y la barra
        * deja de leerse como una rejilla. El recorte por elipsis ya lo trae `NavLink`.
