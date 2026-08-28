@@ -251,12 +251,79 @@ export const toggle = style({
       transform: "translate(50%, -50%) rotate(180deg)",
       zIndex: vars.zIndex.tooltip,
       transition: `transform ${vars.motion.duration.expressive} ${vars.motion.easing.standard}`,
+      "@media": {
+        [SmallerThan("laptop")]: { display: "none" },
+        /**
+         * **En la barra inferior vuelve, y a caballo de su borde de arriba.**
+         *
+         * Bajo `laptop` se apaga porque el carril mini no se colapsa mas. Tendido como barra
+         * inferior si tiene sentido: son 94 px de una pantalla de 664, y hay pasos —el asistente,
+         * una lista larga— donde quien mira prefiere el sitio. Plegada deja solo el tirador, que
+         * sigue a la vista para devolverla.
+         */
+        [SmallerThan("tablet")]: {
+          display: "block",
+          insetBlockStart: 0,
+          insetInlineEnd: "auto",
+          insetInlineStart: "50%",
+          transform: "translate(-50%, -50%) rotate(90deg)",
+        },
+      },
       selectors: {
         "[data-sidebar-collapsed='true'] &": {
           transform: "translate(50%, -50%) rotate(0deg)",
         },
       },
-      "@media": { [SmallerThan("laptop")]: { display: "none" } },
+    },
+  },
+});
+
+/**
+ * **Y plegada sigue siendo de una columna.**
+ *
+ * El selector de colapso del carril —`railMiniWidth 1fr`, para el modo mini de escritorio— tiene
+ * mas especificidad que la regla de la media query, asi que ganaba tambien en el telefono: la
+ * barra se plegaba y el contenido se quedaba encajonado en la columna del carril con media
+ * pantalla vacia al lado. Aqui se le devuelve la columna unica con la misma especificidad y mas
+ * tarde en la hoja.
+ */
+globalStyle(`${rail}[data-sidebar-collapsed='true']`, {
+  "@media": {
+    [SmallerThan("tablet")]: { gridTemplateColumns: "1fr" },
+  },
+});
+
+/**
+ * **Plegada, la barra deja de ocupar fila.**
+ *
+ * No basta con esconderla: como es una fila `auto` del grid, lo que devuelve el sitio es que su
+ * contenido mida cero. El `<aside>` conserva un dedo de alto para que el tirador —que va absoluto
+ * y no cuenta para la fila— no quede cortado por el borde de la pantalla.
+ */
+globalStyle(`[data-sidebar-collapsed='true'] ${sidebar_container}`, {
+  "@media": {
+    [SmallerThan("tablet")]: {
+      blockSize: 0,
+      minBlockSize: 0,
+      margin: 0,
+      overflow: "hidden",
+      opacity: 0,
+      borderWidth: "0 !important",
+      pointerEvents: "none",
+    },
+  },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${sidebar}`, {
+  "@media": {
+    [SmallerThan("tablet")]: { minBlockSize: 20 },
+  },
+});
+
+globalStyle(`[data-sidebar-collapsed='true'] ${toggle}`, {
+  "@media": {
+    [SmallerThan("tablet")]: {
+      transform: "translate(-50%, -50%) rotate(-90deg)",
     },
   },
 });
