@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.11
+
+### Patch Changes
+
+- - La barra inferior de navegación ahora se pliega y despliega mediante el tirador que ya usaba el carril lateral.
+  - @stellaria/nebula-tokens@1.1.11
+  - @stellaria/nebula-hooks@1.1.11
+  - @stellaria/nebula-themes@1.1.11
+  - @stellaria/nebula-icons@1.1.11
+
 ## 1.1.10
 
 ### Patch Changes
