@@ -1,5 +1,18 @@
 # @stellaria/nebula-web
 
+## 1.1.12
+
+### Patch Changes
+
+- - El haz del marco ahora se dibuja como un único barrido cónico compuesto en vez de 32 piezas, así que el borde animado pinta más rápido y sin costuras.
+  - Las animaciones de entrada en pantalla dejan de observar los elementos que ya se revelaron, con lo que las páginas largas mantienen el scroll fluido y liberan memoria.
+  - La rueda de `@stellaria/nebula-hooks` ya no recalcula el estilo de cada ancestro en cada muesca, y el desplazamiento responde sin tirones en árboles anidados.
+- Updated dependencies
+  - @stellaria/nebula-hooks@1.1.12
+  - @stellaria/nebula-tokens@1.1.12
+  - @stellaria/nebula-themes@1.1.12
+  - @stellaria/nebula-icons@1.1.12
+
 ## 1.1.11
 
 ### Patch Changes
