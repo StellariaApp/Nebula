@@ -1,5 +1,18 @@
 # @stellaria/nebula-web
 
+## 1.1.9
+
+### Patch Changes
+
+- - Nuevo componente de barra inferior de navegación, formada por una fila de pestañas y con cada pestaña rotulada por su nombre.
+  - La barra decide por sí sola si desplaza sus pestañas en función del ancho disponible, adaptándose al espacio de cada pantalla.
+  - Pestañas más compactas: rótulo de 11 px, interlínea 1,15 y tope de 80, con espaciado uniforme por los cuatro lados y ranuras de los extremos ajustadas a su medida.
+  - El rótulo de cada pestaña respeta la altura disponible y ya no recorta ni desborda el contenido.
+  - @stellaria/nebula-tokens@1.1.9
+  - @stellaria/nebula-hooks@1.1.9
+  - @stellaria/nebula-themes@1.1.9
+  - @stellaria/nebula-icons@1.1.9
+
 ## 1.1.8
 
 ### Patch Changes
