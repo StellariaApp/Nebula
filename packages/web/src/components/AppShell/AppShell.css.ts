@@ -427,8 +427,9 @@ export const sidebar_body = style({
   "@layer": {
     [composite_layer]: {
       flex: 1,
-      minHeight: "max-content",
-      overflow: "hidden",
+      minHeight: 0,
+      overflowX: "hidden",
+      overflowY: "auto",
       padding: 0,
       "@media": {
         [SmallerThan("tablet")]: {
