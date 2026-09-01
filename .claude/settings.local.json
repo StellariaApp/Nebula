@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__get_figma_data",
+      "Bash(cp \"C:/Users/Skr13/AppData/Local/Temp/claude/c--Users-Skr13-Documents-GitHub-Nebula/5c43ba8b-2629-40c8-9884-0b9e140fd8f0/scratchpad/layout-with-fonts.tsx\" apps/web/src/app/layout.tsx)",
+      "Bash(set -o pipefail)",
+      "Bash(pnpm turbo *)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "figma"
+  ]
+}
