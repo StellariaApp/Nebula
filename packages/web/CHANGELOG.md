@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.13
+
+### Patch Changes
+
+- - El cuerpo del sidebar de `AppShell` ahora scrollea por sí mismo cuando su contenido supera la altura disponible, igual que `Nav`, en vez de desbordar el panel.
+  - @stellaria/nebula-tokens@1.1.13
+  - @stellaria/nebula-hooks@1.1.13
+  - @stellaria/nebula-themes@1.1.13
+  - @stellaria/nebula-icons@1.1.13
+
 ## 1.1.12
 
 ### Patch Changes
