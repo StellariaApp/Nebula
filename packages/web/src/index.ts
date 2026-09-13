@@ -422,9 +422,12 @@ export { Timeline } from "./components/Timeline/index.js";
 export type { TimelineItem, TimelineProps, TimelineVariant } from "./components/Timeline/index.js";
 export type { RenderFlag } from "./fields/dial-select.js";
 
-export { AppShell } from "./components/AppShell/index.js";
+export { AppShell, useAppShellScroll } from "./components/AppShell/index.js";
 export type {
+  AppShellActiveMode,
   AppShellContentProps,
+  AppShellScrollProps,
+  AppShellScrollState,
   AppShellFooterContentProps,
   AppShellFooterProps,
   AppShellHeaderProps,
@@ -518,12 +521,15 @@ export {
   SectionAside,
   SectionBody,
   SectionDescription,
+  SectionEyebrow,
   SectionFooter,
   SectionHeader,
   SectionHeading,
   SectionTitle,
 } from "./components/Section/index.js";
 export type {
+  SectionAlign,
+  SectionEyebrowProps,
   SectionHeadingProps,
   SectionOrder,
   SectionProps,
@@ -535,6 +541,24 @@ export type {
 
 export { Affix } from "./components/Affix/index.js";
 export type { AffixPosition, AffixProps } from "./components/Affix/index.js";
+export { Viewer, VIEWER_LABELS } from "./components/Viewer/index.js";
+export type { ViewerImage, ViewerLabels, ViewerProps } from "./components/Viewer/index.js";
+export { MediaCard } from "./components/MediaCard/index.js";
+export type {
+  MediaCardCorner,
+  MediaCardCount,
+  MediaCardProps,
+} from "./components/MediaCard/index.js";
+export { VideoPlayer } from "./components/VideoPlayer/index.js";
+export type { VideoPlayerProps } from "./components/VideoPlayer/index.js";
+export {
+  PLAYER_CONTROLS_LABELS,
+  type PlayerControlsLabels,
+} from "./components/AudioPlayer/index.js";
+export { Cutout } from "./components/Cutout/index.js";
+export type { CutoutFigurePosition, CutoutProps } from "./components/Cutout/index.js";
+export { Dock } from "./components/Dock/index.js";
+export type { DockCompactBelow, DockProps } from "./components/Dock/index.js";
 export { Burger } from "./components/Burger/index.js";
 export type { BurgerProps } from "./components/Burger/index.js";
 export { Dialog } from "./components/Dialog/index.js";

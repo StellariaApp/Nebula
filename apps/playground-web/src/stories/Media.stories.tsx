@@ -8,13 +8,16 @@ import {
   Card,
   ImageGallery,
   Lightbox,
+  MediaCard,
   Paper,
+  SimpleGrid,
+  Viewer,
   Text,
   Title,
   type LightboxImage,
 } from "@stellaria/nebula-web";
 import { Carousel } from "@stellaria/nebula-web/carousel";
-import { Player } from "@stellaria/nebula-web/media";
+import { AudioPlayer, Player, VideoPlayer } from "@stellaria/nebula-web/media";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
@@ -220,5 +223,98 @@ export const AllThemes: Story = {
         label="Indicadores"
       />
     </ThemeMatrix>
+  ),
+};
+
+const CLIP = "data:video/mp4;base64,";
+const POSTER = Placeholder("#3f37c9", "Clip");
+
+/** El reproductor en línea (ADR-195): parado enseña la carátula y el play; `defer` no abre el fichero. */
+export const VideoEnLinea: Story = {
+  render: () => (
+    <Box maw={360}>
+      <VideoPlayer defer duration={5} label="Clip de ejemplo" poster={POSTER} src={CLIP} />
+    </Box>
+  ),
+};
+
+/** La nota de voz (ADR-195): la misma pista, el mismo pulgar y el mismo volumen que el vídeo. */
+export const Audio: Story = {
+  render: () => (
+    <Card maw={420} p="md" r="lg" variant="glass" withBorder>
+      <AudioPlayer label="Nota de voz" src={CLIP} />
+    </Card>
+  ),
+};
+
+function VisorSinPanel(): ReactElement {
+  const [opened, set_opened] = useState(false);
+  const [index, set_index] = useState(0);
+  return (
+    <>
+      <Button
+        onPress={() => {
+          set_opened(true);
+        }}
+        variant="glass"
+      >
+        Abrir el visor
+      </Button>
+      <Viewer
+        caption="Estudio Aurora · publicada"
+        images={IMAGES.map((image) => ({ src: image.src, alt: image.alt ?? "" }))}
+        index={index}
+        labels={{
+          region: "Visor de imágenes",
+          close: "Cerrar",
+          previous: "Anterior",
+          next: "Siguiente",
+          download: "Descargar",
+          counter: (position, total) => `${String(position)} de ${String(total)}`,
+        }}
+        onClose={() => {
+          set_opened(false);
+        }}
+        onIndexChange={set_index}
+        opened={opened}
+        withDownload
+      />
+    </>
+  );
+}
+
+/** El visor sin panel (ADR-196): arrastre continuo, pellizco, rueda, tira de miniaturas. */
+export const VisorSinPanelStory: Story = {
+  name: "Visor sin panel",
+  render: () => <VisorSinPanel />,
+};
+
+const PIECES = HUES.map((hue, index) => ({
+  title: `Pieza ${String(index + 1)}`,
+  frames: [Placeholder(hue, `Pieza ${String(index + 1)}`), Placeholder("#1f1b4d", "Detalle")],
+}));
+
+/** La tarjeta de medio (ADR-198): una sola para todas las rejillas; pasa por encima para ver las láminas. */
+export const Tarjetas: Story = {
+  render: () => (
+    <SimpleGrid cols={{ base: 2, tablet: 3, laptop: 5 }} spacing="md">
+      {PIECES.map((piece, index) => (
+        <MediaCard
+          avatar={{ name: "Aurora" }}
+          ceiling="Pro"
+          ceilingLabel="Escalón"
+          clock={index === 0 ? "0:05" : null}
+          cornerEnd={index === 1 ? { text: "nueva", tone: "accent" } : null}
+          cornerStart={{ text: "Pública", tone: "plain" }}
+          frames={piece.frames}
+          index={index}
+          key={piece.title}
+          onOpen={() => undefined}
+          openLabel={`Abrir ${piece.title}`}
+          subtitle="Estudio Aurora"
+          title={piece.title}
+        />
+      ))}
+    </SimpleGrid>
   ),
 };

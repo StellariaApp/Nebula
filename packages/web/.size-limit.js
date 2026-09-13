@@ -1022,6 +1022,20 @@ const MODULE_BUDGETS = [
     limit: "20.5 kB",
   },
   {
+    name: "Cutout (primitivo: fondo + figura recortada, por módulo)",
+    path: "dist/components/Cutout/Cutout.js",
+    import: "{ Cutout }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "12 kB",
+  },
+  {
+    name: "Dock (patrón: Affix + GlassSurface + Popover + ActionIcon, por módulo)",
+    path: "dist/components/Dock/Dock.js",
+    import: "{ Dock }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "58 kB",
+  },
+  {
     name: "LoadingOverlay (Overlay + Loader + motion, por módulo)",
     path: "dist/components/LoadingOverlay/LoadingOverlay.js",
     import: "{ LoadingOverlay }",
@@ -1196,6 +1210,20 @@ const MODULE_BUDGETS = [
     limit: "51 kB",
   },
   {
+    name: "Viewer (compuesto: visor sin panel, gestos propios, por módulo)",
+    path: "dist/components/Viewer/Viewer.js",
+    import: "{ Viewer }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "48 kB",
+  },
+  {
+    name: "MediaCard (compuesto: Card + VideoPlayer + pie de cristal, por módulo)",
+    path: "dist/components/MediaCard/MediaCard.js",
+    import: "{ MediaCard }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "70 kB",
+  },
+  {
     name: "ImageGallery (compuesto: retícula + Lightbox, por módulo)",
     path: "dist/components/ImageGallery/ImageGallery.js",
     import: "{ ImageGallery }",
@@ -1341,6 +1369,20 @@ const MODULE_BUDGETS = [
     import: "{ EditorImage }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
     limit: "49.25 kB",
+  },
+  {
+    name: "VideoPlayer (subpath /media y core: <video> + mandos propios, sin dependencias, por módulo)",
+    path: "dist/components/VideoPlayer/VideoPlayer.js",
+    import: "{ VideoPlayer }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "70 kB",
+  },
+  {
+    name: "AudioPlayer (subpath /media: <audio> + mandos propios, sin dependencias, por módulo)",
+    path: "dist/components/AudioPlayer/AudioPlayer.js",
+    import: "{ AudioPlayer }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "70 kB",
   },
   {
     name: "Player (subpath /media: react-player con proveedores diferidos, por módulo)",
