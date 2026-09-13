@@ -173,3 +173,65 @@ exactamente lo que ADR-086 buscaba al convertir el shell en compound.
 `Links` existe por lo mismo: el rótulo de grupo se repetía en cada story con el mismo `Text` en
 `caption`, `uppercase` y `wide`, y con la misma regla de desaparecer al encoger. Un patrón que se
 copia tres veces es un componente que falta.
+
+## El carril encogido conserva el nombre de sus enlaces
+
+ADR-191. El cuerpo del `NavLink` —rótulo y descripción— se apagaba con `display: none` al encoger
+la barra y por debajo de `laptop`, y con ello el enlace se quedaba sin nombre accesible: `link-name`
+en toda app por debajo de ese ancho, barra inferior incluida. Ahora se esconde con la receta de
+`VisuallyHidden` (`styles/hidden.ts`, la misma que usa el componente): sigue sin verse ni ocupar
+sitio, y el nombre se queda. Bajo `tablet` el cuerpo vuelve a pintarse, como antes, con el rótulo
+corto de la tira.
+
+`NavLink` reenvía además `aria-label` al elemento, para el enlace cuyo rótulo visible no basta
+—un retrato sin texto—; con él no hace falta colgar un `VisuallyHidden` de `rightSection`.
+
+## `Sidebar activeMode="pathname"` enciende el enlace que más camino comparte
+
+ADR-190. Con `activeMode="pathname"` el carril enciende el `Link` cuyo `href` es el **más largo**
+que prefija la ruta **por tramos**: `/avatars` no enciende `/avatarsx`, `/` no enciende todo, y
+`/dashboard` no se enciende en todas las pantallas del panel porque `/dashboard/avatars` comparte
+más camino. Es `BestPathMatch`, la misma función que `Nav.Links` (`utils/path-match.ts`).
+
+Se decide en `Sidebar` y no en `Links` porque el ganador se elige **entre todos los grupos**: cada
+`Link` registra su `href` por contexto al montar y la barra resuelve uno. Un `active` explícito en un
+`Link` gana siempre; `active` en `Sidebar` fuerza un `href`. El defecto sigue siendo `"manual"`.
+
+La ruta se lee de `window.location` con suscripción a `popstate`, `hashchange` y —donde existe— a
+`currententrychange` de la Navigation API, que es lo que avisa de un `pushState` de un router de
+cliente. En un router que no lo dispare —y en un layout que no vuelve a renderizar al navegar, como los
+de Next— se pasa `pathname={usePathname()}` del propio router, que es lo que manda cuando está.
+
+## `AppShell.Scroll` y `useAppShellScroll()`: el carril sabe si está desplazado
+
+ADR-187. En el montaje de carril quien scrollea es el `main`, o —si la pantalla deja un pie fuera
+del scroll— un `Scroll` dentro de él. `useScrolled` a secas mide la ventana, que ahí no se mueve
+nunca. El armazón mide el `main` por defecto y publica `{ scrolled, ref }` por contexto;
+`AppShell.Scroll` es el `Scroll` del catálogo (`momentum bounce smooth` de serie) que **adopta** el
+papel al montar: desde entonces el contexto mide ese elemento y `ref` apunta a él, que es lo que un
+`StarField scroller={ref}` necesita para hacer parallax contra lo que se desplaza en pantalla.
+
+El umbral es cero a propósito. Medido en Rosette: con 80 px la cabecera tardaba un octavo de
+pantalla de teléfono en responder y se leía como un salto tardío. Otro umbral es `useScrolled` con
+`scroller`, no una prop de aquí.
+
+## `Section hanging`: la cabecera que se encoge cuelga fuera del flujo
+
+Una cabecera que se encoge al desplazar —la ficha de un elemento, un asistente por pasos— **no va
+en el flujo** de la sección pegada. En flujo, encogerse le quitaba 80 px al alto del scroll: lo de
+abajo saltaba y, con contenido corto, el `scrollTop` volvía a cero, la banda crecía y el siguiente
+gesto la encogía otra vez — un bucle de parpadeo (Rosette, 11/09/2026).
+
+`hanging` se pinta en `absolute; top: 100%` colgando de la sección, con `data-floating="header"`;
+`hangingHeight` es su alto entero y la sección lo reserva **después de sí misma** con un espaciador
+del mismo alto, así que el cuerpo empieza debajo sin que la pantalla se rellene a mano y encogerse
+no mueve nada. El número vive en un `metrics.ts` del producto con la suma escrita: un número mágico
+sin cuenta caduca al cambiar un subtítulo.
+
+La sección no lleva `sticky` propio para la cabecera colgada: la sección de la pantalla ya lo es, y
+dos cosas ancladas al mismo cero se pisan. Lo que encoge y cómo lo decide la cabecera leyendo
+`useAppShellScroll().scrolled`; la transición la escribe ella con `vars.motion.*`, y lo que
+desaparece va en `Transition`, que respeta `prefers-reduced-motion` por su cuenta.
+
+`AppShell.Header` y `AppShell.Subbar` publican `data-floating="header"` cuando van `sticky`
+(ADR-188), para que `useFloatingBand` los cuente como techo.

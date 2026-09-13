@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 
 import { cx, ExtractStyleProps } from "../../../utils/style-props.js";
 import { Box } from "../../Box/Box.js";
@@ -10,6 +10,7 @@ import { Text } from "../../Text/Text.js";
 
 import * as styles from "../AppShell.css.js";
 import type { AppShellLabelProps, AppShellLinksProps } from "../AppShell.types.js";
+import { useAppShellActive } from "../AppShellContext.js";
 
 export function AppShellLinks(props: AppShellLinksProps): ReactElement {
   const {
@@ -57,7 +58,17 @@ export function AppShellLinks(props: AppShellLinksProps): ReactElement {
 }
 
 export function AppShellLink(props: NavLinkProps): ReactElement {
-  return <NavLink {...props} className={cx(styles.link, props.className)} />;
+  const { href, active } = props;
+  const rail = useAppShellActive();
+
+  useEffect(() => {
+    if (href === undefined || rail.mode === "manual") return undefined;
+    return rail.Register(href);
+  }, [href, rail.mode, rail.Register]);
+
+  const resolved = active ?? (rail.best !== undefined && href !== undefined && rail.best === href);
+
+  return <NavLink {...props} active={resolved} className={cx(styles.link, props.className)} />;
 }
 
 export function AppShellLabel(props: AppShellLabelProps): ReactElement {

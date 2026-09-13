@@ -207,7 +207,7 @@ describe("Nav flotante", () => {
 
   it("floating publica el estado y arranca sin condensar", () => {
     const { container } = render(<Nav floating>{ANCHORS}</Nav>);
-    const root = container.querySelector("[data-floating='true']");
+    const root = container.querySelector("[data-floating='header']");
 
     expect(root).not.toBeNull();
     expect(root?.getAttribute("data-scrolled")).toBe("false");
@@ -219,7 +219,7 @@ describe("Nav flotante", () => {
         {ANCHORS}
       </Nav>,
     );
-    expect(container.querySelector("[data-floating='true']")?.getAttribute("data-scrolled")).toBe(
+    expect(container.querySelector("[data-floating='header']")?.getAttribute("data-scrolled")).toBe(
       "true",
     );
   });
@@ -230,7 +230,7 @@ describe("Nav flotante", () => {
         {ANCHORS}
       </Nav>,
     );
-    const inline = container.querySelector("[data-floating='true']")?.getAttribute("style") ?? "";
+    const inline = container.querySelector("[data-floating='header']")?.getAttribute("style") ?? "";
 
     expect(inline).toContain("960px");
     expect(inline).toContain("8px");
@@ -239,7 +239,7 @@ describe("Nav flotante", () => {
 
   it("el cristal sale del contrato del tema, nunca de un hex", () => {
     const { container } = render(<Nav floating>{ANCHORS}</Nav>);
-    const inline = container.querySelector("[data-floating='true']")?.getAttribute("style") ?? "";
+    const inline = container.querySelector("[data-floating='header']")?.getAttribute("style") ?? "";
 
     expect(inline).toContain("var(--");
     expect(inline).not.toMatch(/#[0-9a-f]{3,8}\b/i);
@@ -247,14 +247,14 @@ describe("Nav flotante", () => {
 
   it("anima cuando el tier del tema lo permite", () => {
     const { container } = render(<Nav floating>{ANCHORS}</Nav>);
-    expect(container.querySelector("[data-floating='true']")?.getAttribute("data-animated")).toBe(
+    expect(container.querySelector("[data-floating='header']")?.getAttribute("data-animated")).toBe(
       "true",
     );
   });
 
   it("degrada las dos cosas: sin transición y sin cristal", () => {
     const { container } = RenderIn(<Nav floating>{ANCHORS}</Nav>, GlassOff(MotionAt("minimal")));
-    const root = container.querySelector("[data-floating='true']");
+    const root = container.querySelector("[data-floating='header']");
     const inline = root?.getAttribute("style") ?? "";
 
     expect(root?.getAttribute("data-animated")).toBe("false");
@@ -283,7 +283,7 @@ describe("Nav flotante", () => {
       </Nav>,
     );
 
-    expect(container.querySelector("[data-floating='true']")).not.toBeNull();
+    expect(container.querySelector("[data-floating='header']")).not.toBeNull();
     expect(container.querySelector("[data-sticky='true']")).toBeNull();
   });
 

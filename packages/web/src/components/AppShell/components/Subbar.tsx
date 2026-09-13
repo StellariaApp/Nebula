@@ -17,6 +17,7 @@ export function AppShellSubbar(props: AppShellSubbarProps): ReactElement {
       r={0}
       className={cx(styles.section_sub, sticky && styles.sticky_sub, sprinkle_class, className)}
       style={style}
+      data-floating={sticky ? "header" : undefined}
       {...rest}
     >
       {children}

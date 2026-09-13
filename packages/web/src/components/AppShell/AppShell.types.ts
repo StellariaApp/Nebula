@@ -6,6 +6,7 @@ import type { StyleProps } from "../../utils/style-props.js";
 import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { TextSlotProps } from "../Text/Text.types.js";
+import type { ScrollProps } from "../Scroll/Scroll.types.js";
 import type { TitleOrder, TitleSlotProps } from "../Title/Title.types.js";
 
 export interface AppShellLabels {
@@ -116,7 +117,25 @@ export interface AppShellLabelProps extends Omit<StyleProps, "flex"> {
   flex?: boolean | undefined;
 }
 
+export type AppShellActiveMode = "manual" | "pathname";
+
 export interface AppShellSidebarProps extends StyleProps {
+  /**
+   * How the rail decides which `Link` is active (ADR-190). `"manual"` leaves it to each link's
+   * `active` prop. `"pathname"` lights the link whose `href` is the LONGEST that prefixes the
+   * current path by segments — the same rule as `Nav.Links` — chosen among every link in the bar,
+   * across groups. A link's own `active` still wins.
+   * @default "manual"
+   */
+  activeMode?: AppShellActiveMode | undefined;
+  /** Forces one `href` as the active one, whatever the mode. */
+  active?: string | undefined;
+  /**
+   * The current path, when the router knows it better than `window.location`: a client-side
+   * navigation does not fire `popstate`, and a layout that is kept across routes does not
+   * re-render, so pass the router's own `usePathname()` here. Only read in `"pathname"` mode.
+   */
+  pathname?: string | undefined;
   /** The anchor for the collapse button. Not rendered without `onCollapse`. */
   toggleProps?: BoxSlotProps | undefined;
   /** That button. It carries `aria-expanded`, which is where the chevron rotation comes from. */
@@ -133,6 +152,21 @@ export interface AppShellSidebarProps extends StyleProps {
 
 export interface AppShellSectionProps extends StyleProps {
   children: ReactNode;
+  /**
+   * A header that hangs from the section, OUTSIDE the flow (ADR-187): `position: absolute; top:
+   * 100%`, full width. It is where a header that shrinks on scroll goes — in flow, shrinking took
+   * height off the scroller and made short pages flicker. What it shows and how it shrinks is up to
+   * it; it reads `useAppShellScroll().scrolled`. It carries `data-floating="header"`.
+   */
+  hanging?: ReactNode | undefined;
+  /**
+   * The height of `hanging` when it is NOT shrunk, in px. The section reserves it after itself with
+   * a spacer, so the content starts below the hanging header without the page having to pad itself,
+   * and shrinking never moves the content. Keep the number in a `metrics.ts` with its sum written.
+   */
+  hangingHeight?: number | undefined;
+  /** The box the hanging header is rendered in. */
+  hangingProps?: BoxSlotProps | undefined;
   className?: string | undefined;
   "aria-label"?: string | undefined;
   "aria-labelledby"?: string | undefined;
@@ -187,3 +221,10 @@ export interface AppShellContentProps extends StyleProps {
   children: ReactNode;
   className?: string | undefined;
 }
+
+/**
+ * The scroller of a screen inside the rail. It is the catalogue `Scroll` with `momentum`, `bounce`
+ * and `smooth` on, and it hands its element to the shell: `useAppShellScroll()` then reports this
+ * element's `scrolled` and `ref` instead of the `main`'s (ADR-187).
+ */
+export type AppShellScrollProps = ScrollProps<"div">;

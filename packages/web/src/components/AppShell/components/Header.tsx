@@ -39,6 +39,7 @@ export function AppShellHeader(props: AppShellHeaderProps): ReactElement {
         className,
       )}
       style={style}
+      data-floating={sticky ? "header" : undefined}
       {...rest}
     >
       {children ?? (

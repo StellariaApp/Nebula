@@ -13,6 +13,13 @@ describe("NavLink", () => {
     expect(link.getAttribute("href")).toBe("/inicio");
   });
 
+  it("reenvía aria-label al elemento, y ese es el nombre aunque el rótulo se esconda", () => {
+    render(<NavLink label={<span>Ir</span>} href="/inicio" aria-label="Volver al inicio" />);
+    expect(screen.getByRole("link", { name: "Volver al inicio" }).getAttribute("href")).toBe(
+      "/inicio",
+    );
+  });
+
   it("marca aria-current='page' cuando está activo", () => {
     render(<NavLink label="Inicio" href="/inicio" active />);
     expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBe("page");

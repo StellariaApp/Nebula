@@ -4,6 +4,7 @@ import { vars } from "@stellaria/nebula-themes/web";
 import * as focus from "../../styles/focus.css.js";
 import * as motion from "../../styles/motion.css.js";
 import { composite_layer } from "../../theme/layers.css.js";
+import { HIDDEN } from "../../styles/hidden.js";
 import { SmallerThan } from "../../theme/media.js";
 
 import * as glass_surface_vars from "../GlassSurface/GlassSurface.vars.css.js";
@@ -601,6 +602,16 @@ export const links_deep = style({
   },
 });
 
+const VISIBLE = {
+  position: "static",
+  height: "auto",
+  margin: 0,
+  padding: 0,
+  clip: "auto",
+  clipPath: "none",
+  whiteSpace: "normal",
+} as const;
+
 export const link = style({
   "@layer": {
     [composite_layer]: {
@@ -635,8 +646,9 @@ export const link = style({
 
 globalStyle(`${link} > ${NavLinkStyles.body}`, {
   "@media": {
-    [SmallerThan("laptop")]: { display: "none" },
+    [SmallerThan("laptop")]: HIDDEN,
     [SmallerThan("tablet")]: {
+      ...VISIBLE,
       display: "block",
       /**
        * **Y deja de crecer.** `NavLink` le pone `flex: 1` para que en su fila se quede con el ancho
@@ -674,9 +686,7 @@ globalStyle(`${link} > ${NavLinkStyles.body}`, {
  * `AppShell.Label` de la barra, la de la cabecera y la del pie, sigan apagadas: ésas sí desbordan.
  */
 globalStyle(`${link} ${NavLinkStyles.body} ${label}`, {
-  "@media": {
-    [SmallerThan("tablet")]: { display: "inline" },
-  },
+  display: "inline",
 });
 
 /**
@@ -707,9 +717,7 @@ globalStyle(`${link} ${NavLinkStyles.body} ${NavLinkStyles.label}`, {
   },
 });
 
-globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.body}`, {
-  display: "none",
-});
+globalStyle(`[data-sidebar-collapsed='true'] ${NavLinkStyles.body}`, HIDDEN);
 
 globalStyle(`${link} > ${NavLinkStyles.section_right}`, {
   "@media": {
@@ -745,6 +753,30 @@ export const section = style({
       display: "flex",
       flexDirection: "column",
       width: "stretch",
+      selectors: {
+        "&[data-hanging='true']": { position: "relative" },
+      },
+    },
+  },
+});
+
+export const section_hanging = style({
+  "@layer": {
+    [composite_layer]: {
+      position: "absolute",
+      top: "100%",
+      left: 0,
+      width: "100%",
+      minWidth: 0,
+    },
+  },
+});
+
+export const section_spacer = style({
+  "@layer": {
+    [composite_layer]: {
+      flex: "none",
+      width: "100%",
     },
   },
 });

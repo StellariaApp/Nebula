@@ -66,7 +66,9 @@ Router y compañía. Lo que sí cubre esos casos es la otra mitad del contrato d
 `useSyncExternalStore`: el snapshot se vuelve a leer **en cada render**, y una navegación de router
 siempre re-renderiza el árbol. En la práctica funciona.
 
-Cuando no baste —un router que navegue sin re-renderizar la barra— la salida es `active` en el
+Desde ADR-190 la lectura vive en `utils/path-match.ts` y se suscribe además a `currententrychange`
+de la Navigation API donde existe, que sí avisa de un `pushState`. Cuando tampoco baste —un router
+que navegue sin re-renderizar la barra en un navegador sin esa API— la salida es `active` en el
 grupo, que apaga toda la detección:
 
 ```tsx
@@ -178,6 +180,12 @@ componente.
 
 Estas cinco props (`floating`, `scrolled`, `scrollThreshold`, `floatingWidth`, `floatingGap`)
 vivieron un día en `Header`. La enmienda 2 de ADR-062 las movió aquí.
+
+## `data-floating="header"` es un contrato, no una marca de estilo
+
+Desde ADR-188 la barra flotante publica `data-floating="header"` —antes era `"true"`—, que es lo
+que `useFloatingBand` y `CenterOn` de `@stellaria/nebula-hooks` miden para saber dónde acaba el
+techo visible. La hoja de `Nav` no lo lee: su estado va en `data-scrolled`.
 
 ## `floating` y `scrolled`: por qué dos props
 

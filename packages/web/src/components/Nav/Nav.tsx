@@ -96,7 +96,7 @@ export function Nav(props: NavProps): ReactElement {
         className,
       )}
       style={{ ...surface_vars, ...content_vars, ...progress_var, ...sprinkle_style }}
-      data-floating={floating ? "true" : undefined}
+      data-floating={floating ? "header" : undefined}
       data-sticky={sticky && !floating ? "true" : undefined}
       data-scrolled={tracks_scroll ? (is_condensed ? "true" : "false") : undefined}
       data-animated={tracks_scroll ? (is_animated ? "true" : "false") : undefined}

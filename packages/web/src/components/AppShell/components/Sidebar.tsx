@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactElement } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 
 import { useMediaQuery, useTheme } from "@stellaria/nebula-hooks";
 
@@ -12,7 +12,12 @@ import { GlassSurface } from "../../GlassSurface/GlassSurface.js";
 
 import * as styles from "../AppShell.css.js";
 import type { AppShellSidebarProps, AppShellSlotProps } from "../AppShell.types.js";
-import { useAppShell } from "../AppShellContext.js";
+import {
+  AppShellActiveContext,
+  useAppShell,
+  type AppShellActiveState,
+} from "../AppShellContext.js";
+import { BestPathMatch, usePathname } from "../../../utils/path-match.js";
 import { ChevronRight } from "../../../glyphs/index.js";
 
 const ACTIVE = "[data-active='true']";
@@ -63,6 +68,9 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
     collapsed = false,
     onCollapse,
     collapseLabels = { collapse: "Collapse the sidebar", expand: "Expand the sidebar" },
+    activeMode = "manual",
+    active,
+    pathname: given,
     className,
     toggleProps,
     collapseProps,
@@ -71,39 +79,59 @@ export function AppShellSidebar(props: AppShellSidebarProps): ReactElement {
   const { className: sprinkle_class, style, rest } = ExtractStyleProps(style_rest);
   const { railCollapse } = useAppShell();
 
+  const [hrefs, set_hrefs] = useState<readonly string[]>([]);
+  const Register = useCallback((href: string) => {
+    set_hrefs((current) => [...current, href]);
+    return () => {
+      set_hrefs((current) => {
+        const index = current.indexOf(href);
+        return index === -1 ? current : [...current.slice(0, index), ...current.slice(index + 1)];
+      });
+    };
+  }, []);
+  const seen = usePathname();
+  const pathname = given ?? seen;
+  const best = active ?? (activeMode === "pathname" ? BestPathMatch(hrefs, pathname) : undefined);
+  const active_state = useMemo<AppShellActiveState>(
+    () => ({ mode: activeMode, best, Register }),
+    [activeMode, best, Register],
+  );
+
   return (
-    <aside
-      className={cx(
-        styles.sidebar,
-        railCollapse === "hidden" ? styles.sidebar_hidden : undefined,
-        sprinkle_class,
-        className,
-      )}
-      style={style}
-      {...rest}
-    >
-      {onCollapse === undefined ? null : (
-        <Box {...toggleProps} className={cx(styles.toggle, toggleProps?.className)}>
-          <ActionIcon
-            variant="glass"
-            glass="strong"
-            size="sm"
-            r="full"
-            aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}
-            aria-expanded={!collapsed}
-            onPress={() => {
-              onCollapse(!collapsed);
-            }}
-            {...collapseProps}
-          >
-            <ChevronRight />
-          </ActionIcon>
-        </Box>
-      )}
-      <GlassSurface level={level} r={0} className={styles.sidebar_container}>
-        {children}
-      </GlassSurface>
-    </aside>
+    <AppShellActiveContext.Provider value={active_state}>
+      <aside
+        className={cx(
+          styles.sidebar,
+          railCollapse === "hidden" ? styles.sidebar_hidden : undefined,
+          sprinkle_class,
+          className,
+        )}
+        style={style}
+        {...rest}
+      >
+        {onCollapse === undefined ? null : (
+          <Box {...toggleProps} className={cx(styles.toggle, toggleProps?.className)}>
+            <ActionIcon
+              variant="glass"
+              glass="strong"
+              size="sm"
+              r="full"
+              aria-label={collapsed ? collapseLabels.expand : collapseLabels.collapse}
+              aria-expanded={!collapsed}
+              onPress={() => {
+                onCollapse(!collapsed);
+              }}
+              {...collapseProps}
+            >
+              <ChevronRight />
+            </ActionIcon>
+          </Box>
+        )}
+        <GlassSurface level={level} r={0} className={styles.sidebar_container}>
+          {children}
+        </GlassSurface>
+      </aside>
+    </AppShellActiveContext.Provider>
   );
 }
 

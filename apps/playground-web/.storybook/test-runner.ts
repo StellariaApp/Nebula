@@ -71,6 +71,20 @@ const VISUAL =
 const VIEWPORT = { width: 1280, height: 900 };
 
 /**
+ * Los mismos anchos que la toolbar (`preview.tsx`). Una story que declare
+ * `parameters.viewport.defaultViewport` se audita a ese ancho: es lo que permite que axe vea la
+ * barra inferior del carril bajo `tablet` y no sólo la columna de escritorio (ADR-191). Sin la
+ * declaración, el ancho constante de siempre — y el gate visual no lo mira, para no mover baselines.
+ */
+const VIEWPORTS: Record<string, { width: number; height: number }> = {
+  phone: { width: 576, height: 900 },
+  tablet: { width: 768, height: 1024 },
+  laptop: { width: 1024, height: 800 },
+  desktop: { width: 1280, height: 900 },
+  wide: { width: 1536, height: 960 },
+};
+
+/**
  * ADR-037 §3 pide un umbral «pequeño pero no nulo». Medido: dos pasadas seguidas en la misma máquina
  * dan **cero** píxeles de diferencia en las 75 capturas —`animations: "disabled"` congela también las
  * decorativas infinitas—, así que el margen no cubre ruido observado sino la deriva de entorno que el
@@ -105,8 +119,17 @@ const config: TestRunnerConfig = {
   setup() {
     if (VISUAL) expect.extend({ toMatchImageSnapshot });
   },
-  async preVisit(page) {
-    await page.setViewportSize(VIEWPORT);
+  async preVisit(page, context) {
+    const declared = VISUAL
+      ? undefined
+      : (
+          (await getStoryContext(page, context)).parameters as {
+            viewport?: { defaultViewport?: string };
+          }
+        ).viewport?.defaultViewport;
+    await page.setViewportSize(
+      (declared === undefined ? undefined : VIEWPORTS[declared]) ?? VIEWPORT,
+    );
     if (VISUAL) await page.emulateMedia({ reducedMotion: "reduce" });
     else await injectAxe(page);
   },

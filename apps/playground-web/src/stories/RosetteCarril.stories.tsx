@@ -548,3 +548,31 @@ export const Encogido: Story = {
     </Escena>
   ),
 };
+
+/**
+ * El carril mini, que es lo que hay entre `tablet` y `laptop`: una columna de iconos. Los rótulos
+ * no se ven, pero **siguen nombrando el enlace** (ADR-191): antes se apagaban con `display: none` y
+ * axe marcaba `link-name` en cada destino. Se audita a este ancho por `parameters.viewport`.
+ */
+export const Mini: Story = {
+  name: "El carril mini (tablet)",
+  parameters: { viewport: { defaultViewport: "tablet" } },
+  globals: { viewport: { value: "tablet", isRotated: false } },
+  render: () => (
+    <Escena>
+      <CarrilRecomendado />
+    </Escena>
+  ),
+};
+
+/** La tira del teléfono: el mismo `Sidebar` tendido abajo (ADR-183), con el rótulo corto. */
+export const Tira: Story = {
+  name: "La tira del teléfono",
+  parameters: { viewport: { defaultViewport: "phone" } },
+  globals: { viewport: { value: "phone", isRotated: false } },
+  render: () => (
+    <Escena>
+      <CarrilRecomendado />
+    </Escena>
+  ),
+};

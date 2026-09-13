@@ -30,6 +30,11 @@ export interface NavLinkProps extends StyleProps, PermissionProps {
   defaultOpened?: boolean | undefined;
   onOpenChange?: ((opened: boolean) => void) | undefined;
   className?: string | undefined;
+  /**
+   * The accessible name when the visible label is not enough: a rail that hides its labels still
+   * has to name its links. It lands on the element itself, whatever `component` is.
+   */
+  "aria-label"?: string | undefined;
   /** Envoltorio de leftSection. */
   leftSectionProps?: BoxSlotProps | undefined;
   /** Envoltorio de rightSection. */

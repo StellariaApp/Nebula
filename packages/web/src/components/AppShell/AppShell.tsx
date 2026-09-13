@@ -1,8 +1,16 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
+import {
+  useCallback,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactElement,
+  type RefObject,
+} from "react";
 
-import { useUncontrolled } from "@stellaria/nebula-hooks";
+import { useScrolled, useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
@@ -11,7 +19,11 @@ import { Box } from "../Box/Box.js";
 
 import * as styles from "./AppShell.css.js";
 import * as variables from "./AppShell.vars.css.js";
-import { AppShellContext } from "./AppShellContext.js";
+import {
+  AppShellContext,
+  AppShellScrollContext,
+  type AppShellScrollState,
+} from "./AppShellContext.js";
 
 import type { AppShellLabels, AppShellProps } from "./AppShell.types.js";
 import { AppShellMain } from "./components/Main.js";
@@ -72,6 +84,28 @@ export function AppShell(props: AppShellProps): ReactElement {
   const has_aside = aside !== undefined;
 
   const railed = sidebar !== undefined;
+
+  const main_ref = useRef<HTMLElement | null>(null);
+  const [scroller, set_scroller] = useState<RefObject<HTMLElement | null>>(main_ref);
+  const Adopt = useCallback((ref: RefObject<HTMLElement | null>) => {
+    set_scroller(ref);
+    return () => {
+      set_scroller((current) => (current === ref ? main_ref : current));
+    };
+  }, []);
+  const scrolled = useScrolled(0, railed ? { scroller } : {});
+  const scroll_state = useMemo<AppShellScrollState>(
+    () => ({ scrolled, ref: scroller, Adopt }),
+    [scrolled, scroller, Adopt],
+  );
+  const SetMain = useCallback(
+    (node: HTMLElement | null) => {
+      main_ref.current = node;
+      if (mainRef !== undefined) mainRef.current = node;
+    },
+    [mainRef],
+  );
+
   const shell_state = {
     collapsed,
     navigationLabel: text.navigation,
@@ -95,17 +129,56 @@ export function AppShell(props: AppShellProps): ReactElement {
   if (railed) {
     return (
       <AppShellContext.Provider value={shell_state}>
+        <AppShellScrollContext.Provider value={scroll_state}>
+          <div
+            className={cx(
+              styles.rail,
+              railCollapse === "hidden" ? styles.rail_hidden : undefined,
+              contentWidth === undefined ? undefined : styles.bounded,
+              sprinkle_class,
+              className,
+            )}
+            style={{ ...css_vars, ...sprinkle_style }}
+            data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
+            data-rail-collapse={railCollapse}
+          >
+            <a
+              href={`#${content_id}`}
+              {...skipProps}
+              className={cx(styles.skip, skipProps?.className)}
+            >
+              {text.skipToContent}
+            </a>
+            {backdrop}
+            {header === undefined ? null : (
+              <Box {...chromeProps} className={cx(styles.chrome, chromeProps?.className)}>
+                {header}
+              </Box>
+            )}
+            {sidebar}
+            <AppShellMain id={content_id} ref={SetMain} tabIndex={-1} {...mainProps}>
+              {scrollShadow ? (
+                <Box
+                  aria-hidden="true"
+                  {...scrollShadowProps}
+                  className={cx(styles.scroll_shadow, scrollShadowProps?.className)}
+                />
+              ) : null}
+              {children}
+            </AppShellMain>
+          </div>
+        </AppShellScrollContext.Provider>
+      </AppShellContext.Provider>
+    );
+  }
+
+  return (
+    <AppShellContext.Provider value={shell_state}>
+      <AppShellScrollContext.Provider value={scroll_state}>
         <div
-          className={cx(
-            styles.rail,
-            railCollapse === "hidden" ? styles.rail_hidden : undefined,
-            contentWidth === undefined ? undefined : styles.bounded,
-            sprinkle_class,
-            className,
-          )}
+          className={cx(styles.shell, sprinkle_class, className)}
           style={{ ...css_vars, ...sprinkle_style }}
-          data-sidebar-collapsed={sidebarCollapsed ? "true" : undefined}
-          data-rail-collapse={railCollapse}
+          data-navbar-collapsed={collapsed ? "true" : undefined}
         >
           <a
             href={`#${content_id}`}
@@ -114,59 +187,23 @@ export function AppShell(props: AppShellProps): ReactElement {
           >
             {text.skipToContent}
           </a>
-          {backdrop}
-          {header === undefined ? null : (
-            <Box {...chromeProps} className={cx(styles.chrome, chromeProps?.className)}>
-              {header}
-            </Box>
-          )}
-          {sidebar}
+
+          {header}
+          {navbar}
+
           <AppShellMain
             id={content_id}
-            {...(mainRef === undefined ? {} : { ref: mainRef })}
             tabIndex={-1}
+            data-padded={padded ? "true" : undefined}
             {...mainProps}
           >
-            {scrollShadow ? (
-              <Box
-                aria-hidden="true"
-                {...scrollShadowProps}
-                className={cx(styles.scroll_shadow, scrollShadowProps?.className)}
-              />
-            ) : null}
             {children}
           </AppShellMain>
+
+          {aside}
+          {footer}
         </div>
-      </AppShellContext.Provider>
-    );
-  }
-
-  return (
-    <AppShellContext.Provider value={shell_state}>
-      <div
-        className={cx(styles.shell, sprinkle_class, className)}
-        style={{ ...css_vars, ...sprinkle_style }}
-        data-navbar-collapsed={collapsed ? "true" : undefined}
-      >
-        <a href={`#${content_id}`} {...skipProps} className={cx(styles.skip, skipProps?.className)}>
-          {text.skipToContent}
-        </a>
-
-        {header}
-        {navbar}
-
-        <AppShellMain
-          id={content_id}
-          tabIndex={-1}
-          data-padded={padded ? "true" : undefined}
-          {...mainProps}
-        >
-          {children}
-        </AppShellMain>
-
-        {aside}
-        {footer}
-      </div>
+      </AppShellScrollContext.Provider>
     </AppShellContext.Provider>
   );
 }

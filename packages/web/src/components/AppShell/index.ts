@@ -5,6 +5,7 @@ import { AppShellFooter, AppShellFooterContent } from "./components/Footer.js";
 import { AppShellHeader } from "./components/Header.js";
 import { AppShellLink, AppShellLinks, AppShellLabel } from "./components/Links.js";
 import { AppShellNav } from "./components/Nav.js";
+import { AppShellScroll } from "./components/Scroll.js";
 import { AppShellSection } from "./components/Section.js";
 import {
   AppShellSidebar,
@@ -32,6 +33,7 @@ export const AppShell = /* @__PURE__ */ Object.assign(AppShellRoot, {
   Nav: AppShellNav,
   Aside: AppShellAside,
   Section: AppShellSection,
+  Scroll: AppShellScroll,
   Header: AppShellHeader,
   Subbar: AppShellSubbar,
   Content: AppShellContent,
@@ -45,6 +47,7 @@ export {
   AppShellFooterContent,
   AppShellHeader,
   AppShellNav,
+  AppShellScroll,
   AppShellSection,
   AppShellSidebar,
   AppShellSidebarBody,
@@ -55,7 +58,11 @@ export {
   AppShellLabel,
   AppShellSubbar,
 };
+export { useAppShellScroll } from "./AppShellContext.js";
+export type { AppShellScrollState } from "./AppShellContext.js";
 export type {
+  AppShellActiveMode,
+  AppShellScrollProps,
   AppShellContentProps,
   AppShellHeaderProps,
   AppShellLabels,

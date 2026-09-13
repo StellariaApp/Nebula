@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 
 import { useScrollSpy } from "@stellaria/nebula-hooks";
+
+import { BestPathMatch, usePathname } from "../../utils/path-match.js";
 
 import type { NavActiveMode, NavResolvedMode } from "./Nav.types.js";
 
@@ -23,52 +25,9 @@ export interface NavActiveResult {
   mode: NavResolvedMode;
 }
 
-const EMPTY = "";
-const ROOT = "/";
 const HASH = "#";
 
-function Subscribe(notify: () => void): () => void {
-  window.addEventListener("popstate", notify);
-  window.addEventListener("hashchange", notify);
-  return () => {
-    window.removeEventListener("popstate", notify);
-    window.removeEventListener("hashchange", notify);
-  };
-}
-
-function GetPathname(): string {
-  return window.location.pathname;
-}
-
-function GetServerPathname(): string {
-  return EMPTY;
-}
-
-export function NormalizePath(href: string): string {
-  const path = href.split("?")[0]?.split(HASH)[0] ?? EMPTY;
-  return path.length > 1 && path.endsWith(ROOT) ? path.slice(0, -1) : path;
-}
-
-export function BestPathMatch(hrefs: readonly string[], pathname: string): string | undefined {
-  if (pathname === EMPTY) return undefined;
-
-  const current = NormalizePath(pathname);
-  let best: string | undefined;
-  let length = -1;
-
-  for (const href of hrefs) {
-    const path = NormalizePath(href);
-    if (path === EMPTY || !path.startsWith(ROOT)) continue;
-
-    const hit = path === current || (path !== ROOT && current.startsWith(`${path}/`));
-    if (hit && path.length > length) {
-      best = href;
-      length = path.length;
-    }
-  }
-
-  return best;
-}
+export { BestPathMatch, NormalizePath } from "../../utils/path-match.js";
 
 export function ResolveMode(
   mode: NavActiveMode,
@@ -133,7 +92,7 @@ export function useNavActive(
     ...(chrome === undefined ? {} : { chrome }),
   });
 
-  const pathname = useSyncExternalStore(Subscribe, GetPathname, GetServerPathname);
+  const pathname = usePathname();
   const claimed = items.find((item) => item.active === true)?.href;
 
   const spied = spy === undefined ? undefined : `${HASH}${spy}`;

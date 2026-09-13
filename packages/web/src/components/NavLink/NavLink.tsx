@@ -45,6 +45,7 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
     labelProps,
     descriptionProps,
     childrenProps,
+    "aria-label": aria_label,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -137,6 +138,7 @@ export function NavLink(props: NavLinkProps): ReactElement | null {
     style: { ...css_vars, ...sprinkle_style },
     "data-active": active ? "true" : undefined,
     "data-disabled": is_disabled ? "true" : undefined,
+    ...(aria_label === undefined ? {} : { "aria-label": aria_label }),
   };
 
   if (denied && permissionMode === "hide") return null;
