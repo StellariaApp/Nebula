@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 158,
+  "count": 164,
   "gaps": {
     "budget": [
       "DataGrid"
@@ -17,6 +17,7 @@
       "Conditional",
       "Container",
       "CurrencyDisplay",
+      "Cutout",
       "DateDisplay",
       "DateRangePicker",
       "DateTimePicker",
@@ -158,6 +159,14 @@
       "budget": "22.5 kB",
       "boundary": "server",
       "themeKeys": []
+    },
+    {
+      "name": "AudioPlayer",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "space.xs"
+      ]
     },
     {
       "name": "Avatar",
@@ -606,6 +615,12 @@
       "themeKeys": []
     },
     {
+      "name": "Cutout",
+      "budget": "23.5 kB",
+      "boundary": "server",
+      "themeKeys": []
+    },
+    {
       "name": "DataGrid",
       "budget": null,
       "boundary": "client",
@@ -697,6 +712,16 @@
       ]
     },
     {
+      "name": "Dock",
+      "budget": "58 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "space.md",
+        "space.sm",
+        "space.xxs"
+      ]
+    },
+    {
       "name": "DragDrop",
       "budget": "48 kB",
       "boundary": "client",
@@ -770,6 +795,7 @@
         "font.family",
         "font.size",
         "radius.lg",
+        "space.lg",
         "space.md",
         "space.sm",
         "space.xs"
@@ -1279,6 +1305,18 @@
       "boundary": "server",
       "themeKeys": [
         "radius.xs"
+      ]
+    },
+    {
+      "name": "MediaCard",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "motion.duration",
+        "motion.easing",
+        "space.sm",
+        "space.xs"
       ]
     },
     {
@@ -2173,6 +2211,46 @@
       "budget": "2 kB",
       "boundary": "server",
       "themeKeys": []
+    },
+    {
+      "name": "VideoPlayer",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "color.text",
+        "glass.band",
+        "motion.duration",
+        "motion.easing",
+        "radius.full",
+        "radius.lg",
+        "size.control",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs"
+      ]
+    },
+    {
+      "name": "Viewer",
+      "budget": "48 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.primary",
+        "color.surface",
+        "color.text",
+        "font.family",
+        "glass.strong",
+        "motion.duration",
+        "motion.easing",
+        "radius.full",
+        "radius.md",
+        "size.control",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "zIndex.modal"
+      ]
     },
     {
       "name": "VisuallyHidden",

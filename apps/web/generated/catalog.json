@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 158,
+  "count": 164,
   "gaps": {
     "family": [],
     "subpath": [],
@@ -39,7 +39,7 @@
       "parts": [],
       "boundary": "server",
       "budget": "20.5 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
@@ -99,6 +99,17 @@
       "boundary": "server",
       "budget": "22.5 kB",
       "notes": false,
+      "contract": true
+    },
+    {
+      "name": "AudioPlayer",
+      "family": "Rich Content",
+      "subpath": "/media",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "70 kB",
+      "notes": true,
       "contract": true
     },
     {
@@ -449,6 +460,17 @@
       "contract": true
     },
     {
+      "name": "Cutout",
+      "family": "Effects / Glass / Shaders",
+      "subpath": ".",
+      "compound": false,
+      "parts": [],
+      "boundary": "server",
+      "budget": "23.5 kB",
+      "notes": true,
+      "contract": true
+    },
+    {
       "name": "DataGrid",
       "family": "Data Grid",
       "subpath": "/datagrid",
@@ -537,6 +559,17 @@
       "contract": true
     },
     {
+      "name": "Dock",
+      "family": "Overlays",
+      "subpath": ".",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "58 kB",
+      "notes": true,
+      "contract": true
+    },
+    {
       "name": "DragDrop",
       "family": "Drag & Drop",
       "subpath": "/dnd",
@@ -588,7 +621,7 @@
       "parts": [],
       "boundary": "server",
       "budget": "48 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
@@ -1053,6 +1086,17 @@
       "contract": true
     },
     {
+      "name": "MediaCard",
+      "family": "Rich Content",
+      "subpath": ".",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "70 kB",
+      "notes": true,
+      "contract": true
+    },
+    {
       "name": "Menu",
       "family": "Overlays",
       "subpath": ".",
@@ -1427,6 +1471,7 @@
         "Section.Aside",
         "Section.Body",
         "Section.Description",
+        "Section.Eyebrow",
         "Section.Footer",
         "Section.Header",
         "Section.Heading",
@@ -1786,6 +1831,28 @@
       "boundary": "server",
       "budget": "2 kB",
       "notes": false,
+      "contract": true
+    },
+    {
+      "name": "VideoPlayer",
+      "family": "Rich Content",
+      "subpath": "/media",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "70 kB",
+      "notes": true,
+      "contract": true
+    },
+    {
+      "name": "Viewer",
+      "family": "Rich Content",
+      "subpath": ".",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "48 kB",
+      "notes": true,
       "contract": true
     },
     {

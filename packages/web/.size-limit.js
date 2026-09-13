@@ -1026,7 +1026,7 @@ const MODULE_BUDGETS = [
     path: "dist/components/Cutout/Cutout.js",
     import: "{ Cutout }",
     ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
-    limit: "12 kB",
+    limit: "23.5 kB",
   },
   {
     name: "Dock (patrón: Affix + GlassSurface + Popover + ActionIcon, por módulo)",

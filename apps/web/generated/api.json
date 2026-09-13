@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "count": 158,
-  "documented": 218,
+  "count": 164,
+  "documented": 225,
   "styleProps": {
     "count": 128,
     "page": "/docs/style-props"
@@ -194,6 +194,22 @@
           "slot": false
         },
         {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Makes the button a toggle and says whether it is on (ADR-194). It announces `aria-pressed`, and\nwhile on it swaps the recipe for `pressedVariant`: the state reads in the FILL, not in the\nstroke colour — a tinted glyph over glass says \"brand\", a filled square says \"already saved\".\nLeave it out for a button that only fires.",
+          "slot": false
+        },
+        {
+          "name": "pressedVariant",
+          "type": "Variant",
+          "required": false,
+          "default": "\"filled\"",
+          "doc": "The recipe drawn while `pressed`. Only read with `pressed` defined.",
+          "slot": false
+        },
+        {
           "name": "size",
           "type": "Size",
           "required": false,
@@ -205,7 +221,7 @@
           "name": "variant",
           "type": "Variant",
           "required": false,
-          "default": "\"filled\"",
+          "default": null,
           "doc": "The recipe the theme resolves background, border, glow and glass from, all at once. A row of\nicon buttons reads as one control strip only if they share it.",
           "slot": false
         }
@@ -941,6 +957,78 @@
         }
       ],
       "slots": [],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
+      "name": "AudioPlayer",
+      "contract": "AudioPlayerProps",
+      "own": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "What a screen reader says of the clip.",
+          "slot": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<PlayerControlsLabels>",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "surfaceProps",
+          "type": "Omit<Omit<DetailedHTMLProps<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>, \"ref\">, \"src\">",
+          "required": false,
+          "default": null,
+          "doc": "The `<audio>` itself. `src` and the handlers the player needs are its own.",
+          "slot": true
+        },
+        {
+          "name": "trackProps",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The seek track, a real `range`.",
+          "slot": true
+        },
+        {
+          "name": "volumeProps",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The volume slider inside its popover.",
+          "slot": true
+        }
+      ],
       "inherited": [
         {
           "group": "styleProps",
@@ -2005,6 +2093,22 @@
           "slot": false
         },
         {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Makes the button a toggle and says whether it is on (ADR-194). It announces `aria-pressed`, and\nwhile on it swaps the recipe for `pressedVariant`: the state reads in the FILL, not in the\nstroke colour — a tinted glyph over glass says \"brand\", a filled square says \"already saved\".\nLeave it out for a button that only fires.",
+          "slot": false
+        },
+        {
+          "name": "pressedVariant",
+          "type": "Variant",
+          "required": false,
+          "default": "\"filled\"",
+          "doc": "The recipe drawn while `pressed`. Only read with `pressed` defined.",
+          "slot": false
+        },
+        {
           "name": "size",
           "type": "Size",
           "required": false,
@@ -2126,6 +2230,22 @@
           "required": false,
           "default": null,
           "doc": "Lays a spinner over the button, marks it `aria-busy` and disables it. The icon dims in place\nrather than being swapped out, so the button holds its square while the work runs.",
+          "slot": false
+        },
+        {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "Makes the button a toggle and says whether it is on (ADR-194). It announces `aria-pressed`, and\nwhile on it swaps the recipe for `pressedVariant`: the state reads in the FILL, not in the\nstroke colour — a tinted glyph over glass says \"brand\", a filled square says \"already saved\".\nLeave it out for a button that only fires.",
+          "slot": false
+        },
+        {
+          "name": "pressedVariant",
+          "type": "Variant",
+          "required": false,
+          "default": "\"filled\"",
+          "doc": "The recipe drawn while `pressed`. Only read with `pressed` defined.",
           "slot": false
         },
         {
@@ -3157,6 +3277,14 @@
           "slot": false
         },
         {
+          "name": "containScroll",
+          "type": "false | \"trimSnaps\" | \"keepSnaps\"",
+          "required": false,
+          "default": "\"trimSnaps\"",
+          "doc": "Si el desplazamiento se queda dentro del contenido. Con `false` cualquier slide puede llegar al\ncentro; con `\"trimSnaps\"` —el defecto— la primera y la última se quedan pegadas a su borde.",
+          "slot": false
+        },
+        {
           "name": "defaultIndex",
           "type": "number",
           "required": false,
@@ -3170,6 +3298,14 @@
           "required": false,
           "default": "false",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "default": "25",
+          "doc": "Cuánto dura el recorrido, en las unidades de Embla — que no son milisegundos. Sube para un\ngesto más largo; `prefers-reduced-motion` lo lleva a cero pase lo que pase aquí.",
           "slot": false
         },
         {
@@ -3429,7 +3565,7 @@
             },
             {
               "name": "curve",
-              "type": "\"linear\" | \"monotone\" | \"step\"",
+              "type": "\"step\" | \"linear\" | \"monotone\"",
               "required": false,
               "default": "\"monotone\"",
               "doc": "How the line joins its points. It smooths by default, which reads well for a trend but implies\nvalues between the points that were never measured; `\"linear\"` claims nothing, and `\"step\"` is\nthe honest one for a value that changes in jumps.",
@@ -4045,7 +4181,7 @@
             },
             {
               "name": "curve",
-              "type": "\"linear\" | \"monotone\" | \"step\"",
+              "type": "\"step\" | \"linear\" | \"monotone\"",
               "required": false,
               "default": "\"monotone\"",
               "doc": "How the line joins its points. It smooths by default, which reads well for a trend but implies\nvalues between the points that were never measured; `\"linear\"` claims nothing, and `\"step\"` is\nthe honest one for a value that changes in jumps.",
@@ -8488,6 +8624,94 @@
       "subComponents": []
     },
     {
+      "name": "Cutout",
+      "contract": "CutoutProps",
+      "own": [
+        {
+          "name": "background",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "What fills the box, as a node: a `next/image` with `fill`, the catalogue `Image`, a plain\n`<img>`. The box gives it the frame — `position: relative; overflow: hidden` and the corners of\n`r` — and a plain `<img>` inside it is made to cover. It is a slot so the component depends on\nno framework and no CDN.",
+          "slot": false
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "Anything else over the figure: a caption, a badge.",
+          "slot": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "figure",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "The cut-out figure, laid over the background as an absolutely positioned `<img>`.",
+          "slot": false
+        },
+        {
+          "name": "figureAlt",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "doc": "Its alt. Empty by default: the figure is decoration over a background that already says it.",
+          "slot": false
+        },
+        {
+          "name": "figurePosition",
+          "type": "CutoutFigurePosition",
+          "required": false,
+          "default": null,
+          "doc": "Where the figure sits. Bottom-right by default: `{ bottom: 0, right: 0 }`.",
+          "slot": false
+        },
+        {
+          "name": "figureSize",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "doc": "The figure's width as a fraction of the box.",
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "backgroundProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The wrapper of the background slot.",
+          "slot": true
+        },
+        {
+          "name": "figureProps",
+          "type": "Omit<Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">, \"src\" | \"alt\">",
+          "required": false,
+          "default": null,
+          "doc": "The figure `<img>`.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
       "name": "DataGrid",
       "contract": "DataGridProps",
       "own": [
@@ -10866,6 +11090,174 @@
       "subComponents": []
     },
     {
+      "name": "Dock",
+      "contract": "DockProps",
+      "own": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "doc": "The name of the landmark. Both surfaces are `aside` and carry it.",
+          "slot": false
+        },
+        {
+          "name": "children",
+          "type": "ReactNode | ((stacked: boolean) => ReactNode)",
+          "required": true,
+          "default": null,
+          "doc": "The controls. A function receives `stacked`: `false` in the row that shows on wide screens,\n`true` inside the popover the dock folds into — the same controls, drawn twice, so a `Select`\ncan take a fixed width in the row and the full width in the column.",
+          "slot": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "compactBelow",
+          "type": "false | DockCompactBelow",
+          "required": false,
+          "default": "\"phone\"",
+          "doc": "Below this breakpoint the row folds into a single button that opens the same controls in a\npopover. Three controls in a row measure ~300 px and a phone has 390. `false` never folds.",
+          "slot": false
+        },
+        {
+          "name": "level",
+          "type": "GlassLevel",
+          "required": false,
+          "default": "\"strong\"",
+          "doc": "The glass step of both surfaces.",
+          "slot": false
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "required": false,
+          "default": "12",
+          "doc": "Distance between the folded button and its popover, in px.",
+          "slot": false
+        },
+        {
+          "name": "placement",
+          "type": "PopoverPlacement",
+          "required": false,
+          "default": "\"top end\"",
+          "doc": "Where the popover opens from the folded button.",
+          "slot": false
+        },
+        {
+          "name": "position",
+          "type": "AffixPosition",
+          "required": false,
+          "default": "{ bottom: 24, right: 24 }",
+          "doc": "Which corner it sits in.",
+          "slot": false
+        },
+        {
+          "name": "trigger",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "What the folded button shows. It is `aria-hidden`; `triggerLabel` names the button.",
+          "slot": false
+        },
+        {
+          "name": "triggerLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "The name of the folded button. Falls back to `aria-label`.",
+          "slot": false
+        },
+        {
+          "name": "visible",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "doc": "Whether it renders at all.",
+          "slot": false
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "default": "220",
+          "doc": "Width of the popover the controls stack into.",
+          "slot": false
+        },
+        {
+          "name": "withinPortal",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "doc": "Renders through a portal, like `Affix`.",
+          "slot": false
+        },
+        {
+          "name": "zIndex",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "doc": null,
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "compactProps",
+          "type": "Omit<BoxSlotProps, \"shadow\" | \"component\">",
+          "required": false,
+          "default": null,
+          "doc": "The folded surface, the one holding the button. Same contract as `surfaceProps`.",
+          "slot": true
+        },
+        {
+          "name": "popoverProps",
+          "type": "Partial<Omit<PopoverProps, \"children\" | \"trigger\">>",
+          "required": false,
+          "default": null,
+          "doc": "The popover the controls stack into.",
+          "slot": true
+        },
+        {
+          "name": "stackProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The column inside that popover.",
+          "slot": true
+        },
+        {
+          "name": "surfaceProps",
+          "type": "Omit<BoxSlotProps, \"shadow\" | \"component\">",
+          "required": false,
+          "default": null,
+          "doc": "The row surface, a `GlassSurface`: its `shadow` is the glass one, so it is not a style prop here.",
+          "slot": true
+        },
+        {
+          "name": "triggerProps",
+          "type": "ActionIconProps",
+          "required": false,
+          "default": null,
+          "doc": "The folded button.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 127
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
       "name": "DragDrop",
       "contract": null,
       "own": [],
@@ -11921,6 +12313,14 @@
           "slot": false
         },
         {
+          "name": "fill",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Takes the room its parent gives it — `flex: 1; align-self: stretch` — and centres the content\ninside. A state that stands in for what could not be painted should BE the screen, not a card\nfloating at the top of an empty one.",
+          "slot": false
+        },
+        {
           "name": "footer",
           "type": "ReactNode",
           "required": false,
@@ -11945,6 +12345,14 @@
           "slot": false
         },
         {
+          "name": "layout",
+          "type": "EmptyModuleLayout",
+          "required": false,
+          "default": "\"stack\"",
+          "doc": "`\"side\"` puts the illustration to the left of the text and the text starts flush against it;\nit stacks again below `tablet`. `\"stack\"` is the illustration over the text.",
+          "slot": false
+        },
+        {
           "name": "secondaryAction",
           "type": "ReactNode",
           "required": false,
@@ -11965,7 +12373,7 @@
           "type": "EmptyModuleSurface",
           "required": false,
           "default": "\"dashed\"",
-          "doc": null,
+          "doc": "The pane behind it. `\"glass\"` is the product sheet of ADR-192: the same pane as a\n`Card variant=\"glass\" glass=\"strong\"` with its hairline and `lg` corners, which is what a\nstate that stands in for a whole screen wants.",
           "slot": false
         },
         {
@@ -18193,6 +18601,238 @@
       "subComponents": []
     },
     {
+      "name": "MediaCard",
+      "contract": "MediaCardProps",
+      "own": [
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "A button over the image, top right: save, the menu.",
+          "slot": false
+        },
+        {
+          "name": "actionStart",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "The other button, top left. With it, `cornerStart` moves down beside the clock.",
+          "slot": false
+        },
+        {
+          "name": "avatar",
+          "type": "{ src?: string | null | undefined; name: string; }",
+          "required": false,
+          "default": null,
+          "doc": "The portrait beside the title. `name` draws the initial without `src`.",
+          "slot": false
+        },
+        {
+          "name": "ceiling",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "doc": "The chip at the bottom right: the tier.",
+          "slot": false
+        },
+        {
+          "name": "ceilingLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "clip",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "doc": "A muted preview clip that plays on hover, or — with `playable` — the clip the card IS a player of.",
+          "slot": false
+        },
+        {
+          "name": "clock",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "doc": "The clip's length already written («0:05»), the label at the bottom-left.",
+          "slot": false
+        },
+        {
+          "name": "component",
+          "type": "ElementType",
+          "required": false,
+          "default": "\"a\"",
+          "doc": "The link element when there is an `href`: `Link` of the router.",
+          "slot": false
+        },
+        {
+          "name": "cornerEnd",
+          "type": "MediaCardCorner | null",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "cornerStart",
+          "type": "MediaCardCorner | null",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "count",
+          "type": "MediaCardCount | null",
+          "required": false,
+          "default": null,
+          "doc": "A figure with its icon at the bottom left, over the foot.",
+          "slot": false
+        },
+        {
+          "name": "fallback",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "What the frame shows without frames or player.",
+          "slot": false
+        },
+        {
+          "name": "frames",
+          "type": "readonly string[]",
+          "required": true,
+          "default": null,
+          "doc": "What fills the frame, in order, already resolved. With more than one they cycle on hover.",
+          "slot": false
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "Where pressing it leads. With it the whole card is a link (`component` picks the router's\nelement); without it, `onOpen` opens something here — a viewer — through a hit layer the size\nof the frame, not a `button` around the card, which would put the menu inside a button.",
+          "slot": false
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "doc": "Its place in the grid, for the staggered reveal.",
+          "slot": false
+        },
+        {
+          "name": "onOpen",
+          "type": "(() => void)",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "openLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "The name of the hit layer. Required with `onOpen`.",
+          "slot": false
+        },
+        {
+          "name": "playable",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "The card is a player: `VideoPlayer` takes the frame and hides corners and foot while it runs.",
+          "slot": false
+        },
+        {
+          "name": "poster",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "doc": "The still frame of the clip. Falls back to the first frame.",
+          "slot": false
+        },
+        {
+          "name": "seconds",
+          "type": "number | null",
+          "required": false,
+          "default": null,
+          "doc": "The clip's seconds, already known, for the player.",
+          "slot": false
+        },
+        {
+          "name": "sheet",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "doc": "The first frame is a cell of a six-view sheet: show the face cell, not the whole sheet, and do not cycle.",
+          "slot": false
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "footProps",
+          "type": "Omit<BoxSlotProps, \"shadow\" | \"component\">",
+          "required": false,
+          "default": null,
+          "doc": "The glass foot with avatar, title and subtitle, a `GlassSurface`.",
+          "slot": true
+        },
+        {
+          "name": "frameProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The 3/4 frame.",
+          "slot": true
+        },
+        {
+          "name": "imageProps",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "Every frame image.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
       "name": "Menu",
       "contract": "MenuProps",
       "own": [
@@ -20150,6 +20790,14 @@
           "required": false,
           "default": "false",
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "The accessible name when the visible label is not enough: a rail that hides its labels still\nhas to name its links. It lands on the element itself, whatever `component` is.",
           "slot": false
         },
         {
@@ -23956,6 +24604,14 @@
           "slot": false
         },
         {
+          "name": "align",
+          "type": "SectionAlign",
+          "required": false,
+          "default": "\"start\"",
+          "doc": "`\"center\"` centres eyebrow, title and description over the rail and moves `actions` and\n`aside` under them; `\"start\"` is the header row as it always was.",
+          "slot": false
+        },
+        {
           "name": "aria-label",
           "type": "string",
           "required": false,
@@ -24025,6 +24681,14 @@
           "required": false,
           "default": null,
           "doc": "Replaces the content. A string is wrapped in an error `Alert` that announces itself.",
+          "slot": false
+        },
+        {
+          "name": "eyebrow",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "The small label OVER the title — «Cómo funciona», «Planes» — that every landing band opens\nwith (ADR-189). A string or a node becomes a `Section.Eyebrow`, a light `Badge`; an element is\nrendered as it comes. It sits outside the title, so the region's name stays the title alone.",
           "slot": false
         },
         {
@@ -24108,15 +24772,144 @@
           "slot": false
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "eyebrowProps",
+          "type": "BadgeProps",
+          "required": false,
+          "default": null,
+          "doc": "The badge the eyebrow is drawn with. Only rendered with `eyebrow` that is not an element.",
+          "slot": true
+        }
+      ],
       "inherited": [
         {
           "group": "styleProps",
-          "count": 126
+          "count": 125
         }
       ],
       "gaps": [],
       "subComponents": [
+        {
+          "name": "SectionEyebrow",
+          "contract": "SectionEyebrowProps",
+          "own": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": "The label. A badge is a `span` with no role of its own, so this text is all a screen reader\ngets — a status shown by colour alone does not reach one.",
+              "slot": false
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": null,
+              "slot": false
+            },
+            {
+              "name": "color",
+              "type": "ColorExtended",
+              "required": false,
+              "default": "\"primary\"",
+              "doc": "The scale the variant and the dot draw from. It is also the whole semantic signal of a status\nbadge, which is why the label has to repeat it in words.",
+              "slot": false
+            },
+            {
+              "name": "dot",
+              "type": "boolean",
+              "required": false,
+              "default": "false",
+              "doc": "Puts a coloured dot before the label, taking the 600 step of `color` regardless of how pale the\nvariant is. It is the status cue that survives a `\"light\"` badge on a busy row.",
+              "slot": false
+            },
+            {
+              "name": "fullWidth",
+              "type": "boolean",
+              "required": false,
+              "default": "false",
+              "doc": "Stretches the pill to its container instead of hugging the label.",
+              "slot": false
+            },
+            {
+              "name": "leftSection",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": "An adornment before the label. It is `aria-hidden`, so it can only repeat what the label says.",
+              "slot": false
+            },
+            {
+              "name": "radius",
+              "type": "\"sm\" | \"md\" | \"full\"",
+              "required": false,
+              "default": "\"full\"",
+              "doc": "How round the pill is.",
+              "slot": false
+            },
+            {
+              "name": "rightSection",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": "The same after the label, but this one is NOT `aria-hidden` — it is read out, which is what\nmakes it the place for a count or a dismiss control rather than a decorative glyph.",
+              "slot": false
+            },
+            {
+              "name": "size",
+              "type": "Size",
+              "required": false,
+              "default": "\"md\"",
+              "doc": "Height, padding and type of the pill together. It does not follow the text it sits beside, so a\nbadge inside small print has to be stepped down by hand.",
+              "slot": false
+            },
+            {
+              "name": "variant",
+              "type": "BadgeVariant",
+              "required": false,
+              "default": "\"light\"",
+              "doc": "How the pill is filled. `\"light\"` is the tinted wash that sits in a table or a list without\ncompeting with the row; the solid ones pull enough attention to read as a control.",
+              "slot": false
+            }
+          ],
+          "slots": [
+            {
+              "name": "dotProps",
+              "type": "BoxSlotProps",
+              "required": false,
+              "default": null,
+              "doc": "The colour dot. Only rendered with `dot`; its colour comes from the scale, not from the stylesheet.",
+              "slot": true
+            },
+            {
+              "name": "leftSectionProps",
+              "type": "BoxSlotProps",
+              "required": false,
+              "default": null,
+              "doc": "Wrapper for `leftSection`.",
+              "slot": true
+            },
+            {
+              "name": "rightSectionProps",
+              "type": "BoxSlotProps",
+              "required": false,
+              "default": null,
+              "doc": "Wrapper for `rightSection`.",
+              "slot": true
+            }
+          ],
+          "inherited": [
+            {
+              "group": "styleProps",
+              "count": 127
+            }
+          ],
+          "gaps": [],
+          "subComponents": []
+        },
         {
           "name": "SectionHeading",
           "contract": "SectionHeadingProps",
@@ -29057,6 +29850,318 @@
       ],
       "slots": [],
       "inherited": [],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
+      "name": "VideoPlayer",
+      "contract": "VideoPlayerProps",
+      "own": [
+        {
+          "name": "autoPlay",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Starts on its own and muted, like a feed.",
+          "slot": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "defer",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Do not open the file until someone presses play. A grid of 24 cards mounted 12 `video`\nelements, each opening a range request only to read its header. With it, stopped there is no\n`video` at all: the poster is an `<img>`, and the clip mounts on the first play. Without a\nposter it mounts when it comes into view (200 px early) rather than on load.",
+          "slot": false
+        },
+        {
+          "name": "duration",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "doc": "The clip's seconds, already known. Saves opening the file to write the total.",
+          "slot": false
+        },
+        {
+          "name": "fill",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "Cover the frame instead of measuring what the clip measures. It is the grid's business, not the player's.",
+          "slot": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "What a screen reader says of the clip.",
+          "slot": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<PlayerControlsLabels>",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "maxHeight",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "doc": "Caps the frame: a grid caps it, a room lets it run.",
+          "slot": false
+        },
+        {
+          "name": "onPlaying",
+          "type": "((playing: boolean) => void)",
+          "required": false,
+          "default": null,
+          "doc": "Says it started or stopped, so whoever frames it can step aside.",
+          "slot": false
+        },
+        {
+          "name": "poster",
+          "type": "string | null",
+          "required": false,
+          "default": null,
+          "doc": "The still frame before it starts. Without one the frame is the sunken surface; `null` says so on purpose.",
+          "slot": false
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "barProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The control bar over the frame.",
+          "slot": true
+        },
+        {
+          "name": "fullscreenProps",
+          "type": "ActionIconProps",
+          "required": false,
+          "default": null,
+          "doc": "The full-screen button in the corner.",
+          "slot": true
+        },
+        {
+          "name": "playProps",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The big play button over the middle, only while stopped.",
+          "slot": true
+        },
+        {
+          "name": "surfaceProps",
+          "type": "Omit<Omit<DetailedHTMLProps<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>, \"ref\">, \"src\" | \"poster\">",
+          "required": false,
+          "default": null,
+          "doc": "The `<video>` itself. `src`, `poster` and the handlers the player needs are its own.",
+          "slot": true
+        },
+        {
+          "name": "trackProps",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The seek track, a real `range`.",
+          "slot": true
+        },
+        {
+          "name": "volumeProps",
+          "type": "Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The volume slider inside its popover.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
+      "name": "Viewer",
+      "contract": "ViewerProps",
+      "own": [
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "Actions on the piece in view, in the top bar beside the close button.",
+          "slot": false
+        },
+        {
+          "name": "caption",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "A line beside the counter: whose the piece is, what state it is in.",
+          "slot": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "images",
+          "type": "readonly ViewerImage[]",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "doc": "Controlled: whoever opens the viewer knows the piece and arms `actions` for it.",
+          "slot": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<ViewerLabels>",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "onIndexChange",
+          "type": "(index: number) => void",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "withDownload",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "A real `<a download>` for the piece in view. Nothing else in the catalogue saves a file.",
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "barProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The top bar.",
+          "slot": true
+        },
+        {
+          "name": "counterProps",
+          "type": "TextSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The counter pill.",
+          "slot": true
+        },
+        {
+          "name": "imageProps",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "Every piece image.",
+          "slot": true
+        },
+        {
+          "name": "stageProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The stage the pieces slide on. It carries the pointer gestures.",
+          "slot": true
+        },
+        {
+          "name": "stripProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The thumbnail strip. Only with more than one image.",
+          "slot": true
+        },
+        {
+          "name": "thumbImageProps",
+          "type": "Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "The image of each thumbnail.",
+          "slot": true
+        },
+        {
+          "name": "thumbProps",
+          "type": "Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"ref\">",
+          "required": false,
+          "default": null,
+          "doc": "Every thumbnail button; the current one carries `aria-current`.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
       "gaps": [],
       "subComponents": []
     },

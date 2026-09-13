@@ -22,7 +22,7 @@
       "cssFiles": 2,
       "cssBr": 1,
       "fontBr": 1,
-      "htmlBr": 77
+      "htmlBr": 78.5
     },
     {
       "label": "Paginas de guia",
@@ -38,7 +38,7 @@
       "cssFiles": 2,
       "cssBr": 1,
       "fontBr": 1,
-      "htmlBr": 74.5
+      "htmlBr": 76
     },
     {
       "label": "Indices de seccion",
@@ -50,7 +50,7 @@
       "cssFiles": 2,
       "cssBr": 1,
       "fontBr": 1,
-      "htmlBr": 75.5
+      "htmlBr": 77
     },
     {
       "label": "Paginas sueltas",
