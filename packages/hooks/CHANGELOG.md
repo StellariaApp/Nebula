@@ -1,5 +1,15 @@
 # @stellaria/nebula-hooks
 
+## 1.1.14
+
+### Patch Changes
+
+- - Nuevos componentes web de medios: `VideoPlayer`, `AudioPlayer`, `Viewer` y `MediaCard`, junto a `Dock` y `Cutout`.
+  - `AppShell` expone su desplazamiento, permite colgar cabeceras y marca el elemento activo según la ruta.
+  - `Section` admite `eyebrow` y `align`, `EmptyModule` suma `side`, `glass` y `fill`, y `ActionIcon` incorpora el estado `pressed`.
+  - `useScrolled` acepta un `scroller` propio; nuevos hooks `useFloatingBand` y `CenterOn`.
+  - @stellaria/nebula-tokens@1.1.14
+
 ## 1.1.13
 
 ### Patch Changes
