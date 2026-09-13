@@ -25,6 +25,33 @@ describe("ActionIcon", () => {
     expect(screen.getByTestId("icon").parentElement?.getAttribute("aria-hidden")).toBe("true");
   });
 
+  it("pressed anuncia aria-pressed, conserva el nombre y cambia la receta al relleno", () => {
+    const { rerender } = Wrap(
+      <ActionIcon aria-label="Guardar" variant="glass" pressed={false}>
+        {DOT}
+      </ActionIcon>,
+    );
+    const off = screen.getByRole("button", { name: "Guardar", pressed: false });
+    expect(off.getAttribute("data-variant")).toBe("glass");
+    expect(off.getAttribute("data-toggled")).toBeNull();
+
+    rerender(
+      <NebulaProvider defaultTheme="dark" storage={null}>
+        <ActionIcon aria-label="Guardar" variant="glass" pressed>
+          {DOT}
+        </ActionIcon>
+      </NebulaProvider>,
+    );
+    const on = screen.getByRole("button", { name: "Guardar", pressed: true });
+    expect(on.getAttribute("data-variant")).toBe("filled");
+    expect(on.getAttribute("data-toggled")).toBe("true");
+  });
+
+  it("sin pressed no hay aria-pressed: un botón que sólo dispara no es un conmutador", () => {
+    Wrap(<ActionIcon aria-label="Editar">{DOT}</ActionIcon>);
+    expect(screen.getByRole("button", { name: "Editar" }).hasAttribute("aria-pressed")).toBe(false);
+  });
+
   it("se activa con teclado", async () => {
     const on_press = vi.fn();
     Wrap(

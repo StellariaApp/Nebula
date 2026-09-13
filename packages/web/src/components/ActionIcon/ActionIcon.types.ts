@@ -74,6 +74,18 @@ export interface ActionIconProps
    */
   children?: ReactNode | undefined;
   /**
+   * Makes the button a toggle and says whether it is on (ADR-194). It announces `aria-pressed`, and
+   * while on it swaps the recipe for `pressedVariant`: the state reads in the FILL, not in the
+   * stroke colour — a tinted glyph over glass says "brand", a filled square says "already saved".
+   * Leave it out for a button that only fires.
+   */
+  pressed?: boolean | undefined;
+  /**
+   * The recipe drawn while `pressed`. Only read with `pressed` defined.
+   * @default "filled"
+   */
+  pressedVariant?: Variant | undefined;
+  /**
    * Overrides the glass step the variant's recipe asks for. It is ignored in three cases that are
    * not errors: a variant whose recipe has no glass, a theme with `effects.glass.enabled` off, and
    * a `color` that is not one of the theme's scales — a hex or a role path never takes glass.

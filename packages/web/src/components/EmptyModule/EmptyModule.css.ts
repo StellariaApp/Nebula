@@ -13,20 +13,60 @@ export const root = style({
       boxSizing: "border-box",
       width: "100%",
       borderRadius: vars.radius.lg,
-      borderStyle: "solid",
-      borderWidth: 0,
-      borderColor: "transparent",
+    },
+  },
+});
+
+export const side = style({
+  "@layer": {
+    [composite_layer]: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: vars.space.lg,
+      textAlign: "start",
+    },
+  },
+});
+
+export const fill = style({
+  "@layer": {
+    [composite_layer]: {
+      flex: 1,
+      alignSelf: "stretch",
+      minHeight: 0,
+    },
+  },
+});
+
+export const state_side = style({
+  "@layer": {
+    [composite_layer]: {
+      flex: "1 1 280px",
+      alignItems: "flex-start",
+      textAlign: "start",
+      maxWidth: 480,
+    },
+  },
+});
+
+export const media_side = style({
+  "@layer": {
+    [composite_layer]: {
+      width: "auto",
+      flexShrink: 0,
     },
   },
 });
 
 export const surface = styleVariants({
   none: {},
+  glass: {},
   paper: {
     background: vars.color.surface.sunken,
   },
   outline: {
     borderWidth: 1,
+    borderStyle: "solid",
     borderColor: vars.color.border.default,
   },
   dashed: {
@@ -37,9 +77,21 @@ export const surface = styleVariants({
 });
 
 export const illustration = styleVariants({
-  sm: { maxWidth: 120, marginBlockEnd: vars.space.xs },
-  md: { maxWidth: 180, marginBlockEnd: vars.space.sm },
-  lg: { maxWidth: 240, marginBlockEnd: vars.space.md },
+  sm: {
+    maxWidth: 120,
+    marginBlockEnd: vars.space.xs,
+    selectors: { [`${side} &`]: { marginBlockEnd: 0 } },
+  },
+  md: {
+    maxWidth: 180,
+    marginBlockEnd: vars.space.sm,
+    selectors: { [`${side} &`]: { marginBlockEnd: 0 } },
+  },
+  lg: {
+    maxWidth: 240,
+    marginBlockEnd: vars.space.md,
+    selectors: { [`${side} &`]: { marginBlockEnd: 0 } },
+  },
 });
 
 export const media = style({

@@ -262,6 +262,24 @@ export const Empty: Story = {
         footer="También puedes conectar tu banco desde Ajustes."
       />
       <EmptyModule title="Sin conciliaciones" surface="paper" size="sm" />
+      <Box display="flex" mih={360}>
+        <EmptyModule
+          layout="side"
+          surface="glass"
+          fill
+          illustration={
+            <Box
+              aria-hidden="true"
+              bg="surface.sunken"
+              r="md"
+              style={{ width: 140, aspectRatio: "1 / 2" }}
+            />
+          }
+          title="No se pudo cargar esto"
+          description="El servidor no contestó. No es que no haya nada: es que no se ha podido preguntar."
+          action={<Button variant="gradient">Volver a intentarlo</Button>}
+        />
+      </Box>
     </Box>
   ),
 };

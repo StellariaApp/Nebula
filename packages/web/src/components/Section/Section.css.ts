@@ -56,6 +56,14 @@ export const head = style({
       gap: vars.space.md,
       flexWrap: "wrap",
       minWidth: 0,
+      selectors: {
+        "[data-align='center'] &": {
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          textAlign: "center",
+        },
+      },
     },
   },
 });
@@ -67,6 +75,21 @@ export const heading = style({
       flexDirection: "column",
       gap: vars.space.xxs,
       minWidth: 0,
+      selectors: {
+        "[data-align='center'] &": { alignItems: "center" },
+      },
+    },
+  },
+});
+
+export const eyebrow = style({
+  "@layer": {
+    [composite_layer]: {
+      alignSelf: "flex-start",
+      marginBlockEnd: vars.space.xs,
+      selectors: {
+        "[data-align='center'] &": { alignSelf: "center" },
+      },
     },
   },
 });
@@ -86,6 +109,9 @@ export const description = style({
     [composite_layer]: {
       margin: 0,
       maxWidth: "62ch",
+      selectors: {
+        "[data-align='center'] &": { marginInline: "auto" },
+      },
       fontSize: vars.font.size.body1,
       lineHeight: vars.font.lineHeight.relaxed,
       color: vars.color.text.secondary,
@@ -100,6 +126,9 @@ export const actions = style({
       alignItems: "center",
       gap: vars.space.xs,
       flexShrink: 0,
+      selectors: {
+        "[data-align='center'] &": { justifyContent: "center", flexWrap: "wrap" },
+      },
     },
   },
 });

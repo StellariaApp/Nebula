@@ -24,6 +24,45 @@ describe("Section", () => {
     expect(screen.getByRole("region", { name: "Movimientos" })).toBeDefined();
   });
 
+  it("el eyebrow va antes del título y no entra en el nombre de la región (ADR-189)", () => {
+    render(
+      <Section eyebrow="Cómo funciona" title="Tres pasos">
+        contenido
+      </Section>,
+    );
+    const region = screen.getByRole("region", { name: "Tres pasos" });
+    const heading = screen.getByRole("heading", { name: "Tres pasos" });
+    const eyebrow = screen.getByText("Cómo funciona");
+    expect(region.getAttribute("aria-label")).toBeNull();
+    expect(
+      eyebrow.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(heading.textContent).toBe("Tres pasos");
+  });
+
+  it("un eyebrow que ya es un elemento se pinta tal cual", () => {
+    render(
+      <Section eyebrow={<em data-testid="own">Nuevo</em>} title="Planes">
+        contenido
+      </Section>,
+    );
+    expect(screen.getByTestId("own").tagName).toBe("EM");
+  });
+
+  it("align='center' marca la banda para centrar su encabezado", () => {
+    render(
+      <Section align="center" title="Planes" description="Elige uno">
+        contenido
+      </Section>,
+    );
+    expect(screen.getByRole("region", { name: "Planes" }).getAttribute("data-align")).toBe(
+      "center",
+    );
+    cleanup();
+    render(<Section title="Planes">contenido</Section>);
+    expect(screen.getByRole("region", { name: "Planes" }).getAttribute("data-align")).toBeNull();
+  });
+
   it("sin título cae al aria-label", () => {
     render(<Section aria-label="Resumen">contenido</Section>);
     expect(screen.getByRole("region", { name: "Resumen" })).toBeDefined();

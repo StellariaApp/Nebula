@@ -1,14 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
 
 import { CreateIcons } from "@stellaria/nebula-icons";
 import { CommonPack } from "@stellaria/nebula-icons/packs";
-import {
-  ActionIcon,
-  Box,
-  Paper,
-  Text,
-} from "@stellaria/nebula-web";
+import { ActionIcon, Box, Paper, Text } from "@stellaria/nebula-web";
 
 const { Icon } = CreateIcons({ ...CommonPack });
 
@@ -91,4 +87,25 @@ export const Composition: Story = {
       </Box>
     </Paper>
   ),
+};
+
+/**
+ * Un conmutador (ADR-194): guardar, me gusta, silenciar. `pressed` anuncia `aria-pressed` y cambia
+ * la receta al relleno mientras está puesto — el estado se lee en el relleno, no en el trazo.
+ */
+export const Toggle: Story = {
+  render: function Render(args) {
+    const [on, set_on] = useState(false);
+    return (
+      <ActionIcon
+        {...args}
+        aria-label={on ? "Quitar de guardados" : "Guardar"}
+        variant="glass"
+        pressed={on}
+        onPress={() => {
+          set_on((current) => !current);
+        }}
+      />
+    );
+  },
 };

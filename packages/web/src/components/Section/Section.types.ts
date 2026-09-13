@@ -4,6 +4,7 @@ import type { Unit } from "@stellaria/nebula-tokens";
 
 import type { StyleProps } from "../../utils/style-props.js";
 
+import type { BadgeProps } from "../Badge/Badge.types.js";
 import type { RevealProps } from "../Reveal/Reveal.types.js";
 
 /**
@@ -15,12 +16,23 @@ export type SectionRevealTarget = "surface" | "content";
 
 export type SectionRevealProps = Pick<
   RevealProps,
-  "preset" | "spring" | "duration" | "once" | "amount" | "rootMargin" | "index" | "distance" | "initial"
+  | "preset"
+  | "spring"
+  | "duration"
+  | "once"
+  | "amount"
+  | "rootMargin"
+  | "index"
+  | "distance"
+  | "initial"
 >;
 
 export type SectionSize = "sm" | "md" | "lg" | "xl";
 
 export type SectionOrder = 2 | 3 | 4 | 5 | 6;
+
+/** Where the header sits: against the start edge of the rail, or centred over it (ADR-189). */
+export type SectionAlign = "start" | "center";
 
 /** Props of any `Section` part: children, `className` and the system style props. */
 export interface SectionSlotProps extends StyleProps {
@@ -35,7 +47,8 @@ export interface SectionSlotProps extends StyleProps {
 
 export type SectionHeadingProps = SectionSlotProps;
 
-export interface SectionProps extends Omit<StyleProps, "order"> {
+/** `align` here is the header alignment (ADR-189), not the `align-items` style prop: the component prop wins (ADR-032). */
+export interface SectionProps extends Omit<StyleProps, "order" | "align"> {
   /**
    * The body. A `Section.Header` among the children replaces the header built from `title`,
    * `description`, `aside` and `actions`; a `Section.Footer` replaces `footer` (ADR-111).
@@ -46,6 +59,20 @@ export interface SectionProps extends Omit<StyleProps, "order"> {
    * without a `Section.Title` among the children, the band falls back to `aria-label`.
    */
   title?: ReactNode | undefined;
+  /**
+   * The small label OVER the title — «Cómo funciona», «Planes» — that every landing band opens
+   * with (ADR-189). A string or a node becomes a `Section.Eyebrow`, a light `Badge`; an element is
+   * rendered as it comes. It sits outside the title, so the region's name stays the title alone.
+   */
+  eyebrow?: ReactNode | undefined;
+  /** The badge the eyebrow is drawn with. Only rendered with `eyebrow` that is not an element. */
+  eyebrowProps?: BadgeProps | undefined;
+  /**
+   * `"center"` centres eyebrow, title and description over the rail and moves `actions` and
+   * `aside` under them; `"start"` is the header row as it always was.
+   * @default "start"
+   */
+  align?: SectionAlign | undefined;
   description?: ReactNode | undefined;
   actions?: ReactNode | undefined;
   /** What sits beside the actions on the header row, to their left. Equivalent to `Section.Aside`. */

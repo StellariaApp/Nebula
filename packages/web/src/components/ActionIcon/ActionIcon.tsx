@@ -23,11 +23,12 @@ import * as styles from "./ActionIcon.css.js";
 import type { ActionIconProps } from "./ActionIcon.types.js";
 import * as variables from "./ActionIcon.vars.css.js";
 
-
 export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
   function ActionIcon(props, forwardedRef) {
     const {
-      variant = "filled",
+      variant: rest_variant = "filled",
+      pressed,
+      pressedVariant = "filled",
       size = "md",
       color = "primary",
       gradient,
@@ -43,6 +44,7 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
       ...rest
     } = props;
 
+    const variant = pressed === true ? pressedVariant : rest_variant;
     const { theme } = useTheme();
     const local_ref = useRef<HTMLButtonElement>(null);
     const ref = useObjectRef(forwardedRef ?? local_ref);
@@ -128,7 +130,10 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
     const is_animated = resolved.animated && !is_disabled;
     const lifts_on_hover = resolved.background === resolved.backgroundHover;
 
-    const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<ComponentPropsWithoutRef<"button">, "style">;
+    const dom_props = mergeProps(buttonProps, hoverProps, focusProps, dom_rest) as unknown as Omit<
+      ComponentPropsWithoutRef<"button">,
+      "style"
+    >;
 
     if (denied && permissionMode === "hide") return null;
 
@@ -144,6 +149,8 @@ export const ActionIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
         data-disabled={is_disabled ? "true" : undefined}
         data-loading={loading ? "true" : undefined}
         data-variant={variant}
+        data-toggled={pressed === true ? "true" : undefined}
+        {...(pressed === undefined ? {} : { "aria-pressed": pressed })}
         aria-busy={loading || undefined}
         data-animated={is_animated ? "true" : undefined}
         data-lifts={lifts_on_hover ? "true" : undefined}

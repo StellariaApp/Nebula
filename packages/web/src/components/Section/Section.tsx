@@ -21,6 +21,7 @@ import { SectionActions } from "./components/Actions.js";
 import { SectionAside } from "./components/Aside.js";
 import { SectionBody } from "./components/Body.js";
 import { SectionDescription } from "./components/Description.js";
+import { SectionEyebrow } from "./components/Eyebrow.js";
 import { SectionFooter } from "./components/Footer.js";
 import { SectionHeader, SectionHeading } from "./components/Header.js";
 import { SectionRail } from "./components/Rail.js";
@@ -68,6 +69,9 @@ export function Section(props: SectionProps): ReactElement {
   const {
     children,
     title,
+    eyebrow,
+    eyebrowProps,
+    align = "start",
     description,
     actions,
     aside,
@@ -135,66 +139,79 @@ export function Section(props: SectionProps): ReactElement {
   const Root: ElementType = animates_surface ? SectionSurface : "section";
 
   return (
-      <Root
-        {...(animates_surface ? { reveal: reveal_options } : {})}
-        className={cx(styles.section, styles.size[size], sprinkle_class, className)}
-        style={{ ...rail_vars, ...sprinkle_style }}
-        data-glass={glass ? "true" : undefined}
-        {...labelling}
-        {...rest}
+    <Root
+      {...(animates_surface ? { reveal: reveal_options } : {})}
+      className={cx(styles.section, styles.size[size], sprinkle_class, className)}
+      style={{ ...rail_vars, ...sprinkle_style }}
+      data-glass={glass ? "true" : undefined}
+      data-align={align === "center" ? "center" : undefined}
+      {...labelling}
+      {...rest}
+    >
+      <SectionRail
+        size={size}
+        data-divided={divided ? "true" : undefined}
+        {...(animates_content ? { reveal: reveal_options } : {})}
       >
-        <SectionRail
-          size={size}
-          data-divided={divided ? "true" : undefined}
-          {...(animates_content ? { reveal: reveal_options } : {})}
-        >
-          {has_own_header ? (
-            parts.header
-          ) : has_title || description !== undefined || actions !== undefined ? (
-            <SectionHeader>
-              <SectionHeading>
-                {has_title ? <SectionTitle order={order} id={title_id}>{title}</SectionTitle> : null}
-                {description === undefined ? null : (
-                  <SectionDescription>{description}</SectionDescription>
-                )}
-              </SectionHeading>
-              {actions === undefined && aside === undefined ? null : (
-                <SectionActions>
-                  {aside === undefined ? null : <SectionAside>{aside}</SectionAside>}
-                  {actions}
-                </SectionActions>
-              )}
-            </SectionHeader>
-          ) : null}
-
-          {own_body === undefined ? (
-            <SectionBody>
-              {replaced ? content : parts.body}
-              {overlay}
-            </SectionBody>
-          ) : (
-            cloneElement(
-              own_body,
-              undefined,
-              replaced ? (
-                content
+        {has_own_header ? (
+          parts.header
+        ) : has_title ||
+          eyebrow !== undefined ||
+          description !== undefined ||
+          actions !== undefined ? (
+          <SectionHeader>
+            <SectionHeading>
+              {eyebrow === undefined || eyebrow === null ? null : isValidElement(eyebrow) ? (
+                eyebrow
               ) : (
-                <>
-                  {own_body.props.children}
-                  {parts.body}
-                </>
-              ),
-              overlay,
-            )
-          )}
+                <SectionEyebrow {...eyebrowProps}>{eyebrow}</SectionEyebrow>
+              )}
+              {has_title ? (
+                <SectionTitle order={order} id={title_id}>
+                  {title}
+                </SectionTitle>
+              ) : null}
+              {description === undefined ? null : (
+                <SectionDescription>{description}</SectionDescription>
+              )}
+            </SectionHeading>
+            {actions === undefined && aside === undefined ? null : (
+              <SectionActions>
+                {aside === undefined ? null : <SectionAside>{aside}</SectionAside>}
+                {actions}
+              </SectionActions>
+            )}
+          </SectionHeader>
+        ) : null}
 
-          {parts.footer.length > 0 ? (
-            parts.footer
-          ) : footer === undefined ? null : (
-            <SectionFooter>{footer}</SectionFooter>
-          )}
-        </SectionRail>
-      </Root>
+        {own_body === undefined ? (
+          <SectionBody>
+            {replaced ? content : parts.body}
+            {overlay}
+          </SectionBody>
+        ) : (
+          cloneElement(
+            own_body,
+            undefined,
+            replaced ? (
+              content
+            ) : (
+              <>
+                {own_body.props.children}
+                {parts.body}
+              </>
+            ),
+            overlay,
+          )
+        )}
+
+        {parts.footer.length > 0 ? (
+          parts.footer
+        ) : footer === undefined ? null : (
+          <SectionFooter>{footer}</SectionFooter>
+        )}
+      </SectionRail>
+    </Root>
   );
 }
 

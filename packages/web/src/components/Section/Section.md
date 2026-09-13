@@ -92,3 +92,16 @@ declara lo que cambia —tamaño fijo `h5`, peso `semibold`, interlineado `tight
 `Section` vive en `composite` y `Title` en `primitive` (ADR-142). Antes de las capas no había forma de
 sobrescribir a `Title` desde fuera, así que este componente reimplementaba su tipografía entera a
 mano.
+
+## `eyebrow` y `align="center"`
+
+ADR-189. Toda banda de landing de la familia abre con **eyebrow → título → descripción**, y tres
+productos llevaban una copia de `band.tsx` para meter la insignia en `title` y centrar el encabezado
+con un `globalStyle` sobre los `div` internos. `eyebrow` pinta `Section.Eyebrow` —un `Badge
+variant="light" size="sm"`, o el elemento que se pase— **antes** del título y fuera de él, así que la
+región sigue llamándose como el título solo (con la insignia dentro de `title` se llamaba «Cómo
+funciona Tres pasos»).
+
+`align="center"` marca la banda con `data-align="center"` y el encabezado entero se centra: eyebrow,
+título, descripción, y `actions`/`aside` bajan debajo en vez de ir a la derecha. Es un atributo en la
+raíz y no una clase por parte porque las partes son cinco y todas leen el mismo dato.
