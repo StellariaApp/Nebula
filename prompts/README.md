@@ -15,8 +15,19 @@ prompts/
 ├─ 2.4-rosette-product/RP  — la maqueta de Rosette en el playground (pista paralela)
 ├─ 3-theme-creator/    TC  — pista paralela (arranca al cerrar W1)
 ├─ 4-native/           N1–N5 — desarrollo → publicación 🚀 → premium (superficie native)
-└─ 5-review/           R   — re-verificación de matriz + planes/codemods de migración
+├─ 5-review/           R   — re-verificación de matriz + planes/codemods de migración
+├─ 6-consumidores/     C1–C3 — los productos: landing a Nebula · armazón al estilo Rosette · alineación contra docs/07
+└─ 7-arranque/         N1  — un Next vacío con Nebula y una primera pantalla de verdad
 ```
+
+## Consumidores (fuera del roadmap de la librería)
+
+| Código | Archivo                                                                      | Contenido                                                                                                          | Requiere                                  |
+| ------ | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
+| N1     | [7-arranque/N1-next-desde-cero.md](7-arranque/N1-next-desde-cero.md)         | Producto nuevo: `create-next-app`, tema, raíz y una primera pantalla                                               | W5 publicada                              |
+| C1     | [6-consumidores/C1-landings-a-nebula.md](6-consumidores/C1-landings-a-nebula.md) | La landing de un producto existente pasa a Nebula al 100 %, sin tocar Nebula                                   | W5 publicada                              |
+| C2     | [6-consumidores/C2-armazon-de-producto.md](6-consumidores/C2-armazon-de-producto.md) | Landing + panel compuestos como Rosette, leyendo el código de Rosette; incluye qué subir de Rosette a Nebula | C1 (o N1)                                 |
+| C3     | [6-consumidores/C3-alineacion-visual.md](6-consumidores/C3-alineacion-visual.md) | Alineación de cualquier producto, nuevo o establecido, contra `docs/07-recetas-de-producto.md` sin leer otro producto | C1 (o N1) · `docs/07`                 |
 
 ## Índice
 
