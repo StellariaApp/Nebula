@@ -1,8 +1,8 @@
 import { expect, userEvent, within } from "storybook/test";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 
-import { Badge, Box, Button, Card, Nav, Text, Title } from "@stellaria/nebula-web";
+import { Badge, Box, Burger, Button, Card, Nav, Text, Title } from "@stellaria/nebula-web";
 
 import { MATRIX_A11Y, roseta, ThemeMatrix } from "../fixtures/themes.js";
 
@@ -200,6 +200,61 @@ export const Pathname: Story = {
       </Nav>
     </Box>
   ),
+};
+
+function Drawer(): ReactElement {
+  const [menu, set_menu] = useState(true);
+  return (
+    <Nav withBorder>
+      <Brand />
+      <Nav.Links activeMode="pathname" pathname="/docs/api/v2">
+        {ROUTES.map((item) => (
+          <Nav.Links.Link key={item.href} href={item.href}>
+            {item.label}
+          </Nav.Links.Link>
+        ))}
+      </Nav.Links>
+      <Burger size="sm" opened={menu} onChange={set_menu} />
+      <Nav.Sidebar
+        opened={menu}
+        onClose={() => {
+          set_menu(false);
+        }}
+        collapse="none"
+        activeMode="pathname"
+        pathname="/docs/api/v2"
+      >
+        {ROUTES.map((item) => (
+          <Nav.Links.Link key={item.href} href={item.href}>
+            {item.label}
+          </Nav.Links.Link>
+        ))}
+      </Nav.Sidebar>
+    </Nav>
+  );
+}
+
+export const SidebarPathname: Story = {
+  name: "Sidebar con activo por pathname",
+  parameters: { layout: "fullscreen" },
+  render: () => (
+    <Box display="flex" direction="column" gap="lg">
+      <Text fz="body3" c="text.secondary" px="md" pt="md">
+        Desde ADR-199 el cajón resuelve el activo igual que el grupo: aquí los dos reciben
+        `pathname="/docs/api/v2"` como lo daría el `usePathname()` del router, y en los dos se marca
+        `/docs/api`. `collapse="none"` mantiene el cajón abierto a cualquier ancho.
+      </Text>
+      <Drawer />
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("link", { name: "API" })).toHaveAttribute("aria-current", "page");
+
+    const drawer = within(await within(document.body).findByRole("complementary"));
+    await expect(drawer.getByRole("link", { name: "API" })).toHaveAttribute("aria-current", "page");
+    await expect(drawer.getByRole("link", { name: "Docs" })).not.toHaveAttribute("aria-current");
+  },
 };
 
 function Landing(props: { scrolled?: boolean | undefined }): ReactElement {

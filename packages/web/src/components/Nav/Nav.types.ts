@@ -85,6 +85,26 @@ export interface NavSidebarProps {
   footer?: ReactNode | undefined;
   /** Above this point the drawer closes by itself. */
   collapse?: NavLinksCollapse | undefined;
+  /**
+   * Forces one `href` as the active one among the `Nav.Links.Link` children, whatever the mode
+   * (ADR-199). Same contract as `active` in `Nav.Links`.
+   */
+  active?: string | undefined;
+  /**
+   * How the drawer decides which of its `Nav.Links.Link` children is active (ADR-199): the same
+   * four modes as `Nav.Links`, resolved over the `href`s it finds among its children. A
+   * `Nav.Links` mounted inside the drawer keeps its own resolution, since its provider is closer.
+   * @default "auto"
+   */
+  activeMode?: NavActiveMode | undefined;
+  /** The scroll-spy marker, as a fraction of the visible height. Only read in `"hash"` mode. */
+  spyOffset?: number | undefined;
+  /**
+   * The current path, when the router knows it better than `window.location`: a client-side
+   * navigation does not fire `popstate`, and a layout that is kept across routes does not
+   * re-render, so pass the router's own `usePathname()` here. Only read in `"pathname"` mode.
+   */
+  pathname?: string | undefined;
   closeLabel?: string | undefined;
   label?: string | undefined;
   className?: string | undefined;
@@ -105,6 +125,12 @@ export interface NavLinksProps extends Omit<StyleProps, "align"> {
   /** Priority+: measures the real width and sends the links that do not fit to the menu. */
   overflowMenu?: boolean | undefined;
   spyOffset?: number | undefined;
+  /**
+   * The current path, when the router knows it better than `window.location`: a client-side
+   * navigation does not fire `popstate`, and a layout that is kept across routes does not
+   * re-render, so pass the router's own `usePathname()` here. Only read in `"pathname"` mode.
+   */
+  pathname?: string | undefined;
   variant?: Variant | undefined;
   color?: ColorExtended | undefined;
   withIndicator?: boolean | undefined;

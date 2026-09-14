@@ -427,6 +427,81 @@ describe("Nav.Links — resolución del enlace activo", () => {
   });
 });
 
+describe("Nav.Sidebar — resolución del enlace activo (ADR-199)", () => {
+  function Drawer(props: {
+    pathname?: string;
+    active?: string;
+    mode?: "auto" | "pathname" | "manual";
+  }) {
+    const { pathname, active, mode } = props;
+    return (
+      <Nav>
+        <Nav.Sidebar
+          opened
+          onClose={() => undefined}
+          collapse="none"
+          {...(pathname === undefined ? {} : { pathname })}
+          {...(active === undefined ? {} : { active })}
+          {...(mode === undefined ? {} : { activeMode: mode })}
+        >
+          <Nav.Links.Link href="/">Inicio</Nav.Links.Link>
+          <Nav.Links.Link href="/docs">Docs</Nav.Links.Link>
+          <Nav.Links.Link href="/docs/api">API</Nav.Links.Link>
+        </Nav.Sidebar>
+      </Nav>
+    );
+  }
+
+  it("con pathname dado marca aria-current en el prefijo más largo", () => {
+    render(<Drawer pathname="/docs/api/v2" />);
+
+    expect(screen.getByRole("link", { name: "API" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Docs" }).getAttribute("aria-current")).toBeNull();
+    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBeNull();
+    expect(screen.getByRole("complementary").getAttribute("data-mode")).toBe("pathname");
+  });
+
+  it("pathname del router gana a window.location", () => {
+    Path("/docs");
+    render(<Drawer pathname="/docs/api" />);
+
+    expect(screen.getByRole("link", { name: "API" }).getAttribute("data-active")).toBe("true");
+    expect(screen.getByRole("link", { name: "Docs" }).getAttribute("data-active")).toBeNull();
+  });
+
+  it("sin pathname lee window.location como Nav.Links", () => {
+    Path("/docs");
+    render(<Drawer />);
+
+    expect(screen.getByRole("link", { name: "Docs" }).getAttribute("aria-current")).toBe("page");
+  });
+
+  it("active en el cajón fuerza el modo manual", () => {
+    Path("/docs");
+    render(<Drawer active="/" />);
+
+    expect(screen.getByRole("complementary").getAttribute("data-mode")).toBe("manual");
+    expect(screen.getByRole("link", { name: "Inicio" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Docs" }).getAttribute("aria-current")).toBeNull();
+  });
+
+  it("un Nav.Links completo dentro del cajón conserva su propia resolución", () => {
+    render(
+      <Nav>
+        <Nav.Sidebar opened onClose={() => undefined} collapse="none" pathname="/docs">
+          <Nav.Links active="/precios">
+            <Nav.Links.Link href="/docs">Docs</Nav.Links.Link>
+            <Nav.Links.Link href="/precios">Precios</Nav.Links.Link>
+          </Nav.Links>
+        </Nav.Sidebar>
+      </Nav>,
+    );
+
+    expect(screen.getByRole("link", { name: "Precios" }).getAttribute("aria-current")).toBe("page");
+    expect(screen.getByRole("link", { name: "Docs" }).getAttribute("aria-current")).toBeNull();
+  });
+});
+
 describe("Nav.Links.Link", () => {
   it("sin href rinde un botón y dispara onPress con ratón y con teclado", async () => {
     const user = userEvent.setup();

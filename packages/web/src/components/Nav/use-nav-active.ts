@@ -18,6 +18,8 @@ export interface NavActiveOptions {
   active: string | undefined;
   offset: number | undefined;
   chrome: number | undefined;
+  pathname?: string | undefined;
+  enabled?: boolean | undefined;
 }
 
 export interface NavActiveResult {
@@ -76,27 +78,29 @@ export function useNavActive(
   items: readonly NavItem[],
   options: NavActiveOptions,
 ): NavActiveResult {
-  const { mode, active, offset, chrome } = options;
+  const { mode, active, offset, chrome, pathname: given, enabled = true } = options;
 
   const hrefs = items.map((item) => item.href);
   const resolved = ResolveMode(mode, active, hrefs);
   const is_hash = resolved === "hash";
+  const spying = is_hash && enabled;
 
   const ids = is_hash
     ? hrefs.filter((href) => href.startsWith(HASH)).map((href) => href.slice(1))
     : [];
 
   const spy = useScrollSpy(ids, {
-    enabled: is_hash,
+    enabled: spying,
     ...(offset === undefined ? {} : { offset }),
     ...(chrome === undefined ? {} : { chrome }),
   });
 
-  const pathname = usePathname();
+  const seen = usePathname();
+  const pathname = given ?? seen;
   const claimed = items.find((item) => item.active === true)?.href;
 
   const spied = spy === undefined ? undefined : `${HASH}${spy}`;
-  const pin = useAnchorPin(is_hash, spied);
+  const pin = useAnchorPin(spying, spied);
   const pinned = pin !== undefined && hrefs.includes(pin) ? pin : undefined;
 
   const computed =

@@ -78,6 +78,34 @@ grupo, que apaga toda la detección:
 Esa es también la vía recomendada en Next: es una comparación por identidad contra el `href`, no hay
 heurística de por medio, y gobierna el indicador además del `aria-current`.
 
+Desde ADR-199 hay una segunda salida que **conserva la regla del prefijo más largo**: `pathname`.
+Es el mismo contrato que `AppShell.Sidebar pathname` (ADR-190): se le pasa el `usePathname()` del
+router y el grupo resuelve con `BestPathMatch` sobre esa ruta en vez de leer `window.location`. Es
+para el caso que la Navigation API no cubre —un layout de Next que **no vuelve a renderizar** al
+navegar—, y a diferencia de `active` no cambia el modo: sigue en `pathname`, con `/docs/api` ganando
+a `/docs`.
+
+## El cajón resuelve el activo igual que el grupo
+
+`Nav.Sidebar` monta `Nav.Links.Link` sueltos —sin `Nav.Links` alrededor, porque el grupo horizontal
+trae indicador, overflow y colapso que en un cajón vertical sobran—, y hasta ADR-199 esos enlaces
+**no sabían cuál era el activo**: el contexto que lo publica lo provee `Nav.Links`, y el cajón no lo
+proveía. Polaris lo calculaba a mano con una copia de `BestPathMatch`.
+
+Ahora el cajón provee el mismo `NavLinksContext` con el resultado de `useNavActive` sobre los
+`href` que recoge de sus hijos —el mismo `CollectItems` de `Nav.Links`, con el mismo límite: un
+`Link` envuelto en un componente propio del consumidor no se ve—. Acepta `active`, `activeMode`,
+`spyOffset` y `pathname` con el mismo sentido que en el grupo. Dos diferencias:
+
+- **No hay indicador deslizante**, así que el `SetItemRef` del contexto es un no-op. El activo se
+  ve por `data-active` y `aria-current`, que es lo que la hoja del cajón pinta.
+- **El espía solo corre con el cajón abierto**: en modo `hash` un cajón cerrado no cuesta un
+  listener de scroll, y al abrirse mide en el primer frame.
+
+Si dentro del cajón se monta un `Nav.Links` completo, **gana su provider** porque es el más
+cercano: sus enlaces se resuelven con sus props y no con las del cajón. Y el cajón no cuenta esos
+`href` como suyos, porque `CollectItems` no desciende en `Nav.Links`.
+
 ## Por qué los `href` se leen de los children y no se piden como `items`
 
 `Nav.Links` necesita la lista de destinos **antes** de renderizar: el scroll-spy la usa para saber

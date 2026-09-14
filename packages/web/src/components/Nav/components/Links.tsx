@@ -78,7 +78,7 @@ export function NavLinksLink(props: NavLinkItemProps): ReactElement {
 
 NavLinksLink.displayName = "NavLinksLink";
 
-function CollectItems(children: ReactNode, out: NavItem[]): void {
+export function CollectItems(children: ReactNode, out: NavItem[]): void {
   Children.forEach(children, (child) => {
     if (!isValidElement(child)) return;
 
@@ -103,6 +103,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     overflowMenu = false,
     collapse = "tablet",
     spyOffset,
+    pathname,
     variant = "light",
     color = "primary",
     withIndicator = true,
@@ -130,6 +131,7 @@ export function NavLinks(props: NavLinksProps): ReactElement {
     active,
     offset: spyOffset,
     chrome,
+    pathname,
   });
 
   const indicator = useNavIndicator(withIndicator ? resolved_active.href : undefined);
