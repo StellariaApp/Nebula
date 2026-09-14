@@ -163,6 +163,48 @@ export const Stats: Story = {
   ),
 };
 
+/** ADR-200: `uppercase={false}` deja el rótulo en caja normal y sin tracking; la cifra en mono. */
+export const StatsCajaNormal: Story = {
+  name: "Stats · Caja normal",
+  render: () => (
+    <SimpleGrid cols={{ base: 1, tablet: 3 }} spacing="md">
+      <Paper p="lg" r="md" withBorder>
+        <Stat
+          label="Ingresos"
+          value={MXN.format(68700)}
+          trend="up"
+          diff="12,4 %"
+          description="vs. mes anterior"
+          uppercase={false}
+          valueProps={{ ff: "mono" }}
+        />
+      </Paper>
+      <Paper p="lg" r="md" withBorder>
+        <Stat
+          label="Cancelaciones"
+          value="14"
+          trend="down"
+          diff="3,1 %"
+          description="vs. mes anterior"
+          uppercase={false}
+          valueProps={{ ff: "mono" }}
+        />
+      </Paper>
+      <Paper p="lg" r="md" withBorder>
+        <Stat
+          label="Clientes activos"
+          value="1 284"
+          trend="flat"
+          diff="0 %"
+          size="lg"
+          uppercase={false}
+          valueProps={{ ff: "mono" }}
+        />
+      </Paper>
+    </SimpleGrid>
+  ),
+};
+
 export const Banderoles: Story = {
   render: () => (
     <Box display="flex" direction="column" gap="md">

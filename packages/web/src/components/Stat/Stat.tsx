@@ -26,6 +26,7 @@ export function Stat(props: StatProps): ReactElement {
     diffLabel,
     size = "md",
     align = "start",
+    uppercase = true,
     className,
     reveal,
     labelProps,
@@ -46,7 +47,12 @@ export function Stat(props: StatProps): ReactElement {
       {...(reveal === undefined ? {} : { reveal })}
     >
       <Box {...headProps} className={cx(styles.head, headProps?.className)}>
-        <Text component="span" {...labelProps} className={cx(styles.label, labelProps?.className)}>
+        <Text
+          component="span"
+          data-uppercase={uppercase ? "true" : undefined}
+          {...labelProps}
+          className={cx(styles.label, uppercase && styles.label_uppercase, labelProps?.className)}
+        >
           {label}
         </Text>
         {icon === undefined || icon === null ? null : (

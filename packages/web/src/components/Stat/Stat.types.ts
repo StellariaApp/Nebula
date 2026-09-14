@@ -34,6 +34,12 @@ export interface StatProps extends Omit<StyleProps, "align"> {
   color?: ColorExtended | undefined;
   size?: Size | undefined;
   align?: "start" | "center" | "end" | undefined;
+  /**
+   * Whether the label is set in small caps with wide tracking. `false` keeps it in sentence case
+   * with the normal tracking, for products whose type never uses small caps (ADR-200).
+   * @default true
+   */
+  uppercase?: boolean | undefined;
   className?: string | undefined;
   /**
    * Animates it in when it first scrolls into view. `true` takes the catalogue entrance; an object

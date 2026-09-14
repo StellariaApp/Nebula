@@ -37,9 +37,16 @@ export const label = style({
     [component_layer]: {
       fontSize: vars.font.size.caption,
       fontWeight: vars.font.weight.medium,
+      color: vars.color.text.muted,
+    },
+  },
+});
+
+export const label_uppercase = style({
+  "@layer": {
+    [component_layer]: {
       textTransform: "uppercase",
       letterSpacing: vars.font.letterSpacing.wide,
-      color: vars.color.text.muted,
     },
   },
 });
