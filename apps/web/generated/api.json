@@ -1,7 +1,7 @@
 {
   "version": 1,
   "count": 164,
-  "documented": 225,
+  "documented": 226,
   "styleProps": {
     "count": 128,
     "page": "/docs/style-props"
@@ -11705,6 +11705,14 @@
           "slot": false
         },
         {
+          "name": "initialFocus",
+          "type": "ModalInitialFocus",
+          "required": false,
+          "default": "\"dialog\"",
+          "doc": "Where focus lands when the modal opens (ADR-203). `\"dialog\"` focuses the `<dialog>` itself\n(`tabIndex -1`, the `useDialog` contract): the reader announces the title and Tab goes to the\nfirst control, with no focus ring on the close button. `\"first\"` keeps the native behaviour of\n`showModal()`, the first focusable inside — what a search box wants. A ref focuses that element,\ntypically the first field of a form.",
+          "slot": false
+        },
+        {
           "name": "onClose",
           "type": "() => void",
           "required": true,
@@ -19415,6 +19423,14 @@
           "slot": false
         },
         {
+          "name": "initialFocus",
+          "type": "ModalInitialFocus",
+          "required": false,
+          "default": "\"dialog\"",
+          "doc": "Where focus lands when the modal opens (ADR-203). `\"dialog\"` focuses the `<dialog>` itself\n(`tabIndex -1`, the `useDialog` contract): the reader announces the title and Tab goes to the\nfirst control, with no focus ring on the close button. `\"first\"` keeps the native behaviour of\n`showModal()`, the first focusable inside — what a search box wants. A ref focuses that element,\ntypically the first field of a form.",
+          "slot": false
+        },
+        {
           "name": "onClose",
           "type": "() => void",
           "required": true,
@@ -20653,6 +20669,14 @@
               "required": false,
               "default": null,
               "doc": "Priority+: measures the real width and sends the links that do not fit to the menu.",
+              "slot": false
+            },
+            {
+              "name": "pathname",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": "The current path, when the router knows it better than `window.location`: a client-side\nnavigation does not fire `popstate`, and a layout that is kept across routes does not\nre-render, so pass the router's own `usePathname()` here. Only read in `\"pathname\"` mode.",
               "slot": false
             },
             {
@@ -25308,7 +25332,7 @@
             },
             {
               "name": "cols",
-              "type": "SimpleGridCols",
+              "type": "SimpleGridResponsive",
               "required": false,
               "default": null,
               "doc": "Reparte los tramos en rejilla en vez de en fila (ADR-173).\n\nMismo nombre, mismo tipo y mismo comportamiento que en `SimpleGrid`: un numero, o uno por\nbreakpoint. Con muchos tramos —una paleta de temas, por ejemplo— una fila que envuelve deja\nlas filas descuadradas y una rejilla no.",
@@ -25912,7 +25936,7 @@
         },
         {
           "name": "cols",
-          "type": "SimpleGridCols",
+          "type": "SimpleGridResponsive",
           "required": false,
           "default": "1",
           "doc": "Columns of equal width. Unlike `Grid`, children declare no span: the count lives here. A number\napplies at every width; an object sets it per breakpoint from `base` upwards.",
@@ -25967,7 +25991,71 @@
         }
       ],
       "gaps": [],
-      "subComponents": []
+      "subComponents": [
+        {
+          "name": "SimpleGridCell",
+          "contract": "SimpleGridCellProps",
+          "own": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "default": null,
+              "doc": null,
+              "slot": false
+            },
+            {
+              "name": "className",
+              "type": "string",
+              "required": false,
+              "default": null,
+              "doc": "Composes with the classes `Box` computes instead of replacing them.",
+              "slot": false
+            },
+            {
+              "name": "component",
+              "type": "(ElementType & C)",
+              "required": false,
+              "default": "\"div\"",
+              "doc": "The element it paints. `li` inside a grid that is a list.",
+              "slot": false
+            },
+            {
+              "name": "reveal",
+              "type": "boolean | UseRevealOptions",
+              "required": false,
+              "default": null,
+              "doc": "Animates the element in when it first scrolls into view. `true` takes the catalogue entrance;\nan object tunes it — `preset`, `distance`, `spring`, `duration`, `once`, `amount`, `rootMargin`\nand `index` for a stagger.\n\nIt lives here rather than on each surface so that `Card`, `Paper`, `GradientBorder`, `Section`\nand anything else built on `Box` inherit one implementation. Without it `Box` stays a server\ncomponent; with it the root swaps for a client shell and the children keep rendering on the\nserver.\n\nThe entrance is a CSS transition, not a JavaScript animation: it is the only motion in the\ncatalogue that fires WHILE the user scrolls, and the compositor should own it.",
+              "slot": false
+            },
+            {
+              "name": "rowSpan",
+              "type": "SimpleGridResponsive",
+              "required": false,
+              "default": "1",
+              "doc": "Rows the cell takes, with the same shape as `span`.",
+              "slot": false
+            },
+            {
+              "name": "span",
+              "type": "SimpleGridResponsive",
+              "required": false,
+              "default": "1",
+              "doc": "Columns the cell takes. A number applies at every width; an object sets it per breakpoint from\n`base` upwards, like `cols`. A span wider than the columns at that width overflows the grid, so\ndeclare both on the same breakpoints.",
+              "slot": false
+            }
+          ],
+          "slots": [],
+          "inherited": [
+            {
+              "group": "styleProps",
+              "count": 128
+            }
+          ],
+          "gaps": [],
+          "subComponents": []
+        }
+      ]
     },
     {
       "name": "Skeleton",
@@ -27010,6 +27098,14 @@
           "required": false,
           "default": null,
           "doc": null,
+          "slot": false
+        },
+        {
+          "name": "uppercase",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "doc": "Whether the label is set in small caps with wide tracking. `false` keeps it in sentence case\nwith the normal tracking, for products whose type never uses small caps (ADR-200).",
           "slot": false
         },
         {

@@ -1521,8 +1521,10 @@
       "name": "SimpleGrid",
       "family": "Foundation / Layout",
       "subpath": ".",
-      "compound": false,
-      "parts": [],
+      "compound": true,
+      "parts": [
+        "SimpleGrid.Cell"
+      ],
       "boundary": "server",
       "budget": "24 kB",
       "notes": true,
@@ -1591,7 +1593,7 @@
       "parts": [],
       "boundary": "server",
       "budget": "23.75 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
