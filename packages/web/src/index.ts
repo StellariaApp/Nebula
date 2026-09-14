@@ -159,11 +159,15 @@ export { Paper } from "./components/Paper/index.js";
 export type { PaperOwnProps, PaperProps } from "./components/Paper/index.js";
 export { Scroll } from "./components/Scroll/index.js";
 export type { ScrollAxis, ScrollOwnProps, ScrollProps } from "./components/Scroll/index.js";
-export { SimpleGrid } from "./components/SimpleGrid/index.js";
+export { SimpleGrid, SimpleGridCell } from "./components/SimpleGrid/index.js";
 export type {
+  SimpleGridCellOwnProps,
+  SimpleGridCellProps,
   SimpleGridCols,
   SimpleGridOwnProps,
   SimpleGridProps,
+  SimpleGridResponsive,
+  SimpleGridSpan,
 } from "./components/SimpleGrid/index.js";
 export { Space } from "./components/Space/index.js";
 export type { SpaceOwnProps, SpaceProps } from "./components/Space/index.js";
@@ -208,7 +212,12 @@ export type {
   MenuProps,
 } from "./components/Menu/index.js";
 export { Modal } from "./components/Modal/index.js";
-export type { ModalProps, ModalSide, ModalSize } from "./components/Modal/index.js";
+export type {
+  ModalInitialFocus,
+  ModalProps,
+  ModalSide,
+  ModalSize,
+} from "./components/Modal/index.js";
 export { Popover } from "./components/Popover/index.js";
 export type {
   OverlayTriggerElement,

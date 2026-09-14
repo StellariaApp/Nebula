@@ -91,6 +91,13 @@ const MODULE_BUDGETS = [
     limit: "24 kB",
   },
   {
+    name: "SimpleGridCell (primitivo temable en runtime, por módulo)",
+    path: "dist/components/SimpleGrid/components/Cell.js",
+    import: "{ SimpleGridCell }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "24 kB",
+  },
+  {
     name: "Container (primitivo temable en runtime, por módulo)",
     path: "dist/components/Container/Container.js",
     import: "{ Container }",

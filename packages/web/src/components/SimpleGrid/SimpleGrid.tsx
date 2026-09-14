@@ -6,35 +6,25 @@ import {
   type Ref,
 } from "react";
 
-import type { BreakpointName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { cx } from "../../utils/style-props.js";
 import { SpaceToCss } from "../../utils/token-css.js";
 import { Box } from "../Box/Box.js";
 
+import { ResponsiveVars, type ResponsiveSlots } from "./responsive-vars.js";
 import * as styles from "./SimpleGrid.css.js";
-import type { SimpleGridCols, SimpleGridOwnProps, SimpleGridProps } from "./SimpleGrid.types.js";
+import type { SimpleGridOwnProps, SimpleGridProps } from "./SimpleGrid.types.js";
 import * as variables from "./SimpleGrid.vars.css.js";
 
-const BREAKPOINT_VARS: Record<BreakpointName, string> = {
+const COLS_VARS: ResponsiveSlots = {
+  base: variables.colsBase,
   phone: variables.colsPhone,
   tablet: variables.colsTablet,
   laptop: variables.colsLaptop,
   desktop: variables.colsDesktop,
   wide: variables.colsWide,
 };
-
-function ColsVars(cols: SimpleGridCols): Record<string, string> {
-  if (typeof cols === "number") return { [variables.colsBase]: String(cols) };
-
-  const out: Record<string, string> = { [variables.colsBase]: String(cols.base ?? 1) };
-  for (const name of Object.keys(BREAKPOINT_VARS) as BreakpointName[]) {
-    const value = cols[name];
-    if (value !== undefined) out[BREAKPOINT_VARS[name]] = String(value);
-  }
-  return out;
-}
 
 const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
   function SimpleGrid(props, ref) {
@@ -51,7 +41,7 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
     } = props as SimpleGridOwnProps & { style?: CSSProperties };
 
     const css_vars = assignInlineVars({
-      ...ColsVars(cols),
+      ...ResponsiveVars(cols, COLS_VARS, 1),
       [variables.spacingX]: SpaceToCss(spacing),
       [variables.spacingY]: SpaceToCss(verticalSpacing ?? spacing),
       ...(justifyItems === undefined ? {} : { [variables.justify]: justifyItems }),
@@ -71,7 +61,7 @@ const SimpleGridComponent = forwardRef<HTMLElement, SimpleGridOwnProps>(
   },
 );
 
-interface SimpleGridComponent {
+export interface SimpleGridComponent {
   <C extends ElementType = "div">(props: SimpleGridProps<C> & { ref?: Ref<Element> }): ReactElement;
   displayName?: string;
 }
