@@ -1,5 +1,15 @@
 # @stellaria/nebula-tokens
 
+## 1.1.15
+
+### Patch Changes
+
+- - `Nav.Sidebar` deduce el enlace activo con la misma regla que `Nav.Links`, así que no hace falta marcarlo a mano.
+  - `Stat` puede pintar el rótulo en caja normal en lugar de en mayúsculas.
+  - `SimpleGrid.Cell` acepta `span` y `rowSpan` por breakpoint para ocupar varias columnas o filas según el tamaño de pantalla.
+  - El foco inicial del `Modal` cae en el panel en vez de en el primer control interactivo.
+  - `useScrollSpy` acepta una caja de scroll interior como raíz, y en los temas la semilla decide la tinta que va sobre el primario y sobre el degradado.
+
 ## 1.1.14
 
 ## 1.1.13
