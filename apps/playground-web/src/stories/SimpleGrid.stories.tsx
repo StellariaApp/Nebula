@@ -52,7 +52,7 @@ export const MosaicoConCelda2x2: Story = {
       </SimpleGrid.Cell>
       <Cells n={8} />
       <SimpleGrid.Cell span={{ base: 2, laptop: 4 }}>
-        <Box p="sm" bg="primary.700" c="text.onPrimary" r="sm" ta="center">
+        <Box p="sm" bg="primary.500" c="text.onPrimary" r="sm" ta="center">
           ancho completo
         </Box>
       </SimpleGrid.Cell>
