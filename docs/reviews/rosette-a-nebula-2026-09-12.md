@@ -177,3 +177,27 @@ Hallazgos nuevos para decidir: `Nav.Sidebar` sin `activeMode` (el cajón móvil 
 mano), `Stat` con versalitas que la norma descarta, `SimpleGrid` sin celda que abarque dos columnas,
 el degradado de un tema de producto con `to` claro que falla AA con `text.onGradient`, y el foco
 inicial del `Modal` que cae en `ButtonClose`.
+
+## 8 · Veredicto de Rosette (2026-09-13)
+
+C3 corrió sobre Rosette en la rama `c3/nebula-1.1.14` (`Rosette/docs/reviews/c3-nebula-1.1.14-2026-09-13.md`):
+las nueve copias y `lib/scroll.ts` pasaron a los componentes publicados, **+401 / −2759 líneas**,
+solo con `tsc` (sin `next dev` ni `build`: la máquina no da para las dos cosas). Es la **primera vez
+que un producto monta `VideoPlayer`, `AudioPlayer`, `Viewer`, `Cutout` y `MediaCard`**; nada se ha
+visto en pantalla todavía. Lo que vuelve a Nebula:
+
+| Hueco                                                                                                                                                                                     | Qué hizo Rosette mientras tanto                                       | Para Nebula                                                                                                            |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **`Section align` rompe en un patch**: ADR-189 lo convirtió de style prop a `SectionAlign`, y `align="flex-start"` deja de compilar en cualquier consumidor que lo pasara como estilo | Migró                                                                 | Anotarlo en las notas de 1.1.14 y en ADR-189; en adelante, un prop que cambia de tipo es minor                        |
+| `Cutout` recorta (`overflow: hidden`) y los dos heroes dependen de que la figura sobresalga                                                                                               | `overflow="visible"` como style prop (capa util gana a primitive)     | Documentarlo en `Cutout.md`, o prop `clip`                                                                              |
+| `MediaCard` no corta el clic de `action`/`actionStart` dentro de una tarjeta-enlace (ADR-194 preveía que `piece-action.tsx` desaparecería «si `MediaCard` lo hace por él»)                | `PieceAction` sigue con `preventDefault` + `stopPropagation`          | Que `MediaCard` lo haga por las ranuras de acción                                                                       |
+| `EmptyModule` topa la ilustración por `size` y titula con `Text h6`; Rosette usa 300 px y `h2` a `h3`/`h5`                                                                                | `illustrationProps={{ maw: "none" }}`, `titleProps={{ component: "h2", fz }}` | Considerar `illustrationSize` y un `h2` por defecto (una lámina de estado suele ser la única cabecera de la pantalla) |
+| `Viewer.labels.counter` es función; los diccionarios son plantillas `"{position} de {total}"`                                                                                             | Conversión en el wrapper                                              | Aceptar plantilla o función                                                                                              |
+| Los rótulos obligan a un wrapper por componente (`VideoPlayer`, `AudioPlayer`, `Viewer`)                                                                                                  | Tres wrappers de una línea                                            | Un contexto de rótulos (`NebulaLabelsProvider`) haría innecesarios los wrappers: coste recurrente de todo C3            |
+| `Dock` sin sombra en el popover por defecto                                                                                                                                                | `popoverProps={{ shadow: "md" }}`                                     | Valorar `shadow="md"` por defecto, que es lo que hacía la copia                                                          |
+| `Section align="center"` centra el encabezado pero no el cuerpo (`Band` ponía `ta="center"`)                                                                                              | `ta="center"` explícito en las cuatro centradas                       | Documentar en `Section.md` o que `align` arrastre `ta`                                                                  |
+
+Orden de riesgo para mirarlo en pantalla, del informe de Rosette: los dos heroes con `Cutout`
+(figura sobresaliendo y LCP con `priority`), las cuatro rejillas con `MediaCard` (`sheet`, adelanto
+mudo, `playable`, que guardar no navegue), el visor en seis pantallas, las láminas de estado a
+210/300, el muelle plegado bajo `phone`, y el nombre accesible de las trece secciones con `eyebrow`.

@@ -121,6 +121,7 @@ export const THEMES = { [THEME_NAME]: { dark: { theme: dark, className: CLASSES.
 - **Del producto es sólo el color**: `primary`, `accent`, `from`, `to`, `tint`. Lo demás (`wash`, `lift`, `glass`, `ramp`, `inkFloor`) es del sistema.
 - Dark-first: `THEME_SCHEME = "dark"` en los cuatro productos.
 - Paletas propias con `pnpm gen:palette from "#hex" --name x`; validación con `pnpm check:contrast -- --theme x.json`. Nebula sólo certifica AA para `nebula`; si el producto quiere AA, exige 0 FAIL y ajusta `inkFloor`.
+- **Primario o degradado claros** (un cyan, un amarillo): la tinta la elige la semilla con `ink: { primary: "dark", gradient: "dark" }` (ADR-202), sin hundir el color. `BuildProduct` no mide: `filled · primary` y `gradient` se certifican con el gate. Polaris: `cyan.500` pasa de 2,78 con blanca a 7,08 con oscura.
 - Para SVG de marca (logo, fondos) usa `vars.gradient.brand.edge / .tip / .image`, nunca `primary.500 → accent.500`.
 
 **Decisión pendiente del propietario.** Los cuatro productos discrepan hoy en lo que no es color: `wash` 0.009 / 0.08 / 0.09 / 0.05; `lift.base` −14 / −6 / +12 / +6; `glass` sheer en tres. Por el principio de WB debería ser un solo juego de valores. Mientras no se cierre, un producto nuevo copia los de Rosette y lo anota.
@@ -170,14 +171,16 @@ export const THEMES = { [THEME_NAME]: { dark: { theme: dark, className: CLASSES.
   </Nav.Actions>
   <Burger closeLabel openLabel onChange={setMenu} opened={menu} showBelow="tablet" size="sm" />
   <Nav.Sidebar
+    activeMode="pathname"
     closeLabel
     collapse="tablet"
     footer={<Cta />}
     label
     onClose={() => setMenu(false)}
     opened={menu}
+    pathname={usePathname()}
   >
-    …los mismos enlaces…
+    …los mismos enlaces, sin `active` a mano…
   </Nav.Sidebar>
 </Nav>
 ```
@@ -185,7 +188,7 @@ export const THEMES = { [THEME_NAME]: { dark: { theme: dark, className: CLASSES.
 **Reglas.**
 
 - Flotar, encogerse y ponerse de cristal al desplazar **lo hace `floating`**. No se escribe un listener de scroll para la nav. Nunca.
-- `active` = el href **más largo** que prefija el pathname por tramos (`/a` no enciende `/ab`; `/` no enciende todo). `Nav.Links` tiene `activeMode="pathname"|"hash"|"auto"`: úsalo antes de calcularlo a mano.
+- `active` = el href **más largo** que prefija el pathname por tramos (`/a` no enciende `/ab`; `/` no enciende todo). `Nav.Links` tiene `activeMode="pathname"|"hash"|"auto"`: úsalo antes de calcularlo a mano. **Desde ADR-199 `Nav.Sidebar` lo resuelve igual** sobre sus `Nav.Links.Link` sueltos, y los dos aceptan `pathname` para el `usePathname()` del router (como `AppShell.Sidebar`, ADR-190): un layout de Next no vuelve a renderizar al navegar. Los enlaces del cajón van como hijos directos, no envueltos en una isla propia, o el cajón no los ve.
 - `HomeLink`: si ya estás en esa ruta, `preventDefault` + `scrollTo(0)` + `replaceState` — «volver arriba» en vez de renavegar.
 - `nav.tsx` es de servidor; las islas son el logo, los enlaces, el burger y el cajón (`nav-client.tsx`). El estado del cajón es un átomo (`NavMenuAtom`).
 - **Decisión pendiente**: tres productos llevan `floating sticky contentWidth={1152}` y uno sólo `floating`. ADR-070 da 1180 por defecto a Nav/Section/Hero/Footer; el 1152 a mano puede ser reliquia. Mide a 1280 y 1600 y pregunta.
@@ -554,6 +557,8 @@ const { scrolled } = useAppShellScroll(); // ADR-187
 
 El cuerpo ya no se rellena a mano: `hangingHeight` reserva el máximo con un espaciador después de la sección.
 
+Las pestañas de la cabecera colgada siguen el scroll con el mismo espía de `Nav`, apuntado a la caja del armazón (ADR-204): `useScrollSpy(ids, { scroller: useAppShellScroll().ref, chrome: SHEET_HEADER_HEIGHT_SCROLLED })`, donde `chrome` es el alto de la cabecera **encogida** —lo que tapa dentro de la caja—. Un espía propio sobre el `ref` sobra.
+
 ```ts
 // metrics.ts — sin JSX, con la cuenta escrita
 /** relleno lg·2 (48) + fila (96) + hueco md (16) + Segment sm (36) + borde (1) + … = 215 */
@@ -645,7 +650,7 @@ Ilustración a la izquierda (**cinco, y significan cosas distintas**), título `
 - **Filtros**: evalúa primero `Filters` (declarativo: `FilterDescriptor[]` + accessors; las fechas van diferidas). El patrón compacto que usa Rosette: `SearchInput clearable debounce` que crece (`flex="1 1 220px" miw={160}`) + un `Chip checked size="sm" variant="light"` por filtro activo (al desmarcar vuelve al neutro) + contador `caption` + `Popover placement="bottom end"` «Filtros» con un `Select size="sm"` por grupo y «Limpiar» en `ghost`. El botón va `variant={activos ? "light" : "glass"}`.
 - **Paginación**: `Pagination total page onChange siblings boundaries size labels`.
 - **Tablas**: `Table` para lo plano; `DataGrid` (subpath) sólo si hay ordenación/virtualización de verdad.
-- **Cifras**: `Stat` con etiqueta en caja normal y cifra en mono. Rosette descartó las versalitas con tracking de `Stat` porque no existen en ninguna otra pantalla: si lo usas, que sea igual en todas.
+- **Cifras**: `Stat` con etiqueta en caja normal y cifra en mono: `Stat uppercase={false} valueProps={{ ff: "mono" }}` (ADR-200). Rosette descartó las versalitas con tracking de `Stat` porque no existen en ninguna otra pantalla: si lo usas, que sea igual en todas.
 
 ---
 
