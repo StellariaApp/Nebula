@@ -27,6 +27,9 @@ setTheme("light");
 - **`useMediaQuery`** — breakpoints from the theme, SSR-safe.
 - **`usePermission`** — permission gating against a resolver you inject; the core is never coupled to
   your backend.
+- **`useScrolled`** and **`useScrollSpy`** — the scroll-state and section-spy hooks behind `Nav`.
+  Both take `scroller` to watch an inner scroll box (an `AppShell.Scroll`) instead of the window
+  (ADR-187, ADR-204).
 - **`useDeviceTier`**, **`useReducedMotion`**, and the overlay and motion helpers the catalogue uses.
 
 ## Compatibility

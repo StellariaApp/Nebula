@@ -180,16 +180,163 @@ describe("useScrollSpy", () => {
     // barra y ese mismo alto llega como `chrome`, así que el borde cae CLAVADO en la frontera
     // entre dos secciones pegadas. El redondeo del layout deja la anterior asomando 0,188 px y
     // esa astilla se llevaba el marcador. Cifras medidas en Iris.
-    Object.defineProperty(window, "innerHeight", { value: 900, configurable: true, writable: true });
+    Object.defineProperty(window, "innerHeight", {
+      value: 900,
+      configurable: true,
+      writable: true,
+    });
     Section("entrega", 820, 399.188);
     Section("como", 1219.188, 463.531);
     Section("planes", 1994.281, 558.282);
-    const { result } = renderHook(() => useScrollSpy(["entrega", "como", "planes"], { chrome: 70 }));
+    const { result } = renderHook(() =>
+      useScrollSpy(["entrega", "como", "planes"], { chrome: 70 }),
+    );
 
     act(() => {
       Scroll(1149);
       Flush();
     });
     expect(result.current).toBe("como");
+  });
+});
+
+describe("useScrollSpy con scroller (ADR-204)", () => {
+  interface Scroller {
+    node: HTMLDivElement;
+    Scroll: (top: number) => void;
+  }
+
+  function Container(height: number, content: number, top = 100): Scroller {
+    const node = document.createElement("div");
+    let scroll_top = 0;
+    Object.defineProperty(node, "clientHeight", { value: height, configurable: true });
+    Object.defineProperty(node, "scrollHeight", { value: content, configurable: true });
+    Object.defineProperty(node, "scrollTop", { get: () => scroll_top, configurable: true });
+    node.getBoundingClientRect = () => ({ top, height }) as DOMRect;
+    document.body.append(node);
+    return {
+      node,
+      Scroll: (value) => {
+        scroll_top = value;
+        node.dispatchEvent(new Event("scroll"));
+      },
+    };
+  }
+
+  function Inner(box: Scroller, id: string, top: number, height = 400): void {
+    const node = document.createElement("section");
+    node.id = id;
+    node.getBoundingClientRect = () =>
+      ({
+        top: box.node.getBoundingClientRect().top + top - box.node.scrollTop,
+        height,
+      }) as DOMRect;
+    box.node.append(node);
+  }
+
+  it("mide el scroll de la caja y no el de la ventana", () => {
+    const box = Container(600, 3000);
+    Inner(box, "uno", 0);
+    Inner(box, "dos", 1200);
+    const { result } = renderHook(() => useScrollSpy(["uno", "dos"], { scroller: box.node }));
+    act(Flush);
+    expect(result.current).toBe("uno");
+
+    act(() => {
+      Scroll(5000);
+      Flush();
+    });
+    expect(result.current).toBe("uno");
+
+    act(() => {
+      box.Scroll(995);
+      Flush();
+    });
+    expect(result.current).toBe("uno");
+
+    act(() => {
+      box.Scroll(996);
+      Flush();
+    });
+    expect(result.current).toBe("dos");
+  });
+
+  it("las secciones se miden respecto al borde superior de la caja, no de la ventana", () => {
+    const box = Container(600, 3000, 250);
+    Inner(box, "uno", 0);
+    Inner(box, "dos", 1200);
+    const { result } = renderHook(() => useScrollSpy(["uno", "dos"], { scroller: box.node }));
+
+    act(() => {
+      box.Scroll(995);
+      Flush();
+    });
+    expect(result.current).toBe("uno");
+
+    act(() => {
+      box.Scroll(996);
+      Flush();
+    });
+    expect(result.current).toBe("dos");
+  });
+
+  it("chrome descuenta la barra pegada dentro de la caja", () => {
+    const box = Container(600, 3000);
+    Inner(box, "uno", 0);
+    Inner(box, "dos", 1200);
+    const { result } = renderHook(() =>
+      useScrollSpy(["uno", "dos"], { scroller: box.node, chrome: 100 }),
+    );
+
+    act(() => {
+      box.Scroll(929);
+      Flush();
+    });
+    expect(result.current).toBe("uno");
+
+    act(() => {
+      box.Scroll(930);
+      Flush();
+    });
+    expect(result.current).toBe("dos");
+  });
+
+  it("al fondo de la caja gana la última sección", () => {
+    const box = Container(600, 3000);
+    Inner(box, "uno", 0);
+    Inner(box, "dos", 1200);
+    Inner(box, "tres", 2800, 200);
+    const { result } = renderHook(() =>
+      useScrollSpy(["uno", "dos", "tres"], { scroller: box.node }),
+    );
+
+    act(() => {
+      box.Scroll(2399);
+      Flush();
+    });
+    expect(result.current).toBe("tres");
+  });
+
+  it("acepta la ref y con una ref vacía devuelve initial sin suscribir", () => {
+    const box = Container(600, 3000);
+    Inner(box, "uno", 0);
+    Inner(box, "dos", 1200);
+    const ref = { current: box.node };
+    const { result } = renderHook(() => useScrollSpy(["uno", "dos"], { scroller: ref }));
+
+    act(() => {
+      box.Scroll(996);
+      Flush();
+    });
+    expect(result.current).toBe("dos");
+
+    const add = vi.spyOn(window, "addEventListener");
+    const empty = renderHook(() =>
+      useScrollSpy(["uno", "dos"], { scroller: { current: null }, initial: "uno" }),
+    );
+    act(Flush);
+    expect(empty.result.current).toBe("uno");
+    expect(add.mock.calls.some(([type]) => type === "scroll")).toBe(false);
+    add.mockRestore();
   });
 });
