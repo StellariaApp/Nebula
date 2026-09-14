@@ -58,3 +58,32 @@ describe("el suelo llega a las vars que pinta el provider", () => {
     }
   });
 });
+
+describe("la tinta declarada sobre el primario manda sobre el suelo (ADR-202)", () => {
+  const Declared = (primary: "light" | "dark"): NebulaTheme => ({
+    ...Themes.nebula.dark,
+    ink: { floor: 2, primary },
+  });
+
+  it("dark pone tinta oscura sobre un indigo que por suelo llevaria clara", () => {
+    const { color } = ThemeToVars(Declared("dark"));
+    expect(color.ink.primary).toBe(INK_DARK);
+    expect(color.text.onPrimary).toBe(INK_DARK);
+  });
+
+  it("solo toca primary: accent y las semanticas siguen por el suelo", () => {
+    const { color } = ThemeToVars(Declared("dark"));
+    for (const scale of ["accent", "gray", "success", "error", "info"] as const) {
+      expect(color.ink[scale]).toBe(INK_LIGHT);
+    }
+    expect(color.ink.warning).toBe(INK_DARK);
+  });
+
+  it("light deja lo que ya habia", () => {
+    expect(ThemeToVars(Declared("light")).color.ink.primary).toBe(INK_LIGHT);
+  });
+
+  it("el degradado no la hereda: sigue con su peor extremo o con su propio ink", () => {
+    expect(ThemeToVars(Declared("dark")).color.text.onGradient).toBe(INK_LIGHT);
+  });
+});

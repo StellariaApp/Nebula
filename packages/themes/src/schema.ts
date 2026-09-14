@@ -189,6 +189,7 @@ const effects = z.strictObject({
 
 const ink = z.strictObject({
   floor: z.number().min(0).max(21),
+  primary: z.enum(gradientInks).optional(),
 });
 
 export const themeSchema = z.strictObject({

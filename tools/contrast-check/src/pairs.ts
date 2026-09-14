@@ -8,6 +8,7 @@ import type {
 
 import {
   Composite,
+  DeclaredInk,
   GradientInk,
   OnColor,
   ResolveBackground,
@@ -113,6 +114,8 @@ function VariantForeground(theme: NebulaTheme, variant: Variant, scale: string):
   if (recipe.foreground === ON_FILL) {
     const gradient = GradientInk(theme, recipe.background);
     if (gradient !== undefined) return gradient;
+    const declared = DeclaredInk(theme, recipe.background, scale);
+    if (declared !== undefined) return declared;
     const fill = FillHex(theme, recipe.background, scale as SemanticScaleName);
     if (fill !== undefined) return OnColor(fill, theme.ink.floor);
   }
@@ -151,8 +154,10 @@ function BuildVariantPairs(): ContrastPair[] {
           const recipe = t.variantMap[variant];
           const fill = FillHex(t, recipe.background, scale);
           const darker = t.meta.scheme === "dark" ? -1 : 1;
-          const deepen =
-            fill !== undefined && OnColor(fill, t.ink.floor) === "#0b0b0b" ? -darker : darker;
+          const ink =
+            DeclaredInk(t, recipe.background, scale) ??
+            (fill === undefined ? undefined : OnColor(fill, t.ink.floor));
+          const deepen = ink === "#0b0b0b" ? -darker : darker;
           const hovered = { ...recipe, background: ShiftRef(recipe.background, deepen) };
           return (
             ResolveBackground(t, variant, hovered, scale, VariantForeground(t, variant, scale))

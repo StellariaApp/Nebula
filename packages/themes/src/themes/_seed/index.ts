@@ -1,4 +1,9 @@
-import { palettes, type MotionTier, type Scale11 } from "@stellaria/nebula-tokens";
+import {
+  palettes,
+  type GradientToken,
+  type MotionTier,
+  type Scale11,
+} from "@stellaria/nebula-tokens";
 
 import type { Corner, Density, Glass } from "../../utils/axes.js";
 import type { Lift } from "../../utils/lift.js";
@@ -22,6 +27,13 @@ export type SeedName =
   | "quasar"
   | "eclipse";
 
+export type InkChoice = NonNullable<GradientToken["ink"]>;
+
+export interface SeedInk {
+  primary?: InkChoice;
+  gradient?: InkChoice;
+}
+
 export interface ThemeSeed {
   /**
    * La identidad del tema. **No es `SeedName`**, y no por descuido: los dieciseis del catalogo son
@@ -38,6 +50,16 @@ export interface ThemeSeed {
   wash: number;
   lift: Lift;
   inkFloor?: number;
+  /**
+   * La tinta que va sobre el primario y sobre el degradado de marca (ADR-202). Sin declararla
+   * decide el suelo: clara mientras aguante `inkFloor`, y la del degradado en su peor extremo.
+   *
+   * La declara el producto cuyo primario o cuyo `to` es claro —un cyan, un amarillo— y quiere
+   * conservarlo: `"dark"` pone letra oscura sobre ese relleno en los dos esquemas, porque el
+   * primario no cambia de esquema. `BuildProduct` no mide nada: quien certifica el par es
+   * `check:contrast -- --theme`.
+   */
+  ink?: SeedInk;
   /** Inclinacion del degradado de marca. Sin declararla, la de producto. */
   angle?: number;
   /**

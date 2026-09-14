@@ -6,9 +6,8 @@ import { DEFAULT_THEME, THEME_NAMES, Themes } from "../themes/registry.js";
 
 const SCHEMES: readonly ColorScheme[] = ["dark", "light"];
 
-const PAIRS: readonly (readonly [(typeof THEME_NAMES)[number], ColorScheme])[] = THEME_NAMES.flatMap(
-  (name) => SCHEMES.map((scheme) => [name, scheme] as const),
-);
+const PAIRS: readonly (readonly [(typeof THEME_NAMES)[number], ColorScheme])[] =
+  THEME_NAMES.flatMap((name) => SCHEMES.map((scheme) => [name, scheme] as const));
 
 describe("el registro lleva los dos ejes (ADR-166)", () => {
   it("cada tema trae sus dos esquemas", () => {
@@ -63,14 +62,34 @@ describe("semantica de escalas por scheme (decision W1.1)", () => {
 describe("tinta declarada de un degradado (ADR-089)", () => {
   const WithInk = (ink: unknown): unknown => {
     const theme: unknown = JSON.parse(JSON.stringify(Themes.nebula.dark));
-    (theme as { effects: { gradients: { brand: Record<string, unknown> } } }).effects.gradients.brand[
-      "ink"
-    ] = ink;
+    (
+      theme as { effects: { gradients: { brand: Record<string, unknown> } } }
+    ).effects.gradients.brand["ink"] = ink;
     return theme;
   };
 
   it.each(["light", "dark"])("el schema acepta ink=%s, que el contrato TS declara", (ink) => {
     expect(LoadTheme(WithInk(ink)).effects.gradients.brand.ink).toBe(ink);
+  });
+
+  it("rechaza un valor fuera del par light/dark", () => {
+    expect(() => LoadTheme(WithInk("auto"))).toThrow();
+  });
+});
+
+describe("tinta declarada sobre el primario (ADR-202)", () => {
+  const WithInk = (primary: unknown): unknown => {
+    const theme: unknown = JSON.parse(JSON.stringify(Themes.nebula.dark));
+    (theme as { ink: Record<string, unknown> }).ink["primary"] = primary;
+    return theme;
+  };
+
+  it.each(["light", "dark"])("el schema acepta ink.primary=%s", (primary) => {
+    expect(LoadTheme(WithInk(primary)).ink.primary).toBe(primary);
+  });
+
+  it("sin declararla no aparece la clave", () => {
+    expect("primary" in LoadTheme(JSON.parse(JSON.stringify(Themes.nebula.dark))).ink).toBe(false);
   });
 
   it("rechaza un valor fuera del par light/dark", () => {

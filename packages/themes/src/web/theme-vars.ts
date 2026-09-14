@@ -46,11 +46,18 @@ function GradientInk(theme: NebulaTheme, ref: string): string | undefined {
   );
 }
 
-/** La tinta la decide el propio relleno de cada escala, no el autor del tema (ADR-085). */
+/**
+ * La tinta la decide el propio relleno de cada escala, no el autor del tema (ADR-085), salvo sobre
+ * `primary`, donde la semilla del producto puede declararla (ADR-202) igual que un degradado
+ * declara la suya.
+ */
 function OnFill(theme: NebulaTheme, scale: InkScale): string {
   const ref = theme.variantMap.filled.background;
   const gradient = GradientInk(theme, ref);
   if (gradient !== undefined) return gradient;
+  if (scale === "primary" && theme.ink.primary !== undefined) {
+    return theme.ink.primary === "dark" ? INK_DARK : INK_LIGHT;
+  }
   if (!ref.startsWith(FILL_SCALE)) return theme.colors.text.onPrimary;
   const fill = ScaleOf(theme, scale)[ref.slice(FILL_SCALE.length)];
   return fill === undefined ? theme.colors.text.onPrimary : OnColor(fill, theme.ink.floor);

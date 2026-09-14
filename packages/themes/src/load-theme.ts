@@ -2,6 +2,7 @@ import type {
   GradientToken,
   NebulaTheme,
   ThemeEffects,
+  ThemeInk,
   VariantMap,
   VariantRecipe,
 } from "@stellaria/nebula-tokens";
@@ -65,8 +66,11 @@ export function LoadTheme(json: unknown): NebulaTheme {
     accent: NormalizeGradient(parsed.effects.gradients.accent),
     surface: NormalizeGradient(parsed.effects.gradients.surface),
   };
+  const ink: ThemeInk = { floor: parsed.ink.floor };
+  if (parsed.ink.primary !== undefined) ink.primary = parsed.ink.primary;
   return {
     ...parsed,
+    ink,
     effects: { ...parsed.effects, gradients },
     variantMap: variant_map,
   };

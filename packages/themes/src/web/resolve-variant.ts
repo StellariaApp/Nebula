@@ -342,7 +342,11 @@ function ResolveScale(
   const is_transparent = recipe.background === "transparent";
 
   const fill_hex = FillHex(recipe.background, scale, theme);
-  const dark_ink = fill_hex !== undefined && OnColor(fill_hex, theme.ink.floor) === INK_DARK;
+  const declared = scale === "primary" ? theme.ink.primary : undefined;
+  const dark_ink =
+    declared === undefined
+      ? fill_hex !== undefined && OnColor(fill_hex, theme.ink.floor) === INK_DARK
+      : declared === "dark";
   const darker = theme.meta.scheme === "dark" ? -1 : 1;
   const deepen = dark_ink ? -darker : darker;
   const hover_ref = is_transparent ? TRANSPARENT_HOVER : ShiftRef(recipe.background, deepen);

@@ -33,7 +33,9 @@ type NebulaTheme = {
   // Los dos temas por defecto se llaman los dos `nebula`.
 
   // 0. TINTA — hasta dónde aguanta la letra clara antes de ceder a la oscura (ADR-132)
-  ink: { floor: number }         // 0 = clara siempre · 2 = el de los oficiales · 4.5 = AA estricto
+  ink: { floor: number           // 0 = clara siempre · 2 = el de los oficiales · 4.5 = AA estricto
+         primary?: "light" | "dark" } // la declara la semilla del producto y gana al suelo sólo sobre
+                                 // `primary` (ADR-202), como `GradientToken.ink` sobre un degradado
 
   // 1. COLOR — escalas 50–950 (11 pasos, C2-Q4) + roles semánticos
   palettes: Record<PaletteName, Scale11>        // indigo, violet, green, … (16 base, extensibles)

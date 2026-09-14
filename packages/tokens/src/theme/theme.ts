@@ -141,6 +141,12 @@ export interface ThemeInk {
    * A gradient overrides the outcome outright with {@link GradientToken.ink}.
    */
   floor: number;
+  /**
+   * Ink declared over the primary fill, the way {@link GradientToken.ink} declares it over a
+   * gradient. It wins over `floor` for `primary` alone: a product whose primary is pale keeps its
+   * brand colour and takes dark type on it instead of sinking the fill. Left out, the floor decides.
+   */
+  primary?: "light" | "dark";
 }
 
 export interface NebulaTheme {

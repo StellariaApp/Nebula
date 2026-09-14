@@ -8,7 +8,7 @@ import {
 
 import { baseDark } from "../themes/_base/dark.js";
 import { baseLight } from "../themes/_base/light.js";
-import type { ThemeSeed } from "../themes/_seed/index.js";
+import type { InkChoice, ThemeSeed } from "../themes/_seed/index.js";
 import { FlipScale } from "../themes/scales.js";
 import { THEME_VERSION } from "../version.js";
 import { DENSITY_UNIT, GlassFor, RadiusOf } from "./axes.js";
@@ -21,6 +21,20 @@ const CHANNEL_MAX = 255;
 const PRODUCT_INK_FLOOR = 2;
 
 const PRODUCT_ANGLE = 100;
+
+const INK_HEX: Record<InkChoice, string> = {
+  light: baseLight.colors.text.onPrimary,
+  dark: baseLight.colors.text.primary,
+};
+
+/**
+ * La tinta que la semilla declara sobre un relleno, en hex, para el objeto del tema. Es la misma en
+ * los dos esquemas porque el primario y el degradado no cambian con `FlipScale`. Sin declaracion,
+ * la de la base de ese esquema.
+ */
+function DeclaredInk(choice: InkChoice | undefined, fallback: string): string {
+  return choice === undefined ? fallback : INK_HEX[choice];
+}
 
 function Channels(hex: string): [number, number, number] {
   const raw = hex.replace("#", "");
@@ -74,6 +88,7 @@ function GenerateGradients(
   seed: ThemeSeed,
   scheme: ColorScheme,
 ): Partial<Record<GradientRole, GradientToken>> {
+  const ink = seed.ink?.gradient;
   return {
     brand: {
       type: "linear",
@@ -82,6 +97,7 @@ function GenerateGradients(
         { color: seed.from, position: 0 },
         { color: seed.to, position: 100 },
       ],
+      ...(ink === undefined ? {} : { ink }),
     },
     surface: {
       type: "radial",
@@ -107,7 +123,10 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
   return {
     ...base,
     meta: { name: seed.name, scheme, version: THEME_VERSION },
-    ink: { floor: seed.inkFloor ?? PRODUCT_INK_FLOOR },
+    ink: {
+      floor: seed.inkFloor ?? PRODUCT_INK_FLOOR,
+      ...(seed.ink?.primary === undefined ? {} : { primary: seed.ink.primary }),
+    },
     motion: { ...base.motion, tier: seed.motion ?? base.motion.tier },
     radius: seed.corner === undefined ? base.radius : RadiusOf(base.radius, seed.corner),
     spacing: {
@@ -118,8 +137,16 @@ export function BuildProduct(seed: ThemeSeed, scheme: ColorScheme): NebulaTheme 
       ...base.colors,
       primary: dark ? FlipScale(seed.primary) : seed.primary,
       accent: dark ? FlipScale(seed.accent) : seed.accent,
+      text: {
+        ...base.colors.text,
+        onPrimary: DeclaredInk(seed.ink?.primary, base.colors.text.onPrimary),
+        onGradient: DeclaredInk(seed.ink?.gradient, base.colors.text.onGradient),
+      },
       surface: Canvas(base.colors.surface, seed, dark ? 1 : -1),
-      border: { ...Edges(base.colors.border, seed, dark ? 1 : -1), focus: seed.primary[FOCUS_STEP[scheme]] },
+      border: {
+        ...Edges(base.colors.border, seed, dark ? 1 : -1),
+        focus: seed.primary[FOCUS_STEP[scheme]],
+      },
     },
     effects: {
       ...base.effects,

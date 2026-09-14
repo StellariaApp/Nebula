@@ -15,6 +15,8 @@ export {
 export {
   SEED_NAMES,
   THEMES_SEEDS,
+  type InkChoice,
+  type SeedInk,
   type SeedName,
   type ThemeSeed,
 } from "./themes/_seed/index.js";

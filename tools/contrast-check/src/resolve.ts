@@ -181,6 +181,13 @@ export function GradientInk(theme: NebulaTheme, ref: string): string | undefined
   );
 }
 
+/** Réplica de la rama de ADR-202 de `OnFill`: la semilla declara la tinta sobre `primary`. */
+export function DeclaredInk(theme: NebulaTheme, ref: string, scale: string): string | undefined {
+  if (scale !== "primary" || theme.ink.primary === undefined) return undefined;
+  if (!ref.startsWith("scale.")) return undefined;
+  return theme.ink.primary === "dark" ? INK_DARK : INK_LIGHT;
+}
+
 export function Ratio(a: string, b: string): number {
   const la = Luminance(a);
   const lb = Luminance(b);

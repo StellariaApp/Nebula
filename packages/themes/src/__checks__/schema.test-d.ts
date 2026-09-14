@@ -18,7 +18,12 @@ export type CheckRadius = Expect<Extends<SchemaTheme["radius"], NebulaTheme["rad
 export type CheckSpacing = Expect<Extends<SchemaTheme["spacing"], NebulaTheme["spacing"]>>;
 export type CheckSizes = Expect<Extends<SchemaTheme["sizes"], NebulaTheme["sizes"]>>;
 export type CheckMotion = Expect<Extends<SchemaTheme["motion"], NebulaTheme["motion"]>>;
-export type CheckInk = Expect<Extends<SchemaTheme["ink"], NebulaTheme["ink"]>>;
+export type CheckInkFloor = Expect<
+  Extends<SchemaTheme["ink"]["floor"], NebulaTheme["ink"]["floor"]>
+>;
+export type CheckInkPrimary = Expect<
+  Extends<NonNullable<SchemaTheme["ink"]["primary"]>, NonNullable<NebulaTheme["ink"]["primary"]>>
+>;
 export type CheckZIndex = Expect<Extends<SchemaTheme["zIndex"], NebulaTheme["zIndex"]>>;
 
 type SchemaEffects = SchemaTheme["effects"];
