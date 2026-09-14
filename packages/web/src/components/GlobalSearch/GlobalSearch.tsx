@@ -199,6 +199,7 @@ export function GlobalSearch(props: GlobalSearchProps): ReactElement {
         size="lg"
         padding="none"
         withCloseButton={false}
+        initialFocus="first"
         aria-label={text.input}
       >
         <Box {...searchRowProps} className={cx(styles.search_row, searchRowProps?.className)}>

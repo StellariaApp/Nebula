@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { fireEvent } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
@@ -195,6 +195,51 @@ describe("Modal", () => {
     fireEvent.pointerDown(dialog, { clientX: 5, clientY: 5 });
     fireEvent.click(dialog, { clientX: 5, clientY: 5 });
     expect(OnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("al abrir, el foco cae en el propio diálogo y no en el botón de cierre (ADR-203)", () => {
+    render(<Controlled />);
+    const dialog = screen.getByRole("dialog", { name: "Confirmar" });
+
+    expect(dialog.getAttribute("tabindex")).toBe("-1");
+    expect(document.activeElement).toBe(dialog);
+    expect(document.activeElement).not.toBe(screen.getByRole("button", { name: "Close" }));
+  });
+
+  it("initialFocus con una ref enfoca ese elemento", () => {
+    function WithField(): React.ReactElement {
+      const field = useRef<HTMLInputElement>(null);
+      return (
+        <Modal opened onClose={() => undefined} title="Invitar" initialFocus={field}>
+          <input aria-label="Nombre" ref={field} />
+          <button type="button">Enviar</button>
+        </Modal>
+      );
+    }
+    render(<WithField />);
+
+    expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Nombre" }));
+  });
+
+  it('initialFocus="first" no mueve el foco por su cuenta: lo deja al showModal nativo', () => {
+    render(
+      <Modal opened onClose={() => undefined} title="Buscar" initialFocus="first">
+        <input aria-label="Consulta" />
+      </Modal>,
+    );
+
+    expect(document.activeElement).not.toBe(screen.getByRole("dialog"));
+  });
+
+  it("una ref vacía o ajena al diálogo cae en el propio diálogo", () => {
+    const outside = { current: document.createElement("button") };
+    render(
+      <Modal opened onClose={() => undefined} title="X" initialFocus={outside}>
+        <button type="button">Aceptar</button>
+      </Modal>,
+    );
+
+    expect(document.activeElement).toBe(screen.getByRole("dialog"));
   });
 
   it("no expone diálogo cuando opened=false", () => {

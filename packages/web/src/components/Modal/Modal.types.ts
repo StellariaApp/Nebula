@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
 
 import type { Size, SizeValue } from "@stellaria/nebula-tokens";
 
@@ -10,6 +10,8 @@ import type { TextSlotProps } from "../Text/Text.types.js";
 export type ModalSize = Size;
 
 export type ModalSide = "start" | "end" | "top" | "bottom";
+
+export type ModalInitialFocus = "dialog" | "first" | RefObject<HTMLElement | null>;
 
 export interface ModalProps extends StyleProps {
   opened: boolean;
@@ -44,6 +46,15 @@ export interface ModalProps extends StyleProps {
   closeOnEscape?: boolean | undefined;
   withCloseButton?: boolean | undefined;
   closeLabel?: string | undefined;
+  /**
+   * Where focus lands when the modal opens (ADR-203). `"dialog"` focuses the `<dialog>` itself
+   * (`tabIndex -1`, the `useDialog` contract): the reader announces the title and Tab goes to the
+   * first control, with no focus ring on the close button. `"first"` keeps the native behaviour of
+   * `showModal()`, the first focusable inside — what a search box wants. A ref focuses that element,
+   * typically the first field of a form.
+   * @default "dialog"
+   */
+  initialFocus?: ModalInitialFocus | undefined;
   padding?: "none" | "sm" | "md" | "lg" | undefined;
   radius?: "none" | "sm" | "md" | "lg" | undefined;
   className?: string | undefined;

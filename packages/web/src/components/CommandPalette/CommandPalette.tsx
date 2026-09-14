@@ -219,6 +219,7 @@ export function CommandPalette(props: CommandPaletteProps): ReactElement {
       size="lg"
       padding="none"
       withCloseButton={false}
+      initialFocus={input_ref}
       aria-label={text.search}
       className={className}
     >

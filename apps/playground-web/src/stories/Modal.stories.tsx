@@ -1,15 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-import {
-  Box,
-  Button,
-  Modal,
-  Text,
-  Title,
-} from "@stellaria/nebula-web";
+import { Box, Button, Modal, Text, TextInput, Title } from "@stellaria/nebula-web";
 import type { ModalProps } from "@stellaria/nebula-web";
 
 import ModalAsDrawer from "@stellaria/nebula-demos/Modal/AsDrawer";
@@ -126,6 +120,45 @@ export const KeyboardFlow: Story = {
     await waitFor(() => {
       void expect(body.queryByRole("dialog")).toBeNull();
     });
+  },
+};
+
+function FormFixture(): React.ReactElement {
+  const [opened, set_opened] = useState(false);
+  const field = useRef<HTMLInputElement>(null);
+  return (
+    <>
+      <Button onPress={() => set_opened(true)}>Invitar</Button>
+      <Modal
+        opened={opened}
+        onClose={() => set_opened(false)}
+        title="Invitar a alguien"
+        initialFocus={field}
+        footer={<Button>Enviar</Button>}
+      >
+        <Box display="flex" direction="column" gap="md">
+          <TextInput ref={field} label="Correo" placeholder="nombre@dominio.com" />
+          <TextInput label="Mensaje" />
+        </Box>
+      </Modal>
+    </>
+  );
+}
+
+/**
+ * Desde ADR-203 el foco entra al propio `<dialog>` —sin aro sobre el botón de cierre— y `Tab`
+ * lleva al primer control. Un formulario lo adelanta al primer campo con `initialFocus={ref}`.
+ */
+export const InitialFocus: Story = {
+  name: "Foco inicial en un campo",
+  render: () => <FormFixture />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Invitar" }));
+
+    const body = within(document.body);
+    await body.findByRole("dialog", { name: "Invitar a alguien" });
+    await expect(body.getByRole("textbox", { name: "Correo" })).toHaveFocus();
   },
 };
 

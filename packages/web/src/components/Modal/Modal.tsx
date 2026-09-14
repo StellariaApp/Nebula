@@ -20,7 +20,7 @@ import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ButtonClose } from "../ButtonClose/ButtonClose.js";
 
 import * as styles from "./Modal.css.js";
-import type { ModalProps, ModalSide, ModalSize } from "./Modal.types.js";
+import type { ModalInitialFocus, ModalProps, ModalSide, ModalSize } from "./Modal.types.js";
 import * as variables from "./Modal.vars.css.js";
 import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
@@ -56,6 +56,16 @@ function ResolveLayout(
   return centered ? "centered" : "top";
 }
 
+function FocusTarget(
+  dialog: HTMLDialogElement,
+  initial_focus: ModalInitialFocus,
+): HTMLElement | null {
+  if (initial_focus === "dialog") return dialog;
+  if (initial_focus === "first") return null;
+  const node = initial_focus.current;
+  return node !== null && dialog.contains(node) ? node : dialog;
+}
+
 function ResolveWidth(size: SizeValue): string {
   if (typeof size === "number") return `${String(size)}px`;
   if (size in SIZE_WIDTH) return `${String(SIZE_WIDTH[size as ModalSize])}px`;
@@ -80,6 +90,7 @@ export function Modal(props: ModalProps): ReactElement {
     closeOnEscape = true,
     withCloseButton = true,
     closeLabel = "Close",
+    initialFocus = "dialog",
     padding = "lg",
     radius,
     className,
@@ -118,9 +129,13 @@ export function Modal(props: ModalProps): ReactElement {
   useEffect(() => {
     const node = dialog_ref.current;
     if (node === null) return;
-    if (visible && !node.open) node.showModal();
     if (!visible && node.open) node.close();
-  }, [visible]);
+    if (!visible || node.open) return;
+
+    node.showModal();
+    const target = FocusTarget(node, initialFocus);
+    if (target !== null && target.isConnected) target.focus();
+  }, [visible, initialFocus]);
 
   const HandleExitComplete = (): void => {
     set_visible(false);

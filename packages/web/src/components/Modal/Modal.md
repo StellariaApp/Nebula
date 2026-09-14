@@ -8,6 +8,32 @@ Diálogo modal sobre el elemento nativo `<dialog>` (decisión de `docs/00-invent
 
 Lo que sí se toma de React Aria: `useDialog` (rol, `aria-labelledby` ligado al título, foco inicial) y `usePreventScroll` (scroll-lock con las particularidades de iOS resueltas).
 
+## El foco inicial cae en el diálogo, no en el botón de cierre
+
+`showModal()` enfoca **el primer focusable** del diálogo, y con la cabecera de serie ése es
+`ButtonClose`: el modal abría con el aro de foco encendido sobre «cerrar», que es el control que
+menos quiere nadie al abrir una ventana (captura `modal-quitar-acceso-dark-1440.png` de Polaris).
+
+Desde ADR-203 el efecto que llama a `showModal()` enfoca justo después según `initialFocus`:
+
+| Valor       | Quién recibe el foco                                          | Para qué                                                                                 |
+| ----------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `"dialog"`  | el propio `<dialog>` (`tabIndex -1`, contrato de `useDialog`) | el defecto: el lector anuncia el título, `Tab` va al primer control, ningún aro al abrir |
+| `"first"`   | nadie: se deja el `showModal()` nativo                        | una caja de búsqueda que es lo único que hay (`CommandPalette`, `GlobalSearch`)          |
+| `RefObject` | ese elemento, si sigue dentro del diálogo; si no, el diálogo  | el primer campo de un formulario                                                         |
+
+El enfoque va en el mismo efecto y sin `requestAnimationFrame`: `OverlayMotion` monta los hijos en
+el mismo render en que abre —anima `opacity` y `transform`, nunca `visibility`—, y las refs de los
+hijos ya están asignadas cuando corre el efecto del padre. Se comprueba `isConnected` por si el
+consumidor pasa una ref a algo que desmontó.
+
+`useDialog` ya enfocaba el diálogo en su propio efecto de montaje, pero aquí el `<dialog>` está
+siempre montado y **cerrado** hasta que `visible` lo abre, así que ese enfoque no llegaba a nada; el
+que cuenta es el de después de `showModal()`.
+
+`Drawer` deja pasar la prop por extender `ModalProps`. `ModalDelete` no la expone: un diálogo de
+confirmación quiere el defecto.
+
 ## Estado y `Esc`
 
 `<dialog>` cierra por `Esc` **directamente en el DOM**, sin pasar por React: eso desincronizaría `opened`. Por eso `onCancel` hace `preventDefault()` y delega en `onClose`, dejando que el estado del consumidor siga siendo la única fuente de verdad. `closeOnEscape={false}` simplemente no propaga el cierre.
@@ -59,7 +85,12 @@ animadas, el cierre por fuera y por `Esc`— y suelta lo que se ve. Lo que se pa
 cual, sin envoltorio.
 
 ```tsx
-<Modal aria-label="Confirmar" content={<Card gradientBorder={{ beam: true }}>…</Card>} opened onClose={Close} />
+<Modal
+  aria-label="Confirmar"
+  content={<Card gradientBorder={{ beam: true }}>…</Card>}
+  opened
+  onClose={Close}
+/>
 ```
 
 Manda sobre `children`, `title`, `subtitle`, `footer`, `padding` y `withCloseButton`: con panel
