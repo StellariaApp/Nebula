@@ -249,7 +249,8 @@ export const SidebarPathname: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("link", { name: "API" })).toHaveAttribute("aria-current", "page");
+    const group = within(canvas.getByRole("navigation", { name: "Main" }));
+    await expect(group.getByRole("link", { name: "API" })).toHaveAttribute("aria-current", "page");
 
     const drawer = within(await within(document.body).findByRole("complementary"));
     await expect(drawer.getByRole("link", { name: "API" })).toHaveAttribute("aria-current", "page");
