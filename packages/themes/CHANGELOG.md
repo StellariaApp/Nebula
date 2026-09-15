@@ -1,5 +1,11 @@
 # @stellaria/nebula-themes
 
+## 1.1.16
+
+### Patch Changes
+
+- @stellaria/nebula-tokens@1.1.16
+
 ## 1.1.15
 
 ### Patch Changes

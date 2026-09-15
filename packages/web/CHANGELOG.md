@@ -1,5 +1,17 @@
 # @stellaria/nebula-web
 
+## 1.1.16
+
+### Patch Changes
+
+- - StarField pinta el halo con la propia estrella y GradientBorder nace sin bloom, así que ambos cuestan menos en render y en pintado.
+  - `usePathname` avisa de los cambios de ruta en un microtask, sin disparar renders síncronos en cascada.
+  - El disparador de MultiSelect pasa por `useButton`, así que responde a teclado y lectores de pantalla como el resto de disparadores.
+  - @stellaria/nebula-tokens@1.1.16
+  - @stellaria/nebula-hooks@1.1.16
+  - @stellaria/nebula-themes@1.1.16
+  - @stellaria/nebula-icons@1.1.16
+
 ## 1.1.15
 
 ### Patch Changes
