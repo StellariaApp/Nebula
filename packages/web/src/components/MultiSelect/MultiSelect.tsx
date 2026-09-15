@@ -3,7 +3,7 @@
 import { useId, useMemo, useRef, useState, type KeyboardEvent, type ReactElement } from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
-import { DismissButton, Overlay, useComboBox, useFilter, usePopover } from "react-aria";
+import { DismissButton, Overlay, useButton, useComboBox, useFilter, usePopover } from "react-aria";
 import { Item, useComboBoxState } from "react-stately";
 
 import { OptionList } from "../../collections/option-list.js";
@@ -158,6 +158,13 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
     state,
   );
 
+  /**
+   * `buttonProps` from `useComboBox` are aria button props (`isDisabled`, `excludeFromTabOrder`,
+   * `onPress*`): they are meant for `useButton`, not for the DOM. Spread raw, React warned about
+   * unknown props on every render and the press handling was lost.
+   */
+  const { buttonProps: trigger_props } = useButton(buttonProps, trigger_ref);
+
   const { popoverProps, underlayProps } = usePopover(
     {
       triggerRef: input_ref,
@@ -252,7 +259,7 @@ export function MultiSelect(props: MultiSelectProps): ReactElement {
             />
           </Box>
           <UnstyledButton
-            {...buttonProps}
+            {...trigger_props}
             ref={trigger_ref}
             disabled={fp.isDisabled}
             tabIndex={state.isOpen ? -1 : undefined}

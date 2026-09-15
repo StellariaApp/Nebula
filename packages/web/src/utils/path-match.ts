@@ -15,15 +15,22 @@ function Navigation(): NavigationLike | undefined {
   return (window as unknown as { navigation?: NavigationLike }).navigation;
 }
 
+/**
+ * `currententrychange` fires synchronously inside `history.pushState`, and a router may call
+ * that from a `useInsertionEffect` — Next's app router does. Notifying the store right there
+ * schedules a React update during an insertion effect, which React forbids. A microtask
+ * lets the commit finish first; the snapshot is read afterwards, so nothing is lost.
+ */
 function Subscribe(notify: () => void): () => void {
   const navigation = Navigation();
+  const later = () => queueMicrotask(notify);
   window.addEventListener("popstate", notify);
   window.addEventListener("hashchange", notify);
-  navigation?.addEventListener("currententrychange", notify);
+  navigation?.addEventListener("currententrychange", later);
   return () => {
     window.removeEventListener("popstate", notify);
     window.removeEventListener("hashchange", notify);
-    navigation?.removeEventListener("currententrychange", notify);
+    navigation?.removeEventListener("currententrychange", later);
   };
 }
 
