@@ -27,9 +27,21 @@ Cada estrella arranca en un punto distinto del ciclo con
 retardo **negativo** empieza la animación ya avanzada, así que el campo se ve desincronizado desde el
 primer frame en vez de encenderse a la vez y desperdigarse después.
 
-La duración es `expressive × 6`, que es el «breathing» de `docs/06` §6. Ni el retardo ni la duración
-llevan un número de milisegundos: los dos son `calc()` sobre la var del tema, de modo que un tema con
-otro `duration.expressive` reescala el campo entero.
+La duración es `expressive × 12`, el doble del «breathing» de `docs/06` §6, y **solo parpadea una
+estrella de cada dos**. Las dos cosas son de rendimiento: cada vuelta de cada estrella dispara un
+`animationiteration` que despierta al hilo principal (React lo escucha en la raíz aunque nadie lo use),
+y medido en la landing de Rosette eso eran 14 despertares por segundo en reposo; con la mitad de
+estrellas al doble de ciclo quedan 4. Ni el retardo ni la duración llevan un número de milisegundos:
+los dos son `calc()` sobre la var del tema, de modo que un tema con otro `duration.expressive`
+reescala el campo entero.
+
+## El halo es un gradiente, no una sombra
+
+La estrella es un `<i>` de seis veces su tamaño centrado con `translate: -50% -50%`, y pinta el cuerpo
+y el halo con un solo `radial-gradient(circle closest-side)`. Antes era un punto de 1–2 px con
+`box-shadow: 0 0 8px`, y una sombra desenfocada sobre un elemento que anima `transform` y `opacity`
+obliga al compositor a volver a rasterizar el desenfoque; el gradiente se rasteriza una vez y lo que se
+anima después es solo la capa.
 
 ## Las tres paradas
 
@@ -122,8 +134,8 @@ fondo de página — el de `Main background`:
 
 ## `aurora` — las manchas de color del fondo
 
-Apagado por defecto. Enciende cuatro manchas radiales muy desenfocadas detrás de la retícula, con la
-geometría medida de la landing de Stellaria:
+Apagado por defecto. Enciende cuatro manchas radiales detrás de la retícula, con la geometría medida
+de la landing de Stellaria:
 
 | Blob | Posición                | Tamaño      | Opacidad | Ciclo |
 | ---- | ----------------------- | ----------- | -------: | ----: |
@@ -131,6 +143,14 @@ geometría medida de la landing de Stellaria:
 | 2    | `left -15%`, `top 30%`  | 60vh × 60vw |     0.30 |  22 s |
 | 3    | `right -10%`, `top 55%` | 55vh × 55vw |     0.25 |  26 s |
 | 4    | `left 60%`, `top 15%`   | 30vh × 30vw |     0.20 |  20 s |
+
+**Sin `filter: blur`.** La mancha era un gradiente al 70 % con `blur(xxl)` encima, y un desenfoque de
+ese radio sobre cuatro capas de 90vw × 70vh que además animan `transform` es, medido en la landing de
+Rosette, la mayor partida del proceso de GPU en reposo: el compositor rehace la gaussiana entera en
+cada fotograma. Ahora el borde suave lo da el propio gradiente —`ellipse closest-side` hasta
+`transparent 100%`, así que se funde justo en el borde del elemento— y la deriva solo mueve y atenúa,
+sin `scale`, para que la capa no se vuelva a rasterizar. Cuesta lo que cuesta componer cuatro capas
+translúcidas, y nada más.
 
 Los cuatro ciclos son primos entre sí a propósito —18, 22, 26 y 20 segundos— para que no vuelvan a
 coincidir en fase y el fondo no se lea como un latido único. Cada uno arranca además con un retardo

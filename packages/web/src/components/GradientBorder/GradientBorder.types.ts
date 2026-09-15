@@ -31,8 +31,9 @@ export interface GradientBorderTrail {
   gap?: number | undefined;
   /**
    * Desenfoque del conjunto, en px. Funde las piezas entre sí; su trabajo es tapar el troceado, no
-   * crear halo. Pasado el grosor del anillo empieza a deslavar la luz en vez de suavizarla.
-   * @default 0.5
+   * crear halo. Pasado el grosor del anillo empieza a deslavar la luz en vez de suavizarla. A `0` no
+   * hay `filter`, y el barrido se ahorra una pasada de render por fotograma.
+   * @default 0
    */
   bloom?: number | undefined;
 }
@@ -88,7 +89,7 @@ export interface GradientBorderOwnProps extends Omit<BoxOwnProps, "component"> {
   /**
    * Tunes the tail. Read in every configuration — `edges` only decides where the tail is seen, never
    * how it is built.
-   * @default { parts: 32, gap: 0.00385, bloom: 0.5 }
+   * @default { parts: 32, gap: 0.00385, bloom: 0 }
    */
   trail?: GradientBorderTrail | undefined;
 }

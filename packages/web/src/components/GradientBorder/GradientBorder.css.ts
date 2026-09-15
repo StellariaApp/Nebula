@@ -148,6 +148,7 @@ export const beam = style({
       padding: BEAM_BAND,
       ...RING_MASK,
       containerType: "size",
+      contain: "paint",
       pointerEvents: "none",
       "@supports": {
         [NO_MASK_COMPOSITE]: { display: "none" },
@@ -198,7 +199,7 @@ export const sweep = style({
       inlineSize: `hypot(${CQ_W}, ${CQ_H})`,
       aspectRatio: "1",
       translate: "-50% -50%",
-      filter: `blur(${fallbackVar(variables.beamBloom, "0px")})`,
+      filter: fallbackVar(variables.beamBloom, "none"),
       animationName: spin,
       animationDuration: variables.beamCycle,
       animationTimingFunction: fallbackVar(variables.beamEasing, "linear"),

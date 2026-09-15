@@ -42,7 +42,7 @@ const TURN_BEATS = 13;
 const TRAIL_DEFAULTS = {
   parts: 32,
   gap: 0.00385,
-  bloom: 0.5,
+  bloom: 0,
 } as const satisfies Required<GradientBorderTrail>;
 
 const MIN_PARTS = 2;
@@ -141,7 +141,7 @@ export function GradientBorderSurface(props: GradientBorderOwnProps): ReactEleme
     [variables.innerBg]: surface === "none" ? "transparent" : vars.color.surface[surface],
     [variables.fallbackBorder]: animated ? vars.color.border.default : edge_color,
     [variables.beamRadius]: BeamRadius(r),
-    [variables.beamBloom]: LengthToCss(tail.bloom),
+    ...(tail.bloom > 0 ? { [variables.beamBloom]: `blur(${LengthToCss(tail.bloom)})` } : {}),
     [variables.beamCycle]: `calc(${vars.motion.duration.expressive} * ${String(TURN_BEATS)})`,
     [variables.beamEasing]: plan?.easing ?? "linear",
   });

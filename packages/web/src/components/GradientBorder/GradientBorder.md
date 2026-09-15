@@ -222,6 +222,14 @@ vuelta entera de siempre.
 volver a desenfocar la capa entera en cada fotograma, porque su contenido se mueve; puesto en la pieza
 se rasteriza una vez y lo que se anima después es solo la transformada.
 
+**De fábrica es `0`, y a cero no hay `filter`.** Aun rasterizado una vez, un elemento con `filter` es
+una pasada de render aparte en cada fotograma, y el barrido ya lleva dos máscaras compuestas encima:
+con seis haces en pantalla, medido en la landing de Rosette con la CPU estrangulada ×6, quitar el
+desenfoque bajó el hilo principal en reposo del 76 % al 48 %. Con `bloom: 0` la var no se emite y el
+`filter` cae a `none`, no a `blur(0px)`, porque Chrome crea el efecto igual con radio cero. El
+contenedor lleva además `contain: paint`, que le dice al navegador que nada de lo que gira se sale de
+la caja.
+
 ### La banda del haz es la del anillo, y no puede ser otra
 
 La máscara solo pinta dentro de la caja, así que ensanchar la banda del haz **solo puede crecer hacia

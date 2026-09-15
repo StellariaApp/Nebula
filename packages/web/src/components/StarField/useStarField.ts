@@ -8,6 +8,7 @@ export interface Star {
   size: number;
   phase: number;
   accent: boolean;
+  twinkle: boolean;
 }
 
 const COUNT: Record<StarDensity, number> = { xs: 12, sm: 20, md: 32, lg: 48, xl: 72 };
@@ -34,6 +35,7 @@ export function BuildStars(density: StarDensity, seed: number, accentEvery: numb
       size: index % 4 === 0 ? 2 : 1,
       phase: Math.round(phase * 1000) / 1000,
       accent: accentEvery > 0 && index % accentEvery === 0,
+      twinkle: index % 2 === 0,
     });
   }
 

@@ -16,6 +16,7 @@ import * as variables from "./StarField.vars.css.js";
 import { useStarField } from "./useStarField.js";
 
 const GRID_DRIFT = 0.018;
+const HALO_SPAN = 6;
 const STARS_DRIFT = 0.045;
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const COARSE = "(pointer: coarse)";
@@ -88,9 +89,9 @@ export function StarField(props: StarFieldProps): ReactElement {
     [variables.gridColor]: WithAlpha(base, translucency),
     [variables.gridCell]: `${String(gridSize)}px`,
     [variables.starColor]: WithAlpha(base, 70),
-    [variables.starGlow]: `0 0 8px ${WithAlpha(base, 25)}`,
+    [variables.starHalo]: WithAlpha(base, 18),
     [variables.accentColor]: tint,
-    [variables.accentGlow]: `0 0 12px ${WithAlpha(tint, 45)}`,
+    [variables.accentHalo]: WithAlpha(tint, 35),
     [variables.auroraPrimary]: WithAlpha(ResolveAccent("primary.500"), 24),
     [variables.auroraAccent]: WithAlpha(ResolveAccent("accent.400"), 12),
   });
@@ -131,9 +132,9 @@ export function StarField(props: StarFieldProps): ReactElement {
           const geometry: CSSProperties = {
             left: `${String(item.left)}%`,
             top: `${String(item.top)}%`,
-            width: `${String(item.size)}px`,
-            height: `${String(item.size)}px`,
-            animationDelay: `calc(${vars.motion.duration.expressive} * ${String(-6 * item.phase)})`,
+            width: `${String(item.size * HALO_SPAN)}px`,
+            height: `${String(item.size * HALO_SPAN)}px`,
+            animationDelay: `calc(${vars.motion.duration.expressive} * ${String(-12 * item.phase)})`,
           };
           return (
             <i
@@ -141,7 +142,7 @@ export function StarField(props: StarFieldProps): ReactElement {
               className={styles.star}
               style={geometry}
               data-accent={item.accent ? "true" : "false"}
-              data-twinkle={twinkling ? "true" : "false"}
+              data-twinkle={twinkling && item.twinkle ? "true" : "false"}
             />
           );
         })}

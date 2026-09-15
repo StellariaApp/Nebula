@@ -14,6 +14,10 @@ const TWINKLE = keyframes({
   "50%": { opacity: 1, transform: "scale(1)" },
 });
 
+const STAR_BODY = "18%";
+const STAR_HALO = "32%";
+const TWINKLE_BEATS = 12;
+
 export const star_field = style({
   "@layer": {
     [primitive_layer]: {
@@ -63,18 +67,17 @@ export const star = style({
   "@layer": {
     [primitive_layer]: {
       position: "absolute",
+      translate: "-50% -50%",
       borderRadius: vars.radius.full,
-      background: variables.starColor,
-      boxShadow: variables.starGlow,
+      background: `radial-gradient(circle closest-side, ${variables.starColor} 0 ${STAR_BODY}, ${variables.starHalo} ${STAR_HALO}, transparent 100%)`,
       opacity: 0.6,
       animationName: TWINKLE,
-      animationDuration: `calc(${vars.motion.duration.expressive} * 6)`,
+      animationDuration: `calc(${vars.motion.duration.expressive} * ${String(TWINKLE_BEATS)})`,
       animationTimingFunction: vars.motion.easing.standard,
       animationIterationCount: "infinite",
       selectors: {
         "&[data-accent='true']": {
-          background: variables.accentColor,
-          boxShadow: variables.accentGlow,
+          background: `radial-gradient(circle closest-side, ${variables.accentColor} 0 ${STAR_BODY}, ${variables.accentHalo} ${STAR_HALO}, transparent 100%)`,
         },
         "&[data-twinkle='false']": { ...still, opacity: 0.6, transform: "scale(1)" },
       },
@@ -84,8 +87,6 @@ export const star = style({
     },
   },
 });
-
-const AURORA_BLUR = vars.blur.xxl;
 
 const AURORAS = [
   { top: "-20%", left: "50%", h: "70vh", w: "90vw", shift: true, peak: 0.3, cycle: 43 },
@@ -105,13 +106,13 @@ const AURORAS = [
 
 function Drift(peak: number, dx: number, dy: number): string {
   return keyframes({
-    "0%, 100%": { transform: "translate(0%, 0%) scale(1)", opacity: peak },
+    "0%, 100%": { transform: "translate(0%, 0%)", opacity: peak },
     "33%": {
-      transform: `translate(${String(dx)}%, ${String(-dy)}%) scale(1.08)`,
+      transform: `translate(${String(dx)}%, ${String(-dy)}%)`,
       opacity: peak * 1.22,
     },
     "66%": {
-      transform: `translate(${String(-dx * 0.6)}%, ${String(dy * 0.7)}%) scale(0.93)`,
+      transform: `translate(${String(-dx * 0.6)}%, ${String(dy * 0.7)}%)`,
       opacity: peak * 0.85,
     },
   });
@@ -133,8 +134,7 @@ export const aurora_blob = AURORAS.map((a, i) =>
         height: a.h,
         width: a.w,
         borderRadius: vars.radius.full,
-        backgroundImage: `radial-gradient(ellipse at center, ${variables.auroraPrimary} 0%, ${variables.auroraAccent} ${String(40 + i * 4)}%, transparent 70%)`,
-        filter: `blur(${AURORA_BLUR})`,
+        backgroundImage: `radial-gradient(ellipse closest-side, ${variables.auroraPrimary} 0%, ${variables.auroraAccent} ${String(36 + i * 4)}%, transparent 100%)`,
         opacity: a.peak,
         willChange: "transform, opacity",
         ...(a.shift ? { translate: "-50% 0" } : {}),
