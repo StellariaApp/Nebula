@@ -251,16 +251,20 @@ export const stage = style({
   },
 });
 
-/** One row over the foot, edge to edge, so that stamps and figures share a centre line. */
+/**
+ * One row over the foot, edge to edge, so that stamps and figures share a centre line. It hangs
+ * from the foot's top edge by a token, not by a fixed `top: -30`: that left the badges touching
+ * the glass, and the gap changed with the badge height.
+ */
 export const stats = style({
   "@layer": {
     [composite_layer]: {
       alignItems: "center",
+      bottom: `calc(100% + ${vars.space.sm})`,
       display: "flex",
       gap: vars.space.sm,
       insetInline: vars.space.sm,
       position: "absolute",
-      top: -30,
     },
   },
 });

@@ -466,7 +466,8 @@ export const links = style({
       display: "flex",
       flexDirection: "column",
       minWidth: 0,
-      gap: vars.space.xxs,
+      /** Between the group title and its links. At `xxs` the title sat on the first link. */
+      gap: vars.space.u2_5,
       paddingBlockStart: vars.space.md,
       selectors: {
         "[data-sidebar-collapsed='true'] &": {
