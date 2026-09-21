@@ -1,5 +1,16 @@
 # @stellaria/nebula-web
 
+## 1.1.17
+
+### Patch Changes
+
+- - `MediaCard` acepta la prop `stamp` (`{ text, tone }`): un rótulo de solo lectura en el color de la tarjeta que se pinta junto al reloj, para etiquetar qué es la pieza («Clon digital»); con `tone: "accent"` sale relleno.
+  - Sellos (`stamp`, `clock`, la esquina que baja con `actionStart`) y cifras (`count`, `ceiling`) ahora comparten una sola fila sobre el pie, alineados al mismo centro; antes colgaban de dos anclas distintas y no quedaban a la misma altura.
+  - @stellaria/nebula-tokens@1.1.17
+  - @stellaria/nebula-hooks@1.1.17
+  - @stellaria/nebula-themes@1.1.17
+  - @stellaria/nebula-icons@1.1.17
+
 ## 1.1.16
 
 ### Patch Changes
