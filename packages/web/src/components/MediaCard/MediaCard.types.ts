@@ -39,8 +39,13 @@ export interface MediaCardProps extends StyleProps {
   playable?: boolean | undefined;
   /** The clip's seconds, already known, for the player. */
   seconds?: number | null | undefined;
-  /** The clip's length already written («0:05»), the label at the bottom-left. */
+  /** The clip's length already written («0:05»), the grey label at the bottom-left. */
   clock?: string | null | undefined;
+  /**
+   * A read-only label beside the clock, in the card's own colour: what kind of thing this is
+   * («Digital clone»). The clock stays grey because it is a figure, not a kind.
+   */
+  stamp?: MediaCardCorner | null | undefined;
   /** The first frame is a cell of a six-view sheet: show the face cell, not the whole sheet, and do not cycle. */
   sheet?: boolean | undefined;
   cornerStart?: MediaCardCorner | null | undefined;

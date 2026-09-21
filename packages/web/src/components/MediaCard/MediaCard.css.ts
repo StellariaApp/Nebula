@@ -10,9 +10,6 @@ const REDUCED = "(prefers-reduced-motion: reduce)";
 const Faded = (color: string, percent: number): string =>
   `color-mix(in srgb, ${color} ${String(percent)}%, transparent)`;
 
-/** What the foot measures: the 30 px portrait with its padding and one line. Two things sit on it. */
-const FOOT = 70;
-
 export const link = style({
   "@layer": {
     [composite_layer]: {
@@ -210,17 +207,29 @@ export const fading_foot = style({
   },
 });
 
+/**
+ * The left half of the row over the foot: the stamp and the clock. It used to hang from the frame
+ * (`bottom: 70`) while `figures` hung from the foot (`top: -30`), two anchors a few pixels apart,
+ * and the two halves never sat on the same line. Now both are children of `stats`.
+ */
 export const stamps = style({
   "@layer": {
     [composite_layer]: {
       alignItems: "center",
-      bottom: FOOT,
       display: "flex",
       gap: vars.space.xs,
-      insetInlineStart: vars.space.sm,
-      pointerEvents: "none",
-      position: "absolute",
-      zIndex: 3,
+    },
+  },
+});
+
+/** The right half: the figure and the tier chip. `auto` keeps it right even with nothing on the left. */
+export const figures = style({
+  "@layer": {
+    [composite_layer]: {
+      alignItems: "center",
+      display: "flex",
+      gap: vars.space.sm,
+      marginInlineStart: "auto",
     },
   },
 });
@@ -242,15 +251,16 @@ export const stage = style({
   },
 });
 
+/** One row over the foot, edge to edge, so that stamps and figures share a centre line. */
 export const stats = style({
   "@layer": {
     [composite_layer]: {
+      alignItems: "center",
       display: "flex",
-      flexDirection: "row",
       gap: vars.space.sm,
+      insetInline: vars.space.sm,
       position: "absolute",
       top: -30,
-      right: vars.space.sm,
     },
   },
 });

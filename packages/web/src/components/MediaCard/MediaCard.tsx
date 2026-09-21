@@ -55,6 +55,7 @@ export function MediaCard(props: MediaCardProps): ReactElement {
     playable = false,
     seconds = null,
     clock = null,
+    stamp = null,
     sheet = false,
     cornerStart = null,
     cornerEnd = null,
@@ -105,7 +106,9 @@ export function MediaCard(props: MediaCardProps): ReactElement {
 
   const has_top =
     cornerStart !== null || cornerEnd !== null || action !== undefined || actionStart !== undefined;
-  const stamps = clock !== null || (cornerStart !== null && actionStart !== undefined);
+  const stamps =
+    clock !== null || stamp !== null || (cornerStart !== null && actionStart !== undefined);
+  const stats = stamps || count !== null || ceiling !== null;
 
   const body = (
     <Card
@@ -225,29 +228,6 @@ export function MediaCard(props: MediaCardProps): ReactElement {
           />
         )}
 
-        {stamps ? (
-          <div
-            className={cx(styles.stamps, styles.fading, styles.fading_foot)}
-            data-hidden={rolling}
-          >
-            {cornerStart !== null && actionStart !== undefined ? (
-              <Badge
-                color="primary"
-                ff="mono"
-                size="sm"
-                variant={cornerStart.tone === "accent" ? "filled" : "light"}
-              >
-                {cornerStart.text}
-              </Badge>
-            ) : null}
-            {clock === null ? null : (
-              <Badge color="gray" ff="mono" size="sm" variant="filled">
-                {clock}
-              </Badge>
-            )}
-          </div>
-        ) : null}
-
         <GlassSurface
           bdtw={1}
           bdw={0}
@@ -261,29 +241,69 @@ export function MediaCard(props: MediaCardProps): ReactElement {
           {...footProps}
           className={cx(styles.meta, styles.fading, styles.fading_foot, footProps?.className)}
         >
-          {count === null && ceiling === null ? null : (
+          {/* Stamps and figures share one row, so the four of them sit on the same centre line. */}
+          {stats ? (
             <div className={styles.stats}>
-              {count === null ? null : (
-                <Box
-                  align="center"
-                  aria-label={count.label}
-                  c="text.secondary"
-                  display="flex"
-                  gap="xs"
-                >
-                  {count.icon}
-                  <Text c="inherit" ff="mono" fw="bold" fz="caption" lh="tight">
-                    {count.value}
-                  </Text>
-                </Box>
-              )}
-              {ceiling === null ? null : (
-                <Badge aria-label={ceilingLabel} color="gray" ff="mono" size="sm" variant="outline">
-                  {ceiling}
-                </Badge>
+              {stamps ? (
+                <div className={styles.stamps}>
+                  {cornerStart !== null && actionStart !== undefined ? (
+                    <Badge
+                      color="primary"
+                      ff="mono"
+                      size="sm"
+                      variant={cornerStart.tone === "accent" ? "filled" : "light"}
+                    >
+                      {cornerStart.text}
+                    </Badge>
+                  ) : null}
+                  {stamp === null ? null : (
+                    <Badge
+                      color="primary"
+                      ff="mono"
+                      size="sm"
+                      variant={stamp.tone === "accent" ? "filled" : "light"}
+                    >
+                      {stamp.text}
+                    </Badge>
+                  )}
+                  {clock === null ? null : (
+                    <Badge color="gray" ff="mono" size="sm" variant="filled">
+                      {clock}
+                    </Badge>
+                  )}
+                </div>
+              ) : null}
+              {count === null && ceiling === null ? null : (
+                <div className={styles.figures}>
+                  {count === null ? null : (
+                    <Box
+                      align="center"
+                      aria-label={count.label}
+                      c="text.secondary"
+                      display="flex"
+                      gap="xs"
+                    >
+                      {count.icon}
+                      <Text c="inherit" ff="mono" fw="bold" fz="caption" lh="tight">
+                        {count.value}
+                      </Text>
+                    </Box>
+                  )}
+                  {ceiling === null ? null : (
+                    <Badge
+                      aria-label={ceilingLabel}
+                      color="gray"
+                      ff="mono"
+                      size="sm"
+                      variant="outline"
+                    >
+                      {ceiling}
+                    </Badge>
+                  )}
+                </div>
               )}
             </div>
-          )}
+          ) : null}
           <Box align="center" display="flex" gap="sm">
             {avatar === undefined ? null : (
               <Avatar

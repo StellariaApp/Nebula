@@ -21,6 +21,11 @@ dos arriba a la izquierda, el rótulo tapaba el botón o al revés según cuál 
 cuando hay `actionStart`, el rótulo baja con el reloj a la fila de `stamps`, sobre el velo de abajo.
 Dos velos —arriba corto y suave, abajo largo— sostienen esquinas y pie sobre cualquier lámina.
 
+Sobre el pie hay **una sola fila** (`stats`): a la izquierda los sellos —`stamp`, el rótulo de qué
+es la cosa en el color de la tarjeta, y `clock`, el reloj gris— y a la derecha las cifras —`count`
+y `ceiling`—. Iban en dos cajas colgadas de anclas distintas (el marco y el pie) y nunca quedaban
+a la misma altura; ahora comparten centro.
+
 ## `href` o `onOpen`, nunca los dos
 
 Con `href` la tarjeta entera es un enlace (`component` pone el `Link` del router). Sin él, `onOpen`

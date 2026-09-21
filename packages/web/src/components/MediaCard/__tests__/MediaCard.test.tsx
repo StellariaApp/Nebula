@@ -70,6 +70,24 @@ describe("MediaCard (ADR-198)", () => {
     expect(container.querySelector("video")).toBeNull();
   });
 
+  it("el sello y las cifras comparten fila sobre el pie", () => {
+    render(
+      <MediaCard
+        ceiling="E"
+        ceilingLabel="Escalón"
+        clock="0:05"
+        count={{ icon: <span />, label: "Versión", value: "v10" }}
+        frames={["a.jpg"]}
+        stamp={{ text: "Clon digital", tone: "plain" }}
+        title="Pieza"
+      />,
+    );
+    const row = screen.getByText("Clon digital").parentElement?.parentElement;
+    expect(row?.contains(screen.getByText("0:05"))).toBe(true);
+    expect(row?.contains(screen.getByText("v10"))).toBe(true);
+    expect(row?.contains(screen.getByText("E"))).toBe(true);
+  });
+
   it("playable monta el reproductor diferido en vez de las láminas", () => {
     render(<MediaCard clip="clip.mp4" frames={["a.jpg"]} playable seconds={5} title="Clip" />);
     expect(screen.getByRole("button", { name: "Play" })).toBeDefined();
