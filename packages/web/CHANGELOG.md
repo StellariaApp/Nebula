@@ -1,5 +1,16 @@
 # @stellaria/nebula-web
 
+## 1.1.18
+
+### Patch Changes
+
+- - La fila de sellos de `MediaCard` ya no se pega al pie: gana separación y respira sobre él.
+  - El título de grupo de `AppShell` gana aire alrededor, con más espacio respecto a los elementos que agrupa.
+  - @stellaria/nebula-tokens@1.1.18
+  - @stellaria/nebula-hooks@1.1.18
+  - @stellaria/nebula-themes@1.1.18
+  - @stellaria/nebula-icons@1.1.18
+
 ## 1.1.17
 
 ### Patch Changes
