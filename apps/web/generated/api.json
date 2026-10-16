@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "count": 164,
-  "documented": 226,
+  "count": 165,
+  "documented": 227,
   "styleProps": {
     "count": 128,
     "page": "/docs/style-props"
@@ -14731,7 +14731,7 @@
           "name": "trail",
           "type": "GradientBorderTrail",
           "required": false,
-          "default": "{ parts: 32, gap: 0.00385, bloom: 0.5 }",
+          "default": "{ parts: 32, gap: 0.00385, bloom: 0 }",
           "doc": "Tunes the tail. Read in every configuration — `edges` only decides where the tail is seen, never\nhow it is built.",
           "slot": false
         },
@@ -18219,6 +18219,126 @@
       ]
     },
     {
+      "name": "LiveVideo",
+      "contract": "LiveVideoProps",
+      "own": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "fit",
+          "type": "LiveVideoFit",
+          "required": false,
+          "default": "\"contain\"",
+          "doc": "How the picture sits in the frame. `\"contain\"` letterboxes it on the sunken surface and keeps\nevery pixel visible; `\"cover\"` fills the frame and crops what overflows.",
+          "slot": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "doc": "What a screen reader says of the feed.",
+          "slot": false
+        },
+        {
+          "name": "labels",
+          "type": "Partial<LiveVideoLabels>",
+          "required": false,
+          "default": null,
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "onReady",
+          "type": "((ready: boolean) => void)",
+          "required": false,
+          "default": null,
+          "doc": "Says when the first frame arrives (`true`) and when the picture goes away (`false`).",
+          "slot": false
+        },
+        {
+          "name": "placeholder",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "doc": "Painted over the frame while there is no picture: no stream yet, or a stream whose first frame\nhas not arrived. Without it the frame is the bare sunken surface.",
+          "slot": false
+        },
+        {
+          "name": "stream",
+          "type": "MediaStream | null",
+          "required": true,
+          "default": null,
+          "doc": "The live feed, usually a WebRTC `MediaStream`. It is written to `srcObject` only when it\nchanges, and `null` or `undefined` releases it. The `<video>` stays mounted either way.",
+          "slot": false
+        },
+        {
+          "name": "surfaceRef",
+          "type": "Ref<HTMLVideoElement>",
+          "required": false,
+          "default": null,
+          "doc": "The `<video>` element itself, as an object ref or a callback. It is set on the first render,\nbefore any stream, so listeners attached to it do not have to wait for the feed.",
+          "slot": false
+        },
+        {
+          "name": "withFullscreen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "The full-screen button in the corner. It enlarges the frame, not the bare `<video>`.",
+          "slot": false
+        },
+        {
+          "name": "withLiveBadge",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "doc": "A live badge in the top corner, shown only while there is a picture.",
+          "slot": false
+        }
+      ],
+      "slots": [
+        {
+          "name": "fullscreenProps",
+          "type": "ActionIconProps",
+          "required": false,
+          "default": null,
+          "doc": "The full-screen button, only rendered with `withFullscreen`.",
+          "slot": true
+        },
+        {
+          "name": "liveBadgeProps",
+          "type": "BadgeProps",
+          "required": false,
+          "default": null,
+          "doc": "The live badge, only rendered with `withLiveBadge`.",
+          "slot": true
+        },
+        {
+          "name": "surfaceProps",
+          "type": "Omit<Omit<DetailedHTMLProps<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>, \"ref\">, \"children\" | \"controls\" | \"src\">",
+          "required": false,
+          "default": null,
+          "doc": "The `<video>`. `src` and `controls` are not offered: the feed is `stream` and there are no native controls.",
+          "slot": true
+        }
+      ],
+      "inherited": [
+        {
+          "group": "styleProps",
+          "count": 128
+        }
+      ],
+      "gaps": [],
+      "subComponents": []
+    },
+    {
       "name": "Loader",
       "contract": "LoaderProps",
       "own": [
@@ -18673,7 +18793,7 @@
           "type": "string | null",
           "required": false,
           "default": null,
-          "doc": "The clip's length already written («0:05»), the label at the bottom-left.",
+          "doc": "The clip's length already written («0:05»), the grey label at the bottom-left.",
           "slot": false
         },
         {
@@ -18786,6 +18906,14 @@
           "required": false,
           "default": null,
           "doc": "The first frame is a cell of a six-view sheet: show the face cell, not the whole sheet, and do not cycle.",
+          "slot": false
+        },
+        {
+          "name": "stamp",
+          "type": "MediaCardCorner | null",
+          "required": false,
+          "default": null,
+          "doc": "A read-only label beside the clock, in the card's own colour: what kind of thing this is\n(«Digital clone»). The clock stays grey because it is a figure, not a kind.",
           "slot": false
         },
         {

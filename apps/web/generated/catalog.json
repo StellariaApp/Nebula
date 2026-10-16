@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 164,
+  "count": 165,
   "gaps": {
     "family": [],
     "subpath": [],
@@ -1038,6 +1038,17 @@
       ],
       "boundary": "server",
       "budget": "24 kB",
+      "notes": true,
+      "contract": true
+    },
+    {
+      "name": "LiveVideo",
+      "family": "Rich Content",
+      "subpath": "/media",
+      "compound": false,
+      "parts": [],
+      "boundary": "client",
+      "budget": "70 kB",
       "notes": true,
       "contract": true
     },

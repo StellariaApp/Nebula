@@ -1385,6 +1385,13 @@ const MODULE_BUDGETS = [
     limit: "70 kB",
   },
   {
+    name: "LiveVideo (subpath /media y core: <video> con srcObject, sin dependencias, por módulo)",
+    path: "dist/components/LiveVideo/LiveVideo.js",
+    import: "{ LiveVideo }",
+    ignore: ["react", "react-dom", "@stellaria/nebula-themes", "@stellaria/nebula-themes/web"],
+    limit: "70 kB",
+  },
+  {
     name: "AudioPlayer (subpath /media: <audio> + mandos propios, sin dependencias, por módulo)",
     path: "dist/components/AudioPlayer/AudioPlayer.js",
     import: "{ AudioPlayer }",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 164,
+  "count": 165,
   "gaps": {
     "budget": [
       "DataGrid"
@@ -1261,6 +1261,16 @@
       ]
     },
     {
+      "name": "LiveVideo",
+      "budget": "70 kB",
+      "boundary": "client",
+      "themeKeys": [
+        "color.surface",
+        "radius.lg",
+        "space.sm"
+      ]
+    },
+    {
       "name": "Loader",
       "budget": "24.5 kB",
       "boundary": "server",
@@ -1905,7 +1915,6 @@
       "budget": "25.75 kB",
       "boundary": "client",
       "themeKeys": [
-        "blur.xxl",
         "motion.duration",
         "motion.easing",
         "motion.tier",

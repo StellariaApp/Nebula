@@ -8,3 +8,9 @@ export {
 } from "../components/AudioPlayer/index.js";
 export { VideoPlayer } from "../components/VideoPlayer/index.js";
 export type { VideoPlayerProps } from "../components/VideoPlayer/index.js";
+export { LiveVideo, LIVE_VIDEO_LABELS } from "../components/LiveVideo/index.js";
+export type {
+  LiveVideoFit,
+  LiveVideoLabels,
+  LiveVideoProps,
+} from "../components/LiveVideo/index.js";

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 
 import {
+  AspectRatio,
   Badge,
   Box,
   Button,
@@ -11,13 +12,14 @@ import {
   MediaCard,
   Paper,
   SimpleGrid,
+  Skeleton,
   Viewer,
   Text,
   Title,
   type LightboxImage,
 } from "@stellaria/nebula-web";
 import { Carousel } from "@stellaria/nebula-web/carousel";
-import { AudioPlayer, Player, VideoPlayer } from "@stellaria/nebula-web/media";
+import { AudioPlayer, LiveVideo, Player, VideoPlayer } from "@stellaria/nebula-web/media";
 
 import { MATRIX_A11Y, ThemeMatrix } from "../fixtures/themes.js";
 
@@ -236,6 +238,69 @@ export const VideoEnLinea: Story = {
       <VideoPlayer defer duration={5} label="Clip de ejemplo" poster={POSTER} src={CLIP} />
     </Box>
   ),
+};
+
+const FEED_WIDTH = 640;
+const FEED_HEIGHT = 360;
+const FEED_FPS = 24;
+
+function useCanvasFeed(): MediaStream | null {
+  const [stream, set_stream] = useState<MediaStream | null>(null);
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = FEED_WIDTH;
+    canvas.height = FEED_HEIGHT;
+    const context = canvas.getContext("2d");
+    if (context === null || typeof canvas.captureStream !== "function") return;
+    let frame = 0;
+    let handle = 0;
+    const Draw = (): void => {
+      frame += 1;
+      context.fillStyle = "#1f1b4d";
+      context.fillRect(0, 0, FEED_WIDTH, FEED_HEIGHT);
+      context.fillStyle = "#9d4edd";
+      context.fillRect((frame * 4) % FEED_WIDTH, FEED_HEIGHT / 2 - 40, 80, 80);
+      handle = requestAnimationFrame(Draw);
+    };
+    Draw();
+    const feed = canvas.captureStream(FEED_FPS);
+    const timer = window.setTimeout(() => {
+      set_stream(feed);
+    }, 1200);
+    return () => {
+      window.clearTimeout(timer);
+      cancelAnimationFrame(handle);
+      feed.getTracks().forEach((track) => {
+        track.stop();
+      });
+    };
+  }, []);
+  return stream;
+}
+
+function DirectoDeEjemplo(): ReactElement {
+  const stream = useCanvasFeed();
+  return (
+    <SimpleGrid cols={{ base: 1, tablet: 2 }} maw={880} spacing="md">
+      <AspectRatio ratio={16 / 9}>
+        <LiveVideo
+          label="Directo en contain"
+          placeholder={<Skeleton h="100%" r="lg" w="100%" />}
+          stream={stream}
+          withFullscreen
+          withLiveBadge
+        />
+      </AspectRatio>
+      <AspectRatio ratio={1}>
+        <LiveVideo fit="cover" label="Directo en cover" stream={stream} />
+      </AspectRatio>
+    </SimpleGrid>
+  );
+}
+
+/** El vídeo en directo (ADR-205): un `MediaStream` en `srcObject`; aquí, el de un canvas que llega al segundo. */
+export const VideoEnDirecto: Story = {
+  render: () => <DirectoDeEjemplo />,
 };
 
 /** La nota de voz (ADR-195): la misma pista, el mismo pulgar y el mismo volumen que el vídeo. */
