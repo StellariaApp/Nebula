@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.19
+
+### Patch Changes
+
+- - Nuevo componente `LiveVideo` para mostrar video en directo desde un `MediaStream`; va aparte del reproductor de video.
+  - @stellaria/nebula-tokens@1.1.19
+  - @stellaria/nebula-hooks@1.1.19
+  - @stellaria/nebula-themes@1.1.19
+  - @stellaria/nebula-icons@1.1.19
+
 ## 1.1.18
 
 ### Patch Changes
