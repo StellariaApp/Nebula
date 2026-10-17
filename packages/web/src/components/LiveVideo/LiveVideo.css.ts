@@ -51,7 +51,7 @@ export const placeholder = style({
 });
 
 
-const AWAKE = ['[data-awake="true"]', ":focus-within", ':has([aria-expanded="true"])'].map(
+const AWAKE = ['[data-awake="true"]', ":has(:focus-visible)", ':has([aria-expanded="true"])'].map(
   (state) => `:not([data-mode="never"])${state}`,
 );
 

@@ -65,8 +65,9 @@ conserva de sus mandos es ampliar.
   lo que se pase allí queda a su derecha. La insignia de directo va la primera de `topStart` y es lo
   único que no se oculta.
 - **`overlayMode="auto"`** despierta el marco al mover el puntero (`data-awake`) y lo duerme tras
-  `idleDelay` (2,5 s) o al salir. El foco dentro y un menú abierto lo mantienen: el ⋮ no se va bajo
-  su propio menú. Sin hover (táctil) se ve siempre. `"always"` y `"never"` lo fijan.
+  `idleDelay` (2,5 s) o al salir. El foco **de teclado** dentro (`:focus-visible`) y un menú abierto
+  lo mantienen: el ⋮ no se va bajo su propio menú. Un clic con el ratón deja el foco en el botón,
+  pero eso no lo mantiene despierto: si no, tras pulsar un mando la capa no se iría nunca. Sin hover (táctil) se ve siempre. `"always"` y `"never"` lo fijan.
 - **`pinned`** saca esquinas de esa regla: con `"never"` mientras se controla un equipo, solo queda
   «Soltar control».
 - **La capa deja pasar el puntero.** Solo los mandos lo reciben; el `<video>` de debajo sigue

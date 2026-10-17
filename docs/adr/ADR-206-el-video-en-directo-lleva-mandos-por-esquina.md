@@ -41,7 +41,9 @@ Además el vídeo es una superficie de **control remoto**: el panel escucha `poi
   en el marco con sus hijos en fila. **Ampliar va el primero de `topEnd`**: lo que se pase allí
   queda a su derecha. **La insignia de directo va la primera de `topStart`** y no se oculta nunca.
 - **`overlayMode`**: `"auto"` (por defecto) despierta el marco al mover el puntero y lo duerme tras
-  `idleDelay` ms quieto o al salir; también lo mantienen despierto el **foco dentro** (teclado) y
+  `idleDelay` ms quieto o al salir; también lo mantienen despierto el **foco de teclado dentro**
+  (`:has(:focus-visible)`, no `:focus-within`: un clic de ratón deja el foco en el mando y la capa
+  no se dormiría nunca —corregido en la 1.1.21—) y
   **un menú abierto** (`:has([aria-expanded="true"])`), para que el ⋮ no desaparezca bajo su propio
   menú. En pantallas sin hover se ve siempre. `"always"` no duerme; `"never"` no despierta.
 - **`pinned`**: esquinas que se ven en cualquier modo. Es lo que necesita el control remoto: con
