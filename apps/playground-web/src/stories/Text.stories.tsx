@@ -57,9 +57,9 @@ export const Colors: Story = {
           {c}
         </Text>
       ))}
-      <Box bg="primary.500" p="sm" r="sm">
+      <Box bg="primary.600" p="sm" r="sm">
         <Text {...args} c="text.onPrimary">
-          text.onPrimary sobre primary.500
+          text.onPrimary sobre primary.600
         </Text>
       </Box>
     </Box>
