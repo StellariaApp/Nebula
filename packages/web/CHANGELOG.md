@@ -1,5 +1,17 @@
 # @stellaria/nebula-web
 
+## 1.1.21
+
+### Patch Changes
+
+- - `LiveVideo` vuelve a dormirse tras un clic de ratón; ahora solo el foco de teclado lo mantiene despierto.
+  - `Image` ya no se queda invisible si termina de cargar antes de la hidratación.
+  - El botón de despliegue de `Combobox` ya no pasa `excludeFromTabOrder` ni `isDisabled` al DOM.
+  - @stellaria/nebula-tokens@1.1.21
+  - @stellaria/nebula-hooks@1.1.21
+  - @stellaria/nebula-themes@1.1.21
+  - @stellaria/nebula-icons@1.1.21
+
 ## 1.1.20
 
 ### Patch Changes
