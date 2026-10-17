@@ -1,5 +1,7 @@
 # @stellaria/nebula-tokens
 
+## 1.2.0
+
 ## 1.1.21
 
 ## 1.1.20

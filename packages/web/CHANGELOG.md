@@ -1,5 +1,18 @@
 # @stellaria/nebula-web
 
+## 1.2.0
+
+### Minor Changes
+
+- - BREAKING: `StarField` ya no se anima por defecto (`twinkle` pasa de `true` a `false`). Las estrellas dejan de parpadear y, con `aurora`, las manchas de color se quedan quietas; añade `twinkle` donde quieras que el campo siga moviéndose.
+
+### Patch Changes
+
+- @stellaria/nebula-tokens@1.2.0
+- @stellaria/nebula-hooks@1.2.0
+- @stellaria/nebula-themes@1.2.0
+- @stellaria/nebula-icons@1.2.0
+
 ## 1.1.21
 
 ### Patch Changes
