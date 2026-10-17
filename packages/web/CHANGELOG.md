@@ -1,5 +1,15 @@
 # @stellaria/nebula-web
 
+## 1.1.20
+
+### Patch Changes
+
+- - `LiveVideo` ahora lleva mandos en las esquinas que se ocultan tras un rato de inactividad, y algunas esquinas pueden quedar fijas para que sus mandos no se oculten.
+  - @stellaria/nebula-tokens@1.1.20
+  - @stellaria/nebula-hooks@1.1.20
+  - @stellaria/nebula-themes@1.1.20
+  - @stellaria/nebula-icons@1.1.20
+
 ## 1.1.19
 
 ### Patch Changes
