@@ -1,17 +1,28 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactElement, type Ref } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactElement, type ReactNode, type Ref } from "react";
 
 import { Maximize, Minimize } from "../../glyphs/index.js";
 import { cx, ExtractStyleProps } from "../../utils/style-props.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Badge } from "../Badge/Badge.js";
+import { Box } from "../Box/Box.js";
 
 import { LIVE_VIDEO_LABELS } from "./labels.js";
 import * as styles from "./LiveVideo.css.js";
-import type { LiveVideoProps } from "./LiveVideo.types.js";
+import type { LiveVideoCorner, LiveVideoProps } from "./LiveVideo.types.js";
 
 const CURRENT_DATA = 2;
+const IDLE_DELAY = 2500;
+
+const CORNERS: readonly LiveVideoCorner[] = ["topStart", "topEnd", "bottomStart", "bottomEnd"];
+
+const CORNER_CLASS: Record<LiveVideoCorner, string> = {
+  topStart: styles.top_start,
+  topEnd: styles.top_end,
+  bottomStart: styles.bottom_start,
+  bottomEnd: styles.bottom_end,
+};
 
 function Assign(target: Ref<HTMLVideoElement> | undefined, node: HTMLVideoElement | null): void {
   if (typeof target === "function") target(node);
@@ -33,6 +44,11 @@ export function LiveVideo(props: LiveVideoProps): ReactElement {
     surfaceProps,
     fullscreenProps,
     liveBadgeProps,
+    overlay,
+    overlayMode = "auto",
+    idleDelay = IDLE_DELAY,
+    pinned,
+    overlayProps,
     ...style_rest
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
@@ -44,6 +60,8 @@ export function LiveVideo(props: LiveVideoProps): ReactElement {
   const announced = useRef(false);
   const [ready, set_ready] = useState(false);
   const [full, set_full] = useState(false);
+  const [awake, set_awake] = useState(false);
+  const sleep = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const Attach = useCallback(
     (node: HTMLVideoElement | null) => {
@@ -107,8 +125,72 @@ export function LiveVideo(props: LiveVideoProps): ReactElement {
 
   const has_placeholder = placeholder !== null && placeholder !== undefined;
 
+  useEffect(
+    () => () => {
+      if (sleep.current !== null) clearTimeout(sleep.current);
+    },
+    [],
+  );
+
+  const Wake = (): void => {
+    if (overlayMode !== "auto") return;
+    set_awake(true);
+    if (sleep.current !== null) clearTimeout(sleep.current);
+    sleep.current = setTimeout(() => {
+      set_awake(false);
+    }, idleDelay);
+  };
+
+  const Rest = (): void => {
+    if (sleep.current !== null) clearTimeout(sleep.current);
+    set_awake(false);
+  };
+
+  const fullscreen = withFullscreen ? (
+    <ActionIcon
+      aria-label={full ? text.exitFullscreen : text.fullscreen}
+      glass="strong"
+      onPress={Full}
+      pressed={full}
+      pressedVariant="light"
+      size="sm"
+      variant="glass"
+      {...fullscreenProps}
+    >
+      {full ? <Minimize /> : <Maximize />}
+    </ActionIcon>
+  ) : null;
+
+  const content: Partial<Record<LiveVideoCorner, ReactNode>> = {
+    ...overlay,
+    topEnd:
+      fullscreen === null ? overlay?.topEnd : (
+        <>
+          {fullscreen}
+          {overlay?.topEnd}
+        </>
+      ),
+  };
+  const badge =
+    withLiveBadge && ready ? (
+      <Badge color="error" size="sm" variant="filled" {...liveBadgeProps}>
+        {text.live}
+      </Badge>
+    ) : null;
+  const used = CORNERS.filter((at) => content[at] !== null && content[at] !== undefined);
+  const has_top = used.some((at) => at.startsWith("top"));
+  const has_bottom = used.some((at) => at.startsWith("bottom"));
+
   return (
-    <div className={cx(styles.shell, sprinkle_class, className)} ref={shell} style={sprinkle_style}>
+    <div
+      className={cx(styles.shell, sprinkle_class, className)}
+      data-awake={overlayMode === "always" || awake}
+      data-mode={overlayMode}
+      onPointerLeave={Rest}
+      onPointerMove={Wake}
+      ref={shell}
+      style={sprinkle_style}
+    >
       <video
         aria-label={label}
         autoPlay
@@ -123,30 +205,27 @@ export function LiveVideo(props: LiveVideoProps): ReactElement {
 
       {ready || !has_placeholder ? null : <div className={styles.placeholder}>{placeholder}</div>}
 
-      {withLiveBadge && ready ? (
-        <div className={styles.badge}>
-          <Badge color="error" size="sm" variant="filled" {...liveBadgeProps}>
-            {text.live}
-          </Badge>
-        </div>
-      ) : null}
-
-      {withFullscreen ? (
-        <div className={styles.grow}>
-          <ActionIcon
-            aria-label={full ? text.exitFullscreen : text.fullscreen}
-            glass="strong"
-            onPress={Full}
-            pressed={full}
-            pressedVariant="light"
-            size="sm"
-            variant="glass"
-            {...fullscreenProps}
-          >
-            {full ? <Minimize /> : <Maximize />}
-          </ActionIcon>
-        </div>
-      ) : null}
+      {used.length === 0 && badge === null ? null : (
+        <Box {...overlayProps} className={cx(styles.layer, overlayProps?.className)}>
+          {has_top ? <div className={styles.scrim_top} /> : null}
+          {has_bottom ? <div className={styles.scrim_bottom} /> : null}
+          {CORNERS.map((at) => {
+            const lead = at === "topStart" ? badge : null;
+            const own = content[at];
+            if (lead === null && (own === null || own === undefined)) return null;
+            return (
+              <div className={cx(styles.slot, CORNER_CLASS[at])} data-corner={at} key={at}>
+                {lead}
+                {own === null || own === undefined ? null : (
+                  <div className={styles.corner} data-pinned={pinned?.includes(at) === true}>
+                    {own}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </Box>
+      )}
     </div>
   );
 }

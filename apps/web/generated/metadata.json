@@ -1267,7 +1267,8 @@
       "themeKeys": [
         "color.surface",
         "radius.lg",
-        "space.sm"
+        "space.sm",
+        "space.xs"
       ]
     },
     {

@@ -41,9 +41,39 @@ conserva de sus mandos es ampliar.
   bandas son `surface.sunken`, como en `VideoPlayer`. `"cover"` para una cámara en una casilla.
 - **El marco llena a su padre** (`width` y `height` al 100 %). En una `AspectRatio` mide la casilla;
   en una vista de foco el padre tiene que tener altura, o el marco cae a la del vídeo.
-- **Pantalla completa del marco**, como en `VideoPlayer`: la insignia y el botón siguen encima. El
+- **Pantalla completa del marco**, como en `VideoPlayer`: la insignia y los mandos siguen encima. El
   estado sale de `fullscreenchange`. En pantalla completa el marco pierde el radio.
 - **La insignia de directo** sólo aparece con imagen: «Live» sobre un marco vacío mentiría.
+
+## Mandos por esquina (ADR-206)
+
+```tsx
+<LiveVideo
+  stream={stream}
+  withFullscreen
+  overlay={{
+    topEnd: <Menu trigger={<ActionIcon aria-label="Más" />} items={acciones} />,
+    bottomStart: <Text>Recepción 01</Text>,
+    bottomEnd: <Button>Tomar control</Button>,
+  }}
+  overlayMode={controlling ? "never" : "auto"}
+  pinned={controlling ? ["bottomEnd"] : undefined}
+/>
+```
+
+- **Cuatro esquinas fijas**; cada una pone sus hijos en fila. Ampliar va el primero de `topEnd`, y
+  lo que se pase allí queda a su derecha. La insignia de directo va la primera de `topStart` y es lo
+  único que no se oculta.
+- **`overlayMode="auto"`** despierta el marco al mover el puntero (`data-awake`) y lo duerme tras
+  `idleDelay` (2,5 s) o al salir. El foco dentro y un menú abierto lo mantienen: el ⋮ no se va bajo
+  su propio menú. Sin hover (táctil) se ve siempre. `"always"` y `"never"` lo fijan.
+- **`pinned`** saca esquinas de esa regla: con `"never"` mientras se controla un equipo, solo queda
+  «Soltar control».
+- **La capa deja pasar el puntero.** Solo los mandos lo reciben; el `<video>` de debajo sigue
+  escuchando `pointer*` y `wheel` para el control remoto.
+- **Los velos** de arriba y abajo (`surface.base` al 70 % hacia transparente) solo se pintan si hay
+  mandos en esa mitad, y aparecen con ellos.
+- `overlayProps` viste la capa (`BoxSlotProps`).
 
 ## Llegar al `<video>`
 

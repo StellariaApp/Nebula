@@ -3,8 +3,19 @@ import type { ComponentPropsWithoutRef, ReactNode, Ref } from "react";
 import type { StyleProps } from "../../utils/style-props.js";
 import type { ActionIconProps } from "../ActionIcon/ActionIcon.types.js";
 import type { BadgeProps } from "../Badge/Badge.types.js";
+import type { BoxSlotProps } from "../Box/Box.types.js";
 
 export type LiveVideoFit = "contain" | "cover";
+
+/** The four corners of the frame where controls can sit. */
+export type LiveVideoCorner = "topStart" | "topEnd" | "bottomStart" | "bottomEnd";
+
+/**
+ * When the overlay is shown. `"auto"` reveals it while the pointer moves over the frame, while
+ * focus is inside it or while one of its menus is open, and hides it after `idleDelay`; on a
+ * screen without hover it stays. `"always"` keeps it; `"never"` hides it except `pinned` corners.
+ */
+export type LiveVideoOverlayMode = "auto" | "always" | "never";
 
 export interface LiveVideoLabels {
   fullscreen: string;
@@ -51,4 +62,18 @@ export interface LiveVideoProps extends StyleProps {
   fullscreenProps?: ActionIconProps | undefined;
   /** The live badge, only rendered with `withLiveBadge`. */
   liveBadgeProps?: BadgeProps | undefined;
+  /**
+   * Controls over the frame, by corner. The full-screen button, when on, goes first in `topEnd`,
+   * so whatever is passed there sits to its right. The overlay layer lets the pointer through:
+   * only the controls themselves catch it, so a remote-control surface under them keeps working.
+   */
+  overlay?: Partial<Record<LiveVideoCorner, ReactNode>> | undefined;
+  /** @default "auto" */
+  overlayMode?: LiveVideoOverlayMode | undefined;
+  /** Milliseconds without pointer movement before `"auto"` hides the overlay. @default 2500 */
+  idleDelay?: number | undefined;
+  /** Corners shown whatever the mode, e.g. the button that ends a remote-control session. */
+  pinned?: readonly LiveVideoCorner[] | undefined;
+  /** The overlay layer that holds the corners and the legibility scrims. */
+  overlayProps?: BoxSlotProps | undefined;
 }

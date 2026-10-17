@@ -18239,6 +18239,14 @@
           "slot": false
         },
         {
+          "name": "idleDelay",
+          "type": "number",
+          "required": false,
+          "default": "2500",
+          "doc": "Milliseconds without pointer movement before `\"auto\"` hides the overlay.",
+          "slot": false
+        },
+        {
           "name": "label",
           "type": "string",
           "required": false,
@@ -18260,6 +18268,30 @@
           "required": false,
           "default": null,
           "doc": "Says when the first frame arrives (`true`) and when the picture goes away (`false`).",
+          "slot": false
+        },
+        {
+          "name": "overlay",
+          "type": "Partial<Record<LiveVideoCorner, ReactNode>>",
+          "required": false,
+          "default": null,
+          "doc": "Controls over the frame, by corner. The full-screen button, when on, goes first in `topEnd`,\nso whatever is passed there sits to its right. The overlay layer lets the pointer through:\nonly the controls themselves catch it, so a remote-control surface under them keeps working.",
+          "slot": false
+        },
+        {
+          "name": "overlayMode",
+          "type": "LiveVideoOverlayMode",
+          "required": false,
+          "default": "\"auto\"",
+          "doc": null,
+          "slot": false
+        },
+        {
+          "name": "pinned",
+          "type": "readonly LiveVideoCorner[]",
+          "required": false,
+          "default": null,
+          "doc": "Corners shown whatever the mode, e.g. the button that ends a remote-control session.",
           "slot": false
         },
         {
@@ -18318,6 +18350,14 @@
           "required": false,
           "default": null,
           "doc": "The live badge, only rendered with `withLiveBadge`.",
+          "slot": true
+        },
+        {
+          "name": "overlayProps",
+          "type": "BoxSlotProps",
+          "required": false,
+          "default": null,
+          "doc": "The overlay layer that holds the corners and the legibility scrims.",
           "slot": true
         },
         {

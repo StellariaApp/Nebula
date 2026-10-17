@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 import { vars } from "@stellaria/nebula-themes/web";
 
-import { interaction, overlay, still } from "../../styles/motion.css.js";
+import { overlay, still } from "../../styles/motion.css.js";
 import { composite_layer } from "../../theme/layers.css.js";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -50,34 +50,110 @@ export const placeholder = style({
   },
 });
 
-export const badge = style({
+
+const AWAKE = ['[data-awake="true"]', ":focus-within", ':has([aria-expanded="true"])'].map(
+  (state) => `:not([data-mode="never"])${state}`,
+);
+
+export const layer = style({
   "@layer": {
     [composite_layer]: {
-      left: vars.space.sm,
+      inset: 0,
       pointerEvents: "none",
       position: "absolute",
-      top: vars.space.sm,
+      zIndex: 3,
+    },
+  },
+});
+
+export const slot = style({
+  "@layer": {
+    [composite_layer]: {
+      alignItems: "center",
+      display: "flex",
+      gap: vars.space.xs,
+      position: "absolute",
       zIndex: 2,
     },
   },
 });
 
-export const grow = style({
+const corner_base = {
+  alignItems: "center",
+  display: "flex",
+  gap: vars.space.xs,
+  opacity: 0,
+  pointerEvents: "auto",
+  ...overlay,
+} as const;
+
+const SHOW = { opacity: 1 } as const;
+
+function Reveal() {
+  const selectors: Record<string, typeof SHOW> = { '&[data-pinned="true"]': SHOW };
+  for (const awake of AWAKE) selectors[`${shell}${awake} &`] = SHOW;
+  return selectors;
+}
+
+export const corner = style({
   "@layer": {
     [composite_layer]: {
-      opacity: 0,
-      position: "absolute",
-      right: vars.space.sm,
-      top: vars.space.sm,
-      ...interaction,
-      zIndex: 3,
-      selectors: {
-        [`${shell}:hover &`]: { opacity: 1 },
-        [`${shell}:focus-within &`]: { opacity: 1 },
-      },
+      ...corner_base,
+      selectors: Reveal(),
       "@media": {
         [REDUCED]: still,
-        "(hover: none)": { opacity: 1 },
+        "(hover: none)": { selectors: { [`${shell}:not([data-mode="never"]) &`]: SHOW } },
+      },
+    },
+  },
+});
+
+export const top_start = style({ "@layer": { [composite_layer]: { left: vars.space.sm, top: vars.space.sm } } });
+export const top_end = style({ "@layer": { [composite_layer]: { right: vars.space.sm, top: vars.space.sm } } });
+export const bottom_start = style({ "@layer": { [composite_layer]: { bottom: vars.space.sm, left: vars.space.sm } } });
+export const bottom_end = style({ "@layer": { [composite_layer]: { bottom: vars.space.sm, right: vars.space.sm } } });
+
+const scrim_base = {
+  height: "30%",
+  left: 0,
+  opacity: 0,
+  pointerEvents: "none",
+  position: "absolute",
+  right: 0,
+  ...overlay,
+} as const;
+
+function ScrimReveal() {
+  const selectors: Record<string, typeof SHOW> = {};
+  for (const awake of AWAKE) selectors[`${shell}${awake} &`] = SHOW;
+  return selectors;
+}
+
+export const scrim_top = style({
+  "@layer": {
+    [composite_layer]: {
+      ...scrim_base,
+      background: `linear-gradient(to bottom, color-mix(in srgb, ${vars.color.surface.base} 70%, transparent), transparent)`,
+      top: 0,
+      selectors: ScrimReveal(),
+      "@media": {
+        [REDUCED]: still,
+        "(hover: none)": { selectors: { [`${shell}:not([data-mode="never"]) &`]: SHOW } },
+      },
+    },
+  },
+});
+
+export const scrim_bottom = style({
+  "@layer": {
+    [composite_layer]: {
+      ...scrim_base,
+      background: `linear-gradient(to top, color-mix(in srgb, ${vars.color.surface.base} 70%, transparent), transparent)`,
+      bottom: 0,
+      selectors: ScrimReveal(),
+      "@media": {
+        [REDUCED]: still,
+        "(hover: none)": { selectors: { [`${shell}:not([data-mode="never"]) &`]: SHOW } },
       },
     },
   },

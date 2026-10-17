@@ -294,11 +294,40 @@ function DirectoDeEjemplo(): ReactElement {
       <AspectRatio ratio={1}>
         <LiveVideo fit="cover" label="Directo en cover" stream={stream} />
       </AspectRatio>
+      <AspectRatio ratio={16 / 9}>
+        <LiveVideo
+          label="Directo con mandos"
+          overlay={{
+            topEnd: (
+              <Button size="xs" variant="glass">
+                Más
+              </Button>
+            ),
+            bottomStart: (
+              <Badge size="sm" variant="light">
+                Recepción 01
+              </Badge>
+            ),
+            bottomEnd: (
+              <Button size="sm" variant="gradient">
+                Tomar control
+              </Button>
+            ),
+          }}
+          placeholder={<Skeleton h="100%" r="lg" w="100%" />}
+          stream={stream}
+          withFullscreen
+          withLiveBadge
+        />
+      </AspectRatio>
     </SimpleGrid>
   );
 }
 
-/** El vídeo en directo (ADR-205): un `MediaStream` en `srcObject`; aquí, el de un canvas que llega al segundo. */
+/**
+ * El vídeo en directo (ADR-205): un `MediaStream` en `srcObject`; aquí, el de un canvas que llega
+ * al segundo. El tercero lleva mandos por esquina (ADR-206): aparecen al mover el puntero y se van.
+ */
 export const VideoEnDirecto: Story = {
   render: () => <DirectoDeEjemplo />,
 };

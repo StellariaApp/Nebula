@@ -1,4 +1,4 @@
-import { act } from "@testing-library/react";
+import { act, fireEvent } from "@testing-library/react";
 import { createRef } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 
@@ -142,6 +142,89 @@ describe("LiveVideo (ADR-205)", () => {
       Surface(container).dispatchEvent(new Event("loadeddata"));
     });
     expect(screen.getByText("En vivo")).toBeDefined();
+  });
+
+  it("pinta los mandos por esquina y pone ampliar el primero de topEnd (ADR-206)", () => {
+    const { container } = render(
+      <LiveVideo
+        labels={{ fullscreen: "Pantalla completa" }}
+        overlay={{
+          topEnd: <button type="button">Más</button>,
+          bottomStart: <span>Recepción</span>,
+          bottomEnd: <button type="button">Tomar control</button>,
+        }}
+        stream={Feed()}
+        withFullscreen
+      />,
+    );
+    const top_end = container.querySelector('[data-corner="topEnd"]');
+    const names = [...(top_end?.querySelectorAll("button") ?? [])].map((b) => b.getAttribute("aria-label") ?? b.textContent);
+    expect(names).toEqual(["Pantalla completa", "Más"]);
+    expect(container.querySelector('[data-corner="bottomStart"]')?.textContent).toBe("Recepción");
+    expect(container.querySelector('[data-corner="bottomEnd"]')).not.toBeNull();
+    expect(container.querySelector('[data-corner="topStart"]')).toBeNull();
+  });
+
+  it("en auto despierta al mover el puntero y se duerme tras idleDelay o al salir", () => {
+    vi.useFakeTimers();
+    try {
+      const { container } = render(
+        <LiveVideo idleDelay={1000} overlay={{ bottomEnd: <button type="button">Tomar control</button> }} stream={null} />,
+      );
+      const shell = Surface(container).parentElement as HTMLElement;
+      expect(shell.dataset["mode"]).toBe("auto");
+      expect(shell.dataset["awake"]).toBe("false");
+
+      fireEvent.pointerMove(shell);
+      expect(shell.dataset["awake"]).toBe("true");
+      act(() => {
+        vi.advanceTimersByTime(999);
+      });
+      expect(shell.dataset["awake"]).toBe("true");
+      act(() => {
+        vi.advanceTimersByTime(1);
+      });
+      expect(shell.dataset["awake"]).toBe("false");
+
+      fireEvent.pointerMove(shell);
+      fireEvent.pointerLeave(shell);
+      expect(shell.dataset["awake"]).toBe("false");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("always no se duerme, never no despierta y pinned marca su esquina", () => {
+    const corners = { topEnd: <button type="button">Más</button>, bottomEnd: <button type="button">Soltar</button> };
+    const { container, rerender } = render(<LiveVideo overlay={corners} overlayMode="always" stream={null} />);
+    const shell = Surface(container).parentElement as HTMLElement;
+    expect(shell.dataset["awake"]).toBe("true");
+
+    rerender(<LiveVideo overlay={corners} overlayMode="never" pinned={["bottomEnd"]} stream={null} />);
+    fireEvent.pointerMove(shell);
+    expect(shell.dataset["awake"]).toBe("false");
+    expect(shell.dataset["mode"]).toBe("never");
+    const pinned = (at: string) =>
+      container.querySelector(`[data-corner="${at}"] [data-pinned]`)?.getAttribute("data-pinned");
+    expect(pinned("bottomEnd")).toBe("true");
+    expect(pinned("topEnd")).toBe("false");
+  });
+
+  it("la insignia de directo comparte topStart con lo que se pase allí", () => {
+    const { container } = render(
+      <LiveVideo
+        labels={{ live: "En vivo" }}
+        overlay={{ topStart: <span>Recepción</span> }}
+        stream={Feed()}
+        withLiveBadge
+      />,
+    );
+    act(() => {
+      Surface(container).dispatchEvent(new Event("loadeddata"));
+    });
+    const top_start = container.querySelector('[data-corner="topStart"]');
+    expect(top_start?.textContent).toBe("En vivoRecepción");
+    expect(top_start?.querySelector("[data-pinned]")?.textContent).toBe("Recepción");
   });
 
   it("las style props van al marco", () => {
