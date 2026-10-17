@@ -1,11 +1,46 @@
 import { fireEvent } from "@testing-library/react";
+import { act } from "react";
+import { hydrateRoot, type Root } from "react-dom/client";
+import { renderToString } from "react-dom/server";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { cleanup, render, screen } from "../../../__tests__/render.js";
+import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
 import { BackgroundImage } from "../BackgroundImage.js";
 import { Image } from "../Image.js";
 
-afterEach(cleanup);
+const hydrated: (() => void)[] = [];
+
+afterEach(() => {
+  hydrated.splice(0).forEach((Unmount) => {
+    Unmount();
+  });
+  cleanup();
+});
+
+function HydrateLoaded(
+  image: Partial<Pick<HTMLImageElement, "complete" | "naturalWidth" | "decode">>,
+): HTMLElement {
+  const ui = <Image src="/recibo.png" alt="Recibo" />;
+  const container = document.createElement("div");
+  container.innerHTML = renderToString(ui);
+  document.body.appendChild(container);
+  const node = container.querySelector("img");
+  if (node === null) throw new Error("sin <img> en el HTML del servidor");
+  for (const [key, value] of Object.entries(image)) {
+    Object.defineProperty(node, key, { value, configurable: true });
+  }
+  let root: Root | undefined;
+  act(() => {
+    root = hydrateRoot(container, ui);
+  });
+  hydrated.push(() => {
+    act(() => {
+      root?.unmount();
+    });
+    container.remove();
+  });
+  return container;
+}
 
 describe("Image", () => {
   it("el alt es obligatorio y llega a la imagen", () => {
@@ -36,6 +71,24 @@ describe("Image", () => {
     expect(container.querySelector("[data-status]")?.getAttribute("data-status")).toBe("idle");
     fireEvent.load(screen.getByRole("img", { name: "Recibo" }));
     expect(container.querySelector("[data-status]")?.getAttribute("data-status")).toBe("loaded");
+  });
+
+  it("si la imagen cargó antes de hidratar, aparece sin esperar el onLoad", () => {
+    const container = HydrateLoaded({ complete: true, naturalWidth: 640 });
+    expect(container.querySelector("[data-status]")?.getAttribute("data-status")).toBe("loaded");
+    expect(container.querySelector("img")?.getAttribute("data-loaded")).toBe("true");
+  });
+
+  it("si la imagen falló antes de hidratar, degrada al fallback", async () => {
+    const container = HydrateLoaded({
+      complete: true,
+      naturalWidth: 0,
+      decode: () => Promise.reject(new Error("rota")),
+    });
+    await waitFor(() => {
+      expect(container.querySelector("[data-status]")?.getAttribute("data-status")).toBe("failed");
+    });
+    expect(container.querySelector("img")).toBeNull();
   });
 
   it("lazy es el default y eager es opt-in", () => {

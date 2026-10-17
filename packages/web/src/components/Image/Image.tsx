@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
@@ -29,8 +29,29 @@ export function Image(props: ImageProps): ReactElement {
   } = props;
   const { className: sprinkle_class, style: sprinkle_style } = ExtractStyleProps(style_rest);
 
-
   const [status, set_status] = useState<"idle" | "loaded" | "failed">("idle");
+  const img_ref = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const node = img_ref.current;
+    if (node === null || !node.complete) return;
+    if (node.naturalWidth > 0) {
+      set_status("loaded");
+      return;
+    }
+    let active = true;
+    node.decode().then(
+      () => {
+        if (active) set_status("loaded");
+      },
+      () => {
+        if (active) set_status("failed");
+      },
+    );
+    return () => {
+      active = false;
+    };
+  }, [src]);
   const missing = src === undefined || src === "";
   const broken = missing || status === "failed";
 
@@ -62,6 +83,7 @@ export function Image(props: ImageProps): ReactElement {
             </Box>
           ) : null}
           <img
+            ref={img_ref}
             className={styles.img}
             src={src}
             alt={alt}
