@@ -106,4 +106,14 @@ describe("Combobox", () => {
     render(<Combobox label="País" data={DATA} value="cl" onChange={() => undefined} />);
     expect(screen.getByRole<HTMLInputElement>("combobox", { name: "País" }).value).toBe("Chile");
   });
+
+  it("el botón de despliegue conserva el orden de foco y el estado deshabilitado", () => {
+    const { unmount } = render(<Combobox label="País" data={DATA} />);
+    const trigger = screen.getByRole<HTMLButtonElement>("button", { name: /País/ });
+    expect(trigger.disabled).toBe(false);
+    expect(trigger.tabIndex).toBe(0);
+    unmount();
+    render(<Combobox label="País" data={DATA} disabled />);
+    expect(screen.getByRole<HTMLButtonElement>("button", { name: /País/ }).disabled).toBe(true);
+  });
 });

@@ -33,3 +33,7 @@ const query = inputValue ?? draft ?? selected?.label ?? "";
 `FormField` pinta el `<label>`, así que el id se genera aquí y se le pasa: el hook recibe `aria-labelledby` apuntando a ese label en vez de un `aria-label` que taparía el texto visible. Sin id propio, React Aria avisa de que falta etiqueta aunque el `<label for>` sí funcione sobre un `<input>`.
 
 El botón de despliegue hereda el nombre del campo por `aria-labelledby` (comportamiento APG de React Aria); `toggleLabel` solo se aplica cuando no hay `label`.
+
+## El botón de despliegue no esparce todo lo de React Aria
+
+`useComboBox` devuelve `buttonProps` para pasarlos por `useButton`, no al DOM: traen `excludeFromTabOrder` e `isDisabled`, que React no reconoce y avisa en consola. `UnstyledButton` ya corre su propio `useButton` con las props de press, así que `TriggerDomProps` quita esas dos antes del esparcido. `isDisabled` es el mismo `fp.isDisabled` que recibe el hook y llega al botón como `disabled`. `excludeFromTabOrder` se descarta porque el orden de foco lo fija el propio Combobox: el botón entra en el Tab con la lista cerrada y sale con `tabIndex={-1}` mientras está abierta.

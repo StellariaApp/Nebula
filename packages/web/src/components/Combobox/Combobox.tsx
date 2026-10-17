@@ -3,7 +3,14 @@
 import { useId, useMemo, useRef, useState, type ReactElement } from "react";
 
 import { useFieldProps } from "@stellaria/nebula-hooks";
-import { DismissButton, Overlay, useComboBox, useFilter, usePopover } from "react-aria";
+import {
+  DismissButton,
+  Overlay,
+  useComboBox,
+  useFilter,
+  usePopover,
+  type AriaButtonProps,
+} from "react-aria";
 import { Item, useComboBoxState } from "react-stately";
 
 import { OptionList } from "../../collections/option-list.js";
@@ -19,6 +26,14 @@ import type { ComboboxProps } from "./Combobox.types.js";
 import { ChevronDown } from "../../glyphs/index.js";
 
 const CHEVRON = <ChevronDown />;
+
+function TriggerDomProps({
+  excludeFromTabOrder: _excluded,
+  isDisabled: _disabled,
+  ...dom
+}: AriaButtonProps): Omit<AriaButtonProps, "excludeFromTabOrder" | "isDisabled"> {
+  return dom;
+}
 
 export function Combobox(props: ComboboxProps): ReactElement {
   const {
@@ -133,7 +148,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
   const {
     inputProps,
     listBoxProps,
-    buttonProps: trigger_props,
+    buttonProps: aria_trigger,
   } = useComboBox(
     {
       inputRef: input_ref,
@@ -198,7 +213,7 @@ export function Combobox(props: ComboboxProps): ReactElement {
             {...(placeholder === undefined ? {} : { placeholder })}
           />
           <UnstyledButton
-            {...trigger_props}
+            {...TriggerDomProps(aria_trigger)}
             ref={trigger_ref}
             className={field.section}
             disabled={fp.isDisabled}
