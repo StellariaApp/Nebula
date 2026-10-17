@@ -28,7 +28,7 @@ export function StarField(props: StarFieldProps): ReactElement {
     grid = true,
     gridSize = 56,
     fade = true,
-    twinkle = true,
+    twinkle = false,
     parallax = false,
     scroller,
     color = "text.primary",

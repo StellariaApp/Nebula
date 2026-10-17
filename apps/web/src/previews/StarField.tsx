@@ -13,7 +13,7 @@ const preview: Preview = {
       bds="solid"
       bdc="border.subtle"
     >
-      <StarField aurora />
+      <StarField aurora twinkle />
     </Box>
   ),
 };

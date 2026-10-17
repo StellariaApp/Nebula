@@ -361,7 +361,7 @@ function Page({ name = "Nebula" }: { name?: string }): ReactElement {
       withSkipLink
       header={<Bar name={name} />}
       footer={<Foot name={name} />}
-      background={<StarField parallax aurora />}
+      background={<StarField parallax aurora twinkle />}
     >
       <Portada />
       <Numbers />

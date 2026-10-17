@@ -137,7 +137,7 @@ export const ReducedMotion: Story = {
   render: () => (
     <Box maw={620}>
       <Sky h={180}>
-        <StarField density="lg" />
+        <StarField density="lg" twinkle />
       </Sky>
       <Text component="p" fz="caption" c="text.muted" mt="sm">
         Sin parpadeo y sin parallax: las estrellas se quedan a opacidad 0.6 y escala 1, uniformes.
@@ -155,7 +155,7 @@ export const Composition: Story = {
       bg="surface.base"
       style={{ overflow: "hidden", isolation: "isolate" }}
     >
-      <StarField density="xl" />
+      <StarField density="xl" twinkle />
       <Container size="md" style={{ position: "relative" }}>
         <Box py="xl" ta="center">
           <Badge variant="light" mb="md">

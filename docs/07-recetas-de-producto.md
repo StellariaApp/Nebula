@@ -138,7 +138,7 @@ export const THEMES = { [THEME_NAME]: { dark: { theme: dark, className: CLASSES.
 // src/app/[lang]/(landing)/layout.tsx
 <JsonLd schema={organization} /> <JsonLd schema={website} />
 <Main
-  background={<StarField aurora density="md" fixed parallax />}
+  background={<StarField aurora twinkle density="md" fixed parallax />}
   header={<PublicNav />} footer={<PublicFooter />}
   withSkipLink skipLabel="Saltar al contenido"
   bounce momentum smooth

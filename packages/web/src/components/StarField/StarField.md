@@ -20,6 +20,24 @@ garantizado.
 Que sea determinista además hace que `density` y `seed` sean props de verdad: cinco densidades y
 cualquier semilla, sin mantener cinco tablas a mano.
 
+## Quieto por defecto: el movimiento se pide con `twinkle`
+
+Desde ADR-207 `twinkle` vale `false`. Es el interruptor de **todo** el movimiento del campo —el
+parpadeo y la deriva de `aurora`—, y sin él el campo se pinta una vez y no vuelve a costar nada.
+
+La razón es de compositor, no de hilo principal: una animación infinita obliga a producir fotogramas
+a la frecuencia de la pantalla mientras la página esté abierta, y como el campo va detrás de todo,
+cada fotograma cambia el fondo del cristal que tenga encima y su `backdrop-filter` se recalcula. En
+una landing dura lo que dura la visita; en un panel abierto horas (Vela, con cristal y vídeo encima)
+dejaba el proceso de GPU alto en reposo.
+
+```tsx
+<Main background={<StarField parallax aurora twinkle />}>{portada}</Main>
+<AppShell backdrop={<StarField fixed parallax aurora density="sm" scroller={ref} />} … />
+```
+
+La portada lo pide; el panel no, y se queda con el color de la aurora sin su coste.
+
 ## El retardo del parpadeo es negativo y viene de tokens
 
 Cada estrella arranca en un punto distinto del ciclo con
@@ -167,5 +185,5 @@ con máscara radial. Eso es exactamente lo que `StarField` ya hacía —`paralla
 es la misma—, así que separarlos habría duplicado el contenedor, el parallax y la máscara para acabar
 apilando dos capas que se pisan.
 
-Se apagan con `prefers-reduced-motion` y con `motion.tier: "minimal"`, como el parpadeo: quedan
-quietas, no desaparecen.
+Solo derivan con `twinkle` (ADR-207), y se apagan con `prefers-reduced-motion` y con
+`motion.tier: "minimal"`, como el parpadeo: quedan quietas, no desaparecen.

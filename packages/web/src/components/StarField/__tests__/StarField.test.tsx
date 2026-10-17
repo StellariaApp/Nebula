@@ -69,21 +69,26 @@ describe("StarField", () => {
     expect(accents).toHaveLength(8);
   });
 
-  it("parpadea cuando el tier del tema lo permite", () => {
-    render(<StarField data-testid="sf" />);
-    expect(screen.getByTestId("sf").getAttribute("data-twinkle")).toBe("true");
+  it("se queda quieto por defecto, auroras incluidas", () => {
+    render(<StarField aurora data-testid="sf" />);
+    const node = screen.getByTestId("sf");
+    expect(node.getAttribute("data-twinkle")).toBe("false");
+    expect(node.querySelectorAll("i[data-twinkle='true']")).toHaveLength(0);
+    expect(node.querySelectorAll("[data-still='true']")).toHaveLength(4);
   });
 
-  it("se queda quieto con motion.tier minimal", () => {
-    RenderIn(<StarField data-testid="sf" />, MotionAt("minimal"));
+  it("parpadea con twinkle cuando el tier del tema lo permite", () => {
+    render(<StarField twinkle aurora data-testid="sf" />);
+    const node = screen.getByTestId("sf");
+    expect(node.getAttribute("data-twinkle")).toBe("true");
+    expect(node.querySelectorAll("[data-still='true']")).toHaveLength(0);
+  });
+
+  it("se queda quieto con motion.tier minimal aunque pida twinkle", () => {
+    RenderIn(<StarField twinkle data-testid="sf" />, MotionAt("minimal"));
     const node = screen.getByTestId("sf");
     expect(node.getAttribute("data-twinkle")).toBe("false");
     expect(node.querySelectorAll("i[data-twinkle='false']")).toHaveLength(32);
-  });
-
-  it("se puede apagar el parpadeo por prop sin tocar el tema", () => {
-    render(<StarField twinkle={false} data-testid="sf" />);
-    expect(screen.getByTestId("sf").getAttribute("data-twinkle")).toBe("false");
   });
 
   it("deriva el retardo de parpadeo de los tokens de motion, no de milisegundos", () => {

@@ -46,10 +46,13 @@ export interface StarFieldProps extends Omit<StyleProps, "opacity"> {
    */
   fade?: boolean | undefined;
   /**
-   * Whether the stars pulse. It stops on its own under `prefers-reduced-motion` and under
-   * `motion.tier: "minimal"`, and the field is swapped for an even static one — not frozen wherever
-   * each star happened to be, which would leave some of them invisible.
-   * @default true
+   * Whether the field moves: the stars pulse and, with `aurora`, the blobs drift. Off by default
+   * (ADR-207): an endless animation keeps the compositor drawing at the display's rate, and re-blurs
+   * any glass on top of it, for as long as the page is open. Turn it on where the field is the
+   * region's focus — a hero, a landing, a login. It stops on its own under `prefers-reduced-motion`
+   * and under `motion.tier: "minimal"`, and the field is swapped for an even static one — not frozen
+   * wherever each star happened to be, which would leave some of them invisible.
+   * @default false
    */
   twinkle?: boolean | undefined;
   /**
@@ -85,8 +88,8 @@ export interface StarFieldProps extends Omit<StyleProps, "opacity"> {
    */
   accentEvery?: number | undefined;
   /**
-   * Adds the slow drifting colour blobs behind the field. It is a second effect on top of an effect,
-   * so it belongs only where the field is unquestionably the region's focus.
+   * Adds the colour blobs behind the field; they drift only with `twinkle`. It is a second effect on
+   * top of an effect, so it belongs only where the field is unquestionably the region's focus.
    * @default false
    */
   aurora?: boolean | undefined;

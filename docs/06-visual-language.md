@@ -375,7 +375,9 @@ gate y ser ilegible. Un texto a opacidad parcial se mide sobre el render antes d
   de fondo y nada del contenido se apoya en él, la rejilla no pasa de `translucency: 1`, la densidad
   no pasa de `sm`, y **es el único efecto dominante de la página** —ninguna región vuelve a montar el
   suyo encima—. Fuera de esa calibración sigue valiendo la regla de arriba: hero, entrada y estado
-  vacío.
+  vacío. **Y quieto**: el campo nace sin movimiento y `twinkle` se pide solo donde es el foco
+  (ADR-207); una animación infinita detrás del cristal recompone a la frecuencia de la pantalla
+  mientras la página esté abierta.
 - Sombras no animan. Glow ambiental anima solo `opacity/transform` y deriva su duración de motion
   tokens (`expressive × 6` para breathing, `expressive × 12` para recorridos largos).
 - Reduced motion elimina loops ambientales y conserva el estado final legible.
