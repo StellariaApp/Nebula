@@ -1,5 +1,16 @@
 # @stellaria/nebula-web
 
+## 1.2.1
+
+### Patch Changes
+
+- - PinInput ya no deja celdas vacías entre dígitos: un código pegado se rellena siempre desde la primera celda, y al escribir sobre una celda ocupada se reemplaza su dígito.
+- Updated dependencies
+  - @stellaria/nebula-tokens@1.2.1
+  - @stellaria/nebula-hooks@1.2.1
+  - @stellaria/nebula-themes@1.2.1
+  - @stellaria/nebula-icons@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes

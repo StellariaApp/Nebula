@@ -1,5 +1,11 @@
 # @stellaria/nebula-icons
 
+## 1.2.1
+
+### Patch Changes
+
+- - PinInput ya no deja celdas vacías entre dígitos: un código pegado se rellena siempre desde la primera celda, y al escribir sobre una celda ocupada se reemplaza su dígito.
+
 ## 1.2.0
 
 ## 1.1.21
