@@ -1315,7 +1315,7 @@
       "parts": [],
       "boundary": "client",
       "budget": "36.5 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {

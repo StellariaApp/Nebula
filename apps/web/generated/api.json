@@ -27058,7 +27058,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "doc": "Adds the slow drifting colour blobs behind the field. It is a second effect on top of an effect,\nso it belongs only where the field is unquestionably the region's focus.",
+          "doc": "Adds the colour blobs behind the field; they drift only with `twinkle`. It is a second effect on\ntop of an effect, so it belongs only where the field is unquestionably the region's focus.",
           "slot": false
         },
         {
@@ -27153,8 +27153,8 @@
           "name": "twinkle",
           "type": "boolean",
           "required": false,
-          "default": "true",
-          "doc": "Whether the stars pulse. It stops on its own under `prefers-reduced-motion` and under\n`motion.tier: \"minimal\"`, and the field is swapped for an even static one — not frozen wherever\neach star happened to be, which would leave some of them invisible.",
+          "default": "false",
+          "doc": "Whether the field moves: the stars pulse and, with `aurora`, the blobs drift. Off by default\n(ADR-207): an endless animation keeps the compositor drawing at the display's rate, and re-blurs\nany glass on top of it, for as long as the page is open. Turn it on where the field is the\nregion's focus — a hero, a landing, a login. It stops on its own under `prefers-reduced-motion`\nand under `motion.tier: \"minimal\"`, and the field is swapped for an even static one — not frozen\nwherever each star happened to be, which would leave some of them invisible.",
           "slot": false
         },
         {
