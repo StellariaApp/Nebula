@@ -68,6 +68,50 @@ describe("PinInput", () => {
     expect(on_change).toHaveBeenLastCalledWith("482913");
   });
 
+  it("pega un código entero desde la primera celda aunque el foco esté en otra", async () => {
+    const on_change = vi.fn();
+    render(<PinInput label="Clave" length={12} type="alphanumeric" onChange={on_change} />);
+    (screen.getAllByRole("textbox")[4] as HTMLElement).focus();
+    await userEvent.paste("K56P-M89P-4484");
+    expect(on_change).toHaveBeenLastCalledWith("K56PM89P4484");
+  });
+
+  it("un pegado corto tras el final entra detrás de lo que hay, sin huecos", async () => {
+    const on_change = vi.fn();
+    render(<PinInput label="Código" length={6} defaultValue="12" onChange={on_change} />);
+    (screen.getAllByRole("textbox")[4] as HTMLElement).focus();
+    await userEvent.paste("34");
+    expect(on_change).toHaveBeenLastCalledWith("1234");
+  });
+
+  it("escribir en una celda vacía más allá del final no deja huecos", async () => {
+    const on_change = vi.fn();
+    render(<PinInput label="Código" length={6} onChange={on_change} />);
+    const cells = screen.getAllByRole("textbox");
+    (cells[3] as HTMLElement).focus();
+    await userEvent.keyboard("7");
+    expect(on_change).toHaveBeenLastCalledWith("7");
+    expect(document.activeElement).toBe(cells[1]);
+  });
+
+  it("escribir sobre una celda llena la reemplaza", async () => {
+    const on_change = vi.fn();
+    render(<PinInput label="Código" length={4} defaultValue="1234" onChange={on_change} />);
+    await userEvent.click(screen.getAllByRole("textbox")[1] as HTMLElement);
+    await userEvent.keyboard("9");
+    expect(on_change).toHaveBeenLastCalledWith("1934");
+  });
+
+  it("escribir sobre una celda llena sin selección también la reemplaza", async () => {
+    const on_change = vi.fn();
+    render(<PinInput label="Código" length={4} defaultValue="1234" onChange={on_change} />);
+    const cell = screen.getAllByRole("textbox")[2] as HTMLInputElement;
+    cell.focus();
+    cell.setSelectionRange(1, 1);
+    await userEvent.keyboard("7");
+    expect(on_change).toHaveBeenLastCalledWith("1274");
+  });
+
   it("enmascara con mask", () => {
     render(<PinInput label="Código" length={4} mask defaultValue="12" />);
     expect(screen.queryAllByRole("textbox")).toHaveLength(0);

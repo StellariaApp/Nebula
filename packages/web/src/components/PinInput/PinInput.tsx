@@ -84,18 +84,24 @@ export function PinInput(props: PinInputProps): ReactElement {
     refs.current[Math.max(0, Math.min(length - 1, index))]?.focus();
   };
 
-  const HandleChange = (index: number, raw: string): void => {
+  const Write = (index: number, raw: string): void => {
     const typed = [...raw].filter((c) => pattern.test(c));
     if (typed.length === 0) return;
-    const chars_next = fp.value.padEnd(length, " ").split("");
-    let cursor = index;
+    const chars_next = fp.value.slice(0, length).split("");
+    let cursor = Math.min(index, chars_next.length);
     for (const c of typed) {
       if (cursor >= length) break;
       chars_next[cursor] = c;
       cursor += 1;
     }
-    Commit(chars_next.join("").trimEnd());
+    Commit(chars_next.join(""));
     Focus(cursor);
+  };
+
+  const HandleChange = (index: number, raw: string): void => {
+    const current = chars[index] ?? "";
+    const replaced = current !== "" && raw.length === 2 && raw.includes(current);
+    Write(index, replaced ? raw.replace(current, "") : raw);
   };
 
   const HandleKey = (index: number, event: KeyboardEvent<HTMLInputElement>): void => {
@@ -135,7 +141,9 @@ export function PinInput(props: PinInputProps): ReactElement {
 
   const HandlePaste = (index: number, event: ClipboardEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    HandleChange(index, event.clipboardData.getData("text"));
+    const pasted = event.clipboardData.getData("text");
+    const whole = [...pasted].filter((c) => pattern.test(c)).length >= length;
+    Write(whole ? 0 : index, pasted);
   };
 
   const Label = (index: number): string =>
@@ -179,13 +187,15 @@ export function PinInput(props: PinInputProps): ReactElement {
                 inputMode={type === "numeric" ? "numeric" : "text"}
                 autoComplete={index === 0 ? "one-time-code" : "off"}
                 className={cx(field.input, styles.cell)}
-                maxLength={1}
                 value={chars[index] ?? ""}
                 placeholder={placeholder}
                 aria-label={Label(index)}
                 disabled={fp.isDisabled}
                 readOnly={readOnly}
                 autoFocus={autoFocus && index === 0}
+                onFocus={(event) => {
+                  event.target.select();
+                }}
                 onChange={(event) => {
                   HandleChange(index, event.target.value);
                 }}
