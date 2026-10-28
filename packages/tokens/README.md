@@ -32,6 +32,39 @@ const mine = { ...base, colors: { ...base.colors, primary: palettes.teal } } sat
   `breakpoints`, `ink`.
 - **Shared types** the components use: `BaseProps`, `NebulaField`, `VariantRecipe`, `Unit`, `Size`.
 
+## Use the tokens without React
+
+The package also ships its base tokens as CSS custom properties — colour, typography, spacing, radii,
+shadows, motion and layers — for plain HTML, Astro or any app that does not mount the provider:
+
+```ts
+import "@stellaria/nebula-tokens/css";
+```
+
+```html
+<link rel="stylesheet" href="/node_modules/@stellaria/nebula-tokens/dist/tokens.css" />
+```
+
+```css
+.card {
+  background: var(--nebula-color-surface-raised);
+  color: var(--nebula-color-text-primary);
+  border: 1px solid var(--nebula-color-border-default);
+  border-radius: var(--nebula-radius-md);
+  padding: var(--nebula-space-md);
+  box-shadow: var(--nebula-shadow-sm);
+  transition: box-shadow var(--nebula-duration-base) var(--nebula-easing-standard);
+}
+```
+
+- Light is the default. `prefers-color-scheme: dark` switches to dark, unless the page pins
+  `<html data-theme="light">`. `data-theme="dark"` or `"light"` also works on any subtree.
+- `prefers-reduced-motion: reduce` sets every `--nebula-duration-*` to `0ms`.
+- Names: `--nebula-color-{primary,accent,gray,success,warning,error,info}-{50…950}`,
+  `--nebula-color-{surface,text,border}-<role>`, `--nebula-palette-<name>-<step>`,
+  `--nebula-{space,radius,shadow,font-size,font-weight,duration,easing,z}-<name>`.
+- It is the official `nebula` theme only. Product themes still go through `@stellaria/nebula-themes`.
+
 Ink policy lives here too: `ink.floor` is the contrast ratio below which light text gives way to
 dark over a fill. `0` keeps it light no matter what — a product's call, not the library's.
 
