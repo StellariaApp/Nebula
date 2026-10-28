@@ -1,6 +1,7 @@
 import { createVar, globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "@stellaria/nebula-themes/web";
+import * as motion from "../../styles/motion.css.js";
 import { component_layer } from "../../theme/layers.css.js";
 
 export const menu = style({
@@ -41,6 +42,9 @@ export const item = style({
       transitionDuration: vars.motion.duration.fast,
       transitionTimingFunction: vars.motion.easing.decelerate,
       transitionDelay: item_delay,
+      "@media": {
+        "(prefers-reduced-motion: reduce)": motion.still,
+      },
       "@starting-style": {
         opacity: 0,
         transform: "translateY(-4px)",
