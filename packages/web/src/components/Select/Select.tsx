@@ -206,7 +206,10 @@ export function Select(props: SelectProps): ReactElement {
                 <OptionList
                   state={state}
                   listBoxRef={listbox_ref}
-                  listBoxProps={menuProps as unknown as Record<string, unknown>}
+                  listBoxProps={{
+                    ...menuProps,
+                    ...(label === undefined ? {} : { "aria-labelledby": `${control.id}-label` }),
+                  }}
                   {...(renderOption === undefined ? {} : { renderOption })}
                   {...(emptyLabel === undefined ? {} : { emptyLabel })}
                 />

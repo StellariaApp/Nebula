@@ -12,13 +12,19 @@
   },
   "bugs": "https://github.com/StellariaApp/Nebula/issues",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./css": {
+      "style": "./dist/tokens.css",
+      "default": "./dist/tokens.css"
     }
   },
   "files": [
@@ -33,10 +39,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node scripts/build-css.mjs",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "node --test \"test/*.test.mjs\""
   },
   "devDependencies": {
     "typescript": "7.0.2"

@@ -120,7 +120,6 @@ export function TableRow(props: TableRowProps): ReactElement {
         : {
             onClick: onPress,
             tabIndex: 0,
-            role: "button",
             onKeyDown: (event: React.KeyboardEvent<HTMLTableRowElement>) => {
               if (event.key !== "Enter" && event.key !== " ") return;
               event.preventDefault();
