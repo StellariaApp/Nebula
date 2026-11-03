@@ -80,6 +80,37 @@ describe("Table", () => {
     expect(on_press).toHaveBeenCalledTimes(2);
   });
 
+  it("Enter y Espacio en un control dentro de la fila son del control, no de la fila", async () => {
+    const user = userEvent.setup();
+    const on_row = vi.fn();
+    const on_button = vi.fn();
+    render(
+      <Table caption="Facturas">
+        <Table.Body>
+          <Table.Row onPress={on_row}>
+            <Table.Cell>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  on_button();
+                }}
+              >
+                Descargar
+              </button>
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>,
+    );
+
+    screen.getByRole("button", { name: "Descargar" }).focus();
+    await user.keyboard("{Enter}");
+    await user.keyboard(" ");
+    expect(on_button).toHaveBeenCalledTimes(2);
+    expect(on_row).not.toHaveBeenCalled();
+  });
+
   it("una fila pulsable conserva el rol row y axe no encuentra violaciones", async () => {
     const { container } = render(<Sample onPress={() => {}} selected />);
     expect(screen.getAllByRole("row")).toHaveLength(4);

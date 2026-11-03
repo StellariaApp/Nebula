@@ -11,7 +11,7 @@ Tokens como CSS y cierre de los componentes esenciales (ADR-208).
 '@stellaria/nebula-tokens/css'` o con un `<link>`. Nuevos exports: `BuildTokensCss`, `LIGHT_SCHEME`,
   `DARK_SCHEME`.
 - `Table.Row` con `onPress` conserva el rol `row` (antes `role="button"`, que sacaba la fila de la tabla)
-  y sigue activándose con Enter y Espacio.
+  y sigue activándose con Enter y Espacio; esas teclas ya no se roban a un control dentro de la fila.
 - `Select`: el `listbox` abierto lleva el nombre de la etiqueta del campo.
 - `Menu`: las filas respetan `prefers-reduced-motion`.
 - Suites de accesibilidad (axe, teclado, foco, motion) para los componentes esenciales, historias propias

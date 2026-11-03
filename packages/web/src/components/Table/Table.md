@@ -10,7 +10,7 @@ Tabla de datos simple sobre los elementos nativos `<table>`, `<thead>`, `<tbody>
 
 ## Filas pulsables
 
-`Table.Row` con `onPress` conserva su rol `row`: se vuelve enfocable (`tabIndex 0`) y se activa con Enter y Espacio. Antes se le ponía `role="button"`, y eso sacaba la fila de la tabla: el lector dejaba de contar filas y axe marcaba `aria-allowed-attr`, porque `aria-selected` no es válido en un `button`. `selected` publica `aria-selected` y `data-selected`.
+`Table.Row` con `onPress` conserva su rol `row`: se vuelve enfocable (`tabIndex 0`) y se activa con Enter y Espacio. Antes se le ponía `role="button"`, y eso sacaba la fila de la tabla: el lector dejaba de contar filas y axe marcaba `aria-allowed-attr`, porque `aria-selected` no es válido en un `button`. Las teclas solo cuentan cuando el foco está en la propia fila: un botón o un enlace dentro de una celda conserva su Enter y su Espacio. El clic, en cambio, sí sube a la fila; si el control no debe activarla, que pare la propagación. `selected` publica `aria-selected` y `data-selected`.
 
 ## Tablas anchas
 
