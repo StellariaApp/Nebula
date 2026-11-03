@@ -35,7 +35,9 @@ terminados porque tenían pruebas y historia (ver `docs/inventario-componentes.m
      Es el atributo del esquema de ADR-166, el mismo que escriben `NebulaProvider` y `ThemeScript`;
      `data-theme` nombra la identidad (`nebula`) y no se usa aquí.
    - `prefers-reduced-motion: reduce` pone las duraciones a `0ms`.
-   - Se genera en `build` (`scripts/build-css.mjs`, después de `tsc`) y se publica en `dist/tokens.css`.
+   - Se genera en `build` (`scripts/build-css.mjs`, después de `tsc`) y se publica en `dist/tokens.css`,
+     con un `dist/tokens.css.d.ts` vacío en la condición `types`, como `styles.css.d.ts` en web: sin él,
+     `import "@stellaria/nebula-tokens/css"` falla con `noUncheckedSideEffectImports`.
 2. **Por qué el esquema vive en `tokens` y no se lee del tema.** `tokens` no puede depender de `themes`
    (grafo de una sola dirección) y no lleva dependencias de runtime. A cambio hay dos escrituras de la misma
    verdad, y lo que impide que se separen es `themes/src/__tests__/tokens-css.test.ts`, que compara el

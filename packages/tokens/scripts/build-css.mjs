@@ -9,3 +9,4 @@ const out = resolve(root, process.argv[2] ?? "dist/tokens.css");
 
 await mkdir(dirname(out), { recursive: true });
 await writeFile(out, BuildTokensCss());
+await writeFile(`${out}.d.ts`, "export {};\n");

@@ -53,9 +53,11 @@ describe("tokens.css", () => {
     assert.equal(readFileSync(join(package_root, "dist/tokens.css"), "utf8"), css);
     const manifest = JSON.parse(readFileSync(join(package_root, "package.json"), "utf8"));
     assert.deepEqual(manifest.exports["./css"], {
+      types: "./dist/tokens.css.d.ts",
       style: "./dist/tokens.css",
       default: "./dist/tokens.css",
     });
+    assert.equal(readFileSync(join(package_root, "dist/tokens.css.d.ts"), "utf8"), "export {};\n");
     assert.ok(manifest.files.includes("dist"));
   });
 

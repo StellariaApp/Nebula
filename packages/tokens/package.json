@@ -23,6 +23,7 @@
       "default": "./dist/index.js"
     },
     "./css": {
+      "types": "./dist/tokens.css.d.ts",
       "style": "./dist/tokens.css",
       "default": "./dist/tokens.css"
     }
