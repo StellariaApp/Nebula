@@ -533,7 +533,7 @@
       "parts": [],
       "boundary": "client",
       "budget": "48 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
@@ -1514,7 +1514,7 @@
       "parts": [],
       "boundary": "client",
       "budget": "73 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
@@ -1656,7 +1656,7 @@
       ],
       "boundary": "server",
       "budget": "24.25 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
@@ -1722,7 +1722,7 @@
       "parts": [],
       "boundary": "client",
       "budget": "36 kB",
-      "notes": false,
+      "notes": true,
       "contract": true
     },
     {
