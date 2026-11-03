@@ -23,7 +23,7 @@ Two things the library cannot do for you, and the reason your first render may l
 ```tsx
 // app/layout.tsx
 import { ThemeScript, NebulaProvider } from "@stellaria/nebula-web";
-import "@stellaria/nebula-web/dist/index.css";
+import "@stellaria/nebula-web/styles.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,8 +39,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 }
 ```
 
-1. **Import the stylesheet.** The CSS is compiled at build time and shipped as a file; nothing
-   injects it at runtime.
+1. **Import `styles.css` before anything else.** It declares the order of Nebula's cascade layers
+   (ADR-142). Each component's CSS is compiled at build time and comes in with its JS import; this
+   sheet is what keeps those layers in the right order whatever loads first.
 2. **Put `<ThemeScript />` in the `<head>`.** It puts the theme class and `color-scheme` on `<html>` before hydration, which is
    what stops a light flash on a dark theme.
 
