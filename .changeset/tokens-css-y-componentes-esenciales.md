@@ -6,7 +6,7 @@
 Tokens como CSS y cierre de los componentes esenciales (ADR-208).
 
 - `@stellaria/nebula-tokens/css`: custom properties `--nebula-*` (color, tipografía, espacio, radios,
-  sombras, movimiento y capas) con tema claro y oscuro por `prefers-color-scheme` y `[data-theme]`, y
+  sombras, movimiento y capas) con tema claro y oscuro por `prefers-color-scheme` y `[data-scheme]`, y
   `prefers-reduced-motion` que apaga las duraciones. Se usa sin React con `import
 '@stellaria/nebula-tokens/css'` o con un `<link>`. Nuevos exports: `BuildTokensCss`, `LIGHT_SCHEME`,
   `DARK_SCHEME`.

@@ -116,14 +116,14 @@ export function BuildTokensCss(): string {
 
   const sections = [
     Block(":root", [["color-scheme", "light dark"], ...StaticDeclarations(), ...light]),
-    Block(':root[data-theme="light"],\n[data-theme="light"]', [
+    Block(':root[data-scheme="light"],\n[data-scheme="light"]', [
       ["color-scheme", "light"],
       ...light,
     ]),
     "@media (prefers-color-scheme: dark) {\n" +
-      Block(':root:not([data-theme="light"])', [["color-scheme", "dark"], ...dark], "  ") +
+      Block(':root:not([data-scheme="light"])', [["color-scheme", "dark"], ...dark], "  ") +
       "\n}",
-    Block(':root[data-theme="dark"],\n[data-theme="dark"]', [["color-scheme", "dark"], ...dark]),
+    Block(':root[data-scheme="dark"],\n[data-scheme="dark"]', [["color-scheme", "dark"], ...dark]),
     "@media (prefers-reduced-motion: reduce) {\n" +
       Block(":root", ReducedMotionDeclarations(), "  ") +
       "\n}",

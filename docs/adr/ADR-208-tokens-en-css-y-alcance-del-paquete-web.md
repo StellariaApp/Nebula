@@ -31,7 +31,9 @@ terminados porque tenían pruebas y historia (ver `docs/inventario-componentes.m
      constantes; el esquema claro y el oscuro están en `src/css/scheme.ts` con los mismos pasos de paleta
      que `themes/_base`.
    - `:root` lleva el claro. `prefers-color-scheme: dark` aplica el oscuro salvo que el documento fije
-     `data-theme="light"`; `[data-theme="dark"|"light"]` lo fija en la raíz o en cualquier subárbol.
+     `data-scheme="light"`; `[data-scheme="dark"|"light"]` lo fija en la raíz o en cualquier subárbol.
+     Es el atributo del esquema de ADR-166, el mismo que escriben `NebulaProvider` y `ThemeScript`;
+     `data-theme` nombra la identidad (`nebula`) y no se usa aquí.
    - `prefers-reduced-motion: reduce` pone las duraciones a `0ms`.
    - Se genera en `build` (`scripts/build-css.mjs`, después de `tsc`) y se publica en `dist/tokens.css`.
 2. **Por qué el esquema vive en `tokens` y no se lee del tema.** `tokens` no puede depender de `themes`

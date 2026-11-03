@@ -37,10 +37,10 @@ function Block(source, header) {
 const root = Block(css, ":root {");
 const dark_auto = Block(
   css.slice(css.indexOf("@media (prefers-color-scheme: dark)")),
-  ':root:not([data-theme="light"])',
+  ':root:not([data-scheme="light"])',
 );
-const dark_forced = Block(css, ':root[data-theme="dark"]');
-const light_forced = Block(css, ':root[data-theme="light"]');
+const dark_forced = Block(css, ':root[data-scheme="dark"]');
+const light_forced = Block(css, ':root[data-scheme="light"]');
 
 describe("tokens.css", () => {
   it("el script de build escribe el mismo CSS que genera la función", () => {
@@ -93,7 +93,7 @@ describe("tokens.css", () => {
     assert.equal(light_forced.get("color-scheme"), "light");
   });
 
-  it("el tema oscuro llega por prefers-color-scheme y por [data-theme]", () => {
+  it("el tema oscuro llega por prefers-color-scheme y por [data-scheme]", () => {
     for (const block of [dark_auto, dark_forced]) {
       assert.equal(block.get("color-scheme"), "dark");
       assert.equal(block.get("--nebula-color-surface-base"), DARK_SCHEME.colors.surface.base);
@@ -104,9 +104,9 @@ describe("tokens.css", () => {
     assert.deepEqual(dark_auto, dark_forced);
   });
 
-  it("un [data-theme=light] explícito no se pisa con el oscuro del sistema", () => {
+  it("un [data-scheme=light] explícito no se pisa con el oscuro del sistema", () => {
     assert.ok(
-      css.includes('@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"])'),
+      css.includes('@media (prefers-color-scheme: dark) {\n  :root:not([data-scheme="light"])'),
     );
   });
 

@@ -58,7 +58,9 @@ import "@stellaria/nebula-tokens/css";
 ```
 
 - Light is the default. `prefers-color-scheme: dark` switches to dark, unless the page pins
-  `<html data-theme="light">`. `data-theme="dark"` or `"light"` also works on any subtree.
+  `<html data-scheme="light">`. `data-scheme="dark"` or `"light"` also works on any subtree. It is the
+  same attribute `NebulaProvider` and `ThemeScript` write, so the CSS follows the provider's scheme;
+  `data-theme` names the theme (`nebula`), not the scheme.
 - `prefers-reduced-motion: reduce` sets every `--nebula-duration-*` to `0ms`.
 - Names: `--nebula-color-{primary,accent,gray,success,warning,error,info}-{50…950}`,
   `--nebula-color-{surface,text,border}-<role>`, `--nebula-palette-<name>-<step>`,
