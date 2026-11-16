@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,6 +9,11 @@ const webSrc = resolve(here, "../../../packages/web/src");
 
 /** Los siete subpath exports de `@stellaria/nebula-web` (ADR-014 regla 3, ADR-060, ADR-061). */
 const SUBPATHS = ["command", "charts", "datagrid", "dnd", "carousel", "media", "editor"];
+
+const layers = readFileSync(
+  fileURLToPath(import.meta.resolve("@stellaria/nebula-web/styles.css")),
+  "utf8",
+);
 
 /**
  * Storybook 10.5 (builder Vite) — ADR-007.
@@ -22,6 +28,12 @@ const SUBPATHS = ["command", "charts", "datagrid", "dnd", "carousel", "media", "
  * Vite hace sustitución por prefijo: `@stellaria/nebula-web/dnd` se convertía en
  * `…/src/index.ts/dnd` y no resolvía. El gate de a11y nunca lo vio porque compila el `dist` y
  * resuelve por los `exports` del package.json, así que el fallo solo existía en dev.
+ *
+ * El orden de las capas (`styles.css`) se incrusta en el `<head>` con `previewHead`. Importarlo
+ * primero en `preview.tsx` no basta en build: rolldown parte el CSS en trozos y enlaza el de
+ * `preview` el último, detrás del trozo compartido que abre con `@layer nebula.util{…}`. La capa
+ * queda fijada en su primer uso, `util` pasa a ser la más débil y toda style prop pierde contra
+ * la primitiva — `<Text c="text.onPrimary">` pintaba `text.primary` y axe lo marcaba por contraste.
  */
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx|mdx)"],
@@ -33,6 +45,7 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
+  previewHead: (head) => `<style>${layers}</style>\n${head}`,
   viteFinal: async (viteConfig, { configType }) => {
     if (configType !== "DEVELOPMENT") return viteConfig;
 
