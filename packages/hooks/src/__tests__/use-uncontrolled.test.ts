@@ -50,4 +50,17 @@ describe("useUncontrolled", () => {
     expect(seen[0]).toBe("Finiquito");
     expect(seen).not.toContain("Finiuito");
   });
+
+  it("un valor controlado con identidad nueva en cada render no dispara renders en cadena", () => {
+    let renders = 0;
+    const { rerender } = renderHook(() => {
+      renders += 1;
+      return useUncontrolled<string[]>(["a"], []);
+    });
+
+    rerender();
+    rerender();
+
+    expect(renders).toBe(3);
+  });
 });
