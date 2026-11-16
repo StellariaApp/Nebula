@@ -20,13 +20,13 @@ describe("Rating", () => {
       .getAllByRole("radio")
       .filter((n) => n.getAttribute("aria-checked") === "true");
     expect(checked).toHaveLength(1);
-    expect(checked[0]?.getAttribute("aria-label")).toBe("3 de 5");
+    expect(checked[0]?.getAttribute("aria-label")).toBe("3 of 5");
   });
 
   it("emite el valor al pulsar una estrella", async () => {
     const on_change = vi.fn();
     render(<Rating label="Valoración" defaultValue={0} onChange={on_change} />);
-    await userEvent.click(screen.getByRole("radio", { name: "4 de 5" }));
+    await userEvent.click(screen.getByRole("radio", { name: "4 of 5" }));
     expect(on_change).toHaveBeenCalledWith(4);
   });
 
@@ -36,16 +36,21 @@ describe("Rating", () => {
     expect(screen.getByRole("radio", { name: "2 estrellas" })).toBeDefined();
   });
 
+  it("el label visible nombra al grupo", () => {
+    render(<Rating label="Valoración" defaultValue={2} />);
+    expect(screen.getByRole("radiogroup", { name: "Valoración" })).toBeDefined();
+  });
+
   it("en readOnly deja de ser interactivo y anuncia el valor", () => {
     render(<Rating label="Valoración" value={4} readOnly />);
     expect(screen.queryAllByRole("radio")).toHaveLength(0);
-    expect(screen.getByRole("img", { name: "4 de 5" })).toBeDefined();
+    expect(screen.getByRole("img", { name: "4 of 5" })).toBeDefined();
   });
 
   it("disabled no dispara la acción", async () => {
     const on_change = vi.fn();
     render(<Rating label="V" disabled defaultValue={0} onChange={on_change} />);
-    await userEvent.click(screen.getByRole("radio", { name: "2 de 5" }));
+    await userEvent.click(screen.getByRole("radio", { name: "2 of 5" }));
     expect(on_change).not.toHaveBeenCalled();
   });
 
@@ -53,7 +58,7 @@ describe("Rating", () => {
     render(
       <Rating label="V" field={{ value: 5, setValue: vi.fn(), status: "valid", touched: true }} />,
     );
-    expect(screen.getByRole("radio", { name: "5 de 5" }).getAttribute("aria-checked")).toBe("true");
+    expect(screen.getByRole("radio", { name: "5 of 5" }).getAttribute("aria-checked")).toBe("true");
   });
 });
 

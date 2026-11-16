@@ -166,6 +166,7 @@ export function PinInput(props: PinInputProps): ReactElement {
       {({ id, "aria-required": _required, ...control }) => (
         <Box
           {...control}
+          aria-labelledby={label === undefined || label === null ? undefined : `${id}-label`}
           {...groupProps}
           role="group"
           className={cx(styles.group, className, groupProps?.className)}

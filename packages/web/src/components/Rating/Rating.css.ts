@@ -54,7 +54,7 @@ export const item = style({
       selectors: {
         "&[data-readonly='true']::after": { content: "none" },
         "&[data-active='true']": { color: variables.color },
-        "&[data-focus-visible='true']": focus.ring,
+        "&:focus-visible": focus.ring,
         "&[data-readonly='true']": { cursor: "default" },
         "&[data-disabled='true']": { cursor: "not-allowed" },
       },

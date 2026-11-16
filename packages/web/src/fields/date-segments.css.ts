@@ -31,7 +31,7 @@ export const segment = style({
       ...motion.reduced_motion,
       selectors: {
         "&[data-placeholder='true']": { color: vars.color.text.muted },
-        "&[data-focus-visible='true']": {
+        "&:focus": {
           ...focus.ring,
           outlineOffset: 0,
           background: vars.color.primary["500"],
