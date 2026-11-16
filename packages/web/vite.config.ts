@@ -14,7 +14,7 @@ import { libInjectCss } from "vite-plugin-lib-inject-css";
 export default defineConfig({
   // libInjectCss reinyecta `import "./x.css"` en cada chunk JS (Vite lib mode no lo
   // hace), para que importar el paquete arrastre su CSS precompilado (ADR-016).
-  plugins: [vanillaExtractPlugin({ identifiers: "debug" }), libInjectCss()],
+  plugins: [vanillaExtractPlugin({ identifiers: "short" }), libInjectCss()],
   build: {
     lib: {
       // Un entry por subpath export (ADR-014 regla 3). `preserveModules` mantiene
@@ -43,6 +43,11 @@ export default defineConfig({
         /^@stellaria\//,
         /^@vanilla-extract\/(dynamic|recipes|sprinkles)/,
         /^motion/,
+        // Tambien son `dependencies` y se quedaban dentro: el dist publicaba su propia copia en
+        // `dist/node_modules/.pnpm`, y `@internationalized/date` llegaba dos veces al consumidor
+        // —la empaquetada y la de react-aria—, con dos clases `CalendarDate` distintas.
+        /^@internationalized\//,
+        /^jotai/,
         // Deps de subpath (ADR-058): se importan, no se bundlean, para que el
         // consumidor las deduplique con las suyas.
         /^@tanstack\//,

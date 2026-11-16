@@ -54,3 +54,21 @@ Aplicado con dos codemods sobre el AST de TypeScript (`ts.findRenameLocations`, 
 - **Todo camelCase, dejando las hojas como estaban**: descartado — deja sin decidir qué es un asa y qué es una var, que es justo lo que N1 quiere hacer visible, y contradice la tabla de ADR-019 para constantes de módulo.
 - **Todo snake_case, incluidas las vars**: descartado — obligaría a escribir `border_color` para una propiedad que CSS-in-JS llama `borderColor`, y a renombrarla de vuelta al leerla.
 - **Exención de lint para las 20 hojas que aún tenían vars dentro**, difiriendo la extracción a N1: descartado — la exención es por archivo, así que habría dejado `AppShell.css.ts` sin vigilar durante N4, que es cuando más se toca.
+
+## Enmienda — 2026-11-16 · el build de `web` emite identificadores cortos
+
+Lo que quedó «anotado para decidir aparte» se decide: `packages/web/vite.config.ts` pasa a
+`identifiers: "short"`, por decisión del propietario.
+
+Medido con build real: el CSS del paquete baja de 680 a 490 kB, `Box.css.js` de 138 a 86 kB, y por
+módulo `Box` de 22,4 a 17,1 kB y `Button` de ~42 a 28,3 kB (minificado y brotli).
+
+Dos límites, a propósito:
+
+- **`packages/themes` sigue en `"debug"`.** Los nombres de sus variables —`--color-primary-600__…`—
+  son lo que se lee en las herramientas del navegador y lo que 24 tests comprueban para saber que
+  una prop apunta a un rol y no a un color horneado. El contrato viaja una sola vez, así que el
+  ahorro era menor que lo que se perdía.
+- **Los tests y Storybook en dev siguen viendo nombres legibles**: compilan la fuente con su propio
+  plugin, que no pasa por esta configuración. Lo que se pierde es leer `Button_button_size_xs` en
+  el `dist` publicado; el nombre del componente sigue en el nombre del archivo CSS.
