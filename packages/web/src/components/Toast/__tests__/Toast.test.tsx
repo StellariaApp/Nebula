@@ -1,6 +1,7 @@
 import { act } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
+import { fireEvent } from "@testing-library/react";
 
 import { cleanup, render, screen, waitFor } from "../../../__tests__/render.js";
 import { ToastProvider } from "../ToastProvider.js";
@@ -87,6 +88,37 @@ describe("Toast", () => {
       },
       { timeout: 1500 },
     );
+  });
+
+  it("con el puntero encima no expira, y al salir retoma la cuenta", async () => {
+    render(<ToastProvider />);
+    act(() => {
+      nebulaToast.info("Pausado", { duration: 80 });
+    });
+    const toast = (await screen.findByText("Pausado")).closest("[role='status']") as HTMLElement;
+    fireEvent.mouseEnter(toast);
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    expect(screen.queryByText("Pausado")).not.toBeNull();
+    fireEvent.mouseLeave(toast);
+    await waitFor(
+      () => {
+        expect(screen.queryByText("Pausado")).toBeNull();
+      },
+      { timeout: 1500 },
+    );
+  });
+
+  it("con el foco dentro no expira", async () => {
+    render(<ToastProvider />);
+    act(() => {
+      nebulaToast.info("Enfocado", { duration: 80 });
+    });
+    await screen.findByText("Enfocado");
+    act(() => {
+      screen.getByRole("button", { name: "Dismiss notification" }).focus();
+    });
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    expect(screen.queryByText("Enfocado")).not.toBeNull();
   });
 
   it("dismissible=false no renderiza botón de cierre", async () => {

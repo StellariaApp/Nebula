@@ -1,6 +1,6 @@
 "use client";
 
-import { cloneElement, useRef, type ReactElement } from "react";
+import { cloneElement, useEffect, useRef, type ReactElement } from "react";
 
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { mergeProps, Overlay, useFocus, useHover, useOverlayPosition } from "react-aria";
@@ -34,6 +34,12 @@ export function HoverCard(props: HoverCardProps): ReactElement {
   const trigger_ref = useRef<HTMLElement>(null);
   const card_ref = useRef<HTMLDivElement>(null);
   const timer_ref = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timer_ref.current !== null) clearTimeout(timer_ref.current);
+    };
+  }, []);
 
   const Schedule = (next: boolean, delay: number): void => {
     if (timer_ref.current !== null) clearTimeout(timer_ref.current);

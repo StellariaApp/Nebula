@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactElement } from "react";
+import { useCallback, useEffect, useRef, type FocusEvent, type ReactElement } from "react";
 
 import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
@@ -31,18 +31,38 @@ interface ItemProps {
 
 function ToastItem(props: ItemProps): ReactElement {
   const { toast, closeLabel, fallbackDuration, slots } = props;
-  const paused = useRef(false);
+  const hovered = useRef(false);
+  const focused = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const remaining = useRef(0);
+  const started = useRef(0);
+
+  const Stop = useCallback((): void => {
+    if (timer.current === null) return;
+    clearTimeout(timer.current);
+    timer.current = null;
+    remaining.current = Math.max(0, remaining.current - (Date.now() - started.current));
+  }, []);
+
+  const Start = useCallback((): void => {
+    if (timer.current !== null || hovered.current || focused.current) return;
+    if (remaining.current === Number.POSITIVE_INFINITY) return;
+    started.current = Date.now();
+    timer.current = setTimeout(() => {
+      timer.current = null;
+      nebulaToast.dismiss(toast.id);
+    }, remaining.current);
+  }, [toast.id]);
 
   useEffect(() => {
     const ms = toast.duration > 0 ? toast.duration : fallbackDuration;
-    if (ms === Number.POSITIVE_INFINITY || ms <= 0) return;
-    const timer = setTimeout(() => {
-      if (!paused.current) nebulaToast.dismiss(toast.id);
-    }, ms);
+    remaining.current = ms <= 0 ? Number.POSITIVE_INFINITY : ms;
+    Start();
     return () => {
-      clearTimeout(timer);
+      if (timer.current !== null) clearTimeout(timer.current);
+      timer.current = null;
     };
-  }, [toast.id, toast.duration, fallbackDuration]);
+  }, [toast.duration, fallbackDuration, Start]);
 
   const { theme } = useTheme();
   const resolved =
@@ -70,10 +90,21 @@ function ToastItem(props: ItemProps): ReactElement {
       role={LIVE[toast.color] === "assertive" ? "alert" : "status"}
       data-color={toast.color}
       onMouseEnter={() => {
-        paused.current = true;
+        hovered.current = true;
+        Stop();
       }}
       onMouseLeave={() => {
-        paused.current = false;
+        hovered.current = false;
+        Start();
+      }}
+      onFocus={() => {
+        focused.current = true;
+        Stop();
+      }}
+      onBlur={(event: FocusEvent<HTMLElement>) => {
+        if (event.currentTarget.contains(event.relatedTarget)) return;
+        focused.current = false;
+        Start();
       }}
     >
       {toast.icon === undefined || toast.icon === null ? null : (

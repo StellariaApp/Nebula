@@ -18,7 +18,16 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { domAnimation, LazyMotion } from "motion/react";
 import { UNSAFE_PortalProvider } from "react-aria";
 
-import { DEFAULT_STORAGE_KEYS, DEFAULT_THEME, ThemeToVars, THEME_CLASSES, vars, type MaterializedTheme, type ThemeStorageKeys, type ThemeVariants } from "@stellaria/nebula-themes/web";
+import {
+  DEFAULT_STORAGE_KEYS,
+  DEFAULT_THEME,
+  ThemeToVars,
+  THEME_CLASSES,
+  vars,
+  type MaterializedTheme,
+  type ThemeStorageKeys,
+  type ThemeVariants,
+} from "@stellaria/nebula-themes/web";
 
 export interface ThemeStorage {
   getItem: (key: string) => string | null;
@@ -98,6 +107,20 @@ function FromOfficial(scheme: ColorScheme): ActiveTheme {
     className: THEME_CLASSES[scheme],
     style: undefined,
   };
+}
+
+/**
+ * `Resolve` devuelve un objeto nuevo cada vez, tambien cuando resuelve el tema que ya estaba. Sin
+ * esta comparacion, restaurar al montar el mismo tema que pinto el servidor —el caso de casi todas
+ * las visitas— cambiaba el valor del contexto y re-renderizaba a todo el que lee `useTheme`.
+ */
+function Keep(current: ActiveTheme, next: ActiveTheme): ActiveTheme {
+  const same =
+    current.theme === next.theme &&
+    current.name === next.name &&
+    current.scheme === next.scheme &&
+    current.className === next.className;
+  return same ? current : next;
 }
 
 function Resolve(
@@ -262,7 +285,7 @@ export function NebulaProvider({
 
   const set_theme = useCallback(
     (next: ColorScheme | ThemeChoice | NebulaTheme): void => {
-      const resolved = Resolve(next, themes, active_ref.current);
+      const resolved = Keep(active_ref.current, Resolve(next, themes, active_ref.current));
       set_active(resolved);
       if (store) Persist(store, keys, resolved);
     },
@@ -284,8 +307,10 @@ export function NebulaProvider({
   UseBeforePaint(() => {
     if (restored.current) return;
     restored.current = true;
-    const choice = (store === null ? undefined : Restore(store, keys, themes)) ?? FromDocument(themes, on_root);
-    if (choice !== undefined) set_active((current) => Resolve(choice, themes, current));
+    const choice =
+      (store === null ? undefined : Restore(store, keys, themes)) ?? FromDocument(themes, on_root);
+    if (choice !== undefined)
+      set_active((current) => Keep(current, Resolve(choice, themes, current)));
   }, [store, keys, themes, on_root]);
 
   useEffect(() => {
