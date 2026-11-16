@@ -1,5 +1,37 @@
 # @stellaria/nebula-web
 
+## 1.3.0
+
+### Minor Changes
+
+- - Nuevo subpath `@stellaria/nebula-tokens/css`: publica los tokens como custom properties `--nebula-*` sin depender de React. El esquema claro u oscuro sale de `prefers-color-scheme` o de `[data-scheme]`, y `prefers-reduced-motion` anula las duraciones.
+  - Los campos controlados (`TextInput`, `Textarea`, `PasswordInput`, `SearchInput` y el resto) muestran su valor en el mismo render, y el cursor ya no salta al final cuando escribes en medio del texto.
+  - `Table.Row` con `onPress` mantiene el rol `row`, y Enter o Espacio sobre un botón o enlace de sus celdas activan ese control en lugar del `onPress` de la fila.
+  - `Select` toma la etiqueta del campo como nombre de su listbox, y `Menu` respeta `prefers-reduced-motion` en la entrada de sus filas.
+- fccfb93: Tokens como CSS y cierre de los componentes esenciales (ADR-208).
+
+  - `@stellaria/nebula-tokens/css`: custom properties `--nebula-*` (color, tipografía, espacio, radios,
+    sombras, movimiento y capas) con tema claro y oscuro por `prefers-color-scheme` y `[data-scheme]`, y
+    `prefers-reduced-motion` que apaga las duraciones. Se usa sin React con `import
+'@stellaria/nebula-tokens/css'` o con un `<link>`. Nuevos exports: `BuildTokensCss`, `LIGHT_SCHEME`,
+    `DARK_SCHEME`.
+  - `Table.Row` con `onPress` conserva el rol `row` (antes `role="button"`, que sacaba la fila de la tabla)
+    y sigue activándose con Enter y Espacio; esas teclas ya no se roban a un control dentro de la fila.
+  - `Select`: el `listbox` abierto lleva el nombre de la etiqueta del campo.
+  - `Menu`: las filas respetan `prefers-reduced-motion`.
+  - Suites de accesibilidad (axe, teclado, foco, motion) para los componentes esenciales, historias propias
+    para `Alert`, `Avatar`, `Badge`, `Card`, `Dialog`, `Skeleton`, `Table`, `Tabs` y `Toast`, e inventario en
+    `docs/inventario-componentes.md`.
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [fccfb93]
+  - @stellaria/nebula-tokens@1.3.0
+  - @stellaria/nebula-hooks@1.3.0
+  - @stellaria/nebula-themes@1.3.0
+  - @stellaria/nebula-icons@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @stellaria/nebula-hooks
 
+## 1.3.0
+
+### Minor Changes
+
+- - Nuevo subpath `@stellaria/nebula-tokens/css`: publica los tokens como custom properties `--nebula-*` sin depender de React. El esquema claro u oscuro sale de `prefers-color-scheme` o de `[data-scheme]`, y `prefers-reduced-motion` anula las duraciones.
+  - Los campos controlados (`TextInput`, `Textarea`, `PasswordInput`, `SearchInput` y el resto) muestran su valor en el mismo render, y el cursor ya no salta al final cuando escribes en medio del texto.
+  - `Table.Row` con `onPress` mantiene el rol `row`, y Enter o Espacio sobre un botón o enlace de sus celdas activan ese control en lugar del `onPress` de la fila.
+  - `Select` toma la etiqueta del campo como nombre de su listbox, y `Menu` respeta `prefers-reduced-motion` en la entrada de sus filas.
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [fccfb93]
+  - @stellaria/nebula-tokens@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes
