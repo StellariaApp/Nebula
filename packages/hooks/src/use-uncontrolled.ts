@@ -16,5 +16,5 @@ export function useUncontrolled<T>(
     onChange?.(next);
   };
 
-  return [local, HandleChange] as const;
+  return [value === undefined ? local : value, HandleChange] as const;
 }

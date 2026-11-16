@@ -33,4 +33,21 @@ describe("useUncontrolled", () => {
     rerender({ v: "b" });
     expect(result.current[0]).toBe("b");
   });
+
+  it("modo controlado: el valor nuevo llega en el mismo render, sin pasar por el anterior", () => {
+    const seen: string[] = [];
+    const { rerender } = renderHook(
+      ({ v }) => {
+        const state = useUncontrolled<string>(v, "def");
+        seen.push(state[0]);
+        return state;
+      },
+      { initialProps: { v: "Finiuito" } },
+    );
+    seen.length = 0;
+
+    rerender({ v: "Finiquito" });
+    expect(seen[0]).toBe("Finiquito");
+    expect(seen).not.toContain("Finiuito");
+  });
 });

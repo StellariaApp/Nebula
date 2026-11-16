@@ -1,5 +1,6 @@
 import { cleanup, render, screen } from "../../../__tests__/render.js";
 import { userEvent } from "@testing-library/user-event";
+import { useState } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { FIELD_SURFACES } from "../../../styles/field-surface.js";
@@ -14,6 +15,20 @@ describe("TextInput", () => {
     const input = screen.getByLabelText("Nombre");
     await userEvent.type(input, "Ana");
     expect(on_change).toHaveBeenCalled();
+  });
+
+  it("controlado: corregir en medio de la palabra deja el cursor tras la letra", async () => {
+    function Controlled() {
+      const [value, set_value] = useState("Finiuito");
+      return <TextInput label="Título" value={value} onChange={set_value} />;
+    }
+    render(<Controlled />);
+    const input = screen.getByLabelText<HTMLInputElement>("Título");
+    await userEvent.type(input, "q", { initialSelectionStart: 4, initialSelectionEnd: 4 });
+    expect(input.value).toBe("Finiquito");
+    expect(input.selectionStart).toBe(5);
+    await userEvent.keyboard("Q");
+    expect(input.value).toBe("FiniqQuito");
   });
 
   it("muestra el error con role=alert y marca aria-invalid", () => {
