@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Badge } from "../../Badge/Badge.js";
 import type { BadgeProps } from "../../Badge/Badge.types.js";
 

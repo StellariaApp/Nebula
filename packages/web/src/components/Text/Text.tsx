@@ -6,7 +6,7 @@ import {
   type Ref,
 } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./Text.css.js";

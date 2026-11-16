@@ -4,7 +4,7 @@ import { useState, type ReactElement } from "react";
 
 import type { Editor } from "@tiptap/react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Box } from "../Box/Box.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";

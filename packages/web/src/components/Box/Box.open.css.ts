@@ -29,34 +29,54 @@ function Declare(spec: PropSpec, value: string): Declaration {
   return Object.keys(custom).length === 0 ? properties : { ...properties, vars: custom };
 }
 
-function Chain(name: string, step: number): string {
-  let reference = `var(${OpenVarName(name, "base")})`;
-  for (let level = 1; level <= step; level += 1) {
-    reference = `var(${OpenVarName(name, BREAKPOINT_ORDER[level] as string)}, ${reference})`;
-  }
-  return reference;
+function Reference(name: string, level: BreakpointName): string {
+  return `var(${OpenVarName(name, level)}, revert-layer)`;
 }
 
-function OpenClass(name: string, spec: PropSpec): string {
+/**
+ * Un valor suelto —`p={20}`— no necesita tramos: el elemento escribe `--nb-p` y la clase la lee.
+ * Como la escribe siempre, no hay nada que heredar de un antepasado.
+ */
+function PlainClass(spec: PropSpec, name: string): string {
+  return style({ "@layer": { [util_layer]: Declare(spec, `var(${OpenVarName(name, "base")})`) } });
+}
+
+/**
+ * Un valor por breakpoint lleva una regla por tramo, y cada una lee SOLO la variable de su tramo.
+ *
+ * Antes cada tramo encadenaba hacia abajo —`var(--nb-p-laptop, var(--nb-p-tablet, var(--nb-p)))`—
+ * para que un `{ base, laptop }` no se rompiese en desktop. Ese encadenado lo hace ahora
+ * `ExtractStyleProps`, que escribe los seis tramos ya resueltos, y con eso se van dos defectos:
+ *
+ * - las custom properties se heredan, y un tramo que el elemento no declaraba lo tomaba de un
+ *   antepasado: `p={{ base: 10, tablet: 30 }}` le dejaba su 30 en tablet a un hijo con otro `p`;
+ * - un `{ tablet: 20 }` sin base dejaba `padding: var(--nb-p)` invalida en tiempo de computo, o sea
+ *   en `0`, pisando el relleno del componente. El tramo sin valor llega como `initial` y cae a
+ *   `revert-layer`: la regla se retira y manda la capa de abajo.
+ */
+function SteppedClass(spec: PropSpec, name: string): string {
   const media: Record<string, Declaration> = {};
 
-  for (let step = 1; step < BREAKPOINT_ORDER.length; step += 1) {
-    const level = BREAKPOINT_ORDER[step] as Exclude<BreakpointName, "base">;
+  for (const level of BREAKPOINT_ORDER) {
+    if (level === "base") continue;
     media[`screen and (min-width: ${String(breakpoints[level])}px)`] = Declare(
       spec,
-      Chain(name, step),
+      Reference(name, level),
     );
   }
 
   return style({
-    "@layer": { [util_layer]: { ...Declare(spec, Chain(name, 0)), "@media": media } },
+    "@layer": { [util_layer]: { ...Declare(spec, Reference(name, "base")), "@media": media } },
   });
 }
 
-const class_by_prop: Record<string, string> = {};
+const plain_by_prop: Record<string, string> = {};
+const stepped_by_prop: Record<string, string> = {};
 
 for (const [name, spec] of Object.entries(STYLE_PROPS) as [string, PropSpec][]) {
-  class_by_prop[name] = OpenClass(name, spec);
+  plain_by_prop[name] = PlainClass(spec, name);
+  stepped_by_prop[name] = SteppedClass(spec, name);
 }
 
-export const OPEN_CLASS: Readonly<Record<string, string>> = class_by_prop;
+export const OPEN_CLASS: Readonly<Record<string, string>> = plain_by_prop;
+export const OPEN_STEPPED_CLASS: Readonly<Record<string, string>> = stepped_by_prop;

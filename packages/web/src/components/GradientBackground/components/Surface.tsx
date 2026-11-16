@@ -8,7 +8,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { grain } from "../../../styles/noise.css.js";
 import * as noise_vars from "../../../styles/noise.vars.css.js";
 import { GradientRefsOf, ResolveGradient } from "@stellaria/nebula-themes/web";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Box } from "../../Box/Box.js";
 
 import * as styles from "../GradientBackground.css.js";

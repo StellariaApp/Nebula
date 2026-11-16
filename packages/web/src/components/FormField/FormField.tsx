@@ -2,7 +2,7 @@
 
 import { forwardRef, useId, type ElementType, type ReactElement, type Ref } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 import { FieldError } from "../FieldError/FieldError.js";
 import { Text } from "../Text/Text.js";

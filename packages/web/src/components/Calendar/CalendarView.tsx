@@ -10,7 +10,7 @@ import { useCalendarState, useRangeCalendarState } from "react-stately";
 
 import type { Size } from "@stellaria/nebula-tokens";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 
 import { CalendarGrid } from "./CalendarGrid.js";

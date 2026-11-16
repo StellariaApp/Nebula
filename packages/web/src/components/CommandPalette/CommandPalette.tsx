@@ -7,7 +7,7 @@ import { useComboBox, useListBox, useOption } from "react-aria";
 import { Item, useComboBoxState, type ListState, type Node } from "react-stately";
 
 import { ApplyPermissions } from "../../utils/permission.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Kbd } from "../Kbd/Kbd.js";
 
 import { BestScore } from "./command-score.js";

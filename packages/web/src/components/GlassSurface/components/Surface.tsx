@@ -7,7 +7,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { grain } from "../../../styles/noise.css.js";
 import { vars } from "@stellaria/nebula-themes/web";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Box } from "../../Box/Box.js";
 
 import * as styles from "../GlassSurface.css.js";

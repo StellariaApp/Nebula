@@ -13,7 +13,7 @@ import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { GradientRefsOf, ResolveGradient } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 
 import * as styles from "./GradientText.css.js";

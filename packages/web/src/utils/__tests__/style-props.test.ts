@@ -422,7 +422,35 @@ describe("ExtractStyleProps - via abierta: responsive", () => {
     const values = Object.values(result.style ?? {});
 
     expect(values).toContain("24px");
-    expect(values.length).toBe(2);
+    expect(values.length).toBe(6);
+  });
+
+  it("escribe los seis tramos ya encadenados, para que ninguno se herede de un antepasado", () => {
+    const result = ExtractStyleProps({ w: { tablet: 240, desktop: 320 } });
+
+    expect(result.style).toEqual({
+      "--nb-w": "initial",
+      "--nb-w-phone": "initial",
+      "--nb-w-tablet": "240px",
+      "--nb-w-laptop": "240px",
+      "--nb-w-desktop": "320px",
+      "--nb-w-wide": "320px",
+    });
+  });
+
+  it("un valor suelto escribe solo su variable base", () => {
+    expect(ExtractStyleProps({ gridColumn: "1 / 3" }).style).toEqual({
+      "--nb-gridColumn": "1 / 3",
+    });
+  });
+
+  it("el valor suelto y el responsive de una misma prop usan clases distintas", () => {
+    const plain = ExtractStyleProps({ gridColumn: "1 / 3" }).className;
+    const stepped = ExtractStyleProps({ gridColumn: { base: "1 / 3" } }).className;
+
+    expect(plain).toBeDefined();
+    expect(stepped).toBeDefined();
+    expect(plain).not.toBe(stepped);
   });
 });
 
@@ -451,5 +479,21 @@ describe("ExtractStyleProps - props nuevas del registro", () => {
 
   it("una prop desconocida sigue yendo a rest", () => {
     expect(ExtractStyleProps({ notAProp: 1 }).rest).toEqual({ notAProp: 1 });
+  });
+
+  it("un valor abierto arrastra a su familia al mismo carril, para que el largo gane al atajo", () => {
+    const mixed = ExtractStyleProps({ p: 20, px: "md" });
+    const tokens = ExtractStyleProps({ px: "md" });
+
+    expect(mixed.style).toMatchObject({ "--nb-p": "20px" });
+    expect(Object.keys(mixed.style ?? {})).toContain("--nb-px");
+    expect(mixed.className?.split(" ")).toHaveLength(2);
+    expect(tokens.style).toBeUndefined();
+  });
+
+  it("una familia entera de tokens no sale del carril de tokens", () => {
+    const result = ExtractStyleProps({ p: "md", px: "lg", m: 20 });
+
+    expect(Object.keys(result.style ?? {})).toEqual(["--nb-m"]);
   });
 });

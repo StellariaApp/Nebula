@@ -8,7 +8,7 @@ import { Item, useTreeState, type Node, type TreeState } from "react-stately";
 
 import { MotionOff, StaggerDelay, type MotionContext } from "../../utils/motion.js";
 import { ApplyPermissions } from "../../utils/permission.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 

@@ -6,7 +6,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 
 import * as styles from "./DragDrop.css.js";
 import * as drag_drop_vars from "./DragDrop.vars.css.js";

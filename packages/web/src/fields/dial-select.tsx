@@ -11,7 +11,7 @@ import type { SelectOption } from "../collections/options.js";
 import { OverlayMotion, useOverlayPresence } from "../overlays/overlay-motion.js";
 import * as select_styles from "../components/Select/Select.css.js";
 import * as field from "../styles/field.css.js";
-import { cx } from "../utils/style-props.js";
+import { cx } from "../utils/cx.js";
 
 import * as styles from "./dial-select.css.js";
 

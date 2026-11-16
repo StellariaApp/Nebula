@@ -2,7 +2,7 @@
 
 import type { ReactElement, ReactNode } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 import { Button } from "../Button/Button.js";
 import { Tag } from "../Tag/Tag.js";

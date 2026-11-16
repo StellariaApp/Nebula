@@ -7,7 +7,7 @@ import type { RadiusName } from "@stellaria/nebula-tokens";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { GradientRefsOf, ResolveGradient, ResolveGradientEdge, ResolveGradientTip, vars } from "@stellaria/nebula-themes/web";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { LengthToCss } from "../../../utils/token-css.js";
 import { useOnScreen } from "../../../utils/visibility.js";
 import { Box } from "../../Box/Box.js";
