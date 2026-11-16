@@ -95,6 +95,9 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
     return item !== undefined && item.disabled !== true && !segment.disabled;
   };
 
+  const has_active = items.some((item) => item.value === segment.value);
+  const first_enabled = items.findIndex((_, index) => Enabled(index));
+
   const Select = (index: number): void => {
     const item = items[index];
     if (item === undefined || !Enabled(index)) return;
@@ -183,6 +186,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
       {items.map((item, index) => {
         const active = item.value === segment.value;
         const item_disabled = segment.disabled || item.disabled === true;
+        const tabbable = active || (!has_active && index === first_enabled);
         return (
           <button
             key={item.value}
@@ -198,7 +202,7 @@ export function SegmentControl(props: SegmentControlProps): ReactElement {
             aria-checked={segment.hasPanels ? undefined : active}
             aria-controls={segment.hasPanels ? `${segment.baseId}-panel-${item.value}` : undefined}
             id={segment.hasPanels ? `${segment.baseId}-tab-${item.value}` : undefined}
-            tabIndex={active ? 0 : -1}
+            tabIndex={tabbable ? 0 : -1}
             className={cx(
               styles.tab({
                 size: segment.size,

@@ -5,7 +5,7 @@ import { useRef, type ComponentPropsWithoutRef, type ReactElement, type RefObjec
 import { useDateSegment } from "react-aria";
 import type { DateFieldState, DateSegment, TimeFieldState } from "react-stately";
 
-import { cx } from "../utils/style-props.js";
+import { cx } from "../utils/cx.js";
 
 import * as styles from "./date-segments.css.js";
 

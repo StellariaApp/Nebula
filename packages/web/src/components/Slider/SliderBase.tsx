@@ -18,7 +18,7 @@ import type { ColorExtended, NebulaTheme, Size } from "@stellaria/nebula-tokens"
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
 import { ResolveAccent } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 
 import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";

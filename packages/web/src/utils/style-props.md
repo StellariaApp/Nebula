@@ -119,3 +119,43 @@ Los checks de `src/__checks__/style-props.test-d.ts` fijan lo que no se ve al le
 conserva los literales —si los widenea a `string`, el tipo entero deja de servir— y que los alias
 largos siguen fuera. Llevan control negativo, porque una aserción de tipo que no puede fallar no
 comprueba nada.
+
+### Una familia viaja entera por el mismo carril
+
+Las dos hojas —la de tokens y la del carril abierto— viven en `nebula.util` con la misma
+especificidad, así que entre ellas decide el orden del archivo, y la del carril abierto va después.
+Con cada prop eligiendo carril por su cuenta, `p={20} px="md"` pintaba 20 px por los cuatro lados: el
+`padding` abierto llegaba más tarde que el `padding-inline` de tokens y lo pisaba. Lo mismo con
+`bd="1px solid" bdc="border.default"`.
+
+`FAMILIES` agrupa las props que se solapan como atajo y largo —relleno, margen, hueco, radio,
+desborde y borde—. `OpenFamilies` hace una pasada previa y, si un miembro necesita el carril abierto,
+manda por él a toda la familia: dentro de esa hoja el orden es el de `STYLE_PROPS`, que declara el
+atajo antes que sus largos. Es una máscara de bits y no un `Set` para no reservar nada por render.
+
+### El encadenado por breakpoint se resuelve aquí, no en la hoja
+
+Hasta el 2026-11-16 cada tramo de la hoja abierta encadenaba hacia abajo
+—`var(--nb-p-laptop, var(--nb-p-tablet, var(--nb-p)))`— y el elemento escribía solo los tramos que
+declaraba. Tenía dos defectos, medidos en Chromium:
+
+- Las custom properties se heredan. Un `Box` con `p={{ base: 10, tablet: 30 }}` dejaba su
+  `--nb-p-tablet` a un descendiente con `p={12}`, que en tablet pintaba 30.
+- `p={{ tablet: 20 }}` no declara base, y `padding: var(--nb-p)` con la variable vacía es inválida en
+  tiempo de cómputo: caía al valor inicial, `0`, y pisaba el relleno del componente por debajo de
+  tablet.
+
+Ahora hay dos clases por prop (`Box.open.css.ts`):
+
+- **Valor suelto** (`p={20}`): el elemento escribe `--nb-p` y la clase lee solo esa. Como la escribe
+  siempre, no hay nada que heredar.
+- **Valor por breakpoint**: `OpenSteps` escribe **los seis tramos ya encadenados** —`{ tablet: 240,
+desktop: 320 }` deja `tablet` y `laptop` en 240 y `desktop` y `wide` en 320— y cada regla lee solo
+  la variable de su tramo. Los tramos anteriores al primer valor van como `initial`, la regla cae a
+  su fallback `revert-layer`, se retira, y manda la capa de abajo.
+
+La hoja pasó de 98,4 a 75,6 kB porque desaparecen las cadenas anidadas. A cambio, un valor responsive
+escribe seis variables en el `style` en vez de las que declara.
+
+`revert-layer` como fallback de `var()` está comprobado en Chromium. En Firefox y Safari no se pudo
+probar en la máquina donde se hizo el cambio.

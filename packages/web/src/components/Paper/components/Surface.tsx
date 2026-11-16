@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveVariant, VariantRefs } from "@stellaria/nebula-themes/web";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Box } from "../../Box/Box.js";
 
 import * as styles from "../Paper.css.js";

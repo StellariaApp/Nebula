@@ -4,29 +4,35 @@ summary: Which components run on the server, why most do not, and where to draw 
 order: 3
 ---
 
-Of the 158 web components, **30 render on the server and 128 are client components**. Every entry in
-the [component reference](/guides/components) says which it is.
+Of the 165 entries in the catalogue, **59 have a server root and 106 are client components**. Every
+entry in the [component reference](/guides/components) says which it is.
 
-## The 30 that run on the server
+## The 59 with a server root
 
-They are the ones with no state, no effects and no event handlers — layout and typography:
+Layout, typography and the surfaces that only paint — plus a few whose root is a server shell around
+a small client part:
 
 ```
-Anchor  AspectRatio  Blockquote  Box  ButtonGroup  Center  Code  Conditional
-Container  Divider  Fieldset  Flex  Footer  Grid  Group  Highlight  Kbd  List
-Loader  Mark  Omit  Scroll  SimpleGrid  Skeleton  Space  Text  Title
-TypographyStylesProvider  Valid  VisuallyHidden
+Affix  Alert  Anchor  AnimatedGradient  AspectRatio  Badge  Banderole  Blockquote
+ButtonGroup  Card  Center  Code  ColorSwatch  Conditional  Container  Cutout
+DateTimePicker  Divider  Drawer  EmptyModule  Feature  Fieldset  Flex  Footer
+GlassSurface  GradientBackground  GradientBorder  Grid  Group  Header  Hero
+Highlight  Indicator  Kbd  List  Loader  Mark  MeshGradientBg  Omit  Overlay  Paper
+Progress  Scroll  Search  Section  SimpleGrid  Skeleton  Space  Stat  Stepper  Table
+Tag  Text  ThemeIcon  Timeline  Title  TypographyStylesProvider  Valid  VisuallyHidden
 ```
+
+`Box` is not on the list: its `reveal` prop needs an observer, so it carries a small client shell.
 
 You can build an entire page shell — grid, headings, copy, links, dividers — without shipping a byte
 of component JavaScript.
 
-## Why the other 128 are not
+## Why the other 106 are not
 
-Not because they are heavy. Because they **read the theme at runtime**.
-
-A variant like `filled` or `glass` is not a fixed class: it is a recipe resolved against the active
-theme object, which lives in React context. Add to that focus management from React Aria, the motion
+Not because they are heavy. Most of them hold state or handle events, and some still **read the
+theme at runtime**: a variant like `filled` or `glass` resolved against the active theme object,
+which lives in React context. That second group is shrinking — each release moves more variants to
+plain CSS variables. Add to that focus management from React Aria, the motion
 layer, and anything that reads `prefers-reduced-motion`, and the component has to be a client
 component. That is the price of theming that reaches the whole visual surface instead of four
 colours.

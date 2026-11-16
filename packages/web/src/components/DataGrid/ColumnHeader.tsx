@@ -2,7 +2,7 @@
 
 import { useMemo, type PointerEvent, type ReactElement, type ReactNode } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Box } from "../Box/Box.js";
 import { Menu } from "../Menu/index.js";

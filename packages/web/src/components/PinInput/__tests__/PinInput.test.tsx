@@ -13,6 +13,11 @@ describe("PinInput", () => {
     expect(screen.getByLabelText("Digit 1 of 4")).toBeDefined();
   });
 
+  it("el label visible nombra al grupo de celdas", () => {
+    render(<PinInput label="Código" length={4} />);
+    expect(screen.getByRole("group", { name: "Código" })).toBeDefined();
+  });
+
   it("avanza el foco al escribir y emite el valor acumulado", async () => {
     const on_change = vi.fn();
     render(<PinInput label="Código" length={4} onChange={on_change} />);

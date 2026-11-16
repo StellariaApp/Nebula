@@ -76,9 +76,17 @@ pintan igual y el orden lo decide el bundler:
   saltan los `.vars.css.ts`, `src/theme/` y las hojas que no emiten reglas (`focus`, `motion`).
 - **Un consumidor no importa `styles.css`**: cualquier app de `apps/` que dependa de
   `@stellaria/nebula-web` y no traiga la hoja de declaración.
+- **Una hoja con capa emite además reglas sueltas**: la comprobación anterior solo busca que el
+  archivo mencione una capa, y no ve una hoja que encapa una regla y deja otra fuera —el `base` de
+  un `recipe`, una variante—. Por eso se mide también **el CSS emitido** en `packages/web/dist`. El
+  2026-11-15 había **485 reglas sueltas en 71 hojas** con el gate en verde; están anotadas por
+  archivo en `tools/check-layers.debt.json` y el gate falla si alguna hoja supera su cifra o si
+  aparece una hoja nueva. Cuando una baja, hay que bajar la deuda con
+  `node tools/check-layers.mjs --write-debt`: la cifra solo puede encoger.
 
-Va fuera de turbo porque cruza `apps/` y `packages/`, así que no es una tarea por paquete. Lee
-fuente, no `dist`. Exit code 1 si encuentra algo.
+Va fuera de turbo porque cruza `apps/` y `packages/`, así que no es una tarea por paquete. Las tres
+primeras comprobaciones leen fuente; la del CSS emitido **necesita `packages/web/dist`** y falla si
+no existe, así que corre después de `build`. Exit code 1 si encuentra algo.
 
 ## check-glass — gate de cristal
 

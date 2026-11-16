@@ -106,3 +106,36 @@ ADR; no bloquea este.
 - El coste del carril abierto son **5,6 kB brotli** —4,7 de CSS y 0,8 de tabla de clases— que se
   descargan **una vez** y comparten todos los componentes. `size-limit` los cuenta por módulo, así
   que 143 de 194 presupuestos se re-basaron; el consumidor no paga 143 veces, paga una.
+
+## Enmienda — 2026-11-16 · el encadenado pasa de la hoja al resolutor
+
+> **Pendiente de visto bueno del propietario.** No cambia la API ni las dependencias: cambia dónde
+> se hace el encadenado que esta decisión fijó en la hoja. Está aplicada y con sus tests.
+
+El encadenado «hacia abajo» en CSS tenía tres defectos, los tres medidos en Chromium:
+
+1. **Las variables se heredaban.** `--nb-<prop>-<breakpoint>` es una custom property y baja por el
+   árbol: un `Box` con `p={{ base: 10, tablet: 30 }}` hacía que un descendiente con `p={12}` pintase
+   30 en tablet.
+2. **Un responsive sin `base` anulaba al componente.** `p={{ tablet: 20 }}` dejaba
+   `padding: var(--nb-p)` inválida en tiempo de cómputo —valor inicial, `0`— por debajo de tablet.
+3. **El atajo abierto pisaba al largo de tokens.** Las dos hojas viven en `nebula.util` y la abierta
+   va después, así que `p={20} px="md"` pintaba 20 px por los cuatro lados.
+
+Lo que cambia:
+
+- Hay **dos clases por prop**. La del valor suelto lee solo `--nb-<prop>`. La del valor por
+  breakpoint lleva una regla por tramo que lee **solo la variable de ese tramo**, con fallback
+  `revert-layer`.
+- **El encadenado lo hace `ExtractStyleProps`**: escribe los seis tramos ya resueltos, y los
+  anteriores al primer valor como `initial`. Ningún tramo queda sin declarar en el elemento, así que
+  ninguno se hereda.
+- **Una familia de props viaja entera por el mismo carril** —relleno, margen, hueco, radio, desborde
+  y borde—: si un miembro necesita el abierto, van todos, y dentro de esa hoja el atajo se declara
+  antes que sus largos.
+
+Coste y ahorro: la hoja abierta baja de 98,4 a 75,6 kB; `Box.open.css.js` sube de 5,7 a 11,6 kB
+porque lleva dos nombres de clase por prop; un valor responsive escribe seis variables en línea en
+vez de las que declara. Los 200 presupuestos de `size-limit` pasan sin tocarlos.
+
+Sin comprobar: `revert-layer` como fallback de `var()` en Firefox y Safari.

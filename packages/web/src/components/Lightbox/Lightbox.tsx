@@ -14,7 +14,7 @@ import {
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { ActionIcon } from "../ActionIcon/ActionIcon.js";
 import { Modal } from "../Modal/Modal.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";

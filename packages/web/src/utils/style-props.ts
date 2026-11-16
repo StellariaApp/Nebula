@@ -11,6 +11,7 @@ import {
 import {
   BREAKPOINT_ORDER,
   OPEN_CLASS,
+  OPEN_STEPPED_CLASS,
   type BreakpointName,
 } from "../components/Box/Box.open.css.js";
 import {
@@ -20,6 +21,9 @@ import {
   type StylePropName,
   type TokenScale,
 } from "./style-registry.js";
+import { cx } from "./cx.js";
+
+export { cx };
 
 const COLOR_PROPS = {
   color: "color",
@@ -209,6 +213,46 @@ function NeedsOpenLane(name: string, spec: PropSpec, value: unknown): boolean {
   return !IsKnown(spec, value) && ResolveOpacity(spec.token, value) === undefined;
 }
 
+const UNSET = "initial";
+
+function OpenSteps(spec: PropSpec, value: Record<string, unknown>): string[] | undefined {
+  const steps: string[] = [];
+  let carried: string | undefined;
+
+  for (const level of BREAKPOINT_ORDER) {
+    carried = OpenValue(spec, value[level]) ?? carried;
+    steps.push(carried ?? UNSET);
+  }
+
+  return carried === undefined ? undefined : steps;
+}
+
+const FAMILIES: readonly (readonly StylePropName[])[] = [
+  ["p", "px", "py", "pt", "pb", "pl", "pr", "ps", "pe"],
+  ["m", "mx", "my", "mt", "mb", "ml", "mr", "ms", "me"],
+  ["gap", "gapx", "gapy"],
+  ["r", "rt", "rb", "rl", "rr", "rtl", "rtr", "rbl", "rbr"],
+  ["overflow", "overflowX", "overflowY"],
+  ["bd", "bdw", "bds", "bdc", "bdt", "bdb", "bdl", "bdr"],
+];
+
+const FAMILY = new Map<string, number>();
+FAMILIES.forEach((members, index) => {
+  for (const member of members) FAMILY.set(member, 1 << index);
+});
+
+function OpenFamilies(props: Record<string, unknown>): number {
+  let mask = 0;
+  for (const key in props) {
+    const family = FAMILY.get(key);
+    if (family === undefined || (mask & family) !== 0) continue;
+    const value = props[key];
+    if (value === undefined) continue;
+    if (NeedsOpenLane(key, STYLE_PROPS[key as StylePropName], value)) mask |= family;
+  }
+  return mask;
+}
+
 function CollectRest(props: Record<string, unknown>): Record<string, unknown> {
   const rest: Record<string, unknown> = {};
 
@@ -230,6 +274,7 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
   let collected: Record<string, unknown> | undefined;
   let has_style_prop = false;
   let open_classes: string | undefined;
+  const open_families = OpenFamilies(props);
 
   for (const key in props) {
     const value = props[key];
@@ -240,21 +285,30 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     if (kind === undefined && spec === undefined) continue;
     has_style_prop = true;
 
-    if (spec !== undefined && NeedsOpenLane(key, spec, value)) {
-      const open_class = OPEN_CLASS[key];
-      if (open_class === undefined) continue;
+    const forced = open_families !== 0 && ((FAMILY.get(key) ?? 0) & open_families) !== 0;
 
-      const levels: Record<string, unknown> = IsResponsive(value) ? value : { base: value };
-      let wrote = false;
-      for (const level in levels) {
-        const resolved = OpenValue(spec, levels[level]);
-        if (resolved === undefined) continue;
+    if (spec !== undefined && (forced || NeedsOpenLane(key, spec, value))) {
+      if (IsResponsive(value)) {
+        const stepped = OpenSteps(spec, value);
+        const stepped_class = OPEN_STEPPED_CLASS[key];
+        if (stepped === undefined || stepped_class === undefined) continue;
+
         style ??= { ...own_style };
-        Object.assign(style, { [OpenVarName(key, level)]: resolved });
-        wrote = true;
+        BREAKPOINT_ORDER.forEach((level, index) => {
+          Object.assign(style as CSSProperties, { [OpenVarName(key, level)]: stepped[index] });
+        });
+        open_classes =
+          open_classes === undefined ? stepped_class : `${open_classes} ${stepped_class}`;
+        continue;
       }
-      if (wrote)
-        open_classes = open_classes === undefined ? open_class : `${open_classes} ${open_class}`;
+
+      const open_class = OPEN_CLASS[key];
+      const resolved = OpenValue(spec, value);
+      if (open_class === undefined || resolved === undefined) continue;
+
+      style ??= { ...own_style };
+      Object.assign(style, { [OpenVarName(key, "base")]: resolved });
+      open_classes = open_classes === undefined ? open_class : `${open_classes} ${open_class}`;
       continue;
     }
 
@@ -317,9 +371,4 @@ export function ExtractStyleProps(props: Record<string, unknown>): ExtractedStyl
     style: style ?? (own_style === undefined ? undefined : { ...own_style }),
     rest: CollectRest(props),
   };
-}
-
-export function cx(...values: (string | undefined | false)[]): string | undefined {
-  const parts = values.filter((v): v is string => typeof v === "string" && v.length > 0);
-  return parts.length > 0 ? parts.join(" ") : undefined;
 }

@@ -196,6 +196,16 @@ describe("Segment · disposición del contenido (ADR-154)", () => {
 });
 
 describe("Segment", () => {
+  it("sin valor, el primer ítem habilitado sigue siendo alcanzable con Tab", () => {
+    render(
+      <Segment>
+        <Segment.Control aria-label="Vista" data={[{ ...DATA[0]!, disabled: true }, DATA[1]!]} />
+      </Segment>,
+    );
+    const radios = screen.getAllByRole("radio");
+    expect(radios.map((radio) => radio.tabIndex)).toEqual([-1, 0]);
+  });
+
   it("con paneles emite tablist y vincula cada tab con su panel", async () => {
     render(<WithPanels />);
     await waitFor(() => {

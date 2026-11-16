@@ -65,7 +65,7 @@
         "$TURBO_ROOT$/packages/web/dist/**",
         "$TURBO_ROOT$/packages/web/.size-limit.js",
         "$TURBO_ROOT$/docs/00-inventory.md",
-        "$TURBO_ROOT$/apps/docs/generated/**"
+        "$TURBO_ROOT$/apps/web/generated/**"
       ]
     }
   }

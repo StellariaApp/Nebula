@@ -9,7 +9,7 @@ import {
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { ResolveAccent } from "../../utils/scale.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { Box } from "../Box/Box.js";
 import { Text } from "../Text/Text.js";
 

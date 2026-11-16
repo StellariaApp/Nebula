@@ -6,7 +6,7 @@ import { useTheme } from "@stellaria/nebula-hooks";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 
 import { ExitTween, MotionOff, Spring } from "../../../utils/motion.js";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Box } from "../../Box/Box.js";
 import { ButtonClose } from "../../ButtonClose/ButtonClose.js";
 import { Portal } from "../../Portal/Portal.js";

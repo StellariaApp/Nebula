@@ -5,7 +5,7 @@ import type { ReactElement } from "react";
 import { usePermission } from "@stellaria/nebula-hooks";
 import type { PermissionKey } from "@stellaria/nebula-tokens";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { VisuallyHidden } from "../VisuallyHidden/VisuallyHidden.js";
 
 import * as styles from "./PermissionGate.css.js";

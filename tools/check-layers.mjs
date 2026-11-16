@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -76,7 +76,73 @@ function CheckConsumers() {
   return problems;
 }
 
+const DIST = join(WEB, "dist");
+const DEBT = join(REPO, "tools/check-layers.debt.json");
+const LAYER_FREE = /^@(layer|keyframes|property|font-face)\b/;
+
+function Emitted(dir, out = []) {
+  for (const entry of readdirSync(dir)) {
+    const path = join(dir, entry);
+    if (statSync(path).isDirectory()) Emitted(path, out);
+    else if (path.endsWith(".css")) out.push(path);
+  }
+  return out;
+}
+
+function TopLevel(css) {
+  const blocks = [];
+  let depth = 0;
+  let start = 0;
+  for (let index = 0; index < css.length; index += 1) {
+    const char = css[index];
+    if (char === "{") depth += 1;
+    else if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        blocks.push(css.slice(start, index + 1).trim());
+        start = index + 1;
+      }
+    } else if (char === ";" && depth === 0) start = index + 1;
+  }
+  return blocks;
+}
+
+function Unlayered() {
+  const counts = {};
+  for (const path of Emitted(DIST)) {
+    const loose = TopLevel(readFileSync(path, "utf8")).filter((block) => !LAYER_FREE.test(block));
+    if (loose.length > 0) counts[relative(DIST, path).replace(/\\/g, "/")] = loose.length;
+  }
+  return counts;
+}
+
+function CheckEmitted() {
+  if (!existsSync(DIST)) return { missing: true, grown: [], shrunk: [], total: 0 };
+
+  const counts = Unlayered();
+  if (process.argv.includes("--write-debt")) {
+    const sorted = Object.fromEntries(
+      Object.entries(counts).sort(([a], [b]) => a.localeCompare(b)),
+    );
+    writeFileSync(DEBT, `${JSON.stringify(sorted, null, 2)}\n`);
+  }
+
+  const debt = existsSync(DEBT) ? JSON.parse(readFileSync(DEBT, "utf8")) : {};
+  const grown = Object.entries(counts)
+    .filter(([path, count]) => count > (debt[path] ?? 0))
+    .map(
+      ([path, count]) => `${path}: ${String(count)} (deuda aceptada: ${String(debt[path] ?? 0)})`,
+    );
+  const shrunk = Object.entries(debt)
+    .filter(([path, count]) => (counts[path] ?? 0) < count)
+    .map(([path, count]) => `${path}: ${String(counts[path] ?? 0)} (anotadas: ${String(count)})`);
+  const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
+
+  return { missing: false, grown, shrunk, total };
+}
+
 const declaration = CheckDeclaration();
+const emitted = CheckEmitted();
 const sheets = CheckSheets();
 const consumers = CheckConsumers();
 
@@ -97,9 +163,40 @@ if (consumers.length > 0) {
   console.error("  sin esa hoja el orden de las capas lo decide el bundler, y falla en silencio");
 }
 
-if (declaration.length + sheets.length + consumers.length === 0) {
+if (emitted.missing) {
+  console.error("no existe packages/web/dist: el CSS emitido no se puede comprobar");
+  console.error("  construye primero (pnpm build); leer solo la fuente no ve las reglas sin capa");
+}
+
+if (emitted.grown.length > 0) {
+  console.error(
+    `reglas emitidas fuera de capa por encima de la deuda (${String(emitted.grown.length)}):`,
+  );
+  for (const line of emitted.grown) console.error(`  ${line}`);
+  console.error("  una regla sin capa gana a las style props y al resto del catálogo — layers.md");
+}
+
+if (emitted.shrunk.length > 0) {
+  console.error(
+    `la deuda de capas bajó y check-layers.debt.json no lo refleja (${String(emitted.shrunk.length)}):`,
+  );
+  for (const line of emitted.shrunk) console.error(`  ${line}`);
+  console.error("  bájala con: node tools/check-layers.mjs --write-debt");
+}
+
+const failures =
+  declaration.length +
+  sheets.length +
+  consumers.length +
+  emitted.grown.length +
+  emitted.shrunk.length +
+  (emitted.missing ? 1 : 0);
+
+if (failures === 0) {
   console.log(
-    "capas ok — declaración alineada, ninguna regla fuera de capa, consumidores cableados",
+    emitted.total === 0
+      ? "capas ok — declaración alineada, ninguna regla fuera de capa, consumidores cableados"
+      : `capas ok — declaración alineada, consumidores cableados; ${String(emitted.total)} reglas emitidas fuera de capa, todas en la deuda anotada`,
   );
   process.exit(0);
 }

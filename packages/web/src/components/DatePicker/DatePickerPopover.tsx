@@ -7,7 +7,7 @@ import type { AriaDialogProps } from "react-aria";
 import type { OverlayTriggerState } from "react-stately";
 
 import { OverlayMotion, useOverlayPresence } from "../../overlays/overlay-motion.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import type { BoxSlotProps } from "../Box/Box.types.js";
 import type { PopoverPlacement } from "../Popover/Popover.types.js";
 

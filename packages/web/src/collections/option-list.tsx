@@ -9,7 +9,7 @@ import type { ListState, Node } from "react-stately";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 import { MotionOff, StaggerDelay, type MotionContext } from "../utils/motion.js";
-import { cx } from "../utils/style-props.js";
+import { cx } from "../utils/cx.js";
 
 import * as styles from "./option-list.css.js";
 import type { RenderOption, SelectOption } from "./options.js";
@@ -177,7 +177,11 @@ export function OptionList(props: OptionListProps): ReactElement {
           <li aria-hidden="true" style={{ height: view.padEnd }} />
         ) : null}
       </ul>
-      {nodes.length === 0 ? <div className={styles.empty}>{emptyLabel}</div> : null}
+      {nodes.length === 0 ? (
+        <div role="status" className={styles.empty}>
+          {emptyLabel}
+        </div>
+      ) : null}
     </>
   );
 }

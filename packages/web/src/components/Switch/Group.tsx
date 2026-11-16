@@ -5,7 +5,7 @@ import { useId, type ReactElement } from "react";
 import { useUncontrolled } from "@stellaria/nebula-hooks";
 
 import * as field from "../../styles/field.css.js";
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { FieldError } from "../FieldError/FieldError.js";
 
 import { SwitchGroupContext, type SwitchGroupContextValue } from "./Switch.context.js";

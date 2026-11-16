@@ -2,7 +2,7 @@
 
 import type { ElementType, ReactElement } from "react";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 import { ExtractStyleProps } from "../../utils/style-props.js";
 
 import type { RevealProps } from "./Reveal.types.js";

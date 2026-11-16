@@ -91,7 +91,7 @@ export function Rating(props: RatingProps): ReactElement {
   };
 
   const Label = (index: number): string =>
-    itemLabel === undefined ? `${String(index)} de ${String(count)}` : itemLabel(index);
+    itemLabel === undefined ? `${String(index)} of ${String(count)}` : itemLabel(index);
 
   const Symbol = (filled: boolean): ReactNode => {
     if (filled) return fullSymbol ?? STAR;
@@ -114,7 +114,10 @@ export function Rating(props: RatingProps): ReactElement {
         <Box
           {...control}
 
-          aria-label={readOnly ? `${String(fp.value)} de ${String(count)}` : undefined}
+          aria-label={readOnly ? `${String(fp.value)} of ${String(count)}` : undefined}
+          aria-labelledby={
+            readOnly || label === undefined || label === null ? undefined : `${id}-label`
+          }
           data-disabled={fp.isDisabled ? "true" : undefined}
           onMouseLeave={() => {
             Hover(null);

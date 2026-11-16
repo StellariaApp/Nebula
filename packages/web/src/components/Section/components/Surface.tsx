@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { useReveal } from "../../Reveal/use-reveal.js";
 import type { SectionRevealProps } from "../Section.types.js";
 

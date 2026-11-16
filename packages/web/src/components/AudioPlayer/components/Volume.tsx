@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef, CSSProperties, ReactElement } from "reac
 
 import { Volume as VolumeGlyph, VolumeOff } from "../../../glyphs/index.js";
 import { FILLED, mixer, mixer_slider } from "../../../styles/player-controls.css.js";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { ActionIcon } from "../../ActionIcon/ActionIcon.js";
 import { Popover } from "../../Popover/Popover.js";
 

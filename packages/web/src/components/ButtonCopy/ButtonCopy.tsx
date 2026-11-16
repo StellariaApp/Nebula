@@ -35,13 +35,19 @@ export const ButtonCopy = forwardRef<HTMLButtonElement, ButtonCopyProps>(
     }, []);
 
     const HandleCopy = useCallback(() => {
-      void navigator.clipboard.writeText(value).then(() => {
-        set_copied(true);
-        if (timer_ref.current) clearTimeout(timer_ref.current);
-        timer_ref.current = setTimeout(() => {
-          set_copied(false);
-        }, timeout);
-      });
+      const clipboard = typeof navigator === "undefined" ? undefined : navigator.clipboard;
+      if (clipboard === undefined) return;
+
+      clipboard.writeText(value).then(
+        () => {
+          set_copied(true);
+          if (timer_ref.current) clearTimeout(timer_ref.current);
+          timer_ref.current = setTimeout(() => {
+            set_copied(false);
+          }, timeout);
+        },
+        () => undefined,
+      );
     }, [value, timeout]);
 
     return (

@@ -9,7 +9,7 @@ import { grain } from "../../../styles/noise.css.js";
 import * as noise_vars from "../../../styles/noise.vars.css.js";
 import { GradientRefsOf, ResolveGradientToken } from "@stellaria/nebula-themes/web";
 import { MeshBase, MeshBaseFromRef, MeshCss, MeshCssFromRefs } from "../../../utils/effects.js";
-import { cx } from "../../../utils/style-props.js";
+import { cx } from "../../../utils/cx.js";
 import { Box } from "../../Box/Box.js";
 
 import * as styles from "../MeshGradientBg.css.js";

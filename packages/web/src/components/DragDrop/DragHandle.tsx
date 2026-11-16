@@ -5,7 +5,7 @@ import type { ComponentPropsWithoutRef, ReactElement, Ref } from "react";
 import type { DraggableAttributes } from "@dnd-kit/core";
 import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities/useSyntheticListeners";
 
-import { cx } from "../../utils/style-props.js";
+import { cx } from "../../utils/cx.js";
 
 import * as styles from "./DragDrop.css.js";
 import { DotsGrid } from "../../glyphs/index.js";
